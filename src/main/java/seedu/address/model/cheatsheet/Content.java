@@ -13,9 +13,17 @@ import seedu.address.model.tag.Tag;
  * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
  */
 public class Content {
-    public static final String MESSAGE_CONSTRAINTS = "Cheatsheet contents should not be blank. "
-            + "For flashcard's components, images are not supported in the cheatsheet.";
-    public static final String VALIDATION_REGEX = "\\S.*"; //"\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Cheatsheet contents are automatically generated according to tags specified."
+                + "\nAny blank contents or contents that do not only contain alphanumeric characters and spaces"
+                + "will not be added into the cheatsheet."
+                + "\nAll leading and trailing spaces are ignored.";
+
+    /*
+     * The first character of the content must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String content;
     public final Set<Tag> tags;
@@ -91,7 +99,7 @@ public class Content {
     /**
      * Formatting for list
      * Truncates the content for the general list command
-     * @return String of truncated conten
+     * @return String of truncated content
      */
     public String formatToList() {
         StringBuilder toBeListed = new StringBuilder();
