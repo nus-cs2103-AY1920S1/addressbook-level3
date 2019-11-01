@@ -454,8 +454,8 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* You are not allowed to create notes with the same title.
-* Title, description and tag field must not be empty.
+* You are not allowed to add notes with the same title.
+* Title, description and tag fields must not be empty.
 ====
 
 ==== Accessing a note : `open`
@@ -472,7 +472,7 @@ image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* Opens a new window that allows you to read and edit easily.
+* Opens a new panel on the right that allows you to read and edit easily.
 * Click on save button after editing to save changes made to the content of the note.
 ====
 
@@ -501,6 +501,7 @@ image::warning.png[width = "20", float = "left"]
 *Warning*
 
 * INDEX and at least one optional field is compulsory to successfully edit the note.
+* You are not allowed to edit notes to have the same title.
 ====
 
 ==== Finding a note: `find`
@@ -517,7 +518,7 @@ image::tip.png[width = "20", float = "left"]
 *Tip*
 
 * Your input TEXT for search is case insensitive. e.g `Personal_diary` will match `personal_diary`
-* Searches title, description and content of all the notes that contains the TEXT.
+* Searches title, description and content of all notes and returns those that contains the TEXT.
 ====
 
 ==== Sorting notes: `sort`
@@ -628,11 +629,11 @@ Accessing File directory: `goto file`
 
 Accessing Note directory: `goto note`
 
-- `open INDEX`: Opens the note corresponding to the index in the app.
-- `delete INDEX`: Deletes a note as specified by the user.
-- `edit INDEX ti/TITLE d/DESCRIPTION t/TAG c/CONTENT`: Edits a note specified by the user.
-- `find INDEX` or `find TITLE`: Finds a note as specified by the user.
-- `sort by/SORTBYCONDITION`: Sorts notes in ways specified by the user.
+- `open INDEX`: Opens the note corresponding to the index.
+- `delete INDEX`: Deletes a note as specified by you.
+- `edit INDEX ti/TITLE d/DESCRIPTION t/TAG c/CONTENT`: Edits a note specified by you.
+- `find TEXT`: Finds notes containing the text specified by the user.
+- `sort by/SORTBYCONDITION`: Sorts notes by the condition specified by you.
 - `undo`: Undo last action on notes.
 - `redo`: Redo last undone action on notes.
 
