@@ -28,6 +28,7 @@ functionalities. More importantly, MYMorise is *optimized for those who prefer t
 .  Download the latest `MYMorise.jar`.
 .  Copy the jar file to the folder you want to use as the home folder for MYMorise.
 .  Double-click the jar to start the app. The GUI should appear in a few seconds.
+.  If Step 4 doesn't work, try `java -jar MYMorise.jar` in your CLI.
 +
 image::Ui.png[width="790"]
 +
