@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -182,16 +183,27 @@ public class ModelManager implements Model {
         }
         if (activityDayMap.containsKey(oldAct)) {
             List<Day> listOfDays = activityDayMap.remove(oldAct);
-            itinerary.getItinerary().forEach(x -> {
-                if (listOfDays.contains(x)) {
-                    List<ActivityWithTime> listOfActivityWithTime = x.getListOfActivityWithTime();
-                    int indexOfOldAct = listOfActivityWithTime.indexOf(oldAct);
-                    ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldAct);
-                    listOfActivityWithTime.set(indexOfOldAct, new ActivityWithTime(oldAct,
-                            oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+            List<Day> newListOfDays = new ArrayList<>();
+            itinerary.getItinerary().forEach(day -> {
+                if (listOfDays.contains(day)) {
+                    List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
+                    List<Integer> indexOfOldActs = new LinkedList<>();
+                    for (int i = 0; i < listOfActivityWithTime.size(); i++) {
+                        if (listOfActivityWithTime.get(i).getActivity().equals(oldAct)) {
+                            indexOfOldActs.add(i);
+                        }
+                    }
+                    for (Integer i : indexOfOldActs) {
+                        ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
+                        listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
+                                oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+                    }
+                    Day newDay = new Day(listOfActivityWithTime);
+                    setDay(day, newDay);
+                    newListOfDays.add(newDay);
                 }
             });
-            activityDayMap.put(newAct, listOfDays);
+            activityDayMap.put(newAct, newListOfDays);
         }
     }
 

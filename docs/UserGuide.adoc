@@ -196,19 +196,19 @@ Examples:
 
 Deletes the 3rd contact in the contact list.
 
-=== Listing all contacts: `list contact`
+=== List the contacts in the planner: `list contact`
 
-Displays a list view of all the contact list +
+List the contacts in the planner +
 Format: `list contact`
 
-=== Adds days to the schedule: `add day`
+=== Adds days to the schedule: `add days`
 
 Adds DAY_NUMBER amount of days to the itinerary +
-Format: `add day DAY_NUMBER`
+Format: `add s DAY_NUMBER`
 
 Examples:
 
-* `add day 7`
+* `add days 7`
 
 Adds 7 days to the back of the itinerary.
 
@@ -226,26 +226,26 @@ Deletes day 2 from the itinerary.
 === Scheduling an activity to a day: `schedule`
 
 Schedules an activity to a day +
-Format: `schedule activity ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
+Format: `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX`
 
 Examples:
 
-* `schedule activity 2 st/1000 d/2`
+* `schedule 2 st/1000 d/2`
 
 Schedules the second activity in the activity list under day 2.
 
 === Unscheduling activities from a day: `unschedule activity`
 
 Unschedules an activity from a day +
-Format: `unschedule activity ACTIVITY_INDEX d/DAY_INDEX`
+Format: `unschedule ACTIVITY_INDEX d/DAY_INDEX`
 
 Examples:
 
-* `unschedule activity 5 d/2`
+* `unschedule 5 d/2`
 
 This remove the 5th activity from the activity list from day 2.
 
-=== Auto Schedule: `auto Schedule`
+=== Auto Schedule: `autoschedule`
 Generates a list of activities for the specified days based on tags or name.
 
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
@@ -256,36 +256,22 @@ Generates a list of activities for the specified days based on tags or name.
 
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 
-Format: `autoSchedule (t/TAG || n/ACTIVITY_NAME)... [a/LOCATION_OF_ACTIVITIES] d/[DAY_INDEX]...`
+Format: `autoschedule (t/TAG || n/ACTIVITY_NAME)... [a/LOCATION_OF_ACTIVITIES] d/[DAY_INDEX]...`
 
 Examples:
 
-* `autoSchedule t/Breakfast t/Sightseeing t/Dinner`
-* `autoSchedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
-* `autoSchedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
+* `autoschedule t/Breakfast t/Sightseeing t/Dinner`
+* `autoschedule t/Breakfast t/Sightseeing t/Dinner a/Kyoto d/1`
+* `autoschedule t/Breakfast 1000 n/DisneyLand t/Dinner a/Kyoto d/1 2 3 4`
 
+=== Optimising by budget: `optimise`
+Choose the most optimum activities in a day based on the total cost of activities in a day. This will remove conflicting activities and pick only those that will lead to an optimum budget for that particular day.
 
-=== List the activities in a day: `list day`
-
-List the activities in a day +
-Format: `list day DAY_NUMBER`
+Format: `optimise DAY_INDEX`
 
 Examples:
 
-* `list day 1`
-
-=== List the activities in the activity list: `list activity`
-
-List the activities in a day +
-Format: `list activity`
-
-
-=== List the accommodations in the accommodation list: `list accommodation`
-
-List the accommodations in a day +
-Format: `list accommodation`
-
-This will list out all the activities scheduled for day 1.
+* `optimise 3`
 
 === Undo: `undo`
 

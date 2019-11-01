@@ -216,6 +216,7 @@ public class CentralDisplay extends UiPart<Region> {
             switch (u) {
             case AGENDA:
                 tabDisplay.getSelectionModel().select(agendaTab);
+                updateSkin(agenda);
                 updateAgenda(agenda, dayList);
                 break;
             case INFO:
@@ -243,6 +244,7 @@ public class CentralDisplay extends UiPart<Region> {
      * Generates a complete summary of all commands available in plan2travel.
      */
     public void generateCommandHelpSummary() {
+        helpList.getItems().clear();
         helpList.getItems().addAll(
                 new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
