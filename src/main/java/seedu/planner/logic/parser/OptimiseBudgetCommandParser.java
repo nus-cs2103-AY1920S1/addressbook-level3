@@ -3,25 +3,25 @@ package seedu.planner.logic.parser;
 import static seedu.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.OptimiseBudgetCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
- * Parses arguments for an OptimiseBudgetCommand
+ * Parses arguments for an OptimiseCommand
  */
-public class OptimiseBudgetCommandParser implements Parser<OptimiseBudgetCommand> {
+public class OptimiseBudgetCommandParser implements Parser<OptimiseCommand> {
 
     /**
-     * Parses arguments for an OptimiseBudgetCommand and returns an OptimiseBudgetCommand.
+     * Parses arguments for an OptimiseCommand and returns an OptimiseCommand.
      * If there are no arguments, a ParseException is thrown.
      */
-    public OptimiseBudgetCommand parse(String args) throws ParseException {
+    public OptimiseCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, OptimiseBudgetCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, OptimiseCommand.MESSAGE_USAGE));
         }
         Index dayIndex = ParserUtil.parseIndex(trimmedArgs);
-        return new OptimiseBudgetCommand(dayIndex);
+        return new OptimiseCommand(dayIndex);
     }
 }

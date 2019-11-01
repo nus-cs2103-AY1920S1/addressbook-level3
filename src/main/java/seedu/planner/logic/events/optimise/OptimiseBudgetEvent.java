@@ -2,7 +2,7 @@ package seedu.planner.logic.events.optimise;
 
 import seedu.planner.commons.core.index.Index;
 
-import seedu.planner.logic.commands.OptimiseBudgetCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.system.SetItineraryCommand;
 import seedu.planner.logic.events.Event;
@@ -27,6 +27,6 @@ public class OptimiseBudgetEvent implements Event {
     }
 
     public UndoableCommand redo() {
-        return new OptimiseBudgetCommand(dayIndex);
+        return new OptimiseCommand(dayIndex);
     }
 }

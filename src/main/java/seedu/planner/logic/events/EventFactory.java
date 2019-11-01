@@ -7,7 +7,7 @@ import seedu.planner.logic.commands.AutoScheduleCommand;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.DeleteCommand;
 import seedu.planner.logic.commands.EditCommand;
-import seedu.planner.logic.commands.OptimiseBudgetCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.UnscheduleCommand;
@@ -63,8 +63,8 @@ public class EventFactory {
         case(AutoScheduleCommand.COMMAND_WORD):
             return generateAutoScheduleEvent((AutoScheduleCommand) command, model);
 
-        case(OptimiseBudgetCommand.COMMAND_WORD):
-            return generateOptimizeBudgetEvent((OptimiseBudgetCommand) command, model);
+        case(OptimiseCommand.COMMAND_WORD):
+            return generateOptimizeBudgetEvent((OptimiseCommand) command, model);
 
         default:
             throw new EventException(String.format(MESSAGE_COMMAND_ERROR, commandWord));
@@ -87,7 +87,7 @@ public class EventFactory {
         return new AutoScheduleEvent(command.getDraftSchedule(), command.getAddress(), command.getDays(), model);
     }
 
-    private static Event generateOptimizeBudgetEvent(OptimiseBudgetCommand command, Model model) {
+    private static Event generateOptimizeBudgetEvent(OptimiseCommand command, Model model) {
         return new OptimiseBudgetEvent(command.getDayIndex(), model);
     }
 }
