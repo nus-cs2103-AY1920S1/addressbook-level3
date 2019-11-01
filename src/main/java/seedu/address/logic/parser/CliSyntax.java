@@ -26,6 +26,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_GET_INDEX = new Prefix("indexOf/");
     public static final Prefix PREFIX_VIEW = new Prefix("view");
     public static final Prefix PREFIX_DIRECTORY = new Prefix("directory/");
+    public static final Prefix PREFIX_VIEW_MODE = new Prefix("scheduleMode/");
+    public static final Prefix PREFIX_VIEW_DATE = new Prefix("targetDate/");
+    public static final Prefix PREFIX_SCREENSHOT = new Prefix("screenshot");
     // END OF EVENT PREFIX
 
     // QUESTION PREFIX
@@ -52,6 +55,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("priority/");
+    public static final Prefix PREFIX_SORT = new Prefix("sort");
     // END OF NOTE PREFIX
 
     // TAG PREFIX

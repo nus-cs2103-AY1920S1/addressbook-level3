@@ -1,0 +1,16 @@
+"notes" :
+    "note" : "Sunday Morning",
+    "description" : "Buy books",
+    "priority" : "MEDIUM",
+
+    "note" : "Tuesday Morning",
+    "description" : "Cook",
+    "priority" : "MEDIUM",
+
+    "note" : "Monday",
+    "description" : "Grade papers",
+    "priority" : "HIGH",
+
+    "note" : "Tonight",
+    "description" : "Give consultation",
+    "priority" : "UNMARKED"

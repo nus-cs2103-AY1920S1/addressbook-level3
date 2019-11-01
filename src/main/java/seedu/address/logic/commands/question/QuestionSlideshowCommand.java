@@ -24,6 +24,7 @@ public class QuestionSlideshowCommand extends QuestionCommand {
     private final List<Index> questionIndexes;
 
     public QuestionSlideshowCommand(String questionsInput) {
+        questionsInput = questionsInput.trim().replaceAll(" +", " "); // Remove extra space
         questionIndexes = Arrays.stream(questionsInput
             .split(" "))
             .map((x) -> Index.fromOneBased(Integer.parseInt(x)))

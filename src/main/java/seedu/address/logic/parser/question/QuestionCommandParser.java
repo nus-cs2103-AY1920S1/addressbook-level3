@@ -4,8 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_ANSWER;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_EDIT_FIELDS;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_QUESTION;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_QUESTION_OPTIONS;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_QUESTION_OPTIONS_VALUE;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_TEXT_SEARCH;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIND;
@@ -18,8 +23,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SLIDESHOW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.StringUtils;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.question.QuestionAddCommand;
@@ -68,9 +78,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                 isEdit = true;
             }
         } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuestionEditCommand.MESSAGE_USAGE),
-                pe);
+            throw new ParseException(HELP_MESSAGE);
         }
 
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
@@ -83,7 +91,6 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
             if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
                 throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
             }
-
             return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));
         } else if (isEdit) { // Edit command
             return editCommand(index, argMultimap);
@@ -111,17 +118,20 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                     .format(MESSAGE_INVALID_COMMAND_FORMAT, QuestionAddCommand.MESSAGE_USAGE));
         }
 
-        String question = argMultimap.getValue(PREFIX_QUESTION).orElse("");
-        String answer = argMultimap.getValue(PREFIX_ANSWER).orElse("");
-        String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
-
-        // Only for mcq
-        String optionA = argMultimap.getValue(PREFIX_OPTIONA).orElse("");
-        String optionB = argMultimap.getValue(PREFIX_OPTIONB).orElse("");
-        String optionC = argMultimap.getValue(PREFIX_OPTIONC).orElse("");
-        String optionD = argMultimap.getValue(PREFIX_OPTIOND).orElse("");
+        String question = getPrefix(argMultimap, PREFIX_QUESTION, MESSAGE_MISSING_QUESTION);
+        String answer = getPrefix(argMultimap, PREFIX_ANSWER, MESSAGE_MISSING_ANSWER);
+        String typeName = getPrefix(argMultimap, PREFIX_TYPE, MESSAGE_MISSING_TYPE);
 
         if (typeName.equals("mcq")) {
+            String optionA = getPrefix(argMultimap, PREFIX_OPTIONA,
+                String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option A"));
+            String optionB = getPrefix(argMultimap, PREFIX_OPTIONB,
+                String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option B"));
+            String optionC = getPrefix(argMultimap, PREFIX_OPTIONC,
+                String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option C"));
+            String optionD = getPrefix(argMultimap, PREFIX_OPTIOND,
+                String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option D"));
+
             if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
                 throw new ParseException(
                     String
@@ -143,24 +153,33 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
      * @return QuestionEditCommand object.
      * @throws ParseException
      */
-    private QuestionEditCommand editCommand(Index index, ArgumentMultimap argMultimap) {
-        // Add parameters to be edited. Note: the fields are optional
+    private QuestionEditCommand editCommand(Index index, ArgumentMultimap argMultimap)
+        throws ParseException {
+        // Add parameters to be edited. Note: the fields are optional but need at least one field to change
         // options is compulsory for mcq
+        if (noPrefixPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_TYPE,
+            PREFIX_OPTIONA, PREFIX_OPTIONB, PREFIX_OPTIONC, PREFIX_OPTIOND)) {
+            throw new ParseException(MESSAGE_MISSING_EDIT_FIELDS);
+        }
         HashMap<String, String> fields = new HashMap<>();
         HashMap<String, String> options = new HashMap<>();
 
-        String question = argMultimap.getValue(PREFIX_QUESTION).orElse("");
-        String answer = argMultimap.getValue(PREFIX_ANSWER).orElse("");
-        String typeName = argMultimap.getValue(PREFIX_TYPE).orElse("");
+        String question = getPrefix(argMultimap, PREFIX_QUESTION, MESSAGE_MISSING_QUESTION);
+        String answer = getPrefix(argMultimap, PREFIX_ANSWER, MESSAGE_MISSING_ANSWER);
+        String typeName = getPrefix(argMultimap, PREFIX_TYPE, MESSAGE_MISSING_TYPE);
 
         fields.put("question", question);
         fields.put("answer", answer);
         fields.put("type", typeName);
 
-        options.put("optionA", argMultimap.getValue(PREFIX_OPTIONA).orElse(""));
-        options.put("optionB", argMultimap.getValue(PREFIX_OPTIONB).orElse(""));
-        options.put("optionC", argMultimap.getValue(PREFIX_OPTIONC).orElse(""));
-        options.put("optionD", argMultimap.getValue(PREFIX_OPTIOND).orElse(""));
+        options.put("optionA", getPrefix(argMultimap, PREFIX_OPTIONA,
+            String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option A")));
+        options.put("optionB", getPrefix(argMultimap, PREFIX_OPTIONB,
+            String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option B")));
+        options.put("optionC", getPrefix(argMultimap, PREFIX_OPTIONC,
+            String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option C")));
+        options.put("optionD", getPrefix(argMultimap, PREFIX_OPTIOND,
+            String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option D")));
 
         return new QuestionEditCommand(index, fields, options);
     }
@@ -226,13 +245,54 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
     }
 
     /**
+     * Returns true if one of the prefixes contains non empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean noPrefixPresent(ArgumentMultimap argumentMultimap,
+        Prefix... prefixes) {
+        return Stream.of(prefixes)
+            .noneMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Gets the prefix value and throws an error if empty string detected. {@code
+     * ArgumentMultimap}.
+     *
+     * @param prefix of the value.
+     * @param error  message to throw.
+     * @return prefix value.
+     * @throws ParseException
+     */
+    private String getPrefix(ArgumentMultimap argumentMultimap, Prefix prefix, String error)
+        throws ParseException {
+        Optional<String> optional = argumentMultimap.getValue(prefix);
+        if (optional.isPresent()) { // check for empty string
+            optional.filter(StringUtils::isNotEmpty)
+                .orElseThrow(() -> new ParseException(error));
+            return optional.get();
+        } else {
+            return "";
+        }
+    }
+
+    /**
      * Checks and return if indexes input are above zero and contain only digits
      *
      * @param input user input.
      * @return whether input contains valid indexes.
      */
     private boolean areInputIndexesValid(String input) {
-        return input.matches("[1-9\\s*]+");
+        if (Pattern.compile("[1-9][0-9]*|[\\s]+").matcher(input).lookingAt()) {
+            // Additional check if remaining input is a number and index is greater than zero
+            try {
+                return !Arrays.stream(input.trim().replaceAll(" +", " ")
+                    .split(" "))
+                    .anyMatch((x) -> Integer.parseInt(x) <= 0);
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+        }
+        return false;
     }
 
 }

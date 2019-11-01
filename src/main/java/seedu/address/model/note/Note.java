@@ -2,6 +2,9 @@ package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -100,4 +103,27 @@ public class Note {
         return builder.toString();
     }
 
+    /**
+     * Represents a comparator for comparing Notes by comparing the Priority of the Note objects.
+     * Value of Priority.HIGH > Priority.MEDIUM > Priority.LOW > Priority.UNMARKED.
+     */
+    public static class NoteComparator implements Comparator<Note> {
+
+        private final List<Priority> priorityList = new ArrayList<>();
+
+        public NoteComparator() {
+            priorityList.add(Priority.HIGH);
+            priorityList.add(Priority.MEDIUM);
+            priorityList.add(Priority.LOW);
+            priorityList.add(Priority.UNMARKED);
+        }
+
+        /**
+         * Returns positive for lower Priority notes, negative for higher Priority notes and zero otherwise.
+         */
+        @Override
+        public int compare(Note o1, Note o2) {
+            return priorityList.indexOf(o1.getPriority()) - priorityList.indexOf(o2.getPriority());
+        }
+    }
 }

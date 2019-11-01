@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionBank;
 import seedu.address.model.question.SavedQuestions;
+import seedu.address.storage.export.HtmlExporter;
 
 /**
  * Represents a manager for quizzes.
@@ -27,14 +28,19 @@ public class QuizManager {
      * @param questionNumbers The question numbers to be added to the quiz.
      * @param savedQuestions The saved questions.
      * @param quizBank The quiz bank.
+     * @return True if the quiz has been created, false if not.
      */
-    public static void createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
+    public static boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
                                         SavedQuestions savedQuestions, QuizBank quizBank) {
         Quiz quiz = new Quiz(quizId);
         QuestionBank questionBank = savedQuestions.getQuestionBank();
+        int questionBankSize = questionBank.getAllQuestions().size();
 
         ArrayList<Question> questions = new ArrayList<>();
         for (Integer i : questionNumbers) {
+            if (i < 0 || i > questionBankSize) {
+                return false;
+            }
             questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
         }
 
@@ -43,6 +49,7 @@ public class QuizManager {
         }
 
         quizBank.addQuiz(quiz);
+        return true;
     }
 
     /**
@@ -52,8 +59,9 @@ public class QuizManager {
      * @param type The type of questions to be added to the quiz.
      * @param savedQuestions The saved questions.
      * @param quizBank The quiz bank.
+     * @return True if the quiz has been created, false if not.
      */
-    public static void createQuizAutomatically(String quizId, int numQuestions, String type,
+    public static boolean createQuizAutomatically(String quizId, int numQuestions, String type,
                                             SavedQuestions savedQuestions, QuizBank quizBank) {
         Quiz quiz = new Quiz(quizId);
         QuestionBank questionBank = savedQuestions.getQuestionBank();
@@ -75,6 +83,10 @@ public class QuizManager {
 
         int listSize = relevantQuestions.size();
 
+        if (listSize < numQuestions) {
+            return false;
+        }
+
         if (listSize > numQuestions) {
             for (int i = 0; i < numQuestions; i++) {
                 int randomQuestionIndex = getRandomQuestionIndex(listSize);
@@ -91,8 +103,8 @@ public class QuizManager {
                 quiz.addQuestion(q);
             }
         }
-
         quizBank.addQuiz(quiz);
+        return true;
     }
 
     /**
@@ -193,7 +205,7 @@ public class QuizManager {
             Quiz quiz = quizBank.getQuiz(quizIndex);
             quizInfo = quiz.getQuestionsForExport();
         }
-        return QuizExporter.exportQuiz(quizId, quizInfo);
+        return HtmlExporter.export(quizId, quizInfo);
     }
 
     /**

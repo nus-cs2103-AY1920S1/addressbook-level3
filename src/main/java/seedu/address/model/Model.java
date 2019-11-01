@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -14,7 +16,9 @@ import jfxtras.icalendarfx.components.VEvent;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
 import seedu.address.model.person.Person;
@@ -319,12 +323,12 @@ public interface Model {
     /**
      * Creates a quiz manually.
      */
-    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
+    boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
 
     /**
      * Creates a quiz automatically.
      */
-    void createQuizAutomatically(String quizId, int numQuestions, String type);
+    boolean createQuizAutomatically(String quizId, int numQuestions, String type);
 
     /**
      * Adds a question to a quiz. {@code quizId} Must already exist in the quiz bank. {@code
@@ -405,6 +409,11 @@ public interface Model {
      * Returns the NotesRecord
      */
     ReadOnlyNotesRecord getNotesRecord();
+
+    /**
+     * Sorts the notes list using the {@code noteComparator} provided.
+     */
+    void sortNotesRecord(Comparator<Note> noteComparator);
     //endregion
 
     //region Notes
@@ -452,6 +461,24 @@ public interface Model {
     Path getEventRecordFilePath();
 
     ReadOnlyEvents getEventRecord();
+
+    ReadOnlyVEvents getVEventRecord();
+
+    String getEventExportPath();
+
+    void setEventExportPath(String targetExportPath);
+
+    //endregion
+
+    //region EventSchedulePrefs
+
+    LocalDateTime getEventScheduleTargetDateTime();
+
+    void setEventScheduleTargetDateTime(LocalDateTime targetDateTime);
+
+    EventScheduleViewMode getEventScheduleViewMode();
+
+    void setEventScheduleViewMode(EventScheduleViewMode viewMode);
     //endregion
 
     //region VEvents
@@ -475,7 +502,6 @@ public interface Model {
 
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
 
-    String saveToIcsFile(String targetDir) throws IOException;
     //endregion
 
     //region Statistics

@@ -284,50 +284,6 @@ Examples:
 * `group groupID/G01` +
 Shows all the students that belong to group with groupID `G01`
 
-
-=== Timetable​ - `​/timetable`
-
-Manage timetable and schedule class timings
-
-. *Schedule class time* ​- `/timetable schedule [class id] [date & time in DD/MM/YYYY HH:mm format] [description]​(optional)` +
-e.g. `/timetable schedule unity “18/11/2019 11:00” “Math class”` +
-*Return*: ​schedule id.
-. *View schedule for all classes​* - `/timetable view all` +
-e.g. `/timetable view all` +
-*Return*: ​schedule id, class id, class name, date time, description
-. *View schedule for specific class​* - `/timetable view [class id]` +
-e.g. `/timetable view unity` +
-*Return*: ​schedule id, class id, class name, date time, description
-. *Delete scheduled class time* ​- `/timetable delete [schedule id]` +
-e.g. `/timetable delete 1`
-
-=== Attendance ​-​ `/attendance`
-
-View and mark student’s attendance.
-
-. *View attendance* ​- `/attendance show` +
-e.g. `/attendance show`
-. *Mark attendance* ​- `/attendance check [class id] [student no.]` +
-e.g. `/attendance check unity 1`
-
-////
-=== Notes ​- ​`/notes`
-
-Notes can be specified under general or class. Specifying a class note will allow you to view
-notes specific to a class.
-
-. *View all notes* ​- `/note view all` +
-e.g. `/note view all`
-. *View general note* ​- `/note view general` +
-e.g. `/note view general`
-. *View class note* ​- `/note view class [class id]` +
-e.g. `/note view class unity`
-. *Create general note​* - `/note create general “[description]”` +
-e.g. `/note create general “Remember to attend cca briefing”`
-. *Create class note* ​- `/note create class “[class id]” “[description]”` +
-e.g. `/note create class unity “Remember to meet john after class”`
-////
-
 === Questions ​-​ `question`
 
 ==== Creating a question
@@ -411,9 +367,9 @@ Lists the question list.
 [[Feature-Question-Find]]
 ==== Searching for a question
 
-Search and display questions with similar terms.
+Search and display questions using keywords and similar terms.
 [NOTE]
-The ordering of questions is based on *similarity* and in ascending order such that the question that is most similar
+The ordering of questions is based on *similarity* and the ordering is such that the question that is most similar
 to your search term will be at the top.
 
 Format: `question find/...`
@@ -429,13 +385,27 @@ Searches through the question list to find questions close to the search term _'
 
 ==== Starting a Slideshow
 
-Start a slideshow based on the questions selected. +
+Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
 Format: `question slideshow [QUESTIONS INDEX]`
 
 The options supported by this feature includes:
 
 . `[QUESTIONS INDEX]` - Index of questions *separated by a whitespace*.
-Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>>find commands.
+Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+
+The following keys are used to control the slideshow:
+
+. `Right arrow(→)` - Go to next question.
+. `Left arrow(←)` - Go to previous question.
+. `Esc` - Quit the slideshow.
+. `Space` - Show or hide the answer to the question.
+
+The following keys are used for polling for [.underline]#mcq# type questions:
+
+. `1` - Plus one to option A.
+. `2` - Plus one to option B.
+. `3` - Plus one to option C.
+. `4` - Plus one to option D.
 
 Example:
 
@@ -447,120 +417,131 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 ==== Creating a Quiz manually: `manual`
 
 Allows a user to create a quiz manually. +
+[NOTE]
 Format: `quiz manual quizID/... questionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Question Numbers` (The question numbers you want to add to the quiz)
+. `Quiz ID` (The label of the quiz)
+. `Question Numbers` (The question numbers you want to add to the quiz)
 
 Examples:
 
 * `quiz manual quizID/CS2103T questionNumber/1 2 3` +
-Adds question numbers 1, 2 and 3 to the quiz named CS2103T.
+Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 
 ==== Creating a Quiz automatically: `auto`
 
 Allows a user to create a quiz automatically. +
+[NOTE] 
+The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
+
+[NOTE]
 Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Number of Questions` (The number of questions you want added to the quiz)
-- `Question Type` (mcq, open, all)
+. `Quiz ID` (The label of the quiz)
+. `Number of Questions` (The number of questions you want added to the quiz)
+. `Question Type` (mcq, open, all)
 
 Examples:
 
 * `quiz auto quizID/CS2103T numQuestions/2 type/mcq` +
-Adds 2 questions of type mcq to the quiz named CS2103T.
+Adds 2 questions of type mcq to the quiz labelled CS2103T.
 
 ==== Adding a Question to a Quiz: `add`
 
 Allows a user to add a question to a quiz. +
+[NOTE]
 Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of your quiz)
-- `Question Number` (The question number you want to add to the quiz)
-- `Quiz Question Number` (The question number in the quiz you want to add the question to)
+. `Quiz ID` (The label of your quiz)
+. `Question Number` (The question number you want to add to the quiz)
+. `Quiz Question Number` (The question number in the quiz you want to add the question to)
 
 Examples:
 
 * `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
-Adds question 2 to the quiz question number 3 for the quiz named CS2103T.
+Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
 
 ==== Deleting a Question from a Quiz: `delete`
 
 Allows a user to delete a question from a quiz. +
+[NOTE]
 Format: `quiz delete quizID/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Quiz Question Number` (The question number of the question in the quiz to be deleted)
+. `Quiz ID` (The label of the quiz)
+. `Quiz Question Number` (The question number of the question in the quiz to be deleted)
 
 Examples:
 
 * `quiz delete quizID/CS2103T quizQuestionNumber/3` +
-Deletes the quiz question number 3 for the quiz named CS2103T.
+Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
 ==== Exporting a Quiz to HTML: `export`
 
-Allows a user to export a quiz to a HTML file. +
+Allows a user to export a quiz to a formatted HTML file. +
+[NOTE]
 Format: `quiz export quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz export quizID/CS2103T` +
-Exports the quiz named CS2103T to a HTML file.
+Exports the quiz labelled CS2103T to a formatted HTML file.
 
 ==== Listing a Quiz: `list`
 
 Allows a user to list a quiz's questions and answers. +
+[NOTE]
 Format: `quiz list quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz list quizID/CS2103T` +
-Lists the questions and answers for the quiz named CS2103T.
+Lists the questions and answers for the quiz labelled CS2103T.
 
 ==== Showing only a Quiz's Questions: `showQuestions`
 
 Allows a user to show only a quiz's questions. +
+[NOTE]
 Format: `quiz showQuestions quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz showQuestions quizID/CS2103T` +
-Shows only the questions for the quiz named CS2103T.
+Shows only the questions for the quiz labelled CS2103T.
 
 ==== Showing only a Quiz's Answers: `showAnswers`
 
 Allows a user to show only a quiz's answers. +
+[NOTE]
 Format: `quiz showAnswers quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz showAnswers quizID/CS2103T` +
-Shows only the answers for the quiz named CS2103T.
+Shows only the answers for the quiz labelled CS2103T.
 
 === Events ​-​ `event`
 
@@ -634,18 +615,42 @@ The options supported by this feature includes:
 Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
 
 
-* `question delete 1` +
+* `event delete 1` +
 Deletes the event with index 1
+
+==== Taking screenshot of schedule
+
+Takes a screen shot of the calendar as PNG file +
+Format: `event screenshot directory/[DIRECTORY]`
+
+The options supported by this feature includes:
+
+. `[DIRECTORY]` - The target directory to save the screenshot to
+[NOTE]
+Scroll to which portion of the calendar is to be taken, and the application will then open a separate
+full screen window to maximise the content captured of the screenshot.
+
+
+* `event screenshot directory/Users/John/Desktop` +
+Takes a screenshot of the current calendar and saves it to John's desktop.
 
 ==== Viewing all events
 
-Show all your events in the calendar +
-Format: `event view`
+Show all your events in the calendar. All fields are optional
+Format: `event view scheduleMode/... targetDate/...`
+
+The options supported by this feature includes:
+
+. `scheduleMode` - Schedule viewing mode of the calendar. Either weekly or daily.
+. `targetDate` - The target date to show for the week. If in daily mode, simply show the events in the date.
+If in weekly mode, show the week which includes the specified date
+[NOTE]
+The target date option must be specified in the following format: yyyy-mm-dd. E.g. 2019-11-23
 
 Example:
 
-* `question view` +
-Opens the calendar view consisting of all your events
+* `event view scheduleMode/weekly targetDate/2019-11-23` +
+Opens the calendar view in weekly mode with the target date 23 November 2019.
 
 ==== Export all events
 
@@ -788,17 +793,23 @@ The data file needs to be specified in the following format to ensure that the s
 [WARNING]
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
 
-* *Data starts at cell A1.*
+* *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
 * *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
+* *There are no gaps between rows and columns.*
+* *All cells within the row and column range have at least one non-whitespace characters.*
+* *All cells outside the row and column range are empty.*
 
 [WARNING]
 Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
+
+[NOTE]
+The general rule for the file format is to ensure all entries in the file are as compact to the top left as possible; the entries should form a rectangular shape on the top left corner of the excel sheet. The rectangle should have no empty entries while all cells outside the rectangle are empty entries.
 
 The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
 allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
@@ -825,6 +836,7 @@ Note that all fields all mandatory unless stated otherwise.​
 == Command Summary
 
 * *Help* : `help`
+* *Exit* : `exit`
 * *Adding a student*: `student name/...`
 * *Removing a student*: `student delete index/...`
 * *Editing a student*: `student [index] name/...`
@@ -837,6 +849,12 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Removing student from a group*: `group delete groupID/... groupIndexNumber/...`
 * *Showing students from a group*: `group groupID/...`
 * *Exporting a group*: `group export groupID/...`
+* *Creating a question*: `question question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Editing a question*: `question [INDEX] question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Deleting a question*: `question delete [INDEX]`
+* *Listing your saved questions*: `question list`
+* *Searching for a question*: `question find/…​`
+* *Starting a slideshow*: `question slideshow [QUESTIONS INDEX]`
 * *Creating a Quiz Manually* : `quiz manual quizID/... questionNumber/...`
 * *Creating a Quiz Automatically* : `quiz auto quizID/... numQuestions/... type/...` [Where type is: mcq, open or all]
 * *Adding a Question to Quiz* : `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
@@ -844,6 +862,12 @@ Note that all fields all mandatory unless stated otherwise.​
 * *Listing a Quiz* : `quiz list quizID/...`
 * *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
 * *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Adding an Event* : `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Deleting an Event* : `event delete [INDEX]`
+* *Viewing all Event* : `event view scheduleMode/... targetDate/...`
+* *Exporting Events* : `event export directory/...`
+* *Screenshot Calendar* : `event screenshot directory/...`
 * *Creating a Note* : `note note/... desc/...`
 * *Creating a Note with Priority* : `note note/... desc/... priority/...`
 * *Editing a Note* : `note [INDEX] note/... desc/... priority/...`

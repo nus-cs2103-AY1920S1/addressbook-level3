@@ -1,0 +1,19 @@
+{
+  "notes" : [ {
+    "note" : "saturday afternoon",
+    "description" : "go gym",
+    "priority" : "me dium"
+  },  {
+    "note" : "saturday afternoon",
+    "description" : "give presentation",
+    "priority" : "MEDIUM"
+  }, {
+    "note" : "meet Jake's teacher",
+    "description" : "give disciplinary record",
+    "priority" : "HIGH"
+  }, {
+    "note" : "go to the zoo",
+    "description" : "bring Jacob",
+    "priority" : "UNMARKED"
+  } ]
+}

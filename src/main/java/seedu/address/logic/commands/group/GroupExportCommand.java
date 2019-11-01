@@ -49,6 +49,6 @@ public class GroupExportCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Successfully exported group to export/" + groupId + ".docx";
+        return "Successfully exported group to exports/" + groupId + ".docx";
     }
 }

@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
-import seedu.address.storage.export.ExportWordDoc;
+import seedu.address.storage.export.WordDocExporter;
 
 /**
  * Model that represents a group of students.
@@ -86,8 +86,7 @@ public class Group {
      */
     public void export() {
         String studentsFormatted = this.getStudentsFormatted();
-        ExportWordDoc exportWordDoc = new ExportWordDoc(this.groupId, studentsFormatted);
-        exportWordDoc.saveExport();
+        WordDocExporter.saveExport(this.groupId, studentsFormatted);
     }
 
     /**
