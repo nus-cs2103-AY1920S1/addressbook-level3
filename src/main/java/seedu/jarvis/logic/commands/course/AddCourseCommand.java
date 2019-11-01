@@ -34,7 +34,7 @@ public class AddCourseCommand extends Command {
     public static final String MESSAGE_SUCCESS =
         "New Course(s) added: %1$s";
     public static final String MESSAGE_DUPLICATE_COURSES =
-        "All the courses given are already in your list!";
+        "The given course(s) are already in your list!";
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE =
         "Deleted Course(s): %1$s";
     public static final String MESSAGE_INVERSE_COURSE_NOT_FOUND =
