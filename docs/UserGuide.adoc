@@ -539,23 +539,27 @@ and as such pose no issue.
 
 The command word, as for all all other commands, is not case-sensitive for convenience to user.
 
-==== Sets the font color of the text: `fontcolor`
+==== Sets the font color of the text: `fontcolour` or `fontcolor`
 
 Formats:
 
+* `fontcolour`; or
 * `fontcolor`; or
+* `fontcolour COLOUR`; or
 * `fontcolor COLOUR`
 
 To accomplish higher levels of personalisation, the user may select not only from a range of colours or standard colours,
 but _any_ colour. This means that a user can set a colour using *EITHER* colour names or hexadecimal values.
 
-To set a colour of a font using a colour name, simply enter `font` followed by the intended name of the colour.
-For instance, one may enter: `font yellow` or `font skyblue`. So long as the colour names are within the 140+ colour
+To set a colour of a font using a colour name, simply enter `fontcolour` (or the American spelling `fontcolor`;
+both are recognised by the program) followed by the intended name of the colour. For instance, one may enter:
+`fontcolour yellow` or `fontcolor skyblue`. So long as the colour names are within the 140+ colour
 names recognised by CSS, the colours will be set accordingly on the user's application. If the colour is not recognised,
 the program attempts to interpret it as a hexadecimal value colour. Note that `transparent` is NOT a valid colour.
 
 A colour may be set using its hexadecimal value provided it follows format beginning with a '#' followed byt six valid
-alphanumeric characters representing a hexadecimal colour. For instance, one may enter: `font #FFFF00` or `font #FFFF3A`.
+alphanumeric characters representing a hexadecimal colour. For instance, one may enter: `fontcolour #FFFF00`
+or `fontcolor #FFFF3A`.
 
 If a coloured entered belongs to neither categories of names nor hexadecimal values, an error message will be shown to
 the user in the feedback display panel.
@@ -575,36 +579,37 @@ have been entered as a hexadecimal value. i.e. `#FFFF00` will always be displaye
 hexadecimal value of the colour is displayed and saved.
 
 The last set font colour of the user is always saved, and upon restarting the application, the program should display
-the window with the last saved `fontcolour` settings.
+the window with the last saved `fontcolour` (or `fontcolor`) settings.
 
 If the preferences file happen to be corrupted with unrecognised colours, or cannot be found, the `background` and
-`fontcolour` are reset to its default aesthetics settings, which a new preferences file also contains.
+`fontcolour` (or `fontcolor`) are reset to its default aesthetics settings, which a new preferences file also contains.
 
-By default, the `fontcolour` and `background` of the application are set as colours `#FFFF3A` and `#000A34`
+By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
 respectively.
 
 This program does not implement a command to clear a font colour due to its redundancy - a user, if dissatisfied with
 the font colour may simply change the colour to his or her preference, or use generic colours by keying in
-`fontcolour black` along with a white background.
+`fontcolour black` (or `fontcolor black`) along with a white background.
 
-A user is also allowed to key in `fontcolour` on its own and the program having received this will display the current
-font colour settings in the feedback display pane. This allows the user to view the current settings of the font colour
-without having to use the `bio` command to navigate to the biography display pane.
+A user is also allowed to key in `fontcolour`  (or `fontcolor`) on its own and the program having received this will
+display the current font colour settings in the feedback display pane. This allows the user to view the current settings
+of the font colour without having to use the `bio` command to navigate to the biography display pane.
 
 The command word, as for all all other commands, is not case-sensitive for convenience to user. The colour entered for
 both colour names and hexadecimal values are also not case sensitive, as the possibilities of misinterpretation are much
 lower as compared to sub-arguments of commands such as `editbio`, or `add`. As such, convenience is prioritised for the
 user for this command and both `fonTColour yElLoW` and `fONtColOur #fFFf00` will work.
 
-Examples of *VALID* `fontcolour` commands:
+Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 
 * `fontcolour lime`
-* `fontcolour indigo`
+* `fontcolor indigo`
 * `fontcolour #202020`
-* `fontcolour #000000`
+* `fontcolor #000000`
 * `fontcolour`
+* `fontcolor`
 * `fONTCOLOUr wHITE`
-* `foNTcoLOUr #FFffFf`
+* `foNTcoLOr #FFffFf`
 
 ==== Sets the background picture using a specified file path: `bg`
 
@@ -617,12 +622,12 @@ Formats:
 
 Users are allowed to set the background either using a `COLOUR` or a `PATH` to a background image.
 
-The `COLOUR` argument of the background works in exactly the same way as described in the `fontcolour`
-sub-section above, except that command word used is now `bg` instead of `fontcolour`. i.e. a user may enter
-`bg blue` or bg `#202020` to set the background image.
+The `COLOUR` argument of the background works in exactly the same way as described in the `fontcolour` or (`fontcolor`)
+sub-section above, except that command word used is now `bg` instead of `fontcolour` (or `fontcolor`).
+i.e. a user may enter`bg blue` or bg `#202020` to set the background image.
 
-Just as for the `fontcolour` command, upon successful execution of the `bg` command with `COLOUR`, the colour would
-be applied universally and instantaneously, from the backgrounds of scrollpanes to the backgrounds of
+Just as for the `fontcolour` (or `fontcolor`) command, upon successful execution of the `bg` command with `COLOUR`,
+the colour would be applied universally and instantaneously, from the backgrounds of scrollpanes to the backgrounds of
 feedback display panes. This is with the exception of the background in the graph shown for the `average`
 command, that uses predefined colours. The change will be described in the feedback display panel and the new colour is
 reflected in the biography table of the biography display pane. This command does not change the panes displayed to the
@@ -633,12 +638,12 @@ have been entered as a hexadecimal value. i.e. `#FFFF00` will always be displaye
 hexadecimal value of the colour is displayed and saved.
 
 The last set font colour of the user is always saved, and upon restarting the application, the program should display
-the window with the last saved `fontcolour` settings.
+the window with the last saved `fontcolour` (or `fontcolor`) settings.
 
 If the preferences file happen to be corrupted with unrecognised colours, or cannot be found,
-the `background` and `fontcolour` are reset to its default aesthetics settings, which a new preferences file also contains.
+the `background` and `fontcolour` (or `fontcolor`) are reset to its default aesthetics settings, which a new preferences file also contains.
 
-By default, the `fontcolour` and `background` of the application are set as colours `#FFFF3A` and `#000A34`
+By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
 respectively.
 
 In addition to specifying a `COLOUR`, a user may also specify a `PATH` for background image. This works similarly to
@@ -694,8 +699,8 @@ such as this, clearly indicating that additional arguments are allowed only for 
 biography display pane, there will never also be a situation where a colour is indicated in the 'Background' field along
 with data in 'Background Repeat' and 'Background Size' fields. If a background colour is used, these fields are simply
 blank. A user may only set the background to *EITHER* a background or an image; setting both at the same time would not
-be possible. At any point of time, generic or not, the user will have exactly one `background` and `fontcolour` field set for
-the application.
+be possible. At any point of time, generic or not, the user will have exactly one `background` and `fontcolour`
+(or `fontcolor`) field set for the application.
 
 For each successful command, feedback will be displayed to the user on the change in background, be it from a
 background image to a colour, vice versa or other combinations. If a command such as `bg s/cover` changes only a
@@ -710,7 +715,7 @@ background images (or even profile images for `addbio` or `editbio` commands). R
 colour or another image path will do the job.
 
 If the preferences file happen to be corrupted with unrecognised / unloadable background paths, or cannot be found,
-the `background` and `fontcolour` are reset to its default aesthetics settings as described above, which a new
+the `background` and `fontcolour` (or `fontcolor`) are reset to its default aesthetics settings as described above, which a new
 preferences file also contains. As for paths to profile pictures, an unloadable background file (or colours) from the
 storage does not cause the user to lose any other data, and the user is simply notified via the feedback display pane
 that the image cannot load and has been removed.
@@ -968,9 +973,9 @@ E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 E.g. `editbio g/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
 E.g. `editbio dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
 E.g. `editbio p/1/234567 p/2/3456789`
-. *Font Color*: `fontcolor COLOUR` or `fontcolour`
-E.g. `fontcolor yellow`
-E.g. `fontcolor #FFFF00`
+. *Font Color*: `fontcolour COLOUR` or `fontcolour` or `fontcolor COLOUR` or `fontcolor`
+E.g. `fontcolour yellow`
+E.g. `fontcolour #FFFF00`
 . *List*: `list`
 E.g. `list`
 . *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`

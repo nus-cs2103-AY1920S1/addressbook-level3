@@ -15,6 +15,7 @@ import seedu.sugarmummy.ui.DisplayPaneType;
 public class FontColourCommand extends Command {
 
     public static final String COMMAND_WORD = "fontcolour";
+    public static final String ALTERNATIVE_COMMAND_WORD = "fontcolor";
     public static final String MESSAGE_SUCCESS = "Font colour has been set!";
     public static final String MESSAGE_CURRENT_FONT_COLOUR = "Your current font colour is: ";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Sets the font colour of this application "
