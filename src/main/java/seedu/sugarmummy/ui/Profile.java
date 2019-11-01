@@ -37,6 +37,9 @@ public class Profile extends UiPart<Region> {
             } else {
                 this.description.setText(description);
             }
+        } else {
+            this.description.setText("No profile description added.");
+            this.description.setStyle("-fx-font-family: Arial; -fx-font-style: italic");
         }
     }
 }

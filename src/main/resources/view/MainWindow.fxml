@@ -40,9 +40,10 @@
                     </padding>
                 </StackPane>
 
-                <HBox fx:id="resultDisplayPlaceholder" alignment="TOP_LEFT" maxHeight="Infinity" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="never">
+                <HBox VBox.vgrow="never" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                      minHeight="100" prefHeight="100" maxHeight="Infinity" alignment="TOP_LEFT">
                     <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
+                        <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>
                 </HBox>
 
@@ -58,7 +59,7 @@
                             <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS" />
                         </VBox>
 
-                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="SOMETIMES" />
                     </items>
                 </SplitPane>
 
