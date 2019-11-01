@@ -351,7 +351,7 @@ public class PrompterUtil {
                 .reduce((x, y) -> x + '\n' + y)
                 .orElse("");
         String mostSimilarCommand = findMostSimilarString(commandWords, commandWord);
-        return new CommandPrompt(similarCommands, mostSimilarCommand);
+        return new CommandPrompt(similarCommands, mostSimilarCommand + COMMAND_DELIMITER);
     }
 
     /**
