@@ -78,7 +78,6 @@ public class SpendingBook implements ReadOnlySpendingBook {
         setCurrencyInUse(newData.getCurrencyInUse());
         setSpendings(newData.getSpendingList());
         setBudget(newData.getBudget());
-        budget.update(DateUtil.getTodayDate());
         setReminders(newData.getReminderList());
     }
 
@@ -184,6 +183,10 @@ public class SpendingBook implements ReadOnlySpendingBook {
     }
 
     //// Budget related operations
+
+    public void updateBudget() {
+        budget.update(DateUtil.getTodayDate());
+    }
 
     @Override
     public Budget getBudget() {
