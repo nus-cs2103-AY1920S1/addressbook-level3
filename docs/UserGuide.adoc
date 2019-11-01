@@ -580,6 +580,10 @@ Undoable commands: commands that modifies any of the spending (`add`, `delete` a
 `undo` (reverses the add n/textbook c/100 command) +
 `undo` (reverses the delete 1 command)
 
+*Expected Output:*
+
+The last performed action is undone.
+
 === Redoing the previously undone command : `redo` `[Coming in v2.0]`
 Reverses the most recent undo command. +
 
@@ -599,15 +603,26 @@ Reverses the most recent undo command. +
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the add n/textbook c/100 command)
 
+*Expected Output:*
+
+The most recent undo command is reversed.
+
 === Clear all data : `clear`
 Clears all entries from the application. +
 *Format:* `clear`
 
+*Expected Output:*
+
+All application data is cleared.
 
 === Exiting the program : `exit`
 
 Exits the program. +
 *Format:* `exit`
+
+*Expected Output:*
+
+Program exits.
 
 == Glossary
 
