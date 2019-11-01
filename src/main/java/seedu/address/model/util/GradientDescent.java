@@ -3,13 +3,17 @@ package seedu.address.model.util;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.BankAccountOperation;
 
-/**
- * A utility class for performing gradient descent on a 2-column matrix
- */
-public class GradientDescent {
+import java.util.stream.IntStream;
 
-    private static final double LEARNING_RATE = 0.01;
+/**
+ * A utility class for performing 2-variable gradient descent
+ * TODO: Add feature normalization
+ */
+public final class GradientDescent {
+
+    private static final double LEARNING_RATE = 0.0006;
     private static final double TOLERANCE = 1E-11;
+    private static final int MAX_ITERATIONS = 100000;
 
     private double theta0;
     private double theta1;
@@ -31,26 +35,29 @@ public class GradientDescent {
      */
     public void processData() {
         this.data = new double[this.transactionHistory.size()][2];
-        for (int i = 0; i < transactionHistory.size(); i++) {
+        IntStream.range(0, transactionHistory.size()).forEach(i -> {
             BankAccountOperation transaction = transactionHistory.get(i);
             this.data[i][0] = Date.daysBetween(transaction.getDate(), Date.now());
             this.data[i][1] = transaction.getAmount().getIntegerValue();
-        }
+        });
+    }
+
+    private double deriveThetaZeroCost() {
+        Double cost = IntStream.range(0, data[0].length).asDoubleStream().reduce(0, (x, y) -> {
+            return x + (data[(int)y][0] - predict(data[(int)y][0]));
+        });
+        return - 2 * cost / data[0].length;
+    }
+
+    private double deriveThetaOneCost() {
+        Double cost = IntStream.range(0, data[0].length).asDoubleStream().reduce(0, (x, y) -> {
+            return x + (data[(int)y][0] - predict(data[(int)y][0]) * data[(int)y][0]);
+        });
+        return - 2 * cost / data[0].length;
     }
 
     public double predict(double x) {
         return theta0 + theta1 * x;
-    }
-
-    private double getResult (double[][] data, boolean doCalibration) {
-        double result = 0;
-        for (int i = 0; i < data.length; i++) {
-            result = (predict(data[i][0]) - data[i][1]);
-            if (doCalibration) {
-                result = result * data[i][0];
-            }
-        }
-        return result;
     }
 
     /**
@@ -61,17 +68,15 @@ public class GradientDescent {
         double delta1;
         do {
             this.iterations++;
-            double temp0 = theta0 - LEARNING_RATE * (((double) 1 / data.length) * getResult(data, false));
-            double temp1 = theta1 - LEARNING_RATE * (((double) 1 / data.length) * getResult(data, true));
-            delta0 = theta0 - temp0;
-            delta1 = theta1 - temp1;
+            delta0 = LEARNING_RATE * deriveThetaZeroCost();
+            delta1 = LEARNING_RATE * deriveThetaOneCost();
+            System.out.println((Math.abs(delta0) + Math.abs(delta1)));
+            double temp0 = theta0 - delta0;
+            double temp1 = theta1 - delta1;
             theta0 = temp0;
             theta1 = temp1;
-            if (iterations >= 10000) {
-                break;
-            }
-        } while((Math.abs(delta0) + Math.abs(delta1)) > TOLERANCE);
-        }
+        } while((Math.abs(delta0) + Math.abs(delta1)) > TOLERANCE && iterations <= MAX_ITERATIONS);
+    }
 
     public int getIterations() {
         return this.iterations;
