@@ -90,6 +90,9 @@ public class StorageManager implements ModelListListener {
     @Override
     public void onModelListChange(ModelLists lists) {
         try {
+            Files.createDirectories(this.eventsFile.getParent());
+            Files.createDirectories(this.tasksFile.getParent());
+
             if (this.eventsFile != null) {
                 this.mapper.writeValue(this.eventsFile.toFile(), lists.getEvents());
             }
