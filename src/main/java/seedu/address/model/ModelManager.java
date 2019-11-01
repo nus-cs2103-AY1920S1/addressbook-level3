@@ -136,14 +136,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFilteredContactList() {
-        filteredContacts = new FilteredList<Contact>(this.finSec.getContactList().sorted());
+    public void sortFilteredContactListByName() {
+        filteredContacts = new FilteredList<Contact>(this.finSec.getContactList().sorted(new ContactNameComparator()));
         updateFilteredContactList(p -> true);
         UiManager.startWithContacts();
     }
 
     @Override
-    public void sortReverseFilteredContactList() {
+    public void sortReverseFilteredContactListByName() {
         Comparator<Contact> reverseComparator = Comparator.comparing(Contact::toString).reversed();
         filteredContacts = new FilteredList<Contact>(this.finSec.getContactList().sorted(reverseComparator));
         updateFilteredContactList(p -> true);
@@ -197,18 +197,91 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortFilteredClaimList() {
+    public void sortFilteredClaimListByName() {
         filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted());
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
     }
 
     @Override
-    public void sortReverseFilteredClaimList() {
+    public void sortFilteredClaimListByDate() {
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList()
+                .sorted(new ClaimDateComparator()));
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
+    }
+
+    //=========== Sorts reverse way of claims list ==============
+
+    @Override
+    public void sortReverseFilteredClaimListByDate() {
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList()
+                .sorted(new ClaimDateComparator().reversed()));
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
+    }
+
+    @Override
+    public void sortReverseFilteredClaimListByName() {
         Comparator<Claim> reverseComparator = Comparator.comparing(Claim::toString).reversed();
         filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(reverseComparator));
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
+    }
+
+    //=========== Incomes ================================================================================
+    @Override
+    public boolean hasIncome(Income income) {
+        requireNonNull(income);
+        return finSec.hasIncome(income);
+    }
+
+    @Override
+    public void deleteIncome(Income target) {
+        finSec.removeIncome(target);
+    }
+
+    @Override
+    public void addIncome(Income income) {
+        finSec.addIncome(income);
+        updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
+    }
+
+    @Override
+    public void setIncome(Income target, Income editedIncome) {
+        requireAllNonNull(target, editedIncome);
+
+        finSec.setIncome(target, editedIncome);
+    }
+
+    @Override
+    public void sortFilteredIncomeListByName() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted());
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
+    }
+
+    @Override
+    public void sortFilteredIncomeListByDate() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeDateComparator()));
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
+    }
+
+    //=========== Sorts reverse way of incomes list ==============
+
+    @Override
+    public void sortReverseFilteredIncomeListByName() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeNameComparator().reversed()));
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
+    }
+
+    @Override
+    public void sortReverseFilteredIncomeListByDate() {
+        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeDateComparator().reversed()));
+        updateFilteredIncomeList(p -> true);
+        UiManager.startWithIncomes();
     }
 
     //=========== Suggestions ============================================================================
@@ -267,45 +340,6 @@ public class ModelManager implements Model {
     @Override
     public String getSavedCommand() {
         return this.savedCommand.peek();
-    }
-
-    //=========== Incomes ================================================================================
-    @Override
-    public boolean hasIncome(Income income) {
-        requireNonNull(income);
-        return finSec.hasIncome(income);
-    }
-
-    @Override
-    public void deleteIncome(Income target) {
-        finSec.removeIncome(target);
-    }
-
-    @Override
-    public void addIncome(Income income) {
-        finSec.addIncome(income);
-        updateFilteredIncomeList(PREDICATE_SHOW_ALL_INCOMES);
-    }
-
-    @Override
-    public void setIncome(Income target, Income editedIncome) {
-        requireAllNonNull(target, editedIncome);
-
-        finSec.setIncome(target, editedIncome);
-    }
-
-    @Override
-    public void sortFilteredIncomeList() {
-        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeComparator()));
-        updateFilteredIncomeList(p -> true);
-        UiManager.startWithIncomes();
-    }
-
-    @Override
-    public void sortReverseFilteredIncomeList() {
-        filteredIncomes = new FilteredList<>(this.finSec.getIncomeList().sorted(new IncomeComparator().reversed()));
-        updateFilteredIncomeList(p -> true);
-        UiManager.startWithIncomes();
     }
 
     //=========== Filtered FinSec List Accessors =============================================================
@@ -410,12 +444,58 @@ public class ModelManager implements Model {
 }
 
 /**
+ * Compares 2 claims' names
+ */
+class ContactNameComparator implements Comparator<Contact> {
+    @Override
+    public int compare(Contact contact1, Contact contact2) {
+        return contact1.getName().toString().toUpperCase()
+                .compareTo(contact2.getName().toString().toUpperCase());
+    }
+}
+
+/**
+ * Compares 2 claims' names
+ */
+class ClaimNameComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        return claim1.getName().toString().toUpperCase()
+                .compareTo(claim2.getName().toString().toUpperCase());
+    }
+}
+
+/**
  * Compares 2 incomes' names
  */
-class IncomeComparator implements Comparator<Income> {
+class IncomeNameComparator implements Comparator<Income> {
     @Override
     public int compare(Income income1, Income income2) {
-        return income1.getName().toString()
-                .compareTo(income2.getName().toString());
+        return income1.getName().toString().toUpperCase()
+                .compareTo(income2.getName().toString().toUpperCase());
+    }
+}
+
+/**
+ * Compares 2 incomes' dates
+ */
+class IncomeDateComparator implements Comparator<Income> {
+
+    @Override
+    public int compare(Income income1, Income income2) {
+        return income1.getDate().getLocalDate()
+                .compareTo(income2.getDate().getLocalDate());
+    }
+}
+
+/**
+ * Compares 2 claims' dates
+ */
+class ClaimDateComparator implements Comparator<Claim> {
+
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        return claim1.getDate().getLocalDate()
+                .compareTo(claim2.getDate().getLocalDate());
     }
 }

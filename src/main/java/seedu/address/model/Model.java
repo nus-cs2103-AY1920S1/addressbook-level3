@@ -225,11 +225,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered contact list */
     ObservableList<Contact> getFilteredContactList();
 
-    /** Sorts Contact list */
-    void sortFilteredContactList();
+    /** Sorts Contact list by Name*/
+    void sortFilteredContactListByName();
 
     /** Sorts contacts in reverse order */
-    void sortReverseFilteredContactList();
+    void sortReverseFilteredContactListByName();
 
     /**
      * Updates the filter of the filtered contact list to filter by the given {@code predicate}.
@@ -240,11 +240,17 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered claim list */
     ObservableList<Claim> getFilteredClaimList();
 
-    /** Sorts Claims list */
-    void sortFilteredClaimList();
+    /** Sorts Claims list by Name*/
+    void sortFilteredClaimListByName();
+
+    /** Sorts Claims list by Date*/
+    void sortFilteredClaimListByDate();
 
     /** Sorts claims in reverse order */
-    void sortReverseFilteredClaimList();
+    void sortReverseFilteredClaimListByName();
+
+    /** Sorts claims in reverse order By Date */
+    void sortReverseFilteredClaimListByDate();
 
     /**
      * Updates the filter of the filtered claim list to filter by the given {@code predicate}.
@@ -255,11 +261,17 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered income list */
     ObservableList<Income> getFilteredIncomeList();
 
-    /** Sorts Incomes list */
-    void sortFilteredIncomeList();
+    /** Sorts Incomes list by Name*/
+    void sortFilteredIncomeListByName();
+
+    /** Sorts Incomes list by Date */
+    void sortFilteredIncomeListByDate();
 
     /** Sorts incomes in reverse order */
-    void sortReverseFilteredIncomeList();
+    void sortReverseFilteredIncomeListByName();
+
+    /** Sorts incomes in reverse order by Date*/
+    void sortReverseFilteredIncomeListByDate();
 
     /**
      * Updates the filter of the filtered income list to filter by the given {@code predicate}.
