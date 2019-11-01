@@ -214,7 +214,7 @@ A customer can have any number of tags, including 0.
 image::ug-command/ug-add-c.png[width="900"]
 
 ==== Delete a customer : `delete-c`
-Deletes a customer in SML. +
+Deletes a customer in SML. Note that deleting a customer will also delete the orders and schedules associated with the customer. +
 
 [underline]#Format#: `delete-c INDEX`
 
@@ -355,7 +355,7 @@ A customer can have any number of tags, including 0.
 image::ug-command/ug-add-p.png[width="800"]
 
 ==== Delete a phone : `delete-p`
-Deletes a phone in SML. +
+Deletes a phone in SML. Note that deleting a phone will also delete the orders and schedules associated with the phone.+
 
 [underline]#Format#: `delete-p INDEX`
 
@@ -499,7 +499,7 @@ Edits the data fields of an order. +
 
 
 ****
-- Edits the phone at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
+- Edits the order at the specified `INDEX`. The index refers to the index number shown in the displayed customer list.
 The index *must be a positive integer* 1, 2, 3, ...
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
@@ -535,7 +535,9 @@ Date should be in the format YYYY.MM.DD with valid year, month and date.
 ==== Add a schedule : `add-s`
 Adds a schedule. +
 If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
-[underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow] ` +
+*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+
+[underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 [underline]#Example#: +
 
 * `add-s 3 cd/2018.7.25 ct/18.00 v/Starbucks t/freebie -allow` +
@@ -567,6 +569,8 @@ Deletes a schedule. +
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
 If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
+*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+
 [underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
 ****
 - Edits the schedule of the order at the specified `ORDER_INDEX`.
@@ -580,6 +584,11 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 
 * Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
 `edit-s 1 cd/2019.12.12 -allow`
+
+==== Clear the schedules : `clear-s`
+Clears every schedule in SML. +
+
+[underline]#Format#: `clear-s`
 
 === General Commands
 
@@ -691,6 +700,9 @@ Limitations:
 ** The chart is able to accept a large range of dates, but take note that above a
 certain threshold the gap between the months will change, depending on how large of a range you are calculating.
 This behaviour is intentional and not a bug.
+
+*Date range starts from 1970 onwards
+** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
 
 * Load time:
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets

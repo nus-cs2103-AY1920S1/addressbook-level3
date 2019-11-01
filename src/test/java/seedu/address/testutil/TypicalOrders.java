@@ -53,8 +53,9 @@ public class TypicalOrders {
             .withPhone(IPHONETWO).withPrice(DEFAULT_PRICE_3).withStatus(Status.UNSCHEDULED)
             .withSchedule(Optional.empty()).withTags(DEFAULT_TAG_3).build();
 
-    public static final Order VIPORDER = new OrderBuilder().withCustomer(ALICE).withPhone(IPHONEXR)
-            .withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).build();
+    public static final Order VIPORDER = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(ALICE)
+            .withPhone(IPHONEXR).withPrice(VALID_PRICE_HIGH).withTags(DEFAULT_TAG_2).withStatus(Status.UNSCHEDULED)
+            .withSchedule(Optional.empty()).build();
 
     //1231.12 - 300
     public static final Order ORDERONESTATS = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)

@@ -333,4 +333,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredArchivedOrderList(Predicate<Order> predicate);
+
+    /**
+     * Places all completed and cancelled orders in archivedOrderBook or
+     * orderBook if otherwise.
+     */
+    void resolveOrderBooksConflict();
 }

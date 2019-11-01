@@ -1,5 +1,10 @@
 package seedu.address;
 
+import static seedu.address.model.util.SampleDataUtil.getSampleCustomerBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleOrderBook;
+import static seedu.address.model.util.SampleDataUtil.getSamplePhoneBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,10 +28,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.Status;
 import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
-//import seedu.address.model.util.SampleDataUtil;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.AddressBookStorage;
@@ -45,6 +48,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
 
 /**
  * Runs the application.
@@ -113,7 +117,7 @@ public class MainApp extends Application {
             if (customerBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Customer DataBook");
             }
-            initialCustomerData = customerBookOptional.orElse(new DataBook<>());
+            initialCustomerData = customerBookOptional.orElse(getSampleCustomerBook());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format."
@@ -133,7 +137,7 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a new Phone DataBook");
             }
 
-            initialPhoneData = phoneBookOptional.orElse(new DataBook<>());
+            initialPhoneData = phoneBookOptional.orElse(getSamplePhoneBook());
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Phone DataBook");
@@ -150,7 +154,7 @@ public class MainApp extends Application {
             if (scheduleBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
                 || storage.readPhoneBook().isEmpty() || storage.readOrderBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Schedule DataBook");
-                initialScheduleData = new DataBook<>();
+                initialScheduleData = new DataBook<>(getSampleScheduleBook());
             } else {
                 initialScheduleData = scheduleBookOptional.orElse(new DataBook<>());
             }
@@ -171,9 +175,10 @@ public class MainApp extends Application {
             if (orderBookOptional.isEmpty() || storage.readCustomerBook().isEmpty()
                 || storage.readPhoneBook().isEmpty() || storage.readScheduleBook().isEmpty()) {
                 logger.info("Data file not found. Will be starting with a new Order DataBook");
-                initialOrderData = new DataBook<>();
+                initialOrderData = orderBookOptional.orElse(getSampleOrderBook());
+
             } else {
-                initialOrderData = orderBookOptional.orElse(new DataBook<>());
+                initialOrderData = new DataBook<>();
 
             }
 
@@ -206,21 +211,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty Order DataBook");
             initialArchivedOrderData = new DataBook<>();
-        }
-
-
-        for (Order o: initialOrderData.getList()) {
-            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
-                initialOrderData.getList().remove(o);
-                initialArchivedOrderData.getList().add(o);
-            }
-        }
-
-        for (Order o: initialArchivedOrderData.getList()) {
-            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
-                initialArchivedOrderData.getList().remove(o);
-                initialOrderData.getList().add(o);
-            }
         }
 
 
