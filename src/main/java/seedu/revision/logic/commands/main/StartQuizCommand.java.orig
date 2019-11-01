@@ -1,9 +1,7 @@
 package seedu.revision.logic.commands.main;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 
-import seedu.revision.commons.core.Messages;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -17,11 +15,15 @@ public class StartQuizCommand extends Command {
 
     public static final String COMMAND_WORD = "start";
 
+<<<<<<< HEAD
     public static final String COMMAND_AUTOCOMPLETE = "start mode/";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Chaos / Custom)\n"
+=======
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Starts quiz based on Mode (Normal / Arcade / Custom)\n"
             + "For Custom, you can add the optional prefixes timer/ cat/ diff/ "
             + "If no prefixes are provided, quiz will default to normal mode.\n"
+>>>>>>> 985a9e837017a5122b140ddb22aad1f3b76ddd41
             + "Parameters: "
             + PREFIX_MODE + "MODE\n"
             + "Example: " + COMMAND_WORD + " "
@@ -38,10 +40,10 @@ public class StartQuizCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws ParseException {
-        requireNonNull(model);
-        model.updateFilteredAnswerableList(this.mode.getCombinedPredicate());
 
-        return new CommandResult().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
-                model.getFilteredAnswerableList().size())).withStart(true).withMode(mode).build();
+        //ListCommand quizList = new ListCommand(predicate);
+        //quizList.execute(model);
+        return new CommandResult().withFeedBack(MESSAGE_SUCCESS).withStart(true).withMode(mode).build();
+
     }
 }
