@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -28,9 +29,10 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, IOException, URISyntaxException;
 
-    CommandResult executeUnknownInput(String commandText) throws CommandException, ParseException, IOException;
+    CommandResult executeUnknownInput(String commandText) throws CommandException, ParseException,
+            IOException, URISyntaxException;
 
     /**
      * Returns the FinSec.

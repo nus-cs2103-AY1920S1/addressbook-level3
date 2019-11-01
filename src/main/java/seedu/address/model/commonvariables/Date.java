@@ -45,6 +45,10 @@ public class Date {
         return new SimpleDateFormat("dd-MM-yyyy").format(date);
     }
 
+    public LocalDate getLocalDate() {
+        return this.date;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

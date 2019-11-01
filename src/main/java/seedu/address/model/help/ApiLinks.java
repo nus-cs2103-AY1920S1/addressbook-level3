@@ -15,7 +15,7 @@ public class ApiLinks {
 
     public static String getLink (SecondaryCommand secondaryCommand) {
 
-        String base = "docs/javadocs/seedu/address/logic/commands/";
+        String base = "/javadocs/seedu/address/logic/commands/";
 
         switch (secondaryCommand.toString()) {
 

@@ -384,32 +384,52 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public void sortFilteredContactList() {
+        public void sortFilteredContactListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredContactList() {
+        public void sortReverseFilteredContactListByName() {
 
         }
 
         @Override
-        public void sortFilteredClaimList() {
+        public void sortFilteredClaimListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredClaimList() {
+        public void sortFilteredClaimListByDate() {
 
         }
 
         @Override
-        public void sortFilteredIncomeList() {
+        public void sortReverseFilteredClaimListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredIncomeList() {
+        public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeListByName() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByName() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByDate() {
 
         }
     }
@@ -433,32 +453,52 @@ public class AddFinSecCommandTest {
         }
 
         @Override
-        public void sortFilteredContactList() {
+        public void sortFilteredContactListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredContactList() {
+        public void sortReverseFilteredContactListByName() {
 
         }
 
         @Override
-        public void sortFilteredClaimList() {
+        public void sortFilteredClaimListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredClaimList() {
+        public void sortFilteredClaimListByDate() {
 
         }
 
         @Override
-        public void sortFilteredIncomeList() {
+        public void sortReverseFilteredClaimListByName() {
 
         }
 
         @Override
-        public void sortReverseFilteredIncomeList() {
+        public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeListByName() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByName() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByDate() {
 
         }
 

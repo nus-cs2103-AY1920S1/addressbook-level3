@@ -185,10 +185,10 @@ public class FinSecParser {
                 return new CheckCommandParser().parse(arguments);
 
             case SortCommand.COMMAND_WORD:
-                return new SortCommand();
+                return new SortCommandParser().parse(arguments);
 
             case SortReverseCommand.COMMAND_WORD:
-                return new SortReverseCommand();
+                return new SortReverseCommandParser().parse(arguments);
 
             case ApproveClaimCommand.COMMAND_WORD:
                 return new ApproveClaimCommandParser().parse(arguments);

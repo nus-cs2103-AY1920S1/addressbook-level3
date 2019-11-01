@@ -276,15 +276,55 @@ Examples:
 * check 2 (in claims page, show details of the claim in index 2)
 ****
 
-=== Sorting the Contacts/Claims/Incomes list
+=== Sorting the Contacts/Claims/Incomes list by Contact's Name
 
-Keyword: `sort`
+Sorts the various lists according to the contact's name in lexicographical order. The command
+is the same in all 3 lists and the objects are sorted based on the contact's name. In claims, it
+is the person who made the claim. In income, it is the entity who provided the income.
 
-Format: `sort`
+Keyword: `sort name`
+
+Format: `sort name`
+
+Examples:
+* `sort name`
+
+=== Sorting the Contacts/Claims/Incomes list by Date
+
+Sorts the various lists according to the date from the oldest to newest entry.
+
+Keyword: `sort date`
+
+Format: `sort date`
+
+Examples:
+* `sort date`
+
+=== Sorting the Contacts/Claims/Incomes list in reverse order
+
+Sorts the various lists according to the contact's name in reverse lexicographical order. This command
+is not applicable in the contacts page.
+
+Keyword: `reverse name`
+
+Format: `reverse name`
 
 Examples:
 
-* `sort`
+* `reverse date`
+
+=== Sorting the Contacts/Claims/Incomes list in reverse order by Date
+
+Sorts the various lists according to the date from the newest to oldest entry. This command is not
+applicable in the contacts' page
+
+Keyword: `reverse date`
+
+Format: `reverse date`
+
+Examples:
+
+* `reverse name`
 
 === Deleting a Contact : `delete_contact`
 
@@ -306,6 +346,27 @@ delete_contact 1 (removes first person in the contact list)
 * The index *must be a positive integer* 1, 2, 3, ...
 
 
+<<<<<<< HEAD
+=======
+=== Deleting an Income : `delete_income`
+
+Deletes an Income from the income list
+
+Keyword: `delete_income`
+
+Format: `delete_income INDEX`
+
+Examples:
+
+....
+delete_income 1 (removes first income in the income list)
+....
+
+* Deletes the income at the specified `INDEX`.
+* Deletes the income at the specified `INDEX`.
+* The index refers to the index number shown in the displayed income list.
+* The index *must be a positive integer* 1, 2, 3, ...
+>>>>>>> 41c1df38981e6a8376a1deba35645fc64b131759
 
 === Viewing budget : `budget`
 
@@ -466,8 +527,6 @@ e.g.
 e.g. `delete 3`
 
 * *See Budget* `budget`
-
-* *Sorting claims based on dates* `sort` or `sort -r`
 
 * *Resolving Claims* `resolve INDEX s/STATUS` +
 e.g.

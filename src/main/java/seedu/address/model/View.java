@@ -14,7 +14,7 @@ public class View {
      * @param string
      * @param viewIndex tagged to the string, just tells the app what view the user chose
      */
-    public View(String string, Integer viewIndex) {
+    public View(String string, int viewIndex) {
         togo = string;
         index = viewIndex;
     }
@@ -23,7 +23,7 @@ public class View {
      * Gets the index of the specific view that should be in place
      * @return
      */
-    public Integer getIndex() {
+    public int getIndex() {
         return index;
     }
 }

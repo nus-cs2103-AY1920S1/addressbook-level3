@@ -100,33 +100,53 @@ public class RejectClaimCommandTest {
         }
 
         @Override
-        public void sortFilteredContactList() {
+        public void sortFilteredContactListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortReverseFilteredContactList() {
+        public void sortReverseFilteredContactListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortFilteredClaimList() {
+        public void sortFilteredClaimListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortReverseFilteredClaimList() {
+        public void sortFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortFilteredIncomeList() {
+        public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortFilteredIncomeListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void sortReverseFilteredIncomeList() {
+        public void sortFilteredIncomeListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByName() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortReverseFilteredIncomeListByDate() {
+
         }
 
         @Override

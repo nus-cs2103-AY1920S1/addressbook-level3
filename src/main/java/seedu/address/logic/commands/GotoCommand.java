@@ -17,8 +17,6 @@ public class GotoCommand extends Command {
 
     public static final String COMMAND_WORD = "goto";
 
-    public static final String MESSAGE_SUCCESS = "View Shown";
-
     public static final String MESSAGE_SUCCESS_CONTACTS = "All Contacts Listed";
 
     public static final String MESSAGE_SUCCESS_CLAIMS = "All Claims Listed";
@@ -51,9 +49,9 @@ public class GotoCommand extends Command {
     }
 
     /**
-     * Returns a goto command
+     * Execute method to determine the right view
      * @param model {@code Model} which the command should operate on.
-     * @return
+     * @return a CommandResult after updating the model
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

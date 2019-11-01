@@ -6,6 +6,9 @@ import static java.util.Objects.requireNonNull;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 
 import seedu.address.model.Model;
 import seedu.address.model.help.ApiLinks;
@@ -61,7 +64,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws IOException {
+    public CommandResult execute(Model model) throws IOException, URISyntaxException {
 
         if (isNull(type) && isNull(command)) {
             return new CommandResult(helpMessage, true, false, false, false);
@@ -75,8 +78,13 @@ public class HelpCommand extends Command {
                 resetCommandAndTypeValues();
                 return new CommandResult(briefDescription, false, false, false, false);
             case "api":
-                File f = new File(ApiLinks.getLink(command));
-                Desktop.getDesktop().browse(f.toURI());
+
+                File htmlFile = new File("API.html");
+                if (!htmlFile.exists()) {
+                    InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
+                    Files.copy(link, htmlFile.getAbsoluteFile().toPath());
+                }
+                Desktop.getDesktop().browse(htmlFile.toURI());
                 break;
             default:
                 resetCommandAndTypeValues();
