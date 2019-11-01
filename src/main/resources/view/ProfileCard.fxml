@@ -21,12 +21,12 @@
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="female_avatar" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="femaleAvatar" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
                         <Image url="@../images/female_avatar.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="male_avatar" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                  <ImageView fx:id="maleAvatar" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                      <image>
                         <Image url="@../images/male_avatar.png" />
                      </image>
