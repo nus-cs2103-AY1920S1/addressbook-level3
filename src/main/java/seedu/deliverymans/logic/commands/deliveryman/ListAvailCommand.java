@@ -27,7 +27,7 @@ public class ListAvailCommand extends Command {
         requireNonNull(model);
 
         model.showAvailableDeliverymen();
-        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, Context.DELIVERYMENSTATUS);
+        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, ListAvailCommand.class);
     }
 
     @Override

@@ -47,7 +47,6 @@ public class CustomerHistoryCommand extends Command {
         model.setCustomerOrders(customerToList);
         return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList),
                 CustomerHistoryCommand.class);
-        //return new CommandResult(String.format(MESSAGE_LIST_ORDERS_SUCCESS, customerToList), Context.CUSTOMERLIST);
     }
 
     @Override

@@ -82,7 +82,7 @@ public class EditCommand extends Command {
         model.setDeliveryman(deliverymanToEdit, editedDeliveryman);
         model.updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
         return new CommandResult(String.format(MESSAGE_EDIT_DELIVERYMAN_SUCCESS, editedDeliveryman,
-                Context.DELIVERYMENSTATUS));
+                EditCommand.class));
     }
 
     /**

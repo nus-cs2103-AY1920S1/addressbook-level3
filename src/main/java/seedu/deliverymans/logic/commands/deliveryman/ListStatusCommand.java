@@ -27,7 +27,7 @@ public class ListStatusCommand extends Command {
 
         //model.;
 
-        return new CommandResult(MESSAGE_SUCCESS, Context.DELIVERYMENSTATUS);
+        return new CommandResult(MESSAGE_SUCCESS, ListStatusCommand.class);
     }
 
     @Override

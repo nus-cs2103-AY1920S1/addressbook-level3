@@ -51,6 +51,7 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPressed() {
+
         LinkedList<String> temp = trieManager.getAutoCompleteResults(commandTextField.getText(),
                 MainWindow.getContext());
         if (!temp.isEmpty()) {
