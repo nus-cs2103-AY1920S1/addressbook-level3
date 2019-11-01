@@ -13,20 +13,17 @@ import seedu.address.model.note.Priority;
  */
 public class TypicalNotes {
 
-    private static final Note note1 = new NoteBuilder().withNote("Sunday Morning")
+    public static final Note NOTE1 = new NoteBuilder().withNote("Sunday Morning")
             .withDesc("Buy books").withPriority(Priority.MEDIUM).build();
-    private static final Note note2 = new NoteBuilder().withNote("Tuesday Morning")
+    public static final Note NOTE2 = new NoteBuilder().withNote("Tuesday Morning")
             .withDesc("Cook").withPriority(Priority.MEDIUM).build();
-    private static final Note note3 = new NoteBuilder().withNote("Monday")
-            .withDesc("Grade papers").withPriority(Priority.MEDIUM).build();
-    private static final Note note4 = new NoteBuilder().withNote("Tonight")
-            .withDesc("Give consultation").withPriority(Priority.MEDIUM).build();
-    private static final Note note5 = new NoteBuilder().withNote("Morning")
-            .withDesc("Order food").withPriority(Priority.MEDIUM).build();
-    private static final Note note6 = new NoteBuilder().withNote("Conference")
-            .withDesc("Return paper").withPriority(Priority.MEDIUM).build();
-    private static final Note note7 = new NoteBuilder().withNote("Family matter")
-            .withDesc("Discuss").withPriority(Priority.MEDIUM).build();
+    public static final Note NOTE3 = new NoteBuilder().withNote("Monday")
+            .withDesc("Grade papers").withPriority(Priority.HIGH).build();
+    public static final Note NOTE4 = new NoteBuilder().withNote("Tonight")
+            .withDesc("Give consultation").withPriority(Priority.UNMARKED).build();
+
+    public static final Note NOT_IN_TYPICAL = new NoteBuilder().withNote("note test title")
+            .withDesc("Give consultation").withPriority(Priority.UNMARKED).build();
 
     private TypicalNotes() {}
 
@@ -42,6 +39,6 @@ public class TypicalNotes {
     }
 
     public static List<Note> getTypicalNotes() {
-        return new ArrayList<>(Arrays.asList(note1, note2, note3, note4, note5, note6, note7));
+        return new ArrayList<>(Arrays.asList(NOTE1, NOTE2, NOTE3, NOTE4));
     }
 }

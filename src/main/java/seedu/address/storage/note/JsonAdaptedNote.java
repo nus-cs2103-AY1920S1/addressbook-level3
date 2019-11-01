@@ -46,8 +46,8 @@ public class JsonAdaptedNote {
      * @throws IllegalValueException if there were any data constraints violated in the adapted note.
      */
     public Note toModelType() throws IllegalValueException {
-        if (note == null ||  priority == null || description == null ||
-                note.trim().isEmpty() || description.trim().isEmpty() || priority.trim().isEmpty()) {
+        if (note == null || priority == null || description == null
+                || note.trim().isEmpty() || description.trim().isEmpty() || priority.trim().isEmpty()) {
             throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
         Priority notePriority;
