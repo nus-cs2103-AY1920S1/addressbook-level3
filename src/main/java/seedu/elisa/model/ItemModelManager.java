@@ -261,6 +261,8 @@ public class ItemModelManager implements ItemModel {
             eventList.removeItemFromList(removedItem);
         } else if (visualList instanceof ReminderList) {
             reminderList.removeItemFromList(removedItem);
+        } else if (visualList instanceof CalendarList) {
+            calendarList.removeItemFromList(removedItem);
         } else {
             // never reached here as there are only three variants for the visualList
         }
