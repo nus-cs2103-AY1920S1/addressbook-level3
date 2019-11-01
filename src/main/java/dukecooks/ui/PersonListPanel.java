@@ -36,6 +36,9 @@ public class PersonListPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Fills user's information in the profile placeholder.
+     */
     void addDetails(ObservableList<Person> personList) {
         if (personList.isEmpty()) {
             personCard.getChildren().add(new Label("No User Profile"));

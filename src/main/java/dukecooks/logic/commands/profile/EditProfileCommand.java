@@ -19,7 +19,6 @@ import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
-import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Model;
 import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;

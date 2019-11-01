@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -44,9 +42,9 @@ public class ProfileCard extends UiPart<Region> {
     @FXML
     private Label height;
     @FXML
-    private ImageView female_avatar;
+    private ImageView femaleAvatar;
     @FXML
-    private ImageView male_avatar;
+    private ImageView maleAvatar;
     @FXML
     private VBox medicalHistories;
 
@@ -77,12 +75,15 @@ public class ProfileCard extends UiPart<Region> {
         }
     }
 
+    /**
+     * Shows a avatar image base on the user's gender.
+     */
     void showAvatar(boolean isFemale, boolean isMale) {
-        female_avatar.setVisible(isFemale);
-        female_avatar.setManaged(isFemale);
+        femaleAvatar.setVisible(isFemale);
+        femaleAvatar.setManaged(isFemale);
 
-        male_avatar.setVisible(isMale);
-        male_avatar.setManaged(isMale);
+        maleAvatar.setVisible(isMale);
+        maleAvatar.setManaged(isMale);
     }
 
     @Override
