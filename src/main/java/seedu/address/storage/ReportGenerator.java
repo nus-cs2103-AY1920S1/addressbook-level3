@@ -115,13 +115,13 @@ public class ReportGenerator {
         try {
             //Image logo = Image.getInstance("docs/images/logo.png");
             //Image logo = Image.getInstance(getClass().getClassLoader().getResource("/logo.png"));  //null
-            String imageUrl =
-                    "https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png";
-            Image logo = Image.getInstance(new URL(imageUrl));
-            logo.setAbsolutePosition(40, 770); //set logo top left
+            //String imageUrl =
+                    //"https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png";
+            //Image logo = Image.getInstance(new URL(imageUrl));
+            //logo.setAbsolutePosition(40, 770); //set logo top left
             //logo.setAbsolutePosition(450, 800); top right
-            logo.scaleAbsolute(100, 70);
-            document.add(logo);
+            //logo.scaleAbsolute(100, 70);
+            //document.add(logo);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
