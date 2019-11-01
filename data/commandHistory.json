@@ -289,5 +289,10 @@
     "output" : "Undo Successful ",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572622155965
+  }, {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622618432
   } ]
 }

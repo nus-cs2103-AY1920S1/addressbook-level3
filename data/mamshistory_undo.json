@@ -554,8 +554,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS2030",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }
