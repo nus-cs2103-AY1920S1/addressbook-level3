@@ -20,6 +20,15 @@ public class Dispatcher {
         consumers.remove(identifier);
     }
 
+    public static Boolean accept(String key, Object x) {
+        Consumer c = consumers.get(key);
+        if (c == null) {
+            return false;
+        }
+        c.accept(x);
+        return true;
+    }
+
     /**
      * @param input
      */
