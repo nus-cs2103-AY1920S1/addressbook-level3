@@ -42,8 +42,8 @@ public class EditCommandParser implements Parser<DeliverymanEditCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliverymanEditCommand.MESSAGE_USAGE)
-                    , pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeliverymanEditCommand.MESSAGE_USAGE), pe);
         }
 
         EditDeliverymanDescriptor editDeliverymanDescriptor = new EditDeliverymanDescriptor();
