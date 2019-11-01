@@ -84,7 +84,7 @@ public class TypicalSpendings {
     }
 
     public static Budget getTypicalBudget() {
-        BudgetMonth temp = new BudgetMonth(11, 2019);
+        BudgetMonth temp = new BudgetMonth(10, 2019);
         return new Budget(10000, 772.50, temp.toString());
     }
 }
