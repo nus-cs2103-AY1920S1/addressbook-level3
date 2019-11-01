@@ -9,8 +9,8 @@ import seedu.address.model.Model;
 public class ShortCutRequestCommand extends Command {
 
     public static final String SHOWING_SHORTCUT_MESSAGE = ": There is no such command Ö "
-            + "Would you like to create a shortcut? \n" +
-            "If yes, enter an existing command to be a shortcut to. "
+            + "Would you like to create a shortcut? \n"
+            + "If yes, enter an existing command to be a shortcut to. "
             + "Alternatively, type \"n\" to continue on. ";
 
     private final String shortCut;
