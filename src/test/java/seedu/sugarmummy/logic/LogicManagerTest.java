@@ -21,13 +21,13 @@ import seedu.sugarmummy.model.ModelManager;
 import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.record.UniqueRecordList;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
 import seedu.sugarmummy.storage.JsonCalendarStorage;
 import seedu.sugarmummy.storage.JsonRecordListStorage;
 import seedu.sugarmummy.storage.JsonUserPrefsStorage;
 import seedu.sugarmummy.storage.StorageManager;
 import seedu.sugarmummy.storage.bio.JsonUserListStorage;
-import sugarmummy.recmfood.model.UniqueFoodList;
-import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

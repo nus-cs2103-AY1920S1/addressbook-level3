@@ -11,7 +11,7 @@ import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.model.bio.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.record.UniqueRecordList;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

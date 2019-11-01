@@ -10,8 +10,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.UserPrefs;
+import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
 import seedu.sugarmummy.storage.bio.JsonUserListStorage;
-import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 public class StorageManagerTest {
 

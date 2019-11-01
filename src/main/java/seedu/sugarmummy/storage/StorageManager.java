@@ -14,8 +14,8 @@ import seedu.sugarmummy.model.ReadOnlyUserList;
 import seedu.sugarmummy.model.ReadOnlyUserPrefs;
 import seedu.sugarmummy.model.UserPrefs;
 import seedu.sugarmummy.model.record.UniqueRecordList;
-import sugarmummy.recmfood.model.UniqueFoodList;
-import sugarmummy.recmfood.storage.JsonFoodListStorage;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
  * Manages storage of SugarMummy data in local storage.

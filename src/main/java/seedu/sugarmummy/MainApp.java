@@ -30,6 +30,8 @@ import seedu.sugarmummy.model.util.SampleCalendarDataUtil;
 import seedu.sugarmummy.model.util.SampleFoodDataUtil;
 import seedu.sugarmummy.model.util.SampleRecordDataUtil;
 import seedu.sugarmummy.model.util.SampleUserDataUtil;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.storage.JsonFoodListStorage;
 import seedu.sugarmummy.storage.JsonCalendarStorage;
 import seedu.sugarmummy.storage.JsonRecordListStorage;
 import seedu.sugarmummy.storage.JsonUserPrefsStorage;
@@ -40,8 +42,6 @@ import seedu.sugarmummy.storage.UserPrefsStorage;
 import seedu.sugarmummy.storage.bio.JsonUserListStorage;
 import seedu.sugarmummy.ui.Ui;
 import seedu.sugarmummy.ui.UiManager;
-import sugarmummy.recmfood.model.UniqueFoodList;
-import sugarmummy.recmfood.storage.JsonFoodListStorage;
 
 /**
  * Runs the application.
@@ -92,8 +92,8 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s SugarMummy and {@code userPrefs}. <br> The
-     * data from the sample data will be used instead if {@code storage}'s SugarMummy is not found, or an
-     * empty SugarMummy will be used instead if errors occur when reading {@code storage}'s SugarMummy.
+     * data from the sample data will be used instead if {@code storage}'s SugarMummy is not found, or an empty
+     * SugarMummy will be used instead if errors occur when reading {@code storage}'s SugarMummy.
      */
     private Model initModelManager(ReadOnlyUserPrefs userPrefs) {
         ReadOnlyUserList initialUserData;
