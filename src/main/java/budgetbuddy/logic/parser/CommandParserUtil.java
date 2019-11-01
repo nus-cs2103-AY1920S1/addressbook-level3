@@ -14,7 +14,6 @@ import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.ActionExpression;
@@ -22,6 +21,8 @@ import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.TransactionList;
@@ -240,29 +241,56 @@ public class CommandParserUtil {
     }
 
     /**
-     * Parses a {@code String predicate} into a {@code RulePredicate}.
+     * Parses a {@code String script} into a {@code PredicateScript}.
+     *
+     * @throws ParseException if the given {@code script} is invalid.
      */
-    public static RulePredicate parsePredicate(String predicate, String type) throws ParseException {
+    public static PredicateScript parsePredicateScript(String script) throws ParseException {
+        requireNonNull(script);
+        String trimmedScript = script.trim();
+
+        ScriptName scriptName = parseScriptName(script);
+        return new PredicateScript(scriptName);
+    }
+
+    /**
+     * Parses a {@code String script} into a {@code ActionScript}.
+     *
+     * @throws ParseException if the given {@code script} is invalid.
+     */
+    public static ActionScript parseActionScript(String script) throws ParseException {
+        requireNonNull(script);
+        String trimmedScript = script.trim();
+
+        ScriptName scriptName = parseScriptName(script);
+        return new ActionScript(scriptName);
+    }
+
+    /**
+     * Parses a {@code String predicate} into a {@code RulePredicate}.
+     *
+     * @throws ParseException if the given {@code predicate} is invalid.
+     */
+    public static RulePredicate parsePredicate(String predicate) throws ParseException {
         requireNonNull(predicate);
-        if (type.equals(Rule.TYPE_EXPRESSION)) {
+        if (predicate.contains(" ")) {
             return parsePredicateExpr(predicate);
         } else {
-            throw new ParseException(RulePredicate.MESSAGE_CONSTRAINTS);
+            return parsePredicateScript(predicate);
         }
     }
 
     /**
      * Parses a {@code String action} into a {@code RuleAction}.
-     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code action} is invalid.
      */
-    public static RuleAction parseAction(String action, String type) throws ParseException {
+    public static RuleAction parseAction(String action) throws ParseException {
         requireNonNull(action);
-        if (type.equals(Rule.TYPE_EXPRESSION)) {
+        if (action.contains(" ") || Operator.isValidOperator(action)) {
             return parseActionExpr(action);
         } else {
-            throw new ParseException(RuleAction.MESSAGE_CONSTRAINTS);
+            return parseActionScript(action);
         }
     }
 

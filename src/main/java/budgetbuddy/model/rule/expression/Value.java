@@ -15,7 +15,7 @@ public class Value {
             + "or contain alphanumeric characters including these special characters,\n"
             + "excluding the parentheses, (" + SPECIAL_CHARACTERS + "),\n"
             + "of length not more than " + MAX_LENGTH + " characters";
-    private static final String VALIDATION_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]{0," + MAX_LENGTH + "}$";
+    private static final String VALIDATION_REGEX = "^[\\w\\s" + SPECIAL_CHARACTERS + "]{0," + MAX_LENGTH + "}$";
 
     private final String value;
 

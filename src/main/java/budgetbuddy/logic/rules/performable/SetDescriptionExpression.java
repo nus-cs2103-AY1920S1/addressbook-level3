@@ -40,6 +40,7 @@ public class SetDescriptionExpression extends PerformableExpression {
             accountsManager.getAccount(account.getName()).addTransaction(updatedTransaction);
 
             logger.info("Rule Execution———Description updated in " + updatedTransaction);
+            System.out.println(updatedDesc);
         } catch (ParseException e) {
             // Should not happen as value should be parsable by the time this method is called
             // but will exit without completing if it does happen.

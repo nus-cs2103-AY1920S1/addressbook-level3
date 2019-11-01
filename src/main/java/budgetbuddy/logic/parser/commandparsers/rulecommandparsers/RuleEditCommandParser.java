@@ -13,7 +13,6 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.rule.Rule;
 
 /**
  * Parses input arguments and creates a new RuleEditCommand object.
@@ -45,13 +44,11 @@ public class RuleEditCommandParser implements CommandParser<RuleEditCommand> {
         RuleEditDescriptor ruleEditDescriptor = new RuleEditDescriptor();
         if (argMultiMap.getValue(PREFIX_PREDICATE).isPresent()) {
             ruleEditDescriptor.setPredicate(
-                    CommandParserUtil.parsePredicate(argMultiMap.getValue(PREFIX_PREDICATE).get(),
-                            Rule.TYPE_EXPRESSION));
+                    CommandParserUtil.parsePredicate(argMultiMap.getValue(PREFIX_PREDICATE).get()));
         }
         if (argMultiMap.getValue(PREFIX_ACTION).isPresent()) {
             ruleEditDescriptor.setAction(
-                    CommandParserUtil.parseAction(argMultiMap.getValue(PREFIX_ACTION).get(),
-                            Rule.TYPE_EXPRESSION));
+                    CommandParserUtil.parseAction(argMultiMap.getValue(PREFIX_ACTION).get()));
         }
 
         if (!ruleEditDescriptor.isAnyFieldEdited()) {

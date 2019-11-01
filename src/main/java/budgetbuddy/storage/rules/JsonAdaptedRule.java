@@ -11,6 +11,8 @@ import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.ActionExpression;
 import budgetbuddy.model.rule.expression.PredicateExpression;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
 
 /**
  * Jackson-friendly version of {@link Rule}.
@@ -33,21 +35,20 @@ public class JsonAdaptedRule {
 
     /**
      * Converts a given {@code Rule} into this class for Jackson use.
-     * @param source
      */
     public JsonAdaptedRule(Rule source) {
         RulePredicate sPred = source.getPredicate();
         RuleAction sAct = source.getAction();
-        if (sPred.getType() == Rule.TYPE_EXPRESSION) {
+        if (sPred.getType().equals(Rule.TYPE_EXPRESSION)) {
             predicate = new JsonAdaptedPredicateExpression((PredicateExpression) sPred);
         } else {
-            predicate = null;
+            predicate = new JsonAdaptedPredicateScript((PredicateScript) sPred);
         }
 
-        if (sAct.getType() == Rule.TYPE_EXPRESSION) {
+        if (sAct.getType().equals(Rule.TYPE_EXPRESSION)) {
             action = new JsonAdaptedActionExpression((ActionExpression) sAct);
         } else {
-            action = null;
+            action = new JsonAdaptedActionScript((ActionScript) sAct);
         }
     }
 

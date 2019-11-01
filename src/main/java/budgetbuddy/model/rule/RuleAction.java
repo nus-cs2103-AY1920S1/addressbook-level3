@@ -5,9 +5,5 @@ package budgetbuddy.model.rule;
  * Guarantees: immutable.
  */
 public abstract class RuleAction {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Actions should be either expressions or scripts "
-                    + "and should not be blank";
-
     public abstract String getType();
 }
