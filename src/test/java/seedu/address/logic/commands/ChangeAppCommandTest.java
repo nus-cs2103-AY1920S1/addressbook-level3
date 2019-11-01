@@ -6,9 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalEvents.EVENT_BENSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.appointments.ChangeAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -28,7 +31,8 @@ class ChangeAppCommandTest {
     public void execute_validUnfilteredList_success() throws Exception {
         model.deleteAppointment(EVENT_BENSON);
         Event eventToChange = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
-        Event eventChanged = new EventBuilder(EVENT_BENSON).withId(eventToChange.getPersonId().toString()).build();
+        Event eventChanged = new EventBuilder(EVENT_BENSON)
+                .withId(eventToChange.getPersonId()).build();
         CommandResult commandResult = new ChangeAppCommand(eventToChange, eventChanged).execute(model);
         assertEquals(String.format(ChangeAppCommand.MESSAGE_SUCCESS, eventChanged),
                 commandResult.getFeedbackToUser());
@@ -37,10 +41,10 @@ class ChangeAppCommandTest {
 
     @Test
     void testEquals() {
-        Event firstEvent = new EventBuilder().withId("01A").build();
+        Event firstEvent = new EventBuilder(ALICE).build();
         Event firstEventEdit = new EventBuilder(firstEvent).withStartTime("12/12/19 1800").build();
 
-        Event secondEvent = new EventBuilder().withId("02B").build();
+        Event secondEvent = new EventBuilder(BENSON).build();
         Event secondEventEdit = new EventBuilder(secondEvent).withStartTime("12/12/20 1900").build();
 
         ChangeAppCommand firstChangeCommand = new ChangeAppCommand(firstEvent, firstEventEdit);

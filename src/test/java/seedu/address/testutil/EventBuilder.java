@@ -9,10 +9,11 @@ import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
-import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class to help with building Person objects.
+ * Uses a patient's {@code ReferenceId} by default
  */
 public class EventBuilder {
 
@@ -23,17 +24,15 @@ public class EventBuilder {
     private Timing timing;
     private Status status;
 
-    public EventBuilder(int afterYears, int afterMonth, int afterDays,
+    public EventBuilder(Person person, int afterYears, int afterMonth, int afterDays,
                         int afterHours, int afterMinutes) {
-        id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
+        this.id = person.getReferenceId();
         withStartTime(afterYears, afterMonth, afterDays, afterHours, afterMinutes, 30);
         status = new Status("APPROVED");
     }
 
-    public EventBuilder() {
-        this.id = new PatientReferenceId(DEFAULT_REFERENCE_ID);
-        this.timing = new Timing(DEFAULT_DATETIME);
-        this.status = new Status("APPROVED");
+    public EventBuilder(Person person) {
+        this(person, 0, 0, 0, 0, 0);
     }
 
     /**
@@ -48,8 +47,16 @@ public class EventBuilder {
     /**
      * Sets the {@code ReferenceId} of the {@code Event} that we are building.
      */
-    public EventBuilder withId(String id) {
-        this.id = new PatientReferenceId(id);
+    public EventBuilder withId(Person person) {
+        this.id = person.getReferenceId();
+        return this;
+    }
+
+    /**
+     * Sets the {@code ReferenceId} of the {@code Event} that we are building.
+     */
+    public EventBuilder withId(ReferenceId refId) {
+        this.id = refId;
         return this;
     }
 

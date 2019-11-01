@@ -7,11 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.STAFF_ALICE;
+import static seedu.address.testutil.TypicalPersons.STAFF_BENSON;
+import static seedu.address.testutil.TypicalPersons.STAFF_CARL;
+import static seedu.address.testutil.TypicalPersons.STAFF_FIONA;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.parameters.StaffReferenceId;
 import seedu.address.testutil.PersonBuilder;
 
 class QueueManagerTest {
@@ -100,22 +104,23 @@ class QueueManagerTest {
     }
 
     @Test
-    void addRoom_success() {
-        Person doctor = new PersonBuilder(BOB).withId("002A").build();
-        Person doctor2 = new PersonBuilder(AMY).withId("001A").build();
+    void addRoom_success() throws ParseException {
+        Person doctor = new PersonBuilder(STAFF_ALICE).build();
+        Person doctor2 = new PersonBuilder(STAFF_BENSON).build();
         queueManager = new QueueManager();
         queueManager.addRoom(new Room(doctor.getReferenceId()));
         assertEquals(queueManager.getRoomList().size(), 1);
-        assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(0).getDoctor());
+        assertEquals(STAFF_ALICE.getReferenceId(), queueManager.getRoomList().get(0).getDoctor());
+
         queueManager.addRoom(new Room(doctor2.getReferenceId()));
         assertEquals(queueManager.getRoomList().size(), 2);
-        assertEquals(new StaffReferenceId("001A"), queueManager.getRoomList().get(0).getDoctor());
-        assertEquals(new StaffReferenceId("002A"), queueManager.getRoomList().get(1).getDoctor());
+        assertEquals(STAFF_ALICE.getReferenceId(), queueManager.getRoomList().get(0).getDoctor());
+        assertEquals(STAFF_BENSON.getReferenceId(), queueManager.getRoomList().get(1).getDoctor());
     }
 
     @Test
     void hasRoom_success() {
-        Person doctor = new PersonBuilder(BOB).withId("002A").build();
+        Person doctor = new PersonBuilder(STAFF_CARL).build();
         queueManager = new QueueManager();
         assertFalse(queueManager.hasRoom(new Room(doctor.getReferenceId())));
         queueManager.addRoom(new Room(doctor.getReferenceId()));
@@ -132,8 +137,8 @@ class QueueManagerTest {
 
         assertTrue(queueManager.equals(queueManagerCopy));
 
-        Person patient = new PersonBuilder(AMY).withId("001A").build();
-        Person doctor = new PersonBuilder(BOB).withId("002A").build();
+        Person patient = new PersonBuilder(AMY).build();
+        Person doctor = new PersonBuilder(STAFF_FIONA).withPatientId("002A").build();
         queueManager.addPatient(0, patient.getReferenceId());
 
         assertFalse(queueManager.equals(queueManagerCopy));

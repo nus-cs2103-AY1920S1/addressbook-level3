@@ -14,13 +14,6 @@ import seedu.address.model.person.Person;
  */
 public class UnregisterStaffCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "resigndoctor";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the staff identified by the index number used in the displayed staff listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Resigned staff member: %1$s";
 
     private final Person toDelete;

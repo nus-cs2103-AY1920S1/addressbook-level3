@@ -3,18 +3,20 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 import seedu.address.model.util.SamplePersonDataUtil;
 
 /**
  * A utility class to help with building Person objects.
+ * Uses a patient's {@code ReferenceId} by default
  */
 public class PersonBuilder {
 
@@ -32,7 +34,7 @@ public class PersonBuilder {
     private Set<Tag> tags;
 
     public PersonBuilder() {
-        id = new PatientReferenceId(DEFAULT_ID);
+        withPatientId(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -53,11 +55,27 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code PatientReferenceId} of the {@code Person} that we are building.
+     * Sets the patient's {@code ReferenceId} of the {@code Person} that we are building.
      */
-    public PersonBuilder withId(String id) {
-        this.id = new PatientReferenceId(id);
-        return this;
+    public PersonBuilder withPatientId(String id) {
+        try {
+            this.id = PersonReferenceId.parsePatientReferenceId(id);
+            return this;
+        } catch (ParseException ex) {
+            throw new AssertionError("Execution of command should not fail. " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Sets the patient's {@code ReferenceId} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStaffId(String id) {
+        try {
+            this.id = PersonReferenceId.parseStaffReferenceId(id);
+            return this;
+        } catch (ParseException ex) {
+            throw new AssertionError("Execution of command should not fail. " + ex.getMessage());
+        }
     }
 
     /**

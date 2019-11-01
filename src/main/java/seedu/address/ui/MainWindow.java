@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
+import static java.awt.Desktop.getDesktop;
+
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
@@ -39,13 +43,13 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
-    private AutoCompleter autoCompleter;
-    private CommandBoxHistory commandBoxHistory;
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final AutoCompleter autoCompleter;
+    private final CommandBoxHistory commandBoxHistory;
     private OmniPanelTab currentOmniPanelTab;
 
-    private HashSet<Runnable> deferredDropSelectors;
+    private final HashSet<Runnable> deferredDropSelectors;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
@@ -56,7 +60,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private EventListPanel appointmentListPanel;
     private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private TabBar tabBar;
 
     @FXML
@@ -96,31 +99,20 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.commandBoxHistory = new CommandBoxHistory();
 
         this.deferredDropSelectors = new HashSet<>();
-
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> deferredDropSelectors.forEach(Runnable::run));
 
-        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                deferredDropSelectors.forEach(e -> e.run());
-            }
-        });
-
-        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                case TAB:
-                    event.consume();
-                    commandBox.getRoot().requestFocus();
-                    break;
-                default:
-                }
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+            case TAB:
+                keyEvent.consume();
+                commandBox.getRoot().requestFocus();
+                break;
+            default:
             }
         });
 
@@ -151,8 +143,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
         staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
-        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
 
         tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
@@ -206,10 +198,10 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @FXML
     public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+        try {
+            getDesktop().browse(URI.create("https://clerkpro.netlify.com/userguide#Features"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -225,7 +217,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -263,6 +254,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
+        logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
     }
 
     /**
@@ -309,21 +301,25 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        Region region = null;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
+            region = patientListPanel.getRoot();
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(appointmentListPanel.getRoot());
+            region = appointmentListPanel.getRoot();
             break;
         case DOCTORS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
+            region = staffListPanel.getRoot();
             break;
         case DUTY_SHIFT_TAB:
-            omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
+            region = dutyShiftListPanel.getRoot();
             break;
         default:
+            return;
         }
+        Region finalRegion = region;
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
     }
 
     @Override

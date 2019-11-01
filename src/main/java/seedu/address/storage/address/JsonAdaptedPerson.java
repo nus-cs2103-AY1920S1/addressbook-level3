@@ -11,14 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.common.Tag;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.PatientReferenceId;
-import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -57,10 +56,10 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         id = source.getReferenceId().toString();
-        name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
+        name = source.getName().toString();
+        phone = source.getPhone().toString();
+        email = source.getEmail().toString();
+        address = source.getAddress().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -71,7 +70,7 @@ class JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
-    public Person toModelType() throws IllegalValueException {
+    public Person toModelType(boolean isStaff) throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -79,9 +78,11 @@ class JsonAdaptedPerson {
 
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                PatientReferenceId.class.getSimpleName()));
+                ReferenceId.class.getSimpleName()));
         }
-        final PersonReferenceId modelReferenceId = ParserUtil.parsePatientReferenceId(id);
+        final ReferenceId modelReferenceId = isStaff
+                ? ParserUtil.parseStaffReferenceId(id)
+                : ParserUtil.parsePatientReferenceId(id);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -94,26 +95,41 @@ class JsonAdaptedPerson {
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
+
+        Phone modelPhone;
+        if (phone.isEmpty()) {
+            modelPhone = Phone.EMPTY_PHONE_DETAILS;
+        } else if (Phone.isValidPhone(phone)) {
+            modelPhone = new Phone(phone);
+        } else {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
+
+        Email modelEmail;
+        if (email.isEmpty()) {
+            modelEmail = Email.EMPTY_EMAIL_DETAILS;
+        } else if (Email.isValidEmail(email)) {
+            modelEmail = new Email(email);
+        } else {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
+
+        Address modelAddress;
+        if (address.isEmpty()) {
+            modelAddress = Address.EMPTY_ADDRESS_DETAILS;
+        } else if (Address.isValidAddress(address)) {
+            modelAddress = new Address(address);
+        } else {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelReferenceId, modelName, modelPhone, modelEmail, modelAddress, modelTags);

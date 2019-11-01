@@ -14,10 +14,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
-import seedu.address.model.person.parameters.PatientReferenceId;
+import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.testutil.TestUtil;
 
 class AppointmentsCommandTest {
@@ -73,10 +75,11 @@ class AppointmentsCommandTest {
     }
 
     @Test
-    public void execute_invalidKeywords_noEventFound() {
+    public void execute_invalidKeywords_noEventFound() throws ParseException {
         String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0);
 
-        EventContainsRefIdPredicate invalidPredicate = new EventContainsRefIdPredicate(new PatientReferenceId("0000"));
+        EventContainsRefIdPredicate invalidPredicate = new EventContainsRefIdPredicate(
+                PersonReferenceId.parsePatientReferenceId("0000"));
 
         AppointmentsCommand command = new AppointmentsCommand(invalidPredicate);
         expectedModel.updateFilteredAppointmentList(invalidPredicate);

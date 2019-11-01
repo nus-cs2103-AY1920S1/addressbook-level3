@@ -11,7 +11,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.DequeueCommand;
+import seedu.address.logic.commands.queue.DequeueCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
@@ -38,7 +38,7 @@ public class UnregisterPatientCommandTest {
 
         DequeueCommand removeFromQueueCommand = new DequeueCommand(personToDelete.getReferenceId());
         String expectedMessage1 = String.format(DequeueCommand.MESSAGE_DEQUEUE_SUCCESS,
-                personToDelete.getReferenceId());
+                model.resolvePatient(personToDelete.getReferenceId()).getName());
         expectedModel.removeFromQueue(personToDelete.getReferenceId());
         assertCommandSuccess(removeFromQueueCommand, model, expectedMessage1, expectedModel);
 

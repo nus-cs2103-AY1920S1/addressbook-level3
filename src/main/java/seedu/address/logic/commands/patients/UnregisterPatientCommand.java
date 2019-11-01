@@ -14,13 +14,6 @@ import seedu.address.model.person.Person;
  */
 public class UnregisterPatientCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "unregister";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed patient list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Unregistered patient: %1$s";
     public static final String MESSAGE_PERSON_IN_QUEUE_DELETE_FAILED =
             "Patient is in the queue. Could not unregister!\n%1$s";

@@ -48,13 +48,18 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         refId.setText(String.format("[%s] ", person.getReferenceId().toString()));
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        name.setText(person.getName().toString());
+        phone.setText(person.getPhone().toString());
+        address.setText(person.getAddress().toString());
+        email.setText(person.getEmail().toString());
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (phone.getText().isEmpty() && address.getText().isEmpty() && email.getText().isEmpty()) {
+            address.setText("No personal information has been provided.");
+            address.setStyle("-fx-text-fill: #e67e22;");
+        }
     }
 
     @Override

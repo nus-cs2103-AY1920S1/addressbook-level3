@@ -14,21 +14,21 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.common.Tag;
+import seedu.address.model.ReferenceId;
+import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.PatientReferenceId;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
-import seedu.address.model.person.parameters.StaffReferenceId;
+import seedu.address.model.person.parameters.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_ID1 = "@001A";
     private static final String INVALID_ID2 = "STAFF";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_ADDRESS = " !";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
@@ -110,13 +110,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+    public void parsePhone_whitespace_returnsEmptyPhone() throws Exception {
+        assertEquals(Phone.EMPTY_PHONE_DETAILS, ParserUtil.parsePhone(WHITESPACE));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+    public void parseAddress_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
     }
 
     @Test
@@ -130,6 +130,11 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseAddress_whitespace_returnsEmptyAddress() throws Exception {
+        assertEquals(Address.EMPTY_ADDRESS_DETAILS, ParserUtil.parseAddress(WHITESPACE));
     }
 
     @Test
@@ -156,6 +161,11 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseEmail_whitespace_returnsEmptyEmail() throws Exception {
+        assertEquals(Email.EMPTY_EMAIL_DETAILS, ParserUtil.parseEmail(WHITESPACE));
+    }
+
+    @Test
     public void parseTag_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
     }
@@ -167,14 +177,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
+        Tag expectedTag = Tag.issueTag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
+        Tag expectedTag = Tag.issueTag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
     }
 
@@ -196,7 +206,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(Tag.issueTag(VALID_TAG_1), Tag.issueTag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
@@ -214,21 +224,28 @@ public class ParserUtilTest {
 
     @Test
     public void parsePersonReferenceId_validPatientIdWithoutWhitespace_returnsReferenceId() throws Exception {
-        PersonReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
+        ReferenceId expectedId = PersonReferenceId.parsePatientReferenceId(VALID_PATIENT_ID);
         assertEquals(expectedId, ParserUtil.parsePatientReferenceId(VALID_PATIENT_ID));
 
-        expectedId = new StaffReferenceId(VALID_STAFF_ID);
+        expectedId = PersonReferenceId.parseStaffReferenceId(VALID_STAFF_ID);
         assertEquals(expectedId, ParserUtil.parseStaffReferenceId(VALID_STAFF_ID));
     }
 
     @Test
     public void parsePatientReferenceId_validPatientIdWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String idWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
-        PersonReferenceId expectedId = new PatientReferenceId(VALID_PATIENT_ID);
-        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(idWithWhitespace));
+        final String patientIdWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
+        ReferenceId expectedId = PersonReferenceId.parsePatientReferenceId(VALID_PATIENT_ID);
+        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(patientIdWithWhitespace));
+        assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
+            ParserUtil.parseStaffReferenceId(patientIdWithWhitespace);
+        });
 
-        idWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
-        expectedId = new StaffReferenceId(VALID_STAFF_ID);
-        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(idWithWhitespace));
+        final String staffIdWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
+        expectedId = PersonReferenceId.parseStaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(staffIdWithWhitespace));
+        assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
+            ParserUtil.parsePatientReferenceId(staffIdWithWhitespace);
+        });
+
     }
 }

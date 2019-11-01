@@ -5,6 +5,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":CancelAppCommandParser" as CancelAppCommandParser LOGIC_COLOR
+'participant "command : ReversibleActionPairCommand" as ReversibleActionPairCommand LOGIC_COLOR
+'participant "addCmd : EnqueueCommand" as EnqueueCommand LOGIC_COLOR
+'participant "deleteCmd : DequeueCommand" as DequeueCommand LOGIC_COLOR
 participant "d:CancelAppCommand" as CancelAppCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -28,6 +31,12 @@ deactivate CancelAppCommandParser
 
 AddressBookParser -> CancelAppCommandParser : parse("1")
 activate CancelAppCommandParser
+
+CancelAppCommandParser -> Model : getUniqueAppointmentList()
+activate Model
+
+Model --> CancelAppCommandParser : UniqueAppointmentList
+deactivate Model
 
 create CancelAppCommand
 CancelAppCommandParser -> CancelAppCommand

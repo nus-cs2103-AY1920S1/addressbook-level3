@@ -22,6 +22,10 @@ import seedu.address.ui.UiPart;
 public class QueueListPanel extends UiPart<Region> {
     private static final String FXML = "queue/QueueListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(QueueListPanel.class);
+    private int queueCount;
+    private int serveCount;
+    private ObservableList<ReferenceId> queueList;
+    private ObservableList<Room> consultationRoomList;
 
     @FXML
     private Label nowServing;
@@ -35,6 +39,8 @@ public class QueueListPanel extends UiPart<Region> {
     public QueueListPanel(ObservableList<Room> consultationRoomList, ObservableList<ReferenceId> queueList,
                           ReferenceIdResolver resolver) {
         super(FXML);
+        this.queueList = queueList;
+        this.consultationRoomList = consultationRoomList;
         roomListView.setItems(consultationRoomList);
         roomListView.setCellFactory(listView -> new RoomListViewCell(resolver));
         queueListView.setItems(queueList);
@@ -54,10 +60,10 @@ public class QueueListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(ReferenceId id, boolean empty) {
             super.updateItem(id, empty);
-
+            queueCount = queueList.size();
+            inQueue.setText(queueCount + " In Queue");
             if (empty || id == null) {
                 setGraphic(null);
-                setText(null);
             } else {
                 Person person = resolver.resolvePatient(id);
                 setGraphic(new QueueCard(person, getIndex() + 1).getRoot());
@@ -78,15 +84,27 @@ public class QueueListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Room room, boolean empty) {
             super.updateItem(room, empty);
-
+            serveCount = getServeCount();
+            nowServing.setText("Now Serving (" + serveCount + ")");
+            //serveCount = consultationRoomList.
             if (empty || room == null) {
                 setGraphic(null);
                 setText(null);
             } else {
                 Person doctor = resolver.resolveStaff(room.getDoctor());
                 Optional<Person> patient = room.getCurrentPatient().map(id -> resolver.resolvePatient(id));
-                setGraphic(new RoomCard(doctor, patient, getIndex() + 1).getRoot());
+                setGraphic(new RoomCard(doctor, patient, getIndex() + 1, room.isReadyToServe()).getRoot());
             }
+        }
+
+        private int getServeCount() {
+            int count = 0;
+            for (Room room : consultationRoomList) {
+                if (!room.getCurrentPatient().equals(Optional.empty())) {
+                    count++;
+                }
+            }
+            return count;
         }
     }
 

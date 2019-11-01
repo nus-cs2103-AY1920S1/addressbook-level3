@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
@@ -19,20 +20,31 @@ public class RoomCard extends UiPart<Region> {
     private final Optional<Person> patient;
 
     @FXML
+    private VBox roomCard;
+    @FXML
     private HBox cardPane;
+    @FXML
+    private HBox doctorPane;
     @FXML
     private Label doctorName;
     @FXML
     private Label patientName;
-    @FXML
-    private Label refId;
 
-    public RoomCard(Person doctor, Optional<Person> patient, int displayedIndex) {
+    public RoomCard(Person doctor, Optional<Person> patient, int displayedIndex, boolean isReadyToServe) {
         super(FXML);
         this.doctor = doctor;
         this.patient = patient;
-        doctorName.setText(doctor.getName().fullName);
-        patientName.setText(patient.map(p -> p.getName().toString()).orElse("[INVALID]"));
+        doctorName.setStyle("-fx-text-fill: white;");
+        roomCard.setStyle("-fx-background-color: #1abc9c;");
+        if (isReadyToServe) {
+            doctorName.setText(displayedIndex + ". " + doctor.getName().toString());
+            doctorPane.setStyle("-fx-background-color: #34495e;");
+        } else {
+            doctorName.setText(displayedIndex + ". " + doctor.getName().toString() + " [BREAK]");
+            doctorPane.setStyle("-fx-background-color: #c0392b;");
+        }
+
+        patientName.setText(patient.map(p -> p.getName().toString()).orElse("Not serving any patients"));
     }
 
     @Override

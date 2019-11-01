@@ -2,12 +2,7 @@ package seedu.address.logic.commands.common;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
 import java.util.Objects;
-
-import seedu.address.logic.commands.AddAppCommand;
-import seedu.address.logic.commands.CancelAppCommand;
-import seedu.address.model.events.Event;
 
 /**
  * Represents the result of a command execution.
@@ -26,8 +21,6 @@ public class CommandResult {
      */
     private final boolean exit;
 
-    private final String requestCommand;
-
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -35,7 +28,6 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.requestCommand = null;
     }
 
     /**
@@ -44,35 +36,6 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
-    }
-
-    //CancelAppCommand.COMMAND_WORD
-    public CommandResult(String requestCommand, List<Event> eventList) {
-        this(requestCommand, eventList, false, false);
-    }
-
-    public CommandResult(String requestCommand, List<Event> eventList, boolean showHelp, boolean exit) {
-        this.requestCommand = requestCommand;
-        this.feedbackToUser = requireNonNull(listToString(eventList));
-        this.showHelp = showHelp;
-        this.exit = exit;
-    }
-    /**
-     * Deals with input eventList and return a String message,
-     * eventList cannot be empty.
-     *
-     * @param eventList {@code List<Event>} which is the input eventList.
-     * @return string message of all events.
-     */
-    public String listToString(List<Event> eventList) {
-        requireNonNull(requestCommand);
-        String stringList = requestCommand.equals(CancelAppCommand.COMMAND_WORD)
-                ? CancelAppCommand.MESSAGE_CANCEL_APPOINTMENTS_SUCCESS
-                : AddAppCommand.MESSAGE_ADD_APPOINTMENTS_SUCCESS;
-        for (Event e : eventList) {
-            stringList += e + "\n";
-        }
-        return stringList;
     }
 
     public String getFeedbackToUser() {

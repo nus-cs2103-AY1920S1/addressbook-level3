@@ -48,18 +48,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
-        Person toDelete = model.getFilteredPatientList().get(0);
-        Command command = parser.parseCommand(
-                UnregisterPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(), model);
-
-        assertEquals(new ReversibleActionPairCommand(
-            new UnregisterPatientCommand(toDelete),
-            new RegisterPatientCommand(toDelete)
-        ), command);
-    }
-
-    @Test
     public void parseCommand_edit() throws Exception {
         Person personToEdit = model.getFilteredPatientList().get(0);
         Person editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();

@@ -1,6 +1,7 @@
 //@@author SakuraBlossom
 package seedu.address.model;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -11,6 +12,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.Event;
+import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
+import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -24,7 +27,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = new EventApprovedPredicate();
 
 
     //=========== UserPrefs ==================================================================================
@@ -241,23 +244,32 @@ public interface Model extends ReferenceIdResolver {
      * Deletes the given event.
      * The event must exist in the schedule.
      */
-    void deleteAppointment(Event event);
+    void deleteAppointment(Event appointment);
 
     /**
      * Schedules a given {@code appointment}.
      *
-     * @throws CommandException if the number of unique events which timings are in conflict
+     * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
      * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
      * involves the same patient given in {@code appointment}.
      */
-    void scheduleAppointment(Event appointment) throws CommandException;
+    void scheduleAppointment(Event appointment) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Schedules a given list of {@code appointments}.
+     *
+     * @throws InvalidEventScheduleChangeException if the number of unique events which timings are in conflict
+     * is greater or equal to the {@code maxNumberOfConcurrentEvents} or the events in conflict
+     * involves the same patient given in {@code appointment}.
+     */
+    void scheduleAppointments(List<Event> appointments) throws InvalidEventScheduleChangeException;
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setAppointment(Event target, Event editedEvent) throws CommandException;
+    void setAppointment(Event target, Event editedEvent) throws InvalidEventScheduleChangeException;
 
     /**
      * Returns a ListIterator of appointments whose timing is in conflict with the given {@code event}.
@@ -284,8 +296,19 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredAppointmentList(Predicate<Event> predicate);
 
-    Boolean isPatientList();
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSinglePatient();
 
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSingleStaff();
+
+    /**
+     * Checks whether the currently displayed appointments only consist of missed appointments.
+     */
     Boolean isMissedList();
 
     //=========== Duty Roster Scheduler ======================================================================
@@ -314,7 +337,13 @@ public interface Model extends ReferenceIdResolver {
      * Deletes the given event.
      * The event must exist in the schedule.
      */
-    void deleteDutyShift(Event dutyShift) throws CommandException;
+    void deleteDutyShifts(Event dutyShift) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Deletes the given event.
+     * The event must exist in the schedule.
+     */
+    void deleteDutyShifts(List<Event> dutyShifts) throws InvalidEventScheduleChangeException;
 
     /**
      * Schedules a given {@code dutyShift}.
@@ -322,14 +351,22 @@ public interface Model extends ReferenceIdResolver {
      * @throws CommandException if the dutyShifts in conflict
      * involves the same staff member given in {@code dutyShift}.
      */
-    void scheduleDutyShift(Event dutyShift) throws CommandException;
+    void scheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException;
+
+    /**
+     * Schedules a given list of {@code dutyShifts}.
+     *
+     * @throws CommandException if the dutyShifts in conflict
+     * involves the same staff member given in {@code dutyShift}.
+     */
+    void scheduleDutyShift(List<Event> dutyShifts) throws InvalidEventScheduleChangeException;
 
     /**
      * Replaces the given event {@code target} with {@code editedEvent}.
      * {@code target} must exist in the schedule.
      * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
      */
-    void setDutyShift(Event target, Event editedEvent) throws CommandException;
+    void setDutyShift(Event target, Event editedEvent) throws InvalidEventScheduleChangeException;
 
     /**
      * Returns a ListIterator of duty shifts whose timing is in conflict with the given {@code event}.
