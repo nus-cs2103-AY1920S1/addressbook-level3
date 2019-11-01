@@ -422,20 +422,9 @@ Deletes all meal plans within the meal plan book.
 Going for a health checkup soon? You can use the commands in this section to manage your
 health records, all within DukeCooks!
 
-==== View User Profile:  `view profile`
-Show a summary of user’s medical history, allergies, body measurements +
-Format: `view profile`
-
-* Prompt to create profile if user profile does not exist
-
-[NOTE]
-====
-DukeCooks will only have one user profile!
-====
-
-==== View Health Data:  `view health`
+==== View Health Data:  `list health`
 Views Health Records of specific type. +
-Format: `view health <type> [time period]`
+Format: `list health t/<type>`
 
 [IMPORTANT]
 ====
@@ -446,87 +435,60 @@ By default, DukeCooks will show health records of past 1 month if [time period] 
 User can view health data under the following 8 types:
 
 . Weight
-. Waist
-. Body Fat
 . Calories
-. Heart Rate
-. Blood Pressure
 . Glucose (i.e. blood sugar)
-. Menstrual Cycle
-****
+. Carbs
+. Fats
+. Protein
 
-[NOTE]
-====
-Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
-====
+****
 
 Examples:
 
-* `view health glucose 3 month` +
-Shows user’s blood sugar records of the past 3 months as of today.
-* `view health exerciseWeight` +
-Shows user’s exerciseWeight of the past *1* month as of today.
+* `list health t/weight` +
+Shows user’s weight of the past *1* month as of today.
 
 ==== Add Health Data:  `add health`
 Adds a health record of specified type with input value. +
-Format: `add health <type> <value> [date] <time>`
-
-[IMPORTANT]
-====
-If [date] is not specified, DukeCooks will set as *today* to be the default.
-====
+Format: `add health t/<type> val/<value> dt/<dd/MM/yyyy HH:mm>`
 
 ****
 User can add health data of the following 8 types:
 
 . Weight (in KG)
-. Waist (in CM)
-. Body Fat (in %)
 . Calories (in KCAL)
-. Heart Rate (in BPM)
-. Blood Pressure (in Systolic/Diastolic mmHg)
 . Glucose (in mmol/L)
-. Menstrual Cycle (by date)
-** DukeCooks can recognise if it’s a start or end date.
+. Carbs (in g)
+. Fats (in g)
+. Protein (in g)
 ****
-
-[NOTE]
-====
-Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
-====
 
 Examples:
 
-* `add health blood pressure 120/80 9am` +
+* `add health t/weight val/60 dt/21/10/2019 12:00` +
 Adds a new blood pressure record of 120/80 mmHg as of today 9am.
-* `add health menstrual` +
-Adds a new start date record if DukeCooks finds no menstrual records for the month. Else, Dukecooks will add as new end date record.
 
 ==== Edit Health Data:  `edit health`
 Edits an existing health record of specified record ID with input value to overwrite. +
-Format: `edit health <record id> <value>`
+Format: `edit health <index> val/<value>`
 
-* <record id> refers to the unique identifier attributed to each health record upon creation.
+* You can view <index> once you have entered **list health t/[type]** command.
 
 Examples:
 
-* `edit health BP129391 133/80` +
-Edits the existing blood pressure record from today 9am to 133/80 mmHg.
-* `edit health W000123 50` +
-Edits exerciseWeight record id of W000123 to 50kg.
+* `edit health 1 val/220` +
+Edits the health record with index 1 to 220.
 
 ==== Delete Health Data:  `delete health`
 Deletes an existing health record of specified record ID. +
-Format: `delete health <record id>`
+Format: `delete health <index>`
 
-* <record id> refers to the unique identifier attributed to each health record upon creation.
+* You can view <index> once you have entered **list health t/[type]** command.
 
 Examples:
 
-* `delete health BP129391` +
-Deletes the health record of BP129391.
-* `delete health W000123` +
-Deletes the health record of W000123.
+* `delete health 1` +
+Deletes the health record with index 1.
 
 ==== View Medical Appointments:  `[coming in v2.0]`
 Shows all the medical appointment for the month. +
@@ -868,15 +830,14 @@ e.g. `view recipe Chicken Rice`
 
 *Health Records*
 
-* *View User Profile* : `view profile`
-* *View health data* : `view health <type> [time period]` +
-e.g. `view health glucose 3 month`
-* *Add health data* : `add health <type> <value> [date] <time>` +
-e.g. `add health blood pressure 120/80 9am`
-* *Edit health data* : `edit health <record id> <value>` +
-e.g. `edit health BP129391 133/80`
-* *Delete health data* : `delete health <record id>` +
-e.g. `delete health BP129391`
+* *View health data* : `view health t/<type>` +
+e.g. `view health t/glucose`
+* *Add health data* : `add health t/<type> val/<value> dt/<date> <time>` +
+e.g. `add health t/glucose 120 dt/21/10/2019 12:00`
+* *Edit health data* : `edit health <index> val/<value>` +
+e.g. `edit health 1 120`
+* *Delete health data* : `delete health <index>` +
+e.g. `delete health 1`
 
 *Workout Tracker*
 
