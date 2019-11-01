@@ -512,13 +512,13 @@ public class ModelManager implements Model {
     //region Quizzes
 
     @Override
-    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
-        savedQuizzes.createQuizManually(quizId, questionNumbers, savedQuestions);
+    public boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+        return savedQuizzes.createQuizManually(quizId, questionNumbers, savedQuestions);
     }
 
     @Override
-    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
-        savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type) {
+        return savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
     }
 
     @Override
