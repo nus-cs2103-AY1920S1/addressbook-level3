@@ -34,8 +34,6 @@ public class UniversalParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static Context currentContext = Context.GLOBAL;
-
     /**
      * Parses user input into command for execution.
      *
@@ -43,8 +41,10 @@ public class UniversalParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, Context context) throws ParseException {
+        Context currentContext = context;
         Context nextContext;
+
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -52,6 +52,7 @@ public class UniversalParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case AddOrderCommand.COMMAND_WORD:
             return new AddOrderCommandParser().parse(arguments);
@@ -85,8 +86,6 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.CUSTOMER;
-            //checkContext(nextContext);
-            currentContext = nextContext;
             return new ContextCommand(nextContext);
 
         case DeliverymanParser.COMMAND_WORD:
@@ -94,8 +93,6 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.DELIVERYMEN;
-            //checkContext(nextContext);
-            currentContext = nextContext;
             return new ContextCommand(nextContext);
 
         case RestaurantParser.COMMAND_WORD:
@@ -103,8 +100,6 @@ public class UniversalParser {
                 throw new ParseException(MESSAGE_INVALID_SWITCH_CONTEXT);
             }
             nextContext = Context.RESTAURANT;
-            //checkContext(nextContext);
-            currentContext = nextContext;
             return new ContextCommand(nextContext);
 
         default:
@@ -112,28 +107,14 @@ public class UniversalParser {
             case CUSTOMER:
                 return new CustomerParser().parseCommand(userInput);
             case RESTAURANT:
-                Command command = new RestaurantParser().parseCommand(userInput);
-                return command;
+                return new RestaurantParser().parseCommand(userInput);
             case DELIVERYMEN:
                 return new DeliverymanParser().parseCommand(userInput);
             case EDITING:
-                if (commandWord.equals("exitedit")) {
-                    currentContext = Context.RESTAURANT;
-                }
                 return new EditingParser().parseCommand(userInput);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
             }
         }
-    }
-
-    private static void checkContext(Context nextContext) throws ParseException {
-        if (currentContext == nextContext) {
-            throw new ParseException(String.format(MESSAGE_ALREADY_IN_CONTEXT, nextContext.toLowerCaseString()));
-        }
-    }
-
-    public void setContext(Context context) {
-        this.currentContext = context;
     }
 }

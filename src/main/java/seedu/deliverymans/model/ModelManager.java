@@ -95,8 +95,6 @@ public class ModelManager implements Model {
         editingRestaurant = new FilteredList<>(this.restaurantDatabase.getEditingRestaurantList());
 
         undoHistory = new UndoHistory<>(new Data(this));
-
-        context = Context.GLOBAL;
     }
 
     public ModelManager() {
@@ -173,23 +171,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Universal Methods =============================================================
-
-    /**
-     * Sets current context of the system.
-     *
-     * @param context current context
-     */
-    @Override
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public Context getContext() {
-        return context;
     }
 
     //=========== Customer Methods =============================================================

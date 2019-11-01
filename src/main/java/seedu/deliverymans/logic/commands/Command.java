@@ -1,5 +1,6 @@
 package seedu.deliverymans.logic.commands;
 
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 
@@ -12,9 +13,10 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @param model {@code Model} which the command should operate on.
+     * @param logic
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model, Logic logic) throws CommandException;
 
 }

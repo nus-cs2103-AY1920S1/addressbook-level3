@@ -207,17 +207,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    //=========== Universal methods =============================================================
-
-    /**
-     * Sets current context of the system.
-     *
-     * @param context current context
-     */
-    void setContext(Context context);
-
-    Context getContext();
-
     //=========== Customer methods =============================================================
 
     /**
