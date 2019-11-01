@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.3
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+show members
+hide empty members
+
+Package WordBankList <<Rectangle>>{
+Interface ReadOnlyWordBankList <<Interface>> {
+getFilteredWordBankList()
+getWordBankFromName(String)
+hasBankName(String)
+}
+
+class WordBankList {
+   +addWordBank(ReadOnlyWordBank)
+   +removeWordBank(WordBank)
+}
+Class UniqueWordBankList
+Class WordBank
+}
+
+WordBankList .left.|> ReadOnlyWordBankList
+WordBankList o-down-> "1" UniqueWordBankList
+UniqueWordBankList -down-> "*" WordBank
+
+@enduml

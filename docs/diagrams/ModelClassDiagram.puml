@@ -5,7 +5,6 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyWordBankList <<Interface>>
 Interface ReadOnlyWordBankStatisticsList <<Interface>>
 Interface ReadOnlyAppSettings <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
@@ -21,39 +20,45 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 Class Game
 
+Package WordBankList {
+Interface ReadOnlyWordBankList <<Interface>>
+
+Class WordBankList
 Package WordBank {
 Class WordBank
-Class Name
-Class UniqueWordBankList
-}
-
-Package UniqueCardList {
 Class UniqueCardList
 }
+
+Package Card {
+Class Card
+Class Meaning
+Class Word
+}
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
-
-WordBankList .up.|> ReadOnlyWordBankList
+WordBankList .left.|> ReadOnlyWordBankList
 WordBankStatisticsList .up.|> ReadOnlyWordBankStatisticsList
 AppSettings .up.|> ReadOnlyAppSettings
 
-
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" WordBankList
-ModelManager o--> "1" WordBankStatisticsList
-ModelManager o--> "1" GlobalStatistics
-ModelManager o--> "1" AppSettings
-ModelManager o--> "1" UserPrefs
-ModelManager o--> "1" Game
+ModelManager .left.|> Model
+Model .left.> ObservableList
+ModelManager -down--> "1" WordBankList
+ModelManager -up-> "1" WordBankStatisticsList
+ModelManager -up-> "1" GlobalStatistics
+ModelManager -up-> "1" AppSettings
+ModelManager -up-> "1" UserPrefs
+ModelManager -up-> "1" Game
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-WordBankList *-down-> "1" UniqueWordBankList
-UniqueWordBankList o--> "*" WordBank
-WordBank *-down-> "1" UniqueCardList
-WordBank *-down-> "1" Name
+WordBankList -right-> "1" WordBank
+WordBank --> "*" UniqueCardList
+UniqueCardList -right-> "1" Card
+Card --> "1" Word
+Card --> "1" Meaning
 
-ModelManager -->"1" WordBank : contains
+ModelManager --> WordBank : selected
+ModelManager --> Card : filteredList
+
 @enduml
+
+

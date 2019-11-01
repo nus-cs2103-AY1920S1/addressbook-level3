@@ -15,6 +15,8 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-2/main
 :releaseURL: https://github.com/AY1920S1-CS2103T-T11-2/main/releases
 
+// tag::yida-intro[]
+
 By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction - What is Dukemon?
@@ -49,6 +51,8 @@ image::UserGuideCommandBox.png[width="790"]
 .. e.g. Typing *`help`* into the _CommandBox_ and pressing kbd:[Enter] will open the _Help_ window.
 
 3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
+
+// end::yida-intro[]
 
 // tag::switchingmodes[]
 === Switching Modes
@@ -101,14 +105,18 @@ The highlighted section shows, what commands are currently available. You can cl
 // end::switchingmodes[]
 
 
+// tag::yida-quickstart[]
 
 === QuickStart
-
 
 .General program flow of Dukemon, showing how the different parts work together.
 image::UserGuideFlowOverview.png[width="790"]
 
+// end::yida-quickstart[]
+
 // tag::quickstartsubbash[]
+
+// tag::chenhui-quickstart[]
 
 Lets load the sample wordbank and play a game to get familiar.
 
@@ -140,6 +148,9 @@ specified.
 
 .  Refer to <<Features>> for details of each command.
 
+// end::chenhui-quickstart[]
+
+
 === Purposes of each mode
 
 image::HomeMode.png[width="450"]
@@ -168,6 +179,7 @@ image::SettingsMode.png[width="450"]
 
 // end::quickstartsubbash[]
 
+// tag::chenhui-commandusage[]
 
 [[Commands]]
 == Commands
@@ -314,6 +326,10 @@ Returns any entries containing `mammal`, `fish` or `bird` in its descriptions or
 
 ==== Exit Dukemon: `exit`
 
+// end::chenhui-commandusage[]
+
+// tag::yida-game[]
+
 === Game Mode & Commands image:game_mode_icon.png[width="30"]
 
 .UI regions that are relevant when a Game session is in progress.
@@ -393,6 +409,8 @@ Format: `stop`
 - Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
 be reported.*)
 
+// end::yida-game[]
+
 === Settings Mode & Commands image:settings_mode_icon.png[width="27"]
 
 Goes into the settings menu. +
@@ -462,6 +480,8 @@ Statistics are also stored automatically.
 .All possible application modes
 image::ParserManagerActivityDiagram.png[]
 
+
+// tag::chenhui-commandsummary[]
 
 == Command Summary
 
@@ -534,6 +554,8 @@ s| start m| [DIFFICULTY]
 s| setting m|
 
 |===
+
+// end::chenhui-commandsummary[]
 
 == Upcoming Features
 

@@ -19,7 +19,8 @@
 !define LOGIC_COLOR_T3 #1616B0
 !define LOGIC_COLOR_T4 #101086
 
-!define MODEL_COLOR #9D0012
+'!define MODEL_COLOR #9D0012
+!define MODEL_COLOR #BD2032
 !define MODEL_COLOR_T1 #F97181
 !define MODEL_COLOR_T2 #E41F36
 !define MODEL_COLOR_T3 #7B000E
@@ -49,9 +50,10 @@ skinparam Shadowing false
 skinparam Class {
     FontColor #FFFFFF
     BorderThickness 1
-    BorderColor #FFFFFF
+    BorderColor #000000
     StereotypeFontColor #FFFFFF
     FontName Arial
+    AttributeFontColor #FFFFFF
 }
 
 skinparam Actor {
@@ -75,10 +77,12 @@ skinparam Participant {
 
 skinparam MinClassWidth 50
 skinparam ParticipantPadding 10
-skinparam Shadowing false
+skinparam Shadowing true
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
+skinparam classAttributeIconSize 0
 
 hide footbox
 hide members
 hide circle
+hide empty members

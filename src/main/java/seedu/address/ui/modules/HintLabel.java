@@ -16,6 +16,7 @@ public class HintLabel extends UiPart<Region> {
 
     public HintLabel() {
         super(FXML);
+        hintLabel.setWrapText(true);
     }
 
     public void updateHintLabel(String string) {

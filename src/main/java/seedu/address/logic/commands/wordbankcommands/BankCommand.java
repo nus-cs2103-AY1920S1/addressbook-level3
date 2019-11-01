@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.homecommands;
+package seedu.address.logic.commands.wordbankcommands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME;
 
@@ -12,7 +12,7 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * Selects a word bank.
  */
-public class BankCommand extends HomeCommand {
+public class BankCommand extends WordBankCommand {
 
     public static final String COMMAND_WORD = "bank";
 

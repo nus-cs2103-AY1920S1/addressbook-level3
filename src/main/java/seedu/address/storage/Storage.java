@@ -41,7 +41,7 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     void removeWordBank(String wordBankName);
 
     @Override
-    void importWordBank(Path filePath, String wordBankName);
+    void importWordBank(String wordBankName, Path filePath);
 
     @Override
     void exportWordBank(String wordBankName, Path filePath);

@@ -77,7 +77,7 @@ public class LoadBankPanel extends UiPart<Region> {
             String childString = p.getFileName().toString();
 
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
-            storage.importWordBank(p.getParent(), wordBankName);
+            storage.importWordBank(wordBankName, p.getParent());
         }
     }
 

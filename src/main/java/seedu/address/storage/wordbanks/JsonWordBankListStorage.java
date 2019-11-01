@@ -30,7 +30,7 @@ import seedu.address.model.wordbanklist.WordBankList;
 public class JsonWordBankListStorage implements WordBankListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonWordBankListStorage.class);
-    private ReadOnlyWordBankList readOnlyWordBankList;
+    private WordBankList readOnlyWordBankList;
     private Path wordBanksFilePath; // default : data/wordBanks
 
     /**
@@ -40,19 +40,9 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath of storage. By default, it is at data folder.
      */
     public JsonWordBankListStorage(Path filePath) throws DataConversionException, IllegalValueException {
-        logger.info("INSIDE JsonWordBankListStorageConstructor");
-        try {
-            initDataByDefault(filePath);
-        } catch (Exception e) {
-            logger.info("Filepath is: " + filePath);
-            logger.info(e.toString() + " initDataByDefault() method");
-        }
+        initDataByDefault(filePath);
+        initWordBankList();
 
-        try {
-            initWordBankList();
-        } catch (Exception e) {
-            logger.info(e.toString() + " initWordBankList() method");
-        }
     }
 
     /**
@@ -210,7 +200,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     private void addWordBank(ReadOnlyWordBank wordBank) {
         WordBankList wbl = (WordBankList) readOnlyWordBankList;
-        wbl.addBank(wordBank);
+        wbl.addWordBank(wordBank);
     }
 
     /**
@@ -231,6 +221,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     /**
      * Retrieves the WordBankList that WordBankListStorage holds.
      */
+    @Override
     public Optional<ReadOnlyWordBankList> getWordBankList() {
         return Optional.of(readOnlyWordBankList);
     }
@@ -261,11 +252,11 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     /**
      * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
-     * @param filePath cannot be null.
      * @param wordBankName cannot be null.
+     * @param filePath cannot be null.
      */
     @Override
-    public void importWordBank(Path filePath, String wordBankName) {
+    public void importWordBank(String wordBankName, Path filePath) {
         Path finalPath = Paths.get(filePath.toString(), wordBankName + ".json");
         WordBank wb = null;
         try {

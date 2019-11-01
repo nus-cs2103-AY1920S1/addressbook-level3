@@ -9,7 +9,6 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 end box
 
-
 box ParserManager MODEL_COLOR_T1
 participant ":ParserManager" as ParserManager LOGIC_COLOR
 participant "u:SpecificModeParser" as SpecificModeParser LOGIC_COLOR
@@ -17,8 +16,6 @@ participant "u:SwtichModeParser" as SwitchModeParser LOGIC_COLOR
 participant ":ClassUtil" as ClassUtil2 MODEL_COLOR
 participant ":ClassUtil" as ClassUtil MODEL_COLOR
 end box
-
-
 
 
 [-> CommandBox : keystroke "st"

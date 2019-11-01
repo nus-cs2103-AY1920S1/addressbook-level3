@@ -25,5 +25,7 @@ public interface ReadOnlyWordBankList {
      */
     WordBank getWordBankFromName(String name) throws WordBankNotFoundException;
 
+    boolean hasWordBankName(String name);
+
     int size();
 }
