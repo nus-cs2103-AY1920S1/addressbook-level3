@@ -42,7 +42,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="questionLabel" style="-fx-font-weight: bold;" styleClass="cell_big_label" text="Question">
+                <Label fx:id="questionLabel" style="-fx-font-weight: bold;" styleClass="cell_big_label" text="Question" wrapText="true">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
@@ -57,7 +57,7 @@
                      <Insets />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionALabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="A" textFill="WHITE">
+               <Label fx:id="optionALabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="A" textFill="WHITE" wrapText="true">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -65,7 +65,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionBLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="B" textFill="WHITE">
+               <Label fx:id="optionBLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="B" textFill="WHITE" wrapText="true">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -73,7 +73,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionCLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="C" textFill="WHITE">
+               <Label fx:id="optionCLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="C" textFill="WHITE" wrapText="true">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -81,7 +81,7 @@
                      <Insets left="10.0" />
                   </FlowPane.margin>
                </Label>
-               <Label fx:id="optionDLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="D" textFill="WHITE">
+               <Label fx:id="optionDLabel" style="-fx-background-color: #0098B3#0098B3;" styleClass="cell_small_label" text="D" textFill="WHITE" wrapText="true">
                   <padding>
                      <Insets left="5.0" right="5.0" />
                   </padding>
@@ -96,7 +96,7 @@
          </FlowPane>
          <HBox alignment="CENTER_LEFT" spacing="5">
             <children>
-               <Label fx:id="answerLabel" styleClass="cell_small_label" text="Answer" />
+               <Label fx:id="answerLabel" styleClass="cell_small_label" text="Answer" wrapText="true" />
             </children>
          </HBox>
         </VBox>

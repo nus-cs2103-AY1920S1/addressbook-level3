@@ -19,11 +19,11 @@ public class QuestionEditCommand extends QuestionCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " [index]: Edits a question\n"
         + "Parameters(All are optional):\n"
-        + "topic/ [TOPIC]\n"
-        + "Example: topic/ What is the year that Singapore gained independence?\n\n"
+        + "question/ [TOPIC]\n"
         + "answer/ [ANSWER]\n"
-        + "Example: answer/ 1965\n\n"
         + "type/ [TYPE: open/mcq]\n"
+        + "Example: question/ What is 1+1?\n"
+        + "Example: answer/ 2\n"
         + "Example: type/ open";
 
     private final Index index;
@@ -71,7 +71,6 @@ public class QuestionEditCommand extends QuestionCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
         if (index.getZeroBased() >= model.getAllQuestions().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX);
         }
@@ -91,8 +90,7 @@ public class QuestionEditCommand extends QuestionCommand {
                 questionObj = new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
                 break;
             default:
-                questionObj = new OpenEndedQuestion(question, answer);
-                break;
+                throw new CommandException(Messages.MESSAGE_INVALID_QUESTION_TYPE);
             }
         } else {
             questionObj.setQuestion(question);
@@ -106,7 +104,8 @@ public class QuestionEditCommand extends QuestionCommand {
         }
 
         model.setQuestion(index, questionObj);
-        return new CommandResult(generateSuccessMessage(questionObj), CommandResultType.SHOW_QUESTION);
+        return new CommandResult(generateSuccessMessage(questionObj),
+            CommandResultType.SHOW_QUESTION);
     }
 
     /**
@@ -123,15 +122,20 @@ public class QuestionEditCommand extends QuestionCommand {
      *
      * @param questionObj from list.
      */
-    private void formatMcqOptions(Question questionObj) {
-        optionA = (!this.optionA.isBlank()) ? this.optionA
-            : ((McqQuestion) questionObj).getOptionA();
-        optionB = (!this.optionB.isBlank()) ? this.optionB
-            : ((McqQuestion) questionObj).getOptionB();
-        optionC = (!this.optionC.isBlank()) ? this.optionC
-            : ((McqQuestion) questionObj).getOptionC();
-        optionD = (!this.optionD.isBlank()) ? this.optionD
-            : ((McqQuestion) questionObj).getOptionD();
+    private void formatMcqOptions(Question questionObj) throws CommandException {
+        try {
+            optionA = (!this.optionA.isBlank()) ? this.optionA
+                : ((McqQuestion) questionObj).getOptionA();
+            optionB = (!this.optionB.isBlank()) ? this.optionB
+                : ((McqQuestion) questionObj).getOptionB();
+            optionC = (!this.optionC.isBlank()) ? this.optionC
+                : ((McqQuestion) questionObj).getOptionC();
+            optionD = (!this.optionD.isBlank()) ? this.optionD
+                : ((McqQuestion) questionObj).getOptionD();
+        } catch (ClassCastException cce) {
+            // Throw error when switching type from mcq to open ended and have missing options
+            throw new CommandException(Messages.MESSAGE_MISSING_QUESTION_OPTIONS);
+        }
     }
 
     @Override
