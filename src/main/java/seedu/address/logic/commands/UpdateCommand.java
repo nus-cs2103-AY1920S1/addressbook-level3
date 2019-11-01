@@ -76,10 +76,10 @@ public class UpdateCommand extends Command {
 
             BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
             BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
-                    updateTransactionDescriptor);
+                updateTransactionDescriptor);
 
             model.setTransaction(transactionToReplace, updatedTransaction);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
         } else if (this.type.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
@@ -90,10 +90,10 @@ public class UpdateCommand extends Command {
 
             Budget budgetToReplace = lastShownList.get(targetIndex.getZeroBased());
             Budget updatedBudget = createUpdatedBudget(budgetToReplace,
-                    updateTransactionDescriptor);
+                updateTransactionDescriptor);
 
             model.setBudget(budgetToReplace, updatedBudget);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedBudget));
 
         } else {
@@ -110,8 +110,8 @@ public class UpdateCommand extends Command {
         assert transactionToEdit != null;
 
         Description updatedDescription = updateTransactionDescriptor
-                .getDescription()
-                .orElse(transactionToEdit.getDescription());
+            .getDescription()
+            .orElse(transactionToEdit.getDescription());
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         Set<Category> updatedCategories = updateTransactionDescriptor
@@ -140,7 +140,7 @@ public class UpdateCommand extends Command {
         // state check
         UpdateCommand u = (UpdateCommand) other;
         return targetIndex.equals(u.targetIndex)
-                && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
+            && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
     }
 
     /**
@@ -148,13 +148,13 @@ public class UpdateCommand extends Command {
      * edited with {@code editTransactionDescriptor}.
      */
     private static Budget createUpdatedBudget(
-            Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+        Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert budgetToEdit != null;
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
         Set<Category> updatedCategories = updateTransactionDescriptor
-                .getCategories().orElse(budgetToEdit.getCategories());
+            .getCategories().orElse(budgetToEdit.getCategories());
 
         return new Budget(updatedAmount, updatedDate, updatedCategories);
     }

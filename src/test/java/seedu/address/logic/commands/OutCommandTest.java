@@ -155,27 +155,27 @@ public class OutCommandTest {
         }
 
         @Override
-        public boolean canUndoBankAccount() {
+        public boolean canUndoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoBankAccount() {
+        public void undoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoBankAccount() {
+        public boolean canRedoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoBankAccount() {
+        public void redoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitBankAccount() {
+        public void commitUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -277,7 +277,7 @@ public class OutCommandTest {
         }
 
         @Override
-        public void commitBankAccount() {
+        public void commitUserState() {
 
         }
 

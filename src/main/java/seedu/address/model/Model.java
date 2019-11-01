@@ -63,27 +63,27 @@ public interface Model {
     /**
      * Returns true if the model has previous bank account states to restore.
      */
-    boolean canUndoBankAccount();
+    boolean canUndoUserState();
 
     /**
      * Restores the model's bank account to its previous state.
      */
-    void undoBankAccount();
+    void undoUserState();
 
     /**
      * Returns true if the model has undone bank account states to restore.
      */
-    boolean canRedoBankAccount();
+    boolean canRedoUserState();
 
     /**
      * Restores the model's bank account to its previously undone state.
      */
-    void redoBankAccount();
+    void redoUserState();
 
     /**
      * Saves the current bank account state for undo/redo.
      */
-    void commitBankAccount();
+    void commitUserState();
 
     /**
      * Replaces the existing transaction history in the bank account

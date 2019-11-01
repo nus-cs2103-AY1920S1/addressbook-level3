@@ -18,17 +18,17 @@ public class InCommand extends Command {
     public static final String COMMAND_WORD = "in";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the bank account.\n"
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DATE "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "milk "
-            + PREFIX_AMOUNT + "100 "
-            + PREFIX_DATE + "24022019 "
-            + PREFIX_CATEGORY + "friends "
-            + PREFIX_CATEGORY + "owesMoney";
+        + "Parameters: "
+        + PREFIX_NAME + "NAME "
+        + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_DATE + "DATE "
+        + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_NAME + "milk "
+        + PREFIX_AMOUNT + "100 "
+        + PREFIX_DATE + "24022019 "
+        + PREFIX_CATEGORY + "friends "
+        + PREFIX_CATEGORY + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
@@ -51,7 +51,7 @@ public class InCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
         } else {
             model.handleOperation(transaction);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
         }
     }

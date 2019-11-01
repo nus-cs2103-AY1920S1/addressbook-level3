@@ -19,11 +19,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoBankAccount()) {
+        if (!model.canUndoUserState()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoBankAccount();
+        model.undoUserState();
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

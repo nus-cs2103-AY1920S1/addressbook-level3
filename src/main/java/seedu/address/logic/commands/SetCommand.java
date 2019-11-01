@@ -17,14 +17,14 @@ public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account.\n"
-            + "Parameters: "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DEADLINE "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "100 "
-            + PREFIX_DATE + "2019/01/01 "
-            + PREFIX_CATEGORY + "food ";
+        + "Parameters: "
+        + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_DATE + "DEADLINE "
+        + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_AMOUNT + "100 "
+        + PREFIX_DATE + "2019/01/01 "
+        + PREFIX_CATEGORY + "food ";
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
     public static final String MESSAGE_DUPLICATE = "This budget already exists: %1$s";
@@ -47,7 +47,7 @@ public class SetCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
         } else {
             model.addBudget(budget);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
         }
     }

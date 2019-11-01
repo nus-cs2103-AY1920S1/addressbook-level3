@@ -19,11 +19,11 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
-            + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
-            + "Budget entries preced by 'b' \n"
-            + "Example: " + COMMAND_WORD + " t1\n"
-            + COMMAND_WORD + " b1";
+        + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
+        + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
+        + "Budget entries preced by 'b' \n"
+        + "Example: " + COMMAND_WORD + " t1\n"
+        + COMMAND_WORD + " b1";
 
     public static final String MESSAGE_DELETE_TRANSACTION_SUCCESS = "Deleted Entry: %1$s";
 
@@ -51,7 +51,7 @@ public class DeleteCommand extends Command {
 
             BankAccountOperation transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteTransaction(transactionToDelete);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));
         } else if (this.type.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
@@ -62,7 +62,7 @@ public class DeleteCommand extends Command {
 
             Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteBudget(budgetToDelete);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, budgetToDelete));
         } else {
             throw new CommandException("Unknown command error");
@@ -73,7 +73,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+            || (other instanceof DeleteCommand // instanceof handles nulls
+            && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

@@ -22,23 +22,23 @@ public class RedoCommandTest {
         // set up of both models' undo/redo history
         deleteFirstTransaction(model);
         deleteFirstTransaction(model);
-        model.undoBankAccount();
-        model.undoBankAccount();
+        model.undoUserState();
+        model.undoUserState();
 
         deleteFirstTransaction(expectedModel);
         deleteFirstTransaction(expectedModel);
-        expectedModel.undoBankAccount();
-        expectedModel.undoBankAccount();
+        expectedModel.undoUserState();
+        expectedModel.undoUserState();
     }
 
     @Test
     public void execute() {
         // multiple redoable states in model
-        expectedModel.redoBankAccount();
+        expectedModel.redoUserState();
         assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        expectedModel.redoBankAccount();
+        expectedModel.redoUserState();
         assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

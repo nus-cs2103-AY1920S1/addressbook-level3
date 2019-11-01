@@ -169,27 +169,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean canUndoBankAccount() {
+    public boolean canUndoUserState() {
         return versionedUserState.canUndo();
     }
 
     @Override
-    public void undoBankAccount() {
+    public void undoUserState() {
         versionedUserState.undo();
     }
 
     @Override
-    public boolean canRedoBankAccount() {
+    public boolean canRedoUserState() {
         return versionedUserState.canRedo();
     }
 
     @Override
-    public void redoBankAccount() {
+    public void redoUserState() {
         versionedUserState.redo();
     }
 
     @Override
-    public void commitBankAccount() {
+    public void commitUserState() {
         versionedUserState.commit();
     }
 

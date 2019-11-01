@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
 import static seedu.address.testutil.TypicalTransactions.getTypicalUnsortedBankAccount;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +33,7 @@ public class SortCommandTest {
         List<BankAccountOperation> sortedTransactionHistory =
                 expectedSortedByAmountModel.getBankAccount().getSortedTransactionHistory(amountComparator);
         expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
-        expectedSortedByAmountModel.commitBankAccount();
+        expectedSortedByAmountModel.commitUserState();
         assertCommandSuccess(new SortCommand(amountComparator), model,
                 SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
     }
@@ -45,7 +44,7 @@ public class SortCommandTest {
         List<BankAccountOperation> sortedTransactionHistory =
                 expectedSortedByAmountModel.getBankAccount().getSortedTransactionHistory(dateComparator);
         expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
-        expectedSortedByAmountModel.commitBankAccount();
+        expectedSortedByAmountModel.commitUserState();
         assertCommandSuccess(new SortCommand(dateComparator), model,
                 SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
     }

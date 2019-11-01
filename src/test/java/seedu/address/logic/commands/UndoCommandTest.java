@@ -30,11 +30,11 @@ public class UndoCommandTest {
     @Test
     public void execute() {
         // multiple undoable states in model
-        expectedModel.undoBankAccount();
+        expectedModel.undoUserState();
         assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel.undoBankAccount();
+        expectedModel.undoUserState();
         assertCommandSuccess(new UndoCommand(), model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model

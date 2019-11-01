@@ -16,7 +16,7 @@ public class ClearCommandTest {
     public void execute_emptyBankAccount_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitBankAccount();
+        expectedModel.commitUserState();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -25,7 +25,7 @@ public class ClearCommandTest {
         Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalBankAccount(), new UserPrefs());
         expectedModel.setUserState(new BankAccount());
-        expectedModel.commitBankAccount();
+        expectedModel.commitUserState();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
