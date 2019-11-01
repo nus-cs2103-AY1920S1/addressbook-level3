@@ -81,9 +81,17 @@ Exits and shuts down the program
 
 Format: `exit`
 
-==== Navigation between Tabs : `main` | 'schedule'
+==== Navigation between Tabs : `main` | `schedule`
 
 Provides a way to jump between the Main and Schedule Tab.
+
+[TIP]
+A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab. While an
+Employee-related command executed in the Schedule Tab will bring you back to the Main Tab. Lastly, all
+Event-related command is executed based on the current Event list being displayed, regardless if the user
+is in the Main Tab or Schedule Tab.
+*Users are not advised to executed Employee-related commands in the Schedule Tab if he/she is unfamiliar
+as the lists referenced by the app are on the Main Tab*
 
 Main Tab: `main`
 
@@ -192,7 +200,7 @@ Returns `john` and `John Doe`
 * `find_ev Concert Musical Play` +
 Returns any event having names `Concert`, `Musical`, or `Play`
 
-* `find_em Party` +
+* `find_ev Party` +
 Returns any event having names `Party` or `party`
 
 ==== Deleting an entity : `delete_em | delete_ev`

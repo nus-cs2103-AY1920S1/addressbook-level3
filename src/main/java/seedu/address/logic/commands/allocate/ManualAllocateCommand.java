@@ -23,6 +23,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Allocates an employee from the  to an event.
@@ -78,7 +79,14 @@ public class ManualAllocateCommand extends Command {
      */
     private CommandResult internalManualAllocateById(Model model) throws CommandException {
         List<Employee> lastShownList = model.getFullListEmployees();
-        List<Event> lastShownEventList = model.getFilteredEventList();
+
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
+
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
         Optional<Employee> optionalPersonToAdd = lastShownList.stream()

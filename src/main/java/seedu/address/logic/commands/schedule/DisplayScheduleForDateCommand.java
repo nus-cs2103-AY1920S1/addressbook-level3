@@ -15,7 +15,7 @@ import seedu.address.model.event.EventContainsKeyDatePredicate;
 public class DisplayScheduleForDateCommand extends Command {
     public static final String COMMAND_WORD = "display_schedule_date";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific date"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific date. \n"
             + "Example: " + COMMAND_WORD + " on/02/12/2019";
 
     private final EventContainsKeyDatePredicate predicate;

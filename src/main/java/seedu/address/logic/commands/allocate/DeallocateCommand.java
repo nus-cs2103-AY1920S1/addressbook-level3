@@ -23,6 +23,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Frees employees associated with an event.
@@ -58,7 +59,13 @@ public class DeallocateCommand extends Command {
      */
     private CommandResult internalManualFreeById(Model model) throws CommandException {
         List<Employee> lastShownList = model.getFullListEmployees();
-        List<Event> lastShownEventList = model.getFilteredEventList();
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
+
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
         Optional<Employee> optionalPersonToDelete = lastShownList.stream()
                 .filter(x -> x.getEmployeeId().id.equals(employeeId))
@@ -79,10 +86,15 @@ public class DeallocateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        List<Event> lastShownEventList;
 
-        List<Event> lastShownList = model.getFilteredEventList();
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
 
-        if (eventIndex.getZeroBased() >= lastShownList.size()) {
+        if (eventIndex.getZeroBased() >= lastShownEventList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
@@ -90,7 +102,7 @@ public class DeallocateCommand extends Command {
             return internalManualFreeById(model);
         }
 
-        Event eventToFree = lastShownList.get(eventIndex.getZeroBased());
+        Event eventToFree = lastShownEventList.get(eventIndex.getZeroBased());
         Event newEvent = createEditedEvent(eventToFree, null);
         model.setEvent(eventToFree, newEvent);
         return new CommandResult(String.format(MESSAGE_FREE_EVENT_SUCCESS, eventToFree.getName(), "ALL Employees"));
