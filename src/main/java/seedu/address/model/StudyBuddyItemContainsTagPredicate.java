@@ -19,7 +19,7 @@ public class StudyBuddyItemContainsTagPredicate implements Predicate<StudyBuddyI
     @Override
     public boolean test(StudyBuddyItem studyBuddyItem) {
         return tags.stream()
-                .anyMatch(studyBuddyItem::containsTag);
+                .allMatch(studyBuddyItem::containsTag);
     }
 
     @Override

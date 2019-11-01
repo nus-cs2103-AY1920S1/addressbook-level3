@@ -19,7 +19,7 @@ public class NoteContainsTagPredicate implements Predicate<Note> {
     @Override
     public boolean test(Note note) {
         return tags.stream()
-                .anyMatch(note::containsTag);
+                .allMatch(note::containsTag);
     }
 
     @Override

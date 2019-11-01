@@ -19,7 +19,7 @@ public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
     @Override
     public boolean test(Flashcard flashcard) {
         return tags.stream()
-                .anyMatch(flashcard::containsTag);
+                .allMatch(flashcard::containsTag);
     }
 
     @Override

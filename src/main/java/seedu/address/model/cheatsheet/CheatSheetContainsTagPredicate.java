@@ -19,7 +19,7 @@ public class CheatSheetContainsTagPredicate implements Predicate<CheatSheet> {
     @Override
     public boolean test(CheatSheet cheatSheet) {
         return tags.stream()
-                .anyMatch(cheatSheet::containsTag);
+                .allMatch(cheatSheet::containsTag);
     }
 
     @Override
