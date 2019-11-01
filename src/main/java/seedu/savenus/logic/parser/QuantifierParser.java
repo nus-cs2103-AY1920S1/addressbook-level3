@@ -1,12 +1,6 @@
 package seedu.savenus.logic.parser;
 
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_CATEGORY;
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_DESCRIPTION;
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_LOCATION;
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_OPENING_HOURS;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
-import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_RESTRICTIONS;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_EQUALS_TO;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_LESS_THAN;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_MORE_THAN;
@@ -17,13 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.savenus.logic.parser.exceptions.ParseException;
-import seedu.savenus.model.food.Category;
-import seedu.savenus.model.food.Description;
-import seedu.savenus.model.food.Location;
-import seedu.savenus.model.food.Name;
-import seedu.savenus.model.food.OpeningHours;
 import seedu.savenus.model.food.Price;
-import seedu.savenus.model.food.Restrictions;
 
 /**
  * Checks if the fields and quantifiers are valid.
@@ -36,8 +24,7 @@ public class QuantifierParser {
             + "Please fix the formatting to: FIELD QUANTIFIER VALUE\n"
             + "Note that VALUE MUST be only one word.";
     public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field! \n"
-            + "You are only allowed to enter the following fields:\n"
-            + "NAME, PRICE, CATEGORY, DESCRIPTION, LOCATION, OPENING_HOURS, RESTRICTIONS";
+            + "You are only allowed to enter PRICE.";
     public static final String INVALID_QUANTIFIER_USAGE = "Note you have entered an invalid quantifier! \n"
             + "You are only allowed to enter the following quantifiers:\n"
             + "LESS_THAN, EQUALS_TO or MORE_THAN";
@@ -155,13 +142,7 @@ public class QuantifierParser {
      * @return true if the field is valid. False if otherwise.
      */
     public boolean isValidField(String field) {
-        return field.equals(FIELD_NAME_CATEGORY)
-                || field.equals(FIELD_NAME_DESCRIPTION)
-                || field.equals(FIELD_NAME_LOCATION)
-                || field.equals(FIELD_NAME_NAME)
-                || field.equals(FIELD_NAME_OPENING_HOURS)
-                || field.equals(FIELD_NAME_PRICE)
-                || field.equals(FIELD_NAME_RESTRICTIONS);
+        return field.equals(FIELD_NAME_PRICE);
     }
 
     /**
@@ -184,26 +165,8 @@ public class QuantifierParser {
     public boolean isValidValue(String field, String value) {
         switch(field) {
 
-        case FIELD_NAME_CATEGORY:
-            return Category.isValidCategory(value);
-
-        case FIELD_NAME_DESCRIPTION:
-            return Description.isValidDescription(value);
-
-        case FIELD_NAME_LOCATION:
-            return Location.isValidLocation(value);
-
-        case FIELD_NAME_NAME:
-            return Name.isValidName(value);
-
-        case FIELD_NAME_OPENING_HOURS:
-            return OpeningHours.isValidOpeningHours(value);
-
         case FIELD_NAME_PRICE:
             return Price.isValidPrice(value);
-
-        case FIELD_NAME_RESTRICTIONS:
-            return Restrictions.isValidRestrictions(value);
 
         default:
             return false;
