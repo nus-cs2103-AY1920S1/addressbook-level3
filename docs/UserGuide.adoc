@@ -383,6 +383,9 @@ non-image file)
 Other fields can take any values. If the restrictions above are violated, an error message will be shown to the user
 and the command cannot proceed until the user re-enters the command with the corrected values.
 
+Users will also _not_ be allowed to enter duplicate values for fields that supports multiple values. (i.e. p/123 p/123)
+Doing so results in an error message being shown to the user, indicating that duplicate values are not allowed.
+
 Upon successful processing of the command and its arguments, the user's biography will be updated accordingly and the
 biography pane will be displayed to the user, regardless of which pane was previously being displayed before (eg. a user
 may add to the biography while records are being displayed). In the user's feedback display pane, a message indicating
@@ -478,6 +481,9 @@ feedback display pane that the same information already exists in the biography 
 Hence, if the user's biography contains `Bob` as the value of the `Name` field but not the address field, keying in `editbio n/Bob` will result
 in the notification being shown but not `editbio n/Bob a/Test Address`. The new value in the address field will be
 updated in the second case.
+
+Users will also _not_ be allowed to enter duplicate values in each list that supports multiple values. (i.e. p/123 p/123)
+Doing so results in an error message being shown to the user, indicating that duplicate values are not allowed.
 
 Upon successful processing of the command and its arguments, the user's biography will be updated accordingly and the
 biography pane will be displayed to the user, regardless of which pane was previously being displayed before (eg. a user
