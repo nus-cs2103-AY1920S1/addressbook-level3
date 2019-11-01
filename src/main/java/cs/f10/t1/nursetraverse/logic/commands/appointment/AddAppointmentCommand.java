@@ -48,7 +48,8 @@ public class AddAppointmentCommand extends MutatorCommand {
             + PREFIX_APPOINTMENT_DESCRIPTION + "Dental hygiene checkup ";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the patient book";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists "
+            + "in the appointment book";
 
     private Appointment toAdd;
 
