@@ -353,3 +353,9 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+.course-text-display {
+    -fx-font-family: "monospace";
+    -fx-font-weight: 500;
+    -fx-font-size: 17;
+}

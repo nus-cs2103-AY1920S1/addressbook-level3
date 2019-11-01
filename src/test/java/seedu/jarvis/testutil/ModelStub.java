@@ -277,6 +277,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getTotalSpending() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public double calculateRemainingAmount() {
         throw new AssertionError("This method should not be called.");
     }

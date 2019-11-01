@@ -174,6 +174,11 @@ public interface FinanceTrackerModel {
     double calculateTotalSpending();
 
     /**
+     * Calculates total expenditure by user for this month to be rendered onto Ui.
+     */
+    String getTotalSpending();
+
+    /**
      * Calculates remaining available amount by user.
      */
     double calculateRemainingAmount();

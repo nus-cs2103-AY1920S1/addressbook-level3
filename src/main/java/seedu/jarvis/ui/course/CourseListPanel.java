@@ -41,7 +41,6 @@ public class CourseListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new CourseListCard(course, getIndex() + 1).getRoot());
-                courseListView.scrollTo(getIndex() + 1);
             }
         }
     }

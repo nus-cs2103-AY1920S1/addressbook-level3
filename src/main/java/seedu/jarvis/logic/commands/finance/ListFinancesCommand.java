@@ -45,6 +45,7 @@ public class ListFinancesCommand extends Command {
         model.setViewStatus(ViewType.LIST_FINANCE);
         model.updateFilteredInstallmentList(FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS);
         model.updateFilteredPurchaseList(FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES);
+
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
