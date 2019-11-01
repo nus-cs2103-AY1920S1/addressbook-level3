@@ -41,31 +41,31 @@ public class MealPlanTest {
         assertFalse(MILO_MP.isSameMealPlan(null));
 
         // different name -> returns false
-        MealPlan editedMilo_Mp = new MealPlanBuilder(MILO_MP).withName(CommandTestUtil.VALID_NAME_BURGER).build();
-        assertFalse(MILO_MP.isSameMealPlan(editedMilo_Mp));
+        MealPlan editedMilo_mp = new MealPlanBuilder(MILO_MP).withName(CommandTestUtil.VALID_NAME_BURGER).build();
+        assertFalse(MILO_MP.isSameMealPlan(editedMilo_mp));
 
         // same name, different attributes -> returns true
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay2(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay3(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay4(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay5(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay6(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
-        editedMilo_Mp = new MealPlanBuilder(MILO_MP)
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
+        editedMilo_mp = new MealPlanBuilder(MILO_MP)
                 .withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertTrue(MILO_MP.isSameMealPlan(editedMilo_Mp));
+        assertTrue(MILO_MP.isSameMealPlan(editedMilo_mp));
     }
 
     @Test
@@ -107,23 +107,23 @@ public class MealPlanTest {
         assertFalse(MILO_MP.equals(BURGER_MP));
 
         // different name -> returns false
-        MealPlan edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withName(CommandTestUtil.VALID_NAME_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
+        MealPlan edited_Milo_mp = new MealPlanBuilder(MILO_MP).withName(CommandTestUtil.VALID_NAME_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
 
         // different ingredients -> returns false
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay2(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay3(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay4(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay5(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay6(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
-        edited_Milo_Mp = new MealPlanBuilder(MILO_MP).withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
-        assertFalse(MILO_MP.equals(edited_Milo_Mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay1(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay2(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay3(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay4(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay5(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay6(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
+        edited_Milo_mp = new MealPlanBuilder(MILO_MP).withDay7(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
+        assertFalse(MILO_MP.equals(edited_Milo_mp));
     }
 }
