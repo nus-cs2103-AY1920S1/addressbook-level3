@@ -3,7 +3,10 @@ package seedu.ifridge.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VersionedBoughtList extends GroceryList{
+/**
+ * Facilitates undo and redo mechanism in bought list.
+ */
+public class VersionedBoughtList extends GroceryList {
     private List<ReadOnlyGroceryList> boughtListStateList;
     private int currentStatePointer = 0;
 
