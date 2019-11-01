@@ -408,7 +408,7 @@ than `a/exampleAddress m/test` is. Ultimately, the user has a balance of conveni
 
 Examples of *VALID* `addbio` commands, provided that a biography does not yet exist, include:
 
-* `addbio dp//Users/whneo97/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/12/12/2019 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `addbio dp//Users/whneo97/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/2019-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 * `addbio n/testMinimal p/91234567 e/81234567 m/testMedicalCondition`
 
