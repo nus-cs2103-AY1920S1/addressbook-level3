@@ -71,7 +71,7 @@ public class AddCommandParser implements Parser {
         int quantity;
         try {
             quantity = Integer.parseInt(quantityString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             logger.info("Quantity inputted is not an integer.");
             throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }

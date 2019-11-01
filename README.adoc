@@ -13,17 +13,19 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop application called treasurerPro (tP).
-It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is aimed towards Co-curricular Activities Treasurers to help them better manage finances and reimbursements to members.
-* It makes planning and budgeting events much easier with everything consolidated in one application.
+This is a desktop application called treasurerPro (tP). +
+It has a Graphical User Interface (GUI) but this application has been tailored to enable user interaction mostly via the Command
+Line Interface (CLI). This application is intended to aid treasurers of Co-curricular Activities and Societies with
+better management of finances and reimbursements for its members. By packaging all functions in an application, it makes
+planning and budgeting events much more easier.
 
 == Site Map
 
-* <<UserGuide#, User Guide>>
-* <<DeveloperGuide#, Developer Guide>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+
 
 == Acknowledgements
 
