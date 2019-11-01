@@ -20,6 +20,7 @@
             </padding>
             <Label fx:id="moduleCode" text="\$first" styleClass="cell_bigger_label" />
             <Label fx:id="moduleName" styleClass="cell_bigger_label, green-text-label" text="\$moduleName" />
+            <Label fx:id="credits" styleClass="prefix-label, prefix_sky_blue" text="\$credits" />
 
             <Label minHeight="20" />
             <Label fx:id="timeSlot" styleClass="cell_small_label, yellow-text-label" text="\$timeSlot" />
