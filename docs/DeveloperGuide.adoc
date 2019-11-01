@@ -298,16 +298,41 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 ** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
 
+===== Aspect: How tag predicates are implemented
+
 ==== Usage of Tags
 
+===== a. To search for items
+
 ** Inside each feature
-*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
-** Using Tags globally
-*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
-** Currently, the user is able to specify multiple tags in his/her query.
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `filter tag/cs2100`).
+** Searching using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
+** Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
+** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+Diagram 8 : Sequence diagram of filtering all StudyBuddyItems by a tag.
+
+===== b. For Auto-generation of CheatSheets
+
+** Upon adding a cheatsheet, the cheatsheet will make use of tags to automatically pull contents from other features of StudyBuddyPro.
+** StudyBuddyItems with tags that match the user's input will be pulled over.
+** This feature will be further elaborated in the next section, Section 4.4.
+
+===== c. For TimeTrial Mode
+
+** The TimeTrial Mode of the flashcard feature, will make use of the tagging feature.
+** It will do so by filtering out flashcards with tags that match the user's input.
+** For instance, if a user wishes to revise only important flashcards, he/she could enter the following command, `timetrial important`.
+
+[IMPORTANT]
+====
+The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
+====
+** The TimeTrial feature will be further elaborated in Section 4.5.
 
 ==== [Proposed] Future improvements
 
