@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.AutoExpenseList;
@@ -129,7 +130,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 
-    public void updateBudgets() {
+    public void updateBudgets(FilteredList<Expense> filteredExpenses) {
+        for (Budget budget : budgets) {
+            budget.setSpent(filteredExpenses);
+        }
         budgets.updateBudgets();
     }
 
@@ -333,7 +337,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                     .collect(Collectors.toList());
             filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
         }
-
+        indicateModified();
     }
 
     /**

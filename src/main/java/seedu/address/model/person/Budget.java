@@ -42,6 +42,15 @@ public class Budget extends Entry {
         this.period = period;
         endDate = startDate.plus(period);
         spent = new Amount(0);
+        new Budget(cat, desc, startDate, period, amount, tags, spent);
+    }
+
+    public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags, Amount spent) {
+        super(cat, desc, startDate, amount, tags);
+        this.startDate = startDate;
+        this.period = period;
+        endDate = startDate.plus(period);
+        this.spent = spent;
     }
 
     /**
@@ -67,23 +76,27 @@ public class Budget extends Entry {
         return endDate;
     }
 
+    public FilteredList<Expense> getFilteredExpenses() {
+        return filteredExpenses;
+    }
+
     public void setSpent(FilteredList<Expense> filteredExpenses) {
         this.filteredExpenses = filteredExpenses;
         expenseMatchesBudgetPredicate = new ExpenseMatchesBudgetPredicate(getCategory(), startDate, endDate);
         this.filteredExpenses.setPredicate(expenseMatchesBudgetPredicate);
-        updateSpent();
     }
 
     /**
      * Updates the amount spent for a Budget
      */
-    public void updateSpent() {
+    public Budget updateSpent() {
         double spentAmount = 0;
         for (Expense expense : filteredExpenses) {
             spentAmount += expense.getAmount().value;
         }
 
         spent = new Amount(spentAmount);
+        return new Budget(getCategory(), getDesc(), getDate(), period, getAmount(), getTags(), spent);
     }
 
     /**
