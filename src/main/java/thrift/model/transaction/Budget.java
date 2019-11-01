@@ -29,14 +29,20 @@ public class Budget {
     }
 
     public Calendar getBudgetDate() {
+        assert period != null;
+
         return this.period;
     }
 
     public String getBudgetDateString() {
+        assert period != null;
+
         return BUDGET_DATE_FORMAT.format(period.getTime());
     }
 
     public BudgetValue getBudgetValue() {
+        assert value != null;
+
         return this.value;
     }
 

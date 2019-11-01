@@ -80,6 +80,7 @@ public class LogicManager implements Logic {
                                               BalanceBar balanceBar, FilteredBar filteredBar) throws CommandException {
         requireAllNonNull(command, commandText);
         CommandResult commandResult = parseScrollable(command, transactionListPanel);
+        assert commandResult != null;
         parseRefreshable(command, balanceBar);
         parseFilterable(commandText, command, filteredBar);
         parseUndoable(command, commandText);
@@ -107,6 +108,10 @@ public class LogicManager implements Logic {
             model.updateExpenseForCurrentMonth();
             model.updateIncomeForCurrentMonth();
             updateBalanceBar(balanceBar);
+        } else {
+            assert isRefreshingFilteredList(command) == false;
+            logger.info("[ " + command.getClass().getSimpleName()
+                    + " IS NOT UPDATING MONTHLY BALANCE OR BUDGET]");
         }
     }
 

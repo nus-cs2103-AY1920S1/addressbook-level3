@@ -1,5 +1,7 @@
 package thrift.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -60,6 +62,7 @@ public class Expense extends Transaction {
      * cloning of expense transactions in the future.
      */
     public boolean isSameTransaction(Transaction otherExpense) {
+        requireNonNull(otherExpense);
         if (otherExpense == this) {
             return true;
         }

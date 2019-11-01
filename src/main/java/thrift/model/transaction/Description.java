@@ -22,6 +22,8 @@ public class Description {
 
     @Override
     public String toString() {
+        assert value != null;
+
         return value;
     }
 

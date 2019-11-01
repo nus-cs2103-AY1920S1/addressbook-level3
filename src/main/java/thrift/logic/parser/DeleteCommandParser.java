@@ -23,6 +23,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getIndexFromCommand());
+            assert index != null;
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

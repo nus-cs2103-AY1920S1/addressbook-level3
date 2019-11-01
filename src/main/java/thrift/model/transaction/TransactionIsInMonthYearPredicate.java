@@ -1,5 +1,7 @@
 package thrift.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Calendar;
 import java.util.function.Predicate;
 
@@ -15,6 +17,9 @@ public class TransactionIsInMonthYearPredicate implements Predicate<Transaction>
 
     @Override
     public boolean test(Transaction transaction) {
+        requireNonNull(transaction);
+        assert monthYear != null;
+
         Calendar transactionMonthYear = Calendar.getInstance();
         transactionMonthYear.setTime(transaction.getDate().getDate());
 

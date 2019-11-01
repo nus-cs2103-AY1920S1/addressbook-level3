@@ -41,6 +41,8 @@ public class BudgetValue {
      * Returns this object's value in double.
      */
     public Double getMonetaryValue() {
+        assert amount != null;
+
         return this.amount;
     }
 
@@ -54,6 +56,8 @@ public class BudgetValue {
 
     @Override
     public String toString() {
+        assert amount != null;
+
         return String.valueOf(DECIMAL_FORMATTER.format(amount));
     }
 

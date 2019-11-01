@@ -25,6 +25,8 @@ public class BudgetList implements Iterable<Budget> {
      */
     public Optional<Budget> getBudgetForMonthYear(Calendar toCheck) {
         requireNonNull(toCheck);
+        assert internalList != null;
+
         for (Budget b : internalList) {
             if (b.getBudgetDate().get(Calendar.MONTH) == toCheck.get(Calendar.MONTH)
                 && b.getBudgetDate().get(Calendar.YEAR) == toCheck.get(Calendar.YEAR)) {
@@ -58,6 +60,8 @@ public class BudgetList implements Iterable<Budget> {
      */
     public void removeBudget(Budget budget) {
         requireNonNull(budget);
+        assert internalList != null;
+
         internalList.remove(budget);
     }
 
@@ -65,12 +69,16 @@ public class BudgetList implements Iterable<Budget> {
      * Replaces the content of this budget list with {@code replacement}.
      */
     public void setBudgets(BudgetList replacement) {
+        assert internalList != null;
+
         internalList.clear();
         internalList.addAll(replacement.internalList);
     }
 
     @Override
     public Iterator<Budget> iterator() {
+        assert internalList != null;
+
         return internalList.iterator();
     }
 

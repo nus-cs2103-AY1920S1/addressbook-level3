@@ -67,6 +67,7 @@ public class AddIncomeCommand extends ScrollingCommand implements Undoable {
     public CommandResult execute(Model model, TransactionListPanel transactionListPanel) {
         requireNonNull(model);
         model.addIncome(toAdd);
+        assert toAdd != null;
 
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
         // handle JavaFX initialization

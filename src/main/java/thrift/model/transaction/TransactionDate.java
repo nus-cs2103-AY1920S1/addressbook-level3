@@ -59,11 +59,15 @@ public class TransactionDate {
      * @return Date object belonging to the Transaction.
      */
     public Date getDate() {
+        assert this.date != null;
+
         return this.date;
     }
 
     @Override
     public String toString() {
+        assert rawDate != null;
+
         return rawDate;
     }
 

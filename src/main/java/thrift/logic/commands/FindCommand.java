@@ -35,6 +35,8 @@ public class FindCommand extends NonScrollingCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        assert predicate != null;
+
         model.updateFilteredTransactionList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,

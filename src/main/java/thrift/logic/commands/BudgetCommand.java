@@ -54,6 +54,8 @@ public class BudgetCommand extends NonScrollingCommand implements Undoable {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        assert budget != null;
+
         oldBudget = model.setBudget(budget).orElse(null);
         return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
     }

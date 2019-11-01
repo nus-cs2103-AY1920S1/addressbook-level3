@@ -23,8 +23,8 @@ public class ExpenseTest {
         // same object -> returns true
         assertTrue(TypicalTransactions.LAKSA.isSameTransaction(TypicalTransactions.LAKSA));
 
-        // null -> returns false
-        assertFalse(TypicalTransactions.LAKSA.isSameTransaction(null));
+        // null -> NPE
+        assertThrows(NullPointerException.class, () -> TypicalTransactions.LAKSA.isSameTransaction(null));
 
         // different description and value -> returns false
         Expense updatedExpense = new ExpenseBuilder(TypicalTransactions.LAKSA)

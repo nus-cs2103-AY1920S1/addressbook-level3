@@ -1,5 +1,7 @@
 package thrift.model.transaction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -17,6 +19,9 @@ public class DescriptionOrRemarkContainsKeywordsPredicate implements Predicate<T
 
     @Override
     public boolean test(Transaction transaction) {
+        requireNonNull(transaction);
+        assert keywords != null;
+
         return keywords.stream()
                 .anyMatch(keyword -> {
                     if (StringUtil.containsWordIgnoreCase(transaction.getDescription().toString(), keyword)) {

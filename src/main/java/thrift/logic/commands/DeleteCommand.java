@@ -52,6 +52,7 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert targetIndex != null;
         List<Transaction> lastShownList = model.getFilteredTransactionList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -59,6 +60,7 @@ public class DeleteCommand extends NonScrollingCommand implements Undoable {
         }
 
         transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
+        assert transactionToDelete != null;
         actualIndex = model.getIndexInFullTransactionList(transactionToDelete).get();
         model.deleteTransaction(actualIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete));

@@ -66,6 +66,7 @@ public class AddExpenseCommand extends ScrollingCommand implements Undoable {
     @Override
     public CommandResult execute(Model model, TransactionListPanel transactionListPanel) {
         requireNonNull(model);
+        assert toAdd != null;
         model.addExpense(toAdd);
 
         // Use null comparison instead of requireNonNull(transactionListPanel) as current JUnit tests are unable to
