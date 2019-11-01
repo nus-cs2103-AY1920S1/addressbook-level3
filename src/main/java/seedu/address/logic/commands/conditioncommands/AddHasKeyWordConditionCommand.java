@@ -14,9 +14,9 @@ import seedu.address.model.reminders.conditions.KeyWordsCondition;
 /**
  * Creates a KeyWordsCondition when executed.
  */
-public class AddKeyWordsConditionCommand extends Command {
+public class AddHasKeyWordConditionCommand extends Command {
 
-    public static final String COMMAND_WORD = "addKeyWordsCondition";
+    public static final String COMMAND_WORD = "addHasKeyWordCondition";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a KeyWordsCondition to the conditions list. \n"
@@ -30,7 +30,7 @@ public class AddKeyWordsConditionCommand extends Command {
 
     private List<String> keywords;
 
-    public AddKeyWordsConditionCommand(List<String> keywords) {
+    public AddHasKeyWordConditionCommand(List<String> keywords) {
         this.keywords = keywords;
     }
     @Override
@@ -46,7 +46,7 @@ public class AddKeyWordsConditionCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddKeyWordsConditionCommand // instanceof handles nulls
-                && keywords.equals(((AddKeyWordsConditionCommand) other).keywords));
+                || (other instanceof AddHasKeyWordConditionCommand // instanceof handles nulls
+                && keywords.equals(((AddHasKeyWordConditionCommand) other).keywords));
     }
 }

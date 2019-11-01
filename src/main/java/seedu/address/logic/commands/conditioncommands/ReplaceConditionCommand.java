@@ -22,7 +22,7 @@ import seedu.address.model.reminders.conditions.Condition;
  */
 public class ReplaceConditionCommand extends Command {
 
-    public static final String COMMAND_WORD = "editCondition";
+    public static final String COMMAND_WORD = "replaceCondition";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Condition identified "
             + "by the index number used in the displayed Conditions list. "
@@ -35,7 +35,7 @@ public class ReplaceConditionCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_AMOUNT + "5.60";
 
-    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Condition: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Condition replaced";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
     private final Index indexToReplace;
@@ -54,7 +54,7 @@ public class ReplaceConditionCommand extends Command {
                 || replacingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
-        if (!indexToReplace.equals(replacingIndex)) {
+        if (indexToReplace.equals(replacingIndex)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
         Condition conditionToReplace = lastShownList.get(indexToReplace.getZeroBased());
