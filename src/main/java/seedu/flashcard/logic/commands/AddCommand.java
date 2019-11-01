@@ -6,6 +6,7 @@ import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -52,7 +53,7 @@ public class AddCommand extends Command {
      * @throws CommandException error encountered during execution of command
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (model.hasFlashcard(toAdd)) {
@@ -60,6 +61,7 @@ public class AddCommand extends Command {
         }
 
         model.addFlashcard(toAdd);
+        model.commitFlashcardList();
         return new CommandResult(MESSAGE_SUCCESS, false, false);
     }
 }

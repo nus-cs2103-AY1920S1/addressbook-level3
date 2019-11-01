@@ -2,6 +2,7 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.tag.Tag;
@@ -28,12 +29,13 @@ public class DeleteTagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (!model.systemHasTag(target)) {
             throw new CommandException(MESSAGE_TAG_DOES_NOT_EXIST);
         }
         model.systemRemoveTag(target);
+        model.commitFlashcardList();
         return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
     }
 }

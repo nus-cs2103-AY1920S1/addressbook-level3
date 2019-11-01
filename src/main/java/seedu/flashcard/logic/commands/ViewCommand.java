@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.flashcard.commons.core.index.Index;
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -38,7 +39,7 @@ public class ViewCommand extends Command {
      * @throws CommandException error encountered during execution of the command.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

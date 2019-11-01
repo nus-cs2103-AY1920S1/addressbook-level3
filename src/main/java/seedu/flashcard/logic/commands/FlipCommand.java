@@ -2,6 +2,7 @@ package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
@@ -34,7 +35,7 @@ public class FlipCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Flashcard quizCard = model.getQuiz().quizCard();
         if (quizCard == null) {

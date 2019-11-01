@@ -17,6 +17,7 @@ import java.util.Set;
 import seedu.flashcard.commons.core.Messages;
 import seedu.flashcard.commons.core.index.Index;
 import seedu.flashcard.commons.util.CollectionUtil;
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Answer;
@@ -69,7 +70,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -90,6 +91,7 @@ public class EditCommand extends Command {
         }
         model.setFlashcard(flashcardToEdit, editedFlashcard);
         model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
+        model.commitFlashcardList();
         return new CommandResult(String.format(MESSAGE_EDIT_FLASHCARD_SUCCESS, editedFlashcard));
     }
 
