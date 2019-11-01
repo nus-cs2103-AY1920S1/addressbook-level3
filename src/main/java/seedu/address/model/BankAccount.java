@@ -154,7 +154,6 @@ public class BankAccount implements ReadOnlyBankAccount {
 
     @Override
     public ObservableList<BankAccountOperation> getTransactionHistory() {
-        System.out.println("BankAccount: " + transactions.asUnmodifiableObservableList());
         return transactions.asUnmodifiableObservableList();
     }
 
