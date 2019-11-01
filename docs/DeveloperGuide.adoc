@@ -123,7 +123,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Appointment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -196,14 +196,22 @@ An unfortunate side effect to matching the longest matching macro increases the 
 // tag::appointments[]
 === Appointments feature
 ==== Implementation
-The Appointments feature comprises of Reminders and Follow-Ups. Both mechanisms are facilitated by the `AppointmentTable` class, with individual Appointment data stored in the `Appointment` class.
+The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
+
+The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
 
 It implements the following operations:
 
-* `AppointmentTable#addAppointment(appointment)` -- Adds a new appointment.
-* `AppointmentTable#outputAppointments()` -- Retrieves the appointments for output.
+* `AppointmentTable#getDefaultAppointments()` -- Returns a default, empty `AppointmentTable`.
+* `AppointmentTable#getAppointmentList()` -- Returns an `ObservableList` version of the Appointments for UI usage. This is necessary as `AppointmentTable` is loaded on launch and `AppointmentList` uses this data to propagate the UI.
+* `AppointmentTable#addAppointment(type, description, days)` -- Adds a new Appointment.
+* `AppointmentTable#deleteAppointment(description, days)` -- Deletes an appointment from VISIT.
+* `AppointmentTable#antiDuplicate(check, description, days)` -- Checks if the Appointment already exists. Returns true if there is no duplicate, false if there is a duplicate.
+* `AppointmentTable#sortAppointments()` -- Sorts the list of appointments by days remaining, then name.
+* `AppointmentTable#cascadeDay(days)` -- Decrements the days an Appointment has left. Run on application launch by `UserPrefs` after calculating days elapsed.
+* `AppointmentTable#outputAppointments()` -- Outputs the Appointments to readable String.
 
-These operations are exposed in the `Model` interface as `Model#addAppointment(reminder)` and `Model#outputAppointments()` respectively.
+These operations are exposed in the `Model` interface.
 
 The following sequence diagram shows how adding a follow-up or reminder works:
 
@@ -502,6 +510,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |have <<user-defined-macros,user-defined macros>> |streamline my diagnosis documentation
 
+|`* *` |user |sort my appointments |see the more pressing deadlines first
+
+|`* *` |user |remove a specific appointment |get rid of an unnecessary reminder or visit
+
 |`* *` |user |generate a text file detailing my patient's profile and visits |maintain a archive of patient profiles before deleting them
 
 |`*` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
@@ -509,22 +521,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-{*TODO* : Please update user stories if any new enhancements have been planned / made in your implementation. *DELETE WHEN DONE*}
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `VISIT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete patient
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list patients
+2.  System shows a list of patients
+3.  User requests to delete a specific patient in the list
+4.  System deletes the patient
 +
 Use case ends.
 
@@ -538,7 +548,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
@@ -547,10 +557,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
+1.  User requests to list patients
+2.  System shows a list of patients
 3.  User requests to view patient profile by name/index
-4.  AddressBook shows patient profile
+4.  System shows patient profile
 +
 Use case ends.
 
@@ -564,7 +574,7 @@ Use case ends.
 * 3. The given name/index is invalid.
 +
 [none]
-** 3a. AddressBook shows an error message.
+** 3a. System shows an error message.
 +
 Use case resumes at step 2.
 
@@ -578,9 +588,9 @@ Use case ends.
 
 *MSS*
 
-* Precondition: User can see list of persons
+* Precondition: User can see list of patients
 1.  User requests to add new visitation record for a specific patient in the list
-2.  AddressBook adds new visitation record for chosen patient
+2.  System adds new visitation record for chosen patient
 +
 Use case ends.
 
@@ -590,7 +600,7 @@ Use case ends.
 * 1a. The given index is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. VISIT shows an error message.
 +
 Use case resumes at step 1.
 
@@ -599,11 +609,11 @@ Use case resumes at step 1.
 
 *MSS*
 
-* Precondition: User can see list of persons
+* Precondition: User can see list of patients
 1.  User requests to edit visitation record for specific patient by patient index
-2.  AddressBook shows pop-up form for user to edit visitation record
+2.  VISIT shows pop-up form for user to edit visitation record
 3.  User saves edit
-4.  AddressBook saves edit
+4.  VISIT saves edit
 +
 Use case ends.
 
@@ -613,7 +623,7 @@ Use case ends.
 * 1a. The user does not provide a record index
 +
 [none]
-** 1a1. AddressBook shows an indexed list of visitation records
+** 1a1. VISIT shows an indexed list of visitation records
 +
 Use case resumes at step 1.
 
@@ -625,7 +635,7 @@ Use case resumes at step 1.
 
 * Precondition: User can see list of persons
 1.  User requests to delete visitation record for specific patient by index
-2.  AddressBook deletes visitation record
+2.  VISIT deletes visitation record
 
 +
 Use case ends.
@@ -636,7 +646,7 @@ Use case ends.
 * 1a. The user does not provide a record index
 +
 [none]
-** 1a1. AddressBook shows an indexed list of visitation records
+** 1a1. VISIT shows an indexed list of visitation records
 Use case resumes at step 1.
 
 
@@ -646,7 +656,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to save user-defined macros
-2.  AddressBook saves user-defined macros
+2.  VISIT saves user-defined macros
 
 +
 Use case ends.
@@ -657,7 +667,7 @@ Use case ends.
 * 1a. The content of the macro is empty.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. VISIT shows an error message.
 +
 Use case resumes at step 1.
 
@@ -665,7 +675,7 @@ Use case resumes at step 1.
 * 1b. The shortcut of the macro is illegal.
 +
 [none]
-** 1b1. AddressBook shows an error message.
+** 1b1. VISIT shows an error message.
 +
 Use case resumes at step 1.
 
@@ -675,7 +685,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to invoke user-defined macros
-2.  AddressBook outputs user-defined data
+2.  VISIT outputs user-defined data
 
 +
 Use case ends.
@@ -686,7 +696,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to remove user-defined macros
-2.  AddressBook removes user-defined macro
+2.  VISIT removes user-defined macro
 
 +
 Use case ends.
@@ -697,7 +707,7 @@ Use case ends.
 * 1a. The content of the macro name is empty.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. VISIT shows an error message.
 +
 Use case resumes at step 1.
 
@@ -705,17 +715,17 @@ Use case resumes at step 1.
 * 1b. There exists no such macro.
 +
 [none]
-** 1b1. AddressBook shows an error message.
+** 1b1. VISIT shows an error message.
 +
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: View follow-up reminders
+=== Use case: View follow-up visits
 
 *MSS*
 
-1.  User starts up AddressBook
-2.  Follow-up reminders for the day are displayed
+1.  User starts up VISIT
+2.  Follow-up visits are displayed
 
 +
 Use case ends.
@@ -723,10 +733,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2. No reminders are scheduled for the day
+* 2. No follow-ups are scheduled.
 +
 [none]
-** 2a. AddressBook shows no reminder message
+** 2a. VISIT shows no follow-ups.
 +
 Use case ends.
 
@@ -735,7 +745,7 @@ Use case ends.
 
 *MSS*
 
-1.  User starts up AddressBook
+1.  User starts up VISIT
 2.  Reminders are displayed
 
 +
@@ -744,20 +754,20 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2. No reminders are set to show
+* 2. No reminders are set to show.
 +
 [none]
-** 2a. AddressBook shows no reminder message
+** 2a. VISIT shows no reminders.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Open Message of the Day
+=== Use case: Open Appointments "Message of the Day" Window
 
 *MSS*
 
-1. User requests to open Message of the Day
-2. Message of the Day prompt opens with Follow-Up and Reminders details
+1. User requests to open Appointments Window
+2. Appointments Window opens with Follow-Up and Reminders listed
 
 +
 Use case ends.
@@ -765,10 +775,100 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2. No follow-up or reminders active
+* 2. No follow-up or reminders active.
 +
 [none]
-** 2a. Message of the Day window shows no active follow-up or reminders
+** 2a. Message of the Day window shows no active follow-up or reminders.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new Follow-up
+
+*MSS*
+
+* Precondition: User can see list of patients
+1.  User requests to add a follow-up for specific patient by index and days count
+2.  VISIT adds a new follow-up entry into appointments
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No days count is specified.
++
+[none]
+** 1a1. Default 7 days will be assumed.
++
+[none]
+* 1b. The user does not provide a valid index.
++
+[none]
+** 1b1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new Reminder
+
+*MSS*
+
+1.  User requests to add a reminder with description and days count
+2.  VISIT adds a new reminder into appointments
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No days count is specified.
++
+[none]
+** 1a1. Default 7 days will be assumed.
++
+[none]
+* 1b. The user does not provide a description.
++
+[none]
+** 1b1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Deletes an Appointment
+
+*MSS*
+
+1.  User requests to delete an appointment with a given description
+2.  VISIT removes any appointment matching the given description
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user does not provide a description.
++
+[none]
+** 1a1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sorting Appointments
+
+*MSS*
+
+1.  User requests to sort the list of appointments
+2.  VISIT sorts the appointments and updates the display
+
 +
 Use case ends.
 

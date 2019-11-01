@@ -1,14 +1,8 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -16,63 +10,54 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTable;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
-
+public class SortAppointmentsCommandTest {
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+    public void execute_correctSort_sortSuccessful() throws Exception {
+        SortAppointmentsCommandTest.ModelStubWithAppointmentTable modelStub = new SortAppointmentsCommandTest
+                .ModelStubWithAppointmentTable();
+
+        new ReminderCommand("test", 99).execute(modelStub);
+        new ReminderCommand("test2", 1).execute(modelStub);
+        CommandResult commandResult = new SortAppointmentsCommand().execute(modelStub);
+
+        assertEquals(String.format(SortAppointmentsCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
+        assertEquals(
+                AppointmentTable.getDefaultAppointments().addAppointment(0, "test2", 1)
+                .addAppointment(0, "test", 99),
+                modelStub.getUserPrefs().getAppointmentTable()
+        );
     }
 
-    @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    private class ModelStubWithAppointmentTable extends ModelStub {
+        final UserPrefs userPrefs = new UserPrefs();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            return userPrefs;
+        }
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
+        @Override
+        public void addAppointment(int type, String description, int days) throws CommandException {
+            userPrefs.addAppointment(type, description, days);
+        }
 
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        @Override
+        public void sortAppointments() {
+            userPrefs.sortAppointments();
+        }
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
-
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            // Do Nothing.
+        }
     }
 
     /**
@@ -115,7 +100,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addAppointment(int type, String description, int days) {
+        public void addAppointment(int type, String description, int days) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -199,47 +184,4 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
-    /**
-     * A Model stub that contains a single person.
-     */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
-
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
-     */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
 }

@@ -24,6 +24,7 @@ public class FollowUpCommandParser implements Parser<FollowUpCommand> {
 
         Index index;
         int days;
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));

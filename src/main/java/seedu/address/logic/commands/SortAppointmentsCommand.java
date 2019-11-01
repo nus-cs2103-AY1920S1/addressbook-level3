@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -10,11 +9,20 @@ import seedu.address.model.Model;
  */
 public class SortAppointmentsCommand extends Command {
 
+    /**
+     * Word to call the Follow-Up Command.
+     */
     public static final String COMMAND_WORD = "sort";
 
+    /**
+     * Help message on usage.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the appointments. ";
 
+    /**
+     * Success message when executed.
+     */
     public static final String MESSAGE_SUCCESS = "Appointments sorted.";
 
     /**
@@ -24,7 +32,7 @@ public class SortAppointmentsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         model.sortAppointments();

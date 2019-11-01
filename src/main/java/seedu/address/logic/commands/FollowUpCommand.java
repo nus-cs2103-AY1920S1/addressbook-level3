@@ -12,12 +12,18 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a follow-up to VISIT.
+ * Adds a follow-up appointment to VISIT.
  */
 public class FollowUpCommand extends Command {
 
+    /**
+     * Word to call the Follow-Up Command.
+     */
     public static final String COMMAND_WORD = "followup";
 
+    /**
+     * Help message on usage.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a new follow-up against a patient for the user to keep track "
             + "by the index number used in the last person listing.\n"
@@ -26,14 +32,26 @@ public class FollowUpCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DAYS + "7";
 
+    /**
+     * Success message when executed.
+     */
     public static final String MESSAGE_ADD_FOLLOWUP_SUCCESS = "Added follow-up to Person: %s - %d day(s)";
 
+    /**
+     * The index of the patient in the AddressBook.
+     */
     private final Index index;
+
+    /**
+     * Optional number of days for when the follow-up occurs.
+     */
     private final int days;
 
     /**
-     * @param index of the person in the filtered person list to target
-     * @param days before appointment
+     * Creates a FollowUpCommand to add the specified {@code Appointment}.
+     *
+     * @param index of the person in the filtered person list to target.
+     * @param days Number of days for when the follow-up occurs.
      */
     public FollowUpCommand(Index index, int days) {
         requireNonNull(index);

@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,52 +14,70 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.reminder.Appointment;
 
 /**
- * AppointmentTable object with description and dates remaining
+ * AppointmentTable facilitates the storing of Reminders and Follow-Ups in JSON
+ * and performs operations dealing with Appointments.
+ *
+ * Runs in parallel with AppointmentList, which handles UI.
  */
 public class AppointmentTable {
 
+    /**
+     * Creates a new json structure under UserPrefs' storage for Reminders.
+     */
     private HashMap<String, Integer> reminders;
-    private HashMap<String, Integer> followup;
-    //private ArrayList<Appointment> apptList = new ArrayList<>();
 
     /**
-     * Initializes new AppointmentTable object
+     * Creates a new json structure under UserPrefs' storage for Follow-Ups.
+     */
+    private HashMap<String, Integer> followup;
+
+    /**
+     * Initializes new AppointmentTable object.
      */
     public AppointmentTable() {
         reminders = new HashMap<>();
         followup = new HashMap<>();
-        //ObservableList<Appointment> obsApptList = FXCollections.observableArrayList(apptList);
     }
 
+    /**
+     * Returns a default, empty AppointmentTable.
+     */
     public static AppointmentTable getDefaultAppointments() {
         AppointmentTable def = new AppointmentTable();
         return def;
     }
 
     /**
-     * Returns the list for view
+     * Returns an ObservableList version of the Appointments for UI usage.
+     * This is necessary as AppointmentTable is loaded on launch and
+     * AppointmentList uses this data to propagate the UI.
+     *
      * @return ObservableList of Appointment objects
      */
     public ObservableList<Appointment> getAppointmentList() {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
-        Iterator it = reminders.entrySet().iterator();
-        while (it.hasNext()) {
-            HashMap.Entry pair = (HashMap.Entry) it.next();
-            appointmentList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
-        }
-        it = followup.entrySet().iterator();
+        Iterator it = followup.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             appointmentList.add(new Appointment("[F] " + pair.getKey(), (int) pair.getValue()));
         }
+        it = reminders.entrySet().iterator();
+        while (it.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it.next();
+            appointmentList.add(new Appointment("[R] " + pair.getKey(), (int) pair.getValue()));
+        }
+
         return appointmentList;
     }
 
     /**
-     * Adds a new Appointment to VISIT
+     * Adds a new Appointment.
+     *
+     * @param type The type of appointment. 0 = Reminder, 1 = Follow-Up.
+     * @param description The description of the Appointment.
+     * @param days How many days the Appointment has remaining.
      */
     public AppointmentTable addAppointment(int type, String description, int days) throws CommandException {
         requireNonNull(type);
@@ -68,14 +86,12 @@ public class AppointmentTable {
         if (type == 0) {
             if (antiDuplicate(reminders, description, days)) {
                 reminders.put(description, days);
-                //apptList.add(new Appointment("[R] " + description, days));
             } else {
                 throw new CommandException("Appointment already exists");
             }
         } else {
             if (antiDuplicate(followup, description, days)) {
                 followup.put(description, days);
-                //apptList.add(new Appointment("[F] " + description, days));
             } else {
                 throw new CommandException("Appointment already exists");
             }
@@ -84,7 +100,10 @@ public class AppointmentTable {
     }
 
     /**
-     * Deletes an appointment from VISIT
+     * Deletes an appointment from VISIT.
+     *
+     * @param description The description of the appointment to delete.
+     * @param days Optional number of days to specifically target the exact appointment to delete.
      */
     public AppointmentTable deleteAppointment(String description, int days) {
         requireNonNull(description);
@@ -102,7 +121,13 @@ public class AppointmentTable {
     }
 
     /**
-     * Checks if the appointment already exists
+     * Checks if the Appointment already exists.
+     *
+     * @param check The HashMap containing the Appointment to be checked against.
+     * @param description The description of the Appointment to search for.
+     * @param days Number of days to specifically target the exact appointment.
+     *
+     * @return True if there is no duplicate, false if there is a duplicate.
      */
     private boolean antiDuplicate(HashMap<String, Integer> check, String description, int days) {
         Iterator it = check.entrySet().iterator();
@@ -125,6 +150,8 @@ public class AppointmentTable {
 
     /**
      * Sorting algorithm for HashMap.
+     *
+     * @param hashMap The HashMap to be sorted.
      */
     private HashMap<String, Integer> sort(HashMap<String, Integer> hashMap) {
         List<HashMap.Entry<String, Integer>> list =
@@ -143,7 +170,10 @@ public class AppointmentTable {
     }
 
     /**
-     * Decrements the days an appointment has left
+     * Decrements the days an Appointment has left.
+     * Run on application launch by UserPrefs after calculating days elapsed.
+     *
+     * @days Number of days to decrement each Appointment by.
      */
     public void cascadeDay(int days) {
         HashMap<String, Integer> cascadeReminders = new HashMap<>();
@@ -174,7 +204,8 @@ public class AppointmentTable {
     }
 
     /**
-     * Outputs the Reminders and Follow-Up to readable String
+     * Outputs the Appointments to readable String.
+     * Used in the Message of the Day output.
      */
     public String outputAppointments() {
         StringBuilder sb = new StringBuilder();

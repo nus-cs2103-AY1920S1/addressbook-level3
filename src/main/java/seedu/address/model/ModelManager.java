@@ -12,9 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentList;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.Appointment;
-import seedu.address.model.reminder.AppointmentList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,8 +24,16 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final AppointmentList appointmentList;
     private final FilteredList<Person> filteredPersons;
+
+    /**
+     * AppointmentList to handle Appointment UI.
+     */
+    private final AppointmentList appointmentList;
+
+    /**
+     * FilteredAppointments to populate Appointments Panel.
+     */
     private final FilteredList<Appointment> filteredAppointments;
 
     /**
@@ -39,9 +47,9 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.appointmentList = new AppointmentList(this.userPrefs.getAppointmentList());
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        appointmentList = new AppointmentList(this.userPrefs.getAppointmentList());
-        filteredAppointments = new FilteredList<>(appointmentList.asUnmodifiableObservableList());
+        filteredAppointments = new FilteredList<>(this.appointmentList.asUnmodifiableObservableList());
     }
 
     public ModelManager() {
@@ -115,7 +123,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -131,14 +138,48 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Appointment> getFilteredAppointmentList() {
-        return filteredAppointments;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Appointments ================================================================================
+
+    @Override
+    public void addAppointment(int type, String description, int days) throws CommandException {
+        userPrefs.addAppointment(type, description, days); // JSON
+        appointmentList.addAppointment(type, description, days); // UI
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+    @Override
+    public void deleteAppointment(String description, int days) {
+        userPrefs.deleteAppointment(description, days); // JSON
+        appointmentList.deleteAppointment(description, days); // UI
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+    @Override
+    public void sortAppointments() {
+        userPrefs.sortAppointments(); // JSON
+        appointmentList.sortAppointments(); // UI
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+    @Override
+    public String outputAppointments() {
+        return userPrefs.outputAppointments();
+    }
+
+    //=========== Filtered Appointment List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Appointment} backed by the internal list of
+     * {@code AppointmentList}
+     */
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return filteredAppointments;
     }
 
     @Override
@@ -147,27 +188,7 @@ public class ModelManager implements Model {
         filteredAppointments.setPredicate(predicate);
     }
 
-    @Override
-    public void addAppointment(int type, String description, int days) throws CommandException {
-        appointmentList.add(type, description, days);
-        userPrefs.addAppointment(type, description, days);
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
-    }
-
-    @Override
-    public void deleteAppointment(String description, int days) {
-        userPrefs.deleteAppointment(description, days);
-    }
-
-    @Override
-    public void sortAppointments() {
-        userPrefs.sortAppointments();
-    }
-
-    @Override
-    public String outputAppointments() {
-        return userPrefs.outputAppointments();
-    }
+    //=========== Alias ================================================================================
 
     @Override
     public void addAlias(String alias, String aliasTo) {
