@@ -23,6 +23,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.order.Order;
@@ -130,11 +131,14 @@ public class SampleDataUtil {
 
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
-            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive")),
-            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful")),
+            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive"),
+                    new StatusTag("AVAILABLE")),
+            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful"),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"), getTagSet("active")),
-            new Deliveryman(new Name("Low ee ter"), new Phone("99367862"), getTagSet("inactive")),
-            new Deliveryman(new Name("Yuen Jun rong "), new Phone("12345678"), getTagSet("veryactive"))
+            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
+                    new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Yuen Jun Rong "), new Phone("12345678"), getTagSet("veryactive"))
         };
     }
 
