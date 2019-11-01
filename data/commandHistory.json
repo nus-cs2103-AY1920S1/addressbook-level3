@@ -294,5 +294,10 @@
     "output" : "Opened command history window.",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572622618432
+  }, {
+    "input" : "view a/1",
+    "output" : "Displayed items with ID: C000000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622903981
   } ]
 }
