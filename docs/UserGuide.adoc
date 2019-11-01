@@ -232,7 +232,7 @@ Loans the book with serial number B00041
 * `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203
 
-Upon loaning a book, a printable loan slip in pdf format will be generated.
+After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated.
 
 .Printable PDF version of a Loan Slip
 image::LoanSlip.png[width=250]
