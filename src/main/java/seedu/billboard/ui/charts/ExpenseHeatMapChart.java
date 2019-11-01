@@ -16,7 +16,6 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.util.Pair;
 
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
@@ -32,6 +31,7 @@ import seedu.billboard.model.statistics.generators.HeatMapGenerator;
 public class ExpenseHeatMapChart extends ExpenseChart {
 
     private static final String FXML = "ExpenseHeatMapChart.fxml";
+    private static final int SCALE_FACTOR = 8;
 
     @FXML
     private ProportionalBubbleChart<Integer, Integer> heatMapChart;
@@ -45,7 +45,6 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     private final HeatMapGenerator heatMapGenerator;
     private final XYChart.Series<Integer, Integer> series;
     private final DateRange currentYearRange = getCurrentYearRange();
-    private final int scaleFactor = 8;
 
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses, HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
@@ -96,12 +95,11 @@ public class ExpenseHeatMapChart extends ExpenseChart {
      * Helper method to convert the heatmap values into a list of {@code XYChart.Data} for the chart to use.
      */
     private List<XYChart.Data<Integer, Integer>> mapToData(
-            List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatmapValues) {
+            List<EnumMap<DayOfWeek, Amount>> heatmapValues) {
 
         return IntStream.range(0, heatmapValues.size())
                 .boxed()
                 .flatMap(idx -> heatmapValues.get(idx)
-                        .getValue()
                         .entrySet()
                         .stream()
                         .map(entry -> heatMapEntryToData(idx, entry)))
@@ -119,6 +117,6 @@ public class ExpenseHeatMapChart extends ExpenseChart {
      * Gets the value of the given amounted adjusted by an appropriate scale factor to fit on the chart.
      */
     private double getAmountValueAdjusted(Map.Entry<DayOfWeek, Amount> entry) {
-        return Math.log10(entry.getValue().amount.doubleValue()) / scaleFactor;
+        return Math.log10(entry.getValue().amount.doubleValue()) / SCALE_FACTOR;
     }
 }

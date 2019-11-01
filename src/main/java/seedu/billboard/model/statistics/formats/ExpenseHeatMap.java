@@ -19,5 +19,5 @@ public interface ExpenseHeatMap {
      * represents a week, with the {@code DateRange} specifying the dates of the start and end of the week, and the
      * {@code EnumMap} specifying the days of the week mapped to the aggregate amount spend on that day.
      */
-    List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> getHeatMapValues();
+    List<EnumMap<DayOfWeek, Amount>> getHeatMapValues();
 }

@@ -42,7 +42,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
             return new FilledExpenseHeatMap(new ArrayList<>());
         }
 
-        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+        List<? extends Expense> sortedExpense = sortExpensesByDate(expenses);
         LocalDate latestDate = getLatestDate(sortedExpense);
 
         return generate(expenses, DateRange.fromClosed(
@@ -59,12 +59,12 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
             return new FilledExpenseHeatMap(new ArrayList<>());
         }
 
-        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+        List<? extends Expense> sortedExpense = sortExpensesByDate(expenses);
 
-        List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatMapValues = dateRange
+        List<EnumMap<DayOfWeek, Amount>> heatMapValues = dateRange
                 .partitionByInterval(DateInterval.WEEK)
                 .stream()
-                .map(range -> new Pair<>(range, new EnumMap<DayOfWeek, Amount>(DayOfWeek.class)))
+                .map(range -> new EnumMap<DayOfWeek, Amount>(DayOfWeek.class))
                 .collect(Collectors.toList());
 
         sortedExpense.forEach(expense -> addExpenseToHeatMap(dateRange, heatMapValues, expense));
@@ -84,7 +84,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
             return taskFrom(() -> generate(new ArrayList<>()));
         }
 
-        List<? extends Expense> sortedExpense = sortExpenses(expenses);
+        List<? extends Expense> sortedExpense = sortExpensesByDate(expenses);
         LocalDate latestDate = getLatestDate(sortedExpense);
 
         return generateAsync(sortedExpense, DateRange.fromClosed(
@@ -104,7 +104,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
         });
     }
 
-    private List<? extends Expense> sortExpenses(List<? extends Expense> expenses) {
+    private List<? extends Expense> sortExpensesByDate(List<? extends Expense> expenses) {
         return expenses.stream()
                 .sorted(Comparator.comparing(expense -> expense.getCreated().dateTime))
                 .collect(Collectors.toList());
@@ -124,7 +124,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
      * the heat map.
      */
     private void addExpenseToHeatMap(DateRange dateRange,
-                                     List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> heatMapValues,
+                                     List<EnumMap<DayOfWeek, Amount>> heatMapValues,
                                      Expense expense) {
         LocalDate createdDate = expense.getCreated().dateTime.toLocalDate();
 
@@ -132,9 +132,7 @@ public class HeatMapGenerator implements StatisticsGenerator<ExpenseHeatMap> {
             int index = (int) ChronoUnit.WEEKS.between(dateRange.getStartDate(), createdDate);
             DayOfWeek dayOfWeek = createdDate.getDayOfWeek();
 
-            heatMapValues.get(index)
-                    .getValue()
-                    .merge(dayOfWeek, expense.getAmount(), Amount::add);
+            heatMapValues.get(index).merge(dayOfWeek, expense.getAmount(), Amount::add);
         }
     }
 

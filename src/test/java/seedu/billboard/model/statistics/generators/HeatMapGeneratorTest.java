@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.commons.core.date.DateRange;
+import seedu.billboard.model.statistics.formats.ExpenseHeatMap;
+import seedu.billboard.testutil.TypicalExpenses;
 
 
 class HeatMapGeneratorTest {
@@ -27,6 +29,13 @@ class HeatMapGeneratorTest {
     @Test
     void generate_emptyListInput_returnsEmptyOutput() {
         assertThat(heatMapGenerator.generate(new ArrayList<>()).getHeatMapValues(), is(empty()));
+    }
+
+    // Based of expenses list from {@code TypicalExpenses#getTypicalExpenses}.
+    @Test
+    void generate_nonEmptyList_returnsCorrectExpenseHeatMap() {
+        ExpenseHeatMap heatMap = heatMapGenerator.generate(TypicalExpenses.getTypicalExpenses());
+        heatMap.getHeatMapValues();
     }
 
     @Test
