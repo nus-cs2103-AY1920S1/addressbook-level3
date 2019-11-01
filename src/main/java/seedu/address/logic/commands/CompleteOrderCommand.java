@@ -61,7 +61,9 @@ public class CompleteOrderCommand extends UndoableCommand {
         Set<Tag> tags = orderToComplete.getTags();
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
 
-        model.addArchivedOrder(completedOrder);
+        if (!model.hasArchivedOrder(completedOrder)) {
+            model.addArchivedOrder(completedOrder);
+        }
 
         if (model.hasPhone(phone)) {
             model.deletePhone(phone);
