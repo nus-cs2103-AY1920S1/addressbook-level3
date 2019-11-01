@@ -56,26 +56,26 @@ public class StorageManager implements Storage {
     // ================ BankAccount methods ==============================
 
     @Override
-    public Path getBankAccountFilePath() {
-        return bankAccountStorage.getBankAccountFilePath();
+    public Path getUserStateFilePath() {
+        return userStateStorage.getUserStateFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyUserState> readAccount() throws DataConversionException, IOException {
-        return readAccount(userStateStorage.getUserStateFilePath());
+    public Optional<ReadOnlyUserState> readUserState() throws DataConversionException, IOException {
+        return readUserState(userStateStorage.getUserStateFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyUserState> readUserState(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return userStateStorage.readUserState(filePath);
     }
 
-    public void saveAccount(ReadOnlyUserState userState) throws IOException {
-        saveAccount(userState, userStateStorage.getUserStateFilePath());
+    public void saveUserState(ReadOnlyUserState userState) throws IOException {
+        saveUserState(userState, userStateStorage.getUserStateFilePath());
     }
 
-    public void saveAccount(ReadOnlyUserState userState, Path filePath) throws IOException {
+    public void saveUserState(ReadOnlyUserState userState, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         userStateStorage.saveUserState(userState, filePath);
     }

@@ -59,8 +59,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BankAccountStorage bankAccountStorage = new JsonBankAccountStorage(userPrefs.getBankAccountFilePath());
-        UserStateStorage userStateStorage = new JsonUserStateStorage(userPrefs.getBankAccountFilePath());
+        // BankAccountStorage bankAccountStorage = new JsonBankAccountStorage(userPrefs.getBankAccountFilePath());
+        UserStateStorage userStateStorage = new JsonUserStateStorage(userPrefs.getUserStateFilePath());
         storage = new StorageManager(userStateStorage, userPrefsStorage);
 
         initLogging(config);
@@ -81,7 +81,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyUserState> userStateOptional;
         ReadOnlyUserState initialData;
         try {
-            userStateOptional = storage.readAccount();
+            userStateOptional = storage.readUserState();
             if (!userStateOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BankAccount");
             }

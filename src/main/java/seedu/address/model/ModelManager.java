@@ -75,14 +75,14 @@ public class ModelManager implements Model {
     //=========== Bank Account =============================================================
 
     @Override
-    public Path getBankAccountFilePath() {
-        return userPrefs.getBankAccountFilePath();
+    public Path getUserStateFilePath() {
+        return userPrefs.getUserStateFilePath();
     }
 
     @Override
-    public void setBankAccountFilePath(Path bankAccountFilePath) {
-        requireNonNull(bankAccountFilePath);
-        userPrefs.setBankAccountFilePath(bankAccountFilePath);
+    public void setUserStateFilePath(Path userStateFilePath) {
+        requireNonNull(userStateFilePath);
+        userPrefs.setUserStateFilePath(userStateFilePath);
     }
 
     @Override
@@ -150,6 +150,7 @@ public class ModelManager implements Model {
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
+     *
      * @return
      */
     @Override
@@ -228,9 +229,9 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedUserState.equals(other.versionedUserState)
-                && userPrefs.equals(other.userPrefs)
-                && filteredTransactions.equals(other.filteredTransactions)
-                && filteredBudgets.equals(other.filteredBudgets);
+            && userPrefs.equals(other.userPrefs)
+            && filteredTransactions.equals(other.filteredTransactions)
+            && filteredBudgets.equals(other.filteredBudgets);
     }
 
 }

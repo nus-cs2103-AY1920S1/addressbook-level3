@@ -49,15 +49,15 @@ public class SetCommandTest {
     @Test
     public void equals() {
         Budget firstBudget = new BudgetBuilder()
-                .withCategories("Food")
-                .withAmount("100")
-                .withDate("10102019")
-                .build();
+            .withCategories("Food")
+            .withAmount("100")
+            .withDate("10102019")
+            .build();
         Budget secondBudget = new BudgetBuilder()
-                .withCategories("Drinks")
-                .withAmount("80")
-                .withDate("10102019")
-                .build();
+            .withCategories("Drinks")
+            .withAmount("80")
+            .withDate("10102019")
+            .build();
         SetCommand setFirstCommand = new SetCommand(firstBudget);
         SetCommand setSecondCommand = new SetCommand(secondBudget);
 
@@ -103,12 +103,12 @@ public class SetCommandTest {
         }
 
         @Override
-        public Path getBankAccountFilePath() {
+        public Path getUserStateFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBankAccountFilePath(Path bankAccountFilePath) {
+        public void setUserStateFilePath(Path bankAccountFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

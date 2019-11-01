@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.util.Comparator;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -35,16 +36,14 @@ public class Ledger implements ReadOnlyLedger {
 
     private void setLedgerHistory(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getLedgerHistory());
-        ledgerHistory = new UniqueLedgerOperationList();
-        // TODO FIX HERE
-        // ledgerHistory.setTransactions(ledger.getLedgerHistory());
+        this.ledgerHistory = new UniqueLedgerOperationList();
+        this.ledgerHistory.setTransactions(ledger.getLedgerHistory());
     }
 
     private void setPersonList(ReadOnlyLedger ledger) {
         requireNonNull(ledger.getPeople());
         people = new UniquePersonList();
-        // TODO FIX HERE
-        // people.setPersons(ledger.getPeople());
+        people.setPersons(ledger.getPeople());
     }
 
 

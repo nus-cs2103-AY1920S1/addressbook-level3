@@ -13,7 +13,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends BankAccountStorage, UserPrefsStorage {
+public interface Storage extends UserStateStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -22,12 +22,12 @@ public interface Storage extends BankAccountStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getBankAccountFilePath();
+    Path getUserStateFilePath();
 
     @Override
-    Optional<ReadOnlyUserState> readAccount(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyUserState> readUserState(Path filePath) throws DataConversionException, IOException;
 
     @Override
-    void saveAccount(ReadOnlyUserState bankAccount) throws IOException;
+    void saveUserState(ReadOnlyUserState bankAccount) throws IOException;
 
 }

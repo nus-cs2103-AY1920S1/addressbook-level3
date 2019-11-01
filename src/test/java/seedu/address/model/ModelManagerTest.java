@@ -65,14 +65,14 @@ public class ModelManagerTest {
 
     @Test
     public void setBankAccountFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setBankAccountFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setUserStateFilePath(null));
     }
 
     @Test
     public void setBankAccountFilePath_validPath_setsBankAccountFilePath() {
         Path path = Paths.get("bank/account/file/path");
-        modelManager.setBankAccountFilePath(path);
-        assertEquals(path, modelManager.getBankAccountFilePath());
+        modelManager.setUserStateFilePath(path);
+        assertEquals(path, modelManager.getUserStateFilePath());
     }
 
     @Test

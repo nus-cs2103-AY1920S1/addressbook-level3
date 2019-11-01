@@ -44,7 +44,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAccount(model.getUserState());
+            storage.saveUserState(model.getUserState());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,7 +59,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getBankAccountFilePath() {
-        return model.getBankAccountFilePath();
+        return model.getUserStateFilePath();
     }
 
     @Override

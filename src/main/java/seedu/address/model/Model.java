@@ -43,12 +43,12 @@ public interface Model {
     /**
      * Returns the user prefs' bank account file path.
      */
-    Path getBankAccountFilePath();
+    Path getUserStateFilePath();
 
     /**
      * Sets the user prefs' bank account file path.
      */
-    void setBankAccountFilePath(Path bankAccountFilePath);
+    void setUserStateFilePath(Path bankAccountFilePath);
 
     /**
      * Replaces bank account data with the data in {@code bankAccount}.
@@ -88,6 +88,7 @@ public interface Model {
     /**
      * Replaces the existing transaction history in the bank account
      * with {@code transactionHistory}.
+     *
      * @param transactionHistory
      */
     void setTransactions(List<BankAccountOperation> transactionHistory);
@@ -96,12 +97,14 @@ public interface Model {
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the bank account.
+     *
      * @param transaction
      */
     boolean hasTransaction(BankAccountOperation transaction);
 
     /**
      * Returns true if a budget with the same identity as {@code budget} exists in the bank account.
+     *
      * @param budget
      */
     boolean hasBudget(Budget budget);
@@ -109,6 +112,7 @@ public interface Model {
     /**
      * Deletes the given transaction.
      * The transaction must exist in the bank account.
+     *
      * @param transaction
      */
     void deleteTransaction(BankAccountOperation transaction);
@@ -132,6 +136,7 @@ public interface Model {
     /**
      * Adds the given transaction.
      * {@code transaction} must not already exist in the bank account.
+     *
      * @param operation
      */
     void handleOperation(BankAccountOperation operation);
@@ -152,6 +157,7 @@ public interface Model {
 
     /**
      * Returns an unmodifiable view of the filtered transaction list
+     *
      * @return
      */
     FilteredList<BankAccountOperation> getFilteredTransactionList();
@@ -164,7 +170,8 @@ public interface Model {
     void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate);
 
 
-    /** Returns an unmodifiable view of the filtered budget list
+    /**
+     * Returns an unmodifiable view of the filtered budget list
      */
     ObservableList<Budget> getFilteredBudgetList();
 

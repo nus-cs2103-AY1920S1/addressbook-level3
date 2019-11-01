@@ -30,7 +30,7 @@ class JsonSerializableUserState {
     private final List<JsonAdaptedLedgerOperations> ledgers = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
+     * Constructs a {@code JsonSerializableUserState} with the given transactions.
      */
     @JsonCreator
     public JsonSerializableUserState(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,

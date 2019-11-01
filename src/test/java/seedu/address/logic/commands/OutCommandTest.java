@@ -60,15 +60,15 @@ public class OutCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new BankOperationBuilder()
-                .withCategories("Food")
-                .withAmount("100")
-                .withDate("10102019")
-                .build();
+            .withCategories("Food")
+            .withAmount("100")
+            .withDate("10102019")
+            .build();
         BankAccountOperation secondTransaction = new BankOperationBuilder()
-                .withCategories("Drinks")
-                .withAmount("80")
-                .withDate("10102019")
-                .build();
+            .withCategories("Drinks")
+            .withAmount("80")
+            .withDate("10102019")
+            .build();
         OutCommand addFirstCommand = new OutCommand(firstTransaction);
         OutCommand addSecondCommand = new OutCommand(secondTransaction);
 
@@ -115,12 +115,12 @@ public class OutCommandTest {
         }
 
         @Override
-        public Path getBankAccountFilePath() {
+        public Path getUserStateFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBankAccountFilePath(Path bankAccountFilePath) {
+        public void setUserStateFilePath(Path bankAccountFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
