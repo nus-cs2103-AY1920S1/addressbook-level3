@@ -16,8 +16,8 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Undoes a given number of previous undoable commands. "
-            + "If not specified, the default number of commands to undo is 1. \n"
+            + ": Undoes a given number of previous undoable commands.\n"
+            + "If not specified, the default number of commands to undo is 1.\n"
             + "Parameters: [STEP] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
 
