@@ -43,7 +43,6 @@ public class AutoCompleter {
             Map.entry("ackappt", Set.of("-id")),
             Map.entry("addappt", Set.of("-id", "-rec", "-num", "-start")),
             Map.entry("addshift", Set.of("-id", "-rec", "-num", "-start")),
-            Map.entry("appointments", Set.of("-id")),
             Map.entry("changeappt", Set.of("-start")),
             Map.entry("changeshift", Set.of("-start")),
             Map.entry("edit", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
