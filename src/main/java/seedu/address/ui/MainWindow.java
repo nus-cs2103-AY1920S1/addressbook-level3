@@ -296,12 +296,12 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.getType().equals("Finance")) {
-                selectionModel.select(1);
-                scheduleBox.setLabelText(commandResult.getUiChange());
+                selectionModel.select(2);
             }
             if (!commandResult.getType().equals("Finance")) {
                 selectionModel.select(0);
             }
+
 
             /*if (commandResult.isFetch()) {
                 listPanelForFetch = new ListPanelForFetch(logic.getFilteredEmployeeList(),
