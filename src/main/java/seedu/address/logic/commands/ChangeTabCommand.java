@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAB_CHANGE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EARNINGS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+import static seedu.address.model.Model.*;
 
 import seedu.address.model.Model;
 import seedu.address.model.WindowView;
@@ -19,12 +18,18 @@ public class ChangeTabCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change tab to any of the available ones \n"
 
             + "Parameters: "
-            + PREFIX_TAB_CHANGE + "tab/TAB_DESTINATION \n"
+            + PREFIX_TAB_CHANGE + "TAB_DESTINATION \n"
 
             + "Example: \n" + COMMAND_WORD + " "
             + PREFIX_TAB_CHANGE + "notepad\n"
             + COMMAND_WORD + " "
-            + PREFIX_TAB_CHANGE + "earnings";
+            + PREFIX_TAB_CHANGE + "earnings\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TAB_CHANGE + "student_profile\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TAB_CHANGE + "calendar\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TAB_CHANGE + "reminders";
 
     public static final String MESSAGE_SUCCESS_CALENDAR = "Changed tab to CALENDAR";
     public static final String MESSAGE_SUCCESS_EARNINGS = "Changed tab to EARNINGS";
@@ -52,7 +57,7 @@ public class ChangeTabCommand extends Command {
             model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
             return new CommandResult(MESSAGE_SUCCESS_CALENDAR);
         } else if (newView.getIndexNumber() == 3) {
-            model.updateFilteredEarningsList(PREDICATE_SHOW_ALL_EARNINGS);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(MESSAGE_SUCCESS_STUDENT_PROFILE);
         } else if (newView.getIndexNumber() == 4) {
             model.updateFilteredNotesList(PREDICATE_SHOW_ALL_NOTES);
