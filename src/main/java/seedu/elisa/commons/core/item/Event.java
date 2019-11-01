@@ -116,7 +116,7 @@ public class Event {
                 .append(getStartDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")))
                 .append("\nEnd DateTime: ")
                 .append(getEndDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
-                //Removed duration portion of string as requested in team meeting.
+        //Removed duration portion of string as requested in team meeting.
 
         return builder.toString();
     }
