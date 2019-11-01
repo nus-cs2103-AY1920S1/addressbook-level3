@@ -17,10 +17,14 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
 
+import java.util.concurrent.TimeoutException;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
 
 import javafx.application.Platform;
+import javafx.stage.Stage;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
@@ -51,6 +55,11 @@ public class UpdateCommandTest {
     @BeforeAll
     public static void setup() {
         SystemTestSetupHelper.initialize(); //sets up FXToolkit
+        try {
+            FxToolkit.registerStage(Stage::new);
+        } catch (TimeoutException e) {
+            throw new AssertionError("Fail to register stage");
+        }
     }
 
     @Test

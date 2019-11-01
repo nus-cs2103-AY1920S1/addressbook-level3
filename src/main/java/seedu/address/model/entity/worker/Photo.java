@@ -85,7 +85,7 @@ public class Photo {
     /**
      * Loads the example photo from resources into the data directory when the user launches app for the first time.
      */
-    private void initExamplePhoto() {
+    private static void initExamplePhoto() {
         try {
             Files.createDirectories(Paths.get(PATH_TO_DATA_DIRECTORY));
             InputStream photo = MainApp.class.getResourceAsStream("/images/ExamplePhoto.jpg");
@@ -102,8 +102,11 @@ public class Photo {
     public static boolean isValidPhoto(String pathToPhoto) {
         if (pathToPhoto.isEmpty()) {
             return false;
-        }
-        if (FileUtil.isFileExists(Paths.get(pathToPhoto))) {
+        } else if (pathToPhoto.equals(PATH_TO_EXAMPLE_PHOTO)) {
+            if (!FileUtil.isFileExists(Paths.get(pathToPhoto))) {
+                initExamplePhoto();
+            }
+        } else if (FileUtil.isFileExists(Paths.get(pathToPhoto))) {
             return pathToPhoto.endsWith(".jpeg") || (pathToPhoto.endsWith(".jpg") || pathToPhoto.endsWith(".png"));
         }
         return false;

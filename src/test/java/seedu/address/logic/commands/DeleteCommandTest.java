@@ -23,10 +23,13 @@ import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMM
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxToolkit;
 
+import javafx.stage.Stage;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -54,6 +57,11 @@ public class DeleteCommandTest {
     @BeforeAll
     public static void setup() {
         SystemTestSetupHelper.initialize(); //sets up FXToolkit
+        try {
+            FxToolkit.registerStage(Stage::new);
+        } catch (TimeoutException e) {
+            throw new AssertionError("Fail to register stage");
+        }
     }
 
     @Test
