@@ -241,6 +241,11 @@ public class AddCommandTest {
         public void editStats(int type) {
             throw new AssertionError("This method should not be called.");
         }
+        
+         @Override
+        public void resetPerformance(Model model) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         //@@author keiteo
         @Override
