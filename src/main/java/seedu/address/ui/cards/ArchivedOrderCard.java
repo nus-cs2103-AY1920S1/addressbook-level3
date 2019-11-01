@@ -87,6 +87,21 @@ public class ArchivedOrderCard extends UiPart<Region> {
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        customerName.setWrapText(true);
+        customerContactNumber.setWrapText(true);
+        customerEmail.setWrapText(true);
+
+        phoneIdentityNumber.setWrapText(true);
+        phoneSerialNumber.setWrapText(true);
+        phoneName.setWrapText(true);
+        phoneColour.setWrapText(true);
+        phoneCapacity.setWrapText(true);
+        phoneCost.setWrapText(true);
+
+        orderId.setWrapText(true);
+        orderPrice.setWrapText(true);
+        orderStatus.setWrapText(true);
     }
 
     @Override
