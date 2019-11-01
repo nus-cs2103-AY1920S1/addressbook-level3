@@ -70,6 +70,7 @@ Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `r
 
 ====
 
+IMPORTANT: All timings are based on the system's clock.
 
 === Patient Management
 
@@ -77,11 +78,13 @@ Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `r
 
 Filters patients whose reference ids, names or phone numbers contains the given keyword. +
 If no search keyword is provided, all registered patients will be displayed. +
+
 Format: `patient [<SEARCH_KEYWORD>]`
 
 ==== Registers a new patient: `register` ====
 
 Registers a new patient. Only patient's reference id and name is compulsory fields +
+
 Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
@@ -90,6 +93,7 @@ Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHON
 Updates the particulars of a patients +
 NOTE: Must be in the patient listing screen for this command to be accepted. +
 IMPORTANT: Editing tags will overwrite all existing tags+
+
 Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
@@ -100,6 +104,7 @@ Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PH
 
 Finds staff doctors whose reference ids, names or phone numbers contains the given keyword. +
 If no search keyword is provided, all registered doctors will be displayed. +
+
 Format: `doctors [<SEARCH_KEYWORD>]`
 
 ==== Registers a new doctor: `newdoctor` ====
@@ -120,11 +125,13 @@ Format: `updatedoctor <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-pho
 ==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor, based on the index given, as on-duty and assigns him/her to an consultation room list. +
+
 Format: `onduty <ENTRY_ID>`
 
 ==== Marks the doctor as off-duty: `offduty` ====
 
 Marks the doctor, based on the index given, as off-duty and removes him/her from the list based on the index given. +
+
 Format: `offduty <ENTRY_ID>`
 
 
@@ -133,31 +140,42 @@ Format: `offduty <ENTRY_ID>`
 ==== Adds a patient to the queue: `enqueue` ====
 
 Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued. +
+
 Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
 ==== Removes a patient from the queue: `dequeue` ====
 
 Removes a patient from the queue based on their queue position. +
+
 Format: `dequeue <QUEUE_INDEX>`
 
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
 Assigns the next patient in the queue to a doctor based on the consultation room number. +
+
 Format: `next <ROOM_NUMBER>`
 
 ==== Doctor takes a break: `break`  ====
 
 Avoids directing patients to a doctor based on the room number. e.g. Doctor is on a lunch break +
+
 Format: `break <ROOM_NUMBER>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a doctor based on the room number. +
+
 Format: `resume <ROOM_NUMBER>`
 
 
 === Appointment Management
+
+==== Displays appointments: `appointments` ====
+
+Displays a sorted list of upcoming appointments for the patient that is associated to the given `REFERENCE_ID`.
+If no keyword is given, all upcoming appointments will be displayed. +
+Format: `appointments [<REFERENCE_ID>]`
 
 ==== Schedules an appointment: `addappt` ====
 
@@ -179,13 +197,6 @@ Format: `addappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-
 Acknowledges an existing appointment once the patient has arrived +
 Format: `ackappt -id <REFERENCE_ID>`
 
-==== Displays all appointments: `appointments` ====
-
-Displays a sorted list of upcoming appointments for the patient that is associated to the given `-id REFERENCE_ID` +
-If no keywords are given, all upcoming appointments will be displayed. +
-Format: `appointments [-id <REFERENCE_ID>]`
-
-
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
 Format: `cancelappt <ENTRY_ID>`
@@ -194,46 +205,72 @@ Format: `cancelappt <ENTRY_ID>`
 
 Changes the timing for an existing appointment. +
 If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
+
+NOTE: To avoid accidental rescheduling of other patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
+
 NOTE: The operation is rejected if there are insufficient staff doctors on duty at the time of the new appointment. +
+
 Format: `changeappt <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
 ==== Displays patients who have missed their appointments: `missappt` ====
 
 Displays all appointments that are missed. +
+
+NOTE: An appointment is considered missed if the appointment was not acknowledged and the current time has passed the appointment's end time.
+
+
 Format: `missappt`
 
 ==== Sets missed appointments as settled/notified: `settle` ====
 
 Settles and removes the missed appointment based on the given index. +
+Settling refers to the user following up on contacting the patient who has missed his/her appointment. +
+
+NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
+
 Format: `settle <ENTRY_ID>`
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
+
 Format: `slot -start <START_DATE>`
 
 === Duty-shift Management
+
+==== Displays duty shifts: `shift` ====
+
+Displays a sorted list of upcoming duty shifts for the staff doctors that is associated to the given `REFERENCE_ID`.
+If no keyword is given, all upcoming appointments will be displayed. +
+
+Format: `shift [<REFERENCE_ID>]`
 
 ==== Adds a duty shift for a doctor: `addshift` ====
 
 Adds a new duty shift for a doctor. +
 If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
 appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
+
 Format: `addshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
-NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
-The patient's appointment affected by the deletion of the duty shift must be resolved first. +
+
+NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
+
 Format: `cancelshift <ENTRY_ID>`
 
 ==== Changes the duty shift for a doctor: `changeshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
 
+NOTE: To avoid accidental rescheduling of another doctor's shift, the user must first narrow down the search down to a single doctor using the `appointments [<REFERENCE_ID>]` command. +
+
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
+
 The patient's appointment affected by the deletion of the duty shift must be resolved first. +
+
 Format: `changeshift <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 === Inventory Commands (v2.0) ===
@@ -241,11 +278,13 @@ Format: `changeshift <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 ==== Views the inventory: `inventory` (v2.0) ====
 
 Displays the medicine inventory. +
+
 Format: `inventory`
 
 ==== Views the inventory: `prescription` (v2.0) ====
 
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
+
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 
 === User Accounts (v2.0) ===
@@ -253,11 +292,13 @@ Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 ==== Login: `login` (v2.0) ====
 
 Login with your username and password. The user will then be prompted to enter their password. +
+
 Format: `login <USER_NAME>`
 
 ==== Logout: `logout` (v2.0) ====
 
 Logout from your account +
+
 Format: `logout`
 
 === General Commands ===
@@ -265,21 +306,25 @@ Format: `logout`
 ==== Views help: `help` ====
 
 Displays the help window. +
+
 Format: `help`
 
 ==== Exits program: `exit` ====
 
 Exits the program. +
+
 Format: `exit`
 
 ==== Undo action: `undo` ====
 
 Undo an action. +
+
 Format: `undo`
 
 ==== Redo action: `redo` ====
 
 Redo an action. +
+
 Format: `redo`
 
 == Commands Summary ==
