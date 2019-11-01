@@ -12,19 +12,23 @@ import mams.model.module.Module;
  */
 public class ModuleCard extends UiPart<Region> {
 
+    public static final String CREDITS_LABEL_TEMPLATE = "%1$s MC(s)";
+
     private static final String FXML = "ModuleListCard.fxml";
     public final Module module;
 
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label moduleCode;
+    @FXML
+    private Label  credits;
     @FXML
     private Label moduleName;
     @FXML
     private Label lecturerName;
-    @FXML
-    private Label id;
     @FXML
     private Label timeSlot;
     @FXML
@@ -39,6 +43,7 @@ public class ModuleCard extends UiPart<Region> {
         this.module = module;
         id.setText(displayedIndex + ". ");
         moduleCode.setText(module.getModuleCode());
+        credits.setText(String.format(CREDITS_LABEL_TEMPLATE, module.getModuleWorkload()));
         moduleName.setText(module.getModuleName());
         lecturerName.setText(module.getLecturerName());
         timeSlot.setText(module.getModuleTimeTableToString());

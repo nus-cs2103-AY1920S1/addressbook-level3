@@ -21,6 +21,7 @@ import mams.model.module.Module;
 public class ExpandedModuleCard extends UiPart<Region> {
 
     private static final String FXML = "ExpandedModuleListCard.fxml";
+    private static final String EXPANDED_CREDITS_LABEL_TEMPLATE = "%1$s Modular Credit(s)";
     public final Module module;
 
     @FXML
@@ -29,6 +30,8 @@ public class ExpandedModuleCard extends UiPart<Region> {
     private Label moduleCode;
     @FXML
     private Label moduleName;
+    @FXML
+    private Label credits;
     @FXML
     private Label lecturerName;
     @FXML
@@ -49,6 +52,7 @@ public class ExpandedModuleCard extends UiPart<Region> {
         this.module = module;
         moduleCode.setText(module.getModuleCode());
         moduleName.setText(module.getModuleName());
+        credits.setText(String.format(EXPANDED_CREDITS_LABEL_TEMPLATE, module.getModuleWorkload()));
         lecturerName.setText(module.getLecturerName());
         timeSlot.setText(module.getModuleTimeTableToString());
         enrolment.setText(Integer.toString(module.getCurrentEnrolment()));
