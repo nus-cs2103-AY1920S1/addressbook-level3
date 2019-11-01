@@ -296,8 +296,19 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredAppointmentList(Predicate<Event> predicate);
 
-    Boolean isPatientList();
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSinglePatient();
 
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSingleStaff();
+
+    /**
+     * Checks whether the currently displayed appointments only consist of missed appointments.
+     */
     Boolean isMissedList();
 
     //=========== Duty Roster Scheduler ======================================================================

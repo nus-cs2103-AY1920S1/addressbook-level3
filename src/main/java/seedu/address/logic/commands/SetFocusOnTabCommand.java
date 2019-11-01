@@ -22,9 +22,11 @@ public class SetFocusOnTabCommand extends NonActionableCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (desiredTab != null) {
-            model.setTabListing(desiredTab);
+        if (desiredTab == null) {
+            return new CommandResult("");
         }
+
+        model.setTabListing(desiredTab);
         return new CommandResult(String.format(MESSAGE_SUCCESS, desiredTab));
     }
 

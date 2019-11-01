@@ -39,7 +39,7 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         Index index;
 
-        if (!model.isPatientList()) {
+        if (!model.isListingAppointmentsOfSinglePatient()) {
             throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
         }
 
