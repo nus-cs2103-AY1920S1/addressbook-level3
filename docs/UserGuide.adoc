@@ -17,7 +17,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T11-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team MooLah`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
@@ -125,6 +125,46 @@ Result:
 At the end, expense #5 will keep being deleted (poor thing!). MooLah will also display a message `Redid "Delete expense with index 5"`.
 
 // end::redo[]
+
+=== Changing panels: `view`
+While most commands will change the panel-in-view to the relevant panel, you may wish to manually go to a panel without
+attempting to modify data. You may do so with the `view` command.
+
+The format:
+----
+view <PANEL_NAME>
+----
+For example, you may execute the following command to view your Budget List:
+----
+view Budget List
+----
+****
+These are the panels which you may access through the `view` command: +
+- `Aliases` +
+- `Expense List` +
+- `Primary Budget` +
+- `Event List` +
+- `Budget List` +
+- `Statistics` (see Note below!)
+****
+
+****
+*Note*
+
+1. Panel names are case-sensitive.
+
+2. Statistics panel is not viewable until statistics have been generated.
+----
+view Statistics
+----
+
+----
+stats
+listexpenses
+view Statistics
+----
+****
+
 
 === Generic commands
 MooLah has 5 generic commands which behave differently depending on which Panel in the UI is being shown at the moment.
