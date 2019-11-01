@@ -177,6 +177,13 @@ public class Module {
         return quota;
     }
 
+    /*
+     * All modules workload is 4 MC for now.
+     */
+    public String getModuleWorkload() {
+        return "4";
+    }
+
     public int getQuotaInt() {
         return Integer.parseInt(quota);
     }
