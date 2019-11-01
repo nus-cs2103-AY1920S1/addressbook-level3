@@ -222,13 +222,6 @@ Format: deleteassignment ASSIGNMENT_INDEX
 Examples: +
 * deleteassignment 3
 
-==== Deleting assignment
-Deletes the assignment in the index from the current classroom.
-Format: deleteassignment ASSIGNMENT_INDEX
-
-Examples: +
-* deleteassignment 3
-
 //end::delete[]
 
 //tag::history[]

@@ -66,13 +66,13 @@ public class StudentCard extends UiPart<Region> {
         String imgFilePath = student.getDisplayPictureFilePath();
         String pathForTest = imgFilePath.substring(6);
         File loadFileTest = new File(pathForTest);
+        //Image displayImg = new Image(student.getDefaultDisplayPicture(), 150, 200,false, false);
         Image displayImg = new Image(student.getDefaultDisplayPicture());
         boolean fileExists = loadFileTest.exists();
         if (fileExists) {
             displayImg = new Image(student.getDisplayPictureFilePath());
         }
         displayPicture.setImage(displayImg);
-
     }
 
     /**
