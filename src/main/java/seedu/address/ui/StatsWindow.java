@@ -55,7 +55,7 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Scene Builder.
      */
-    public void buildStatsWindow(Model model){
+    public void buildStatsWindow(Model model) {
         final CategoryAxis xAxisA = new CategoryAxis();
         final NumberAxis yAxisA = new NumberAxis();
         final CategoryAxis xAxisB = new CategoryAxis();
@@ -98,12 +98,12 @@ public class StatsWindow extends UiPart<Stage> {
 
         XYChart.Series seriesC = new XYChart.Series();
         ArrayList<Integer> perform = model.getPerformance();
-        if (perform.size()==0){
+        if (perform.size() == 0) {
             seriesC.getData().add(new XYChart.Data(0, 0));
         }
         else {
             for (int i = 0; i < perform.size(); i++) {
-                seriesC.getData().add(new XYChart.Data(i+1, perform.get(i).intValue()));
+                seriesC.getData().add(new XYChart.Data(i + 1, perform.get(i).intValue()));
             }
         }
 
@@ -124,7 +124,7 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Removes the legend from bar charts since they are not required.
      */
-    public void removeLegend(BarChart<String, Number> bc1, BarChart<String, Number> bc2, LineChart<Number, Number> lc){
+    public void removeLegend(BarChart<String, Number> bc1, BarChart<String, Number> bc2, LineChart<Number, Number> lc) {
         bc1.setLegendVisible(false);
         bc2.setLegendVisible(false);
         lc.setLegendVisible(false);
@@ -133,7 +133,7 @@ public class StatsWindow extends UiPart<Stage> {
     /**
      * Sets the bar chart colours to red, blue and green.
      */
-    public void setColour(BarChart<String, Number> bc1, BarChart<String, Number> bc2){
+    public void setColour(BarChart<String, Number> bc1, BarChart<String, Number> bc2) {
         Node n = bc1.lookup(".data0.chart-bar");
         n.setStyle("-fx-bar-fill: blue");
         n = bc1.lookup(".data1.chart-bar");
