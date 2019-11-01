@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import mams.commons.core.time.TimeStamp;
 import mams.commons.util.ListPointer;
 import mams.logic.InputOutput;
 import mams.logic.Logic;
@@ -110,9 +111,10 @@ public class CommandBox extends UiPart<Region> {
      */
     private void reinitializeHistoryPointer() {
         commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
-        // add an empty string to represent the most-recent end of the defensive list in ListPointer, to be shown to
+        // add an dummy InputOutput with input set to an empty string
+        // to represent the most-recent end of the defensive list in ListPointer, to be shown to
         // the user if he/she tries to navigate past the most-recent end.
-        commandHistoryPointer.add(new InputOutput("", ""));
+        commandHistoryPointer.add(new InputOutput("", "", false, new TimeStamp()));
     }
 
     /**

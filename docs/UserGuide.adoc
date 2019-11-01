@@ -38,7 +38,7 @@ image::Ui.png[width="790"]
 Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*. Each of these items may be further grouped into sub-lists.
 eg. Students may be organized by matriculation year, course of study etc.
 
-A student is uniquely identified by his/her 8-character Matriculation Number starting and ending with a letter, eg. `A0132243`
+A student is uniquely identified by his/her 8-character Matriculation Number starting with a letter, eg. `A0132243`
 
 An appeal request is uniquely identified by a prefix `C`, followed by a 6-digit Case ID, eg. `C123456`
 
@@ -150,6 +150,9 @@ image::HistoryCommandDemo.png[width="790"]
 Sample Output: Opens a window displaying command history
 
 image::HistoryWindowDemo.png[width="790"]
+
+TIP: (Still experimental) By pressing kbd:[q], the currently selected command
+in the history window can be copied to the clipboard.
 
 ==== Sync Command History to disk
 

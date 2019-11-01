@@ -28,7 +28,11 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays expanded view of items "
+    public static final String FIND_SUGGESTION = "Tip: If you're trying to retrieve items by ID,"
+            + " use the Find command!";
+
+    public static final String MESSAGE_USAGE = FIND_SUGGESTION + "\n"
+            + COMMAND_WORD + ": Displays expanded view of items "
             + "based on their indexes on the displayed lists. Specify up to three items "
             + "(one from each type) in a single " + COMMAND_WORD + " command.\n"
             + "Parameters: KEYWORD "

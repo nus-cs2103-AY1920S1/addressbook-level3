@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
+import mams.commons.core.time.TimeStamp;
 import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
@@ -46,11 +47,11 @@ public class LogicManager implements Logic {
         try { // attempt to load CommandHistory from disk
             commandHistoryOptional = storage.readCommandHistory();
             if (!commandHistoryOptional.isPresent()) {
-                logger.info("Command history data file not found. Starting with a blank command history...");
+                logger.info("Command history data file not found. Starting with an empty command history...");
             }
             startingCommandHistory = commandHistoryOptional.orElseGet(CommandHistory::new);
         } catch (IOException | DataConversionException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty MAMS");
+            logger.warning("Problem while reading from the file. Starting with an empty command history...");
             startingCommandHistory = new CommandHistory();
         }
         this.commandHistory = new CommandHistory(startingCommandHistory);
@@ -70,12 +71,12 @@ public class LogicManager implements Logic {
             }
             commandResult = command.execute(model);
             storage.saveMams(model.getMams());
-            commandHistory.add(commandText, commandResult.getFeedbackToUser());
+            commandHistory.add(commandText, commandResult.getFeedbackToUser(), true, new TimeStamp());
         } catch (CommandException | ParseException e) {
-            commandHistory.add(commandText, e.getMessage());
+            commandHistory.add(commandText, e.getMessage(), false, new TimeStamp());
             throw e; // after getting message, rethrow. stacktrace is not lost
         } catch (IOException ioe) {
-            commandHistory.add(commandText, ioe.getMessage());
+            commandHistory.add(commandText, ioe.getMessage(), false, new TimeStamp());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
