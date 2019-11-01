@@ -24,8 +24,7 @@ while still having the benefits of a Graphical User Interface (GUI). If you can 
 can help you manage your flashcards much more efficiently than traditional GUI apps.
 
 Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
-features not available with most flashcard managers that we're sure you'll love.
-Jump to the Section 2, “Quick Start” to get started. Enjoy!
+features not available with most flashcard managers that we're sure you'll love. Enjoy!
 
 == Quick Start
 
@@ -43,27 +42,12 @@ This section contains the features and their respective commands
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter. The command format would thus be as such: `add q>1+1`.
-* Items in square brackets skinparam linetype orthoare optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
+* Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
 
-=== Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
-
-This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
-Note: [DUE DATE] has to be in dd/MM/yyyy format.
-
-You can refer to the example below:
-`deadline t>CS2103 Exam d>10/11/2019`
-
-Key the above mentioned into the command box
-
-image::deadline-entry.png[][width="600"]
-
-After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
-
-image::deadline-entered.png[][width="600"]
-
+// tag::flashcard[]
 === Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
 
 This command allows to you to add a new flashcard with question and answer. +
@@ -86,17 +70,7 @@ image::AddStep2.png[width="600"]
 +
 image::AddStep3.png[width="600"]
 
-=== Clear all the flashcard: `clear`
-To clear:
-
-. Type `clear' and press *Enter* to execute it.
-. The result box will show the message: -"Flash card has been cleared!"_
-And you will see that all lists turn empty.
-
-image::ClearStep1.png[width="600"]
-
 === Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
-
 
 This command allows you to edit the flashcard with index corresponding to the
 display list with 1 or multiple fields +
@@ -104,15 +78,19 @@ e.g: +
 
 * `edit 7 c>CS2105`
 
-This command allows you to delete all the flashcard in the storage.
+To edit:
 
-. Type `edit 7c>CS2105` and press *Enter*.
+. Type `edit 7 c>CS2105` and press *Enter*.
 +
 image::EditStep1.png[width="600"]
 
+. The result box will display the message: _"Edited FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_.
++
+image::EditStep2.png[width="600"]
+
 . And you can see that the 7th flashcard has been edited on the flashcard list.
 +
-image::ClearStep2.png[width="600"]
+image::EditStep3.png[width="600"]
 
 === Delete flashcard: `delete [INDEX]`
 
@@ -135,45 +113,69 @@ image::DeleteStep2.png[width="600"]
 +
 image::DeleteStep3.png[width="600"]
 
-=== Edit an existing flashcard: `edit [INDEX] {fields wanted to edit}...`
+=== Clear all the flashcard: `clear`
 
-This command allows you to edit the flashcard with index corresponding to the
-display list with 1 or multiple fields +
-e.g: +
+This command allows you to delete all the flashcard in the storage.
 
-* `edit 7 c>CS2105`
-* `edit 1 a>lambda c>science`
-* `edit 1 q> 11 * 11 a> 121 c> math`
+To clear:
 
+. Type `clear` and press *Enter*.
 +
-image::EditStep1.png[width="600"]
+image::ClearStep1.png[width="600"]
 
-. The result box will display the message: _"Edited FlashCard: What is the use of checksum ? Answer: To detect "error" Categories: [CS2105]"_.
+. The result box will show the message: -"Flash card has been cleared!"_
+And you will see that all lists turn empty.
 +
-image::EditStep2.png[width="600"]
+image::ClearStep2.png[width="600"]
 
-. And you can check whether the flashcard has been edited on the flashcard list.
-+
-image::EditStep3.png[width="600"]
+=== Search for flashcards: `search`
 
-=== List of category : `list [category]`
+The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
 
-This command allows you to list all flashcards under one or multiple categories.
+==== Either the question or the answer matches the keyword(s): "search [keyword(s)]
+
+This command allows you to search for flashcards with the question or answer matching the keyword(s).
 Multiple keywords are separated by a single space.
 
-to list category:
+To search:
 
-. Type `list CS2105` and press *Enter*.
+. Type `search pointer` and press *Enter*.
 +
-image::ListCatStep1.png[width="600"]
+image::SearchStep1.png[width="600"]
 
-. The result box will show message: _"1 flashcard is listed!"_ .
+. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
 +
-image::ListCatStep2.png[width="600"]
+image::SearchStep2.png[width="600"]
 
-. And the flashcard list is updated.
+==== Question matching the keyword(s) only: `searchqn [keyword(s)]`
+
+This command allows you to search for flashcards with the question matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+to search question:
+
+. Type `searchqn C` and press *Enter*.
 +
-image::ListCatStep3.png[width="600"]
+image::SearchqStep1.png[width="600"]
+
+. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
++
+image::SearchqStep2.png[width="600"]
+
+==== Answer matching the keyword(s) only: `searchans [keyword(s)]`
+
+This command allows you to search for flashcards with the answer matching the keyword(s).
+Multiple keywords are separated by a single space.
+
+to search for answer:
+
+. Type `searchans name` and press *Enter*.
++
+image::SearchaStep1.png[width="600"]
+
+. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matching flashcards
++
+image::SearchaStep2.png[width="600"]
 
 === List all flashcards: `listall`
 
@@ -194,82 +196,62 @@ to the flashcard list and scroll up and down to view the flashcards.
 +
 image::ListAllStep3.png[width="600"]
 
-=== Search for flashcards: `search`
+=== List of category : `list [category]`
 
-The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
-
-==== Either the question or the answer matches the keyword(s): "find [keyword(s)]
-
-This command allows you to search for flashcards with the question or answer matching the keyword(s).
+This command allows you to list all flashcards under one or multiple categories.
 Multiple keywords are separated by a single space.
 
-To search:
+to list category:
 
-. Type `search pointer` and press *Enter*.
+. Type `list CS2105` and press *Enter*.
 +
-image::SearchStep1.png[width="600"]
+image::ListCatStep1.png[width="600"]
 
-. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
+. The result box will show message: _"1 flashcard is listed!"_ .
 +
-image::SearchStep2.png[width="600"]
+image::ListCatStep2.png[width="600"]
 
-=== List all flashcards: `list`
-==== Question matching the keyword(s) only: `searchqn [keyword(s)]`
-
-This command allows you to search for flashcards with the question matching the keyword(s).
-Multiple keywords are separated by a single space.
-
-to search question:
-
-. Type `searchqn C` and press *Enter*.
+. And the flashcard list is updated.
 +
-image::SearchqStep1.png[width="600"]
-
-. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
-+
-image::SearchqStep2.png[width="600"]
-
-==== Answer matching the keyword(s) only: `searchans [keyword(s)]`
->>>>>>> 43743cac4abc0967d1f27ceaaada46d0570fc26c
-
-This command allows you to search for flashcards with the answer matching the keyword(s).
-Multiple keywords are separated by a single space.
-
-to search for answer:
-
-. Type `searchans name` and press *Enter*.
-+
-image::SearchaStep1.png[width="600"]
-
-. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matching flashcards
-+
-image::SearchaStep2.png[width="600"]
-
+image::ListcatStep3.png[width="600"]
 
 //end::flashcard[]
 
-==== Search for category/categories : `findcat [keyword(s)]`
+=== Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
 
-list all the flashcards under the specific category that matching the keyword(s).
-Multiple keywords are separated by a single space.
+This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
+Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-to find category:
+You can refer to the example below:
+`deadline t>CS2103 Exam d>10/11/2019`
 
-. Type `findcat` follow by the keywords and press *Enter* to execute it.
-+
-image::FindcatStep1.png[width="600"]
+Key the above mentioned into the command box
 
-. The result box will show message: _""_ and the flashcard list will show the matched flashcards
-+
-image::FindcatStep2.png[width="600"].
+image::deadline-entry.png[width="600"]
 
-==== Stop flashcard test: `end`
+After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
 
-`end`
+image::deadline-entered.png[width="600"]
 
 === Set a reminder for a specific category of flashcards. [coming in v1.3]
 
 `remind Math 04/11 1030`
+
+=== Remove deadline from list: `remove [index]`
+
+Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
+
+`remove 2`
+
+****
+* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+=== Show monthly calendar with all deadlines: `calendar`
+
+Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
+
+`calendar`
 
 === Test mode
 
@@ -294,21 +276,6 @@ This command rates the flashcard, depending on how well you answered the questio
 ==== End test
 You can stop the test any time simply by typing `end`.
 
-=== Remove deadline from list: `remove [index]`
-
-Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
-
-`remove 2`
-
-****
-* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
-****
-
-=== Show monthly calendar with all deadlines: `calendar`
-
-Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
-
-`calendar`
 
 === Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
 
@@ -341,18 +308,6 @@ Opened help window.
 +
 image::HelpWindow.png[width="600"]
 
-//tag: flashcard2[]
-=== Exit: `exit`
-
-This command allows you to exit the application.
-
-To exit:
-
-. Type `exit` and press *Enter*.
-
-. The application window will close by itself.
-//end::flashcard2[]
-
 === View overall statistics: `stats`
 
 This command allow to you to view the number of good, hard and easy flashcards completed during test mode and in the application. +
@@ -373,7 +328,7 @@ Displays the number of GOOD, HARD & EASY FlashCards
 image::BarChart.png[width="600"]
 
 
-//tag:theme[]
+//tag::theme[]
 === Change color themes: `theme [THEMENAME]`
 
 This command allows you to change the theme of the app.
@@ -403,6 +358,18 @@ image::ThemeStep2.png[width="600"]
 
 Flashcard data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+//tag:: flashcard2[]
+=== Exit: `exit`
+
+This command allows you to exit the application.
+
+To exit:
+
+. Type `exit` and press *Enter*.
+
+. The application window will close by itself.
+//end::flashcard2[]
 
 == FAQ
 
@@ -460,10 +427,11 @@ e.g.  `remind Math 04/10 1230`
 * Remove Deadline from list - `remove [INDEX]` +
 e.g.  `remove 2`
 * Search of flashcards - `search`
-** search [keyword(s)]  e.g `search c`
-** searchqn [keyword(s)]  e.g `searchqn pointer`
-** searchans [keyword(s)]  e.g `searchans name`
+** `search` [keyword(s)]  e.g `search c`
+** `searchqn` [keyword(s)]  e.g `searchqn pointer`
+** `searchans` [keyword(s)]  e.g `searchans name`
 * Start a certain topic of flashcards - `start [keyword]` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
+* Change theme - `theme dark`
 * Stop flashcard test - `end`
