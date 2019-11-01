@@ -36,7 +36,7 @@ import seedu.address.model.student.Student;
  * A default model stub that have all of the methods failing. All model stubs should extend this stub and
  * override methods that concern the test in question.
  */
-public abstract class ModelStub implements Model {
+public class ModelStub implements Model {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -128,12 +128,12 @@ public abstract class ModelStub implements Model {
     }
 
     @Override
-    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+    public boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type) {
         throw new AssertionError("This method should not be called.");
     }
 
