@@ -67,8 +67,8 @@ public class LoanSlipDocument {
             pdfImg.scaleToFit((float) newWidth, (float) newHeight);
             pdfImg.setHorizontalAlignment(HorizontalAlignment.LEFT);
             doc.add(pdfImg);
-            logger.info("end writing logo");
         } catch (IOException ioe) {
+            assert false;
             ioe.printStackTrace();
         }
     }
@@ -199,7 +199,7 @@ public class LoanSlipDocument {
                     getClass().getResource(FONT).toString(), PdfEncodings.WINANSI, true);
             p.setFont(font);
         } catch (IOException e) {
-            logger.info("font error");
+            logger.info("Error in loading Font");
             // error occur while loading font, use default font
             e.printStackTrace();
         }
@@ -213,10 +213,12 @@ public class LoanSlipDocument {
      * @return an {@code Image} Object.
      */
     private Image createImage() throws IOException {
+        logger.info("Creating logo");
         URL url = getClass().getResource(LOGO_PATH);
         InputStream is = url.openStream();
         java.awt.Image image = ImageIO.read(is);
         ImageData imageData = ImageDataFactory.create(image, Color.WHITE);
+        logger.info("success");
         return new Image(imageData);
     }
 
