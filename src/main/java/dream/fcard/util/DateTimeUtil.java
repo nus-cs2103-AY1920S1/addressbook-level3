@@ -1,6 +1,9 @@
 //@@author nattanyz
 package dream.fcard.util;
 
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -60,6 +63,18 @@ public class DateTimeUtil {
     public static String getStringFromDateTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
         return localDateTime.format(formatter);
+    }
+
+    public static JsonValue getJsonFromDateTime(LocalDateTime localDateTime) {
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.DATE_TIME_YEAR, localDateTime.getYear());
+        obj.put(Schema.DATE_TIME_MONTH, localDateTime.getMonthValue());
+        obj.put(Schema.DATE_TIME_DAY, localDateTime.getDayOfMonth());
+        obj.put(Schema.DATE_TIME_HOUR, localDateTime.getHour());
+        obj.put(Schema.DATE_TIME_MINUTE, localDateTime.getMinute());
+        obj.put(Schema.DATE_TIME_SECOND, localDateTime.getSecond());
+        obj.put(Schema.DATE_TIME_NANO, localDateTime.getNano());
+        return new JsonValue(obj);
     }
 
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
