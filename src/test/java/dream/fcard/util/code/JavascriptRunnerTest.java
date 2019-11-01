@@ -2,11 +2,12 @@ package dream.fcard.util.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.util.FileReadWrite;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.util.FileReadWrite;
 
 class JavascriptRunnerTest {
 

@@ -278,12 +278,22 @@ public class StorageManager {
 
     // STATS CODE -------------------------------------------------------------
 
+    /**
+     * Write a code file to the code sub directory in root.
+     * @param fileName  name of file with extensions
+     * @param code      string content to be written
+     */
     public static void writeCode(String fileName, String code) {
         resolveRoot();
         String path = FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
         FileReadWrite.write(path, code);
     }
 
+    /**
+     * Get the path to the code file assuming its in root code subdirectory.
+     * @param fileName  name of file
+     * @return          full path to file
+     */
     public static String getCodePath(String fileName) {
         resolveRoot();
         return FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
