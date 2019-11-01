@@ -13,13 +13,14 @@ import seedu.deliverymans.model.Model;
  */
 public class DeliverymanListStatusCommand extends Command {
 
-    public static final String COMMAND_WORD = "lista";
+    public static final String COMMAND_WORD = "lists";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Lists all the deliverymen who are currently available on the right panel.\n"
+            + ": Displays the 3 lists of deliverymen sorted according to respective statuses.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n";
+    public static final String MESSAGE_LIST_AVAIL_SUCCESS = "Listed all currently available deliverymen.\n"
+            + "Click on the buttons to view the desired list.";
 
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {

@@ -193,7 +193,6 @@ public class MainWindow extends UiPart<Stage> {
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
 
-
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
