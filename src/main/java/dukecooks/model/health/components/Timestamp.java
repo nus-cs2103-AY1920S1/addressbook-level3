@@ -14,7 +14,8 @@ import dukecooks.model.Time;
  */
 public class Timestamp {
     public static final String MESSAGE_CONSTRAINTS =
-            "Timestamp should only contain numeric characters in the format of DD/MM/YYYY HH:mm, "
+            "Timestamp should only contain numeric characters of a valid date and time "
+                    + "\nin the format of DD/MM/YYYY HH:mm, "
                     + "and it should not be blank";
 
     public static final String DATETIME_VALIDATION_REGEX =
@@ -29,12 +30,16 @@ public class Timestamp {
      */
     public Timestamp(String timestamp) {
         requireNonNull(timestamp);
-        AppUtil.checkArgument(isValidDateTime(timestamp), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidDateTime(timestamp));
         breakdown(timestamp);
     }
 
+    /**
+     * Deconstructs a timestamp into more granular components: Date and Time.
+     */
     void breakdown(String timestamp) {
         String[] dt = timestamp.split(" ");
+
         this.date = Date.generateDate(dt[0]);
         this.time = Time.generateTime(dt[1]);
     }
@@ -51,7 +56,8 @@ public class Timestamp {
      * Returns true if a given string is a valid timestamp.
      */
     public static boolean isValidDateTime(String timestamp) {
-        return timestamp.matches(DATETIME_VALIDATION_REGEX);
+        String[] dt = timestamp.split(" ");
+        return timestamp.matches(DATETIME_VALIDATION_REGEX) && Date.isValidDate(dt[0]) && Time.isValidTime(dt[1]);
     }
 
     @Override

@@ -35,10 +35,21 @@ public class Time {
      */
     public Time(int hour, int minute) {
         requireAllNonNull(hour, minute);
-        checkArgument(isValidHour(hour), MESSAGE_HOUR_CONSTRAINTS);
-        checkArgument(isValidMinute(minute), MESSAGE_MINUTE_CONSTRAINTS);
         this.hour = hour;
         this.minute = minute;
+    }
+
+    /**
+     * Checks if it is a valid time.
+     */
+    public static boolean isValidTime(String time) {
+        requireNonNull(time);
+        checkArgument(isValidTimeFormat(time), MESSAGE_TIME_CONSTRAINTS);
+        String[] t = time.split("[\\:]");
+        int hour = Integer.parseInt(t[0]);
+        int minute = Integer.parseInt(t[1]);
+
+        return isValidHour(hour) && isValidMinute(minute);
     }
 
     /**
@@ -47,7 +58,7 @@ public class Time {
      */
     public static Time generateTime(String time) {
         requireNonNull(time);
-        checkArgument(isValidTimeFormat(time), MESSAGE_TIME_CONSTRAINTS);
+        checkArgument(isValidTime(time));
         String[] t = time.split("[\\:]");
         return new Time(Integer.parseInt(t[0]), Integer.parseInt(t[1]));
     }

@@ -26,7 +26,7 @@ public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Date entered is invalid!"
-            + "It should be expressed in DD/MM/YYYY format";
+            + "It should be expressed in DD/MM/YYYY format and in the valid date range";
 
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})[\\/](\\d{1,2})[\\/](\\d{4})";
 
@@ -42,12 +42,22 @@ public class Date {
      */
     public Date(int day, int month, int year) {
         requireAllNonNull(day, month, year);
-        checkArgument(isValidDay(day, month, year), MESSAGE_DAY_CONSTRAINTS);
-        checkArgument(isValidMonth(month), MESSAGE_MONTH_CONSTRAINTS);
-        checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
         this.day = day;
         this.month = month;
         this.year = year;
+    }
+
+    /**
+     * Checks if it is a valid date.
+     */
+    public static boolean isValidDate(String date) {
+        requireNonNull(date);
+        String[] d = date.split("[\\/]");
+        int day = Integer.parseInt(d[0]);
+        int month = Integer.parseInt(d[1]);
+        int year = Integer.parseInt(d[2]);
+
+        return isValidDay(day, month, year) && isValidMonth(month) && isValidYear(year);
     }
 
     /**
@@ -56,9 +66,13 @@ public class Date {
      */
     public static Date generateDate(String date) {
         requireNonNull(date);
-        checkArgument(isValidDateFormat(date), MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidDate(date));
         String[] d = date.split("[\\/]");
-        return new Date(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]));
+        int day = Integer.parseInt(d[0]);
+        int month = Integer.parseInt(d[1]);
+        int year = Integer.parseInt(d[2]);
+
+        return new Date(day, month, year);
     }
 
     /**
@@ -82,7 +96,7 @@ public class Date {
         if (month == 2) {
             return isValidFebruaryDay(day, year);
         }
-        if (month % 2 == 1 && month >= 9 && day > 30) {
+        if (day > 30 && ((month % 2 == 1 && month >= 9) || (month % 2 == 0 && month <= 6))) {
             return false;
         }
         return true;
