@@ -9,9 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.achievements.Achievement;
-import seedu.address.model.bio.User;
-import seedu.address.model.record.RecordType;
+import seedu.sugarmummy.model.achievements.Achievement;
+import seedu.sugarmummy.model.bio.User;
+import seedu.sugarmummy.model.record.RecordType;
 
 /**
  * An achievements pane consisting of the display components of a user's achievements, including headers.

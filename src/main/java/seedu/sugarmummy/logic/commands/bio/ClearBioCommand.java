@@ -2,12 +2,12 @@ package seedu.sugarmummy.logic.commands.bio;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.bio.UserList;
-import seedu.address.ui.DisplayPaneType;
+import seedu.sugarmummy.logic.commands.Command;
+import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.logic.commands.exceptions.CommandException;
+import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.model.bio.UserList;
+import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
  * Clears the address book.
