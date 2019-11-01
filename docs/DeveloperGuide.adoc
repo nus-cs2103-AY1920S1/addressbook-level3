@@ -510,7 +510,7 @@ a|* If the status of the `Body` is changed before the 10 second window.
 ** Cons: Cause a lot of repetition of code.
 
 // tag::genpdf[]
-=== Generate PDF Feature [coming in v2.0]
+=== Generate PDF Feature
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
@@ -527,9 +527,9 @@ image::GenReportSequenceDiagram.png[]
 
 NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+The `genReport <BODY_ID> /name NAME` command calls `ReportGenerator#execute()`, which creates the document.
 
-The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID> /name NAME` command:
 
 image::GenReportActivityDiagram.png[]
 
