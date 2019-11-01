@@ -66,7 +66,7 @@ Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n
 Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
 ====
 
-=== Splitting a Bill with Friends : `split`
+=== Splitting a Bill with Friends : `split` [Work in Progress]
 
 Split a bill with your friends +
 Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
