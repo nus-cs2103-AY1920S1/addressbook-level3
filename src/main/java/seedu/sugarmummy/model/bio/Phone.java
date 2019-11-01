@@ -15,6 +15,7 @@ public class Phone implements ListableField {
             + "that there are no duplicates in phone numbers entered.";
 
     public static final String VALIDATION_REGEX = "\\d{3,}";
+
     public final String phoneNumber;
 
     /**

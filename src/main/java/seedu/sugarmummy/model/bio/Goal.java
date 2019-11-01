@@ -14,6 +14,7 @@ public class Goal implements ListableField {
             + "that there are no duplicates in goals entered.";
 
     public static final String VALIDATION_REGEX = "^$|[^\\\\s].*";
+
     public final String goal;
 
     /**
