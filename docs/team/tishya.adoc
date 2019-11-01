@@ -19,19 +19,20 @@ the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Lev
 We had the the following constraints:
 
 *Target Consumer:*::
-The product should be targeting users who can type fast and prefer typing over other means of input.
+* The product should be targeting users who can type fast and prefer typing over other means of input.
 
 Solution::
-For this constraint, we ensured that the majority of the user's interactions with the application are through
+* For this constraint, we ensured that the majority of the user's interactions with the application are through
 the https://www.techopedia.com/definition/3337/command-line-interface-cli[_Command Line Interface (CLI)_], which implies that
 users have to type commands and instructions, instead of using a Graphical User Interface(GUI).
 
 
-*Application requirements:*
+*Application requirements:*::
 
-. The product has to be https://www.techopedia.com/definition/24409/brownfield[_Brownfield_].
+* The product has to be https://www.techopedia.com/definition/24409/brownfield[_Brownfield_].
 
-.. This means that we had to
+Solution::
+* This means that we had to
 [.underline]#morph# the existing https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book] into another application.
 However, we were allowed to transform the concept of the application by incrementally changing the code.
 
@@ -41,17 +42,21 @@ However, we were allowed to transform the concept of the application by incremen
 
 Keeping the above constraints in mind, we created *TravEzy*, a desktop-based CLI travel application.
 Our application [.underline]#erases# the logistical nightmare that haunts regular travellers.
-We have combined critical travel applications such as
+Instead of having to deal with several applications to organise and document
+a single trip, users can now combine critical travel applications such as
 calendars, itinerary planners, diaries and budgeting tools into one convenient
-and intuitive application.
+and intuitive interface.
 
-=== Overview
+Our product is targeting NUS students who are avid travellers. Given their
+busy schedules and love for travelling, *TravEzy* is the optimal
+solution for their travel needs.
+
+=== Overview of my contribution
 
 I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
 worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
-Developer guides.
+Developer guides. I shall elaborate more in the following sections.
 
-In the following sections, I have provided more insight into my contributions.
 
 In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
 
@@ -85,12 +90,14 @@ This feature allows for users to do exactly that, with the some additional featu
 ** Other than being able to do add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
 entries, sort through entries and encrypt private memories to keep them safe.
 
+
+*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
 *Minor enhancement:*::
 *Delay Function*
 * Added a delay function which allows users to see an exit message when leaving the application
 *
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
