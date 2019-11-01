@@ -636,7 +636,7 @@ This command restores Athletick to the state before the previous command was exe
 [NOTE]
 ====
 Take note that the `undo` feature only applies to undoable commands.
-Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training`.
+Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training` .
 
 The `undo` command will not be able to undo commands that cannot be undone.
 Let’s say you have executed a `list` command to list out all the athletes information in Athletick.
@@ -644,18 +644,20 @@ If you were to execute the `undo` command now, the `undo` command will fail beca
 and that no doable commands were executed before this.
 
 The `undo` command reverses previous commands in reverse chronological order.
-Let’s say you have executed the `edit` command, followed by the `delete` command.
-Executing `undo` now will first reverse the `delete` command.
-Executing `undo` again will reverse the `edit` command.
+Let’s say you have executed the `edit` command, followed by the `delete` command. If you were
+to execute `undo` command now, you will reverse the `delete` command. Executing `undo` again
+will then reverse the `edit` command.
 
 The `undo` command will reverse the latest command that can be undone.
 Let’s say you have executed the `delete` command, followed by the `list` command.
-Since `list` command is not an undoable command, executing `undo` now will thus reverse the `delete` command.
+Since `list` command is not an undoable command, if you were to execute `undo`
+command now, you will thus reverse the `delete` command.
 ====
 
 Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
 Instead of having to re-enter Mohamad Ali’s contact information all over again,
-you can easily restore all of Mohamad Ali’s details by `undo`-ing the `delete` command that you have just entered.
+you can easily restore all of Mohamad Ali’s details by executing the command `undo` to
+undo the `delete` command that you have just entered.
 
 *What you should do*
 
@@ -664,6 +666,7 @@ Type `undo` into the command box, and press Enter to execute it.
 Format : `undo`
 
 image::undo.png[width=450]
+
 
 *What you should see*
 
@@ -686,8 +689,9 @@ The `redo` command reverses previous `undo` commands in reverse chronological or
 Let’s say that you have executed the `clear` command, followed by the `add` command.
 Executing the `undo` command now will reverse the `add` command.
 Executing the `undo` command again will reverse the `clear` command as well.
-Following this, executing the `redo` command will reverse the last `undo` command and re-execute the `clear` command.
-Executing the `redo` command again will reverse the second-last `undo` command and re-execute the `add` command.
+Following this, executing the `redo` command will reverse the most recent `undo` command and re-execute the `clear`
+command.
+Executing the `redo` command again will reverse the second most recent `undo` command and re-execute the `add` command.
 ====
 
 Let’s say you have executed the `delete` command to delete Mohamad Ali from your list.
@@ -707,7 +711,7 @@ image::redo.png[width=450]
 
 The result box will display the message “Redo Command Success” and Mohamad Ali is once again gone from the list!
 
-image::afterUndo.png[width=450]
+image::afterRedo.png[width=450]
 
 === Upcoming features
 

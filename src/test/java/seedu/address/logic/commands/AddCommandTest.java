@@ -192,11 +192,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void undo() {
+        public Command undo() {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public void redo() {
+        public Command redo() {
             throw new AssertionError("This method should not be called.");
         }
         @Override

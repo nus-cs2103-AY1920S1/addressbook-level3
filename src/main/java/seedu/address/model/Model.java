@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
@@ -59,8 +60,8 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
     ReadOnlyAddressBook getAddressBookDeepCopy();
-    void undo();
-    void redo();
+    Command undo();
+    Command redo();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

@@ -116,23 +116,24 @@ public class ModelManager implements Model {
         return deepCopy;
     }
     @Override
-    public void undo() {
+    public Command undo() {
         Command undoneCommand = HistoryManager.getCommands().pop();
         ReadOnlyAddressBook undoneAddressBooks = HistoryManager.getAddressBooks().pop();
         HistoryManager.getUndoneCommands().push(undoneCommand);
         HistoryManager.getUndoneAddressBooks().push(undoneAddressBooks);
         if (undoneCommand instanceof TrainingCommand) {
-            int attendanceListSize = this.attendance.getTrainings().size();
-            int lastIndex = attendanceListSize - 1;
-            Training undoneTraining = this.attendance.getTrainings().remove(lastIndex);
+            AthletickDate dateOfTraining = ((TrainingCommand) undoneCommand).getDate();
+            Training undoneTraining = this.attendance.getTrainingOnDate(dateOfTraining);
+            this.attendance.getTrainings().remove(undoneTraining);
             HistoryManager.getUndoneTrainingLists().push(undoneTraining);
         } else {
             ReadOnlyAddressBook afterUndoneState = HistoryManager.getAddressBooks().peek();
             addressBook.resetData(afterUndoneState);
         }
+        return undoneCommand;
     }
     @Override
-    public void redo() {
+    public Command redo() {
         Command redoneCommand = HistoryManager.getUndoneCommands().pop();
         ReadOnlyAddressBook redoneAddressBook = HistoryManager.getUndoneAddressBooks().pop();
         HistoryManager.getCommands().push(redoneCommand);
@@ -143,6 +144,7 @@ public class ModelManager implements Model {
         } else {
             addressBook.resetData(redoneAddressBook);
         }
+        return redoneCommand;
     }
 
     @Override

@@ -18,8 +18,12 @@ public class RedoCommand extends Command {
         if (history.isRedoneEmpty()) {
             return new CommandResult(MESSAGE_FAILURE);
         }
-        model.redo();
-        return new CommandResult(MESSAGE_SUCCESS);
+        Command redoneCommand = model.redo();
+        if (redoneCommand instanceof TrainingCommand) {
+            return new CommandResult(MESSAGE_SUCCESS, ((TrainingCommand) redoneCommand).getDate(), model);
+        } else {
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
     }
     @Override
     public boolean isUndoable() {
