@@ -92,7 +92,7 @@ public class AutoCompletePanel extends UiPart<Region> {
         matchedWordUpdater.updateMatchedWords(segments, firstSegmentParts);
         // Choose initial list
         ObservableList<AutoCompleteWord> chosenList = autoCompleteListHandler
-                .chooseInitialList(matchedWordUpdater.getMatchedAutoCompleteWords());
+                .chooseList(matchedWordUpdater.getMatchedAutoCompleteWords());
         // Filter list based on previous matched words
         ObservableList<AutoCompleteWord> filteredList = autoCompleteListHandler
                 .filterList(matchedWordUpdater.getMatchedAutoCompleteWords(), chosenList);

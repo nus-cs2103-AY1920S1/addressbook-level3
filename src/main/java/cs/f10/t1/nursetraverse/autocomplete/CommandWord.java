@@ -10,8 +10,8 @@ public class CommandWord extends AutoCompleteWord implements AssociableWord {
     private boolean hasIndex;
     private boolean hasPrefix;
 
-    public CommandWord(String associatedWord, String suggestionWord, Boolean hasIndex , Boolean hasPrefix) {
-        super(suggestionWord);
+    public CommandWord(String associatedWord, String suggestedCommand, Boolean hasIndex , Boolean hasPrefix) {
+        super(suggestedCommand);
         this.associatedWord = associatedWord;
         this.hasIndex = hasIndex;
         this.hasPrefix = hasPrefix;

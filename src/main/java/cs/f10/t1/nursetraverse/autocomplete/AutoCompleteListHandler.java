@@ -19,7 +19,7 @@ public class AutoCompleteListHandler {
     /**
      * Choose initial list to be suggested
      */
-    public ObservableList<AutoCompleteWord> chooseInitialList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
+    public ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
         ObservableList<AutoCompleteWord> currentList;
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
