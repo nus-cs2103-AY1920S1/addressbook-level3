@@ -2,6 +2,7 @@ package seedu.address.commons.core;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -11,6 +12,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
+    private static LocalDate currentDate = LocalDate.now();
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
@@ -31,6 +33,15 @@ public class Config {
     public void setUserPrefsFilePath(Path userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }
+
+    public static LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+    public static void setCurrentDate(LocalDate currentDate) {
+        Config.currentDate = currentDate;
+    }
+
 
     @Override
     public boolean equals(Object other) {
