@@ -273,7 +273,7 @@ Views the 3rd contact in the contact list.
 === Adds days to the schedule: `add days`
 
 Adds DAY_NUMBER amount of days to the itinerary +
-Format: `add s DAY_NUMBER`
+Format: `add days DAY_NUMBER`
 
 Examples:
 
@@ -423,6 +423,8 @@ e.g. `add accommodation n/Paradise Hotel a/23 Amoy Quee Road p/22224444`
 e.g. `add activity n/Skiing a/Mount Kurabaki du/120`
 * `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `add contact n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* `add days NUMBER` +
+e.g. `add days 10`
 ** *Clear* : `clear`
 ** *Delete* : +
 * `delete accommodation INDEX`
