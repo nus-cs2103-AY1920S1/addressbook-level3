@@ -68,7 +68,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public SortedList<Person> getSortList() {
+    public SortedList<Person> getSortList() throws CommandException {
         return model.getSortList();
     }
 

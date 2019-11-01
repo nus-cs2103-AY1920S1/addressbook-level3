@@ -164,7 +164,7 @@ public interface Model {
     /**
      * Retrieves the sort list.
      */
-    SortedList<Person> getSortList();
+    SortedList<Person> getSortList() throws CommandException;
 
     /**
      * Sorts list by priority level.

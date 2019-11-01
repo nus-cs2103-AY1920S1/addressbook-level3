@@ -436,8 +436,13 @@ This allows you to determine which patient to prioritize for organ transplant.
 Format: `sort priority`
 
 Example: +
-After running `match ic/all`, you will obtain a list of patients. +
+After running `match ic/all`, you will obtain a list of patients.
 You can then run `sort priority` to obtain a list with high priority patients at the top of the list.
+
+Note:
+
+* In cases where patients have the **same priority**, those with more matched donors will be displayed first.
+If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
 ==== Sorting based on success rate of match
 This category sorts the list of matched donors belonging to a particular patient based on the success rate of the match (from highest to lowest).

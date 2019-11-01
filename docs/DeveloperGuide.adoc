@@ -161,8 +161,44 @@ The `Storage` component,
 Classes used by multiple components are in the `organice.commons` package.
 
 == Implementation
+This section describes some noteworthy details on how features in ORGANice are implemented.
 
-This section describes some noteworthy details on how certain features are implemented.
+=== List feature
+This section describes how the list feature is implemented.
+
+The list feature is implemented using the `ListCommand(Type type)`. When the list command is executed,
+the method `ModelManager#updateFilteredPersonList(Predicate<Person> predicate)` takes in a predicate
+to decide what type of `Person` to show on the `filteredPersons` list.
+
+Therefore, in addition to the existing `PREDICATE_SHOW_ALL_PERSONS` predicate, three others predicates are introduced
+in the `Model` interface to update the list.
+The code snippet below shows what these predicates are:
+
+```
+/** {@code Predicate} that always evaluate to true */
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true if person is a doctor */
+    Predicate<Person> PREDICATE_SHOW_ALL_DOCTORS = person -> person.getType().isDoctor();
+
+    /** {@code Predicate} that always evaluate to true  if person is a donor */
+    Predicate<Person> PREDICATE_SHOW_ALL_DONORS = person -> person.getType().isDonor();
+
+    /** {@code Predicate} that always evaluate to true if person is a patient */
+    Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS = person -> person.getType().isPatient();
+
+```
+
+
+The activity diagram below illustrates what happens when a user uses the list command.
+
+.Activity Diagram of a List Command
+image::ListActivityDiagram.png[]
+
+When the user enters a list command, the result differs depending on the parameter of the command.
+If there is no parameter, ORGANice will simply list all existing doctors, patients and donors on the list.
+If there is a parameter, ORGANice will check the `TYPE` input and display the respective list of doctors, patients
+or donors that corresponds to the input.
 
 === Matching feature
 This section describes how the matching feature is implemented. The changes to Logic, UI and Model will be
@@ -352,21 +388,110 @@ This section will explain the reason for having some aspects.
 === Sort feature
 This section describes how the sort feature is implemented.
 
-Sorting is done by using `Comparators` in the `Logic` component.
+Sorting is done by using `Comparators` in the `Logic` component and makes use of the `SortCommand`.
+This command only works after a `MatchCommand` is called by the user, because it takes in `listOfMatches` returned
+from calling a `MatchCommand`. Importantly, this `listOfMatches` is an `ObservableList`, which cannot be modified.
+Therefore, it makes use of `SortedList` to wrap around the `ObservableList` so that the list can be modified by sorting.
+The `boolean` in `CommandResult#setSort(boolean isSort)` will be set to `true` for a list that has been sorted.
+Thus far, the sort command can only take in one `String` parameter, but more methods can be added in the future for more sorting options.
 
-To facilitate the sorting, the following methods were added:
+Three methods of sorting are implemented to sort based on the following categories:
 
-{More to be added}
+* Sorting based on donor's organ expiry date with `sort expiry`
++
+* Sorting based on priority with `sort priority`
++
+* Sorting based on success rate of match with `sort rate`
 
-Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort/rate)`
+These three methods' implementation will be further elaborated upon below.
 
-.Structure of the Logic Component when executing `sort` command
+==== Sort by Expiry
+Sorting by Expiry sorts a list of `MatchedDonor` using the `ModelManager#sortByOrganExpiryDate()` method.
+
+In this method, the `ExpiryComparator` is used to compare two matched donors' organ expiry date, and this requires
+the `OrganExpiryDate` of the donors to be parsed into a date format that can be compared.
+
+==== Sort by Success Rate
+Sorting by Success Rate sorts a list of `MatchedPatient` using the `ModelManager#sortBySuccessRate()` method.
+
+The `SuccessRateComparator` is created to compare two matched patients' rate of success for the match.
+
+Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort rate)`,
+assuming the user has entered a `match ic/**NRIC**` command before this.
+
+.Structure of the Logic Component when executing `sort rate` command
 image::SortSequenceDiagram.png[width=790]
 
-==== Design considerations
-This section will explain the reason for having some aspects.
+After the command is given by the user, it would be parsed by the `AddressBookParser`.
+The `SortCommandParser` then parses the parameter `rate` and a `SortCommand` is created.
+The `LogicManager` will then execute the command and call the `sortBySuccessRate()` method from the `ModelManager`.
+The list of `MatchedPatient` will then be sorted based on their match's success rate.
 
-===== Aspect:
+==== Sort by Priority
+Sorting by Expiry sorts a list of `MatchedPatient` using the `ModelManager#sortByPriority()` method.
+
+In this method, there are two other comparators created in addition to the `Priority Comparator`,
+namely the `NameComparator` and the `NumOfMatchesComparator`. These two comparators serve as tie-breakers in cases where
+patients have the same priority. In other words, for patients of the same priority, those with more matched donors will be displayed first.
+If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
+
+Under the `sortByPriority()` method, the order of applying the comparators to the list of patients
+is, firstly, the 'NameComparator', followed by `NumOfMatchesComparator`, and lastly, the `PriorityComparator`.
+This means that the patients are first sorted by names in alphabetical order, followed by the number of matched donors they have
+in descending order (highest to lowest), and then their priority level in descending order (from high, to medium, to low).
+
+All three comparators makes use of the `compareTo` method under the `Comparable` class, which can sort in lexical order for String,
+and numeric order for Sorting integers.
+In particular, the `PriorityComparator` makes use of the `compareTo` method implemented in the `Priority` class.
+A code snippet of this method is shown below.
+
+```
+@Override
+public int compareTo(Priority priority) {
+Integer thisPriorityNumber = 0;
+Integer otherPriorityNumber = 0;
+
+        if (this.isHighPriority()) {
+            thisPriorityNumber = 3;
+        } else if (this.isMediumPriority()) {
+            thisPriorityNumber = 2;
+        } else if (this.isLowPriority()) {
+            thisPriorityNumber = 1;
+        }
+        if (priority.isHighPriority()) {
+            otherPriorityNumber = 3;
+        } else if (priority.isMediumPriority()) {
+            otherPriorityNumber = 2;
+        } else if (priority.isLowPriority()) {
+            otherPriorityNumber = 1;
+        }
+        return thisPriorityNumber.compareTo(otherPriorityNumber);
+    }
+```
+
+This implementation was the result of using `String` to represent the different priorities in the `Priority` class.
+Therefore, they are converted into `Integer` for easier comparison. An alternative solution would be to make use of
+`Enum` class to define each priority so that this `compareTo` method implementation can be simplified.
+
+==== Design considerations
+This section will explain two aspects considered in designing the sort feature.
+
+===== Aspect: Method of storing sorted result
+* **Alternative 1 (current choice):** Use `SortedList`.
+** Pros: Fast iteration time of O(n * log n), which is important for ORGANice to load and display the sorted result, and more harmonious
+with current implementations (able to wrap `ObservableList` and sort the content).
+** Cons: It is not the most efficient algorithm for insertions or deletions, but ORGANice does not require them.
+* **Alternative 2:** Use `ArrayList`.
+** Pros: Fast index-based access and works on any `Collection` class.
+** Cons: Iterating through the list to display the result takes O(n) time, which is slower than using `SortedList`.
+
+===== Aspect: Method of sorting
+* **Alternative 1 (current choice):** Use `Comparator` and `Comparable`.
+** Pros: Simpler implementation as able to make use of existing methods in ORGANice such as `setComparator`.
+** Cons: More coding involved.
+* **Alternative 2:** Use `Collections.sort()`.
+** Pros: Time complexity is O(n*log(n)) which is relatively fast.
+** Cons: Cannot make use of existing methods in ORGANice that work for Comparator.
 
 === Processing feature
 This section describes how the processing feature is implemented.
@@ -576,11 +701,6 @@ Use case ends.
 
 === Use case: Sort list according to priority/rate/expiry
 
-Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort rate)`.
-
-.Structure of the Logic Component when executing `sort` command
-image::SortSequenceDiagram.png[]
-
 *MSS*
 
 1.  User requests to sort the list of donors of a particular patient.
@@ -603,11 +723,6 @@ Steps 1a1-1a2 are repeated until the data entered are correct.
 Use case resumes at step 2.
 
 === Use case: List all patients/donors/doctors
-
-Given below is the activity diagram to illustrate what happens when user uses the list command.
-
-.Activity Diagram of a List Command
-image::ListActivityDiagram.png[]
 
 *MSS*
 

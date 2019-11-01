@@ -14,14 +14,15 @@ public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a sorted list of matches.\n"
-            + "Use this command after you've generated a list of matches to sort according to:\n"
-            + "Parameters:\n"
-            + "success rate/expiry (for matched donors list)\n"
-            + "or priority (for matched patients list)\n";
+            + "Use this command only after a match command is run. Valid commands:\n"
+            + "'match ic/[patientNRIC]' then 'sort rate/expiry'.\n"
+            + "'match ic/all' then 'sort priority'.\n";
 
     public static final String LIST_OF_SORTED_DONORS = "List of matched donors found.\n";
     public static final String LIST_OF_SORTED_PATIENTS = "List of matched patients found.\n";
-    private static final String MESSAGE_SUCCESS = "Successfully sorted.\n";
+    public static final String MESSAGE_SUCCESS = "Successfully sorted.\n";
+    public static final String MESSAGE_FAILURE = "No match list detected.\n"
+            + "Before sorting, run a match command first with 'match ic/[patientNRIC]' or 'match ic/all'.\n";
 
     private String input;
 

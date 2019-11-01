@@ -33,6 +33,9 @@ public class MatchedPatient extends Patient {
         this.numberOfMatches = numberOfMatches;
     }
 
+    public Name getName() {
+        return this.name;
+    }
     /**
      * Retrieves the number of matches the represented {@code Patient} has with all {@code Donors}.
      */

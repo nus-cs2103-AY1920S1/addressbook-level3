@@ -42,7 +42,7 @@ public interface Logic {
     /**
      * Retrieves the sort list.
      */
-    SortedList<Person> getSortList();
+    SortedList<Person> getSortList() throws CommandException;
 
     /**
      * Returns the user prefs' address book file path.

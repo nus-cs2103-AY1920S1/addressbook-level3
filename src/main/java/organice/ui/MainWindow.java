@@ -234,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Swaps the PersonListPanel if a sort command is executed.
      */
-    public void handleSort() {
+    public void handleSort() throws CommandException {
         personListPanel = new PersonListPanel(logic.getSortList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
