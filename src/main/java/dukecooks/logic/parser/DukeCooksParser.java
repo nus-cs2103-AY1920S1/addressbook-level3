@@ -77,11 +77,11 @@ public class DukeCooksParser {
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
 
-        case DashboardCommand.COMMAND_WORD:
-            return new DashboardCommand();
-
         case PushCommand.COMMAND_WORD:
             return new PushCommandParser().parse(arguments);
+            
+        case DashboardCommand.COMMAND_WORD:
+            return new DashboardCommand();
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
