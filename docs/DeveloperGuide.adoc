@@ -160,7 +160,7 @@ The diagram above shows how `EditNoteCommandParser` creates an `EditNoteCommand`
 creates an `EditNoteDescriptor` to hold details of what changes in the note, setting the new
 title (provided by the `t/` argument) and content (`c/`) as necessary. If `i/none` is present,
 the `EditNoteDescriptor` is set to remove the image and no dialog is shown. If `i/` is
-otherwise provided, `EditNoteCommandParser` calls the static method `NoteImageSelector#selectImage()`,
+otherwise provided, `EditNoteCommandParser` calls the static method `AppUtil#selectImage()`,
 opening up the image selection dialog; the returned `Image` object is then set in the `EditNoteDescriptor`.
 An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
 
@@ -169,13 +169,9 @@ Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png
 we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
 into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
 an image. The references are then changed to point to these local copies, becoming relative URIs.
+// end::lecimage[]
 
-'''
-
-Unlike `Title` and `Content`, which are wrappers around `String` objects, both the use of a JavaFX
-built-in object and the system-dependent implementation of graphics-related objects required me to
-make certain critical decisions on the implementation of image support.
-
+// tag::lecimagedesignconsiderations[]
 ==== Design considerations: where to place the image?
 
 * _Alternative 1 (current choice):_ Images are shown within each lecture note in the first column, and each lecture note
@@ -194,13 +190,14 @@ in the second column
 ** Pros: Effects a better separation of concerns (image selection is not execution of the command, image
 copying may be thought of as a side effect of command execution)
 ** Cons: Need to adapt the file copying code to each command
-* _Alternative 2:_ Images are copied when the image is selected, i.e. `NoteImageSelector#selectImage()`
+* _Alternative 2:_ Images are copied when the image is selected, i.e. `AppUtil#selectImage()`
 ** Pros: Compared to alternative 1, has less time between initial image selection and the copy into
 application data. There is a potential application risk if
 ** Cons: `selectImage()` has two only loosely related responsibilities (worse separation of concerns),
 impossible to take into account user preferences for where the application data is stored
-// end::lecimage[]
+// end::lecimagedesignconsiderations[]
 
+// tag::questiond[]
 === Question management feature
 ==== Current implementation
 
@@ -262,7 +259,9 @@ in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::questiond[]
 
+// tag::quiz[]
 === Quiz mode for revision
 ==== Implementation
 
@@ -309,7 +308,7 @@ image::QuizModeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
-image::QuizModeActivityDiagram.png[]
+image::QuizModeActivityDiagram.png[width=400]
 
 ==== Design Considerations
 
@@ -330,6 +329,7 @@ updated appData in local storage when the command finishes executing.
 ** Pros: Do not need to maintain a separate list class.
 ** Cons: Violates Single Responsibility Principle and Separation of Concerns as the model needs to maintain various
 list operations.
+// end::quiz[]
 
 === Statistics feature
 ==== Implementation
@@ -724,6 +724,7 @@ Use case ends
 ** Repeat 1a1 and 1a2 until a valid index is provided
 * Use case resumes from step 2
 
+// tag::usecasew[]
 [discrete]
 === Use case: Specify difficulty level of questions (Xueting)
 
@@ -806,7 +807,9 @@ Use case ends
 ** 1b2. Student re-enter the necessary fields by choosing from the list
 ** Repeat 1b1 and 1b2 until valid inputs are provided
 * Use case resumes at step 2
+// end::usecasew[]
 
+// tag::quizUseCase[]
 [discrete]
 === Use case: Delete an existing question (Dongjun)
 
@@ -840,6 +843,7 @@ Use case ends
 6. Repeat 2 - 5 until all questions are answered
 
 Use case ends
+// end::quizUseCase[]
 
 *Extensions*
 
@@ -893,35 +897,32 @@ It is not quizzable.
 // end::nfrglossary[]
 
 [appendix]
-== Instructions for Manual Testing
+== Manual testing
+A few ways of manually testing NUStudy are listed below. Of course, any tester
+should explore more than just these.
 
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
+=== Opening and closing
 . Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
+.. Download the JAR file and copy into an empty folder.
+.. Open the jar file. _The GUI with some initial application data should be visible._
 . Saving window preferences
+.. Change the position and size of the window and close it.
+.. Re-launch NUStudy. _It should look just like when it was closed._
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Image support
+. Adding a lecture note with an image
+.. Type `addnote t/t c/c i/` in the command line. _An image dialog should be brought up._
+.. Select any image. _It should appear in the lecture note panel, as a new lecture note with
+title "t" and content "c"._
+. Modifying an image
+.. After adding one lecture note with an image, type `editnote i i/` where `i` is its index.
+.. _The same image dialog should be brought up_; select a different image.
+_This image should appear in place of the old image, if any, even if the filename is the same._
+. Local copy of images
+.. Close the application and move the JAR file and its associated application data to another location.
+.. Relaunch the application. _Images should display as before.
+. Silent ignoring of broken images
+.. Once lecture notes with images have been added, close NUStudy and delete all images
+in its data folder.
+.. Relaunch the application. _The app should not throw an exception, merely not display any images._
+.. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
