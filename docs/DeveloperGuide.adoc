@@ -1248,11 +1248,11 @@ Use case resumes from step 1a.
 
 '''
 [discrete]
-=== UC19 Set the existing currency
+=== UC19 Set the displayed currency
 
 *MSS*
 
-1.  User requests to set the existing currency
+1.  User requests to set the displayed currency
 2.  MoneyGoWhere displays the specified currency for all spending in the list.
 +
 Use case ends.
