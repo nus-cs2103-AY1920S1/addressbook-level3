@@ -28,6 +28,7 @@ import seedu.jarvis.logic.commands.course.CheckCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
+import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
 import seedu.jarvis.logic.commands.finance.FindPurchaseCommand;
 import seedu.jarvis.logic.commands.finance.ListFinancesCommand;
@@ -42,6 +43,7 @@ import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
 import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
+import seedu.jarvis.logic.commands.planner.ListTaskCommand;
 import seedu.jarvis.logic.parser.address.AddAddressCommandParser;
 import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;
 import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
@@ -142,6 +144,9 @@ public class JarvisParser {
         case ListCourseCommand.COMMAND_WORD:
             return new ListCourseCommand();
 
+        case ShowCourseHelpCommand.COMMAND_WORD:
+            return new ShowCourseHelpCommand();
+
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
 
@@ -174,6 +179,9 @@ public class JarvisParser {
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
+
+        case ListTaskCommand.COMMAND_WORD:
+            return new ListTaskCommand();
 
         case SetPaidCommand.COMMAND_WORD:
             return new SetPaidCommandParser().parse(arguments);

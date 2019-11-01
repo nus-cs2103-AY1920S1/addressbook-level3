@@ -25,7 +25,7 @@ public class RedoCommand extends Command {
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all"
             + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
 
-    public static final String MESSAGE_SUCCESS = "Redone %1$d commands";
+    public static final String MESSAGE_SUCCESS = "Redone %1$d command(s)";
     public static final String MESSAGE_NOTHING_TO_REDO = "Nothing available to redo.";
     public static final String MESSAGE_TOO_MANY_REDO = "There are only %1$d commands available to be redone";
     public static final String MESSAGE_UNABLE_TO_REDO =

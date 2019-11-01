@@ -110,7 +110,7 @@ class EventTest {
         testEvent.setPriority(Priority.HIGH);
         testEvent.addTag(new Tag("school"));
 
-        String expected = "Event: borrow book from 2019-10-18 to 2019-10-19\nPriority: HIGH\nFrequency: WEEKLY"
+        String expected = "Event: borrow book from 2019-10-18 to 2019-10-19\nPriority: High\nFrequency: Weekly"
                            + "\nTags: [[school]]";
 
         assertEquals(expected, testEvent.toString());

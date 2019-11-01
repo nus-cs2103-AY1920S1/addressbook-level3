@@ -114,6 +114,7 @@ public class SetMonthlyLimitCommand extends Command {
         }
 
         model.setMonthlyLimit(updatedLimit);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLimit), true);
     }
 

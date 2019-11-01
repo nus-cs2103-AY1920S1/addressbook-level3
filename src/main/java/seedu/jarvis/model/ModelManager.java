@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -45,6 +46,8 @@ import seedu.jarvis.model.viewstatus.ViewType;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
+
     private final HistoryManager historyManager;
     private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
@@ -53,7 +56,6 @@ public class ModelManager implements Model {
     private final CcaTracker ccaTracker;
     private final Planner planner;
     private ViewStatus viewStatus;
-
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -438,6 +440,14 @@ public class ModelManager implements Model {
     @Override
     public double calculateTotalSpending() {
         return financeTracker.calculateTotalSpending();
+    }
+
+    /**
+     * Calculates total expenditure by user for this month to be rendered onto Ui.
+     */
+    @Override
+    public String getTotalSpending() {
+        return df2.format(calculateTotalSpending());
     }
 
     /**

@@ -23,13 +23,17 @@ public class CourseListCard extends UiPart<Region> {
     private Label courseCode;
     @FXML
     private Label courseTitle;
+    @FXML
+    private Label courseFaculty;
 
     public CourseListCard(Course course, int displayedIndex) {
         super(FXML);
         this.course = course;
         courseId.setText(displayedIndex + ". ");
-        courseCode.setText(course.getCourseCode().toString());
+        courseCode.setText(course.getCourseCode().toString()
+            + String.format(" (%s MCs)", course.getCourseCredit().toString()));
         courseTitle.setText(course.getTitle().toString());
+        courseFaculty.setText("Offered by: " + course.getFaculty().toString());
     }
 
     @Override
