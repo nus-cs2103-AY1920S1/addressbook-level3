@@ -428,6 +428,12 @@ Format: `delete INDEX`
 Imports memes from the import tab into Weme. +
 Format: `import`
 
+****
+* Weme only imports image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
+* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
+with `.jpg` extension).
+****
+
 ==== Clearing loaded memes: `clear`
 
 Clears all the memes in the import tab. +
