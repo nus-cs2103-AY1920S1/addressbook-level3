@@ -13,6 +13,14 @@ import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
  * Parses input arguments and creates a new DisplayStatsCommand object
  */
 public class DisplayStatsCommandParser implements Parser<DisplayStatsCommand> {
+
+    /**
+     * Parses the user input of arguments in the context of the DisplayStatsCommand and returns a DisplayStatsCommand
+     * object for execution. Valid parameters depend on the type of statistics chosen to be displayed
+     * @param userInput User input string
+     * @return DisplayStatsCommand object representing the chosen statistics together with specific options.
+     * @throws ParseException if the statistic chosen does not exist.
+     */
     @Override
     public DisplayStatsCommand parse(String userInput) throws ParseException {
         String formatString = userInput.trim().split("\\s")[0];

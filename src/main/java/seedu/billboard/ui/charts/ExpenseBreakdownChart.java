@@ -66,7 +66,8 @@ public class ExpenseBreakdownChart extends ExpenseChart {
     private void onDataChange(Task<ExpenseBreakdown> newDataTask) {
         newDataTask.setOnSucceeded(event -> {
             ExpenseBreakdown newData = newDataTask.getValue();
-            Platform.runLater(() -> dataList.setAll(breakdownValuesToList(newData.getTagBreakdownValues())));
+            List<PieChart.Data> data = breakdownValuesToList(newData.getTagBreakdownValues());
+            Platform.runLater(() -> dataList.setAll(data));
         });
     }
 
