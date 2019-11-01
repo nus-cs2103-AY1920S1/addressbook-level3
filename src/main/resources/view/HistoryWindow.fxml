@@ -23,11 +23,11 @@
             <VBox alignment="CENTER" minWidth="600" styleClass="pane-with-border">
                 <children>
                     <Label fx:id="commandHistoryTitle" styleClass="prefix-label, prefix_purple" text="MAMS Command History" />
-                    <VBox fx:id="historyDisplay" minWidth="200" prefHeight="3000" prefWidth="3000" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox  styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <StackPane fx:id="historyDisplayPanelPlaceholder" prefHeight="1000" styleClass="stack-pane, history-display" VBox.vgrow="ALWAYS" />
+                        <StackPane fx:id="historyDisplayPanelPlaceholder" styleClass="stack-pane, history-display" VBox.vgrow="ALWAYS" />
                     </VBox>
                 </children>
                 <opaqueInsets>

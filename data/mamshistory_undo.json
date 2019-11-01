@@ -40,7 +40,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180006",
-    "tagged" : [ "CS1020", "CS2040", "C000006", "CS2101" ]
+    "tagged" : [ "CS1020", "C000006", "CS2101" ]
   }, {
     "name" : "Staci Snowden  ",
     "credits" : "23",
@@ -334,7 +334,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "50",
-    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180006", "A0180018", "A0180029", "A0180019", "A0180009" ],
+    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
     "moduleDescription" : "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, and basic analysis of algorithms.",
@@ -484,8 +484,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS2040",
     "moduleToDrop" : "",
-    "resolved" : true,
-    "result" : "APPROVED",
+    "resolved" : false,
+    "result" : "",
     "remark" : ""
   } ]
 }

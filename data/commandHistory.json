@@ -1,120 +1,23 @@
 {
   "inputOutputs" : [ {
-    "input" : "approve",
-    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD [a/INDEX] [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD [mass/] [APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020"
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587467114
   }, {
-    "input" : "approve a/3 ",
-    "output" : "Approved C000002\nRemoved module from : A0180002"
+    "input" : "view a/3",
+    "output" : "Displayed items with ID: C000002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587597611
   }, {
-    "input" : "clash",
-    "output" : "Invalid command format! \nclash: Checks timetable clashes by index or two module codes.\nExample: clash m/CS1010 m/CS2030  OR clash m/1 m/2  OR clash a/3 OR clash s/5"
-  }, {
-    "input" : "clash m/2    s ",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/2",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/1",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/3",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/3 m/2",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/3 m/1",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/3 m/6",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/CS1010 m/CS1231",
-    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \n"
-  }, {
-    "input" : "clash m/1 m/2",
-    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \n"
-  }, {
-    "input" : "clash m/1",
-    "output" : "There is no timetable clash."
-  }, {
-    "input" : "clash m/1 m/2",
-    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00 Thursday 10:00 to 13:00 \n"
-  }, {
-    "input" : "clash m/1 s/2",
-    "output" : "Invalid command format! \nclash: Checks timetable clashes by index or two module codes.\nExample: clash m/CS1010 m/CS2030  OR clash m/1 m/2  OR clash a/3 OR clash s/5"
-  }, {
-    "input" : "approve a/2",
-    "output" : "Approved C000001\nRemoved module from : A0180001"
-  }, {
-    "input" : "approve a/4 ",
-    "output" : "Approved C000003\nAdded module to : A0180003"
-  }, {
-    "input" : "approve a/6 ",
-    "output" : "Approved C000005\nAdded module to : A0180002"
-  }, {
-    "input" : "undo",
-    "output" : "Undo Successful "
-  }, {
-    "input" : "approve a/7",
-    "output" : "Approved C000006\nAdded module to : A0180006"
-  }, {
-    "input" : "view a/7",
-    "output" : "Displayed items with ID: C000006"
-  }, {
-    "input" : "view m/6",
-    "output" : "Displayed items with ID: CS2040"
-  }, {
-    "input" : "view a/5",
-    "output" : "The appeal index provided is invalid"
-  }, {
-    "input" : "view as/5",
-    "output" : "Invalid command format! \nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10"
-  }, {
-    "input" : "view s/5",
-    "output" : "Displayed items with ID: A0180004"
-  }, {
-    "input" : "view s/7",
-    "output" : "The student index provided is invalid"
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587602488
   }, {
     "input" : "list",
-    "output" : "Listed all appeals\nListed all modules\nListed all students"
-  }, {
-    "input" : "view s/7",
-    "output" : "Displayed items with ID: A0180006"
-  }, {
-    "input" : "view s/7",
-    "output" : "Displayed items with ID: A0180006"
-  }, {
-    "input" : "view m/6",
-    "output" : "Displayed items with ID: CS2100"
-  }, {
-    "input" : "list module",
-    "output" : "Listed all appeals\nListed all modules\nListed all students"
-  }, {
-    "input" : "view m/5",
-    "output" : "Displayed items with ID: CS2040"
-  }, {
-    "input" : "view s/7",
-    "output" : "Displayed items with ID: A0180006"
-  }, {
-    "input" : "approve a/7",
-    "output" : "Approved C000006\nAdded module to : A0180006"
-  }, {
-    "input" : "view m/5",
-    "output" : "Displayed items with ID: CS2040"
-  }, {
-    "input" : "view s/7",
-    "output" : "Displayed items with ID: A0180006"
-  }, {
-    "input" : "undo",
-    "output" : "Undo Successful "
-  }, {
-    "input" : "undo",
-    "output" : "Undo Successful "
-  }, {
-    "input" : "undo",
-    "output" : "Undo Successful "
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587634075
   } ]
 }
