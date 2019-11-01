@@ -18,9 +18,7 @@ import seedu.address.model.CalendarDate;
 import seedu.address.model.ModelLists;
 import seedu.address.model.events.EventDateComparator;
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.EventListListener;
 import seedu.address.model.listeners.ModelListListener;
-import seedu.address.model.listeners.TaskListListener;
 import seedu.address.model.tasks.TaskDateComparator;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.ColorTheme;
@@ -33,7 +31,7 @@ import seedu.address.ui.listeners.UserOutputListener;
  * The manager of the UI component.
  * Responsible for creating and destroying the graphical ui.
  */
-public class UiManager implements Ui, UserOutputListener, EventListListener, TaskListListener, ModelListListener {
+public class UiManager implements Ui, UserOutputListener, ModelListListener {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -152,28 +150,18 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     }
 
     /**
-     * Returns a HashMap based on the front index and back index of the event and sorted events.
+     * Returns a HashMap based on the indexing of the original event list.
      *
      * @param events The unsorted event list.
-     * @param sortedEvents The sorted event list.
-     * @return Returns a HashMap based on the front index and back index of the event and sorted events.
+     * @return Returns a HashMap based on the indexing of the original event list
      */
-    private HashMap<Integer, Integer> addEventIndex(List<EventSource> events, List<EventSource> sortedEvents) {
-        int frontIndex = 0;
+    private HashMap<EventSource, Integer> addEventIndex(List<EventSource> events) {
         int backIndex = 0;
-        HashMap<Integer, Integer> eventHash = new HashMap<>();
-        for (EventSource sortedEvent : sortedEvents) {
-            for (EventSource event : events) {
-                if (event.equals(sortedEvent)) {
-                    eventHash.put(frontIndex, backIndex);
-                    backIndex = 0;
-                    break;
-                }
-                backIndex++;
-            }
-            frontIndex++;
+        HashMap<EventSource, Integer> eventHash = new HashMap<>();
+        for (EventSource event : events) {
+            eventHash.put(event, backIndex);
+            backIndex++;
         }
-
         return eventHash;
     }
 
@@ -190,45 +178,32 @@ public class UiManager implements Ui, UserOutputListener, EventListListener, Tas
     }
 
     /**
-     * Returns a HashMap based on the front index and back index of the task and sorted tasks.
+     * Returns a HashMap based on the indexing of the original event list.
      *
      * @param tasks The unsorted task list.
-     * @param sortedTasks The sorted task list.
-     * @return Returns a HashMap based on the front index and back index of the task and sorted tasks.
+     * @return Returns a HashMap based on the indexing of the original task list
      */
-    private HashMap<Integer, Integer> addTaskIndex(List<TaskSource> tasks, List<TaskSource> sortedTasks) {
-        int frontIndex = 0;
+    private HashMap<TaskSource, Integer> addTaskIndex(List<TaskSource> tasks) {
         int backIndex = 0;
-        HashMap<Integer, Integer> taskHash = new HashMap<>();
-        for (TaskSource sortedTask : sortedTasks) {
-            for (TaskSource task : tasks) {
-                if (task.equals(sortedTask)) {
-                    taskHash.put(frontIndex, backIndex);
-                    backIndex = 0;
-                    break;
-                }
-                backIndex++;
-            }
-            frontIndex++;
+        HashMap<TaskSource, Integer> taskHash = new HashMap<>();
+        for (TaskSource task : tasks) {
+            taskHash.put(task, backIndex);
+            backIndex++;
         }
         return taskHash;
     }
 
     @Override
-    public void onEventListChange(List<EventSource> events) {
-        List<EventSource> sortedDateEventList = sortDateEventList(events);
-        this.mainWindow.onEventListChange(sortedDateEventList, addEventIndex(events, sortedDateEventList));
-    }
-
-    @Override
-    public void onTaskListChange(List<TaskSource> tasks) {
-        List<TaskSource> sortedDateTaskList = sortDateTaskList(tasks);
-        this.mainWindow.onTaskListChange(sortedDateTaskList, addTaskIndex(tasks, sortedDateTaskList));
-    }
-
-    @Override
     public void onModelListChange(ModelLists lists) {
-        this.mainWindow.onModelListChange(sortDateEventList(lists.getEvents()), sortDateTaskList(lists.getTasks()));
+        List<EventSource> sortedDateEventList = sortDateEventList(lists.getEvents());
+        List<TaskSource> sortedDateTaskList = sortDateTaskList(lists.getTasks());
+        HashMap<EventSource, Integer> eventHash = addEventIndex(lists.getEvents());
+        HashMap<TaskSource, Integer> taskHash = addTaskIndex(lists.getTasks());
+        this.mainWindow.onModelListChange(
+                sortedDateEventList,
+                sortedDateTaskList,
+                eventHash,
+                taskHash);
     }
 
     @Override

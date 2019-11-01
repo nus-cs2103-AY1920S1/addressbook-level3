@@ -120,8 +120,6 @@ public class MainApp extends Application {
     private void addListeners() {
         commandManager.addUserOutputListener(uiManager);
 
-        modelManager.addEventListListener(uiManager);
-        modelManager.addTaskListListener(uiManager);
         modelManager.addModelListListener(uiManager);
 
         modelManager.addModelListListener(storageManager);

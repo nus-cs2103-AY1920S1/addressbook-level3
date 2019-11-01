@@ -1,6 +1,7 @@
 package seedu.address.ui.panel.calendar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.concurrent.Task;
@@ -135,13 +136,15 @@ public abstract class TimelineView extends UiPart<Region> {
      *
      * @param eventTaskList The given event list containing all the events and tasks.
      */
-    void onChange(List<Object> eventTaskList) {
+    void onChange(List<Object> eventTaskList,
+                  HashMap<EventSource, Integer> eventHash,
+                  HashMap<TaskSource, Integer> taskHash) {
         resetTimeline();
         for (Object source : eventTaskList) {
             if (source instanceof EventSource) {
                 EventSource event = (EventSource) source;
                 if (isWithinTimeline(event)) {
-                    addEventCard(event);
+                    addEventCard(event, eventHash.get(event));
                 }
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
@@ -149,7 +152,7 @@ public abstract class TimelineView extends UiPart<Region> {
                     break;
                 }
                 if (isWithinTimeline(task)) {
-                    addTaskCard(task);
+                    addTaskCard(task, taskHash.get(task));
                 }
             }
         }
@@ -175,9 +178,9 @@ public abstract class TimelineView extends UiPart<Region> {
      * @param event The given event.
      * @see EventCard
      */
-    abstract void addEventCard(EventSource event);
+    abstract void addEventCard(EventSource event, Integer eventIndex);
 
-    abstract void addTaskCard(TaskSource task);
+    abstract void addTaskCard(TaskSource task, Integer taskIndex);
 
     /**
      * Returns a boolean that checks if the given date of the event is within the particular timeline.

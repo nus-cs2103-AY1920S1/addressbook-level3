@@ -30,13 +30,11 @@ public class EventListPanel extends UiPart<Region> {
      *
      * @param events The given List of Events.
      */
-    public void onEventListChange(List<EventSource> events, HashMap<Integer, Integer> eventHash) {
+    public void onEventListChange(List<EventSource> events, HashMap<EventSource, Integer> eventHash) {
         this.eventList.getChildren().clear();
-        int index = 0;
         for (EventSource event : events) {
-            EventCard eventCard = new EventCard(event, eventHash.get(index));
+            EventCard eventCard = new EventCard(event, eventHash.get(event));
             eventList.getChildren().add(eventCard.getRoot());
-            index++;
         }
     }
 }

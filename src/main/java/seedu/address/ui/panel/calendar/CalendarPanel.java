@@ -1,6 +1,7 @@
 package seedu.address.ui.panel.calendar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -29,6 +30,8 @@ public class CalendarPanel extends UiPart<Region> {
     private CalendarDate calendarDate;
 
     private List<Object> eventTaskList;
+    private HashMap<EventSource, Integer> eventHash;
+    private HashMap<TaskSource, Integer> taskHash;
 
     @FXML
     private StackPane timelinePlaceholder;
@@ -53,7 +56,7 @@ public class CalendarPanel extends UiPart<Region> {
         this.eventTaskList = new ArrayList<>();
 
         this.calendarScreen = new CalendarScreen(this.calendarDate);
-        this.timelineView = new TimelineDayView(this.calendarDate, eventTaskList);
+        this.timelineView = new TimelineDayView(this.calendarDate, eventTaskList, eventHash, taskHash);
         this.upcomingView = new UpcomingView(eventTaskList);
 
         timelinePlaceholder.getChildren().add(this.timelineView.getRoot()); // Left
@@ -90,7 +93,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToDayView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        timelineView = new TimelineDayView(calendarDate, eventTaskList);
+        timelineView = new TimelineDayView(calendarDate, eventTaskList, eventHash, taskHash);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -102,7 +105,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToWeekView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineWeekView(calendarDate, eventTaskList);
+        this.timelineView = new TimelineWeekView(calendarDate, eventTaskList, eventHash, taskHash);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -114,7 +117,7 @@ public class CalendarPanel extends UiPart<Region> {
     public void changeToMonthView(CalendarDate calendarDate) {
         changeCalendarScreenDate(calendarDate);
         timelinePlaceholder.getChildren().clear();
-        this.timelineView = new TimelineMonthView(calendarDate, eventTaskList);
+        this.timelineView = new TimelineMonthView(calendarDate, eventTaskList, eventHash, taskHash);
         timelinePlaceholder.getChildren().add(timelineView.getRoot());
     }
 
@@ -124,9 +127,14 @@ public class CalendarPanel extends UiPart<Region> {
      * @param events The given event lists.
      * @param tasks The given task list.
      */
-    public void onModelListChange(List<EventSource> events, List<TaskSource> tasks) {
+    public void onModelListChange(List<EventSource> events,
+                                  List<TaskSource> tasks,
+                                  HashMap<EventSource, Integer> eventHash,
+                                  HashMap<TaskSource, Integer> taskHash) {
         eventTaskList = combineList(events, tasks);
-        this.timelineView.onChange(eventTaskList);
+        this.eventHash = eventHash;
+        this.taskHash = taskHash;
+        this.timelineView.onChange(eventTaskList, eventHash, taskHash);
         this.calendarScreen.onChange(eventTaskList);
         this.upcomingView.onChange(eventTaskList);
     }
