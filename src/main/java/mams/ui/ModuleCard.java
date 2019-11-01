@@ -24,7 +24,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label moduleCode;
     @FXML
-    private Label  credits;
+    private Label credits;
     @FXML
     private Label moduleName;
     @FXML
