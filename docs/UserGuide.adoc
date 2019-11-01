@@ -256,14 +256,30 @@ Alternatively, you may click on the blue button with the left arrow next to the 
 to change the display to the previous month.
 
 === Typing game : `tab game`
+Changes the current window to the start window with a kbd:[Start] button.
 
+.Start window of the game
+image::StartWindow.png[width="450"]
+Click the kbd:[Start] button to open the game in a new window.
+
+.Game window
 image::GameWindow.png[width="450"]
 
-Opens a simple typing game (in a new window) which helps you to improve your typing speed. There are moving words that users can type in
-order to score points. Once users correctly type the specified word, the word disappears and the increase in points is
-reflected in the player information panel in the game window. When the user fails to type the word before the moving
-word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
-window. After the health points reaches zero, `GAME OVER` is displayed.
+There are moving words that you can type in order to score points. Once you correctly type the specified word,
+the word disappears and the increase in points is reflected in the player information panel in the game window.
+[TIP]
+After typing a word, remember to press kbd:[Enter] to clear the text area which is located at the bottom of the screen.
+
+
+When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
+is reflected in the player information panel in the game window.
+After the health points reaches zero, `GAME OVER` is displayed as shown below.
+
+.Sample game play when game is over
+image::GameOver.png[width="450"]
+
+Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
+If you want to play the game again, click the kbd:[Start] button shown in the Start window.
 
 === Generating a PDF file of engagement : `pdf`
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
