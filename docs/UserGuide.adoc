@@ -392,7 +392,7 @@ This command displays the whole revision task list. +
 Format: `rlist`
 
 ==== Clear current revision plan: `rclear`
-You can remove all revision tasks with this command.
+You can remove all revision tasks with this command. +
 Format: `rclear`
 
 ==== View completed revision tasks: `finished`
