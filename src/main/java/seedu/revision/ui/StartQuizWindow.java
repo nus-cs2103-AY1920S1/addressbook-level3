@@ -201,7 +201,8 @@ public class StartQuizWindow extends Window {
     private void handleNextLevel(Answerable nextAnswerable) {
         int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+//        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+
         alert.setTitle("Well done!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
