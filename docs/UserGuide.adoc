@@ -534,7 +534,7 @@ Date should be in the format YYYY.MM.DD with valid year, month and date.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
 *Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
 
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
@@ -612,6 +612,11 @@ Currently, the following commands are undoable and redoable. +
 . Delete Phone
 . Clear Phone
 
+. Add Schedule
+. Edit Schedule
+. Delete Schedule
+. Clear Schedule
+
 
 [underline]#Format#: `undo`
 
@@ -642,6 +647,11 @@ Currently, the following commands are undoable and redoable. +
 . Edit Phone
 . Delete Phone
 . Clear Phone
+
+. Add Schedule
+. Edit Schedule
+. Delete Schedule
+. Clear Schedule
 
 [underline]#Format#: `undo`
 
