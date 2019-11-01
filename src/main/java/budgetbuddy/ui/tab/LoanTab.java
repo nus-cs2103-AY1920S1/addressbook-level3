@@ -14,6 +14,6 @@ import javafx.collections.transformation.SortedList;
 public class LoanTab extends PanelTab {
 
     public LoanTab(ObservableList<Loan> loanList, SortedList<Debtor> debtors) {
-        super(new LoanPanel(loanList), new LoanSplitPanel(debtors),"/images/loanTab.png");
+        super(new LoanPanel(loanList), new LoanSplitPanel(debtors), "/images/loanTab.png");
     }
 }

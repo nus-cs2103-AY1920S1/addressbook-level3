@@ -1,5 +1,7 @@
 package budgetbuddy.ui.tab;
 
+import static java.util.Objects.requireNonNull;
+
 import budgetbuddy.commons.util.AppUtil;
 import budgetbuddy.ui.panel.DisplayPanel;
 import javafx.scene.control.Tab;
@@ -11,8 +13,8 @@ import javafx.scene.image.ImageView;
  */
 public abstract class PanelTab extends Tab {
 
-    DisplayPanel primaryPanel;
-    DisplayPanel secondaryPanel;
+    private DisplayPanel primaryPanel;
+    private DisplayPanel secondaryPanel;
 
     public PanelTab(DisplayPanel panel, String imageFileName) {
         this.primaryPanel = panel;
@@ -49,8 +51,7 @@ public abstract class PanelTab extends Tab {
     }
 
     public void setSecondaryPanel() {
-        if (secondaryPanel != null) {
-            setContent(secondaryPanel.getRoot());
-        }
+        requireNonNull(secondaryPanel);
+        setContent(secondaryPanel.getRoot());
     }
 }
