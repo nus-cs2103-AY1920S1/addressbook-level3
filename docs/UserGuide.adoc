@@ -24,8 +24,7 @@ while still having the benefits of a Graphical User Interface (GUI). If you can 
 can help you manage your flashcards much more efficiently than traditional GUI apps.
 
 Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
-features not available with most flashcard managers that we're sure you'll love.
-Jump to the Section 2, “Quick Start” to get started. Enjoy!
+features not available with most flashcard managers that we're sure you'll love. Enjoy!
 
 == Quick Start
 
@@ -43,12 +42,10 @@ This section contains the features and their respective commands
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add >QUESTION`, `QUESTION` is a parameter. The command format would thus be as such: `add q>1+1`.
-* Items in square brackets skinparam linetype orthoare optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
+* Items in square brackets are optional e.g `q>QUESTION [c>CATEGORY]` can be used as `q>1+1 c>math` or as `q>1+1`.
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 ====
-
-
 
 // tag::flashcard[]
 === Add new flashcard: `add [q>QUESTION] [q>ANSWER] [c>CATEGORY]...`
@@ -83,7 +80,7 @@ e.g: +
 
 To edit:
 
-. Type `edit 7c>CS2105` and press *Enter*.
+. Type `edit 7 c>CS2105` and press *Enter*.
 +
 image::EditStep1.png[width="600"]
 
@@ -122,7 +119,7 @@ This command allows you to delete all the flashcard in the storage.
 
 To clear:
 
-. Type `clear' and press *Enter*.
+. Type `clear` and press *Enter*.
 +
 image::ClearStep1.png[width="600"]
 
@@ -130,45 +127,6 @@ image::ClearStep1.png[width="600"]
 And you will see that all lists turn empty.
 +
 image::ClearStep2.png[width="600"]
-
-
-=== List of category : `list [category]`
-
-This command allows you to list all flashcards under one or multiple categories.
-Multiple keywords are separated by a single space.
-
-to list category:
-
-. Type `list CS2105` and press *Enter*.
-+
-image::ListCatStep1.png[width="600"]
-
-. The result box will show message: _"1 flashcard is listed!"_ .
-+
-image::ListCatStep2.png[width="600"]
-
-. And the flashcard list is updated.
-+
-image::ListCatStep3.png[width="600"]
-
-=== List all flashcards: `listall`
-
-This command allows you to lists all the flashcards in the storage.
-
-To listall:
-
-. Type `listall` and press *Enter*.
-+
-image::ListAllStep1.png[width="600"]
-
-. The result box will show message: _"Listed all Flash Cards"_.
-+
-image::ListAllStep2.png[width="600"]
-
-.  And the flashcard list will show all the flashcards. You can move your mouse
-to the flashcard list and scroll up and down to view the flashcards.
-+
-image::ListAllStep3.png[width="600"]
 
 === Search for flashcards: `search`
 
@@ -218,6 +176,45 @@ image::SearchaStep1.png[width="600"]
 . The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matching flashcards
 +
 image::SearchaStep2.png[width="600"]
+
+=== List all flashcards: `listall`
+
+This command allows you to lists all the flashcards in the storage.
+
+To listall:
+
+. Type `listall` and press *Enter*.
++
+image::ListAllStep1.png[width="600"]
+
+. The result box will show message: _"Listed all Flash Cards"_.
++
+image::ListAllStep2.png[width="600"]
+
+.  And the flashcard list will show all the flashcards. You can move your mouse
+to the flashcard list and scroll up and down to view the flashcards.
++
+image::ListAllStep3.png[width="600"]
+
+=== List of category : `list [category]`
+
+This command allows you to list all flashcards under one or multiple categories.
+Multiple keywords are separated by a single space.
+
+to list category:
+
+. Type `list CS2105` and press *Enter*.
++
+image::ListCatStep1.png[width="600"]
+
+. The result box will show message: _"1 flashcard is listed!"_ .
++
+image::ListCatStep2.png[width="600"]
+
+. And the flashcard list is updated.
++
+image::ListcatStep3.png[width="600"]
+
 //end::flashcard[]
 
 === Add general deadlines reminders: `deadline t>[TASK] d>[DUE DATE]`
@@ -250,6 +247,12 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 * Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+=== Show monthly calendar with all deadlines: `calendar`
+
+Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
+
+`calendar`
+
 === Test mode
 
 ==== Start command
@@ -273,12 +276,6 @@ This command rates the flashcard, depending on how well you answered the questio
 ==== End test
 You can stop the test any time simply by typing `end`.
 
-
-=== Show monthly calendar with all deadlines: `calendar`
-
-Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
-
-`calendar`
 
 === Export flashcards to a document file: `export c>CATEGORY p>FILE_PATH`
 
@@ -310,18 +307,6 @@ Opened help window.
 . A help window with all the commands will also be displayed:
 +
 image::HelpWindow.png[width="600"]
-
-//tag:: flashcard2[]
-=== Exit: `exit`
-
-This command allows you to exit the application.
-
-To exit:
-
-. Type `exit` and press *Enter*.
-
-. The application window will close by itself.
-//end::flashcard2[]
 
 === View overall statistics: `stats`
 
@@ -373,6 +358,18 @@ image::ThemeStep2.png[width="600"]
 
 Flashcard data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+//tag:: flashcard2[]
+=== Exit: `exit`
+
+This command allows you to exit the application.
+
+To exit:
+
+. Type `exit` and press *Enter*.
+
+. The application window will close by itself.
+//end::flashcard2[]
 
 == FAQ
 
@@ -430,9 +427,9 @@ e.g.  `remind Math 04/10 1230`
 * Remove Deadline from list - `remove [INDEX]` +
 e.g.  `remove 2`
 * Search of flashcards - `search`
-** search [keyword(s)]  e.g `search c`
-** searchqn [keyword(s)]  e.g `searchqn pointer`
-** searchans [keyword(s)]  e.g `searchans name`
+** `search` [keyword(s)]  e.g `search c`
+** `searchqn` [keyword(s)]  e.g `searchqn pointer`
+** `searchans` [keyword(s)]  e.g `searchans name`
 * Start a certain topic of flashcards - `start [keyword]` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
