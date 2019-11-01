@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.category.Category;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.RatingContainsKeywordPredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Category> categoryList;
     private FlashCardTestModel flashCardTestModel;
+    private ArrayList<Integer> performance;
 
 
     /**
@@ -46,6 +49,7 @@ public class ModelManager implements Model {
         filteredDeadlines = new FilteredList<>(this.keyboardFlashCards.getDeadlineList());
         categoryList = new FilteredList<>(this.keyboardFlashCards.getCategoryList());
         flashCardTestModel = new FlashCardTestModel(new LinkedList<>());
+        this.performance = new ArrayList<Integer>();
     }
 
     public ModelManager() {
@@ -155,11 +159,34 @@ public class ModelManager implements Model {
         }
     }
 
-
     public int[] getTestStats() {
         return keyboardFlashCards.getStats();
     }
 
+    @Override
+    public ArrayList<Integer> getPerformance() {
+        return performance;
+    }
+
+    @Override
+    public void updatePerformance(Model model) {
+        requireNonNull(model);
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
+        int numGood = model.getFilteredFlashCardList().size();
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("hard"));
+        int numHard = model.getFilteredFlashCardList().size();
+        model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
+        int numEasy = model.getFilteredFlashCardList().size();
+
+        int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard) ;
+        performance.add(value);
+    }
+
+    @Override
+    public void resetPerformance(Model model) {
+        requireNonNull(model);
+        performance.clear();
+    }
 
     @Override
     public void deleteDeadline(Deadline target) {
