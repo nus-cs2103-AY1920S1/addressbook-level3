@@ -37,7 +37,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all appointments.
-* **`tab` ** `game`: switches main window to `game` window.
+* **`tab` ** `game`: switches main window to start window of the game.
 * **`add`** `d/Meeting on Monday` : adds an appointment with the description `Meeting on Monday` to the appointment manager.
 * **`pdf` ** `i/1 to/Jason from/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `3` : deletes the 3rd appointment shown in the current list.
@@ -267,7 +267,7 @@ image::GameWindow.png[width="450"]
 
 There are moving words that you can type in order to score points. Once you correctly type the specified word,
 the word disappears and the increase in points is reflected in the player information panel in the game window.
-[TIP]
+[NOTE]
 After typing a word, remember to press kbd:[Enter] to clear the text area which is located at the bottom of the screen.
 
 
