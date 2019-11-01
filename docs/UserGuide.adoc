@@ -313,7 +313,9 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
 
-Example of *Choice 1* :
+==== Example of *Choice 1* :
+
+
 
 ****
 User : add_conagtact
@@ -349,7 +351,7 @@ image::UG-NoShortcut3.png[width="800"]
 
 
 
-Example of *Choice 2* :
+==== Example of *Choice 2* :
 
 ****
 User : ai
