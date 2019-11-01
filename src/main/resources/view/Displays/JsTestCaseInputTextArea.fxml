@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="505.0" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane prefHeight="90.0" prefWidth="502.0">
+         <children>
+            <TextArea fx:id="testCaseTextArea" layoutX="5.0" layoutY="1.0" prefHeight="86.0" prefWidth="494.0" />
+         </children>
+      </AnchorPane>
+   </content>
+</fx:root>

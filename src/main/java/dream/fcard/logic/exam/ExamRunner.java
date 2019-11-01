@@ -1,82 +1,28 @@
 package dream.fcard.logic.exam;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
-import dream.fcard.model.Deck;
 import dream.fcard.model.cards.FlashCard;
 
 /**
- * ...
+ * Singleton class that ensures that there is only ONE instance of exam.
  */
-public class ExamRunner implements Exam {
+public class ExamRunner {
 
-    private final int deckSize;
-    private final Scanner scanner;
-    private Deck deck;
-    private Result result;
-    private boolean examOngoing;
+    private static Exam exam;
 
-    public ExamRunner(Deck deck) {
-        this.deck = deck;
-        this.deckSize = deck.getCards().size();
-        this.scanner = new Scanner(System.in);
-        this.result = new Result(deckSize);
+    private ExamRunner() {
     }
 
-    /**
-     * Exam driver method.
-     */
-    @Override
-    public void initExam() {
-        System.out.println("Beginning test:");
-        this.examOngoing = true;
+    public static void createExam(ArrayList<FlashCard> deck) {
+        exam = new UntimedExam(deck);
     }
 
-    /**
-     * Method that pulls up the next card.
-     */
-    public void nextCard() {
-        if (examOngoing) {
-            try {
-                FlashCard nextCard = deck.getCards().get(0);
-                System.out.println(nextCard.getFront());
-                String answer = promptUserInput();
-                result.mark(nextCard.evaluate(answer));
-                System.out.println(nextCard.getBack());
-                deck.getCards().remove(0);
-            } catch (IndexOutOfBoundsException e) {
-                this.examOngoing = false;
-
-            }
-        }
-        /* for (FlashCard card : deck.getCards()) {
-            //Load front of card
-            System.out.println(card.getFront());
-            // Ask user for input
-            String answer = promptUserInput();
-            // Check if the answer is correct
-
-            boolean isAnswerCorrect;
-            try {
-                isAnswerCorrect = card.evaluate(answer);
-            } catch (IndexNotFoundException i) {
-                // for mcq test, if input is invalid index
-
-                // do something
-                // decide when to handle
-                throw new IndexNotFoundException(i.getMessage());
-            }
-
-            if (isAnswerCorrect) {
-                score++;
-            }
-            //Display the correct answer
-            System.out.println("Correct Answer:" + card.getBack());
-        } */
+    public static Exam getCurrentExam() {
+        return exam;
     }
 
-    private String promptUserInput() {
-        System.out.print("Your answer for this card:");
-        return scanner.nextLine();
+    public static void terminateExam() {
+        exam = null;
     }
 }

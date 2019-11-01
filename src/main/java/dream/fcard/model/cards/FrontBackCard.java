@@ -11,6 +11,10 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Card that evaluates input to match back of card.
  */
 public class FrontBackCard extends FlashCard {
+    protected String back;
+    protected String front;
+    protected int cardResult;
+
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
@@ -21,9 +25,9 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString) {
         back = backString;
         front = frontString;
-
         // Default priority is 1
         priority = LOW_PRIORITY;
+        this.cardResult = -1;
     }
 
     /**
@@ -36,9 +40,6 @@ public class FrontBackCard extends FlashCard {
     public FrontBackCard(String frontString, String backString, int priorityLevel) {
         back = backString;
         front = frontString;
-
-        // Default priority is 1
-        priority = priorityLevel;
     }
 
     /**
@@ -55,12 +56,17 @@ public class FrontBackCard extends FlashCard {
         return new JsonValue(obj);
     }
 
+    @Override
+    public FlashCard duplicate() {
+        return new FrontBackCard(front, back, 0);
+    }
+
     /**
      * @param in String input by user.
      * @return Boolean value, if correct return true, else return false.
      * @throws IndexNotFoundException
      */
-    public Boolean evaluate(String in) {
+    public Boolean evaluate(String in) throws IndexNotFoundException {
         return in.equals(back);
     }
 
@@ -100,14 +106,12 @@ public class FrontBackCard extends FlashCard {
         return back;
     }
 
-    /**
-     * Returns boolean value false.
-     * Since no choices exist in this class.
-     *
-     * @return Boolean value false.
-     */
     @Override
-    public boolean hasChoices() {
-        return false;
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package dream.fcard.model.cards;
 
+import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.JsonInterface;
 import dream.fcard.util.json.jsontypes.JsonValue;
 
@@ -7,30 +8,19 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * Interface all flash card types must implement.
  */
 public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> {
-
-    /**
-     * Text to display in front of FlashCard.
-     */
     protected String front;
-
-    /**
-     * Text to display in back of FlashCard.
-     */
     protected String back;
-
-    /**
-     * Number indicating priority level of FlashCard.
-     */
     protected Integer priority;
+    protected int cardResult;
+
 
     /**
-     * Return true if the input matches the FlashCard answer.
-     * Else returns false.
+     * Evaluate if the input matches the card
      *
-     * @param in String input fron user.
-     * @return Boolean value, true if user input matches FlashCard answer, else return false.
+     * @param in input
+     * @return true if its a valid match
      */
-    public abstract Boolean evaluate(String in);
+    public abstract Boolean evaluate(String in) throws IndexNotFoundException;
 
     /**
      * Returns front text of card.
@@ -47,21 +37,21 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     public abstract String getBack();
 
     /**
-     * Set the front text of card.
+     * Edits the front text of card.
      *
      * @param newText String of new text to replace in front.
      */
     public abstract void editFront(String newText);
 
     /**
-     * Set the back text of card.
+     * Edits the back text of card.
      *
      * @param newText String of new text to replace in back.
      */
     public abstract void editBack(String newText);
 
     /**
-     * Returns JsonValue out of this Flashcard.
+     * Create JsonValue out of this Flashcard.
      *
      * @return JsonValue of flashcard.
      */
@@ -71,12 +61,12 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     }
 
     /**
-     * Returns an integer value after checking if this card has higher priority than other card.
+     * Checks if this card has higher priority than other card.
      * If this card has higher priority, return a positive number.
      * If this card has lower priority, return a negative number.
      *
-     * @param otherCard FlashCard object to be compared to.
-     * @return Integer value indicating comparison.
+     * @param otherCard
+     * @return
      */
     @Override
     public int compareTo(FlashCard otherCard) {
@@ -86,18 +76,14 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
     /**
      * Returns priority level of flashcard.
      *
-     * @return Integer value of priority level.
+     * @return integer value of priorirty level.
      */
     public int getPriority() {
         return priority;
     }
 
-    /**
-     * Returns boolean value after checking if FlashCard has choice parameters.
-     * If FlashCard has choice parameters (in ArrayList), return true.
-     * Else return false.
-     *
-     * @return Boolean value, true if FlashCard has choices, else return false.
-     */
-    public abstract boolean hasChoices();
+    public abstract FlashCard duplicate();
+
+    public abstract void updateScore(Boolean isCorrect);
+
 }

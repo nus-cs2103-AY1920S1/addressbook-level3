@@ -17,7 +17,14 @@ public class JsonParser {
      * @throws JsonFormatException Exceptions indicate incorrect syntax for json files
      */
     public static JsonValue parseJsonInput(String input) throws JsonFormatException {
-        return processDynamicValue(input.toCharArray(), 0).snd();
+        char[] arr = input.toCharArray();
+        Pair<Integer, JsonValue> res = processDynamicValue(arr, 0);
+        int finalIndex = skipWhiteSpace(arr, res.fst());
+        if (finalIndex == arr.length) {
+            return res.snd();
+        } else {
+            throw new JsonFormatException(arr, finalIndex, "expected end of json file");
+        }
     }
 
     /**
