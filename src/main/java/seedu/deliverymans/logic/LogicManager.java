@@ -14,8 +14,6 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
@@ -56,7 +54,6 @@ public class LogicManager implements Logic {
 
         model.notifyChange(commandText);
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveCustomerDatabase(model.getCustomerDatabase());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());
             storage.saveDeliverymenDatabase(model.getDeliverymenDatabase());
@@ -66,22 +63,6 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
-    }
-
-    //=========== AddressBook =============================================================
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     //=========== Customer =============================================================

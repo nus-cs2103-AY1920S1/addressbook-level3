@@ -6,8 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
@@ -23,8 +21,6 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
@@ -57,26 +53,6 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    //=========== AddressBook Database / Filepath methods =====================================================
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     //=========== Customer Database / Filepath methods =============================================================
     /**
@@ -157,31 +133,7 @@ public interface Model {
     /** Returns the OrderBook */
     ReadOnlyOrderBook getOrderDatabase();
 
-    //=========== Person methods =============================================================
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
+    //=========== Undo/Redo methods =============================================================
 
     /** Tells the model that a command was run and the text of the command */
     void notifyChange(String commandText);
@@ -197,15 +149,6 @@ public interface Model {
 
     /** Redoes an action */
     String redo();
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     //=========== Customer methods =============================================================
 
