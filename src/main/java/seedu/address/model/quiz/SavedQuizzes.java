@@ -73,10 +73,11 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * @param quizId The identifier of the quiz to be created.
      * @param questionNumbers The question numbers to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @return True is quiz has been created, false if not.
      */
-    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
+    public boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
                                    SavedQuestions savedQuestions) {
-        QuizManager.createQuizManually(quizId, questionNumbers, savedQuestions, quizzes);
+        return QuizManager.createQuizManually(quizId, questionNumbers, savedQuestions, quizzes);
     }
 
     /**

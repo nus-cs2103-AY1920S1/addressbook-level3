@@ -28,14 +28,19 @@ public class QuizManager {
      * @param questionNumbers The question numbers to be added to the quiz.
      * @param savedQuestions The saved questions.
      * @param quizBank The quiz bank.
+     * @return True if the quiz has been created, false if not.
      */
-    public static void createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
+    public static boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
                                         SavedQuestions savedQuestions, QuizBank quizBank) {
         Quiz quiz = new Quiz(quizId);
         QuestionBank questionBank = savedQuestions.getQuestionBank();
+        int questionBankSize = questionBank.getAllQuestions().size();
 
         ArrayList<Question> questions = new ArrayList<>();
         for (Integer i : questionNumbers) {
+            if (i < 0 || i > questionBankSize) {
+                return false;
+            }
             questions.add(questionBank.getQuestion(Index.fromOneBased(i)));
         }
 
@@ -44,6 +49,7 @@ public class QuizManager {
         }
 
         quizBank.addQuiz(quiz);
+        return true;
     }
 
     /**

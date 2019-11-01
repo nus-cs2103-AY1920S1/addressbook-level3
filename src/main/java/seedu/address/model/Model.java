@@ -309,7 +309,7 @@ public interface Model {
     /**
      * Creates a quiz manually.
      */
-    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
+    boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
 
     /**
      * Creates a quiz automatically.
