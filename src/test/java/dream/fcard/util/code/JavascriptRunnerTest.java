@@ -15,12 +15,11 @@ class JavascriptRunnerTest {
     void evaluateFromFile_success() throws IOException {
         String fileName = "testData.js";
         String path = StorageManager.getCodePath(fileName);
-        StorageManager.writeCode(fileName, "s");
-        //Path path = Paths.get("./src/test/java/dream/fcard/util/code/testData.js");
+        StorageManager.writeCode(fileName, "var x = 5;");
         // create file
 
         String output = JavascriptRunner.evaluateFromFile(path);
-        //assertEquals(output, "undefined");
+        assertEquals(output, "undefined");
         // test
 
         FileReadWrite.delete(StorageManager.getCodePath(fileName));
