@@ -340,6 +340,8 @@ image::UG-NoShortcut1.png[width="800"]
 .The result after entering the typo. FinSec will ask you if you want to create a shortcut.
 image::UG-NoShortcut2.png[width="800"]
 
+
+
 [reftext="Figure 3.11.3"]
 [caption="Figure 3.11.3: "]
 .Since it is a genuine typo, entering 'n' will allow you to continue.
