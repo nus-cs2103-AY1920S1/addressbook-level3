@@ -170,8 +170,6 @@ Deletes the 2nd student in the 2nd tutorial.
 `deleteStudent 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Adding an Assignment : `addAssignment` [coming in v2.0]
-
 === Editing a Student : `edit`
 
 Allows user to edit an existing student information
@@ -261,9 +259,41 @@ Example:
 
 Imports tutorials via NUSMods url.
 
-Format: `import [URL]
+Format: `import` [URL]
 
-=== Undo Previously-entered Commands : `undo` [coming in v2.0]
+=== Marks attendance of a tutorial `mark`
+
+Marks/Toggles attendance of a tutorial or a student.
+
+Format:
+* `mark` i/[TUTORIAL_INDEX] w/[WEEK]
+* `mark tn/[TUTORIAL_NAME] m/[MODULE_NAME] w/[WEEK] n/[STUDENT NAME]`
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the module.
+* Specifying the student name marks/toggles the attendance of a student, otherwise the entire tutorial
+will have their attendance marked.
+****
+
+=== Adding an Assignment : `addAssignment`
+
+Adds an assignment to a Tutorial.
+
+Format:
+* `addAssignment` i/[TUTORIAL_INDEX] n/[ASSIGNMENT_NAME] score/[MAX_SCORE] sd/START_DATE ed/END_DATE
+
+=== Adding an Event : `addEvent`
+
+Adds an Event to a Tutorial.
+
+Format: `addEvent` i/[TUTORIAL_INDEX] n/[EVENT_NAME] sd/[START_DATE] ed/[END_DATE]
+
+=== Undo Previously-entered Commands : `undo`
+
+Undos a specified number of actions.
+
+Format:
+`undo` u/[NUMBER_OF_ACTIONS]
 
 === Clearing all entries : `clear` [coming in v2.0]
 
@@ -320,9 +350,9 @@ Entering the number 1 runs the command `addTutorial tn/Tut01 m/GER1000 ...`.
 
 === Autocomplete
 
-Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the current field with data from the application. Pressing "TAB" repeatedly cycles through the different possible values.
+Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the current field with data from the application. Pressing "CTRL" repeatedly cycles through the different possible values.
 
-E.g.: with `addTutorial m/GE` in the input box, pressing "TAB" changes the value to `addTutorial m/GER1000`, `addTutorial m/GEQ1000`, etc., depending on which modules beginning with "GE" were previously added to the application.
+E.g.: with `addTutorial m/GE` in the input box, pressing "CTRL" changes the value to `addTutorial m/GER1000`, `addTutorial m/GEQ1000`, etc., depending on which modules beginning with "GE" were previously added to the application.
 
 == FAQ
 
