@@ -13,10 +13,11 @@ public class Messages {
             "The Date [%s] is not found in the Date-Time Mapping of Event: [%s]";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
-    public static final String MESSAGE_UNAVAILABLE_MANPOWER = "Unavailable manpower due to event schedule overlap";
+    public static final String MESSAGE_UNAVAILABLE_MANPOWER = "Employee to allocate is unavailable for this event!";
     public static final String MESSAGE_MANPOWER_COUNT_EXCEEDED = "Manpower count to allocate "
             + "exceeds manpower needed by event!";
     public static final String MESSAGE_INSUFFICIENT_MANPOWER_COUNT = "Insufficient manpower count for event! "
             + "(either due to schedule overlap or lack of manpower)";
     public static final String MESSAGE_EVENT_FULL_MANPOWER = "Event has full manpower!";
+    public static final String MESSAGE_EVENT_INVALID_EMPLOYEE_ID = "Invalid Employee ID!";
 }

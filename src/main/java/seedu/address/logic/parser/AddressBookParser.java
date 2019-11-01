@@ -31,6 +31,8 @@ import seedu.address.logic.commands.finance.PaySlip;
 import seedu.address.logic.commands.finance.Undopay;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.logic.commands.general.MainCommand;
+import seedu.address.logic.commands.general.ScheduleCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
@@ -97,6 +99,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case MainCommand.COMMAND_WORD:
+            return new MainCommand();
+
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
@@ -123,6 +128,9 @@ public class AddressBookParser {
 
         case DeallocateCommand.COMMAND_WORD:
             return new DeallocateCommandParser().parse(arguments);
+
+        case ScheduleCommand.COMMAND_WORD:
+            return new ScheduleCommand();
 
         case DisplayScheduleForDateCommand.COMMAND_WORD:
             return new DisplayScheduleForDateParser().parse(arguments);

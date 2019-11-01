@@ -18,7 +18,7 @@ public class GenerateScheduleCommand extends Command {
     public static final String COMMAND_WORD = "generate_schedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Generates a new list and displays all Dates and the events that corresponds to those dates"
+            + ": Generates a new list and displays all Dates and the events that corresponds to those dates. \n"
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Schedule Generated";

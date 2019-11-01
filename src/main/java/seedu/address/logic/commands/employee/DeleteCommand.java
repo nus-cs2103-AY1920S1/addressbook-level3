@@ -3,6 +3,7 @@ package seedu.address.logic.commands.employee;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -11,6 +12,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
+import seedu.address.model.event.EventManpowerAllocatedList;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -45,11 +55,40 @@ public class DeleteCommand extends Command {
         Employee employeeToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEmployee(employeeToDelete);
 
-
         model.getFilteredEventList().stream()
-                .forEach(x -> x.getManpowerAllocatedList().removeEmployee(employeeToDelete));
+                .forEach(x -> model.setEvent(x, createEditedEvent(x, employeeToDelete)));
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, employeeToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS,
+                employeeToDelete.getEmployeeName()), "Employee");
+    }
+
+    /**
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
+     * and a new {@code EventManpowerAllocatedList}.
+     */
+    private static Event createEditedEvent(Event eventToEdit, Employee employeeToDelete) {
+        assert eventToEdit != null;
+
+        EventName updatedEventName = eventToEdit.getName();
+        EventVenue updatedEventVenue = eventToEdit.getVenue();
+        EventManpowerNeeded updatedManpowerNeeded = eventToEdit.getManpowerNeeded();
+        EventDate updatedStartDate = eventToEdit.getStartDate();
+        EventDate updatedEndDate = eventToEdit.getEndDate();
+        EventManpowerAllocatedList updatedManpowerAllocatedList;
+        if (employeeToDelete == null) {
+            updatedManpowerAllocatedList = new EventManpowerAllocatedList();
+        } else {
+            List<EmployeeId> updatedManpowerList = eventToEdit.getManpowerAllocatedList().getManpowerList();
+            updatedManpowerList.remove(employeeToDelete.getEmployeeId());
+            updatedManpowerAllocatedList = new EventManpowerAllocatedList(updatedManpowerList);
+        }
+        EventDateTimeMap eventDateTimeMap = eventToEdit.getEventDateTimeMap();
+        Set<Tag> updatedTags = eventToEdit.getTags();
+
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
+                updatedEndDate, updatedManpowerAllocatedList, eventDateTimeMap, updatedTags);
+
     }
 
     @Override

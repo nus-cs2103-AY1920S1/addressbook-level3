@@ -1,0 +1,33 @@
+{
+  "ignoreGlobList": [],
+  "formats": [],
+  "ignoreCommitList": ["b5d41886c807f7201c42b5a4a5621ae906d0f398", "dcadf3090ca3ef8bb7e5596bb9a3c5432ebb771c"],
+  "authors":
+  [
+    {
+      "githubId": "DivineDX",
+      "displayName": "CS2103T-T11-3 CHIA ... E XUN",
+      "authorNames": ["Chia De Xun"]
+    },
+    {
+      "githubId": "Crisgu",
+      "displayName": "CS2103T-T11-3 GU CH ... UNZHIN",
+      "authorNames": ["Cris Gu"]
+    },
+    {
+      "githubId": "shihaoyap",
+      "displayName": "CS2103T-T11-3 YAP S ... I HAO",
+      "authorNames": ["Shi Hao"]
+    },
+    {
+      "githubId": "calvincxz",
+      "displayName": "CS2103T-T11-3 CALVI ... NGZHU",
+      "authorNames": ["Calvin"]
+    },
+    {
+      "githubId": "eshwarkp",
+      "displayName": "CS2103T-T11-3 ESHWA ... PATHY",
+      "authorNames": ["Eshwar"]
+    }
+  ]
+}

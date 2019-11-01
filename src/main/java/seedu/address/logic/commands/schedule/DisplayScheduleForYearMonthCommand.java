@@ -15,7 +15,7 @@ import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 public class DisplayScheduleForYearMonthCommand extends Command {
     public static final String COMMAND_WORD = "display_schedule";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific month, year"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose on the specific month, year. \n"
             + "Example: " + COMMAND_WORD + " for/12/2019";
 
     private final EventContainsKeyYearMonthPredicate predicate;
@@ -30,7 +30,7 @@ public class DisplayScheduleForYearMonthCommand extends Command {
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,
-                        model.getFilteredScheduledEventList().size()), "Schedule", predicate.getYearMonth());
+                        model.getFilteredScheduledEventList().size()), "Schedule_Update", predicate.getYearMonth());
     }
 
     @Override

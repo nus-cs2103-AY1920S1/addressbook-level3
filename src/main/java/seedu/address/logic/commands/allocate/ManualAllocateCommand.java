@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_NUMBER;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -22,6 +23,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Allocates an employee from the  to an event.
@@ -33,7 +35,7 @@ public class ManualAllocateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manually allocates an employee to an event."
             + "\n"
             + "Parameters: EVENT_INDEX "
-            + "PERSON_INDEX (must be valid positive integers)\n"
+            + PREFIX_EMPLOYEE_NUMBER + "PERSON_INDEX (must be valid positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
@@ -77,12 +79,25 @@ public class ManualAllocateCommand extends Command {
      */
     private CommandResult internalManualAllocateById(Model model) throws CommandException {
         List<Employee> lastShownList = model.getFullListEmployees();
-        List<Event> lastShownEventList = model.getFilteredEventList();
+
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
+
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
 
-        Employee personToAdd = lastShownList.stream()
+        Optional<Employee> optionalPersonToAdd = lastShownList.stream()
                 .filter(x -> x.getEmployeeId().id.equals(employeeId))
-                .findAny().get();
+                .findAny();
+
+        if (optionalPersonToAdd.isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_EVENT_INVALID_EMPLOYEE_ID);
+        }
+
+        Employee personToAdd = optionalPersonToAdd.get();
 
         if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
             throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);
@@ -102,7 +117,13 @@ public class ManualAllocateCommand extends Command {
         }
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
-        List<Event> lastShownEventList = model.getFilteredEventList();
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
+
         if (employeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }

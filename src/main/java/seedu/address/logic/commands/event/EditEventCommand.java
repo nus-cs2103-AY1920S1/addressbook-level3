@@ -30,6 +30,7 @@ import seedu.address.model.event.EventManpowerNeeded;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventVenue;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Edits the details of an existing event in the event book.
@@ -56,6 +57,8 @@ public class EditEventCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event book.";
     public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
+    public static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid manpower count needed. Free some"
+            + " employees before executing this command again!";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
@@ -75,8 +78,12 @@ public class EditEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Event> lastShownList = model.getFilteredEventList();
-
+        List<Event> lastShownList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownList = model.getFilteredEventList();
+        } else {
+            lastShownList = model.getFilteredScheduledEventList();
+        }
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
@@ -86,6 +93,10 @@ public class EditEventCommand extends Command {
 
         if (editedEvent.getStartDate().compareTo(editedEvent.getEndDate()) > 0) {
             throw new CommandException(MESSAGE_INVALID_DATES);
+        }
+
+        if (editedEvent.getManpowerNeeded().value < editedEvent.getCurrentManpowerCount()) {
+            throw new CommandException(MESSAGE_INVALID_MANPOWER_COUNT_NEEDED);
         }
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
