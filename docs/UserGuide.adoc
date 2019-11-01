@@ -432,7 +432,8 @@ Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 ==== Creating a Quiz automatically: `auto`
 
 Allows a user to create a quiz automatically. +
-[NOTE] The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
+[NOTE] 
+The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
 Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
