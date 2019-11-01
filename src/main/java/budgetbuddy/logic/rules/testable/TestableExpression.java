@@ -2,6 +2,9 @@ package budgetbuddy.logic.rules.testable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.logging.Logger;
+
+import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
 
@@ -11,6 +14,7 @@ import budgetbuddy.model.rule.expression.Value;
 public abstract class TestableExpression implements Testable {
     protected final Attribute attribute;
     protected final Value value;
+    protected final Logger logger = LogsCenter.getLogger(TestableExpression.class);
 
     /**
      * Constructs a TestableExpression given an attribute and a value.

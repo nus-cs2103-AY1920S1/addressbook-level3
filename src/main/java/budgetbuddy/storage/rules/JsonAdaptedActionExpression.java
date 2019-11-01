@@ -22,7 +22,7 @@ public class JsonAdaptedActionExpression implements JsonAdaptedAction {
     private final String value;
 
     /**
-     * Constructs an expression {@code JsonAdaptedPredicateExpression} with the given action details.
+     * Constructs a {@code JsonAdaptedActionExpression} with the given action details.
      */
     @JsonCreator
     public JsonAdaptedActionExpression(@JsonProperty("operator") String operator,
@@ -34,10 +34,9 @@ public class JsonAdaptedActionExpression implements JsonAdaptedAction {
 
     /**
      * Converts a given {@code ActionExpression} into this class for Jackson use.
-     * @param source
      */
     public JsonAdaptedActionExpression(ActionExpression source) {
-        operator = source.getOperator().toString();
+        operator = source.getOperator().getOperatorWord();
         value = source.getValue().toString();
     }
 

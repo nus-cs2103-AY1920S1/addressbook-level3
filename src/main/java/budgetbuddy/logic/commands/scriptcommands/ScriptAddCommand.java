@@ -64,7 +64,8 @@ public class ScriptAddCommand extends Command {
             );
         } else {
             // TODO
-            return new CommandResult("TODO TODO", CommandCategory.SCRIPT);
+            throw new CommandException("TODO: Adding scripts from a file is to-be-implemented.\n"
+                    + "Please specify the source on the command line using s/.");
         }
     }
 

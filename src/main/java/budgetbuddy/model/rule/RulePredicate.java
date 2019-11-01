@@ -5,9 +5,5 @@ package budgetbuddy.model.rule;
  * Guarantees: immutable;
  */
 public abstract class RulePredicate {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Predicates should be either expressions or scripts "
-                    + "and should not be blank";
-
     public abstract String getType();
 }

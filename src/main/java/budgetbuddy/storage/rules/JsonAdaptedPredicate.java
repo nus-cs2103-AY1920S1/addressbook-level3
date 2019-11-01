@@ -14,6 +14,7 @@ import budgetbuddy.model.rule.RulePredicate;
 @JsonTypeInfo(use = Id.NAME, property = "type")
 @JsonSubTypes({
         @Type(value = JsonAdaptedPredicateExpression.class, name = "expr"),
+        @Type(value = JsonAdaptedPredicateScript.class, name = "script")
 })
 public interface JsonAdaptedPredicate {
     /**

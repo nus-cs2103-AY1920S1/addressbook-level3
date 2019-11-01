@@ -16,6 +16,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
+import budgetbuddy.model.script.Script;
 import budgetbuddy.storage.Storage;
 
 import javafx.collections.ObservableList;
@@ -40,7 +41,7 @@ public class LogicManager implements Logic {
         scriptEngine = new ScriptEngine(engine -> {
             // TODO: This will be pulled out into a separate class in a future PR
             // TODO: Currently, this just brings it to feature-parity
-            engine.setVariable("ab", model);
+            engine.setVariable("bb", model);
         });
     }
 
@@ -79,6 +80,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Rule> getRuleList() {
         return model.getRuleManager().getRules();
+    }
+
+    @Override
+    public ObservableList<Script> getScriptList() {
+        return model.getScriptLibrary().getScriptList();
     }
 
     @Override

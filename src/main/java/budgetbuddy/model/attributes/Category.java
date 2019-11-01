@@ -7,23 +7,26 @@ import static java.util.Objects.requireNonNull;
  * Stub class to represent a Category of a Transaction.
  */
 public class Category {
+    public static final int MAX_LENGTH = 180;
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Category should not be empty.";
+            "Category should not be null or more than " + MAX_LENGTH + " characters.";
+
 
     private String category;
 
-    public Category(String description) {
-        requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
-        this.category = description;
+    public Category(String category) {
+        requireNonNull(category);
+        checkArgument(isValidCategory(category), MESSAGE_CONSTRAINTS);
+        this.category = category;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public static boolean isValidDescription(String description) {
-        return description != null;
+    public static boolean isValidCategory(String category) {
+        return category != null && category.length() <= MAX_LENGTH;
     }
 
     @Override
@@ -34,7 +37,7 @@ public class Category {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof Category && category == ((Category) other).category);
+                || (other instanceof Category && category.equals(((Category) other).category));
     }
 
 }

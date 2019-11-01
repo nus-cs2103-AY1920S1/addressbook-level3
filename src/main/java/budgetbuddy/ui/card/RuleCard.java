@@ -66,11 +66,15 @@ public class RuleCard extends UiPart<Region> {
         if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
             Label op = new Label(actExpr.getOperator().toString());
-            Label val = new Label(actExpr.getValue().toString());
-
             op.setId("actOp");
-            val.setId("actVal");
-            actionFlow.getChildren().addAll(op, val);
+            actionFlow.getChildren().add(op);
+
+            String valStr = actExpr.getValue().toString();
+            if (!valStr.isEmpty()) {
+                Label val = new Label(valStr);
+                val.setId("actVal");
+                actionFlow.getChildren().add(val);
+            }
         } else {
             actionFlow.getChildren().add(new Label(action.toString()));
         }

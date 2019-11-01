@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class Rule {
     public static final String TYPE_EXPRESSION = "EXPRESSION";
+    public static final String TYPE_SCRIPT = "SCRIPT";
 
     // rule details
     private final RulePredicate predicate;

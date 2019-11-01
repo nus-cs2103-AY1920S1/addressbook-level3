@@ -8,7 +8,7 @@ import budgetbuddy.model.account.Account;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
-
+import budgetbuddy.model.script.Script;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
@@ -42,6 +42,11 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the list of rules */
     ObservableList<Rule> getRuleList();
+
+    /**
+     * Returns an unmodifiable view of the list of scripts.
+     */
+    ObservableList<Script> getScriptList();
 
     /**
      * Returns the user prefs' GUI settings.

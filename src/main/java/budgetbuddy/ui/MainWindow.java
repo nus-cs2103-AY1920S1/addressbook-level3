@@ -15,6 +15,7 @@ import budgetbuddy.ui.tab.LoanSplitTab;
 import budgetbuddy.ui.tab.LoanTab;
 import budgetbuddy.ui.tab.PanelTab;
 import budgetbuddy.ui.tab.RuleTab;
+import budgetbuddy.ui.tab.ScriptTab;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -133,7 +134,10 @@ public class MainWindow extends UiPart<Stage> {
         LoanSplitTab loanSplitTab = new LoanSplitTab(logic.getSortedDebtorList());
         tabMap.put(CommandCategory.LOAN_SPLIT, loanSplitTab);
 
-        OutputDisplay outputDisplay = new OutputDisplay(accountTab, ruleTab, loanTab, loanSplitTab);
+        ScriptTab scriptTab = new ScriptTab(logic.getScriptList());
+        tabMap.put(CommandCategory.SCRIPT, scriptTab);
+
+        OutputDisplay outputDisplay = new OutputDisplay(accountTab, ruleTab, loanTab, loanSplitTab, scriptTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();

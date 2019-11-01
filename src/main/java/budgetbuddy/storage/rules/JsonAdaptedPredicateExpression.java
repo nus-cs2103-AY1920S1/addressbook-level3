@@ -24,7 +24,7 @@ public class JsonAdaptedPredicateExpression implements JsonAdaptedPredicate {
     private final String value;
 
     /**
-     * Constructs an expression {@code JsonAdaptedPredicateExpression} with the given predicate details.
+     * Constructs a {@code JsonAdaptedPredicateExpression} with the given predicate details.
      */
     @JsonCreator
     public JsonAdaptedPredicateExpression(@JsonProperty("attribute") String attribute,
@@ -38,11 +38,10 @@ public class JsonAdaptedPredicateExpression implements JsonAdaptedPredicate {
 
     /**
      * Converts a given {@code PredicateExpression} into this class for Jackson use.
-     * @param source
      */
     public JsonAdaptedPredicateExpression(PredicateExpression source) {
         attribute = source.getAttribute().toString();
-        operator = source.getOperator().toString();
+        operator = source.getOperator().getOperatorWord();
         value = source.getValue().toString();
     }
 
