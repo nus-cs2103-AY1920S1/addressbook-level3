@@ -21,10 +21,10 @@ planning and budgeting events much more easier.
 
 == Site Map
 
-* <<AboutUs#, About Us>>
-* <<ContactUs#, Contact Us>>
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
 
 
 == Acknowledgements
