@@ -64,6 +64,10 @@ class AddCommandParser {
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();
         Optional<Info> info = new InfoParser().parse(argMultimap.getValue(CliSyntax.PREFIX_INFO));
 
+        return parse(eventType, name, startDate, endDate, info);
+    }
+
+    AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate, Optional<Info> info) {
         switch (eventType) {
         case COMMITMENT:
             Commitment commitment = new Commitment(name, startDate, endDate, info);

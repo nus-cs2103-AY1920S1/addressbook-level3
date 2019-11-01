@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.itinerary.model.event.Event;
@@ -59,6 +60,14 @@ public class Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    public void setItinerary(ReadOnlyItinerary readOnlyItinerary) {
+        this.itinerary.resetData(readOnlyItinerary);
+    }
+
+    public ReadOnlyItinerary getItinerary() {
+        return itinerary;
     }
 
     /**

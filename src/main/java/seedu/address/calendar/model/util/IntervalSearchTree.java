@@ -54,6 +54,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         if (!intervalTracker.containsKey(interval)) {
             throw new NoSuchElementException("Unable to remove a non-existent interval");
         }
+
+        if (intervalTracker.get(interval) > 1) {
+            decrementInterval(interval); // we do not need to actually remove the node since there are copies of it
+            return;
+        }
+
         root = remove(interval, root);
     }
 

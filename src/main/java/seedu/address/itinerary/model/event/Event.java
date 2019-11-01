@@ -61,7 +61,6 @@ public class Event {
         isDone = true;
     }
 
-
     /**
      * Check whether two events have similar attribute value.
      * @param otherEvent another event in comparison to the current event.
@@ -73,12 +72,8 @@ public class Event {
         }
 
         return otherEvent != null
-                && (otherEvent.getTitle().equals(getTitle())
                 && otherEvent.getDate().equals(getDate())
-                && otherEvent.getLocation().equals(getLocation())
-                && otherEvent.getDesc().equals(getDesc())
-                && otherEvent.getTag().equals(getTag())
-                && otherEvent.getTime().equals(getTime()));
+                && otherEvent.getTime().equals(getTime());
     }
 
     /**

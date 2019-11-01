@@ -118,6 +118,7 @@ public class EventManager {
     private List<String> getCollisionsAsStr(Event event) {
         return engagedSchedule.getCollisions(event)
                 .stream()
+                .flatMap(e -> engagements.get(e).stream())
                 .map(Object::toString)
                 .collect(Collectors.toList());
     }
@@ -153,7 +154,7 @@ public class EventManager {
             throw new NoSuchElementException(exceptionMessage);
         }
 
-        requiredList.remove(event);
+        removeFromList(event, requiredList);
         if (requiredList.isEmpty()) {
             engagements.remove(event);
         }
@@ -184,7 +185,7 @@ public class EventManager {
             throw new NoSuchElementException(exceptionMessage);
         }
 
-        requiredList.remove(event);
+        removeFromList(event, requiredList);
         if (requiredList.isEmpty()) {
             vacations.remove(event);
         }
@@ -195,6 +196,16 @@ public class EventManager {
             assert false : "This event should exist in vacationSchedule";
         }
         return true;
+    }
+
+    private void removeFromList(Event eventToRemove, List<Event> requiredList) {
+        for (int i = 0; i < requiredList.size(); i++) {
+            Event event = requiredList.get(i);
+            if (event.isIdentical(eventToRemove)) {
+                requiredList.remove(i);
+                break;
+            }
+        }
     }
 
     public boolean isAvailable(EventQuery eventQuery) {
