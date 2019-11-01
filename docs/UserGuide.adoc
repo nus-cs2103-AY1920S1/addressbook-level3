@@ -269,7 +269,7 @@ This is done so that the user is able to get the food which is most relevant to 
 You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
 The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
 `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-THe directions are as followed: `ASCENDING` or `DESCENDING`.
+THe directions are as followed: `ASC` or `DESC`.
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
@@ -282,7 +282,7 @@ Note: You can have more than one pair of FIELD and DIRECTION.
 
 ****
 *Format*: `sort FIELD DIRECTION ...`
-*Example*: `sort PRICE ASCENDING`
+*Example*: `sort PRICE ASC`
 ****
 
 ==== Make your own custom comparator: `makesort`
@@ -291,7 +291,7 @@ FIELD and DIRECTION.
 
 ****
 *Format*: `makesort FIELD DIRECTION ...`
-*Example*: `makesort PRICE ASCENDING`
+*Example*: `makesort PRICE ASC`
 ****
 
 ==== Sort based on your custom comparator: `customsort`
@@ -709,7 +709,7 @@ Unfortunately you are unable to change the app’s language
 | ```list```
 | <<Make your own custom comparator: `makesort`, `makesort`>>
 | Makes the custom comparator based on some specified fields and directions.
-| ```makesort PRICE ASCENDING```
+| ```makesort PRICE ASC```
 | <<Getting a list of recommended food items: `recommend`, `recommend`>>
 | Recommend a food item, based on the user's budget.
 | ```recommend```
@@ -721,7 +721,7 @@ Unfortunately you are unable to change the app’s language
 | ```removelike c/Japanese t/Spicy t/Healthy l/The Tea Party```
 | <<Sorts food items based on fields: `sort`, `sort`>>
 | Sort all the food items by some specified fields and directions.
-| ```sort PRICE ASCENDING```
+| ```sort PRICE ASC```
 | <<Saves money into savings account: `save`, `save`>>
 | Saves a specified amount of money from the user's wallet into his savings account.
 | ```save 10```
