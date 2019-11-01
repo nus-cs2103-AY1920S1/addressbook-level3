@@ -26,7 +26,7 @@ public class GenReportCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
 
         //Invalid string
-        assertParseFailure(parser, "B /name Manager A", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "B Manager A", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 GenReportCommand.MESSAGE_USAGE));
 
         //No input given

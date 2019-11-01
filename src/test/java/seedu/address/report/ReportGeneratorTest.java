@@ -27,6 +27,7 @@ public class ReportGeneratorTest {
 
     @Test
     public void generate_success() {
+        assertTrue(reportGenerator.generate(ALICE, ""));
         assertTrue(reportGenerator.generate(ALICE, "Manager A"));
         assertFalse(reportGenerator.generate(null, "Manager A"));
     }
@@ -35,6 +36,7 @@ public class ReportGeneratorTest {
     public void generateAll_success() {
         assertFalse(reportGenerator.generateAll(model.getFilteredBodyList(), "Manager A"));
         model.addEntity(ALICE);
+        assertTrue(reportGenerator.generateAll(model.getFilteredBodyList(), ""));
         assertTrue(reportGenerator.generateAll(model.getFilteredBodyList(), "Manager A"));
         assertFalse(reportGenerator.generateAll(null, "Manager A"));
     }
@@ -43,6 +45,7 @@ public class ReportGeneratorTest {
     public void generateSummary_success() {
         assertFalse(reportGenerator.generateSummary(model.getFilteredBodyList(), "Manager A"));
         model.addEntity(ALICE);
+        assertTrue(reportGenerator.generateSummary(model.getFilteredBodyList(), ""));
         assertTrue(reportGenerator.generateSummary(model.getFilteredBodyList(), "Manager A"));
         assertFalse(reportGenerator.generateSummary(null, "Manager A"));
     }
