@@ -25,7 +25,7 @@ DukeCooks is proudly developed by a group of second-year students from the Natio
 
 === Building the Dashboard
 
-The Dashboard in DukeCooks provides an overview of the list of tasks to be done. It is also coupled with a progress bar, mini calendar and joke column.
+The Dashboard in DukeCooks provides an overview of the list of tasks to be done. It is also coupled with a progress bar, mini calendar and pop up messages for encouragement.
 
 Initial works for the Dashboard include referencing the AB3  codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
 

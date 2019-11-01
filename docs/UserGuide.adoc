@@ -207,10 +207,6 @@ A quick way to get to the Dashboard and start getting work done!
 
 Command: `dashboard`
 
-.Adding a task
-[caption="Figure 1: "]
-image::addtask-ug.png[width="790"]
-
 ==== pass:[<u>Adding a task</u>]
 
 Let's start by using the `add` command to add some tasks into DukeCooks!
