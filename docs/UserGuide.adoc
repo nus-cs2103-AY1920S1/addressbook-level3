@@ -116,6 +116,7 @@ Employee Format: `list_em`
 Event Format: `list_ev`
 
 //tag::DeXun1[]
+=======
 
 ==== Adding: `add_em | add_ev`
 
@@ -329,6 +330,7 @@ Frees all employees allocated to the 1st event on the event list.
 * `free 1 id/001` +
 Frees an employee with id: "001" allocated to the 1st event on the event list.
 //end::calvin[]
+=======
 
 //tag::DeXun2[]
 ==== Setting a Date&Time to an Event: `set_ev_dt`

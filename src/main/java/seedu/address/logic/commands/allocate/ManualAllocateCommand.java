@@ -117,7 +117,13 @@ public class ManualAllocateCommand extends Command {
         }
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
-        List<Event> lastShownEventList = model.getFilteredEventList();
+        List<Event> lastShownEventList;
+        if (MainWindow.getCurrentTabIndex() == 0) {
+            lastShownEventList = model.getFilteredEventList();
+        } else {
+            lastShownEventList = model.getFilteredScheduledEventList();
+        }
+
         if (employeeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }
