@@ -53,8 +53,9 @@ public class QuizManager {
      * @param type The type of questions to be added to the quiz.
      * @param savedQuestions The saved questions.
      * @param quizBank The quiz bank.
+     * @return True if the quiz has been created, false if not.
      */
-    public static void createQuizAutomatically(String quizId, int numQuestions, String type,
+    public static boolean createQuizAutomatically(String quizId, int numQuestions, String type,
                                             SavedQuestions savedQuestions, QuizBank quizBank) {
         Quiz quiz = new Quiz(quizId);
         QuestionBank questionBank = savedQuestions.getQuestionBank();
@@ -76,6 +77,10 @@ public class QuizManager {
 
         int listSize = relevantQuestions.size();
 
+        if(listSize < numQuestions) {
+            return false;
+        }
+
         if (listSize > numQuestions) {
             for (int i = 0; i < numQuestions; i++) {
                 int randomQuestionIndex = getRandomQuestionIndex(listSize);
@@ -92,8 +97,8 @@ public class QuizManager {
                 quiz.addQuestion(q);
             }
         }
-
         quizBank.addQuiz(quiz);
+        return true;
     }
 
     /**

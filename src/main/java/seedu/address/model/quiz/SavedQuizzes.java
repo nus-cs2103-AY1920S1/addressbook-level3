@@ -85,10 +85,11 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * @param numQuestions The number of questions to be added to the quiz.
      * @param type The type of questions to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @return True if the quiz has been created, false if not.
      */
-    public void createQuizAutomatically(String quizId, int numQuestions, String type,
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type,
                                         SavedQuestions savedQuestions) {
-        QuizManager.createQuizAutomatically(quizId, numQuestions, type, savedQuestions, quizzes);
+        return QuizManager.createQuizAutomatically(quizId, numQuestions, type, savedQuestions, quizzes);
     }
 
     /**

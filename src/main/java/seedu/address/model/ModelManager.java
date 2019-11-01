@@ -517,8 +517,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
-        savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type) {
+        return savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
     }
 
     @Override
