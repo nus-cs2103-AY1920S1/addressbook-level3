@@ -555,12 +555,12 @@ Format: `exit`
 ==== Generate report for a specific body: `genReport`
 Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
 
-Format: `genReport bodyId`
+Format: `genReport bodyId /name NAME`
 
 Example:
 
-* `genReport B123` +
-Outputs the report PDF for body ID B00000123
+* `genReport B123 /name John Doe` +
+Outputs the report PDF for body ID B00000123 containing signature of John Doe
 
 // end::genReport[]
 
@@ -569,7 +569,7 @@ Outputs the report PDF for body ID B00000123
 ==== Generate reports for all bodies: `genReports`
 Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
 
-Format: `genReports`
+Format: `genReports /name NAME`
 
 // end::genReports[]
 
@@ -578,7 +578,7 @@ Format: `genReports`
 ==== Generate summary report for all bodies: `genReportSummary`
 Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
 
-Format: `genReportSummary`
+Format: `genReportSummary /name NAME`
 
 // end::genReportSummary[]
 
