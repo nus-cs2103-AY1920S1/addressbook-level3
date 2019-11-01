@@ -87,7 +87,7 @@ Examples:
 * `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 ** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
 
-=== Settling Up with a Friend : `pay`
+=== Settling Up with a Friend : `pay` (V1.4)
 
 Sends money to 1 friend +
 Format: `pay $/AMOUNT n/NAME1`
@@ -185,10 +185,10 @@ Format: `delete TYPE+INDEX`
 
 ****
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete --b1` refers to deleting an *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete --b 1` or `delete --1` or `delete --1b` will not work)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work)
 * You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget with `INDEX` does not exists.
-* Example: `delete --t1` will delete the first transaction from the list of transactions.
+* Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
 Examples:
@@ -204,11 +204,11 @@ Format: `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]`
 ****
 * `AMOUNT` accepts a non-negative value lesser than 1,000,000,000 to update the target Transaction or Budget
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added)
-* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update --b1 ...` refers to updating a *Budget* of index 1)
-* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update --b 1 ..` or `update --1 ..` or `update --1b ..` will not work)
-* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted)
+* `TYPE` only accepts `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1)
+* `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work)
+* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted).  
 * You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget with `INDEX` does not exists.
-* Example: `update --t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
+* Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 Examples:
