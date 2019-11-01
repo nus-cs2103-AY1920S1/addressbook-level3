@@ -318,7 +318,7 @@ Example of *Choice 1* :
 ****
 User : add_conagtact
 
-FinSec: Create shortcut? To which command?
+FinSec: Create shortcut? To which command? If no, type "n"
 
 User : n
 ****
@@ -327,13 +327,74 @@ Result:
 
 No shortcut is created. Continue using FinSec as per normal!
 
+<<UG-NoShortcutexample>>, <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
+[[UG-NoShortcutexample]]
+[reftext="Figure 3.11.1"]
+[caption="Figure 3.11.1: "]
+.When a user enters an accidental typo
+image::UG-NoShortcut1.png[width="800"]
+
+[[UG-NoShortcutResult]]
+[reftext="Figure 3.11.2"]
+[caption="Figure 3.11.2: "]
+.The result after entering the typo. FinSec will ask you if you want to create a shortcut.
+image::UG-NoShortcut2.png[width="800"]
+
+[reftext="Figure 3.11.3"]
+[caption="Figure 3.11.3: "]
+.Since it is a genuine typo, entering 'n' will allow you to continue.
+image::UG-NoShortcut3.png[width="800"]
+
+
+
 Example of *Choice 2* :
 
 ****
 User : ai
 
-FinSec: Create shortcut? To which command?
+FinSec: Create shortcut? To which command? If no, type "n"
+
+User: add_income
+
+FinSec: New shortcut created! ai to add_income
 ****
+
+Result:
+
+A new shortcut is created for you! From now on, `ai` can be used as a substitute for `add_income`!
+
+<<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
+[[UG-createShortcutexample1]]
+[reftext="Figure 3.11.4"]
+[caption="Figure 3.11.4: "]
+.When a user enters a shortcut he/she wishes to create.
+image::UG-createShortcut1.png[width="800"]
+
+[[UG-createShortcutExample2]]
+[reftext="Figure 3.11.5"]
+[caption="Figure 3.11.5: "]
+.User will enter the existing command that he wishes to map the shortcut to.
+image::UG-createShortcut2.png[width="800"]
+
+[[UG-createShortcutResult]]
+[reftext="Figure 3.11.6"]
+[caption="Figure 3.11.6: "]
+.After creating the shortcut.
+image::UG-createShortcut3.png[width="800"]
+
+<<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
+[[UG-shortcutExample]]
+[reftext="Figure 3.11.7"]
+[caption="Figure 3.11.7: "]
+.User can now use the command 'ai' for adding an income!
+image::UG-createShortcut4.png[width="800"]
+
+[[UG-shortcutResult]]
+[reftext="Figure 3.11.8"]
+[caption="Figure 3.11.8: "]
+.The newly created shortcut 'ai' creating an income.
+image::UG-createShortcut5.png[width="800"]
+
 
 
 === Checking a Person or Claim : `check`
