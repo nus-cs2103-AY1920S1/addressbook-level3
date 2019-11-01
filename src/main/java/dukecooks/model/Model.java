@@ -37,6 +37,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<MealPlan> PREDICATE_SHOW_ALL_MEALPLANS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<MealPlan> PREDICATE_SHOW_NO_MEALPLANS = unused -> false;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISE = unused -> true;
 

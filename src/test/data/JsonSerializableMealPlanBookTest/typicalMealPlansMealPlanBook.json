@@ -1,5 +1,5 @@
 {
-  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalRecipeBook()",
+  "_comment": "MealPlanBook save file which contains the same MealPlan values as in TypicalMealPlans#getTypicalMealPlanBook()",
   "mealPlans" : [ {
     "name" : "Milo Plan",
     "day1" : [ "Milo" ],
