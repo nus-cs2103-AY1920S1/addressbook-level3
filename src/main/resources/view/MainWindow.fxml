@@ -41,20 +41,16 @@
 
         <GridPane VBox.vgrow="SOMETIMES">
           <columnConstraints>
-            <ColumnConstraints percentWidth="25" />
-            <ColumnConstraints percentWidth="75" hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="ALWAYS" percentWidth="30"/>
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
           </columnConstraints>
-          <padding>
-            <Insets top="0" right="0" bottom="0" left="0" />
-          </padding>
-          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+          <StackPane fx:id="sideBarPlaceholder" styleClass="pane-with-border"
                      VBox.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS"/>
 
           <StackPane fx:id="detailsViewPlaceholder"
-                      GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                      GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         </GridPane>
         <!-- <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" /> !-->
-
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="75" prefHeight="75" maxHeight="75">
