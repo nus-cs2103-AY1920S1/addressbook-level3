@@ -519,10 +519,10 @@ Examples of *VALID* `editbio` commands, provided that a biography exists, includ
 Format: `clrbio`
 
 A user may clear his or her biography using the `clrbio` command. If a biography exists, all data from all biography
-fields will be removed. If a biography does not exist, this command can still be executed, although the result will be
-no different than before. In either case, after clearing the biography, the biography display pane with an empty
-biography table is shown to the user. A user cannot execute `editbio` after clearing the biography until another
-biography has been added using `addbio`.
+fields will be removed. If a biography does not exist, the user will be displayed a message that the biography is
+already empty and there is no biography information to clear. If a biography is successfully cleared, the
+biography display pane with an empty biography table is shown to the user. A user cannot execute `editbio` after
+clearing the biography until another biography has been added using `addbio`.
 
 Note that this command does not affect the `background` and `fontcolour` aspects of the program.
 

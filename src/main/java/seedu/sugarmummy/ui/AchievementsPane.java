@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.sugarmummy.model.achievements.Achievement;
-import seedu.sugarmummy.model.record.RecordType;
+import seedu.address.model.achievements.Achievement;
+import seedu.address.model.bio.User;
+import seedu.address.model.record.RecordType;
 
 /**
  * An achievements pane consisting of the display components of a user's achievements, including headers.
@@ -29,7 +31,7 @@ public class AchievementsPane extends UiPart<Region> {
     @FXML
     private HBox achievementsPlaceholder;
 
-    public AchievementsPane(Map<RecordType, List<Achievement>> achievementsMap) {
+    public AchievementsPane(Map<RecordType, List<Achievement>> achievementsMap, ObservableList<User> filteredUserList) {
         super(FXML);
         this.achievementsMap = new HashMap<>();
         achievementsMap.forEach((recordType, achievementsList) -> {
@@ -38,8 +40,16 @@ public class AchievementsPane extends UiPart<Region> {
             this.achievementsMap.put(recordType, achievementListCopy);
         });
 
+        String name = "there";
+
+        if (!filteredUserList.isEmpty()) {
+            name = filteredUserList.get(0).getName().toString();
+        }
+
         achievementsTitle = new AchievementsTitle("My Achievements",
-                "Hi Amy, here are the list of achievements you have collected so far.");
+                "Hi " + name + ", here are the list of achievements you have collected "
+                + "so far"
+                        + ".");
         achievementsTitlePlaceholder.getChildren().add(achievementsTitle.getRoot());
 
         achievements = new Achievements(achievementsMap);
