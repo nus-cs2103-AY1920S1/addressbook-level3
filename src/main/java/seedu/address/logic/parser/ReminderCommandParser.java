@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.logic.commands.ReminderCommand;
@@ -30,6 +31,10 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
                 throw new ParseException(MESSAGE_EMPTY); // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
             }
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));
+            if (days < 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
+                // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
+            }
         } catch (Exception ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE), ex);
         }
