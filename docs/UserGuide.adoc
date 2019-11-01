@@ -554,57 +554,94 @@ Format: `run <index>`
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
 start sharing!
 
-==== Create Diary: `create diary`
-Creates a new diary with the specified exerciseName +
-Format: `create diary <diary exerciseName>`
+==== pass:[<u>Adding a diary</u>]
 
-* Diary names are unique
+Let's first get started by creating diaries with our `add diary` command
 
-Examples:
+Command: `add diary` +
+Format: `add diary n/ <diary name>`
 
-* `create diary Healthy Living` +
- Creates a new diary with the exerciseName “Healthy Living”
+Example usage: `add diary n/ Asian Cuisines`
 
-==== Delete Diary: `delete diary`
-Deletes the diary with the specified exerciseName +
-Format: `delete diary <diary exerciseName>`
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::addDiary_before.png[width="450"]
++
+. If the command succeeds, you should see the following message in the result display and a new diary will be added.
++
+image::addDiary_after.png[width="450"]
 
-* Diary exerciseName should already exist
 
-Examples:
+==== pass:[<u>Deleting a diary</u>]
 
-* `delete diary Healthy Living` +
- Deletes the diary with the exerciseName “Healthy Living”
+Accidentally created an unwanted diary? No worries! You can remove it with our `delete diary` command.
 
-==== Add Page: `add page`
-Adds a page to the end of the specified diary +
-Format: `add page <type> <diary exerciseName>` +
-* Diary should already exist
+Command: `delete diary`
+Format: `delete diary <index>`
 
-NOTE: Users can only add pages of types: health, food or exercise.
+Example usage: `delete diary 1`
 
-Examples:
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::deleteDiary_before.png[width="450"]
++
+. If the command succeeds, you will see the following message in the result display and the diary wll be removed.
++
+image::deleteDiary_after.png[width="450"]
 
-* `add page health Healthy Living` +
- Adds a health page to the diary named “Healthy Living”
+==== pass:[<u>Adding a page</u>]
 
-* `add page food Healthy Living` +
-Adds a food page to the diary named “Healthy Living”
+Want to customise your diary further? You can do so by adding pages with our `add page` command.
 
-* `add page exercise Healthy Living` +
-Adds an exercise page to the diary named “Healthy Living”
+Command: `add page`
+Command format: `add page n/ <diary name> t/ <page title> i/ <image path> desc/ <page description>`
 
-==== Delete Page: `delete page`
-Deletes the specified page from the specified diary +
-Format: `delete page <index> <diary exerciseName>`
+Example usage: `add page n/ Asian Food t/ Pho i/ src/main/resources/images/pho.jpg desc/ Simply the best!`
 
-* Diary should already exist
-* Index should a positive integer
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image:addPage_before.png[width="450"]
++
+. If the command is successful, you should see that a new page will be added and the screen shows the following.
++
+image::addPage_after.png[width="450"]
 
-Examples:
+==== pass:[<u>Deleting a page</u>]
 
-* `delete page 2 Healthy Living` +
- Deletes page 2 of the diary named “Healthy Living”
+Want to remove a page? We've got that covered with our `delete page` command.
+
+Command: `delete page`
+Format: `delete page <index> n/ <diary name>`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::deletePage_before.png[width="450"]
++
+. If the command is successful, the page will be removed and you will see the following in the result display.
++
+image::deletePage_after.png[width="450"]
+
+==== pass:[<u>Viewing a diary</u>]
+
+Want to switch over to another diary? You can do so through our `view diary` command.
+
+Command: `view diary`
+Format: `view diary <index>`
+
+Example usage: `view diary 2`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::viewDiary_before.png[width="450"]
++
+. If the command is successful, you should see the following result.
++
+image::viewDiary_after.png[width="450"]
 
 ==== Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes +
@@ -670,28 +707,6 @@ Examples:
 
 * `edit page 2 Healthy Living` +
  Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
-
-==== View Diary: `[Coming in v2.0]`
-Allows user to view the specified diary in a page-form +
-Format: `view  <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `view Healthy Living` +
- Users will now be able to view the diary in a page-view in the GUI
-
-==== Print Diary: `[Coming in v2.0]`
-Allows user to print the specified diary in PDF format +
-Format: `print <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `print Healthy Living` +
-A PDF format of the diary named “Healthy Living” will be generated
 
 == Command Summary
 
