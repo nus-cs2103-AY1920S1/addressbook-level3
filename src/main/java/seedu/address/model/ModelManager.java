@@ -147,14 +147,8 @@ public class ModelManager implements Model {
         versionedUserState.addBudget(budget);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     *
-     * @return
-     */
     @Override
-    public FilteredList<BankAccountOperation> getFilteredTransactionList() {
+    public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
 

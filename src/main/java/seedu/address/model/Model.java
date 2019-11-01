@@ -160,7 +160,7 @@ public interface Model {
      *
      * @return
      */
-    FilteredList<BankAccountOperation> getFilteredTransactionList();
+    ObservableList<BankAccountOperation> getFilteredTransactionList();
 
     /**
      * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.

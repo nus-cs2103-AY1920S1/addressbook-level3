@@ -68,7 +68,7 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (this.type.equals("t")) {
-            FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
+            ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
