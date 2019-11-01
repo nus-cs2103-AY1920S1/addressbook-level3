@@ -80,7 +80,7 @@ Commands related to managing competitions outside of a competition setting shall
 Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION endDate/END DATE OF COMPETITION`
 
 Example:
-`addCompetition n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
+`addCompetition n/IPF World Championships startDate/12/02/1995 endDate/15/02/1995`
 
 ==== Deleting an existing competition: deleteCompetition
 Deletes the competition identified by the index number, used in Competition list (shown in the GUI)
@@ -90,7 +90,7 @@ Format: `deleteCompetition INDEX`
 Example:
 `deleteCompetition 1`
 
-==== Editing information of a competition person: `editCompetition`
+==== Editing information of a competition: `editCompetition`
 Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI).
 Existing values will be overwritten by the input values.
 In addition to INDEX, you must supply a value for at least one of the following fields:
@@ -105,11 +105,11 @@ Examples:
 
 1.When all fields are supplied:
 
-* `editCompetition 1 n/IPF World's startDate/12/02/1995 endDate/15/02/1995`
+* `editCompetition 1 n/IPF World Championships startDate/12/02/1995 endDate/15/02/1995`
 
 2.When only 1 field is supplied:
 
-* `editCompetition 1 n/IPF World's`
+* `editCompetition 1 n/IPF World Championships`
 
 * `editCompetition 1 endDate/15/02/1995`
 
@@ -225,8 +225,8 @@ Examples:
 
 === Auxiliary commands
 
-==== Cleaning entire data from the GUI: `clear`
-Removes all persons, participations and competitions information from the GUI
+==== Cleaning entire data from the system: `clear`
+Removes all persons, participations and competitions information from the system
 
 Format: `clear`
 
@@ -285,7 +285,7 @@ Example:
 
 * `rank n/Ho`
 
-==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `rank`
+==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
 Retrieves the rank of a person relative other competitors in the competition using a condition.
 Available conditions are:
 
