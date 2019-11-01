@@ -44,7 +44,7 @@ Double click the _{jarName}_ file to launch Budget Buddy.
 *Launching for the first time*
 
 * A default account will created.
-* Type `transaction out x/100 d/This is my first transaction!` to add a new spending.
+* Type `txn dn/out x/100 d/This is my first transaction!` to add a new spending.
 * To view your accounts, type `account list`
 * To view available commands, type `help`
 ====
