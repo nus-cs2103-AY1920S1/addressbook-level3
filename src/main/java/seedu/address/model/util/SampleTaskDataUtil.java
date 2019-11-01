@@ -57,7 +57,7 @@ public class SampleTaskDataUtil {
             new Inventory(new InvName("Bench"), new Price(59.90)),
             new Inventory(new InvName("Chairs")),
             new Inventory(new InvName("Bag"), new Price(50.0)),
-            new Inventory(new InvName("Condoms"), new Price(17.90)),
+            new Inventory(new InvName("Canola Oil"), new Price(17.90)),
             new Inventory(new InvName("Laptop"), new Price(1111.11)),
         };
     }
