@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_SEARCH_TERM;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -35,6 +36,12 @@ public class ActivityCommandParser implements Parser<ActivityCommand> {
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
 
         List<String> participants = argMultimap.getAllValues(PREFIX_PARTICIPANT);
+
+        for (String participant : participants) {
+            if (participant.equals("")) {
+                throw new ParseException(MESSAGE_EMPTY_SEARCH_TERM);
+            }
+        }
 
         return new ActivityCommand(title, participants);
     }
