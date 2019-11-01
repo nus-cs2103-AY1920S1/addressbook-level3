@@ -185,6 +185,8 @@ public class ModelManager implements Model {
         versionedAddressBook.removeEntry(target);
         if (target instanceof Expense) {
             versionedAddressBook.removeExpense((Expense) target);
+            versionedAddressBook.updateBudgets(filteredExpenses);
+            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         } else if (target instanceof Income) {
             versionedAddressBook.removeIncome((Income) target);
         } else if (target instanceof Wish) {
@@ -200,6 +202,8 @@ public class ModelManager implements Model {
     public void deleteExpense(Expense target) {
         versionedAddressBook.removeEntry(target);
         versionedAddressBook.removeExpense(target);
+        versionedAddressBook.updateBudgets(filteredExpenses);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
@@ -249,6 +253,8 @@ public class ModelManager implements Model {
         versionedAddressBook.addEntry(entry);
         if (entry instanceof Expense) {
             versionedAddressBook.addExpense((Expense) entry);
+            versionedAddressBook.updateBudgets(filteredExpenses);
+            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         } else if (entry instanceof Income) {
             versionedAddressBook.addIncome((Income) entry);
         } else if (entry instanceof Wish) {
@@ -269,6 +275,7 @@ public class ModelManager implements Model {
     @Override
     public void addExpense(Expense expense) {
         versionedAddressBook.addExpense(expense);
+        versionedAddressBook.updateBudgets(filteredExpenses);
         sortFilteredEntry(sortByTime, sortByAsc);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
@@ -303,7 +310,7 @@ public class ModelManager implements Model {
     public void addBudget(Budget budget) {
         budget.setSpent(filteredExpenses);
         versionedAddressBook.addBudget(budget);
-        versionedAddressBook.updateBudgets();
+        versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
@@ -335,6 +342,8 @@ public class ModelManager implements Model {
             Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
             versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
             versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
+            versionedAddressBook.updateBudgets(filteredExpenses);
+            updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         } else {
             Income incomeToEdit = versionedAddressBook.getIncomeList().filtered(t -> t == target).get(0);
             Income toEditEntry = new Income(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
@@ -362,6 +371,9 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEntry);
         versionedAddressBook.setEntry(target, editedEntry);
         versionedAddressBook.setExpense(target, editedEntry);
+        versionedAddressBook.updateBudgets(filteredExpenses);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+
     }
 
     @Override
@@ -486,6 +498,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
+            budget.setSpent(filteredExpenses);
             budget.updateSpent();
         }
     }
@@ -525,11 +538,15 @@ public class ModelManager implements Model {
     @Override
     public void undoAddressBook() {
         versionedAddressBook.undo();
+        versionedAddressBook.updateBudgets(filteredExpenses);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
+        versionedAddressBook.updateBudgets(filteredExpenses);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     @Override
