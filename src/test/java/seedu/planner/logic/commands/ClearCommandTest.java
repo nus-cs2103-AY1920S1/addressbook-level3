@@ -8,6 +8,7 @@ import static seedu.planner.testutil.day.TypicalDays.getTypicalItinerary;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.AccommodationManager;
 import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
@@ -23,7 +24,8 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS,
+                new UiFocus[]{UiFocus.AGENDA}, expectedModel);
     }
 
     @Test
@@ -38,7 +40,8 @@ public class ClearCommandTest {
         expectedModel.setContacts(new ContactManager());
         expectedModel.setItinerary(new Itinerary());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS,
+                new UiFocus[]{UiFocus.AGENDA}, expectedModel);
     }
 
 }

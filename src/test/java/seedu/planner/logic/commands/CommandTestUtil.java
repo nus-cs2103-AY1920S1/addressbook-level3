@@ -16,6 +16,7 @@ import java.util.List;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.ContactManager;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
@@ -101,6 +102,16 @@ public class CommandTestUtil {
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                            UiFocus[] uiFocus, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, uiFocus);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
 
