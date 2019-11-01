@@ -39,6 +39,13 @@ public class CommandTestUtil {
     public static final String VALID_PICTURE_AMY = "amy.png";
     public static final String VALID_RESULT_BOB = "92";
     public static final String VALID_RESULT_AMY = "32";
+    public static final String VALID_MARKING_Y = "Y";
+    public static final String VALID_MARKING_N = "N";
+    public static final String VALID_TASK_TIME_1 = "10/11/2019 12:00, 10/11/2019 14:00";
+    public static final String VALID_TASK_TIME_2 = "01/12/2019 15:00, 01/12/2019 16:00";
+    public static final String VALID_TASK_TIME_3 = "30/01/2020 12:00, 30/01/2019 14:00";
+
+
 
     public static final String CLASSID_DESC_AMY = " " + PREFIX_CLASSID + VALID_CLASSID_AMY;
     public static final String CLASSID_DESC_BOB = " " + PREFIX_CLASSID + VALID_CLASSID_BOB;
