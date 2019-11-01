@@ -76,7 +76,7 @@ public class MainApp extends Application {
      * and {@code userPrefs}. <br>
      * The data from the sample Billboard will be used instead if {@code storage}'s Billboard or Archive expenses
      * are not found, or an empty Billboard will be used instead if errors occur
-     * when reading {@code storage}'s address book.
+     * when reading {@code storage}'s billboard.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyBillboard> billboardOptional;

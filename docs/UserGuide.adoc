@@ -16,7 +16,11 @@ By: `CS2103T-F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Billboard_ can help you manage your expenses faster than traditional GUI apps!
+_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses.
+_Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI).
+If you can type fast, _Billboard_ can help you manage your expenses faster than traditional
+GUI apps!
 
 == Quick Start
 
@@ -289,12 +293,12 @@ Unarchives the record at the 5th index in the “2018 expenses” archive +
 === Displaying of statistics: `display-stats`
 
 . _Display timeline overview of expenses: display-stats timeline_ +
-Displays a timeline overview of the currently displayed expenses. The expenses over a
-specified time period are aggregated and added as a data point on the timeline. +
+You can view a timeline overview of your currently displayed expenses. The expenses over a
+specified time period are aggregated and added as data points on the timeline. +
 {nbsp} +
 Usage:
 
- show-stats timeline [OPTIONS]
+ display-stats timeline [OPTIONS]
 +
 Options:
 
@@ -304,26 +308,45 @@ Supported date intervals include 'day', 'week', 'month' and 'year'.
 
 +
 Example: +
-`show-stats timeline interval/week` +
+`display-stats timeline interval/week` +
 Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
 {nbsp} +
 
-. _Display breakdown of expenses: show-stats breakdown_ +
-Displays a breakdown of expenses by tag for the currently displayed expenses. The total
+. _Display breakdown of expenses: display-stats breakdown_ +
+You can view a breakdown of expenses by tag for the currently displayed expenses. The total
 expenses per tag are totalled and displayed in a pie chart. +
 {nbsp} +
 Usage:
 
- show-stats breakdown
+ display-stats breakdown
 +
 
 {nbsp} +
 
 +
 Example: +
-`show-stats breakdown` +
+`display-stats breakdown` +
 Shows a pie chart breakdown by tag of all currently displayed expenses. +
 {nbsp} +
+
+
+. _Display heatmap of expenses: display-stats heatmap_ +
+You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
+the bubble for the particular day, the higher the expense. +
+{nbsp} +
+Usage:
+
+ display-stats heatmap
++
+
+{nbsp} +
+
++
+Example: +
+`display-stats heatmap` +
+Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
+{nbsp} +
+
 
 === Undo and Redo: `undo/redo`
 
@@ -344,6 +367,9 @@ Usage:
 +
 {nbsp} +
 
+// end::undoredo[]
+
+// tag::history[]
 === Viewing History: `history`
 
 . _View the past command history: history_ +
@@ -355,6 +381,9 @@ Usage:
 +
 {nbsp} +
 
+// end::history[]
+
+// tag::updownkey[]
 === Up and down key: `&uarr;/&darr;`
 
 . _Get the previous entered command: &uarr;_ +
@@ -363,6 +392,8 @@ Up arrow key(&uarr;) will get the previous command entered in the command histor
 . _Get the sequential entered command: &darr;_ +
 Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
 {nbsp} +
+
+// end::updownkey[]
 
 === Viewing help: `help`
 
