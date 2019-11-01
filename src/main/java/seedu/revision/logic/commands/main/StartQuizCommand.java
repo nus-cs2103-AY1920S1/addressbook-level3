@@ -1,7 +1,9 @@
 package seedu.revision.logic.commands.main;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_MODE;
 
+import seedu.revision.commons.core.Messages;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -34,10 +36,10 @@ public class StartQuizCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws ParseException {
+        requireNonNull(model);
+        model.updateFilteredAnswerableList(this.mode.getCombinedPredicate());
 
-        //ListCommand quizList = new ListCommand(predicate);
-        //quizList.execute(model);
-        return new CommandResult().withFeedBack(MESSAGE_SUCCESS).withStart(true).withMode(mode).build();
-
+        return new CommandResult().withFeedBack(String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
+                model.getFilteredAnswerableList().size())).withStart(true).withMode(mode).build();
     }
 }
