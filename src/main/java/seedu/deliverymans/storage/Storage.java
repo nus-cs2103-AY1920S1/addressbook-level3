@@ -7,7 +7,6 @@ import java.util.Optional;
 import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
 
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
