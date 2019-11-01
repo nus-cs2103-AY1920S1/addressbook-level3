@@ -40,11 +40,12 @@
                     </padding>
                 </StackPane>
 
-                <VBox fx:id="resultDisplayPlaceholder" alignment="TOP_LEFT" minHeight="100" maxHeight="100" styleClass="pane-with-border" VBox.vgrow="never">
+                <HBox VBox.vgrow="never" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                      minHeight="100" prefHeight="100" maxHeight="Infinity" alignment="TOP_LEFT">
                     <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
+                        <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>
-                </VBox>
+                </HBox>
 
                 <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
                     <padding>
