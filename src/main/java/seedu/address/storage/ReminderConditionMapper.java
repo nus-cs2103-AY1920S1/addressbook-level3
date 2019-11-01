@@ -44,9 +44,9 @@ public class ReminderConditionMapper {
             if (!conditions.contains(condition)) {
                 conditions.add(condition);
             } else {
-                /*Condition toMap = conditions.get(conditions.indexOf((condition)));
+                Condition toMap = conditions.get(conditions.indexOf((condition)));
                 reminder.removeCondition(condition);
-                reminder.addCondition(toMap);*/
+                reminder.addCondition(toMap);
             }
         }
     }

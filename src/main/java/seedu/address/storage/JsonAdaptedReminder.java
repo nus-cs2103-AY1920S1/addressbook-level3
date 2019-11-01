@@ -29,7 +29,7 @@ public class JsonAdaptedReminder {
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
                                @JsonProperty("tkrtyp") String trackerType,
                                @JsonProperty("currSum") double currSum,
-                               @JsonProperty("quota") double quota,
+                               @JsonProperty("tkrQuota") double quota,
                                @JsonProperty("status") String status) {
         this.message = message;
         this.conditions.addAll(conditions);
@@ -69,7 +69,7 @@ public class JsonAdaptedReminder {
         final Description modelMessage = new Description(message);
         Reminder modelReminder = new Reminder(modelMessage, conditionList);
         if (!trackerType.toLowerCase().equals("none")) {
-            modelReminder.setTracker(trackerType, currSum, quota);
+            modelReminder.setTracker(Reminder.TrackerType.parse(trackerType), currSum, quota);
         }
         modelReminder.setStatus(this.status);
         return modelReminder;

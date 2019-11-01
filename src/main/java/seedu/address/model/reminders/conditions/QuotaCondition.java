@@ -17,8 +17,19 @@ public class QuotaCondition extends Condition {
     public QuotaCondition(Double quota) {
         super("Quota Condition");
         this.quota = quota;
+        super.setPred(quotaPredicate);
     }
     public double getQuota() {
         return quota;
+    }
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof QuotaCondition)) {
+            return false;
+        } else {
+            return this.quota == (((QuotaCondition) other).quota);
+        }
     }
 }
