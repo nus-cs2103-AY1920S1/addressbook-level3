@@ -13,7 +13,6 @@ import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
@@ -535,15 +534,8 @@ public class ItemModelManager implements ItemModel {
 
         this.sortedTask = null;
         if (visualList instanceof TaskList) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    visualList.clear();
-                    for (Item item : taskList) {
-                        visualList.add(item);
-                    }
-                }
-            });
+            System.out.println(taskList.size());
+            this.visualList = taskList;
         }
         priorityMode.setValue(false);
     }

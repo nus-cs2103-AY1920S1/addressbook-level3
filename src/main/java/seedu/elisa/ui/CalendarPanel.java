@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,15 +53,9 @@ public class CalendarPanel extends UiPart<Region> {
         visualList.addListener(new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("running");
-                        clearCells();
-                        generateDate();
-                        loadData(visualList);
-                    }
-                });
+                clearCells();
+                generateDate();
+                loadData(visualList);
             }
         });
     }
