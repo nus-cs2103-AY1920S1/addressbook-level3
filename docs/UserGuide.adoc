@@ -305,7 +305,7 @@ image::UG-Delete_income2.png[width="800"]
 
 Accidentally typed a command that is not in FinSec? Don't worry! FinSec will recognise that it is an unknown command and is smart enough to make that unknown entry into a shortcut!
 
-Upon entering an unknown command, FinSec will prompt you as to whether you would like that as a new short cut or if it was just a mistake.
+Upon entering an unknown command, FinSec will prompt you as to whether you would like that as a new shortcut or if it was just a mistake.
 
 *Choice 1 :* You can enter the keyword `n` to continue as per usual.
 
@@ -313,12 +313,12 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
 
-Example of *Choice 1* :
+==== Example of *Choice 1* :
 
 ****
 User : add_conagtact
 
-FinSec: Create shortcut? To which command?
+FinSec: Create shortcut? To which command? If no, type "n"
 
 User : n
 ****
@@ -327,13 +327,95 @@ Result:
 
 No shortcut is created. Continue using FinSec as per normal!
 
-Example of *Choice 2* :
+<<UG-NoShortcutexample>>, <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
+[[UG-NoShortcutexample]]
+[reftext="Figure 3.11.1.1"]
+[caption="Figure 3.11.1.1: "]
+.When a user enters an accidental typo
+image::UG-NoShortcut1.png[width="800"]
+
+[[UG-NoShortcutResult]]
+[reftext="Figure 3.11.1.2"]
+[caption="Figure 3.11.1.2: "]
+.The result after entering the typo. FinSec will ask you if you want to create a shortcut.
+image::UG-NoShortcut2.png[width="800"]
+
+
+
+[reftext="Figure 3.11.3"]
+[caption="Figure 3.11.3: "]
+.Since it is a genuine typo, entering 'n' will allow you to continue.
+image::UG-NoShortcut3.png[width="800"]
+
+
+
+==== Example of *Choice 2* :
 
 ****
 User : ai
 
-FinSec: Create shortcut? To which command?
+FinSec: Create shortcut? To which command? If no, type "n"
+
+User: add_income
+
+FinSec: New shortcut created! ai to add_income
 ****
+
+Result:
+
+A new shortcut is created for you! From now on, `ai` can be used as a substitute for `add_income`!
+
+<<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
+[[UG-createShortcutexample1]]
+[reftext="Figure 3.11.2.1"]
+[caption="Figure 3.11.2.1: "]
+.When a user enters a shortcut he/she wishes to create.
+image::UG-createShortcut1.png[width="800"]
+
+[[UG-createShortcutExample2]]
+[reftext="Figure 3.11.2.2"]
+[caption="Figure 3.11.2.2: "]
+.User will enter the existing command that he wishes to map the shortcut to.
+image::UG-createShortcut2.png[width="800"]
+
+[[UG-createShortcutResult]]
+[reftext="Figure 3.11.2.3"]
+[caption="Figure 3.11.2.3: "]
+.After creating the shortcut.
+image::UG-createShortcut3.png[width="800"]
+
+<<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
+[[UG-shortcutExample]]
+[reftext="Figure 3.11.2.4"]
+[caption="Figure 3.11.2.4: "]
+.User can now use the command 'ai' for adding an income!
+image::UG-createShortcut4.png[width="800"]
+
+[[UG-shortcutResult]]
+[reftext="Figure 3.11.2.5"]
+[caption="Figure 3.11.2.5: "]
+.The newly created shortcut 'ai' creating an income.
+image::UG-createShortcut5.png[width="800"]
+
+
+=== Deleting a shortcut : `delete_shortcut`
+
+You can delete a shortcut that you have created by using the delete income command by entering the keyword `delete_shortcut` followed by shortcut name.
+The specified shortcut will be then deleted.
+
+Keyword: `delete_shortcut`
+
+Format: `delete_shortcut SHORTCUT`
+
+Example:
+
+....
+delete_shortcut ai (removes shortcut 'ai' )
+....
+
+Result:
+
+The shortcut is now no longer available for use.
 
 
 === Checking a Person or Claim : `check`
