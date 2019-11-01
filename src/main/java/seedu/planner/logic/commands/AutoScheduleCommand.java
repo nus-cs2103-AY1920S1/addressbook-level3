@@ -159,7 +159,7 @@ public class AutoScheduleCommand extends UndoableCommand {
 
                     //The last activity do not have to worry about overlap with another activity
                     if (i == draftSchedule.size() - 1) {
-                        if (nextTime - currentTime < 0){
+                        if (nextTime - currentTime < 0) {
                             break;
                         }
                         isScheduled = true;
