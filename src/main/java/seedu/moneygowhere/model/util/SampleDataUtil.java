@@ -22,24 +22,30 @@ public class SampleDataUtil {
 
     public static Spending[] getSampleSpendings() {
         return new Spending[]{
-            new Spending(new Name("Chicken rice"), new Date("1/1/2019"), new Remark("Tasty."),
+            new Spending(new Name("Chicken rice"), new Date("20/10/2019"), new Remark("Good food"),
                 new Cost("4.00"),
                 getTagSet("food")),
-            new Spending(new Name("Taxi"), new Date("2/1/2019"), new Remark("I was late for school."),
+            new Spending(new Name("Taxi"), new Date("21/10/2019"), new Remark("I was late for school"),
                 new Cost("25.50"),
                 getTagSet("transport", "regret")),
-            new Spending(new Name("Math textbook"), new Date("3/1/2019"), new Remark("I hate this."),
+            new Spending(new Name("Math textbook"), new Date("22/10/2019"), new Remark("Wasted my money!"),
                 new Cost("32.00"),
                 getTagSet("education", "regret")),
-            new Spending(new Name("Movie"), new Date("4/1/2019"), new Remark("Excited!"),
-                new Cost("10"),
+            new Spending(new Name("Gold class movie ticket"), new Date("23/10/2019"), new Remark("GV ticket"),
+                new Cost("20"),
                 getTagSet("entertainment")),
-            new Spending(new Name("Gold Watch"), new Date("5/1/2019"), new Remark("It's about time."),
-                new Cost("250"),
+            new Spending(new Name("Luxury Watch"), new Date("24/10/2019"), new Remark("Once in a lifetime purchase"),
+                new Cost("600"),
                 getTagSet("entertainment", "aesthetics")),
-            new Spending(new Name("Concert ticket"), new Date("6/1/2019"), new Remark("I love music festivals."),
+            new Spending(new Name("Concert ticket"), new Date("25/10/2019"), new Remark("Favourite band"),
                 new Cost("180"),
-                getTagSet("entertainment"))
+                getTagSet("entertainment")),
+            new Spending(new Name("Transport card fare"), new Date("31/10/2019"), new Remark("I would rather walk"),
+                new Cost("15"),
+                getTagSet("transport")),
+            new Spending(new Name("Other things"), new Date("31/10/2019"), new Remark(""),
+                new Cost("30.75"),
+                getTagSet())
         };
     }
 

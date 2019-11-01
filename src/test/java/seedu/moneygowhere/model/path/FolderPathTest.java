@@ -9,32 +9,31 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-public class FilePathTest {
+public class FolderPathTest {
 
-    private static final Path TEST_DATA_FILE = Paths.get("src", "test", "data", "SampleSpendings",
-            "invalidDateSpending.csv");
+    private static final Path TEST_DATA_FILE = Paths.get("src", "test", "data", "SampleSpendings");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new FilePath(null));
+        assertThrows(NullPointerException.class, () -> new FolderPath(null));
     }
 
     @Test
     public void constructor_invalidPath_throwsIllegalArgumentException() {
         String invalidPath = "";
-        assertThrows(IllegalArgumentException.class, () -> new FilePath(invalidPath));
+        assertThrows(IllegalArgumentException.class, () -> new FolderPath(invalidPath));
     }
 
     @Test
     public void isValidPath() {
         // null address
-        assertThrows(NullPointerException.class, () -> FilePath.isValidPath(null));
+        assertThrows(NullPointerException.class, () -> FolderPath.isValidFolderPath(null));
 
         // invalid addresses
-        assertFalse(FilePath.isValidPath("")); // empty string
-        assertFalse(FilePath.isValidPath(" ")); // spaces only
+        assertFalse(FolderPath.isValidFolderPath("")); // empty string
+        assertFalse(FolderPath.isValidFolderPath(" ")); // spaces only
 
         // valid addresses
-        assertTrue(FilePath.isValidPath(TEST_DATA_FILE.toString()));
+        assertTrue(FolderPath.isValidFolderPath(TEST_DATA_FILE.toString()));
     }
 }

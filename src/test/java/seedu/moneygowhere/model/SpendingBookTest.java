@@ -34,7 +34,7 @@ public class SpendingBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getSpendingList());
         assertEquals(Collections.emptyList(), addressBook.getReminderList());
-        assertEquals(new Budget(0), addressBook.getBudget());
+        assertEquals(new Budget(1000), addressBook.getBudget());
     }
 
     @Test
