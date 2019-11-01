@@ -1,11 +1,11 @@
 package seedu.ichifund.testutil;
 
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.ichifund.logic.commands.transaction.AddTransactionCommand;

@@ -86,23 +86,23 @@ public class IchiFundParserTest {
     public void parseCommand_unknownFeatureCommand() throws Exception {
         parser.parseCommand(new TransactionFeatureParser().getTabSwitchCommandWord());
         assertThrows(ParseException.class, String.format(MESSAGE_UNKNOWN_COMMAND), ()
-                -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
+            -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
 
         parser.parseCommand(new RepeaterFeatureParser().getTabSwitchCommandWord());
         assertThrows(ParseException.class, String.format(MESSAGE_UNKNOWN_COMMAND), ()
-                -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
+            -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
 
         parser.parseCommand(new BudgetFeatureParser().getTabSwitchCommandWord());
         assertThrows(ParseException.class, String.format(MESSAGE_UNKNOWN_COMMAND), ()
-                -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
+            -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
 
         parser.parseCommand(new LoanFeatureParser().getTabSwitchCommandWord());
         assertThrows(ParseException.class, String.format(MESSAGE_UNKNOWN_COMMAND), ()
-                -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
+            -> parser.parseCommand(ExpenditureTrendCommand.COMMAND_WORD));
 
         parser.parseCommand(new AnalyticsFeatureParser().getTabSwitchCommandWord());
         assertThrows(ParseException.class, String.format(MESSAGE_UNKNOWN_COMMAND), ()
-                -> parser.parseCommand(EditTransactionCommand.COMMAND_WORD));
+            -> parser.parseCommand(EditTransactionCommand.COMMAND_WORD));
     }
 
     @Test

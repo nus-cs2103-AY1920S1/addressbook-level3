@@ -1,14 +1,14 @@
 package seedu.ichifund.testutil;
 
 import seedu.ichifund.logic.commands.transaction.EditTransactionCommand.EditTransactionDescriptor;
+import seedu.ichifund.model.Description;
+import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.transaction.TransactionType;
-import seedu.ichifund.model.Description;
 import seedu.ichifund.model.transaction.Transaction;
-import seedu.ichifund.model.amount.Amount;
+import seedu.ichifund.model.transaction.TransactionType;
 
 /**
  * A utility class to help with building EditTransactionDescriptor objects.

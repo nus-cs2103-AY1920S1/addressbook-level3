@@ -1,15 +1,9 @@
 package seedu.ichifund.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.ichifund.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalFundBook.PERSON_AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,10 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.CommandResult;
 import seedu.ichifund.logic.commands.HelpCommand;
-import seedu.ichifund.logic.commands.ListCommand;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.logic.commands.transaction.DeleteTransactionCommand;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
@@ -29,12 +21,10 @@ import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ModelManager;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.UserPrefs;
-import seedu.ichifund.model.person.Person;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.storage.JsonFundBookStorage;
 import seedu.ichifund.storage.JsonUserPrefsStorage;
 import seedu.ichifund.storage.StorageManager;
-import seedu.ichifund.testutil.PersonBuilder;
 import seedu.ichifund.testutil.TransactionBuilder;
 import seedu.ichifund.testutil.TransactionUtil;
 

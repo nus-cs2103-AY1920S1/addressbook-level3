@@ -1,12 +1,10 @@
 package seedu.ichifund.logic.parser.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ichifund.testutil.Assert.assertThrows;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.ichifund.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-
 
 import java.util.Optional;
 
