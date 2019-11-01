@@ -2,12 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 
 //@@author bernicechio
 /**
@@ -23,20 +21,18 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
     public GenReportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-            Name sign;
-            if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-                sign = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            } else {
+            if (args.trim().length() < 1) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }
-            if (args.trim().length() < 2 || args.trim().charAt(0) != 'B') {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
+            String[] argArray = args.trim().split(" ", 2);
+            String index = argArray[0];
+            String sign = "";
+            if (argArray.length == 2) {
+                sign = argArray[1];
             }
-            String index = args.trim().substring(1, 2);
             if (index.matches("[0-9]+")) {
                 Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
-                return new GenReportCommand(genReportBodyId, sign.toString());
+                return new GenReportCommand(genReportBodyId, sign);
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }

@@ -48,7 +48,8 @@ public class GenReportCommandTest {
     public void execute_invalidBodyId_throwsCommandException() {
         IdentificationNumber outOfBoundBodyIndex = IdentificationNumber.customGenerateId("B",
                 model.getFilteredBodyList().size() + 1);
-        GenReportCommand genReportCommand = new GenReportCommand(Index.fromZeroBased(outOfBoundBodyIndex.getIdNum()), "Manager A");
+        GenReportCommand genReportCommand =
+                new GenReportCommand(Index.fromZeroBased(outOfBoundBodyIndex.getIdNum()), "Manager A");
 
         assertCommandFailure(genReportCommand, model, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
     }

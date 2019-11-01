@@ -1,42 +1,20 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.GenReportCommand;
 import seedu.address.logic.commands.GenReportSummaryCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
 
 //@@author bernicechio
 
 /**
- * Parses input workerID and creates a new GenReportCommand object.
+ * Parses input signature and creates a new GenReportSummaryCommand object.
  */
 public class GenReportSummaryCommandParser implements Parser<GenReportSummaryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the GenReportCommand
-     * and returns a GenReportCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public GenReportSummaryCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        try {
-            ArgumentMultimap argMultimap = tokenize(args);
-            Name sign = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-            return new GenReportSummaryCommand(sign.toString());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
-        }
+     * Parses the given {@code String} of arguments in the context of the GenReportSummaryCommand
+     * and returns a GenReportSummaryCommand object for execution.
+     **/
+    public GenReportSummaryCommand parse(String args) {
+        return new GenReportSummaryCommand(args);
     }
 
-    /**
-     * Tokenizes the input string for genReport command
-     */
-    private static ArgumentMultimap tokenize(String args) {
-        return ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-    }
 }

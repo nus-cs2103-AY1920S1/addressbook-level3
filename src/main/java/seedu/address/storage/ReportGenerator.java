@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +9,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
@@ -111,25 +109,12 @@ public class ReportGenerator {
      * @param document which is the report.
      * @param title which is title of the pdf report.
      */
-    private void addHeader(Document document, String title) throws DocumentException, IOException {
+    private void addHeader(Document document, String title) throws DocumentException {
         document.open();
         Paragraph preface = new Paragraph(title, titleFont);
         preface.setAlignment(Element.ALIGN_CENTER);
         document.add(preface);
         document.add(new Paragraph("\n"));
-        try {
-            //Image logo = Image.getInstance("docs/images/logo.png");
-            //Image logo = Image.getInstance(getClass().getClassLoader().getResource("/logo.png"));  //null
-            //String imageUrl =
-                    //"https://raw.githubusercontent.com/AY1920S1-CS2103T-T13-2/main/master/docs/images/logo.png";
-            //Image logo = Image.getInstance(new URL(imageUrl));
-            //logo.setAbsolutePosition(40, 770); //set logo top left
-            //logo.setAbsolutePosition(450, 800); top right
-            //logo.scaleAbsolute(100, 70);
-            //document.add(logo);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -141,12 +126,7 @@ public class ReportGenerator {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         document.add(new Paragraph("\n"));
-        String padding = "";
-        for (int i = 0; i < 40 - sign.length(); i++) {
-            padding += " ";
-        }
-        //sign += padding;
-        String signDate = sign + padding + dtf.format(now);
+        String signDate = sign + " ".repeat(Math.max(0, 40 - sign.length())) + dtf.format(now);
         document.add(new Paragraph(signDate, signFont));
         document.add(new Paragraph("______________________________________"));
         document.add(new Paragraph("Manager Signature               Date"));
