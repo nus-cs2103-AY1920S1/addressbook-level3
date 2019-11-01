@@ -18,7 +18,7 @@ public class NewCommand extends Command {
     public static final String COMMAND_WORD = "new";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Drafts an incident report to the incident management "
-            + "system." + "Parameters: "
+            + "system. \n" + "Parameters: "
             + PREFIX_DISTRICT + "DISTRICT NUMBER "
             + PREFIX_AUTO + "[y/n]";
 
