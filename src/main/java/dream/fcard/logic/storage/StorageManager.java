@@ -1,5 +1,8 @@
 package dream.fcard.logic.storage;
 
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.Stats;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +11,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,6 +40,9 @@ public class StorageManager {
 
     private static String root;
     private static String decksSubDir = "./decks";
+    private static String statsSubDir = "./stats";
+    private static String statsFileName = "stats.json";
+    private static String statsFileFullPath;
 
     /**
      * Determine root directory of the application, main for project, directory containing jar
@@ -72,9 +79,8 @@ public class StorageManager {
         default:
             root = System.getProperty("user.dir");
         }
-        System.out.println("RESOLVE TO : " + root);
         root = FileReadWrite.resolve(root, "./data");
-        System.out.println("AFTER APPEND : " + root);
+        resolveStatsPath();
         isRootResolved = true;
     }
 
@@ -84,8 +90,8 @@ public class StorageManager {
      * @param path path to new directory for storage
      */
     public static void provideRoot(String path) {
-        System.out.println("SET ROOT TO : " + path);
         root = path;
+        resolveStatsPath();
         isRootResolved = true;
     }
 
@@ -105,9 +111,7 @@ public class StorageManager {
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
-        System.out.println("ORIGINAL ROOT : " + root);
         String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
-        System.out.println("WRITING FILE TO : " + path);
         FileReadWrite.write(path, deck.toJson().toString());
     }
 
@@ -225,5 +229,41 @@ public class StorageManager {
         for (Deck d : decks) {
             writeDeck(d);
         }
+    }
+
+    public static void resolveStatsPath() {
+        statsFileFullPath = FileReadWrite.resolve(root, decksSubDir + "/" + statsFileName);
+    }
+
+    public static void writeStats() {
+        resolveRoot();
+        FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
+    }
+
+    public static void loadStats() {
+        resolveRoot();
+        try {
+            ArrayList<Session> arr = new ArrayList<>();
+            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
+            for (JsonValue sessionJson : statsJson.getArray()) {
+                JsonObject sessionJsonObj = sessionJson.getObject();
+                Session session = new Session(
+                        parseLocalDateTimeJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
+                        parseLocalDateTimeJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
+                session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
+                arr.add(session);
+            }
+            Stats.setSessionList(new SessionList(arr));
+        } catch(FileNotFoundException e) {
+            System.out.println("STATS FILE DOES NOT EXIST");
+        } catch(JsonFormatException e) {
+            System.out.println("STATS JSON IS ILL FORMED");
+        } catch (JsonWrongValueException e) {
+            System.out.println("UNEXPECTED JSON FORMAT FOR STATS" + e.getMessage());
+        }
+    }
+
+    private static LocalDateTime parseLocalDateTimeJson(JsonObject obj) {
+        return null;
     }
 }

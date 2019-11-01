@@ -16,7 +16,7 @@ import dream.fcard.util.DateTimeUtil;
  * A Session object represents a length of time the user spends doing a task, e.g. using the app
  * or running a test on a deck.
  */
-public class Session implements Serializable, JsonInterface {
+public class Session implements JsonInterface {
     // should implement JsonInterface, todo: @AHaliq can store LocalDateTime?
 
     /** The start time of the session, in the user's local time zone. */
@@ -168,7 +168,7 @@ public class Session implements Serializable, JsonInterface {
                     DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
             obj.put(Schema.SESSION_SCORE, score);
         } catch(JsonWrongValueException e) {
-            System.out.println("DATETIME JSON MUST BE AN OBJECT " + e.getMessage());
+            System.out.println("DATETIME JSON MUST BE AN OBJECT\n" + e.getMessage());
         }
         return new JsonValue(obj);
     }
