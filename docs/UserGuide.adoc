@@ -386,6 +386,9 @@ This enables users to be more informed of their spending habits as they are now 
 ****
 
 [NOTE]
+Spending with multiple tags will be counted more than once in total as the statistics seek to show the user which tag they have spent the most money on.
+
+[NOTE]
 DATE_START must be earlier or the same as DATE_END.
 
 [TIP]
