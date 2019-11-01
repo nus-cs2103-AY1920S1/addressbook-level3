@@ -61,7 +61,7 @@ public class AddNusModCommandSuggester extends NusModSuggester {
             return moduleTimetable
                     .stream()
                     .map(Lesson::getLessonTypeAndNoString)
-                    .distinct() // not sure why this is needed
+                    .distinct() // required as NUSMods does not group by lecture/tutorial number first
                     .filter(classIdentifier -> {
                         return classIdentifier.startsWith(suggestingSubsection);
                     })
