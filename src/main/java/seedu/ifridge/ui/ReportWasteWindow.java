@@ -78,6 +78,7 @@ public class ReportWasteWindow {
 
 
         TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         Tab weightTab = new Tab("Weight");
         weightTab.setContent(weightViewer);
         tabPane.getTabs().add(weightTab);

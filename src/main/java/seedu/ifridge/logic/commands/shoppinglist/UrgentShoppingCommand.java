@@ -46,6 +46,7 @@ public class UrgentShoppingCommand extends Command {
         ShoppingItem shoppingItemToPrint = shoppingItemToMarkAsUrgent.setUrgent(true);
         model.sortShoppingItems();
         model.commitShoppingList();
+        model.commitBoughtList();
         CommandResult commandResult =
                 new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS, shoppingItemToPrint));
         commandResult.setShoppingListCommand();

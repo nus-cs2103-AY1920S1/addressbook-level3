@@ -76,6 +76,7 @@ public class BoughtShoppingCommand extends Command {
         model.sortShoppingItems();
         model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
         model.commitShoppingList();
+        model.commitBoughtList();
 
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS,
                 boughtShoppingItem));

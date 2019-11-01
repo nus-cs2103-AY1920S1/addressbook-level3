@@ -49,6 +49,7 @@ public class ModelManager implements Model {
     private VersionedGroceryList versionedGroceryList;
     private VersionedWasteList versionedWasteList;
     private VersionedShoppingList versionedShoppingList;
+    private VersionedBoughtList versionedBoughtList;
     private VersionedTemplateList versionedTemplateList;
     private UnitDictionary unitDictionary;
 
@@ -89,6 +90,8 @@ public class ModelManager implements Model {
         commitWasteList();
         versionedShoppingList = new VersionedShoppingList();
         versionedShoppingList.add(shoppingList);
+        versionedBoughtList = new VersionedBoughtList();
+        versionedBoughtList.add(boughtList);
         versionedTemplateList = new VersionedTemplateList();
         versionedTemplateList.add(templateList);
     }
@@ -662,6 +665,8 @@ public class ModelManager implements Model {
         boughtList.setGroceryItem(target, editedFood);
     }
 
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -678,6 +683,32 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBoughtItems.setPredicate(predicate);
     }
+
+    @Override
+    public void commitBoughtList() {
+        versionedBoughtList.commit(new GroceryList(boughtList));
+    }
+
+    @Override
+    public ReadOnlyGroceryList undoBoughtList() {
+        return versionedBoughtList.undo();
+    }
+
+    @Override
+    public ReadOnlyGroceryList redoBoughtList() {
+        return versionedBoughtList.redo();
+    }
+
+    @Override
+    public boolean canUndoBoughtList() {
+        return versionedBoughtList.getCurrentStatePointer() > 0;
+    }
+
+    @Override
+    public boolean canRedoBoughtList() {
+        return versionedGroceryList.getCurrentStatePointer() < versionedBoughtList.getListSize() - 1;
+    }
+
 
     //=========== Common Accessors =============================================================
     @Override
