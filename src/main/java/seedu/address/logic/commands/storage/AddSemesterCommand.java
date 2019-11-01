@@ -20,7 +20,7 @@ public class AddSemesterCommand extends Command {
     public static final String COMMAND_WORD = "addsem";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a new semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a special semester or Year 5 semester. \n"
-            + "A special semester follows the format Y[1-5]ST[1-2] \n"
+            + "A special semester follows the format Y[1-5]ST[1-2] or Y5S1 or Y5S2 \n"
             + "Parameters: "
             + "SPECIAL_SEMESTER_NAME \n"
             + "Example: " + COMMAND_WORD + " "
@@ -45,7 +45,7 @@ public class AddSemesterCommand extends Command {
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         if (activeStudyPlan == null) {
-            return new CommandResult(MESSAGE_NO_ACTIVE_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_ACTIVE_STUDYPLAN);
         }
 
         try {
@@ -56,7 +56,7 @@ public class AddSemesterCommand extends Command {
             model.addToHistory();
             return new CommandResult(String.format(MESSAGE_SUCCESS, semesterName));
         } catch (DuplicateSemesterException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_SEMESTER);
+            throw new CommandException(MESSAGE_DUPLICATE_SEMESTER);
         }
     }
 

@@ -15,16 +15,14 @@ import seedu.address.model.studyplan.exceptions.InvalidTitleException;
 public class EditTitleCommand extends Command {
 
     public static final String COMMAND_WORD = "title";
+
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Editing the title of the current study plan";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Edits the title of the current active study plan "
             + "Parameters: "
             + "PLAN_TITLE \n"
             + "Example: "
             + "title Algo and Graphics";
-
-    public static final String MESSAGE_EDIT_STUDYPLAN_SUCCESS = "Edited StudyPlan: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "This studyPlan already exists in the module planner.";
+    public static final String MESSAGE_EDIT_STUDY_PLAN_SUCCESS = "Edited StudyPlan: %1$s";
 
     private final String newTitle;
 
@@ -40,9 +38,9 @@ public class EditTitleCommand extends Command {
             model.changeActiveStudyPlanTitle(newTitle);
             model.addToHistory();
         } catch (InvalidTitleException e) {
-            return new CommandResult(Title.MESSAGE_CONSTRAINTS);
+            throw new CommandException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new CommandResult(String.format(MESSAGE_EDIT_STUDYPLAN_SUCCESS, newTitle), true, false);
+        return new CommandResult(String.format(MESSAGE_EDIT_STUDY_PLAN_SUCCESS, newTitle), true, false);
     }
 
     @Override

@@ -40,9 +40,12 @@ public class CreateStudyPlanCommandIntegrationTest {
 
         CreateStudyPlanCommand command = new CreateStudyPlanCommand(validStudyPlan.getTitle().toString());
         CommandResult expectedResult = new CommandResult(String.format(CreateStudyPlanCommand.MESSAGE_SUCCESS,
-                validStudyPlan.getTitle().toString()), true, false);
+                validStudyPlan.getTitle().toString(), validStudyPlan.getIndex()), true, false);
         CommandResult actualResult = command.execute(model);
-        assertEquals(expectedResult, actualResult);
+        // compare titles since study plan IDs are unique
+        String expectedResultTitle = expectedResult.getFeedbackToUser().split("unique")[0];
+        String actualResultTitle = actualResult.getFeedbackToUser().split("unique")[0];
+        assertEquals(expectedResultTitle, actualResultTitle);
         assertEquals(expectedModel.getActiveStudyPlan().getTitle(), model.getActiveStudyPlan().getTitle());
         // does not use assertCommandSuccess due to uncertainty with undo/redo
     }

@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private static final String NO_ACTIVE_STUDY_PLAN = "You have no remaining study plans.";
+    private static final String STUDY_PLAN_ID = "[ID:%d]";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -42,6 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private CommandBox commandBox;
     private StudyPlanTagPanel studyPlanTagPanel;
+
+    @FXML
+    private Label studyPlanId;
 
     @FXML
     private Label title;
@@ -92,12 +96,14 @@ public class MainWindow extends UiPart<Stage> {
         if (sp == null) {
             NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
             semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+            studyPlanId.setText("");
             title.setText(NO_ACTIVE_STUDY_PLAN);
             mcCount.setText("");
         } else {
             ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
             semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
             semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+            studyPlanId.setText(String.format(STUDY_PLAN_ID, sp.getIndex()));
             title.setText(sp.getTitle().toString());
             mcCount.setText(sp.getMcCountString());
             studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags()
@@ -160,6 +166,7 @@ public class MainWindow extends UiPart<Stage> {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+                    studyPlanId.setText("");
                     title.setText(NO_ACTIVE_STUDY_PLAN);
                 } else {
                     ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
@@ -169,6 +176,7 @@ public class MainWindow extends UiPart<Stage> {
                     studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags().asUnmodifiableObservableList());
                     studyPlanTagsPlaceholder.getChildren().remove(0);
                     studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
+                    studyPlanId.setText(String.format(STUDY_PLAN_ID, sp.getIndex()));
                     title.setText(sp.getTitle().toString());
                     commandBox.handleChangeOfActiveStudyPlan();
                 }

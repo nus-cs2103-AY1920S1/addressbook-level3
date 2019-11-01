@@ -25,6 +25,7 @@ public class JsonAdaptedSemesterTest {
     private static final boolean VALID_IS_BLOCKED = true;
     private static final String VALID_REASON_FOR_BLOCKED = "reason";
     private static final List<JsonAdaptedSkeletalModule> VALID_MODULES = new ArrayList<>();
+    private static final boolean VALID_IS_EXPANDED = true;
 
     @Test
     public void toModelType_validSemesterDetails_returnsSemester() throws Exception {
@@ -38,7 +39,7 @@ public class JsonAdaptedSemesterTest {
     public void toModelType_invalidSemesterName_throwsIllegalValueException() {
         JsonAdaptedSemester semester =
                 new JsonAdaptedSemester(INVALID_SEMESTER_NAME, VALID_IS_BLOCKED,
-                        VALID_REASON_FOR_BLOCKED, VALID_MODULES);
+                        VALID_REASON_FOR_BLOCKED, VALID_MODULES, VALID_IS_EXPANDED);
         String expectedMessage = SemesterName.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, semester::toModelType);
     }
@@ -73,6 +74,11 @@ public class JsonAdaptedSemesterTest {
             if (!originalModule.getModuleCode().equals(loadedModule.getModuleCode())) {
                 result = false;
             }
+        }
+
+        // is expanded
+        if (originalSemester.isExpanded() != loadedSemester.isExpanded()) {
+            result = false;
         }
 
         return result;

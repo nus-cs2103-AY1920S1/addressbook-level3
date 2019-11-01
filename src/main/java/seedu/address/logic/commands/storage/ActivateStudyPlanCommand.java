@@ -14,15 +14,15 @@ import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 public class ActivateStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "activate";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Activating study plans";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Activates the study plan with the given index. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Activates the study plan with the given ID. "
             + "Parameters: "
-            + "PLAN_INDEX \n"
+            + "PLAN_ID \n"
             + "Example: " + COMMAND_WORD + " "
             + "3";
 
     public static final String MESSAGE_SUCCESS = "StudyPlan %1$d activated: %2$s";
     //todo: this?
-    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this index does not exists!";
+    public static final String MESSAGE_NO_SUCH_STUDYPLAN = "The study plan with this ID does not exists!";
 
     private final int studyPlanIndex;
 
@@ -39,7 +39,7 @@ public class ActivateStudyPlanCommand extends Command {
         try {
             model.activateStudyPlan(studyPlanIndex);
         } catch (StudyPlanNotFoundException e) {
-            return new CommandResult(MESSAGE_NO_SUCH_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_SUCH_STUDYPLAN);
         }
 
         String studyPlanName = model.getActiveStudyPlan().getTitle().toString();

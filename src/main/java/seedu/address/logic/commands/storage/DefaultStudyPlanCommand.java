@@ -19,8 +19,8 @@ public class DefaultStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "default";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new recommended sample study plan.";
-    public static final String MESSAGE_SUCCESS = "New sample study plan added!";
-    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "This study plan already exists in the module planner";
+    public static final String MESSAGE_SUCCESS = "New sample study plan added! [unique ID: %1$d]";
+    public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "This study plan already exists in the module planner";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -30,7 +30,7 @@ public class DefaultStudyPlanCommand extends Command {
         StudyPlan defaultStudyPlan = DefaultStudyPlanUtil.getDefaultStudyPlan(modulesInfo);
 
         if (model.hasStudyPlan(defaultStudyPlan)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDYPLAN);
+            throw new CommandException(MESSAGE_DUPLICATE_STUDY_PLAN);
         }
 
         model.addStudyPlan(defaultStudyPlan);
@@ -39,9 +39,9 @@ public class DefaultStudyPlanCommand extends Command {
 
         model.addToHistory();
 
-        return new CommandResult(MESSAGE_SUCCESS, true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, defaultStudyPlan.getIndex()),
+                true, false);
     }
-
 
     @Override
     public boolean equals(Object other) {

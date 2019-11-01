@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -11,18 +12,15 @@ import seedu.address.model.Model;
  * Commits current active study plan with a commit message.
  */
 public class CommitStudyPlanCommand extends Command {
+
     public static final String COMMAND_WORD = "commit";
-
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Committing edits to a study plan";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits the current active studyPlan."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Commits the current active study plan."
             + "Parameters: "
             + "commit message \n"
             + "Example: " + COMMAND_WORD + " "
             + "NOC halfyear";
-
     public static final String MESSAGE_SUCCESS = "study plan commited: %1$s";
-    public static final String MESSAGE_DUPLICATE_COMMIT = "This commit already exists in the commit list";
 
     private final String commitMessage;
 
@@ -37,6 +35,10 @@ public class CommitStudyPlanCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
 
         model.commitActiveStudyPlan(commitMessage);
         return new CommandResult(String.format(MESSAGE_SUCCESS, commitMessage));

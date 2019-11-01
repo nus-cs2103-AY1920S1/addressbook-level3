@@ -47,6 +47,11 @@
                         </padding>
                         <VBox fx:id="studyPlan" VBox.vgrow="ALWAYS">
                             <HBox alignment="CENTER_LEFT" spacing="5">
+                                <Label fx:id="studyPlanId" styleClass="cell_small_label" text="\$studyPlanId" >
+                                    <padding>
+                                        <Insets left="5" />
+                                    </padding>
+                                </Label>
                                 <Label fx:id="title" styleClass="cell_big_label" text="\$first">
                                     <padding>
                                         <Insets left="5" />

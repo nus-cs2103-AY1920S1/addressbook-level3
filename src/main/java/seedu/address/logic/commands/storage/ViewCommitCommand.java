@@ -1,11 +1,14 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_ACTIVE_STUDY_PLAN;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 import static seedu.address.logic.commands.storage.ViewCommitHistoryCommand.MESSAGE_NO_COMMIT_HISTORY;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
@@ -23,11 +26,9 @@ public class ViewCommitCommand extends Command {
     public static final String COMMAND_WORD = "viewcommit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Views the study plan commit identified by the index number used in the displayed commit list.\n"
-            + "Parameters: PLAN_INDEX.COMMIT_NUMBER (both must be non-negative integers)\n";
+            + "Parameters: PLAN_ID.COMMIT_NUMBER (both must be non-negative integers)\n";
     public static final String MESSAGE_SUCCESS = "Here is your study plan for this commit. Please do not modify it.";
     public static final String MESSAGE_NO_SUCH_COMMIT = "The commit index you've entered is invalid!";
-    public static final String MESSAGE_NO_STUDYPLAN = "There's no active study plan. Create now!";
-    public static final String MESSAGE_NOT_ACTIVE_STUDYPLAN = "The study plan index does not match the active one.";
 
     private int studyPlanIndex;
     private int commitNumber;
@@ -38,17 +39,17 @@ public class ViewCommitCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         if (activeStudyPlan == null) {
-            return new CommandResult(MESSAGE_NO_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         // if the index is different from active study plan, throw an error
         if (activeStudyPlan.getIndex() != studyPlanIndex) {
-            return new CommandResult(MESSAGE_NOT_ACTIVE_STUDYPLAN);
+            throw new CommandException(MESSAGE_NOT_ACTIVE_STUDY_PLAN);
         }
 
         try {
@@ -60,9 +61,9 @@ public class ViewCommitCommand extends Command {
 
             return new CommandResult<>(MESSAGE_SUCCESS, ResultViewType.SEMESTER, semesters);
         } catch (StudyPlanCommitManagerNotFoundException e) {
-            return new CommandResult(MESSAGE_NO_COMMIT_HISTORY);
+            throw new CommandException(MESSAGE_NO_COMMIT_HISTORY);
         } catch (IndexOutOfBoundsException e) {
-            return new CommandResult(MESSAGE_NO_SUCH_COMMIT);
+            throw new CommandException(MESSAGE_NO_SUCH_COMMIT);
         }
 
     }

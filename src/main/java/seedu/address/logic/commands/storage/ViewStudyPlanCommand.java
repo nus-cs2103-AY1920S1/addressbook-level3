@@ -1,10 +1,12 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.studyplan.StudyPlan;
@@ -19,12 +21,13 @@ import seedu.address.ui.ResultViewType;
 public class ViewStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "viewplan";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Views the simplified study plan identified by the index used in the displayed study plan list.\n"
-            + "Parameters: PLAN_INDEX (must be a positive integer)\n";
+            + ": Views the simplified study plan identified by the unique ID of the target study plan.\n"
+            + "Parameters: PLAN_ID (must be a positive integer)\n";
     public static final String MESSAGE_SUCCESS = "Here is a simple view of your study plan"
-            + "[index: %1$d, title: %2$s]";
-    public static final String MESSAGE_INVALID_STUDYPLAN_INDEX = "The study plan index you have entered is invalid!";
+            + "[ID: %1$d, Title: %2$s]";
+    public static final String MESSAGE_INVALID_STUDY_PLAN_ID = "The study plan ID you have entered is invalid!";
 
     private int studyPlanIndex;
 
@@ -33,12 +36,12 @@ public class ViewStudyPlanCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
         if (activeStudyPlan == null) {
-            return new CommandResult(MESSAGE_INVALID_STUDYPLAN_INDEX);
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         try {
@@ -47,7 +50,7 @@ public class ViewStudyPlanCommand extends Command {
             return new CommandResult<>(String.format(MESSAGE_SUCCESS, studyPlanIndex, studyPlan.getTitle().toString()),
                     ResultViewType.SEMESTER, semesters);
         } catch (StudyPlanNotFoundException e) {
-            return new CommandResult(MESSAGE_INVALID_STUDYPLAN_INDEX);
+            throw new CommandException(MESSAGE_INVALID_STUDY_PLAN_ID);
         }
     }
 

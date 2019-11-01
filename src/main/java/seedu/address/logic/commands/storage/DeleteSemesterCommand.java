@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -26,7 +27,6 @@ public class DeleteSemesterCommand extends Command {
 
     public static final String MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS = "Cleared all modules in Semester: %1$s";
     public static final String MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS = "Deleted Semester: %1$s";
-    public static final String MESSAGE_NO_ACTIVE_STUDYPLAN = "You don't have any study plan currently. Create now!";
 
     private final SemesterName semesterName;
 
@@ -42,7 +42,7 @@ public class DeleteSemesterCommand extends Command {
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
 
         if (activeStudyPlan == null) {
-            return new CommandResult(MESSAGE_NO_ACTIVE_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         if (SemesterName.isMainstreamSemester(semesterName.toString())) {

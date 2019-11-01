@@ -23,8 +23,13 @@ public class ViewStudyPlanCommandParser implements Parser<ViewStudyPlanCommand> 
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewStudyPlanCommand.MESSAGE_USAGE));
         }
-        int studyPlanIndex = Integer.parseInt(trimmedArgs);
-        return new ViewStudyPlanCommand(studyPlanIndex);
+        try {
+            int studyPlanIndex = Integer.parseInt(trimmedArgs);
+            return new ViewStudyPlanCommand(studyPlanIndex);
+        } catch (NumberFormatException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewStudyPlanCommand.MESSAGE_USAGE));
+        }
     }
 
 }

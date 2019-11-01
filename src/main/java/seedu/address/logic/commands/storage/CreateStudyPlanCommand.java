@@ -19,16 +19,16 @@ public class CreateStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "newplan";
 
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new study plan";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new study plan with a new unique ID";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new studyPlan."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new study plan with a new unique ID."
             + "Parameters: "
             + "PLAN_TITLE \n"
             + "Example: " + COMMAND_WORD + " "
             + "newplan NOC halfyear";
 
-    public static final String MESSAGE_SUCCESS = "New studyPlan added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDYPLAN = "This study plan already exists in the module planner";
+    public static final String MESSAGE_SUCCESS = "New study plan added: %1$s [unique ID: %2$d]";
+    public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "This study plan already exists in the module planner";
 
     private final String studyPlanName;
 
@@ -54,12 +54,12 @@ public class CreateStudyPlanCommand extends Command {
                 SemesterName currentSemester = model.getModulePlanner().getCurrentSemester();
                 studyPlanToAdd = new StudyPlan(new Title(studyPlanName), modulesInfo, currentSemester);
             } catch (InvalidTitleException e) {
-                return new CommandResult(Title.MESSAGE_CONSTRAINTS);
+                throw new CommandException(Title.MESSAGE_CONSTRAINTS);
             }
         }
 
         if (model.hasStudyPlan(studyPlanToAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDYPLAN);
+            throw new CommandException(MESSAGE_DUPLICATE_STUDY_PLAN);
         }
 
         model.addStudyPlan(studyPlanToAdd);
@@ -68,7 +68,8 @@ public class CreateStudyPlanCommand extends Command {
 
         model.addToHistory();
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanName), true, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, studyPlanName, studyPlanToAdd.getIndex()),
+                true, false);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.storage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_ACTIVE_STUDY_PLAN;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -21,14 +23,10 @@ public class DeleteCommitCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the commit identified by the index number used in the displayed commit list.\n"
-            + "Parameters: STUDYPLAN_INDEX.COMMIT_INDEX (must be non-negative integers)\n"
+            + "Parameters: STUDY_PLAN_ID.COMMIT_INDEX (must be non-negative integers)\n"
             + "Example: " + COMMAND_WORD + " 1.3";
-
-    public static final String MESSAGE_NO_MORE_STUDYPLAN = "You don't have any study plan currently. Create now!";
     public static final String MESSAGE_SUCCESS = "Deleted commit: %1$s";
     public static final String MESSAGE_INVALID_COMMIT_INDEX = "The commit number you've entered is invalid.";
-    public static final String MESSAGE_NOT_ACTIVE_STUDY_PLAN = "The study plan index must be the active one!";
-
 
     private final int studyPlanIndex;
     private final int commitNumber;
@@ -46,12 +44,12 @@ public class DeleteCommitCommand extends Command {
 
         // if the current active study plan is null
         if (activeStudyPlan == null) {
-            return new CommandResult(MESSAGE_NO_MORE_STUDYPLAN);
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         // if the index entered is not the current active study plan
         if (studyPlanIndex != activeStudyPlan.getIndex()) {
-            return new CommandResult(MESSAGE_NOT_ACTIVE_STUDY_PLAN);
+            throw new CommandException(MESSAGE_NOT_ACTIVE_STUDY_PLAN);
         }
 
         try {
@@ -59,7 +57,7 @@ public class DeleteCommitCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS,
                     studyPlanIndex + "." + commitNumber));
         } catch (CommitNotFoundException e) {
-            return new CommandResult(MESSAGE_INVALID_COMMIT_INDEX);
+            throw new CommandException(MESSAGE_INVALID_COMMIT_INDEX);
         }
     }
 

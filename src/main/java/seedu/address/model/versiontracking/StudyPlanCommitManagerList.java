@@ -10,6 +10,8 @@ import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFo
  * Represents a list of {@code StudyPlanCommitManager}.
  */
 public class StudyPlanCommitManagerList {
+    private static final String EMPTY_COMMIT = "empty commit";
+
     private List<StudyPlanCommitManager> studyPlanCommitManagers;
 
     public StudyPlanCommitManagerList() {
@@ -35,20 +37,15 @@ public class StudyPlanCommitManagerList {
      * Deletes the StudyPlanCommitManager according to the index given.
      */
     public void delete(int index) throws StudyPlanCommitManagerNotFoundException {
-        boolean managerExists = false;
+        StudyPlanCommitManager managerToRemove = null;
         for (StudyPlanCommitManager manager : studyPlanCommitManagers) {
             if (manager.getStudyPlanIndex() == index) {
-                studyPlanCommitManagers.remove(manager);
-                managerExists = true;
+                managerToRemove = manager;
             }
         }
-
-        // commented out because some study plans may not have commit manager if the user has not commited at all.
-        /*
-        if (!managerExists) {
-            throw new StudyPlanCommitManagerNotFoundException();
+        if (managerToRemove != null) {
+            studyPlanCommitManagers.remove(managerToRemove);
         }
-         */
     }
 
     /**
@@ -60,8 +57,7 @@ public class StudyPlanCommitManagerList {
         StudyPlanCommitManager managerToReturn = getManagerByStudyPlanIndex(studyPlanIndex);
 
         if (managerToReturn == null) {
-            // TODO: change the commit message.
-            managerToReturn = new StudyPlanCommitManager(studyPlan, "empty commit");
+            managerToReturn = new StudyPlanCommitManager(studyPlan, EMPTY_COMMIT);
         }
 
         return managerToReturn;

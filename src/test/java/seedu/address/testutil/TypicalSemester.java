@@ -29,13 +29,13 @@ public class TypicalSemester {
     public static final Semester EMPTY_SEMESTER_8 = new Semester(SemesterName.Y4S2);
     private static List<Module> typicalMods1 = typicalModuleList();
     public static final Semester FULL_UNBLOCKED_SEMESTER_1 =
-            new Semester(SemesterName.Y1S1, false, "", typicalMods1);
+            new Semester(SemesterName.Y1S1, false, "", typicalMods1, true);
     private static List<Module> typicalMods2 = typicalModuleList3();
     public static final Semester FULL_UNBLOCKED_SEMESTER_1_WITH_CS1101S =
-            new Semester(SemesterName.Y1S1, false, "", typicalMods2);
+            new Semester(SemesterName.Y1S1, false, "", typicalMods2, true);
     private static List<Module> typicalMods3 = typicalModuleList2();
     public static final Semester FULL_UNBLOCKED_SEMESTER_2 =
-            new Semester(SemesterName.Y1S2, false, "", typicalMods3);
+            new Semester(SemesterName.Y1S2, false, "", typicalMods3, true);
 
     /**
      * Generate a list of modules for testing.

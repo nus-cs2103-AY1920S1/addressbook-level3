@@ -25,6 +25,7 @@ class JsonAdaptedSemester {
     private final boolean isBlocked;
     private final String reasonForBlocked;
     private final List<JsonAdaptedSkeletalModule> modules = new ArrayList<>();
+    private final boolean isExpanded;
 
     /**
      * Constructs a {@code JsonAdaptedSemester} with the given {@code semesterName}.
@@ -33,13 +34,15 @@ class JsonAdaptedSemester {
     public JsonAdaptedSemester(@JsonProperty("semesterName") String semesterName,
                                @JsonProperty("isBlocked") boolean isBlocked,
                                @JsonProperty("reasonForBlocked") String reasonForBlocked,
-                               @JsonProperty("modules") List<JsonAdaptedSkeletalModule> modules) {
+                               @JsonProperty("modules") List<JsonAdaptedSkeletalModule> modules,
+                               @JsonProperty("isExpanded") boolean isExpanded) {
         this.semesterName = semesterName;
         this.isBlocked = isBlocked;
         this.reasonForBlocked = reasonForBlocked;
         if (modules != null) {
             this.modules.addAll(modules);
         }
+        this.isExpanded = isExpanded;
     }
 
     /**
@@ -49,24 +52,13 @@ class JsonAdaptedSemester {
         semesterName = source.getSemesterName().toString();
         isBlocked = source.isBlocked();
         reasonForBlocked = source.getReasonForBlocked();
+        isExpanded = source.isExpanded();
 
         Iterator<Module> iterator = source.getModules().iterator();
         while (iterator.hasNext()) {
             Module module = iterator.next();
             // only store module ID i.e. module code as String
             String moduleCode = module.getModuleCode().value;
-
-            /*
-            List<JsonAdaptedTag> userTags = new ArrayList<>();
-            Iterator<Tag> tagIterator = module.getTags().iterator();
-            while (tagIterator.hasNext()) {
-                Tag tag = tagIterator.next();
-                if (tag instanceof UserTag) {
-                    userTags.add(new JsonAdaptedTag(tag));
-                }
-            }
-             */
-
             modules.add(new JsonAdaptedSkeletalModule(moduleCode));
         }
     }
@@ -88,6 +80,6 @@ class JsonAdaptedSemester {
             modelModules.add(skeletalModule.toModelType());
         }
 
-        return new Semester(modelSemesterName, isBlocked, reasonForBlocked, modelModules);
+        return new Semester(modelSemesterName, isBlocked, reasonForBlocked, modelModules, isExpanded);
     }
 }
