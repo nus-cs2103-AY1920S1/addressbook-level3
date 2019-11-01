@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Picture;
 import seedu.address.model.task.TaskTime;
 
 
@@ -19,8 +19,8 @@ import seedu.address.model.task.TaskTime;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Picture("pop.jpg")),
-            new Person(new Name("Bernice Yu"), new Picture("test.jpg"))
+            new Person(new Name("Alex Yeoh"), new ClassId("CS1231")),
+            new Person(new Name("Bernice Yu"), new ClassId("CS2100"))
         };
     }
 
