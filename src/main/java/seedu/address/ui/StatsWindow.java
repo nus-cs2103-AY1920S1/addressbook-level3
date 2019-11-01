@@ -6,10 +6,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.logging.Logger;
 
 import javafx.scene.Scene;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -66,9 +64,12 @@ public class StatsWindow extends UiPart<Stage> {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
+        final LineChart<String, Number> lc = new LineChart<>(xAxis, yAxis);
         bc.setTitle("STATISTICS");
+        lc.setTitle("STATS");
         xAxis.setLabel("Rating");
         yAxis.setLabel("Number of FlashCards");
+
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Total");
         series1.getData().add(new XYChart.Data(good, numGood));
@@ -81,8 +82,25 @@ public class StatsWindow extends UiPart<Stage> {
         series2.getData().add(new XYChart.Data(hard, statsB));
         series2.getData().add(new XYChart.Data(easy, statsC));
 
-        Scene scene = new Scene(bc, 800, 600, Color.BLACK);
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Total");
+        series3.getData().add(new XYChart.Data(good, numGood));
+        series3.getData().add(new XYChart.Data(hard, numHard));
+        series3.getData().add(new XYChart.Data(easy, numEasy));
+
+        XYChart.Series series4 = new XYChart.Series();
+        series4.setName("Completed in Test");
+        series4.getData().add(new XYChart.Data(good, statsA));
+        series4.getData().add(new XYChart.Data(hard, statsB));
+        series4.getData().add(new XYChart.Data(easy, statsC));
+
         bc.getData().addAll(series1, series2);
+        lc.getData().addAll(series3, series4);
+
+        FlowPane root = new FlowPane();
+        root.getChildren().addAll(bc, lc);
+        Scene scene = new Scene(root, 1000, 450);
+        stage.setTitle("KFC STATISTICS");
         stage.setScene(scene);
     }
 

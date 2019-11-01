@@ -38,7 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatsWindow statsWindow;
-    private LineChartWindow lineChartWindow;
     private CategoryListPanel categoryListPanel;
     private CalendarWindow calendarWindow;
 
@@ -77,7 +76,6 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statsWindow = new StatsWindow();
-        lineChartWindow = new LineChartWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -184,10 +182,8 @@ public class MainWindow extends UiPart<Stage> {
     public void handleStats() {
         if (!statsWindow.isShowing()) {
             statsWindow.show(logic.getModel());
-            lineChartWindow.show(logic.getModel());
         } else {
             statsWindow.focus();
-            lineChartWindow.focus();
         }
     }
 
