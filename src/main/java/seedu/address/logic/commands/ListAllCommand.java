@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 import seedu.address.model.Model;
 
 /**
- * Lists all flash cards in the address book to the user.
+ * Lists all flashcards in the address book to the user.
  */
 public class ListAllCommand extends Command {
 
