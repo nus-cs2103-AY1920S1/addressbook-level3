@@ -16,6 +16,7 @@
   <icons>
     <Image url="@/images/mams_32.png" />
   </icons>
+
   <scene>
     <Scene>
       <stylesheets>
@@ -28,6 +29,7 @@
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
+
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
@@ -46,34 +48,32 @@
           </padding>
         </StackPane>
 
-        <HBox fx:id="DisplayListsContainer" styleClass="pane-with-border" minWidth="340" prefHeight="3000" HBox.hgrow="ALWAYS">
+        <HBox fx:id="DisplayListsContainer" styleClass="pane-with-border" minWidth="340" prefHeight="1000" HBox.hgrow="ALWAYS">
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
 
-          <VBox fx:id="appealList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+          <VBox fx:id="appealList" styleClass="pane-with-border" minWidth="200" prefWidth="700" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="appealListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="moduleList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+          <VBox fx:id="moduleList" styleClass="pane-with-border" minWidth="200" prefWidth="700" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="studentList" styleClass="pane-with-border" minWidth="200" prefWidth="3000" VBox.vgrow="ALWAYS">
+          <VBox fx:id="studentList" styleClass="pane-with-border" minWidth="200" prefWidth="700" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="studentListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-
         </HBox>
-
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
