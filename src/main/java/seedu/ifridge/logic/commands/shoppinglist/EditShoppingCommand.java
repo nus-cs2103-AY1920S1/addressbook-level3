@@ -71,6 +71,7 @@ public class EditShoppingCommand extends Command {
             model.setShoppingItem(shoppingItemToEdit, editedShoppingItem);
             model.updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING_ITEMS);
             model.commitShoppingList();
+            model.commitBoughtList();
         }
         model.sortShoppingItems();
         CommandResult commandResult =

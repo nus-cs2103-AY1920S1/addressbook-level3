@@ -77,7 +77,8 @@ public class EditTemplateItemCommand extends Command {
         }
 
         UniqueTemplateItems templateToEdit = lastShownList.get(targetTemplateIndex.getZeroBased());
-        UniqueTemplateItems editedTemplate = templateToEdit;
+        UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
+        editedTemplate.setTemplateItems(templateToEdit);
 
         if (targetItemIndex.getZeroBased() >= templateToEdit.getSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);

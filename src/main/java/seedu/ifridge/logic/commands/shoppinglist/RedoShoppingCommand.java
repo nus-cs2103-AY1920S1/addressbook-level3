@@ -6,6 +6,7 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ReadOnlyGroceryList;
 import seedu.ifridge.model.ReadOnlyShoppingList;
 
 /**
@@ -27,6 +28,9 @@ public class RedoShoppingCommand extends Command {
 
         ReadOnlyShoppingList currShoppingList = model.redoShoppingList();
         model.setShoppingList(currShoppingList);
+        ReadOnlyGroceryList currBoughtList = model.redoBoughtList();
+        model.setBoughtList(currBoughtList);
+        model.sortShoppingItems();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

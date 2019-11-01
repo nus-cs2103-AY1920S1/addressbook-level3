@@ -15,7 +15,7 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.control.Label?>
-<fx:root minHeight="600" minWidth="1200.0" onCloseRequest="#handleExit" title="iFridge" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="700.0" onCloseRequest="#handleExit" title="iFridge" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -48,7 +48,7 @@
           </padding>
         </StackPane>
         <SplitPane dividerPositions="0.3492462311557789" focusTraversable="true" prefWidth="50.0">
-          <VBox fx:id="foodList" minWidth="200.0" prefWidth="200.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+          <VBox fx:id="foodList" minWidth="200.0" prefWidth="300.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
             <children>
                 <Label text="Grocery List" />
             </children>
@@ -57,11 +57,11 @@
             </padding>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
-          <TabPane fx:id="tabPane" minWidth="500.0" prefWidth="500.0">
+          <TabPane fx:id="tabPane" minWidth="400.0" prefWidth="500.0">
             <tabs>
               <Tab fx:id="templateListPage" style="-fx-background-color: #7db5bd;" text="Template List">
                 <SplitPane dividerPositions="0.3492462311557789" focusTraversable="true" prefWidth="50.0">
-                  <VBox fx:id="templateList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="templateList" minWidth="200" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <children>
                       <Label text="Template List" />
                     </children>
@@ -70,7 +70,7 @@
                     </padding>
                     <StackPane fx:id="templateListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   </VBox>
-                  <VBox fx:id="templateItem" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                  <VBox fx:id="templateItem" minWidth="200" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <children>
                       <Label text="Template Item" />
                     </children>
@@ -82,7 +82,7 @@
                 </SplitPane>
               </Tab>
               <Tab fx:id="wasteListPage" style="-fx-background-color: #7db5bd;" text="Waste List">
-                <VBox fx:id="wasteList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <VBox fx:id="wasteList" minWidth="200" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                   <children>
                     <Label text="Waste List" />
                   </children>
@@ -93,7 +93,7 @@
                 </VBox>
               </Tab>
               <Tab fx:id="shoppingListPage" style="-fx-background-color: #7db5bd;" text="Shopping List">
-                <VBox fx:id="shoppingList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <VBox fx:id="shoppingList" minWidth="200" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                   <children>
                     <Label text="Shopping List" />
                   </children>

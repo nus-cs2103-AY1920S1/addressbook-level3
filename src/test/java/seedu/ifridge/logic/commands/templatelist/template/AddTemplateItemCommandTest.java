@@ -524,6 +524,31 @@ public class AddTemplateItemCommandTest {
         }
 
         @Override
+        public void commitBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroceryList undoBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGroceryList redoBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoBoughtList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void commitShoppingList() {
             throw new AssertionError("This method should not be called.");
         }

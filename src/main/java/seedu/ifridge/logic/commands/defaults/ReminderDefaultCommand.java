@@ -31,7 +31,8 @@ public class ReminderDefaultCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         IFridgeSettings curr = new IFridgeSettings(remDefault);
         model.setIFridgeSettings(curr);
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, remDefault));
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, remDefault));
+        commandResult.setGroceryListCommand();
+        return commandResult;
     }
 }

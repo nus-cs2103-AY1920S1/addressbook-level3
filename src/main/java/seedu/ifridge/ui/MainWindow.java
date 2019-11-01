@@ -91,7 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         setAccelerators();
 
         helpWindow = new HelpWindow();
@@ -139,10 +139,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList(),
-                logic.getIFridgeSettings().getNumberOfDays());
-        personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
-
+        displayGroceryListPanel();
+        displayShoppingListPanel();
+        displayWasteListPanel();
         displayTemplateListPanel();
 
         resultDisplay = new ResultDisplay();
@@ -193,6 +192,17 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Displays the grocery list panel
+     */
+    @FXML
+    private void displayGroceryListPanel() {
+        groceryListPanel = new GroceryListPanel(logic.getFilteredGroceryItemList(),
+                logic.getIFridgeSettings().getNumberOfDays());
+        personListPanelPlaceholder.getChildren().add(groceryListPanel.getRoot());
+        logger.info("Showing grocery list panel.");
     }
 
     /**
@@ -277,6 +287,8 @@ public class MainWindow extends UiPart<Stage> {
                 displayShoppingListPanel();
             } else if (commandResult.isWasteReportCommand()) {
                 displayWasteReport(logic.getWasteReport());
+            } else if (commandResult.isReminderDefaultCommand()) {
+                displayGroceryListPanel();
             }
 
             return commandResult;

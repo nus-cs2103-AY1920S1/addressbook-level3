@@ -398,4 +398,13 @@ public interface Model {
      */
     void updateFilteredBoughtItemList(Predicate<GroceryItem> predicate);
 
+    void commitBoughtList();
+
+    ReadOnlyGroceryList undoBoughtList();
+
+    ReadOnlyGroceryList redoBoughtList();
+
+    boolean canUndoBoughtList();
+
+    boolean canRedoBoughtList();
 }

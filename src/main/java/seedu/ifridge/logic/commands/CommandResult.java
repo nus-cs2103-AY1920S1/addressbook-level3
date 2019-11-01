@@ -17,6 +17,7 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean isReminderDefaultCommand;
     private boolean isTemplateListItemCommand;
     private boolean isTemplateListCommand;
     private boolean isWasteListCommand;
@@ -50,6 +51,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isReminderDefaultCommand() {
+        return isReminderDefaultCommand;
+    }
+
+    public void setGroceryListCommand() {
+        isReminderDefaultCommand = true;
     }
 
     public boolean isTemplateListItemCommand() {
