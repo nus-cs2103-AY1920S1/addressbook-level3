@@ -37,7 +37,7 @@ import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.aesthetics.Background;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
-import sugarmummy.recmfood.exception.FoodNotSuitableException;
+import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
 
 /**
  * Provides the basic application layout containing a menu bar and space where other JavaFX elements can be placed.

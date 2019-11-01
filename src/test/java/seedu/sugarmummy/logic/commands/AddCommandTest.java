@@ -43,8 +43,8 @@ import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.record.Weight;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.time.DateTime;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 public class AddCommandTest {
 

@@ -27,9 +27,9 @@ import seedu.sugarmummy.model.bio.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.record.Record;
 import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.recmfood.model.Food;
 import seedu.sugarmummy.storage.Storage;
 import seedu.sugarmummy.ui.DisplayPaneType;
-import sugarmummy.recmfood.model.Food;
 
 /**
  * The main LogicManager of the app.
@@ -225,7 +225,6 @@ public class LogicManager implements Logic {
     public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap) {
         return model.currAchievementsMapIsSameAs(prevAchievementMap);
     }
-
 
 
 }
