@@ -1,6 +1,6 @@
 package seedu.algobase.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
 import java.nio.file.Path;
 
@@ -19,7 +19,9 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class IntegrationTest {
+public class AddFindRuleCommandIntegrationTest {
+
+    // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @TempDir
     public Path testFolder;
@@ -31,24 +33,18 @@ public class IntegrationTest {
     @BeforeEach
     public void setup() {
         ReadOnlyAlgoBase sampleAlgoBase = SampleDataUtil.getSampleAlgoBase();
-        JsonAlgoBaseStorage algoBaseStorage = new JsonAlgoBaseStorage(getTempFilePath("ab"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        JsonAlgoBaseStorage algoBaseStorage = new JsonAlgoBaseStorage(getTempFilePath(testFolder, "ab"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath(testFolder, "prefs"));
         storageManager = new StorageManager(algoBaseStorage, userPrefsStorage);
         modelManager = new ModelManager(sampleAlgoBase, new UserPrefs());
         logicManager = new LogicManager(modelManager, storageManager);
     }
 
-    private Path getTempFilePath(String fileName) {
-        return testFolder.resolve(fileName);
-    }
+    // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
-    public void find_namePredicateIsCaseInsensitive() throws CommandException, ParseException {
-        logicManager.execute("find n/Sequences");
-        assertEquals(1, logicManager.getProcessedProblemList().size());
-        assertEquals("Sequences", logicManager.getProcessedProblemList().get(0).getName().fullName);
-        logicManager.execute("find n/SEquENCEs");
-        assertEquals(1, logicManager.getProcessedProblemList().size());
-        assertEquals("Sequences", logicManager.getProcessedProblemList().get(0).getName().fullName);
+    public void addfindrule_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("addfindrule rule1 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 tag2");
+        logicManager.execute("afr rule2 n/name a/author d/des src/s diff/2.0-3.0 t/tag1 tag2");
     }
 }
