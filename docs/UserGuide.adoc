@@ -205,31 +205,61 @@ reject 1 (approves the first claim in the claim list)
 
 === Adding an income : `add_income`
 
-Adds an income to the income list +
+You can add an income to the incomes list by using the add income command by entering the keyword `add_income` followed by the required fields of an income.
 
 Keyword: `add_income`
 
-Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT date/DATE n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
 
-Examples:
+
+Example:
 
 ....
 add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing
 ....
 
+Result:
+
+This command will then add an income to the incomes list.
+
 === Editing an income : `edit_income`
 
-Edits an income on the income list +
+If you accidentally entered the wrong details of the income or you want to make changes to a entered income, you can edit an income by using the edit income command by entering the keyword `edit_income`
+followed by the position of the income in the incomes list, and the fields that you want to change.
 
 Keyword: `edit_income`
 
 Format: `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
 
+Example:
+
+....
+edit_income 2 d/Camp Fees a/1150.50
+....
+
+Result:
+
+This command will edit the description and amount fields in the second income in the list to the newly specified description and amount.
+
+=== Deleting an Income : `delete_income`
+
+You can delete an income off the incomes list by using the delete income command by entering the keyword `delete_income` followed by the position of the income in the incomes list.
+The specified index will be then deleted.
+
+Keyword: `delete_income`
+
+Format: `delete_income INDEX`
+
 Examples:
 
 ....
-edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP
+delete_income 1 (removes first income in the income list)
 ....
+
+* Deletes the income at the specified `INDEX`.
+* The index refers to the index number shown in the displayed income list.
+* The index *must be a positive integer* 1, 2, 3, ...
+
 
 === Checking a Person or Claim : `check`
 
@@ -276,23 +306,6 @@ delete_contact 1 (removes first person in the contact list)
 * The index *must be a positive integer* 1, 2, 3, ...
 
 
-=== Deleting an Income : `delete_income`
-
-Deletes an Income from the income list
-
-Keyword: `delete_income`
-
-Format: `delete_income INDEX`
-
-Examples:
-
-....
-delete_income 1 (removes first income in the income list)
-....
-
-* Deletes the income at the specified `INDEX`.
-* The index refers to the index number shown in the displayed income list.
-* The index *must be a positive integer* 1, 2, 3, ...
 
 === Viewing budget : `budget`
 
