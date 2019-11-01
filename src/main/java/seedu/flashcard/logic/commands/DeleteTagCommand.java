@@ -1,6 +1,7 @@
 package seedu.flashcard.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
@@ -36,6 +37,7 @@ public class DeleteTagCommand extends Command {
         }
         model.systemRemoveTag(target);
         model.commitFlashcardList();
+        model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
         return new CommandResult(MESSAGE_DELETE_TAG_SUCCESS);
     }
 }
