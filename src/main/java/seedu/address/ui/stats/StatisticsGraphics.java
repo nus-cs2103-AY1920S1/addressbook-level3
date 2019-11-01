@@ -17,7 +17,7 @@ import seedu.address.ui.UiPart;
  */
 public class StatisticsGraphics extends UiPart<Region> {
 
-    private static final String FXML = "/statistics/StatisticsChart.fxml";
+    private static final String FXML = "statistics/StatisticsChart.fxml";
     private final Logger logger = LogsCenter.getLogger(StatisticsGraphics.class);
     private final StatisticsPieChart expenseChart;
     private final StatisticsPieChart incomeChart;
