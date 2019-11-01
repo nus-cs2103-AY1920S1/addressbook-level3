@@ -88,7 +88,7 @@ public class Statistics {
             }
         }
 
-        average = Math.round(average / LocalDate.now().lengthOfMonth());
+        average = Math.round(average / ((double) LocalDate.now().lengthOfMonth()));
 
         return new Statistics(maximum, minimum, average,
                 calorieExceedCount, mostConsumedDishes, pieChartData, calorieChartData);

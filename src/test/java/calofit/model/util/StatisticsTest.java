@@ -30,11 +30,11 @@ public class StatisticsTest {
 
         Statistics test = Statistics.generateStatistics(mockMealLog, mockCalorieBudget);
 
-        assertEquals(test.getAverage(), (
+        assertEquals(test.getAverage(), Math.round(((double)(
                 TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                         + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
-                        + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue())
-                / LocalDate.now().lengthOfMonth());
+                        + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue()))
+                / ((double)LocalDate.now().lengthOfMonth())));
 
         assertEquals(test.getMaximum(),
                  TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
