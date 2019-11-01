@@ -63,6 +63,7 @@ public class ApproveCommand extends Approve {
             Module editedModule;
             String feedback = "";
             String target = "";
+            String type = "";
             String moduleCode;
 
             List<Student> lastShownStudentList = model.getFilteredStudentList();
@@ -90,7 +91,7 @@ public class ApproveCommand extends Approve {
                 model.setStudent(studentToEdit, editedStudent);
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
                 feedback += MESSAGE_CREDIT_CHANGE_SUCCESS;
-                target += studentToEditId;
+                target += appealToApprove.getStudentWorkload();
 
             } else if (appealType.equalsIgnoreCase("Drop module")) {
                 moduleCode = appealToApprove.getModuleToDrop();
@@ -248,14 +249,14 @@ public class ApproveCommand extends Approve {
             model.setAppeal(appealToApprove, approvedAppeal);
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
             return new CommandResult(
-                    generateSuccessMessage(approvedAppeal, feedback, target));
+                    generateSuccessMessage(approvedAppeal, feedback, target, type));
         } else {
             return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
         }
 
     }
 
-    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target) {
+    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target, String type) {
         return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target);
     }
 
