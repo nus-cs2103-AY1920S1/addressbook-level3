@@ -57,6 +57,8 @@ public class EditEventCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the event book.";
     public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
+    public static final String MESSAGE_INVALID_MANPOWER_COUNT_NEEDED = "Invalid manpower count needed. Free some"
+            + " employees before executing this command again!";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
@@ -91,6 +93,10 @@ public class EditEventCommand extends Command {
 
         if (editedEvent.getStartDate().compareTo(editedEvent.getEndDate()) > 0) {
             throw new CommandException(MESSAGE_INVALID_DATES);
+        }
+
+        if (editedEvent.getManpowerNeeded().value < editedEvent.getCurrentManpowerCount()) {
+            throw new CommandException(MESSAGE_INVALID_MANPOWER_COUNT_NEEDED);
         }
 
         if (!eventToEdit.isSameEvent(editedEvent) && model.hasEvent(editedEvent)) {
