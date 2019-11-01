@@ -3,8 +3,6 @@ package seedu.deliverymans.ui;
 import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.deliverymans.logic.commands.CommandResult;
