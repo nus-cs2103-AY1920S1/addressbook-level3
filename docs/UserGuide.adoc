@@ -374,7 +374,7 @@ For the following fields, certain restrictions are put in place:
 * Name: Can contain only alphabets and spaces
 * NRIC: Can contain only alphanumeric characters
 * Gender: Can contain only alphanumeric characters
-* DOB: Can only be in the format DD/MM/YYYY and represent a valid date (valid day depends on month and presence of leap years)
+* DOB: Can only be in the format YYYY-MM-DD and represent a valid date (valid day depends on month and presence of leap years)
 * Contact Number or Emergency Contact: Can contain only numbers of at least 3 digits in length
 * DP Path: Has to be a valid path pointing to image eg. `dp//Users/bob/Desktop/doge.png`. This also works on windows
 (with double backslash instead of forward slash in the path). The image must be able to load (i.e. not corrupted or a
@@ -508,7 +508,7 @@ than `a/exampleAddress m/test` is. Ultimately, the user has a balance of conveni
 Examples of *VALID* `editbio` commands, provided that a biography exists, include:
 
 * `editbio desc/hello world n/testName nric/testNric gender/testGender dob/12/12/2019 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
-* `editbio dob/28/12/2019`
+* `editbio dob/2019-12-28`
 * `editbio p/1234567 p/23456789`
 * `editbio p/1/234567 p/2/3456789`
 * `editbio m/medicalCondition1 m/medicalCondition2 m/medicalCondition3 m/medicalCondition4`

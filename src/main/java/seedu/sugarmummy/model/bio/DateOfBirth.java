@@ -10,10 +10,10 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 public class DateOfBirth {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should be in the format DD/MM/YYYY, should only contain numbers. "
+            "Date should be in the format YYYY-MM-DD, should only contain numbers. "
                     + "Please also check that the number of days in a month (including those for leap years), "
                     + "and the number of months in a year are correct.";
-    public static final String VALIDATION_REGEX = "^$|^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+    public static final String VALIDATION_REGEX = "^$|^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9])$";
     public final String dateOfBirth;
 
     /**
@@ -61,7 +61,7 @@ public class DateOfBirth {
      * @return An integer array with integers representing day, month and year respectively.
      */
     private static int[] getDateToken(String dateString) {
-        String[] dateTokens = dateString.split("/");
+        String[] dateTokens = dateString.split("-");
         if (dateTokens.length != 3) {
             return null;
         }
@@ -71,9 +71,9 @@ public class DateOfBirth {
         int year = 0;
 
         try {
-            day = Integer.parseInt(dateTokens[0]);
+            day = Integer.parseInt(dateTokens[2]);
             month = Integer.parseInt(dateTokens[1]);
-            year = Integer.parseInt(dateTokens[2]);
+            year = Integer.parseInt(dateTokens[0]);
 
             if (day < 0 || month < 0 || month > 12 || year < 0) {
                 return null;
