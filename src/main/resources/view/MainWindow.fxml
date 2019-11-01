@@ -39,21 +39,6 @@
           </Menu>
         </MenuBar>
 
-        <VBox minHeight="120">
-          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                     minHeight="75" prefHeight="75" maxHeight="75">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
-
-          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
-        </VBox>
-
         <GridPane VBox.vgrow="SOMETIMES">
           <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" percentWidth="30"/>
@@ -66,6 +51,20 @@
                       GridPane.columnIndex="1" GridPane.rowIndex="0"/>
         </GridPane>
         <!-- <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" /> !-->
+
+        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                   minHeight="75" prefHeight="75" maxHeight="75">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
       </VBox>
     </Scene>
   </scene>
