@@ -1,4 +1,4 @@
-= NUStudy User Guide
+= NUStudy user guide
 :site-section: UserGuide
 :toc:
 :toc-title:
