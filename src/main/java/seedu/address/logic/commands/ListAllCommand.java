@@ -12,7 +12,7 @@ public class ListAllCommand extends Command {
 
     public static final String COMMAND_WORD = "listall";
 
-    public static final String MESSAGE_SUCCESS = "Listed all Flash Cards";
+    public static final String MESSAGE_SUCCESS = "Listed all FlashCard(s)";
 
 
     @Override

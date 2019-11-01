@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 public class StatsCommand extends Command {
 
     public static final String COMMAND_WORD = "stats";
-    public static final String MESSAGE_USAGE = "Displays the number of GOOD, HARD & EASY FlashCards";
+    public static final String MESSAGE_USAGE = "Displays the number of good, hard & easy FlashCards";
 
     /**
      * Should return a CommandResult with the statistics

@@ -27,7 +27,7 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your flashcards into a file, "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your FlashCards into a file, "
             + "for easy sharing or use as a cheat sheet.\n"
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY "
