@@ -417,11 +417,10 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 ==== Creating a Quiz manually: `manual`
 
 Allows a user to create a quiz manually. +
+[NOTE]
 Format: `quiz manual quizID/... questionNumber/...`
 
-```
 The format supported by this feature includes:
-```
 
 . `Quiz ID` (The label of the quiz)
 . `Question Numbers` (The question numbers you want to add to the quiz)
@@ -437,6 +436,7 @@ Allows a user to create a quiz automatically. +
 [NOTE] 
 The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
 
+[NOTE]
 Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
@@ -453,6 +453,7 @@ Adds 2 questions of type mcq to the quiz labelled CS2103T.
 ==== Adding a Question to a Quiz: `add`
 
 Allows a user to add a question to a quiz. +
+[NOTE]
 Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
@@ -469,6 +470,7 @@ Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
 ==== Deleting a Question from a Quiz: `delete`
 
 Allows a user to delete a question from a quiz. +
+[NOTE]
 Format: `quiz delete quizID/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
@@ -484,6 +486,7 @@ Deletes the quiz question number 3 for the quiz labelled CS2103T.
 ==== Exporting a Quiz to HTML: `export`
 
 Allows a user to export a quiz to a formatted HTML file. +
+[NOTE]
 Format: `quiz export quizID/...`
 
 The format supported by this feature includes:
@@ -498,6 +501,7 @@ Exports the quiz labelled CS2103T to a formatted HTML file.
 ==== Listing a Quiz: `list`
 
 Allows a user to list a quiz's questions and answers. +
+[NOTE]
 Format: `quiz list quizID/...`
 
 The format supported by this feature includes:
@@ -512,6 +516,7 @@ Lists the questions and answers for the quiz labelled CS2103T.
 ==== Showing only a Quiz's Questions: `showQuestions`
 
 Allows a user to show only a quiz's questions. +
+[NOTE]
 Format: `quiz showQuestions quizID/...`
 
 The format supported by this feature includes:
@@ -526,6 +531,7 @@ Shows only the questions for the quiz labelled CS2103T.
 ==== Showing only a Quiz's Answers: `showAnswers`
 
 Allows a user to show only a quiz's answers. +
+[NOTE]
 Format: `quiz showAnswers quizID/...`
 
 The format supported by this feature includes:
