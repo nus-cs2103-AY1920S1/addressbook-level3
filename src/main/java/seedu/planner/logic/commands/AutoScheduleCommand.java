@@ -39,9 +39,9 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_INVALID_SCHEDULE = "Unable to generate a schedule"
             + " with no overlapping activitiies";
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activities successfully scheduled.";
-    public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with the this tag [%s] not found";
-    public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with the this name [%s] not found";
-    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address [%s] not found";
+    public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with the this tag %s not found";
+    public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with the this name %s not found";
+    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address %s not found";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
@@ -59,6 +59,7 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "Schedule for the day(s) generated!";
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
     public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
+    public static final LocalTime DEFAULT_END_TIME = LocalTime.parse("0000", TIME_FORMATTER);
 
     private List<Object> draftSchedule;
     private Address address;
@@ -151,9 +152,16 @@ public class AutoScheduleCommand extends UndoableCommand {
                 //Checks if duration exceed the next timing if any
                 for (ActivityWithCount activityWithCount : activitiesWithCount) {
                     int duration = activityWithCount.getActivity().getDuration().value;
+                    LocalTime currentTiming = timeSchedule.get(i);
+                    LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
+                    int currentTime = currentTiming.getHour() * 1000 + currentTiming.getMinute();
+                    int nextTime = currentActivityEndTime.getHour() * 1000 + currentActivityEndTime.getMinute();
 
                     //The last activity do not have to worry about overlap with another activity
                     if (i == draftSchedule.size() - 1) {
+                        if (nextTime - currentTime < 0) {
+                            break;
+                        }
                         isScheduled = true;
                         activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i), duration,
                                 activityWithCount.getActivity()));
@@ -161,10 +169,11 @@ public class AutoScheduleCommand extends UndoableCommand {
                     }
                     //find the next timing if any given by user
                     int nextTimingIndex = -1;
-                    LocalTime currentTiming = timeSchedule.get(i);
+
                     for (int k = i + 1; k < timeSchedule.size(); k++) {
                         if (timeSchedule.get(k) != null) {
                             nextTimingIndex = k;
+                            break;
                         }
                     }
                     // No timing is given by user for the entire autoschedule command
@@ -177,7 +186,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                         //check next timing does not overlap
                     } else {
                         LocalTime startTimeOfNextActivity = timeSchedule.get(nextTimingIndex);
-                        LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
+
                         if (startTimeOfNextActivity.compareTo(currentActivityEndTime) >= 0) {
                             isScheduled = true;
                             activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i),
