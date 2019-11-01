@@ -99,6 +99,15 @@ public class UniqueStudentList implements Iterable<Student> {
     }
 
     /**
+     * Gets student with specific index number
+     * @param index Index number of student
+     * @return Student with the index number.
+     */
+    public Student getStudent(int index) {
+        return internalList.get(index);
+    }
+
+    /**
      * Removes student with a specified index.
      *
      * @param index Index that was specified.

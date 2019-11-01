@@ -1,6 +1,7 @@
 package seedu.address.model.group;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 import seedu.address.storage.export.ExportWordDoc;
@@ -87,5 +88,20 @@ public class Group {
         String studentsFormatted = this.getStudentsFormatted();
         ExportWordDoc exportWordDoc = new ExportWordDoc(this.groupId, studentsFormatted);
         exportWordDoc.saveExport();
+    }
+
+    /**
+     * Check if student exists in group.
+     * @param student Student to check
+     * @return True if student exists in the group.
+     */
+    public boolean checkStudentExist(Student student) {
+        Name name = student.getName();
+        for (Student checkStudent : studentList) {
+            if(checkStudent.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

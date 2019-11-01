@@ -22,6 +22,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
             + "Example: studentNumber/ 1 3 5 (Adds students 1, 3 and 5 in the student list to the group)\n"
             + "Full Example: group manual/ groupID/G01 studentNumber/1 2 3 --> adds student 1,2 and 3 to group G01\n\n";
 
+    private static final String GROUP_ALREADY_EXISTS = "Group with group ID %1$s already exists";
     private final String groupId;
     private final ArrayList<Integer> studentNumbers;
 
@@ -53,6 +54,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_ALREADY_EXISTS,groupId));
+        }
         model.createGroupManually(groupId, studentNumbers);
         return new CommandResult(generateSuccessMessage());
     }

@@ -257,6 +257,14 @@ public class ModelManager implements Model {
     //region Students
 
     /**
+     * Gets student with specific index number.
+     * @param indexNumber Index number of student.
+     * @return Student with index number specified.
+     */
+    public Student getStudent(int indexNumber) {
+        return studentRecord.getStudent(indexNumber);
+    }
+    /**
      * Checks if the student list has a particular student.
      *
      * @param student Student to be checked.
@@ -416,6 +424,25 @@ public class ModelManager implements Model {
         }
         return groupExists;
     }
+
+    /**
+     * Check if student already exists in group.
+     * @param groupId Group id of the group.
+     * @param student Student to check.
+     * @return True if student exists in thr group.
+     */
+    public boolean checkStudentExistInGroup(String groupId, Student student) {
+        ArrayList<Group> groupArrayList = groupList.getGroupList();
+        Group queriedGroup = null;
+        for (Group group: groupArrayList) {
+            if (group.getGroupId().equals(groupId)){
+                queriedGroup = group;
+                break;
+            }
+        }
+        return queriedGroup.checkStudentExist(student);
+    }
+
 
     /**
      * Exports group to word document
