@@ -276,11 +276,21 @@ Examples:
 === Undo: `undo`
 
 Undo by one action +
-Format: `undo`
+Format: `undo` +
+List of Undoable commands:
+
+* add activity/accommodation/contact/day
+* delete activity/accommodation/contact/day
+* edit activity/accommodation/contact
+* schedule
+* unschedule
+* optimise
+* autoschedule
+* clear
 
 === Redo: `redo`
 
-Redo by one action +
+Redo by one action. Any undoable command is able to be redone. +
 Format: `redo`
 
 === Look up history of inputs: `history`[Work in progress]
