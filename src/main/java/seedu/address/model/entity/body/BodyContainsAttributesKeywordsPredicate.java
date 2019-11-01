@@ -265,7 +265,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
      */
     public void addBodyStatusToBodyMap(Body body) {
         try {
-            if (body.getBodyStatus().isEmpty()) {
+            if (body.getNextOfKin().isEmpty()) {
                 bodyMap.put(PREFIX_STATUS, "");
             } else {
                 bodyMap.put(PREFIX_STATUS, body.getBodyStatus().get().toString());
