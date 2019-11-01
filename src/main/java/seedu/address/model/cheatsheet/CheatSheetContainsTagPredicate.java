@@ -18,8 +18,14 @@ public class CheatSheetContainsTagPredicate implements Predicate<CheatSheet> {
     // test on the flashcard to see if he has the tag
     @Override
     public boolean test(CheatSheet cheatSheet) {
-        return tags.stream()
-                .allMatch(cheatSheet::containsTag);
+        boolean boo;
+        if (tags.isEmpty()) {
+            boo = false;
+        } else {
+            boo = tags.stream()
+                    .allMatch(cheatSheet::containsTag);
+        }
+        return boo;
     }
 
     @Override

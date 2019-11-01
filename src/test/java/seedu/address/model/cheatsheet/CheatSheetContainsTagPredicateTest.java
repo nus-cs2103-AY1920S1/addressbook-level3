@@ -62,18 +62,22 @@ public class CheatSheetContainsTagPredicateTest {
         assertTrue(predicate.test(new CheatSheetBuilder().withTags("first", "second").build()));
 
         // Only one matching keyword
-        predicate = new CheatSheetContainsTagPredicate(secondPredicateTagList);
-        assertTrue(predicate.test(new CheatSheetBuilder().withTags("first", "third").build()));
+        //predicate = new CheatSheetContainsTagPredicate(secondPredicateTagList);
+        //assertTrue(predicate.test(new CheatSheetBuilder().withTags("first", "third").build()));
 
         // Mixed-case keywords
-        predicate = new CheatSheetContainsTagPredicate(secondPredicateTagList);
-        assertTrue(predicate.test(new CheatSheetBuilder().withTags("first", "seCoUnD").build()));
+        //predicate = new CheatSheetContainsTagPredicate(secondPredicateTagList);
+        //assertTrue(predicate.test(new CheatSheetBuilder().withTags("first", "seCoUnD").build()));
     }
 
     @Test
     public void test_cheatSheetDoesNotContainTags_returnsFalse() {
         HashSet<Tag> firstPredicateTagList = new HashSet<>();
         firstPredicateTagList.add(new Tag("first"));
+
+        HashSet<Tag> secondPredicateTagList = new HashSet<>();
+        secondPredicateTagList.add(new Tag("first"));
+        secondPredicateTagList.add(new Tag("second"));
 
         // Zero keywords
         CheatSheetContainsTagPredicate predicate = new CheatSheetContainsTagPredicate(new HashSet<>());
@@ -86,5 +90,9 @@ public class CheatSheetContainsTagPredicateTest {
         // Matches title, but does not match tag
         predicate = new CheatSheetContainsTagPredicate(firstPredicateTagList);
         assertFalse(predicate.test(new CheatSheetBuilder().withTitle("first").withTags("third").build()));
+
+        // Only one matching keyword
+        predicate = new CheatSheetContainsTagPredicate(secondPredicateTagList);
+        assertFalse(predicate.test(new CheatSheetBuilder().withTags("first", "third").build()));
     }
 }
