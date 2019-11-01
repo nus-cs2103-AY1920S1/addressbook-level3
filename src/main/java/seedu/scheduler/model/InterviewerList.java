@@ -31,6 +31,7 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         resetData(book);
     }
 
+
     /**
      * Adds the interviewer to the book. The interviewer must be unique.
      * @throws DuplicatePersonException if the interviewer already exists in the book.
@@ -88,6 +89,8 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
         requireNonNull(book);
         this.interviewers.setPersons(book.getEntityList());
     }
+
+
 
     @Override
     public String toString() {

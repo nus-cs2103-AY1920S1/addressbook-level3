@@ -77,19 +77,35 @@ The templates for the import commands can be found here:
 After you have imported the data, you will need to type `clear` to clear the imported data before you can import another interviewer's
 availability or interviewees details .csv file.
 
+[NOTE]
+* The duration of each timeslot is set as 30mins long in the UserPrefs. Will allow user to edit UserPrefs in v1.4.
+* Data to be imported should only be in english and should strictly follow the format of the templates given above.
+
 ==== Importing interviewers’ availability
 Imports interviewers’ availability from a comma separated values (CSV) file.
+
+* A "1" in a timeslot represents AVAILABLE and "0" represents UNAVAILABLE.
+* The headers should also be in the format `DEPARTMENT - INTERVIEWER'S_NAME`.
+* Each timeslot should also be in the format `HH:mm - HH:mm`.
+
+[Note]
+The schedule displayed will only show timeslots from 10:00 to 21:00 daily.
 
 Format: `import interviewer PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
     - E.g C:\\Users\Bob\file.csv
+
+
 
 Example:
 
  import interviewer C:\Users\johndoe\Interviewers.csv
 
 ==== Importing interviewees’ availability
-Imports interviewees’ availability from a comma separated values (CSV) file. +
+Imports interviewees’ availability from a comma separated values (CSV) file.
+
+* Each timeslot should be in the format `HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
+
 Format: `import interviewee PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
     - E.g C:\\Users\Bob\file.csv

@@ -27,8 +27,6 @@ public interface Model {
 
     // ==================================IntervieweeList and InterviewerList ======================================
 
-    void setEmptyScheduleList() throws ParseException;
-
     List<Schedule> getEmptyScheduleList();
 
     /**
@@ -184,6 +182,11 @@ public interface Model {
 
     // ============================================ Schedule ===================================================
 
+    /**
+     * Generates a list of schedules from the current list of interviewers.
+     * @throws ParseException
+     */
+    void setEmptyScheduleList() throws ParseException;
     /**
      * Adds an interviewer to one of the schedules if the interviewer's availability fall within those schedules
      * and returns true. Otherwise, the method will not addEntity the interviewer and return false.

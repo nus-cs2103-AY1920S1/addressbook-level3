@@ -33,6 +33,7 @@ import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
 
+
 /**
  * Represents the in-memory model of the schedule table data.
  */
@@ -390,6 +391,7 @@ public class ModelManager implements Model {
 
     /**
      * Replaces schedule data with the data in {@code schedule}.
+     * @param list
      */
     @Override
     public void setSchedulesList(List<Schedule> list) {
