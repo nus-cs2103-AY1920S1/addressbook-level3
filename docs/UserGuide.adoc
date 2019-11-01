@@ -116,7 +116,7 @@ Format: add `r/interviewee` `n/NAME` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERS
 
 Example:
 
- add r/interviewee n/John Doe p/88888888 t/CAP5 t/dog lover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
+ add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
 
 * An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
 * Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
@@ -132,7 +132,7 @@ Example:
 
  add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
 
-=== Edit interviewees/interviewers
+=== Edit interviewees/interviewers `edit` `[Coming in v2.0]`
 Manually edit an entity in the database.
 
 Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_WORK_EMAIL y/YEAR_OF_STUDY [d/DEPARTMENT]... [s/SLOT]...`
@@ -143,7 +143,7 @@ Format: `edit NAME r/ROLE p/PHONE [t/TAG]... f/FACULTY ep/PERSONAL_EMAIL ew/NUS_
 ** If `interviewee` is supplied, refer to "Edit an existing interviewee" below.
 ** If `interviewer` is supplied, refer to "Edit an existing interviewer" below.
 
-==== Edit an existing interviewee
+==== Edit an existing interviewee `[Coming in v2.0]`
 Manually edit an existing interviewee in the database.
 
 Format: edit `NAME` `r/interviewee` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSONAL_EMAIL` `ew/NUS_WORK_EMAIL` `y/YEAR_OF_STUDY`
@@ -151,7 +151,7 @@ Format: edit `NAME` `r/interviewee` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERSO
 
 * `NAME` and `r/interviewee` are compulsory arguments, and one other argument following `r/interviewee` must be present.
 
-==== Edit an existing interviewer (interview slot)
+==== Edit an existing interviewer (interview slot) `[Coming in v2.0]`
 Manually edit an existing interviewer in the database.
 
 Format: edit `NAME` `r/interviewer` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NUS_WORK_EMAIL` `s/SLOT...`
@@ -160,6 +160,8 @@ Format: edit `NAME` `r/interviewer` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/NU
 Manually delete an entity from the database.
 
 Format: `delete NAME r/ROLE`
+
+* Scheduler guarantees there cannot be multiple interviewees or interviewers with the same name.
 
 ==== Delete an existing interviewee
 Deletes the specified interviewee from the database.

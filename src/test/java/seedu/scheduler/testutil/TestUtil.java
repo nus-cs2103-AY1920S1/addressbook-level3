@@ -4,13 +4,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
+import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.EditIntervieweeCommand.EditIntervieweeDescriptor;
 import seedu.scheduler.logic.commands.EditInterviewerCommand.EditInterviewerDescriptor;
 import seedu.scheduler.logic.graph.IntervieweeVertex;
+import seedu.scheduler.logic.parser.ParserUtil;
+import seedu.scheduler.logic.parser.exceptions.ParseException;
+import seedu.scheduler.model.person.Email;
+import seedu.scheduler.model.person.EmailType;
+import seedu.scheduler.model.person.Emails;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 
@@ -53,6 +62,9 @@ public class TestUtil {
         return e;
     }
 
+    /**
+     * Returns the interviewer descriptor with details from the Interviewer {@code i}.
+     */
     public static EditInterviewerDescriptor getDescriptorFromInterviewer(Interviewer i) {
         EditInterviewerDescriptor e = new EditInterviewerDescriptor();
         e.setName(i.getName());
@@ -61,6 +73,27 @@ public class TestUtil {
         e.setAvailabilities(i.getAvailabilities());
         e.setEmail(i.getEmail());
         return e;
+    }
+
+    /**
+     * Returns a deep copy of the given {@code emails}.
+     */
+    public static Emails deepCopyEmails(Emails emails) {
+        HashMap<EmailType, List<Email>> map = emails.getAllEmails();
+        HashMap<EmailType, List<Email>> deepCopy = new HashMap<>();
+        try {
+            for (Map.Entry<EmailType, List<Email>> entry: map.entrySet()) {
+                EmailType type = entry.getKey();
+                List<Email> newList = new ArrayList<>();
+                for (Email e: entry.getValue()) {
+                    newList.add(ParserUtil.parseEmail(e.value));
+                }
+                deepCopy.put(type, newList);
+            }
+        } catch (ParseException e) {
+            throw new AssertionError(Messages.MESSAGE_CRITICAL_ERROR);
+        }
+        return new Emails(deepCopy);
     }
 
     /**

@@ -55,7 +55,7 @@ public class IntervieweeBuilder extends PersonBuilder {
         yearOfStudy = i.getYearOfStudy();
         departmentChoices = i.getDepartmentChoices();
         allocatedTimeslots = i.getAvailableTimeslots();
-        emails = i.getEmails();
+        emails = TestUtil.deepCopyEmails(i.getEmails());
     }
 
     /**

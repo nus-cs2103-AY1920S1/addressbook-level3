@@ -48,7 +48,7 @@ public class TypicalPersons {
 
     // Typical Interviewees
     public static final Interviewee ALICE_INTERVIEWEE = new IntervieweeBuilder(ALICE).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HeyThere@gmail.com")
             .withNusWorkEmail("Heyo@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee BENSON_INTERVIEWEE = new IntervieweeBuilder(BENSON).withFaculty("Engineering")
             .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")

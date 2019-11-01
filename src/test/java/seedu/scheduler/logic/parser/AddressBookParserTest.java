@@ -19,6 +19,8 @@ import seedu.scheduler.logic.commands.AddCommand;
 import seedu.scheduler.logic.commands.AddIntervieweeCommand;
 import seedu.scheduler.logic.commands.ClearCommand;
 import seedu.scheduler.logic.commands.DeleteCommand;
+import seedu.scheduler.logic.commands.EditCommand;
+import seedu.scheduler.logic.commands.EditIntervieweeCommand;
 import seedu.scheduler.logic.commands.EmailCommand;
 import seedu.scheduler.logic.commands.ExitCommand;
 import seedu.scheduler.logic.commands.FindCommand;
@@ -30,6 +32,8 @@ import seedu.scheduler.model.person.PersonNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Role;
 import seedu.scheduler.testutil.IntervieweeBuilder;
 import seedu.scheduler.testutil.IntervieweeUtil;
+import seedu.scheduler.testutil.PersonUtil;
+import seedu.scheduler.testutil.TestUtil;
 
 public class AddressBookParserTest {
 
@@ -60,7 +64,6 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        /*
         EditIntervieweeCommand.EditIntervieweeDescriptor descriptor =
                 TestUtil.getDescriptorFromInterviewee(ALICE_INTERVIEWEE);
         EditIntervieweeCommand command =
@@ -69,7 +72,6 @@ public class AddressBookParserTest {
                 + PersonUtil.getEditIntervieweeDescriptorDetails(descriptor));
 
         assertEquals(new EditIntervieweeCommand(ALICE_INTERVIEWEE.getName(), descriptor), command);
-        */
     }
 
     @Test
