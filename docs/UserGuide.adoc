@@ -198,33 +198,14 @@ Format: `stats`
 Toggles between main and todo modes. +
 Format: `mode`
 
-==== Adding a new todo eatery: `addtodo`
+==== Saving a todo eatery to the main eatery list : `save`
 
-Adds a new eatery to the todo list. +
-Format: `addtodo \n [name of eatery] \a [address] {\t [tags, space-delimited]}`
-
-Examples:
-
-* `addtodo \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \t must-try`
-
-==== Deleting a todo eatery: `deletetodo`
-
-Deletes an eatery from the todo list. +
-Format: `deletetodo [id]`
+Remove a todo eatery from the todo list and provides a quick way to add it to the main list of eateries. +
+Format: `save [id]` (saves the eatery to the main list)
 
 Examples:
 
-* `deletetodo 2`
-
-==== Marking a todo eatery as visited with optional saving : `visited`
-
-Marks a todo eatery as visited and provides a quick way to add it to the main list of eateries. +
-Format: `visited [id]` or `visited [id] \s` (saves the eatery to the main list)
-
-Examples:
-
-* `visited 2`
-* `visited 2 \s`
+* `save 2`
 
 === News Feed
 ==== Adding a feed : `addfeed`
@@ -267,9 +248,7 @@ Examples:
 |`export`|Exporting eateries
 |`stats`|Showing overall statistics
 |`mode`|Toggling between main and todo modes
-|`addtodo`|Adding a todo eatery
-|`deletetodo`|Deleting a todo eatery
-|`visited`|Marking a todo eatery as visited with optional saving
+|`save`|Saving a todo eatery to the main eatery list
 |`addfeed`|Adding a feed
 |`deletefeed`|Deleting a feed
 |===
