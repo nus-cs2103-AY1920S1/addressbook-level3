@@ -41,17 +41,26 @@ public class AssignmentTablePanel extends UiPart<Region> {
     @FXML
     private TableView assignmentPlaceholder;
 
-    public AssignmentTablePanel(Map<Student, Integer> scores) {
+    public AssignmentTablePanel() {
         super(FXML);
+        this.defaultPanel = new StackPane();
+        defaultPanel.getChildren().add(assignmentPlaceholder);
+    }
+
+    /**
+     * Generates the table based on the given hashmap of results.
+     * @param scores - hashmap of students and their scores)
+     */
+    public void generateTable(Map<Student, Integer> scores) {
         requireNonNull(scores);
-        try {
+        if (!isEmpty(scores)) {
             setStatistics(scores);
             setAssignmentTable(scores);
             assignmentPlaceholder.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        } catch (RuntimeException e) {
+        } else {
             setDefaultPlaceHolderLabel();
         }
-        this.defaultPanel = new StackPane();
+        defaultPanel.getChildren().clear();
         defaultPanel.getChildren().add(assignmentPlaceholder);
     }
 
@@ -66,11 +75,8 @@ public class AssignmentTablePanel extends UiPart<Region> {
      * sets default placeholder. To be used only during exceptions.
      */
     private void setDefaultPlaceHolderLabel() {
-        String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
-                + "To see all user commands, type \"help\"\n"
-                + "To view a class assignment, type: \n"
-                + "\"displayScore i/tutorial_index, f/display_format, n/assignment_name\"\n"
-                + "where display format can be \"t\" for table display, or \"g\" for graphical display";
+        String defaultMessage = "No scores have been set for this\n"
+                + "assignment yet :(";
 
         Label placeholder = new Label(defaultMessage);
         assignmentPlaceholder.setPlaceholder(placeholder);
@@ -155,5 +161,15 @@ public class AssignmentTablePanel extends UiPart<Region> {
         Collections.sort(scores);
         int index = (int) Math.ceil((percentile / 100) * scores.size());
         return scores.get(index - 1);
+    }
+
+    /**
+     * Checks if the given hashmap is empty.
+     * scores of -1 are considered as empty scores.
+     */
+    private boolean isEmpty(Map<Student, Integer> scores) {
+        long numScores = scores.values().stream().filter(i -> i != -1).count();
+        logger.info("Number of students in assignment: " + numScores);
+        return (numScores == 0);
     }
 }

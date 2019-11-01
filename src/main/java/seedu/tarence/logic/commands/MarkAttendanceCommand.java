@@ -115,6 +115,8 @@ public class MarkAttendanceCommand extends Command {
                 model.storePendingCommand(
                         new DisplayCommand(
                         String.format(MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT, students.get(i).getName())));
+                model.storePendingCommand(
+                        new DisplayAttendanceCommand(targetTutorial.getModCode(), targetTutorial.getTutName()));
             }
 
             return new CommandResult(
@@ -136,7 +138,7 @@ public class MarkAttendanceCommand extends Command {
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudent.getName(), isPresent), targetTutorial);
+                targetStudent.getName(), isPresent));
     }
 
     @Override

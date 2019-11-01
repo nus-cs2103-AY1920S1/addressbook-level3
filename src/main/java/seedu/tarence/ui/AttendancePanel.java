@@ -41,12 +41,23 @@ public class AttendancePanel extends UiPart<Region> {
     private TableView attendancePlaceholder;
 
     /**
-     * Constructor that sets panel given tutorial to display
+     * Constructor that sets panel to default display
      */
-    public AttendancePanel(Tutorial tutorial) {
+    public AttendancePanel() {
         super(FXML);
-        requireNonNull(tutorial);
         this.defaultPanel = new StackPane();
+        setDefaultPlaceHolder();
+        defaultPanel.getChildren().add(attendancePlaceholder);
+        logger.info("Display default attendance");
+    }
+
+    /**
+     * Generates the table based on the given tutorial
+     * @param tutorial - tutorial containing attendance to display
+     */
+    public void generateTable(Tutorial tutorial) {
+        requireNonNull(tutorial);
+        this.defaultPanel.getChildren().clear();
         try {
             ObservableList<String[]> observableAttendance = generateData(tutorial);
             attendancePlaceholder.setItems(observableAttendance);
@@ -59,20 +70,9 @@ public class AttendancePanel extends UiPart<Region> {
     }
 
     /**
-     * Constructor that sets panel with default display
-     */
-    public AttendancePanel() {
-        super(FXML);
-        this.defaultPanel = new StackPane();
-        setDefaultPlaceHolder();
-        defaultPanel.getChildren().add(attendancePlaceholder);
-        logger.info("Display default attendance");
-    }
-
-    /**
      * Returns default panel with user info
      */
-    private void setDefaultPlaceHolder() {
+    public void setDefaultPlaceHolder() {
         String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
                 + "To see all user commands, type \"help\"\n"
                 + "To view a class attendance, type:\n"
@@ -97,6 +97,7 @@ public class AttendancePanel extends UiPart<Region> {
      * {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
      */
     private ObservableList<String[]> generateData(Tutorial tutorialAttendance) {
+        logger.info("Tutorial to display: " + tutorialAttendance.getTutName());
         ObservableList<String[]> list = FXCollections.observableArrayList();
 
         String checkMark = Character.toString((char) 0x2713);

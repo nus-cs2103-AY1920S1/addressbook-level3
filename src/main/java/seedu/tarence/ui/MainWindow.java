@@ -175,6 +175,9 @@ public class MainWindow extends UiPart<Stage> {
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         // Set default stackpane
+        attendancePanel = new AttendancePanel();
+        assignmentTablePanel = new AssignmentTablePanel();
+        assignmentStatisticsPanel = new AssignmentStatisticsPanel();
         defaultAssignmentPanel = new DefaultAssignmentPanel();
         assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
         attendancePanelPlaceholder.getChildren().add(new AttendancePanel().getPane());
@@ -304,9 +307,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Display Assignment: " + commandResult.isAssignmentDisplay());
             logger.info("display Tab " + commandResult.isChangeTabs());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            displayAttendance(commandResult.getTutorialAttendance());
-            assignmentPanelPlaceholder.getChildren().clear();
-            assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -317,6 +317,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowAttendance()) {
+                displayAttendance(commandResult.getTutorialAttendance());
                 handleAttendanceTabSelected();
             }
 
@@ -413,12 +414,14 @@ public class MainWindow extends UiPart<Stage> {
         assignmentPanelPlaceholder.getChildren().clear();
         switch(displayFormat) {
         case TABLE:
-            assignmentTablePanel = new AssignmentTablePanel(studentScores);
+            logger.info("Displaying table :" + assignment.getAssignName());
+            assignmentTablePanel.generateTable(studentScores);
             assignmentPanelPlaceholder.getChildren().add(assignmentTablePanel.getPane());
             break;
         case GRAPH:
         default:
-            assignmentStatisticsPanel = new AssignmentStatisticsPanel(studentScores, assignment);
+            logger.info("Displaying graph :" + assignment.getAssignName());
+            assignmentStatisticsPanel.generateGraph(studentScores, assignment);
             assignmentPanelPlaceholder.getChildren().add(assignmentStatisticsPanel.getPane());
         }
         if (!assignmentTab.isSelected()) {
@@ -432,11 +435,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void displayAttendance(Tutorial tutorial) {
         attendancePanelPlaceholder.getChildren().clear();
-        if (tutorial == null) {
-            attendancePanel = new AttendancePanel();
-        } else {
-            attendancePanel = new AttendancePanel(tutorial);
-        }
+        attendancePanel.generateTable(tutorial);
         attendancePanelPlaceholder.getChildren().add(attendancePanel.getPane());
     }
 

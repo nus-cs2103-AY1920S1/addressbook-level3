@@ -35,8 +35,6 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     private HashMap<Integer, Integer> distribution;
     private int[] histogramData;
     private int columnRange;
-    private int lowestRange;
-    private int highestRange;
 
     @FXML
     private VBox cardPane;
@@ -56,9 +54,23 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
     @FXML
     private Label lowerPercentile;
 
-    public AssignmentStatisticsPanel(Map<Student, Integer> resultInfo, Assignment assignment) {
+    /**
+     * Constructor that sets panel to default display
+     */
+    public AssignmentStatisticsPanel() {
         super(FXML);
+        cardPane = new VBox();
+        cardPane.getChildren().add(getEmptyLabel());
+    }
+
+    /**
+     * Generates the graph based on the given hashmap of results and assignment info
+     * @param resultInfo - hashmap of students and their scores
+     * @param assignment - assignment to be displayed (contains assignment info)
+     */
+    public void generateGraph(Map<Student, Integer> resultInfo, Assignment assignment) {
         requireAllNonNull(resultInfo, assignment);
+        cardPane.getChildren().clear();
         this.assignment = assignment;
         scores = getScores(resultInfo);
         cardPane = new VBox();
@@ -68,6 +80,7 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
             createHistogram();
             cardPane.getChildren().addAll(scoreBarChart, maxScore, median, upperPercentile, lowerPercentile);
         } else {
+            logger.info("Assignment Graphical display is empty");
             cardPane.getChildren().add(getEmptyLabel());
         }
     }
@@ -82,11 +95,20 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
 
         for (int i = 1; i <= NUM_OF_COLS; i++) {
             String range;
-            int upperBound = i * columnRange + lowestRange - 1;
+            String upperBoundString;
+            String lowerBoundString;
+
+            int upperBound = i * columnRange + scores.get(0) - 1;
+            upperBoundString = String.valueOf(upperBound);
+            int lowerBound = (((i - 1) * columnRange) + scores.get(0));
+            lowerBoundString = String.valueOf(lowerBound);
             if (upperBound > assignment.getMaxScore()) {
-                upperBound = assignment.getMaxScore();
+                upperBoundString = "";
             }
-            range = (((i - 1) * columnRange) + lowestRange) + "-" + upperBound;
+            if (lowerBound > assignment.getMaxScore()) {
+                lowerBoundString = "";
+            }
+            range = lowerBoundString + "-" + upperBoundString;
             series.getData().add(new XYChart.Data(range, histogramData[i - 1]));
         }
 
@@ -127,7 +149,7 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
      * @param percentile - percentile to calculate.
      */
     private long calcPercentile(double percentile) {
-        int index = (int) Math.ceil(((double) percentile / (double) 100) * (double) scores.size());
+        int index = (int) Math.ceil((percentile / 100) * scores.size());
         return scores.get(index - 1);
     }
 
@@ -159,32 +181,18 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
      */
     private void groupHistogramData() {
         logger.info("Histogram range: " + columnRange);
+        logger.info("Lower range: " + scores.get(0));
+        logger.info("Upper range: " + scores.get(scores.size() - 1));
         histogramData = new int[5];
 
-        highestRange = Integer.MIN_VALUE;
-        lowestRange = Integer.MAX_VALUE;
+        columnRange = (int) Math.ceil((double) (scores.get(scores.size() - 1) - scores.get(0) + 1)
+                / (double) NUM_OF_COLS);
 
-        // Set histogram range
-        Iterator it = distribution.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((int) pair.getKey() > highestRange) {
-                highestRange = (int) pair.getKey();
-            }
-            if ((int) pair.getKey() < lowestRange) {
-                lowestRange = (int) pair.getKey();
-            }
-        }
-
-        logger.info("Highest range: " + highestRange);
-        logger.info("Lowest range: " + lowestRange);
-
-        columnRange = (int) Math.ceil((double) (highestRange - lowestRange + 1) / (double) NUM_OF_COLS);
-
+        Iterator it;
         for (int i = 1; i <= NUM_OF_COLS; i++) {
             it = distribution.entrySet().iterator();
             while (it.hasNext()) {
-                int lowerRange = ((i - 1) * columnRange) + lowestRange;
+                int lowerRange = ((i - 1) * columnRange) + scores.get(0);
                 int higherRange = columnRange + lowerRange - 1;
                 Map.Entry pair = (Map.Entry) it.next();
                 if (((int) pair.getKey() >= lowerRange) && ((int) pair.getKey() <= higherRange)) {
