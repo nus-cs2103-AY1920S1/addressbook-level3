@@ -42,8 +42,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 ";
 
-    public static final String MESSAGE_EDIT_DELIVERYMAN_SUCCESS = "Edited Deliveryman: %1$s\n"
-            + "Deliveryman status is set to default: UNAVAILABLE.";
+    public static final String MESSAGE_EDIT_DELIVERYMAN_SUCCESS = "Edited Deliveryman: %1$s\n";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_DELIVERYMEN = "This deliveryman already exists in the address book.";
 
