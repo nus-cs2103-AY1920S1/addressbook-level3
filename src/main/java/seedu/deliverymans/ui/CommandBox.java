@@ -14,23 +14,25 @@ import seedu.deliverymans.model.trie.TrieManager;
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region> {
+class CommandBox extends UiPart<Region> {
 
-    public static final String ERROR_STYLE_CLASS = "error";
+    private static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
     private final TrieManager trieManager;
+    private final AutocompletionTextField field;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         this.trieManager = new TrieManager();
+        this.field = new AutocompletionTextField();
     }
 
     /**
@@ -58,7 +60,9 @@ public class CommandBox extends UiPart<Region> {
                 System.out.println(s);
             }
         }
-        System.out.println(commandTextField.getText());
+        field.getEntries().clear();
+        field.getEntries().addAll(temp);
+        // System.out.println(commandTextField.getText());
     }
 
     /**
