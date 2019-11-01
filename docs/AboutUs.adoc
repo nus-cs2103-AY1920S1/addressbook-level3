@@ -39,18 +39,18 @@ Responsibilities: Implementing the revision feature
 
 === Wang Xueting
 image::shirleywangxt.png[width="150", align="left"]
-{empty}[https://github.com/ShirleyWangxt[github]]
+{empty}[https://github.com/ShirleyWangxt[github]][<<shirleywangxt#, protfolio>>]
 
 Role: Testing, Co-maintainer of documentation +
-Responsibilities: Implementing the difficulty feature
+Responsibilities: Implementing question management feature
 
 '''
 
 === Zhang Dongjun
 image::auxinnn.png[width="150", align="left"]
-{empty}[https://github.com/Auxinnn[github]]
+{empty}[https://github.com/Auxinnn[github]] [<<auxinnn#, portfolio>>]
 
 Role: Deliverables and deadlines +
-Responsibilities: Implementing `Question` module and the test feature
+Responsibilities: Implementing the quiz feature
 
 '''
