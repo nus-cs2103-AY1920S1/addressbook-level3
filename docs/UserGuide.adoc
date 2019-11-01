@@ -286,14 +286,14 @@ Format: `listnote`
 ==== Add a student: 'add'
 
 Adds a student to TutorAid.
-Format: `add n/NAME pic/PICUTRE`
+Format: `add n/NAME c/CLASSID`
+
+[NOTE]
+You can add multiple students at a time by separating their names with a single ','.
 
 Examples:
 
-* `add n/Caesar pic/caesar.jpg`
-
-[NOTE]
-The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+* `add n/Caesar,James,Todd c/CS2030`
 
 ==== Delete a student: 'delete'
 
@@ -329,6 +329,18 @@ Format: `find NAME`
 Examples:
 
 * `find Tom`
+
+==== Add a picture to a student: 'set_pic'
+
+Adds a picture to display next to the student card.
+Format: `set_pic INDEX pic/FILENAME`
+
+[NOTE]
+The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+
+Examples:
+
+* `set_pic 2 pic/Tom.jpg`
 
 ==== Assign students to a class: 'assign_class'
 
