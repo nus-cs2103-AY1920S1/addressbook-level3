@@ -37,8 +37,7 @@ public class SetEntryReminderCommandParser implements Parser<SetEntryReminderCom
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM))
-        {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESC, PREFIX_TYPE, PREFIX_INDEX, PREFIX_AMOUNT, PREFIX_PARAM)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());

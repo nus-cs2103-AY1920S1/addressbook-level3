@@ -62,7 +62,6 @@ public class BudgetList implements Iterable<Budget> {
         }
 
         internalList.set(index, editedBudget);
-        updateBudgets();
     }
 
     /**
@@ -96,7 +95,9 @@ public class BudgetList implements Iterable<Budget> {
      */
     public void updateBudgets() {
         for (Budget budget : internalList) {
-            budget.updateSpent();
+            Budget newBudget = budget.updateSpent();
+            newBudget.setSpent(budget.getFilteredExpenses());
+            setBudget(budget, newBudget);
         }
     }
 

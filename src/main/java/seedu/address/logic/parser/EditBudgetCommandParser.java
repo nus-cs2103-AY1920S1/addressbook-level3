@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -31,7 +32,7 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
     public EditBudgetCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG, PREFIX_PERIOD);
 
         Index index;
 
@@ -55,6 +56,10 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
             editBudgetDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editBudgetDescriptor::setTags);
+
+        if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
+            editBudgetDescriptor.setPeriod(ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get()));
+        }
 
         if (!editBudgetDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditBudgetCommand.MESSAGE_NOT_EDITED);
