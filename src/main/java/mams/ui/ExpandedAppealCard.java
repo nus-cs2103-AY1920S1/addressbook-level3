@@ -19,8 +19,6 @@ import mams.model.appeal.Appeal;
  */
 public class ExpandedAppealCard extends UiPart<Region> {
 
-    public static final String NOT_APPLICABLE = "N/A";
-
     private static final String FXML = "ExpandedAppealListCard.fxml";
 
     public final Appeal appeal;
@@ -49,6 +47,8 @@ public class ExpandedAppealCard extends UiPart<Region> {
     private Label approvalStatus;
     @FXML
     private Label resolvedStatus;
+    @FXML
+    private Label adminRemarks;
 
     public ExpandedAppealCard(Appeal appeal) {
         super(FXML);
@@ -61,6 +61,7 @@ public class ExpandedAppealCard extends UiPart<Region> {
         moduleToDrop.setText(appeal.getModuleToDrop());
         requestedModule.setText(appeal.getModuleToAdd());
         appealDescription.setText(appeal.getAppealDescription());
+        adminRemarks.setText(appeal.getRemark());
         setResolvedStatusDisplay(resolvedStatus, appeal.isResolved());
         setApprovalStatusDisplay(approvalIcon, approvalStatus, appeal.isResolved(),
                 appeal.getResult().equals("APPROVED"));
