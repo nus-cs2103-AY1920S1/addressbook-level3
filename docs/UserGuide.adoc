@@ -337,14 +337,17 @@ Converts 5 USD to SGD based on current exchange rates.
 
 // tag::statistics[]
 === Generating statistics : `stats`
-Returns an overview of the spending in the form of a pie chart, with each sector representing a tag as shown in Figure 3.
-Each sector is labelled with the name and total expenditure for the tag, allowing you to better analyze your spending habits.
+Organises the spending based on tags.
+A pie chart is generated, with each sector representing the total amount of money spent on a tag.
+This enables users to be more informed of their spending habits as they are now aware of where they have spent most of their money on.
 
 Format: `stats d/DATE_START d/DATE_END`
 
 ****
-* Generates statistics for all spending that fall between and including the DATE_START and DATE_END specified.
+* Generates statistics for all spending that fall between and including the DATE_START and DATE_END specified by the user.
 * If no DATE_START and DATE_END parameters are specified, the statistics generated will be based on the whole list of spending.
+* Only spending that have at least a tag will be considered.
+* Only the top few tags which incurred a more significant amount of money  will be displayed.
 ****
 
 [NOTE]
@@ -356,29 +359,37 @@ Date range can be input in the following ways: +
 `d/DATE_START to DATE_END` +
 `d/DATE_START - DATE_END`
 
-.Output of Statistics
-image::statistics.png[width="600"]
+[TIP]
+The statistics panel will update every time the spending list displayed changes.
+For example, when a new spending with a tag is added, the statistics panel will update the pie chart to show the statistics for all spending, including the new spending.
 
 Examples:
 
-* `stats d/01/01/2019 d/07/01/2019` +
-Generates statistics for spending that fall between and including 01/01/2019 and 07/01/2019.
-* `stats` +
-Generates statistics for all spending.
+* `stats`: Generates statistics for all spending.
+
+.Output of `stats`
+image::allstats.png[width="700"]
+
+* `stats d/20/10/2019 d/25/10/2019`: Generates statistics for spending between and including 20/10/2019 and 25/10/2019.
+
+.Output of `stats d/20/10/2019 d/25/10/2019`
+image::daterangestats.png[width=700"]
 
 // end::statistics[]
 
 // tag::graph[]
-=== Graphing the data : `graph`
-Shows a graph of total cost spent in a day against date in the form of a line graph as seen in Figure 4.
-This allows users to view trends in their spending over a specified period of time.
+=== Generating a graph : `graph`
+Organises the spending based on date. A line graph is generated, with each point representing the total amount of money spent on a particular date.
+This enables users to analyze trends in their spending amount over a particular period of time.
 
 Format: `graph d/DATE_START d/DATE_END`
 
 ****
-* Generates a graph for all spending that fall between and including the DATE_START and DATE_END specified.
+* Generates a graph for all spending that fall between and including the DATE_START and DATE_END specified by the user.
 * If no DATE_START and DATE_END parameters are specified, the statistics generated will be based on the whole list of spending.
+* Only dates that have at least a spending will be recorded in the graph.
 ****
+
 [NOTE]
 DATE_START must be earlier or the same as DATE_END.
 
@@ -388,15 +399,25 @@ Date range can be input in the following ways: +
 `d/DATE_START to DATE_END` +
 `d/DATE_START - DATE_END`
 
-.Output of Graph
-image::graph.png[width="500"]
+[TIP]
+Hovering the mouse over a point displays the date and total amount of money spent (to the nearest dollar) on that date.
+
+[TIP]
+The graph panel will update every time the spending list displayed changes.
+For example, when a new spending is added, the graph panel will update and generate a graph for all spending, including the new spending.
 
 Examples:
 
-* `graph d/01/01/2019 d/07/01/2019` +
-Generates a graph for spending that fall between and including 01/01/2019 and 07/01/2019.
-* `graph` +
-Generates a graph for all spending.
+* `graph`: Generates a graph for all spending.
+
+.Output of `graph`
+image::allgraph.png[width="700"]
+
+* `graph d/20/10/2019 d/25/10/2019`: Generates a graph for spending between and including 20/10/2019 and 25/10/2019.
+
+.Output of `graph d/20/10/2019 d/25/10/2019`
+image::daterangegraph.png[width="700"]
+
 
 // end::graph[]
 
