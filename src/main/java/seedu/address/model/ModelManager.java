@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -583,6 +584,7 @@ public class ModelManager implements Model {
     public void resolveOrderBooksConflict() {
         List<Order> orders = orderBook.getList();
 
+        //Remove completed/cancelled orders from orderBook and place them in archivedOrderBook
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
             if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
@@ -596,6 +598,7 @@ public class ModelManager implements Model {
 
         List<Order> archivedOrders = archivedOrderBook.getList();
 
+        //Remove unscheduled/scheduled orders from archivedOrderBook and place them in orderBook
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
@@ -605,6 +608,77 @@ public class ModelManager implements Model {
                     orderBook.add(o);
                 }
             }
+        }
+
+        orders = orderBook.getList();
+
+        List<Phone> phones = phoneBook.getList();
+        List<Customer> customers = customerBook.getList();
+
+        //Ensure that all orders in orderBooks have an exact copy of phone and customer in their respective books
+        //If not, cancel the order and dump it into archives.
+        for (int i = orders.size() - 1; i >= 0; i--) {
+            Order o = orders.get(i);
+            assert (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED));
+
+            boolean hasPhone = false;
+            for (Phone p: phones) {
+                if (o.getPhone().equals(p)) {
+                    hasPhone = true;
+                }
+            }
+
+            boolean hasCustomer = false;
+            for (Customer c: customers) {
+                if (o.getCustomer().equals(c)) {
+                    hasCustomer = true;
+                }
+            }
+
+            if (!hasPhone || !hasCustomer) {
+                Order editedOrder = new Order(o.getId(), o.getCustomer(), o.getPhone(),
+                        o.getPrice(), Status.CANCELLED, o.getSchedule(), o.getTags());
+                orderBook.remove(o);
+
+                if (!archivedOrderBook.has(o)) {
+                    archivedOrderBook.add(editedOrder);
+                }
+            }
+
+        }
+
+
+        ArrayList<Integer> toDeleteIndexList = new ArrayList<>();
+        archivedOrders = archivedOrderBook.getList();
+
+        // Ensure that archived orders list has no completed orders with duplicate phones.
+        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
+            Order o = archivedOrders.get(i);
+            assert(o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
+
+            if (o.getStatus().equals(Status.COMPLETED)) {
+
+                boolean hasDuplicatePhone = false;
+
+                for (int j = archivedOrders.size() - 1; j >= 0; j--) {
+                    Order otherOrder = archivedOrders.get(j);
+                    if (i != j && otherOrder.getStatus().equals(Status.COMPLETED) && o.getPhone().isSameAs(otherOrder.getPhone())) {
+                        hasDuplicatePhone = true;
+                        break;
+                    }
+
+                }
+
+                if (hasDuplicatePhone) {
+                    toDeleteIndexList.add(i);
+                }
+            }
+        }
+
+        toDeleteIndexList.sort(Collections.reverseOrder());
+
+        for (int index: toDeleteIndexList) {
+            deleteArchivedOrder(archivedOrders.get(index));
         }
     }
 
