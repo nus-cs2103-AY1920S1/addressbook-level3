@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -596,6 +597,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyNotesRecord getNotesRecord() {
         return notesRecord;
+    }
+
+    @Override
+    public void sortNotesRecord(Comparator<Note> noteComparator) {
+        notesRecord.sortNotes(noteComparator);
     }
     //endregion
 

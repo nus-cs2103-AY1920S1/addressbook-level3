@@ -42,21 +42,24 @@ public class NotesCard extends UiPart<Region> {
     public void setPriority(Priority priority) {
         switch (priority) {
         case HIGH :
-            cardPane.setStyle("-fx-background-color: #FF3120; -fx-text-fill: white;");
+            cardPane.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white;");
             noteTitle.setStyle("-fx-text-fill: #171716;");
             description.setStyle("-fx-text-fill: #171716;");
             break;
         case MEDIUM:
-            cardPane.setStyle("-fx-background-color: #FFC801; -fx-text-fill: white;");
+            cardPane.setStyle("-fx-background-color: #ffff4d; -fx-text-fill: white;");
             noteTitle.setStyle("-fx-text-fill: #171716;");
             description.setStyle("-fx-text-fill: #171716;");
             break;
         case LOW :
-            cardPane.setStyle("-fx-background-color: #53EB4D; -fx-text-fill: white;");
+            cardPane.setStyle("-fx-background-color: #4dff4d; -fx-text-fill: white;");
             noteTitle.setStyle("-fx-text-fill: #171716;");
             description.setStyle("-fx-text-fill: #171716;");
             break;
         case UNMARKED:
+            cardPane.setStyle("-fx-background-color: #a3a375; -fx-text-fill: white;");
+            noteTitle.setStyle("-fx-text-fill: #171716;");
+            description.setStyle("-fx-text-fill: #171716;");
             break;
         default :
         }

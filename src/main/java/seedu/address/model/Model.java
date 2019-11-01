@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -395,6 +396,11 @@ public interface Model {
      * Returns the NotesRecord
      */
     ReadOnlyNotesRecord getNotesRecord();
+
+    /**
+     * Sorts the notes list using the {@code noteComparator} provided.
+     */
+    void sortNotesRecord(Comparator<Note> noteComparator);
     //endregion
 
     //region Notes

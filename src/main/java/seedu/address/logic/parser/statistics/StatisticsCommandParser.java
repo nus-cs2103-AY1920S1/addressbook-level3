@@ -2,6 +2,8 @@ package seedu.address.logic.parser.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_SAVE_STATS_FILE_ERROR;
+import static seedu.address.commons.util.FileUtil.isValidFileName;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -21,7 +23,6 @@ import seedu.address.model.statistics.Statistics;
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
-    private HashMap<String, HashMap<String, Double>> data = new HashMap<>();
     private DataParser dataParser = new ExcelParser();
 
     /**
@@ -45,6 +46,9 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
         String filePath = argMultimap.getValue(CliSyntax.PREFIX_FILEPATH).orElse("");
         String printableName = argMultimap.getValue(CliSyntax.PREFIX_PRINT).orElse("");
+        if ((arePrefixesPresent(argMultimap, CliSyntax.PREFIX_PRINT) && !isValidFileName(printableName))) {
+            throw new ParseException(MESSAGE_SAVE_STATS_FILE_ERROR);
+        }
         HashMap<String, HashMap<String, Double>> data = dataParser.parseFile(filePath);
 
         return new StatisticsAddCommand(new Statistics(data), printableName);
@@ -53,4 +57,5 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+
 }
