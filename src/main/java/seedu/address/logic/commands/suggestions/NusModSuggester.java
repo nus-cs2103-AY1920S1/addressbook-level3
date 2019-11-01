@@ -55,7 +55,7 @@ abstract class NusModSuggester extends Suggester {
         final ModuleId moduleId = new ModuleId(acadYear, moduleCodeObj);
 
         try {
-            return Optional.of(model.findModule(moduleId));
+            return Optional.of(model.getModuleList().findModule(moduleId));
         } catch (ModuleNotFoundException mnfe) {
             return Optional.empty();
         }
