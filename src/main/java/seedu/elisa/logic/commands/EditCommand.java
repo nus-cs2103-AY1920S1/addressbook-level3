@@ -79,22 +79,10 @@ public class EditCommand extends UndoableCommand {
 
         Item oldItem = lastShownList.get(index.getZeroBased());
         this.oldItem = oldItem; //Is this line of code necessary?
-        Item editedItem = null;
-
-        if ((editItemDescriptor.getHasDeleteEvent() //Checks if Event was deleted or if Event has an update
-                || (oldItem.getEvent().isEmpty() && editItemDescriptor.getEvent().isEmpty()))
-                && (editItemDescriptor.getHasDeleteTask() //Checks if Task was deleted or if Task has an update
-                || (oldItem.getTask().isEmpty() && editItemDescriptor.getTask().isEmpty()))
-                && (editItemDescriptor.getHasDeleteReminder() //Checks if Reminder was deleted or has an update
-                || (oldItem.getReminder().isEmpty() && editItemDescriptor.getReminder().isEmpty()))) {
-            model.deleteItem(oldItem);
-            return new CommandResult(String.format(DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS, oldItem));
-        } else {
-            editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-            model.editItem(oldItem, editedItem);
-            this.editedItem = editedItem; //Is this line of code necessary?
-            return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
-        }
+        Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
+        model.editItem(oldItem, editedItem);
+        this.editedItem = editedItem; //Is this line of code necessary?
+        return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
     @Override
@@ -133,11 +121,12 @@ public class EditCommand extends UndoableCommand {
                         .getReminder()
                         .orElse(null)));
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
+        Priority updatedPriority = editItemDescriptor.getPriority().orElse(itemToEdit.getPriority());
 
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(updatedDescription);
         itemBuilder.setTags(updatedTags);
-        itemBuilder.setItemPriority(editItemDescriptor.getPriority().orElse(Priority.MEDIUM));
+        itemBuilder.setItemPriority(updatedPriority);
 
         if (updatedTask.isPresent()) {
             itemBuilder.setTask(updatedTask.get());
