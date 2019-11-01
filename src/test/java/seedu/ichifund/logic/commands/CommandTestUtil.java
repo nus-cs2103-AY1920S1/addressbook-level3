@@ -22,6 +22,7 @@ import java.util.List;
 
 import seedu.ichifund.commons.core.index.Index;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
+import seedu.ichifund.logic.commands.transaction.EditTransactionCommand;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.budget.Budget;
@@ -29,6 +30,7 @@ import seedu.ichifund.model.budget.BudgetDescriptionPredicate;
 import seedu.ichifund.model.person.NameContainsKeywordsPredicate;
 import seedu.ichifund.model.person.Person;
 import seedu.ichifund.testutil.EditPersonDescriptorBuilder;
+import seedu.ichifund.testutil.EditTransactionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -109,6 +111,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final EditTransactionCommand.EditTransactionDescriptor DESC_ALLOWANCE;
+    public static final EditTransactionCommand.EditTransactionDescriptor DESC_BUS;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -116,6 +121,15 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        DESC_ALLOWANCE = new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_ALLOWANCE)
+                .withAmount(VALID_AMOUNT_ALLOWANCE).withDay(VALID_DAY_ALLOWANCE).withMonth(VALID_MONTH_ALLOWANCE)
+                .withYear(VALID_YEAR_ALLOWANCE).withCategory(VALID_CATEGORY_ALLOWANCE)
+                .withTransactionType(VALID_TRANSACTION_TYPE_ALLOWANCE).build();
+        DESC_BUS = new EditTransactionDescriptorBuilder().withDescription(VALID_DESCRIPTION_BUS)
+                .withAmount(VALID_AMOUNT_BUS).withDay(VALID_DAY_BUS).withMonth(VALID_MONTH_BUS)
+                .withYear(VALID_YEAR_BUS).withCategory(VALID_CATEGORY_BUS)
+                .withTransactionType(VALID_TRANSACTION_TYPE_BUS).build();
     }
 
     /**
