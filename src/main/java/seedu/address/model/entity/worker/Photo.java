@@ -104,8 +104,9 @@ public class Photo {
             return false;
         } else if (pathToPhoto.equals(PATH_TO_EXAMPLE_PHOTO)) {
             if (!FileUtil.isFileExists(Paths.get(pathToPhoto))) {
-                initExamplePhoto();
+                initExamplePhoto(); // create example photo in data directory if doesn't exist
             }
+            return true;
         } else if (FileUtil.isFileExists(Paths.get(pathToPhoto))) {
             return pathToPhoto.endsWith(".jpeg") || (pathToPhoto.endsWith(".jpg") || pathToPhoto.endsWith(".png"));
         }
