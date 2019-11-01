@@ -206,6 +206,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param object Object to be read
      * @param index Index of the object in the filtered list
      */
+    @SuppressWarnings("unchecked")
     void fillReadParts(Object object, Index index) {
         if (object instanceof Password) {
             readDisplayPassword = new ReadDisplayPassword();
