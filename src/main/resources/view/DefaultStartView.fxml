@@ -12,14 +12,18 @@
           xmlns:fx="http://javafx.com/fxml"
           prefHeight="500.0" fx:id="defaultStartViewContainer" vgap="10" hgap="10">
     <rowConstraints>
-        <RowConstraints percentHeight="10" vgrow="SOMETIMES"/>
-        <RowConstraints percentHeight="90" vgrow="SOMETIMES"/>
+        <RowConstraints percentHeight="10" vgrow="SOMETIMES" valignment="CENTER"/>
+        <RowConstraints percentHeight="90" valignment="CENTER"/>
     </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
     <padding>
         <Insets left="10" right="10" top="10" bottom="10"/>
     </padding>
-    <Label fx:id="defaultTitle" prefWidth="900.0" GridPane.rowIndex="0"
-           GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER"/>
-    <StackPane fx:id="calendarPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="0" alignment="TOP_LEFT" maxWidth="900"/>
-    <StackPane fx:id="noticeBoardPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="1" alignment="TOP_LEFT" maxWidth="900"/>
+    <Label fx:id="defaultTitle" alignment="CENTER" GridPane.rowIndex="0"
+           GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <StackPane fx:id="calendarPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <StackPane fx:id="noticeBoardPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 </GridPane>

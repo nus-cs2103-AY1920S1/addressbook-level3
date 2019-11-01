@@ -8,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:id="calendarContainer" alignment="CENTER" spacing="5" maxWidth="400" maxHeight="300">
+            fx:id="calendarContainer" alignment="TOP_CENTER" spacing="5">
     <Label fx:id="dateHeader"/>
     <GridPane fx:id="calendar">
         <columnConstraints>

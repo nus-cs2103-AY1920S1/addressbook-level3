@@ -11,7 +11,7 @@
 <HBox id="groupCardPane" fx:id="groupCardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" />
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="85" GridPane.columnIndex="0">
         <padding>
