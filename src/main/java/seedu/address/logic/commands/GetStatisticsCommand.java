@@ -18,7 +18,7 @@ public class GetStatisticsCommand extends Command {
     public static final String COMMAND_WORD_MEMBER = "member-stats";
     public static final String COMMAND_WORD_TASK = "task-stats";
     public static final String PREFIX_USAGE = "";
-    
+
     public static final String MESSAGE_SUCCESS = "Calculated statistics";
 
     @Override

@@ -68,7 +68,7 @@ public class Keywords {
             case FindCommand.COMMAND_WORD:
                 return commandWord + " " + FindCommand.PREFIX_USAGE;
 
-            case ListCommand.COMMAND_WORD: 
+            case ListCommand.COMMAND_WORD:
                 return commandWord + " " + ListCommand.PREFIX_USAGE;
 
             case EditCommand.COMMAND_WORD:
@@ -82,7 +82,7 @@ public class Keywords {
 
             case DoneTaskCommand.COMMAND_WORD:
                 return commandWord + " " + DoneTaskCommand.PREFIX_USAGE;
-            
+
             case ListMemberByTaskCommand.COMMAND_WORD:
                 return commandWord + " " + ListMemberByTaskCommand.PREFIX_USAGE;
 
