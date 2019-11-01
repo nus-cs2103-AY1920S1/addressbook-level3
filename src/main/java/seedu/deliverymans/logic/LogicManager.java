@@ -32,6 +32,7 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
+    private static Context currentContext;
     private final Model model;
     private final Storage storage;
     private final UniversalParser universalParser;
@@ -40,6 +41,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         universalParser = new UniversalParser();
+        currentContext = Context.GLOBAL;
     }
 
     @Override
@@ -47,8 +49,8 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = universalParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Command command = universalParser.parseCommand(commandText, this.currentContext);
+        commandResult = command.execute(model, this);
 
         model.notifyChange(commandText);
         try {
@@ -174,7 +176,7 @@ public class LogicManager implements Logic {
     //=============Context======================
     @Override
     public void setContext(Context context) {
-        universalParser.setContext(context);
+        this.currentContext = context;
     }
 
 }
