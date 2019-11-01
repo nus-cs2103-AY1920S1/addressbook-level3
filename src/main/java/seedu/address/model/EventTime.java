@@ -4,7 +4,10 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A EventTime contains a start time and an end time.
@@ -17,7 +20,7 @@ public class EventTime implements Comparable<EventTime> {
      * There must have also a white space in front and behind of the dash.
      */
     public static final String VALIDATION_REGEX = "^(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])"
-                                                    + "\\s-\\s"
+                                                    + "\\s*-\\s*"
                                                     + "(0?[0-9]?[0-5]?[0-9]|1[0-9][0-5][0-9]|2[0-3][0-5][0-9])$";
 
     public static final String TIME_FORMAT = "HHmm";
@@ -70,12 +73,10 @@ public class EventTime implements Comparable<EventTime> {
      */
     public static EventTime parse(String duration) throws DateTimeParseException {
         assert isValidEventTime(duration) : "duration is not following the correct format. Eg. 1230 - 1420.";
-        //split string into 3 parts to get start time, "-" and end time
-        String[] durationArr = duration.split(" ");
-        String startTimeStr = durationArr[0];
-        String endTimeStr = durationArr[2];
 
-        return parse(startTimeStr, endTimeStr);
+        List<String> times = Stream.of(duration.split("-")).map(String::trim).collect(Collectors.toList());
+
+        return parse(times.get(0), times.get(1));
     }
 
     /**
@@ -117,9 +118,9 @@ public class EventTime implements Comparable<EventTime> {
         }
 
         //split string into 3 parts to get start time, "-" and end time
-        String[] durationArr = duration.split(" ");
-        String startTimeStr = durationArr[0];
-        String endTimeStr = durationArr[2];
+        List<String> times = Stream.of(duration.split("-")).map(String::trim).collect(Collectors.toList());
+        String startTimeStr = times.get(0);
+        String endTimeStr = times.get(1);
 
         try {
             int startTime = Integer.parseInt(startTimeStr);

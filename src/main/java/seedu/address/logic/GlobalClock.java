@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 /**
  * A class to get the time and date now. For simplicity of testing, there are static methods to enable the clock to
@@ -16,7 +17,7 @@ public class GlobalClock {
     private static Clock clock = Clock.systemDefaultZone();
 
     public static LocalTime timeNow() {
-        return LocalTime.now(GlobalClock.clock);
+        return LocalTime.now(GlobalClock.clock).truncatedTo(ChronoUnit.MINUTES);
     }
 
     public static LocalDate dateToday() {
