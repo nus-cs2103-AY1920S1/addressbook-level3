@@ -109,11 +109,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private double getDefaultWidth() {
+    public static double getDefaultWidth() {
         return Screen.getPrimary().getVisualBounds().getWidth();
     }
 
-    private double getDefaultHeight() {
+    public static double getDefaultHeight() {
         return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
