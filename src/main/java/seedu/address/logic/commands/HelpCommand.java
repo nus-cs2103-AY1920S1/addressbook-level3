@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 
@@ -77,12 +78,12 @@ public class HelpCommand extends Command {
                 resetCommandAndTypeValues();
                 return new CommandResult(briefDescription, false, false, false, false);
             case "api":
-                File resFile = new File(getClass().getResource(ApiLinks.getLink(command)).toURI());
+
                 File htmlFile = new File("API.html");
-                if (htmlFile.exists()) {
-                    htmlFile.delete();
+                if (!htmlFile.exists()) {
+                    InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
+                    Files.copy(link, htmlFile.getAbsoluteFile().toPath());
                 }
-                Files.copy(resFile.toPath(), htmlFile.toPath());
                 Desktop.getDesktop().browse(htmlFile.toURI());
                 break;
             default:
