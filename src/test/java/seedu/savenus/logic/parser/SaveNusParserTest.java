@@ -6,6 +6,7 @@ import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.savenus.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.savenus.logic.parser.CliSyntax.ASCENDING_DIRECTION;
 import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_NAME;
+import static seedu.savenus.logic.parser.CliSyntax.FIELD_NAME_PRICE;
 import static seedu.savenus.logic.parser.CliSyntax.QUANTIFY_EQUALS_TO;
 import static seedu.savenus.testutil.Assert.assertThrows;
 import static seedu.savenus.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
@@ -199,8 +200,8 @@ public class SaveNusParserTest {
     @Test
     public void parseCommand_filter() throws ParseException {
         assertTrue(
-                parser.parseCommand(model.getAliasList(), FilterCommand.COMMAND_WORD + " " + FIELD_NAME_NAME
-                        + " " + QUANTIFY_EQUALS_TO + " Tom") instanceof FilterCommand);
+                parser.parseCommand(model.getAliasList(), FilterCommand.COMMAND_WORD + " " + FIELD_NAME_PRICE
+                        + " " + QUANTIFY_EQUALS_TO + " 4.00") instanceof FilterCommand);
     }
 
     @Test
