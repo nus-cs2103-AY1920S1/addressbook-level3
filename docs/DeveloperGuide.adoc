@@ -364,11 +364,29 @@ using constructors containing at least one argument.
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
 
-The game window provides a simple typing game where there are moving words that users can type in order to score points.
-Once users correctly type the specified word, the word disappears and the increase in points is reflected in the player
-information panel in the game window. When the user fails to type the word before the moving word reaches the bottom of
-screen, the decrease in health points is reflected in the player information panel in the game window. After the health
-points reaches zero, `GAME OVER` is displayed.
+.Game Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `PlayerInformation`
+| Scrollable Stack Pane
+| Displays the user's score and health points.
+| To inform user about the in-game progress.
+
+| `GameBody`
+| AnchorPane
+| Displays the animation of the game.
+| To allow the user to view the animation of the moving words in a continuous manner.
+
+| `MovingWords`
+| Scrollable Stack Pane
+| Displays the individual word.
+| To allow user to know the next word to type.
+|===
 
 == Documentation
 
@@ -684,7 +702,7 @@ Use case resumes at step 1.
 3.  User plays the game by typing the word(s).
 4.  Typing game updates the User's score and health points accordingly.
 Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
-5.  Typing game shows the final score of the User
+5.  Typing game shows the final score of the User when the game ends.
 +
 Use case ends.
 
