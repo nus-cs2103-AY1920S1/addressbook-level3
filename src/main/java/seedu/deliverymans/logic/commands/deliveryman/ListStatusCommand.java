@@ -9,9 +9,9 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 
 /**
- * Lists all the available deliverymen.
+ * Lists the deliverymen sorted by their current statuses.
  */
-public class ListAvailCommand extends Command {
+public class ListStatusCommand extends Command {
 
     public static final String COMMAND_WORD = "lista";
 
@@ -26,12 +26,12 @@ public class ListAvailCommand extends Command {
         requireNonNull(model);
 
         model.showAvailableDeliverymen();
-        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, ListAvailCommand.class);
+        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, ListStatusCommand.class);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ListAvailCommand); // instanceof handles nulls
+                || (other instanceof ListStatusCommand); // instanceof handles nulls
     }
 }

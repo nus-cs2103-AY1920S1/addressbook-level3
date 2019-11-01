@@ -258,7 +258,7 @@ public class MainWindow extends UiPart<Stage> {
                     logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
-        case "ListAvailCommand":
+        case "ListStatusCommand":
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
         case "EnterRecordCommand":
