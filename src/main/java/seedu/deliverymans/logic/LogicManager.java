@@ -30,9 +30,11 @@ import seedu.deliverymans.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+
+    private static Context currentContext = Context.GLOBAL;
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private static Context currentContext = Context.GLOBAL;;
     private final Model model;
     private final Storage storage;
     private final UniversalParser universalParser;

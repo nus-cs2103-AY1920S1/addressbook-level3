@@ -186,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes context of the system depending on {@code context}
+     * Changes context of the system depending on {@code context}.
      */
     private void changeContext(Context context) {
 
@@ -234,6 +234,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Changes the Ui to display depending the {@code Class} commandName.
+     * */
     private void changeUi(Class commandName) {
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
