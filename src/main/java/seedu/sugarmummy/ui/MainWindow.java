@@ -23,7 +23,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -76,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane mainDisplayPanePlaceholder;
 
     @FXML
-    private HBox resultDisplayPlaceholder;
+    private VBox resultDisplayPlaceholder;
 
     @FXML
     private StackPane reminderListPlaceholder;
