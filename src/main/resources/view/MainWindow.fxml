@@ -9,10 +9,10 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -118,16 +118,12 @@
 
                   <VBox layoutX="74.0" layoutY="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                   <children>
-                     <SplitPane prefWidth="200.0" VBox.vgrow="ALWAYS">
-                       <items>
-                          <VBox fx:id="personListCard" prefWidth="200.0" styleClass="pane-with-border">
-                           <StackPane fx:id="versatilePanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="193.0" VBox.vgrow="ALWAYS" />
-                         </VBox>
-                       </items>
-                        <VBox.margin>
-                           <Insets />
-                        </VBox.margin>
-                     </SplitPane>
+                     <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                        <children>
+                        <StackPane fx:id="versatilePanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                           <StackPane fx:id="profilePaneHolder" maxWidth="-Infinity" prefWidth="200.0" HBox.hgrow="NEVER" />
+                        </children>
+                     </HBox>
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="50.0" prefHeight="70.0" styleClass="pane-with-border" />
                     <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" styleClass="pane-with-border" />
                   </children>

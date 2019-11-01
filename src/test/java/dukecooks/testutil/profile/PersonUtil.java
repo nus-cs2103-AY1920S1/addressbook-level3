@@ -43,8 +43,8 @@ public class PersonUtil {
     public static String getEditPersonDescriptorDetails(EditProfileCommand.EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(CliSyntax.PREFIX_NAME).append(name.fullName).append(" "));
-        if (descriptor.getMedicalHistories().isPresent()) {
-            Set<MedicalHistory> medicalHistories = descriptor.getMedicalHistories().get();
+        if (descriptor.getMedicalHistoriesToAdd().isPresent()) {
+            Set<MedicalHistory> medicalHistories = descriptor.getMedicalHistoriesToAdd().get();
             if (medicalHistories.isEmpty()) {
                 sb.append(CliSyntax.PREFIX_MEDICALHISTORY);
             } else {

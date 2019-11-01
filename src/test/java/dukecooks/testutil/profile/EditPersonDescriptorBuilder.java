@@ -30,7 +30,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Person person) {
         descriptor = new EditProfileCommand.EditPersonDescriptor();
         descriptor.setName(person.getName());
-        descriptor.setMedicalHistories(person.getMedicalHistories());
+        descriptor.setAddMedicalHistories(person.getMedicalHistories());
     }
 
     /**
@@ -49,7 +49,7 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withMedicalHistories(String... medicalHistories) {
         Set<MedicalHistory> medicalHistorySet = Stream.of(medicalHistories)
                 .map(MedicalHistory::new).collect(Collectors.toSet());
-        descriptor.setMedicalHistories(medicalHistorySet);
+        descriptor.setAddMedicalHistories(medicalHistorySet);
         return this;
     }
 

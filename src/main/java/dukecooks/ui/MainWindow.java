@@ -68,6 +68,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane versatilePanelPlaceholder;
 
     @FXML
+    private StackPane profilePaneHolder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -155,6 +158,7 @@ public class MainWindow extends UiPart<Stage> {
 
         //default start up screen - dashboard page
         versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
+        profilePaneHolder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -175,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
     }
 
     /**
@@ -231,6 +236,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Shows the side pane of the user's profile.
+     */
+    @FXML
+    private void showProfilePane(boolean isShowProfilePane) {
+        profilePaneHolder.setVisible(isShowProfilePane);
+        profilePaneHolder.setManaged(isShowProfilePane);
+    }
+
+    /**
      * Handles mode view switches of the application.
      */
     @FXML
@@ -241,6 +255,7 @@ public class MainWindow extends UiPart<Stage> {
 
         //reset panel and statusbar
         versatilePanelPlaceholder.getChildren().clear();
+        showProfilePane(false);
         statusbarPlaceholder.getChildren().clear();
 
         //TODO NOTE: Do your internal #handleSwitch in individual panels - rmb to parse type as param
@@ -251,6 +266,7 @@ public class MainWindow extends UiPart<Stage> {
             versatilePanelPlaceholder.getChildren().add(dashboardListPanel.getRoot());
             statusbarPlaceholder.getChildren().add(dashboardPathStatus.getRoot());
             featureMode.setText("Dashboard");
+            showProfilePane(true);
             break;
         case "recipe":
             //TODO:
@@ -270,6 +286,7 @@ public class MainWindow extends UiPart<Stage> {
             statusbarPlaceholder.getChildren().add(recordPathStatus.getRoot());
             featureMode.setText("Health Records");
             recordListPanel.handleSwitch(type);
+            showProfilePane(true);
             break;
         case "exercise":
             //TODO:

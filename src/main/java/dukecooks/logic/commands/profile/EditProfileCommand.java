@@ -19,6 +19,7 @@ import dukecooks.commons.util.CollectionUtil;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Model;
 import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
@@ -45,11 +46,13 @@ public class EditProfileCommand extends EditCommand {
             + "[" + PREFIX_BLOODTYPE + "BLOODTYPE] "
             + "[" + PREFIX_WEIGHT + "WEIGHT] "
             + "[" + PREFIX_HEIGHT + "HEIGHT] "
-            + "[" + PREFIX_MEDICALHISTORY + "TAG]...\n"
+            + "[" + PREFIX_MEDICALHISTORY + "MEDICAL HISTORY]...\n"
             + "Example: " + COMMAND_WORD + " ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Profile: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_PROFILE_DOES_NOT_EXIST =
+            "Profile does not exist! Start editing after you have created one!";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the Duke Cooks.";
 
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,6 +70,9 @@ public class EditProfileCommand extends EditCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        if (lastShownList.isEmpty()) {
+            throw new CommandException(MESSAGE_PROFILE_DOES_NOT_EXIST);
+        }
 
         Person personToEdit = lastShownList.get(0);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
@@ -89,8 +95,23 @@ public class EditProfileCommand extends EditCommand {
         BloodType updatedBloodType = editPersonDescriptor.getBloodType().orElse(personToEdit.getBloodType());
         Weight updatedWeight = editPersonDescriptor.getWeight().orElse(personToEdit.getWeight());
         Height updatedHeight = editPersonDescriptor.getHeight().orElse(personToEdit.getHeight());
-        Set<MedicalHistory> updatedMedicalHistories = editPersonDescriptor.getMedicalHistories()
-                .orElse(personToEdit.getMedicalHistories());
+        Set<MedicalHistory> updatedMedicalHistories;
+        if (editPersonDescriptor.getMedicalHistoriesToAdd().isPresent()
+                || editPersonDescriptor.getMedicalHistoriesToRemove().isPresent()) {
+
+            updatedMedicalHistories = new HashSet<>(personToEdit.getMedicalHistories());
+
+            if (editPersonDescriptor.getMedicalHistoriesToAdd().isPresent()) {
+                updatedMedicalHistories.addAll(editPersonDescriptor.getMedicalHistoriesToAdd().get());
+            }
+
+            if (editPersonDescriptor.getMedicalHistoriesToRemove().isPresent()) {
+                updatedMedicalHistories.removeAll(editPersonDescriptor.getMedicalHistoriesToRemove().get());
+            }
+
+        } else {
+            updatedMedicalHistories = personToEdit.getMedicalHistories();
+        }
 
         return new Person(updatedName, updatedDateOfBirth, updatedGender, updatedBloodType,
                 updatedWeight, updatedHeight, updatedMedicalHistories);
@@ -124,7 +145,8 @@ public class EditProfileCommand extends EditCommand {
         private BloodType bloodGroup;
         private Weight weight;
         private Height height;
-        private Set<MedicalHistory> medicalHistories;
+        private Set<MedicalHistory> medicalHistoriesToAdd;
+        private Set<MedicalHistory> medicalHistoriesToRemove;
 
         public EditPersonDescriptor() {}
 
@@ -139,14 +161,16 @@ public class EditProfileCommand extends EditCommand {
             setBloodType(toCopy.bloodGroup);
             setWeight(toCopy.weight);
             setHeight(toCopy.height);
-            setMedicalHistories(toCopy.medicalHistories);
+            setAddMedicalHistories(toCopy.medicalHistoriesToAdd);
+            setRemoveMedicalHistories(toCopy.medicalHistoriesToRemove);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, gender, dateOfBirth, bloodGroup, weight, height, medicalHistories);
+            return CollectionUtil.isAnyNonNull(name, gender, dateOfBirth, bloodGroup, weight, height,
+                    medicalHistoriesToAdd, medicalHistoriesToRemove);
         }
 
         public void setName(Name name) {
@@ -198,20 +222,56 @@ public class EditProfileCommand extends EditCommand {
         }
 
         /**
-         * Sets {@code medicalHistories} to this object's {@code medicalHistories}.
-         * A defensive copy of {@code medicalHistories} is used internally.
+         * Set {@code medicalHistories} to this object's {@code medicalHistoriesToAdd}.
+         * A defensive copy of {@code medicalHistoriesToAdd} is used internally.
          */
-        public void setMedicalHistories(Set<MedicalHistory> medicalHistories) {
-            this.medicalHistories = (medicalHistories != null) ? new HashSet<>(medicalHistories) : null;
+        public void setAddMedicalHistories(Set<MedicalHistory> medicalHistories) {
+            this.medicalHistoriesToAdd = (medicalHistories != null) ? new HashSet<>(medicalHistories) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * Set {@code medicalHistories} to this object's {@code medicalHistoriesToRemove}.
+         * A defensive copy of {@code medicalHistoriesToRemove} is used internally.
+         */
+        public void setRemoveMedicalHistories(Set<MedicalHistory> medicalHistories) {
+            this.medicalHistoriesToRemove = (medicalHistories != null) ? new HashSet<>(medicalHistories) : null;
+        }
+
+        /**
+         * Adds {@code medicalHistories} to this object's {@code medicalHistoriesToAdd}.
+         * A defensive copy of {@code medicalHistories} is used internally.
+         */
+        public void addMedicalHistories(Set<MedicalHistory> medicalHistories) {
+            this.medicalHistoriesToAdd = (medicalHistories != null) ? new HashSet<>(medicalHistories) : null;
+        }
+
+        /**
+         * Removes {@code medicalHistories} to this object's {@code medicalHistories}.
+         * A defensive copy of {@code medicalHistories} is used internally.
+         */
+        public void removeMedicalHistories(Set<MedicalHistory> medicalHistories) {
+            this.medicalHistoriesToRemove = (medicalHistories != null) ? new HashSet<>(medicalHistories) : null;
+        }
+
+        /**
+         * Returns an unmodifiable medicalHistory set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code medicalHistories} is null.
          */
-        public Optional<Set<MedicalHistory>> getMedicalHistories() {
-            return (medicalHistories != null) ? Optional.of(Collections.unmodifiableSet(medicalHistories))
+        public Optional<Set<MedicalHistory>> getMedicalHistoriesToAdd() {
+            return (medicalHistoriesToAdd != null)
+                    ? Optional.of(Collections.unmodifiableSet(medicalHistoriesToAdd))
+                    : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable medicalHistory set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code medicalHistories} is null.
+         */
+        public Optional<Set<MedicalHistory>> getMedicalHistoriesToRemove() {
+            return (medicalHistoriesToRemove != null)
+                    ? Optional.of(Collections.unmodifiableSet(medicalHistoriesToRemove))
                     : Optional.empty();
         }
 
@@ -236,7 +296,8 @@ public class EditProfileCommand extends EditCommand {
                     && getBloodType().equals(e.getBloodType())
                     && getWeight().equals(e.getWeight())
                     && getHeight().equals(e.getHeight())
-                    && getMedicalHistories().equals(e.getMedicalHistories());
+                    && getMedicalHistoriesToAdd().equals(e.getMedicalHistoriesToAdd())
+                    && getMedicalHistoriesToRemove().equals(e.getMedicalHistoriesToRemove());
         }
     }
 }

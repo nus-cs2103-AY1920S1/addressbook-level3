@@ -6,6 +6,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_GENDER;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_HEIGHT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEMEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
 
@@ -37,7 +38,7 @@ public class EditProfileCommandParser implements Parser<EditProfileCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DOB, PREFIX_GENDER, PREFIX_BLOODTYPE,
-                        PREFIX_HEIGHT, PREFIX_WEIGHT, PREFIX_MEDICALHISTORY);
+                        PREFIX_HEIGHT, PREFIX_WEIGHT, PREFIX_MEDICALHISTORY, PREFIX_REMOVEMEDICALHISTORY);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -65,7 +66,10 @@ public class EditProfileCommandParser implements Parser<EditProfileCommand> {
         }
 
         parseMedicalHistoriesForEdit(argMultimap.getAllValues(PREFIX_MEDICALHISTORY))
-                .ifPresent(editPersonDescriptor::setMedicalHistories);
+                .ifPresent(editPersonDescriptor::addMedicalHistories);
+
+        parseMedicalHistoriesForEdit(argMultimap.getAllValues(PREFIX_REMOVEMEDICALHISTORY))
+                .ifPresent(editPersonDescriptor::removeMedicalHistories);
 
         if (!editPersonDescriptor.isAnyFieldEdited() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(EditProfileCommand.MESSAGE_NOT_EDITED);
