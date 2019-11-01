@@ -38,12 +38,15 @@ public class WorkoutCard extends UiPart<Region> {
         this.workout = workout;
         id.setText(displayedIndex + ". ");
         workoutName.setText(workout.getName().workoutName);
+        exercises.getChildren().add(new Label("Exercises in Workout: "));
         workout.getExercises().stream()
                 .sorted(Comparator.comparing(exercise -> exercise.toString()))
-                .forEach(exercise -> exercises.getChildren().add(new Label(exercise.exerciseName)));
+                .forEach(exercise -> exercises.getChildren().add(new Label(exercise.exerciseName + " ")));
+        musclesTrained.getChildren().add(new Label("Muscles Trained: "));
         workout.getMusclesTrained().stream()
                 .sorted(Comparator.comparing(muscleType -> muscleType.toString()))
-                .forEach(muscleType -> musclesTrained.getChildren().add(new Label(muscleType.getMuscleType())));
+                .forEach(muscleType -> musclesTrained
+                        .getChildren().add(new Label(muscleType.getMuscleType() + " ")));
         averageIntensity.setText("Average Intensity: " + workout.getAverageIntensity().toString());
     }
 }

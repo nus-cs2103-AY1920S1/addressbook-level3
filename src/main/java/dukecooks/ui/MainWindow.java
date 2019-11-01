@@ -174,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList());
+        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
     }
 
@@ -285,10 +285,9 @@ public class MainWindow extends UiPart<Stage> {
         case "exercise":
             //TODO:
             versatilePanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
-            //TODO EXERCISE: add exercisePathStatus once missing getExerciseFilePath() is in Logic class
-            // - refer to initializeFilePath()
-            //statusbarPlaceholder.getChildren().add(exercisePathStatus.getRoot());
+            statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
             featureMode.setText("Exercise");
+            workoutListPanel.handleSwitch(type);
             break;
         case "diary":
             //TODO:
