@@ -27,6 +27,12 @@ public class FinanceListView extends View<AnchorPane> {
     private Label spentAmount;
     @FXML
     private Label remainingAmount;
+    @FXML
+    private Label purchaseListHeader;
+    @FXML
+    private Label installmentListHeader;
+    @FXML
+    private Label statisticHeader;
 
     public FinanceListView(MainWindow mainWindow, Logic logic, Model model) {
 
@@ -41,12 +47,13 @@ public class FinanceListView extends View<AnchorPane> {
         installmentListView.setItems(model.getFilteredInstallmentList());
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
 
-        spentAmount.setText(model.calculateTotalSpending() + "");
+        spentAmount.setText("Monthly expenses: " + model.calculateTotalSpending() + "");
+        purchaseListHeader.setText("Your Purchases");
+        installmentListHeader.setText("Monthly Payments");
+        statisticHeader.setText("Statistics");
 
-        if (model.calculateRemainingAmount() == -1) {
-            remainingAmount.setText("No spending limit was set!");
-        } else {
-            remainingAmount.setText(model.calculateRemainingAmount() + "");
+        if (model.calculateRemainingAmount() > 0) {
+            remainingAmount.setText("Remaining spending: " + model.calculateRemainingAmount() + "");
         }
     }
 

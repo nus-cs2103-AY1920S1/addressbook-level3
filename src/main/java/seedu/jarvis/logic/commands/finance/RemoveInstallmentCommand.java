@@ -12,6 +12,7 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemoveInstallmentCommand;
@@ -110,7 +111,9 @@ public class RemoveInstallmentCommand extends Command {
         try {
             deletedInstallment = model.getInstallment(targetIndex.getOneBased());
             model.deleteInstallment(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, deletedInstallment));
+            model.setViewStatus(ViewType.LIST_FINANCE);
+            return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, deletedInstallment),
+                    true);
         } catch (InstallmentNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_INVALID_INSTALLMENT_DISPLAYED_INDEX);
         }

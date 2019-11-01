@@ -3,11 +3,12 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Priority;
@@ -133,10 +134,9 @@ public class MainWindow extends UiPart<Stage> {
          * in CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.TAB) {
-                model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
-                handleSwitch();
-                commandUpdater.executeUpdateCallback();
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
+                event.consume();
             }
         });
     }
@@ -149,6 +149,32 @@ public class MainWindow extends UiPart<Stage> {
             tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
             tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
         });
+
+        tabPanePlaceHolder.getSelectionModel()
+            .selectedItemProperty()
+            .addListener((obs, oldValue, newValue) -> {
+                if (oldValue.getText().equals(newValue.getText())) {
+                    return;
+                }
+                switch (newValue.getText()) {
+                case "Planner":
+                    model.setViewStatus(ViewType.LIST_PLANNER);
+                    break;
+                case "Modules":
+                    model.setViewStatus(ViewType.LIST_COURSE);
+                    break;
+                case "Ccas":
+                    model.setViewStatus(ViewType.LIST_CCA);
+                    break;
+                case "Finances":
+                    model.setViewStatus(ViewType.LIST_FINANCE);
+                    break;
+                default:
+                    break;
+                }
+                handleSwitch();
+                commandUpdater.executeUpdateCallback();
+            });
 
         parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
 
