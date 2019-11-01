@@ -130,6 +130,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 
+    /**
+     * Update Budgets based on updated list of expenses
+     *
+     * @param filteredExpenses filtered list of expenses
+     */
     public void updateBudgets(FilteredList<Expense> filteredExpenses) {
         for (Budget budget : budgets) {
             budget.setSpent(filteredExpenses);

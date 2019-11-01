@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BUDGETS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
@@ -99,7 +103,8 @@ public class EditBudgetCommand extends Command {
         Period updatedPeriod = editEntryDescriptor.getPeriod().orElse(budgetToEdit.getPeriod());
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(budgetToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(budgetToEdit.getTags());
-        return new Budget(updatedCategory, updatedName, updatedDate, updatedPeriod, updatedAmount, updatedTags, budgetToEdit.getSpent());
+        return new Budget(updatedCategory, updatedName, updatedDate, updatedPeriod, updatedAmount,
+                updatedTags, budgetToEdit.getSpent());
     }
 
     @Override

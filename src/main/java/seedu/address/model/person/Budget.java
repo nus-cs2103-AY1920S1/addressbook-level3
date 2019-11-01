@@ -45,7 +45,8 @@ public class Budget extends Entry {
         new Budget(cat, desc, startDate, period, amount, tags, spent);
     }
 
-    public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags, Amount spent) {
+    public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount,
+                  Set<Tag> tags, Amount spent) {
         super(cat, desc, startDate, amount, tags);
         this.startDate = startDate;
         this.period = period;
