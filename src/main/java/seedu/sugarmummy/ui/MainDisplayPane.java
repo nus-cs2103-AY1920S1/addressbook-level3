@@ -15,9 +15,9 @@ import seedu.sugarmummy.model.bio.User;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.model.time.YearMonthDay;
+import seedu.sugarmummy.recmfood.ui.FoodFlowPanel;
 import seedu.sugarmummy.ui.bio.BioPane;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
-import sugarmummy.recmfood.ui.FoodFlowPanel;
 
 /**
  * A class that stores and processes the possible Main Display Panes to be displayed to the user.

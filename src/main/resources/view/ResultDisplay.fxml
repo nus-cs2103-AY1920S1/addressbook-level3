@@ -11,12 +11,12 @@
       alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8">
     <children>
         <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll"
-                    maxHeight="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                    minHeight="75" prefHeight="75" maxHeight="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <content>
                 <VBox VBox.vgrow="ALWAYS">
                     <children>
-                        <Label fx:id="resultDisplay" minHeight="100" maxHeight="Infinity" alignment="TOP_LEFT"
-                               styleClass="result-display" textAlignment="LEFT" wrapText="true"/>
+                        <Label fx:id="resultDisplay" minHeight="70" maxHeight="Infinity" alignment="TOP_LEFT"
+                               styleClass="result-display" textAlignment="LEFT" wrapText="false"/>
                     </children>
                     <padding>
                         <Insets left="10.0"/>

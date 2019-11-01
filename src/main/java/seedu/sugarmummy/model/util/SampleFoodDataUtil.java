@@ -1,13 +1,13 @@
 package seedu.sugarmummy.model.util;
 
-import sugarmummy.recmfood.model.Calorie;
-import sugarmummy.recmfood.model.Fat;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.FoodName;
-import sugarmummy.recmfood.model.FoodType;
-import sugarmummy.recmfood.model.Gi;
-import sugarmummy.recmfood.model.Sugar;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.model.Calorie;
+import seedu.sugarmummy.recmfood.model.Fat;
+import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodName;
+import seedu.sugarmummy.recmfood.model.FoodType;
+import seedu.sugarmummy.recmfood.model.Gi;
+import seedu.sugarmummy.recmfood.model.Sugar;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Contains utility methods for populating {@code UniqueFoodList} with sample data.

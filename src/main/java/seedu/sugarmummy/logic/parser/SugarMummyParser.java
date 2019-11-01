@@ -29,11 +29,11 @@ import seedu.sugarmummy.logic.parser.aesthetics.FontColourCommandParser;
 import seedu.sugarmummy.logic.parser.bio.AddBioCommandParser;
 import seedu.sugarmummy.logic.parser.bio.EditBioCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
-import sugarmummy.recmfood.commands.AddFoodCommand;
-import sugarmummy.recmfood.commands.RecmFoodCommand;
-import sugarmummy.recmfood.exception.FoodNotSuitableException;
-import sugarmummy.recmfood.parser.AddFoodCommandParser;
-import sugarmummy.recmfood.parser.RecmFoodCommandParser;
+import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
+import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
+import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
+import seedu.sugarmummy.recmfood.parser.AddFoodCommandParser;
+import seedu.sugarmummy.recmfood.parser.RecmFoodCommandParser;
 
 /**
  * Parses user input.

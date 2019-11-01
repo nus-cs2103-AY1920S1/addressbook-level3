@@ -3,8 +3,8 @@ package seedu.sugarmummy.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.sugarmummy.recmfood.testutil.TypicalFoods.FOODS;
 import static seedu.sugarmummy.testutil.Assert.assertThrows;
-import static sugarmummy.recmfood.testutil.TypicalFoods.FOODS;
 
 import java.nio.file.Paths;
 
@@ -14,7 +14,7 @@ import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.model.bio.UserList;
 import seedu.sugarmummy.model.calendar.Calendar;
 import seedu.sugarmummy.model.record.UniqueRecordList;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 public class ModelManagerTest {
 

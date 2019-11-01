@@ -24,7 +24,7 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
 
-            <VBox fx:id="mainWindowPlaceholder">
+            <VBox fx:id="mainWindowPlaceholder" >
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -47,8 +47,11 @@
                 </HBox>
 
                 <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
                     <items>
-                        <VBox minHeight="270" minWidth="360" prefHeight="270" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                        <VBox minHeight="270" minWidth="340" prefHeight="270" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets bottom="10" left="10" right="10" top="10" />
                             </padding>

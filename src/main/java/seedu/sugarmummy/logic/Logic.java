@@ -22,8 +22,8 @@ import seedu.sugarmummy.model.bio.User;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.record.Record;
 import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.recmfood.model.Food;
 import seedu.sugarmummy.ui.DisplayPaneType;
-import sugarmummy.recmfood.model.Food;
 
 /**
  * API of the Logic component
@@ -172,27 +172,27 @@ public interface Logic {
     /**
      * Returns an unmodifiable map of achievements stored in this program.
      */
-    public Map<RecordType, List<Achievement>> getAchievementsMap();
+    Map<RecordType, List<Achievement>> getAchievementsMap();
 
     /**
      * Returns whether or not new achievements have been attained after a modification to the user's list of records.
      */
-    public boolean newAchievementsHaveBeenAttained();
+    boolean newAchievementsHaveBeenAttained();
 
     /**
      * Returns whether or not existing achievements have been lost after a modification to the user's list of records.
      */
-    public boolean existingAchievementsHaveBeenLost();
+    boolean existingAchievementsHaveBeenLost();
 
     /**
      * Resets whether there are modification to the user's list of records to false.
      */
-    public void resetNewAchievementsState();
+    void resetNewAchievementsState();
 
     /**
      * Returns whether or not a given achievements map is the same as the current achievements map.
      */
-    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
+    boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
 
 
 }

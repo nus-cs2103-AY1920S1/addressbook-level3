@@ -38,8 +38,8 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
+import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
  * Represents the in-memory sugarmummy.recmfood.model of the SugarMummy data.

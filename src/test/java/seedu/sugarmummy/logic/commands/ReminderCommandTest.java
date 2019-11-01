@@ -34,9 +34,9 @@ import seedu.sugarmummy.model.record.Record;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
+import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 import seedu.sugarmummy.testutil.ReminderBuilder;
-import sugarmummy.recmfood.model.Food;
-import sugarmummy.recmfood.model.UniqueFoodList;
 
 class ReminderCommandTest {
     @Test
