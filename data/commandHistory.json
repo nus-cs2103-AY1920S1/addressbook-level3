@@ -49,5 +49,30 @@
     "output" : "Undo Successful ",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572614827190
+  }, {
+    "input" : "view s/5",
+    "output" : "Displayed items with ID: A0180004",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614924863
+  }, {
+    "input" : "view m/3",
+    "output" : "Displayed items with ID: CS1231",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614928719
+  }, {
+    "input" : "approve mass/  C000002  C000003",
+    "output" : "Successfully approved: [C000002, C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614940773
+  }, {
+    "input" : "view s/4",
+    "output" : "Displayed items with ID: A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614955351
+  }, {
+    "input" : "approve a/6",
+    "output" : "Approved C000005\nAdded module to : A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614968018
   } ]
 }

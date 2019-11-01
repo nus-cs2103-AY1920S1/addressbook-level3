@@ -37,10 +37,10 @@ public class MassApprove extends Approve {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Appeal> lastShownList = model.getFilteredAppealList();
+        List<Appeal> fullAppealList = model.getFullAppealList();
 
         for (String appealId : validIds) {
-            for (Appeal appeal : lastShownList) {
+            for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
                     Appeal appealToApprove = appeal;
@@ -94,7 +94,7 @@ public class MassApprove extends Approve {
                                 //check if student has the module (ready for deletion).
                                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                                 boolean hasModule = false;
-                                for (Tag tag : studentModules) {
+                                for (Tag tag : studentModules) {    
                                     if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
                                         hasModule = true;
                                     }
