@@ -171,6 +171,13 @@ public class ModelManager implements Model {
         return userPrefs.outputAppointments();
     }
 
+    @Override
+    public void resetAppointments() {
+        userPrefs.resetAppointments(); // JSON
+        appointmentList.resetAppointments(); // UI
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
     //=========== Filtered Appointment List Accessors =============================================================
 
     /**

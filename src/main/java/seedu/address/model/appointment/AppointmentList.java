@@ -170,6 +170,13 @@ public class AppointmentList implements Iterable<Appointment> {
         Collections.sort(internalList, compareByTypeThenValueThenKey);
     }
 
+    /**
+     * Reset Appointment Data completely.
+     */
+    public void resetAppointments() {
+        internalList.clear();
+    }
+
     // cascadeDay equivalent unnecessary.
 
     // outputAppointments equivalent unnecessary.
