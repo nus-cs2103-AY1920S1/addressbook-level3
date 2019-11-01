@@ -16,8 +16,8 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ExpenseBuilder {
 
-    public static final String DEFAULT_NAME = "coffee";
-    public static final String DEFAULT_AMOUNT = "$23.50";
+    public static final String DEFAULT_NAME = "textbook";
+    public static final String DEFAULT_AMOUNT = "23.50";
     public static final String DEFAULT_CURRENCY = "SGD";
     public static final String DEFAULT_DATE = "13/10/2019";
 

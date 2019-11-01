@@ -8,7 +8,7 @@
   },
     {
       "name": "coffee",
-      "amount": "$12.30",
+      "amount": "12.30",
       "currency": "X12",
       "date": "13/10/2019",
       "tagged": [ "education" ]

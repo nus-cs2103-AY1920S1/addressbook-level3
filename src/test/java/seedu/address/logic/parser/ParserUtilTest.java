@@ -28,7 +28,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#food";
 
     private static final String VALID_NAME = "Coffee";
-    private static final String VALID_AMOUNT = "$6.50";
+    private static final String VALID_AMOUNT = "6.50";
     private static final String VALID_DATE = "13/10/2019";
     private static final String VALID_TAG_1 = "food";
     private static final String VALID_TAG_2 = "drink";
