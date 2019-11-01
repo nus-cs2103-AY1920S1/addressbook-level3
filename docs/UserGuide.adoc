@@ -86,6 +86,8 @@ Examples:
 
 ==== Finding an eatery: `find`
 
+*Coming in v1.4*
+
 Finds an eatery based on name or tag. +
 Format: `find \n [name of eatery]` or `find \t [tag]`
 
@@ -95,6 +97,8 @@ Examples:
 * `find \t Chinese`
 
 ==== Changing address of an eatery: `changeaddress`
+
+*Coming in v1.4*
 
 Changes the address of an eatery. +
 Format: `changeaddress [id] \a [new address]`
@@ -170,6 +174,8 @@ Examples:
 === Import/Export
 ==== Importing eateries: `import`
 
+*Coming in v1.4*
+
 Imports eateries from a text file. +
 Format: `import \f [filename]`
 
@@ -178,6 +184,8 @@ Examples:
 * `import \f /home/user/eatme-backup-john.txt`
 
 ==== Exporting eateries: `export`
+
+*Coming in v1.4*
 
 Exports eateries to a text file. +
 Format: `export \f [filename]`
@@ -188,6 +196,8 @@ Examples:
 
 === Visualisation
 ==== Showing overall statistics: `stats`
+
+*Coming in v1.4*
 
 Presents a visual overview of the user’s eateries and reviews. +
 Format: `stats`
