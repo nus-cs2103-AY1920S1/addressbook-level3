@@ -310,12 +310,12 @@ public interface Model {
     /**
      * Creates a quiz manually.
      */
-    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
+    boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
 
     /**
      * Creates a quiz automatically.
      */
-    void createQuizAutomatically(String quizId, int numQuestions, String type);
+    boolean createQuizAutomatically(String quizId, int numQuestions, String type);
 
     /**
      * Adds a question to a quiz. {@code quizId} Must already exist in the quiz bank. {@code

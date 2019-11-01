@@ -73,10 +73,11 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * @param quizId The identifier of the quiz to be created.
      * @param questionNumbers The question numbers to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @return True is quiz has been created, false if not.
      */
-    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
+    public boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers,
                                    SavedQuestions savedQuestions) {
-        QuizManager.createQuizManually(quizId, questionNumbers, savedQuestions, quizzes);
+        return QuizManager.createQuizManually(quizId, questionNumbers, savedQuestions, quizzes);
     }
 
     /**
@@ -85,10 +86,11 @@ public class SavedQuizzes implements ReadOnlyQuizzes {
      * @param numQuestions The number of questions to be added to the quiz.
      * @param type The type of questions to be added to the quiz.
      * @param savedQuestions The saved questions.
+     * @return True if the quiz has been created, false if not.
      */
-    public void createQuizAutomatically(String quizId, int numQuestions, String type,
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type,
                                         SavedQuestions savedQuestions) {
-        QuizManager.createQuizAutomatically(quizId, numQuestions, type, savedQuestions, quizzes);
+        return QuizManager.createQuizAutomatically(quizId, numQuestions, type, savedQuestions, quizzes);
     }
 
     /**

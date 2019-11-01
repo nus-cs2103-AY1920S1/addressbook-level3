@@ -37,7 +37,10 @@ public class QuizCreateManuallyCommand extends QuizCommand {
 
         ArrayList<Integer> questionNumbers = new ArrayList<>();
         for (String s : splitQuestionNumbers) {
-            questionNumbers.add(Integer.parseInt(s));
+            int convertedInt = Integer.parseInt(s);
+            if (!questionNumbers.contains(convertedInt)) {
+                questionNumbers.add(convertedInt);
+            }
         }
 
         this.quizId = quizId;
@@ -55,9 +58,14 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         if (model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }
-        QuizBank.setCurrentlyQueriedQuiz(quizId);
-        model.createQuizManually(quizId, questionNumbers);
-        return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
+
+        boolean isSuccess = model.createQuizManually(quizId, questionNumbers);
+        if (isSuccess) {
+            QuizBank.setCurrentlyQueriedQuiz(quizId);
+            return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
+        } else {
+            return new CommandResult(generateFailureMessage());
+        }
     }
 
     /**
@@ -71,6 +79,14 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         } else {
             return "Created quiz: " + quizId + " with " + questionNumbers.size() + " questions.";
         }
+    }
+
+    /**
+     * Generates a command execution failure message.
+     * @return The String representation of a failure message.
+     */
+    private String generateFailureMessage() {
+        return "You have entered one or more invalid question indexes.";
     }
 
     @Override
