@@ -11,7 +11,7 @@ import seedu.deliverymans.model.Model;
 /**
  * (to be added)
  */
-public class GetStatisticsCommand extends Command {
+public class DeliverymanGetStatisticsCommand extends Command {
     public static final String COMMAND_WORD = "stats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the statistics of deliverymen statuses.\n"
@@ -23,12 +23,12 @@ public class GetStatisticsCommand extends Command {
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(MESSAGE_LIST_SUCCESS, GetStatisticsCommand.class);
+        return new CommandResult(MESSAGE_LIST_SUCCESS, DeliverymanGetStatisticsCommand.class);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof GetStatisticsCommand); // instanceof handles nulls
+                || (other instanceof DeliverymanGetStatisticsCommand); // instanceof handles nulls
     }
 }

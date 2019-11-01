@@ -248,20 +248,20 @@ public class MainWindow extends UiPart<Stage> {
             orderListPanel = new OrderListPanel(customer.getOrders());
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             break;
-        case "StatusSwitchCommand":
+        case "DeliverymanStatusSwitchCommand":
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
-        case "GetStatisticsCommand":
+        case "DeliverymanGetStatisticsCommand":
             deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
                     logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
-        case "ListStatusCommand":
+        case "DeliverymanListStatusCommand":
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
-        case "EnterRecordCommand":
+        case "DeliverymanEnterRecordCommand":
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
             deliverymanRecordCard = new DeliverymanRecordCard(record);
             statisticsDisplay = new StatisticsDisplay();

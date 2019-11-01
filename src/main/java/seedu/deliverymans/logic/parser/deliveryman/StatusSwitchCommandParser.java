@@ -3,7 +3,7 @@ package seedu.deliverymans.logic.parser.deliveryman;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.deliverymans.commons.core.index.Index;
-import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanStatusSwitchCommand;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
@@ -16,13 +16,13 @@ public class StatusSwitchCommandParser {
      * and returns a StatusCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public StatusSwitchCommand parse(String args) throws ParseException {
+    public DeliverymanStatusSwitchCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new StatusSwitchCommand(index);
+            return new DeliverymanStatusSwitchCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatusSwitchCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeliverymanStatusSwitchCommand.MESSAGE_USAGE), pe);
         }
     }
 }

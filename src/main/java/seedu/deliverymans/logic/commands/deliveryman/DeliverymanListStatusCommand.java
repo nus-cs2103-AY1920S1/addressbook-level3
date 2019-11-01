@@ -11,7 +11,7 @@ import seedu.deliverymans.model.Model;
 /**
  * Lists the deliverymen sorted by their current statuses.
  */
-public class ListStatusCommand extends Command {
+public class DeliverymanListStatusCommand extends Command {
 
     public static final String COMMAND_WORD = "lista";
 
@@ -26,12 +26,12 @@ public class ListStatusCommand extends Command {
         requireNonNull(model);
 
         model.showAvailableDeliverymen();
-        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, ListStatusCommand.class);
+        return new CommandResult(MESSAGE_LIST_AVAIL_SUCCESS, DeliverymanListStatusCommand.class);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ListStatusCommand); // instanceof handles nulls
+                || (other instanceof DeliverymanListStatusCommand); // instanceof handles nulls
     }
 }
