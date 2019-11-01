@@ -485,13 +485,12 @@ public class ModelManager implements Model {
         latestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, 1);
 
         List<Schedule> schedules = scheduleBook.getList();
-        for (Schedule s: schedules) {
-            Calendar calendar = s.getCalendar();
-            if (calendar.after(earliestUnconflictedStartTime) && calendar.before(latestUnconflictedStartTime)) {
-                conflicts.add(s);
-            }
-        }
-        Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
+        schedules.stream()
+                .filter(x -> !x.isSameAs(schedule))
+                .filter(x -> x.getCalendar().after(earliestUnconflictedStartTime))
+                .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
+                .sorted(Comparator.comparing(Schedule::getCalendar));
+
         return conflicts;
     }
 
