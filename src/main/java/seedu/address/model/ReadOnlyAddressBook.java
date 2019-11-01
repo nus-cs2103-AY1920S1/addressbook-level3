@@ -22,8 +22,6 @@ public interface ReadOnlyAddressBook extends Observable {
      * Returns an unmodifiable view of the persons list. This list will not contain
      * any duplicate persons.
      */
-    void addCategory(Category category);
-
     CategoryList getCategoryList();
 
     ObservableList<Category> getExpenseCategoryList();

@@ -272,13 +272,15 @@ Example:
 
 ==== Viewing Statistics : `viewStatistics`
 View past expenditure/ income by Month. If not present, will only show current Month.
-
+Can also view statistics for a period of time in terms of months. Date must be in the form of startDate(yyyy-mm), endDate(yyyy-mm) in this case.
 Format: `viewStatistics [p/<Date>]`
 
 Example:
 
 * `viewStatistics`
 * `viewStatistics p/2019-09`
+* `viewStatistics p/2000-09,2019-09`
+
 
 ==== Sorting : `sort`
 

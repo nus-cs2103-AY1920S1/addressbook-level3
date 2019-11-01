@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -82,7 +81,7 @@ public class EditWishCommand extends Command {
         }
 
         model.setWish(entryToEdit, editedEntry);
-        model.updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
+        model.updateFilteredWishes(PREDICATE_SHOW_ALL_ENTRIES);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));

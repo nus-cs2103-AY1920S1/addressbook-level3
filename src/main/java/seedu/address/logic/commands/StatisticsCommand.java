@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Date;
@@ -21,10 +23,12 @@ public class StatisticsCommand extends Command {
             + PREFIX_PERIOD + "9/2019 ";
 
     public static final String MESSAGE_SUCCESS = "Display all statistics by the specified period";
-    private Date listOfPeriods;
+    public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only two "
+            + "specified dates Start and End are allowed";
+    private List<Date> listOfPeriods;
 
 
-    public StatisticsCommand(Date period) {
+    public StatisticsCommand(List<Date> period) {
         this.listOfPeriods = period;
     }
 
@@ -34,7 +38,7 @@ public class StatisticsCommand extends Command {
         if (listOfPeriods == null) {
             model.getStats().updateListOfStats();
         } else {
-            model.getStats().updateListOfStats(listOfPeriods.getDate().getMonth(), listOfPeriods.getDate().getYear());
+            model.getStats().updateListOfStats(listOfPeriods);
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }

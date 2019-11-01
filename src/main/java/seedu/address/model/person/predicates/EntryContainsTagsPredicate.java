@@ -20,7 +20,7 @@ public class EntryContainsTagsPredicate implements Predicate<Entry> {
 
     @Override
     public boolean test(Entry entry) {
-        return tagListToCompare.equals(entry.getTags());
+        return tagListToCompare.stream().allMatch(t -> entry.getTags().contains(t));
     }
 
     @Override
