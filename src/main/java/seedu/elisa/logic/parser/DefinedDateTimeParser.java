@@ -21,7 +21,7 @@ public class DefinedDateTimeParser implements DateTimeParser {
         try {
             String[] splitTime = stringDateTime.split(" ");
 
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
             LocalDate processedDate = LocalDate.parse(splitTime[0], dateFormatter);
 
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");

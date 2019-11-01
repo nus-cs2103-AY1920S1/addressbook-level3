@@ -72,6 +72,7 @@ This table shows the basic rules for the formatting the input:
 |Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional | `task shower` `task shower -t clean`
 |Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d | `task shower -d 1.hour.later -r 30.min.later` `task shower -r 30.min.later -d 1.hour.later`
 |Flags must not be repeated in the same input, unless it is a tag flag | `task shower -p high -p low` is *incorrect* as -p appears twice. However, `task bathe -t fresh -t hygiene` is accepted| `task shower -p high`
+|For the parser of mm.min.later, hh.hour.later, dd.day.later, the maximum allowed is 100 | `101.min.later` is not accepted, however `100.min.later` or `99.day.later` are both accepted. | `task study -d 99.day.later`
 |===
 
 
