@@ -519,7 +519,6 @@ image::ExampleValidCsv.png[]
 * cost
 * tagged
 
-[Note]
 ====
 Multiple tags should be separated by a semi-colon.
 
