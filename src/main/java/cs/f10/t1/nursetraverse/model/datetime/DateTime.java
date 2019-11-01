@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import cs.f10.t1.nursetraverse.commons.util.AppUtil;
@@ -44,7 +45,8 @@ public class DateTime {
     public DateTime(Date date) {
         requireNonNull(date);
         Instant current = date.toInstant();
-        this.dateTime = LocalDateTime.ofInstant(current, ZoneId.systemDefault());
+        LocalDateTime now = LocalDateTime.ofInstant(current, ZoneId.systemDefault());
+        this.dateTime = now.truncatedTo(ChronoUnit.MINUTES);
     }
 
     /**
