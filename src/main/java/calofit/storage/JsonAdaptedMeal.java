@@ -25,7 +25,7 @@ public class JsonAdaptedMeal {
      */
     @JsonCreator
     public JsonAdaptedMeal(@JsonProperty("dish") JsonAdaptedDish dish,
-                           @JsonProperty("time") String time) throws IllegalValueException {
+                           @JsonProperty("time") String time) {
         this.dish = dish;
         this.time = time;
     }

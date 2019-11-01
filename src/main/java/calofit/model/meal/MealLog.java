@@ -147,7 +147,8 @@ public class MealLog implements ReadOnlyMealLog {
      * @return True if meal was in the Log, false otherwise.
      */
     public boolean hasMeal(Meal meal) {
-        return observableMeals.contains(meal);
+        requireNonNull(meal);
+        return observableMeals.stream().anyMatch(meal::isSameMeal);
     }
 
     /**
@@ -168,5 +169,12 @@ public class MealLog implements ReadOnlyMealLog {
 
     public DoubleExpression getTodayCalories() {
         return todayCalories;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof MealLog // instanceof handles nulls
+                && mealLog.equals(((MealLog) other).mealLog));
     }
 }
