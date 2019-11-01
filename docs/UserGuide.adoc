@@ -255,23 +255,23 @@ To access your cards, simply enter `goto card` in the command box.
 
 You can easily adds cards to the application.
 
-Format: `add d/<description> c/<cardNumber> e/<expiry> v/<cvc> [t/<tag>]`
+Format: `add d/DESCRIPTION c/CARDNUMBER v/CVC e/EXPIRY [t/TAG]`
 
-Example: `add d/VisaPOSB c/5203123458392748 e/12/25 v/456 t/groceries`
+Example: `add d/VisaPOSB c/5203123458392748 v/456 e/12/25 t/groceries`
 
 ==== Reading a card : `read`
 
 You can also obtain the details of a card easily, just by its description.
 
-Format: `read <description>`
+Format: `read d/DESCRIPTION v/CVC`
 
-Example: `read VisaPOSB`
+Example: `read d/VisaPOSB v/456`
 
 ==== Deleting a card: `delete`
 
 If your card has expired, you can easily remove it from the application, by its description.
 
-Format: `delete <description>`
+Format: `delete DESCRIPTION`
 
 Example: `delete VisaPOSB`
 
