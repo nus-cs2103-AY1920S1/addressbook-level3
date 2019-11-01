@@ -6,13 +6,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.StatusManager;
+import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level
@@ -164,10 +166,10 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     // ========== Methods related to Order ====================================================================
 
     /**
-     * Retrieves an available deliveryman for OrderManager for the purpose of delivering an order.
+     * Retrieves the name of an available deliveryman for OrderManager for the purpose of delivering an order.
      */
-    public Deliveryman getAvailableDeliveryman() {
-        return statusManager.getAvailableDeliveryman();
+    public Name getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
+        return statusManager.getAvailableDeliveryman().getName();
     }
 
     /**
