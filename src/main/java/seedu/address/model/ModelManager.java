@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,8 +19,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.UniqueInvMemMappingList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
@@ -386,8 +389,24 @@ public class ModelManager implements Model {
         return projectDashboard.findMeetingTime(startDate, endDate, meetingDuration);
     }
 
-    // ========= General Commands ===========================================================================
+    public ObservableList<ObservableList<InvMemMapping>> getInvMemPDFList() {
+        return projectDashboard.getInvMemPDFList();
+    }
 
+    public ObservableList<ObservableList<InvTasMapping>> getInvTasPDFList() {
+        return projectDashboard.getInvTasPDFList();
+    }
+
+    public ArrayList<Integer> getInvMemLonelyList() {
+        return projectDashboard.getInvMemLonelyList();
+    }
+
+    public ArrayList<Integer> getInvTasLonelyList() {
+        return projectDashboard.getInvTasLonelyList();
+    }
+
+
+    // ========= General Commands ===========================================================================
 
     //Check if ProjectDashboard cloning is deep clone or shallow clone
     @Override

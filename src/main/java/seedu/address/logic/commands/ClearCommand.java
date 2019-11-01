@@ -17,7 +17,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setProjectDashboard(new ProjectDashboard());
-        return new CommandResult(MESSAGE_SUCCESS);
+        //model.setProjectDashboard(new ProjectDashboard());
+        return new CommandResult("Type-2");
+        //return new CommandResult(MESSAGE_SUCCESS);
     }
 }

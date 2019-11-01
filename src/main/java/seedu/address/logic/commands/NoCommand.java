@@ -5,17 +5,15 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INVENTORIES;
 
 import seedu.address.model.Model;
 
-public class ListInventoryCommand extends Command{
-    public static final String COMMAND_WORD = "list-inv";
-    public static final String PREFIX_USAGE = "";
+public class NoCommand extends Command{
+    public static final String COMMAND_WORD = "no";
 
-    public static final String MESSAGE_SUCCESS = "Listed all inventories";
+    public static final String MESSAGE_SUCCESS = "halt";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //model.updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

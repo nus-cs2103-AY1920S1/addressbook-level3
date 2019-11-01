@@ -85,6 +85,8 @@ public class UserViewUpdate {
 
         case "add-inv":
 
+        case "add-i":
+
         case "list-inv":
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
@@ -111,6 +113,12 @@ public class UserViewUpdate {
         case "clear":
 
         case "home":
+
+        case "add-d":
+
+        case "no":
+
+        case "yes":
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 

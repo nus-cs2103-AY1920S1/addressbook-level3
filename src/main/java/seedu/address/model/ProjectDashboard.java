@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -246,6 +247,72 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public boolean hasMapping(Mapping mapping) {
         requireNonNull(mapping);
         return mappings.contains(mapping);
+    }
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(InvTasMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
+
+    /**
+     * returns whether the mapping list contains targetMapping
+     */
+    public boolean hasMapping(TasMemMapping mapping) {
+        requireNonNull(mapping);
+        return mappings.contains(mapping);
+    }
+
+    public ObservableList<ObservableList<InvMemMapping>> getInvMemPDFList() {
+        return mappings.getInvMemPDFList();
+    }
+
+    public ObservableList<ObservableList<InvTasMapping>> getInvTasPDFList() {
+        return mappings.getInvTasPDFList();
+    }
+
+    public ArrayList<Integer> getInvMemLonelyList() {
+        ArrayList<Integer> lonelyList = new ArrayList<>();
+        ObservableList<InvMemMapping>mapList = mappings.getUnmodifiableObservableInvMemList();
+        for(int i = 0; i < inventories.size(); i++) {
+            boolean isMapped = false;
+            for(InvMemMapping x: mapList) {
+                if (x.getInventoryIndex() == i) {
+                    isMapped = true;
+                    break;
+                }
+            }
+            if(!isMapped) {
+                lonelyList.add(i);
+            }
+        }
+        return lonelyList;
+    }
+
+    public ArrayList<Integer> getInvTasLonelyList() {
+        ArrayList<Integer> lonelyList = new ArrayList<>();
+        ObservableList<InvTasMapping>mapList = mappings.getUnmodifiableObservableInvTasList();
+        for(int i = 0; i < inventories.size(); i++) {
+            boolean isMapped = false;
+            for(InvTasMapping x: mapList) {
+                if (x.getInventoryIndex() == i) {
+                    isMapped = true;
+                    break;
+                }
+            }
+            if(!isMapped) {
+                lonelyList.add(i);
+            }
+        }
+        return lonelyList;
+    }
+
+    @Override
+    public String toString() {
+        return tasks.asUnmodifiableObservableList().size() + " tasks";
+        // TODO: refine later
     }
 
     @Override

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -20,7 +21,7 @@ import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
-//import seedu.address.model.task.Task;
+import seedu.address.model.task.Task;
 
 /**
  * Adds a task to the address book.
@@ -69,20 +70,30 @@ public class AddInventoryCommand extends Command {
         this.memId = memId;
     }
 
+    public InvName getName() {
+        return name;
+    }
+
+    public Index getTaskId() {
+        return taskId;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Task> lastShownTaskList = new ArrayList<>(model.getFilteredTasksList());
+        List<Member> lastShownMemberList = new ArrayList<>(model.getFilteredMembersList());
+        List<Inventory> lastShownInvList = new ArrayList<>(model.getFilteredInventoriesList());
         int tasksLength = model.getTasksLength();
-        List<Member> lastShownMemberList = model.getFilteredMembersList();
-        List<Inventory> lastShownInvList = model.getFilteredInventoriesList();
+        int membersLength = model.getMembersLength();
 
         if (taskId.getOneBased() > tasksLength) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+
         boolean contains = false;
         Member memberToAdd = null;
         Integer memberIndex = null;
-
         for (int i = 0; i < lastShownMemberList.size(); i++) {
             if (lastShownMemberList.get(i).getId().equals(memId)) {
                 contains = true;
@@ -96,18 +107,18 @@ public class AddInventoryCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEMBER_ID);
         }
 
-        //Task taskToAdd = model.getFilteredTasksList().get(taskId.getZeroBased());
-        Inventory toAdd = new Inventory(/*taskToAdd,*/ name, price);
+        Inventory toAdd = new Inventory(name, price);
+        int invSize = lastShownInvList.size();
+        InvMemMapping memMapToAdd = new InvMemMapping(memberIndex, invSize);
+        InvTasMapping tasMapToAdd = new InvTasMapping(taskId.getZeroBased(), invSize);
 
         if (model.hasInventory(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_INVENTORY);
         }
 
         model.addInventory(toAdd);
-        InvMemMapping invMemToAdd = new InvMemMapping(memberIndex, lastShownInvList.size());
-        InvTasMapping  invTasToAdd = new InvTasMapping(taskId.getZeroBased(), lastShownInvList.size());
-        model.addMapping(invMemToAdd);
-        model.addMapping(invTasToAdd);
+        model.addMapping(memMapToAdd);
+        model.addMapping(tasMapToAdd);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

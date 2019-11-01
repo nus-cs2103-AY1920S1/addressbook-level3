@@ -46,6 +46,6 @@ class JsonAdaptedInvTasMapping {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public InvTasMapping toModelType() throws IllegalValueException {
-        return new InvTasMapping(inventoryIndex, taskIndex);
+        return new InvTasMapping(taskIndex, inventoryIndex);
     }
 }
