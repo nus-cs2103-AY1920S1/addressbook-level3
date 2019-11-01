@@ -7,6 +7,7 @@ import seedu.address.model.Model;
 
 public class ListInventoryCommand extends Command{
     public static final String COMMAND_WORD = "list-inv";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_SUCCESS = "Listed all inventories";
 

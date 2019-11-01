@@ -9,6 +9,7 @@ import seedu.address.model.Model;
 public class HomeCommand extends Command {
 
     public static final String COMMAND_WORD = "home";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to dashboard view.\n"
             + "Example: " + COMMAND_WORD;
