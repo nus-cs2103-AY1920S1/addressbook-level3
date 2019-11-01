@@ -31,7 +31,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_NRIC = "S23\'5+";
     private static final String INVALID_GENDER = "#male";
-    private static final String INVALID_DATE_OF_BIRTH = "31/02/2019";
+    private static final String INVALID_DATE_OF_BIRTH = "2019-02-31";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_MEDICAL_CONDITION = " ";
 
@@ -45,7 +45,7 @@ public class ParserUtilTest {
     private static final String VALID_PROFILE_DESC = "Sometimes I pretend I'm a carrot.";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_GENDER = "Female";
-    private static final String VALID_DATE_OF_BIRTH = "02/01/2019";
+    private static final String VALID_DATE_OF_BIRTH = "2019-01-29";
     private static final String VALID_PHONE_1 = "123456";
     private static final String VALID_PHONE_2 = "987654";
     private static final String VALID_MEDICAL_CONDITION_1 = "Type II Diabetes";
