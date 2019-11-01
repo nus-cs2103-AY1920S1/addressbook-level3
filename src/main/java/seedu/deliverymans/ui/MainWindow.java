@@ -240,10 +240,16 @@ public class MainWindow extends UiPart<Stage> {
             Restaurant editing = logic.getEditingRestaurantList().get(0);
             editingRestaurantPlaceholder.setPrefHeight(125.0);
             editingRestaurantPlaceholder.setMinHeight(125.0);
+
             restaurantListPanel = new RestaurantListPanel(logic.getEditingRestaurantList());
             editingRestaurantPlaceholder.getChildren().add(restaurantListPanel.getRoot());
+
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+
+            orderListPanel = new OrderListPanel(editing.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+
             break;
         default:
             orderListPanel = new OrderListPanel(logic.getFilteredOrderList());

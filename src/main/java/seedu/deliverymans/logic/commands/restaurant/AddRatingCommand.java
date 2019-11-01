@@ -43,7 +43,7 @@ public class AddRatingCommand extends Command {
         Rating newRating = new Rating(String.format("%.3f", newRatingValue),
                 oldRating.numberOfRatings + 1);
         Restaurant newRestaurant = new Restaurant(restaurant.getName(), restaurant.getLocation(), newRating,
-                restaurant.getTags(), restaurant.getMenu());
+                restaurant.getTags(), restaurant.getMenu(), restaurant.getOrders());
 
         model.setRestaurant(restaurant, newRestaurant);
         model.setEditingRestaurant(newRestaurant);

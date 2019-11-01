@@ -29,8 +29,8 @@ public class Restaurant {
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<Order> orders = new HashSet<>();
     private final ObservableList<Food> menu = FXCollections.observableArrayList();
+    private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
@@ -52,13 +52,15 @@ public class Restaurant {
         this.menu.addAll(menu);
     }
 
-    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu,
+                      ObservableList<Order> orders) {
         requireAllNonNull(name, location, rating, tags);
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
         this.menu.addAll(menu);
+        this.orders.addAll(orders);
     }
 
     public Name getName() {
@@ -77,7 +79,7 @@ public class Restaurant {
         return tags;
     }
 
-    public Set<Order> getOrders() {
+    public ObservableList<Order> getOrders() {
         return orders;
     }
 
@@ -119,8 +121,7 @@ public class Restaurant {
         }
 
         return otherRestaurant != null
-                && otherRestaurant.getName().equals(getName())
-                && otherRestaurant.getLocation().equals(getLocation());
+                && otherRestaurant.getName().equals(getName());
     }
 
     /**
