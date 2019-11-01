@@ -14,9 +14,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.parser.universal.Context;
-import seedu.deliverymans.model.addressbook.AddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
@@ -38,7 +35,6 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final OrderDatabase orderDatabase;
     private final CustomerDatabase customerDatabase;
     private final DeliverymenDatabase deliverymenDatabase;
@@ -46,7 +42,6 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Deliveryman> filteredDeliverymen;
@@ -64,25 +59,26 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyCustomerDatabase customerDatabase,
+    public ModelManager(ReadOnlyCustomerDatabase customerDatabase,
                         ReadOnlyDeliverymenDatabase deliverymenDatabase,
                         ReadOnlyRestaurantDatabase restaurantDatabase,
                         ReadOnlyOrderBook orderBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, customerDatabase, deliverymenDatabase, restaurantDatabase, orderBook, userPrefs);
+        requireAllNonNull(customerDatabase, deliverymenDatabase, restaurantDatabase, orderBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with customer database: " + customerDatabase
+                + " and deliverymen database: " + deliverymenDatabase
+                + " and restaurant database: " + restaurantDatabase
+                + " and order book: " + orderBook
+                + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.customerDatabase = new CustomerDatabase(customerDatabase);
         this.deliverymenDatabase = new DeliverymenDatabase(deliverymenDatabase);
         this.restaurantDatabase = new RestaurantDatabase(restaurantDatabase);
         this.orderDatabase = new OrderDatabase(orderBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCustomers = new FilteredList<>(this.customerDatabase.getCustomerList());
         filteredDeliverymen = new FilteredList<>(this.deliverymenDatabase.getDeliverymenList());
         statusSortedDeliverymen = new FilteredList<>(this.deliverymenDatabase.getStatusSortedDeliverymenList());
@@ -100,7 +96,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new CustomerDatabase(), new DeliverymenDatabase(),
+        this(new CustomerDatabase(), new DeliverymenDatabase(),
                 new RestaurantDatabase(), new OrderDatabase(), new UserPrefs());
     }
 
@@ -126,53 +122,6 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
     }
 
     //=========== Universal Methods =============================================================
@@ -458,7 +407,6 @@ public class ModelManager implements Model {
     }
 
     private void setData(Data data) {
-        setAddressBook(data.addressBook);
         setCustomerDatabase(data.customerDatabase);
         setDeliverymenDatabase(data.deliverymenDatabase);
         setRestaurantDatabase(data.restaurantDatabase);
@@ -466,15 +414,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
@@ -531,12 +470,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
-    @Override
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
@@ -586,23 +519,20 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+        return userPrefs.equals(other.userPrefs)
+                && filteredCustomers.equals(other.filteredCustomers);
     }
 
     /**
      * Wrapper class for data stored in a model.
      */
     public static class Data {
-        private final AddressBook addressBook;
         private final CustomerDatabase customerDatabase;
         private final DeliverymenDatabase deliverymenDatabase;
         private final RestaurantDatabase restaurantDatabase;
         private final OrderDatabase orderDatabase;
 
         public Data(Model model) {
-            addressBook = new AddressBook(model.getAddressBook());
             customerDatabase = new CustomerDatabase(model.getCustomerDatabase());
             deliverymenDatabase = new DeliverymenDatabase(model.getDeliverymenDatabase());
             restaurantDatabase = new RestaurantDatabase(model.getRestaurantDatabase());
@@ -623,8 +553,7 @@ public class ModelManager implements Model {
 
             // state check
             Data other = (Data) obj;
-            return addressBook.equals(other.addressBook)
-                    && customerDatabase.equals(other.customerDatabase)
+            return customerDatabase.equals(other.customerDatabase)
                     && deliverymenDatabase.equals(other.deliverymenDatabase)
                     && restaurantDatabase.equals(other.restaurantDatabase)
                     && orderDatabase.equals(other.orderDatabase);

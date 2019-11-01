@@ -13,10 +13,6 @@ import javafx.collections.ObservableList;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
-import seedu.deliverymans.model.addressbook.AddressBook;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Person;
-import seedu.deliverymans.model.addressbook.person.Remark;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.CustomerDatabase;
 import seedu.deliverymans.model.database.DeliverymenDatabase;
@@ -27,6 +23,7 @@ import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.LocationMap;
 import seedu.deliverymans.model.order.Order;
@@ -36,12 +33,6 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static final Remark EMPTY_REMARK = new Remark("");
-
-    public static Person[] getSamplePersons() {
-        return new Person[]{
-        };
-    }
 
     public static Customer[] getSampleCustomers() {
         return new Customer[]{
@@ -140,20 +131,15 @@ public class SampleDataUtil {
 
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
-            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive")),
-            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful")),
+            new Deliveryman(new Name("Damith"), new Phone("99999999"), getTagSet("inactive"),
+                    new StatusTag("AVAILABLE")),
+            new Deliveryman(new Name("Donald Trump"), new Phone("91234567"), getTagSet("buff", "powerful"),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"), getTagSet("active")),
-            new Deliveryman(new Name("Low ee ter"), new Phone("99367862"), getTagSet("inactive")),
-            new Deliveryman(new Name("Yuen Jun rong "), new Phone("12345678"), getTagSet("veryactive"))
+            new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
+                    new StatusTag("DELIVERING")),
+            new Deliveryman(new Name("Yuen Jun Rong "), new Phone("12345678"), getTagSet("veryactive"))
         };
-    }
-
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
-        }
-        return sampleAb;
     }
 
     public static ReadOnlyCustomerDatabase getSampleCustomerDatabase() {

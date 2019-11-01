@@ -15,7 +15,7 @@ import seedu.deliverymans.model.order.Order;
  */
 public class OrderListPanel extends UiPart<Region> {
     private static final String FXML = "OrderListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(OrderListPanel.class);
 
     @FXML
     private ListView<Order> orderListView;
