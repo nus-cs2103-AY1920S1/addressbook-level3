@@ -18,14 +18,14 @@ public class FlashcardContainsTagPredicate implements Predicate<Flashcard> {
     // test on the flashcard to see if it has the tag
     @Override
     public boolean test(Flashcard flashcard) {
-        boolean boo;
+        boolean containsTag;
         if (tags.isEmpty()) {
-            boo = false;
+            containsTag = false;
         } else {
-            boo = tags.stream()
+            containsTag = tags.stream()
                     .allMatch(flashcard::containsTag);
         }
-        return boo;
+        return containsTag;
     }
 
     @Override

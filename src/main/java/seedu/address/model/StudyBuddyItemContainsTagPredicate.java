@@ -18,14 +18,14 @@ public class StudyBuddyItemContainsTagPredicate implements Predicate<StudyBuddyI
     // test on the person to see if he has the tag
     @Override
     public boolean test(StudyBuddyItem studyBuddyItem) {
-        boolean boo;
+        boolean containsTag;
         if (tags.isEmpty()) {
-            boo = false;
+            containsTag = false;
         } else {
-            boo = tags.stream()
+            containsTag = tags.stream()
                     .allMatch(studyBuddyItem::containsTag);
         }
-        return boo;
+        return containsTag;
     }
 
     @Override

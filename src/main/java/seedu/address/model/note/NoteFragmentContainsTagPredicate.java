@@ -19,14 +19,14 @@ public class NoteFragmentContainsTagPredicate implements Predicate<NoteFragment>
     // test on the note to see if he has the tag
     @Override
     public boolean test(NoteFragment noteFragment) {
-        boolean boo;
+        boolean containsTag;
         if (tags.isEmpty()) {
-            boo = false;
+            containsTag = false;
         } else {
-            boo = tags.stream()
+            containsTag = tags.stream()
                     .allMatch(noteFragment::containsTag);
         }
-        return boo;
+        return containsTag;
     }
 
     @Override
