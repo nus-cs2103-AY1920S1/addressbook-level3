@@ -64,7 +64,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 * Items in square brackets are optional e.g `-name <NAME> [-tag <TAG>]` can be used as `-name John Doe -tag friend` or as `-name John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[-tag <TAG>]...` can be used as `{nbsp}` (i.e. 0 times), `-tag friend`, `-tag friend -tag family` etc.
 * Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
-* A Reference Id refers to an string of alphanumeric characters that can be used to uniquely identifies a person, such as a membership number or NRIC.
+* A Reference Id refers to a string of atleast 3 alphanumeric characters (case-insensitive) that can be used to uniquely identify a person, such as a membership number or NRIC.
 A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
 Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
 
