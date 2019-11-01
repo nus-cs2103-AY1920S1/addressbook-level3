@@ -40,14 +40,25 @@ public class ScheduleCommand extends Command {
         List<Interviewee> interviewees = model.getUnfilteredIntervieweeList();
 
         BipartiteGraph graph = new BipartiteGraphGenerator(interviewers, interviewees).generate();
-        HopCroftKarp algorithm = new HopCroftKarp(graph);
-        algorithm.execute();
 
-        List<Interviewee> intervieweesWithSlots = assignSlotToInterviewees(graph);
-        String resultMessage = generateResultMessage(intervieweesWithSlots);
+        String message = "Successfully scheduled!";
+        String result = "Result:\nNo matching is found";
+
+        if (!graph.isEmpty()) {
+            HopCroftKarp algorithm = new HopCroftKarp(graph);
+            algorithm.execute();
+
+            List<Interviewee> intervieweesWithSlots = assignSlotToInterviewees(graph);
+            String allocationResult = generateResultMessage(intervieweesWithSlots);
+
+            if (!allocationResult.isEmpty()) {
+                result = String.format("Result:\n %s", allocationResult);
+            }
+        }
+
         logger.info("Finish scheduling interviews");
-
-        return new CommandResult(resultMessage);
+        String finalMessage = String.format("%s\n%s", message, result);
+        return new CommandResult(finalMessage);
     }
 
     @Override
@@ -83,7 +94,6 @@ public class ScheduleCommand extends Command {
      */
     private String generateResultMessage(List<Interviewee> interviewees) {
         StringBuilder builder = new StringBuilder(300);
-        builder.append("Successfully scheduled!\n");
 
         String resultMessage = "Name: %s, allocated slot: %s, interviewer: %s, department: %s\n";
         interviewees.stream().map(interviewee -> {

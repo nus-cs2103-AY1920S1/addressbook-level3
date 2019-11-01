@@ -43,6 +43,13 @@ public class BipartiteGraph {
         return graph.get(index).getTail();
     }
 
+    /**
+     * Returns true if the graph is empty.
+     */
+    public boolean isEmpty() {
+        return graph.isEmpty();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this

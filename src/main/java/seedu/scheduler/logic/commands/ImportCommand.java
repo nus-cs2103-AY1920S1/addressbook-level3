@@ -35,7 +35,8 @@ public class ImportCommand extends Command {
     private static final String FILE_DOES_NOT_EXIST = "Target file does not exist. Please ensure that "
             + "the file path is correct.";
     private static final String DUPLICATE_PERSON_ERROR = "Data contains entries that are duplicated/already exists "
-            + "in storage. Please remove those entries before running the import command.";
+            + "in storage. Please type 'clear'(without the quote) to remove those entries before running the import "
+            + "command.";
 
     private String filePath;
     private String type;
