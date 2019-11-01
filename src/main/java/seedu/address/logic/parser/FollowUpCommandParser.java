@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.commons.core.index.Index;
@@ -24,9 +25,14 @@ public class FollowUpCommandParser implements Parser<FollowUpCommand> {
 
         Index index;
         int days;
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));
+            if (days < 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
+                // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
+            }
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FollowUpCommand.MESSAGE_USAGE), ive);
         }

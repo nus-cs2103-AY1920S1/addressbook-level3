@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appointment.AppointmentTable;
 
 /**
  * Unmodifiable view of user prefs.
