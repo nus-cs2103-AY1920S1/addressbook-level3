@@ -23,7 +23,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F11-2/main
 
 By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
