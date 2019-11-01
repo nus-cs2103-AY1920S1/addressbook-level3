@@ -23,7 +23,7 @@
 //import seedu.address.logic.commands.HelpCommand;
 //import seedu.address.logic.commands.ListCommand;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.person.predicates.DescriptionContainsKeywordsPredicate;
+//import seedu.address.model.person.predicates.entries.DescriptionContainsKeywordsPredicate;
 //import seedu.address.model.person.Person;
 //import seedu.address.testutil.EditEntryDescriptorBuilder;
 //import seedu.address.testutil.EntryBuilder;

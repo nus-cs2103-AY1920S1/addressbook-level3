@@ -79,7 +79,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TimeUtil());
+        this(new AddressBook(false), new UserPrefs(), new TimeUtil());
     }
 
     // =========== UserPrefs
@@ -488,13 +488,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWishes(Predicate<Wish> predicate) {
+    public void updateFilteredWishes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredBudgets(Predicate<Budget> predicate) {
+    public void updateFilteredBudgets(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {

@@ -41,7 +41,7 @@ public class Budget extends Entry {
         this.startDate = startDate;
         this.period = period;
         endDate = startDate.plus(period);
-        spent = new Amount(0);
+        spent = new Amount("0");
         new Budget(cat, desc, startDate, period, amount, tags, spent);
     }
 
@@ -99,8 +99,7 @@ public class Budget extends Entry {
         for (Expense expense : filteredExpenses) {
             spentAmount += expense.getAmount().value;
         }
-
-        spent = new Amount(spentAmount);
+        spent = new Amount(Double.toString(spentAmount));
         return new Budget(getCategory(), getDesc(), getDate(), period, getAmount(), getTags(), spent);
     }
 

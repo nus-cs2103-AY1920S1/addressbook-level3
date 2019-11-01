@@ -27,7 +27,7 @@ class JsonAdaptedAutoExpense {
     private final String category;
     private final String desc;
     private final String date;
-    private final double amt;
+    private final String amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final String frequency;
     private final String lastTime;
@@ -37,7 +37,7 @@ class JsonAdaptedAutoExpense {
      */
     @JsonCreator
     public JsonAdaptedAutoExpense(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-            @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+            @JsonProperty("amt") String amt, @JsonProperty("time") String time,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("frequency") String frequency,
             @JsonProperty("lastTime") String lastTime) {
         this.category = category;
@@ -58,7 +58,7 @@ class JsonAdaptedAutoExpense {
     public JsonAdaptedAutoExpense(AutoExpense source) {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
-        amt = source.getAmount().value;
+        amt = source.getAmount().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
         frequency = source.getFrequency().toString();

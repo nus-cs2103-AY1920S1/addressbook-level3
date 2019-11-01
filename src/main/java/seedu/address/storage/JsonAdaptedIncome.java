@@ -26,7 +26,7 @@ class JsonAdaptedIncome {
     private final String category;
     private final String desc;
     private final String time;
-    private final double amt;
+    private final String amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,7 +34,7 @@ class JsonAdaptedIncome {
      */
     @JsonCreator
     public JsonAdaptedIncome(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                             @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                             @JsonProperty("amt") String amt, @JsonProperty("time") String time,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
@@ -52,7 +52,7 @@ class JsonAdaptedIncome {
     public JsonAdaptedIncome(Income source) {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
-        amt = source.getAmount().value;
+        amt = source.getAmount().toString();
         time = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

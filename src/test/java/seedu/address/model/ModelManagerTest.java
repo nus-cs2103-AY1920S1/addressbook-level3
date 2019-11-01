@@ -15,7 +15,7 @@
 //import org.junit.jupiter.api.Test;
 //
 //import seedu.address.commons.core.GuiSettings;
-//import seedu.address.model.person.predicates.DescriptionContainsKeywordsPredicate;
+//import seedu.address.model.person.predicates.entries.DescriptionContainsKeywordsPredicate;
 //import seedu.address.testutil.AddressBookBuilder;
 //
 //public class ModelManagerTest {

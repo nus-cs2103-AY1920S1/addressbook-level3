@@ -1,4 +1,4 @@
-package seedu.address.model.person.predicates.entries;
+package seedu.address.model.person.predicates;
 
 import java.util.function.Predicate;
 
@@ -7,10 +7,10 @@ import seedu.address.model.person.Entry;
 /**
  * Tests that a {@code Entry}'s {@code Category} is larger than the given category.
  */
-public class CategoryContainsKeywordsPredicate implements Predicate<Entry> {
+public class EntryContainsCategoryPredicate implements Predicate<Entry> {
     private final String categoryName;
 
-    public CategoryContainsKeywordsPredicate(String categoryName) {
+    public EntryContainsCategoryPredicate(String categoryName) {
         this.categoryName = categoryName;
     }
 
@@ -22,7 +22,7 @@ public class CategoryContainsKeywordsPredicate implements Predicate<Entry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CategoryContainsKeywordsPredicate // instanceof handles nulls
-                && categoryName == (((CategoryContainsKeywordsPredicate) other).categoryName)); // state check
+                || (other instanceof EntryContainsCategoryPredicate // instanceof handles nulls
+                && categoryName == (((EntryContainsCategoryPredicate) other).categoryName)); // state check
     }
 }

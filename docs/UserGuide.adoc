@@ -276,6 +276,7 @@ Format: `switchStats`
 Example: `switchStats`
 
 ==== Viewing Statistics : `viewStatistics`
+
 View past expenditure/income by month. If there is no input, pie charts will display the statistics for current month
 only.
 
@@ -285,6 +286,8 @@ Examples:
 
 * `viewStatistics`
 * `viewStatistics p/2019-09`
+* `viewStatistics p/2000-09,2019-09`
+
 
 ==== Sorting : `sort`
 
