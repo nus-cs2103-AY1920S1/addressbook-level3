@@ -42,7 +42,6 @@ public abstract class PanelTab extends Tab {
 
     public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
         this(primaryPanel, imageFileName);
-        this.primaryPanel = primaryPanel;
         this.secondaryPanel = secondaryPanel;
     }
 

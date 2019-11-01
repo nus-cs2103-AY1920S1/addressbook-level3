@@ -16,6 +16,6 @@ public enum CommandCategory {
         if (secondary == LOAN_SPLIT) {
             return LOAN;
         }
-        throw new RuntimeException();
+        return this;
     }
 }
