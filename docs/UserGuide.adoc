@@ -524,7 +524,8 @@ already empty and there is no biography information to clear. If a biography is 
 biography display pane with an empty biography table is shown to the user. A user cannot execute `editbio` after
 clearing the biography until another biography has been added using `addbio`.
 
-Note that this command does not affect the `background` and `fontcolour` aspects of the program.
+Note that this command does not affect the `background` and `fontcolour` aspects of the program and a 'cleared'
+biography table still shows aesthetic preferences.
 
 Similar to the `bio` command, this command cannot have any sub-arguments, and thus, if the user enters `bio 1`, an error message will be displayed,
 as the user's intention may not have been necessarily to show the biography. Trailing spaces are automatically trimmed
