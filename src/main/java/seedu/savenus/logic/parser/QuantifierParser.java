@@ -24,7 +24,7 @@ public class QuantifierParser {
             + "Please fix the formatting to: FIELD QUANTIFIER VALUE\n"
             + "Note that VALUE MUST be only one word.";
     public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field! \n"
-            + "You are only allowed to enter PRICE as of v1.4";
+            + "You are only allowed to enter PRICE.";
     public static final String INVALID_QUANTIFIER_USAGE = "Note you have entered an invalid quantifier! \n"
             + "You are only allowed to enter the following quantifiers:\n"
             + "LESS_THAN, EQUALS_TO or MORE_THAN";
