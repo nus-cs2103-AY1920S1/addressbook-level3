@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -39,7 +40,7 @@ public class EditModeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
         List<Restaurant> lastShownList = model.getFilteredRestaurantList();
 
@@ -49,6 +50,8 @@ public class EditModeCommand extends Command {
 
         Restaurant restaurantToEdit = lastShownList.get(targetIndex.getZeroBased());
         model.setEditingRestaurant(restaurantToEdit);
+
+        logic.setContext(Context.EDITING);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, restaurantToEdit), Context.EDITING);
     }

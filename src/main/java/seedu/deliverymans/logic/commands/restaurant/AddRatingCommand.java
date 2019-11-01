@@ -3,6 +3,7 @@ package seedu.deliverymans.logic.commands.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -33,7 +34,7 @@ public class AddRatingCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
         Restaurant restaurant = model.getEditingRestaurantList().get(0);

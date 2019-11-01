@@ -5,6 +5,7 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -42,7 +43,7 @@ public class AddRestaurantCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
         if (model.hasRestaurant(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_RESTAURANT);

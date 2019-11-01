@@ -14,8 +14,6 @@ import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.logic.parser.universal.UniversalParser;
 import seedu.deliverymans.model.Model;
-import seedu.deliverymans.model.addressbook.ReadOnlyAddressBook;
-import seedu.deliverymans.model.addressbook.person.Person;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
@@ -32,6 +30,9 @@ import seedu.deliverymans.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+
+    private static Context currentContext = Context.GLOBAL;
+
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -49,12 +50,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = universalParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Command command = universalParser.parseCommand(commandText, this.currentContext);
+        commandResult = command.execute(model, this);
 
         model.notifyChange(commandText);
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveCustomerDatabase(model.getCustomerDatabase());
             storage.saveRestaurantDatabase(model.getRestaurantDatabase());
             storage.saveDeliverymenDatabase(model.getDeliverymenDatabase());
@@ -64,22 +64,6 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
-    }
-
-    //=========== AddressBook =============================================================
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     //=========== Customer =============================================================
@@ -193,7 +177,10 @@ public class LogicManager implements Logic {
     //=============Context======================
     @Override
     public void setContext(Context context) {
-        universalParser.setContext(context);
+        this.currentContext = context;
     }
 
+    public static Context getContext() {
+        return currentContext;
+    }
 }

@@ -9,6 +9,7 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 import java.util.Map;
 
 import javafx.collections.ObservableList;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
@@ -54,7 +55,7 @@ public class AddOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         Customer customerToAdd = new Customer(toAdd.getCustomer());
         Name customerName = toAdd.getCustomer();
         Name restaurantName = toAdd.getRestaurant();
@@ -65,6 +66,7 @@ public class AddOrderCommand extends Command {
             if (customer.isSameCustomer(customerToAdd)) {
                 customerFound = true;
                 customer.addOrder(toAdd);
+                break;
             }
         }
         if (!customerFound) {

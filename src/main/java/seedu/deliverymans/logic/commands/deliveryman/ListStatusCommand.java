@@ -2,10 +2,10 @@ package seedu.deliverymans.logic.commands.deliveryman;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 
 /**
@@ -21,12 +21,12 @@ public class ListStatusCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed the available, delivering and unavailable deliverymen";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
         //model.;
 
-        return new CommandResult(MESSAGE_SUCCESS, Context.DELIVERYMENSTATUS);
+        return new CommandResult(MESSAGE_SUCCESS, ListStatusCommand.class);
     }
 
     @Override

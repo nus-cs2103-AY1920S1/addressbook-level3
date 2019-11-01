@@ -21,6 +21,8 @@ public class CommandResult {
 
     private Context context;
 
+    private Class commandName;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -47,6 +49,11 @@ public class CommandResult {
         this.context = context;
     }
 
+    public CommandResult(String feedbackToUser, Class commandName) {
+        this(feedbackToUser, false, false);
+        this.commandName = commandName;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -61,6 +68,10 @@ public class CommandResult {
 
     public Context getContext() {
         return context;
+    }
+
+    public Class getCommandName() {
+        return commandName;
     }
 
     @Override

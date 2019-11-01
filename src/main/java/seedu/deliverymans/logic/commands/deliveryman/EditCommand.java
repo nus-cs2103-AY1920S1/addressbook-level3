@@ -15,10 +15,10 @@ import java.util.Set;
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.commons.util.CollectionUtil;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
@@ -63,7 +63,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
         List<Deliveryman> lastShownList = model.getFilteredDeliverymenList();
 
@@ -81,7 +81,7 @@ public class EditCommand extends Command {
         model.setDeliveryman(deliverymanToEdit, editedDeliveryman);
         model.updateFilteredDeliverymenList(PREDICATE_SHOW_ALL_DELIVERYMEN);
         return new CommandResult(String.format(MESSAGE_EDIT_DELIVERYMAN_SUCCESS, editedDeliveryman,
-                Context.DELIVERYMENSTATUS));
+                EditCommand.class));
     }
 
     /**

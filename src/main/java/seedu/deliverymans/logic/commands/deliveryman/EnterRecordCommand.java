@@ -6,10 +6,10 @@ import java.util.List;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
-import seedu.deliverymans.logic.parser.universal.Context;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
@@ -35,7 +35,7 @@ public class EnterRecordCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
         List<Deliveryman> lastShownList = model.getFilteredDeliverymenList();
 
@@ -48,7 +48,7 @@ public class EnterRecordCommand extends Command {
         model.setToShowDeliverymanRecord(targetRecord);
 
         return new CommandResult(String.format(MESSAGE_ENTER_RECORD_SUCCESS, deliverymanToView),
-                Context.DELIVERYMANRECORD);
+                EnterRecordCommand.class);
     }
 
     @Override
