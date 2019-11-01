@@ -79,10 +79,9 @@ public class DukeCooksParser {
 
         case PushCommand.COMMAND_WORD:
             return new PushCommandParser().parse(arguments);
-            
+
         case DashboardCommand.COMMAND_WORD:
             return new DashboardCommand();
-
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }

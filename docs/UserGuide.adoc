@@ -490,25 +490,11 @@ Examples:
 
 * `add exercise Inclined Bench Press` +
 Output: _Exercise “Inclined Bench Press” has been created. Please enter the muscle groups it trains, separating each muscle by a “/”._
-* `lats/chest` +
-Output: _Muscle group(s) have been added! Now lets add intensity level out of 5!_
-* `4` +
-Output: _Now let’s add the instructions!_
-* `Lie down on an inclined bench` +
-Output: _Step 1 added! Type done when you’re done with all the instructions!_
-* `Push exerciseWeight above head` +
-Output: _Step 2 added! Type done when you’re done with all the instructions!_
-* `done` +
-Output: _Almost done! If you want to add an image please specify the folder! Otherwise type “/”._
-* `/` +
-Output: _If you want to specify your reps, sets and exerciseWeight you may now do so. Otherwise type “/”._
-* `w/30kg r/5 s/5 t/1:00` +
-Output: _Nice exercise has been created!_
 
 
 ==== List Exercise: `list exercise`
 List exercises which matches optional parameters specified eg. muscle type/intensity. +
-Format: `list exercise m/MUSCLEGROUP i/INTENSITY`
+Format: `list exercise m/MUSCLEGROUP
 
 ==== Delete exercise: `delete exercise`
 Deletes exercise of specified index. +
@@ -518,35 +504,40 @@ Format: `delete exercise <index>`
 View all the details of an exercise of the specified index. +
 Format: `view exercise<index>`
 
-==== Add calorie: `[coming in v1.3]`
+==== Add calorie: `[coming in v2.0]`
 Tracks calorie burned per rep/set of the exercise in kcal. +
 Format: `calorie <index> <calories>`
 
-==== Check History: `[coming in v2.0]`
+==== Check History: `[coming in v1.4]`
 Checks the history of all the pass workouts as well as their statistics eg. exerciseWeight used, number of times exercise is carried out, workouts that use this exercise.
 
-==== Preset Exercises: `[coming in v2.0]`
+==== Preset Exercises:
 If the list of exercises is empty, a list of preset exercises are generated.
 
-==== Create Workout: `workout`
-Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, exerciseWeight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. +
-Format: `workout <exerciseName>`
+==== Create Workout: `add workout`
+Adds a workout to workout list. The app will then prompt you to add exercises to the workout. +
+Format: `add workout n/WORKOUTNAME`
 
-==== List Workout: `list workout`
-List exercises which matches optional parameters specified eg. muscle type/intensity/total time. +
-Format: `list exercise m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
+==== Push Workout: `push exercise`
+Adds an exercise of the index shown, to a workout in the index shown. You can specify whether to use your own
+new set of exercise details (reps, sets etc) or use the default one already in the Exercise object. +
+Format: `push exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX s/SETS r/REPS d/DISTANCE t/TIMING w/WEIGHT`
 
-==== Delete workout: `delete workout`
+==== List Workout: `list workout` [coming in v1.4]
+List workouts which matches optional parameters specified eg. muscle type/intensity/total time. +
+Format: `list workout m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
+
+==== Delete workout: `delete workout` [coming in v1.4]
 Deletes workout of specified index. +
 Format: `delete workout <index>`
 
-==== Run Workout: `run`
+==== Run Workout: `run` [coming in v1.4]
 Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, exerciseWeight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
 Format: `run <index>`
 
-==== Schedule Workout: `[coming in v1.3]`
+==== Schedule Workout: `[coming in v1.4]`
 
-==== Track Body Fitness: `[coming in v1.3]`
+==== Track Body Fitness: `[coming in v1.4]`
 
 
 === Diary
