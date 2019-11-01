@@ -80,8 +80,13 @@ public class EditCommand extends UndoableCommand {
         Item oldItem = lastShownList.get(index.getZeroBased());
         this.oldItem = oldItem; //Is this line of code necessary?
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-        model.editItem(oldItem, editedItem);
         this.editedItem = editedItem; //Is this line of code necessary?
+
+        if (model.hasItem(editedItem)) {
+            throw new CommandException("Edit failed! Don't you remember that this item already exists?");
+        }
+
+        model.editItem(oldItem, editedItem);
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
