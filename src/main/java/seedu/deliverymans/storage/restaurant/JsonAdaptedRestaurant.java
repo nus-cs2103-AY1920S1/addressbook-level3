@@ -120,7 +120,7 @@ public class JsonAdaptedRestaurant {
         }
 
         final Rating modelRating = rating.toModelType();
-        
+
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
         final ObservableList<Food> modelMenu = FXCollections.observableArrayList();
         modelMenu.addAll(restaurantMenu);
