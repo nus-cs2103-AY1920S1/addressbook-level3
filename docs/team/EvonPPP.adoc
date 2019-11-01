@@ -3,8 +3,8 @@
 :toc:
 :toc-title:
 :sectnums:
-:imagesDir: images
-:stylesDir: stylesheets
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 :xrefstyle: full
 :icons: font
 ifdef::env-github[]
