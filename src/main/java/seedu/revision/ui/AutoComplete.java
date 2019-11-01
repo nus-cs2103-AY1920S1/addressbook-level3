@@ -128,6 +128,6 @@ public class AutoComplete extends TextField {
         commandKeywords.add(ListCommand.COMPLETE_COMMAND);
         commandKeywords.add(HelpCommand.COMMAND_WORD);
         commandKeywords.add(RestoreCommand.COMMAND_WORD);
-        commandKeywords.add(StartQuizCommand.COMMAND_WORD);
+        commandKeywords.add(StartQuizCommand.COMMAND_AUTOCOMPLETE);
     }
 }
