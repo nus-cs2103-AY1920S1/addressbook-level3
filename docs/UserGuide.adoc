@@ -19,64 +19,67 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-StudyBuddy Pro specifically caters to students in the School of Computing at NUS
-that prefer to use a desktop app to help their studies.
-StudyBuddy is also optimized for those who prefer to work with
+StudyBuddyPro is a student application that aims to simplify the hassle of revision
+by providing a suite of tools for effective revision.
+
+StudyBuddyPro is optimized for students who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
-Graphical User Interface (GUI). Being highly familiar working with CLI,
-Computing Students can greatly benefit from the app to
-manage their studies efficiently which also aims to be faster than traditional GUI apps.
+Graphical User Interface (GUI).
+
+Moreover, StudyBuddyPro comes geared with pre-loaded features specially
+catered for computing students. So whether you're a computing student getting
+used to a CLI for the first time or if you're a CLI expert who wants to reap
+the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemented!}
+
+If you're interested, head over to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
+section to get started!
 
 == Quick Start
 
-To begin, download the latest version of `StudyBuddy` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here]
-and double-click the downloaded jar file. If double-clicking does not work, please follow the instructions below.
+NOTE: Please ensure you have Java 11 or above installed before proceeding!
 
-=== Running the jar file
+1. Download the latest version of `StudyBuddyPro.jar` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here].
 
-==== For cross-platform users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro.jar
+2. Place the file in the folder you want to set as the home directory. All data and
+miscellaneous files associated with StudyBuddyPro will be placed in this folder.
 
-==== For Windows users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Win.jar
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+refer to the first question in the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
+for help!
 
-==== For Mac users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Mac.jar
++
+image::Ui.png[width="700"]
++
+
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
+section for a quick overview of all the available commands!
 
 == Command Format / Rules
 
 Things noted here are standardization of the User Guide.
 These points are absolute, unless stated otherwise in the specific section(s).
 
-****
-* All commands are written in ENGLISH with only alphanumeric characters.
+=== How to read the Command sections
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
 E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
 * Items indicated in square brackets are optional.
 E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
-E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`
+E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`.
 
-* All flashcards, notes, and cheatsheet objects can have a maximum of 10 `TAGs` each.
+=== General rules for all commands
 
-* All `MODULE` parameters in the flashcard feature are `TAGs`.
+* All commands are written in English with alphanumeric characters.
 
-* In EDITING (`edit`):
-** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
-** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
+* Any indexes provided (denoted by `id`) must be a positive integer (e.g. 1, 2, 3, ...).
 
-* In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
-** `y` indicates `YES` and notes will be deleted.
-** `n` indicates `NO` and notes will not be deleted.
-
-* Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
-The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
+* All flashcards, notes, and cheatsheets can have a maximum of 10 tags.
 
 * Only exact matches of any searches will be returned.
 E.g. "noted" will return "noted" but not "note" or "notes"
@@ -84,11 +87,9 @@ E.g. "noted" will return "noted" but not "note" or "notes"
 * All searches are case insensitive.
 E.g. 'cs2103t' will match 'CS2103T'
 
-****
-
 == Global Commands
 
-Global commands in StudyBuddyPro, are commands that can be called regardless of which mode the user is currently in.
+Global commands in StudyBuddyPro are commands that can be called regardless of which mode the user is currently in.
 
 === Entering the various modes of StudyBuddyPro: `switch`
 
@@ -96,29 +97,33 @@ Upon startup, you will be prompted to enter one of the modes before you can proc
 
 ==== Getting into Flashcard mode: `switch fc`
 
-Brings the user to the Flashcard section (see Section 5), regardless of where the user is.
+Switches the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-commands[Flashcard]
+mode regardless of where the user is.
 
     Format: switch fc
 
 ==== Getting into Notes function: `switch notes`
 
-Brings the user to the Notes section (see Section 6), regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#6-note-commands[Notes]
+mode regardless of where the user is.
 
     Format: switch notes
 
 ==== Getting into CheatSheet function: `switch cs`
 
-Brings the user to the CheatSheet section (see Section 7), regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#7-cheatsheet-commands[CheatSheet]
+mode regardless of where the user is.
 
     Format: switch cs
 
 === Viewing Help: `help`
 
-Views the help session of all the functionality.
+A pop-up dialog box will display a URL link to a help document.
 
     Format: help
-
-A pop-up dialog box will display a URL link to a help document.
 
 === Listing all StudyBuddy items by their tag : `filterall`
 
@@ -208,6 +213,7 @@ Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
     Expected output: New flashcard added:
         Title: Binary Stuff
+        Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
         Question: What is 100 Binary in its Decimal form?
         Answer: 4
         Tags: [cs2100]
@@ -247,6 +253,8 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 === Listing flashcards: `list`
 
+{Answer to be removed in v2.0}
+
 Lists all flashcards.
 
    Format: list
@@ -262,14 +270,27 @@ Lists all flashcards.
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
+The user will be prompted once to confirm their deletion.
+
    Format: delete (index)
 
     Example usage: delete 6
+
+    Expected output: Are you sure you would like to delete the following flashcard?
+	    Question: What is 101 Binary in its Decimal form?
+	    Answer: 5
+	    Title: BinaryQn
+	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+	    Tags: [cs2100]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the flashcard will be deleted.
 
     Expected output: Deleted Flashcard:
         Question: What is 101 Binary in its Decimal form?
         Answer: 5
         Title: BinaryQn
+        Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
         Tags: [cs2100]
 
 === Time Trial: `timetrial`
@@ -384,11 +405,21 @@ commands.
 
 Deletes the note of index `NOTE_INDEX`.
 
+The user will be prompted once to confirm their deletion.
+
     Format: delete (index)
 
     Example usage: delete 3
 
     Expected output:
+        Are you sure you would like to delete the following note?
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+        Tags: [about]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the note will be deleted.
+
     Deleted note:
         Title: About
         Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
@@ -509,6 +540,10 @@ cheatsheet.
 
 === Editing a cheatSheet: `edit`
 
+* In EDITING (`edit`):
+** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
+** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
+
 Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 * The user can specify one of the optional fields to edit.
@@ -525,13 +560,25 @@ Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 === Deleting a cheatSheet: `delete`
 
-1. Deletes a cheatSheet by the specified index.
+Deletes a cheatSheet by the specified index.
+
+The user will be prompted once to confirm their deletion.
 
     Format: delete (index)
 
     Example usage: delete 8
 
-    Expected output: Deleted Cheatsheet:  Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+    Expected output:
+        Are you sure you would like to delete the following cheatsheet?
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the specified cheatsheet will be deleted.
+
+    Expected output: Deleted Cheatsheet:
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
 
@@ -567,24 +614,24 @@ Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 
 
-<NOT INCLUDED IN DRAFT>
+== FAQ
 
-*Q*: Do I need to create a new tag before using the tag? +
-*A*: No, you do not need to. Tags, if not exist, are automatically created.
+*Q*: Help! Double-clicking `StudyBuddyPro.jar` does not launch the application - what
+should I do? +
+*A*: Trying running the application from the command line using the following command:
+`java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
+do this while Mac users can use the Terminal application.
 
 == Command Summary
 
-<NOT INCLUDED IN DRAFT>
+{To be added}
 
-== Mock-up User Interface
+=== Global Commands
 
-image::UiMockUp1.png[width="790"]
-image::UiMockUp2.png[width="790"]
+=== Flashcard Commands
 
-== Draft Workflow (To-be-removed)
+=== Note Commands
 
-image::WorkflowDraft.png[width="790"]
-
-
+=== CheatSheet Commands
 
 
