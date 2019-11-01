@@ -191,11 +191,20 @@ public class TransactionContext implements Context<Transaction> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TransactionContext // instanceof handles nulls
-                && month.equals((((TransactionContext) other).month))
-                && year.equals((((TransactionContext) other).year))
-                && category.equals((((TransactionContext) other).category))); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TransactionContext)) {
+            return false;
+        }
+
+        TransactionContext otherContext = (TransactionContext) other;
+
+        return otherContext.month.equals(month)
+                && otherContext.year.equals(year)
+                && otherContext.category.equals(category)
+                && otherContext.transactionType.equals(transactionType);
     }
 
     @Override
