@@ -350,9 +350,9 @@ Entering the number 1 runs the command `addTutorial tn/Tut01 m/GER1000 ...`.
 
 === Autocomplete
 
-Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the current field with data from the application. Pressing "CTRL" repeatedly cycles through the different possible values.
+T.A.rence generates and displays real-time suggestions for command words and user data from the application (e.g. module codes and tutorial names), depending on the field the user is currently entering.  Similar to other CLI programs such as Windows' Command Prompt and MacOS' Terminal, pressing the "TAB" key will autofill the input box with the current suggestion. Pressing "CTRL" cycles through the different available suggestions.
 
-E.g.: with `addTutorial m/GE` in the input box, pressing "CTRL" changes the value to `addTutorial m/GER1000`, `addTutorial m/GEQ1000`, etc., depending on which modules beginning with "GE" were previously added to the application.
+E.g.: with `addTutorial m/GE` in the input box, pressing "CTRL" changes the displayed suggestion to `R1000`, `Q1000`, etc., depending on which modules beginning with "GE" were previously added to the application. Pressing "TAB" then changes the input box value to `GE_1000`.
 
 == FAQ
 
