@@ -24,17 +24,19 @@ public class AddTripCommand extends AddCommand {
             + CliSyntax.PREFIX_START_MONTH + " Dec " + CliSyntax.PREFIX_NAME + " 1 day at Johor "
             + CliSyntax.PREFIX_INFO + " with friends";
 
-    private Trip trip;
+    protected Trip trip;
 
     public AddTripCommand(Trip trip) {
         this.trip = trip;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
+    public CommandResult execute(Calendar calendar) throws CommandException, ClashException {
         try {
             calendar.addEvent(trip);
-        } catch (DuplicateEventException | ClashException e) {
+        } catch (DuplicateEventException e) {
             throw new CommandException(e.getMessage());
+        } catch (ClashException e) {
+            throw e;
         }
 
         String formattedFeedback = String.format(MESSAGE_ADD_SUCCESS, trip.toString());
