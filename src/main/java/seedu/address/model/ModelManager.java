@@ -498,6 +498,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
+            budget.setSpent(filteredExpenses);
             budget.updateSpent();
         }
     }

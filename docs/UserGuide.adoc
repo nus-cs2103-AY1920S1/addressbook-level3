@@ -143,16 +143,6 @@ Examples:
 * `addBudget cat/Food n/Nov Budget amt/50.00 d/2019 09 09 p/1m tg/food`
 * `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
-==== Listing Budget : 'listBudget`
-
-Lists all the current budgets the user has.
-
-Format: `listBudget`
-
-Examples:
-
-* `listBudget`
-
 ==== Editing Budget : 'editBudget`
 Edits a current budget's description, amount or tag (if applicable) at the given index.
 
