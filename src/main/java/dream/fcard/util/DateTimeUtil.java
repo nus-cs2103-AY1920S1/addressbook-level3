@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.function.Predicate;
 
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
+
 /**
  * Utilities related to LocalDateTime objects.
  */
@@ -60,6 +65,34 @@ public class DateTimeUtil {
     public static String getStringFromDateTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT);
         return localDateTime.format(formatter);
+    }
+
+    /**
+     * Returns a JsonValue of a LocalDateTime object.
+     * @param localDateTime object to convert to json
+     * @return              resulting JsonValue
+     */
+    public static JsonValue getJsonFromDateTime(LocalDateTime localDateTime) {
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.DATE_TIME_YEAR, localDateTime.getYear());
+        obj.put(Schema.DATE_TIME_MONTH, localDateTime.getMonthValue());
+        obj.put(Schema.DATE_TIME_DAY, localDateTime.getDayOfMonth());
+        obj.put(Schema.DATE_TIME_HOUR, localDateTime.getHour());
+        obj.put(Schema.DATE_TIME_MINUTE, localDateTime.getMinute());
+        obj.put(Schema.DATE_TIME_SECOND, localDateTime.getSecond());
+        obj.put(Schema.DATE_TIME_NANO, localDateTime.getNano());
+        return new JsonValue(obj);
+    }
+
+    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws JsonWrongValueException {
+        return LocalDateTime.of(
+                obj.get(Schema.DATE_TIME_YEAR).getInt(),
+                obj.get(Schema.DATE_TIME_MONTH).getInt(),
+                obj.get(Schema.DATE_TIME_DAY).getInt(),
+                obj.get(Schema.DATE_TIME_HOUR).getInt(),
+                obj.get(Schema.DATE_TIME_MINUTE).getInt(),
+                obj.get(Schema.DATE_TIME_SECOND).getInt(),
+                obj.get(Schema.DATE_TIME_NANO).getInt());
     }
 
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class

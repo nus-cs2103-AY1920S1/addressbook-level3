@@ -3,18 +3,27 @@ package dream.fcard.util.code;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
+
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.util.FileReadWrite;
 
 class JavascriptRunnerTest {
 
     @Test
     void evaluateFromFile_success() throws IOException {
-        Path path = Paths.get("./src/test/java/dream/fcard/util/code/testData.js");
-        String output = JavascriptRunner.evaluateFromFile(path.toString());
+        String fileName = "testData.js";
+        String path = StorageManager.getCodePath(fileName);
+        StorageManager.writeCode(fileName, "var x = 5;");
+        // create file
+
+        String output = JavascriptRunner.evaluateFromFile(path);
         assertEquals(output, "undefined");
+        // test
+
+        FileReadWrite.delete(StorageManager.getCodePath(fileName));
+        // cleanup
     }
 
     @Test

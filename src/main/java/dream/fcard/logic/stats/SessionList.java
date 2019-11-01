@@ -1,13 +1,17 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
+import dream.fcard.util.json.jsontypes.JsonValue;
 
 /**
  * A list of Session objects.
  */
-public class SessionList implements Serializable {
+public class SessionList implements JsonInterface {
 
     private ArrayList<Session> sessionArrayList;
     // todo: add another data structure to store sessions by date?
@@ -15,6 +19,14 @@ public class SessionList implements Serializable {
     /** Constructs a new instance of SessionList, with an empty list by default. */
     public SessionList() {
         this.sessionArrayList = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a new instance of SessionList, with an existing list.
+     * @param initialArrayList  list
+     */
+    public SessionList(ArrayList<Session> initialArrayList) {
+        this.sessionArrayList = initialArrayList;
     }
 
     /**
@@ -69,6 +81,19 @@ public class SessionList implements Serializable {
     /** Gets the sessionArrayList contained in this SessionList. */
     public ArrayList<Session> getSessionArrayList() {
         return this.sessionArrayList;
+    }
+
+    @Override
+    public JsonValue toJson() {
+        JsonArray arr = new JsonArray();
+        for (Session s : sessionArrayList) {
+            try {
+                arr.add(s.toJson().getObject());
+            } catch (JsonWrongValueException e) {
+                System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
+            }
+        }
+        return new JsonValue(arr);
     }
     // todo: get sessions in the past week, past month etc. --> sublist? wrapped in SessionList?
 }
