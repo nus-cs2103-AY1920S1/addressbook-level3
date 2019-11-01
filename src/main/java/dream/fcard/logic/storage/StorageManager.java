@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dream.fcard.model.Deck;
+import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -41,7 +41,7 @@ public class StorageManager {
      * Determine root directory of the application, main for project, directory containing jar
      * for jar files.
      */
-    private static void resolveRoot() {
+    public static void resolveRoot() {
         if (isRootResolved) {
             return;
         }
@@ -72,7 +72,9 @@ public class StorageManager {
         default:
             root = System.getProperty("user.dir");
         }
+        System.out.println("RESOLVE TO : " + root);
         root = FileReadWrite.resolve(root, "./data");
+        System.out.println("AFTER APPEND : " + root);
         isRootResolved = true;
     }
 
@@ -82,6 +84,7 @@ public class StorageManager {
      * @param path path to new directory for storage
      */
     public static void provideRoot(String path) {
+        System.out.println("SET ROOT TO : " + path);
         root = path;
         isRootResolved = true;
     }
@@ -102,8 +105,9 @@ public class StorageManager {
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
+        System.out.println("ORIGINAL ROOT : " + root);
         String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
-        System.out.println(path);
+        System.out.println("WRITING FILE TO : " + path);
         FileReadWrite.write(path, deck.toJson().toString());
     }
 
@@ -181,6 +185,15 @@ public class StorageManager {
                                 cardJson.get(Schema.BACK_FIELD).getString(),
                                 choices);
                         break;
+                    case Schema.JAVA_TYPE:
+                        ArrayList<TestCase> testcases = new ArrayList<>();
+                        for (JsonValue caseJson : cardJson.get(Schema.TEST_CASES_FIELD).getArray()) {
+                            testcases.add(new TestCase(
+                                    caseJson.getObject().get(Schema.TEST_CASE_INPUT).getString(),
+                                    caseJson.getObject().get(Schema.TEST_CASE_OUTPUT).getString()));
+                        }
+                        card = new JavaCard(cardJson.get(Schema.FRONT_FIELD).getString(), testcases);
+                        break;
                     default:
                         System.out.println("Unexpected card type, but silently continues");
                         continue;
@@ -190,10 +203,6 @@ public class StorageManager {
                 return new Deck(cards, deckJson.get(Schema.DECK_NAME).getString());
             } catch (JsonWrongValueException e1) {
                 System.out.println("JSON file wrong schema");
-            } catch (DuplicateInChoicesException d) {
-                System.out.println("Duplicated choices detected in Multiple Choice Card.");
-            } catch (IndexNotFoundException i) {
-                System.out.println(i.getMessage());
             }
         } catch (JsonFormatException e2) {
             System.out.println("JSON file has errors\n" + e2.getMessage());
@@ -208,11 +217,11 @@ public class StorageManager {
      */
     public static void saveAll(ArrayList<Deck> decks) {
         resolveRoot();
-        String path = FileReadWrite.resolve(root, decksSubDir + "/");
+        /*String path = FileReadWrite.resolve(root, decksSubDir);
         File dir = new File(path);
         for (File f : dir.listFiles()) {
             f.delete();
-        }
+        }*/
         for (Deck d : decks) {
             writeDeck(d);
         }

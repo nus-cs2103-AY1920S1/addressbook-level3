@@ -1,12 +1,13 @@
 package dream.fcard.util;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dream.fcard.util.code.JavascriptRunner;
 import dream.fcard.util.datastructures.Pair;
 
 /**
- * This class takes in a JS file, an ArrayList of test cases, and runs the input against each test case.
+ * This class takes in a Java file, an ArrayList of test cases, and runs the input against each test case.
  */
 public class JsTestCaseRunner {
     private String expectedOutput;
@@ -23,24 +24,29 @@ public class JsTestCaseRunner {
     }
 
 
-
     /**
      * Runs the user's attempt at writing a function against the assertions that the user has written.
      *
      * @return (TotalTestCases, ( TotalCorrect, TotalWrong)) in a Pair object.
      */
-    public Pair<Integer, Pair<Integer, Integer>> testCode() {
+    public Pair<String, Pair<Integer, Integer>> testCode() {
         String finalCode = processjs(userAttempt, expectedOutput);
         String output = JavascriptRunner.evaluateString(finalCode);
         consoleDisplay = output;
         output = output.replaceAll("pass", "")
                 .replaceAll("fail", "")
                 .strip();
-        Scanner sc = new Scanner(output);
-        int total = sc.nextInt();
-        int correct = sc.nextInt();
-        int wrong = sc.nextInt();
-        return new Pair<>(total, new Pair<>(correct, wrong));
+        int correct;
+        int wrong;
+        try {
+            Scanner sc = new Scanner(output);
+            correct = sc.nextInt();
+            wrong = sc.nextInt();
+        } catch (InputMismatchException e) {
+            correct = -1;
+            wrong = -1;
+        }
+        return new Pair<>(userAttempt, new Pair<>(correct, wrong));
     }
 
     /**
@@ -50,25 +56,23 @@ public class JsTestCaseRunner {
      * @param expectedOutput the user's assertions.
      * @return the final piece of code that the evaluator can use to score the user.
      */
-    private String processjs(String userInput, String expectedOutput) {
+    private static String processjs(String userInput, String expectedOutput) {
         StringBuilder sb = new StringBuilder();
         sb.append("var correct = 0;\n"
                 + "var wrong = 0;\n"
-                + "var total = 0;\n"
                 + "\n"
                 + "function assert(actual, expected) {\n"
                 + "    if (actual == expected) {\n"
-                + "        correct++;"
+                + "        correct++;\n"
                 + "        print('pass');\n"
                 + "    } else {\n"
                 + "        wrong++;\n"
                 + "        print('fail');\n"
                 + "    }\n"
-                + "    total++;\n"
                 + "}\n");
         sb.append(userInput).append("\n");
         sb.append(expectedOutput).append("\n");
-        sb.append("print(total, correct, wrong);\n");
+        sb.append("print(correct, wrong);\n");
         return sb.toString();
     }
 

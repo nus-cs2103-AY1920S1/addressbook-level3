@@ -1,5 +1,9 @@
 package dream.fcard.logic.exam;
 
+import java.util.ArrayList;
+
+import dream.fcard.model.cards.FlashCard;
+
 /**
  * Singleton class that ensures that there is only ONE instance of exam.
  */
@@ -10,26 +14,15 @@ public class ExamRunner {
     private ExamRunner() {
     }
 
-    /**
-     * Method that pulls up the next card.
-     */
-    public void nextCard() {
-        //if (examOngoing) {
-        //    try {
-        //        FlashCard nextCard = deck.getCards().get(0);
-        //        System.out.println(nextCard.getFront());
-        //        String answer = promptUserInput();
-        //        result.mark(nextCard.evaluate(answer));
-        //        System.out.println(nextCard.getBack());
-        //        deck.getCards().remove(0);
-        //    } catch (IndexOutOfBoundsException | IndexNotFoundException e) {
-        //        this.examOngoing = false;
-        //
-        //    }
-        //}
+    public static void createExam(ArrayList<FlashCard> deck) {
+        exam = new UntimedExam(deck);
     }
 
     public static Exam getCurrentExam() {
         return exam;
+    }
+
+    public static void terminateExam() {
+        exam = null;
     }
 }

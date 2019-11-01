@@ -3,18 +3,22 @@ package dream.fcard.gui.controllers.windows;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.components.JavaEditorApplication;
-import dream.fcard.gui.components.JsEditorApplication;
-import dream.fcard.gui.controllers.displays.CreateDeckDisplay;
-import dream.fcard.gui.controllers.displays.DeckDisplay;
-import dream.fcard.gui.controllers.displays.NoDecksDisplay;
+import dream.fcard.gui.controllers.displays.createandeditdeck.CreateDeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.DeckDisplay;
+import dream.fcard.gui.controllers.displays.displayingdecks.NoDecksDisplay;
+import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
+import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -22,6 +26,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -30,7 +35,7 @@ import javafx.stage.Stage;
 public class MainWindow extends VBox {
 
     @FXML
-    private ScrollPane deckScrollPane;
+    private VBox deckScrollPane;
     @FXML
     private ListView<Deck> deckList;
     @FXML
@@ -45,6 +50,8 @@ public class MainWindow extends VBox {
     private MenuItem javaEditor;
     @FXML
     private MenuItem quit;
+    @FXML
+    private MenuItem statistics;
     @FXML
     private Label messageLabel;
     @FXML
@@ -62,8 +69,14 @@ public class MainWindow extends VBox {
 
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
+    private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
     private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+    private Consumer<Boolean> exitCreate = b -> exitCreate();
+    private Consumer<String> processInputCreate = s -> processInputCreate(s);
 
+    private Consumer<Boolean> quitProgram = b -> quit();
+
+    private CreateDeckDisplay tempCreateDeckDisplay;
 
     /**
      * Binds the vertical height of the scroll panes to the size of the Nodes inside them so that the scrollbar
@@ -71,11 +84,11 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void initialize() {
-        deckScrollPane.vvalueProperty().bind(deckList.heightProperty());
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
         displayMessage.accept("Welcome to FlashCard Pro!");
+
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
             displaySpecificDeck(d);
@@ -84,12 +97,11 @@ public class MainWindow extends VBox {
             // this extra flexibility - whether it's a flexibility or an annoyance depends on us.
         });
         quit.setOnAction(e -> {
-            //Save all files only exit
-            StorageManager.saveAll(State.getState().getDecks());
-            System.exit(0);
+            quit();
         });
         javaEditor.setOnAction(e -> openEditor(true));
         jsEditor.setOnAction(e -> openEditor(false));
+        statistics.setOnAction(e -> openStatistics());
         render();
     }
 
@@ -126,11 +138,26 @@ public class MainWindow extends VBox {
     }
 
     /**
-     * Switches the display pane to an edit pane
+     * Switches the display pane to an edit pane, used in initialising step/
      */
+    @FXML
     private void showCreateNewDeckForm() {
         displayContainer.getChildren().clear();
-        displayContainer.getChildren().add(new CreateDeckDisplay());
+        this.tempCreateDeckDisplay = new CreateDeckDisplay();
+        displayContainer.getChildren().add(tempCreateDeckDisplay);
+        State.getState().setCurrState(StateEnum.CREATE);
+    }
+
+    /**
+     * Switches the display pane to create pane, used to enter StateEnun.CREATE.
+     *
+     * @param s The name of the deck being created.
+     */
+    private void showCreateNewDeckForm(String s) {
+        displayContainer.getChildren().clear();
+        this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
+        displayContainer.getChildren().add(tempCreateDeckDisplay);
+        State.getState().setCurrState(StateEnum.CREATE);
     }
 
     /**
@@ -166,7 +193,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        Dispatcher.parseAndDispatch(input);
+        Dispatcher.parseAndDispatch(input, State.getState().getCurrState());
         commandLine.clear();
     }
 
@@ -178,6 +205,8 @@ public class MainWindow extends VBox {
         State.getState().addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
         State.getState().addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         State.getState().addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
+        State.getState().addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
+
 
         //ignore the duplicates for now, if dispatcher carries all the consumers then transfer over from state
         Dispatcher.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
@@ -185,7 +214,12 @@ public class MainWindow extends VBox {
         Dispatcher.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         Dispatcher.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
         Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
+        Dispatcher.addConsumer(ConsumerSchema.CREATE_NEW_DECK_W_NAME, createWDeckName);
         Dispatcher.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
+        Dispatcher.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
+        Dispatcher.addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
+        Dispatcher.addConsumer(ConsumerSchema.PROCESS_INPUT, processInputCreate);
+
     }
 
     /**
@@ -204,4 +238,49 @@ public class MainWindow extends VBox {
 
     }
 
+    /**
+     * Quits from the entire program. Saves the decks to a file first.
+     */
+    public void quit() {
+        // end the current session
+        Stats.endCurrentSession();
+
+        // save all files only on exit
+        StorageManager.saveAll(State.getState().getDecks());
+        StatsStorageManager.saveLoginSessions();
+        System.exit(0);
+    }
+
+    /**
+     * Saves and exits from Create mode.
+     */
+    public void exitCreate() {
+        tempCreateDeckDisplay.onSaveDeck();
+        State.getState().setCurrState(StateEnum.DEFAULT);
+    }
+
+    /**
+     * Handles the input when State is in Create mode.
+     *
+     * @param input
+     */
+    public void processInputCreate(String input) {
+        tempCreateDeckDisplay.processInput(input);
+
+    }
+    /**
+     * Quits from the entire program. Saves the decks to a file first.
+     * Opens a new window to show the user's statistics.
+     */
+    @FXML
+    public void openStatistics() {
+        // when Logger is implemented, log "Opening Statistics window..."
+
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        Scene scene = new Scene(new StatisticsWindow());
+        stage.setScene(scene);
+        stage.setTitle("My Statistics");
+        stage.show();
+    }
 }

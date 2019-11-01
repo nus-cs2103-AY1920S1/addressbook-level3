@@ -1,21 +1,17 @@
 package dream.fcard.gui.controllers.windows;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import dream.fcard.gui.controllers.displays.JsFileUploader;
-import dream.fcard.gui.controllers.displays.McqOptionsSetter;
-import dream.fcard.gui.controllers.displays.TestCaseUploader;
+import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
+import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
-import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -23,13 +19,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
  * Creates a card within CreateDeckDisplay.
  */
-public class CardCreatingWindow extends AnchorPane {
+public class CardCreatingWindow extends VBox {
     @FXML
     private TextField questionField;
     @FXML
@@ -43,16 +38,15 @@ public class CardCreatingWindow extends AnchorPane {
 
     private final String frontBack = "Front-back";
     private final String mcq = "MCQ";
-    //private final String java = "Java";
     private final String js = "JavaScript";
 
     private TextArea frontBackTextArea;
     private McqOptionsSetter mcqOptionsSetter;
-    private TestCaseUploader testCaseUploader;
-    private JsFileUploader jsFileUploader;
+    private JsTestCaseInputTextArea jsTestCaseInputTextArea;
 
     private String cardType = "";
     private Deck tempDeck = new Deck();
+    private String testCases;
     private Consumer<Integer> incrementCounterInParent;
     @SuppressWarnings("unchecked")
     private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
@@ -73,13 +67,7 @@ public class CardCreatingWindow extends AnchorPane {
                 }
             });
             cardTypeSelector.setValue(frontBack);
-            onAddQuestion.setOnAction(e -> {
-                try {
-                    addCardToDeck();
-                } catch (DuplicateInChoicesException | IndexNotFoundException ex) {
-                    displayMessage.accept("You have duplicated options!");
-                }
-            });
+            onAddQuestion.setOnAction(e -> addCardToDeck());
             this.incrementCounterInParent = incrementCounterInParent;
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,18 +90,17 @@ public class CardCreatingWindow extends AnchorPane {
             answerContainer.getChildren().add(mcqOptionsSetter);
             addAnswerLabel.setText("Enter your options");
         } else if (cardType.equals(js)) {
-            jsFileUploader = new JsFileUploader();
-            answerContainer.getChildren().add(jsFileUploader);
-            addAnswerLabel.setText("Upload your test file");
+            jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
+            answerContainer.getChildren().add(jsTestCaseInputTextArea);
+            addAnswerLabel.setText("Add your asserts");
         }
     }
 
     /**
      * Adds a card to the temporary deck inside CardCreatingWindow.
      *
-     * @throws DuplicateInChoicesException if the user enters the same multiple choice option more than once.
      */
-    void addCardToDeck() throws DuplicateInChoicesException, IndexNotFoundException {
+    void addCardToDeck() {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
@@ -130,6 +117,15 @@ public class CardCreatingWindow extends AnchorPane {
             String front = questionField.getText();
             String back = Integer.toString(mcqOptionsSetter.getIndexOfRightAnswer()); //already 1-indexed
             ArrayList<String> choices = mcqOptionsSetter.getChoices();
+
+            int numChoices = choices.size();
+            for (int i = 0; i < numChoices; i++) {
+                String curr = choices.remove(0);
+                if (!curr.equals("")) {
+                    choices.add(curr);
+                }
+            }
+
             MultipleChoiceCard mcqCard = new MultipleChoiceCard(front, back, choices);
             tempDeck.addNewCard(mcqCard);
         } else if (cardType.equals(frontBack)) {
@@ -151,36 +147,17 @@ public class CardCreatingWindow extends AnchorPane {
                 displayMessage.accept("You need to enter a question!");
                 return;
             }
-            if (!jsFileUploader.hasFile()) {
-                displayMessage.accept("You need to upload a JS file");
+
+            if (!jsTestCaseInputTextArea.hasTestCase()) {
+                displayMessage.accept("You need to enter a test case!");
                 return;
             }
-            try {
-                String testCases = jsFileUploader.getAssertions();
-                String front = questionField.getText();
-                JavascriptCard card = new JavascriptCard(front, testCases);
-                tempDeck.addNewCard(card);
-            } catch (FileNotFoundException e) {
-                displayMessage.accept("I could not read in your file. Please try again");
-                return;
-            }
+            String testCases = jsTestCaseInputTextArea.getAssertions();
+            String front = questionField.getText();
+            JavascriptCard card = new JavascriptCard(front, testCases);
+            tempDeck.addNewCard(card);
 
         }
-        //else if (cardType.equals(java)) {
-        //    //validation - all files uploaded
-        //    if (questionField.getText().isBlank()) {
-        //        displayMessage.accept("You need to enter a question!");
-        //        return;
-        //    }
-        //    //for more specific file-hunting, the error messages are printed within JavaTestCaseInputRow so
-        //    //we don't need to directly handle checking for missing files here.
-        //    if (testCaseUploader.hasNoMissingFiles()) {
-        //        ArrayList<TestCase> cases = testCaseUploader.getTestCases();
-        //        String front = questionField.getText();
-        //        JavaCard card = new JavaCard(front, cases);
-        //        tempDeck.addNewCard(card);
-        //    }
-        //}
         incrementCounterInParent.accept(1);
         clearFields();
     }
@@ -198,10 +175,10 @@ public class CardCreatingWindow extends AnchorPane {
             answerContainer.getChildren().clear();
             answerContainer.getChildren().add(mcqOptionsSetter);
         }
-        if (jsFileUploader != null) {
-            jsFileUploader = new JsFileUploader();
+        if (jsTestCaseInputTextArea != null) {
+            jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
             answerContainer.getChildren().clear();
-            answerContainer.getChildren().add(jsFileUploader);
+            answerContainer.getChildren().add(jsTestCaseInputTextArea);
         }
         //if (testCaseUploader != null) {
         //    testCaseUploader = new TestCaseUploader();
@@ -218,5 +195,40 @@ public class CardCreatingWindow extends AnchorPane {
      */
     public Deck getTempDeck() {
         return tempDeck;
+    }
+
+    public void setCardType(String s) {
+        this.cardType = s;
+    }
+
+    public void setQuestionFieldText(String s) {
+        this.questionField.setText(s);
+    }
+
+    public void setAnswerFieldText(String s) {
+        this.frontBackTextArea.setText(s);
+    }
+
+    public void setTestCases (String s) {
+        this.testCases = s;
+    }
+
+    /**
+     * Allows public access to the addCardToDeck method.
+     */
+    public void publicAddCard() {
+        addCardToDeck();
+    }
+
+    public void publicChangeInputBox(String type) {
+        changeInputBox(type);
+    }
+
+    public McqOptionsSetter getMcqOptionsSetter() {
+        return this.mcqOptionsSetter;
+    }
+
+    public String getCardType() {
+        return cardType;
     }
 }

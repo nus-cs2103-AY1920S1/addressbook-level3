@@ -42,7 +42,7 @@ public class JsFileUploader extends ScrollPane {
     }
 
 
-    private File getFile() {
+    protected File getFile() {
         final Stage dialog = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
@@ -62,5 +62,9 @@ public class JsFileUploader extends ScrollPane {
             sb.append(sc.nextLine());
         }
         return sb.toString();
+    }
+
+    public void setFile(File f) {
+        this.file = f;
     }
 }

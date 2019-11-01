@@ -2,24 +2,33 @@ package dream.fcard.model.cards;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.TestCase;
-import dream.fcard.model.exceptions.IndexNotFoundException;
+import dream.fcard.util.DeepCopy;
+//import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
+
+
 
 /**
- * A Java card.
+ * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavaCard extends FlashCard {
 
     private String question;
     private ArrayList<TestCase> testCases;
+    private String attempt;
 
     public JavaCard(String question, ArrayList<TestCase> testCases) {
+        this.question = question;
         this.testCases = testCases;
     }
 
     @Override
-    public Boolean evaluate(String in) throws IndexNotFoundException {
-        //TODO: Evaluating Java code can be done inside here
+    public Boolean evaluate(String in) {
         return null;
     }
 
@@ -30,27 +39,53 @@ public class JavaCard extends FlashCard {
 
     @Override
     public String getBack() {
-        //irrelevant
         return null;
     }
 
     @Override
     public void editFront(String newText) {
-        //irrelevant
+        this.front = newText;
     }
 
     @Override
     public void editBack(String newText) {
-        //irrelevant
+        //unused
     }
 
-    //@Override
-    //public boolean hasChoices() {
-    //    return false;
-    //}
-    //
-    //@Override
-    //public int compareTo(FlashCard card) {
-    //    return 0;
-    //}
+    @Override
+    public JsonValue toJson() {
+        JsonArray arr = new JsonArray();
+        for (TestCase t : testCases) {
+            try {
+                arr.add(t.toJson().getObject());
+            } catch (JsonWrongValueException e) {
+                System.out.println("ERROR IN TESTCASES : " + e.getMessage());
+            }
+        }
+
+        JsonObject obj = new JsonObject();
+        obj.put(Schema.TYPE_FIELD, Schema.JAVA_TYPE);
+        obj.put(Schema.FRONT_FIELD, question);
+        obj.put(Schema.TEST_CASES_FIELD, arr);
+        return new JsonValue(obj);
+    }
+
+    @Override
+    public FlashCard duplicate() {
+        String front = question;
+        return new JavaCard(front, DeepCopy.duplicateTestCases(testCases));
+    }
+
+    public String getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
+    }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+
+    }
 }

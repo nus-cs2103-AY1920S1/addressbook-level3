@@ -1,11 +1,11 @@
 package dream.fcard.util.code;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-//solution adapted from from https://www.journaldev.com/937/compile-run-java-program-another-java-program
-//Credits: Pankaj
+
 
 /**
  * Type your Java code inside Main.java in the /data directory. Then run the main method in this class to see
@@ -13,29 +13,58 @@ import java.io.InputStreamReader;
  */
 public class JavaRunner {
     /**
-     * Will look for a .java file in the given filepath and compile and run the code, returning any output
-     * as a String.
-     * @param filepath where the file resides.
-     * @return the output from Java
-     * @throws IOException if the file is not a Java classfile, or the file could not be read from.
+     * Runs a java file with input.
+     * @param classFilePath The
+     * @param inputFilePath The location of the file with input
+     * @return any output or errors
      */
-    public static String compileAndRun(String filepath) throws IOException {
-        if (!filepath.endsWith(".java")) {
-            throw new IOException("Your file is not a Java file");
+    public static String runJavaWithRedirection(String classFilePath, String inputFilePath) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("java", classFilePath);
+            pb.redirectInput(new File(inputFilePath));
+            pb.redirectErrorStream(true);
+            Process pro = pb.start();
+            return getTextFromStream(pro.getInputStream()) + getTextFromStream(pro.getErrorStream());
+        } catch (IOException e) {
+            return e.toString();
         }
-        String compileOutput = runProcess("javac " + filepath);
-        return compileOutput + "\n" + runProcess("java " + filepath);
     }
 
     /**
-     * Gets the {@code InputStream} from the generated {@code Process} and collects its output.
-     * @param ins the {@code InputStream}.
-     * @return the output from the Process's {@code InputStream}.
-     * @throws IOException if reading from the {@code InputStream} fails.
+     * Run Java code without needing system inputs. Used in Java Playground
+     * @param classFilePath the location of the file
+     * @return any output from the console.
      */
-    private static String collectOutput(InputStream ins) throws IOException {
-        String line;
+    public static String runJava(String classFilePath) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("java", classFilePath);
+            pb.redirectErrorStream(true);
+            Process pro = pb.start();
+            return getTextFromStream(pro.getInputStream())
+                    + getTextFromStream(pro.getErrorStream());
+        } catch (IOException e) {
+            return e.toString();
+        }
+    }
+
+    /**
+     * A method to compile Java files. Returns any console output arising from errors.
+     * @param javaFilePath The location of the Java class
+     * @return the console output if any
+     * @throws IOException thrown if the Process that this compilation is on fails.
+     */
+    public static String compile(String javaFilePath) throws IOException {
+        ProcessBuilder pb = new ProcessBuilder("javac", javaFilePath);
+        pb.redirectErrorStream(true);
+        Process pro = pb.start();
+        return getTextFromStream(pro.getInputStream())
+                + getTextFromStream(pro.getErrorStream());
+    }
+
+
+    private static String getTextFromStream(InputStream ins) throws IOException {
         StringBuilder sb = new StringBuilder();
+        String line;
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(ins));
         while ((line = in.readLine()) != null) {
@@ -43,20 +72,4 @@ public class JavaRunner {
         }
         return sb.toString();
     }
-
-    /**
-     * Runs the given command on a {@code Process}
-     * @param command the command to run
-     * @return the output from the computer.
-     * @throws IOException if the command could not be run.
-     */
-    public static String runProcess(String command) throws IOException {
-        Process pro = Runtime.getRuntime().exec(command);
-        StringBuilder sb = new StringBuilder();
-        sb.append(collectOutput(pro.getInputStream()));
-        sb.append(collectOutput(pro.getErrorStream()));
-        pro.destroy();
-        return sb.toString();
-    }
-
 }

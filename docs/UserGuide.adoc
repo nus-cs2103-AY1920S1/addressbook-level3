@@ -128,36 +128,53 @@ Displays all the cards in the deck of cards, `science_deck`
 
 === Creating new flashcards : `create`
 
-Create a new deck of flashcards
+Enters 'Create' mode. Allows the sequential creation of different cards based on input (FrontBack, MCQ and JavaScript cards).
 
-Format: `create deck/DECK_NAME`
+Format: `create'
+
+        For FrontBack Cards:
+        Format: 'front/FRONT_OF_CARD back/BACK_OF_CARD'
+
+        For MCQ Cards:
+        Format: 'front/FRONT_OF_CARD choice/CHOICE1 choice/CHOICE2 [choice/CHOICE3...] correctIndex/INTEGER'
+        Where correctIndex indicates which choice is correct.
+
+        For JavaScript Cards:
 
 === Start test with flashcards : `test`
 
-Starts a test with a deck of flashcards, with the choice of a timed or untimed test
+Starts a test with a deck of flashcards, with the choice of an untimed test (timed mode will be added in `v1.4`)
+****
+* Press `Start Review` within a deck display screen to initiate a new untimed test.
+
+* There are 3 types of possible cards:
+
+** Basic Front-Back Cards: Users will be shown the front of the card and should think of the answer to that card. They can then click on the `Show Back` button to view the back of the card. If they are correct, they should click on `I got it right!` to count their score.
+
+** MCQ Card: Users will be given a multiple choice card and can select the option which they think is correct. Clicking `Show Back` will then show them the correct answer.
+
+** Javascript Card: Users will be given a problem that can be solved in Javascript. Click on the `Go To FlashCoder` to begin coding in our in-built compiler. Running your program will tell you if you passed or not.
 
 ****
-* Starts the test and the timer for the specified duration `TIME_LIMIT_ALLOWED`.
 
-* The duration TIME_LIMIT_ALLOWED refers to the time allowed for the test. The test will proceed with a countdown until the time hits 00:00.
-
-* The duration must be a positive integer in minutes e.g. 1, 2, 3, …
-****
-
-Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME`
+Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` (to be implemented in `v1.4`)
 
 Examples:
 
 * `test deck/science_deck`
 Starts a untimed test with the deck of cards, `science_deck`
 * `test duration/50 deck/science_deck`
-Starts a timed test with the deck of cards, `science_deck`
+Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
 === Quit test or flashcard creation : `exit`
 
-Exits the test or flashcard creation process
+Exits the test or flashcard creation process.
 
-Format: `exit`
+There is also an `End Session` button that can be used to terminate the exam prematurely.
+
+Exams will also terminate automatically upon running out of cards in the test deck. This will trigger a popup with the results of the test.
+
+Format: `exit` (to be done up in `v1.4`)
 
 === Editing the cards of an existing deck of flashcards : `edit`
 
