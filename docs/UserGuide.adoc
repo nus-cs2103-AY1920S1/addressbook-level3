@@ -770,7 +770,7 @@ one user compared to another.
 
 ==== Display the daily/weekly/monthly average of records in a line graph: `average`
 
-Format: `average a/AVERAGE_TYPE r/RECORD_TYPE [n/COUNT]`
+Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
 
 AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
 RECORD_TYPE is either "bloodsugar" or "bmi". +
@@ -782,10 +782,10 @@ Else, COUNT is set to 5 by default and show most recent 5 average values.
 NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
 that means you do not have enough records in the database.
 
-Example usage 1: `average a/weekly r/bloodsugar`:
+Example usage 1: `average a/weekly rt/bloodsugar`:
 Shows the latest 5 weekly average of blood sugar records.
 
-Example usage 2: `average a/daily r/bmi n/9`:
+Example usage 2: `average a/daily rt/bmi n/9`:
 Shows the latest 9 weekly average of BMI records.
 
 
@@ -794,7 +794,7 @@ Shows the latest 9 weekly average of BMI records.
 Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
 in pie chart.
 
-Format: `summary r/RECORD_TYPE [d/START_DATE]`
+Format: `summary rt/RECORD_TYPE [d/START_DATE]`
 
 If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
 Else, statistics will be based on all data.
@@ -941,8 +941,8 @@ E.g. `add rt/BMI dt/2019-12-12 12:12 h/1 w/1`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
 . *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
-. *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
-E.g. `average a/weekly r/bloodsugar n/3`
+. *Average*: `average a/AVERAGE_TYPE rt/Record_TYPE [n/COUNT]`
+E.g. `average a/weekly rt/bloodsugar n/3`
 . *Bio*: `bio`
 . *Bg*: `bg COLOUR` or `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]` or `bg
 E.g. `bg /Users/Bob/Pictures/bg.jpg s/cover`
@@ -975,8 +975,8 @@ E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
-. *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
-E.g `summary r/bloodsugar d/01.09.2019`
+. *Summary*: `summary rt/RECORD_TYPE [d/START_DATE]`
+E.g `summary rt/bloodsugar d/01.09.2019`
 
 == FAQ
 
