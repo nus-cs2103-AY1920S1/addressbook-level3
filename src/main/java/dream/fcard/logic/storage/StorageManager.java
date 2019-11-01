@@ -43,10 +43,14 @@ public class StorageManager {
     private static String statsSubDir = "./stats";
     private static String statsFileName = "stats.json";
     private static String statsFileFullPath;
+    private static String codeSubDir = "./code";
 
     /**
-     * Determine root directory of the application, main for project, directory containing jar
-     * for jar files.
+     * Determine root directory of the application:
+     *  main for intellij project,
+     *  jar directory when running as jar,
+     *  current executed directory for default
+     * following resolution root is resolved to `root/data/`
      */
     public static void resolveRoot() {
         if (isRootResolved) {
@@ -64,7 +68,6 @@ public class StorageManager {
                 System.out.println("error");
                 System.exit(-1);
             }
-            //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
             break;
         case "jar":
             try {
@@ -103,6 +106,8 @@ public class StorageManager {
     public static String getRoot() {
         return root;
     }
+
+    // ROOT CODE --------------------------------------------------------------
 
     /**
      * Write a deck into decks storage.
@@ -226,6 +231,8 @@ public class StorageManager {
         }
     }
 
+    // DECK CODE --------------------------------------------------------------
+
     /**
      * Resolve path to stats file.
      */
@@ -268,4 +275,19 @@ public class StorageManager {
             System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
         }
     }
+
+    // STATS CODE -------------------------------------------------------------
+
+    public static void writeCode(String fileName, String code) {
+        resolveRoot();
+        String path = FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
+        FileReadWrite.write(path, code);
+    }
+
+    public static String getCodePath(String fileName) {
+        resolveRoot();
+        return FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
+    }
+
+    // CODE EXECUTION CODE ----------------------------------------------------
 }

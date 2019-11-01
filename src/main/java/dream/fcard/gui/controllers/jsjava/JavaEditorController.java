@@ -1,5 +1,6 @@
 package dream.fcard.gui.controllers.jsjava;
 
+import dream.fcard.logic.storage.StorageManager;
 import java.io.IOException;
 
 import dream.fcard.util.FileReadWrite;
@@ -20,7 +21,7 @@ public class JavaEditorController extends AnchorPane {
     @FXML
     private TextArea consoleOutput;
 
-    private String filepath = "./src/main/java/dream/fcard/util/code/data/Main.java";
+    private String fileName = "Main.java";
 
     /**
      * Runs the code in the text editor in Java and returns the output.
@@ -29,7 +30,8 @@ public class JavaEditorController extends AnchorPane {
     @FXML
     private void runCode() throws IOException {
         String code = textEditor.getText();
-        FileReadWrite.write(filepath, code);
+        StorageManager.writeCode(fileName, code);
+        String filepath = StorageManager.getCodePath(fileName);
         String compileOutput = JavaRunner.compile(filepath);
         if (!compileOutput.isBlank()) {
             consoleOutput.setText(compileOutput);
