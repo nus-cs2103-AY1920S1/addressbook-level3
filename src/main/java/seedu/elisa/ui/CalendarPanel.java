@@ -54,15 +54,9 @@ public class CalendarPanel extends UiPart<Region> {
         visualList.addListener(new ListChangeListener<Item>() {
             @Override
             public void onChanged(Change<? extends Item> c) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println("running");
                         clearCells();
                         generateDate();
                         loadData(visualList);
-                    }
-                });
             }
         });
     }

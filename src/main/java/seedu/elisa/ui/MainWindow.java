@@ -155,7 +155,9 @@ public class MainWindow extends UiPart<Stage> {
                     elisaImage.setImage(blueElisa);
                     setTextDefault();
                     if (logic.isSystemToggle()) {
-                        Platform.runLater(() -> resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF));
+                        Platform.runLater(() -> {resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF);
+                        updatePanels();
+                        });
                     }
                 }
             }
