@@ -475,7 +475,7 @@ You should see the search result in the budget list.
 
 To revert the budget list so that all budgets are listed, simply execute `findbud` without any argument.
 
-=== Loans
+=== Loans [Coming in v2.0]
 
 ==== Adding new loan: `loannew `
 
@@ -578,13 +578,13 @@ Displays monthly balance trend for 2019.
 ==== Viewing expenditure breakdown by category: `breakdown`
 
 Displays breakdown of expenditure by category. +
-Format: `catbreakdown [m/MONTH] [y/YEAR]`
+Format: `breakdown [m/MONTH] [y/YEAR]`
 
 Examples:
 
-* `catbreakdown` +
+* `breakdown` +
 Displays expenditure breakdown by category for current month.
-* `catbreakdown m/7 y/2019` +
+* `breakdown m/7 y/2019` +
 Displays expenditure breakdown by category for July 2019.
 
 ==== Viewing expenditure category ranking chart: `catrank`
@@ -635,27 +635,24 @@ Displays expenditure ranking chart for July 2019.
 * *Transaction Add* : `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 * *Transaction Edit* : `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 * *Transaction Delete* : `deletetx INDEX`
-* *Transaction Find* : `findtx [s/KEYWORD]... [c/CATEGORY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
-* *Transaction List* : `listtx`
+* *Transaction Find* : `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
 * *Transaction Repeater Add* : `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
 * *Transaction Repeater Edit* : `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
 * *Transaction Repeater Delete* : `deleterep INDEX [d/DELETEALL]`
-* *Transaction Repeater Find* : `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`
-* *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`
-* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`
-* *Loan Categorical Search* : `loanshow [s/KEYWORD]`
-* *Loan Net Amount* : `loantotal [s/KEYWORD]`
-* *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`
-* *Loan Sort By Value* : `loansort s/BY`
-* *Budget Add* : `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
-* *Budget Delete* : `bdelete INDEX`
-* *Budget Exclude* : `bexclude INDEX`
-* *Budget Include* : `binclude INDEX`
-* *Budget Info* : `binfo [m/MONTH y/YEAR]`
+* *Transaction Repeater Find* : `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`  (Coming in v2.0)
+* *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
+* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
+* *Loan Categorical Search* : `loanshow [s/KEYWORD]`  (Coming in v2.0)
+* *Loan Net Amount* : `loantotal [s/KEYWORD]`  (Coming in v2.0)
+* *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
+* *Loan Sort By Value* : `loansort s/BY`  (Coming in v2.0)
+* *Budget Add* : `addbud de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
+* *Budget Delete* : `deletebud INDEX`
+* *Budget Find* : `findbud KEYWORD [MORE_KEYWORDS]`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`
 * *Balance Trend* : `balance [y/YEAR]`
-* *Categorical Breakdown* : `catbreakdown [m/MONTH] [y/YEAR]`
+* *Categorical Breakdown* : `breakdown [m/MONTH] [y/YEAR]`
 * *Categorical Ranking Chart* : `catrank [m/MONTH] [y/YEAR]`
 * *Month-Based Ranking Chart* : `mthrank [y/YEAR]`
 * *Ranking Chart* : `exprank [m/MONTH] [y/YEAR]`
