@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.model.display.sidepanel.PersonDisplay;
@@ -29,8 +28,6 @@ public class PersonDetailCard extends UiPart<Region> {
 
     private final PersonDisplay person;
 
-    @FXML
-    private HBox personDetailContainer;
     @FXML
     private ImageView userProfile;
     @FXML
