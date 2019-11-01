@@ -42,20 +42,18 @@ public class AccountDeleteCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
-        accountsManager.resetFilteredAccountList();
 
-        List<Account> lastShownList = model.getAccountsManager().getAccounts();
+        List<Account> lastShownList = model.getAccountsManager().getFilteredAccountList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
-        if (lastShownList.size() <= 1) {
+        if (model.getAccountsManager().getAccounts().size() <= 1) {
             //there is only one active account left, which should not be deleted.
             throw new CommandException(Messages.MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL);
         }
         accountsManager.deleteAccount(accountToDelete);
-
         return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete),
                 CommandCategory.ACCOUNT);
     }

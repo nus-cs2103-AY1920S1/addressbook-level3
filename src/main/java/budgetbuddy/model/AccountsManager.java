@@ -74,6 +74,8 @@ public class AccountsManager {
      */
     public void resetFilteredAccountList() {
         filteredAccounts.setPredicate(s -> true);
+        //activeAccountIndex is reset to the first account
+        activeAccountIndex = Index.fromZeroBased(0);
     }
 
     /**
@@ -82,6 +84,7 @@ public class AccountsManager {
      */
     public void addAccount(Account toAdd) {
         accounts.add(toAdd);
+        activeAccountIndex = accounts.indexOfEquivalent(toAdd);
     }
 
     /**
@@ -91,6 +94,7 @@ public class AccountsManager {
      */
     public void editAccount(Index toEdit, Account editedAccount) throws AccountNotFoundException {
         accounts.replace(accounts.get(toEdit), editedAccount);
+        activeAccountIndex = accounts.indexOfEquivalent(editedAccount);
     }
 
     /**
@@ -102,6 +106,8 @@ public class AccountsManager {
     public void deleteAccount(Account toDelete) {
         if (accounts.contains(toDelete)) {
             accounts.remove(toDelete);
+            //activeAccountIndex is reset to the first account.
+            activeAccountIndex = Index.fromZeroBased(0);
         } else {
             throw new AccountNotFoundException();
         }
@@ -122,6 +128,7 @@ public class AccountsManager {
     public void updateFilteredAccountList(Predicate<Account> predicate) {
         requireNonNull(predicate);
         filteredAccounts.setPredicate(predicate);
+        activeAccountIndex = Index.fromZeroBased(0);
     }
 
     @Override
