@@ -93,9 +93,9 @@ public class CommandBox extends UiPart<Region> {
                 break;
             case RIGHT:
                 try {
-                    commandTextField.setText(autoCompletePanel.getCombinedMatchedWords());
+                    commandTextField.setText(autoCompletePanel.getStringAfterSelection());
                     commandTextField.positionCaret(commandTextField.getText().length());
-                    autoCompletePanel.updateListView(autoCompletePanel.getCombinedMatchedWords());
+                    autoCompletePanel.updateListView(autoCompletePanel.getStringAfterSelection());
 
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus right key does not work");
