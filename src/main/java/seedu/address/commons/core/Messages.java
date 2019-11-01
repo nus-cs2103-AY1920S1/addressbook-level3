@@ -23,7 +23,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
     public static final String MESSAGE_NOT_PATIENTLIST = "appointment(s) displayed do not belong to the same patient\n";
-    public static final String MESSAGE_NOT_STAFFLIST = "duty shift(s) displayed do not belong to the same staff doctor\n";
+    public static final String MESSAGE_NOT_STAFFLIST =
+            "duty shift(s) displayed do not belong to the same staff doctor\n";
     public static final String MESSAGE_NOT_MISSEDLIST = "current displaying appointment are not "
             + "belong to missed appointment list\n" + "please type command: missedappt";
     public static final String MESSAGE_NOTHING_SETTLE = "no missed appointment needs to settle";

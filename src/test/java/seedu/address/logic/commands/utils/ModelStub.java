@@ -258,6 +258,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Boolean isListingAppointmentsOfSingleStaff() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public Boolean isMissedList() {
         throw new AssertionError("This method should not be called.");
     }
