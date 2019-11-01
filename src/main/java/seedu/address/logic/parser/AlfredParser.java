@@ -73,7 +73,8 @@ public class AlfredParser {
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             logger.info("Allocating add command to appropriate parser.");
-            return new AddCommandAllocator().allocate(arguments);
+            c = new AddCommandAllocator().allocate(arguments);
+            break;
 
         case FindCommand.COMMAND_WORD:
             c = new FindCommandAllocator().allocate(arguments);
@@ -81,21 +82,26 @@ public class AlfredParser {
 
         case DeleteCommand.COMMAND_WORD:
             logger.info("Allocating delete command to appropriate parser.");
-            return new DeleteCommandAllocator().allocate(arguments);
+            c = new DeleteCommandAllocator().allocate(arguments);
+            break;
 
         case ScoreCommand.COMMAND_WORD:
-            return new ScoreCommandAllocator().allocate(arguments);
+            c = new ScoreCommandAllocator().allocate(arguments);
+            break;
 
         case ListCommand.COMMAND_WORD:
             logger.info("Showing list of a particular entity...");
-            return new ListCommandParser().parse(arguments);
+            c = new ListCommandParser().parse(arguments);
+            break;
 
         case ShowSimpleLeaderboardCommand.COMMAND_WORD:
             logger.info("Executing leaderboard command...");
-            return new ShowLeaderBoardCommandParser().parse(arguments);
+            c = new ShowLeaderBoardCommandParser().parse(arguments);
+            break;
 
         case SimpleTopTeamsCommand.COMMAND_WORD:
-            return new GetTopTeamsCommandParser().parse(arguments);
+            c = new GetTopTeamsCommandParser().parse(arguments);
+            break;
 
         case ViewCommand.COMMAND_WORD:
             c = new ViewCommandAllocator().allocate(arguments);
@@ -136,11 +142,13 @@ public class AlfredParser {
 
         case AssignCommand.COMMAND_WORD:
             logger.info("Assigning Entity(Mentor/Participant) to a Team");
-            return new AssignCommandAllocator().allocate(arguments);
+            c = new AssignCommandAllocator().allocate(arguments);
+            break;
 
         case RemoveCommand.COMMAND_WORD:
             logger.info("Removing Entity(Mentor/Participant) from a Team");
-            return new RemoveCommandAllocator().allocate(arguments);
+            c = new RemoveCommandAllocator().allocate(arguments);
+            break;
 
         default:
             logger.info("Unknown command type: " + commandWord);
@@ -149,5 +157,4 @@ public class AlfredParser {
         c.setCommandInputString(userInput);
         return c;
     }
-
 }

@@ -51,6 +51,8 @@ public class SetScoreCommand extends ScoreCommand {
             throw new CommandException(e.getMessage());
         }
         logger.info("Setting " + this.score + " as Score of Team " + this.id);
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_SCORE_TEAM_SUCCESS,
                 teamToScore.getName().toString(), score.toString()), CommandType.T);
     }

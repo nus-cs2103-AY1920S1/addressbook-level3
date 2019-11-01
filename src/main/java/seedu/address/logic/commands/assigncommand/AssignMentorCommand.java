@@ -51,6 +51,7 @@ public class AssignMentorCommand extends AssignCommand {
         try {
             model.addMentorToTeam(teamId, mentorToBeAdded);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_TEAM_HAS_MENTOR);
         }

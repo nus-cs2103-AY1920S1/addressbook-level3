@@ -52,6 +52,7 @@ public class AssignParticipantCommand extends AssignCommand {
         try {
             model.addParticipantToTeam(teamId, participantToBeAdded);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_PARTICIPANT_ALREADY_ASSIGNED);
         }

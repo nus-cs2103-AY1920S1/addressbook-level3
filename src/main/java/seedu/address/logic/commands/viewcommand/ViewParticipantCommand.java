@@ -37,6 +37,7 @@ public class ViewParticipantCommand extends ViewCommand {
         try {
             participantToView = model.getParticipant(this.id);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX);
         }

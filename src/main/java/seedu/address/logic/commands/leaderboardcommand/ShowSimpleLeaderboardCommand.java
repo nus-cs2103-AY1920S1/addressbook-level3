@@ -34,6 +34,8 @@ public class ShowSimpleLeaderboardCommand extends LeaderboardCommand {
 
         System.out.println(MESSAGE_LEADERBOARD_HEADER);
         logger.info("Showing Leaderboard.");
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(MESSAGE_SUCCESS, CommandType.L);
     }
 

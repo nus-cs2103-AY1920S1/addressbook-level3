@@ -3,13 +3,14 @@ package seedu.address.logic.commands.scorecommand;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.TrackableState;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Score;
 
 /**
  * Changes a {@code Team}'s score in Alfred.
  */
-public abstract class ScoreCommand extends Command {
+public abstract class ScoreCommand extends Command implements TrackableState {
 
     public static final String COMMAND_WORD = "score";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": updates, adds or subtracts the given score "

@@ -35,6 +35,7 @@ public class ViewMentorCommand extends ViewCommand {
         try {
             mentorToView = model.getMentor(this.id);
             model.updateHistory(this);
+            model.recordCommandExecution(this.getCommandInputString());
         } catch (AlfredException e) {
             throw new CommandException(MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX);
         }

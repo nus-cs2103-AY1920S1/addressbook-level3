@@ -53,6 +53,8 @@ public class AddScoreCommand extends ScoreCommand {
         }
 
         logger.info("Adding " + this.score + " to Score of Team " + this.id);
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_SCORE_TEAM_SUCCESS,
                 score.toString(), teamToScore.getName().toString()), CommandType.T);
     }
