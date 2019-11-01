@@ -434,8 +434,8 @@ image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[]
 The deadline provided should be in the format `dd-mmm-yyyy` e.g. `19-Dec-2019`. +
 If an invalid format is input, e.g. `01-AAA-2019` or `19-DEC-2019` or `-1-Dec-2019`,
 Leo will inform you that the input is invalid. +
-If an invalid is entered, e.g. `31-Feb-2019`, the app will round it  to `28-Feb-2019`
-and adds the rounded date as the deadline.
+If an invalid date is entered, e.g. `31-Feb-2019`, the app will round it  to `28-Feb-2019`
+and adds the rounded date as the deadline. But our app only checks up to `31` in day.
 
 [NOTE]
 To modify the deadline for a reimbursement, you can use `deadline` command again
