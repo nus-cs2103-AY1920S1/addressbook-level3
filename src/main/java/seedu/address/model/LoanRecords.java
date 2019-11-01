@@ -30,7 +30,7 @@ public class LoanRecords implements ReadOnlyLoanRecords {
     }
 
     /**
-     * Get all the Loan objects tracked by LoanRecords.
+     * Gets all the Loan objects tracked by LoanRecords.
      *
      * @return All the Loans in a {@code Collection<Loan>}.
      */
@@ -40,7 +40,7 @@ public class LoanRecords implements ReadOnlyLoanRecords {
     }
 
     /**
-     * Get all the Loan objects tracked by LoanRecords.
+     * Gets all the Loan objects tracked by LoanRecords.
      *
      * @return All the Loans in a {@code HashMap<LoanId, Loan>}.
      */
@@ -70,12 +70,21 @@ public class LoanRecords implements ReadOnlyLoanRecords {
     }
 
     /**
-     * Add a {@code loan} object into the LoanRecords.
+     * Adds a {@code loan} object into the LoanRecords.
      *
      * @param loan Loan object to be added.
      */
     public void addLoan(Loan loan) {
         loansMap.put(loan.getLoanId(), loan);
+    }
+
+    /**
+     * Removes a {@code loan} object from the LoanRecords.
+     *
+     * @param loan Loan object to be removed.
+     */
+    public void removeLoan(Loan loan) {
+        loansMap.remove(loan.getLoanId());
     }
 
     /**
@@ -87,6 +96,17 @@ public class LoanRecords implements ReadOnlyLoanRecords {
      */
     public int getLoanCount() {
         return loansMap.size();
+    }
+
+    /**
+     * Replaces an existing {@code Loan} object in the loansMap with an edited one.
+     *
+     * @param existingLoan Existing {@code Loan} object to be replaced.
+     * @param updatedLoan Updated {@code Loan} object.
+     */
+    public void updateLoan(Loan existingLoan, Loan updatedLoan) {
+        loansMap.remove(existingLoan.getLoanId());
+        addLoan(updatedLoan);
     }
 
     @Override

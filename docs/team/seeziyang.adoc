@@ -1,0 +1,147 @@
+= See Zi Yang - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: LiBerry
+
+== Overview
+
+LiBerry is a desktop library management application for librarians to manage their books, borrowers and loans.
+It is a software optimized for librarians who prefer to work with a Command Line Interface (CLI), whereby commands are typed into the software. +
+
+Main features of LiBerry:
+
+* Add and remove books
+* Comprehensive search system to look for books
+* Register new borrowers
+* Manage loaning and returning of books
+* Track overdue fines payment
+
+My role was to design and implement the code for the loan related features. The following sections further elaborates on these
+enhancements I have made. Also included are the details of the relevant documentation I have written in the user and developer guide to
+assist users and other developers to understand these features.
+
+== Summary of Contributions
+
+This section summarizes the contributions I have made to the team project, including contributions to the code base, documentation and project management.
+
+=== Main enhancement - Loan-related features
+I have added features related to the loaning and returning of books in our library management app, LiBerry.
+
+==== What it does
+This set of features allow our users, librarians, to *loan* out books to borrowers, *return* loaned out books, *renew* loaned
+out books, and to record payments of *fines* incurred for overdue books.
+
+Every time a book is borrowed, both the starting date and due date of the loan are automatically recorded. For each loaned
+out book, other than the details of the book and the borrower, the starting date, due date, and returning date,
+along with the number of times it has been renewed and the fine incurred after returning are all meticulously tracked.
+
+The intuitive syntax for the commands related to these features also enables librarians to quickly serve a borrower.
+
+==== Justification
+As the main purpose of a library is to allow visitors to borrow books, these features are core to a library and are
+needed for a library to function.
+
+==== Highlights
+The implementation of these features was challenging as a whole new set of code had to be written to model each loan occurrence
+and to store these information. The book, borrower and the loan object had to be linked efficiently to reduce duplicated information stored.
+
+Moreover, a great deal of defensive programming was applied as there were many bounds to each of these features. For
+example, these features should only work when certain conditions are met, such as when the user is currently serving borrowers
+and the inputs correspond to a book that is not on loan.
+
+Additionally, I also created utility classes like `DateUtil` and `FineUtil` to centralize utility functions that dealt with
+dates and fines respectively.
+
+=== Code contributed
+
+[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+=== Other contributions
+
+==== Project management
+
+*** Managed the issues covered for each milestone and set up their deadlines. Also added each feature as an issue and
+assigned them to the appropriate team member.
+
+**** The issues and milestones can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/issues[here].
+
+*** Set up two Github project boards.
+
+**** The project board used to brainstorm and prioritise user stories can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/projects/2[here].
+**** The project board used to keep track of the features and commands can be seen https://github.com/AY1920S1-CS2103T-F13-1/main/projects/3[here].
+
+*** Updated developer guide to include user stories, use cases and non-functional requirements. Done through pull requests:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/81[#81] - Included user stories and non-functional requirements specific to LiBerry.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157] - Updated non-functional requirements and use cases and added a general use case diagram.
+
+*** Maintained the team project website, including the site headers, navigation bar, badges and photos. Done through pull requests:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/86[#86] - Updated Travis badges.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/97[#97] - Updated header, README, contact us, developer photos, role and responsibilities.
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/100[#100] - Fixed user interface image not appearing on the website.
+
+*** Reviewed pull requests by team members, e.g. ...........
+
+==== Enhancements to existing features
+
+*** Enhanced code for `Borrower` class to be immutable. Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/152[#152] - Modified fields in Borrower to be immutable and
+added methods in the class to return new copies instead of mutating values in the current object.
+
+*** Upgraded the `set` command to support setting the maximum renew count such that librarians can define what is the maximum number of times
+a book can be renewed.
+Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/178[#178] - Modified the `set` command to take in maximum renew
+count and integrated this setting to the model component.
+
+*** Updated the user interface to reflect more borrower-related details. Done through pull request:
+
+**** https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179] - Updated panel dimensions to fit more results and
+added more borrower-related information such as total outstanding fine.
+
+==== Documentation
+
+*** Improved and rectified the flow, content, styling, legend and diagrams of the user guide and developer guide
+according to feedback received from tutor and peers.
+Done through pull requests: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/157[#157], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/163[#163],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/179[#179], https://github.com/AY1920S1-CS2103T-F13-1/main/pull/182[#182].
+
+==== Community
+
+*** Gave in-depth and insightful review of team member's pull requests. Examples includes: ........
+
+*** Reported bugs in the team project to team members in the group chat.
+
+==== Tools
+
+*** Integrated a new Github plugin, Coveralls, to the team repository. Coveralls was immensely helpful in tracking the
+test coverage of our team's code.
+
+*** Set up Netlify for the team repository to easily and quickly preview changes made to the team website and documentation.
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=quickStart]
+
+'''
+
+include::../UserGuide.adoc[tag=loanRelated]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=bookLoaningFeatures]
+
+
+

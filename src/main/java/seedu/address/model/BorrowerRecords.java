@@ -86,7 +86,7 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
      */
     public Borrower getBorrowerFromId(BorrowerId id) throws NullPointerException {
         if (!borrowersMap.containsKey(id)) {
-            throw new NullPointerException("Borrower does not exists");
+            throw new NullPointerException("Borrower " + id.toString() + " does not exists");
         }
         return borrowersMap.get(id);
     }
@@ -146,5 +146,15 @@ public class BorrowerRecords implements ReadOnlyBorrowerRecords {
                 current.getBorrowerId() != editedBorrower.getBorrowerId()
                         && (current.getPhone().equals(editedBorrower.getPhone())
                         || current.getEmail().equals(editedBorrower.getEmail())));
+    }
+
+    /**
+     * Removes a borrower from the borrower records.
+     *
+     * @param borrower Borrower to be removed.
+     */
+    public void removeBorrower(Borrower borrower) {
+        listOfBorrowers.remove(borrower);
+        borrowersMap.remove(borrower.getBorrowerId());
     }
 }

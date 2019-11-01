@@ -7,7 +7,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 import static seedu.address.testutil.TypicalLoans.LOAN_7;
+import static seedu.address.testutil.TypicalLoans.LOAN_8;
+import static seedu.address.testutil.TypicalLoans.LOAN_9;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +27,8 @@ public class TypicalBorrowers {
 
     public static final BorrowerId ID_FIRST_BORROWER = new BorrowerId("K0001");
     public static final BorrowerId ID_SECOND_BORROWER = new BorrowerId("K0002");
+
+    public static final String ID_DESC_FIRST_BORROWER = " " + PREFIX_BORROWER_ID + "K0001";
 
     public static final Borrower ALICE = new BorrowerBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
@@ -46,17 +51,18 @@ public class TypicalBorrowers {
 
     // Manually added
     public static final Borrower HOON = new BorrowerBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").build();
+            .withEmail("stefan@example.com").withBorrowerId("K0008").build();
     public static final Borrower IDA = new BorrowerBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withBorrowerId("K0009").withCurrentLoan(LOAN_7).build();
+    public static final Borrower JANNA = new BorrowerBuilder().withName("Janna Windforce").withPhone("3838438")
+            .withEmail("janna@example.com").withBorrowerId("K0010").withReturnedLoan(LOAN_8)
+            .withReturnedLoan(LOAN_9).build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Borrower AMY = new BorrowerBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).build();
     public static final Borrower BOB = new BorrowerBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withBorrowerId(VALID_ID_BOB).build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalBorrowers() {} // prevents instantiation
 

@@ -45,6 +45,46 @@ public class StringUtilTest {
         assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
+    //---------------- Tests for isValidDollarAmount --------------------------------------
+
+    @Test
+    public void isValidDollarAmount() {
+        // EP: empty strings
+        assertFalse(StringUtil.isValidDollarAmount("")); // Boundary value
+        assertFalse(StringUtil.isValidDollarAmount("  "));
+
+        // EP: not a number
+        assertFalse(StringUtil.isValidDollarAmount("a"));
+        assertFalse(StringUtil.isValidDollarAmount("aaa"));
+
+        // EP: zero
+        assertFalse(StringUtil.isValidDollarAmount("0"));
+        assertFalse(StringUtil.isValidDollarAmount("0.00"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isValidDollarAmount("010"));
+        assertTrue(StringUtil.isValidDollarAmount("01.20"));
+
+        // EP: numbers with more than 2d.p.
+        assertFalse(StringUtil.isValidDollarAmount("-1.000"));
+        assertFalse(StringUtil.isValidDollarAmount("-1.001"));
+        assertFalse(StringUtil.isValidDollarAmount("-80.540"));
+
+        // EP: numbers when converted to cents is larger than Integer.MAX_VALUE
+        assertFalse(StringUtil.isValidDollarAmount(Long.toString(Long.MAX_VALUE / 1000)));
+
+        // EP: signed numbers
+        assertFalse(StringUtil.isValidDollarAmount("-1"));
+        assertFalse(StringUtil.isValidDollarAmount("-1.00"));
+        assertFalse(StringUtil.isValidDollarAmount("+1"));
+        assertFalse(StringUtil.isValidDollarAmount("+8.45"));
+
+        // EP: valid numbers, should return true
+        assertTrue(StringUtil.isValidDollarAmount("0.01")); // Boundary value
+        assertTrue(StringUtil.isValidDollarAmount("10"));
+        assertTrue(StringUtil.isValidDollarAmount("2358023.70"));
+    }
+
 
     //---------------- Tests for containsWordIgnoreCase --------------------------------------
 

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 
-
-<TextArea fx:id="resultDisplay" prefHeight="115.0" prefWidth="200.0" styleClass="result-display"
-          xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" />
+<Label fx:id="resultDisplay" maxHeight="150.0" minHeight="150.0" minWidth="-Infinity" prefHeight="150.0" styleClass="result-display" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets left="10.0" />
+   </padding>
+</Label>

@@ -3,9 +3,11 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -21,6 +23,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String SERVE_MODE = "Serve Mode";
+    private static final String NORMAL_MODE = "Normal Mode";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -29,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
+    private BorrowerPanel borrowerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -41,6 +46,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane bookListPanelPlaceholder;
 
+    @FXML
+    private StackPane borrowerPanelPlaceholder;
+
+    @FXML
+    private Label mode;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -52,6 +63,12 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         helpWindow = new HelpWindow();
+        if (logic.isServeMode()) {
+            mode.setText(SERVE_MODE);
+        } else {
+            mode.setText(NORMAL_MODE);
+        }
+        resultDisplayPlaceholder.setStyle("-fx-background-color: #2b2b2b#2b2b2b");
     }
 
     public Stage getPrimaryStage() {
@@ -68,6 +85,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        borrowerPanel = new BorrowerPanel();
+        borrowerPanelPlaceholder.getChildren().add(borrowerPanel.getRoot());
+
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
@@ -76,12 +96,25 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.isDefault()) {
+            primaryStage.setHeight(getDefaultHeight());
+            primaryStage.setWidth(getDefaultWidth());
+        } else {
+            primaryStage.setHeight(guiSettings.getWindowHeight());
+            primaryStage.setWidth(guiSettings.getWindowWidth());
+        }
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    private double getDefaultWidth() {
+        return Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private double getDefaultHeight() {
+        return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
     /**
@@ -112,6 +145,32 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Updates the borrower panel and sets the label to Serve Mode.
+     */
+    @FXML
+    private void handleServe() {
+        mode.setText(SERVE_MODE);
+    }
+
+    /**
+     * Updates the borrower panel.
+     */
+    @FXML
+    private void updateBorrowerPanel() {
+        assert logic.isServeMode() : "Not in serve mode";
+        borrowerPanel.setBorrower(logic.getServingBorrower(), logic.getServingBorrowerBookList());
+    }
+
+    /**
+     * Resets the borrower panel and sets the label to Normal Mode.
+     */
+    @FXML
+    private void handleDone() {
+        mode.setText(NORMAL_MODE);
+        borrowerPanel.reset();
+    }
+
     public BookListPanel getBookListPanel() {
         return bookListPanel;
     }
@@ -129,11 +188,18 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isExit()) {
+                handleExit();
+            } else if (commandResult.isServe()) {
+                handleServe();
+            } else if (commandResult.isDone()) {
+                handleDone();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
+            if (logic.isServeMode() && !commandResult.isDone()) {
+                updateBorrowerPanel();
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {

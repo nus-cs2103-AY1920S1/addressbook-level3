@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_AUTHOR_NAME_TOO_LONG;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
@@ -24,6 +26,8 @@ import seedu.address.model.loan.Loan;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final Loan NULL_LOAN = null;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
@@ -42,7 +46,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        if (title.toString().length() > 30) {
+            throw new ParseException(MESSAGE_BOOK_TITLE_TOO_LONG);
+        }
+
         Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
+        if (author.toString().length() > 30) {
+            throw new ParseException(MESSAGE_AUTHOR_NAME_TOO_LONG);
+        }
+
         boolean haveSerialNumber = argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent();
         SerialNumber serialNumber;
         if (haveSerialNumber) {
@@ -51,8 +63,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
-        Loan loan = null; //stub for loan object
-        Book book = new Book(title, serialNumber, author, loan, genreList);
+        Book book = new Book(title, serialNumber, author, NULL_LOAN, genreList);
         return new AddCommand(book);
     }
 

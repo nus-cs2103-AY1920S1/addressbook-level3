@@ -26,7 +26,6 @@ import seedu.address.model.Catalog;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
-import seedu.address.testutil.EditBookDescriptorBuilder;
 import seedu.address.testutil.EditBorrowerDescriptorBuilder;
 import seedu.address.testutil.SetUserSettingsDescriptorBuilder;
 
@@ -51,6 +50,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String BORROWER_ID_DESC_BOB = " " + PREFIX_BORROWER_ID + VALID_ID_BOB;
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "$123";
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "yo";
 
     public static final String VALID_TITLE_BOOK_1 = "Harry Botter";
     public static final String VALID_TITLE_BOOK_2 = "Legend of the Condor Heroes";
@@ -64,7 +65,8 @@ public class CommandTestUtil {
     public static final String VALID_GENRE_ACTION = "ACTION";
     public static final String VALID_GENRE_FICTION = "FICTION";
     public static final String VALID_GENRE_NONFICTION = "NON-FICTION";
-    public static final String VALID_BORROWER_ID = "K0001";
+    public static final String VALID_BORROWER_ID_1 = "K0001";
+    public static final String VALID_BORROWER_ID_2 = "K0002";
 
     public static final String TITLE_DESC_BOOK_1 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_1;
     public static final String TITLE_DESC_BOOK_2 = " " + PREFIX_TITLE + VALID_TITLE_BOOK_2;
@@ -89,6 +91,8 @@ public class CommandTestUtil {
     public static final String VALID_RENEW_PERIOD_2 = "7";
     public static final String VALID_FINE_INCREMENT_1 = "30";
     public static final String VALID_FINE_INCREMENT_2 = "40";
+    public static final String VALID_MAX_RENEWS_1 = "2";
+    public static final String VALID_MAX_RENEWS_2 = "3";
 
     public static final String INVALID_LOAN_PERIOD_DESC = " " + PREFIX_LOAN_PERIOD + "7a"; // 'a' not allowed
     public static final String INVALID_RENEW_PERIOD_DESC = " " + PREFIX_RENEW_PERIOD + "7b"; // 'a' not allowed
@@ -102,19 +106,7 @@ public class CommandTestUtil {
     public static final String VALID_RENEW_PERIOD_2_DESC = " " + PREFIX_RENEW_PERIOD + VALID_RENEW_PERIOD_2;
     public static final String VALID_FINE_INCREMENT_2_DESC = " " + PREFIX_FINE_INCREMENT + VALID_FINE_INCREMENT_2;
 
-
-
-    public static final EditCommand.EditBookDescriptor DESC_BOOK_1;
-    public static final EditCommand.EditBookDescriptor DESC_BOOK_2;
-
-    static {
-        DESC_BOOK_1 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_1)
-                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1).withAuthor(VALID_AUTHOR_BOOK_1)
-                .withGenres(VALID_GENRE_FICTION).build();
-        DESC_BOOK_2 = new EditBookDescriptorBuilder().withTitle(VALID_TITLE_BOOK_2)
-                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_2).withAuthor(VALID_AUTHOR_BOOK_2)
-                .withGenres(VALID_GENRE_ACTION, VALID_GENRE_FICTION).build();
-    }
+    public static final int VALID_CENT_AMOUNT = 120;
 
     public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_1;
     public static final SetCommand.SetUserSettingsDescriptor DESC_USER_SETTINGS_2;
@@ -124,11 +116,13 @@ public class CommandTestUtil {
                 .withLoanPeriod(VALID_LOAN_PERIOD_1)
                 .withRenewPeriod(VALID_RENEW_PERIOD_1)
                 .withFineIncrement(VALID_FINE_INCREMENT_1)
+                .withMaxRenews(VALID_MAX_RENEWS_1)
                 .build();
         DESC_USER_SETTINGS_2 = new SetUserSettingsDescriptorBuilder()
                 .withLoanPeriod(VALID_LOAN_PERIOD_2)
                 .withRenewPeriod(VALID_RENEW_PERIOD_2)
                 .withFineIncrement(VALID_FINE_INCREMENT_2)
+                .withMaxRenews(VALID_MAX_RENEWS_2)
                 .build();
     }
 

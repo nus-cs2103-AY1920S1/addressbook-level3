@@ -88,6 +88,17 @@ public class Borrower {
     }
 
     /**
+     * Replaces a a Loan object in a new copy of the currentLoanList.
+     *
+     * @param loanToBeRenewed {@code Loan} object to be removed from the currentLoanList.
+     * @param renewedLoan A updated {@code Loan} object replacing the removed one.
+     * @return A new copy of the currentLoanList with the Loan object replaced.
+     */
+    public LoanList getReplacedCurrentLoanList(Loan loanToBeRenewed, Loan renewedLoan) {
+        return currentLoanList.replaceInNewCopy(loanToBeRenewed, renewedLoan);
+    }
+
+    /**
      * Adds a returned Loan object to a new copy of the returnedLoanList.
      *
      * @param returnedLoan {@code Loan} object to be added to returnedLoanList.
@@ -98,10 +109,36 @@ public class Borrower {
     }
 
     /**
+     * Removes a returned Loan object to a new copy of the returnedLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be removed to returnedLoanList.
+     * @return A new copy of currentLoanList with returned Loan object removed it.
+     */
+    public LoanList getRemovedReturnedLoanList(Loan returnedLoan) {
+        return returnedLoanList.removeFromNewCopy(returnedLoan);
+    }
+
+    /**
      * Returns true if Borrower currently loans a Book represented by the given Loan object.
      */
     public boolean hasCurrentLoan(Loan loan) {
         return currentLoanList.contains(loan);
+    }
+
+    /**
+     * Gets the total outstanding fine amount from Borrower's returnedLoanList.
+     *
+     * @return Total remaining fine amount in cents/
+     */
+    public int getOutstandingFineAmount() {
+        return returnedLoanList.calculateOutstandingFineAmount();
+    }
+
+    /**
+     * Returns true if Borrower has unpaid fines.
+     */
+    public boolean hasOutstandingFine() {
+        return getOutstandingFineAmount() > 0;
     }
 
     /**
@@ -141,19 +178,36 @@ public class Borrower {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, borrowerId);
+        return Objects.hash(name, phone, email, borrowerId, currentLoanList, returnedLoanList);
     }
 
+    /**
+     * Method to return the full string representation of the borrower, if required.
+     *
+     * @return Full string representation of borrower.
+     */
+    public String toFullString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(", Phone: ")
+                .append(getPhone())
+                .append(", Email: ")
+                .append(getEmail())
+                .append(", Borrower ID: ")
+                .append(getBorrowerId());
+        return builder.toString();
+    }
+
+    /**
+     * Returns display string of Borrower.
+     *
+     * @return display string of borrower.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Borrower Id: ")
-                .append(getBorrowerId());
+        builder.append("[" + getBorrowerId() + "] ")
+                .append(getName());
         return builder.toString();
     }
 

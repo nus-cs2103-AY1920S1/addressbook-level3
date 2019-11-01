@@ -3,8 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.UserSettings.DEFAULT_LOAN_PERIOD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
@@ -12,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_B
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
+import static seedu.address.testutil.UserSettingsBuilder.DEFAULT_LOAN_PERIOD;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -118,7 +118,7 @@ public class CatalogTest {
         Catalog newData = getTypicalCatalog();
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         SerialNumber currentSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER_BOOK_4);
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
 
         Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
@@ -136,7 +136,7 @@ public class CatalogTest {
         Catalog newData = getTypicalCatalog();
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         SerialNumber currentSerialNumber = new SerialNumber(VALID_SERIAL_NUMBER_BOOK_4);
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
 
         Loan currentLoan = new Loan(loanId, currentSerialNumber, currentBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));

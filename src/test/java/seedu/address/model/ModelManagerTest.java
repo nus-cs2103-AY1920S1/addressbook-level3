@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
 
@@ -14,8 +14,11 @@ import static seedu.address.testutil.TypicalBooks.BOOK_2;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
+import static seedu.address.testutil.TypicalBorrowers.JANNA;
 import static seedu.address.testutil.TypicalBorrowers.getTypicalBorrowerRecords;
 import static seedu.address.testutil.TypicalLoans.LOAN_1;
+import static seedu.address.testutil.TypicalLoans.LOAN_8;
+import static seedu.address.testutil.TypicalLoans.LOAN_9;
 import static seedu.address.testutil.TypicalLoans.getTypicalLoanRecords;
 
 import java.nio.file.Path;
@@ -38,6 +41,7 @@ import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.CatalogBuilder;
+import seedu.address.testutil.LoanBuilder;
 
 public class ModelManagerTest {
 
@@ -88,7 +92,7 @@ public class ModelManagerTest {
 
     @Test
     public void setUserSettings_validUserSettings_setsUserSettings() {
-        UserSettings userSettings = new UserSettings(10, 10, 10);
+        UserSettings userSettings = new UserSettings(10, 10, 10, 10);
         modelManager.setUserSettings(userSettings);
         assertEquals(userSettings, modelManager.getUserSettings());
     }
@@ -157,7 +161,7 @@ public class ModelManagerTest {
 
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
         Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
                 DateUtil.getTodayMinusDays(31), DateUtil.getTodayMinusDays(1));
         Book loanedBook = new BookBuilder(BOOK_1).withLoan(loan).build();
@@ -179,7 +183,7 @@ public class ModelManagerTest {
         // Book on loan but not overdue
         LoanId loanId = new LoanId(VALID_LOAN_ID);
         Book toBeLoaned = new BookBuilder(BOOK_1).build();
-        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID);
+        BorrowerId currentBorrowerId = new BorrowerId(VALID_BORROWER_ID_1);
         Loan loan = new Loan(loanId, toBeLoaned.getSerialNumber(), currentBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(30));
         modelManager.addLoan(loan);
@@ -246,7 +250,10 @@ public class ModelManagerTest {
 
         modelManager.setServingBorrower(ALICE);
         modelManager.servingBorrowerNewLoan(LOAN_1);
-        modelManager.servingBorrowerReturnLoan(LOAN_1);
+
+        Loan returnedLoan1 = new LoanBuilder(LOAN_1).withReturnDate("2019-10-20").build();
+
+        modelManager.servingBorrowerReturnLoan(LOAN_1, returnedLoan1);
         assertFalse(modelManager.getServingBorrower().hasCurrentLoan(LOAN_1));
     }
 
@@ -254,8 +261,52 @@ public class ModelManagerTest {
     public void servingBorrowerReturnLoan_notInServeMode_throwsNotInServeModeException() {
         Model modelManager = new ModelManager();
 
+        Loan returnedLoan1 = new LoanBuilder(LOAN_1).withReturnDate("2019-10-20").build();
+
         assertThrows(NotInServeModeException.class, () ->
-                modelManager.servingBorrowerReturnLoan(LOAN_1));
+                modelManager.servingBorrowerReturnLoan(LOAN_1, returnedLoan1));
+    }
+
+    @Test
+    public void servingBorrowerRenewLoan_inServeMode_success() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        modelManager.setServingBorrower(ALICE);
+        modelManager.servingBorrowerNewLoan(LOAN_1);
+
+        Loan renewedLoan = new LoanBuilder(LOAN_1).withDueDate("2019-10-30").withRenewCount(1).build();
+
+        modelManager.servingBorrowerRenewLoan(LOAN_1, renewedLoan);
+        assertTrue(modelManager.getServingBorrower().hasCurrentLoan(renewedLoan));
+    }
+
+    @Test
+    public void servingBorrowerRenewLoan_notInServeMode_throwsNotInServeModeException() {
+        Model modelManager = new ModelManager(getTypicalCatalog(), getTypicalLoanRecords(),
+                getTypicalBorrowerRecords(), new UserPrefs());
+
+        Loan renewedLoan = new LoanBuilder(LOAN_1).withDueDate("2019-10-30").withRenewCount(1).build();
+
+        assertThrows(NotInServeModeException.class, () ->
+                modelManager.servingBorrowerRenewLoan(LOAN_1, renewedLoan));
+    }
+
+    @Test
+    public void payFine() {
+        BorrowerRecords borrowerRecords = new BorrowerRecords();
+        borrowerRecords.addBorrower(JANNA);
+
+        LoanRecords loanRecords = new LoanRecords();
+        loanRecords.addLoan(LOAN_8);
+        loanRecords.addLoan(LOAN_9);
+
+        Model modelManager = new ModelManager(new Catalog(), loanRecords, borrowerRecords, new UserPrefs());
+        modelManager.setServingBorrower(JANNA);
+
+        modelManager.payFines(500);
+
+        assertEquals(modelManager.getServingBorrower().getOutstandingFineAmount(), 0);
     }
 
     @Test

@@ -5,13 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.book.Book;
-import seedu.address.model.genre.Genre;
 
 /**
  * A utility class for Book.
@@ -46,23 +42,4 @@ public class BookUtil {
         return sb.toString();
     }
 
-    /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
-     */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditBookDescriptor descriptor) {
-        StringBuilder sb = new StringBuilder();
-        descriptor.getTitle().ifPresent(title -> sb.append(PREFIX_TITLE).append(title.value).append(" "));
-        descriptor.getSerialNumber().ifPresent(serialNumber -> sb.append(PREFIX_SERIAL_NUMBER)
-                .append(serialNumber.value).append(" "));
-        descriptor.getAuthor().ifPresent(author -> sb.append(PREFIX_AUTHOR).append(author.value).append(" "));
-        if (descriptor.getGenres().isPresent()) {
-            Set<Genre> genres = descriptor.getGenres().get();
-            if (genres.isEmpty()) {
-                sb.append(PREFIX_GENRE);
-            } else {
-                genres.forEach(s -> sb.append(PREFIX_GENRE).append(s.genreName).append(" "));
-            }
-        }
-        return sb.toString();
-    }
 }

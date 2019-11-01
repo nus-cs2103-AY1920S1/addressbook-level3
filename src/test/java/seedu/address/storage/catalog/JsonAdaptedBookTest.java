@@ -25,8 +25,8 @@ public class JsonAdaptedBookTest {
     private static final String VALID_TITLE = BOOK_1.getTitle().toString();
     private static final String VALID_SERIAL_NUMBER = BOOK_1.getSerialNumber().toString();
     private static final String VALID_AUTHOR = BOOK_1.getAuthor().toString();
-    private static final List<JsonAdaptedTag> VALID_GENRES = BOOK_1.getGenres().stream()
-            .map(JsonAdaptedTag::new)
+    private static final List<JsonAdaptedGenre> VALID_GENRES = BOOK_1.getGenres().stream()
+            .map(JsonAdaptedGenre::new)
             .collect(Collectors.toList());
 
     @Test
@@ -77,8 +77,8 @@ public class JsonAdaptedBookTest {
 
     @Test
     public void toModelType_invalidGenres_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_GENRES);
-        invalidTags.add(new JsonAdaptedTag(INVALID_GENRE));
+        List<JsonAdaptedGenre> invalidTags = new ArrayList<>(VALID_GENRES);
+        invalidTags.add(new JsonAdaptedGenre(INVALID_GENRE));
         JsonAdaptedBook person =
                 new JsonAdaptedBook(VALID_TITLE, VALID_SERIAL_NUMBER, VALID_AUTHOR, NO_LOAN, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);

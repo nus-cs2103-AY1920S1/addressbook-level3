@@ -8,13 +8,15 @@ import java.util.Objects;
  */
 public class UserSettings implements Serializable {
 
-    public static final int DEFAULT_LOAN_PERIOD = 14;
+    private static final int DEFAULT_LOAN_PERIOD = 14;
     private static final int DEFAULT_RENEW_PERIOD = 14;
     private static final int DEFAULT_FINE_INCREMENT = 10; // Fine increment in cents.
+    private static final int DEFAULT_MAX_RENEWS = 1;
 
     private final int loanPeriod;
     private final int renewPeriod;
-    private final int fineIncrement; //Fine increment in cents.
+    private final int fineIncrement; // Fine increment in cents.
+    private final int maxRenews;
 
     /**
      * Instantiates a UserSettings that contains the default loanPeriod, renewPeriod and fineIncrement.
@@ -23,6 +25,7 @@ public class UserSettings implements Serializable {
         loanPeriod = DEFAULT_LOAN_PERIOD;
         renewPeriod = DEFAULT_RENEW_PERIOD;
         fineIncrement = DEFAULT_FINE_INCREMENT;
+        maxRenews = DEFAULT_MAX_RENEWS;
     }
 
     /**
@@ -30,11 +33,13 @@ public class UserSettings implements Serializable {
      * @param loanPeriod Number of days that a book can be loaned.
      * @param renewPeriod Number of additional days given when loan is renewed.
      * @param fineIncrement Fine that is added each day for an overdue book.
+     * @param maxRenews Number of times a book can be renewed.
      */
-    public UserSettings(int loanPeriod, int renewPeriod, int fineIncrement) {
+    public UserSettings(int loanPeriod, int renewPeriod, int fineIncrement, int maxRenews) {
         this.loanPeriod = loanPeriod;
         this.renewPeriod = renewPeriod;
         this.fineIncrement = fineIncrement;
+        this.maxRenews = maxRenews;
     }
 
     public int getLoanPeriod() {
@@ -47,6 +52,10 @@ public class UserSettings implements Serializable {
 
     public int getFineIncrement() {
         return fineIncrement;
+    }
+
+    public int getMaxRenews() {
+        return maxRenews;
     }
 
     @Override
@@ -62,12 +71,13 @@ public class UserSettings implements Serializable {
 
         return getLoanPeriod() == o.getLoanPeriod()
                 && getRenewPeriod() == o.getRenewPeriod()
-                && getFineIncrement() == o.getFineIncrement();
+                && getFineIncrement() == o.getFineIncrement()
+                && getMaxRenews() == o.getMaxRenews();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loanPeriod, renewPeriod, fineIncrement);
+        return Objects.hash(loanPeriod, renewPeriod, fineIncrement, maxRenews);
     }
 
     @Override
@@ -75,7 +85,8 @@ public class UserSettings implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Loan period : " + loanPeriod + "\n");
         sb.append("Renew period : " + renewPeriod + "\n");
-        sb.append("Fine percentage increment : " + fineIncrement);
+        sb.append("Fine increment : " + fineIncrement + "\n");
+        sb.append("Maximum renew count : " + maxRenews);
         return sb.toString();
     }
 

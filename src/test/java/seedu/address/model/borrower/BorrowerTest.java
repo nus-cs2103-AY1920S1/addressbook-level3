@@ -82,14 +82,14 @@ public class BorrowerTest {
     }
 
     @Test
-    public void toString_borrower() {
+    public void toFullString_borrower() {
         Borrower alice = new BorrowerBuilder(ALICE).build();
         String stringRep = alice.getName()
-                + " Phone: " + alice.getPhone()
-                + " Email: " + alice.getEmail()
-                + " Borrower Id: " + alice.getBorrowerId();
+                + ", Phone: " + alice.getPhone()
+                + ", Email: " + alice.getEmail()
+                + ", Borrower ID: " + alice.getBorrowerId();
 
-        String temp = alice.toString();
+        String temp = alice.toFullString();
         assertTrue(temp.equals(stringRep));
     }
 

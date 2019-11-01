@@ -11,12 +11,14 @@ import java.util.Set;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Represents a Book in the Catalog.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Book {
+    private static final Loan NULL_LOAN = null;
 
     // Identity fields
     private final Title title;
@@ -24,17 +26,24 @@ public class Book {
     private final Author author;
     private final Set<Genre> genres = new HashSet<>();
     private final Optional<Loan> loan;
+    private final LoanList loanHistory;
+
+    public Book(Title title, SerialNumber serialNumber, Author author, Loan loan, Set<Genre> genres) {
+        this(title, serialNumber, author, loan, genres, new LoanList());
+    }
 
     /**
      * Constructor when loading the file from history or when loading sample data/tests.
      */
-    public Book(Title title, SerialNumber serialNumber, Author author, Loan loan, Set<Genre> genres) {
+    public Book(Title title, SerialNumber serialNumber, Author author,
+                Loan loan, Set<Genre> genres, LoanList loanHistory) {
         requireAllNonNull(title, serialNumber, author, genres);
         this.title = title;
         this.serialNumber = serialNumber;
         this.author = author;
-        this.loan = Optional.ofNullable(loan);
         this.genres.addAll(genres);
+        this.loan = Optional.ofNullable(loan);
+        this.loanHistory = loanHistory;
     }
 
     public Title getTitle() {
@@ -65,6 +74,9 @@ public class Book {
         return loan;
     }
 
+    public LoanList getLoanHistory() {
+        return loanHistory;
+    }
     /**
      * Returns true if book is currently on loan.
      *
@@ -86,6 +98,58 @@ public class Book {
         } else {
             return this.loan.get().getDueDate().compareTo(DateUtil.getTodayDate()) < 0;
         }
+    }
+
+    /**
+     * Marks a book as loaned out with the given {@code Loan}.
+     *
+     * @param loan {@code Loan} object associated with the loan.
+     * @return a new {@code Book} object marked as loaned out.
+     */
+    public Book loanOut(Loan loan) {
+        assert !this.isCurrentlyLoanedOut() : "Book is already on loan.";
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                loan,
+                this.getGenres(),
+                this.getLoanHistory());
+    }
+
+    /**
+     * Marks a book as returned.
+     *
+     * @return a new {@code Book} object marked as returned.
+     */
+    public Book returnBook() {
+        assert this.isCurrentlyLoanedOut() : "Book is not on loan.";
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                NULL_LOAN,
+                this.getGenres(),
+                this.getLoanHistory());
+    }
+
+    /**
+     * Updates the loan history of a book.
+     *
+     * @param loan {@code Loan} to be added into the history.
+     * @return a new {@code Book} with the added loan history.
+     */
+    public Book updateLoanHistory(Loan loan) {
+        LoanList newHistory = new LoanList();
+        this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
+        newHistory.add(loan);
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                this.getLoan().orElse(NULL_LOAN),
+                this.getGenres(),
+                newHistory);
     }
 
     /**
@@ -137,18 +201,37 @@ public class Book {
         return Objects.hash(title, serialNumber, author, genres);
     }
 
+    /**
+     * Method to return the full string representation of the book, if required.
+     *
+     * @return Full string representation of book.
+     */
+    public String toFullString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getTitle())
+                .append(", Serial Number: ")
+                .append(getSerialNumber())
+                .append(", Author: ")
+                .append(getAuthor());
+        if (!getGenres().isEmpty()) {
+            builder.append(", Genres: ");
+            getGenres().forEach(genre -> builder.append(genre + " "));
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Returns display string of Book.
+     *
+     * @return display string of book.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
-                .append(" Serial Number: ")
-                .append(getSerialNumber())
-                .append(" Author: ")
+        builder.append("[" + getSerialNumber() + "] ")
+                .append("\"" + getTitle() + "\"")
+                .append(" by ")
                 .append(getAuthor());
-        if (!getGenres().isEmpty()) {
-            builder.append(" Genres: ");
-            getGenres().forEach(genre -> builder.append(genre + " "));
-        }
         return builder.toString();
     }
 

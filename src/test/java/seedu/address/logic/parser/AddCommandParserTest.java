@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_BOOK_2;
@@ -16,6 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENRE_FICTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOOK_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOOK_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -34,6 +36,10 @@ import seedu.address.model.genre.Genre;
 import seedu.address.testutil.BookBuilder;
 
 public class AddCommandParserTest {
+    private static final String EXTRA_CHAR = "a";
+    private static final String LONG_TITLE_BOOK = "qwertyuiopasdfghjklzxcvbnmqwer"; // 30 char long
+    private static final String LONG_TITLE_DESC_BOOK = " t/qwertyuiopasdfghjklzxcvbnmqwer"; // 30 char long with prefix
+
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
@@ -102,4 +108,22 @@ public class AddCommandParserTest {
                 + AUTHOR_DESC_BOOK_2 + GENRE_DESC_ACTION + GENRE_DESC_FICTION,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_titleTooLong_failure() {
+        assertParseFailure(parser, LONG_TITLE_DESC_BOOK + EXTRA_CHAR + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_2
+                + GENRE_DESC_ACTION + GENRE_DESC_FICTION, MESSAGE_BOOK_TITLE_TOO_LONG);
+    }
+
+    @Test
+    public void parse_titleCorrectLength_success() {
+        Book toAdd = new BookBuilder()
+                .withTitle(LONG_TITLE_BOOK)
+                .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
+                .withAuthor(VALID_AUTHOR_BOOK_2)
+                .build();
+        assertParseSuccess(parser, LONG_TITLE_DESC_BOOK + SERIAL_NUMBER_DESC_BOOK_1 + AUTHOR_DESC_BOOK_2,
+                new AddCommand(toAdd));
+    }
+
 }

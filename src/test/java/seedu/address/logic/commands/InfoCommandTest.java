@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -19,11 +20,16 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 
 class InfoCommandTest {
-    private Model model =
-            new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
+    }
 
     @Test
     public void execute_validArguments_success() {
+        model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
         InfoCommand infoCommand = new InfoCommand(INDEX_FIRST_BOOK);
         Book target = model.getFilteredBookList().get(0);
         String expectedMessage = String.format(InfoCommand.MESSAGE_BOOK_INFO, target.getTitle());

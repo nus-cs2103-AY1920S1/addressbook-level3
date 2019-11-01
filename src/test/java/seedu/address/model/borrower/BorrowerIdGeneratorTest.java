@@ -3,6 +3,8 @@ package seedu.address.model.borrower;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalBorrowers.ALICE;
+import static seedu.address.testutil.TypicalBorrowers.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,11 @@ public class BorrowerIdGeneratorTest {
         assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0002"));
         assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0003"));
         assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0004"));
+        borrowers.addBorrower(new BorrowerBuilder(ALICE).withBorrowerId("K0007").build());
+        borrowers.addBorrower(new BorrowerBuilder(BOB).withBorrowerId("K0009").build());
+        assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0005"));
+        assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0006"));
+        assertEquals(BorrowerIdGenerator.generateBorrowerId(), new BorrowerId("K0008"));
     }
 
     @Test

@@ -82,6 +82,14 @@ public class BorrowerBuilder {
         return this;
     }
 
+    /**
+     * Adds a returned Loan to the {@code returnedLoanList} of the {@code Borrower} that we are building.
+     */
+    public BorrowerBuilder withReturnedLoan(Loan loan) {
+        this.returnedLoanList.add(loan);
+        return this;
+    }
+
     public Borrower build() {
         return new Borrower(name, phone, email, borrowerId, currentLoanList, returnedLoanList);
     }

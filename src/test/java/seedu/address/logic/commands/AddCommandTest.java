@@ -214,6 +214,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeLoan(Loan loan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateLoan(Loan existingLoan, Loan returnedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int payFines(int amountInCents) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getBorrowerRecordsFilePath() {
             throw new AssertionError("This method should not be called.");
         }
@@ -274,7 +289,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public void servingBorrowerReturnLoan(Loan returnedLoan) {
+        public void servingBorrowerRemoveLoan(Loan removeLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void servingBorrowerReturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void servingBorrowerUnreturnLoan(Loan loanToBeReturned, Loan returnedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void servingBorrowerRenewLoan(Loan loanToBeRenewed, Loan renewedLoan) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void servingBorrowerUnrenewLoan(Loan loanToBeUnrenewed, Loan unrenewedLoan) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -305,6 +340,36 @@ public class AddCommandTest {
 
         @Override
         public boolean hasDuplicatedBorrower(Borrower editedBorrower) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unregisterBorrower(Borrower toUnregister) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitCommand(ReversibleCommand command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandResult undoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CommandResult redoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoCommand() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCommand() {
             throw new AssertionError("This method should not be called.");
         }
     }

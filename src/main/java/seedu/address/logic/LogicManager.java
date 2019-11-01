@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -11,12 +12,14 @@ import seedu.address.commons.exceptions.LoanSlipException;
 import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CatalogParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.storage.Storage;
 
 /**
@@ -44,22 +47,47 @@ public class LogicManager implements Logic {
         Command command = catalogParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        if (command instanceof ReversibleCommand) {
+            model.commitCommand((ReversibleCommand) command);
+        }
+
         try {
             storage.saveLoanRecords(model.getLoanRecords());
             storage.saveCatalog(model.getCatalog());
             storage.saveBorrowerRecords(model.getBorrowerRecords());
-            if (LoanSlipUtil.isMounted()) {
-                storage.storeNewLoanSlip();
-                LoanSlipUtil.openGeneratedLoanSlip();
-                LoanSlipUtil.unmountLoan();
+            if (commandResult.isDone()) {
+                if (LoanSlipUtil.isMounted()) {
+                    logger.info("making new loan slip");
+                    storage.storeNewLoanSlip();
+                    LoanSlipUtil.openGeneratedLoanSlip();
+                    LoanSlipUtil.unmountLoans();
+                }
             }
         } catch (IOException ioe) {
+            logger.info("IOException");
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (LoanSlipException lse) {
             logger.info("Error in generating loan slip");
+            return commandResult;
         }
 
         return commandResult;
+    }
+
+    @Override
+    public Borrower getServingBorrower() {
+        assert (isServeMode()) : "Not in serve mode";
+        return model.getServingBorrower();
+    }
+
+    @Override
+    public ObservableList<Book> getServingBorrowerBookList() {
+        return FXCollections.observableList(model.getBorrowerBooks());
+    }
+
+    @Override
+    public boolean isServeMode() {
+        return model.isServeMode();
     }
 
     @Override

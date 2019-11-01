@@ -10,6 +10,7 @@ import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
+import seedu.address.model.loan.LoanList;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -26,6 +27,7 @@ public class BookBuilder {
     private Author author;
     private Optional<Loan> loan;
     private Set<Genre> genres;
+    private LoanList loanHistory;
 
     public BookBuilder() {
         title = new Title(DEFAULT_TITLE);
@@ -33,6 +35,7 @@ public class BookBuilder {
         author = new Author(DEFAULT_AUTHOR);
         loan = Optional.ofNullable(null);
         genres = new HashSet<>();
+        loanHistory = new LoanList();
     }
 
     /**
@@ -44,6 +47,7 @@ public class BookBuilder {
         author = bookToCopy.getAuthor();
         loan = bookToCopy.getLoan();
         genres = new HashSet<>(bookToCopy.getGenres());
+        loanHistory = bookToCopy.getLoanHistory();
     }
 
     /**
@@ -74,7 +78,7 @@ public class BookBuilder {
      * Sets the {@code Loan} of the {@code Book} that we are building.
      */
     public BookBuilder withLoan(Loan loan) {
-        this.loan = Optional.of(loan);
+        this.loan = Optional.ofNullable(loan);
         return this;
     }
 
@@ -97,7 +101,7 @@ public class BookBuilder {
         } else {
             loanValue = loan.get();
         }
-        return new Book(title, serialNumber, author, loanValue, genres);
+        return new Book(title, serialNumber, author, loanValue, genres, loanHistory);
     }
 
 }

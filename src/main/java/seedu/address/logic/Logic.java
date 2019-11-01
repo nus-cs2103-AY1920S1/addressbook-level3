@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyCatalog;
 import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 
 /**
  * API of the Logic component
@@ -32,6 +33,15 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of books */
     ObservableList<Book> getFilteredBookList();
+
+    /** Returns true if model within Logic component is in Serve Mode */
+    boolean isServeMode();
+
+    /** Returns the borrower being served in Serve Mode, or null if in Normal Mode */
+    Borrower getServingBorrower();
+
+    /** Returns the list of books borrowed by the borrower being served */
+    ObservableList<Book> getServingBorrowerBookList();
 
     /**
      * Returns the user prefs' catalog file path.

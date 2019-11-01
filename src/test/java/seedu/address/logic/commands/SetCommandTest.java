@@ -41,7 +41,8 @@ public class SetCommandTest {
 
         UserSettings userSettings = new UserSettings(UserSettingsBuilder.DEFAULT_LOAN_PERIOD,
                 UserSettingsBuilder.DEFAULT_RENEW_PERIOD,
-                UserSettingsBuilder.DEFAULT_FINE_INCREMENT);
+                UserSettingsBuilder.DEFAULT_FINE_INCREMENT,
+                UserSettingsBuilder.DEFAULT_MAX_RENEWS);
 
         expectedModel.setUserSettings(userSettings);
 

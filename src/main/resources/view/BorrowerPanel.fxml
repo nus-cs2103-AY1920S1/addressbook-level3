@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="borrowerPanel" prefWidth="500.0" minWidth="500" maxWidth="500" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+       <Label fx:id="name" prefHeight="60.0" styleClass="result-display" text="Borrower: ">
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+       </Label>
+       <Label fx:id="id" prefHeight="60.0" styleClass="result-display" text="ID:">
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+       </Label>
+        <Label fx:id="fines" prefHeight="60.0" styleClass="result-display" text="ID:">
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </Label>
+    <ListView fx:id="bookListView" VBox.vgrow="ALWAYS" />
+</VBox>
