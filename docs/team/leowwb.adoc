@@ -54,7 +54,10 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/98[#98],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154[#154]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53[1],
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2]
+    )
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools
 *** Integrated a third party library (Apache POI) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44])
