@@ -20,7 +20,7 @@ public class NoteFragmentContainsTagPredicate implements Predicate<NoteFragment>
     @Override
     public boolean test(NoteFragment noteFragment) {
         return tags.stream()
-                .anyMatch(noteFragment::containsTag);
+                .allMatch(noteFragment::containsTag);
     }
 
     @Override
