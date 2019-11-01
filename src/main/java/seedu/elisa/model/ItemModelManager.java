@@ -13,7 +13,6 @@ import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
@@ -202,7 +201,11 @@ public class ItemModelManager implements ItemModel {
 
         if (item.hasReminder()) {
             reminderList.add(item);
-            futureReminders.add(item);
+            if (item.getReminder().get().getOccurrenceDateTime().isAfter(LocalDateTime.now())) {
+                futureReminders.add(item);
+            } else {
+                activeReminders.add(item);
+            }
         }
     }
 
@@ -245,28 +248,8 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was removed
      */
     public Item removeItem(int index) {
-        Item item = visualList.removeItemFromList(index);
+        Item item = visualList.get(index);
         return removeItem(item);
-    }
-
-    /**
-     * remove the given item from the list(s)
-     * */
-
-    public Item removeItem(Item item) {
-        Item removedItem = visualList.removeItemFromList(item);
-        if (visualList instanceof TaskList) {
-            taskList.removeItemFromList(removedItem);
-        } else if (visualList instanceof EventList) {
-            eventList.removeItemFromList(removedItem);
-        } else if (visualList instanceof ReminderList) {
-            reminderList.removeItemFromList(removedItem);
-        } else if (visualList instanceof CalendarList) {
-            calendarList.removeItemFromList(removedItem);
-        } else {
-            // never reached here as there are only three variants for the visualList
-        }
-        return removedItem;
     }
 
     /**
@@ -274,11 +257,13 @@ public class ItemModelManager implements ItemModel {
      * @param item the item to be removed from the list
      * @return the item that is removed.
      */
-    private Item removeFromSeparateList(Item item) {
+    public Item removeItem(Item item) {
         visualList.remove(item);
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
+        futureReminders.remove(item);
+        activeReminders.remove(item);
         return item;
     }
 
@@ -293,6 +278,8 @@ public class ItemModelManager implements ItemModel {
         taskList.remove(item);
         eventList.remove(item);
         reminderList.remove(item);
+        futureReminders.remove(item);
+        activeReminders.remove(item);
         if (priorityMode.getValue()) {
             getNextTask();
         }
@@ -305,11 +292,8 @@ public class ItemModelManager implements ItemModel {
      * @return the item that was deleted from the program
      */
     public Item deleteItem(Item item) {
-        visualList.removeItemFromList(item);
         itemStorage.remove(item);
-        taskList.removeItemFromList(item);
-        eventList.removeItemFromList(item);
-        reminderList.removeItemFromList(item);
+        removeItem(item);
         if (priorityMode.getValue()) {
             getNextTask();
         }
@@ -550,15 +534,8 @@ public class ItemModelManager implements ItemModel {
 
         this.sortedTask = null;
         if (visualList instanceof TaskList) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    visualList.clear();
-                    for (Item item : taskList) {
-                        visualList.add(item);
-                    }
-                }
-            });
+            System.out.println(taskList.size());
+            this.visualList = taskList;
         }
         priorityMode.setValue(false);
     }

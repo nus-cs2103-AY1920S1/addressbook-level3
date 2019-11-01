@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -112,11 +113,10 @@ public class Event {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nStart DateTime: ")
-                .append(getStartDateTime().toString())
+                .append(getStartDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")))
                 .append("\nEnd DateTime: ")
-                .append(getEndDateTime().toString())
-                .append("\nDuration: ")
-                .append(getDuration().toString());
+                .append(getEndDateTime().format(DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")));
+        //Removed duration portion of string as requested in team meeting.
 
         return builder.toString();
     }

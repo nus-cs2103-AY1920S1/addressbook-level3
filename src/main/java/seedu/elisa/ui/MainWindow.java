@@ -53,9 +53,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final Image redElisa = new Image(getClass().getClassLoader()
-            .getResource("images/FocusElisa.png").toString());
+            .getResource("images/FocusElisa.PNG").toString());
     private final Image blueElisa = new Image(getClass().getClassLoader()
-            .getResource("images/ElisaImageWithoutWords.png").toString());
+            .getResource("images/ElisaImageWithoutWords.PNG").toString());
 
     private Stage primaryStage;
     private Logic logic;
@@ -155,7 +155,10 @@ public class MainWindow extends UiPart<Stage> {
                     elisaImage.setImage(blueElisa);
                     setTextDefault();
                     if (logic.isSystemToggle()) {
-                        Platform.runLater(() -> resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF));
+                        Platform.runLater(() -> {
+                            resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF);
+                            updatePanels();
+                        });
                     }
                 }
             }
