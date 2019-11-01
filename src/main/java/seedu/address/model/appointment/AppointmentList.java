@@ -65,9 +65,28 @@ public class AppointmentList implements Iterable<Appointment> {
         requireNonNull(description);
         requireNonNull(days);
         if (type == 1) {
-            internalList.add(new Appointment("[F] " + description, days));
+            Appointment toAdd = new Appointment("[F] " + description, days);
+            internalAddWithCheck(toAdd, description);
         } else {
-            internalList.add(new Appointment("[R] " + description, days));
+            Appointment toAdd = new Appointment("[R] " + description, days);
+            internalAddWithCheck(toAdd, description);
+        }
+    }
+
+    public void internalAddWithCheck(Appointment toAdd, String description) {
+        if (antiDuplicate(toAdd)) {
+            if (!antiDuplicate(description)) {
+                for (int i = 0; i < internalList.size(); i++) {
+                    if (internalList.get(i).getDescriptionRaw().equals(description)) {
+                        setAppointment(internalList.get(i), toAdd);
+                        break;
+                    }
+                }
+            } else {
+                internalList.add(toAdd);
+            }
+        } else {
+            return;
         }
     }
 
@@ -98,6 +117,18 @@ public class AppointmentList implements Iterable<Appointment> {
     public boolean antiDuplicate(Appointment toCheck) {
         requireNonNull(toCheck);
         return !internalList.stream().anyMatch(toCheck::isSameAppointment);
+    }
+
+    /**
+     * Checks if the Appointment already exists.
+     *
+     * @param description The description to try and find in the list.
+     *
+     * @return True if there is no duplicate, false if there is a duplicate.
+     */
+    public boolean antiDuplicate(String description) {
+        requireNonNull(description);
+        return !internalList.stream().anyMatch(appointment -> appointment.isSameAppointment(description));
     }
 
     /**

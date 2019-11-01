@@ -63,6 +63,13 @@ public class Appointment {
     }
 
     /**
+     * Sets the number of days remaining for the Appointment.
+     */
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    /**
      * Gets the number of days remaining for the Appointment in String.
      *
      * @return The number of days remaining for the Appointment.
@@ -85,6 +92,17 @@ public class Appointment {
         return otherAppt != null
                 && otherAppt.getDescription().equals(getDescription())
                 && otherAppt.getDaysString().equals(getDaysString());
+    }
+
+    /**
+     * Comparator to check for same Appointment with same Key (description).
+     *
+     * @param description Description to check against.
+     * @return True if it is the same.
+     */
+    public boolean isSameAppointment(String description) {
+        return description != null
+                && getDescriptionRaw().equals(description);
     }
 
     @Override
