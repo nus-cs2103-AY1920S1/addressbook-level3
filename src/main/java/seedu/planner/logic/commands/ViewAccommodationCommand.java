@@ -19,7 +19,8 @@ public class ViewAccommodationCommand extends ViewCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            "Opens the specified accommodation on the info tab.",
+            "Opens the specified accommodation on the info tab or "
+                    + "simply opens the accommodation side panel",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " INDEX",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 3"
     );
