@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.statistics;
 
-import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.statistics.GetOverviewCommand.MESSAGE_INVALID_DATE_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +37,7 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             dates = argMultimap.getAllValues(PREFIX_DATE);
             if (dates.size() != 2) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
                         GetOverviewCommand.MESSAGE_USAGE));
             }
             try {

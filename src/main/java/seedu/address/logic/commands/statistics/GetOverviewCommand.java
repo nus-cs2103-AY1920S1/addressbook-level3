@@ -19,18 +19,15 @@ public class GetOverviewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets an overview of the types of "
             + "questions that have been attempted overall.\n"
-            + "An optional time period can be included.\n"
-            + "A stacked bar chart, sorted by subjects, will be returned.\n"
+            + "An optional time period can be included using dt/. The format of dt/ is dd/MM/yyyy.\n"
             + "Parameters: "
-            + "[" + PREFIX_DATE + "START_DATE] "
-            + "[" + PREFIX_DATE + "END_DATE]\n"
+            + "[" + PREFIX_DATE + "START_DATE "
+            + PREFIX_DATE + "END_DATE]\n"
             + "Example: " + COMMAND_WORD + " "
             + "dt/08/09/2019 "
             + "dt/10/09/2019";
 
     public static final String MESSAGE_SUCCESS = "Here is an overview of the questions: ";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "The format of date is incorrect.";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "The format of the command is incorrect.";
     public static final String MESSAGE_NO_STATISTICS = "There are no questions done, try doing some questions.";
 
     private QuizResultFilter quizResultFilter;
