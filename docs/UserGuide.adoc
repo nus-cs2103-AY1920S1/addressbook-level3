@@ -419,7 +419,9 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 Allows a user to create a quiz manually. +
 Format: `quiz manual quizID/... questionNumber/...`
 
+```
 The format supported by this feature includes:
+```
 
 . `Quiz ID` (The label of the quiz)
 . `Question Numbers` (The question numbers you want to add to the quiz)
@@ -434,6 +436,7 @@ Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 Allows a user to create a quiz automatically. +
 [NOTE] 
 The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
+
 Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
