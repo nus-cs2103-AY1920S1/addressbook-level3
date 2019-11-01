@@ -69,7 +69,7 @@ public class PersonContainsPrefixesPredicateTest {
         // Only one matching keyword
         predicate = new PersonContainsPrefixesPredicate(
                 ArgumentTokenizer.tokenize(FindCommand.COMMAND_WORD + " n/Bob Carol", PREFIX_NAME));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
 
         // Mixed-case keywords
         predicate = new PersonContainsPrefixesPredicate(

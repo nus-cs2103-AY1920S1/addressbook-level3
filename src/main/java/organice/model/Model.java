@@ -1,10 +1,10 @@
 package organice.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import organice.commons.core.GuiSettings;
 
 import organice.logic.commands.exceptions.CommandException;
@@ -114,6 +114,12 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /** Returns the list of persons to be displayed */
+    ObservableList<Person> getDisplayedPersonList();
+
+    /** Sets the list of persons to be displayed to the given {@code personList} */
+    void setDisplayedPersonList(List<Person> personList);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -151,20 +157,9 @@ public interface Model {
     void matchDonors(Patient patient);
 
     /**
-     * Retrieves the match list.
-     */
-    ObservableList<Person> getMatchList();
-
-    /**
-
      * Returns the number of {@code MatchedDonors} that matches a specific {@code Patient}.
      */
     int numberOfMatches();
-
-    /**
-     * Retrieves the sort list.
-     */
-    SortedList<Person> getSortList();
 
     /**
      * Sorts list by priority level.

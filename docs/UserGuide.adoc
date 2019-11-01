@@ -70,37 +70,16 @@ you have succeeded or failed in executing a command.
 more people in this application.
 
 
-Now that you know the components of ORGANice, let's move on to <<Features>> to learn how to use the features in ORGANice.
+Now that you know the components of ORGANice, let's move on to <<List of Attributes>> to understand
+what kind of information can be stored in ORGANice.
 
-[[Features]]
-== Features
-
-This section will introduce you to the list of features and commands in this application.
-Each feature is triggered by a command with a specific format. +
-
-The list below explains how the format of the commands should be interpreted:
-====
-*Command Format*
-
-* The first word in a command is the command word. The rest of the words are parameters, which
-are either compulsory or optional. +
-e.g. in a command `add n/**NAME** p/**PHONE**`, `add` is the command word while `n/**NAME** p/**PHONE**`
-are parameters.
-* Words in bold are the parameters to be supplied by the user +
-e.g. in `add **n/NAME**`, `**NAME**` is a parameter which can be used as `add n/John Doe`.
-* Parameters can be in any order +
-e.g. if the command specifies `n/**NAME** p/**PHONE**`, `p/**PHONE** n/**NAME**`
-is also acceptable.
-====
-
-
+== List of Attributes
 In ORGANice, a person's data is represented by attributes. Attributes
 refer to personal particulars such as name, type of person and blood type. +
 
 The following list shows the list of attributes that can be specified for
 a person and the criteria for valid inputs:
 
-====
 *List of Attributes*:
 
 * n/**NAME**: the name of the person
@@ -149,8 +128,28 @@ a person and the criteria for valid inputs:
 * exp/**EXPIRY** - expiry date of a donor's organ
 ** Applicable to: donors
 ** Valid input: a valid date in DD-MMM-YYYY format
-====
 
+
+[[Features]]
+== Features
+
+This section will introduce you to the list of features and commands in this application.
+Each feature is triggered by a command with a specific format. +
+
+The list below explains how the format of the commands should be interpreted:
+====
+*Command Format*
+
+* The first word in a command is the command word. The rest of the words are parameters, which
+are either compulsory or optional. +
+e.g. in a command `add n/**NAME** p/**PHONE**`, `add` is the command word while `n/**NAME** p/**PHONE**`
+are parameters.
+* Words in bold are the parameters to be supplied by the user +
+e.g. in `add **n/NAME**`, `**NAME**` is a parameter which can be used as `add n/John Doe`.
+* Parameters can be in any order +
+e.g. if the command specifies `n/**NAME** p/**PHONE**`, `p/**PHONE** n/**NAME**`
+is also acceptable.
+====
 
 === Viewing help : `help`
 There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
@@ -311,8 +310,6 @@ It is up to the user to specify which attributes should be updated. +
 
 Format: `edit **NRIC**`
 
-Currently in this version, you can only edit the `Phone` and `Name` attributes.
-
 Examples:
 
 * `edit S8732457G p/91234567` +
@@ -336,11 +333,12 @@ following example illustrates this concept:
 .Find command with multiple prefixes and multiple keywords per prefix.
 image::findByPrefix.png[width="790"]
 
-As seen from Figure 12, `find n/Alice Carl Elle t/doctor donor` displays both `Alice Pauline` and `Elle Meyer`.
-This is due to the fact that Alice's name matches either of 'Alice' `OR` 'Carl', `AND` she is also either a 'doctor'
-`OR` 'donor'. The same is true for Elle.
+As seen from Figure 12, `find n/Duncan n/Lionel n/Helen t/patient t/donor` displays 'Duncan Chua', `Lionel Doe` and
+`Helen Davidson`. This is due to the fact that Duncan's name matches either of 'Duncan' `OR` 'Lionel' `OR` 'Helen' `AND`
+he is also either a 'doctor' `OR` 'donor'. The same is true for Lionel and Helen. You should note that the only
+exception to this rule is tissue type matching, which uses `AND` matching within the prefix.
 
-You may wish to reference the following section: <<List of Attributes>>; to view the list of available prefixes to
+You may wish to reference the following section: <<List of Attributes>>, to view the list of available prefixes to
 search by.
 
 Here are some examples and pointers showcasing the use of `find`:
@@ -354,12 +352,20 @@ __Use case demonstrating keyword case insensitivity__ +
 Displays the same result as the preceding example.
 
 __Use case with multiple keywords per prefix__ +
-* `find n/Alice Benson b/A B O` +
+* `find n/Alice n/Benson b/A b/B b/O` +
 Displays all persons whose name contains either 'Alice' or 'Benson' and whose blood type is either 'A', 'B' or 'O'.
 
 __Use case demonstrating prefix order insensitivity__ +
-* `find b/A B O n/Alice Benson` +
+* `find b/A n/Benson b/O n/Alice b/B` +
 Displays the same result as the preceding example.
+
+__Use case demonstrating full name capture__ +
+* `find n/Laura Bailey n/Marisha Ray` +
+Displays all persons whose name contains 'Laura Bailey' or 'Marisha Ray'.
+
+__Use case demonstrating tissue type finding__ +
+* `find tt/4,1,2,3` +
+Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order.
 
 === Detecting matches: `match`
 
@@ -383,7 +389,7 @@ what you can do:
 +
 image::MatchingDonorsDisplayed.png[width=790]
 +
-For more information on success rate, you may refer to <<FAQ>>.
+For more information on the success rate, you may refer to <<FAQ>>.
 
 ==== Matching all patients
 This section will explain how to run kidney matching tests on all patients stored in ORGANice and run you
@@ -394,7 +400,7 @@ To match all the patients in ORGANice, do the following:
 
 . The list of patients and the number of matching donors each patient have are displayed in the screenshot below.
 +
-image::Patient Matches Displayed.png[width=790]
+image::PatientMatchResults.png[width=790]
 +
 
 Following this, you can sort the matches based on different categories to deduce which patient to prioritize.
@@ -436,8 +442,13 @@ This allows you to determine which patient to prioritize for organ transplant.
 Format: `sort priority`
 
 Example: +
-After running `match ic/all`, you will obtain a list of patients. +
+After running `match ic/all`, you will obtain a list of patients.
 You can then run `sort priority` to obtain a list with high priority patients at the top of the list.
+
+Note:
+
+* In cases where patients have the **same priority**, those with more matched donors will be displayed first.
+If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
 ==== Sorting based on success rate of match
 This category sorts the list of matched donors belonging to a particular patient based on the success rate of the match (from highest to lowest).
@@ -511,8 +522,7 @@ Example:
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+To exit ORGANice, type `exit` in the Command Box. ORGANice will close on its own.
 
 === Saving the data
 

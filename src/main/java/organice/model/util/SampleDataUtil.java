@@ -48,9 +48,6 @@ public class SampleDataUtil {
             .map(Priority::new).toArray(Priority[]::new);
     private static final String[] TISSUETYPE_VALUES =
             new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
-    private static final Status[] STATUSES = Arrays.stream(
-            new String[] {Status.STATUS_NOT_PROCESSING, Status.STATUS_PROCESSING, Status.STATUS_DONE})
-            .map(Status::new).toArray(Status[]::new);
 
     public static Person[] getSamplePersons() {
         int numDoctors = 10;
@@ -92,7 +89,7 @@ public class SampleDataUtil {
                             + " " + NAMES_LAST[iterator % NAMES_LAST.length]),
                     new Phone((String.valueOf((int) (Math.random() * ((99999999 - 80000000) + 1) + 80000000)))),
                     new Age(String.valueOf(
-                            (int) ((Math.random() * (((Age.AGE_MAX - 1) - (Age.AGE_MIN + 1)) + 1)) + Age.AGE_MIN))),
+                            (int) ((Math.random() * (((Age.AGE_MAX - 2) - (Age.AGE_MIN + 1)) + 1)) + Age.AGE_MIN))),
                     new Priority(PRIORITIES[iterator % PRIORITIES.length].toString()),
                     new BloodType(BLOODTYPES[iterator % BLOODTYPES.length].toString()),
                     new TissueType(
@@ -105,14 +102,17 @@ public class SampleDataUtil {
                     ),
                     new Organ("kidney"),
                     new DoctorInCharge(doctorList.get(iterator % doctorList.size()).getNric().toString()),
-                    new Status(STATUSES[iterator % STATUSES.length].toString())
+                    new Status(Status.STATUS_NOT_PROCESSING)
             );
             patientList.add(newPatient);
         }
 
         // Create Donors
         ArrayList<Donor> donorList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
         for (; iterator < numPersons; iterator++, nricBody += Math.random() * (nricIncrementMax + 1)) {
+            // Random date within +5days
+            calendar.add(Calendar.DATE, (int) Math.random() * 4 + 1);
             Donor newDonor = new Donor(
                     new Type("donor"),
                     new Nric(NRIC_LETTERS[iterator % NRIC_LETTERS.length]
@@ -121,7 +121,7 @@ public class SampleDataUtil {
                             + " " + NAMES_LAST[iterator % NAMES_LAST.length]),
                     new Phone((String.valueOf((int) (Math.random() * ((99999999 - 80000000) + 1) + 80000000)))),
                     new Age(String.valueOf(
-                            (int) ((Math.random() * (((Age.AGE_MAX - 1) - (Age.AGE_MIN + 1)) + 1)) + Age.AGE_MIN))),
+                            (int) ((Math.random() * (((Age.AGE_MAX - 2) - (Age.AGE_MIN + 1)) + 1)) + Age.AGE_MIN))),
                     new BloodType(BLOODTYPES[iterator % BLOODTYPES.length].toString()),
                     new TissueType(
                             TISSUETYPE_VALUES[iterator % TISSUETYPE_VALUES.length] + ","
@@ -133,7 +133,7 @@ public class SampleDataUtil {
                     ),
                     new Organ("kidney"),
                     new OrganExpiryDate(OrganExpiryDate.DATE_FORMAT.format(Calendar.getInstance().getTime())),
-                    new Status(STATUSES[iterator % STATUSES.length].toString())
+                    new Status(Status.STATUS_NOT_PROCESSING)
             );
             donorList.add(newDonor);
         }

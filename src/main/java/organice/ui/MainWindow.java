@@ -154,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new PersonListPanel(logic.getDisplayedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -215,27 +215,12 @@ public class MainWindow extends UiPart<Stage> {
             return STYLE + "-fx-background-color: #5cb54c";
         }
     }
-    /**
-     * Swaps the PersonListPanel if a match command is executed.
-     */
-    public void handleMatch() {
-        personListPanel = new PersonListPanel(logic.getMatchList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
 
     /**
-     * Changes PersonListPanel to display normal persons.
+     * Changes the PersonListPanel to reflect the latest changes
      */
-    public void handleOtherCommands() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
-
-    /**
-     * Swaps the PersonListPanel if a sort command is executed.
-     */
-    public void handleSort() {
-        personListPanel = new PersonListPanel(logic.getSortList());
+    public void updateDisplayedList() {
+        personListPanel = new PersonListPanel(logic.getDisplayedPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
@@ -298,27 +283,15 @@ public class MainWindow extends UiPart<Stage> {
                     form = new PatientForm(this);
                     personListPanelPlaceholder.getChildren().add(((PatientForm) form).getRoot());
                 }
-
                 formUiManager.getPersonDetails();
                 return commandResult;
-            }
-
-            if (commandResult.isMatch()) {
-                handleMatch();
-            } else if (commandResult.isSort()) {
-                handleSort();
-            } else {
-                handleOtherCommands();
-            }
-
-            if (commandResult.isShowHelp()) {
+            } else if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
+            } else {
+                updateDisplayedList();
             }
-
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);

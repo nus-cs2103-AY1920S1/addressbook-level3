@@ -123,7 +123,7 @@ public class ModelManagerTest {
         MatchedDonor matchedDonor = new MatchedDonor(DONOR_IRENE_DONOR);
         modelManager.addMatchedDonor(matchedDonor);
 
-        List<Person> listOfMatches = modelManager.getMatchList();
+        List<Person> listOfMatches = modelManager.getDisplayedPersonList();
         assertEquals(1, listOfMatches.size());
     }
 
@@ -132,7 +132,7 @@ public class ModelManagerTest {
         MatchedPatient matchedPatient = new MatchedPatient(PATIENT_IRENE);
         modelManager.addMatchedPatient(matchedPatient);
 
-        List<Person> listOfMatches = modelManager.getMatchList();
+        List<Person> listOfMatches = modelManager.getDisplayedPersonList();
         assertEquals(1, listOfMatches.size());
 
     }
@@ -145,7 +145,7 @@ public class ModelManagerTest {
         MatchedDonor matchedDonor = new MatchedDonor(DONOR_IRENE_DONOR);
 
         modelManager.matchDonors(PATIENT_IRENE);
-        List<Person> listOfMatches = modelManager.getMatchList();
+        List<Person> listOfMatches = modelManager.getDisplayedPersonList();
         MatchedDonor matchedDonorAfterMatching = (MatchedDonor) listOfMatches.get(0);
 
         assertEquals(matchedDonor, matchedDonorAfterMatching);
@@ -159,7 +159,7 @@ public class ModelManagerTest {
         MatchedPatient matchedPatient = new MatchedPatient(PATIENT_IRENE);
 
         modelManager.matchAllPatients();
-        List<Person> listOfMatches = modelManager.getMatchList();
+        List<Person> listOfMatches = modelManager.getDisplayedPersonList();
         MatchedPatient matchedPatientAfterMatching = (MatchedPatient) listOfMatches.get(0);
 
         assertEquals(matchedPatient, matchedPatientAfterMatching);
@@ -171,7 +171,7 @@ public class ModelManagerTest {
         modelManager.addMatchedDonor(matchedDonor);
 
         modelManager.removeMatches();
-        List<Person> listOfMatches = modelManager.getMatchList();
+        List<Person> listOfMatches = modelManager.getDisplayedPersonList();
         assertEquals(0, listOfMatches.size());
     }
 
