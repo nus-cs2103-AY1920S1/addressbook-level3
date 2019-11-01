@@ -1,11 +1,11 @@
 package seedu.scheduler.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_PERSON_NAME;
 
 import java.io.IOException;
 import java.util.List;
 
-import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.person.Interviewee;
@@ -27,7 +27,14 @@ public class EmailCommand extends Command {
             + "interviewee, including other details such as the interviewer, time, date and location.";
 
     public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Email command not implemented yet";
-    public static final String MESSAGE_EMAIL_INTERVIEWEE_SUCCESS = "Emailed interviewee: %1$s";
+    public static final String MESSAGE_NO_SLOTS_ALLOCATED = "No slots are currently allocated to this "
+        + "interviewee, have you run the schedule command?";
+    public static final String MESSAGE_EMAIL_INTERVIEWEE_SUCCESS = "Opening email window to email interviewee %1$s";
+    public static final String EMAIL_MESSAGE_BODY = "Dear %1$s,\n\n"
+            + "Thank you for applying for %2$s! Below are the details of the interview slot allocated to you:\n\n"
+            + "Interview slots: %3$s\n"
+            + "Location: %4$s\n\n"
+            + "%5$s";
 
     private final Name intervieweeName;
 
@@ -43,7 +50,6 @@ public class EmailCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Interviewee> intervieweeList = model.getUnfilteredIntervieweeList();
-        // Interviewee intervieweeToEmail = new Interviewee.IntervieweeBuilder(lastShownList.get(1)).build();
         Interviewee intervieweeToEmail = null;
 
         for (Interviewee interviewee : intervieweeList) {
@@ -54,17 +60,20 @@ public class EmailCommand extends Command {
         }
 
         if (intervieweeToEmail == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_NAME);
+            throw new CommandException(MESSAGE_INVALID_PERSON_NAME);
         }
 
-        // TODO: Implement email feature
+        if (model.getInterviewSlots(intervieweeToEmail.getName().toString()).size() == 0) {
+            throw new CommandException(MESSAGE_NO_SLOTS_ALLOCATED);
+        }
+
         try {
             model.emailInterviewee(intervieweeToEmail);
         } catch (IOException ioe) {
             // Happens when the mail client cannot be launched, should prompt the user to open a URL instead
             throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);
         }
-        return new CommandResult(String.format(MESSAGE_EMAIL_INTERVIEWEE_SUCCESS, intervieweeToEmail));
+        return new CommandResult(String.format(MESSAGE_EMAIL_INTERVIEWEE_SUCCESS, intervieweeToEmail.getName()));
     }
 
     @Override

@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import seedu.scheduler.commons.core.GuiSettings;
@@ -19,6 +21,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private String startTime = "10:00";
     private String endTime = "21:00";
     private int durationPerSlot = 30;
+    private String organisation = "Committee of Schedulers";
+    private String interviewLocation = "Level 3, Block YI2";
+    private List<String> ccEmails = Arrays.asList("test@example.com", "president@comsch.invalid.tld");
+    private String emailSubject = "Committee of Schedulers (ComSch) Interview";
+    private String emailAdditionalInformation = "Thank you.";
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -41,8 +48,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setIntervieweeListFilePath(newUserPrefs.getIntervieweeListFilePath());
         setInterviewerListFilePath(newUserPrefs.getInterviewerListFilePath());
+        setDurationPerSlot(newUserPrefs.getDurationPerSlot());
+        setStartTime(newUserPrefs.getStartTime());
+        setEndTime(newUserPrefs.getEndTime());
+        setCcEmails(newUserPrefs.getCcEmails());
+        setEmailAdditionalInformation(newUserPrefs.getEmailAdditionalInformation());
     }
 
+    @Override
     public GuiSettings getGuiSettings() {
         return guiSettings;
     }
@@ -62,14 +75,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return this.interviewerListFilePath;
     }
 
+    @Override
     public String getStartTime() {
         return this.startTime;
     }
 
+    @Override
     public String getEndTime() {
         return this.endTime;
     }
 
+    @Override
     public int getDurationPerSlot() {
         return this.durationPerSlot;
     }
@@ -94,6 +110,51 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setInterviewerListFilePath(Path interviewerListFilePath) {
         requireNonNull(interviewerListFilePath);
         this.interviewerListFilePath = interviewerListFilePath;
+    }
+
+    @Override
+    public String getOrganisation() {
+        return this.organisation;
+    }
+
+    public void setOrganisation(String organisation) {
+        this.organisation = organisation;
+    }
+
+    @Override
+    public String getInterviewLocation() {
+        return this.interviewLocation;
+    }
+
+    public void setInterviewLocation(String interviewLocation) {
+        this.interviewLocation = interviewLocation;
+    }
+
+    @Override
+    public List<String> getCcEmails() {
+        return this.ccEmails;
+    }
+
+    public void setCcEmails(List<String> ccEmails) {
+        this.ccEmails = ccEmails;
+    }
+
+    @Override
+    public String getEmailSubject() {
+        return this.emailSubject;
+    }
+
+    public void setEmailSubject(String emailSubject) {
+        this.emailSubject = emailSubject;
+    }
+
+    @Override
+    public String getEmailAdditionalInformation() {
+        return this.emailAdditionalInformation;
+    }
+
+    public void setEmailAdditionalInformation(String emailAdditionalInformation) {
+        this.emailAdditionalInformation = emailAdditionalInformation;
     }
 
     @Override
@@ -123,6 +184,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal interviewee data file location : " + intervieweeListFilePath);
         sb.append("\nLocal interviewer data file location : " + interviewerListFilePath);
+        sb.append("\nStart Time : " + startTime);
+        sb.append("\nEnd Time : " + endTime);
+        sb.append("\nDuration per slot : " + durationPerSlot);
+        sb.append("\nOrganisation name : " + organisation);
+        sb.append("\nInterview location : " + interviewLocation);
+        sb.append("\nCc emails : " + ccEmails.toString());
+        sb.append("\nEmail subject : " + emailSubject);
+        sb.append("\nAdditional information : " + emailAdditionalInformation);
         return sb.toString();
     }
 

@@ -2,9 +2,11 @@ package seedu.scheduler.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.scheduler.logic.commands.EmailCommand.EMAIL_MESSAGE_BODY;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -264,18 +266,48 @@ public class ModelManager implements Model {
                 })
                 .reduce((x, y) -> x + "; " + y).get();
 
+        String ccEmails = this.userPrefs.getCcEmails().stream()
+                .reduce((x, y) -> x + "; " + y)
+                .get();
+
         String sb = "mailto:"
-                + URLEncoder.encode(intervieweeEmails,
-                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
-                + "?cc=" + "copied@example.com" + "&subject="
-                + URLEncoder.encode("This is a test subject",
-                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20")
+                + encodeForEmail(intervieweeEmails)
+                + "?cc=" + encodeForEmail(ccEmails)
+                + "&subject="
+                + encodeForEmail(this.userPrefs.getEmailSubject())
                 + "&body="
-                + URLEncoder.encode(intervieweeEmails,
-                java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20");
+                + encodeForEmail(getEmailBody(interviewee));
         URI uri = URI.create(sb);
         desktop.mail(uri);
     }
+
+    /**
+     * This method encodes the given String into a format that can be used to generate the email message
+     * contents.
+     * @param input The String to encode
+     * @return The encoded message
+     */
+    public String encodeForEmail(String input) {
+        try {
+            return URLEncoder.encode(input,
+                    java.nio.charset.StandardCharsets.UTF_8.toString()).replace("+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        }
+    }
+
+    public String getEmailBody(Interviewee interviewee) {
+        // TODO: Uncomment after "schedule" command is implemented!
+        // String slots = this.getInterviewSlots(interviewee.getName().toString()).stream()
+        //         .map(Slot::toString)
+        //         .reduce((x, y) -> x + ", " + y)
+        //         .get();
+        String slots = "01/11/2019 12:00-14:00";
+
+        return String.format(EMAIL_MESSAGE_BODY, interviewee.getName(), this.userPrefs.getOrganisation(),
+                slots, this.userPrefs.getInterviewLocation(), this.userPrefs.getEmailAdditionalInformation());
+    }
+
     // ================================== Refresh Listener ======================================
     public void addRefreshListener(RefreshListener listener) {
         this.refreshListener = listener;
