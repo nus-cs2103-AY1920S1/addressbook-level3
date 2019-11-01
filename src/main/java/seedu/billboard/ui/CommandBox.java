@@ -34,6 +34,8 @@ public class CommandBox extends UiPart<Region> {
 
             } else if (e.getCode().equals(KeyCode.DOWN)) {
                 commandTextField.setText(CommandHistory.peekPreviousCmd());
+            } else {
+                return;
             }
             commandTextField.end();
         });
