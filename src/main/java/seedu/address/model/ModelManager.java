@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
@@ -48,11 +49,12 @@ public class ModelManager implements Model {
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
     private final VersionedAddressBook versionedAddressBook;
+    private final TimeUtil timeTracker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, TimeUtil timeTracker) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -73,10 +75,11 @@ public class ModelManager implements Model {
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
         createExpensesfromAutoExpenses();
+        this.timeTracker = timeTracker;
     }
 
     public ModelManager() {
-        this(new AddressBook(false), new UserPrefs());
+        this(new AddressBook(), new UserPrefs(), new TimeUtil());
     }
 
     // =========== UserPrefs
@@ -538,6 +541,11 @@ public class ModelManager implements Model {
         for (AutoExpense autoExpense : filteredAutoExpenses) {
             autoExpense.generateNewExpenses().stream().forEach(this::addExpense);
         }
+    }
+
+    // =========== TrackTime =============================================================
+    public TimeUtil getTimeTracker() {
+        return timeTracker;
     }
 
     @Override
