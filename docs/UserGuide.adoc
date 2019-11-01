@@ -17,7 +17,20 @@ endif::[]
 By: `Team 11-4`      Since: `In Development`      Licence: `None`
 
 == Introduction
-What is TravelPal? First and foremost, it is a cross-platform desktop application for those who love to plan and micromanage their travels. It includes various features to help in planning the trip beforehand, such as an itinerary planner, a pre-trip inventory manager, bookings and expense manager. During the trip, there is also an inbuilt diary application that allows the user to record details of the trip, and a contacts manager to store important contacts related to the trip. In addition, it’s primary preferred form of input from the user is the Command Line Interface (CLI), but it also provides a Graphical User Interface (GUI) for those who like to use alternative inputs, such as a mouse. Jump to the <<Quick Start>> to get started!
+What is TravelPal? First and foremost, it is a cross-platform desktop application for those
+who love to plan and micromanage their travels. It includes various features to help in
+planning the trip beforehand, such as an itinerary planner, a pre-trip inventory manager,
+bookings and expense manager.
+
+During the trip, there is also an inbuilt diary application that
+allows the user to record details of the trip, and a contacts manager to store important
+contacts related to the trip.
+
+In addition, it’s primary preferred form of input from the user is
+the Command Line Interface (CLI), but it also provides a Graphical User Interface (GUI) for
+those who like to use alternative inputs.
+
+Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -45,103 +58,162 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *General Command tips*
 
-* Most commands are in the format of <command> <argument1> <argument2> <...>.
-** <command> is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
-** When an argument is optional, it will be tagged be enclosed in square brackets [...] instead of angle brackets <...>
-** When required, a separator / delimiter between arguments will be displayed with *separator*.
-* Commands support tab-autocomplete when appropriate.
-** Autocompletion for commands : For example, typing he then pressing tab will autocomplete the command to help.
-**Autocompletion for separators : When a command requires a separator, and the command name is already in the text input, pressing tab again will append the separator automatically.
-* Commands help popup
-** Once the command name is already in the text input, a handy, non-intrusive popup will appear slightly above the text input.
-** You can disable this feature in the user preferences.
+* Most commands are in the format of `<command> <argument1> <argument2> <...>`
+* `<command>` is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
 * Leading and trailing white spaces in the inputted command are ignored.
+* Some `<arguments>` consists of two parts, namely a `prefix/` followed immediately by an `argument`
+** `prefix/` s are a combination of no more than three letters, followed by a `/`, and are case sensitive
 
 ====
 
-=== General commands
-
-* help : brings a pdf version of the user guide
-* goto <page> : all navigation between pages in the app follows this format. <page> will be detailed in each of the relevant sections
-* undo : this will undo the last undoable operation attempted by the user, prompting the user with the details of the operation first.
-* exit : this will exit the program, discarding any unsaved changes.
-
 === User preferences
 
-* To access the user preferences gui, you can :
-** Click the user icon in the top right of the app
-** Type the command “preferences”
-* To change preferences, you can :
-** As per the user interface, you can click on various fields and edit them.
-** Use the command edit <field> <value>, where field is the field you want to edit as shown in the interface, and value is the respective value for the field, as detailed below.
-* Types of fields :
-** Checkboxes & toggles : edit <field> will toggle the current value of the checkbox
-** Text fields : edit <field> <value> will change the value of the checkbox to the new value specified.
-** Dropdowns :
-*** To see the available options for a dropdown, first type edit <field>
-*** To change the value, type edit <field> <value>, where <value> is one of the options shown, or the number of the option in the order in which they were shown.
+===== Entering the preferences screen
+If you want to edit various user interface settings, you can start by typing
+the command `prefs` to enter the preferences screen.
+
+===== Changing preferences
+
+====== Using the `edit <field><value>` command
+* Usage: `<field>` is the field you want to edit as shown in the interface,
+and `<value>` is the respective value for the field, as detailed below.
+* Arguments (`<field>`):
+** `ww/` - The width of the _TravelPal_ application window, which's `<value>` should be a positive number
+** `wh/` - The height of the _TravelPal_ application window, which's `<value>` should be a positive number
+** `wx/` - The x position of the _TravelPal_ application window, which's `<value>` should be a positive number
+** `wy/` - The y position of the _TravelPal_ application window, which's `<value>` should be a positive number
+** `lg/` - Whether the gui settings should be locked, which's `<value>` should be either `t` for true, or `f` for false.
+** `fp/` - The file path to a existing writable file.
+
+====== Using the user interface text fields
+* Usage: Clicking on the text fields and editing them will also change the values of those fields,
+with the same constraints as noted above.
+
+===== Returning to the trip manager and saving preferences
+
+====== Using the `done` command
+Usage: Saves your changes to the preferences and returns you to the trip manager
+
+===== Returning to the trip manager and discarding changes
+
+====== Using the `cancel` command
+Usage: Discards your changes to the preferences and returns you to the trip manager
 
 === Trip manager
 
-The trip manager is the main starting ground of the application. Here, the user is able to create, delete and archive trips. There is also an archive section, where the archived trips are displayed exclusively.
+The trip manager is the main starting ground of the application. Here, the user is able to create and delete trips.
 
-* create <name of trip> : creates a new trip with specified name, then bringing up the trip creation user interface.
-* delete <name of trip> *yes_i_am_sure* : deletes the trip with the specified name and all data associated with it.
-* archive <name of trip> : moves the trip to the archive section of the trip manager.
-* goto <name of trip> : enters the main day-by-day view of the trip.
+* create : creates a new trip, this command brings up the trip creation user interface.
+* delete <name of trip>: deletes the trip with the specified name and all data associated with it.
+* goto <index of trip> : enters the main page of a trip with the specified index.
 
 === Trip setup
+Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
-Trip setup is the first page in configuring a new/existing task. Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 2 necessary fields:
+image::TripManager.png[]
+Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
-1. Duration (Starting date, Ending date)
-2. Destination
+Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
 
-* edit -startDate <starting Date> -endDate <ending Date>: sets the starting date and ending date of the trip being created/edited
-* edit -dest <destination>: sets the destination of the trip being created/edited
-* edit -addDay <name of day>: adds a day after the last day previously added. If no days were previously added, add the first day
+- Name
+- Start Date
+- End Date
+- Total Budget
+- Destination
+
+The last field Photo is an optional field, a default image will be used if the user does not submit any image.
+
+
+If the `create` command was executed, you will be displayed an empty form with no details filled in.
+
+image::createTrip.png[]
+
+If `edit` command was executed, you will be displayed a from with details previously filled in.
+
+
+image::editTrip.png[]
+
+Now that you on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefixes>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+
+1. Name :  `n/`
+2. Start Date : `ds/`
+3. End Date : `de/`
+4. Total Budget : `b/`
+5. Destination : `l/`
+6. Photo File Path : `fp/`
+
+    Note:
+    You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
+e.g. edit fp/ fc/
+
+Below is an example changing the name of an existing trip to "Small Trip":
+
+- You begin at the edit trip screen, the original name of the trip is the same as before.
+
+image::editTrip.png[]
+- Enter the command `edit n/Small Trip` into the command box and press enter to execute.
+
+image::editNameCommand.png[]
+- The name of the trip is now "Small Trip"!
+
+image::editNameCommandResult.png[]
+
+Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
+
+You have successfully created/edited a trip!
 
 === Event Setup
 
-Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future
+Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future. The syntax is as follows: `edit <prefix>/<value>`
 
-* edit -id <id of trip> -day <index of day> -event <index of event> -name <name of event>: sets the name of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -description <description of event>: sets the description of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -startDate <starting time>: sets the starting time of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -endingTime <ending time>: sets the ending time of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -expenditure: sets the current known expenditure for a single event
+1. Name : `n/`
+2. Start Date : `ds/`
+3. End Date: `de/`
+4. Total Budget: `b/`
+5. Destination: `l/`
 
-=== Itinerary
+=== Navbar
+Every page that comprises a navbar can execute the following commands to navigate to another page.
 
-tinerary contains commands to view the list of relevant event/day/trips. The order can be changed by using different commands
-
-* list -id <id of trip>: Lists the days of a trip in chronological order
-* list -d <id of trip> -day <index of day>: Lists the events of a day chronological order
-
-Additional tags:
-* byExpenses: list all elements by expenses, from highest to lowest
-* byAlphabetical: list all elements by the alphabetical order of their names
+1. Trip Manager: `home`
+2. Itinerary : `itinerary`
+3. Days Page: `days`
+4. Diary : `diary`
+5. Inventory : `inventory`
+6. Expense Manager :`expense`
 
 === Expense Manager
 
-Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure 2. Miscellaneous/Unplanned expenditure
+Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure (auto-generated from event) 2. Miscellaneous expenditure (can be created and deleted)
 
-* edit -id <id of trip> -day <index of day> -event <index of event> -spend <amount spent>: sets the total amount spent during an event which was unplanned
-* edit -id <id of trip> -day <index of day> -spent <amount spent>: sets the total: sets the total amount spent during a day which was not planned
+* create: creates a miscellaneous expenditure
+* edit <index of expenditure>: edit an expenditure, this command bring up the expense setup page.
+* delete <index of expenditure>: delete an expenditure, note that only miscellaneous expenditures can be deleted.
+* showdays: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
+* currency: enter the currency page of TravelPal
 
-Additional tags:
-* time <time of expense>: time which the expenditure occurred
 
-=== Bookings Manager
+=== Expense Setup
 
-Bookings manager manages bookings and reservations made by the user. The bookings under this feature include hotel reservations and transport bookings (flight, train and bus).
+Expense setup creates/edits properties of a specified expenditure.It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
 
-* edit -id <id of trip> -booking <index of booking> -name <name of booking>: sets the name of the booking
-* edit -id <id of trip> -booking <index of booking> -description <description of booking>: sets the description of the booking
-* edit -id <id of trip> -booking <index of booking> -from <check-in time/date>: sets the starting date and time of a hotel booking
-* edit -id <id of trip> -booking <index of booking> -to <check-out time/date>: sets the ending date and time of a hotel booking
-* edit -id <id of trip> -booking <index of booking> -time <departure time>: sets the departure time of a transport booking
-* edit -id <id of trip> -booking <index of booking> -expenditure: sets the known expenditure of a booking
+* edit n/<name of expenditure>: edit the name of the expenditure.
+* edit b/<amount of expenditure>: edit the amount of expenditure, in Singapore dollars.
+* edit dn/<day number of expenditure>: set the day number the expenditure belongs to.
+* done: confirm and commit the changes, go back to the expense manager page.
+* cancel: go back to the expense manager page without committing the changes.
+
+=== Currency Manager
+
+Currency manager allows users to create customised currencies with currency name, symbol and exchange rate (use Singapore dollar as base).
+
+* select <index of currency>: select the currency with the specified index as the currency in use.
+* delete <index of currency>: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
+* edit n/<name of currency>: edit the name of the currency.
+* edit r/<exchange rate of currency>: edit the name of the currency, using Singapore dollar as base for comparison.
+* edit s/<symbol of expenditure>: edit the symbol for the currency which will be displayed.
+* done: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
+* cancel: return to the expense manager.
 
 // tag::diary_ppp[]
 === Diary
@@ -345,10 +417,13 @@ image::diary/userguide/diary_flip_command_command_after.png[title="Example resul
 If you have just created a fresh diary entry, and you're wondering where to go next, then you
 may want to start by adding your photos to display in the gallery (<<diary_gallery_display>>).
 
-Here, there are up to 3 options for you to choose, the last option being the least flexible but also the fastest, if
-you are more comfortable with the using the user interface than the command line input.
+Here, there are 3 options for you to choose, the last option being the least flexible but also the fastest, if
+you are more comfortable with using the user interface than the command line input.
 
-NOTE: In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`
+In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`
+
+NOTE: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
+(see <<glossary>>) to the image file on your computer is stored!
 
 ====== Using the `addphoto` command with the `fp/` prefix
 * Usage: Typing in the command `addphoto fp/<file path> [d/<description>] [dts/<date taken>]`, with the
@@ -471,52 +546,155 @@ image::diary/userguide/diary_delphoto_command_result.png[title="Result of `delph
 NOTE: The commands below are quick command line equivalents of editing the text in the edit box, as described in
 <<diary_editor_display_mode>>.
 
+TIP: If you execute any command that changes the diary entry's text while the edit box is open, then the command still
+works and the save behaviour is exactly the same as described in <<diary_editor_command>>!. That is, your edits will
+be not be committed until you execute the `done` command (see <<diary_done_command>>).
+
 ===== Appending to a diary entry
-* `append <paragraph>`
-** Usage: Appends the given paragraph of text to the
-** Arguments:
-*** <paragraph> - The paragraph of text to append, as described in <<diary_text_info>>.
-** Example: `append The scenery on the road was breathtaking.`
+If you are currently viewing a diary entry, and know how to format the entry text (see <<diary_text_info>>),
+then you could use with the `append` command to add a new paragraph of text.
+
+====== Using the `append <paragraph>` command
+* Usage: Adds a new paragraph of text as specified by the `<paragraph>` of text immediately after the the `append` word.
+* Arguments:
+** `<paragraph>` - The paragraph of text to append, as described in <<diary_text_info>>.
+
+'''
+
+====== Example Usage
+
+Scenario: You are currently viewing your edited diary entry for day 3 of the trip, and want to quickly append a new
+paragraph of text using the handy command line interface.
+
+. You type in the `append` command, along with a simple line of text without images:
+`append After an entire day's drive, we arrived at the bustling city of Tai Chung`, and then you press the 'enter' key.
++
+image::diary/userguide/diary_append_command_before.png[title="Example usage of `append` command to add a new paragraph of text to a diary entry"]
+. That's it! Your new paragraph will be saved and displayed automatically as shown below.
++
+image::diary/userguide/diary_append_command_after.png[title="Result of `append` command to add a new paragraph of text"]
 
 ===== Inserting text in a diary entry
-* `insert i/<lineNumber> d/<paragraph>`
-** Usage: Inserts a new paragraph of text at the specified line number.
-** Arguments:
-*** `<lineNumber>` - Line number to insert the `<paragraph>` at, as described in <<diary_text_line_numbering>>.
-*** `<paragraph>` - The paragraph of text to append, as described in <<diary_text_info>>.
-** Example: `insert i/10 The food was delicious.`
+If you have a long diary entry, and want to insert a new paragraph of text between some existing paragraphs without
+using the edit box (<<diary_editor_command>>), then you can use the `insert` command.
+
+====== Using the `insert i/<lineNumber> d/<paragraph>` command
+* Usage: Inserts a new paragraph of text at the specified line number.
+* Arguments:
+** `<lineNumber>` - Line number to insert the `<paragraph>` at, as described in <<diary_text_line_numbering>>.
+** `<paragraph>` - The paragraph of text to insert, as described in <<diary_text_info>>.
 
 TIP: If the line number specified is more than the current number of lines the diary entry has, it will quickly add
 the required number of new paragraphs and insert the provided text afterward!
 
+'''
+
+====== Example Usage
+
+Scenario: Your diary entry has a sizeable amount of text already present, but you want to add a few more details of your
+day for the trip in between.
+
+. You type the `insert i/5 d/We passed by quite a few more scenic places on the road, along 合歡山.` command to add some
+text in between the existing lines 4 and 5, and press the 'enter' key.
++
+image::diary/userguide/diary_insert_command_before.png[title="Example usage of `insert` command to insert a new paragraph of text in a diary entry"]
+. The new paragraph of text you type will be inserted into the entry!
++
+image::diary/userguide/diary_insert_command_after.png[title="Result of `insert` command to insert a new paragraph of text to a diary entry"]
+
 ===== Editing text in a diary entry
-* `edit [i/<lineNumber>] d/<paragraph>`
+If you have written a sizable diary entry, and want to edit a certain paragraph of text, then you can use the `edit`
+command to do so.
+
+====== Using the `edit [i/<lineNumber>] d/<paragraph>` command
 ** Usage: Edits the entire diary text of the diary entry, or a line of text.
 ** Arguments:
 *** `<lineNumber>` (optional) - Line number of the text line to edit, as described in <<diary_text_line_numbering>>.
-*** `<paragraph>` - The paragraph of text to edit, as described in <<diary_text_info>>.
-** Example: `edit i/10 The food was especially delicious.`
+*** `<paragraph>` - The new paragraph of text (as described in <<diary_text_info>>) to replace the existing paragraph or entire entry with.
 
-TIP: You can use this as a quick way to clear the entire diary entry's text.
+TIP: You can use this as a quick way to clear the entire diary entry's text!
 
-===== Deleting a line of text in a diary entry
-* `delete i/<lineNumber>`
-** Usage: Deletes the line of text at the specified line number.
-** Arguments:
-*** `<lineNumber>` - Line number of the text line to delete, as described in <<diary_text_line_numbering>>.
-** Example: `delete i/10`
+'''
+
+====== Example Usage
+Scenario: You discovered that you made a minor spelling error - 'ou' instead of 'our' in line 1 of your diary entry, and
+want to rectify this.
+
+. You type in the command `edit i/1 d/On the third day, we departed from the Hua Lian county and began our drive to Tai Chung.` command to fix the mistake in the first line, and press the 'enter' key.
++
+image::diary/userguide/diary_edit_command_before.png[title="Example usage of `edit` command to edit an existing paragraph of text in a diary entry"]
+. The spelling error is gone, and you are shown the confirmation message!
++
+image::diary/userguide/diary_edit_command_after.png[title="Result of `edit` command to edit an existing paragraph of text"]
+
+
+
+===== Deleting a paragraph of text in a diary entry
+If you wrote some things in your diary entry that you later rather wish not be there, you can use the `delete` command
+to delete a paragraph of text in the entry!
+
+====== Using the `delete i/<lineNumber>` command
+* Usage: Deletes the line of text at the specified line number.
+* Arguments:
+** `<lineNumber>` - Line number of the text line to delete, as described in <<diary_text_line_numbering>>.
+
+'''
+====== Example Usage
+Scenario: You discovered that you made quite a few rather embarrassing, elementary spelling errors in a line 1 of your diary entry.
+You want to rectify this quickly, because your friend requested you share details of your trip with her.
+
+. You type in the command `delete 1` command to delete first line entirely, and press the 'enter' key.
++
+image::diary/userguide/diary_delete_command_before.png[title="Example usage of `delete` command to delete an existing paragraph of text in a diary entry"]
+. The spelling error is gone, and you are shown the confirmation message!
++
+image::diary/userguide/diary_delete_command_after.png[title="Result of `delete` command to delete an existing paragraph of text"]
 
 [[diary_editor_command]]
 ===== Showing the edit box
-* `editor`
-** Usage: Opens the text editor window and shifts the keyboard focus to it, if it is not already opened.
-** Example: `editor`
+As an alternative to commands that allow you to edit your diary entry, you can also use the edit box to do so, as described
+in <<diary_editor_display_mode>>. Note that any edits through the edit box or command made while the editor was opened
+need to be saved by using the `done` command or button (see <<diary_done_command>>).To show the editor, there are two equivalent options.
+
+====== Using the `editor` command
+* Usage: Opens the text editor window and shifts the keyboard focus to it, if it is not already opened.
+
+====== Using the `Edit` button
+* Usage: Clicking the `Edit` button located under the gallery display area (<<diary_gallery_button_bar>>) will open the editor.
+
+'''
+
+====== Example Usage
+Scenario: You have just begun writing your diary entry, and even though you are a command line enthusiast, you recall the existence of
+command line text editors, such as _vim_, which can greatly improve the typing experience.
+
+Thus, you opted for using the edit box to write your diary entry, instead of repeating the same commands multiple times.
+
+. You type in the `editor` command, and press the 'enter' key.
++
+image::diary/userguide/diary_editor_command_before.png[title="Example usage of `editor` command to open the edit window"]
+. That's all! The edit box is opened, and the keyboard focus is shifted to it.
++
+image::diary/userguide/diary_editor_command_after.png[title="Result of `editor` command showing the opened edit window"]
+
+TIP: In true command line fashion, you can still return the keyboard focus to the command line input without the mouse
+by pressing the 'F1' key!
 
 [[diary_done_command]]
-===== Commiting your edits
-* `done`
-** Usage: Commits the text currently in the edit box to the diary entry.
+===== Committing your edits
+If you have the edit box opened, any edits you make, through commands or the editor, are not saved until you tell
+_TravelPal_ to do so! To do this, there are two options, the first being the `done` command and the second being the
+`Done` button.
+
+====== Using the `done` command
+** Usage: Saves the text currently in the edit box to the diary entry, and closes the editor.
 ** Example: `done`
+
+====== Using the `Done` button
+* Usage: Clicking the `Done` button located under the gallery display area (<<diary_gallery_button_bar>>) will similarly
+save the changes you made while the editor was open, and close the editor.
+
+'''
 
 === Pre-trip Inventory Manager
 
@@ -530,13 +708,14 @@ Allows the user to make a list of things (inventory of things) he/she needs for 
 
 ====
 * Save data:
-** The data of the trips is saved in the data directory located in the same directory as where TravelPal.jar is.
-** The data is stored in a human readable json format, allowing manual editing of the data files using a seperate text editor.
-* Most info, where relevant, can be sent to a printer or saved in pdf format, if the info is needed while travelling without your computer.
-** The pdfs are output in the output directory located in the same directory as TravelPal.jar
+** The data of the trips is saved in the data directory located in the data directory where the _TravelPal_ application file, TravelPal.jar is.
+** The data is stored in a human readable json format, allowing manual editing of the data files using a separate text editor.
 ====
 
 [[glossary]]
 == Glossary
-* Relative file path
-* Absolute file path
+* Relative file path - the file path from the directory of the _TravelPal_ application file. For example,
+`.\sample_picture.jpg`  is an relative file path referring to an image file `sample_picture.jpg` existing in the same directory
+as the _TravelPal_ application file.
+* Absolute file path - the file path from your computer's root directory, which can vary from system to system. For example,
+`C:\Users\Public\Pictures`  is an absolute file path from the root directory of your computer's `C:\` drive.

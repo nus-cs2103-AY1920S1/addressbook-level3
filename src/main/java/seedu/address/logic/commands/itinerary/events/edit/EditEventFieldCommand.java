@@ -250,7 +250,7 @@ public class EditEventFieldCommand extends Command {
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
                 Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
-                        new DayNumber(Integer.toString(index)), false);
+                        new DayNumber(Integer.toString(index + 1)), false);
                 expenditure = Optional.of(newExpenditure);
             }
             if (this.inventory.isPresent()) {
