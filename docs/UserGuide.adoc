@@ -418,8 +418,18 @@ If the purchase was successful, you should be able to see the update in your pur
 === Recommendations
 
 ==== Getting a list of recommended food items: `recommend`
-Users can get a list of recommendations from the application, based on several factors, summarized
-in the tables below.
+Users can get a list of recommendations from the application, based on these factors:
+
+****
+1. The user's likes and dislikes (see <<Adding likes and dislikes to the recommendation system: `like` or `dislike`>>)
+2. The user's current budget and date to expiry of budget (see <<Sets budget for a number of days: `budget`>>)
+3. The user's purchase history (see <<Buy a food item: `buy`>>)
+****
+
+The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the
+user takes 2 meals per day.
+
+The factors affecting the calculation of the recommendation value is summarized in the tables below.
 
 //tag::recommendationbonus[]
 .Bonuses applied by the recommendation system
@@ -494,9 +504,14 @@ To clear the recommendations, use the `list` or `add` command.
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown.]
+ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown, sorted by their recommendation value.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown, sorted by their recommendation value.]
+
+image::recommend.png[]
+
+{empty}
 |===
+
 
 [WARNING]
 If you do not see any recommendations, make sure that you have a non-zero budget and days to budget expiry set using
@@ -514,6 +529,10 @@ To list the user's likes and dislikes, use the command without providing any arg
 |===
 ifdef::env-github[| :white_check_mark: a| The list of liked or disliked categories, tags and locations will be shown.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of liked or disliked categories, tags and locations will be shown.]
+
+image::like-dislike-list.png[align="center", width=700]
+
+{empty}
 |===
 
 ==== Adding likes and dislikes to the recommendation system: `like` or `dislike`
@@ -533,26 +552,34 @@ for their convenience.
 
 ****
 *Format*: `like c/CATEGORY t/TAG l/LOCATION` +
-*Example*: `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+*Example*: `like c/chinese t/chicken t/rice l/frontier canteen`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be added.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be added.]
+
+image::add-like.png[align="center", width=700]
+
+{empty}
 |===
 
 ===== To add dislikes:
 
 ****
 *Format*: `dislike c/CATEGORY t/TAG l/LOCATION` +
-*Example*: `dislike c/International t/Spicy l/The Deck l/The Terrace`
+*Example*: `dislike c/italian t/pasta t/cheese l/the tea party`
 ****
 
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be added.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be added.]
+
+image::add-dislike.png[align="center", width=700]
+
+{empty}
 |===
 
 ==== Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`
@@ -573,6 +600,10 @@ Users can provide multiple categories, tags and/or locations with each command.
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be removed.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
+
+image::removelike.png[align="center", width=700]
+
+{empty}
 |===
 
 ===== To remove dislikes:
@@ -586,6 +617,10 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be removed.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be removed.]
+
+image::removedislike.png[align="center", width=700]
+
+{empty}
 |===
 
 ==== Clearing all likes and dislikes from the recommendation system: `removelike` or `removedislike`
@@ -605,6 +640,10 @@ Only use this command if you are sure that you want to clear your likes and disl
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be cleared.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be cleared.]
+
+image::removelike-all.png[align="center", width=700]
+
+{empty}
 |===
 
 ===== To remove all dislikes:
@@ -617,6 +656,10 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a succ
 |===
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be cleared.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be cleared.]
+
+image::removedislike-all.png[align="center", width=700]
+
+{empty}
 |===
 //end::recommendations[]
 
