@@ -325,7 +325,7 @@ Displays the number of good, hard & easy FlashCards
 
 . A bar chart will also be displayed:
 +
-image::Chart.png[width="600"]
+image::Charts.png[width="600"]
 
 
 //tag::theme[]
