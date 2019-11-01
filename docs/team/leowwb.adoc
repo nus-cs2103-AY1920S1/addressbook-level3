@@ -19,46 +19,50 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 == Summary of contributions
 
-* *Major enhancement*: Added *the ability to export flashcards*.
-** What it does: Allows the user to save a subset of their flashcards to a specified external file. The format of the file is inferred from the specified file extension, and hence can be determined by the user.
+|===
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other various helpful contributions._
+|===
+
+* *Major enhancement #1*: I added *the ability to export flashcards*.
+** What it does: It allows the user to save a subset of their flashcards to a specified external file. The format of the file is inferred from the specified file extension, and hence can be determined by the user.
 ** Justification: This feature greatly improves the application, as the ability to export flashcards would mean that the user can easily generate cheat sheets or share flashcards with others.
 ** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future (if a developer wishes to add support for more file formats). It required an in-depth analysis of design alternatives. The implementation was challenging due to the dependence on an external library, as well as the tendency of certain file paths to break our parser.
 ** Credits: All writing of flashcards to `.docx` format is done with the use of Apache POI.
 
-* *Major enhancement*: old king cole was a merry old soul and a merry old soul was he
-** What it does: Allows the user to save a subset of their flashcards to a specified external file. The format of file is inferred from the specified file extension.
+* *Major enhancement #2*: old king cole was a merry old soul and a merry old soul was he
+** What it does: It allows the user to save a subset of their flashcards to a specified external file. The format of file is inferred from the specified file extension.
 ** Justification: This feature improves the product significantly because a user .
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 //* *Minor enhancement*: ???
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Please click on these links to see a sample of my code: +
+[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
 
 * *Other contributions*:
 
-** Project management:
+** Project management
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
+** Enhancements to existing features
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
+** Documentation
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
+** Community
 *** PRs reviewed (with non-trivial review comments):
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/98[#98],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154[#154]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
+** Tools
 *** Integrated a third party library (Apache POI) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/44[#44])
-*** Integrated new Github plugins (Travis CI, Appveyor, Coveralls) to the team repo
+*** Integrated new Github plugins (Travis CI, Appveyor, Coveralls) to the team repository
 
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
