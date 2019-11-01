@@ -35,8 +35,8 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
                     </Menu>
                 </MenuBar>
-                <HBox>
-                    <VBox>
+                <HBox VBox.vgrow="ALWAYS">
+                    <VBox HBox.hgrow="ALWAYS">
                         <HBox>
                             <VBox HBox.hgrow="ALWAYS">
                                 <!--Command Box-->

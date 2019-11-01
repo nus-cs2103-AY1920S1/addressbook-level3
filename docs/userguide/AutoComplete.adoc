@@ -3,4 +3,33 @@
 *Autocomplete*
 
 As a community nurse, you will be performing several commands through the Command Line Interface (CLI). In order to speed up the process, the application includes an autocomplete feature that allows you to more quickly and conveniently input your commands and parameters. This section describes the feature in further detail.
+
 ====
+
+=== Viewing list of suggested words
+To the right of the command box, there is a panel that has a few suggestion words. The suggestion list will be constantly updated to fit your input.
+
+=== Updating list of suggested words
+The suggested list of words in the autocomplete panel will be updated as you type in the command box. The panel will only suggest to you words that you need, in sequential order, based on your input and your previous word selection. Should your input be wrong or does not match any of the suggested word, no words will be suggested to you. +
+
+*Eg:* +
+If your "visit-" is your input in your commandbox, only words that are related to "visit" will be suggested such as "start" and "end".
+If your "abc" is your input in your commandbox, only words that starts with "abc" will be suggested. +
+
+*Note:*
+
+- When prefixes are suggested you should select all prefixes that you need then type in respective sub-details +
+Eg: Select all prefixes "pat-add n/ p/ e/ a/ t/" before adding sub-details "pat-add n/John p/98762615 e/john@example.com a/exampleaddress t/exampletag vt/examplevisittodo"
+- If no words appear in the autocomplete panel, this can only mean 2 thing. +
+1) Your input is finished, there is no more words to be suggested +
+2) Your input is wrong and does not match any of the words to be suggested. (Try to change your input by backspacing)
+
+=== Selecting a suggested words
+*UP*, *DOWN* key +
+You can use the up and down key in your keyboard to move from one selected word to another.
+
+*RIGHT* key +
+Confirm your selection by pressing the right key in your keyboard. This will auto-fill the selected word to your current words in the command box text field. Doing this will also perform a auto correction of your input in order to fit the correct sequence of commands. +
+
+*Eg:* +
+Selecting the "now-update" in the autocomplete panel will concatenate with "now-update" with "visit-", the current text in your command box.
