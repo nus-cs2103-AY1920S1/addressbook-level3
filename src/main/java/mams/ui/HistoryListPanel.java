@@ -37,6 +37,7 @@ public class HistoryListPanel extends UiPart<Region> {
      * @param isHideOutput
      */
     public void hideOutput(boolean isHideOutput) {
+        logger.fine("HideOutput flag has been set to true");
         this.isHideOutput = isHideOutput;
     }
 
@@ -51,6 +52,7 @@ public class HistoryListPanel extends UiPart<Region> {
     }
 
     public InputOutput getCurrentlySelectedInputOutput() {
+        logger.fine("Retrieving details of the currently selected InputOutput object");
         return itemListView.getSelectionModel().getSelectedItem();
     }
 
