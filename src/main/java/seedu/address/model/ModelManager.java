@@ -586,7 +586,10 @@ public class ModelManager implements Model {
         //Remove completed/cancelled orders from orderBook and place them in archivedOrderBook
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
-            if (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED)) {
+
+            boolean isCancelledOrCompleted = o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED);
+
+            if (isCancelledOrCompleted) {
                 orderBook.remove(o);
 
                 if (!archivedOrderBook.has(o)) {
@@ -600,7 +603,11 @@ public class ModelManager implements Model {
         //Remove unscheduled/scheduled orders from archivedOrderBook and place them in orderBook
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
-            if (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED)) {
+
+            boolean isNotCancelledOrCompleted = !o.getStatus().equals(Status.CANCELLED)
+                    && !o.getStatus().equals(Status.COMPLETED);
+
+            if (isNotCancelledOrCompleted) {
                 archivedOrderBook.remove(o);
 
                 if (!orderBook.has(o)) {
@@ -620,21 +627,21 @@ public class ModelManager implements Model {
             Order o = orders.get(i);
             assert (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED));
 
-            boolean hasPhone = false;
+            boolean hasExactPhoneCopy = false;
             for (Phone p: phones) {
                 if (o.getPhone().equals(p)) {
-                    hasPhone = true;
+                    hasExactPhoneCopy = true;
                 }
             }
 
-            boolean hasCustomer = false;
+            boolean hasExactCustomerCopy = false;
             for (Customer c: customers) {
                 if (o.getCustomer().equals(c)) {
-                    hasCustomer = true;
+                    hasExactCustomerCopy = true;
                 }
             }
 
-            if (!hasPhone || !hasCustomer) {
+            if (!hasExactPhoneCopy || !hasExactCustomerCopy) {
                 Order editedOrder = new Order(o.getId(), o.getCustomer(), o.getPhone(),
                         o.getPrice(), Status.CANCELLED, o.getSchedule(), o.getTags());
                 orderBook.remove(o);
@@ -654,15 +661,22 @@ public class ModelManager implements Model {
             Order o = archivedOrders.get(i);
             assert(o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
 
-            if (o.getStatus().equals(Status.COMPLETED)) {
+            boolean isCompletedOrder = o.getStatus().equals(Status.COMPLETED);
+
+            if (isCompletedOrder) {
 
                 boolean hasDuplicatePhone = false;
 
                 for (int j = archivedOrders.size() - 1; j >= 0; j--) {
                     Order otherOrder = archivedOrders.get(j);
-                    if (i != j
-                            && otherOrder.getStatus().equals(Status.COMPLETED)
-                            && o.getPhone().isSameAs(otherOrder.getPhone())) {
+
+                    boolean isSameIndex = i != j;
+                    boolean isCompletedOtherOrder = otherOrder.getStatus().equals(Status.COMPLETED);
+                    boolean isSamePhones = o.getPhone().isSameAs(otherOrder.getPhone());
+
+                    if (isSameIndex
+                            && isCompletedOtherOrder
+                            && isSamePhones) {
                         hasDuplicatePhone = true;
                         break;
                     }
