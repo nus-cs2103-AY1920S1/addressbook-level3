@@ -395,7 +395,7 @@ Refer to <<Conditions>> To see Condition related commands.
 Adds new Reminder. Creating Reminder requires Conditions to be created first.
 The Condition Index refers to the index of the condition to add in the condition list.
 
-Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]
+Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]`
 
 Example:
 
@@ -475,7 +475,7 @@ Example:
 Adds a DateCondition. A DateCondition is met when the date of the entry is within the specified period.
 The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
 
-Format: `addDateCondition d/<Start Date>, d/<End Date>`
+Format: `addDateCondition <Start Date>, <End Date>`
 
 Example:
 
