@@ -141,7 +141,6 @@ public class UpdateCommand extends UndoableCommand {
         if (!model.hasEntity(entity)) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }
-
         //@@author arjavibahety
         try {
             this.originalEntityDescriptor = saveOriginalFields(entity);

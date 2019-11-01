@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.FileUtil;
 
 //@@ author shaoyi1997
@@ -78,8 +79,14 @@ public class Photo {
      * Intended for {@code JsonAdaptedWorker} to retrieve the photo.
      */
     public String getStoragePathToDataDirectory() {
-        return Paths.get(dataDirectory).toAbsolutePath().toUri().getPath().substring(1);
+        String path = Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+        if (AppUtil.isWindows()) {
+            return path.substring(1); // removes the additional leading forward slash
+        } else {
+            return path; // keeps the leading forward slash required
+        }
     }
+
     //@@author
 
     /**

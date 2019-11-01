@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_BODY;
 import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMMAND;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -238,6 +239,7 @@ public class UpdateCommandTest extends GuiUnitTest {
 
     @Test
     public void executeBody_bodyIdNotInFilteredList_failure() throws CommandException {
+        //UniqueIdentificationNumberMaps.clearAllEntries();
         // Fails because the Body was not added to the model.
         Body body = new BodyBuilder().build();
 

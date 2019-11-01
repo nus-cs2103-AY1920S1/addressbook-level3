@@ -117,7 +117,6 @@ public class NotifCommand extends Command {
                         model.addNotif(notif);
                     }
                     storageManager.saveAddressBook(model.getAddressBook());
-
                 } catch (CommandException | IOException e) {
                     logger.info("Error updating the body and fridge ");
                 }

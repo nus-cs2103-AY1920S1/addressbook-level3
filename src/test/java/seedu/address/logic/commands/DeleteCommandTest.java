@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -49,6 +50,11 @@ import seedu.address.ui.GuiUnitTest;
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest extends GuiUnitTest {
+
+    @BeforeEach
+    public void setup() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
