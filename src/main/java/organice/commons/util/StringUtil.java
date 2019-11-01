@@ -13,7 +13,7 @@ import java.util.Arrays;
 public class StringUtil {
 
     /**
-     * Returns true if the {@code sentence} contains any word in {@code words}.
+     * Returns true if the {@code sentence} contains the phrase in {@code phrase}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
@@ -22,22 +22,24 @@ public class StringUtil {
      *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
      *       </pre>
      * @param sentence cannot be null
-     * @param words cannot be null, cannot be empty, can be a multi-word string
+     * @param phrase cannot be null, cannot be empty, can be a multi-word string
      */
-    public static boolean containsWordsIgnoreCase(String sentence, String words) {
+    public static boolean containsPhraseIgnoreCase(String sentence, String phrase) {
         requireNonNull(sentence);
-        requireNonNull(words);
+        requireNonNull(phrase);
 
-        words = words.replace("\n", " ").trim();
-        String[] preppedWords = words.split("\\s+");
-        checkArgument(!words.isEmpty() && preppedWords.length > 0, "Words parameter cannot be empty");
+        phrase = phrase.replace("\n", " ").trim();
+        String[] wordsInPhrase = phrase.split("\\s+");
+        checkArgument(!phrase.isEmpty() && wordsInPhrase.length > 0,
+                "Words parameter cannot be empty");
 
         String preppedSentence = sentence.trim();
         String[] wordsInPreppedSentence = preppedSentence.split(",+|\\s+");
 
-        return Arrays.stream(preppedWords).reduce(false, (isAnyWordsMatched, word) -> isAnyWordsMatched
-                || Arrays.stream(wordsInPreppedSentence).anyMatch(word::equalsIgnoreCase), (
-                        isAnyWordsMatched, isNextWordHaveMatch) -> isAnyWordsMatched || isNextWordHaveMatch);
+        return Arrays.stream(wordsInPhrase).reduce(true, (
+                arePreviousWordsMatched, phraseWord) -> arePreviousWordsMatched && Arrays
+                .stream(wordsInPreppedSentence).anyMatch(phraseWord::equalsIgnoreCase), (
+                        arePrevWordsMatched, isNextWordHaveMatch) -> arePrevWordsMatched || isNextWordHaveMatch);
     }
 
     /**
@@ -54,7 +56,7 @@ public class StringUtil {
     public static boolean containsWordIgnoreCase(String sentence, String word) {
         checkArgument(word.trim()
                 .split("\\s+").length == 1, "Word parameter should be a single word");
-        return containsWordsIgnoreCase(sentence, word);
+        return containsPhraseIgnoreCase(sentence, word);
     }
 
     /**

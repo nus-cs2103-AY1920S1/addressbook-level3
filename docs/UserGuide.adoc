@@ -333,11 +333,12 @@ following example illustrates this concept:
 .Find command with multiple prefixes and multiple keywords per prefix.
 image::findByPrefix.png[width="790"]
 
-As seen from Figure 12, `find n/Alice Carl Elle t/doctor donor` displays both `Alice Pauline` and `Elle Meyer`.
-This is due to the fact that Alice's name matches either of 'Alice' `OR` 'Carl', `AND` she is also either a 'doctor'
-`OR` 'donor'. The same is true for Elle.
+As seen from Figure 12, `find n/Duncan n/Lionel n/Helen t/patient t/donor` displays 'Duncan Chua', `Lionel Doe` and
+`Helen Davidson`. This is due to the fact that Duncan's name matches either of 'Duncan' `OR` 'Lionel' `OR` 'Helen' `AND`
+he is also either a 'doctor' `OR` 'donor'. The same is true for Lionel and Helen. You should note that the only
+exception to this rule is tissue type matching, which uses `AND` matching within the prefix.
 
-You may wish to reference the following section: <<List of Attributes>>; to view the list of available prefixes to
+You may wish to reference the following section: <<List of Attributes>>, to view the list of available prefixes to
 search by.
 
 Here are some examples and pointers showcasing the use of `find`:
@@ -351,12 +352,20 @@ __Use case demonstrating keyword case insensitivity__ +
 Displays the same result as the preceding example.
 
 __Use case with multiple keywords per prefix__ +
-* `find n/Alice Benson b/A B O` +
+* `find n/Alice n/Benson b/A b/B b/O` +
 Displays all persons whose name contains either 'Alice' or 'Benson' and whose blood type is either 'A', 'B' or 'O'.
 
 __Use case demonstrating prefix order insensitivity__ +
-* `find b/A B O n/Alice Benson` +
+* `find b/A n/Benson b/O n/Alice b/B` +
 Displays the same result as the preceding example.
+
+__Use case demonstrating full name capture__ +
+* `find n/Laura Bailey n/Marisha Ray` +
+Displays all persons whose name contains 'Laura Bailey' or 'Marisha Ray'.
+
+__Use case demonstrating tissue type finding__ +
+* `find tt/4,1,2,3` +
+Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order.
 
 === Detecting matches: `match`
 
