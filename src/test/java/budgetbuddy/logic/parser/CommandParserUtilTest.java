@@ -2,7 +2,7 @@ package budgetbuddy.logic.parser;
 
 import static budgetbuddy.logic.parser.CommandParserUtil.MESSAGE_INVALID_INDEX;
 import static budgetbuddy.testutil.Assert.assertThrows;
-import static budgetbuddy.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static budgetbuddy.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -31,10 +31,10 @@ public class CommandParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, CommandParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_ITEM, CommandParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, CommandParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_ITEM, CommandParserUtil.parseIndex("  1  "));
     }
 
     @Test
