@@ -5,42 +5,52 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-My team of 4 software engineering students and I were tasked with enhancing a basic CLI (command-line interface)
-desktop addressbook application for our Software Engineering project. We chose to morph it into a flashcard manager application,
-titled _KeyboardFlashCards_. This enhanced application is targeted at computing students (in particular, NUS School of Computing
-students), who will be able to use it to enhance their learning. It does this by simulating a real deck of flashcards, complete with the
-standard functionality that you'd expect from an actual, physical deck (including creation, editing, deletion, and revision of flashcards).
-This application has a GUI created with JavaFX. It is written in Java, and has roughly 16 KLoC.
+This document details the various contributions that I have made to my team project, _KeyboardFlashCards_. Done as part of a second-year software engineering module,
+the project requires that students work in teams to morph a desktop addressbook application into another product. The
+project is required to conform to a number of constraints, the most significant being that the product must have primarily utilize a CLI (command-line interface); this
+means that the primary means of user input to the product must be through the typing of commands. 
+
+This project was the result of six weeks of hard work by my team, which comprises two final-year Computer Engineering students and three sophomore Computer Science
+students (including myself). All are students in the National University of Singapore (NUS).
+
+Our final product is _KeyboardFlashCards_ - a flashcard manager application targeted at computing students (in particular, NUS School of Computing students),  
+who will be able to use it to enhance their learning experience. It does this by simulating a real deck of flashcards, complete with features including creation, editing,
+deletion, revision, and sharing of flashcards. This application is written in the Java programming language, and has a GUI (graphical user interface) created with the JavaFX library.
+It has roughly 17 KLoC, up from the original addressbook application's 10 KLoC.
 
 Here is a screenshot of our project:
 
 image::Ui.png[KeyboardFlashCards]
 _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
+Please note the following symbols and formatting, which will appear throughout the rest of the document:
+TODO
+
+
 == Summary of contributions
 
 |===
-|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other various helpful contributions._
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and various helpful contributions._
 |===
 
-* *Major enhancement #1*: I added *the ability to export flashcards*.
-** What it does: It allows the user to save a subset of their flashcards to a specified external file. The format of the file is inferred from the specified file extension, and hence can be determined by the user.
+* *Major enhancement #1*: I added *the ability to export flashcards to various file formats*.
+** What it does: It allows the user to save a subset of their flashcards to a specified external file. The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
 ** Justification: This feature greatly improves the application, as the ability to export flashcards would mean that the user can easily generate cheat sheets or share flashcards with others.
 ** Highlights: This enhancement was designed in such a way as to maximize extensibility in the future (if a developer wishes to add support for more file formats). It required an in-depth analysis of design alternatives. The implementation was challenging due to the dependence on an external library, as well as the tendency of certain file paths to break our parser.
 ** Credits: All writing of flashcards to `.docx` format is done with the use of Apache POI.
 
-* *Major enhancement #2*: old king cole was a merry old soul and a merry old soul was he
-** What it does: It allows the user to save a subset of their flashcards to a specified external file. The format of file is inferred from the specified file extension.
-** Justification: This feature improves the product significantly because a user .
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement #2: I added *the ability to import flashcards*.
+** What it does: It allows the user to import flashcards from JSON format (files that end in '.json').
+** Justification: A user could previously import '.json' files that were previously exported, by copying and pasting the file over their existing save file. This feature allows users to do the same from the convenience of the application's CLI, Furthermore, importing flashcards in this manner will not result in any loss to their original data.
+** Highlights: TODO
+** Credits: TODO 
 
 //* *Minor enhancement*: ???
 
 * *Code contributed*: Please click on these links to see a sample of my code:
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
 
-* *Other contributions*:
+* *Other contributions*
 
 ** Project management
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -48,6 +58,8 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation
+*** Wrote the User Guide and Developer Guide content pertaining to the exporting and importing of flashcards https://github.com[#14]
+*** TODO wrote the qna? what else ah https://github.com[#14]
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community
 *** PRs reviewed (with non-trivial review comments):
@@ -56,7 +68,8 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:
     https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53[1],
-    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2]
+    https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23[2],
+    TODO the one reviewed for mock PE?
     )
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools
