@@ -388,7 +388,7 @@ Refer to <<Scripting>> for script usage.
 *** `=` : equality operator
 *** `<` , `\<=`  , `>=` , `>` : inequality operators
 *** `contains` : string comparison operator
-** A value can be a number or a string of length not more than 50 characters
+** A value can be a number or a string of length not more than 180 characters
 
 * **Action**: In the order of `<action operator> <value>`
 ** An action operator can be one of the following:

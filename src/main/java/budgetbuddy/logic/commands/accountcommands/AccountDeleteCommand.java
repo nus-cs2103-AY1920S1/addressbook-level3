@@ -1,7 +1,7 @@
 package budgetbuddy.logic.commands.accountcommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
-import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
+import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_SINGLE_ID;
 
 import java.util.List;
 
@@ -24,9 +24,9 @@ public class AccountDeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an account.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + KEYWORD_SINGLE_ID + " "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Japan trip ";
+            + "3";
 
     public static final String MESSAGE_DELETE_ACCOUNT_SUCCESS = "Deleted Account: %1$s";
 
