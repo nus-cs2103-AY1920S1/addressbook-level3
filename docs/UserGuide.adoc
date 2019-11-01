@@ -387,7 +387,7 @@ Format: `rdone INDEX` +
 Example: +
 `rdone 1`
 
-==== View revision tasks: `rlist`
+==== View all revision tasks: `rlist`
 This command displays the whole revision task list. +
 Format: `rlist`
 
@@ -436,6 +436,26 @@ The student can register and login to the application using their email and pass
 ==== Lecture note grouping suggestions
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
+
+== Command summary
+
+*Add a revision task for note*: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900`
+
+*Add a revision task for question*: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+eg. `rq 1 dt/11/11/2019 tm/1500`
+
+*Remove a revision task*: `rdelete INDEX_OF_TASK` +
+eg. `rdelete 2`
+
+*Mark the revision task as done*: `rdone INDEX` +
+eg. `rdone 1`
+
+*View all revision tasks*:
+
+
+
+
 
 == FAQ
 
