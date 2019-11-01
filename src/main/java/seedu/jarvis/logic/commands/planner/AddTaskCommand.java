@@ -93,10 +93,10 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Adds {@code Task} to the planner, if task is not already inside address book.
+     * Adds {@code Task} to the planner, if task is not already inside planner.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} that person was added successfully.
+     * @return {@code CommandResult} that task was added successfully.
      * @throws CommandException If there already is a {@code Task} matching the task
      * to be added in the planner.
      */
