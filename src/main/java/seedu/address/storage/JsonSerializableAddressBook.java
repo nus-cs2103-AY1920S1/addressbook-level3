@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.Expense;
@@ -19,7 +20,6 @@ import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.storage.conditions.JsonAdaptedCondition;
-
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -37,16 +37,15 @@ class JsonSerializableAddressBook {
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminders = new ArrayList<>();
     private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
+    private final List<JsonAdaptedAutoExpense> autoExpenses = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
-                                       @JsonProperty("listofExpenseCategories") List<JsonAdaptedCategory>
-                                               listofExpenseCategories,
-                                       @JsonProperty("listofIncomeCategories") List<JsonAdaptedCategory>
-                                               listofIncomeCategories) {
+            @JsonProperty("listofExpenseCategories") List<JsonAdaptedCategory> listofExpenseCategories,
+            @JsonProperty("listofIncomeCategories") List<JsonAdaptedCategory> listofIncomeCategories) {
         this.expenses.addAll(expenses);
         this.listofExpenseCategories.addAll(listofExpenseCategories);
         this.listofIncomeCategories.addAll(listofIncomeCategories);
@@ -59,10 +58,10 @@ class JsonSerializableAddressBook {
      *               {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        listofExpenseCategories.addAll(source.getExpenseCategoryList().stream().map(JsonAdaptedCategory::new)
-                .collect(Collectors.toList()));
-        listofIncomeCategories.addAll(source.getIncomeCategoryList().stream().map(JsonAdaptedCategory::new)
-                .collect(Collectors.toList()));
+        listofExpenseCategories.addAll(
+                source.getExpenseCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
+        listofIncomeCategories.addAll(
+                source.getIncomeCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
         wishes.addAll(source.getWishList().stream().map(JsonAdaptedWish::new).collect(Collectors.toList()));
@@ -70,6 +69,8 @@ class JsonSerializableAddressBook {
         reminders.addAll(source.getReminderList().stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
         conditions
                 .addAll(source.getConditionList().stream().map(JsonAdaptedCondition::new).collect(Collectors.toList()));
+        autoExpenses.addAll(
+                source.getAutoExpenseList().stream().map(JsonAdaptedAutoExpense::new).collect(Collectors.toList()));
     }
 
     /**
@@ -114,7 +115,7 @@ class JsonSerializableAddressBook {
             addressBook.addWish(wish);
         }
 
-        for (JsonAdaptedBudget jsonAdaptedBudget: budgets) {
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
             if (!addressBook.getCategoryList().contains(budget.getCategory())) {
                 throw new IllegalValueException(MESSAGE_WRONG_CATEGORY);
@@ -129,6 +130,14 @@ class JsonSerializableAddressBook {
 
         for (Condition condition : mapper.getConditions()) {
             addressBook.addCondition(condition);
+        }
+
+        for (JsonAdaptedAutoExpense jsonAdaptedAutoExpense : autoExpenses) {
+            AutoExpense autoExpense = jsonAdaptedAutoExpense.toModelType();
+            if (!addressBook.getCategoryList().contains(autoExpense.getCategory())) {
+                throw new IllegalValueException(MESSAGE_WRONG_CATEGORY);
+            }
+            addressBook.addAutoExpense(autoExpense);
         }
 
         return addressBook;
