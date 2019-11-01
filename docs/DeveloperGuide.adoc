@@ -339,6 +339,7 @@ image::DeleteActivityDiagram.png[]
 `Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
 `Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
 `inTransaction` and `outTransaction` implement `BankAccountOperation`.
+
 ==== Design Consideration
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
@@ -418,6 +419,21 @@ Developers have to create a new predicate class to filter a new category.
 
 // end::filter[]
 
+// tag::view[]
+=== View Feature: `view`
+
+This feature allows the user to switch between the different tabs of the application.
+
+==== Current Implementation
+
+The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
+
+The following activity diagram shows the flow of the `view` command.
+
+.Activity Diagram for `View`
+image::ViewActivityDiagram.png[]
+// end::view[]
+
 // tag::split[]
 === Split Feature: `split`
 
@@ -469,6 +485,7 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 
 ==== Design Considerations
+
 Currently, `Budget` does not extend from `Transaction` although the two behave in a similar way.
 There is an aggregation between `Budget` and `Transaction` as the two can exist independent of each other,
 although an effect on one may also cause an impact on the other.

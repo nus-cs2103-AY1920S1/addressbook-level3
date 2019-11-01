@@ -31,6 +31,9 @@ public class OutCommand extends Command {
             + PREFIX_CATEGORY + "foodAndBeverage";
 
     public static final String MESSAGE_SUCCESS = "Out transaction added: %1$s";
+    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 billion (i.e. 1,000,000)";
+    public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
+    public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
 
     private final BankAccountOperation transaction;
 
