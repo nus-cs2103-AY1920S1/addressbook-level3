@@ -721,13 +721,13 @@ items similar to the description that you might be looking for.
 
 Examples:
 
-** `add c/food` - Displays all items that are under the 'food' category
+** `add c/food` - Displays all items that are under the 'food' category in the response box
 ** `add c/stationary d/pancake q/3` - Adds 3 items which has the description "pancake"
 ** `add d/pancake q/3` - Adds 3 items which has the description "pancake"
 
 [NOTE]
-The items according to the category will only be displayed if both description and quantity fields are not specified.
-If both are specified but description is invalid, only suggestions will be shown according to the mistyped description.
+The items according to the category will only be displayed in the response box if both description and quantity fields are not specified.
+If both are specified but description is invalid, only suggestions will be shown according to the mistyped description in the response box.
 
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
