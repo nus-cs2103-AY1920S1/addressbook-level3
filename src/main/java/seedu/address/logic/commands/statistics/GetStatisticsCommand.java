@@ -2,6 +2,7 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.statistics.Type.STATS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 
 import seedu.address.logic.commands.Command;
@@ -20,26 +21,29 @@ public class GetStatisticsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets the statistics of how well "
             + "a question has been answered for a subject. "
             + "A pie chart will be returned.\n"
-            + "Parameters: "
-            + PREFIX_SUBJECT + "SUBJECT "
-            + "[" + PREFIX_SUBJECT + "SUBJECT]... \n"
+            + "Parameters: ["
+            + PREFIX_DIFFICULTY + "DIFFICULTY] ["
+            + PREFIX_SUBJECT + "SUBJECT1] "
+            + "[" + PREFIX_SUBJECT + "SUBJECT2]... \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SUBJECT + "CS2103T";
 
-    public static final String MESSAGE_SUCCESS = "Here are the statistics: ";
+    public static final String MESSAGE_SUCCESS = "Here are the statistics: %s";
     public static final String MESSAGE_NO_STATISTICS = "There is no available data for computation of "
             + "statistics, try doing some questions.";
 
     private QuizResultFilter quizResultFilter;
+    private String message;
 
     /**
      * Creates a GetStatisticsCommand to get the specified statistics
      * filtered by the {@code QuizResultFilter}.
      * @param quizResultFilter The filter to be applied to the quiz results.
      */
-    public GetStatisticsCommand(QuizResultFilter quizResultFilter) {
+    public GetStatisticsCommand(QuizResultFilter quizResultFilter, String message) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
+        this.message = message;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class GetStatisticsCommand extends Command {
         } catch (EmptyQuizResultListException e) {
             throw new CommandException(MESSAGE_NO_STATISTICS);
         }
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
+        CommandResult c = new CommandResult(String.format(MESSAGE_SUCCESS, message), 8);
         c.setType(STATS);
         return c;
     }

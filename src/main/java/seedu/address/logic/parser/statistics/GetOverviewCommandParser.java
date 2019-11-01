@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.commands.statistics.GetOverviewCommand;
@@ -31,9 +32,10 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
         QuizResultFilter quizResultFilter = new QuizResultFilter();
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
-        List<String> dates;
+        List<String> dates = new ArrayList<>();
         LocalDate startDate;
         LocalDate endDate;
+        String timePeriod = "";
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             dates = argMultimap.getAllValues(PREFIX_DATE);
@@ -55,6 +57,11 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
             }
             quizResultFilter = new QuizResultFilter(startDate, endDate);
         }
-        return new GetOverviewCommand(quizResultFilter);
+
+        if (!dates.isEmpty()) {
+            timePeriod = "\n(" + dates.get(0) + " to " + dates.get(1) + ")";
+        }
+
+        return new GetOverviewCommand(quizResultFilter, timePeriod);
     }
 }

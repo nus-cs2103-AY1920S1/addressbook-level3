@@ -53,6 +53,17 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
             quizResultFilter = new QuizResultFilter(subjects);
         }
 
-        return new GetStatisticsCommand(quizResultFilter);
+        return new GetStatisticsCommand(quizResultFilter, returnMessage(d, subjects));
+    }
+
+    private String returnMessage(Optional d, List<Subject> s) {
+        String message = "";
+        if (d.isPresent()) {
+            message += "\n[" + d.get() + "]";
+        }
+        if (!s.isEmpty()) {
+            message += "\n" + s.toString();
+        }
+        return message;
     }
 }

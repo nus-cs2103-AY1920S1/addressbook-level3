@@ -27,19 +27,21 @@ public class GetOverviewCommand extends Command {
             + "dt/08/09/2019 "
             + "dt/10/09/2019";
 
-    public static final String MESSAGE_SUCCESS = "Here is an overview of the questions: ";
+    public static final String MESSAGE_SUCCESS = "Here is an overview of the questions: %1$s";
     public static final String MESSAGE_NO_STATISTICS = "There are no questions done, try doing some questions.";
 
     private QuizResultFilter quizResultFilter;
+    private String message;
 
     /**
      * Creates a GetOverviewCommand to get the specified quiz
      * results filtered by the {@code QuizResultFilter}.
      * @param quizResultFilter The filter to be applied to the quiz results.
      */
-    public GetOverviewCommand(QuizResultFilter quizResultFilter) {
+    public GetOverviewCommand(QuizResultFilter quizResultFilter, String message) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
+        this.message = message;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class GetOverviewCommand extends Command {
         } catch (EmptyQuizResultListException e) {
             throw new CommandException(MESSAGE_NO_STATISTICS);
         }
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
+        CommandResult c = new CommandResult(String.format(MESSAGE_SUCCESS, message), 8);
         c.setType(OVERVIEW);
         return c;
     }

@@ -19,25 +19,27 @@ public class GetQnsCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets all questions that have been answered "
             + "correctly/incorrectly for a particular subject by using either -c/-i respectively.\n"
+            + "Either one of -c or -i must be used, you can also include optional subject fields.\n"
             + "Parameters: "
             + "[-c] [-i] ["
             + PREFIX_SUBJECT + "SUBJECT1]...\n"
             + "Example: " + COMMAND_WORD + " -c "
             + PREFIX_SUBJECT + "CS2103T";
 
-    public static final String MESSAGE_SUCCESS = "Here are the questions: ";
     public static final String MESSAGE_NO_QNS = "There are no correctly/incorrectly answered questions, "
             + "try doing some questions.";
 
     private QuizResultFilter quizResultFilter;
+    private String message;
 
     /**
      * Creates a GetQnsCommand to get the specified questions filtered by the {@code QuizResultFilter}.
      * @param quizResultFilter The filter to be applied to the quiz results.
      */
-    public GetQnsCommand(QuizResultFilter quizResultFilter) {
+    public GetQnsCommand(QuizResultFilter quizResultFilter, String message) {
         requireNonNull(quizResultFilter);
         this.quizResultFilter = quizResultFilter;
+        this.message = message;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class GetQnsCommand extends Command {
         } catch (EmptyQuizResultListException e) {
             throw new CommandException(MESSAGE_NO_QNS);
         }
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
+        CommandResult c = new CommandResult(message, 8);
         c.setType(QUESTIONS);
         return c;
     }
