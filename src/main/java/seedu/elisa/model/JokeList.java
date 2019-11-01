@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,7 +21,12 @@ public class JokeList {
         jokes = new ArrayList<>();
         rng = new Random();
 
-        BufferedReader r = new BufferedReader(new InputStreamReader(jokeFile));
+        BufferedReader r = null;
+        try {
+            r = new BufferedReader(new InputStreamReader(jokeFile, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         try {
             String l;
