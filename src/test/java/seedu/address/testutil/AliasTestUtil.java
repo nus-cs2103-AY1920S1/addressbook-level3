@@ -3,18 +3,18 @@ package seedu.address.testutil;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
 
-import seedu.address.commons.core.Alias;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
-import seedu.address.logic.commands.expense.ClearCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
 import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 
 /**
  * A utility class representing {@code AliasMappings} objects to be used in tests.

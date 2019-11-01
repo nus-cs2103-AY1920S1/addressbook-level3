@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.Alias;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;

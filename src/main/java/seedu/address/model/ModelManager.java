@@ -10,11 +10,11 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.Alias;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;

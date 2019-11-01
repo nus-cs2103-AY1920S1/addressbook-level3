@@ -1,0 +1,110 @@
+= Brian Fung - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MooLah
+
+---
+
+== Overview
+
+This portfolio aims to document the contributions made to MooLah by Brian Fung.
+
+MooLah is a desktop expense tracking application, which was morphed from the code of Software Engineering Education's AddressBook - Level 3 used for teaching Software Engineering principles.
+MooLah is a hassle-free expense tracker aimed at NUS students.
+
+The user interacts with it using a Command-Line Interface (CLI), and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added *shortcut feature*
+** What it does:
+1. allows the user to assign an alias to an input, allowing them to create shortcuts for command which they
+frequently require. this saves them a lot of time entering all the arguments for a command, as well as reduces the need to
+remember what exactly needs to be entered.
+2. saves successfully inputted commands to history to allow reentering of commands used within the same session
+3. generic commands
+** Justification: as this is a CLI-Interface application, users would generally have to remember a lot of commands as
+well as command syntax. This feature allows users to reduce the keystrokes needed to complete a task, and
+reduce the need to remember commands.
+** Highlights:
+
+
+* *Major enhancement*: added *autocomplete and syntax highlighting
+** What it does:
+1. highlights syntax to show which arguments belong under which prefix in the CLI-interface.
+2. adds placeholders to indicate what argument a prefix is expecting after a user enters the prefix
+3. shows what are the valid commands the user can enter
+4. shows what are the required prefixes and optional prefixes which the command requires.
+
+** What it does: allows the user to see what arguments they may have missed, and help them remember what each the arguments needed
+for each command
+** Justification: This feature improves the product significantly because a user does not need to remember confusing commands and syntax.
+Especially due to the fact that our application supports a large number of commands. This allows users to see what valid commands there are as well
+as what arguments are required without having to press enter the command and see an error message.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands as well heavy use of javafx elements.
+** Credits: {richtextfx demo... }
+
+* *Major enhancement*: add *GUI elements for Budget List, Budgets, Expense List*
+** What it does ...
+
+* *Minor enhancement*: add *GUI support adding of future panels*
+...
+
+* *Minor enhancement*: *initial refactoring of AddressBook into MooLah*
+** refactor Person class to expense
+...
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (---)
+*** Refactored the GUI to support of adding extra Panels
+//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+//*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the syntax highlighting/autocomplete feature was ...
+////
+ (https://github.com[1], https://github.com[2])
+////
+
+** Tools:
+*** Integrated a third party library (RichTextFX) to the project (#...)
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=brian]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
+//include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+
+
+_{Optionally, you may include other projects in your portfolio.}_

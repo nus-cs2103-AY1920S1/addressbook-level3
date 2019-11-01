@@ -2,7 +2,6 @@ package seedu.address.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_TRANSPORT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;

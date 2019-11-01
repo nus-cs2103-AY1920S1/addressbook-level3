@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.logic.Logic;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Event;

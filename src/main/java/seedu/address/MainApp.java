@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -24,6 +23,7 @@ import seedu.address.model.ReadOnlyMooLah;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonMooLahStorage;
 import seedu.address.storage.JsonUserPrefsStorage;

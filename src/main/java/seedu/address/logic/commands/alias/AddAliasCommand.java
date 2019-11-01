@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 
-import seedu.address.commons.core.Alias;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.alias.Alias;
 import seedu.address.ui.alias.AliasPanel;
 
 /**
@@ -46,11 +46,6 @@ public class AddAliasCommand extends UndoableCommand {
     }
 
     @Override
-    public String getDescription() {
-        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
-    }
-
-    @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
 
@@ -81,5 +76,10 @@ public class AddAliasCommand extends UndoableCommand {
         return obj == this // short circuit if same object
                 || (obj instanceof AddAliasCommand // instanceof handles nulls
                 && this.toAdd.equals(((AddAliasCommand) obj).toAdd));
+    }
+
+    @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
     }
 }

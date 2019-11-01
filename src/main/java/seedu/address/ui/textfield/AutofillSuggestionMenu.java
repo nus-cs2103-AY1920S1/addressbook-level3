@@ -4,6 +4,7 @@ import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEH
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -124,7 +125,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private void showSuggestions() {
         if (autofillSupportedCommands.size() > 0 || commandSuggestions.size() > 0) {
-            this.show(textInputControl, Side.LEFT, 0, 20);
+            this.show(textInputControl, Side.LEFT, 0, -20);
         } else {
             hide();
         }
@@ -208,6 +209,13 @@ public class AutofillSuggestionMenu extends ContextMenu {
                 item.setGraphic(graphic);
                 m.getItems().add(item);
             }
+            if (missing[0].size() > 0) {
+                String all = missing[0].stream().map(Object::toString).collect(Collectors.joining(" "));
+                MenuItem allPre = new MenuItem();
+                allPre.setId(all);
+                allPre.setGraphic(requiredPrefixGraphic(missing[0]));
+                m.getItems().add(allPre);
+            }
             if (missing[0].size() > 0 && missing[1].size() > 0) {
                 m.getItems().add(new SeparatorMenuItem());
             }
@@ -273,6 +281,23 @@ public class AutofillSuggestionMenu extends ContextMenu {
         Text prefix = new Text(" " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
         prefix.setFill(REQUIRED_TEXT_COLOUR);
         graphic.getChildren().addAll(req, prefix);
+        return graphic;
+    }
+
+    /**
+     * Creates TextFlow used for AutoFillMenu graphics for list of required prefixs.
+     * @param p The prefix to generate a graphic for.
+     * @return The graphic {@code TextFlow}
+     */
+    private TextFlow requiredPrefixGraphic(List<Prefix> p) {
+        TextFlow graphic = new TextFlow();
+        graphic.setPadding(Insets.EMPTY);
+        Label req = new Label("ALL MISSING");
+        req.setTextFill(REQUIRED_TEXT_COLOUR);
+        req.setPadding(Insets.EMPTY);
+        req.setBackground(new Background(
+                new BackgroundFill(REQUIRED_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
+        graphic.getChildren().addAll(req);
         return graphic;
     }
 

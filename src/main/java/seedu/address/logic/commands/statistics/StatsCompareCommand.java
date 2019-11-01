@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;

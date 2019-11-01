@@ -13,9 +13,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextFlow;
-import seedu.address.commons.core.Alias;
-import seedu.address.commons.core.AliasMappings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.alias.Alias;
+import seedu.address.model.alias.AliasMappings;
 import seedu.address.ui.panel.Panel;
 import seedu.address.ui.panel.PanelName;
 

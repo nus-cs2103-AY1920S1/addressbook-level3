@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
