@@ -518,10 +518,13 @@ Examples:
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the add n/textbook c/100 command)
 
-=== Clear all data : `clear`
-Clears all entries from the application. +
+=== Clear all spending entries : `clear`
+Clears all spending entries from the application. +
 Format: `clear`
 
+=== Clear all reminder entries : `reminder clear`
+Clears all reminder entries from the application. +
+Format: `reminder clear`
 
 === Exiting the program : `exit`
 
@@ -575,7 +578,8 @@ e.g. `reminder n/30/08/2020 m/Pay school fee`
 e.g. `reminder delete 2`
 | *Undo*| `undo` +
 | *Redo*| `redo` +
-| *Clear*| `clear` +
+| *Clear all spending*| `clear` +
+| *Clear all reminders*| `reminder clear` +
 | *Exit*| `exit` +
 |=======================================================================
 
