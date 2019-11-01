@@ -11,8 +11,13 @@ import javafx.scene.image.ImageView;
  */
 public abstract class PanelTab extends Tab {
 
+    DisplayPanel primaryPanel;
+    DisplayPanel secondaryPanel;
 
     public PanelTab(DisplayPanel panel, String imageFileName) {
+        this.primaryPanel = panel;
+        this.secondaryPanel = null;
+
         setClosable(false);
         setContent(panel.getRoot());
 
@@ -31,5 +36,21 @@ public abstract class PanelTab extends Tab {
                 currImage.setEffect(desaturateEffect);
             }
         });
+    }
+
+    public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
+        this(primaryPanel, imageFileName);
+        this.primaryPanel = primaryPanel;
+        this.secondaryPanel = secondaryPanel;
+    }
+
+    public void setPrimaryPanel() {
+        setContent(primaryPanel.getRoot());
+    }
+
+    public void setSecondaryPanel() {
+        if (secondaryPanel != null) {
+            setContent(secondaryPanel.getRoot());
+        }
     }
 }
