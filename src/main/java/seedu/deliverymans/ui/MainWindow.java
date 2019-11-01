@@ -135,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCustomerDatabaseFilePath()); // to be edited
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath()); // to be edited
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -258,6 +258,9 @@ public class MainWindow extends UiPart<Stage> {
             deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
                     logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
+            break;
+        case "ListAvailCommand":
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
         case "EnterRecordCommand":
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
