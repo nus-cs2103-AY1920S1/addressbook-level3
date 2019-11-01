@@ -156,6 +156,7 @@ public class MainWindow extends UiPart<Stage> {
 
         switch (newContextType) {
         case LIST_ACTIVITY:
+            activityListPanel.refreshView();
             contentContainer.getChildren().add(activityListPanel.getRoot());
             break;
         case LIST_CONTACT:
