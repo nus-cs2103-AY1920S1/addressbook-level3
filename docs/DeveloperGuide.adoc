@@ -510,7 +510,7 @@ a|* If the status of the `Body` is changed before the 10 second window.
 ** Cons: Cause a lot of repetition of code.
 
 // tag::genpdf[]
-=== Generate PDF Feature
+=== Generate PDF Feature [coming in v2.0]
 ==== Implementation
 
 The generate PDF feature is facilitated by `ReportGenerator`.
