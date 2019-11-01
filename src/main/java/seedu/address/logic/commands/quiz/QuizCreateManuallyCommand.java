@@ -37,7 +37,10 @@ public class QuizCreateManuallyCommand extends QuizCommand {
 
         ArrayList<Integer> questionNumbers = new ArrayList<>();
         for (String s : splitQuestionNumbers) {
-            questionNumbers.add(Integer.parseInt(s));
+            int convertedInt = Integer.parseInt(s);
+            if (!questionNumbers.contains(convertedInt)) {
+                questionNumbers.add(convertedInt);
+            }
         }
 
         this.quizId = quizId;
