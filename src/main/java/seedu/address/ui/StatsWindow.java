@@ -3,12 +3,13 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
@@ -40,8 +41,37 @@ public class StatsWindow extends UiPart<Stage> {
      */
     public void show(Model model) {
         logger.fine("Showing stats page about the application.");
-
         requireNonNull(model);
+
+        buildStatsWindow(model);
+        getRoot().show();
+        getRoot().centerOnScreen();
+    }
+
+    /**
+     * Scene Builder.
+     */
+    public void buildStatsWindow(Model model){
+        final CategoryAxis xAxisA = new CategoryAxis();
+        final NumberAxis yAxisA = new NumberAxis();
+        final CategoryAxis xAxisB = new CategoryAxis();
+        final NumberAxis yAxisB = new NumberAxis();
+        final NumberAxis xAxisC = new NumberAxis();
+        final NumberAxis yAxisC = new NumberAxis();
+
+        final BarChart<String, Number> bc1 = new BarChart<>(xAxisA, yAxisA);
+        final BarChart<String, Number> bc2 = new BarChart<>(xAxisB, yAxisB);
+        final LineChart<Number, Number> lc = new LineChart<>(xAxisC, yAxisC);
+
+        bc1.setTitle("Total");
+        bc2.setTitle("Completed in tests");
+        lc.setTitle("Performance Chart");
+        xAxisA.setLabel("Rating");
+        yAxisA.setLabel("Number of FlashCards");
+        xAxisB.setLabel("Rating");
+        yAxisB.setLabel("Number of FlashCards");
+        xAxisC.setLabel("Test Number");
+        yAxisC.setLabel("Percentage");
 
         model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("good"));
         int numGood = model.getFilteredFlashCardList().size();
@@ -52,56 +82,67 @@ public class StatsWindow extends UiPart<Stage> {
 
         int[] stats = model.getTestStats();
 
-        buildStatsWindow(numGood, numHard, numEasy, stats[0], stats[1], stats[2]);
-        getRoot().show();
-        getRoot().centerOnScreen();
+        XYChart.Series seriesA = new XYChart.Series();
+        seriesA.getData().add(new XYChart.Data(good, numGood));
+        seriesA.getData().add(new XYChart.Data(hard, numHard));
+        seriesA.getData().add(new XYChart.Data(easy, numEasy));
+
+        XYChart.Series seriesB = new XYChart.Series();
+        seriesB.getData().add(new XYChart.Data(good, stats[0]));
+        seriesB.getData().add(new XYChart.Data(hard, stats[1]));
+        seriesB.getData().add(new XYChart.Data(easy, stats[2]));
+
+        XYChart.Series seriesC = new XYChart.Series();
+        ArrayList<Integer> perform = model.getPerformance();
+        if (perform.size()==0){
+            seriesC.getData().add(new XYChart.Data(0, 0));
+        }
+        else {
+            for (int i = 0; i < perform.size(); i++) {
+                seriesC.getData().add(new XYChart.Data(i+1, perform.get(i).intValue()));
+            }
+        }
+
+        bc1.getData().addAll(seriesA);
+        bc2.getData().addAll(seriesB);
+        lc.getData().add(seriesC);
+
+        removeLegend(bc1, bc2, lc);
+        setColour(bc1, bc2);
+
+        FlowPane root = new FlowPane();
+        root.getChildren().addAll(bc1, bc2, lc);
+        Scene scene = new Scene(root, 1600, 400);
+        stage.setTitle("STATISTICS");
+        stage.setScene(scene);
     }
 
     /**
-     * Scene Builder.
+     * Removes the legend from bar charts since they are not required.
      */
-    public void buildStatsWindow(int numGood, int numHard, int numEasy, int statsA, int statsB, int statsC){
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        final BarChart<String, Number> bc = new BarChart<>(xAxis, yAxis);
-        final LineChart<String, Number> lc = new LineChart<>(xAxis, yAxis);
-        bc.setTitle("STATISTICS");
-        lc.setTitle("STATS");
-        xAxis.setLabel("Rating");
-        yAxis.setLabel("Number of FlashCards");
+    public void removeLegend(BarChart<String, Number> bc1, BarChart<String, Number> bc2, LineChart<Number, Number> lc){
+        bc1.setLegendVisible(false);
+        bc2.setLegendVisible(false);
+        lc.setLegendVisible(false);
+    }
 
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Total");
-        series1.getData().add(new XYChart.Data(good, numGood));
-        series1.getData().add(new XYChart.Data(hard, numHard));
-        series1.getData().add(new XYChart.Data(easy, numEasy));
+    /**
+     * Sets the bar chart colours to red, blue and green.
+     */
+    public void setColour(BarChart<String, Number> bc1, BarChart<String, Number> bc2){
+        Node n = bc1.lookup(".data0.chart-bar");
+        n.setStyle("-fx-bar-fill: blue");
+        n = bc1.lookup(".data1.chart-bar");
+        n.setStyle("-fx-bar-fill: red");
+        n = bc1.lookup(".data2.chart-bar");
+        n.setStyle("-fx-bar-fill: green");
 
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Completed in Test");
-        series2.getData().add(new XYChart.Data(good, statsA));
-        series2.getData().add(new XYChart.Data(hard, statsB));
-        series2.getData().add(new XYChart.Data(easy, statsC));
-
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Total");
-        series3.getData().add(new XYChart.Data(good, numGood));
-        series3.getData().add(new XYChart.Data(hard, numHard));
-        series3.getData().add(new XYChart.Data(easy, numEasy));
-
-        XYChart.Series series4 = new XYChart.Series();
-        series4.setName("Completed in Test");
-        series4.getData().add(new XYChart.Data(good, statsA));
-        series4.getData().add(new XYChart.Data(hard, statsB));
-        series4.getData().add(new XYChart.Data(easy, statsC));
-
-        bc.getData().addAll(series1, series2);
-        lc.getData().addAll(series3, series4);
-
-        FlowPane root = new FlowPane();
-        root.getChildren().addAll(bc, lc);
-        Scene scene = new Scene(root, 1000, 450);
-        stage.setTitle("KFC STATISTICS");
-        stage.setScene(scene);
+        Node n2 = bc2.lookup(".data0.chart-bar");
+        n2.setStyle("-fx-bar-fill: blue");
+        n2 = bc2.lookup(".data1.chart-bar");
+        n2.setStyle("-fx-bar-fill: red");
+        n2 = bc2.lookup(".data2.chart-bar");
+        n2.setStyle("-fx-bar-fill: green");
     }
 
     /**
