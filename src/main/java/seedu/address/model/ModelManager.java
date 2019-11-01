@@ -195,6 +195,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
+        System.out.println(filteredTransactions);
         filteredTransactions.setPredicate(predicate);
     }
 
