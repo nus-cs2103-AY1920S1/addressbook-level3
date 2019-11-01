@@ -27,23 +27,40 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final Storage storage;
+    private final CommandHistory history;
     private final FlashcardListParser flashcardListParser;
+    private boolean flashcardListModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        history = new CommandHistory();
         flashcardListParser = new FlashcardListParser();
+
+        // Set flashcardListModified to true whenever the models' flashcard list is modified.
+        model.getFlashcardList().addListener(observable -> flashcardListModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = flashcardListParser.parseCommand(commandText);
-        CommandResult commandResult = command.execute(model);
+        flashcardListModified = false;
+
+        CommandResult commandResult;
         try {
-            storage.saveFlashcardList(model.getFlashcardList());
-        } catch (IOException e) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + e, e);
+            Command command = flashcardListParser.parseCommand(commandText);
+            commandResult = command.execute(model, history);
+        } finally {
+            history.add(commandText);
+        }
+
+        if (flashcardListModified) {
+            logger.info("Flashcard List modified, saving to file.");
+            try {
+                storage.saveFlashcardList(model.getFlashcardList());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
         }
         return commandResult;
     }
@@ -76,5 +93,10 @@ public class LogicManager implements Logic {
     @Override
     public Statistics getStatistics () {
         return model.getStatistics();
+    }
+
+    @Override
+    public ObservableList<String> getHistory() {
+        return history.getHistory();
     }
 }

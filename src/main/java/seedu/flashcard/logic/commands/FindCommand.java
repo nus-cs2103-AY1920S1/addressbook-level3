@@ -3,6 +3,7 @@ package seedu.flashcard.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.flashcard.commons.core.Messages;
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.FlashcardContainsKeywordsPredicate;
 
@@ -25,7 +26,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredFlashcardList(predicate);
         return new CommandResult(

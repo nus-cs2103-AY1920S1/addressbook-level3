@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Set;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+import seedu.flashcard.commons.util.InvalidationListenerManager;
 import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.UniqueFlashcardList;
 import seedu.flashcard.model.tag.Tag;
@@ -17,6 +19,7 @@ import seedu.flashcard.model.tag.Tag;
 public class FlashcardList implements ReadOnlyFlashcardList {
 
     private final UniqueFlashcardList flashcards = new UniqueFlashcardList();
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     public FlashcardList() {}
 
@@ -31,6 +34,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void setFlashcards(List<Flashcard> flashcards) {
         this.flashcards.setFlashcards(flashcards);
+        indicateModified();
     }
 
     /**
@@ -55,6 +59,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void addFlashcard(Flashcard flashcard) {
         flashcards.add(flashcard);
+        indicateModified();
     }
 
     /**
@@ -66,6 +71,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
     public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireNonNull(editedFlashcard);
         flashcards.setFlashcard(target, editedFlashcard);
+        indicateModified();
     }
 
     /**
@@ -74,6 +80,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void removeFlashcard(Flashcard key) {
         flashcards.remove(key);
+        indicateModified();
     }
 
     /**
@@ -95,6 +102,23 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void flashcardsRemoveTag(Tag tag) {
         flashcards.removeTag(tag);
+    }
+
+    /**
+     * Notifies listeners that the flashcard list has been modified.
+     */
+    protected void indicateModified() {
+        invalidationListenerManager.callListeners(this);
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        invalidationListenerManager.addListener(listener);
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        invalidationListenerManager.removeListener(listener);
     }
 
     @Override

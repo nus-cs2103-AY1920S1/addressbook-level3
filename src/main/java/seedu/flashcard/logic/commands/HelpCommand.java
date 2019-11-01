@@ -1,5 +1,6 @@
 package seedu.flashcard.logic.commands;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.model.Model;
 
 /**
@@ -15,7 +16,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, CommandHistory history) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

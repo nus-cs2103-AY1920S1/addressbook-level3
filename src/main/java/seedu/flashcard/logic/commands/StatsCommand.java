@@ -5,6 +5,7 @@ import static seedu.flashcard.model.Model.PREDICATE_SHOW_ALL_FLASHCARDS;
 
 import java.util.Set;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.tag.Tag;
@@ -33,7 +34,7 @@ public class StatsCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         if (target == null) {
             model.updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
