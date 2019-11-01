@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.display.detailwindow.PersonTimeslot;
@@ -41,5 +42,9 @@ public class ScheduleDisplayCard extends UiPart<Region> {
             venue.setStyle("-fx-opacity: 0.3;");
             timing.setStyle("-fx-opacity: 0.3;");
         }
+        Tooltip eventNameTooltip = new Tooltip(timeslot.getEventName());
+        Tooltip venueTooltip = new Tooltip(timeslot.getVenue().toString());
+        Tooltip.install(eventName, eventNameTooltip);
+        Tooltip.install(venue, venueTooltip);
     }
 }
