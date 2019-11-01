@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.EditLessonCommand.EditLessonDescriptor;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LESSONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
@@ -23,7 +24,7 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
     public EditLessonCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_DAY, PREFIX_LESSONNAME, PREFIX_STARTTIME, PREFIX_ENDTIME);
 
         Index index;
 
@@ -33,6 +34,8 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditLessonCommand.MESSAGE_USAGE), pe);
         }
+
+        Index day = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_DAY).get());
 
         EditLessonDescriptor editLessonDescriptor = new EditLessonDescriptor();
         if (argMultimap.getValue(PREFIX_LESSONNAME).isPresent()) {
@@ -48,7 +51,7 @@ public class EditLessonCommandParser implements Parser<EditLessonCommand> {
             throw new ParseException(EditLessonCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditLessonCommand(index, editLessonDescriptor);
+        return new EditLessonCommand(index, editLessonDescriptor, day);
     }
 
 }

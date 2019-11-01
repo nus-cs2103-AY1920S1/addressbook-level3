@@ -14,6 +14,7 @@ import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.classroom.UniqueClassroomList;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
+import seedu.address.model.lesson.UniqueLessonWeekList;
 import seedu.address.model.scheduler.Reminder;
 import seedu.address.model.scheduler.UniqueReminderList;
 import seedu.address.model.student.Student;
@@ -30,6 +31,7 @@ public class Notebook implements ReadOnlyNotebook {
     private final UniqueClassroomList classrooms;
     private final UniqueLessonList lessons;
     private final UniqueReminderList reminders;
+    private final UniqueLessonWeekList lessonLists;
 
 
     {
@@ -37,6 +39,10 @@ public class Notebook implements ReadOnlyNotebook {
         lessons = new UniqueLessonList();
         reminders = new UniqueReminderList();
         classrooms = new UniqueClassroomList();
+        lessonLists = new UniqueLessonWeekList();
+        for (int i = 0; i < 7; i++) {
+            lessonLists.add(new UniqueLessonList());
+        }
     }
 
     public Notebook() {
@@ -186,39 +192,54 @@ public class Notebook implements ReadOnlyNotebook {
 
 
     /**
-     * Adds a lessons to the classroom.
+     * Looks for UniqueLessonList corresponding to that day
+     * Adds a lessons to that list.
      * The lesson must not already exist in the classroom.
      */
     public void addLesson(Lesson p) {
+        int day = p.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        dayList.add(p);
         lessons.add(p);
     }
 
     /**
-     * Returns true if a lesson with the same identity as {@code lesson} exists in the classroom.
+     * Returns true if a lesson with the same identity as {@code lesson} exists in that day's list.
      */
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
-        return lessons.contains(lesson);
+        int day = lesson.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        return dayList.contains(lesson);
     }
 
     /**
-     * Removes {@code key} from this {@code Classroom}.
-     * {@code key} must exist in the classroom.
+     * Removes {@code key} from this {@code Notebook}.
+     * {@code key} must exist in the Notebook.
      */
     public void removeLesson(Lesson key) {
-        lessons.remove(key);
+        int day = key.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        dayList.remove(key);
     }
 
 
     /**
      * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
-     * {@code target} must exist in the classroom.
-     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the address
-     * book.
+     * {@code target} must exist in the notebook.
+     * The lesson identity of {@code editedLesson} must not be the same as another existing lesson in the notebook.
      */
     public void setLesson(Lesson target, Lesson editedLesson) {
         requireNonNull(editedLesson);
-        lessons.setLesson(target, editedLesson);
+        if (target.isSameDay(editedLesson)) {
+            int day = target.getDayIndex();
+            UniqueLessonList dayList = lessonLists.getDayList(day);
+            dayList.setLesson(target, editedLesson);
+        } else {
+            removeLesson(target);
+            addLesson(editedLesson);
+        }
+        //lessons.setLesson(target, editedLesson);
     }
 
 
@@ -226,9 +247,9 @@ public class Notebook implements ReadOnlyNotebook {
      * Replaces the contents of the lesson list with {@code lessons}.
      * {@code lessons} must not contain duplicate lessons.
      */
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons.setLessons(lessons);
-    }
+    //public void setLessons(List<Lesson> lessons) {
+    //this.lessons.setLessons(lessons);
+    //}
 
 
     //=========== Filtered Student List Accessors =============================================================
@@ -276,6 +297,10 @@ public class Notebook implements ReadOnlyNotebook {
 
     public ObservableList<Reminder> getReminderList() {
         return reminders.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<UniqueLessonList> getLessonWeekList() {
+        return lessonLists.asUnmodifiableObservableList();
     }
 
     public ObservableList<Lesson> getLessonList() {

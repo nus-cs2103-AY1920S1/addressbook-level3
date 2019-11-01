@@ -108,6 +108,15 @@ Examples: +
 * editstudent 2 p/91111111 +
 * editstudent 4 e/new_email@gmail.com
 
+==== Lessons’ information
+
+Edits an existing lesson in the lesson list. +
+Format: editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME]
+
+Examples: +
+* editstudent 2 day/2 l/4C3 Math +
+* editstudent 4 day/3 st/01/11/2019 1200 et/01/11/2019 1400
+
 // end::edit[]
 
 //tag:: upload[]
@@ -222,22 +231,6 @@ Examples: +
 
 //end::delete[]
 
-//tag::undo[]
-=== Undo: undo
-
-Restores application to the state before previous command was executed.
-Format: undo
-
-//end::undo[]
-
-//tag::redo[]
-=== Redo: redo
-
-Restores application to the state before previous undo command was executed.
-Format: redo
-
-//end::redo[]
-
 //tag::history[]
 === History
 
@@ -276,8 +269,8 @@ e.g. addlesson l/4C3 Math st/11/11/2011 1800 et/11/11/2011 2000
 * Edit Student: editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] +
 [m/MEDICAL_CONDITIONS], [t/TAG] +
 e.g. editstudent 2 p/91111111
-* Edit Lesson: editlesson LESSON_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME] +
-e.g. editlesson 3 l/4C3 Mathematics
+* Edit Lesson: editlesson LESSON_INDEX day/DAY_INDEX [l/LESSON_NAME] [st/START_TIME] [et/END_TIME] +
+e.g. editlesson 3 day/3 l/4C3 Mathematics
 * Edit Assignment: editassignment ASSIGNMNET_INDEX [as/ASSIGNMENT_NAME] [d/DEADLINE] +
 e.g. editassignment 2 d/31/10/2019 2359
 * Update: grades as/ASSIGNMENT_INDEX [s/STUDENT_INDEX] g/GRADE_ONE GRADE_TWO GRADE_THREE... +
@@ -296,8 +289,4 @@ e.g. deletestudent 3
 e.g. deleteassignment 4
 * Delete Lesson: deletelesson LESSON_INDEX +
 e.g. deletelesson 5
-* Undo: undo
-* Redo: redo
-* Generate: generate CLASSNAME +
-e.g. generate 4C
 * Exit: exit
