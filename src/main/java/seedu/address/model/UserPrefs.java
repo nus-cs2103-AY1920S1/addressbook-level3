@@ -90,6 +90,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
             this.appointmentTable.cascadeDay(Math.abs(dateDiff));
         }
         lastUpdate = LocalDate.now();
+        appointmentTable.sortAppointments(); // Sort appointments on launch
     }
 
     public GuiSettings getGuiSettings() {

@@ -73,6 +73,12 @@ public class AppointmentList implements Iterable<Appointment> {
         }
     }
 
+    /**
+     * Adds the appointment to the Internal List after checking if there are duplicates.
+     *
+     * @param toAdd The appointment to be added.
+     * @param description The description of the Appointment to check against.
+     */
     public void internalAddWithCheck(Appointment toAdd, String description) {
         if (antiDuplicate(toAdd)) {
             if (!antiDuplicate(description)) {
