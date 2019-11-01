@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -49,6 +50,9 @@ public class ReportWindow extends UiPart<Stage> {
 
     @FXML
     private PieChart foodChart;
+
+    @FXML
+    private BarChart calorieOverTime;
 
     /**
      * Constructs the Report Window based on the FXML file as the basis.
@@ -121,6 +125,8 @@ public class ReportWindow extends UiPart<Stage> {
 
         foodChart.setData(statistics.getPieChartData());
         foodChart.setLegendVisible(false);
+
+        calorieOverTime.getData().addAll(statistics.getCalorieChartSeries());
     }
 
     /**

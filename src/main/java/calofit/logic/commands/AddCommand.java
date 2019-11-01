@@ -6,6 +6,8 @@ import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
@@ -14,6 +16,7 @@ import calofit.model.dish.Dish;
 import calofit.model.dish.exceptions.DuplicateDishException;
 import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
+import calofit.model.tag.Tag;
 import calofit.model.util.Timestamp;
 
 
@@ -82,26 +85,35 @@ public class AddCommand extends Command {
             } else {
                 if (model.hasDishName(wantToAdd.getName())
                         && !wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+                    //case where the dishname is in the dishDB and the calorie tag is used
                     model.addDish(wantToAdd);
                     Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                     mealLog.addMeal(toAddMeal);
 
                 } else if (model.hasDishName(wantToAdd.getName())
                         && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
+                    // Case where the dish name is in the dishDB and the calorie tag is not used
+                    Set<Tag> newTag = wantToAdd.getTags();
                     wantToAdd = model.getDishByName(toAdd.getName());
                     try {
                         model.addDish(wantToAdd);
                     } catch (DuplicateDishException e) {
                         System.out.println("There is another Dish with the same name");
                     }
-                    Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                    Set<Tag> combineNewAndOldTags = new HashSet<Tag>();
+                    combineNewAndOldTags.addAll(wantToAdd.getTags());
+                    combineNewAndOldTags.addAll(newTag);
+                    Dish newDish = new Dish(wantToAdd.getName(), wantToAdd.getCalories(), combineNewAndOldTags);
+                    wantToAdd = newDish;
+                    Meal toAddMeal = new Meal(newDish, new Timestamp(LocalDateTime.now()));
                     mealLog.addMeal(toAddMeal);
                 } else if (!model.hasDishName(wantToAdd.getName())
                         && wantToAdd.getCalories().equals(Calorie.UNKNOWN_CALORIE)) {
                     // If the meal is not in the dishDB and does not have a calorie tag,
                     // the dish will be added to the dishDB with a default calorie of 700
                     // and added to the meal log with a default value of 700 as well
-                    Dish mealNonNegativeCal = new Dish(wantToAdd.getName(), new Calorie(DEFAULT_MEAL_CALORIE));
+                    Dish mealNonNegativeCal = new Dish(wantToAdd.getName(), new Calorie(DEFAULT_MEAL_CALORIE),
+                            wantToAdd.getTags());
                     wantToAdd = mealNonNegativeCal;
                     model.addDish(mealNonNegativeCal);
                     Meal toAddMeal = new Meal(mealNonNegativeCal, new Timestamp(LocalDateTime.now()));

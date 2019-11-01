@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -43,8 +46,16 @@
                               <TextFlow fx:id="mostConsumedMeal" textAlignment="CENTER" />
                            </items>
                         </SplitPane>
-                        <SplitPane orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                           <items>
+                              <BarChart fx:id="calorieOverTime" legendVisible="false" title="Calories Over Time">
+                                <xAxis>
+                                  <CategoryAxis label="Dates" side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis label="Calorie Intake" side="LEFT" />
+                                </yAxis>
+                              </BarChart>
                               <PieChart fx:id="foodChart" title="Food Chart" />
                           </items>
                         </SplitPane>
