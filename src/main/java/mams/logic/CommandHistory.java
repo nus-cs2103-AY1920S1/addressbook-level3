@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import mams.commons.core.time.TimeStamp;
 
 /** Class that stores the history of all user inputs into MAMS */
 public class CommandHistory implements ReadOnlyCommandHistory {
@@ -34,9 +35,9 @@ public class CommandHistory implements ReadOnlyCommandHistory {
     /**
      * Adds the entered input text from the user and the resulting command feedback into a list.
      */
-    public void add(String input, String output) {
+    public void add(String input, String output, boolean wasExecutionSuccessful, TimeStamp timeStamp) {
         requireAllNonNull(input, output);
-        inputOutputHistory.add(new InputOutput(input, output));
+        inputOutputHistory.add(new InputOutput(input, output, wasExecutionSuccessful, timeStamp));
     }
 
     /**

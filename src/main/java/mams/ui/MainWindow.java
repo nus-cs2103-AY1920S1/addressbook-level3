@@ -72,7 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        historyWindow = new HistoryWindow(false);
+        historyWindow = new HistoryWindow(false, logic.getCommandHistory());
     }
 
     public Stage getPrimaryStage() {
@@ -225,8 +225,6 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
-        } finally {
-            historyWindow.updateHistoryDisplay(logic.getCommandHistory());
         }
     }
 }

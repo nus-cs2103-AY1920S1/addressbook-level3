@@ -1,16 +1,20 @@
 package mams.logic;
 
-import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_1;
-import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_2;
-import static mams.testutil.TypicalCommandHistory.INVALID_COMMAND_OUTPUT;
-import static mams.testutil.TypicalCommandHistory.INVALID_IO_1;
-import static mams.testutil.TypicalCommandHistory.INVALID_IO_2;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_1;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_2;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_1;
-import static mams.testutil.TypicalCommandHistory.VALID_COMMAND_OUTPUT_2;
-import static mams.testutil.TypicalCommandHistory.VALID_IO_1;
-import static mams.testutil.TypicalCommandHistory.VALID_IO_2;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_1;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_2;
+import static mams.testutil.TypicalCommandHistory.SUCCESS_COMMAND_1;
+import static mams.testutil.TypicalCommandHistory.SUCCESS_COMMAND_2;
+import static mams.testutil.TypicalCommandHistory.SUCCESS_COMMAND_OUTPUT_1;
+import static mams.testutil.TypicalCommandHistory.SUCCESS_COMMAND_OUTPUT_2;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_COMMAND_1;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_COMMAND_2;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_COMMAND_OUTPUT;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_1;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_2;
+import static mams.testutil.TypicalTimeStamps.TIME_STAMP_1;
+import static mams.testutil.TypicalTimeStamps.TIME_STAMP_2;
+import static mams.testutil.TypicalTimeStamps.TIME_STAMP_3;
+import static mams.testutil.TypicalTimeStamps.TIME_STAMP_4;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -34,27 +38,27 @@ public class CommandHistoryTest {
 
     @Test
     public void addTest1() {
-        this.commandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
-        this.commandHistory.add(VALID_COMMAND_2, VALID_COMMAND_OUTPUT_2);
-        assertEquals(Arrays.asList(VALID_IO_1, VALID_IO_2), this.commandHistory.getInputOutputHistory());
+        this.commandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
+        this.commandHistory.add(SUCCESS_COMMAND_2, SUCCESS_COMMAND_OUTPUT_2, true, TIME_STAMP_2);
+        assertEquals(Arrays.asList(SUCCESSFUL_IO_1, SUCCESSFUL_IO_2), this.commandHistory.getInputOutputHistory());
     }
 
     @Test
     public void addTest2() {
-        this.commandHistory.add(INVALID_COMMAND_1, INVALID_COMMAND_OUTPUT);
-        this.commandHistory.add(INVALID_COMMAND_2, INVALID_COMMAND_OUTPUT);
-        assertEquals(Arrays.asList(INVALID_IO_1, INVALID_IO_2), this.commandHistory.getInputOutputHistory());
+        this.commandHistory.add(UNSUCCESSFUL_COMMAND_1, UNSUCCESSFUL_COMMAND_OUTPUT, false, TIME_STAMP_3);
+        this.commandHistory.add(UNSUCCESSFUL_COMMAND_2, UNSUCCESSFUL_COMMAND_OUTPUT, false, TIME_STAMP_4);
+        assertEquals(Arrays.asList(UNSUCCESSFUL_IO_1, UNSUCCESSFUL_IO_2), this.commandHistory.getInputOutputHistory());
     }
 
     @Test
     public void hashCodeTest1() {
-        this.commandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
+        this.commandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
 
         CommandHistory sameCommandHistory = new CommandHistory();
-        sameCommandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
+        sameCommandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
 
         CommandHistory differentCommandHistory = new CommandHistory();
-        differentCommandHistory.add(VALID_COMMAND_2, VALID_COMMAND_OUTPUT_2);
+        differentCommandHistory.add(SUCCESS_COMMAND_2, SUCCESS_COMMAND_OUTPUT_2, true, TIME_STAMP_2);
 
         // same object -> same hashcode
         assertEquals(commandHistory.hashCode(), commandHistory.hashCode());
@@ -71,15 +75,15 @@ public class CommandHistoryTest {
 
     @Test
     public void hashCodeTest2() {
-        this.commandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
+        this.commandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
 
         CommandHistory appendedCommandHistory = new CommandHistory();
-        appendedCommandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
-        appendedCommandHistory.add(VALID_COMMAND_2, VALID_COMMAND_OUTPUT_2);
+        appendedCommandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
+        appendedCommandHistory.add(SUCCESS_COMMAND_2, SUCCESS_COMMAND_OUTPUT_2, true, TIME_STAMP_2);
 
         CommandHistory anotherAppendedCommandHistory = new CommandHistory();
-        anotherAppendedCommandHistory.add(VALID_COMMAND_1, VALID_COMMAND_OUTPUT_1);
-        anotherAppendedCommandHistory.add(INVALID_COMMAND_2, VALID_COMMAND_OUTPUT_1);
+        anotherAppendedCommandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
+        anotherAppendedCommandHistory.add(UNSUCCESSFUL_COMMAND_1, UNSUCCESSFUL_COMMAND_OUTPUT, false, TIME_STAMP_3);
 
         // internal value different -> different hashcode
         assertNotEquals(commandHistory.hashCode(), appendedCommandHistory.hashCode());
@@ -88,13 +92,13 @@ public class CommandHistoryTest {
 
     @Test
     public void equals() {
-        this.commandHistory.add(VALID_COMMAND_1, VALID_COMMAND_2);
+        this.commandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
 
         CommandHistory sameCommandHistory = new CommandHistory();
-        sameCommandHistory.add(VALID_COMMAND_1, VALID_COMMAND_2);
+        sameCommandHistory.add(SUCCESS_COMMAND_1, SUCCESS_COMMAND_OUTPUT_1, true, TIME_STAMP_1);
 
         CommandHistory differentCommandHistory = new CommandHistory();
-        differentCommandHistory.add(INVALID_COMMAND_1, INVALID_COMMAND_OUTPUT);
+        differentCommandHistory.add(UNSUCCESSFUL_COMMAND_1, UNSUCCESSFUL_COMMAND_OUTPUT, false, TIME_STAMP_3);
 
         // not same type, equals should return false
         assertFalse(commandHistory.equals(5));

@@ -49,7 +49,8 @@ class JsonSerializableCommandHistory {
 
         for (JsonAdaptedInputOutput jsonAdaptedInputOutput: inputOutputs) {
             InputOutput inputOutput = jsonAdaptedInputOutput.toLogicType();
-            commandHistory.add(inputOutput.getInput(), inputOutput.getOutput());
+            commandHistory.add(inputOutput.getInput(), inputOutput.getOutput(),
+                    inputOutput.checkSuccessful(), inputOutput.getTimeStamp());
         }
 
         return commandHistory;

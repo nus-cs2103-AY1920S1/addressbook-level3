@@ -72,7 +72,6 @@ public class ClashCommand extends Command {
             Module moduleToAdd = getModule(appeal.getModuleToAdd(), model.getFullModuleList());
             Student studentToCheck = getStudent(appeal.getStudentId(), model.getFullStudentList());
             ArrayList<Module> currentModules = getStudentCurrentModules(studentToCheck, model);
-            String str = "";
             for (Module currentModule : currentModules) {
                 if (getClashCase(currentModule, moduleToAdd).isPresent()) {
                     clashCases.add(getClashCase(currentModule, moduleToAdd).get());

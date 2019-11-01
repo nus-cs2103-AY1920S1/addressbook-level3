@@ -1,9 +1,11 @@
 package mams.logic;
 
-import static mams.testutil.TypicalCommandHistory.INVALID_IO_1;
-import static mams.testutil.TypicalCommandHistory.INVALID_IO_2;
-import static mams.testutil.TypicalCommandHistory.VALID_IO_1;
-import static mams.testutil.TypicalCommandHistory.VALID_IO_2;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_1;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_2;
+import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_4;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_1;
+import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_2;
+import static mams.testutil.TypicalTimeStamps.TIME_STAMP_3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,42 +20,45 @@ public class InputOutputTest {
 
     @Test
     public void hashCodeTest() {
-        InputOutput sameIo = new InputOutput(VALID_IO_1.getInput(), VALID_IO_1.getOutput());
+        InputOutput sameIo = new InputOutput(SUCCESSFUL_IO_1.getInput(), SUCCESSFUL_IO_1.getOutput(),
+                SUCCESSFUL_IO_1.checkSuccessful(), SUCCESSFUL_IO_4.getTimeStamp());
 
         // same object -> same hashcode
-        assertEquals(VALID_IO_1.hashCode(), VALID_IO_1.hashCode());
+        assertEquals(SUCCESSFUL_IO_1.hashCode(), SUCCESSFUL_IO_1.hashCode());
 
         // same internal values -> same hashcode
-        assertEquals(VALID_IO_1.hashCode(), sameIo.hashCode());
+        assertEquals(SUCCESSFUL_IO_1.hashCode(), sameIo.hashCode());
 
         // different internal values -> different hashcode
-        assertNotEquals(VALID_IO_1.hashCode(), VALID_IO_2.hashCode());
+        assertNotEquals(SUCCESSFUL_IO_1.hashCode(), SUCCESSFUL_IO_2.hashCode());
 
         // different object types -> different hashcode
-        assertNotEquals(VALID_IO_1.hashCode(), Objects.hash(0));
+        assertNotEquals(SUCCESSFUL_IO_1.hashCode(), Objects.hash(0));
     }
 
     @Test
     public void equals() {
-        InputOutput sameIo = new InputOutput(VALID_IO_1.getInput(), VALID_IO_1.getOutput());
-        InputOutput slightlyDifferentIo = new InputOutput(VALID_IO_1.getInput(), INVALID_IO_1.getOutput());
+        InputOutput sameIo = new InputOutput(SUCCESSFUL_IO_1.getInput(), SUCCESSFUL_IO_1.getOutput(),
+                SUCCESSFUL_IO_1.checkSuccessful(), SUCCESSFUL_IO_1.getTimeStamp());
+        InputOutput slightlyDifferentIo = new InputOutput(SUCCESSFUL_IO_1.getInput(), SUCCESSFUL_IO_1.getOutput(),
+                SUCCESSFUL_IO_1.checkSuccessful(), TIME_STAMP_3);
 
         // same object -> returns true
-        assertTrue(VALID_IO_1.equals(VALID_IO_1));
+        assertTrue(SUCCESSFUL_IO_1.equals(SUCCESSFUL_IO_1));
 
         // same values -> returns true
-        assertTrue(VALID_IO_1.equals(sameIo));
+        assertTrue(SUCCESSFUL_IO_1.equals(sameIo));
 
         // different types -> returns false
-        assertFalse(VALID_IO_1.equals(1));
+        assertFalse(SUCCESSFUL_IO_1.equals(1));
 
         // null -> returns false
-        assertFalse(VALID_IO_1.equals(null));
+        assertFalse(SUCCESSFUL_IO_1.equals(null));
 
         // different internal values -> returns false
-        assertFalse(VALID_IO_1.equals(slightlyDifferentIo));
-        assertFalse(VALID_IO_1.equals(VALID_IO_2));
-        assertFalse(VALID_IO_1.equals(INVALID_IO_1));
-        assertFalse(VALID_IO_1.equals(INVALID_IO_2));
+        assertFalse(SUCCESSFUL_IO_1.equals(slightlyDifferentIo));
+        assertFalse(SUCCESSFUL_IO_1.equals(SUCCESSFUL_IO_2));
+        assertFalse(SUCCESSFUL_IO_1.equals(UNSUCCESSFUL_IO_1));
+        assertFalse(SUCCESSFUL_IO_1.equals(UNSUCCESSFUL_IO_2));
     }
 }

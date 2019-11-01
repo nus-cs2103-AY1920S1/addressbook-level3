@@ -18,3 +18,110 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.cell_small_label.description_text {
+    -fx-wrap-text: true;
+}
+
+.label.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+}
+
+.label.cell_bigger_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 25px;
+}
+
+.cell_small_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_small_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
+}
+
+.cell_small_label.pink-text-label {
+    -fx-text-fill: #FA77C3;
+}
+
+.cell_small_label.sky-blue-text-label {
+    -fx-text-fill: #8BE9FD;
+}
+
+.cell_small_label.blue-text-label {
+    -fx-text-fill: #86ACC9;
+}
+
+.cell_small_label.red-text-label {
+    -fx-text-fill: #CF6651;
+}
+
+.cell_big_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_big_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
+}
+
+.cell_big_label.orange-text-label {
+    -fx-text-fill: #FEB86C;
+}
+
+.cell_big_label.pink-text-label {
+    -fx-text-fill: #FA77C3;
+}
+
+.cell_bigger_label.green-text-label {
+    -fx-text-fill: #4FF77A;
+}
+
+.cell_bigger_label.yellow-text-label {
+    -fx-text-fill: #EFF88B;
+}
+
+.cell_bigger_label.blue-text-label {
+    -fx-text-fill: #86ACC9;
+}
+
+.cell_bigger_label.pink-text-label {
+    -fx-text-fill: #FA77C3;
+}
+
+.label.prefix-label {
+    -fx-font-family: "Avenir Next";
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 0 1 0 1;
+}
+
+.prefix-label.prefix_green {
+    -fx-background-color: #4FF77A;
+}
+
+.prefix-label.prefix_yellow {
+    -fx-background-color: #EFF88B;
+}
+
+.prefix-label.prefix_pink {
+    -fx-background-color: #FA77C3;
+}
+
+.prefix-label.prefix_orange {
+    -fx-background-color: #FEB86C;
+}
+
+.prefix-label.prefix_sky_blue {
+    -fx-background-color: #8BE9FD;
+}
+
+.prefix-label.prefix_purple {
+    -fx-background-color: #B88FF2;
+}
+
+.prefix-label.prefix_red {
+    -fx-background-color: #990000;
+}

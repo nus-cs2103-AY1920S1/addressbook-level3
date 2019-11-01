@@ -38,7 +38,7 @@ image::Ui.png[width="790"]
 Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*. Each of these items may be further grouped into sub-lists.
 eg. Students may be organized by matriculation year, course of study etc.
 
-A student is uniquely identified by his/her 8-character Matriculation Number starting and ending with a letter, eg. `A0132243`
+A student is uniquely identified by his/her 8-character Matriculation Number starting with a letter, eg. `A0132243`
 
 An appeal request is uniquely identified by a prefix `C`, followed by a 6-digit Case ID, eg. `C123456`
 
@@ -150,6 +150,9 @@ image::HistoryCommandDemo.png[width="790"]
 Sample Output: Opens a window displaying command history
 
 image::HistoryWindowDemo.png[width="790"]
+
+TIP: (Still experimental) By pressing kbd:[q], the currently selected command
+in the history window can be copied to the clipboard.
 
 ==== Sync Command History to disk
 
@@ -333,18 +336,16 @@ Sample output:
 
 `Updated  maximum workload of student A0111111B to 28 MC.`
 
-=== Add special remarks to a student’s particulars page: `remark`
-This command allows the administrator to add special remarks to a student’s particulars page. It can be used as a reminder or note eg. a special remark to indicate that student is exempted from a prerequisite. A timestamp will be prefixed to the remark automatically.
+=== Undo and Redo: `undo/redo`
+This command allows the administrator to undo last command made.
 
-Format: `remark STUDENT_ID REMARKS`
+Format: `undo`
 
-Example:
-
-* `remark A0134939W Timetable clash waivered`
+Format: `redo`
 
 Sample Output:
 
-`Under the remarks sections of the particulars page for A0134939W, the following message “[18/09/2019 18:00] Timetable clash waivered” will be appended.`
+`Redo Successful`
 
 === Approve an appeal: `approve`
 Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
@@ -414,9 +415,15 @@ Sample Output:
 image::aftermassreject.png[width="790"]
 
 === Saving the data
+Saves a snapshot of the current state under the data folder with the name "mamshistory_[TAG]". If no tag is given, a timestamp is used instead.
 
-MAMS are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format `backup [t/TAG]`
+
+Example: `backup t/Backup_1`
+
+Sample Output: `Backup Successful. Saved under "data/mamshistory_Backup_1"
+
+
 
 
 == Command Summary
