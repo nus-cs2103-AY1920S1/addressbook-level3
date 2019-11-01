@@ -132,7 +132,7 @@ Format: `offduty <ENTRY_ID>`
 
 ==== Adds a patient to the queue: `enqueue` ====
 
-Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued.+
+Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued. +
 Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
 ==== Removes a patient from the queue: `dequeue` ====
