@@ -66,13 +66,13 @@ public class StatisticsWindow extends UiPart<Stage> {
                 .stream()
                 .reduce((first, second) -> second).get();
         this.startingDateLabel.setText(
-                "Initial value of " + statsLabel
-                        + "\n" + firstData.getYValue() + " on " + firstData.getXValue()
+                "Showing Initial value of " + statsLabel
+                        + "\n" + " from " + firstData.getXValue()
         );
         this.startingDateLabel.setWrapText(true);
         this.endingDateLabel.setText(
-                "Final value of " + statsLabel + "\n"
-                        + lastData.getYValue() + " on " + lastData.getXValue()
+                "Final value of " + statsLabel + "\n" +
+                         " ending on " + lastData.getXValue()
         );
         this.endingDateLabel.setWrapText(true);
     }

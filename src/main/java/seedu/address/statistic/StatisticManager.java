@@ -2,6 +2,7 @@ package seedu.address.statistic;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -110,6 +111,7 @@ public class StatisticManager implements Statistic {
         double revenue = this.getTotalRevenue(orderBook, statsPayload);
         double cost = this.getTotalCost(orderBook, statsPayload);
         double totalProfit = revenue - cost;
+        totalProfit = new BigDecimal(totalProfit).setScale(2, RoundingMode.HALF_UP).doubleValue();
         return String.valueOf(totalProfit);
     }
 
@@ -117,13 +119,16 @@ public class StatisticManager implements Statistic {
     public String calculateTotalRevenueOnCompleted(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         requireAllNonNull(orderBook, statsPayload);
         double totalRevenue = getTotalRevenue(orderBook, statsPayload);
+        totalRevenue = new BigDecimal(totalRevenue).setScale(2, RoundingMode.HALF_UP).doubleValue();
         return String.valueOf(totalRevenue);
     }
 
     @Override
     public String calculateTotalCostOnCompleted(ReadOnlyDataBook<Order> orderBook, StatsPayload statsPayload) {
         requireAllNonNull(orderBook);
+        DecimalFormat format = new DecimalFormat("##.00");
         double totalCost = getTotalCost(orderBook, statsPayload);
+        totalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP).doubleValue();
         return String.valueOf(totalCost);
     }
 
@@ -171,7 +176,10 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList())
                         .stream()
                         .mapToDouble(Double::parseDouble).toArray();
-        return StatUtils.sum(doubleProfitList);
+        double result = new BigDecimal(StatUtils.sum(doubleProfitList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /**
@@ -187,7 +195,10 @@ public class StatisticManager implements Statistic {
                 .collect(Collectors.toList())
                 .stream()
                 .mapToDouble(d -> d).toArray();
-        return StatUtils.sum(doubleRevenueList);
+        double result = new BigDecimal(StatUtils.sum(doubleRevenueList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /**
@@ -203,7 +214,10 @@ public class StatisticManager implements Statistic {
                         .collect(Collectors.toList())
                         .stream()
                         .mapToDouble(d -> d).toArray();
-        return StatUtils.sum(doubleCostList);
+        double result = new BigDecimal(StatUtils.sum(doubleCostList))
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
+        return result;
     }
 
     /*-------------- helper methods ------------------*/
