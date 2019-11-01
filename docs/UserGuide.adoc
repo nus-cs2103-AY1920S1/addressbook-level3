@@ -91,36 +91,77 @@ The trip manager is the main starting ground of the application. Here, the user 
 * goto <name of trip> : enters the main day-by-day view of the trip.
 
 === Trip setup
+Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
-Trip setup is the first page in configuring a new/existing task. Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 2 necessary fields:
+image::TripManager.png[]
+Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
-1. Duration (Starting date, Ending date)
-2. Destination
+Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
 
-* edit -startDate <starting Date> -endDate <ending Date>: sets the starting date and ending date of the trip being created/edited
-* edit -dest <destination>: sets the destination of the trip being created/edited
-* edit -addDay <name of day>: adds a day after the last day previously added. If no days were previously added, add the first day
+- Name
+- Start Date
+- End Date
+- Total Budget
+- Destination
+
+The last field Photo is an optional field, a default image will be used if the user does not submit any image.
+
+If the `create` command was executed, you will be displayed an empty form with no details filled in.
+
+image::createTrip.png[]
+
+If `edit` command was executed, you will be displayed a from with details previously filled in.
+
+image::editTrip.png[]
+
+Now that you on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefixes>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+
+1. Name :  `n/`
+2. Start Date : `ds/`
+3. End Date : `de/`
+4. Total Budget : `b/`
+5. Destination : `l/`
+6. Photo File Path : `fp/`
+
+    Note:
+    You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
+e.g. edit fp/ fc/
+
+Below is an example changing the name of an existing trip to "Small Trip":
+
+- You begin at the edit trip screen, the original name of the trip is the same as before.
+
+image::editTrip.png[]
+- Enter the command `edit n/Small Trip` into the command box and press enter to execute.
+
+image::editNameCommand.png[]
+- The name of the trip is now "Small Trip"!
+
+image::editNameCommandResult.png[]
+
+Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
+
+You have successfully created/edited a trip!
 
 === Event Setup
 
-Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future
+Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future. The syntax is as follows: `edit <prefix>/<value>`
 
-* edit -id <id of trip> -day <index of day> -event <index of event> -name <name of event>: sets the name of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -description <description of event>: sets the description of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -startDate <starting time>: sets the starting time of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -endingTime <ending time>: sets the ending time of the event
-* edit -id <id of trip> -day <index of day> -event <index of event> -expenditure: sets the current known expenditure for a single event
+1. Name : `n/`
+2. Start Date : `ds/`
+3. End Date: `de/`
+4. Total Budget: `b/`
+5. Destination: `l/`
 
-=== Itinerary
+=== Navbar
+Every page that comprises a navbar can execute the following commands to navigate to another page.
 
-tinerary contains commands to view the list of relevant event/day/trips. The order can be changed by using different commands
-
-* list -id <id of trip>: Lists the days of a trip in chronological order
-* list -d <id of trip> -day <index of day>: Lists the events of a day chronological order
-
-Additional tags:
-* byExpenses: list all elements by expenses, from highest to lowest
-* byAlphabetical: list all elements by the alphabetical order of their names
+1. Trip Manager: `home`
+2. Itinerary : `itinerary`
+3. Days Page: `days`
+4. Diary : `diary`
+5. Inventory : `inventory`
+6. Expense Manager :`expense`
 
 === Expense Manager
 
