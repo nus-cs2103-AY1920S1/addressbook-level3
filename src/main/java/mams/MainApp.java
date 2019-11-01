@@ -22,6 +22,8 @@ import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;
 import mams.model.util.SampleDataUtil;
+import mams.storage.CommandHistoryStorage;
+import mams.storage.JsonCommandHistoryStorage;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.MamsStorage;
@@ -57,7 +59,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         MamsStorage mamsStorage = new JsonMamsStorage(userPrefs.getMamsFilePath());
-        storage = new StorageManager(mamsStorage, userPrefsStorage);
+        CommandHistoryStorage commandHistoryStorage =
+                new JsonCommandHistoryStorage(userPrefs.getCommandHistoryFilePath());
+        storage = new StorageManager(mamsStorage, userPrefsStorage, commandHistoryStorage);
 
         initLogging(config);
 

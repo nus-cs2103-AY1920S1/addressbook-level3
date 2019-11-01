@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.ReadOnlyMams;
 import mams.model.UserPrefs;
+import mams.storage.JsonCommandHistoryStorage;
 import mams.storage.JsonMamsStorage;
 import mams.storage.JsonUserPrefsStorage;
 import mams.storage.StorageManager;
@@ -41,7 +43,9 @@ public class LogicManagerTest {
         JsonMamsStorage mamsStorage =
                 new JsonMamsStorage(temporaryFolder.resolve("mams.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
+        JsonCommandHistoryStorage commandHistoryStorage =
+                new JsonCommandHistoryStorage(temporaryFolder.resolve("commandHistory.json"));
+        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -49,7 +53,8 @@ public class LogicManagerTest {
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistorySuccess(invalidCommand);
+        assertHistorySuccess(Arrays.asList(invalidCommand), Arrays.asList(MESSAGE_UNKNOWN_COMMAND),
+                Arrays.asList(false));
     }
 
     @Test
@@ -57,15 +62,15 @@ public class LogicManagerTest {
         // delete command removed. New tests to be implemented later.
     }
 
-    @Test //TODO YongKuan clean up this test to make it less hard-codey
+    @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, String.format(ListCommand.MESSAGE_SUCCESS,
-                " " + ListCommand.APPEALS
-                + " " + ListCommand.MODULES
-                + " " + ListCommand.STUDENTS), model);
+        final String listCommand = ListCommand.COMMAND_WORD;
+        final String expectedFeedback = ListCommand.MESSAGE_LIST_APPEALS_SUCCESS + "\n"
+                + ListCommand.MESSAGE_LIST_MODULES_SUCCESS + "\n"
+                + ListCommand.MESSAGE_LIST_STUDENTS_SUCCESS;
+        assertCommandSuccess(listCommand, expectedFeedback, model);
 
-        assertHistorySuccess(ListCommand.COMMAND_WORD);
+        assertHistorySuccess(Arrays.asList(listCommand), Arrays.asList(expectedFeedback), Arrays.asList(true));
     }
 
     @Test
@@ -75,7 +80,9 @@ public class LogicManagerTest {
                 new JsonMamsIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionMams.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage);
+        JsonCommandHistoryStorage commandHistoryStorage =
+                new JsonCommandHistoryStorage(temporaryFolder.resolve("ioExceptionCommandHistory.json"));
+        StorageManager storage = new StorageManager(mamsStorage, userPrefsStorage, commandHistoryStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command removed, to be implemented with new test later.
@@ -141,13 +148,24 @@ public class LogicManagerTest {
 
     /**
      * Asserts that the {@code CommandHistory} object within {@code LogicManager} is storing the correct sequence
-     * of command inputs.
-     * @param sequenceOfExpectedCommands
+     * of command inputs and command feedback. However, it is impossible to test the timestamp equality
+     * exactly, so we simply retrieve it from the actual Logic and set the expectedCommandHistory
+     * to the same timestamps.
+     * @param inputs List of inputs entered. Each input is assumed to be in the same index as the
+     * corresponding {@code outputs}
+     * @param outputs List of expected outputs received.
      */
-    private void assertHistorySuccess(String... sequenceOfExpectedCommands) {
-        ObservableList<String> expected = FXCollections.unmodifiableObservableList(
-                FXCollections.observableList(new ArrayList<String>(Arrays.asList(sequenceOfExpectedCommands))));
-        assertEquals(expected, logic.getCommandHistory());
+    private void assertHistorySuccess(List<String> inputs, List<String> outputs, List<Boolean> isSuccessfulArray) {
+        assertEquals(inputs.size(), outputs.size());
+        List<InputOutput> actualCommandHistory = logic.getCommandHistory();
+        ArrayList<InputOutput> expectedList = new ArrayList<>();
+        for (int i = 0; i < inputs.size(); i++) {
+            expectedList.add(new InputOutput(inputs.get(i), outputs.get(i), isSuccessfulArray.get(i),
+                    actualCommandHistory.get(i).getTimeStamp()));
+        }
+        ObservableList<InputOutput> expectedHistory = FXCollections.unmodifiableObservableList(
+                FXCollections.observableList(expectedList));
+        assertEquals(expectedHistory, logic.getCommandHistory());
     }
 
     /**

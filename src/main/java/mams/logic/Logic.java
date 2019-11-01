@@ -43,7 +43,7 @@ public interface Logic {
     ObservableList<Appeal> getFilteredAppealList();
 
     /** Returns an unmodifiable view of the commands entered by the user */
-    ObservableList<String> getCommandHistory();
+    ObservableList<InputOutput> getCommandHistory();
 
     /**
      * Returns the user prefs' MAMS file path.

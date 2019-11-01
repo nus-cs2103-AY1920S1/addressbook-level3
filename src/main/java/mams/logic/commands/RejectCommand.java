@@ -27,6 +27,7 @@ public class RejectCommand extends Reject {
         this.reason = reason;
 
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();

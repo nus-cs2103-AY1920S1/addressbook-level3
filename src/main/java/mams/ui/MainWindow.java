@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ModuleListPanel moduleListPanel;
     private AppealListPanel appealListPanel;
     private ResultDisplay resultDisplay;
+    private HistoryWindow historyWindow;
     private HelpWindow helpWindow;
 
     @FXML
@@ -71,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        historyWindow = new HistoryWindow(false, logic.getCommandHistory());
     }
 
     public Stage getPrimaryStage() {
@@ -158,6 +160,26 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the history window or focuses on it if it's already opened.
+     * @param hideOutputHistory if true, hides the command feedback in the history window
+     */
+    public void handleHistory(boolean hideOutputHistory) {
+        historyWindow.hideOutputDisplay(hideOutputHistory);
+        handleHistory();
+    }
+
+    /**
+     * Overloaded method for convenience.
+     */
+    public void handleHistory() {
+        if (!historyWindow.isShowing()) {
+            historyWindow.show();
+        } else {
+            historyWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -170,12 +192,9 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        historyWindow.hide();
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public StudentListPanel getStudentListPanel() {
-        return studentListPanel;
     }
 
     /**
@@ -188,6 +207,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHistory()) {
+                handleHistory(commandResult.isHideOutputHistory());
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

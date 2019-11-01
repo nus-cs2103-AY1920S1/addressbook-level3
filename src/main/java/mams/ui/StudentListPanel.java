@@ -41,6 +41,7 @@ public class StudentListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else if (studentList.size() == 1) {
+                logger.fine("Displaying expanded student card");
                 setGraphic(new ExpandedStudentCard(student).getRoot());
             } else {
                 setGraphic(new StudentCard(student, getIndex() + 1).getRoot());

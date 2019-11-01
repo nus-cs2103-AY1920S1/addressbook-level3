@@ -7,10 +7,11 @@ import mams.commons.core.Messages;
 import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ClashCommand;
 import mams.logic.commands.Command;
-import mams.logic.commands.EditCommand;
+//import mams.logic.commands.EditCommand;
 import mams.logic.commands.ExitCommand;
 import mams.logic.commands.FindCommand;
 import mams.logic.commands.HelpCommand;
+import mams.logic.commands.HistoryCommand;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.RedoCommand;
 import mams.logic.commands.RemoveModCommand;
@@ -52,8 +53,8 @@ public class MamsParser {
         case ClashCommand.COMMAND_WORD:
             return new ClashCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        //case EditCommand.COMMAND_WORD:
+        //    return new EditCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -93,6 +94,9 @@ public class MamsParser {
 
         case SaveCommand.COMMAND_BACKUP:
             return new SaveCommandParser().parse(arguments);
+
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

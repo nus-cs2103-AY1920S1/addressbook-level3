@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import mams.commons.core.time.TimeStamp;
+import mams.commons.util.ListPointer;
+import mams.logic.InputOutput;
 import mams.logic.Logic;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
@@ -21,18 +24,18 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final List<String> commandHistory;
+    private final List<InputOutput> commandHistory;
 
-    private ListElementPointer commandHistoryPointer;
+    private ListPointer<InputOutput> commandHistoryPointer;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, List<String> commandHistory) {
+    public CommandBox(CommandExecutor commandExecutor, List<InputOutput> commandHistory) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.commandHistory = commandHistory;
-        this.commandHistoryPointer = new ListElementPointer(commandHistory);
+        this.commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
@@ -44,11 +47,11 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
-            initHistory();
+            reinitializeHistoryPointer();
             commandHistoryPointer.next();
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
-            initHistory();
+            reinitializeHistoryPointer();
             setStyleToIndicateCommandFailure();
         }
     }
@@ -80,7 +83,7 @@ public class CommandBox extends UiPart<Region> {
         if (!commandHistoryPointer.hasPrevious()) {
             return;
         }
-        replaceText(commandHistoryPointer.previous());
+        replaceText(commandHistoryPointer.previous().getInput());
     }
 
     /**
@@ -91,7 +94,7 @@ public class CommandBox extends UiPart<Region> {
         if (!commandHistoryPointer.hasNext()) {
             return;
         }
-        replaceText(commandHistoryPointer.next());
+        replaceText(commandHistoryPointer.next().getInput());
     }
 
     /**
@@ -106,11 +109,12 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Initializes the history snapshot.
      */
-    private void initHistory() {
-        commandHistoryPointer = new ListElementPointer(commandHistory);
-        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
-        // the user if she tries to navigate past the most-recent end of the historySnapshot.
-        commandHistoryPointer.add("");
+    private void reinitializeHistoryPointer() {
+        commandHistoryPointer = new ListPointer<InputOutput>(commandHistory);
+        // add an dummy InputOutput with input set to an empty string
+        // to represent the most-recent end of the defensive list in ListPointer, to be shown to
+        // the user if he/she tries to navigate past the most-recent end.
+        commandHistoryPointer.add(new InputOutput("", "", false, new TimeStamp()));
     }
 
     /**

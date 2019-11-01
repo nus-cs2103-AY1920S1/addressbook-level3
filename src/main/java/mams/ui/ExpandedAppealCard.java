@@ -62,7 +62,6 @@ public class ExpandedAppealCard extends UiPart<Region> {
         requestedModule.setText(appeal.getModuleToAdd());
         appealDescription.setText(appeal.getAppealDescription());
         setResolvedStatusDisplay(resolvedStatus, appeal.isResolved());
-        // TODO change once aaron implements getter method
         setApprovalStatusDisplay(approvalIcon, approvalStatus, appeal.isResolved(),
                 appeal.getResult().equals("APPROVED"));
     }

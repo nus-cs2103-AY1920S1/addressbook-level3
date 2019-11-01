@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -81,7 +82,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `AppealListPanel`, `ModuleListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -100,18 +101,18 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MamsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `undo` Command
+image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -128,10 +129,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -197,7 +194,7 @@ and `Module` requested is retrieved from `model.getFilteredModuleList()` by matc
 
 Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clashing time slots if there are clashes and 'No clashes detected' if there is no clash.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the clash operation works:
 
 image::ClashSequenceDiagram.png[]
 
@@ -244,12 +241,193 @@ Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined a
 
 Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item contains keyword.
 
-The following sequence diagram shows how the undo operation works:
+The following sequence diagram shows how the Find operation works:
 
 image::FindSequenceDiagram.png[]
 // end::find[]
 
-//tag::ui[]
+
+// tag::history[]
+=== Command History
+The command history feature encapsulates a few different related functions, mainly:
+
+* The ability to cycle through previous inputs in the `CommandBox` using the kbd:[&uarr;]
+and kbd:[&darr;] arrow keys.
+* A command to open a new window displaying the command history
+- Optional parameters can be specified to hide command output
+* Persistent storage of command history - the history is serialized to JSON file format
+and is loaded upon the next startup
+
+==== Cycling Through Previous Inputs
+The core of the cycle-command-history feature is implemented through three different classes:
+ `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` was modified
+to accomodate the UX changes.
+
+* `InputOutput`: Class wrapper around two `String` objects representing the command input
+and command feedback output from MAMS. It is chiefly comprised of an input and an output, hence
+the name.
+* `CommandHistory`: A wrapper around a list of `InputOutput` objects along with specific methods, representing
+the command history of the command entered thus far.
+* `ListPointer`: An iterable pointer to a `List` of objects.
+- This differs from `java.util.Iterator` in the sense that `ListPointer#next()` always advances the pointer first then returns the
+next element in the `List`, while `java.util.Iterator#next()` does the opposite: it returns
+the current value, then advances the pointer.
+- `ListPointer` was implemented using Java generics
+to serve as a common utility class in `mams.common.util`, but is used primarily for
+iterating a `List` of `InputOutput` objects for the command history feature.
+* `CommandBox`: The command box in MAMs was modified to respond to the kbd:[&uarr;] and kbd:[&darr;]
+arrows, constantly replacing the text field with the previous commands when iterating.
+
+Below is a class diagram depicting the relationship between the involved classes for cycling
+through previous inputs in the command box.
+
+image::CycleCommandHistoryClassDiagram.png[]
+
+`CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
+passed to `CommandBox` upon initialization. `CommandBox` uses this list to reinitialize and
+update `ListPointer` after every command execution. Upon initialization, `ListPointer` keeps
+an internal copy of the InputOutput list. Finally, `CommandBox` responds to key-presses and
+retrieves the previous commands by using `ListPointer` to iterate
+through its internal defensive list.
+
+Below is a simple sequence diagram depicting this function. Note that some methods/pathways are not
+depicted for brevity.
+
+image::CycleCommandHistorySequenceDiagram.png[]
+
+The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
+a command has been entered. Thereafter (in the period between command inputs),
+`KeyEvent` events are handled by `handleKeyPress`,
+which replaces the text in its text field accordingly.
+
+To be continued...
+
+placement of commandHistory attribute
+alternatives: usage of ListPointer versus Iterator
+
+==== Displaying History Window: `HistoryCommand`
+
+The `HistoryCommand` feature allows users to display a separate window showing the
+MAMS input/output history upon command.
+
+The core of the `HistoryCommand` feature is facilitated by a few different classes:
+
+* `HistoryCommand`: A sub-type of `Command`. Represents a user command to trigger the display
+of the history window.
+* `HistoryCommandParser`: A class to parse user input in the context of a `HistoryCommand`,
+returning a `HistoryCommand`.
+* `HistoryWindow`: A UI class representing the controller for the history window. Displays information
+about the command history to the user
+* `CommandHistory`: see previous section.
+
+The following activity sequence diagram provides a high-level view
+of how the command is executed:
+
+image::HistoryCommandActivityDiagram.png[]
+
+One specific execution example of the show-history feature with
+more specific implementation details is as follows:
+
+1. User enters `history -h` into command box.
+2. A `HistoryCommand` object is created after parsing, with `hideOutput` set to true.
+3. `HistoryCommand` is executed and produces a `CommandResult`
+with `showHistory` and `hideOutput` flags set to true.
+4. `CommandResult` is passed to the calling GUI element (`MainWindow`), which is then used to set
+the flags in `HistoryWindow` contoller accordingly.
+5. `HistoryWindow` hides all command outputs in the history window.
+6. `MainWindow` gets `CommandHistory` from `Logic`, and uses it to update `HistoryWindow`.
+7. GUI displays the history window.
+
+This specific execution case is shown in the following sequence diagram. Note that some
+methods are omitted for brevity.
+
+image::HistoryCommandSequenceDiagram.png[]
+
+NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+*Design Considerations*
+
+
+* Current Implementation: `HistoryCommand` sets boolean flags (`showHistory` and `hideOutput`)
+in `CommandResult` to prompt the GUI to display the history window and hide command outputs
+respectively.
+
+** Pros:
+*** `CommandHistory` does not need to be passed in as a parameter for
+`Command#execute`. There is thus no need to
+modify the existing `Command` abstract class, which will require
+changes to every single existing `Command` sub-type (for very little benefit,
+since `HistoryCommand` is the only existing `Command` that acts on `CommandHistory`).
+*** `HistoryCommand` does not need to handle the formatting and display of
+`CommandHistory` in the history GUI window. This separates their responsibilities
+better as such display options should be left up to the GUI classes.
+*** Since `HistoryCommand` only sets parameter flags for the `HistoryWindow`, and
+the `HistoryWindow` controller gets the history data directly from an `ObservableList`, the
+history window GUI is able to update while adhering to the user-specified configuration
+(ie. hide output/ show output) after every command iteration, even if `HistoryCommand` is not executed.
+
+** Cons:
+*** If more parameters need to be added to `HistoryCommand` (eg. filter history
+display by execution success) in future iterations of MAMS, more boolean flags
+will have to be added to the `CommandResult` class. This can eventually be
+unsustainable if there are too many parameters that needs to be communicated
+to the GUI.
+
+* Alternative Implementation 1: Change the method signature in `Command#execute(Model model)`
+to accept a `CommandHistory` object. `HistoryCommand` will format the command history
+text based on the user specifications, then pass the formatted text as a single string in the
+`feedbackToUser` parameter. The `HistoyWindow` controller will then display this text on
+on the history window.
+
+** Pros:
+*** Since all of the user specifications and flags are processed within execution of
+`HistoryCommand`, `CommandResult` does not need to store too many flags if future
+parameters are added to `HistoryCommand`. (Refer to the current implementation)
+
+**  Cons:
+*** Requires a change to `execute()` method signature of the `Command` abstract class. Since all
+other commands are a sub-type of the `Command` class, this will require a change to every other
+command, which will necessitate huge changes across many classes and tests, and may result
+in regression problems,.
+*** Text display formatting is handled directly by the `HistoryCommand` class, which limits
+the ability of the GUI to customize the display. Moreover, the `HistoryCommand` class is now
+in charge of one aspect of the display formatting, which is not a good separation of responsibilities
+between the `Logic` and `Ui` components of MAMS.
+*** If the entire command history is passed to `Logic` as a `CommandResult` feedback of
+an executed `HistoryCommand`, future requests of the command history will also include
+that that particular `HistoryCommand` feedback.
+**** A crude CLI example of this is shown below.
+
+ >> history
+ input: list -a
+ output: listed all appeals
+ >> history
+ input: list -a
+ output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+ >> history
+ input: list -a
+ output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+ input: history
+ output: input: list -a
+         output: listed all appeals
+         input: history
+         output: input: list -a
+                 output: listed all appeals
+
+**** Special conditionals hence needs to be implemented to handle
+such cases when updating `CommandHistory`, which can make the implementation
+more complicated.
+
+// end::history[]
+
+// tag::ui[]
 === UI/UX
 
 The GUI interface from AddressBook-Level3 was re-designed to incorporate additional
@@ -302,132 +480,71 @@ fields present. As an example, the `ExpandedModuleCard` contains the following f
 
 When the GUI detects only one item in the List Panel to be displayed, it automatically defaults to using the Expanded Card
 for displaying the item, eg., performing a `find` command that returns only one module as the result will cause the GUI to display
-the single module using `ExpandedModuleCard`. In fact, it is the only case when an Expanded Card will be used.
+the single module using `ExpandedModuleCard`.
 
-This is because an Expanded Card is meant to take up the entire List Panel display when the user has decided to scrutinize a single item,
-and it is hence not useful for other cells to be hidden out of view below the visible screen. This also neatly enforces the GUI-Logic
-abstraction barrier by eliminating the need for MAMS Logic to control such GUI decisions.
-
-===== Implementation Changes
-
-*Problem with previous AB3 implementation:* Non-persistent list display on edits - any changes to an item within the displayed list requires
-all items to be listed out again to properly "update". This forms a jarring UX experience, as every small change
-(eg. increase student workload) would suddenly trigger the equivalent of a `list` command.
-
-* *Explanation:* Using the AddressBook-Level3 implementation for MAMS, the GUI (MainWindow) would initialize each of the 3 List Panels
-by assigning each of them an `ObservableList` reference obtained from `Model`. This reference will never be re-assigned again during
-operation time. Any changes to the `ObservableList` raises an event to the List Panel, which prompts the UI to reconstuct the Cards
-currently on display. However, if the internal parameters within an object in the list is changed (without changing the actual
-object reference itself), no GUI updates will be made as the event will not be raised. In AddressBook-Level3, the attributes for each item in the underlying list was made final, and no setter methods were used.
-Editing an object hence requires it to first be removed from the underlying list in `Mams`, then creating a new instance with
-the edited field, and finally adding the new object with the edited field back into the list. The `ObservableList` passed to the GUI will then however lose the reference
-to that object, and AB3 mitigates this by forcing the `ObservableList` to list all items again, regardless of the previous state of the list.
-
-*Design Considerations*
-
-* *Alternative 1:* Instead of implementing `Appeal`, `Student`, and `Module` with `final` attributes, let their internal details
-be mutable. Whenever any of them is edited, object reference remains the same. `Model` will then raise an event for any changed item,
-and the GUI upon catching the event will update the corresponding card appropriately.
-** Pros: Has the potential to be more efficient. Only the edited item's card has to be updated.
-** Cons: Difficult to implement without massive changes to the backend logic code. Depending on the implementation, carelessly making
-the attributes of an item eg. `Student` mutable with setter methods may expose it to unwanted modifications.
-
-* *Alternative 2 (Current Choice, on-going implementation):* Keep track of the previous list state using a `HashSet` of `String` IDs uniquely associated
-with each MAMS item (`MatricId`, `ModuleCode`, and `AppealId`). Every time a predicate is applied to the underlying `FilteredList`
-in the `ObservableList` passed to the GUI, the set of String IDs are copied over accordingly. To maintain the state of the
-previous list even after object references have been changed (eg. when items are edited), `Logic#refreshFilteredList()` will be called.
-This will cause the `FilteredList` to reconstruct its previous state using the IDs contained in the `HashSet`. In short, `FilteredList`
-is made to list out all items, then filter them using the IDs stored in the `HashSet` to restore the previous state.
-** Pros: Easy to implement. Changes to the code are kept within `mams.Logic`
-** Cons: May arguably be more computationally inefficient due to the extra filtering step involved for reconstructing the previously displayed list.
 
 to be continued...
 
-//end::ui[]
+// end::ui[]
 
+//tag::undo[]
+=== Backup and undo actions feature
+==== Implementation
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+The backup feature is facilitated by an abstract `StoreCommand` class which extends abstract `Command` class and
+three sub-classes which extends `StoreCommand` to handle different types of saving and restoring actions.
 
-==== Proposed Implementation
+The three sub-classes are:
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+* `SaveCommand` -- Creates a snapshot of MAMS as a backup and stores it as a json file in data.
+* `UndoCommand` -- Undo last action.
+* `RedoCommand` -- Redo last undo.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+image::StoreCommandClassDiagram.png[]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Each sub-class has a `execute()` method that takes in a `Model` object. Store commands only retrieve information from /data file and replaces the current state with the targeted state.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Below shows how the Store Command mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user inputs `undo/redo/backup ...`.
 
-image::UndoRedoState0.png[]
+Step 2. The relevant parser class is called.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 3. Relevant StoreCommand object will be created accordingly depending on steps required to store or restore states.
 
-image::UndoRedoState1.png[]
+Step 4. `StoreCommand.execute()` is called.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
+* If the command is a `UndoCommand`, it will store a snapshot in the data file under its corresponding tag.
+* If the command is a `RedoCommand`, it will check if a redo action is availiable, restores the state and update the saved states as required.
+* If the command is a `SaveCommand`, it will store a snapshot in the data file under its given tag or a tagged with a timestamp to avoid overwriting previous data if tag is not given.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The save states are stored in the same format as the mams.json data file to reduce coupling of the saving mechanism and the save commands.
+
+Step 5. Each `StoreCommand` returns a `CommandResult` object which contains the success or failure of the action and the filename the backup is saved under if applicable.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+===== Aspect: Dealing with storage of states
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+* **Current Choice:** Saves state to data folder in the same file format as the main data.
+** Pros: Persistence of previous actions independent of running state of the program, allows for crash recovery in the event the program is exited incorrectly.
+** Cons: Opens the program up to attacks that target the data folder, as the states are now accessable outside of the program instead of protected by a layer of abstraction.
+* **Alternative :** Saves states as internal list of states
+** Pros: States are only accessable using the application, protecting it from unwanted modifications.
+** Cons: States are limited to current instance of the application, and history cannot be transfered between sessions
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+===== Aspect: Replacing the current state with targeted undo/redo states
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Current choice:** Reads lists stored in targeted data file and replaces current data with targeted data
+** Pros: Does not require knowledge of implementation of running state, thus reducing coupling of StoreCommand and program state.
+** Cons: Requires StoreCommand to be modified each time a new type of list is implemented.
+* **Alternative :** Replace the whole model with a new instance of target model
+** Pros: Decreases coupling between internal implementation of any lists and StoreCommand
+** Cons: Increases coupling between the Logic class and Command subclasses
+// end::undo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

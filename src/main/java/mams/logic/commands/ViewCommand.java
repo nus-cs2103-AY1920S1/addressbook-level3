@@ -11,6 +11,7 @@ import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import java.util.List;
+import java.util.Optional;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
@@ -27,40 +28,50 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays expanded view of items "
+    public static final String FIND_SUGGESTION = "Tip: If you're trying to retrieve items by ID,"
+            + " use the Find command!";
+
+    public static final String MESSAGE_USAGE = FIND_SUGGESTION + "\n"
+            + COMMAND_WORD + ": Displays expanded view of items "
             + "based on their indexes on the displayed lists. Specify up to three items "
             + "(one from each type) in a single " + COMMAND_WORD + " command.\n"
             + "Parameters: KEYWORD "
             + " [" + PREFIX_APPEAL + "INDEX" + "] "
             + " [" + PREFIX_MODULE + "INDEX" + "] "
-            + "  [" + PREFIX_STUDENT + "INDEX" + "]\n"
+            + " [" + PREFIX_STUDENT + "INDEX" + "]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_APPEAL + "1 "
             + PREFIX_MODULE + "11 "
-            + PREFIX_STUDENT + "10\n";
+            + PREFIX_STUDENT + "10";
 
     public static final String MESSAGE_VIEW_SUCCESS = "Displayed items with ID: %1$s";
 
-    private Index appealIndex;
-    private Index moduleIndex;
-    private Index studentIndex;
+    private ViewCommandParameters params;
 
-    /**
-     * @param appealIndex Index of appeal on the displayed list to be expanded and viewed
-     * @param moduleIndex Index of module on the displayed list to be expanded and viewed
-     * @param studentIndex Index of student on the displayed list to be expanded and viewed
-     */
-    public ViewCommand(Index appealIndex, Index moduleIndex, Index studentIndex) {
-        this.appealIndex = appealIndex;
-        this.moduleIndex = moduleIndex;
-        this.studentIndex = studentIndex;
+    public ViewCommand(ViewCommandParameters params) {
+        this.params = params;
     }
 
+    /**
+     * Execute ViewCommand and displays the expanded view of items in the specified indexes.
+     *
+     * In the case of multiple specified indexes:
+     * If at least one of the parameters are out of bounds, then no lists will be updated.
+     * That is to say, even if the appealIndex was valid, but the supplied studentIndex in
+     * ViewCommandParameters was out of bounds, then appeal list will not be updated and an
+     * error will be thrown. This is by design - if appeal list had been updated, then the user
+     * will have to go back and delete the appeal list argument from the previous command
+     * before he can reuse the command. (Remember that if ViewCommand is performed successfully on an appeal,
+     * the new displayed appeal list now only has one item with an Index of 1, so the old Index is no
+     * longer valid, and old command is hence no longer reusable)
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        // ViewCommandParser should ensure that they're not all null
-        assert isAnyNonNull(appealIndex, moduleIndex, studentIndex) : "ViewCommandParser should ensure "
-                + "at least one is non-null";
+        // Defensive check: ViewCommandParser should have ensured at least one parameter is present
+        if (!params.isAtLeastOneParameterPresent()) {
+            throw new CommandException(MESSAGE_USAGE);
+        }
+
         requireNonNull(model);
         StringBuilder displayedFeedback = new StringBuilder();
 
@@ -70,20 +81,20 @@ public class ViewCommand extends Command {
 
         verifyAllIndexesWithinBounds(lastShownAppealList, lastShownModuleList, lastShownStudentList);
 
-        if (appealIndex != null) {
-            Appeal appeal = lastShownAppealList.get(appealIndex.getZeroBased());
+        if (params.getAppealIndex().isPresent()) {
+            Appeal appeal = lastShownAppealList.get(params.getAppealIndex().get().getZeroBased());
             model.updateFilteredAppealList(appeal::equals);
             displayedFeedback.append(appeal.getAppealId());
             displayedFeedback.append(" ");
         }
-        if (moduleIndex != null) {
-            Module module = lastShownModuleList.get(moduleIndex.getZeroBased());
+        if (params.getModuleIndex().isPresent()) {
+            Module module = lastShownModuleList.get(params.getModuleIndex().get().getZeroBased());
             model.updateFilteredModuleList(module::equals);
             displayedFeedback.append(module.getModuleCode());
             displayedFeedback.append(" ");
         }
-        if (studentIndex != null) {
-            Student student = lastShownStudentList.get(studentIndex.getZeroBased());
+        if (params.getStudentIndex().isPresent()) {
+            Student student = lastShownStudentList.get(params.getStudentIndex().get().getZeroBased());
             model.updateFilteredStudentList(student::equals);
             displayedFeedback.append(student.getMatricId());
             displayedFeedback.append(" ");
@@ -101,30 +112,33 @@ public class ViewCommand extends Command {
      * @param lastShownStudentList student list to check {@code studentIndex} against
      * @throws CommandException if any of the indexes are out of bounds within their specific lists
      */
-    private void verifyAllIndexesWithinBounds(List<Appeal> lastShownAppealList,
+    protected void verifyAllIndexesWithinBounds(List<Appeal> lastShownAppealList,
                                               List<Module> lastShownModuleList,
                                               List<Student> lastShownStudentList) throws CommandException {
         StringBuilder errorMessage = new StringBuilder();
-        boolean hasError = false;
+        boolean indexOutOfBounds = false;
 
-        if (appealIndex != null && appealIndex.getZeroBased() >= lastShownAppealList.size()) {
+        if (params.getAppealIndex().isPresent()
+                && params.getAppealIndex().get().getZeroBased() >= lastShownAppealList.size()) {
             errorMessage.append(MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
-        if (moduleIndex != null && moduleIndex.getZeroBased() >= lastShownModuleList.size()) {
+        if (params.getModuleIndex().isPresent()
+                && params.getModuleIndex().get().getZeroBased() >= lastShownModuleList.size()) {
             errorMessage.append(MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
-        if (studentIndex != null && studentIndex.getZeroBased() >= lastShownStudentList.size()) {
+        if (params.getStudentIndex().isPresent()
+                && params.getStudentIndex().get().getZeroBased() >= lastShownStudentList.size()) {
             errorMessage.append(MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
             errorMessage.append("\n");
-            hasError = true;
+            indexOutOfBounds = true;
         }
 
-        if (hasError) {
-            throw new CommandException(errorMessage.toString());
+        if (indexOutOfBounds) {
+            throw new CommandException(errorMessage.toString().trim());
         }
     }
 
@@ -142,8 +156,65 @@ public class ViewCommand extends Command {
 
         // state check
         ViewCommand v = (ViewCommand) other;
-        return appealIndex.equals(v.appealIndex)
-                && moduleIndex.equals(v.moduleIndex)
-                && studentIndex.equals(v.studentIndex);
+        return params.equals(v.params);
+    }
+
+    /**
+     * Stores the details of the parsed parameters that a {@code ViewCommand} will operate on.
+     * This helps to avoid having too many unnecessary constructors (or passing of null-values)
+     * caused by the optional/combinatory nature of the parameters passed to ViewCommand.
+     */
+    public static class ViewCommandParameters {
+        private Index appealIndex;
+        private Index moduleIndex;
+        private Index studentIndex;
+
+        public void setAppealIndex(Index appealIndex) {
+            this.appealIndex = appealIndex;
+        }
+
+        public void setModuleIndex(Index moduleIndex) {
+            this.moduleIndex = moduleIndex;
+        }
+
+        public void setStudentIndex(Index studentIndex) {
+            this.studentIndex = studentIndex;
+        }
+
+        public Optional<Index> getAppealIndex() {
+            return Optional.ofNullable(appealIndex);
+        }
+
+        public Optional<Index> getModuleIndex() {
+            return Optional.ofNullable(moduleIndex);
+        }
+
+        public Optional<Index> getStudentIndex() {
+            return Optional.ofNullable(studentIndex);
+        }
+
+        public boolean isAtLeastOneParameterPresent() {
+            return isAnyNonNull(appealIndex, moduleIndex, studentIndex);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof ViewCommandParameters)) {
+                return false;
+            }
+
+            // state check
+            ViewCommandParameters vp = (ViewCommandParameters) other;
+
+            return getAppealIndex().equals(vp.getAppealIndex())
+                    && getModuleIndex().equals(vp.getModuleIndex())
+                    && getStudentIndex().equals(vp.getStudentIndex());
+        }
     }
 }

@@ -1,0 +1,23 @@
+{
+  "inputOutputs" : [ {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572540862
+  }, {
+    "input" : "list -a",
+    "output" : "Listed all appeals\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572559161
+  }, {
+    "input" : "afoaref",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572650862
+  }, {
+    "input" : "cs2103",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572780456
+  } ]
+}

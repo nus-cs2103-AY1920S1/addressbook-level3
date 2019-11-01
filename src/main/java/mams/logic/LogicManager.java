@@ -2,11 +2,14 @@ package mams.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import mams.commons.core.GuiSettings;
 import mams.commons.core.LogsCenter;
+import mams.commons.core.time.TimeStamp;
+import mams.commons.exceptions.DataConversionException;
 import mams.logic.commands.Command;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.RedoCommand;
@@ -35,11 +38,23 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
 
     public LogicManager(Model model, Storage storage) {
+        Optional<ReadOnlyCommandHistory> commandHistoryOptional;
+        ReadOnlyCommandHistory startingCommandHistory;
+
         this.model = model;
         this.storage = storage;
         this.mamsParser = new MamsParser();
-        this.commandHistory = new CommandHistory();
-
+        try { // attempt to load CommandHistory from disk
+            commandHistoryOptional = storage.readCommandHistory();
+            if (!commandHistoryOptional.isPresent()) {
+                logger.info("Command history data file not found. Starting with an empty command history...");
+            }
+            startingCommandHistory = commandHistoryOptional.orElseGet(CommandHistory::new);
+        } catch (IOException | DataConversionException e) {
+            logger.warning("Problem while reading from the file. Starting with an empty command history...");
+            startingCommandHistory = new CommandHistory();
+        }
+        this.commandHistory = new CommandHistory(startingCommandHistory);
     }
 
     @Override
@@ -55,16 +70,21 @@ public class LogicManager implements Logic {
                 new SaveCommand("undo").privateExecute(model);
             }
             commandResult = command.execute(model);
-        } finally {
-            commandHistory.add(commandText);
-        }
-
-        try {
             storage.saveMams(model.getMams());
+            commandHistory.add(commandText, commandResult.getFeedbackToUser(), true, new TimeStamp());
+        } catch (CommandException | ParseException e) {
+            commandHistory.add(commandText, e.getMessage(), false, new TimeStamp());
+            throw e; // after getting message, rethrow. stacktrace is not lost
         } catch (IOException ioe) {
+            commandHistory.add(commandText, ioe.getMessage(), false, new TimeStamp());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveCommandHistory(commandHistory);
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
         return commandResult;
     }
 
@@ -89,8 +109,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<String> getCommandHistory() {
-        return commandHistory.getInputHistory();
+    public ObservableList<InputOutput> getCommandHistory() {
+        return commandHistory.getInputOutputHistory();
     }
 
     @Override

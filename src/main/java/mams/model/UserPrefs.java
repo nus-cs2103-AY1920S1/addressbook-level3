@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path mamsFilePath = Paths.get("data" , "mams.json");
+    private Path commandHistoryFilePath = Paths.get("data", "commandHistory.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setMamsFilePath(newUserPrefs.getMamsFilePath());
+        setCommandHistoryFilePath(newUserPrefs.getCommandHistoryFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +58,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.mamsFilePath = mamsFilePath;
     }
 
+    public Path getCommandHistoryFilePath() {
+        return commandHistoryFilePath;
+    }
+
+    public void setCommandHistoryFilePath(Path commandHistoryFilePath) {
+        requireNonNull(commandHistoryFilePath);
+        this.commandHistoryFilePath = commandHistoryFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +79,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && mamsFilePath.equals(o.mamsFilePath);
+                && mamsFilePath.equals(o.mamsFilePath)
+                && commandHistoryFilePath.equals(o.commandHistoryFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, mamsFilePath);
+        return Objects.hash(guiSettings, mamsFilePath, commandHistoryFilePath);
     }
 
     @Override
@@ -81,6 +93,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + mamsFilePath);
+        sb.append("\nLocal command history file location : " + commandHistoryFilePath);
         return sb.toString();
     }
 

@@ -17,6 +17,8 @@ import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Mams;
 import mams.model.Model;
+import mams.model.appeal.Appeal;
+import mams.model.module.Module;
 import mams.model.student.NameContainsKeywordsPredicate;
 import mams.model.student.Student;
 import mams.testutil.EditStudentDescriptorBuilder;
@@ -30,12 +32,12 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_CREDITS_AMY = "20";
     public static final String VALID_CREDITS_BOB = "20";
-    public static final String VALID_PREVMODS_AMY = "amy@example.com";
-    public static final String VALID_PREVMODS_BOB = "bob@example.com";
+    public static final String VALID_PREVMODS_AMY = "CS1010, CS2101";
+    public static final String VALID_PREVMODS_BOB = "CS1010, CS2105";
     public static final String VALID_MATRICID_AMY = "A0169928E";
     public static final String VALID_MATRICID_BOB = "A0124123Q";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_APPEAL1 = "C000001";
+    public static final String VALID_TAG_APPEAL2 = "C000002";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -45,8 +47,8 @@ public class CommandTestUtil {
     public static final String PREVMODS_DESC_BOB = " " + PREFIX_PREVMODS + VALID_PREVMODS_BOB;
     public static final String MATRICID_DESC_AMY = " " + PREFIX_STUDENT + VALID_MATRICID_AMY;
     public static final String MATRICID_DESC_BOB = " " + PREFIX_STUDENT + VALID_MATRICID_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_APPEAL2;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_APPEAL1;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CREDITS_DESC = " " + PREFIX_CREDITS + "6"; // too low
@@ -63,10 +65,10 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withCredits(VALID_CREDITS_AMY).withPrevMods(VALID_PREVMODS_AMY).withMatricId(VALID_MATRICID_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_APPEAL2).build();
         DESC_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withCredits(VALID_CREDITS_BOB).withPrevMods(VALID_PREVMODS_BOB).withMatricId(VALID_MATRICID_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_APPEAL1, VALID_TAG_APPEAL2).build();
     }
 
     /**
@@ -112,6 +114,32 @@ public class CommandTestUtil {
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
     /**
+     * Updates {@code model}'s filtered list to show only the appeal at the given {@code targetIndex} in the
+     * {@code model}'s MAMS.
+     */
+    public static void showAppealAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAppealList().size());
+
+        Appeal appeal = model.getFilteredAppealList().get(targetIndex.getZeroBased());
+        model.updateFilteredAppealList(appeal::equals);
+
+        assertEquals(1, model.getFilteredAppealList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the module at the given {@code targetIndex} in the
+     * {@code model}'s MAMS.
+     */
+    public static void showModuleAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModuleList().size());
+
+        Module module = model.getFilteredModuleList().get(targetIndex.getZeroBased());
+        model.updateFilteredModuleList(module::equals);
+
+        assertEquals(1, model.getFilteredModuleList().size());
+    }
+
+    /**
      * Updates {@code model}'s filtered list to show only the student at the given {@code targetIndex} in the
      * {@code model}'s MAMS.
      */
@@ -123,6 +151,36 @@ public class CommandTestUtil {
         model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show all appeals in MAMS.
+     */
+    public static void showAllAppeals(Model model) {
+        model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show all modules in MAMS.
+     */
+    public static void showAllModules(Model model) {
+        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show all students in MAMS.
+     */
+    public static void showAllStudents(Model model) {
+        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+    }
+
+    /**
+     * Updates {@code model}'s filtered lists to show all items in all three lists of MAMS.
+     */
+    public static void showAll(Model model) {
+        showAllAppeals(model);
+        showAllModules(model);
+        showAllStudents(model);
     }
 
 }
