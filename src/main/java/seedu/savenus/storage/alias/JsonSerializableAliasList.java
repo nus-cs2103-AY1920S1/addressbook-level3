@@ -55,24 +55,20 @@ public class JsonSerializableAliasList {
     public AliasList toModelType() throws IllegalValueException {
         AliasList list = new AliasList();
 
-        if (aliasList == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT));
-        } else {
-            AliasList originalAliasList = new AliasList();
-            int numberOfMissingCommands = originalAliasList.getList().size();
+        AliasList originalAliasList = new AliasList();
+        int numberOfMissingCommands = originalAliasList.getList().size();
 
-            for (JsonAdaptedAliasPair pair : aliasList) {
-                if (AliasChecker.doesCommandWordExist(originalAliasList.getList(), pair.getCommandWord())) {
-                    numberOfMissingCommands--;
-                    list.changeAliasWord(pair.getCommandWord(), pair.getAliasWord());
-                } else {
-                    throw new IllegalValueException(INVALID_FIELD_MESSAGE_FORMAT);
-                }
+        for (JsonAdaptedAliasPair pair : aliasList) {
+            if (AliasChecker.doesCommandWordExist(originalAliasList.getList(), pair.getCommandWord())) {
+                numberOfMissingCommands--;
+                list.changeAliasWord(pair.getCommandWord(), pair.getAliasWord());
+            } else {
+                throw new IllegalValueException(INVALID_FIELD_MESSAGE_FORMAT);
             }
+        }
 
-            if (numberOfMissingCommands != 0) {
-                throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
-            }
+        if (numberOfMissingCommands != 0) {
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
 
         return list;
