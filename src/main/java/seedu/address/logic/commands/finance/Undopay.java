@@ -44,9 +44,9 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing employee in the employeeAddress book.
  */
-public class Pay extends Command {
+public class Undopay extends Command {
 
-    public static final String COMMAND_WORD = "pay";
+    public static final String COMMAND_WORD = "undopay";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
             + "by the index number used in the displayed employee list. "
@@ -76,7 +76,7 @@ public class Pay extends Command {
      * @param index of the employee in the filtered employee list to edit
      * @param editEmployeeDescriptor details to edit the employee with
      */
-    public Pay(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
+    public Undopay(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
         requireNonNull(index);
         requireNonNull(editEmployeeDescriptor);
 
@@ -103,7 +103,7 @@ public class Pay extends Command {
         Double endDouble = Double.parseDouble(end);
 
 
-        double amt = startDouble + endDouble;
+        double amt = startDouble - endDouble;
         String output = (int) amt + "";
 
         //set amt
@@ -172,7 +172,7 @@ public class Pay extends Command {
         }
 
         // state check
-        Pay e = (Pay) other;
+        Undopay e = (Undopay) other;
         return index.equals(e.index)
                 && editEmployeeDescriptor.equals(e.editEmployeeDescriptor);
     }
@@ -181,7 +181,7 @@ public class Pay extends Command {
      * Stores the details to edit the employee with. Each non-empty field value will replace the
      * corresponding field value of the employee.
      */
-    public static class EditEmployeeDescriptor extends Undopay.EditEmployeeDescriptor {
+    public static class EditEmployeeDescriptor {
         private EmployeeName employeeName;
         private EmployeePhone employeePhone;
         private EmployeeEmail employeeEmail;
@@ -349,4 +349,5 @@ public class Pay extends Command {
         }
     }
 }
+
 
