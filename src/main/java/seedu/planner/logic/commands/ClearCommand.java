@@ -3,6 +3,7 @@ package seedu.planner.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.AccommodationManager;
 import seedu.planner.model.ActivityManager;
@@ -37,6 +38,6 @@ public class ClearCommand extends UndoableCommand {
         model.setActivities(new ActivityManager());
         model.setContacts(new ContactManager());
         model.setItinerary(new Itinerary());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 }
