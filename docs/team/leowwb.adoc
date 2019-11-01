@@ -37,7 +37,7 @@ _Figure 1. The graphical user interface of **KeyboardFlashCards**_
 
 //* *Minor enhancement*: ???
 
-* *Code contributed*: Please click on these links to see a sample of my code: +
+* *Code contributed*: Please click on these links to see a sample of my code:
 [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
 
 * *Other contributions*:
