@@ -29,7 +29,7 @@ class AutocompletionTextField extends TextField {
     private ContextMenu entriesPopup;
 
 
-    public AutocompletionTextField() {
+    AutocompletionTextField() {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
@@ -44,7 +44,8 @@ class AutocompletionTextField extends TextField {
         //Add "suggestions" by changing text
         textProperty().addListener((observable, oldValue, newValue) -> {
             String enteredText = getText();
-            //always hide suggestion if nothing has been entered (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
+            //always hide suggestion if nothing has been entered
+            // (only "spacebars" are dissalowed in TextFieldWithLengthLimit)
             if (enteredText == null || enteredText.isEmpty()) {
                 entriesPopup.hide();
             } else {
@@ -57,7 +58,8 @@ class AutocompletionTextField extends TextField {
                     //build popup - list of "CustomMenuItem"
                     populatePopup(filteredEntries, enteredText);
                     if (!entriesPopup.isShowing()) { //optional
-                        entriesPopup.show(AutocompletionTextField.this, Side.BOTTOM, 0, 0); //position of popup
+                        //position of popup
+                        entriesPopup.show(AutocompletionTextField.this, Side.BOTTOM, 0, 0);
                     }
                     //no suggestions -> hide
                 } else {
@@ -113,12 +115,14 @@ class AutocompletionTextField extends TextField {
      *
      * @return The existing autocomplete entries.
      */
-    public SortedSet<String> getEntries() { return entries; }
+    SortedSet<String> getEntries() {
+        return entries;
+    }
 
     /**
      * Build TextFlow with selected text. Return "case" dependent.
      *
-     * @param text - string with text
+     * @param text   - string with text
      * @param filter - string to select in text
      * @return - TextFlow
      */
@@ -126,7 +130,8 @@ class AutocompletionTextField extends TextField {
         int filterIndex = text.toLowerCase().indexOf(filter.toLowerCase());
         Text textBefore = new Text(text.substring(0, filterIndex));
         Text textAfter = new Text(text.substring(filterIndex + filter.length()));
-        Text textFilter = new Text(text.substring(filterIndex,  filterIndex + filter.length())); //instead of "filter" to keep all "case sensitive"
+        //instead of "filter" to keep all "case sensitive"
+        Text textFilter = new Text(text.substring(filterIndex, filterIndex + filter.length()));
         textFilter.setFill(Color.ORANGE);
         textFilter.setFont(Font.font("Helvetica", FontWeight.BOLD, 12));
         return new TextFlow(textBefore, textFilter, textAfter);
