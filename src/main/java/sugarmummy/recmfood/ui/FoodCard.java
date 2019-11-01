@@ -84,9 +84,4 @@ public class FoodCard extends UiPart<Region> {
             assert false : "Food type is not found.";
         }
     }
-
-    private Background backgroundBuilder(Color color) {
-        return new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY));
-    }
-
 }
