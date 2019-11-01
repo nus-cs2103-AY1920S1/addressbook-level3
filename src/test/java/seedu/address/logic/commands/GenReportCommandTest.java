@@ -34,7 +34,7 @@ public class GenReportCommandTest {
         for (Body body : bodyList) {
             if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
                 GenReportCommand genReportCommand =
-                        new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()));
+                        new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "Manager A");
 
                 String expectedBodyMessage = String.format(MESSAGE_GENREPORT_SUCCESS, body);
 
@@ -48,7 +48,7 @@ public class GenReportCommandTest {
     public void execute_invalidBodyId_throwsCommandException() {
         IdentificationNumber outOfBoundBodyIndex = IdentificationNumber.customGenerateId("B",
                 model.getFilteredBodyList().size() + 1);
-        GenReportCommand genReportCommand = new GenReportCommand(Index.fromZeroBased(outOfBoundBodyIndex.getIdNum()));
+        GenReportCommand genReportCommand = new GenReportCommand(Index.fromZeroBased(outOfBoundBodyIndex.getIdNum()), "Manager A");
 
         assertCommandFailure(genReportCommand, model, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
     }
@@ -58,16 +58,16 @@ public class GenReportCommandTest {
         model.addEntity(ALICE);
         model.addEntity(BOB);
         GenReportCommand genFirstBodyReportCommand =
-                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()));
+                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "Manager A");
         GenReportCommand genSecondBodyReportCommand =
-                new GenReportCommand(Index.fromZeroBased(SECOND_BODY_ID_NUM.getIdNum()));
+                new GenReportCommand(Index.fromZeroBased(SECOND_BODY_ID_NUM.getIdNum()), "Manager A");
 
         // same object -> returns true
         assertEquals(genFirstBodyReportCommand, genFirstBodyReportCommand);
 
         // same values -> returns true
         GenReportCommand genFirstBodyCommandCopy =
-                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()));
+                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "Manager A");
         assertEquals(genFirstBodyReportCommand, genFirstBodyCommandCopy);
 
         // different types -> returns false

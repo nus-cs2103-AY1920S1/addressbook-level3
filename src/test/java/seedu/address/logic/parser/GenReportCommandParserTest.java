@@ -16,18 +16,22 @@ public class GenReportCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsGenReportCommand() {
-        assertParseSuccess(parser, "B1",
-                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum())));
+        assertParseSuccess(parser, "B1 /name Manager A",
+                new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "Manager A"));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        //No name given
+        assertParseFailure(parser, "B1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                GenReportCommand.MESSAGE_USAGE));
+
         //Invalid string
-        assertParseFailure(parser, "B", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "B /name Manager A", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 GenReportCommand.MESSAGE_USAGE));
 
         //Invalid first char
-        assertParseFailure(parser, "A1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "A1 /name Manager A", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 GenReportCommand.MESSAGE_USAGE));
 
         //No input given
