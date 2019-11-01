@@ -478,7 +478,7 @@ Statistics are also stored automatically.
 == Overview of Modes for Advanced Users
 
 .All possible application modes
-image::ParserManagerActivityDiagram.png[]
+image::ParserManagerActivityDiagram.PNG[]
 
 
 // tag::chenhui-commandsummary[]
