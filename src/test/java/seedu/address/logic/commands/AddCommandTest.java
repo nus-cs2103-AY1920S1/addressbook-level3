@@ -243,6 +243,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ArrayList<Integer> getPerformance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updatePerformance(Model model) {
             throw new AssertionError("This method should not be called.");
         }
