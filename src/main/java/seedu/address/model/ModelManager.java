@@ -653,10 +653,11 @@ public class ModelManager implements Model {
 
         }
 
-        ArrayList<Integer> toDeleteIndexList = new ArrayList<>();
+        ArrayList<Integer> toCancelIndexList = new ArrayList<>();
         archivedOrders = archivedOrderBook.getList();
 
         // Ensure that archived orders list has no completed orders with duplicate phones.
+        // if not cancel the orders.
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             assert(o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
@@ -683,15 +684,18 @@ public class ModelManager implements Model {
                 }
 
                 if (hasDuplicatePhone) {
-                    toDeleteIndexList.add(i);
+                    toCancelIndexList.add(i);
                 }
             }
         }
 
-        toDeleteIndexList.sort(Collections.reverseOrder());
+        toCancelIndexList.sort(Collections.reverseOrder());
 
-        for (int index: toDeleteIndexList) {
-            deleteArchivedOrder(archivedOrders.get(index));
+        for (int index: toCancelIndexList) {
+            Order o = archivedOrders.get(index);
+            Order editedOrder = new Order(o.getId(), o.getCustomer(), o.getPhone(),
+                    o.getPrice(), Status.CANCELLED, o.getSchedule(), o.getTags());
+            archivedOrderBook.set(o, editedOrder);
         }
     }
 
