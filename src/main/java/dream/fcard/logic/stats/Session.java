@@ -1,5 +1,10 @@
 package dream.fcard.logic.stats;
 
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -11,7 +16,7 @@ import dream.fcard.util.DateTimeUtil;
  * A Session object represents a length of time the user spends doing a task, e.g. using the app
  * or running a test on a deck.
  */
-public class Session implements Serializable {
+public class Session implements Serializable, JsonInterface {
     // should implement JsonInterface, todo: @AHaliq can store LocalDateTime?
 
     /** The start time of the session, in the user's local time zone. */
@@ -41,10 +46,38 @@ public class Session implements Serializable {
         startSession();
     }
 
-    /** Sets the session's start time to the present. */
-    private void startSession() {
+    /**
+     * Construct a new instance of session and sets the session's start time to argument.
+     * @param start start time
+     */
+    public Session(LocalDateTime start) {
+        startSession(start);
+    }
+
+    /**
+     * Construct a new instance of session and sets the session's start and end time to arguments.
+     * @param start start time
+     * @param end   end time
+     */
+    public Session(LocalDateTime start, LocalDateTime end) {
+        startSession(start);
+        endSession(end);
+    }
+
+    /**
+     * Start session start time to present.
+     */
+    public void startSession() {
+        startSession(LocalDateTime.now());
+    }
+
+    /**
+     * Start session start time to argument.
+     * @param start start time
+     */
+    public void startSession(LocalDateTime start) {
         // todo: add tests for String properties
-        this.sessionStart = LocalDateTime.now();
+        this.sessionStart = start;
         this.sessionStartString = DateTimeUtil.getStringFromDateTime(this.sessionStart);
     }
 
@@ -53,10 +86,28 @@ public class Session implements Serializable {
      * To be called when the session's controller exits.
      */
     public void endSession() {
-        this.sessionEnd = LocalDateTime.now();
+        endSession(LocalDateTime.now());
+    }
+
+    /**
+     * Ends this session, to argument datetime
+     * @param end   end time
+     */
+    public void endSession(LocalDateTime end) {
+        this.sessionEnd = end;
         this.sessionEndString = DateTimeUtil.getStringFromDateTime(this.sessionEnd);
         this.setDuration();
+    }
+
+
+    /**
+     * Calculates and sets the duration of this session.
+     */
+    public void setDuration() {
+        Duration duration = DateTimeUtil.calculateDuration(this.getSessionStart(), this.getSessionEnd());
+        this.duration = duration;
         this.durationString = DateTimeUtil.getStringFromDuration(this.duration);
+        System.out.println("Duration set to: " + durationString);
     }
 
     /** Gets the start time of this session, as a LocalDateTime object. */
@@ -77,13 +128,6 @@ public class Session implements Serializable {
     /** Gets the end time of this session, as a String. */
     public String getSessionEndString() {
         return this.sessionEndString;
-    }
-
-    /** Calculates and sets the duration of this session. */
-    public void setDuration() {
-        Duration duration = DateTimeUtil.calculateDuration(this.getSessionStart(), this.getSessionEnd());
-        this.duration = duration;
-        System.out.println("Duration set to: " + DateTimeUtil.getStringFromDuration(duration));
     }
 
     /** Gets the duration of this session, as a Duration object. */
@@ -112,5 +156,20 @@ public class Session implements Serializable {
     /** Returns true if this session has an associated score, false otherwise. */
     public boolean hasScore() {
         return this.score != -1;
+    }
+
+    @Override
+    public JsonValue toJson() {
+        JsonObject obj = new JsonObject();
+        try {
+            obj.put(Schema.SESSION_START,
+                    DateTimeUtil.getJsonFromDateTime(sessionStart).getObject());
+            obj.put(Schema.SESSION_END,
+                    DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
+            obj.put(Schema.SESSION_SCORE, score);
+        } catch(JsonWrongValueException e) {
+            System.out.println("DATETIME JSON MUST BE AN OBJECT " + e.getMessage());
+        }
+        return new JsonValue(obj);
     }
 }

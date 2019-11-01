@@ -29,4 +29,8 @@ public class Schema {
     public static final String DATE_TIME_MINUTE = "minute";
     public static final String DATE_TIME_SECOND = "second";
     public static final String DATE_TIME_NANO = "nano";
+
+    public static final String SESSION_START = "start";
+    public static final String SESSION_END = "end";
+    public static final String SESSION_SCORE = "score";
 }
