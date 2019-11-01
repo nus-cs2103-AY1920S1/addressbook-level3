@@ -2,6 +2,7 @@
 package dream.fcard.util;
 
 import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import java.time.Duration;
@@ -65,6 +66,11 @@ public class DateTimeUtil {
         return localDateTime.format(formatter);
     }
 
+    /**
+     * Returns a JsonValue of a LocalDateTime object.
+     * @param localDateTime object to convert to json
+     * @return              resulting JsonValue
+     */
     public static JsonValue getJsonFromDateTime(LocalDateTime localDateTime) {
         JsonObject obj = new JsonObject();
         obj.put(Schema.DATE_TIME_YEAR, localDateTime.getYear());
@@ -75,6 +81,17 @@ public class DateTimeUtil {
         obj.put(Schema.DATE_TIME_SECOND, localDateTime.getSecond());
         obj.put(Schema.DATE_TIME_NANO, localDateTime.getNano());
         return new JsonValue(obj);
+    }
+
+    public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws JsonWrongValueException {
+        return LocalDateTime.of(
+                obj.get(Schema.DATE_TIME_YEAR).getInt(),
+                obj.get(Schema.DATE_TIME_MONTH).getInt(),
+                obj.get(Schema.DATE_TIME_DAY).getInt(),
+                obj.get(Schema.DATE_TIME_HOUR).getInt(),
+                obj.get(Schema.DATE_TIME_MINUTE).getInt(),
+                obj.get(Schema.DATE_TIME_SECOND).getInt(),
+                obj.get(Schema.DATE_TIME_NANO).getInt());
     }
 
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class

@@ -3,6 +3,7 @@ package dream.fcard.logic.storage;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.Stats;
+import dream.fcard.util.DateTimeUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -248,8 +250,8 @@ public class StorageManager {
             for (JsonValue sessionJson : statsJson.getArray()) {
                 JsonObject sessionJsonObj = sessionJson.getObject();
                 Session session = new Session(
-                        parseLocalDateTimeJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
-                        parseLocalDateTimeJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
+                        DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
+                        DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
                 session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
                 arr.add(session);
             }
@@ -261,9 +263,5 @@ public class StorageManager {
         } catch (JsonWrongValueException e) {
             System.out.println("UNEXPECTED JSON FORMAT FOR STATS" + e.getMessage());
         }
-    }
-
-    private static LocalDateTime parseLocalDateTimeJson(JsonObject obj) {
-        return null;
     }
 }
