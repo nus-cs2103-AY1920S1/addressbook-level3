@@ -414,6 +414,28 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 
 === Quizzes ​-​ `quiz`
 
+After taking the effort to record different questions, a teacher might be wondering what other features could the NJoy Teaching
+Assistant actually provide? What better way to make use of your predefined questions to create quizzes for homework, revision
+or even assignments?
+
+[NOTE]
+Unfortunately, since majority of the quiz commands rely on question and quiz question indexes, it is entirely up to the user
+to ensure the correct indexes of the questions or quiz questions have been entered.
+
+The following steps attempt to illustrate how one can set up the questions for a quiz.
+
+*Step 1.* First, the user has to think of a question to add to the NJoy Assistant. What question and answer should
+it be? And also, is it an mcq or open-ended question? The image below gives an overview of how to create a question: +
+
+image::CreateQuestion.jpg[]
+_`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates an mcq question._
+
+*Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
+how one can view the question list: +
+
+image::QuestionList.jpg[]
+_`question list` - displays the question list._
+
 ==== Creating a Quiz manually: `manual`
 
 Allows a user to create a quiz manually. +
@@ -422,18 +444,24 @@ Format: `quiz manual quizID/... questionNumber/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
-. `Question Numbers` (The question numbers you want to add to the quiz)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Question Numbers | The question numbers you want to add to the quiz.
+|==============================
 
 Examples:
 
 * `quiz manual quizID/CS2103T questionNumber/1 2 3` +
 Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
+* `quiz manual quizID/CS2103T questionNumber/5` +
+Adds question number 5 to the quiz labelled CS2103T.
 
 ==== Creating a Quiz automatically: `auto`
 
 Allows a user to create a quiz automatically. +
-[NOTE] 
+[TIP]
 The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
 
 [NOTE]
@@ -441,14 +469,22 @@ Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
-. `Number of Questions` (The number of questions you want added to the quiz)
-. `Question Type` (mcq, open, all)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Number of Questions | The number of questions you want added to the quiz.
+| Question Type | The type of questions you want added to the quiz: mcq, open, all.
+|==============================
 
 Examples:
 
 * `quiz auto quizID/CS2103T numQuestions/2 type/mcq` +
 Adds 2 questions of type mcq to the quiz labelled CS2103T.
+* `quiz auto quizID/CS2103T numQuestions/1 type/open` +
+Adds 1 question of type open-ended to the quiz labelled CS2103T.
+* `quiz auto quizID/CS2103T numQuestions/3 type/all` +
+Adds 3 questions of any type to the quiz labelled CS2103T.
 
 ==== Adding a Question to a Quiz: `add`
 
@@ -458,25 +494,39 @@ Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of your quiz)
-. `Question Number` (The question number you want to add to the quiz)
-. `Quiz Question Number` (The question number in the quiz you want to add the question to)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Question Number | The question number you want to add to the quiz.
+| Quiz Question Number | The question number in the quiz you want to add the question to.
+|==============================
 
 Examples:
 
 * `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
 Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
+* `quiz add quizID/CS2103T questionNumber/4 quizQuestionNumber/1` +
+Adds question 4 to the quiz question number 1 for the quiz labelled CS2103T.
 
 ==== Deleting a Question from a Quiz: `delete`
 
 Allows a user to delete a question from a quiz. +
+
+[TIP]
+Do take note that the user can only delete one question at a time.
+
 [NOTE]
 Format: `quiz delete quizID/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
-. `Quiz Question Number` (The question number of the question in the quiz to be deleted)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Quiz Question Number | The question number of the question i the quiz to be deleted.
+|==============================
 
 Examples:
 
@@ -485,18 +535,37 @@ Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
 ==== Exporting a Quiz to HTML: `export`
 
-Allows a user to export a quiz to a formatted HTML file. +
+Allows a user to export a quiz to a formatted HTML file. This file is saved in a folder "currentDirectory/exports/". +
 [NOTE]
 Format: `quiz export quizID/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
 
 Examples:
 
 * `quiz export quizID/CS2103T` +
 Exports the quiz labelled CS2103T to a formatted HTML file.
+
+The following example demonstrates how to find the export file:
+
+*Step 1.* After executing the quiz export command on the quiz labelled CS2103T, the user should
+navigate to their current directory. An exports folder as shown in the image below should be created!
+
+image::QuizExportsFolder.jpg[]
+
+*Step 2.* Open the folder and double click the html file.
+
+image::QuizHtml.png[]
+
+*Step 3.* The quiz should be in the format displayed below:
+
+image::QuizExported.png[]
 
 ==== Listing a Quiz: `list`
 
@@ -506,7 +575,11 @@ Format: `quiz list quizID/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
 
 Examples:
 
@@ -521,7 +594,11 @@ Format: `quiz showQuestions quizID/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
 
 Examples:
 
@@ -536,7 +613,11 @@ Format: `quiz showAnswers quizID/...`
 
 The format supported by this feature includes:
 
-. `Quiz ID` (The label of the quiz)
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
 
 Examples:
 

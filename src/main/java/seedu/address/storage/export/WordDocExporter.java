@@ -17,6 +17,8 @@ public class WordDocExporter extends Exporter {
      * Creates a word document with the specified file name and content provided.
      */
     public static void saveExport(String fileName, String toExport) {
+        File dir = new File(EXPORT_DIRECTORY_PATH);
+        dir.mkdir();
         try {
             File tempDir = new File(EXPORT_DIRECTORY_PATH);
             if (!tempDir.exists()) {
