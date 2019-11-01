@@ -400,7 +400,7 @@ image::UG-createShortcut5.png[width="800"]
 
 === Deleting a shortcut : `delete_shortcut`
 
-You can delete a shortcut that you have created by using the delete income command by entering the keyword `delete_shortcut` followed by shortcut name.
+You can delete a shortcut that you have created by using the delete shortcut command by entering the keyword `delete_shortcut` followed by shortcut name.
 The specified shortcut will be then deleted.
 
 Keyword: `delete_shortcut`
