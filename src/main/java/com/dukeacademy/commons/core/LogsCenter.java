@@ -1,6 +1,7 @@
 package com.dukeacademy.commons.core;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -18,11 +19,11 @@ import java.util.logging.SimpleFormatter;
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = "questionbank.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
+    private static final String LOG_FILE = "Logs/DukeAcademyLogs.log";
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
@@ -107,6 +108,11 @@ public class LogsCenter {
      * @throws IOException if there are problems opening the file.
      */
     private static FileHandler createFileHandler() throws IOException {
+        if (!Paths.get(LOG_FILE).toFile().exists()) {
+            Paths.get(LOG_FILE).getParent().toFile().mkdirs();
+            Paths.get(LOG_FILE).toFile().createNewFile();
+        }
+
         FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);

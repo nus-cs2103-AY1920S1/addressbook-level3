@@ -93,10 +93,9 @@ public class StandardProgramExecutor implements ProgramExecutor {
         // Generate the correct command for the process
         String className = program.getCanonicalName();
         String classPath = program.getClassPath();
-        String command = "java -cp " + classPath + " " + className;
 
         try {
-            return this.runtime.exec(command);
+            return this.runtime.exec(new String[]{"java", "-cp", classPath, className});
         } catch (IOException e) {
             throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED + program);
         }
@@ -129,6 +128,12 @@ public class StandardProgramExecutor implements ProgramExecutor {
 
         char[] output = new char[500];
         int bytesRead = reader.read(output);
+
+        // Important because bytesRead is -1 when there is no output
+        if (bytesRead == -1) {
+            bytesRead = 0;
+        }
+
         String programOutput = String.copyValueOf(output, 0, bytesRead);
 
         return ProgramOutput.getEmptyProgramOutput().append(programOutput);
