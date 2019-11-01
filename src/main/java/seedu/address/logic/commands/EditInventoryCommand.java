@@ -19,7 +19,11 @@ import seedu.address.model.Model;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
+import seedu.address.model.task.Task;
 
 /**
  * Edits the details of an existing inventory in the Dashboard.
@@ -60,6 +64,8 @@ public class EditInventoryCommand extends Command{
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Task> lastShownTaskList = model.getFilteredTasksList();
+        List<Member> lastShownMemberList = model.getFilteredMembersList();
         List<Inventory> lastShownList = model.getFilteredInventoriesList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -67,7 +73,39 @@ public class EditInventoryCommand extends Command{
         }
 
         Inventory inventoryToEdit = lastShownList.get(index.getZeroBased());
+
         Inventory editedInventory = createEditedInventory(inventoryToEdit, editInventoryDescriptor);
+
+        //Mappings Section start
+        if(editInventoryDescriptor.getTaskId().isPresent()) {
+            for (int i = 0; i < lastShownTaskList.size(); i++) {
+                InvTasMapping mapping = new InvTasMapping(i, index.getZeroBased());
+                if (model.hasMapping(mapping)) {
+                    model.deleteMapping(mapping);
+                }
+            }
+            InvTasMapping newMapping = new InvTasMapping(editInventoryDescriptor.getTaskId().get().getZeroBased(),
+                                                            index.getZeroBased());
+            model.addMapping(newMapping);
+        }
+        if(editInventoryDescriptor.getMemberId().isPresent()) {
+            for (int j = 0; j < lastShownMemberList.size(); j++) {
+                InvMemMapping mapping = new InvMemMapping(j, index.getZeroBased());
+                if (model.hasMapping(mapping)) {
+                    model.deleteMapping(mapping);
+                }
+            }
+            Integer memberIndex = null;
+            for (int i = 0; i < lastShownMemberList.size(); i++) {
+                if (lastShownMemberList.get(i).getId().equals(editInventoryDescriptor.getMemberId().get())) {
+                    memberIndex = i;
+                    break;
+                }
+            }
+            InvMemMapping newMapping = new InvMemMapping(memberIndex, index.getZeroBased());
+            model.addMapping(newMapping);
+        }
+        //Mappings section ends
 
         if (!inventoryToEdit.isSameInventory(editedInventory) && model.hasInventory(editedInventory)) {
             throw new CommandException(MESSAGE_DUPLICATE_INVENTORY);

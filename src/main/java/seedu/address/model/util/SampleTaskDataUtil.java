@@ -10,6 +10,8 @@ import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.inventory.InvName;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.Price;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.member.MemberName;
@@ -59,6 +61,28 @@ public class SampleTaskDataUtil {
         };
     }
 
+    public static InvMemMapping[] getSampleInvMemMappings() {
+        return new InvMemMapping[] {
+                new InvMemMapping(2,0),
+                new InvMemMapping(2,1),
+                new InvMemMapping(0,2),
+                new InvMemMapping(1,3),
+                new InvMemMapping(2,4),
+                new InvMemMapping(0,5),
+        };
+    }
+
+    public static InvTasMapping[] getSampleInvTasMappings() {
+        return new InvTasMapping[] {
+                new InvTasMapping(5,0),
+                new InvTasMapping(2,1),
+                new InvTasMapping(5,2),
+                new InvTasMapping(5,3),
+                new InvTasMapping(2,4),
+                new InvTasMapping(4,5),
+        };
+    }
+
     public static ReadOnlyProjectDashboard getSampleProjectDashboard() {
         ProjectDashboard samplePd = new ProjectDashboard();
         for (Task sampleTask : getSampleTasks()) {
@@ -69,6 +93,12 @@ public class SampleTaskDataUtil {
         }
         for (Inventory sampleInventory : getSampleInventory()) {
             samplePd.addInventory(sampleInventory);
+        }
+        for (InvMemMapping map : getSampleInvMemMappings()) {
+            samplePd.addMapping(map);
+        }
+        for (InvTasMapping map : getSampleInvTasMappings()) {
+            samplePd.addMapping(map);
         }
         return samplePd;
     }

@@ -3,11 +3,14 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.mapping.exceptions.DuplicateMappingException;
 import seedu.address.model.mapping.exceptions.MappingNotFoundException;
 import seedu.address.model.member.Member;
@@ -25,6 +28,7 @@ import seedu.address.model.task.Task;
  * @see Task#isSameTask(Task)
  */
 public class UniqueMappingManager {
+    private static final Logger logger = LogsCenter.getLogger(UniqueMappingManager.class);
 
     private final UniqueInvMemMappingList invMemMappingList;
     private final UniqueInvTasMappingList invTasMappingList;
@@ -41,6 +45,11 @@ public class UniqueMappingManager {
     public void add(InvMemMapping toAdd) {
         requireNonNull(toAdd);
         invMemMappingList.add(toAdd);
+        logger.info("Size of mapped list" + invMemMappingList.getMappings().size());
+        /*for(InvMemMapping x: invMemMappingList) {
+            Logger logger = LogsCenter.getLogger(UniqueMappingManager.class);
+            logger.info("(" + x.getMemberIndex() + "," + x.getInventoryIndex()  + ")");
+        }*/
     }
 
     public void remove(InvMemMapping toRemove) {
@@ -69,6 +78,14 @@ public class UniqueMappingManager {
     public ObservableList<InvMemMapping> getUnmodifiableObservableInvMemList() {
         return invMemMappingList.asUnmodifiableObservableList();
     }
+
+    public ObservableList<ObservableList<InvMemMapping>> getInvMemPDFList() {
+        return invMemMappingList.getMappings();
+    }
+
+    /*public ArrayList<Integer> getInvMemLonelyList() {
+        return invMemMappingList.getLonelyInv();
+    }*/
 
     // ================ InvTas methods ==============================
 
@@ -103,6 +120,14 @@ public class UniqueMappingManager {
     public ObservableList<InvTasMapping> getUnmodifiableObservableInvTasList() {
         return invTasMappingList.asUnmodifiableObservableList();
     }
+
+    public ObservableList<ObservableList<InvTasMapping>> getInvTasPDFList() {
+        return invTasMappingList.getMappings();
+    }
+
+    /*public ArrayList<Integer> getInvTasLonelyList() {
+        return invTasMappingList.getLonelyInv();
+    }*/
 
 
     // ================ TasMem methods ==============================

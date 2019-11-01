@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.TasMemMapping;
+import seedu.address.model.mapping.UniqueInvMemMappingList;
 import seedu.address.model.member.Member;
 import seedu.address.model.member.MemberId;
 import seedu.address.model.settings.ClockFormat;
@@ -354,6 +356,22 @@ public class ModelManager implements Model {
     public boolean hasMapping(TasMemMapping mapping) {
         requireNonNull(mapping);
         return projectDashboard.hasMapping(mapping);
+    }
+
+    public ObservableList<ObservableList<InvMemMapping>> getInvMemPDFList() {
+        return projectDashboard.getInvMemPDFList();
+    }
+
+    public ObservableList<ObservableList<InvTasMapping>> getInvTasPDFList() {
+        return projectDashboard.getInvTasPDFList();
+    }
+
+    public ArrayList<Integer> getInvMemLonelyList() {
+        return projectDashboard.getInvMemLonelyList();
+    }
+
+    public ArrayList<Integer> getInvTasLonelyList() {
+        return projectDashboard.getInvTasLonelyList();
     }
 
     //=========== Filtered Mapping List Accessors =============================================================

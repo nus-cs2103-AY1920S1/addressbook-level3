@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddDCommand;
+import seedu.address.logic.commands.AddICommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddMemberToTaskCommand;
@@ -32,10 +34,12 @@ import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
+import seedu.address.logic.commands.NoCommand;
 import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
 import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.ThemeCommand;
+import seedu.address.logic.commands.YesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -133,16 +137,15 @@ public class ProjectDashboardParser {
             return new DeleteInventoryCommandParser().parse(arguments);
 
         case GeneratePDFCommand.COMMAND_WORD:
-            return new GeneratePDFCommand();
+            return new GeneratePDFCommandParser().parse(arguments);
 
         // STATS
         case GetStatisticsCommand.COMMAND_WORD_MEMBER:
-            return new GetStatisticsCommand();
 
-        case GetStatisticsCommand.COMMAND_WORD_TASK:
-            return new GetStatisticsCommand();
+            case GetStatisticsCommand.COMMAND_WORD_TASK:
+                return new GetStatisticsCommand();
 
-        // SETTINGS
+            // SETTINGS
         case ThemeCommand.COMMAND_WORD:
             return new ThemeCommandParser().parse(arguments);
 
@@ -161,6 +164,18 @@ public class ProjectDashboardParser {
 
         case HomeCommand.COMMAND_WORD:
             return new HomeCommand();
+
+        case NoCommand.COMMAND_WORD:
+            return new NoCommand();
+
+        case YesCommand.COMMAND_WORD:
+            return new YesCommand();
+
+        case AddICommand.COMMAND_WORD:
+            return new AddICommandParser().parse(arguments);
+
+        case AddDCommand.COMMAND_WORD:
+            return new AddDCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

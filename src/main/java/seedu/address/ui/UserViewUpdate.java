@@ -96,6 +96,14 @@ public class UserViewUpdate {
         case "clear":
 
         case "home":
+
+        case "add-i":
+
+        case "add-d":
+
+        case "no":
+
+        case "yes":
             paneToRender.getChildren().add(userViewMain.loadDashboard());
             break;
 

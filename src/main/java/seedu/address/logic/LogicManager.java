@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.MultiLine.MultiLineManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,11 +33,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final ProjectDashboardParser projectDashboardParser;
+    private final MultiLineManager multiLine;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         projectDashboardParser = new ProjectDashboardParser();
+        multiLine = new MultiLineManager(model);
     }
 
     @Override
@@ -46,6 +49,11 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = projectDashboardParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        CommandResult commandResultMl = multiLine.manage(commandResult, command);
+        if(!commandResultMl.equals(new CommandResult("No MultiLine"))) {
+            return commandResultMl;
+        }
 
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());

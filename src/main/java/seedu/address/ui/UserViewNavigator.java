@@ -1,6 +1,14 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
 import seedu.address.logic.Logic;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
 import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.ProjectDashboardView;
@@ -74,7 +82,14 @@ public class UserViewNavigator {
      * @param logic to access inventory data
      */
     public void loadInventoriesListView(Logic logic) {
-        inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList());
+        ObservableList<InvMemMapping>invMemMappings = logic.getProjectDashboard().getInvMemMappingList();
+        ObservableList<InvTasMapping>invTasMappings = logic.getProjectDashboard().getInvTasMappingList();
+        ArrayList<InvMemMapping>invMemMap = new ArrayList<>(invMemMappings);
+        ArrayList<InvTasMapping>invTasMap = new ArrayList<>(invTasMappings);
+        ArrayList<Inventory>inventories = new ArrayList<>(logic.getFilteredInventoryList());
+        ArrayList<Member>members = new ArrayList<>(logic.getFilteredMemberList());
+        ArrayList<Task>tasks = new ArrayList<>(logic.getFilteredTaskList());
+        inventoryListPanel = new InventoryListPanel(inventories, members, tasks, invMemMap, invTasMap);
         userViewController.setUserView(inventoryListPanel);
     }
 
