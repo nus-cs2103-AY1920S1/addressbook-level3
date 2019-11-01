@@ -92,7 +92,7 @@ class AutocompletionTextField extends TextField {
             //label with graphic (text flow) to highlight founded subtext in suggestions
             Label entryLabel = new Label();
             entryLabel.setGraphic(buildTextFlow(result, searchRequest));
-            entryLabel.setPrefHeight(10);  //don't sure why it's changed with "graphic"
+            entryLabel.setPrefHeight(10); //not sure why it's changed with "graphic"
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);
 
