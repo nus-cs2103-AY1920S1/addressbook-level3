@@ -23,17 +23,19 @@ public class AddCommitmentCommand extends AddCommand {
             + "Example: " + AddCommand.COMMAND_WORD + " " + COMMAND_WORD + " " + CliSyntax.PREFIX_START_DAY + " 29 "
             + CliSyntax.PREFIX_START_MONTH + " Nov " + CliSyntax.PREFIX_NAME + " CS2103 exam";
 
-    private Commitment commitment;
+    protected Commitment commitment;
 
     public AddCommitmentCommand(Commitment commitment) {
         this.commitment = commitment;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
+    public CommandResult execute(Calendar calendar) throws CommandException, ClashException {
         try {
             calendar.addEvent(commitment);
-        } catch (DuplicateEventException | ClashException e) {
+        } catch (DuplicateEventException e) {
             throw new CommandException(e.getMessage());
+        } catch (ClashException e) {
+            throw e;
         }
 
         String formattedFeedback = String.format(MESSAGE_ADD_SUCCESS, commitment.toString());
