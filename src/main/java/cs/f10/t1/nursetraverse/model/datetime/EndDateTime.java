@@ -31,6 +31,7 @@ public class EndDateTime extends DateTime {
 
     /**
      * Returns if a given string is a valid dateTime.
+     * Valid end date times must be equal or before start date time.
      */
     public static boolean isValidEndDateTime(String startDateTime, String endDateTime) {
         boolean validStartDateTime = isValidDateTime(startDateTime);
@@ -39,7 +40,7 @@ public class EndDateTime extends DateTime {
         if (validStartDateTime && validEndDateTime) {
             StartDateTime start = new StartDateTime(startDateTime);
             EndDateTime end = new EndDateTime(endDateTime);
-            return end.dateTime.isAfter(start.dateTime);
+            return end.dateTime.isAfter(start.dateTime) || end.dateTime.isEqual(start.dateTime);
         } else {
             return false;
         }
