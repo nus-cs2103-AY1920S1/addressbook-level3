@@ -82,7 +82,11 @@ public class AddCommand extends Command {
             + PREFIX_TYPE + "doctor "
             + PREFIX_NRIC + "S1234568R "
             + PREFIX_NAME + "John Doe Doctor "
-            + PREFIX_PHONE + "98765432 ";
+            + PREFIX_PHONE + "98765432\n"
+            + "\nTo add a person in a form mode, the command is as follows:\n"
+            + PREFIX_TYPE + "TYPE "
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TYPE + "doctor ";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in ORGANice";

@@ -192,6 +192,7 @@ public class PatientForm extends UiPart<Region> implements Form {
         mainWindow.executeCommand(matchCommand);
         mainWindow.getCommandBoxPlaceholder().getChildren().add(mainWindow.getCommandBox().getRoot());
         mainWindow.getCommandBox().requestFocus();
+        mainWindow.getResultDisplayPlaceholder().setMinHeight(200);
     }
 
     public void setAge(String age) {

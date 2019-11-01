@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import organice.logic.commands.AddCommand;
 import organice.logic.commands.CommandResult;
+import organice.logic.commands.ExitCommand;
 import organice.logic.commands.exceptions.CommandException;
 import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
@@ -38,24 +39,25 @@ import organice.model.person.Type;
  */
 public class FormUiManager {
 
-    private static final String COMMAND_EXIT = "/abort";
+    private static final String COMMAND_ABORT = "/abort";
+    private static final String COMMAND_EXIT = "/exit";
     private static final String COMMAND_DONE = "/done";
     private static final String COMMAND_UNDO = "/undo";
 
-    private static final String PROMPT_NAME = "Enter name:";
-    private static final String PROMPT_NRIC = "Enter NRIC:";
-    private static final String PROMPT_PHONE = "Enter phone number:";
-    private static final String PROMPT_AGE = "Enter age:";
-    private static final String PROMPT_ORGAN = "Enter organ:";
-    private static final String PROMPT_BLOOD_TYPE = "Enter blood type:";
-    private static final String PROMPT_TISSUE_TYPE = "Enter tissue type:";
-    private static final String PROMPT_PRIORITY = "Enter priority:";
-    private static final String PROMPT_DOCTOR_IC = "Enter doctor in charge's nric:";
-    private static final String PROMPT_ORGAN_EXPIRY_DATE = "Enter organ expiry date:";
+    private static final String PROMPT_NAME = "Enter name:\n";
+    private static final String PROMPT_NRIC = "Enter NRIC:\n";
+    private static final String PROMPT_PHONE = "Enter phone number:\n";
+    private static final String PROMPT_AGE = "Enter age:\n";
+    private static final String PROMPT_ORGAN = "Enter organ:\n";
+    private static final String PROMPT_BLOOD_TYPE = "Enter blood type:\n";
+    private static final String PROMPT_TISSUE_TYPE = "Enter tissue type:\n";
+    private static final String PROMPT_PRIORITY = "Enter priority:\n";
+    private static final String PROMPT_DOCTOR_IC = "Enter doctor in charge's nric:\n";
+    private static final String PROMPT_ORGAN_EXPIRY_DATE = "Enter organ expiry date:\n";
     private static final String PROMPT_DONE = "Please ensure you have typed in the correct details."
             + "\nType '/done' to confirm OR '/abort to cancel the add command";
 
-    private static final String MESSAGE_EXIT = "Add command aborted!";
+    private static final String MESSAGE_ABORT = "Form successfully aborted!";
     private static final String MESSAGE_UNDO_SUCCESS = "Successfully undo the previous entry!";
     private static final String MESSAGE_UNDO_ERROR = "You can't undo at this stage!";
 
@@ -91,7 +93,7 @@ public class FormUiManager {
         }
 
         successFillingField(personName, FormField.NAME);
-        getPersonField(new CommandBox(this::getNric), PROMPT_NRIC);
+        getPersonField(new CommandBox(this::getNric), PROMPT_NRIC + Nric.MESSAGE_CONSTRAINTS);
 
         return new CommandResult(personName);
     }
@@ -116,7 +118,7 @@ public class FormUiManager {
         }
 
         successFillingField(personNric, FormField.NRIC);
-        getPersonField(new CommandBox(this::getPhone), PROMPT_PHONE);
+        getPersonField(new CommandBox(this::getPhone), PROMPT_PHONE + Phone.MESSAGE_CONSTRAINTS);
 
         return new CommandResult(personNric);
     }
@@ -142,7 +144,7 @@ public class FormUiManager {
         if (formType.isDoctor()) {
             confirmPersonDetails();
         } else {
-            getPersonField(new CommandBox(this::getAge), PROMPT_AGE);
+            getPersonField(new CommandBox(this::getAge), PROMPT_AGE + Age.MESSAGE_CONSTRAINTS);
         }
 
         return new CommandResult(personPhone);
@@ -165,7 +167,7 @@ public class FormUiManager {
         }
 
         successFillingField(personAge, FormField.AGE);
-        getPersonField(new CommandBox(this::getOrgan), PROMPT_ORGAN);
+        getPersonField(new CommandBox(this::getOrgan), PROMPT_ORGAN + Organ.MESSAGE_CONSTRAINTS);
 
         return new CommandResult(personAge);
     }
@@ -192,7 +194,7 @@ public class FormUiManager {
         }
 
         successFillingField(personOrgan, FormField.ORGAN);
-        getPersonField(new CommandBox(this::getBloodType), PROMPT_BLOOD_TYPE);
+        getPersonField(new CommandBox(this::getBloodType), PROMPT_BLOOD_TYPE + BloodType.MESSAGE_CONSTRAINTS);
 
         return new CommandResult(personOrgan);
     }
@@ -219,7 +221,7 @@ public class FormUiManager {
         }
 
         successFillingField(personBloodType, FormField.BLOOD_TYPE);
-        getPersonField(new CommandBox(this::getTissueType), PROMPT_TISSUE_TYPE);
+        getPersonField(new CommandBox(this::getTissueType), PROMPT_TISSUE_TYPE + TissueType.MESSAGE_CONSTRAINTS);
 
         return new CommandResult(personBloodType);
     }
@@ -248,9 +250,10 @@ public class FormUiManager {
         successFillingField(personTissueType, FormField.TISSUE_TYPE);
 
         if (formType.isPatient()) {
-            getPersonField(new CommandBox(this::getPriority), PROMPT_PRIORITY);
+            getPersonField(new CommandBox(this::getPriority), PROMPT_PRIORITY + Priority.MESSAGE_CONSTRAINTS);
         } else if (formType.isDonor()) {
-            getPersonField(new CommandBox(this::getOrganExpiryDate), PROMPT_ORGAN_EXPIRY_DATE);
+            getPersonField(new CommandBox(this::getOrganExpiryDate),
+                    PROMPT_ORGAN_EXPIRY_DATE + OrganExpiryDate.MESSAGE_CONSTRAINTS);
         }
 
         return new CommandResult(personTissueType);
@@ -278,7 +281,7 @@ public class FormUiManager {
         successFillingField(personPriority, FormField.PRIORITY);
 
         if (formType.isPatient()) {
-            getPersonField(new CommandBox(this::getDoctorIc), PROMPT_DOCTOR_IC);
+            getPersonField(new CommandBox(this::getDoctorIc), PROMPT_DOCTOR_IC + DoctorInCharge.MESSAGE_CONSTRAINTS);
         }
 
         return new CommandResult(personPriority);
@@ -351,7 +354,7 @@ public class FormUiManager {
     }
 
     public void getPersonDetails() {
-        getPersonField(new CommandBox(this::getName), PROMPT_NAME);
+        getPersonField(new CommandBox(this::getName), PROMPT_NAME + Name.MESSAGE_CONSTRAINTS);
     }
 
     private void confirmPersonDetails() {
@@ -454,7 +457,8 @@ public class FormUiManager {
      * @param commandText Command entered by the user.
      */
     private boolean isSpecialCommand(String commandText) {
-        return commandText.equals(COMMAND_UNDO) || commandText.equals(COMMAND_EXIT);
+        return commandText.equals(COMMAND_UNDO) || commandText.equals(COMMAND_ABORT)
+                || commandText.equals(COMMAND_EXIT);
     }
 
     /**
@@ -462,17 +466,23 @@ public class FormUiManager {
      *
      * @param commandText Command entered by the user
      */
-    private void handleSpecialCommand(String commandText) {
-        if (commandText.equals(COMMAND_EXIT)) {
-            handleAbort();
-        } else if (commandText.equals(COMMAND_UNDO)) {
-            handleUndo();
+    private void handleSpecialCommand(String commandText) throws ParseException {
+        try {
+            if (commandText.equals(COMMAND_ABORT)) {
+                handleAbort();
+            } else if (commandText.equals(COMMAND_UNDO)) {
+                handleUndo();
+            } else if (commandText.equals(COMMAND_EXIT)) {
+                mainWindow.executeCommand(ExitCommand.COMMAND_WORD);
+            }
+        } catch (CommandException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 
     private void handleAbort() {
         FormAnimation.fadingAnimation(mainWindow);
-        mainWindow.getResultDisplay().setFeedbackToUser(MESSAGE_EXIT);
+        mainWindow.getResultDisplay().setFeedbackToUser(MESSAGE_ABORT);
         mainWindow.resetInnerParts();
     }
 

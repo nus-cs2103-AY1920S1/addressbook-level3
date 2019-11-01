@@ -218,8 +218,9 @@ Here are some special commands that might be useful when you are in the process 
 * `/abort` - The command to abandon the current form that you are currently filling.
 * `/undo` - The command to undo the last entry that you entered, which is useful when you want to undo any changes made.
 * `/done` - The command to indicate that you are done with filling all the required attributes and want to add the person into the application.
+* `/exit` - The command to exit the application.
 
-Note that both `/abort` and `/undo` commands can be used at any point in time, while `/done` command can only be used once all the required attributes have been specified.
+Note that `/exit`, `/abort`, and `/undo` commands can be used at any point in time, while `/done` command can only be used once all the required attributes have been specified.
 
 These are the important commands for this feature, so now let's take a look at an example of this how this feature can be used.
 When you want to add a `Patient`, type `add t/patient` in the `Command Box`. Three changes will occur on your screen:
