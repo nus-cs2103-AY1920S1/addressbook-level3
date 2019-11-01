@@ -12,7 +12,7 @@ NUStudy, which is a desktop application with command line for user input and a J
 notes management, quiz practice, revision task records, and usage statistics to help with revision.
 
 You may take note of the following symbols and formatting used in this portfolio: +
-`overdue` - The monospaced text indicate that it is a user input. +
+`overdue` - The monospaced text indicates that it is a user input. +
 _Task_ - An italicised word indicates that it is a class name. +
 #11 - A number with # sign indicates the Pull Request or Issue number. +
 PR - Abbreviation for "Pull Request".
@@ -36,7 +36,7 @@ possible from their classes in order to reduce coupling.
 
 * Minor Enhancement
 
-* Code Contributed
+* Code Contributed: You may feel free to check my code https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shuiyao-sg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shuiyao-sg&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here]
 
 * Other Contributions
 

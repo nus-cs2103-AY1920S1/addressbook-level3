@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main
 
+By: `AY1920S1-CS2103T-F11-4`  Since: `September 2019`  Licence: `MIT`
+
 == Introduction
 
 NUStudy is an application for managing two kinds of informational material:
@@ -43,6 +45,8 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
+
+This section helps you navigate through the features and commands.
 
 ====
 *Command Format*
@@ -122,11 +126,28 @@ at your command, the system will prompt you to answer those questions.
 You can add a question and its answer together with the necessary fields to the app. +
 Format: `addq q/QUESTION a/ANSWER s/SUBJECT d/DIFFICULTY`
 
+****
+* You can define any type of difficulty level that is customized to your understanding of the question.
+****
+
+Example:
+
+* `addq q/How to represent 85 in binary? a/1010101 s/CS2100 d/medium`
+
+image::questionCommandsDemo/addqcommand.png[width = "600"]
+
+The new question will be added to your question bank.
+
+image::questionCommandsDemo/addqresult.png[width = "600"]
+
 ==== Listing all questions: `listq`
 
-You can view the list of all questions. +
+This command allows you to view the list of all questions. +
 Format: `listq`
 
+image::questionCommandsDemo/listqcommand.png[width = "600"]
+
+image::questionCommandsDemo/listqresult.png[width = "600"]
 
 ==== Editing a question: `editq`
 
@@ -140,14 +161,41 @@ Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 * When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
+Examples:
+
+* `editq 7 a/16 d/easy`
+
+image::questionCommandsDemo/editqcommand.png[width = "600"]
+
+Edits the answer and difficulty of the 2nd question to be `16` and `easy` respectively.
+
+image::questionCommandsDemo/editqresult.png[width = "600"]
+
 ==== Locating questions by keyword: `findq`
 
-You can view the list of questions containing the keyword(s). +
+This command will give you a list of questions containing the keyword(s) you specified. +
 Format: `findq KEYWORD [MORE KEYWORDS]`
+
+****
+* The search is case insensitive.
+* The order of the keywords does not matter.
+* Only full words will be matched.
+****
+
+Examples:
+
+* `findq UDP`
+
+image::questionCommandsDemo/findqcommand.png[width = "600"]
+
+Finds the question whose body contains the keyword `UDP`.
+
+image::questionCommandsDemo/findqresult.png[width = "600"]
+
 
 ==== Deleting a question: `deleteq`
 
-You can delete the specific question at the specified INDEX with its relevant fields from the list. +
+You can delete a question at its specified INDEX together with its relevant fields from the list. +
 Format: `deleteq INDEX`
 
 ****
@@ -156,21 +204,72 @@ Format: `deleteq INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+Example:
+
+* `listq` +
+`deleteq 3`
+
+image::questionCommandsDemo/deleteqcommand.png[width = "600"]
+
+Deletes the 2nd question from the question list.
+
+image::questionCommandsDemo/deleteqresult.png[width = "600"]
+
+* `findq character` +
+`deleteq 1`
+
+Deletes the 1st question in the results of `findq` command.
+
 ==== Filter by difficulty: `difficulty`
 
-You can view the list of all questions with a specific difficulty. +
+You can view the list of all questions filtered by the specific difficulty. +
 Format: `difficulty DIFFICULTY`
+
+****
+* The search is case insensitive.
+* Only full difficulty will be matched.
+****
+
+Example:
+
+* `difficulty hard`
+
+image::questionCommandsDemo/difficultycommand.png[width = "600"]
+
+Returns a list of `hard` questions.
+
+image::questionCommandsDemo/difficultyresult.png[width = "600"]
 
 ==== Filter by subject: `subject`
 
 You can view the list of all questions from a specific subject. +
 Format: `subject SUBJECT`
 
+****
+* The search is case insensitive.
+* Only full subject will be matched.
+****
+
+Example:
+
+* `subject CS2103T`
+
+image::questionCommandsDemo/subjectcommand.png[width = "600"]
+
+Returns a list of questions of `CS2103T`.
+
+image::questionCommandsDemo/subjectresult.png[width = "600"]
+
 ==== Clear all questions: `clearq`
 
 You can delete all questions from the app. +
 Format: `clearq`
+
+image::questionCommandsDemo/clearcommand.png[width = "600"]
+
+image::questionCommandsDemo/clearresult.png[width = "600"]
 // end::question[]
+
 // tag::quiz[]
 === Quiz mode
 
@@ -238,69 +337,109 @@ Format: `overview [dt/START_DATE dt/END_DATE]`
 
 === Revision tasks
 
-==== View revision tasks: `rlist`
-Displays the revision task list +
-Format: `rlist`
+This section provides instructions to manipulate revision tasks. The revision tasks help you plan your revision of notes
+and questions.
+
+The diagram below shows how a revision task looks like:
+
+image::UserGuideRes/TaskUI.png[]
+
+NOTE: The revision tasks are not synchronised with the note and the question. Once created, the task content will not
+change if you modify the corresponding note or question. For example, if you have added a task for note "An AVL Tree"
+and then you delete the note or change the title of the note, the task still exist with the heading unchanged. We adopt
+this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
+we disassociate the task from notes and questions once created.
 
 ==== Add a revision task for a note: `rn`
-Adds a revision task for a note to the current revision task list +
-The GUI will display all tasks upon completing the command +
+You can add a revision task for a note to the current revision task list with this command. +
+The heading will copy the title. +
+The GUI will display all tasks upon completing the command. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+Example: +
+
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
++
+2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
+The task is added to the task list shown in the middle panel.
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[]
+
+
+
+NOTE: You need to follow the format "dd/MM/yyyy" for START_DATE input and "HHmm" with 24-hour format for START_TIME
+input. For example: "31/12/2019" to represent "31st December 2019", "0900" to represent "9am", "1400" to represent "2pm".
 
 ==== Add a revision task for a question: `rq`
-Adds a revision task for a question to the current revision task list +
-The GUI will display all tasks upon completing the command +
-Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME`
+You can add a revision task for a question to the current revision task list with this command. +
+The heading will copy the question body. +
+The GUI will display all tasks upon completing the command. +
+Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+Example: +
+`rq 1 dt/11/11/2019 tm/1500`
 
 ==== Remove revision task: `rdelete`
-Removes the specified revision task from current list +
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdelete INDEX_OF_TASK`
-
-==== Clear current revision plan: `rclear`
-Deletes all revision tasks
-Format: `rclear`
+You can remove a particular revision task from current list with this command. +
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdelete INDEX_OF_TASK` +
+Example: +
+`rdelete 2`
 
 ==== Mark the revision task as done: `rdone`
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdone INDEX`
+You can mark a task as done once you finished it.
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdone INDEX` +
+Example: +
+`rdone 1`
+
+==== View revision tasks: `rlist`
+This command displays the whole revision task list. +
+Format: `rlist`
+
+==== Clear current revision plan: `rclear`
+You can remove all revision tasks with this command. +
+Format: `rclear`
 
 ==== View completed revision tasks: `finished`
-Displays the list of revision tasks which are completed +
+This command displays the list of revision tasks that you have completed. +
 Format: `finished`
 
 ==== View uncompleted revision task: `unfinished`
-Displays the list of revision tasks that are yet to be completed +
+This command displays the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
-Displays the revision tasks that are yet to be done but having passed the deadline
+This task displays the revision tasks which you have not done but having passed the start time. +
 Format: `overdue`
 
 ==== Enable push notification: `notify -e` `[coming in v2.0]`
-Format: `notify -e [-A] [INDEX]`
+You can enable the push notification feature to send a desktop reminder when the task is about to start. +
+Format: `notify -e [-A]`
 
 ==== Disable push notification: `notify -d` `[coming in v2.0]`
-Format: `notify -d [-A] [INDEX]`
+You can disable the push notification with this command. +
+Format: `notify -d [-A]`
 
 // tag::v2.0[]
-=== Auto-complete feature `[coming in v2.0]`
+=== Other features coming in v2.0
+==== Auto-complete feature
 Returns suggestions when you are typing commands.
 
 // tag::quizFuture[]
-=== Set a timer for test mode `[coming in v2.0]`
+==== Set a timer for test mode
 The student sets a time limit for the test mode. The app will exit test mode once the time ends.
 // end::quizFuture[]
 
-=== Share notes and questions with other users `[coming in v2.0]`
+==== Share notes and questions with other users
 The student shares notes and questions with other students with Internet connection.
 
-=== Login using email and password `[coming in v2.0]`
+==== Login using email and password
 The student can register and login to the application using their email and password.
 // end::v2.0[]
 
 // tag::lngroup[]
-=== Lecture note grouping suggestions `[coming in v2.0]`
+==== Lecture note grouping suggestions
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
 
