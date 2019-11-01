@@ -443,7 +443,7 @@ Example:
 ==== Delete Reminder : `deleteReminder`
 Deletes the reminder that was at index in the list.
 
-Format: `deleteExpenditureReminder <index>`
+Format: `deleteReminder <index>`
 
 Example: `deleteReminder 3`
 
@@ -604,6 +604,7 @@ Examples:
 ==== Purchase WishList : `purchase`
 * To be implemented
 Purchases the item at the stated index from your current wishlist
+
 Format: `purchase <index>`
 
 Examples: `purchase 1`
@@ -687,53 +688,65 @@ do so.
 
 == Command Summary
 
-. Expenses and Income:
-.. addExpense [--desc <description>] [--tag <tag>] --amt <expenditure>
-.. editExpense <index> [--desc <description>] [--tag <tag] [--amt <expenditure>]
-.. deleteExpense <index>
-.. addAutoExp f/monthly n/spotify amt/11.99 cat/Entertainment
-.. editAutoExp 1 amt/5.99 n/spotify student
+. Expenses, Income, Budget, Category:
+.. add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]
+.. add typ/Income cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]
+.. edit <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]
+.. delete <index>
+.. addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category> [tg/<tag1> tg/<tag2> d/<starting date>]
+.. editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category> tg/<tag1> tg/<tag2> d/<starting date>]
 .. deleteAutoExp <index>
-.. addIncome [--desc <description>] --amt <income amount>
-.. editIncome <index> [--desc <description> --amt <income amount>] [--tag <tag>]
-.. deleteIncome <index>
-.. addBudget --desc <description> --amt <budget> --period <period> [--tag <tag>]
+.. addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]
 .. listBudget
-.. editBudget --index <index> [--desc <description>] [--amt <budget>] [--tag <tag>]
+.. editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]
 .. deleteBudget <index>
-.. addLoan --desc <description> --amt <loan amount> --int <interest>
-.. listLoan
-.. editLoan <index> [--desc <description>] [--amt <loan amount>] [--int <interest>]
-.. deleteLoan <index>
-.. payLoan <index> <amountPaid>
+.. addCategory cat/<category> n/<category name>
+.. editCategory typ/<category type> cat/<old category name> n/<new category name>
+.. listCategory
+.. deleteCategory cat/<category type> n/<category name>
+
 . Statistics:
-.. viewHistory -- cat <category> [--period <startDate>, <endDate>]
-.. sortTime order <ascending || descending>
-.. sortAmt order <ascending || descending>
-.. Search [--cat <category>] --key <keyword> || --amt <(== || < || > || <= || >=) amount> || --tag
-. Organisation:
-.. createTag <category name>
-.. listTags <keywords> --regex <regex>
-.. renameTag <oldname> <newname>
-.. deleteTag <name> <-h || --hard>
-.. reset --before <DD/MM/YYYY> --after <DD/MM/YYYY>
+.. switch
+.. switchStats
+.. viewStatistics [p/<date>]
+.. sort typ/<sort type> s/<sort sequence>
+.. find [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]
+.. findWish [cat/<category>] [n/<description>] [amt/<amt>] [d/<date>] [tg/<tag>]
+.. findBudget [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [tg/<tag>]
+
 . Reminders:
-.. listExpenditureReminders
-.. listWishlistReminders
-.. setExpenditureReminderDate --index<index> --DateTime<DateTime>
-.. addExpenditureReminder --limit <expenditureLimit> --time <time> --type <type>
-.. addWishlistReminder --index <index> --percent [percentage]
+.. addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]
+.. listActiveReminders
+.. listAllReminders
+.. editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>]
 .. deleteReminder <index>
-. Wishlist
-.. addWishlist --name <name> --cat <category> --amt <price> --deadline <date>
-.. deleteWishlist <Index>
-.. noteWishlist <index> <note>
-.. tag <index> <high/ medium/ low>
-.. viewWishlist
+.. addToReminder <Reminder Index>, <Condition Index>
+.. removeFromReminder <Reminder Index>, <Condition Index>
+.. addClassCondition <entryType>
+.. addDateCondition <Start Date>, <End Date>
+.. addHasKeyWord <keywords>
+.. addQuotaCondition <Quota>
+.. addHasTagsConditions <Tags>
+.. deleteCondition <Index>
+.. replaceCondtion <Index of Condition being Replaced>, <Index of Replacing Condition>
+.. listConditions
+
+. Wishlist:
+.. addWish n/<Description> cat/<Category> amt/<Price> d/<Date>
+.. deleteWish <index>
+.. editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<Tag>]
 .. sortWishlistTime <ascending/ descending>
 .. sortWishlistPrice <ascending/ descending>
-.. sortWishlistName <ascending/ descending>
+.. sortWishlistName <ascending/descending>
 .. sortWishlistPriority <ascending/descending>
-.. search <keyword>
+.. findWish <keyword>
 .. purchase <index>
-.. importWishlist <file path>
+
+. Undo and Redo:
+.. undo
+.. redo
+
+. UI features:
+.. toggle <panel name>
+.. listFont
+.. changeFont <font name>
