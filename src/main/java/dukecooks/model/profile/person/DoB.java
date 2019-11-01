@@ -3,7 +3,7 @@ package dukecooks.model.profile.person;
 import static java.util.Objects.requireNonNull;
 
 import dukecooks.commons.util.AppUtil;
-import dukecooks.logic.parser.DateParser;
+import dukecooks.model.Date;
 
 /**
  * Represents the user's date of birth.
@@ -12,7 +12,7 @@ public class DoB {
     public static final String MESSAGE_CONSTRAINTS =
             "DoB should only contain numeric characters in the format of DD/MM/YYYY, and it should not be blank";
 
-    public final String dateOfBirth;
+    public final Date dateOfBirth;
 
     /**
      * Constructs a {@code date}.
@@ -22,19 +22,19 @@ public class DoB {
     public DoB(String date) {
         requireNonNull(date);
         AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        dateOfBirth = date;
+        dateOfBirth = Date.generateDate(date);
     }
 
     /**
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String date) {
-        return DateParser.isValidDate(date);
+        return Date.isValidDateFormat(date);
     }
 
     @Override
     public String toString() {
-        return dateOfBirth;
+        return dateOfBirth.toString();
     }
 
     @Override

@@ -52,7 +52,7 @@ public class ProfileCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         name.setText(person.getName().fullName);
-        dob.setText(person.getDateOfBirth().dateOfBirth);
+        dob.setText(person.getDateOfBirth().dateOfBirth.toString());
         gender.setText(person.getGender().gender);
         bloodType.setText(person.getBloodType().bloodGroup);
         height.setText(person.getHeight().toString() + "cm");

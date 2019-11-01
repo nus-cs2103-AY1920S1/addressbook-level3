@@ -68,7 +68,7 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
-        dateOfBirth = source.getDateOfBirth().dateOfBirth;
+        dateOfBirth = source.getDateOfBirth().dateOfBirth.toString();
         gender = source.getGender().gender;
         bloodGroup = source.getBloodType().bloodGroup;
         weight = String.valueOf(source.getWeight().weight);

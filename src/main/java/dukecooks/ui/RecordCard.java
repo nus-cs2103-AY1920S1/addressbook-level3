@@ -37,7 +37,7 @@ public class RecordCard extends UiPart<Region> {
     public RecordCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
-        timestamp.setText(record.getTimestamp().timestamp);
+        timestamp.setText(record.getTimestamp().toString());
         type.setText(record.getType().type);
         value.setText(record.getValue().value + record.getType().unit);
     }
