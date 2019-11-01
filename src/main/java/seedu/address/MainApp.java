@@ -95,6 +95,8 @@ public class MainApp extends Application {
             initialData = new UserState();
         }
 
+        assert initialData != null;
+
         return new ModelManager(initialData, userPrefs);
     }
 
