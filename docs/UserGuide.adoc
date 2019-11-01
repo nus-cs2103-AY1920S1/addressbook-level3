@@ -14,6 +14,8 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main
 
+By: `AY1920S1-CS2103T-F11-4`  Since: `September 2019`  Licence: `MIT`
+
 == Introduction
 
 NUStudy is an application for managing two kinds of informational material:
@@ -414,23 +416,24 @@ You can disable the push notification with this command. +
 Format: `notify -d [-A]`
 
 // tag::v2.0[]
-=== Auto-complete feature `[coming in v2.0]`
+=== Other features coming in v2.0
+==== Auto-complete feature
 Returns suggestions when you are typing commands.
 
 // tag::quizFuture[]
-=== Set a timer for test mode `[coming in v2.0]`
+==== Set a timer for test mode
 The student sets a time limit for the test mode. The app will exit test mode once the time ends.
 // end::quizFuture[]
 
-=== Share notes and questions with other users `[coming in v2.0]`
+==== Share notes and questions with other users
 The student shares notes and questions with other students with Internet connection.
 
-=== Login using email and password `[coming in v2.0]`
+==== Login using email and password
 The student can register and login to the application using their email and password.
 // end::v2.0[]
 
 // tag::lngroup[]
-=== Lecture note grouping suggestions `[coming in v2.0]`
+==== Lecture note grouping suggestions
 NUStudy will intelligently suggest groupings of lecture notes based on their content.
 // end::lngroup[]
 
