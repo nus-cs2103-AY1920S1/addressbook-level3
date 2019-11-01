@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`help`* : a list of commands available on Plan^2^Travel
-* **`add act`**`n/Visit Gundam Museum a/Tokyo p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with contact number `65543221` to the activity list.
+* **`add act`**`n/Visit Gundam Museum a/Tokyo du/120 p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with a duration of 120 minutes and contact number `65543221` to the activity list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -45,6 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
+* All command words are CASE SENSITIVE.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Eat lunch`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Eat lunch t/Western` or as `n/Eat lunch`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
