@@ -193,11 +193,12 @@ Adds an expense of $100 to the currently viewed activity by Mary where Joseph an
 Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
 // end::expense[]
 
+// tag::edit[]
 === Edit an existing contact or activity : `edit`
 
-Edits some details of the current contact or activity in view. +
+Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
-Format: `edit INDEX [n/NAME] [hp/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
+Format: `edit [n/NAME] [p/PHONE] ...` for contacts OR `edit [t/ACTIVITY_TITLE] ...` for activities.
 
 ****
 * At least one of the optional fields must be provided.
@@ -208,10 +209,11 @@ Format: `edit INDEX [n/NAME] [hp/PHONE] ...` for contacts OR `edit [t/ACTIVITY_T
 
 Examples:
 
-* `edit hp/999` +
+* `edit p/999` +
 Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
 * `edit t/BBQ` +
-Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
+Edits the title of the current activity in view to `BBQ`. If a contact is being viewed, `t/` would refer to a tag instead. No changes are made if an activity is not being viewed.
+// end::edit[]
 
 === Finding contacts or activities (v1.4): `find`
 
