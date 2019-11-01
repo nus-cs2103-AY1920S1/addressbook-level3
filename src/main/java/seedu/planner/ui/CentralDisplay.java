@@ -216,6 +216,7 @@ public class CentralDisplay extends UiPart<Region> {
             switch (u) {
             case AGENDA:
                 tabDisplay.getSelectionModel().select(agendaTab);
+                updateSkin(agenda);
                 updateAgenda(agenda, dayList);
                 break;
             case INFO:
