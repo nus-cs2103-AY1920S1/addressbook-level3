@@ -14,18 +14,17 @@ endif::[]
 == Introduction
 
 This project portfolio briefly introduces the project, treasurerPro and outlines my contributions to the project
-and explains the feature I implemented.
+and showcases the key feature I implemented.
 
 === About the team
 
-My team consists of 5 software engineering students under the module CS2103T. 4 of us, including me, are year 2
-Computer Science students and the other is a year 4 Computer Engineering student.
+My team of 5 members consists of 4 year 2 Computer Science Undergraduate students, including me, and another
+year 4 Computer Engineering Undergraduate student.
 
 === About the project
 
-This project is part of the module Software Engineering Project, CS2103T where we were tasked to develop a basic
-command line interface <<1. CLI>>
-desktop application by morphing or enhancing an existing AddressBook desktop application.
+This project is part of the module called Software Engineering Project, CS2103T where we were tasked to develop a basic
+command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
 reimbursements to members, inventory and member’s contact details easily.
@@ -58,17 +57,18 @@ cashiering duties which helps to directly input sales into the system. The overv
 club or society's finances.
 ////
 This is what our application looks like when it is first opened. (graphical user interface <<2.GUI>> for treasurerPro):
+.Graphical User Interface of treasurerPro
 image:Ui.png[width="600"]
 
 == Summary of contributions
-My role was to design and write the codes for the features of the `Home Tab`. The following sections illustrate these
-enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in
-relation to these enhancements.
+My role was to design and write the codes for the features of the `Home Tab`. The following sections shows a summary of these
+features, as well as the relevant documentation I have added to the user and developer guides in
+relation to these features.
 
 === Enhancements
-I added the enhancements of the different commands for the Home Tab.
+I added the features of different commands for the Home Tab.
 
-==== Add, Delete and Edit Commands
+==== Adding, Deleting and Editing Transactions
 The basic create, read, update and delete (CRUD) commands were added such that the user can [blue]`*add*`, [blue]`*delete*` and
 [blue]`*edit*` transactions to keep track of them.
 
@@ -84,7 +84,7 @@ These commands help to store and keep track of transactions in the `Home Tab` bu
 transactions from the `Cashier Tab`. The transactions for each member's spending in this tab are also tabulated in the
 `Reimbursement Tab` to help the treasurer keep track of pending reimbursements.
 
-==== Sort Command
+==== Sorting Transactions in a Specific Order
 
 A [blue]`*sort*` command was also implemented for the transactions in the table to sort the commands to a certain order.
 
