@@ -183,7 +183,8 @@ public class ModelManager implements Model {
 
     @Override
     public Statistics getStatistics() {
-        return Statistics.generateStatistics(this.mealLog, this.getCalorieBudget());
+        return Statistics.generateStatistics(
+                this.mealLog.getCurrentMonthMeals(), this.getCalorieBudget());
     }
 
     @Override
