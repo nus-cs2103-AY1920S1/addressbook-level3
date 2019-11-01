@@ -299,3 +299,39 @@ Format: `exit`
 
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.
+
+== Powerusers
+
+Certain features are not included intentionally, as some of them may potentially result in undefined behavior.
+Hence, everything covered in this section is performed by *you* in the explicit knowledge that *something might break*!
+
+=== Force deleting expenses
+The default behavior for `disinvite` is to never allow permanant deletion for expenses.
+What you will see instead is that it is striked out in the UI.
+This is for good reason!
+It preserves accountability and transparency.
+
+You can however forcibly delete an expense by editing the `data/activitybook.json` file if you so incline.
+Before anything, find out the `ID` of the expense that you wish to remove (this is different from the `#`index shown on the right of the GUI).
+Ensure the application is closed, then find the activity in question in the `json`, and edit the `expenses` field as you wish.
+
+After restarting you will see that the expense is permanantly removed from the activity.
+The debts will have been recalculated as though it was never there.
+
+CAUTION: Deleting an expense does not care about the existing debts caused by that expense!
+
+=== Force disinvite from activity
+
+[quote, User Guide on the disinvite command]
+____
+If a contact is involved in an expense, he/she cannot be removed.
+____
+
+To forcibly remove a contact from an activity, you will have to edit `data/activitybook.json`.
+Before anything, find out the `ID` of the person that you wish to remove (this is different from the `#`index shown on the right of the GUI).
+You should also be extremely sure that the contact is not involved in any other activities or expenses.
+Ensure the application is closed, then find the activity in question in the `json`, and edit the `participants` field as you wish.
+
+After restarting you will see that the person is permanantly removed from the activity.
+
+CAUTION: This operation is very dangerous! The person might be included in expenses or other activities -- in that case, an error will be generated and the application will reset.
