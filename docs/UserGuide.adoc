@@ -101,12 +101,11 @@ Usage: Discards your changes to the preferences and returns you to the trip mana
 
 === Trip manager
 
-The trip manager is the main starting ground of the application. Here, the user is able to create, delete and archive trips. There is also an archive section, where the archived trips are displayed exclusively.
+The trip manager is the main starting ground of the application. Here, the user is able to create and delete trips.
 
-* create <name of trip> : creates a new trip with specified name, then bringing up the trip creation user interface.
-* delete <name of trip> *yes_i_am_sure* : deletes the trip with the specified name and all data associated with it.
-* archive <name of trip> : moves the trip to the archive section of the trip manager.
-* goto <name of trip> : enters the main day-by-day view of the trip.
+* create : creates a new trip, this command brings up the trip creation user interface.
+* delete <name of trip>: deletes the trip with the specified name and all data associated with it.
+* goto <index of trip> : enters the main page of a trip with the specified index.
 
 === Trip setup
 
@@ -121,7 +120,7 @@ Trip setup is the first page in configuring a new/existing task. Upon commands t
 
 === Event Setup
 
-Event setup creates/edits properties of a specified event. It is necessary for event to contains a starting and ending time. Events contains mostly optional fields that the user can edit in future
+Event setup creates/edits properties of a specified event.
 
 * edit -id <id of trip> -day <index of day> -event <index of event> -name <name of event>: sets the name of the event
 * edit -id <id of trip> -day <index of day> -event <index of event> -description <description of event>: sets the description of the event
@@ -131,7 +130,7 @@ Event setup creates/edits properties of a specified event. It is necessary for e
 
 === Itinerary
 
-tinerary contains commands to view the list of relevant event/day/trips. The order can be changed by using different commands
+itinerary contains commands to view the list of relevant event/day/trips. The order can be changed by using different commands
 
 * list -id <id of trip>: Lists the days of a trip in chronological order
 * list -d <id of trip> -day <index of day>: Lists the events of a day chronological order
@@ -142,24 +141,36 @@ Additional tags:
 
 === Expense Manager
 
-Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure 2. Miscellaneous/Unplanned expenditure
+Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure (auto-generated from event) 2. Miscellaneous expenditure (can be created and deleted)
 
-* edit -id <id of trip> -day <index of day> -event <index of event> -spend <amount spent>: sets the total amount spent during an event which was unplanned
-* edit -id <id of trip> -day <index of day> -spent <amount spent>: sets the total: sets the total amount spent during a day which was not planned
+* create: creates a miscellaneous expenditure
+* edit <index of expenditure>: edit an expenditure, this command bring up the expense setup page.
+* delete <index of expenditure>: delete an expenditure, note that only miscellaneous expenditures can be deleted.
+* showdays: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
+* currency: enter the currency page of TravelPal
 
-Additional tags:
-* time <time of expense>: time which the expenditure occurred
 
-=== Bookings Manager
+=== Expense Setup
 
-Bookings manager manages bookings and reservations made by the user. The bookings under this feature include hotel reservations and transport bookings (flight, train and bus).
+Expense setup creates/edits properties of a specified expenditure.It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
 
-* edit -id <id of trip> -booking <index of booking> -name <name of booking>: sets the name of the booking
-* edit -id <id of trip> -booking <index of booking> -description <description of booking>: sets the description of the booking
-* edit -id <id of trip> -booking <index of booking> -from <check-in time/date>: sets the starting date and time of a hotel booking
-* edit -id <id of trip> -booking <index of booking> -to <check-out time/date>: sets the ending date and time of a hotel booking
-* edit -id <id of trip> -booking <index of booking> -time <departure time>: sets the departure time of a transport booking
-* edit -id <id of trip> -booking <index of booking> -expenditure: sets the known expenditure of a booking
+* edit n/<name of expenditure>: edit the name of the expenditure.
+* edit b/<amount of expenditure>: edit the amount of expenditure, in Singapore dollars.
+* edit dn/<day number of expenditure>: set the day number the expenditure belongs to.
+* done: confirm and commit the changes, go back to the expense manager page.
+* cancel: go back to the expense manager page without committing the changes.
+
+=== Currency Manager
+
+Currency manager allows users to create customised currencies with currency name, symbol and exchange rate (use Singapore dollar as base).
+
+* select <index of currency>: select the currency with the specified index as the currency in use.
+* delete <index of currency>: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
+* edit n/<name of currency>: edit the name of the currency.
+* edit r/<exchange rate of currency>: edit the name of the currency, using Singapore dollar as base for comparison.
+* edit s/<symbol of expenditure>: edit the symbol for the currency which will be displayed.
+* done: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
+* cancel: return to the expense manager.
 
 // tag::diary_ppp[]
 === Diary
