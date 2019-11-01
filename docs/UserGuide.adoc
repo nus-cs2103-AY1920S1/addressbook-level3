@@ -53,27 +53,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 e.g. `(t/Dining || n/DisneyLand)` can be used as `t/Dining` or `n/DisneyLand`.
 ====
 
-=== Viewing help : `help`
+=== Help : `help`
 
 Displays a help page +
 Format: `help`
 
-// tag::addaccommodation[]
-=== Adding an accommodation: `add accomodation`
+=== View specific tab `view`
 
-Creates an accommodation to the accommodation list +
-Format: `add acc n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
+Displays the tab specified. The available tabs to view are `itinerary`, `info` and `help`. +
+Format: `view TAB_NAME`
 
 Examples:
 
-* `add accomodation n/Hotel 81 a/Orchard /p67555312`
-* `add accomodation n/Mandarin Oriental a/Ang Mo Kio`
+* `view itinerary`
+* `view info`
+* `view help`
+
+Each command will display the tab specified.
+
+// tag::addaccommodation[]
+=== Adding an accommodation: `add accommodation`
+
+Creates an accommodation to the accommodation list +
+Format: `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+
+Examples:
+
+* `add accommodation n/Hotel 81 a/Orchard /p67555312`
+* `add accommodation n/Mandarin Oriental a/Ang Mo Kio`
 
 // end::addaccommodation[]
-=== Editing an accommodation: `edit accomodation`
+=== Editing an accommodation: `edit accommodation`
 
 Edits an accommodation +
-Format: `edit accomodation INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 * Edits the accommodation with the specified INDEX. The index refers to the index number shown in the displayed accommodation list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -81,15 +94,15 @@ Format: `edit accomodation INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
 
 Examples:
 
-* `edit accomodation 1 n/MBS a/Marina Bay t/Atas`
+* `edit accommodation 1 n/MBS a/Marina Bay t/Atas`
 
 Edits the name, address and tag of the 1st accommodation to be MBS, Marina Bay and Atas respectively.
 
 // tag::deleteaccommodation[]
-=== Deleting an accommodation: `delete accomodation`
+=== Deleting an accommodation: `delete accommodation`
 
 Delete one or more accommodation from the accommodation list +
-Format: `delete accomodation INDEX...`
+Format: `delete accommodation INDEX...`
 
 * Deletes the accommodation at the specified INDEX.
 * The index refers to the index number shown in the displayed accommodation list.
@@ -97,32 +110,50 @@ Format: `delete accomodation INDEX...`
 
 Examples:
 
-* `delete accomodation 2`
+* `delete accommodation 2`
 
 Deletes the 2nd accommodation in the accommodation list.
 
 // end::deleteaccommodation[]
-=== Listing all accommodation: `list accomodation`
+=== Listing all accommodation: `list accommodation`
 
 Displays a list view of all the accommodation +
-Format: `list accomodation`
+Format: `list accommodation`
+
+// tag::viewaccommodation[]
+=== Viewing a specific accommodation: `view accommodation`
+
+Allow user to view a specific accommodation in the list based on the index shown +
+Format `view accommodation ACCOMMODATION_INDEX`
+
+* Views the accommodation at the specified INDEX.
+* The index refers to the index number shown in the displayed accommodation list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples :
+
+* `view accommodation 3`
+
+Views the 3rd accommodation in the accommodation list.
+
+//end::viewaccommodation[]
 
 // tag::addactivity[]
 === Adding an activity: `add activity`
 
 Creates an activity to the activity list +
-Format: `add activity n/NAME a/ADDRESS [p/PHONE_NUMBER][e/EMAIL][t/TAGS]`
+Format: `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAGS]`
 
 Examples:
 
-* `add activity n/Visit Gundam Museum a/Tokyo /p67521312`
-* `add activity n/Ski a/Mount Sinai`
+* `add activity n/Visit Gundam Museum a/Tokyo du/90 /p67521312`
+* `add activity n/Ski a/Mount Sinai du/120`
 
 // end::addactivity[]
 === Editing an activity: `edit activity`
 
 Edits an activity +
-Format: `edit activity INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAGS]`
+Format: `edit activity INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAGS]`
 
 * Edits the activity with the specified INDEX. The index refers to the index number shown in the displayed activity list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -155,6 +186,24 @@ Deletes the 2nd activity in the activity list.
 
 Displays a list view of all the activities +
 Format: `list activity`
+
+// tag::viewactivity[]
+=== Viewing a specific activity: `view activity`
+
+Allow user to view a specific activity in the list based on the index shown +
+Format `view activity ACTIVITY_INDEX`
+
+* Views the activity at the specified INDEX.
+* The index refers to the index number shown in the displayed activity list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples :
+
+* `view activity 3`
+
+Views the 3rd activity in the activity list.
+
+//end::viewactivity[]
 
 === Adding a contact: `add contact`
 
@@ -201,6 +250,25 @@ Deletes the 3rd contact in the contact list.
 List the contacts in the planner +
 Format: `list contact`
 
+// tag::viewcontact[]
+
+=== Viewing a specific contact: `view contact`
+
+Allow user to view a specific contact in the list based on the index shown +
+Format `view contact CONTACT_INDEX`
+
+* Views the contact at the specified INDEX.
+* The index refers to the index number shown in the displayed contact list.
+* The index must be a positive integer 1, 2, 3, …
+
+Examples :
+
+* `view contact 3`
+
+Views the 3rd contact in the contact list.
+
+//end::viewaccommodation[]
+
 === Adds days to the schedule: `add days`
 
 Adds DAY_NUMBER amount of days to the itinerary +
@@ -246,7 +314,11 @@ Examples:
 This remove the 5th activity from the activity list from day 2.
 
 === Auto Schedule: `autoschedule`
-Generates a list of activities for the specified days based on tags or name.
+Generates a list of activities for the specified days based on the `highest priority` and the `least number of times it
+appears on the timetable.` +
+
+If the end time of the activity chosen overlaps with the next activity's start time, the
+next activity with the `next highest priority` and `least number of count in the timetable` are chose.
 
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
 
@@ -344,29 +416,49 @@ Format: `exit`
 == Command Summary
 
 ** *Add* :
-* `add acc n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `add acc n/Paradise Hotel a/23 Amoy Quee Road p/22224444`
-* `add act n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `add act n/Skiing a/Mount Kurabaki`
-* `add con n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `add act n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague`
+* `add accommodation n/NAME a/ADDRESS [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `add accommodation n/Paradise Hotel a/23 Amoy Quee Road p/22224444`
+* `add activity n/NAME a/ADDRESS du/DURATION [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG]...` +
+e.g. `add activity n/Skiing a/Mount Kurabaki du/120`
+* `add contact n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `add contact n/James Ho a/123, Clementi Rd, 1234665 p/22224444 e/jamesho@example.com t/friend t/colleague`
 ** *Clear* : `clear`
 ** *Delete* : +
-* `delete acc INDEX`
-* `delete act INDEX`
-* `delete con INDEX`
+* `delete accommodation INDEX`
+* `delete activity INDEX`
+* `delete contact INDEX`
 ** *Edit* :
-* `edit acc INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit acc 3 n/Kent Ridge Hotel a/Clementi`
-* `edit act INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
-e.g. `edit act 5 n/Go Disneyland `
-* `edit con INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit con 2 n/James Lee e/jameslee@example.com`
-** *Find* :
- * `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* `edit accommodation INDEX [n/NAME] [a/ADDRESS] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]...` +
+e.g. `edit accommodation 3 n/Kent Ridge Hotel a/Clementi`
+* `edit activity INDEX [n/NAME] [a/ADDRESS] [du/DURATION] [p/PHONE_NUMBER] [e/EMAIL] [pr/PRIORITY] [t/TAG]...` +
+e.g. `edit activity 5 n/Go Disneyland`
+* `edit contact INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit contact 2 n/James Lee e/jameslee@example.com`
+** *Schedule* :
+* `schedule ACTIVITY_INDEX st/START_TIME d/DAY_INDEX` +
+e.g. `schedule 2 st/1400 d/2`
+** *Unschedule* :
+* `unschedule ACTIVITY_INDEX d/DAY_INDEX` +
+e.g. `unschedule 2 d/2`
+** *Autoschedule* :
+* `autoschedule [t/TAG START_TIME] n/ACTIVITY_NAME START_TIME a/LOCATION_OF_ACTIVITIES d/[DAY_INDEX]` +
+e.g. `autoschedule t/Dining 1000 t/Attraction 1200 n/Disneyland 1400 t/Dining a/Tokyo d/1 4 5`
+** *Optimise* :
+* `optimise <DAY_INDEX>`
+** *Undo* :
+* `undo`
+** *Redo* :
+* `redo`
 ** *List* :
-* `list acc`
-* `list act`
-* `list con`
+* `list accommodation`
+* `list activity`
+* `list contact`
+** *View* :
+* `view accommodation ACCOMMODATION_INDEX`
+* `view activity ACTIVITY_INDEX`
+* `view contact CONTACT_INDEX`
+* `view itinerary`
+* `view info`
+* `view help`
 ** *Help* : `help`
+** *Exit* : `exit`
