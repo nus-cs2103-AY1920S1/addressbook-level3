@@ -442,7 +442,8 @@ of arrival of the body. For the purpose of testing, this period is set to 10 sec
 The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
 A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
 
-Once you change the `bodyStatus`, the `notif` will be be deleted.
+Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
+If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed. 
 
 Format: `showNotifs`
 
