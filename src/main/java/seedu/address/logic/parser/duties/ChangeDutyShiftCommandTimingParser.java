@@ -47,8 +47,8 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START, PREFIX_END);
 
-        if (!model.isPatientList()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+        if (!model.isListingAppointmentsOfSingleStaff()) {
+            throw new ParseException(Messages.MESSAGE_NOT_STAFFLIST);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_START) || argMultimap.getPreamble().isEmpty()) {

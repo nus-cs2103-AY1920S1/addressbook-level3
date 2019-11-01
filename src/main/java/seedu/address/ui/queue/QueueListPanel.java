@@ -64,7 +64,6 @@ public class QueueListPanel extends UiPart<Region> {
             inQueue.setText(queueCount + " In Queue");
             if (empty || id == null) {
                 setGraphic(null);
-                setText(null);
             } else {
                 Person person = resolver.resolvePatient(id);
                 setGraphic(new QueueCard(person, getIndex() + 1).getRoot());

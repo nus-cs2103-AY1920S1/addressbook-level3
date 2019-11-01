@@ -476,21 +476,38 @@ public class ModelManager implements Model {
         filteredAppointments.setPredicate(predicate);
     }
 
-    /**
-     * Returns an boolean, check whether current displaying appointments are belong to the same patient.
-     */
     @Override
-    public Boolean isPatientList() {
+    public Boolean isListingAppointmentsOfSinglePatient() {
         requireNonNull(filteredAppointments);
-        boolean res = true;
+
+        if (filteredAppointments.size() == 0) {
+            return false;
+        }
+
         ReferenceId id = filteredAppointments.get(0).getPersonId();
         for (Event e : filteredAppointments) {
             if (!id.equals(e.getPersonId())) {
-                res = false;
-                break;
+                return false;
             }
         }
-        return res;
+        return true;
+    }
+
+    @Override
+    public Boolean isListingAppointmentsOfSingleStaff() {
+        requireNonNull(filteredDutyShifts);
+
+        if (filteredDutyShifts.size() == 0) {
+            return false;
+        }
+
+        ReferenceId id = filteredDutyShifts.get(0).getPersonId();
+        for (Event e : filteredDutyShifts) {
+            if (!id.equals(e.getPersonId())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

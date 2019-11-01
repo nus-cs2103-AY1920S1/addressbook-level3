@@ -45,7 +45,7 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
                     new RemoveRoomCommand(roomToAdd));
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoomCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddConsultationRoomCommand.MESSAGE_USAGE), pe);
         }
     }
     /*
