@@ -178,7 +178,7 @@ public class ModelManager implements Model {
         model.updateFilteredFlashCardList(new RatingContainsKeywordPredicate("easy"));
         int numEasy = model.getFilteredFlashCardList().size();
 
-        int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard) ;
+        int value = ((numEasy + numGood) * 100) / (numEasy + numGood + numHard);
         performance.add(value);
     }
 
