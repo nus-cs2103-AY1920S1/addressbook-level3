@@ -18,15 +18,15 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EndTestCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindAnswerCommand;
-import seedu.address.logic.commands.FindCategoryCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindQuestionCommand;
 import seedu.address.logic.commands.HelpCommand;
 
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListAllCommand;
+import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.RateQuestionCommand;
 import seedu.address.logic.commands.RemoveCommand;
+import seedu.address.logic.commands.SearchAnswerCommand;
+import seedu.address.logic.commands.SearchCommand;
+import seedu.address.logic.commands.SearchQuestionCommand;
 import seedu.address.logic.commands.SetThemeCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.commands.StartCommand;
@@ -117,20 +117,20 @@ public class KeyboardFlashCardsParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case SearchCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
-        case FindCategoryCommand.COMMAND_WORD:
+        case ListCategoryCommand.COMMAND_WORD:
             return new FindCategoryCommandParser().parse(arguments);
 
-        case FindAnswerCommand.COMMAND_WORD:
+        case SearchAnswerCommand.COMMAND_WORD:
             return new FindAnswerCommandParser().parse(arguments);
 
-        case FindQuestionCommand.COMMAND_WORD:
+        case SearchQuestionCommand.COMMAND_WORD:
             return new FindQuestionCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListAllCommand.COMMAND_WORD:
+            return new ListAllCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -17,7 +17,7 @@ public class RateQuestionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Rated successfully! Here's the next question:\n%s";
     public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Rates a flashcard and gets the next question.\n"
-            + "Parameter: rate easy/good/bad";
+            + "Parameter: rate easy/good/hard";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
     private final Rating rating;
