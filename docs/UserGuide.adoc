@@ -91,7 +91,7 @@ Format: `view a/ACTIVITY_ID` *OR* `view c/CONTACT_ID` +
 Examples:
 
 * `view a/1` +
-Views the activity with ID 1, e.g. ChaletOK UG
+Views the activity with ID 1, e.g. Chalet
 * `view c/2` +
 views the contact with ID 2, e.g. John Smith
 
@@ -291,7 +291,7 @@ Hence, everything covered in this section is performed by *you* in the explicit 
 
 === Force deleting expenses
 The default behavior for `disinvite` is to never allow permanant deletion for expenses.
-What you will see instead is that it is striked out.
+What you will see instead is that it is striked out in the UI.
 This is for good reason!
 It preserves accountability and transparency.
 
@@ -318,4 +318,4 @@ Ensure the application is closed, then find the activity in question in the `jso
 
 After restarting you will see that the person is permanantly removed from the activity.
 
-CAUTION: This operation is very dangerous! The person might be included in expenses or other activities -- in that case, an error will be generated and the application will reset.G
+CAUTION: This operation is very dangerous! The person might be included in expenses or other activities -- in that case, an error will be generated and the application will reset.
