@@ -132,7 +132,7 @@ image::ClearStep2.png[width="600"]
 
 The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
 
-==== Either the question or the answer matches the keyword(s): "find [keyword(s)]
+==== Either the question or the answer matches the keyword(s): "search [keyword(s)]
 
 This command allows you to search for flashcards with the question or answer matching the keyword(s).
 Multiple keywords are separated by a single space.
