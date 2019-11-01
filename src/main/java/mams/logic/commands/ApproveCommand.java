@@ -66,15 +66,15 @@ public class ApproveCommand extends Approve {
             String type = "";
             String moduleCode;
 
-            List<Student> lastShownStudentList = model.getFilteredStudentList();
-            List<Module> lastShownModuleList = model.getFilteredModuleList();
+            List<Student> fullStudentList = model.getFullStudentList();
+            List<Module> fullModuleList = model.getFullModuleList();
 
             String appealType = appealToApprove.getAppealType();
             String studentToEditId = appealToApprove.getStudentId();
 
             if (appealType.equalsIgnoreCase("Increase workload")) {
 
-                List<Student> studentToCheckList = lastShownStudentList.stream()
+                List<Student> studentToCheckList = fullStudentList.stream()
                                 .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                 .collect(Collectors.toList());
 
@@ -97,7 +97,7 @@ public class ApproveCommand extends Approve {
                 moduleCode = appealToApprove.getModuleToDrop();
 
                 //Check if student exists
-                List<Student> studentToCheckList = lastShownStudentList.stream()
+                List<Student> studentToCheckList = fullStudentList.stream()
                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                         .collect(Collectors.toList());
                 if (studentToCheckList.isEmpty()) {
@@ -118,7 +118,7 @@ public class ApproveCommand extends Approve {
                 }
 
                 //check if module exist
-                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                List<Module> moduleToCheckList = fullModuleList.stream()
                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
                 if (moduleToCheckList.isEmpty()) {
                     throw new CommandException(MESSAGE_INVALID_MODULE);
@@ -170,7 +170,7 @@ public class ApproveCommand extends Approve {
 
                 moduleCode = appealToApprove.getModuleToAdd();
 
-                List<Student> studentToCheckList = lastShownStudentList.stream()
+                List<Student> studentToCheckList = fullStudentList.stream()
                         .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
                 if (studentToCheckList.isEmpty()) {
                     throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
@@ -178,7 +178,7 @@ public class ApproveCommand extends Approve {
                 studentToEdit = studentToCheckList.get(0);
 
                 //check if module exist
-                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                List<Module> moduleToCheckList = fullModuleList.stream()
                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
                 if (moduleToCheckList.isEmpty()) {
                     throw new CommandException(MESSAGE_INVALID_MODULE);

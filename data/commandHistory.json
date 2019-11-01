@@ -19,5 +19,35 @@
     "output" : "Listed all appeals\nListed all modules\nListed all students",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572587634075
+  }, {
+    "input" : "view a/4",
+    "output" : "Displayed items with ID: C000003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614760741
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614763417
+  }, {
+    "input" : "view s/4",
+    "output" : "Displayed items with ID: A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614767451
+  }, {
+    "input" : "view m/5",
+    "output" : "Displayed items with ID: CS2040",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614776520
+  }, {
+    "input" : "approve mass/    C000003   C000002",
+    "output" : "Successfully approved: [C000003, C000002]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614793015
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614827190
   } ]
 }
