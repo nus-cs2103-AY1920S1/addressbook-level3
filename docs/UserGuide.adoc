@@ -36,8 +36,8 @@ image::Ui.png[width="790"]
 E.g., typing *`help`* and pressing kbd:[Enter] will open the help window. +
 Here are some example commands you can try in the transaction tab:
 
-* **`addtx`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
-* **`filtertx`**`m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
+* **`add`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
+* **`filter`**`m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
 * *`exit`* : exits IchiFund
 
 .  Refer to <<Navigation>> for details on how to navigate through IchiFund.
@@ -87,12 +87,12 @@ These commands are recognised regardless of which tab you are currently using.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you. +
-E.g., *`addtx`*`de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as *`addtx`*`de/AirPods a/299.00`.
+E.g., *`add`*`de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as *`addtx`*`de/AirPods a/299.00`.
 
 * Items in square brackets are optional. +
-E.g. *`badd`*`de/DESCRIPTION a/AMOUNT [c/CATEGORY]` can be used as
-** *`badd`*`de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets`
-** *`badd`*`de/Saving for iPhone 11 Pro Max a/271.80`.
+E.g. *`add`*`de/DESCRIPTION a/AMOUNT [c/CATEGORY]` can be used as
+** *`add`*`de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets`
+** *`add`*`de/Saving for iPhone 11 Pro Max a/271.80`.
 
 * You can use items with `…​` after them multiple times, including zero times. +
 E.g., `[s/KEYWORD]…​` can be used as
@@ -102,7 +102,7 @@ E.g., `[s/KEYWORD]…​` can be used as
 ** etc.
 
 * You can enter parameters in any order. +
-E.g., if the command specifies *`addtx`*`de/DESCRIPTION a/AMOUNT`, *`addtx`*`a/AMOUNT de/DESCRIPTION` is also acceptable.
+E.g., if the command specifies *`add`*`de/DESCRIPTION a/AMOUNT`, *`add`*`a/AMOUNT de/DESCRIPTION` is also acceptable.
 ====
 
 === IchiFund Basics
@@ -169,7 +169,7 @@ Minimally, the filter title contains the month and year of the filter applied. I
 the category shown, as well as whether only expenditure/income items are shown.
 
 The filter title changes along with the filter that is applied to the list. You can change the filter using
-the `filtertx` command in <<filtertx>>
+the `filter` command in <<filtertx>>
 
 [NOTE]
 On startup, the filter is generated based on the latest transaction you have recorded,
@@ -181,11 +181,11 @@ This makes it easier for you to access the transactions in the current month!
 
 // tag::filtertx[]
 [[filtertx]]
-==== Filtering transactions: `filtertx`
-Format: `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
+==== Filtering transactions: `filter`
+Format: `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
 
 To better understand how your money goes down the drain, it is critical to organise and filter your
-transactions. `filtertx` does the job for you.
+transactions. `filter` does the job for you.
 
 Let's say you are currently viewing transactions from
 September 2018. The GUI of Ichifund may look like this:
@@ -193,34 +193,34 @@ September 2018. The GUI of Ichifund may look like this:
 image::filtertx1.png[]
 
 Suppose you want to view transactions from a different month, say, September 2018.
-You can simply enter the command `filtertx m/9 y/2018`, which results in the following view:
+You can simply enter the command `filter m/9 y/2018`, which results in the following view:
 
 image::filtertx2.png[]
 
 
-Now, if you want to only see expenditure items, simply enter the command `filtertx ty/exp`.
+Now, if you want to only see expenditure items, simply enter the command `filter ty/exp`.
 
 image::filtertx3.png[]
 
 You may find that this view of the list is still too cluttered for you. In that case,
 you can further limit the transactions in the list to contain only items from the category "FOOD" using
-the command `filtertx c/food`
+the command `filter c/food`
 
 image::filtertx4.png[]
 
 If you want to see expenditure items of the same time, but in a different month, say, August 2019, enter
-the command `filtertx m/8`. Note that you do not need to enter the year, category, or transaction type again.
+the command `filter m/8`. Note that you do not need to enter the year, category, or transaction type again.
 The GUI will update accordingly, as follows:
 
 image::filtertx5.png[]
 
 [NOTE]
-To see only expenditure items, enter `filtertx ty/exp`; to see only income items, enter `filtertx ty/in`. This
+To see only expenditure items, enter `filter ty/exp`; to see only income items, enter `filter ty/in`. This
 also applies when you are adding transactions in <<addtx>>
 
 ===== Removing category and transaction type filter
 Now, if you want to remove both the category filter and the transaction type, you can enter the command
-`filtertx c/!all ty/!all`.
+`filter c/!all ty/!all`.
 
 image::filtertx6.png[]
 
@@ -230,16 +230,16 @@ the removal of the month and year filter.
 
 [TIP]
 Like the other commands in IchiFund, you can enter the arguments in any order, as long as
-the command word `filtertx` is keyed in at the start.
+the command word `filter` is keyed in at the start.
 
 // end::filtertx[]
 
 [[addtx]]
 ==== Creating transaction: `addtx`
-Format: `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 As painful as it is to remind yourself each time you part with your money, it is essential to meticulously
-record your transactions. `addtx` eases this process.
+record your transactions. `add` eases this process.
 
 Imagine you are browsing your transactions under the category of "Transportation"
 in November. Your GUI may look like this:
@@ -248,7 +248,7 @@ image::addtx1.png[width=960]
 
 Let's say you remember that spent $12.31 on lunch on 31 October 2019.
 If you want to record this transaction under the category "FOOD", you can enter the full
-command `addtx de/Lunch a/12.31 c/food d/31 m/10 y/2019 ty/exp`
+command `add de/Lunch a/12.31 c/food d/31 m/10 y/2019 ty/exp`
 
 The application now looks like this:
 
@@ -274,7 +274,7 @@ image::addtx1.png[]
 
 Let's say it is 1 November 2019 today. You have just spent another $10.00 hiring a cab to go to the hospital,
 and want to record this transaction under the category of "Transportation". You can simply enter
-the command `addtx a/10 de/Cab to hospital`, and obtain the following result:
+the command `add a/10 de/Cab to hospital`, and obtain the following result:
 
 image::addtx3.png[]
 
@@ -316,11 +316,11 @@ The feature for adding transactions is built to work best under these constraint
 Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
 
 [[edittx]]
-==== Editing transaction: `edittx`
-Format: `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+==== Editing transaction: `edit`
+Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 Occasionally, you may make a mistake entering your transactions. Perhaps you entered the wrong amount, or made
-a heinous spelling error in your description. Fret not! You can correct these mistakes using `edittx`, and it would
+a heinous spelling error in your description. Fret not! You can correct these mistakes using `edit`, and it would
 be as if it never happened.
 
 Suppose you wanted to record your cab fare to the hospital, and you mistakenly record the amount you spent as
@@ -328,7 +328,7 @@ $10.00 instead of $20.00:
 
 image::addtx3.png[]
 
-You can rectify this error simply by entering the command `edittx 2 a/20.00`:
+You can rectify this error simply by entering the command `edit 2 a/20.00`:
 
 image::edittx.png[]
 
@@ -344,11 +344,11 @@ Unfortunately, transactions created from repeaters cannot be edited or deleted d
 For a more detailed guide on how to modify these transactions, refer to <<repeaters>>
 
 [[deletetx]]
-==== Deleting transaction: `deletetx`
-Format: `deletetx INDEX`
+==== Deleting transaction: `delete`
+Format: `delete INDEX`
 
 By a stroke of luck, you may sometimes get a reimbursement for your expenditure! While you celebrate the
-influx of precious money, do take a moment to update IchiFund using `deletetx`.
+influx of precious money, do take a moment to update IchiFund using `delete`.
 
 Let's say you have just recorded and edited your cab ride to the hospital:
 
@@ -371,37 +371,37 @@ For a more detailed guide on how to modify these transactions, refer to <<repeat
 [[repeaters]]
 === Repeaters
 
-==== Creating repeater: `addrep`
+==== Creating repeater: `add`
 
 Creates repeater together with the associated transactions. +
 Format: `de/DESCRIPTION a/AMOUNT c/CATEGORY ty/TRANSACTION_TYPE so/MONTH_START_OFFSET eo/MONTH_END_OFFSET sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 
 Examples:
 
-* `addrep de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2025` +
+* `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2025` +
 Creates a repeater titled "Phone bills" as an expenditure for Utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2025. Also creates the associated transactions.
 
-==== Editing repeater `editrep`
+==== Editing repeater `edit`
 
 Edits repeater together with the associated transactions. +
-Format: `editrep INDEX (must be a positive integer) [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
+Format: `edit INDEX (must be a positive integer) [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
 Examples:
 
-* `editrep 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
+* `edit 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
 Edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. Also updates the associated transactions.
 
-==== Deleting repeater: `delrep`
+==== Deleting repeater: `delete`
 
 Deletes repeater together with all created transactions associated with the specified repeater. +
-Format: `delrep INDEX`
+Format: `delete INDEX`
 
 Examples:
 
-* `delrep 12` +
+* `delete 12` +
 Deletes the 12th repeater in the current list. Also updates the associated transactions.
 
-==== Finding repeater: `findrep` [Coming in v2.0]
+==== Finding repeater: `find` [Coming in v2.0]
 
 === Budgets
 
@@ -432,11 +432,11 @@ image::BudgetCell.png[]
 [NOTE]
 The budget bar will turn from green to red when you spend over 80% of the total amount.
 
-==== Creating monthly budget: `addbud`
+==== Creating monthly budget: `add`
 
-Format: `addbud de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
+Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 
-You can use the `addbud` command to create a monthly budget.
+You can use the `add` command to create a monthly budget.
 Let us walk through the process for creating a budget for tracking your spending on food.
 
 1. Check to make sure you are in the budgets tab. If not, switch to it.
@@ -460,14 +460,14 @@ image::addbud3.png[]
 
 If you want to track all monthly expenditures, simply leave out the `c/CATEGORY` argument.
 For instance, the following command creates a $500.00 budget that is applicable to all expenditures:
-`addbud de/General budgeting a/500`.
+`add de/General budgeting a/500`.
 
 
-==== Deleting monthly budget: `deletebud`
+==== Deleting monthly budget: `delete`
 
-Format: `deletebud INDEX`
+Format: `delete INDEX`
 
-You can use `deletebud` to delete the budget.
+You can use `delete` to delete the budget.
 Let us walk through the process of deleting the _Saving my tummy_ budget we created previously.
 
 1. Identify the index of the budget you are deleting. Here, the index is 2.
@@ -475,18 +475,18 @@ Let us walk through the process of deleting the _Saving my tummy_ budget we crea
 image::deletebud1.png[]
 
 [start=2]
-2. Type `deletebud 2` into the command bar and press enter.
+2. Type `delete 2` into the command bar and press enter.
 You should see the _Saving my tummy_ budget disappear from the budget list.
 
-==== Finding monthly budget by keywords: `findbud`
+==== Finding monthly budget by keywords: `find`
 
-Format: `findbud KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-You can use `findbud` to find budgets with description that matches all the given keywords. To illustrate this, let us suppose you want to find all budgets with the word _saving_ in its description.
-To do so, type `findbud saving` into the command bar and press enter.
+You can use `find` to find budgets with description that matches all the given keywords. To illustrate this, let us suppose you want to find all budgets with the word _saving_ in its description.
+To do so, type `find saving` into the command bar and press enter.
 You should see the search result in the budget list.
 
-To revert the budget list so that all budgets are listed, simply execute `findbud` without any argument.
+To revert the budget list so that all budgets are listed, simply execute `find` without any argument.
 
 === Loans [Coming in v2.0]
 
@@ -647,23 +647,23 @@ Displays expenditure ranking chart for July 2019.
 
 * *Help* : `help`
 * *Exit* : `exit`
-* *Transaction Add* : `addtx de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
-* *Transaction Edit* : `edittx INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
-* *Transaction Delete* : `deletetx INDEX`
-* *Transaction Find* : `filtertx [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
-* *Transaction Repeater Add* : `addrep de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
-* *Transaction Repeater Edit* : `editrep INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
-* *Transaction Repeater Delete* : `deleterep INDEX [d/DELETEALL]`
-* *Transaction Repeater Find* : `findrep [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`  (Coming in v2.0)
+* *Transaction Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+* *Transaction Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
+* *Transaction Delete* : `delete INDEX`
+* *Transaction Find* : `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
+* *Transaction Repeater Add* : `add de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
+* *Transaction Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
+* *Transaction Repeater Delete* : `delete INDEX [d/DELETEALL]`
+* *Transaction Repeater Find* : `find [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`  (Coming in v2.0)
 * *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
 * *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
 * *Loan Categorical Search* : `loanshow [s/KEYWORD]`  (Coming in v2.0)
 * *Loan Net Amount* : `loantotal [s/KEYWORD]`  (Coming in v2.0)
 * *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
 * *Loan Sort By Value* : `loansort s/BY`  (Coming in v2.0)
-* *Budget Add* : `addbud de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
-* *Budget Delete* : `deletebud INDEX`
-* *Budget Find* : `findbud KEYWORD [MORE_KEYWORDS]`
+* *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
+* *Budget Delete* : `delete INDEX`
+* *Budget Find* : `find KEYWORD [MORE_KEYWORDS]`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`
 * *Balance Trend* : `balance [y/YEAR]`
