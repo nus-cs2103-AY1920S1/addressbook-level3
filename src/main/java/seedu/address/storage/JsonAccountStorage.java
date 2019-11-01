@@ -28,6 +28,7 @@ public class JsonAccountStorage implements AccountStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAccountStorage.class);
 
     private static final Path accountBookFilePath = Paths.get("data", "accountslist.json");
+    private static File dataFolder = new File("data");
     private static File file = new File("data/accountslist.json");
 
     private Path filePath;
@@ -57,6 +58,8 @@ public class JsonAccountStorage implements AccountStorage {
      */
     public Optional<AccountBook> getAccountsList(Path filePath) throws DataConversionException, IOException {
         requireNonNull(filePath);
+
+        dataFolder.mkdir();
 
         if (file.createNewFile()) {
             logger.info("New File created.");
