@@ -53,8 +53,16 @@ public class LogicManager implements Logic {
 
         CommandResult commandResultMl = multiLine.manage(commandResult, command);
         if(!commandResultMl.equals(new CommandResult("No MultiLine"))) {
+            try {
+                storage.saveProjectDashboard(model.getProjectDashboard());
+                storage.saveUserSettings(model.getUserSettings());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
             return commandResultMl;
         }
+
+        logger.info("goes here");
 
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());

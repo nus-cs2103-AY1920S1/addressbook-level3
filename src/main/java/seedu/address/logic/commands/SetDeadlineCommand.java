@@ -87,7 +87,7 @@ public class SetDeadlineCommand extends Command {
         Name name = taskToUpdate.getName();
         TaskStatus taskStatus = taskToUpdate.getTaskStatus();
         Set<Tag> tags = taskToUpdate.getTags();
-        Task updatedTask = new Task(name, TaskStatus.DOING, tags);
+        Task updatedTask = new Task(name, taskStatus, tags);
         updatedTask.setDeadline(dateTime);
         return updatedTask;
     }

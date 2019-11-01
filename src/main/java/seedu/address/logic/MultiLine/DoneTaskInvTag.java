@@ -30,7 +30,7 @@ public class DoneTaskInvTag {
         switch (commandWord) {
             case "Type-1":
                 commands.add(command);
-                return new CommandResult("Would you like to add this as a Inventory?");
+                return new CommandResult("Would you like to add this as a Inventory? (yes/no)");
             case "halt":
                 commands.clear();
                 return new CommandResult("Inventory not added");
@@ -70,7 +70,14 @@ public class DoneTaskInvTag {
             if(firstCommand instanceof DoneTaskCommand) {
                 index = new Index(((DoneTaskCommand)(commands.get(0))).getIndex());
                 Task taskToAdd = model.getFilteredTasksList().get(index.getZeroBased());
-                name = taskToAdd.getName();
+                String nameRaw = taskToAdd.getName().toString();
+
+                String[]splitNameRaw = nameRaw.split(" ",2);
+                if(splitNameRaw[0].equals("buy") || splitNameRaw[0].equals("get")) {
+                    name = new Name(splitNameRaw[1]);
+                } else {
+                    name = new Name(nameRaw);
+                }
             } else {
                 throw new ParseException("Invalid Command");
             }

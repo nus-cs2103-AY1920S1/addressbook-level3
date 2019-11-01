@@ -25,7 +25,7 @@ public class AddTaskDetails {
             case "Type-3":
                 String TaskName = commandResult.getFeedbackToUser().split("/",2)[1].trim();
                 commands.add(command);
-                return new CommandResult(TaskName + "\n" + "Would you like to add deadline or member?");
+                return new CommandResult(TaskName + "\n" + "Would you like to add deadline or member? (yes/no)");
             case "halt":
                 commands.clear();
                 return new CommandResult("Deadline/ Member not added");

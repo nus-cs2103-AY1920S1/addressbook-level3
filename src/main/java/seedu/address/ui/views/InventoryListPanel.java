@@ -72,19 +72,19 @@ public class InventoryListPanel extends UiPart<Region> {
     @FXML
     private ListView<IndivInventoryCard> inventoryListView;
 
-    public InventoryListPanel(ArrayList<Inventory>invList, ArrayList<Member> memberList, ArrayList<Task> taskList,
-                              ArrayList<InvMemMapping> invMemMappings, ArrayList<InvTasMapping>invTasMappings) {
+    public InventoryListPanel(ObservableList<Inventory>invList, ObservableList<Member> memberList, ObservableList<Task> taskList,
+                              ObservableList<InvMemMapping> invMemMappings, ObservableList<InvTasMapping>invTasMappings) {
         super(FXML);
         ObservableList<IndivInventoryCard> inventoryCards = FXCollections.observableArrayList();
 
         logger.info("Size of list to be printed: " + invList.size());
         for (int i = 0; i<invList.size(); i++) {
             Inventory invInvolved = invList.get(i);
-            int invIndex = invList.indexOf(invInvolved);
+            //int invIndex = invList.indexOf(invInvolved);
 
             Task invTask = new Task(new Name("No task attached"), TaskStatus.UNBEGUN, Collections.<Tag>emptySet());
             for (InvTasMapping mapping : invTasMappings) {
-                if (mapping.getInventoryIndex() == invIndex) {
+                if (mapping.getInventoryIndex() == i) {
                     invTask = taskList.get(mapping.getTaskIndex());
                 }
             }
@@ -92,7 +92,7 @@ public class InventoryListPanel extends UiPart<Region> {
             Member invMem = new Member(new MemberName("No member attached"), new MemberId(""),
                                         Collections.<Tag>emptySet());
             for (InvMemMapping mapping : invMemMappings) {
-                if (mapping.getInventoryIndex() == invIndex) {
+                if (mapping.getInventoryIndex() == i) {
                     invMem = memberList.get(mapping.getMemberIndex());
                 }
             }

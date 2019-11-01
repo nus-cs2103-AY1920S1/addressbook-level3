@@ -93,7 +93,7 @@ public class SampleTaskDataUtil {
                 new TasMemMapping(2, 1),
                 new TasMemMapping(3, 4),
                 new TasMemMapping(4, 3),
-                new TasMemMapping(6, 6),
+                new TasMemMapping(5, 5),
         };
     }
 

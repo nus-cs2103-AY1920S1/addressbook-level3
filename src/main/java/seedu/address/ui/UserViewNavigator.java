@@ -171,14 +171,19 @@ public class UserViewNavigator {
      * @param logic to access inventory data
      */
     public void loadInventoriesListView(Logic logic) {
-        ObservableList<InvMemMapping>invMemMappings = logic.getProjectDashboard().getInvMemMappingList();
-        ObservableList<InvTasMapping>invTasMappings = logic.getProjectDashboard().getInvTasMappingList();
-        ArrayList<InvMemMapping>invMemMap = new ArrayList<>(invMemMappings);
-        ArrayList<InvTasMapping>invTasMap = new ArrayList<>(invTasMappings);
-        ArrayList<Inventory>inventories = new ArrayList<>(logic.getFilteredInventoryList());
-        ArrayList<Member>members = new ArrayList<>(logic.getFilteredMemberList());
-        ArrayList<Task>tasks = new ArrayList<>(logic.getFilteredTaskList());
-        inventoryListPanel = new InventoryListPanel(inventories, members, tasks, invMemMap, invTasMap);
+        //ObservableList<InvMemMapping>invMemMappings = logic.getProjectDashboard().getInvMemMappingList();
+        //ObservableList<InvTasMapping>invTasMappings = logic.getProjectDashboard().getInvTasMappingList();
+        //ArrayList<InvMemMapping>invMemMap = new ArrayList<>(invMemMappings);
+        //ArrayList<InvTasMapping>invTasMap = new ArrayList<>(invTasMappings);
+        //ArrayList<Inventory>inventories = new ArrayList<>(logic.getFilteredInventoryList());
+        //ArrayList<Member>members = new ArrayList<>(logic.getFilteredMemberList());
+        //ArrayList<Task>tasks = new ArrayList<>(logic.getFilteredTaskList());
+        //inventoryListPanel = new InventoryListPanel(inventories, members, tasks, invMemMap, invTasMap);
+        inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList(),
+                                                    logic.getFilteredMemberList(),
+                                                    logic.getFilteredTaskList(),
+                                                    logic.getProjectDashboard().getInvMemMappingList(),
+                                                    logic.getProjectDashboard().getInvTasMappingList());
         userViewController.setUserView(inventoryListPanel);
     }
 

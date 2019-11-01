@@ -112,7 +112,7 @@ public class EditInventoryCommand extends Command{
         }
 
         model.setInventory(inventoryToEdit, editedInventory);
-        model.updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
+        //model.updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
         //model.replaceExistingMappingsWithNewInventory(taskToEdit, editedTask);
         return new CommandResult(String.format(MESSAGE_EDIT_INVENTORY_SUCCESS, editedInventory));
     }

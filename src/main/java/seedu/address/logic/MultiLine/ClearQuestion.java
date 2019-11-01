@@ -2,6 +2,7 @@ package seedu.address.logic.MultiLine;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.Command;

@@ -27,6 +27,8 @@ public class UniqueInvMemMappingList implements Iterable<InvMemMapping> {
     private final ObservableList<InvMemMapping> internalList = FXCollections.observableArrayList();
     private final ObservableList<InvMemMapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    //private final ArrayList<InvMemMapping> internalList = new ArrayList<>();
+    //private final ArrayList<InvMemMapping> internalUnmodifiableList = new ArrayList<>(internalList);
     /*private final ArrayList<Integer> lonelyInv = new ArrayList<>();
 
     public ArrayList<Integer> getLonelyInv() {
