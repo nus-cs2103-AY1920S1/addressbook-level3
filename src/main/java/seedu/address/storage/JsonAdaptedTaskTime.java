@@ -9,7 +9,7 @@ import seedu.address.model.task.TaskTime;
 /**
  * Jackson-friendly version of {@link TaskTime}.
  */
-public class JsonAdaptedTaskTime {
+public class JsonAdaptedTaskTime implements Comparable<JsonAdaptedTaskTime> {
     private final String fullTime;
 
     /**
@@ -42,5 +42,16 @@ public class JsonAdaptedTaskTime {
             throw new IllegalValueException(TaskTime.MESSAGE_CONSTRAINTS);
         }
         return new TaskTime(fullTime);
+    }
+
+    @Override
+    public int compareTo(JsonAdaptedTaskTime o) {
+        try {
+            TaskTime thisTaskTime = this.toModelType();
+            TaskTime otherTaskTime = o.toModelType();
+            return thisTaskTime.compareTo(otherTaskTime);
+        } catch (IllegalValueException e) {
+            return 0;
+        }
     }
 }

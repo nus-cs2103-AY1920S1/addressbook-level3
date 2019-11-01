@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.calendar.EditTaskCommand;
@@ -60,7 +60,7 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
      * If {@code taskTimes} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<TaskTime>} containing zero taskTimes.
      */
-    private Optional<Set<TaskTime>> parseTimesForEdit(Collection<String> taskTimes) throws ParseException {
+    private Optional<TreeSet<TaskTime>> parseTimesForEdit(Collection<String> taskTimes) throws ParseException {
         assert taskTimes != null;
 
         if (taskTimes.isEmpty()) {

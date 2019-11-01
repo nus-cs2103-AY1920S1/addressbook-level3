@@ -22,11 +22,11 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Picture picture) {
-        requireAllNonNull(name, picture);
+    public Person(Name name, ClassId classId) {
+        requireAllNonNull(name, classId);
         this.name = name;
-        this.picture = picture;
-        this.classId = new ClassId("No Class Assigned Yet!");
+        this.picture = new Picture("null");
+        this.classId = classId;
         this.attendance = new Attendance("0");
         this.result = new Result("0");
         this.participation = new Participation("0");

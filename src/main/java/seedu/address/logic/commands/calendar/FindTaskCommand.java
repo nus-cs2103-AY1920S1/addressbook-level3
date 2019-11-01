@@ -13,7 +13,7 @@ import seedu.address.model.task.TaskContainsKeywordsPredicate;
  * Keyword matching is case insensitive.
  */
 public class FindTaskCommand extends Command {
-    public static final String COMMAND_WORD = "findTask";
+    public static final String COMMAND_WORD = "find_task_by_module";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose description contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

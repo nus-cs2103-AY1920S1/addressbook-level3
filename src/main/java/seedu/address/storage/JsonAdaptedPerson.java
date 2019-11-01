@@ -73,7 +73,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Picture.class.getSimpleName()));
         }
-        if (!Picture.isValidPicture(picture)) {
+        if (!Picture.isValidPicture(picture) && !("null".equals(picture))) {
             throw new IllegalValueException(Picture.MESSAGE_CONSTRAINTS);
         }
         final Picture modelPicture = new Picture(picture);

@@ -5,7 +5,7 @@ package seedu.address.model.reminder.exceptions;
  * (Reminders are considered duplicates if they have the same
  * description and time).
  */
-public class DuplicateReminderException extends Throwable {
+public class DuplicateReminderException extends RuntimeException {
     public DuplicateReminderException() {
         super("Operation would result in duplicate earnings");
     }

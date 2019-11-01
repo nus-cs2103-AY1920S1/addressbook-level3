@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.account.Account;
@@ -223,6 +222,11 @@ public class ModelManager implements Model {
     @Override
     public void addTask(Task task) {
         addressBook.addTask(task);
+        //updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+    }
+
+    @Override
+    public void afterAddTask() {
         updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
@@ -275,6 +279,11 @@ public class ModelManager implements Model {
         UiManager.startEarnings();
     }
 
+    @Override
+    public void updateFilteredCalendarList() {
+        UiManager.startCalendar();
+    }
+
     //=========== Filtered Task List Accessors =============================================================
 
     /**
@@ -318,10 +327,43 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons));
     }
 
+    //=========== Filtered Reminder List Accessors =============================================================
+
+    /**
+     *  Checks if the task exists in the addressbook.
+     */
+    public boolean hasReminder(Reminder reminder) {
+        requireNonNull(reminder);
+        return addressBook.hasReminder(reminder);
+    }
+
+    @Override
+    public void addReminder(Reminder reminder) {
+        addressBook.addReminder(reminder);
+        updateFilteredReminderList(PREDICATE_SHOW_ALL_REMINDERS);
+    }
+
+    @Override
+    public void deleteReminder(Reminder target) {
+        addressBook.removeReminder(target);
+    }
+
+    @Override
+    public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+        requireNonNull(predicate);
+        filteredReminder.setPredicate(predicate);
+        UiManager.startReminders();
+    }
+
+    @Override
+    public void setReminder(Reminder reminder, Reminder editedReminder) {
+        requireAllNonNull(reminder, editedReminder);
+        addressBook.setReminder(reminder, editedReminder);
+    }
+
     public Account getAccount() {
         return account;
     }
-
 
     public void isLoggedIn() {
         loggedIn = true;

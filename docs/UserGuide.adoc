@@ -35,7 +35,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : gives you a list of commands that are available.
-* **`add`**`CS2103T Lecture /at 20/9/2019 16:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
+* **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times e.g. `tt/TASK_TIME...` can be used as `tt/...`, `tt/... tt/...` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 =====
 
@@ -69,123 +69,115 @@ Examples:
 
 === Calender
 
-==== Adding task: `add`
+==== Adding task: `add_task`
 
 Adds a task to one or more time slots. +
-Format: `add DESCRIPTION /at TIME, ...`
+Format: `add_task c/MODULE mark/STATUS tt/TASK_TIME...`
 
 [TIP]
-A task can have more than one time slots.
+A task can have more than one time slots. +
+STATUS should only be Y or N. +
+`TASK_TIME` should be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm". +
+If there are multiple task times, they will be automatically sorted based on their starting time.
+
 
 Examples:
 
-* `add CS2103T Lecture /at 20/9/2019 16:00,  4/10/2019 16:00`
-* `add MA1521 Lecture /at 02/11/2020 14:00`
+* `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 20/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
-==== Updating task: `update`
+==== Editing task: `edit_task`
 
 Update task information. +
-Format: `update INDEX ATTRIBUTE UPDATE_INFO`
-
-Examples:
-
-* `update 2 time 10/10/2019 18:00`
-
-==== Deleting task: `delete`
-
-Deletes selected task. +
-Format: `delete INDEX ...`
+Format: `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
-You can delete more than one tasks at a time.
+INDEX must be a positive integer. +
+At least one element inside task should be edited.
+
 
 Examples:
 
-* `delete 1 3 6`
+* `edit_task 2 mark/N`
+* `edit_task 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
 
-==== Finding tasks: `find`
 
-Find specific task. +
-Format: `find VARAIBLE`
+==== Deleting task: `delete_task`
 
-****
-* VARIABLE can be either `INDEX`, `KEYWORD` or `TIME`.
-* The VARIABLE is case insensitive. e.g `hans` will match `Hans`
-* Only full words will be matched. e.g. `Han` will not match `Hans`
-* Can find using more than one keyword at a time.
-* Only can search by one of the 3 types of variables at any one time.
-****
+Deletes selected task. +
+Format: `delete_task INDEX`
+
+[TIP]
+INDEX must be a positive integer.
 
 Examples:
 
-* `find 3` [INDEX]
-* `find CS2103T, Lecture` [KEYWORD]
-* `find 1400` [TIME]
+* `delete_task 1`
 
-==== Marking Tasks: `mark`
+==== Finding tasks based on Module : `find_task_by_module`
 
-Mark tasks that needs to be reminded. +
-`Format: `mark VARIABLE`
+Find specific tasks by Module and list them. +
+Format: `find_task_by_module MODULE ...`
 
 ****
-* VARIABLE can be either `INDEX` or `KEYWORD`.
-* The VARIABLE is case insensitive. e.g `hans` will match `Hans`
-* Can find using more than one `KEYWORD` or `INDEX` at a time.
+* The `MODULE` is case insensitive. e.g `cs2100` will match `CS2100`
+* Only full words will be matched. e.g. `2100` will not match `CS2100`
+* Can find using more than one `MODULE` at a time.
 ****
 
 Examples:
 
-* `mark 2 3 4` +
-Marks tasks 2, 3 and 4.
-* `mark CS2103T, Tutorial` +
-Marks tasks that contains the keyword CS2103T or Tutorial.
+* `find_task_by_module cs2100`
+* `find_task_by_module CS2103T, cs2100`
 
-==== Setting Reminder Details  : `reminder`
+==== Finding tasks based on Date : `find_task_by_date`
 
-===== Reminder Status On/Off
+Find specific tasks by Date and list them. +
+Format: `find_task_by_date DATE ...`
 
-Switches reminder status between on and off. +
-Format: `reminder INDEX STATUS`
-
-Examples:
-
-* `reminder 5 on`
-
-===== Setting Reminder Time
-
-Sets how many minutes before the marked tasks will be reminded. +
-Format: `reminder INDEX INTEGER(in minutes)`
+****
+* The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
+****
 
 Examples:
 
-* `reminder 3 45`
+* `find_task_by_date 20/10/2019`
 
-==== Copying Tasks : `copy`
+==== Listing all tasks : `list_task`
 
-Copies the task to other time slot. +
-Format: `copy INDEX TIME, …`
+List all tasks. +
+Format: `list_tasks`
+
+
+==== Setting Reminder Details  : `addReminder`
+
+===== Add Reminder
+
+Adds reminders. +
+Format: `addReminder rd/DESCRIPTION rt/TIME`
 
 Examples:
 
-* `copy 4 10/10/2019 14:00, 21/10/2019 15:00`
+* `addReminder rd/Cs2103T homework rt/21/9/2019 13:00, 21/9/2019 15:00`
+
+===== Delete Reminder
+
+Removes the reminder. +
+Format: `reminder INDEX INTEGER`
+
+Examples:
+
+* `deleteReminder 1`
 
 ==== User Interface
 
 View in calendar format. +
-Format: `show calendar`
+Format: `change_tab tab/FORMAT`
 
 Example:
 
-* `show calendar`
-
-==== Switching
-
-Switch the GUI to calendar/list format. +
-Format: `switch STATUS`
-
-Examples:
-
-* `switch day`
+* `change_tab tab/calendar`
+* `change_tab tab/tasks`
 
 === Earnings
 
@@ -243,7 +235,185 @@ Examples:
 
 * `claim_earnings k/CS2103T, c/CS1231`
 
+=== Notes
+==== Add Note: `addnote`
+
+Adds Note to the list of notes. +
+Format: `addnote mod/MODULE_CODE c/CONTENT`
+
+Examples:
+
+* `addnote mod/CS2103T c/Check for project submission date`
+
+==== Edit Note: `editnote`
+
+Update Note in the list of notes. +
+Format: `editnote [index] mod/MODULE_CODE c/CONTENT`
+
+Examples:
+
+* `editnote 1 mod/CS2103T`
+* `editnote 1 c/check for meeting time`
+* `editnote 1 mod/CS2103 c/update project content`
+
+==== Delete Note: `deletenote`
+
+Delete Note in the list of notes. +
+Format: `deletenote [index]`
+
+Examples:
+
+* `deletenote 1`
+
+==== Find Note: `findnote`
+
+Delete Note in the list of notes. +
+Format: `findnote [KEYWORD]`
+
+Examples:
+
+* `findnote CS2103T`
+
+==== Listing all note : `listnote`
+
+List all note. +
+Format: `listnote`
+
 // end::delete[]
+
+=== Student List
+
+==== Add a student: 'add'
+
+Adds a student to TutorAid.
+Format: `add n/NAME c/CLASSID`
+
+[NOTE]
+You can add multiple students at a time by separating their names with a single ','.
+
+Examples:
+
+* `add n/Caesar,James,Todd c/CS2030`
+
+==== Delete a student: 'delete'
+
+Deletes a student from TutorAid.
+Format: `delete INDEX`
+
+Examples:
+
+* `delete 1` (deletes the first student.)
+
+==== Edit a student: 'edit'
+
+Edits a Student's fields.
+Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
+
+[NOTE]
+User does not have to edit all fields of a Student. He can just edit whatever needs to be changed (see example).
+
+Examples:
+
+* `edit 1 r/20 att/10 part/10 c/CS2030`
+
+==== List students: 'list'
+
+List all students in TutorAid.
+Format: `list`
+
+==== Find a student: 'find'
+
+Find a student matching the supplied name.
+Format: `find NAME`
+
+Examples:
+
+* `find Tom`
+
+==== Add a picture to a student: 'set_pic'
+
+Adds a picture to display next to the student card.
+Format: `set_pic INDEX pic/FILENAME`
+
+[NOTE]
+The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+
+Examples:
+
+* `set_pic 2 pic/Tom.jpg`
+
+==== Assign students to a class: 'assign_class'
+
+Assigns a class to a student or a group of students.
+Format: `assign_class INDEXES c/CLASSID`
+
+Examples:
+
+* `assign_class 1,2,3 c/CS2030`
+
+==== List all students in a class: 'list_class'
+
+Lists all students in supplied class name.
+Format: `list_class CLASSID`
+
+Examples:
+
+* `list_class CS2030`
+
+==== Mark attendance of students: 'mark_attendance'
+
+Marks attendance of students currently displayed.
+Format: `mark_attendance INDEXES`
+
+Examples:
+
+* `mark_attendance 1,2,3`
+
+==== Mark participation of students: 'mark_participation'
+
+Marks participation of students currently displayed.
+Format: `mark_participation INDEXES`
+
+Examples:
+
+* `mark_participation 1,2,3`
+
+==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
+
+Displays list of all students who have not met the set threshold in terms of attendance.
+
+[NOTE]
+Calculation will be done from start of semester to the current date.
+
+Format: `absentees THRESHOLD_PERCENTAGE`
+
+Examples:
+
+* `absentees 50` (Gives a list of students whose attendance fall below 50%)
+
+==== Check on status of student: 'check_status' [Coming in v2.0]
+
+Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+
+[NOTE]
+To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
+
+Format: `check_status`
+
+==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
+
+Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
+The picture will be assigned to the indicated student and be displayed in TutorAid.
+
+[NOTE]
+Replaces current picture, if any.
+
+Format: `upload_pic INDEX`
+
+Examples:
+
+* `upload_pic 1`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -259,6 +429,16 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+=== Learning wrong commands as custom commands
+
+TutorAid is able to learn a wrongly supplied command to do what the user intended to do. +
+Format: `WRONG_COMMAND`
+
+Examples:
+
+* `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
+to use `ad` as an `add` command in the future.
+
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
@@ -271,15 +451,33 @@ _{explain how the user can enable/disable data encryption}_
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Log* : +
+`login user/USERNAME pass/PASSWORD` +
+`register user/USERNAME pass/PASSWORD` +
+`logout`
+* *Tab* : `tab TAB_DESTINATION`
+* *Calendar:* +
+`add_task c/MODULE mark/STATUS tt/TASK_TIME...` +
+`edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
+`delete_task 1` +
+`find_task_by_module MODULE ...` +
+`find_task_by_date DATE ...` +
+`list_tasks`
+* *Reminder* : `reminder INDEX STATUS`
+* *Earnings* : +
+`add_earnings d/DATE c/CLASSID amt/AMOUNT` +
+`update_earnings d/DATE c/CLASSID amt/(NEW_AMOUNT)` +
+`delete_earnings d/DATE c/CLASSID` +
+`find_earnings k/KEYWORD, ...` +
+`claim_earnings d/DATE c/CLASSID` +
+`filter_earnings VARIABLE`
+* *Note* : +
+`addnote mod/MODULE_CODE c/CONTENT` +
+`editnote [index] mod/MODULE_CODE c/CONTENT` +
+`deletenote 1` +
+`findnote [KEYWORD]` +
+`listnote`
+* *Clear* : `clear`
+* *Exit* : `exit`
+

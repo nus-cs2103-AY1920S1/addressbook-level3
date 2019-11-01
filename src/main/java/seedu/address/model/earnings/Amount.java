@@ -22,6 +22,7 @@ public class Amount {
      */
     public Amount(String amt) {
         requireNonNull(amt);
+        System.out.println(amt);
         checkArgument(isValidAmount(amt), MESSAGE_CONSTRAINTS);
         amount = amt;
     }
@@ -58,8 +59,10 @@ public class Amount {
      */
     public Amount addAmount(Amount amt) {
         double localAmt = Double.parseDouble(this.amount);
+        System.out.println(localAmt);
         double variableAmt = Double.parseDouble(amt.amount);
+        System.out.println(variableAmt);
         double totalAmt = localAmt + variableAmt;
-        return new Amount(Double.toString(totalAmt));
+        return new Amount(String.format("%.2f", totalAmt));
     }
 }

@@ -1,0 +1,20 @@
+@startuml
+(*) --> "User makes an error and enters a
+wrong command that TutorAid does not recognize"
+
+if "" then
+  --> [[User wants to discard error] "Type in 'cancel'"
+  -->(*)
+ else
+  -->[[User wants to learn error as a command] "Type in intended command"
+  -->   if "" then
+        --> [[User inputs another command that does not exist] "User makes an error and enters a
+        wrong command that TutorAid does not recognize"
+        else
+        --> [[User inputs a command that exists] "TutorAid maps and saves the wrong command
+                                                                to the action of the intended command"
+        --> (*)
+
+endif
+
+@enduml

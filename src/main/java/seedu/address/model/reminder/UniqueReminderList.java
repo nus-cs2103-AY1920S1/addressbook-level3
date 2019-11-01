@@ -43,7 +43,7 @@ public class UniqueReminderList implements Iterable<Reminder> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Reminder toAdd) throws DuplicateReminderException {
+    public void add(Reminder toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateReminderException();

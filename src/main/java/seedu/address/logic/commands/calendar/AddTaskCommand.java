@@ -16,7 +16,7 @@ import seedu.address.model.task.Task;
  * command to add tasks.
  */
 public class AddTaskCommand extends Command {
-    public static final String COMMAND_WORD = "addTask";
+    public static final String COMMAND_WORD = "add_task";
     public static final String MESSAGE_DUPLICATE_TASKS =
             "This task already exists in the address book";
 
@@ -53,6 +53,7 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
+        model.afterAddTask();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
