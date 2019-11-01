@@ -70,6 +70,7 @@ public class LoansManager {
      * Also sets the loan manager to use the given {@code sorter} for sorting.
      */
     public void sortLoans(Comparator<Loan> sorter) {
+        requireNonNull(sorter);
         this.sorter = this.sorter.equals(sorter) ? sorter.reversed() : sorter;
         internalList.sort(this.sorter);
     }
@@ -175,6 +176,7 @@ public class LoansManager {
         }
 
         LoansManager otherLoansManager = (LoansManager) other;
-        return getLoans().equals(otherLoansManager.getLoans());
+        return getLoans().equals(otherLoansManager.getLoans())
+                && getDebtors().equals(otherLoansManager.getDebtors());
     }
 }
