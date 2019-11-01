@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.transaction.exceptions.TransactionNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,19 +37,25 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the Transaction {@code target} in the list with {@code editedTransaction}.
-     * {@code target} must exist in the list.
+     * Returns the Transaction at the specified index in the list.
+     * @param toGet The index of the target transaction.
+     * @throws TransactionNotFoundException If the transaction is not in the list.
      */
-    public void setTransaction(Transaction target, Transaction editedTransaction) {
-        requireAllNonNull(target, editedTransaction);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            // TODO handle transactions not found
-            //throw new TransactionNotFoundException();
+    public Transaction getTransaction(Index toGet) throws TransactionNotFoundException {
+        if (toGet.getOneBased() > internalList.size()) {
+            throw new TransactionNotFoundException();
         }
+        return internalList.get(toGet.getZeroBased());
+    }
 
-        internalList.set(index, editedTransaction);
+    /**
+     * Replaces the Transaction at the index {@code txnIndex} in the list with {@code editedTransaction}.
+     * {@code txnIndex} must be a valid index of a Transaction in the list.
+     */
+    public void setTransaction(Index txnIndex, Transaction editedTransaction) {
+        requireAllNonNull(txnIndex, editedTransaction);
+
+        internalList.set(txnIndex.getZeroBased(), editedTransaction);
     }
 
     /**
@@ -61,6 +68,13 @@ public class TransactionList implements Iterable<Transaction> {
             // TODO handle transactions not found
             throw new TransactionNotFoundException();
         }
+    }
+
+    /**
+     * Returns the current number of transactions in the list.
+     */
+    public int getTransactionsCount() {
+        return internalList.size();
     }
 
     /**

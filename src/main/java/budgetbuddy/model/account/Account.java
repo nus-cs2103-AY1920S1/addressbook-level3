@@ -4,6 +4,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
@@ -43,8 +44,16 @@ public class Account {
         return transactionList;
     }
 
+    public Transaction getTransaction(Index toGet) {
+        return this.transactionList.getTransaction(toGet);
+    }
+
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
+    }
+
+    public void updateTransaction(Index txnIndex, Transaction editedTxn) {
+        this.transactionList.setTransaction(txnIndex, editedTxn);
     }
 
     public void deleteTransaction(Transaction toDelete) {

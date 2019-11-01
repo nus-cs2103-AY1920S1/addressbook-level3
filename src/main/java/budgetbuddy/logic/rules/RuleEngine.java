@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.logic.rules.performable.AppendDescriptionExpression;
@@ -88,7 +89,8 @@ public class RuleEngine {
     /**
      * Returns the value of a transaction's attribute given the transaction.
      */
-    public static Object extractAttribute(Attribute attribute, Transaction txn) {
+    public static Object extractAttribute(Attribute attribute, Index txnIndex, Account account) {
+        Transaction txn = account.getTransaction(txnIndex);
         switch (attribute) {
         case DESCRIPTION:
             return txn.getDescription();
@@ -118,8 +120,9 @@ public class RuleEngine {
             return testableMap.get(predExpr.getOperator()).apply(predExpr.getAttribute(), predExpr.getValue());
         } else {
             ScriptName scriptName = ((PredicateScript) predicate).getScriptName();
-            return new TestableScript((txn, account) -> {
+            return new TestableScript((txnIndex, account) -> {
                 try {
+                    Transaction txn = account.getTransaction(txnIndex);
                     Object retVal = scriptEngine.evaluateScript(scriptLibrary.getScript(scriptName), txn, account);
                     if (!(retVal instanceof Boolean)) {
                         return false;
@@ -143,8 +146,9 @@ public class RuleEngine {
             return performableMap.get(actExpr.getOperator()).apply(actExpr.getValue());
         } else {
             ScriptName scriptName = ((ActionScript) action).getScriptName();
-            return new PerformableScript((txn, account) -> {
+            return new PerformableScript((txnIndex, account) -> {
                 try {
+                    Transaction txn = account.getTransaction(txnIndex);
                     scriptEngine.evaluateScript(scriptLibrary.getScript(scriptName), txn, account);
                 } catch (ScriptException ignored) {
                     // If an error occurs, no need to do anything.
@@ -156,13 +160,13 @@ public class RuleEngine {
     /**
      * Runs all rules against transaction
      */
-    public static void executeRules(Model model, ScriptEngine scriptEngine, Transaction txn, Account account) {
-        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txn, account);
+    public static void executeRules(Model model, ScriptEngine scriptEngine, Index txnIndex, Account account) {
+        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txnIndex, account);
         for (Rule rule : model.getRuleManager().getRules()) {
             Testable testable = parseTestable(rule.getPredicate(), model.getScriptLibrary(), scriptEngine);
-            if (testable.test(txn, account)) {
+            if (testable.test(txnIndex, account)) {
                 Performable performable = parsePerformable(rule.getAction(), model.getScriptLibrary(), scriptEngine);
-                performable.perform(model, txn, account);
+                performable.perform(model, txnIndex, account);
             }
         }
     }

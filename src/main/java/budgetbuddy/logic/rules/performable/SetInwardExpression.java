@@ -2,7 +2,7 @@ package budgetbuddy.logic.rules.performable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
-import budgetbuddy.model.AccountsManager;
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Direction;
@@ -24,18 +24,17 @@ public class SetInwardExpression extends PerformableExpression {
     }
 
     @Override
-    public void perform(Model model, Transaction txn, Account account) {
-        requireAllNonNull(model, model.getAccountsManager(), txn);
+    public void perform(Model model, Index txnIndex, Account account) {
+        requireAllNonNull(model, txnIndex);
 
-        AccountsManager accountsManager = model.getAccountsManager();
+        Transaction toEdit = account.getTransaction(txnIndex);
         Direction updatedDirection = Direction.IN;
 
-        Transaction updatedTransaction = new Transaction(txn.getDate(), txn.getAmount(), updatedDirection,
-                txn.getDescription(), txn.getCategories());
+        Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(), updatedDirection,
+                toEdit.getDescription(), toEdit.getCategories());
 
-        accountsManager.getActiveAccount().deleteTransaction(txn);
-        accountsManager.getAccount(account.getName()).addTransaction(updatedTransaction);
+        account.updateTransaction(txnIndex, updatedTransaction);
 
-        logger.info("Rule Execution———Direction updated in " + updatedTransaction);
+        logger.info("Rule Execution———Direction updated in:\n" + updatedTransaction);
     }
 }

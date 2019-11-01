@@ -102,8 +102,9 @@ public class TransactionEditCommand extends ScriptCommand {
                     targetAccount, model.getAccountsManager().getActiveAccount());
 
 
-            accountsManager.getAccount(targetAccount.getName()).addTransaction(updatedTransaction);
-            RuleEngine.executeRules(model, scriptEngine, updatedTransaction, targetAccount);
+            targetAccount.addTransaction(updatedTransaction);
+            Index updatedTxnIndex = Index.fromOneBased(targetAccount.getTransactionList().getTransactionsCount());
+            RuleEngine.executeRules(model, scriptEngine, updatedTxnIndex, targetAccount);
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);

@@ -1,12 +1,12 @@
 package budgetbuddy.logic.rules.testable;
 
-import static java.util.Objects.requireNonNull;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
-import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents a contains expression.
@@ -23,9 +23,9 @@ public class ContainsExpression extends TestableExpression {
     }
 
     @Override
-    public boolean test(Transaction txn, Account account) {
-        requireNonNull(txn);
-        String left = RuleEngine.extractAttribute(attribute, txn).toString();
+    public boolean test(Index txnIndex, Account account) {
+        requireAllNonNull(txnIndex, account);
+        String left = RuleEngine.extractAttribute(attribute, txnIndex, account).toString();
         String right = value.toString();
         return left.contains(right);
     }

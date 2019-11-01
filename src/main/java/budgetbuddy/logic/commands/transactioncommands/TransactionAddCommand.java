@@ -12,6 +12,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static java.util.Objects.requireNonNull;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
@@ -83,7 +84,8 @@ public class TransactionAddCommand extends ScriptCommand {
         } catch (Exception e) {
             return new CommandResult(MESSAGE_FAILURE, CommandCategory.TRANSACTION);
         }
-        RuleEngine.executeRules(model, scriptEngine, toAdd, realToAccount);
+        Index txnIndex = Index.fromOneBased(realToAccount.getTransactionList().getTransactionsCount());
+        RuleEngine.executeRules(model, scriptEngine, txnIndex, realToAccount);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }

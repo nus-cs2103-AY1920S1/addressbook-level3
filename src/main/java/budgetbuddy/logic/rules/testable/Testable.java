@@ -1,7 +1,7 @@
 package budgetbuddy.logic.rules.testable;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents a predicate with hidden internal logic and the ability to be tested.
@@ -9,7 +9,7 @@ import budgetbuddy.model.transaction.Transaction;
 @FunctionalInterface
 public interface Testable {
     /**
-     * Tests if the transaction and account satisfy the predicate.
+     * Tests if the transaction in this account satisfy the predicate.
      */
-    boolean test(Transaction txn, Account account);
+    boolean test(Index txnIndex, Account account);
 }

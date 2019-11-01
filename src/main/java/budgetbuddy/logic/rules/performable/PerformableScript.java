@@ -2,9 +2,9 @@ package budgetbuddy.logic.rules.performable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents an action written as a script.
@@ -22,8 +22,8 @@ public class PerformableScript implements Performable {
     }
 
     @Override
-    public void perform(Model model, Transaction txn, Account account) {
-        evaluator.run(txn, account);
+    public void perform(Model model, Index txnIndex, Account account) {
+        evaluator.run(txnIndex, account);
     }
 
     /**
@@ -34,6 +34,6 @@ public class PerformableScript implements Performable {
         /**
          * Executes the script and returns the result.
          */
-        void run(Transaction txn, Account account);
+        void run(Index txnIndex, Account account);
     }
 }

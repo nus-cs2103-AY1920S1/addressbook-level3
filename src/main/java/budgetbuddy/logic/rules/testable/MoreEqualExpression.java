@@ -1,12 +1,12 @@
 package budgetbuddy.logic.rules.testable;
 
-import static java.util.Objects.requireNonNull;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.rules.RuleEngine;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Value;
-import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents a more-than-or-equal-to expression.
@@ -23,9 +23,9 @@ public class MoreEqualExpression extends TestableExpression {
     }
 
     @Override
-    public boolean test(Transaction txn, Account account) {
-        requireNonNull(txn);
-        double left = (double) RuleEngine.extractAttribute(attribute, txn);
+    public boolean test(Index txnIndex, Account account) {
+        requireAllNonNull(txnIndex, account);
+        double left = (double) RuleEngine.extractAttribute(attribute, txnIndex, account);
         double right = Double.parseDouble(value.toString());
         return left >= 0 && left >= right;
     }

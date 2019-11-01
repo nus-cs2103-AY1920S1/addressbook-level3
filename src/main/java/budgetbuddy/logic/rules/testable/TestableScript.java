@@ -2,8 +2,8 @@ package budgetbuddy.logic.rules.testable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
-import budgetbuddy.model.transaction.Transaction;
 
 /**
  * Represents a predicate written as a script.
@@ -21,8 +21,8 @@ public class TestableScript implements Testable {
     }
 
     @Override
-    public boolean test(Transaction txn, Account account) {
-        return evaluator.run(txn, account);
+    public boolean test(Index txnIndex, Account account) {
+        return evaluator.run(txnIndex, account);
     }
 
     /**
@@ -33,6 +33,6 @@ public class TestableScript implements Testable {
         /**
          * Executes the script and returns the result.
          */
-        boolean run(Transaction txn, Account account);
+        boolean run(Index txnIndex, Account account);
     }
 }

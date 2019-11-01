@@ -5,9 +5,9 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashSet;
 import java.util.Set;
 
+import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
-import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Category;
@@ -29,12 +29,12 @@ public class RemoveCategoryExpression extends PerformableExpression {
     }
 
     @Override
-    public void perform(Model model, Transaction txn, Account account) {
-        requireAllNonNull(model, model.getAccountsManager(), txn);
+    public void perform(Model model, Index txnIndex, Account account) {
+        requireAllNonNull(model, txnIndex);
 
-        AccountsManager accountsManager = model.getAccountsManager();
         try {
-            Set<Category> categories = new HashSet<>(txn.getCategories());
+            Transaction toEdit = account.getTransaction(txnIndex);
+            Set<Category> categories = new HashSet<>(toEdit.getCategories());
 
             Category categoryToRemove = CommandParserUtil.parseCategory(value.toString());
             if (!categories.contains(categoryToRemove)) {
@@ -42,13 +42,12 @@ public class RemoveCategoryExpression extends PerformableExpression {
             }
 
             categories.remove(categoryToRemove);
-            Transaction updatedTransaction = new Transaction(txn.getDate(), txn.getAmount(), txn.getDirection(),
-                    txn.getDescription(), categories);
+            Transaction updatedTransaction = new Transaction(toEdit.getDate(), toEdit.getAmount(),
+                    toEdit.getDirection(), toEdit.getDescription(), categories);
 
-            accountsManager.getActiveAccount().deleteTransaction(txn);
-            accountsManager.getAccount(account.getName()).addTransaction(updatedTransaction);
+            account.updateTransaction(txnIndex, updatedTransaction);
 
-            logger.info("Rule Execution———Category removed in " + updatedTransaction);
+            logger.info("Rule Execution———Category removed in:\n" + updatedTransaction);
         } catch (ParseException e) {
             // Should not happen as value should be parsable by the time this method is called
             // but will exit without completing if it does happen.
