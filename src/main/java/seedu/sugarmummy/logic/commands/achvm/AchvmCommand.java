@@ -3,13 +3,12 @@ package seedu.sugarmummy.logic.commands.achvm;
 import java.util.List;
 import java.util.Map;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.Model;
-import seedu.address.model.achievements.Achievement;
-import seedu.address.model.record.RecordType;
-import seedu.address.ui.DisplayPaneType;
-
+import seedu.sugarmummy.logic.commands.Command;
+import seedu.sugarmummy.logic.commands.CommandResult;
+import seedu.sugarmummy.model.Model;
+import seedu.sugarmummy.model.achievements.Achievement;
+import seedu.sugarmummy.model.record.RecordType;
+import seedu.sugarmummy.ui.DisplayPaneType;
 /**
  * Displays information on user's biography.
  */
