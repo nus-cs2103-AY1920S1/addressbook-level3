@@ -1,0 +1,80 @@
+= Chen Anqi - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MooLah
+
+---
+
+== Overview
+
+This Project Portfolio documents Chen Anqi's contributions to MooLah, a student project for a Software
+Engineering module.
+
+MooLah is a desktop application used for tracking expenses or events, managing budgets and statistics.
+It is morphed from seedu project AddressBook - Level 3.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 17 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to track expenses under budgets, and manage different budgets*
+** What it does: allows the user to add, switch, modify and delete budgets.
+** Justification: This feature improves the product significantly because it helps the user cultivate better financial
+management habits and regulate spending according to a budget's limit.
+** Highlights: This feature allows users to add, edit, switch, delete, clear budgets as well as switch the budget window
+to view expenses in a past period. It involves adjustments to the existing model, logic, UI components, and integrates
+well with the current implementation of other core features such as undoredo and statistics.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used
+in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1`, `v1.2.1`, `v1.3.0`, `v1.3.1` (4 releases) on GitHub
+*** Managed issues, assigned team member to issues
+*** Set up various types of issue labels in team repo
+*** Set up and wrapped up milestones in team repo
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Wrote user profile in introduction of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Tools:
+*** Set up Netlify to the team repo, which helps preview changes to documentation files,
+if the PR contains updates to documentation.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=budget]
+
+include::../UserGuide.adoc[tag=intro]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of
+my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=budget]
+
+//== PROJECT: PowerPointLabs
+//
+//---
+//
+//_{Optionally, you may include other projects in your portfolio.}_
