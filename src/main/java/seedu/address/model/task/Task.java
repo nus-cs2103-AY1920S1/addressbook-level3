@@ -11,9 +11,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Task implements Comparable<Task> {
     public static final String MESSAGE_DATE_CONSTRAINT = "Please follow Singapore local date format 'dd/MM/yyyy', "
-            + "with 1 <= dd <= 31, 1 <= MM <= 12, 0 < yyyy < 9999";
+            + "with 01 <= dd <= 31, 01 <= MM <= 12, 0000 < yyyy < 9999.\n"
+            + "Note that 'dd' and 'MM' should be 2-digit, and 'yyyy' should be 4-digit.";
     public static final String MESSAGE_TIME_CONSTRAINT = "Please follow Singapore local time format 'HHmm', "
-            + "with 00 <= HH <= 23, 00 <= mm <= 59";
+            + "with 00 <= HH <= 23, 00 <= mm <= 59.\n" + "Note that both 'HH' and 'mm' should be 2-digit.";
     public static final DateTimeFormatter FORMAT_FILE_DATE_STRING = DateTimeFormatter.ofPattern("dd MMMM yyyy");
     public static final DateTimeFormatter FORMAT_FILE_TIME_STRING = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter FORMAT_USER_INPUT_DATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
