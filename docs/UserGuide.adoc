@@ -209,6 +209,11 @@ Deletes the 1st account in the results of the `find` command.
 * Takes in district number of accident site and dispatches vehicle near to it.
 * Once operator picks up the call, they will key in the district number of accident site to dispatch vehicles.
 
+[IMPORTANT]
+If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
+For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+
 ==== Usage
 
 This command works in two ways:
