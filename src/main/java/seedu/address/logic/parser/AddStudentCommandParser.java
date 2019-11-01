@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -58,7 +59,8 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Student student = new Student(name, phone, email, parentPhone, address, medicalCondition, tagList);
+        Student student = new Student(name, phone, email, parentPhone, address,
+                new DisplayPicture(), medicalCondition, tagList);
 
         return new AddStudentCommand(student);
     }

@@ -11,6 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -19,6 +20,7 @@ import seedu.address.model.student.Phone;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 
+//@@author SebastianLie
 /**
  * Uploads picture of student into student card
  * acts like edit command
@@ -70,9 +72,10 @@ public class UploadPictureCommand extends Command {
         Address address = studentToEdit.getAddress();
         MedicalCondition medicalCondition = studentToEdit.getMedicalCondition();
         Set<Tag> tags = studentToEdit.getTags();
+        DisplayPicture displayPicture = new DisplayPicture(fileName);
 
-        Student editedStudent = new Student(name, phone, email, parentPhone, address, medicalCondition, tags);
-        editedStudent.setDisplayPicture(fileName);
+        Student editedStudent = new Student(name, phone, email, parentPhone, address,
+                displayPicture, medicalCondition, tags);
 
         return editedStudent;
     }

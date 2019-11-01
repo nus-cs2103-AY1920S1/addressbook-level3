@@ -22,6 +22,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -106,12 +107,13 @@ public class EditStudentCommand extends Command {
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
         ParentPhone updatedParentPhone = editStudentDescriptor.getParentPhone().orElse(studentToEdit.getParentPhone());
         Address updatedAddress = editStudentDescriptor.getAddress().orElse(studentToEdit.getAddress());
+        DisplayPicture sameDisplayPicture = new DisplayPicture(studentToEdit.getDisplayPictureFilePath());
         MedicalCondition updatedMedicalCondition = editStudentDescriptor.getMedicalCondition()
                 .orElse(studentToEdit.getMedicalCondition());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
         return new Student(updatedName, updatedPhone, updatedEmail, updatedParentPhone, updatedAddress,
-                updatedMedicalCondition, updatedTags);
+                sameDisplayPicture, updatedMedicalCondition, updatedTags);
     }
 
     @Override

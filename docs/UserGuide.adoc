@@ -222,12 +222,12 @@ Format: deleteassignment ASSIGNMENT_INDEX
 Examples: +
 * deleteassignment 3
 
-==== Deleting assignment
-Deletes the lesson in the index from the teacher's notebook.
+==== Deleting lesson
+Deletes the lesson in the index from the current classroom.
 Format: deletelesson LESSON_INDEX
 
 Examples: +
-* deletelesson 1
+* deletelesson 3
 
 //end::delete[]
 

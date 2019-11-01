@@ -412,6 +412,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    //@@author SebastianLie
     /**
      * alert for scheduler.
      * sets properties of alert then
@@ -437,9 +438,10 @@ public class MainWindow extends UiPart<Stage> {
             e.printStackTrace();
         }
     }
+    //@@author SebastianLie
     /**
      * handles playing alert audio for scheduled alert.
-     * get .wav file from resource folder as input stream,
+     * gets .wav file from resource folder as input stream,
      * then open and play.
      */
     private void playSound() {

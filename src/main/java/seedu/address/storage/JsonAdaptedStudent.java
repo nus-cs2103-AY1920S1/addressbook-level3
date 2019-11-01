@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.student.Address;
+import seedu.address.model.student.DisplayPicture;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.MedicalCondition;
 import seedu.address.model.student.Name;
@@ -33,6 +34,7 @@ class JsonAdaptedStudent {
     private final String address;
     private final String medicalCondition;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String displayPicture;
 
     /**
      * Constructs a {@code JsonAdaptedStudent} with the given student details.
@@ -41,6 +43,7 @@ class JsonAdaptedStudent {
     public JsonAdaptedStudent(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                               @JsonProperty("email") String email, @JsonProperty("parentPhone") String parentPhone,
                               @JsonProperty("address") String address,
+                              @JsonProperty("displayPicture") String displayPicture,
                               @JsonProperty("medicalCondition") String medicalCondition,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -48,6 +51,7 @@ class JsonAdaptedStudent {
         this.email = email;
         this.parentPhone = parentPhone;
         this.address = address;
+        this.displayPicture = displayPicture;
         if (medicalCondition != null) {
             this.medicalCondition = medicalCondition;
         } else {
@@ -71,6 +75,7 @@ class JsonAdaptedStudent {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        displayPicture = source.getDisplayPictureFilePath();
     }
 
     /**
@@ -125,11 +130,13 @@ class JsonAdaptedStudent {
         }
         final Address modelAddress = new Address(address);
 
+        final DisplayPicture modelDisplayPicture = new DisplayPicture(displayPicture);
+
         final MedicalCondition modelMedicalCondition = new MedicalCondition(medicalCondition);
 
         final Set<Tag> modelTags = new HashSet<>(studentTags);
-        return new Student(modelName, modelPhone, modelEmail, modelParentPhone, modelAddress, modelMedicalCondition,
-                modelTags);
+        return new Student(modelName, modelPhone, modelEmail, modelParentPhone, modelAddress,
+                modelDisplayPicture, modelMedicalCondition, modelTags);
     }
 
 }
