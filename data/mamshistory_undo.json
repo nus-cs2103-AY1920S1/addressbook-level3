@@ -1,7 +1,7 @@
 {
   "students" : [ {
     "name" : "Celina Conyers  ",
-    "credits" : "20",
+    "credits" : "24",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
     "tagged" : [ "CS1231", "CS2030", "C000000", "CS2040" ]
@@ -16,7 +16,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180002",
-    "tagged" : [ "C000002", "CS1231", "CS2105", "C000005" ]
+    "tagged" : [ "C000002", "CS1231", "CS2106", "CS2105", "C000005" ]
   }, {
     "name" : "Williemae Whitworth  ",
     "credits" : "24",
@@ -366,7 +366,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "50",
-    "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180001", "A0180037", "A0180005", "A0180049", "A0180029" ],
+    "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180001", "A0180002", "A0180037", "A0180005", "A0180049", "A0180029" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
     "moduleDescription" : "This module introduces the basic concepts in operating systems and links it with contemporary operating systems (eg. Unix/Linux and Windows). It focuses on OS structuring and architecture, processes, memory management, concurrency and file systems. Topics include kernel architecture, system calls, interrupts, models of processes, process abstraction and services, scheduling, review of physical memory and memory management hardware, kernel memory management, virtual memory and paging, caches, working set, deadlock, mutual exclusion, synchronisation mechanisms, data and metadata in file systems, directories and structure, file system abstraction and operations, OS protection mechanisms, and user authentication.",
@@ -400,8 +400,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000001",
@@ -414,8 +414,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2105",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000002",
@@ -456,8 +456,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -470,8 +470,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS2106",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000006",

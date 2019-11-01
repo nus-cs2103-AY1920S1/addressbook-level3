@@ -64,6 +64,7 @@ public class ApproveCommand extends Approve {
             String feedback = "";
             String target = "";
             String type = "";
+            int workLoad = 0;
             String moduleCode;
 
             List<Student> fullStudentList = model.getFullStudentList();
@@ -91,7 +92,8 @@ public class ApproveCommand extends Approve {
                 model.setStudent(studentToEdit, editedStudent);
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
                 feedback += MESSAGE_CREDIT_CHANGE_SUCCESS;
-                target += appealToApprove.getStudentWorkload();
+                workLoad = appealToApprove.getStudentWorkload();
+                type += "increase workload";
 
             } else if (appealType.equalsIgnoreCase("Drop module")) {
                 moduleCode = appealToApprove.getModuleToDrop();
@@ -104,7 +106,6 @@ public class ApproveCommand extends Approve {
                     throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
                 }
                 studentToEdit = studentToCheckList.get(0);
-
                 //check if student has the module (ready for deletion).
                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                 boolean hasModule = false;
@@ -165,6 +166,7 @@ public class ApproveCommand extends Approve {
                 model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
                 feedback = MESSAGE_REMOVE_MOD_SUCCESS;
                 target = studentToEditId;
+                type += "drop module";
 
             } else {
 
@@ -230,6 +232,7 @@ public class ApproveCommand extends Approve {
 
                 feedback = MESSAGE_ADD_MOD_SUCCESS;
                 target = studentToEditId;
+                type += "add module";
             }
 
 
@@ -248,16 +251,23 @@ public class ApproveCommand extends Approve {
                     reason);
             model.setAppeal(appealToApprove, approvedAppeal);
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-            return new CommandResult(
-                    generateSuccessMessage(approvedAppeal, feedback, target, type));
+
+            if (type.equalsIgnoreCase("increase workload")) {
+                return new CommandResult(generateSuccessMessageWorkload(appealToApprove, feedback, workLoad));
+            } else {
+                return new CommandResult(generateSuccessMessage(approvedAppeal, feedback, target));
+            }
         } else {
             return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
         }
 
     }
 
-    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target, String type) {
+    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target) {
         return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target);
+    }
+    private String generateSuccessMessageWorkload(Appeal appealToApprove, String feedback, int workLoad) {
+        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, workLoad);
     }
 
     @Override

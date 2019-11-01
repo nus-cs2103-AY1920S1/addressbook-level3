@@ -74,5 +74,70 @@
     "output" : "Approved C000005\nAdded module to : A0180002",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572614968018
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nStudent max credits updated to : 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572616942632
+  }, {
+    "input" : "approve mass/ c000000  c000001   c000004 c000006",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [c000000, c000001, c000004, c000006]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617116591
+  }, {
+    "input" : "approve mass/ c000000  c000001   c000004 C000006",
+    "output" : "Successfully approved: [C000006]\nInvalid appeal IDs: [c000000, c000001, c000004]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617130738
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617133049
+  }, {
+    "input" : "approve mass/ C000001",
+    "output" : "Successfully approved: [C000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617225423
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617228067
+  }, {
+    "input" : "approve mass/ c000001",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [c000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617231065
+  }, {
+    "input" : "reject mass/ c000001   c000004  c000003",
+    "output" : "Successfully rejected: [C000001, C000004]\nAlready approved: [C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617650208
+  }, {
+    "input" : "approve mass/ c000006",
+    "output" : "Successfully approved: [C000006]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617688854
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617692524
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617693936
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617695261
+  }, {
+    "input" : "redo",
+    "output" : "Redo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617697184
   } ]
 }
