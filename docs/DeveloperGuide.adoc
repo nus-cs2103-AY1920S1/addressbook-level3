@@ -338,7 +338,7 @@ The arguments supported by this feature includes:
 === Repeaters
 
 // tag::repeateradd[]
-=== Adding Repeater : `addrep`
+=== Adding Repeater : `add`
 
 ==== Overview
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
@@ -360,7 +360,7 @@ The `addrep` command is facilitated by the Logic and Model components of the app
 // end::repeateradd[]
 
 // tag::repeaterdelete[]
-=== Deleting Repeater : `delrep`
+=== Deleting Repeater : `delete`
 
 ==== Overview
 This feature allows the user to delete repeater in IchiFund. Delete a repeater also deletes the transactions associated with the deleted repeater.
