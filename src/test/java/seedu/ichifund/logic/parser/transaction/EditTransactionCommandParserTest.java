@@ -22,6 +22,7 @@ import static seedu.ichifund.logic.commands.CommandTestUtil.TRANSACTION_TYPE_DES
 import static seedu.ichifund.logic.commands.CommandTestUtil.TRANSACTION_TYPE_DESC_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_ALLOWANCE;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_BUS;
@@ -91,15 +92,15 @@ public class EditTransactionCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, 
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
         assertParseFailure(parser, "1" + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
         assertParseFailure(parser, "1" + INVALID_DAY_DESC, Day.MESSAGE_CONSTRAINTS); // invalid day
         assertParseFailure(parser, "1" + INVALID_MONTH_DESC, Month.MESSAGE_CONSTRAINTS); // invalid month
         assertParseFailure(parser, "1" + INVALID_YEAR_DESC, Year.MESSAGE_CONSTRAINTS); // invalid year
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, 
+        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC,
                 Category.MESSAGE_CONSTRAINTS); // invalid category
-        assertParseFailure(parser, "1" + INVALID_TRANSACTION_TYPE_DESC, 
+        assertParseFailure(parser, "1" + INVALID_TRANSACTION_TYPE_DESC,
                 TransactionType.MESSAGE_CONSTRAINTS); // invalid transaction type
 
         // invalid amount followed by valid day
@@ -138,7 +139,7 @@ public class EditTransactionCommandParserTest {
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_BUS)
-                .withDay(VALID_DAY_ALLOWANCE).withCategory(VALID_AMOUNT_ALLOWANCE).build();
+                .withDay(VALID_DAY_ALLOWANCE).withCategory(VALID_CATEGORY_ALLOWANCE).build();
         EditTransactionCommand expectedTransactionCommand = new EditTransactionCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedTransactionCommand);
@@ -180,13 +181,13 @@ public class EditTransactionCommandParserTest {
 
         // category
         userInput = targetIndex.getOneBased() + CATEGORY_DESC_BUS;
-        descriptor = new EditTransactionDescriptorBuilder().withYear(VALID_CATEGORY_BUS).build();
+        descriptor = new EditTransactionDescriptorBuilder().withCategory(VALID_CATEGORY_BUS).build();
         expectedTransactionCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedTransactionCommand);
 
         // transaction type
         userInput = targetIndex.getOneBased() + TRANSACTION_TYPE_DESC_BUS;
-        descriptor = new EditTransactionDescriptorBuilder().withYear(VALID_TRANSACTION_TYPE_BUS).build();
+        descriptor = new EditTransactionDescriptorBuilder().withTransactionType(VALID_TRANSACTION_TYPE_BUS).build();
         expectedTransactionCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedTransactionCommand);
     }
@@ -203,7 +204,7 @@ public class EditTransactionCommandParserTest {
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder()
                 .withDescription(VALID_DESCRIPTION_BUS).withAmount(VALID_AMOUNT_BUS)
                 .withDay(VALID_DAY_BUS).withMonth(VALID_MONTH_BUS).withYear(VALID_YEAR_ALLOWANCE)
-                .withCategory(VALID_AMOUNT_ALLOWANCE).withTransactionType(VALID_TRANSACTION_TYPE_ALLOWANCE)
+                .withCategory(VALID_CATEGORY_ALLOWANCE).withTransactionType(VALID_TRANSACTION_TYPE_ALLOWANCE)
                 .build();
         EditTransactionCommand expectedTransactionCommand = new EditTransactionCommand(targetIndex, descriptor);
 
@@ -228,5 +229,4 @@ public class EditTransactionCommandParserTest {
         expectedTransactionCommand = new EditTransactionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedTransactionCommand);
     }
-    
 }
