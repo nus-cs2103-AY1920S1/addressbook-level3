@@ -7,8 +7,8 @@ import java.util.List;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.RemindFeatureUtil;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
+import seedu.address.logic.commands.note.RemindFeatureUtil;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 

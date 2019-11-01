@@ -320,9 +320,9 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
-=== Auto-generated cheatsheet with customizable contents feature
+=== Customizable Auto-generated Cheatsheet Feature
 
-[NOTE]
+[IMPORTANT]
 All the operations assume the user is in the _cheatsheet_ mode.
 
 ==== Implementation
@@ -333,7 +333,7 @@ The first step is to auto-generate cheatsheet, and the second step is to enable 
 ===== Step 1: Auto-generation
 
 The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
-After creation, the cheatsheet is then stored in the `studyBuddy` storage.
+After creation, the cheatsheet is then stored in the `studyBuddyBook`.
 
 It is involved in the following operations:
 
@@ -343,29 +343,98 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following sequence diagram shows how the auto-generation operation works:
+The following _figure 9_ shows a high-level view of how the auto-generation operation works.
 
+.Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+
+Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+
+.Detailed sequence diagram for retrieval of tagged contents
+image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
+
+The above sequence diagram shows the complete action flow for the execution of methods.
+Here is a brief summary of the steps taken to create the cheatsheet:
+
+1. A new _cheatsheet_ object is created with the parsed _title_ and _tags_.
+
+2. Another new _cheatsheet_ object is created with the relevant contents extracted according to the _tags_ specified.
+
+3. The first _cheatsheet_ object is replaced with the second _cheatsheet_ object while retaining its _title_ and _tags_.
+
+Different _cheatsheet_ objects are created to ensure that the _cheatsheet_ object itself is not modifiable.
 
 ===== Step 2: Customizing contents
 
 The customization is based on the contents that the user wants to remove.
 
-The auto-generation mechanism is used in
-the AddCheatSheetCommand during creation of the cheatsheet.
-After creation, the cheatsheet is then stored in the studyBuddy storage
+The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
+
+It is involved in the following operations:
+
+- `EditCheatSheetCommand#execute()` -- Edits the cheatsheet
+
+- `EditCheatSheetCommand#updateContents()` -- Retrieves the contents to be retained in the cheatsheet
+
+The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
+
+The following _figure 11_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
+
+[IMPORTANT]
+====
+The index provided after `c/` indicates the content to be _removed_, not to be _retained_.
+====
+
+.Activity diagram of the `edit` command for the removal of contents
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[]
+
+The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
+
+Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ of _tags_ and _contents_.
+
+.Example of tags and contents in the cheatsheet
+
+|===
+|Tag | Content
+
+|tag1
+|content1
+
+|tag2
+|content2
+
+|tag2
+|content3
+|===
+
+According to the above table, if the order of removal is not followed, the system will be able to remove _tag2_ first before _content2_. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
 
 ==== Design Considerations
-===== Aspect:
+===== Aspect: How auto-generation is implemented
 
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** Replacing the newly created cheatsheet with another cheatsheet object containing all the relevant contents
+** Pros: Retains the object originality and easier to implement.
+** Cons: Invoking the edit method to create a new cheatsheet object may be complicated and messy.
+* **Alternative 2:** Reformat the way the `add` function works and abstract it such that it will be generalized.
+** Pros: Codes may be cleaner and easier to understand.
+** Cons: Harder to implement. More abstraction and modifications have to be done. Might change the format of the system.
+
+===== Aspect: How customization of contents is implemented
+
+* **Alternative 1 (current choice):** Places all contents that are not within the indexes specified by users into a new cheatsheet object and the targeted cheatsheet object with the respective changes.
+** Pros: Retains the object originality and easier to implement.
+** Cons: Large amount of contents may result in longer processing time as it loops to find all contents not removed. It is messier to comprehend.
+* **Alternative 2:** Reformat the way the `edit` function works and abstract it such that it will be generalized.
+** Pros: Codes may be cleaner and easier to understand.
+** Cons: Harder to implement. More abstraction and modifications have to be done.
 
 ==== [Proposed] Future improvements
+
+- Alerts users of possible duplications of contents
+- Allows users to gauge the size of the contents (whether if it fits in single-sided or double-sided A4 paper)
+- Allows users to export the cheatsheets
+- Allows updates of cheatsheet
+    -- Currently, contents are taken upon creation. Hence, any objects with specified tags will not be added into the cheatsheet after the creation of the cheatsheet.
 
 === Flashcards Time Trial Feature
 

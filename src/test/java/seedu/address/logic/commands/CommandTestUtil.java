@@ -39,6 +39,13 @@ public class CommandTestUtil {
     public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
     public static final String VALID_TAG_INTELLIJ = "IntelliJ";
     public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
+    public static final String VALID_TAG_CHEATSHEET = "cheatsheet";
+    public static final String VALID_TAG_FORMULA = "formula";
+    public static final String VALID_TAG_IMPORTANT = "important";
+
+
+    public static final String VALID_TITLE_MATH = "cheatsheet for maths";
+    public static final String VALID_TITLE_GEM = "cheatsheet for gem module";
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -188,6 +195,8 @@ public class CommandTestUtil {
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
         model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        System.out.println("Notes: " + model.getFilteredNoteList().size());
 
         assertEquals(1, model.getFilteredNoteList().size());
     }

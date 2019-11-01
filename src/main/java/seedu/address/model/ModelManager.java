@@ -18,7 +18,6 @@ import seedu.address.logic.FunctionMode;
 import seedu.address.model.cheatsheet.CheatSheet;
 import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.NoteFragment;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -384,10 +383,11 @@ public class ModelManager implements Model {
             if (predicate.test(n)) {
                 taggedItems.add("Note: " + noteIndex + ". " + n.toString());
             }
-            for (NoteFragment frag : n.getNoteFragments()) {
+            for (Note noteFrag : n.getNoteFragments()) {
                 noteFragmentIndex++;
-                if (predicate.test(frag)) {
-                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + frag.toString());
+                if (predicate.test(noteFrag)) {
+                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". "
+                            + noteFrag.toString());
                 }
             }
             noteFragmentIndex = 0;
@@ -436,11 +436,19 @@ public class ModelManager implements Model {
     public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
         ArrayList<String> taggedItems = new ArrayList<>();
         int noteIndex = 0;
+        int noteFragmentIndex = 0;
         for (Note n : addressBook.getNoteList()) {
             noteIndex++;
             if (predicate.test(n)) {
                 taggedItems.add(noteIndex + ". " + n.toString());
             }
+            for (Note noteFrag : n.getNoteFragments()) {
+                noteFragmentIndex++;
+                if (predicate.test(noteFrag)) {
+                    taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
+                }
+            }
+            noteFragmentIndex = 0;
         }
         return taggedItems;
     }

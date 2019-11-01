@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.commands.note.NoteFragmentFeatureUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -33,7 +33,7 @@ public class Note extends StudyBuddyItem {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
-        this.noteFragments = ParserUtil.parseNoteFragmentsFromNote(this);
+        this.noteFragments = NoteFragmentFeatureUtil.parseNoteFragmentsFromNote(this);
     }
 
     public Title getTitle() {

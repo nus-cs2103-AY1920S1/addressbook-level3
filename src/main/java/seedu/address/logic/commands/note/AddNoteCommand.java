@@ -3,6 +3,10 @@ package seedu.address.logic.commands.note;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_CONTENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_FRAGMENT_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
@@ -20,7 +24,7 @@ public class AddNoteCommand extends Command {
 
     public static final String COMMAND_WORD = ADD;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to the list of notes. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a note to the list of notes.\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_CONTENT + "CONTENT "
@@ -29,6 +33,18 @@ public class AddNoteCommand extends Command {
             + PREFIX_TITLE + "Pipelining Definition "
             + PREFIX_CONTENT + "Pipelining is a process where a processor runs multiple instructions simultaneously, "
             + "each at different stages of the processor. "
+            + PREFIX_TAG + "CS2100 "
+            + PREFIX_TAG + "Pipelining"
+            + "\nOptional Parameters: (for Intra-Note tagging within CONTENT): "
+            + PREFIX_NOTE_FRAGMENT_START + " "
+            + PREFIX_NOTE_FRAGMENT_CONTENT + "INTRA_CONTENT "
+            + PREFIX_NOTE_FRAGMENT_TAG + "INTRA_TAG "
+            + "[" + PREFIX_NOTE_FRAGMENT_TAG + "ADDITIONAL_INTRA_TAG]... "
+            + PREFIX_NOTE_FRAGMENT_END
+            + "\nExample: " + COMMAND_WORD + " "
+            + PREFIX_TITLE + "Pipelining Definition "
+            + PREFIX_CONTENT + "Pipelining is a process where /* C/a processor runs multiple instructions "
+            + "simultaneously TAG/important TAG/midterm */, each at different stages of the processor. "
             + PREFIX_TAG + "CS2100 "
             + PREFIX_TAG + "Pipelining";
 

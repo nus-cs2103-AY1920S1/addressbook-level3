@@ -19,66 +19,67 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-StudyBuddy Pro specifically caters to students in the School of Computing at NUS
-that prefer to use a desktop app to help their studies.
-StudyBuddy is also optimized for those who prefer to work with
+StudyBuddyPro is a student application that aims to simplify the hassle of revision
+by providing a suite of tools for effective revision.
+
+StudyBuddyPro is optimized for students who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
-Graphical User Interface (GUI). Being highly familiar working with CLI,
-Computing Students can greatly benefit from the app to
-manage their studies efficiently which also aims to be faster than traditional GUI apps.
+Graphical User Interface (GUI).
+
+Moreover, StudyBuddyPro comes geared with pre-loaded features specially
+catered for computing students. So whether you're a computing student getting
+used to a CLI for the first time or if you're a CLI expert who wants to reap
+the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemented!}
+
+If you're interested, head over to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
+section to get started!
 
 == Quick Start
 
-To begin, download the latest version of `StudyBuddy` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here]
-and double-click the downloaded jar file. If double-clicking does not work, please follow the instructions below.
+NOTE: Please ensure you have Java 11 or above installed before proceeding!
 
-=== Running the jar file
+1. Download the latest version of `StudyBuddyPro.jar` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here].
 
-==== For cross-platform users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro.jar
+2. Place the file in the folder you want to set as the home directory. All data and
+miscellaneous files associated with StudyBuddyPro will be placed in this folder.
 
-==== For Windows users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Win.jar
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+refer to the first question in the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
+for help!
 
-==== For Mac users
-* Open your PC's terminal/command prompt
-* Type java -jar StudyBuddyPro-Mac.jar
++
+image::Ui.png[width="700"]
++
+
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
+section for a quick overview of all the available commands!
 
 == Command Format / Rules
 
 Things noted here are standardization of the User Guide.
 These points are absolute, unless stated otherwise in the specific section(s).
 
-****
-* All commands are written in ENGLISH with only alphanumeric characters.
+=== How to read the Command sections
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
-E.g. `add <t/TITLE>` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
+E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
 * Items indicated in square brackets are optional.
-E.g `t/TITLE [t/TAG]` can be used as `t/Midterm note t/exam` or as `t/Midterm`.
+E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
-E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family`
+E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`.
 
-* All flashcards, notes, cheatsheets objects will be given a unique `id` on creation.
+=== General rules for all commands
 
-* All flashcards, notes, cheatsheets objects can have a maximum of 10 `TAG` each.
+* All commands are written in English with alphanumeric characters.
 
-* All `MODULE` parameters are a `TAG`.
+* Any indexes provided (denoted by `id`) must be a positive integer (e.g. 1, 2, 3, ...).
 
-* In EDITING (`edit`):
-** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
-** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
-
-* In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
-** `y` indicates `YES` and notes will be deleted.
-** `n` indicates `NO` and notes will not be deleted.
-
-* Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
-The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
+* All flashcards, notes, and cheatsheets can have a maximum of 10 tags.
 
 * Only exact matches of any searches will be returned.
 E.g. "noted" will return "noted" but not "note" or "notes"
@@ -86,50 +87,54 @@ E.g. "noted" will return "noted" but not "note" or "notes"
 * All searches are case insensitive.
 E.g. 'cs2103t' will match 'CS2103T'
 
-****
-
 == Global Commands
 
-Global commands in StudyBuddyPro, are commands that can be called regardless of which mode the user is currently in.
+Global commands in StudyBuddyPro are commands that can be called regardless of which mode the user is currently in.
 
-=== Entering the various modes of StudyBuddyPro
+=== Entering the various modes of StudyBuddyPro: `switch`
 
 Upon startup, you will be prompted to enter one of the modes before you can proceed.
 
-==== Getting into Flashcard mode: `fc`
+==== Getting into Flashcard mode: `switch fc`
 
-Brings the user to the Flashcard section, regardless of where the user is.
+Switches the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-commands[Flashcard]
+mode regardless of where the user is.
 
-    Format: fc
+    Format: switch fc
 
-==== Getting into Notes function: `notes`
+==== Getting into Notes function: `switch notes`
 
-Brings the user to the Notes section, regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#6-note-commands[Notes]
+mode regardless of where the user is.
 
-    Format: notes
+    Format: switch notes
 
-==== Getting into CheatSheet function: `cs`
+==== Getting into CheatSheet function: `switch cs`
 
-Brings the user to the CheatSheet section, regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#7-cheatsheet-commands[CheatSheet]
+mode regardless of where the user is.
 
-    Format: cs
+    Format: switch cs
 
 === Viewing Help: `help`
 
-Views the help session of all the functionality.
+A pop-up dialog box will display a URL link to a help document.
 
     Format: help
 
-A pop-up dialog box will display a URL link to a help document.
-
-=== Listing all StudyBuddy items by their tag : `filterall [tag/CS2100]`
+=== Listing all StudyBuddy items by their tag : `filterall`
 
 Lists all StudyBuddy items with matching tags in the application.
+
+    Format: filterall tag/TAG [tag/TAG]...
 
     Example usage: filterall tag/CS2100
 
     Expected output:
-        List the whole StudyBuddy by tag(s) :
+        Lists the whole StudyBuddy after filtering by tag(s) :
     CS2100
     Flashcard: 6.
         Question: What is 101 Binary in its Decimal form?
@@ -139,13 +144,13 @@ Lists all StudyBuddy items with matching tags in the application.
     CheatSheet: 7.
         Title: cs2100 stuff
         Tags: [cs2100]
-        Contents: [ 1. Pipelining is a process where.. ]
+        Contents: [ 1. Pipelining is a process where a processor executes multiple processes simultaneously.]
             [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
     Note: 5.
         Title: Pipelining Defition
-        Content: Pipelining is a process where..
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
-    Note Fragment: 3.1.
+    Note Fragment: 6-2.
         Title: About
         Content: highlighted
         Tags: [cs2100]
@@ -156,6 +161,8 @@ For example,
     filterall tag/CS2100 tag/difficult
 
 will list all items that match at least one of the specified tags.
+
+NOTE: 'Note Fragments' are described further in the Notes section (see Section 6.1).
 
 === Exiting the application: `exit`
 
@@ -206,6 +213,7 @@ Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
     Expected output: New flashcard added:
         Title: Binary Stuff
+        Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
         Question: What is 100 Binary in its Decimal form?
         Answer: 4
         Tags: [cs2100]
@@ -245,6 +253,8 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 === Listing flashcards: `list`
 
+{Answer to be removed in v2.0}
+
 Lists all flashcards.
 
    Format: list
@@ -260,27 +270,40 @@ Lists all flashcards.
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
+The user will be prompted once to confirm their deletion.
+
    Format: delete (index)
 
     Example usage: delete 6
+
+    Expected output: Are you sure you would like to delete the following flashcard?
+	    Question: What is 101 Binary in its Decimal form?
+	    Answer: 5
+	    Title: BinaryQn
+	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+	    Tags: [cs2100]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the flashcard will be deleted.
 
     Expected output: Deleted Flashcard:
         Question: What is 101 Binary in its Decimal form?
         Answer: 5
         Title: BinaryQn
+        Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
         Tags: [cs2100]
 
 === Time Trial: `timetrial`
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
-    Format: time [time/TIME] [tag/TAG]...
+    Format: timetrial [tag/TAG]...
 
 * At least one tag must be specified.
-* If more than one tag is specified, selects only flashcards which satisfy all specified tags.
+* If more than one tag is specified, selects all flashcards that contains any of the specified tags.
 * Default <TIME> will be 5 seconds.
-* Answer will be flashed for 10 seconds.
-
+* Answer will be flashed for 3 seconds.
+ts
 === Listing by tags: `filter`
 
 * Filters the flashcard library by the user specified tag(s).
@@ -338,27 +361,31 @@ If there are both flashcards due for revision today and overdue flashcards:
 
 === Creating a note: `add`
 
-* Adds a note from user input title `TITLE` and content `CONTENT`.
+* Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+of an existing note title.
 
     Format: add t/TITLE c/CONTENT [tag/TAG]...
 
-    Example usage: add t/Pipelining Definition c/Pipelining is a process where tag/CS2100
+    Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes
+    simultaneously. tag/CS2100
 
     Expected output:
     New note added:
         Title: Pipelining Definition
-        Content: Pipelining is a process where
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100]
 
-* More advanced usage: Intra-Note tagging of note fragments is also supported. The intra-note tagging is added at the
-same time as the note is created. Intra-note tags are added with content `INTRA_CONTENT`, at least one tag
-`INTRA_TAG`, and any number of additional tags `ADDITIONAL_INTRA_TAG`:
+* More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+same time as the note is created.
 
-    Format (within CONTENT): /* C/INTRA_CONTENT TAG/INTRA_TAG [TAG/ADDITIONAL_INTRA_TAG]... */
+* Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+`FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
 
-NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for Intra-Note tags is 'TAG/', not 'tag/'.
+    Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
 
-* In the following example, two intra-note tags are added:
+NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+
+* In the following example, two note fragment tags are added to the same note fragment:
 
     Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 
@@ -368,19 +395,31 @@ NOTE: The format for Intra-Note content is 'C/', not 'c/', and the format for In
         Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
         Tags: [about]
 
-* Multiple intra-note tags are allowed. These do not interfere with the other tags of the Note.
+* Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
-NOTE: Intra-note tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3)
+NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
+For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
+commands.
 
 === Deleting a note: `delete`
 
 Deletes the note of index `NOTE_INDEX`.
+
+The user will be prompted once to confirm their deletion.
 
     Format: delete (index)
 
     Example usage: delete 3
 
     Expected output:
+        Are you sure you would like to delete the following note?
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+        Tags: [about]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the note will be deleted.
+
     Deleted note:
         Title: About
         Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
@@ -388,9 +427,9 @@ Deletes the note of index `NOTE_INDEX`.
 
 === Viewing a note: `view`
 
-Views the note of index `NOTE_INDEX`. If the note contains any intra-note tags, those tags will be hidden.
+Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
 
-NOTE: To view the note with its intra-note tags, use the `viewraw` command instead (see Section 6.4).
+NOTE: To view the note with its note fragment tags, use the `viewraw` command instead (see Section 6.4).
 
     Format: view (index)
 
@@ -404,7 +443,7 @@ NOTE: To view the note with its intra-note tags, use the `viewraw` command inste
 
 === Viewing a raw note: `viewraw`
 
-Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all intra-note tags.
+Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all note fragment tags.
 
     Format: viewraw (index)
 
@@ -424,13 +463,27 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
 
    Expected output: a complete list of all notes currently in StudyBuddyPro
 
+    Example output:
+    Listing all notes:
+    1.
+        Title: Pipelining Definition
+        Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
+        Tags: [cs2100]
+    2.
+        Title: UML Diagrams
+        Content: UML Diagrams help with visualizing project structure.
+        Tags: [cs2103t]
+
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
+visualize specific note fragment tags, use the `filter` command (see Section 6.6).
+
 === Listing by tags: `filter`
 
 * Filters the note library by the user specified tag(s).
-* The user must specify at least one tag.
-* The user is able to specify multiple tags.
+* The user must specify at least one tag, and can specify multiple tags.
 * Notes that match at least one of the specified tags will be displayed.
-* Intra-Note tags containing at least one of the specified tags will also be displayed.
+* Note fragment tags containing at least one of the specified tags will also be displayed, even if their parent note is
+not tagged.
 
     Format: filter tag/TAG [tag/TAG]...
 
@@ -444,13 +497,36 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
         4. Title: MA1521 Chapter 5
             Content: dy/dx = 0 is turning point of bellcurve.
             Tags: [difficult][MA1521]
+        5-1. Title: CS2103T
+              Content: sequence diagram
+              Tags: [difficult][diagram]
+
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
+'5-1' means 'the first note fragment tag in the fifth note'.
+
+=== Editing a note: `edit` (Coming in v2.0)
+
+Edits a note's title, content, or tags. The note will be referred to by their original title `ORIGINAL_TITLE`.
+
+* The user can specify one of the optional fields to edit.
+
+    Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
+
+    Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
+
+    Expected output:
+    Edited Note:
+        Title: Pipelined Definition
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+        Tags: [cs2100finals]
 
 == CheatSheet Feature:
 
 === Creating a cheatSheet: `add`
 
 * Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
-* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the cheatsheet.
+* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the
+cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
@@ -463,6 +539,10 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
         [ 2. 110 in Binary is 6 in Decimal ]
 
 === Editing a cheatSheet: `edit`
+
+* In EDITING (`edit`):
+** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
+** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
 
 Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
@@ -480,13 +560,25 @@ Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 === Deleting a cheatSheet: `delete`
 
-1. Deletes a cheatSheet by the specified index.
+Deletes a cheatSheet by the specified index.
+
+The user will be prompted once to confirm their deletion.
 
     Format: delete (index)
 
     Example usage: delete 8
 
-    Expected output: Deleted Cheatsheet:  Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+    Expected output:
+        Are you sure you would like to delete the following cheatsheet?
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the specified cheatsheet will be deleted.
+
+    Expected output: Deleted Cheatsheet:
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
         Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
             [ 2. 110 in Binary is 6 is Decimal ]
 
@@ -522,24 +614,24 @@ Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
 
 
-<NOT INCLUDED IN DRAFT>
+== FAQ
 
-*Q*: Do I need to create a new tag before using the tag? +
-*A*: No, you do not need to. Tags, if not exist, are automatically created.
+*Q*: Help! Double-clicking `StudyBuddyPro.jar` does not launch the application - what
+should I do? +
+*A*: Trying running the application from the command line using the following command:
+`java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
+do this while Mac users can use the Terminal application.
 
 == Command Summary
 
-<NOT INCLUDED IN DRAFT>
+{To be added}
 
-== Mock-up User Interface
+=== Global Commands
 
-image::UiMockUp1.png[width="790"]
-image::UiMockUp2.png[width="790"]
+=== Flashcard Commands
 
-== Draft Workflow (To-be-removed)
+=== Note Commands
 
-image::WorkflowDraft.png[width="790"]
-
-
+=== CheatSheet Commands
 
 

@@ -21,7 +21,7 @@ import seedu.address.model.flashcard.Flashcard;
 public class FlashcardTabWindowController {
 
     private static final Integer TIMER_DURATION = 5;
-    private static final Integer SHOW_ANSWER_DURATION = 2;
+    private static final Integer SHOW_ANSWER_DURATION = 3;
     private static final Integer ONE_FLASHCARD_DURATION = TIMER_DURATION + SHOW_ANSWER_DURATION;
 
     private static Optional<Flashcard> currFlashcard;
@@ -79,7 +79,7 @@ public class FlashcardTabWindowController {
     }
 
     /**
-     * Hides the timer and flashes the answer of the flashcard.
+     * Flashes the answer of the flashcard upon the show command.
      */
     public void showFlashcardAns() {
         currFlashcard.get().updateStatistics();
@@ -87,6 +87,17 @@ public class FlashcardTabWindowController {
         timerLabel.setVisible(false);
         isAnswerShown = true;
     }
+
+    /**
+     * Hides the timer and flashes the answer of the flashcard.
+     */
+    public void showTimetrialFlashcardAns() {
+        ansTextArea.setVisible(true);
+        timerLabel.setVisible(false);
+        isAnswerShown = true;
+    }
+
+
 
     /**
      * Starts the timer countdown.
@@ -99,7 +110,7 @@ public class FlashcardTabWindowController {
         currentSeconds.set(TIMER_DURATION);
         timeline = new Timeline(new KeyFrame(Duration.seconds(TIMER_DURATION + 1),
                 new KeyValue(currentSeconds, 0)),
-                new KeyFrame(Duration.seconds(TIMER_DURATION), e -> showFlashcardAns()));
+                new KeyFrame(Duration.seconds(TIMER_DURATION), e -> showTimetrialFlashcardAns()));
         timeline.play();
     }
 
@@ -108,6 +119,7 @@ public class FlashcardTabWindowController {
      * @param deck deck of flashcards to be tested
      */
     public void startTimeTrial(Optional<ArrayList<Flashcard>> deck) {
+        resetTexts();
         currFlashcard = Optional.empty();
         Timeline timeline = new Timeline();
         int cardCount = 0;
@@ -116,11 +128,11 @@ public class FlashcardTabWindowController {
                 new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION), e -> loadTimetrialFlashcard(fc),
                 new KeyValue(currentSeconds, 0)),
                 new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION + TIMER_DURATION),
-                    e -> showFlashcardAns()));
+                    e -> showTimetrialFlashcardAns()));
             cardCount++;
         }
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION
-                + SHOW_ANSWER_DURATION), e -> resetTexts()));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(cardCount * ONE_FLASHCARD_DURATION),
+            e -> resetTexts()));
         timeline.play();
     }
 

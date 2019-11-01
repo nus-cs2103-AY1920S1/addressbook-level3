@@ -63,13 +63,24 @@ public class CheatSheet extends StudyBuddyItem {
         return null;
     }
 
+
+
     public ArrayList<Content> getSortedContents() {
+        resetContentIndexes();
         ArrayList<Content> contentList = new ArrayList<>(contents);
 
         ContentSortByIndex comp = new ContentSortByIndex();
         contentList.sort(comp);
 
         return contentList;
+    }
+
+    /**
+     * Resets the contents' indexes accordingly
+     */
+    public void resetContentIndexes() {
+        this.resetContentIndex();
+        contents.forEach(this::formatContent);
     }
 
     public String getContentsInStringForm() {
@@ -100,6 +111,7 @@ public class CheatSheet extends StudyBuddyItem {
 
     private String formatContent(Content c) {
         this.contentIndex++;
+        c.setIndex(contentIndex);
         return "[ " + contentIndex + ". " + c + " ]";
     }
 
@@ -131,15 +143,15 @@ public class CheatSheet extends StudyBuddyItem {
 
     @Override
     public String toString() {
-        this.resetContentIndex();
         final StringBuilder builder = new StringBuilder();
         builder.append(" Title: ")
                 .append(getTitle())
-                .append(" Tags: ");
+                .append("\n Tags: ");
         getTags().forEach(builder::append);
 
-        builder.append(" Contents: ");
-        getContents().forEach(c -> builder.append(formatContent(c)));
+        //builder.append(" Contents: ");
+        //resetContentIndexes();
+        //builder.append(contents);
 
         return builder.toString();
     }

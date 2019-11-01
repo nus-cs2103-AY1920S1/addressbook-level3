@@ -18,7 +18,10 @@ public class SwitchModeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches between the respective functions and"
             + " commands available.\n"
             + "Parameters: MODE ABBREVIATION\n"
-            + "Example: " + COMMAND_WORD + " fc / cs / notes";
+            + "Options:\n"
+            + COMMAND_WORD + " fc\n"
+            + COMMAND_WORD + " notes\n"
+            + COMMAND_WORD + " cs";
 
     private static final String SWITCH_TO_CHEATSHEET_FUNCTION_FEEDBACK = "You are currently using the "
             + "cheatsheet function!";

@@ -24,10 +24,22 @@ public class Messages {
     public static final String MESSAGE_INVALID_CHEATSHEET_DISPLAYED_INDEX = "The cheatsheet index provided is invalid";
     public static final String MESSAGE_INVALID_CHEATSHEET_CONTENT_DISPLAYED_INDEX = "The content index "
             + "provided is invalid";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_CHEATSHEET = "Are you sure you would like "
+            + "to delete the following cheatsheet?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_FLASHCARD = "Are you sure you would like "
+            + "to delete the following flashcard?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_NOTE = "Are you sure you would like "
+            + "to delete the following note?";
+    public static final String MESSAGE_HIT_ENTER_TO_DELETE = "Hit enter again to confirm your deletion.";
+
+
+    public static final String MESSAGE_NO_CHEATSHEET_LOADED = "No cheatsheet has been loaded";
+    public static final String MESSAGE_INVALID_TAG_INDEX = "Sorry! The tag index provided is invalid!";
 
     public static final String MESSAGE_TAG_LIMIT_EXCEEDED = "Sorry! A StudyBuddyItem can have no more than 10 tags.";
 
-    public static final String SPECIFY_MODE = "Please specify a mode to start with: Cheatsheet, Flashcard or Note";
+    public static final String SPECIFY_MODE = "Please specify a mode to start with: Cheatsheet, Flashcard or Note.\n"
+            + "Use 'switch' command to specify the mode.";
 
     public static final String ADD = "add";
     public static final String DELETE = "delete";
@@ -37,6 +49,7 @@ public class Messages {
     public static final String LIST = "list";
     public static final String FILTER = "filter";
     public static final String FILTER_ALL = "filterall";
+    public static final String CLEAR = "clear";
 
     public static final String TIMETRIAL = "timetrial";
     public static final String SHOW = "show";

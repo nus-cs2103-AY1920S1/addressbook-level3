@@ -19,4 +19,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("tag/");
     public static final Prefix PREFIX_QUESTION = new Prefix("q/");
     public static final Prefix PREFIX_ANSWER = new Prefix("a/");
+
+    public static final Prefix PREFIX_ALL = new Prefix("all");
 }

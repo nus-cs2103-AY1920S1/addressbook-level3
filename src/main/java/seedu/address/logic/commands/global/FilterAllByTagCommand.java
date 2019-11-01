@@ -19,10 +19,10 @@ public class FilterAllByTagCommand extends Command {
 
     public static final String COMMAND_WORD = FILTER_ALL;
 
-    public static final String MESSAGE_USAGE = "lists every studyBuddy item filtered by tag(s)."
-            + "\nexample usage : filterall tag/cs2100 tag/important";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters and displays every StudyBuddy item by tag(s)."
+            + "\nExample usage : filterall tag/cs2100 tag/important";
 
-    public static final String FILTER_TAG_MESSAGE_SUCCESS = "List the whole StudyBuddy by tag(s) : ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Listing the whole StudyBuddy after filtering by tag(s): ";
 
     public static final String NO_ITEM_FOUND = "There is no such StudyBuddyItem with the specified "
             + "tag(s) in StudyBuddy!";
@@ -66,16 +66,16 @@ public class FilterAllByTagCommand extends Command {
         StringBuilder sb = new StringBuilder();
         for (String s : tagListResult) {
             sb.append(s);
-            sb.append("\n\n");
+            sb.append("\n");
         }
         StringBuilder resultToDisplay = new StringBuilder();
         if (tagListResult.size() == 0) {
             resultToDisplay.append(NO_ITEM_FOUND);
         } else {
             resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
-                    .append("\n\n")
-                    .append(showTagQueries())
                     .append("\n")
+                    .append(showTagQueries())
+                    .append("\n\n")
                     .append(sb.toString());
         }
         return new GlobalCommandResult(resultToDisplay.toString());
