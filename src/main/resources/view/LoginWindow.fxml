@@ -17,6 +17,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.effect.Glow?>
 
+<?import javafx.scene.text.Text?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="TutorAid" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
@@ -40,13 +41,13 @@
                 </Menu>
             </MenuBar>
 
-                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #ffffff;"
+                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #1A283E;"
                            VBox.vgrow="NEVER">
-                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="112.0" stroke="#f7d2e0"
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#F8C33A" height="112.0" stroke="#f7d2e0"
                                strokeType="INSIDE" width="587.0" />
-                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" stroke="#f7d2e0"
-                               strokeType="INSIDE" width="562.0" />
-                    <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1A283E" height="105.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="580.0" />
+                    <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F8C33A;">
 
                         <Image url="@../images/address_book_32.png" />
                         <effect>
@@ -55,21 +56,26 @@
                     </ImageView>
                 </StackPane>
 
-                <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="200.0"  style="-fx-background-color: #383838;" styleClass="pane-with-border">
-                <TextField fx:id="loginItem" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
-                           prefWidth="468.0" maxWidth="600" promptText="Enter your login credentials..."
-                           style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
-                                               -fx-border-radius: 20; -fx-text-fill: white " focusTraversable="false">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                </TextField>
-                <VBox.margin>
-                    <Insets left="30.0" right="30.0" />
-                </VBox.margin>
-            </StackPane>
+                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #1A283E;"
+                           VBox.vgrow="NEVER">
+                    <Text style="-fx-font-family: Serif; -fx-font-size: 80; -fx-text-fill: white; -fx-color: white;-fx-color: #F8C33A" text="TUTORAID">  </Text>
+                </StackPane>
+
+                <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="600.0"  style="-fx-background-color: #1A283E;" styleClass="pane-with-border">
+                    <TextField fx:id="loginItem" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
+                               prefWidth="600.0" maxWidth="600" promptText="Enter your login credentials..."
+                               style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
+                                                   -fx-border-radius: 20; -fx-text-fill: white;" focusTraversable="false">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                    </TextField>
+                    <VBox.margin>
+                        <Insets left="0.0" right="0.0" />
+                    </VBox.margin>
+                </StackPane>
                 <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                           minHeight="100" prefHeight="100" maxHeight="100">
+                           minHeight="100" prefHeight="300" maxHeight="600" style="-fx-background-color: #1A283E; -fx-border-radius: 20">
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10" />
                     </padding>

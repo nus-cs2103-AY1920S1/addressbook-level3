@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -53,6 +51,7 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
 
     /**
      * Parses {@code commandToCheck} into an {@code CommandObject} and returns it.
@@ -275,9 +274,9 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> reminderTimes} into a {@code Set<ReminderTime>}.
      */
-    public static Set<ReminderTime> parseReminderTimes(Collection<String> reminderTimes) throws ParseException {
+    public static TreeSet<ReminderTime> parseReminderTimes(Collection<String> reminderTimes) throws ParseException {
         requireNonNull(reminderTimes);
-        final Set<ReminderTime> reminderTimeList = new HashSet<>();
+        final TreeSet<ReminderTime> reminderTimeList = new TreeSet<>();
         for (String reminderTime : reminderTimes) {
             reminderTimeList.add(parseReminderTime(reminderTime));
         }

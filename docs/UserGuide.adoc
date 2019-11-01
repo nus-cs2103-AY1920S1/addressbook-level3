@@ -149,34 +149,35 @@ List all tasks. +
 Format: `list_tasks`
 
 
-==== Setting Reminder Details  : `reminder`
+==== Setting Reminder Details  : `addReminder`
 
-===== Reminder Status On/Off
+===== Add Reminder
 
-Switches reminder status between on and off. +
-Format: `reminder INDEX STATUS`
-
-Examples:
-
-* `reminder 5 on`
-
-===== Setting Reminder Time
-
-Sets how many minutes before the marked tasks will be reminded. +
-Format: `reminder INDEX INTEGER(in minutes)`
+Adds reminders. +
+Format: `addReminder rd/DESCRIPTION rt/TIME`
 
 Examples:
 
-* `reminder 3 45`
+* `addReminder rd/Cs2103T homework rt/21/9/2019 13:00, 21/9/2019 15:00`
+
+===== Delete Reminder
+
+Removes the reminder. +
+Format: `reminder INDEX INTEGER`
+
+Examples:
+
+* `deleteReminder 1`
 
 ==== User Interface
 
 View in calendar format. +
-Format: `show calendar`
+Format: `change_tab tab/FORMAT`
 
 Example:
 
-* `show calendar`
+* `change_tab tab/calendar`
+* `change_tab tab/tasks`
 
 === Earnings
 
@@ -244,7 +245,7 @@ Examples:
 
 * `addnote mod/CS2103T c/Check for project submission date`
 
-==== Edit Note: `update_earnings`
+==== Edit Note: `editnote`
 
 Update Note in the list of notes. +
 Format: `editnote [index] mod/MODULE_CODE c/CONTENT`
@@ -263,6 +264,20 @@ Format: `deletenote [index]`
 Examples:
 
 * `deletenote 1`
+
+==== Find Note: `findnote`
+
+Delete Note in the list of notes. +
+Format: `findnote [KEYWORD]`
+
+Examples:
+
+* `findnote CS2103T`
+
+==== Listing all note : `listnote`
+
+List all note. +
+Format: `listnote`
 
 // end::delete[]
 
@@ -308,12 +323,48 @@ Format: `list`
 
 ==== Find a student: 'find'
 
-Find a student matching the supplied name
+Find a student matching the supplied name.
 Format: `find NAME`
 
 Examples:
 
 * `find Tom`
+
+==== Assign students to a class: 'assign_class'
+
+Assigns a class to a student or a group of students.
+Format: `assign_class INDEXES c/CLASSID`
+
+Examples:
+
+* `assign_class 1,2,3 c/CS2030`
+
+==== List all students in a class: 'list_class'
+
+Lists all students in supplied class name.
+Format: `list_class CLASSID`
+
+Examples:
+
+* `list_class CS2030`
+
+==== Mark attendance of students: 'mark_attendance'
+
+Marks attendance of students currently displayed.
+Format: `mark_attendance INDEXES`
+
+Examples:
+
+* `mark_attendance 1,2,3`
+
+==== Mark participation of students: 'mark_participation'
+
+Marks participation of students currently displayed.
+Format: `mark_participation INDEXES`
+
+Examples:
+
+* `mark_participation 1,2,3`
 
 === Clearing all entries : `clear`
 
@@ -376,6 +427,9 @@ _{explain how the user can enable/disable data encryption}_
 * *Note* : +
 `addnote mod/MODULE_CODE c/CONTENT` +
 `editnote [index] mod/MODULE_CODE c/CONTENT` +
+`deletenote 1` +
+`findnote [KEYWORD]` +
+`listnote`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
