@@ -107,6 +107,14 @@ The highlighted section shows, what commands are currently available. You can cl
 
 // tag::yida-quickstart[]
 
+=== Drag and drop
+
+To enable sharing of word banks between friends,
+You can drag and drop a particular word bank out of the app into your computer.
+Likewise, you can drag and drop a json word bank into your app.
+
+Try it!
+
 === QuickStart
 
 .General program flow of Dukemon, showing how the different parts work together.
