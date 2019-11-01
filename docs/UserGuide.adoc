@@ -85,7 +85,7 @@ Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 BMI must receive atleast 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
 BLOODSUGAR must receive atleast 1 valid parameter for concentration: `con/VALUE`
 
-If there are duplicate valid parameters, the last parameter's value is captured.
+If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
 
 Ordering of fields is flexible.
 
