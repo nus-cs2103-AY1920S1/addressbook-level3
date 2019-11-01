@@ -3,6 +3,7 @@ package seedu.address.storage;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -19,6 +20,7 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
+import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 import seedu.address.storage.diary.JsonAdaptedDiary;
 
@@ -36,6 +38,7 @@ class JsonAdaptedTrip {
     private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpenditure> expenditureList = new ArrayList<>();
+    private final Optional<JsonAdaptedTripPhoto> photo;
 
     //Added by Karan Dev Sapra
     private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
@@ -53,6 +56,7 @@ class JsonAdaptedTrip {
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenditureList")List<JsonAdaptedExpenditure> expenditureList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
+            @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo,
             @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
         this.name = name;
         this.startDate = startDate;
@@ -66,7 +70,7 @@ class JsonAdaptedTrip {
             this.expenditureList.addAll(expenditureList);
         }
         this.diary = diary;
-
+        this.photo = photo;
         if (inventoryList != null) {
             this.inventoryList.addAll(inventoryList);
         }
@@ -92,6 +96,11 @@ class JsonAdaptedTrip {
                 .collect(Collectors.toList())
         );
         this.diary = new JsonAdaptedDiary(source.getDiary());
+        if (source.getPhoto().isPresent()) {
+            this.photo = Optional.of(new JsonAdaptedTripPhoto(source.getPhoto().get()));
+        } else {
+            this.photo = Optional.empty();
+        }
 
         this.inventoryList.addAll(source.getInventoryList()
                 .asUnmodifiableObservableList()
@@ -161,8 +170,14 @@ class JsonAdaptedTrip {
         //No check for TotalBudget (defaults to 0)
         Budget modelTotalBudget = new Budget(totalBudget);
 
+        Optional<Photo> modelPhoto;
+        if (photo.isPresent()) {
+            modelPhoto = Optional.of(photo.get().toModelType());
+        } else {
+            modelPhoto = Optional.empty();
+        }
 
-        DayList modelDayList = new DayList();
+        DayList modelDayList = new DayList(startDate, endDate);
         modelDayList.set(days);
 
         ExpenditureList modelExpenditureList = new ExpenditureList();
@@ -172,6 +187,7 @@ class JsonAdaptedTrip {
         modelInventoryList.set(inventories);
 
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList, diary, modelInventoryList);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenditureList,
+                        diary, modelInventoryList, modelPhoto);
     }
 }

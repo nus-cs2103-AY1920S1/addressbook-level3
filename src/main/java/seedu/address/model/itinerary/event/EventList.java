@@ -2,8 +2,10 @@ package seedu.address.model.itinerary.event;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
@@ -14,6 +16,27 @@ import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
  * List containing {@code Event}s.
  */
 public class EventList extends ConsecutiveOccurrenceList<Event> {
+    private static final String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
+
+    private LocalDateTime currentDay;
+
+    private LocalDateTime startOfDay;
+    private LocalDateTime endOfDay;
+
+    public EventList(LocalDateTime currentDay) {
+        requireNonNull(currentDay);
+        this.currentDay = currentDay;
+        startOfDay = currentDay.toLocalDate().atStartOfDay();
+        endOfDay = currentDay.withHour(23).withMinute(59);
+    }
+
+    /**
+     * Checks if target event can be added into the list.
+     */
+    public boolean isValidEvent(Event event) {
+        return (event.getStartDate().compareTo(startOfDay) >= 0)
+                && (event.getEndDate().compareTo(endOfDay) <= 0);
+    }
 
     @Override
     public boolean contains(Event toCheck) {
@@ -31,6 +54,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     @Override
     public void add(Event toAdd) {
         requireNonNull(toAdd);
+        checkArgument(isValidEvent(toAdd), MESSAGE_INVALID_DATETIME);
         if (containsClashing(toAdd)) {
             throw new ClashingEventException();
         }
@@ -40,13 +64,10 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     @Override
     public void set(Event target, Event edited) {
         requireAllNonNull(target, edited);
+        checkArgument(isValidEvent(edited), MESSAGE_INVALID_DATETIME);
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new EventNotFoundException();
-        }
-
-        if (target.isClashingWith(edited) && contains(edited)) {
-            throw new ClashingEventException();
         }
 
         internalList.set(index, edited);
@@ -59,6 +80,7 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new ClashingEventException();
         }
         internalList.setAll(occurrences);
+
     }
 
     @Override
@@ -91,5 +113,12 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EventList // instanceof handles nulls
+                && internalList.equals(((EventList) other).internalList));
     }
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -39,14 +40,19 @@ public class DeleteEventCommand extends Command {
         // Reference to EventList in model is preserved in PageStatus
         List<Event> lastShownList = model.getPageStatus().getDay().getEventList().internalList;
 
-        if (indexToDelete.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToDelete.getZeroBased());
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
         // References preserved by PageStatus
-        Event eventToDelete = lastShownList.get(indexToDelete.getZeroBased());
+        Event eventToDelete = lastShownList.get(rawZeroBasedIndex);
         try {
-            model.getPageStatus().getDay().getEventList().remove(indexToDelete);
+            model.getPageStatus().getDay().getEventList().remove(Index.fromZeroBased(rawZeroBasedIndex));
             if (eventToDelete.getExpenditure().isPresent()) {
                 model.getPageStatus().getTrip().getExpenditureList().remove(eventToDelete.getExpenditure().get());
             }

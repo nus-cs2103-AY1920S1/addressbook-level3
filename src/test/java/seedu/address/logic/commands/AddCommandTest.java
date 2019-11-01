@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TravelPal;
 import seedu.address.model.appstatus.PageStatus;
+import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
@@ -90,6 +91,11 @@ public class AddCommandTest {
         @Override
         public FilteredList<Trip> getFilteredTripList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FilteredList<CustomisedCurrency> getFilteredCurrencyList() {
+            return null;
         }
 
         @Override
@@ -186,6 +192,26 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCurrency(CustomisedCurrency target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void selectCurrency(CustomisedCurrency target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCurrency(CustomisedCurrency currency) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrency(CustomisedCurrency target, CustomisedCurrency editedCurrency) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -1,13 +1,11 @@
 package seedu.address.logic.parser.itinerary.eventview;
 
 /**
- * Placeholder javadoc.
+ * Commands available on {@link seedu.address.ui.itinerary.EventsPage}.
  */
 public enum EventViewCommand {
-    CREATE,
+    //CREATE,
     EDIT,
     DELETE,
-    HOME,
-    DAYS,
-    ITINERARY
+    SHOW
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -15,7 +16,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Placeholder.
+ * Enters the {@code EditEventPage}.
  */
 public class EnterEditEventCommand extends Command {
     public static final String COMMAND_WORD = "edit";
@@ -38,11 +39,17 @@ public class EnterEditEventCommand extends Command {
         // Assumes EnterDayCommand has already been called
         List<Event> lastShownList = model.getPageStatus().getDay().getEventList().internalList;
 
-        if (indexToEdit.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToEdit.getZeroBased());
+
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Event eventToEdit = lastShownList.get(indexToEdit.getZeroBased());
+        Event eventToEdit = lastShownList.get(rawZeroBasedIndex);
         EditEventFieldCommand.EditEventDescriptor editEventDescriptor =
                 new EditEventFieldCommand.EditEventDescriptor(eventToEdit);
 

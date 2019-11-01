@@ -11,6 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.ui.UiPart;
 
@@ -46,18 +48,22 @@ public class DailyExpendituresPanel extends UiPart<HBox> {
      */
     private void fillDailyExpendituresPanelLabels() {
         expenditureCardContainer.getChildren().clear();
+
         double totalExpense = IntStream.range(0, expenditures.size())
                 .mapToDouble(index -> expenditures.get(index).getExpenditure().getBudget().value).sum();
-        dailyExpensesLabel.setText("Expenses: $" + totalExpense);
+        CustomisedCurrency currency = model.getTravelPal().getCurrencies().get(0);
 
+        //fill labels
+        dailyExpensesLabel.setText("Expenses: " + new Budget(totalExpense).getValueStringInCurrency(currency));
         if (index.getZeroBased() == 0) {
             dailyBudgetLabel.setText("");
             dailyBudgetLeftLabel.setText("");
         } else {
             Day day = model.getPageStatus().getTrip().getDayList().internalList.get(index.getZeroBased() - 1);
             if (day.getTotalBudget().isPresent()) {
-                dailyBudgetLabel.setText("Budget: $" + day.getTotalBudget().get());
-                dailyBudgetLeftLabel.setText("You still have: $" + (day.getTotalBudget().get().value - totalExpense));
+                dailyBudgetLabel.setText("Budget: " + day.getTotalBudget().get().getValueStringInCurrency(currency));
+                dailyBudgetLeftLabel.setText("You still have: " + (new Budget(
+                        day.getTotalBudget().get().value - totalExpense)).getValueStringInCurrency(currency));
             } else {
                 dailyBudgetLabel.setText("Budget Not Set");
                 dailyBudgetLeftLabel.setText("");

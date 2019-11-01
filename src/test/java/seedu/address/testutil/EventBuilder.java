@@ -15,7 +15,7 @@ import seedu.address.model.itinerary.event.Event;
  * Builder class to accommodate optional properties using builder pattern.
  * Can be used to construct {@link Event} without optional fields.
  */
-class EventBuilder {
+public class EventBuilder {
     private Name name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -47,14 +47,15 @@ class EventBuilder {
      */
     public static EventBuilder of(Event event) {
         requireAllNonNull(event.getName(), event.getStartDate(), event.getEndDate(), event.getDestination());
-        return EventBuilder.newInstance()
+        EventBuilder e = EventBuilder.newInstance()
                 .setName(event.getName())
                 .setStartDate(event.getStartDate())
                 .setEndDate(event.getEndDate())
-                .setLocation(event.getDestination())
-                .setTotalBudget(event.getExpenditure().get())
-                .setInventory(event.getInventory().get())
-                .setBooking(event.getBooking().get());
+                .setLocation(event.getDestination());
+        event.getExpenditure().ifPresent(e::setTotalBudget);
+        event.getInventory().ifPresent(e::setInventory);
+        event.getBooking().ifPresent(e::setBooking);
+        return e;
     }
 
     public EventBuilder setStartDate(LocalDateTime startTime) {

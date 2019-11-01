@@ -28,6 +28,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.ui.components.CommandBox;
 import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
+import seedu.address.ui.currency.CurrencyPage;
 import seedu.address.ui.diary.DiaryPage;
 import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
@@ -39,6 +40,7 @@ import seedu.address.ui.itinerary.EditEventPage;
 import seedu.address.ui.itinerary.EventsPage;
 import seedu.address.ui.itinerary.ItineraryPage;
 import seedu.address.ui.template.Page;
+import seedu.address.ui.template.UiChangeConsumer;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
 import seedu.address.ui.utility.PreferencesPage;
@@ -58,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     protected Stage primaryStage;
     protected Logic logic;
     protected Model model;
+    protected Page<? extends Node> currentPage;
 
     private CommandUpdater commandUpdater;
 
@@ -137,7 +140,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -155,10 +159,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleSwitch();
             }
 
+            if (commandResult.doChangeUi()) {
+                handleChange(commandResult.getCommandWord());
+            }
+
             commandUpdater.executeUpdateCallback();
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -248,6 +256,9 @@ public class MainWindow extends UiPart<Stage> {
         case ADD_EXPENDITURE:
             newPage = new EditExpenditurePage(this, logic, model);
             break;
+        case ADD_CURRENCY:
+            newPage = new CurrencyPage(this, logic, model);
+            break;
         case PRETRIP_INVENTORY:
             newPage = new InventoryPage(this, logic, model);
             break;
@@ -260,6 +271,7 @@ public class MainWindow extends UiPart<Stage> {
             return;
         }
 
+        currentPage = newPage;
         switchContent(newPage);
         this.commandUpdater = newPage::fillPage;
     }
@@ -297,6 +309,19 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         timeline.play();
+    }
+
+    /**
+     * Executes the change in the UI within the same page.
+     * @param commandWord The command word used to execute this change.
+     */
+    private void handleChange(String commandWord) throws CommandException {
+        if (currentPage instanceof UiChangeConsumer) {
+            UiChangeConsumer consumer = (UiChangeConsumer) currentPage;
+            consumer.changeUi(commandWord.toUpperCase());
+        } else {
+            throw new CommandException("Page does not support this command");
+        }
     }
 
     /**

@@ -1,16 +1,20 @@
 package seedu.address.ui.itinerary;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -50,6 +54,9 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private Label totalBudgetLabel;
 
+    @FXML
+    private ImageView tripImageView;
+
     public ItineraryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
         fillPage();
@@ -64,8 +71,12 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
                 .getPageStatus().getTrip().getEndDate().format(dateFormatter).toString());
         destinationLabel.setText("Destination: " + model.getPageStatus().getTrip().getDestination().toString());
         totalBudgetLabel.setText("Total Budget: " + model.getPageStatus().getTrip().getBudget().toString());
+        model.getPageStatus().getTrip().getPhoto().ifPresent(photo -> tripImageView.setImage(photo.getImage()));
 
-        List<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+        ObservableList<Day> days = model.getPageStatus().getTrip().getDayList().internalUnmodifiableList;
+        // Stores the current list being displayed to user in PageStatus
+        SortedList<Day> sortedDays = days.sorted(Comparator.comparing(Day::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(sortedDays));
 
         List<Node> dayButtons = IntStream.range(0, days.size())
                 .mapToObj(i -> Index.fromZeroBased(i))

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -36,11 +37,16 @@ public class DeleteTripCommand extends Command {
         requireNonNull(model);
         List<Trip> lastShownList = model.getFilteredTripList();
 
-        if (indexToDelete.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedTripList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedTripList.getSourceIndex(indexToDelete.getZeroBased());
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Trip tripToDelete = lastShownList.get(indexToDelete.getZeroBased());
+        Trip tripToDelete = lastShownList.get(rawZeroBasedIndex);
         try {
             model.deleteTrip(tripToDelete);
         } catch (Exception ex) {
