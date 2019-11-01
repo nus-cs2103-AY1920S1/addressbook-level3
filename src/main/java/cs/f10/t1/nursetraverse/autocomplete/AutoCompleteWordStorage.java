@@ -186,6 +186,9 @@ public class AutoCompleteWordStorage {
                 .parseFirstSegment(AddCommand.COMMAND_WORD)
                 .get(1), CliSyntax.PREFIX_TAG.getPrefix()));
         oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
+                .parseFirstSegment(AddCommand.COMMAND_WORD)
+                .get(1), CliSyntax.PREFIX_PATIENT_VISIT_TODO.getPrefix()));
+        oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(EditCommand.COMMAND_WORD)
                 .get(1), CliSyntax.PREFIX_NAME.getPrefix()));
         oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
@@ -200,6 +203,9 @@ public class AutoCompleteWordStorage {
         oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(EditCommand.COMMAND_WORD)
                 .get(1), CliSyntax.PREFIX_TAG.getPrefix()));
+        oListAllPrefixWord.add(new PrefixWord(PATIENT_OBJECT_WORD, UserinputParserUtil
+                .parseFirstSegment(EditCommand.COMMAND_WORD)
+                .get(1), CliSyntax.PREFIX_PATIENT_VISIT_TODO.getPrefix()));
         // Appt prefixes
         // Add
         oListAllPrefixWord.add(new PrefixWord(APPT_OBJECT_WORD, UserinputParserUtil
