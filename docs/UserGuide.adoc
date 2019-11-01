@@ -1,4 +1,4 @@
-= NUStudy user guide
+= NUStudy User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -43,6 +43,8 @@ image::Ui.png[width="790"]
 
 [[Features]]
 == Features
+
+This section helps you navigate through the features and commands.
 
 ====
 *Command Format*
@@ -327,50 +329,89 @@ Format: `overview [dt/START_DATE] [dt/END_DATE]`
 
 === Revision tasks
 
-==== View revision tasks: `rlist`
-Displays the revision task list +
-Format: `rlist`
+This section provides instructions to manipulate revision tasks. The revision tasks help you plan your revision of notes
+and questions.
+
+The diagram below shows how a revision task looks like:
+
+image::UserGuideRes/TaskUI.png[]
+
+NOTE: The revision tasks are not synchronised with the note and the question. Once created, the task content will not
+change if you modify the corresponding note or question. For example, if you have added a task for note "An AVL Tree"
+and then you delete the note or change the title of the note, the task still exist with the heading unchanged. We adopt
+this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
+we disassociate the task from notes and questions once created.
 
 ==== Add a revision task for a note: `rn`
-Adds a revision task for a note to the current revision task list +
-The GUI will display all tasks upon completing the command +
+You can add a revision task for a note to the current revision task list with this command. +
+The heading will copy the title. +
+The GUI will display all tasks upon completing the command. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
+Example: +
+
+1. Type `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` in the command input box, and press `Enter` to execute it
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_command.png[]
++
+2. The result box will display the message "Revision task added: [N] NOTE : CS2103T UML diagram by: 01 November 2019 09:00".
+The task is added to the task list shown in the middle panel.
++
+image::UserGuideRes/TaskCommands/AddTaskForNote_success.png[]
+
+
+
+NOTE: You need to follow the format "dd/MM/yyyy" for START_DATE input and "HHmm" with 24-hour format for START_TIME
+input. For example: "31/12/2019" to represent "31st December 2019", "0900" to represent "9am", "1400" to represent "2pm".
 
 ==== Add a revision task for a question: `rq`
-Adds a revision task for a question to the current revision task list +
-The GUI will display all tasks upon completing the command +
-Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME`
+You can add a revision task for a question to the current revision task list with this command. +
+The heading will copy the question body. +
+The GUI will display all tasks upon completing the command. +
+Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
+Example: +
+`rq 1 dt/11/11/2019 tm/1500`
 
 ==== Remove revision task: `rdelete`
-Removes the specified revision task from current list +
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdelete INDEX_OF_TASK`
-
-==== Clear current revision plan: `rclear`
-Deletes all revision tasks
-Format: `rclear`
+You can remove a particular revision task from current list with this command. +
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdelete INDEX_OF_TASK` +
+Example: +
+`rdelete 2`
 
 ==== Mark the revision task as done: `rdone`
-The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view +
-Format: `rdone INDEX`
+You can mark a task as done once you finished it.
+The GUI will display the current list (all-task, done-task, not-done-task or overdue-task) view. +
+Format: `rdone INDEX` +
+Example: +
+`rdone 1`
+
+==== View revision tasks: `rlist`
+This command displays the whole revision task list. +
+Format: `rlist`
+
+==== Clear current revision plan: `rclear`
+You can remove all revision tasks with this command.
+Format: `rclear`
 
 ==== View completed revision tasks: `finished`
-Displays the list of revision tasks which are completed +
+This command displays the list of revision tasks that you have completed. +
 Format: `finished`
 
 ==== View uncompleted revision task: `unfinished`
-Displays the list of revision tasks that are yet to be completed +
+This command displays the list of revision tasks that you have not completed. +
 Format: `unfinished`
 
 ==== View overdue revision tasks: `overdue`
-Displays the revision tasks that are yet to be done but having passed the deadline
+This task displays the revision tasks which you have not done but having passed the start time. +
 Format: `overdue`
 
 ==== Enable push notification: `notify -e` `[coming in v2.0]`
-Format: `notify -e [-A] [INDEX]`
+You can enable the push notification feature to send a desktop reminder when the task is about to start. +
+Format: `notify -e [-A]`
 
 ==== Disable push notification: `notify -d` `[coming in v2.0]`
-Format: `notify -d [-A] [INDEX]`
+You can disable the push notification with this command. +
+Format: `notify -d [-A]`
 
 // tag::v2.0[]
 === Auto-complete feature `[coming in v2.0]`
