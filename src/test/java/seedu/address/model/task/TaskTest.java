@@ -4,17 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MARKING_N;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PICTURE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_TIME_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_TIME_2;
-import static seedu.address.testutil.TypicalTasks.CS2103T;
 import static seedu.address.testutil.TypicalTasks.CS2100;
+import static seedu.address.testutil.TypicalTasks.CS2103T;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TaskBuilder;
 
 public class TaskTest {
