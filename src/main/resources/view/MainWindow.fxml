@@ -33,7 +33,7 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane fx:id="mainDisplayPlaceholder">
+        <SplitPane fx:id="mainDisplayPlaceholder" VBox.vgrow="ALWAYS">
           <VBox>
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
               <padding>
