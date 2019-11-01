@@ -1,15 +1,15 @@
-package seedu.address.testutil.activity;
+package seedu.planner.testutil.activity;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditActivityCommand.EditActivityDescriptor;
-import seedu.address.model.activity.Activity;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
+import seedu.planner.logic.commands.EditActivityCommand.EditActivityDescriptor;
+import seedu.planner.model.activity.Activity;
+import seedu.planner.model.contact.Phone;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
+import seedu.planner.model.tag.Tag;
 
 /**
  * A utility class to help with building EditActivityDescriptor objects.

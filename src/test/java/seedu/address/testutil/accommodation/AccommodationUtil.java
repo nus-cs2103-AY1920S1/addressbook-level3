@@ -1,16 +1,16 @@
-package seedu.address.testutil.accommodation;
+package seedu.planner.testutil.accommodation;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddAccommodationCommand;
-import seedu.address.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.tag.Tag;
+import seedu.planner.logic.commands.AddAccommodationCommand;
+import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.model.tag.Tag;
 
 /**
  * A utility class for Accommodation.

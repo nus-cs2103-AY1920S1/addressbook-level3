@@ -1,12 +1,12 @@
-package seedu.address.storage.contact;
+package seedu.planner.storage.contact;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.contact.TypicalContacts.ALICE;
-import static seedu.address.testutil.contact.TypicalContacts.HOON;
-import static seedu.address.testutil.contact.TypicalContacts.IDA;
-import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
+import static seedu.planner.testutil.Assert.assertThrows;
+import static seedu.planner.testutil.contact.TypicalContacts.ALICE;
+import static seedu.planner.testutil.contact.TypicalContacts.HOON;
+import static seedu.planner.testutil.contact.TypicalContacts.IDA;
+import static seedu.planner.testutil.contact.TypicalContacts.getTypicalContactManager;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,9 +15,9 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ContactManager;
-import seedu.address.model.ReadOnlyContact;
+import seedu.planner.commons.exceptions.DataConversionException;
+import seedu.planner.model.ContactManager;
+import seedu.planner.model.ReadOnlyContact;
 
 public class JsonContactStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonContactStorageTest");

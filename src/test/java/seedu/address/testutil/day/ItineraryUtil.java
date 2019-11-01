@@ -1,7 +1,7 @@
-package seedu.address.testutil.day;
+package seedu.planner.testutil.day;
 
-import seedu.address.logic.commands.AddDayCommand;
-import seedu.address.model.Itinerary;
+import seedu.planner.logic.commands.AddDayCommand;
+import seedu.planner.model.Itinerary;
 
 /**
  * A utility class for Contact.

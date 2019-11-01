@@ -1,10 +1,10 @@
-package seedu.address.testutil.day;
+package seedu.planner.testutil.day;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.day.ActivityWithTime;
-import seedu.address.testutil.activity.TypicalActivity;
+import seedu.planner.model.day.ActivityWithTime;
+import seedu.planner.testutil.activity.TypicalActivity;
 
 /**
  * A utility class containing a list of {@code Activity} objects to be used in tests.

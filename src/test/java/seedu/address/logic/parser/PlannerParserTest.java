@@ -1,11 +1,11 @@
-package seedu.address.logic.parser;
+package seedu.planner.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.planner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.planner.testutil.Assert.assertThrows;
+import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,21 +13,21 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddContactCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteContactCommand;
-import seedu.address.logic.commands.EditContactCommand;
-import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListContactCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.field.NameContainsKeywordsPredicate;
-import seedu.address.testutil.contact.ContactBuilder;
-import seedu.address.testutil.contact.ContactUtil;
-import seedu.address.testutil.contact.EditContactDescriptorBuilder;
+import seedu.planner.logic.commands.AddContactCommand;
+import seedu.planner.logic.commands.ClearCommand;
+import seedu.planner.logic.commands.DeleteContactCommand;
+import seedu.planner.logic.commands.EditContactCommand;
+import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+import seedu.planner.logic.commands.ExitCommand;
+import seedu.planner.logic.commands.FindCommand;
+import seedu.planner.logic.commands.HelpCommand;
+import seedu.planner.logic.commands.ListContactCommand;
+import seedu.planner.logic.parser.exceptions.ParseException;
+import seedu.planner.model.contact.Contact;
+import seedu.planner.model.field.NameContainsKeywordsPredicate;
+import seedu.planner.testutil.contact.ContactBuilder;
+import seedu.planner.testutil.contact.ContactUtil;
+import seedu.planner.testutil.contact.EditContactDescriptorBuilder;
 
 public class PlannerParserTest {
 

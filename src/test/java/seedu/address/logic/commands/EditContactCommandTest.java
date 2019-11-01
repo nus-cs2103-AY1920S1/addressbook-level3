@@ -1,33 +1,33 @@
-//package seedu.address.logic.commands;
+//package seedu.planner.logic.commands;
 //
 //import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
-//import static seedu.address.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
-//import static seedu.address.testutil.activity.TypicalActivity.getTypicalActivityManager;
-//import static seedu.address.testutil.contact.TypicalContacts.getTypicalContactManager;
-//import static seedu.address.testutil.day.TypicalDays.getTypicalItinerary;
+//import static seedu.planner.logic.commands.CommandTestUtil.DESC_AMY;
+//import static seedu.planner.logic.commands.CommandTestUtil.DESC_BOB;
+//import static seedu.planner.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+//import static seedu.planner.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+//import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+//import static seedu.planner.logic.commands.CommandTestUtil.assertCommandFailure;
+//import static seedu.planner.logic.commands.CommandTestUtil.assertCommandSuccess;
+//import static seedu.planner.logic.commands.CommandTestUtil.showContactAtIndex;
+//import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+//import static seedu.planner.testutil.TypicalIndexes.INDEX_SECOND_CONTACT;
+//import static seedu.planner.testutil.accommodation.TypicalAccommodations.getTypicalAccommodationManager;
+//import static seedu.planner.testutil.activity.TypicalActivity.getTypicalActivityManager;
+//import static seedu.planner.testutil.contact.TypicalContacts.getTypicalContactManager;
+//import static seedu.planner.testutil.day.TypicalDays.getTypicalItinerary;
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.commons.core.Messages;
-//import seedu.address.commons.core.index.Index;
-//import seedu.address.logic.commands.EditContactCommand.EditContactDescriptor;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
-//import seedu.address.model.contact.Contact;
-//import seedu.address.testutil.contact.ContactBuilder;
-//import seedu.address.testutil.contact.EditContactDescriptorBuilder;
+//import seedu.planner.commons.core.Messages;
+//import seedu.planner.commons.core.index.Index;
+//import seedu.planner.logic.commands.EditContactCommand.EditContactDescriptor;
+//import seedu.planner.model.Model;
+//import seedu.planner.model.ModelManager;
+//import seedu.planner.model.UserPrefs;
+//import seedu.planner.model.contact.Contact;
+//import seedu.planner.testutil.contact.ContactBuilder;
+//import seedu.planner.testutil.contact.EditContactDescriptorBuilder;
 //
 ///**
 // * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

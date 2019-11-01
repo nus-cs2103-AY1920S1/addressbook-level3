@@ -1,15 +1,15 @@
-package seedu.address.testutil.accommodation;
+package seedu.planner.testutil.accommodation;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.contact.ContactBuilder;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.model.contact.Contact;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
+import seedu.planner.model.tag.Tag;
+import seedu.planner.model.util.SampleDataUtil;
+import seedu.planner.testutil.contact.ContactBuilder;
 
 /**
  * A utility class to help with building Accommodation objects.

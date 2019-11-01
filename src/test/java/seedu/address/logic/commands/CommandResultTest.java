@@ -1,4 +1,4 @@
-//package seedu.address.logic.commands;
+//package seedu.planner.logic.commands;
 //
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -7,7 +7,7 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.logic.commands.result.CommandResult;
+//import seedu.planner.logic.commands.result.CommandResult;
 //
 //public class CommandResultTest {
 //    @Test

@@ -1,15 +1,15 @@
-package seedu.address.testutil.accommodation;
+package seedu.planner.testutil.accommodation;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
-import seedu.address.model.accommodation.Accommodation;
-import seedu.address.model.contact.Phone;
-import seedu.address.model.field.Address;
-import seedu.address.model.field.Name;
-import seedu.address.model.tag.Tag;
+import seedu.planner.logic.commands.EditAccommodationCommand.EditAccommodationDescriptor;
+import seedu.planner.model.accommodation.Accommodation;
+import seedu.planner.model.contact.Phone;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
+import seedu.planner.model.tag.Tag;
 
 /**
  * A utility class to help with building EditContactDescriptor objects.

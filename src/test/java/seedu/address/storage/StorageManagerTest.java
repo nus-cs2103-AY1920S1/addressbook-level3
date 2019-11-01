@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.planner.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,12 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.accommodation.JsonAccommodationStorage;
-import seedu.address.storage.activity.JsonActivityStorage;
-import seedu.address.storage.contact.JsonContactStorage;
-import seedu.address.storage.day.JsonItineraryStorage;
+import seedu.planner.commons.core.GuiSettings;
+import seedu.planner.model.UserPrefs;
+import seedu.planner.storage.accommodation.JsonAccommodationStorage;
+import seedu.planner.storage.activity.JsonActivityStorage;
+import seedu.planner.storage.contact.JsonContactStorage;
+import seedu.planner.storage.day.JsonItineraryStorage;
 
 public class StorageManagerTest {
 
