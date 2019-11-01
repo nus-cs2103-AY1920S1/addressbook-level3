@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.note.NoteFragmentFeatureUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.NoteFragment;
 import seedu.address.model.note.Title;
