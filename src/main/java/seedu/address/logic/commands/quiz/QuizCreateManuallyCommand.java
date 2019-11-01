@@ -60,7 +60,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         }
 
         boolean isSuccess = model.createQuizManually(quizId, questionNumbers);
-        if(isSuccess) {
+        if (isSuccess) {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
         } else {
