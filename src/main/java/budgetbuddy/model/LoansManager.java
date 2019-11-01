@@ -146,13 +146,6 @@ public class LoansManager {
         }
     }
 
-    /**
-     * Returns a {@code Comparator} that sorts loans by their person's name in alphabetical order.
-     */
-    public Comparator<Loan> personAlphabeticalSorter() {
-        return Comparator.comparing(loan -> loan.getPerson().getName().toString());
-    }
-
     //========================================= Split/Debtor Methods ===================================
 
     /**
