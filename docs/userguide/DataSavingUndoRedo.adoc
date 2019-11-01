@@ -1,8 +1,11 @@
-== Data Saving, Undo, Redo
+== Data Saving, History, Undo, Redo
 ====
-*Data Saving, Undo, Redo*
+*Data Saving, History, Undo, Redo*
 
-As a community nurse, you will often perform commands that modify information managed by the application (e.g. patient data). This section describes the features involving the storage of this data and features involving undo-ing / redo-ing commands.
+As a community nurse, you will often perform commands that modify information
+managed by the application (e.g. patient data). This section describes the
+features involving the storage of this data, viewing command history, and
+undo-ing / redo-ing commands.
 ====
 
 === Saving your data
@@ -11,21 +14,92 @@ Your data are saved in the hard disk automatically after any command that change
 
 There is no need to save manually.
 
-=== Undoing a command: `undo`
+=== Viewing the command history
 
-You can undo the changes of the last executed command that alters data using `undo`.
+The rightmost panel of the app shows a history of the previous data-modifying commands executed
+since the app was started. Examples of data-modifying commands are `pat-edit` or `visit-start`.
+Commands that do not affect the app data, such as `pat-list`, are not shown.
 
-Up to the last 3(?) commands can be undone.
+Each command is displayed with an index number. The most recent command is
+shown at the bottom of the history and has the greatest index number. The
+earliest command in the history is shown at the top with an index of 1.
 
-The command `undo` itself cannot be undone.
+The app keeps a record of the previous 20 data-modifying commands in the history.
 
-Format: `undo`
+=== Undoing a command: `app-undo`
 
-=== Redoing an undone command: `redo`
+You can undo the changes of the data-modifying commands in the history
+with `app-undo`. All app data will be reverted to how they were before the
+undone command was executed.
 
-You can redo and reapply the changes of the last undone command using `redo`.
+`app-undo` can be used in two ways. The first way is to provide no arguments
+to the command. This simply undoes the latest command. The second way is to
+specify the index of a command in the history. This would cause all commands
+after and including that command to be undone.
 
-Can only be used if the last data altering command is `undo`.
-Up to the last 3(?) undone commands can be redone.
+The command `app-undo` itself is not affected by `app-undo` and is not recorded in
+the history. To revert an `app-undo`, use `app-redo`.
 
-Format: `redo`
+Format: `app-undo [INDEX]`
+
+****
+ * If the index is provided, undoes all commands after and including the
+indicated command.
+ * If the index is *not* provided, undoes the previous data-modifying command.
+ * The index, if provided, *must be a positive integer* 1, 2, 3, ...
+ * Can only undo commands in the history.
+****
+
+Examples:
+
+* `pat-clear` +
+`pat-list` +
+`app-undo` (reverts the `pat-clear` command)
+* Suppose the history looks like this:
++
+--
+ 1. `pat-edit 1 n/Ivan Yeoh`
+ 2. `pat-delete 3`
+ 3. `pat-clear`
+--
++
+Now `app-undo 2` is executed. `pat-clear` and `pat-delete 3` are undone in
+that order. The app data is now as it was before `pat-delete 3` was executed.
+
+=== Redoing an undone command: `app-redo`
+
+You can redo and reapply the changes of the last undone command using `app-redo`.
+This is only possible when the latest data-modifying command (other than
+`app-redo` itself) was an `app-undo`.
+
+Format: `app-redo`
+
+****
+ * Redoes the latest undone command.
+ * The previous data-modifying command must have been an `app-undo` (excluding
+`app-redo` itself).
+****
+
+Examples:
+
+* `pat-edit 1 n/Ivan Yeoh` +
+`app-undo` +
+`app-redo` (reverts data to after `pat-edit` was executed)
+* `pat-edit 1 n/Ivan Yeoh` +
+`pat-clear` +
+`app-undo` +
+`app-undo` +
+`app-redo` (redoes `pat-edit`) +
+`app-redo` (redoes `pat-clear`)
+* Suppose the history looks like this:
++
+--
+1. `pat-edit 1 n/Ivan Yeoh`
+2. `pat-delete 3`
+3. `pat-clear`
+--
++
+Now the following commands are executed: +
+`app-undo 2` (reverts `pat-clear` and `pat-delete`) +
+`app-redo` (redoes `pat-delete`) +
+`app-redo` (redoes `pat-clear`)
