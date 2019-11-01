@@ -23,8 +23,6 @@ import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserState;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.BankAccountStorage;
-import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.Storage;
@@ -59,7 +57,6 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        // BankAccountStorage bankAccountStorage = new JsonBankAccountStorage(userPrefs.getBankAccountFilePath());
         UserStateStorage userStateStorage = new JsonUserStateStorage(userPrefs.getUserStateFilePath());
         storage = new StorageManager(userStateStorage, userPrefsStorage);
 

@@ -17,6 +17,8 @@ public class VersionedUserState extends UserState {
     private int currentStatePointer;
 
     public VersionedUserState(ReadOnlyUserState initialState) {
+        super(initialState);
+
         userStateList = new ArrayList<>();
         userStateList.add(new UserState(initialState));
         currentStatePointer = 0;

@@ -136,6 +136,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+        System.out.println("MainWindow: " + transactionList);
         transactionListPanel = new TransactionListPanel(transactionList);
 
         ObservableList<Budget> budgetList = logic.getBudgetList();

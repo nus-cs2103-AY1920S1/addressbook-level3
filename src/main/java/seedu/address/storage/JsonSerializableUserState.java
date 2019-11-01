@@ -66,7 +66,6 @@ class JsonSerializableUserState {
             if (userState.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            System.out.println(txn);
             userState.addTransaction(txn);
         }
 
