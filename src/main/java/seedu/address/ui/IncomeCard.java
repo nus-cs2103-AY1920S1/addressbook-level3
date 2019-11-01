@@ -37,6 +37,8 @@ public class IncomeCard extends UiPart<Region> {
     @FXML
     private Label amt;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public IncomeCard(Income income, int displayedIndex) {
@@ -48,6 +50,7 @@ public class IncomeCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(income.getDate().toString());
         amt.setText("$" + income.getAmount().value);
+        category.setText(income.getCategory().categoryName);
 
         income.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

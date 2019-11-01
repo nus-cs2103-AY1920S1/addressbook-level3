@@ -22,11 +22,11 @@ public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[] {
             new Expense(new Category("Food", "Expense"), new Description("mala at deck"),
-                    new Date("2019 09 09"), new Amount(5.40), getTagSet("mala")),
+                    new Date("2019 09 09"), new Amount("5.40"), getTagSet("mala")),
             new Expense(new Category("Food", "Expense"), new Description("chicken rice"),
-                    new Date("2019 09 09"), new Amount(3.50), getTagSet("mala")),
+                    new Date("2019 09 09"), new Amount("3.50"), getTagSet("mala")),
             new Income(new Category("Work", "Income"), new Description("october salary"),
-                    new Date("2019 10 11"), new Amount(3000), getTagSet("salary"))
+                    new Date("2019 10 11"), new Amount("3000"), getTagSet("salary"))
         };
     }
 
@@ -49,23 +49,16 @@ public class SampleDataUtil {
         };
     }
 
+    /**
+     * Adds a default set of Categories if the addressBook is empty.
+     */
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        addCategories(sampleAb);
+        AddressBook sampleAb = new AddressBook(true);
         for (Entry sampleEntry : getSampleEntries()) {
             sampleAb.addEntry(sampleEntry);
         }
 
         return sampleAb;
-    }
-
-    /**
-     * Adds a default set of Categories if the addressBook is empty.
-     */
-    public static void addCategories(ReadOnlyAddressBook addressBook) {
-        for (Category sampleCategory : getSampleCategories()) {
-            addressBook.addCategory(sampleCategory);
-        }
     }
 
     /**

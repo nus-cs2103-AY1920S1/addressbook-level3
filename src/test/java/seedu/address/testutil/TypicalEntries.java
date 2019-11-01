@@ -26,7 +26,7 @@ public class TypicalEntries {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+        AddressBook ab = new AddressBook(true);
         for (Entry entry : getTypicalEntries()) {
             ab.addEntry(entry);
         }

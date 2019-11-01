@@ -28,7 +28,7 @@ class JsonAdaptedWish {
     private final String category;
     private final String desc;
     private final String date;
-    private final double amt;
+    private final String amt;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,7 +36,7 @@ class JsonAdaptedWish {
      */
     @JsonCreator
     public JsonAdaptedWish(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                           @JsonProperty("amt") double amt, @JsonProperty("date") String date,
+                           @JsonProperty("amt") String amt, @JsonProperty("date") String date,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
@@ -54,7 +54,7 @@ class JsonAdaptedWish {
     public JsonAdaptedWish(Wish source) {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
-        amt = source.getAmount().value;
+        amt = source.getAmount().toString();
         date = source.getDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

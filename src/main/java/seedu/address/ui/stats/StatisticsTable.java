@@ -16,7 +16,7 @@ import seedu.address.ui.UiPart;
  */
 public class StatisticsTable extends UiPart<Region> {
 
-    private static final String FXML = "/statistics/StatisticsTable.fxml";
+    private static final String FXML = "statistics/StatisticsTable.fxml";
     private final Logger logger = LogsCenter.getLogger(StatisticsTable.class);
 
     @FXML

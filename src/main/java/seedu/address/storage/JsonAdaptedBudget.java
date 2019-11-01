@@ -27,8 +27,9 @@ class JsonAdaptedBudget {
     private final String category;
     private final String desc;
     private final String date;
-    private final double amt;
+    private final String amt;
     private final String period;
+    private final String spent;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -36,14 +37,16 @@ class JsonAdaptedBudget {
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                             @JsonProperty("amt") double amt, @JsonProperty("time") String time,
+                             @JsonProperty("amt") String amt, @JsonProperty("time") String time,
                              @JsonProperty("period") String period,
+                             @JsonProperty("spent") String spent,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.category = category;
         this.desc = desc;
         this.amt = amt;
         this.date = time;
         this.period = period;
+        this.spent = spent;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -56,12 +59,13 @@ class JsonAdaptedBudget {
     public JsonAdaptedBudget(Budget source) {
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
-        amt = source.getAmount().value;
+        amt = source.getAmount().toString();
         date = source.getDate().toString();
         period = source.getPeriod().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        spent = source.getSpent().toString();
     }
 
     /**
@@ -93,8 +97,12 @@ class JsonAdaptedBudget {
 
         final Amount modelAmt = new Amount(amt);
 
+        final Amount modelSpent = new Amount(spent);
+
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Budget(modelCategory, modelDesc, modelDate, modelPeriod, modelAmt, modelTags);
+        Budget budget = new Budget(modelCategory, modelDesc, modelDate, modelPeriod, modelAmt, modelTags);
+        budget.setSpentAmount(modelSpent);
+        return budget;
     }
 
 }

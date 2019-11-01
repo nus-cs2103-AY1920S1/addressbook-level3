@@ -29,6 +29,7 @@ public class ExpenseList implements Iterable<Expense> {
             new Observable[] {new SimpleStringProperty(toobserve.getCategory().categoryName)});
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
