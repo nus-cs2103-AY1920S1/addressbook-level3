@@ -33,7 +33,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class IncidentManagerParserTest {
 
-    private final IncidentManagerParser parser = new IncidentManagerParser();
+    private final IncidentManagerParser parser = new IncidentManagerParser(true, true);
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -59,6 +59,7 @@ public class IncidentManagerParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+        parser.setPersonView(false);
         Incident incident = new IncidentBuilder().build();
         EditIncidentCommand.EditIncident editor = new EditIncidentBuilder().build();
         EditIncidentCommand command = (EditIncidentCommand) parser.parseCommand(EditIncidentCommand.COMMAND_WORD + " "
