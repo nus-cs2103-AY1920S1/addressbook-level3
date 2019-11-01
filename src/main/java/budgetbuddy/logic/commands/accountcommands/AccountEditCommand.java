@@ -63,7 +63,6 @@ public class AccountEditCommand extends Command {
         } catch (AccountNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }
 

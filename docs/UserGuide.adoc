@@ -95,9 +95,9 @@ Displays help. If `command` is specified, view detailed help for that command.
 
 Format: `help [<command>]`
 
-=== Managing defaults: `default`
+=== Managing defaults: `default` (coming in v2.0)
 
-==== Set default account: `default account`
+==== Set default account: `default account` (coming in v2.0)
 
 Sets the default account.
 
@@ -105,14 +105,14 @@ Format: `default account <id>`
 
 === Managing the main transaction view: `view`
 
-==== Filter transactions: `view filter`
+==== Filter transactions: `view filter` (Coming in v2.0)
 
 Filters the main transaction view. If no arguments are provided, all transactions are shown.
 Otherwise, only transactions meeting all the criteria are shown.
 
 Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
 
-==== Sort transactions: `view sort`
+==== Sort transactions: `view sort` (Coming in v2.0)
 
 Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
 Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
@@ -126,9 +126,9 @@ Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 
 Adds a new transaction of the specified amount and with the given description.
 
-Format: `txn out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+Format: `txn dn/out|in x/<amount> d/<description> [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 ****
-* If the account is not given, the transaction is inserted into the default account.
+* If the account is not given, the transaction is inserted into the active account.
 * If the category is not given, the transaction is not categorized.
 * If the date is not given, the date is set to the current date.
 * If the argument ‘r’ is added, the transition is marked as recurring;
@@ -140,7 +140,7 @@ identical entries will be added either daily, weekly, monthly, or yearly.
 Edits the specified transaction, setting the specified fields.
 If the ‘recurring’ field is modified, the app will ask if all previous recurring entries should be deleted.
 
-Format: `txn edit <id> out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
+Format: `txn edit <id> dn/out|in [x/<amount>] [d/<description>] [a/<account>] [c/<category>] [w/<date>] [r/<d|w|m|y>]`
 
 ==== Delete transaction(s): `txn delete`
 
@@ -179,24 +179,24 @@ Finds the accounts with the specified keywords, as in `account list`.
 
 Format: `account find <keyword>`
 
-=== Managing categories: `category`
+=== Managing categories: `category` (Coming in v2.0)
 
-==== Add a category
+==== Add a category (Coming in v2.0)
 
 Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
 
-==== List categories: `category list`
+==== List categories: `category list` (Coming in v2.0)
 
 Lists all categories.
 
-==== Rename a category: `category rename`
+==== Rename a category: `category rename` (Coming in v2.0)
 
 Renames the specified category.
 Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
 
 Format: `category rename o/<old name> n/<new name>`
 
-==== Delete a category: `category delete`
+==== Delete a category: `category delete` (Coming in v2.0)
 
 Deletes the specified category.
 Note that this is the same as un-categorising all transactions under the specified category.

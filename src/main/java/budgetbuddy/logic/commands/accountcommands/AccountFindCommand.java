@@ -35,6 +35,13 @@ public class AccountFindCommand extends Command {
 
         AccountsManager accountsManager = model.getAccountsManager();
         accountsManager.updateFilteredAccountList(predicate);
+        if (accountsManager.getFilteredAccountList().size() == 0) {
+            accountsManager.resetFilteredAccountList();
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_ACCOUNT_SEARCH_RESULTS_EMPTY,
+                            accountsManager.getFilteredAccountList().size()),
+                    CommandCategory.ACCOUNT);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_ACCOUNTS_LISTED_OVERVIEW,
                         accountsManager.getFilteredAccountList().size()), CommandCategory.ACCOUNT);
