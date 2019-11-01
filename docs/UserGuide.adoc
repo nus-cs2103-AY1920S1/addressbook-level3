@@ -109,16 +109,10 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list-task`[v1.4]
-Lists tasks in the planner based on the given `DATE` or `#TAG`(s).
+==== List all tasks: `list-tasks` [v1.4]
+Lists all the tasks in the planner.
 
-Format: `list-task {d/DATE | #TAG...}`
-
-===== Example
-----
-list-task #food #science_club
-list-task d/10/06/2019
-----
+Format: `list-tasks`
 
 ==== Adding a task: `add-task`
 Adds a task to the planner.

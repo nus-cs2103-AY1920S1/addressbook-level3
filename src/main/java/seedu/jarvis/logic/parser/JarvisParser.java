@@ -43,6 +43,7 @@ import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
 import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
+import seedu.jarvis.logic.commands.planner.ListTaskCommand;
 import seedu.jarvis.logic.parser.address.AddAddressCommandParser;
 import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;
 import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
@@ -178,6 +179,9 @@ public class JarvisParser {
 
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
+
+        case ListTaskCommand.COMMAND_WORD:
+            return new ListTaskCommand();
 
         case SetPaidCommand.COMMAND_WORD:
             return new SetPaidCommandParser().parse(arguments);
