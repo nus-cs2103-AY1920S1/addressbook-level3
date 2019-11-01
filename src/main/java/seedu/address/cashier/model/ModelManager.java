@@ -1,10 +1,12 @@
 package seedu.address.cashier.model;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
 import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
@@ -14,6 +16,7 @@ import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -30,6 +33,7 @@ public class ModelManager implements Model {
     private InventoryList inventoryList;
     private TransactionList transactionList;
     private Transaction checkoutTransaction;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Initializes a ModelManager with the given inventory list and transaction list.
@@ -85,14 +89,18 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean hasSufficientQuantityToAdd(String description, int quantity) throws NoSuchItemException {
+        assert description != null : "Description cannot be null.";
+
         Item originalItem = inventoryList.getOriginalItem(description);
         for (Item i : salesList) {
             if (originalItem.isSameItem(i)) {
+                logger.info("Item to be added already exist in table.");
                 int initialSalesQty = i.getQuantity();
                 return (originalItem.getQuantity() >= (initialSalesQty + quantity));
             }
         }
         if (originalItem.getQuantity() >= quantity) {
+            logger.info("New item from inventory added to table.");
             return true;
         }
         return false;
@@ -109,6 +117,9 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean hasSufficientQuantityToEdit(int index, int quantity) throws NoSuchItemException {
+        assert index > 0 : "Index must be a positive integer.";
+        assert quantity >= 0 : "Quantity must be positive integer.";
+
         Item salesItem = salesList.get(index - 1);
         Item i = inventoryList.getOriginalItem(salesItem);
         return i.getQuantity() >= quantity;
@@ -122,6 +133,7 @@ public class ModelManager implements Model {
      */
     @Override
     public int getStockLeft(String description) throws NoSuchItemException {
+        assert description != null : "Description of item cannot be null.";
         return inventoryList.getOriginalItem(description).getQuantity();
     }
 
@@ -130,6 +142,7 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean hasItemInInventory(Item item) {
+        assert item != null : "Item to find cannot be null.";
         try {
             for (int i = 0; i < inventoryList.size(); i++) {
                 if (inventoryList.getItemByIndex(i).isSameItem(item)) {
@@ -150,11 +163,13 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean hasItemInInventory(String description) {
+        assert description != null : "Description cannot be null.";
         return inventoryList.hasItem(description);
     }
 
     @Override
     public void addItem(Item item) {
+        assert item != null : "Item added cannot be null.";
         salesList.add(item);
     }
 
@@ -167,6 +182,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Item addItem(String description, int qty) throws NoSuchItemException {
+        requireNonNull(description);
         for (Item item : salesList) {
             if (item.getDescription().equalsIgnoreCase(description)) {
                 int originalQty = item.getQuantity();
@@ -190,6 +206,7 @@ public class ModelManager implements Model {
 
     @Override
     public int findIndexByDescription(String description) throws NoSuchItemException {
+        requireNonNull(description);
         for (int i = 0; i < salesList.size(); i++) {
             Item item = salesList.get(i);
             if (item.getDescription().equalsIgnoreCase(description)) {
@@ -228,6 +245,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void setCashier(Person p) {
+        requireNonNull(p);
         this.cashier = p;
     }
 
@@ -290,7 +308,7 @@ public class ModelManager implements Model {
      * @return the item edited
      */
     @Override
-    public Item editItem(int index, int qty) throws NoSuchIndexException {
+    public Item editItem(int index, int qty) {
         salesList.get(index - 1).setQuantity(qty);
         return salesList.get(index - 1);
     }
@@ -313,6 +331,7 @@ public class ModelManager implements Model {
      */
     @Override
     public boolean isSellable(String description) throws NoSuchItemException {
+        requireNonNull(description);
         Item i = inventoryList.getOriginalItem(description);
         return i.isSellable();
     }
@@ -324,6 +343,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getDescriptionByCategory(String category) {
+        requireNonNull(category);
         return inventoryList.getAllSalesDescriptionByCategory(category);
     }
 
@@ -336,6 +356,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ArrayList<String> getRecommendedItems(String description) throws NoSuchIndexException {
+        requireNonNull(description);
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
@@ -389,6 +410,7 @@ public class ModelManager implements Model {
      * @return all subsets of the given character array that are longer than 3 characters
      */
     public ArrayList<String> getCombination(char[] arr, int n) {
+        assert arr != null : "Array to get combination from cannot be null.";
         ArrayList<String> result = new ArrayList<>();
         for (int len = 1; len <= n; len++) {
             String word = "";
@@ -418,6 +440,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Transaction checkoutAsTransaction(double amount, Person person) throws NoItemToCheckoutException {
+        assert person != null : "Person cannot be null.";
         if (salesList.size() <= 0) {
             throw new NoItemToCheckoutException(NO_ITEM_TO_CHECKOUT);
         }

@@ -1,7 +1,8 @@
 package seedu.address.cashier.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -50,6 +51,7 @@ public class InventoryList {
      * @throws NoSuchItemException if the description is invalid
      */
     public Item getOriginalItem(String description) throws NoSuchItemException {
+        requireNonNull(description);
         for (int i = 0; i < iArrayList.size(); i++) {
             if (iArrayList.get(i).getDescription().equalsIgnoreCase(description)) {
                 return iArrayList.get(i);
@@ -68,6 +70,7 @@ public class InventoryList {
      * @throws NoSuchItemException if the item is invalid
      */
     public static Item getOriginalItem(Item item) throws NoSuchItemException {
+        requireNonNull(item);
         for (int i = 0; i < iArrayList.size(); i++) {
             if (iArrayList.get(i).isSameItem(item)) {
                 return iArrayList.get(i);
@@ -118,10 +121,7 @@ public class InventoryList {
      * @param item the new item to substitute the existing one
      */
     public void set(int i, Item item) {
-        Objects.requireNonNull(item);
-        /*if (item == null) {
-            throw new NullPointerException();
-        }*/
+        requireNonNull(item);
         iArrayList.set(i, item);
     }
 
@@ -131,6 +131,7 @@ public class InventoryList {
      * @return a list of description of items according to category
      */
     public ArrayList<String> getAllSalesDescriptionByCategory(String category) {
+        requireNonNull(category);
         ArrayList<String> categoryItems = new ArrayList<>();
         for (Item i : iArrayList) {
             if (i.getCategory().equalsIgnoreCase(category) && i.isSellable()) {
