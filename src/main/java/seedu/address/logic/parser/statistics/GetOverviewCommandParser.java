@@ -3,8 +3,9 @@ package seedu.address.logic.parser.statistics;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import seedu.address.logic.commands.statistics.GetOverviewCommand;
@@ -26,13 +27,13 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public GetOverviewCommand parse(String args) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         QuizResultFilter quizResultFilter = new QuizResultFilter();
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE);
         List<String> dates;
-        Date startDate;
-        Date endDate;
+        LocalDate startDate;
+        LocalDate endDate;
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             dates = argMultimap.getAllValues(PREFIX_DATE);
@@ -41,14 +42,14 @@ public class GetOverviewCommandParser implements Parser<GetOverviewCommand> {
                         GetOverviewCommand.MESSAGE_USAGE));
             }
             try {
-                startDate = formatter.parse(dates.get(0));
-                endDate = formatter.parse(dates.get(1));
-            } catch (java.text.ParseException e) {
+                startDate = LocalDate.parse(dates.get(0), formatter);
+                endDate = LocalDate.parse(dates.get(1), formatter);
+            } catch (DateTimeParseException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_DATE_FORMAT,
                         GetOverviewCommand.MESSAGE_USAGE));
             }
-            if (startDate.after(endDate)) {
-                Date temp = startDate;
+            if (startDate.isAfter(endDate)) {
+                LocalDate temp = startDate;
                 startDate = endDate;
                 endDate = temp;
             }

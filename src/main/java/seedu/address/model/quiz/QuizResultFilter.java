@@ -7,8 +7,8 @@ import static seedu.address.model.quiz.FilterType.INCORRECT;
 import static seedu.address.model.quiz.FilterType.NONE;
 import static seedu.address.model.quiz.FilterType.SUBJECT;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
@@ -23,8 +23,8 @@ public class QuizResultFilter {
 
     private List<Subject> subjects;
     private Difficulty difficulty;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Boolean isCorrectQns;
     private Stack<FilterType> operations = new Stack<>();
 
@@ -44,7 +44,7 @@ public class QuizResultFilter {
         operations.push(DIFFICULTY);
     }
 
-    public QuizResultFilter(Date startDate, Date endDate) {
+    public QuizResultFilter(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
         operations.push(DATE);
@@ -87,11 +87,11 @@ public class QuizResultFilter {
         return isCorrectQns;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
