@@ -20,23 +20,22 @@ By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
 +Work is a project management tool that allows you to successfully achieve your objectives for your project.
 It is aimed at NUS project leaders who are in charge of a small project group of less than 20 people.
-+Work is a one-stop application to help you manage your members, meeting times, task allocations as well as personal claims for equipment purchased.
++Work is a one-stop application to help you manage your members, meeting times, task allocations as well as equipment purchased.
 Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
 Happy working!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `+Work.jar` link:{repoURL}/releases[here].
+.  Download the latest `pluswork.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your +Work.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::QuickStart.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
+.  Here are some commands you can try to get you started!:
 
 * **`add-member mn/Adam Smith mi/AS`** : Adds a member with name "Adam Smith" to the project.
 * **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
@@ -83,8 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |===
 
 
-* Date and Time is specified in the format `dd-mm-yyyy hh:mm`
-
+====
 
 '''
 
@@ -106,9 +104,6 @@ This command brings you to the time management page where calendar and meeting t
 Format: `calendar` +
 
 Calling the `calendar` command will bring you to the following page:
-+
-image::Calendar.png[width=790]
-+
 
 ==== Accessing settings page: `settings` (Coming in v1.3) +
 This command brings you to the settings page  +
@@ -116,23 +111,9 @@ This command brings you to the settings page  +
 Format: `settings` +
 
 Calling the `settings` command will bring you to the following page:
-+
+
 image::Settings.png[width=790]
-+
 
-==== View help: `help` +
-This command displays a list of possible commands that you can execute +
-
-Format: `help` +
-
-Calling the `help` command will bring you to the following page:
-+
-image::Help.png[width=790]
-+
-
-==== Accessing settings page: `settings` +
-This brings you to the settings page  +
-Format: `settings`
 
 ==== Viewing help: `help` +
 
@@ -140,6 +121,7 @@ Displays a list of possible commands for the user +
 You can toggle through the command list (either through up down keys or mouse) and it will paste the correct syntax into the command line. +
 Format: `help`
 
+image::Help.png[width=790]
 
 '''
 
@@ -154,6 +136,8 @@ Example: `add-member mn/New Member mi/NM mt/UG` will result in the following:
 
 image::AddMember.png[width="790"]
 
+As seen from the above, a new member with name 'New Member', member id 'NM' and tag 'UG' is added to +Work.
+
 [NOTE]
 Adding a member tag is optional in the adding of a new member.
 [NOTE]
@@ -162,14 +146,16 @@ It is possible to add a member with multiple tags following this format: +
 
 ==== Set image for member: `set-image` +
 To set a profile picture for a member in +Work, use the command `set-image` following the format below. +
-Format: `set-image mi/MEMBER_ID im/IMAGE_URL` +
+Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
 
 Example: `set-image mi/NM im/C:\Users\Lynn\Desktop\Y2S1\CS2103T\tP\NewUserImage.png` will result in the following:
 
 image::SetImage.png[width="790"]
 
+As seen from the above, the specified image is set as the profile picture of the member with member id 'NM'.
+
 [NOTE]
-Image URL refers to the folder path of the image stored in your computer, and should end with .png
+Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
 
 ==== List existing members: `list-members` +
@@ -191,8 +177,7 @@ Example: `remove-member mi/GS` will result in the following:
 image::RemoveMember.png[width="790"]
 
 As seen from above, the member 'New Member' with member ID 'NM' has been removed from the project.
-=======
-Example: 'remove-member mi/GS'
+
 
 ==== Assign a task to a member: `assign` +
 To assign a task to a specific team member, use the `assign` command in the format below. +
@@ -200,11 +185,11 @@ To assign a task to a specific team member, use the `assign` command in the form
 Format: `assign ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `assign ti/1 mi/GS` will result in the following:
-+
-image::AssignTask.png[width="790"]
-+
 
-This indicates that the task TASK NAME with task id 1 has been assigned to team member 'GABRIEL SEOW' with member id 'GS'. +
+image::Assign.png[width="790"]
+
+As seen from the above, the task 'Review Budget' with task id 1 has been added under member 'John Doe' with member id 'JD'.
+
 
 ==== Removing a task from a member: `fire` +
 To remove a task from a specific team member, use the 'fire' command in the format below. +
@@ -212,14 +197,13 @@ To remove a task from a specific team member, use the 'fire' command in the form
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 
 Example: `fire ti/1 mi/GS` will result in the following:
-+
-image::FireTask.png[width="790"]
-+
 
+image::Fire.png[width="790"]
+This indicates that the task 'Review Budget' with task id 1 has been removed from its assignment to team member 'John Doe' with member id 'JD'. +
 
-This indicates that the task TASK NAME with task id 1 has been removed from its assignment to team member 'GABRIEL SEOW' with member id 'GS'. +
 
 '''
+tag::task[]
 
 === Task-related Commands
 
@@ -277,6 +261,7 @@ image::done-task-list-command.png[]
 
 image::done-task-result-dashboard.png[]
 
+
 ==== Setting a task's status to `doing`: `doing-task`
 
 To update the task status to `doing`, use the `doing-task` command in the format below. +
@@ -291,24 +276,24 @@ This sets the status of task 3 to `doing`.
 Usage of this command is very similar to setting a task status to `doing` as explained above.
 
 
-==== Setting a deadline for a task: `deadline-task`
+==== Setting a deadline for a task: `set-deadline`
 
-Sets deadline for existing tasks on dashboard
+This sets a deadline for an existing task in your project.
 
-Format: `deadline-task [ti/TASK_ID] [at/DEADLINE] [at/dd/mm/yy hh:mm]`
+Format: `set-deadline [ti/TASK_ID] [at/DEADLINE] [at/dd/mm/yy hh:mm]`
 
 [TIP]
 Remember to input using the 24 hour time format of dd/mm/yy hh:mm
 
 Example:
 
-* To set a deadline for the task "Shirts for Freshman Open Day" shown below first navigate to task list view using `list-tasks`.
+* To set a deadline for the task "Shirts for Freshman Open Day" shown below, first navigate to the task list view using `list-tasks`.
 
-image::QuickStart.png[]
+image::Ui.png[]
 
-* Assuming the deadline is on the 10th of November 2019, type `deadline-task ti/5 at/10-11-19 18:00` into the command box.
+* Suppose the deadline is on the 10th of November 2019 at 6pm, type `deadline-task ti/5 at/10-11-19 18:00` into the command box.
 
-* Hit the kbd:[Enter] key and you will see that a deadline has been set! You should see a window similar to the one below.
+* Hit the kbd:[Enter] key and you will see that a deadline has been set!.
 
 image::set-deadline-list-result.png[]
 
@@ -318,6 +303,7 @@ image::set-deadline-res-dashboard.png[]
 
 [TIP]
 The "Upcoming deadlines" sidebar (right side of above picture) helps you keep track of tasks which are due in less than two weeks.
+end::task[]
 
 '''
 
@@ -380,31 +366,32 @@ User chooses the meeting time from the grid displayed from generate timings comm
 
 === Inventory Commands
 
-==== Adding an inventory: `add-inventory`
+==== Adding an inventory: `add-inv`
 
 Adds an inventory item bought or required for a specific project task.
 
-Format: `add-inventory [ti/TASK_ID] [i/ITEM_NAME] [mi/MEMBER_ID] [p/PRICE(optional)]`
+Format: `add-inv [i/ITEM_NAME] [p/PRICE(optional)] [ti/TASK_ID] [mi/MEMBER_ID]`
 
 Examples:
 
-* `add-inventory ti/2 i/Mahjong Paper mi/3 p/8.50` +
-Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member 3.
+* `add-inv i/Mahjong Paper p/8.50 ti/2 mi/AR` +
+Adds the item “Mahjong paper” for $8.50 to the inventory list. This item is tagged to task 2 and was paid for by member AR.
 
-* `add-inventory ti/4 i/scissors mi/1` +
-Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member 1 for no cost.
+* `add-inv i/scissors ti/4 mi/GS` +
+Adds the item “scissors” to the inventory list. The item is tagged to task 4 and is provided by member GS for no cost.
 
-==== Deleting an inventory: `delete inventory`
+==== Deleting an inventory: `delete-inv`
 
 Deletes an inventory item.
 
-Format: `delete-inventory [ii/ITEM_ID]`
+Format: `delete-inv [ITEM_ID]`
 
 Examples:
 
-* `delete-inventory ii/3` +
+* `delete-inv 3` +
 Deletes the third item from the inventory list
 
+////
 ==== Generating a report of inventory by task: `generate inventory /task`
 
 Generates a PDF report containing all inventories grouped by tasks for easier sharing.
@@ -428,7 +415,7 @@ Examples:
 File explorer pops up, triggering a message to allow the user to save the pdf file in the computer.
 
 '''
-
+////
 === Statistics Commands
 
 ==== Getting statistics of members: `member-stats` +
@@ -452,6 +439,7 @@ image::TaskStats.png[width="790"]
 
 '''
 
+tag::settings[]
 === Settings Commands
 
 ==== Switching the theme of +Work: `theme`
@@ -474,8 +462,7 @@ image::theme-light-command.png[]
 
 image::theme_light.png[]
 
-* `theme dark` +
-Switches to the dark theme
+* Similarly, `theme dark` switches to the dark theme
 
 ==== Switching the clock format of +Work: `clock`
 
@@ -495,6 +482,8 @@ Switches to the 12 hour clock
 
 * `clock twenty_four` +
 Switches to the 24 hour clock
+
+end::settings[]
 
 '''
 
