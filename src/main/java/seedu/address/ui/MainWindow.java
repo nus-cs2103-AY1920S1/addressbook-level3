@@ -131,8 +131,8 @@ public class MainWindow extends UiPart<Stage> {
         statsDisplay.setDisplayData(logic.getFilteredExpenseList());
         statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
+//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

@@ -11,7 +11,7 @@
 1000	view
 1000	undo
 1000	redo
-1000	listbudgets
+1000	budgetlist
 1000	editBudget
 100	n/
 100	a/

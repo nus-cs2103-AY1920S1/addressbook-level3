@@ -49,7 +49,7 @@
 
                 <HBox>
                     <VBox fx:id="expenseList" styleClass="pane-with-border" minWidth="420" prefWidth="420"
-                          VBox.vgrow="ALWAYS">
+                          VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
@@ -57,23 +57,24 @@
                     </VBox>
 
                     <VBox fx:id="expenseList2" styleClass="pane-with-border" minWidth="420" prefWidth="420"
-                          VBox.vgrow="ALWAYS">
+                          VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
                         <StackPane fx:id="rightListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <VBox fx:id="stats" styleClass="pane-with-border" minWidth="480" prefWidth="480"
-                          VBox.vgrow="ALWAYS">
+                    <VBox fx:id="stats" styleClass="pane-with-border" minHeight="150" minWidth="480" prefWidth="480 "
+                          VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
-                        <StackPane fx:id="statsDisplayPlaceHolder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
+                        <StackPane fx:id="statsDisplayPlaceHolder" VBox.vgrow="ALWAYS">
+                        </StackPane>
                     </VBox>
 
                 </HBox>
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <!--                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
             </VBox>
         </Scene>
     </scene>
