@@ -23,13 +23,9 @@ import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_DELETE_COMM
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeoutException;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxToolkit;
 
-import javafx.stage.Stage;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,24 +41,14 @@ import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.TypicalPersons;
-import systemtests.SystemTestSetupHelper;
+import seedu.address.ui.GuiUnitTest;
 
 //@@author arjavibahety
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
-public class DeleteCommandTest {
-
-    @BeforeAll
-    public static void setup() {
-        SystemTestSetupHelper.initialize(); //sets up FXToolkit
-        try {
-            FxToolkit.registerStage(Stage::new);
-        } catch (TimeoutException e) {
-            throw new AssertionError("Fail to register stage");
-        }
-    }
+public class DeleteCommandTest extends GuiUnitTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
