@@ -15,7 +15,6 @@ import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
 import seedu.deliverymans.logic.commands.deliveryman.EnterRecordCommand;
 import seedu.deliverymans.logic.commands.deliveryman.GetStatisticsCommand;
 import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
-import seedu.deliverymans.logic.commands.deliveryman.ListStatusCommand;
 import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
 import seedu.deliverymans.logic.commands.restaurant.AddFoodCommand;
 import seedu.deliverymans.logic.commands.restaurant.AddRatingCommand;
@@ -78,7 +77,6 @@ public class TrieManager {
         deliverymanTrie.insert(EnterRecordCommand.COMMAND_WORD);
         deliverymanTrie.insert(GetStatisticsCommand.COMMAND_WORD);
         deliverymanTrie.insert(ListAvailCommand.COMMAND_WORD);
-        deliverymanTrie.insert(ListStatusCommand.COMMAND_WORD);
         deliverymanTrie.insert(StatusSwitchCommand.COMMAND_WORD);
     }
 
