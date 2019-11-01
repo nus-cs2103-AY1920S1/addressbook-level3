@@ -74,31 +74,31 @@ public class EditAppointmentCommandParser {
         }
         if (argMultimap.getValue(PREFIX_RECUR_YEARS).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_YEARS).get()));
+                    .getValue(PREFIX_RECUR_YEARS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_MONTHS).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_MONTHS).get()));
+                    .getValue(PREFIX_RECUR_MONTHS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_WEEKS).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_WEEKS).get()));
+                    .getValue(PREFIX_RECUR_WEEKS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_DAYS).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_DAYS).get()));
+                    .getValue(PREFIX_RECUR_DAYS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_HOURS).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_HOURS).get()));
+                    .getValue(PREFIX_RECUR_HOURS)));
         }
         if (argMultimap.getValue(PREFIX_RECUR_MINUTES).isPresent()) {
             editAppointmentDescriptor.setYears(ParserUtil.parseFrequency(argMultimap
-                    .getValue(PREFIX_RECUR_MINUTES).get()));
+                    .getValue(PREFIX_RECUR_MINUTES)));
         }
         if (argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).isPresent()) {
             editAppointmentDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
-                    .getValue(PREFIX_APPOINTMENT_DESCRIPTION).get()));
+                    .getValue(PREFIX_APPOINTMENT_DESCRIPTION)));
         }
 
         if (!editAppointmentDescriptor.isAnyFieldEdited()) {

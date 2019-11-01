@@ -49,7 +49,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
 
         if (!arePrefixesPresent(argMultimap, PREFIX_PATIENT_INDEX,
                 PREFIX_APPOINTMENT_START_DATE_AND_TIME,
-                PREFIX_APPOINTMENT_END_DATE_AND_TIME) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_APPOINTMENT_END_DATE_AND_TIME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
@@ -60,18 +60,18 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 .getValue(PREFIX_APPOINTMENT_END_DATE_AND_TIME).get(), argMultimap
                 .getValue(PREFIX_APPOINTMENT_START_DATE_AND_TIME).get());
 
-        Long years = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_YEARS).get());
-        Long months = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MONTHS).get());
-        Long weeks = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_WEEKS).get());
-        Long days = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_DAYS).get());
-        Long hours = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_HOURS).get());
-        Long minutes = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MINUTES).get());
+        Long years = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_YEARS));
+        Long months = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MONTHS));
+        Long weeks = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_WEEKS));
+        Long days = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_DAYS));
+        Long hours = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_HOURS));
+        Long minutes = ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_RECUR_MINUTES));
         Long[] freqArray = {years, months, weeks, days, hours, minutes};
         RecurringDateTime frequency = new RecurringDateTime(freqArray);
 
         Index indexPatient = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_INDEX).get());
         String description = ParserUtil.parseDescription(argMultimap
-                .getValue(PREFIX_APPOINTMENT_DESCRIPTION).get());
+                .getValue(PREFIX_APPOINTMENT_DESCRIPTION));
 
         Appointment appointment = new Appointment(startDateTime, endDateTime, frequency, indexPatient, description);
 

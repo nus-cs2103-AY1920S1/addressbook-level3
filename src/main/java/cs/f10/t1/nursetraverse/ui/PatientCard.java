@@ -83,14 +83,15 @@ public class PatientCard extends UiPart<Region> {
             }
         }
 
-        //Keep visits pane closed by default
+        //Keep panes closed by default
+        visitTodosTitledPane.setExpanded(false);
         visitsTitledPane.setExpanded(false);
         int visitIndex = 1;
         if (!patient.getVisits().isEmpty()) {
             noVisitsLabel.setVisible(false);
             for (Visit visit : patient.getVisits()) {
-                visits.getChildren().add(
-                        new Label(visitIndex + ". " + visit.toString()));
+                FinishedVisitCard finishedVisitCard = new FinishedVisitCard(visit, visitIndex);
+                visits.getChildren().add(finishedVisitCard.getRoot());
                 visitIndex++;
             }
         }

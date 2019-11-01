@@ -22,6 +22,8 @@ public class OngoingVisitListPanel extends UiPart<Region> {
         ongoingVisitListView.setItems(visitList);
         ongoingVisitListView.setCellFactory(listView -> new VisitListViewCell());
         ongoingVisitListView.setPlaceholder(new Label("There is no ongoing visit."));
+        //Prevent user from selecting any rows which can mess up the CSS
+        ongoingVisitListView.setSelectionModel(null);
     }
 
     /**

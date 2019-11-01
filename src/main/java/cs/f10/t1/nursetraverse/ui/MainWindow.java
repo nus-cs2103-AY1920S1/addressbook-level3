@@ -40,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private CommandBox commandBox;
     private DataPanelsTabPaneManager dataPanelsTabPaneManager;
+    private HistoryPanel historyPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,6 +66,8 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane appointmentListPanelPlaceholder;
     @FXML
     private StackPane ongoingVisitPanelPlaceholder;
+    @FXML
+    private StackPane historyPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -139,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPatientBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        autoCompletePanel = new AutoCompletePanel();
+        autoCompletePanel = new AutoCompletePanel(logic.getFilteredPatientList(), logic.getFilteredAppointmentList());
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
@@ -149,6 +152,9 @@ public class MainWindow extends UiPart<Stage> {
                 patientTabPage,
                 ongoingVisitTabPage,
                 appointmentTabPage);
+
+        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
+        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
     }
 
     /**
@@ -209,6 +215,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
         return dataPanelsTabPaneManager;
+    }
+
+    public HistoryPanel getHistoryPanel() {
+        return historyPanel;
     }
 
     /**

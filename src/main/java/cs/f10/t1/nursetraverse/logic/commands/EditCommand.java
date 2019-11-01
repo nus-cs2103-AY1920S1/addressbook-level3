@@ -34,7 +34,7 @@ import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
 /**
  * Edits the details of an existing patient in the patient book.
  */
-public class EditCommand extends Command implements MutatorCommand {
+public class EditCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "pat-edit";
 

@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
 /**
  * An UI component that displays information of a {@code Visit}.
@@ -47,11 +47,10 @@ public class OngoingVisitCard extends UiPart<Region> {
     @FXML
     private Label remark;
     @FXML
-    private VBox visitTasks;
+    private StackPane visitTasksPlaceholder;
 
     public OngoingVisitCard(Visit visit) {
         super(FXML);
-        //Todo: Make it look nicer
         this.visit = visit;
 
         Patient patient = this.visit.getPatient();
@@ -69,14 +68,17 @@ public class OngoingVisitCard extends UiPart<Region> {
         if (visit.getEndDateTime().isPresent()) {
             endDateTime.setText(visit.getEndDateTime().get().toString());
         } else {
-            endDateTime.setText("Ongoing Visit");
+            endDateTime.setText("Unfinished (Ongoing Visit)");
         }
-        remark.setText(this.visit.getRemark().remark);
 
-        visit.getVisitTasks()
-                .forEach(visitTask -> visitTasks.getChildren()
-                        .add(new Label(visitTask.toString())));
+        String remarks = this.visit.getRemark().remark;
+        if (remarks.isEmpty()) {
+            remarks = "This visit has no remarks.";
+        }
+        remark.setText(remarks);
 
+        VisitTaskTableView visitTaskTableView = new VisitTaskTableView(this.visit.getVisitTasks());
+        visitTasksPlaceholder.getChildren().add(visitTaskTableView.getRoot());
     }
 
     @Override

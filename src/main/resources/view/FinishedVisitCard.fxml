@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<HBox id="cardPane" styleClass="visit-card" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10" prefWidth="300" />
+        </columnConstraints>
+        <VBox GridPane.hgrow="ALWAYS" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="id" styleClass="cell_big_label">
+                <minWidth>
+                    <!-- Ensures that the label text is never truncated -->
+                    <Region fx:constant="USE_PREF_SIZE" />
+                </minWidth>
+            </Label>
+
+            <Label styleClass="bold">Visit Index: </Label>
+            <Label fx:id="index" styleClass="cell_small_label" text="\$index" />
+
+            <Label styleClass="bold">Visit Start Date and Time: </Label>
+            <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
+
+            <Label styleClass="bold">Visit End Date and Time: </Label>
+            <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
+
+            <Label styleClass="bold">Visit Remarks: </Label>
+            <Label fx:id="remark" styleClass="cell_small_label" text="\$remarks" wrapText="true" />
+        </VBox>
+        <VBox GridPane.hgrow="ALWAYS" GridPane.columnIndex="1">
+            <Label styleClass="bold">Visit Tasks: </Label>
+            <StackPane fx:id="visitTasksPlaceholder"/>
+        </VBox>
+    </GridPane>
+</HBox>

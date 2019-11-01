@@ -1,17 +1,17 @@
-This set of functionality consists of three commands, each of which rely on
-the same core components:
+This set of functionality consists of one GUI component and two commands,
+each of which rely on the same core components:
 
-1. `history` - Displays a numbered list of previous data-modifying commands
-that can be reverted by `undo`.
-2. `undo` - Reverts until a specified data-modifying command in the `history`,
-or the previous data-modifying command if no argument is specified.
-3. `redo` - Reverts the previous command if and only if it was an `undo`.
+1. `HistoryPane` - GUI component that displays a numbered list of previous
+data-modifying commands that can be reverted by `undo`.
+2. `app-undo` - Command that reverts until a specified data-modifying command
+in the `history`, or the previous data-modifying command if no argument is specified.
+3. `app-redo` - Command that Reverts the previous command if and only if it was an `undo`.
 
 ==== Implementation Overview
 
 For undo/redo/history to function, there must be the following:
 
-* A way to mark which `Command`s are data-modifying commands.
+* A way to mark which `Command` s are data-modifying commands.
 * A mechanism to clearly demarcate the model state before and after the execution
 of each data-modifying command.
 * A way to record the state of the model before (or after) each command, together
@@ -21,7 +21,7 @@ in the history.
 
 To achieve this, the following classes are introduced:
 
-* `MutatorCommand` - An empty marker interface to indicate that a `Command` is a
+* `MutatorCommand` - An empty subclass of `Command` to indicate that a `Command` is a
 data-modifying command and should be considered for undo/redo/history.
 * `HistoryRecord` - Record of the command and data of one atomic commit in the command history. It consists of the
 `MutatorCommand` responsible for the commit and the state of the model before (or after) the commit. All recorded

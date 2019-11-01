@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
-import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -14,7 +13,7 @@ import javafx.collections.ObservableList;
 /**
  * Undos a designated command in the history, or the previous one if no argument is specified
  */
-public class UndoCommand extends Command implements MutatorCommand {
+public class UndoCommand extends MutatorCommand {
 
     public static final String COMMAND_WORD = "app-undo";
 
@@ -26,7 +25,7 @@ public class UndoCommand extends Command implements MutatorCommand {
             + COMMAND_WORD + "\n"
             + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Undid command:\n%s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undid %d command%s:\n%s";
     public static final String MESSAGE_NO_MORE_HISTORY = "No more undo history.";
     public static final String MESSAGE_NO_SUCH_INDEX = "There is no command with that index.";
 
@@ -62,7 +61,19 @@ public class UndoCommand extends Command implements MutatorCommand {
         }
 
         List<HistoryRecord> poppedRecords = model.undoTo(targetRecord);
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS,
-                CollectionUtil.collectionToStringShowingIndexes(poppedRecords)));
+        return new CommandResult(makeResultString(poppedRecords));
+    }
+
+    /**
+     * Creates a formatted String listing the undone commands.
+     */
+    public static String makeResultString(List<HistoryRecord> undoneRecords) {
+        StringBuilder sb = new StringBuilder();
+        for (HistoryRecord record : undoneRecords) {
+            sb.append(record.getCommand().getCommandText().orElse(record.toString()))
+                    .append("\n");
+        }
+        return String.format(MESSAGE_UNDO_SUCCESS,
+                undoneRecords.size(), undoneRecords.size() > 1 ? "s" : "", sb.toString());
     }
 }

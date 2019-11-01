@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10" prefWidth="300" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox GridPane.hgrow="ALWAYS" minHeight="105" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
@@ -24,15 +24,26 @@
                     <Region fx:constant="USE_PREF_SIZE" />
                 </minWidth>
             </Label>
+            <Label styleClass="bold">Patient Details: </Label>
             <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             <FlowPane fx:id="tags" />
             <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+            <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
             <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+
+            <Label styleClass="bold">Visit Start Date and Time: </Label>
             <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
+
+            <Label styleClass="bold">Visit End Date and Time: </Label>
             <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
-            <VBox fx:id="visitTasks" />
-            <Label fx:id="remark" styleClass="cell_small_label" text="\$remarks" />
+
+            <Label styleClass="bold">Visit Remarks: </Label>
+            <Label fx:id="remark" styleClass="cell_small_label" text="\$remarks" wrapText="true" />
+        </VBox>
+        <VBox GridPane.hgrow="ALWAYS" GridPane.columnIndex="1">
+            <Label styleClass="bold">Visit Tasks: </Label>
+            <StackPane fx:id="visitTasksPlaceholder"/>
+            <Label styleClass="cell_small_label, hint" prefWidth="300" wrapText="true">Note: Updating the patient's Visit Todos will not modify this list of Visit Tasks. If you want to modify this list, cancel the visit with "visit-cancel" first.</Label>
         </VBox>
     </GridPane>
 </HBox>
