@@ -3,6 +3,7 @@ package seedu.address.model.statistics;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,28 +17,26 @@ import seedu.address.model.person.Income;
  * Guarantees: dateOfList cannot be changed.
  */
 public class DailyList {
-    private FilteredList<Entry> listOfExpenses;
-    private ObservableList<Income> listOfIncomes;
-    private final LocalDate dateOfRecord;
+    private FilteredList<Expense> listOfExpenses;
+    private FilteredList<Income> listOfIncomes;
     private double totalExpense;
     private double totalIncome;
+    private int day;
+    private Month month;
+    private int year;
 
-    public DailyList(FilteredList<Entry> retrievedExpenseList, LocalDate date) {
-        listOfExpenses = retrievedExpenseList;
-        listOfIncomes = FXCollections.observableArrayList();
-        dateOfRecord = date;
+    public DailyList(FilteredList<Expense> retrievedExpenseList, FilteredList<Income> retrievedIncomeList, int day,
+                     Month month, int year) {
+        listOfExpenses = new FilteredList<Expense>(retrievedExpenseList);
+        listOfIncomes = new FilteredList<Income>(retrievedIncomeList);
+        this.day = day;
+        this.month = month;
+        this.year = year;
         totalExpense = 0.00;
         totalIncome = 0.00;
         initLoadFromFilteredList(retrievedExpenseList);
     }
 
-    public DailyList() {
-        listOfExpenses = new FilteredList(FXCollections.observableArrayList());
-        listOfIncomes = FXCollections.observableArrayList();
-        dateOfRecord = LocalDate.now();
-        totalExpense = 0.00;
-        totalIncome = 0.00;
-    }
 
     private void initLoadFromFilteredList(FilteredList<Entry> entryList) {
         for (int i = 0; i < entryList.size(); i++) {
@@ -61,29 +60,6 @@ public class DailyList {
         return totalIncome;
     }
 
-    /**
-     * @return dateOfRecord, the date in which the DailyList was created.
-     */
-    public LocalDate getDate() {
-        return dateOfRecord;
-    }
-
-    /**
-     * adds the recorded Expense into the listOfExpenses.
-     */
-    public void addExpense(Expense expenseCreated) {
-        requireNonNull(expenseCreated);
-        this.listOfExpenses.add(expenseCreated);
-        this.totalExpense = this.totalExpense + expenseCreated.getAmount().value;
-    }
-
-    /**
-     * adds the recorded Income into the listOfExpenses.
-     */
-    public void addIncome(Income incomeCreated) {
-        requireNonNull(incomeCreated);
-        this.listOfIncomes.add(incomeCreated);
-        this.totalIncome = this.totalIncome + incomeCreated.getAmount().value;
-    }
+    public double calcuulat
 
 }

@@ -25,6 +25,8 @@ public class StatisticsManager implements Statistics {
     private ObservableMap<Integer, ObservableMap<Integer, MonthList>> yearlyRecord;
     private ObservableList<CategoryStatistics> listOfStatsForExpense;
     private ObservableList<CategoryStatistics> listOfStatsForIncome;
+    private ObservableList<DailyStatistics> listOfStatsForDailyExpense;
+    private ObservableList<DailyStatistics> listOfStatsForDailyIncome;
     private FilteredList<Expense> modelTotalFilteredExpenses;
     private FilteredList<Income> modelTotalFilteredIncomes;
     private CategoryList listOfCategories;
@@ -40,6 +42,8 @@ public class StatisticsManager implements Statistics {
         yearlyRecord = FXCollections.observableHashMap();
         listOfStatsForExpense = FXCollections.observableArrayList();
         listOfStatsForIncome = FXCollections.observableArrayList();
+        listOfStatsForDailyExpense = FXCollections.observableArrayList();
+        listOfStatsForDailyIncome = FXCollections.observableArrayList();
         initRecords(currentYear);
         initStats();
     }
@@ -84,6 +88,7 @@ public class StatisticsManager implements Statistics {
             }
         });
         updateListOfStats();
+        updateLineCharts();
     }
 
     /**
@@ -108,6 +113,18 @@ public class StatisticsManager implements Statistics {
         } else {
             calculationsForRangeOfPeriods(listOfPeriods);
         }
+    }
+
+    public void updateLineCharts() {
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
+        MonthList monthListToCarryOutMonthlyCalculations = yearOfRecord.get(LocalDate.now().getMonth().getValue());
+        monthListToCarryOutMonthlyCalculations.calculateBarChart(this.listOfStatsForDailyIncome);
+        monthListToCarryOutMonthlyCalculations.calculateBarChart(this.listOfStatsForDailyExpense)
+
+    }
+
+    public void updateLineCharts(Date monthToShow) {
+
     }
 
     /**

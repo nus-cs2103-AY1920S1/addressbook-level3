@@ -1,9 +1,11 @@
 package seedu.address.model.statistics;
 
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Category;
@@ -77,9 +79,6 @@ public class MonthList {
             for (int i = 0; i < toCalculate.size(); i++) {
                 calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
             }
-            if (calculatedTotal != 0.00) {
-                System.out.println(calculatedTotal);
-            }
             return calculatedTotal;
         } else {
             FilteredList<Expense> toCalculate = this.mapOfExpenseCategories.get(cat);
@@ -87,10 +86,12 @@ public class MonthList {
             for (int i = 0; i < toCalculate.size(); i++) {
                 calculatedTotal = calculatedTotal + toCalculate.get(i).getAmount().value;
             }
-            if (calculatedTotal != 0.00) {
-                System.out.println(calculatedTotal);
-            }
             return calculatedTotal;
         }
+    }
+
+    public ArrayList<Double> calculateBarChart() {
+        ArrayList<Double> listOfCategories 
+        for (int i = 0 )
     }
 }
