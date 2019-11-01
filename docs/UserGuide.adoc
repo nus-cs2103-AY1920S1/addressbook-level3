@@ -722,9 +722,14 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 |Undo Previous Command | Undoes the previously executed command. Look at output of `history` to see which command can be re-done. | `undo` | `undo`
 
 |Redo Next Command | Redoes the next command. Look at output of `history` to see which command can be re-done. | `redo` | `redo`
-|List Team rankings|Displays the ranking of the teams in the Hackathon in descending order of their points |`leaderboard`| *Team:* `leaderboard`
+
+|List Team Rankings|Displays the ranking of the teams in the Hackathon in descending order of their points |`leaderboard`| *Team:* `leaderboard`
+
+|List Team Rankings with Tie Break | Displays the ranking of the teams in the Hackathon in descending order of their points with specified tiebreak methods used to break ties |`leaderboard tb/METHOD_1 METHOD_2...`| *Team:* `leaderboard tb/moreParticipants random`
 
 |Get the top k teams |List the top k teams in the leaderboard, where k is a number (NUMBER) which you specify |`getTop NUMBER` | *Team:* `getTop 5`
+
+|Get the top k teams with Tie Break |List the top k teams in the leaderboard with specified tiebreak methods used to break ties, where k is a number (NUMBER) which you specify |`getTop NUMBER tb/METHOD_1 METHOD_2...` | *Team:* `getTop 5 tb/moreParticipants random`
 
 |Add points to a Team |Adds the value of POINTS to the current score of the team with TEAM_ID|`score add TEAM_ID POINTS` | *Team:* `score add T-1 20`
 
