@@ -8,7 +8,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyUserState;
 
 /**
- * Represents a storage for {@link seedu.address.model.Ledger}.
+ * Represents a storage for {@link seedu.address.model.UserState}.
  */
 public interface UserStateStorage {
     /**

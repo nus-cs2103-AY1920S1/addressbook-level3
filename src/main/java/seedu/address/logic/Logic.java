@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -19,10 +20,11 @@ import seedu.address.model.transaction.LedgerOperation;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
@@ -31,12 +33,12 @@ public interface Logic {
      *
      * @see Model#getBankAccount()
      */
-    ReadOnlyBankAccount getBankAccount();
+    ReadOnlyUserState getUserState();
 
     /**
      * Returns the user prefs' bank account file path.
      */
-    Path getBankAccountFilePath();
+    Path getUserStateFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -48,12 +50,16 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /** Returns an unmodifiable view of the filtered list of transactions
-     * @return*/
+    /**
+     * Returns an unmodifiable view of the filtered list of transactions
+     *
+     * @return
+     */
     ObservableList<BankAccountOperation> getFilteredTransactionList();
 
     /**
      * Returns an ObservableList of Transactions
+     *
      * @return
      */
     ObservableList<BankAccountOperation> getTransactionList();

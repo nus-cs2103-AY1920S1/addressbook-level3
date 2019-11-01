@@ -88,7 +88,6 @@ public class UniqueLedgerOperationList implements Iterable<LedgerOperation> {
      * {@code transaction} must not contain duplicate transactions.
      */
     public void setTransactions(List<LedgerOperation> transactions) {
-        System.out.println("Hello" + transactions == null);
         requireAllNonNull(transactions);
         if (!transactionsAreUnique(transactions)) {
             throw new DuplicateTransactionException();

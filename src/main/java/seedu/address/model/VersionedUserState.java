@@ -88,22 +88,8 @@ public class VersionedUserState extends UserState {
 
         // state check
         return super.equals(otherVersionedUserState)
-                && userStateList.equals(otherVersionedUserState.userStateList)
-                && currentStatePointer == otherVersionedUserState.currentStatePointer;
-    }
-
-    // TODO: implement stub
-    public ObservableList<BankAccountOperation> getTransactionHistory() {
-        return userStateList.get(currentStatePointer).getBankAccount().getTransactionHistory();
-    }
-
-    // TODO: implement stub
-    public ObservableList<Budget> getBudgetHistory() {
-        return userStateList.get(currentStatePointer).getBankAccount().getBudgetHistory();
-    }
-
-    public ObservableList<LedgerOperation> getLedgerHistory() {
-        return userStateList.get(currentStatePointer).getLedger().getLedgerHistory();
+            && userStateList.equals(otherVersionedUserState.userStateList)
+            && currentStatePointer == otherVersionedUserState.currentStatePointer;
     }
 
     /**

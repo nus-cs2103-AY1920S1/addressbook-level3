@@ -14,6 +14,7 @@ import seedu.address.logic.parser.BankAccountParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -53,12 +54,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBankAccount getBankAccount() {
-        return model.getBankAccount();
+    public ReadOnlyUserState getUserState() {
+        return model.getUserState();
     }
 
     @Override
-    public Path getBankAccountFilePath() {
+    public Path getUserStateFilePath() {
         return model.getUserStateFilePath();
     }
 

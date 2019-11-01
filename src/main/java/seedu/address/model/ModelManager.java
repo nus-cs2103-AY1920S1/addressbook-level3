@@ -39,9 +39,9 @@ public class ModelManager implements Model {
 
         this.versionedUserState = new VersionedUserState(userState);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.versionedUserState.getTransactionHistory());
-        filteredBudgets = new FilteredList<>(this.versionedUserState.getBudgetHistory());
-        filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedgerHistory());
+        filteredTransactions = new FilteredList<>(this.versionedUserState.getBankAccount().getTransactionHistory());
+        filteredBudgets = new FilteredList<>(this.versionedUserState.getBankAccount().getBudgetHistory());
+        filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedger().getLedgerHistory());
     }
 
     public ModelManager() {
