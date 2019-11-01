@@ -57,12 +57,8 @@ public class BioPane extends UiPart<Region> {
             String emergencyHp = listToString(user.getEmergencyContacts());
             String medicalCondition = listToString(user.getMedicalConditions());
             String address = user.getAddress().toString();
-            String fontColourToString = background.showDefaultBackground()
-                    ? "yellow"
-                    : fontColour.toString();
-            String bg = background.showDefaultBackground()
-                    ? "Temporary Background"
-                    : background.toString();
+            String fontColourToString = fontColour.toString();
+            String bg = background.toString();
             String bgSize = background.getBgSize();
             String bgRepeat = background.getBgRepeat();
             String myGoals = listToString(user.getGoals());
@@ -92,7 +88,8 @@ public class BioPane extends UiPart<Region> {
             this.img = img;
             profile = new Profile(img, "No user bio added :(", null);
             profilePlaceholder.getChildren().add(profile.getRoot());
-            bioTable = new BioTable();
+            bioTable = new BioTable(fontColour.toString(), background.toString(), background.getBgSize(),
+                    background.getBgRepeat());
         }
         bioTablePlaceholder.getChildren().add(bioTable.getRoot());
     }

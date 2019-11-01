@@ -408,7 +408,7 @@ than `a/exampleAddress m/test` is. Ultimately, the user has a balance of conveni
 
 Examples of *VALID* `addbio` commands, provided that a biography does not yet exist, include:
 
-* `addbio dp//Users/whneo97/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/12/12/2019 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `addbio dp//Users/whneo97/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/2019-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
 (Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 * `addbio n/testMinimal p/91234567 e/81234567 m/testMedicalCondition`
 
@@ -524,7 +524,8 @@ already empty and there is no biography information to clear. If a biography is 
 biography display pane with an empty biography table is shown to the user. A user cannot execute `editbio` after
 clearing the biography until another biography has been added using `addbio`.
 
-Note that this command does not affect the `background` and `fontcolour` aspects of the program.
+Note that this command does not affect the `background` and `fontcolour` aspects of the program and a 'cleared'
+biography table still shows aesthetic preferences.
 
 Similar to the `bio` command, this command cannot have any sub-arguments, and thus, if the user enters `bio 1`, an error message will be displayed,
 as the user's intention may not have been necessarily to show the biography. Trailing spaces are automatically trimmed
