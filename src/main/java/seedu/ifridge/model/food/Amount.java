@@ -18,7 +18,7 @@ public class Amount {
             + "1. The value part should only contain digits and can have be decimal point or not.\n"
             + "2. This is followed by a unit that can have a space in between or not. \n"
             + "The unit must be one of the following: \n"
-            + "    - lbs, kgs, g, pounds, oz, L, ml, units.";
+            + "    - lbs, kg, g, oz, L, ml, units.";
 
     public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
     public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
@@ -51,6 +51,10 @@ public class Amount {
     public static final String MESSAGE_UNIT_TYPE_DOES_NOT_MATCH = "Unit type does not match with the other items";
     public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed "
         + "amount left in the item.";
+    public static final String MESSAGE_INVALID_UNIT = "Please use the following units: lbs, g, kg, oz, L, ml, units";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name.";
+    public static final String MESSAGE_INVALID_AMOUNT = "Amount is invalid.\n" + MESSAGE_CONSTRAINTS;
 
 
     private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
@@ -65,7 +69,7 @@ public class Amount {
      */
     public Amount(String amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidAmount(amount), MESSAGE_INVALID_AMOUNT);;
         fullAmt = amount;
     }
 
@@ -354,6 +358,10 @@ public class Amount {
             resultantAmount = Float.parseFloat(String.format("%.2f", resultantAmount));
             return new Amount(resultantAmount + thisUnit);
         }
+    }
+
+    public boolean isEmptyAmount() {
+        return getValue(this) == 0;
     }
 
     @Override

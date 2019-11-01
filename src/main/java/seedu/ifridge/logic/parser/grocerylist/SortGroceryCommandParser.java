@@ -24,8 +24,7 @@ public class SortGroceryCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SORT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_SORT)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_SORT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortGroceryCommand.MESSAGE_USAGE));
         }
 

@@ -66,7 +66,7 @@ public class ParserUtil {
         requireNonNull(amount);
         String trimmedAmount = amount.trim();
         if (!Amount.isValidAmount(trimmedAmount)) {
-            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Amount.MESSAGE_INVALID_AMOUNT);
         }
         return new Amount(trimmedAmount);
     }
