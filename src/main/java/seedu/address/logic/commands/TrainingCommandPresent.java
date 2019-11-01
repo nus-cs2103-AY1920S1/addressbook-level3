@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEXES;
-import static seedu.address.model.date.AthletickDate.DATE_FORMAT;
+import static seedu.address.model.date.AthletickDate.DATE_FORMAT_TYPE_ONE;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,8 +25,8 @@ public class TrainingCommandPresent extends TrainingCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds training session of people identified by the index numbers used in the displayed person list at"
             + " the specified date.\nIf no date is specified, the current date is used.\n"
-            + "Parameters: " + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT + "\n"
-            + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20/10/2019 "
+            + "Parameters: " + "#/INDEX [INDEX] [INDEX] [d/DATE]\nDate must be in the format: " + DATE_FORMAT_TYPE_ONE
+            + "\n" + "Index must be a positive integer\nExample: " + COMMAND_WORD + " " + PREFIX_DATE + "20/10/2019 "
             + PREFIX_INDEXES + " 1 5 7";
 
     /**
