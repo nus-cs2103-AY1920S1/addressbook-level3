@@ -5,13 +5,19 @@ import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Class that constantly calls method to update current date.
  */
 public class TimeUtil {
-    private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static TimeUtil tracker;
+    private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(0);
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
     private LocalDate currDate;
     private Runnable getCurrDate = () -> {
@@ -20,8 +26,17 @@ public class TimeUtil {
         currDate = newCurrDate;
     };
 
-    public TimeUtil() {
+    private TimeUtil() {
         startTimer();
+        tracker = this;
+    }
+
+    public static TimeUtil getTracker() {
+        if (tracker == null) {
+            return new TimeUtil();
+        } else {
+            return tracker;
+        }
     }
 
     /**
@@ -29,7 +44,7 @@ public class TimeUtil {
      */
     public void startTimer() {
         getCurrDate.run();
-        ses.schedule(getCurrDate, 1, TimeUnit.HOURS);
+        //ses.schedule(getCurrDate, 1, TimeUnit.SECONDS);
     }
 
     /**
@@ -38,8 +53,13 @@ public class TimeUtil {
     public void manualUpdate() {
         getCurrDate.run();
     }
-    public void endTimer() {
+
+    /**
+     * ends timer
+     */
+    public static void endTimer() {
         ses.shutdown();
+        logger.info("Timer ends");
     }
     public PropertyChangeSupport getSupport() {
         return support;

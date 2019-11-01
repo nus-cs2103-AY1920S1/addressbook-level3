@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        timeTracker = new TimeUtil();
+        timeTracker = TimeUtil.getTracker();
 
         model = initModelManager(storage, userPrefs, timeTracker);
         StatisticsManager stats = new StatisticsManager(model);
@@ -181,6 +181,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
+        timeTracker.endTimer();
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

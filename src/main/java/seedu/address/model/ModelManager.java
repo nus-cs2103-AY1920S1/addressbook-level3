@@ -79,7 +79,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TimeUtil());
+        this(new AddressBook(), new UserPrefs(), TimeUtil.getTracker());
     }
 
     // =========== UserPrefs
