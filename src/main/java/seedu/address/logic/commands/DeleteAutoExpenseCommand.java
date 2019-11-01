@@ -20,7 +20,8 @@ public class DeleteAutoExpenseCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the autoExpense identified by the index number used in the displayed autoExpense list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted AutoExpense: %1$s";
 
