@@ -28,19 +28,19 @@ traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. En
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ichifund.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your IchiFund.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start IchiFund. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. +
+E.g., typing *`help`* and pressing kbd:[Enter] will open the help window. +
 Here are some example commands you can try in the transaction tab:
 
 * **`addtx`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
 * **`filtertx`**`m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
-* *`exit`* : exits the app
+* *`exit`* : exits IchiFund
 
-.  Refer to <<Navigation>> for details on how to navigate through the application.
+.  Refer to <<Navigation>> for details on how to navigate through IchiFund.
 .  Refer to <<Features>> for details of each command.
 
 [[Navigation]]
@@ -53,8 +53,8 @@ When you enter a command that is not used by the feature, the following message 
 
 image::InapplicableCommand.png[]
 
-In this case, `expenditure`, a command for the "Analytics", is not recognised as the application is currently
-is the "Transactions" tab.
+In this case, `expenditure`, a command for "Analytics", is not recognised as the application is currently
+in the "Transactions" tab.
 
 === Switching tabs
 
@@ -86,10 +86,23 @@ These commands are recognised regardless of which tab you are currently using.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addtx de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `addtx de/AirPods a/299.00`.
-* Items in square brackets are optional e.g `badd de/DESCRIPTION a/AMOUNT [c/CATEGORY] ` can be used as `badd de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets` or as `badd de/Saving for iPhone 11 Pro Max a/271.80`.
-* Items with `…​` after them can be used multiple times including zero times e.g. `[s/KEYWORD]…​` can be used as ` ` (i.e. 0 times), `s/Macbook`, `s/Macbook s/iPad` etc.
-* Parameters can be in any order e.g. if the command specifies `addtx de/DESCRIPTION a/AMOUNT`, `addtx a/AMOUNT de/DESCRIPTION` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by you. +
+E.g., *`addtx`*`de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as *`addtx`*`de/AirPods a/299.00`.
+
+* Items in square brackets are optional. +
+E.g. *`badd`*`de/DESCRIPTION a/AMOUNT [c/CATEGORY]` can be used as
+** *`badd`*`de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets`
+** *`badd`*`de/Saving for iPhone 11 Pro Max a/271.80`.
+
+* You can use items with `…​` after them multiple times, including zero times. +
+E.g., `[s/KEYWORD]…​` can be used as
+** ` ` (i.e. 0 times)
+** `s/Macbook`
+** `s/Macbook s/iPad`
+** etc.
+
+* You can enter parameters in any order. +
+E.g., if the command specifies *`addtx`*`de/DESCRIPTION a/AMOUNT`, *`addtx`*`a/AMOUNT de/DESCRIPTION` is also acceptable.
 ====
 
 === IchiFund Basics
@@ -107,15 +120,15 @@ You can simply click on the button "Copy URL" to copy the URL to your
 clipboard. Then, paste and enter the URL into any browser to access this user guide.
 
 
-==== Exiting the program : `exit`
+==== Exiting IchiFund : `exit`
 
-Exits the program. +
+Exits your IchiFund. +
 Format: `exit`
 
-==== Saving the data
+==== Saving IchiFund data
 
-IchiFund data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+IchiFund data are saved in the hard disk automatically after you enter any command that changes the data. +
+There is no need for you to save manually.
 
 === Transactions
 
@@ -607,7 +620,7 @@ Format: `mthrank [y/YEAR]`
 Examples:
 
 * `mthrank` +
-Displays all-time expenditure ranking chart by month.
+Displays expenditure ranking chart by month for current year.
 * `mthrank y/2019` +
 Displays expenditure ranking chart by month for 2019.
 
@@ -619,7 +632,9 @@ Format: `exprank [m/MONTH] [y/YEAR]`
 Examples:
 
 * `exprank` +
-Displays all-time expenditure ranking chart.
+Displays expenditure ranking chart for current year.
+* `exprank y/2019` +
+Displays expenditure ranking chart for 2019.
 * `exprank m/7 y/2019` +
 Displays expenditure ranking chart for July 2019.
 
