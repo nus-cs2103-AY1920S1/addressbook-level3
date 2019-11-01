@@ -234,16 +234,17 @@ public class StorageManager {
     }
 
     public static void resolveStatsPath() {
-        statsFileFullPath = FileReadWrite.resolve(root, decksSubDir + "/" + statsFileName);
+        statsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + statsFileName);
     }
 
-    public static void writeStats() {
+    public static void saveStats() {
         resolveRoot();
         FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
     }
 
     public static void loadStats() {
         resolveRoot();
+        Stats.getUserStats();
         try {
             ArrayList<Session> arr = new ArrayList<>();
             JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
@@ -256,6 +257,7 @@ public class StorageManager {
                 arr.add(session);
             }
             Stats.setSessionList(new SessionList(arr));
+            // load login session
         } catch(FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
         } catch(JsonFormatException e) {

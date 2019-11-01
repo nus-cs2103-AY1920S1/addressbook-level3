@@ -99,6 +99,9 @@ public class JsonParser {
             throws JsonFormatException {
         JsonArray arr = new JsonArray();
         i = skipWhiteSpace(input, i);
+        if (i >= input.length) {
+            throw new JsonFormatException(input, i, "Encountered no more characters to be an Array", 2);
+        }
         if (input[i] != '[') {
             throw new JsonFormatException(input, i, "Expecting [", 2);
         }
@@ -159,6 +162,9 @@ public class JsonParser {
             throws JsonFormatException {
         JsonObject obj = new JsonObject();
         i = skipWhiteSpace(input, i);
+        if (i >= input.length) {
+            throw new JsonFormatException(input, i, "Encountered no more characters to be an Object", 2);
+        }
         if (input[i] != '{') {
             throw new JsonFormatException(input, i, "Expecting {", 2);
         }
@@ -291,6 +297,9 @@ public class JsonParser {
     private static Pair<Integer, Boolean> parseJsonBoolean(char[] input, int i)
             throws JsonFormatException {
         boolean value;
+        if(i >= input.length) {
+            throw new JsonFormatException(input, i, "Encountered no more characters to be a boolean", 2);
+        }
         if (input[i] != 't' && input[i] != 'f') {
             throw new JsonFormatException(input, i, "Expected Boolean but encountered something else", 2);
         }
@@ -327,6 +336,9 @@ public class JsonParser {
         StringBuilder value = new StringBuilder();
         boolean escape = false;
         i = skipWhiteSpace(input, i);
+        if (i >= input.length) {
+            throw new JsonFormatException(input, i, "Encountered no more characters to be a string", 2);
+        }
         if (input[i] != '"') {
             throw new JsonFormatException(input, i,
                     "Expected starting double quotes for string but encountered something else", 2);

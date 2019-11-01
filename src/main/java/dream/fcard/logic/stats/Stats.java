@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Represents the user's statistics.
  */
-public class Stats implements Serializable {
+public class Stats {
     /** The one and only instance of Stats allowed to exist. */
     private static Stats userStats;
 

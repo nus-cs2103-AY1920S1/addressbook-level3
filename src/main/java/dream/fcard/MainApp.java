@@ -23,9 +23,10 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
             // load login sessions from file
-            StatsStorageManager.loadLoginSessions();
+            //StatsStorageManager.loadLoginSessions();
+            StorageManager.loadStats();
 
-            StorageManager.provideRoot("./");
+            //StorageManager.provideRoot("./");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Windows/MainWindow.fxml"));
             VBox vbox = fxmlLoader.load();
             Scene scene = new Scene(vbox);
@@ -37,7 +38,8 @@ public class MainApp extends Application {
             stage.setOnCloseRequest(e -> {
                 Stats.endCurrentSession();
                 StorageManager.saveAll(State.getState().getDecks());
-                StatsStorageManager.saveLoginSessions();
+                StorageManager.saveStats();
+                //StatsStorageManager.saveLoginSessions();
             });
             // start a session
             Stats.startCurrentSession();

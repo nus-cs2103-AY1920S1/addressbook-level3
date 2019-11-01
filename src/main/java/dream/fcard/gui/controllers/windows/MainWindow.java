@@ -247,7 +247,8 @@ public class MainWindow extends VBox {
 
         // save all files only on exit
         StorageManager.saveAll(State.getState().getDecks());
-        StatsStorageManager.saveLoginSessions();
+        StorageManager.saveStats();
+        //StatsStorageManager.saveLoginSessions();
         System.exit(0);
     }
 
