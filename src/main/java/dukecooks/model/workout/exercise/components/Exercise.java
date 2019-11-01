@@ -2,12 +2,14 @@ package dukecooks.model.workout.exercise.components;
 
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
+import dukecooks.model.workout.history.ExerciseHistory;
 
 /**
  * Represents an Exercise in Duke Cooks.
@@ -22,9 +24,10 @@ public class Exercise {
 
     // Data fields
     private final Set<ExerciseDetail> exerciseDetails = new HashSet<>();
+    private final ExerciseHistory history;
 
     /**
-     * Every field must be present and not null.
+     * Every field except ExerciseHistory must be present and not null.
      */
     public Exercise(ExerciseName exerciseName, MusclesTrained musclesTrained,
                     Intensity intensity, Set<ExerciseDetail> exerciseDetails) {
@@ -33,6 +36,20 @@ public class Exercise {
         this.musclesTrained = musclesTrained;
         this.intensity = intensity;
         this.exerciseDetails.addAll(exerciseDetails);
+        history = new ExerciseHistory(new ArrayList<>());
+    }
+
+    /**
+     * Every field except ExerciseHistory must be present and must not null.
+     */
+    public Exercise(ExerciseName exerciseName, MusclesTrained musclesTrained,
+                    Intensity intensity, Set<ExerciseDetail> exerciseDetails, ExerciseHistory history) {
+        requireAllNonNull(exerciseName, musclesTrained, intensity, exerciseDetails, history);
+        this.exerciseName = exerciseName;
+        this.musclesTrained = musclesTrained;
+        this.intensity = intensity;
+        this.exerciseDetails.addAll(exerciseDetails);
+        this.history = history;
     }
 
     public ExerciseName getExerciseName() {
@@ -45,6 +62,10 @@ public class Exercise {
 
     public Intensity getIntensity() {
         return intensity;
+    }
+
+    public ExerciseHistory getHistory() {
+        return history;
     }
 
     /**
@@ -86,13 +107,14 @@ public class Exercise {
         return otherExercise.getExerciseName().equals(getExerciseName())
                 && otherExercise.getMusclesTrained().equals(getMusclesTrained())
                 && otherExercise.getIntensity().equals(getIntensity())
-                && otherExercise.getExerciseDetails().equals(getExerciseDetails());
+                && otherExercise.getExerciseDetails().equals(getExerciseDetails())
+                && otherExercise.getHistory().equals(getHistory());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(exerciseName, musclesTrained, intensity, exerciseDetails);
+        return Objects.hash(exerciseName, musclesTrained, intensity, exerciseDetails, history);
     }
 
     @Override
@@ -107,5 +129,4 @@ public class Exercise {
         getExerciseDetails().forEach(builder::append);
         return builder.toString();
     }
-
 }

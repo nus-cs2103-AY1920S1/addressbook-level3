@@ -7,6 +7,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TIMING;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
 
@@ -32,7 +33,8 @@ public class AddExerciseCommand extends AddCommand {
             + "[" + PREFIX_DISTANCE + "DISTANCE]..."
             + "[" + PREFIX_REPETITIONS + "REPS]..."
             + "[" + PREFIX_SETS + "SET]..."
-            + "[" + PREFIX_WEIGHT + "WEIGHT]...\n"
+            + "[" + PREFIX_WEIGHT + "WEIGHT]..."
+            + "[" + PREFIX_TIMING + "TIME]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Bench Press "
             + PREFIX_PRIMARY_MUSCLE + "Chest "
@@ -42,12 +44,12 @@ public class AddExerciseCommand extends AddCommand {
             + PREFIX_WEIGHT + "30 kg ";
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This exercise already exists in Duke Cooks";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in Duke Cooks";
 
     private final Exercise toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddExerciseCommand to add the specified {@code Exercise}
      */
     public AddExerciseCommand(Exercise exercise) {
         requireNonNull(exercise);
@@ -59,7 +61,7 @@ public class AddExerciseCommand extends AddCommand {
         requireNonNull(model);
 
         if (model.hasExercise(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.addExercise(toAdd);

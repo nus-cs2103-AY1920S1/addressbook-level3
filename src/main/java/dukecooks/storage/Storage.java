@@ -13,20 +13,23 @@ import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
-import dukecooks.storage.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.mealplan.MealPlanBookStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
+import dukecooks.storage.workout.WorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPrefsStorage,
-        UserProfileStorage, WorkoutPlannerStorage, HealthRecordsStorage, DiaryStorage, DashboardStorage {
+        UserProfileStorage, ExerciseCatalogueStorage, WorkoutCatalogueStorage,
+        HealthRecordsStorage, DiaryStorage, DashboardStorage {
 
     // ================ UserPrefs methods ==============================
 
@@ -91,13 +94,25 @@ public interface Storage extends RecipeBookStorage, MealPlanBookStorage, UserPre
     // ================ Exercise methods ==============================
 
     @Override
-    Path getWorkoutPlannerFilePath();
+    Path getExerciseFilePath();
 
     @Override
-    Optional<ReadOnlyWorkoutPlanner> readWorkoutPlanner() throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseCatalogue> readExerciseCatalogue() throws DataConversionException, IOException;
 
     @Override
-    void saveWorkoutPlanner(ReadOnlyWorkoutPlanner dukeCooks) throws IOException;
+    void saveExerciseCatalogue(ReadOnlyExerciseCatalogue dukeCooks) throws IOException;
+
+    // ================ Workout methods ==============================
+
+    @Override
+    Path getWorkoutFilePath();
+
+    @Override
+    Optional<ReadOnlyWorkoutCatalogue> readWorkoutCatalogue() throws DataConversionException, IOException;
+
+    @Override
+    void saveWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue) throws IOException;
+
 
     // ================ Dashboard methods ==============================
 

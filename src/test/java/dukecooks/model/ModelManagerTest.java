@@ -29,7 +29,7 @@ import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.dashboard.DashboardRecordBuilder;
 import dukecooks.testutil.diary.DiaryRecordBuilder;
@@ -49,7 +49,7 @@ public class ModelManagerTest {
         Assertions.assertEquals(new RecipeBook(), new RecipeBook(modelManager.getRecipeBook()));
         Assertions.assertEquals(new MealPlanBook(), new MealPlanBook(modelManager.getMealPlanBook()));
         Assertions.assertEquals(new UserProfile(), new UserProfile(modelManager.getUserProfile()));
-        Assertions.assertEquals(new WorkoutPlanner(), new WorkoutPlanner(modelManager.getWorkoutPlanner()));
+        Assertions.assertEquals(new ExerciseCatalogue(), new ExerciseCatalogue(modelManager.getExerciseCatalogue()));
         Assertions.assertEquals(new DiaryRecords(), new DiaryRecords(modelManager.getDiaryRecords()));
     }
 
@@ -266,9 +266,9 @@ public class ModelManagerTest {
 
         UserPrefs userPrefs = new UserPrefs();
 
-        WorkoutPlanner workoutPlanner = new WorkoutPlannerBuilder()
+        ExerciseCatalogue workoutPlanner = new WorkoutPlannerBuilder()
                 .withExercise(ABS_ROLLOUT).withExercise(BURPEES).build();
-        WorkoutPlanner differentPlanner = new WorkoutPlanner();
+        ExerciseCatalogue differentPlanner = new ExerciseCatalogue();
 
         // same values -> returns true
         modelManager = new ModelManager(recipeBook, userPrefs);

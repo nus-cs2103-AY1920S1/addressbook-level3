@@ -12,7 +12,7 @@ import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.testutil.TypicalIndexes;
 import dukecooks.testutil.exercise.EditExerciseDescriptorBuilder;
@@ -35,7 +35,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseCatalogue(model.getExerciseCatalogue()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         CommandTestUtil.assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseCatalogue(model.getExerciseCatalogue()), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         CommandTestUtil.assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseCatalogue(model.getExerciseCatalogue()), new UserPrefs());
 
         CommandTestUtil.assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
     }
@@ -94,7 +94,7 @@ public class EditExerciseCommandTest {
 
         String expectedMessage = String.format(EditExerciseCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new WorkoutPlanner(model.getWorkoutPlanner()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseCatalogue(model.getExerciseCatalogue()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         CommandTestUtil.assertCommandSuccess(editExerciseCommand, model, expectedMessage, expectedModel);
@@ -118,7 +118,7 @@ public class EditExerciseCommandTest {
         CommandTestUtil.showExerciseAtIndex(model, TypicalIndexes.INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in Duke Cooks
-        Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(TypicalIndexes
+        Exercise exerciseInList = model.getExerciseCatalogue().getExerciseList().get(TypicalIndexes
                 .INDEX_SECOND_EXERCISE.getZeroBased());
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(TypicalIndexes.INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
@@ -147,7 +147,7 @@ public class EditExerciseCommandTest {
         CommandTestUtil.showExerciseAtIndex(model, TypicalIndexes.INDEX_FIRST_EXERCISE);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getWorkoutPlanner().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseCatalogue().getExerciseList().size());
 
         EditExerciseCommand editExerciseCommand = new EditExerciseCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_SITUP).build());

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import dukecooks.logic.commands.CommandTestUtil;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;
@@ -63,8 +63,8 @@ public class TypicalExercises {
     /**
      * Returns an {@code DukeCooks} with all the typical persons.
      */
-    public static WorkoutPlanner getTypicalWorkoutPlanner() {
-        WorkoutPlanner ab = new WorkoutPlanner();
+    public static ExerciseCatalogue getTypicalWorkoutPlanner() {
+        ExerciseCatalogue ab = new ExerciseCatalogue();
         for (Exercise exercise : getTypicalExercises()) {
             ab.addExercise(exercise);
         }

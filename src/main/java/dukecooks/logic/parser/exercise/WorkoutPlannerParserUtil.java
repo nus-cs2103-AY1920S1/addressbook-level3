@@ -2,12 +2,14 @@ package dukecooks.logic.parser.exercise;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.workout.WorkoutName;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
@@ -16,6 +18,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.exercise.details.Timing;
 import dukecooks.model.workout.exercise.details.unit.DistanceUnit;
 import dukecooks.model.workout.exercise.details.unit.WeightUnit;
 
@@ -231,5 +234,36 @@ public class WorkoutPlannerParserUtil {
         }
         int intSets = Integer.parseInt(sets);
         return new Sets(intSets);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Repetition}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Timing parseTiming(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = "PT" + time.trim().toUpperCase();
+        if (!ExerciseDetail.isValidExerciseDetail(trimmedTime)) {
+            throw new ParseException(ExerciseDetail.MESSAGE_CONSTRAINTS);
+        }
+        CharSequence timeCharSequence = trimmedTime.subSequence(0, trimmedTime.length());
+        return new Timing(Duration.parse(timeCharSequence));
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code WorkoutName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static WorkoutName parseWorkoutName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!WorkoutName.isValidName(trimmedName)) {
+            throw new ParseException(WorkoutName.MESSAGE_CONSTRAINTS);
+        }
+        return new WorkoutName(trimmedName);
     }
 }

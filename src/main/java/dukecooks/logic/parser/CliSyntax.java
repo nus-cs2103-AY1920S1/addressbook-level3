@@ -11,7 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASKNAME = new Prefix("tn/");
     public static final Prefix PREFIX_TASKDATE = new Prefix("td/");
 
-    /* User Profile */
+    /* Workout and Exercises */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PRIMARY_MUSCLE = new Prefix("p/");
     public static final Prefix PREFIX_SECONDARY_MUSCLE = new Prefix("sm/");
@@ -20,6 +20,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPETITIONS = new Prefix("r/");
     public static final Prefix PREFIX_SETS = new Prefix("s/");
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
+    public static final Prefix PREFIX_TIMING = new Prefix("t/");
+    public static final Prefix PREFIX_WORKOUT_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_EXERCISE_INDEX = new Prefix("ei/");
+    public static final Prefix PREFIX_WORKOUT_INDEX = new Prefix("wi/");
 
     /* Recipe Book */
     public static final Prefix PREFIX_INGREDIENT = new Prefix("i/");

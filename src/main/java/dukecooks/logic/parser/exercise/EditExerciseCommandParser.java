@@ -8,6 +8,7 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SECONDARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_TIMING;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static java.util.Objects.requireNonNull;
 
@@ -26,6 +27,7 @@ import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.exercise.details.Timing;
 
 
 /**
@@ -43,7 +45,7 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRIMARY_MUSCLE, PREFIX_SECONDARY_MUSCLE,
                         PREFIX_INTENSITY, PREFIX_DISTANCE, PREFIX_REPETITIONS,
-                        PREFIX_SETS, PREFIX_WEIGHT);
+                        PREFIX_SETS, PREFIX_WEIGHT, PREFIX_TIMING);
 
         Index index;
 
@@ -99,6 +101,12 @@ public class EditExerciseCommandParser implements Parser<EditExerciseCommand> {
             ExerciseWeight weight = WorkoutPlannerParserUtil.parseWeight(argMultimap
                     .getValue(PREFIX_WEIGHT).get());
             exerciseDetails.add(weight);
+        }
+
+        if (argMultimap.getValue(PREFIX_TIMING).isPresent()) {
+            Timing timing = WorkoutPlannerParserUtil.parseTiming(argMultimap
+                    .getValue(PREFIX_TIMING).get());
+            exerciseDetails.add(timing);
         }
 
         if (exerciseDetails.isEmpty()) {
