@@ -77,7 +77,7 @@ public class QuizManager {
 
         int listSize = relevantQuestions.size();
 
-        if(listSize < numQuestions) {
+        if (listSize < numQuestions) {
             return false;
         }
 

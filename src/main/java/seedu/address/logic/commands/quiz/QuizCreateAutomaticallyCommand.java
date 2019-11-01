@@ -51,7 +51,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
         }
 
         boolean isSuccess = model.createQuizAutomatically(quizId, numQuestions, type);
-        if(isSuccess) {
+        if (isSuccess) {
             QuizBank.setCurrentlyQueriedQuiz(quizId);
             return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
         } else {
