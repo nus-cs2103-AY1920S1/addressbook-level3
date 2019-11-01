@@ -203,31 +203,9 @@ public class MainWindow extends UiPart<Stage> {
             customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
             listPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
             break;
-        case CUSTOMERLIST:
-            Customer customer = logic.getCustomerOrders();
-            orderListPanel = new OrderListPanel(customer.getOrders());
-            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
-            break;
         case DELIVERYMEN:
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            break;
-        case DELIVERYMENSTATUS:
-            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
-            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
-            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
-            break;
-        case DELIVERYMENSTATISTICS:
-            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
-                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
-            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
-            break;
-        case DELIVERYMANRECORD:
-            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
-            deliverymanRecordCard = new DeliverymanRecordCard(record);
-            statisticsDisplay = new StatisticsDisplay();
-            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-            statisticsDisplay.setFeedbackToUser(record.toString());
             break;
         case RESTAURANT:
             restaurantListPanel = new RestaurantListPanel(logic.getFilteredRestaurantList());
@@ -256,6 +234,41 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void changeUi(Class commandName) {
+        //System.out.println(commandName.getSimpleName());
+
+        if (statisticsPlaceholder.getChildren().size() > 0) {
+            statisticsPlaceholder.getChildren().remove(0);
+        }
+
+        switch(commandName.getSimpleName()) {
+        case "CustomerHistoryCommand":
+            Customer customer = logic.getCustomerOrders();
+            orderListPanel = new OrderListPanel(customer.getOrders());
+            statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
+            break;
+        case "StatusSwitchCommand":
+            deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
+            listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case "GetStatisticsCommand":
+            deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
+                    logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
+            statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
+            break;
+        case "EnterRecordCommand":
+            DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
+            deliverymanRecordCard = new DeliverymanRecordCard(record);
+            statisticsDisplay = new StatisticsDisplay();
+            statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
+            statisticsDisplay.setFeedbackToUser(record.toString());
+            break;
+        default:
+
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -266,10 +279,16 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            Class commandName = commandResult.getCommandName();
+
+            if (commandName != null) {
+                changeUi(commandName);
+            }
+
             Context nextContext = commandResult.getContext();
             boolean isNewContext = (nextContext != null && nextContext != currentContext);
 
-            if (isNewContext) {
+            if (!isNewContext) {
                 changeDisplay(nextContext);
             }
 
