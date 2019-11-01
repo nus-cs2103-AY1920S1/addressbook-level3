@@ -196,8 +196,15 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Creates the ReportWindow containing the statistics of Calofit and displays it.
+     * Checks if a current report window is showing or not and closes it if it is showing.
+     */
     @FXML
     private void handleReport() {
+        if (this.reportWindow != null) {
+            this.reportWindow.hide();
+        }
         this.reportWindow = new ReportWindow(logic.getStatistics());
         this.reportWindow.show();
     }

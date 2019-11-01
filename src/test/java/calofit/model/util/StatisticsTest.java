@@ -28,13 +28,13 @@ public class StatisticsTest {
                 .when(mockMealLog).getCurrentMonthMeals();
         Mockito.doReturn(tempMap).when(mockCalorieBudget).getCurrentMonthBudgetHistory();
 
-        Statistics test = Statistics.generateStatistics(mockMealLog, mockCalorieBudget);
+        Statistics test = Statistics.generateStatistics(mockMealLog.getCurrentMonthMeals(), mockCalorieBudget);
 
-        assertEquals(test.getAverage(), Math.round(((double)(
+        assertEquals(test.getAverage(), Math.round(((double) (
                 TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()
                         + TypicalMeals.MUSHROOM_SOUP.getDish().getCalories().getValue()
                         + TypicalMeals.CHICKEN_RICE.getDish().getCalories().getValue()))
-                / ((double)LocalDate.now().lengthOfMonth())));
+                / ((double) LocalDate.now().lengthOfMonth())));
 
         assertEquals(test.getMaximum(),
                  TypicalMeals.SPAGHETTI.getDish().getCalories().getValue()

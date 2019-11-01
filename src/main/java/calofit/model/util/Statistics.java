@@ -1,11 +1,14 @@
 package calofit.model.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.SortedMap;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,16 +16,18 @@ import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
+import calofit.commons.core.LogsCenter;
 import calofit.model.CalorieBudget;
 import calofit.model.dish.Dish;
 import calofit.model.meal.Meal;
-import calofit.model.meal.MealLog;
 
 /**
  * Wrapper class that contains all the statistics to be generated in the report.
  * Statistics to be generated are calculated and stored in the wrapper object as data attributes.
  */
 public class Statistics {
+
+    private static final Logger logger = LogsCenter.getLogger(Statistics.class);
 
     private final int maximum;
     private final int minimum;
@@ -44,6 +49,15 @@ public class Statistics {
      */
     private Statistics(int maximum, int minimum, double average, int calorieExceedCount, List<Dish> mostConsumedDishes,
                        ObservableList<Data> pieChartData, Series<String, Integer> calorieSeries) {
+
+        assert maximum >= 0 : "Negative maximum calorie value is invalid.";
+        assert minimum >= 0 : "Negative minimum calorie value is invalid.";
+        assert average >= 0 : "Negative average calorie value is invalid.";
+        assert calorieExceedCount >= 0 : "Negative number of days calorie intake exceeded budget is invalid.";
+        assert mostConsumedDishes.size() > 0 : "Empty meal log resulted in empty list of most consumed dishes.";
+        assert pieChartData.size() > 0 : "Empty meal log resulted in no data obtained for the pie chart.";
+        assert calorieSeries.getData().size() > 0 : "Empty meal log resulted in no calorie intake value processed.";
+
         this.maximum = maximum;
         this.minimum = minimum;
         this.average = average;
@@ -51,21 +65,29 @@ public class Statistics {
         this.mostConsumedDishes = mostConsumedDishes;
         this.pieChartData = pieChartData;
         this.calorieChartSeries = calorieSeries;
+
     }
 
     /**
      * Factory static method to create the Statistics object based on the {@code MealLog} and {@code CalorieBudget}.
-     * @param mealLog is the MealLog that contains the list of meals which we want to gather the data from.
+     * @param currentMonthMealLog is the MealLog that contains the list of meals which we want to gather the data from.
      * @param budget is the CalorieBudget that contains the history of budgets which we want to gather the data from.
      * @return a Statistics object that wraps about the statistics generated.
      */
-    public static Statistics generateStatistics(MealLog mealLog, CalorieBudget budget) {
-        ObservableList<Meal> currentMonthMeals = mealLog.getCurrentMonthMeals();
+    public static Statistics generateStatistics(ObservableList<Meal> currentMonthMealLog, CalorieBudget budget) {
+        logger.fine("Statistics are being generated.");
 
-        int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMeals);
-        List<Dish> mostConsumedDishes = Statistics.getMostConsumedDishes(currentMonthMeals);
-        ObservableList<Data> pieChartData = Statistics.getPieChartData(currentMonthMeals);
-        Series<String, Integer> calorieChartData = Statistics.getCalorieChartSeries(currentMonthMeals);
+        try {
+            requireNonNull(budget);
+        } catch (NullPointerException nullParams) {
+            logger.fine("Null CalorieBudget cannot be processed to get statistics.");
+        }
+        assert !currentMonthMealLog.isEmpty() : "Empty current month meal log not handled.";
+
+        int calorieExceedCount = Statistics.getCalorieExceedCount(budget, currentMonthMealLog);
+        List<Dish> mostConsumedDishes = Statistics.getMostConsumedDishes(currentMonthMealLog);
+        ObservableList<Data> pieChartData = Statistics.getPieChartData(currentMonthMealLog);
+        Series<String, Integer> calorieChartData = Statistics.getCalorieChartSeries(currentMonthMealLog);
 
         int maximum = 0;
         int minimum = 0;
@@ -73,7 +95,7 @@ public class Statistics {
         for (int i = 1; i <= LocalDate.now().lengthOfMonth(); i++) {
             LocalDate currentDate = LocalDate.now().withDayOfMonth(i);
             int currentCalorieValue = 0;
-            ObservableList<Meal> currentDayMeals = currentMonthMeals
+            ObservableList<Meal> currentDayMeals = currentMonthMealLog
                     .filtered(meal -> meal.getTimestamp().getDateTime().toLocalDate().equals(currentDate));
             for (int j = 0; j < currentDayMeals.size(); j++) {
                 Meal currentMeal = currentDayMeals.get(j);
