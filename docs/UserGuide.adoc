@@ -88,7 +88,10 @@ Format: `help`
 === Undo/Redo
 ==== Undo the previous command : `undo`
 
-Did something wrong? You can undo it. However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense`, and so on.
+Did something wrong? You can undo it.
+
+However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense`, and so on.
+Head over to <<Command Summary>> for list of commands that are undoable.
 
 Do not worry if you forgot what you did a few steps back (it happens!). MooLah will display a short description of what
 particular command it undid to help you confirm that you undid the right thing.
@@ -901,77 +904,69 @@ the data of your previous MooLah folder.
 
 == Command Summary
 
-* *Add an expense* +
-`addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<time>]` +
-e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
+*General commands:*
 
-* *list all expenses* +
-`listexpenses` +
-e.g. `listexpenses`
-
-* *edit an expenses* +
-`editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<time>]` +
-e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
-
-* *delete an expense* +
-`deleteexpense <INDEX>`
-
-* *find an expense* +
-`findexpense <KEYWORD> [<MORE_KEYWORD>]`
-
-* *Clear all expenses and budgets*: +
- `clearall`
+* *Help* : `help`
+* *Exit the app* : `exit`
+* *Undo* : `undo`
+* *Redo* : `redo`
 
 ---
 
-All About Budgeting:
+*All about expenses:*
 
-* *Create a new budget* : `budget d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD` +
+* *Add an expense* (_undoable_) : `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
+e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
+
+* *List all expenses* (_undoable_) : `listexpenses`
+
+* *Edit an expenses* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
+e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
+
+* *Delete an expense* (_undoable_) : `deleteexpense <INDEX>`
+
+* *Find an expense* (_undoable_) : `findexpense <KEYWORD> [<MORE_KEYWORD>]`
+
+* *Clear all expenses and budgets* (_undoable_) : `clearall`
+
+---
+
+*All about budgeting:*
+
+* *Create a new budget* (_undoable_) : `addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
 e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
-* *Switch between budgets* : `switchbudget d/DESCRIPTION` +
+* *Switch between budgets* (_undoable_) : `switchbudget d/DESCRIPTION` +
 e.g. `switchbudget d/outside school`
 * *List all budgets* : `listbudgets`
-* *Edit a budget* : `editbudget INDEX d/DESCRIPTION p/AMOUNT sd/START_DATE pr/PERIOD` +
-e.g. `editbudget 2 d/school expenses p/400 sd/05-10`
-* *Delete a budget (by name)* : `deletebudget INDEX` +
+* *Edit a budget* (_undoable_): `editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
+e.g. `editbudget 2 d/school expenses p/400 sd/05-10 pr/week`
+* *Delete a budget by name* (_undoable_): `deletebudget d/<DESCRIPTION>` +
 e.g. `deletebudget d/school`
-* *Delete a budget (by index)* : `deletebudgetid INDEX` +
+* *Delete a budget by index* (_undoable_): `deletebudgetid <INDEX>` +
 e.g. `deletebudget 2`
-* *Delete all budgets*: `clearbudgets`
-* *View expenses in a different period* : `switchperiod` +
+* *Clear all budgets* : `clearbudgets`
+* *View expenses in a different period* (_undoable_): `switchperiod t/<DATE>` +
 e.g. `switchperiod t/01-05`
 
 ---
 
-Viewing Statistics:
+*Viewing statistics:*
 
-
-* *Summary Statistics* : `stats [start/START_DATE] [end/END_DATE]` +
+* *Summary statistics* : `stats [start/START_DATE] [end/END_DATE]` +
 e.g. `stats sd/11-11-2018 ed/12-12-2018`
-* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
-e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
-* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
+* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2 pr/PERIOD` +
 e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
 * *Growth statistics* : `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE` +
 e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 
 ---
-*Alias commands*
 
-* *Add alias* : `addalias a/<ALIAS_NAME> c/<INPUT>` +
+*Everything alias:*
+
+* *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> c/<INPUT>` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 * *See all aliases* : `listaliases`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
-
----
-* *Exit the app* : `exit`
-* *Find an expense* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find rice`
-* *List all expenses* : `listexpenses`
-* *List all events* : `listevents`
-* *Help* : `help`
-* *Redo* : `redo`
-* *Undo* : `undo`
 
 
 
