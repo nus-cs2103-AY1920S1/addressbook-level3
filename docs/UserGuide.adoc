@@ -321,7 +321,7 @@ image::StatsCommand.png[width="600"]
 
 . The result box will display the message:
 +
-Displays the number of GOOD, HARD & EASY FlashCards
+Displays the number of good, hard & easy FlashCards
 
 . A bar chart will also be displayed:
 +
