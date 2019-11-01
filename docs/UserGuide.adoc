@@ -150,7 +150,7 @@ Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
-until the deadline. You will be able to be more self-conscious of your spending and minimise your spending by setting a budget. +
+until the deadline. (V1.4) You will be more self-conscious of your spending and minimise your spending by setting a budget. +
 
 To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
