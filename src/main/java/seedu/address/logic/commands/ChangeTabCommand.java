@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAB_CHANGE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EARNINGS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REMINDERS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
