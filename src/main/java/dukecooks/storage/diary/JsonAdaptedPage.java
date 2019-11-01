@@ -1,5 +1,7 @@
 package dukecooks.storage.diary;
 
+import java.nio.file.Paths;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,6 +19,7 @@ class JsonAdaptedPage {
     private final String pageTitle;
     private final String pageDescription;
     private final String imageFilePath;
+    private final String imageFileName;
 
     /**
      * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
@@ -24,10 +27,12 @@ class JsonAdaptedPage {
     @JsonCreator
     public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
                            @JsonProperty("pageDescription") String pageDescription,
-                           @JsonProperty("imageFilePath") String imageFilePath) {
+                           @JsonProperty("imageFilePath") String imageFilePath,
+                           @JsonProperty("imageFileName") String imageFileName) {
         this.pageTitle = pageTitle;
         this.pageDescription = pageDescription;
         this.imageFilePath = imageFilePath;
+        this.imageFileName = imageFileName;
     }
 
     /**
@@ -37,6 +42,7 @@ class JsonAdaptedPage {
         pageTitle = source.getTitle().toString();
         pageDescription = source.getDescription().toString();
         imageFilePath = source.getImage().getFilePath();
+        imageFileName = source.getImage().getFileName();
     }
 
     /**
@@ -57,7 +63,10 @@ class JsonAdaptedPage {
             throw new IllegalValueException(Image.MESSAGE_CONSTRAINTS);
         }
 
-        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(imageFilePath));
+        String resourceDirectory = Image.PATH_TO_RESOURCE + imageFileName;
+        String resourcePath = Paths.get(resourceDirectory).toString();
+
+        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(resourcePath));
     }
 
 }

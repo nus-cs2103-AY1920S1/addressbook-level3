@@ -1,7 +1,5 @@
 package dukecooks.ui;
 
-import java.io.File;
-
 import dukecooks.model.diary.components.Page;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,12 +51,11 @@ public class PageCard extends UiPart<Region> {
         pageDescription.setText(page.getDescription().fullPageDescription);
 
         // Set page image
-        File file = new File(page.getImage().getFilePath());
-        if (file.exists()) {
-            Image image = new Image("file:" + page.getImage().getFilePath());
+        if (page.getImage().getUrl() != null) {
+            Image image = new Image(String.valueOf(page.getImage().getUrl()));
             pageImage.setImage(image);
         } else {
-            Image image = new Image(page.getImage().getFilePath());
+            Image image = new Image(getClass().getResourceAsStream(page.getImage().getFilePath()));
             pageImage.setImage(image);
         }
     }

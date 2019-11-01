@@ -30,8 +30,8 @@ import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.util.DashboardSampleDataUtil;
-import dukecooks.model.util.DiarySampleDataUtil;
 import dukecooks.model.util.SampleDataUtil;
+import dukecooks.model.util.SampleDiaryDataUtil;
 import dukecooks.model.util.SampleMealPlanDataUtil;
 import dukecooks.model.util.SampleRecipeDataUtil;
 import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
@@ -279,7 +279,7 @@ public class MainApp extends Application {
             if (!diaryRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample DiaryRecords");
             }
-            initialData = diaryRecordsOptional.orElseGet(DiarySampleDataUtil::getSampleDiaryRecords);
+            initialData = diaryRecordsOptional.orElseGet(SampleDiaryDataUtil::getSampleDiaryRecords);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
             initialData = new DiaryRecords();
