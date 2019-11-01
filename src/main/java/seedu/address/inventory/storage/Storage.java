@@ -10,7 +10,7 @@ import seedu.address.inventory.util.InventoryList;
  */
 public interface Storage {
 
-    public InventoryList getInventoryList() throws Exception;
+    public InventoryList getInventoryList() throws IOException;
 
     public void writeFile(InventoryList inventoryList) throws IOException, NoSuchIndexException;
 }

@@ -38,6 +38,8 @@ public interface Model {
 
     //InventoryList getInventoryList();
 
+    void updateIndexes();
+
     boolean equals(Object obj);
 
 }
