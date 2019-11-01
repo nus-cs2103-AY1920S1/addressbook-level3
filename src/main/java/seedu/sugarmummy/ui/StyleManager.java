@@ -257,7 +257,10 @@ public class StyleManager {
                     String changedFill = getLineAfterReplacement(changedTextFill,
                             "fx-fill",
                             fontColour);
-                    linesToWriteViaWriter += changedFill + "\n";
+                    String changedBorderStroke = getLineAfterReplacement(changedFill,
+                            "fx-stroke",
+                            fontColour);
+                    linesToWriteViaWriter += changedBorderStroke + "\n";
                 }
             }
             writeAndSave();

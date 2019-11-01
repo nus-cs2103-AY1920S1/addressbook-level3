@@ -58,7 +58,7 @@ The GUI should appear in a few seconds.
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
-* **`add`**`r/bloodsugar v/10 t/now` : adds a `bloodsugar` record to the app.
+* **`add`**`rt/BLOODSUGAR con/10 dt/2019-11-01 12:12` : adds a `bloodsugar` record to the app.
 * **`delete`**`3` : deletes the 3rd record shown in the current list
 * *`exit`* : exits the app
 
@@ -79,33 +79,33 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === DATA LOG
 
 ==== Add a data entry to the diabetes tracker app: `add`
+Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
+Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 
-Format: `add rt/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
-DateTime must be the last field.
+BMI must receive atleast 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+BLOODSUGAR must receive atleast 1 valid parameter for concentration: `con/VALUE`
+
+If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
+
+Ordering of fields is flexible.
+
+`add` does not allow entries that have the same datetime and RECORD_TYPE.
 
 ==== Show a list of all data entries in the diabetes tracker app: `list`
 
-Format: `list [r/RECORD_TYPE] ...`
+Format: `list`
 
-If a specific RECORD_TYPE is provided, it will list the data entries that are of RECORD_TYPE. If more than 1 RECORD_TYPE is provided, it will list all data entries of the requested types.
-Otherwise, it lists all types of recent data entries.
-
-==== Edit an existing entry in the diabetes tracker app: `edit`
-
-Format: `edit INDEX [v/VALUE] [t/TIME] [t/TIME_END]`
-
-Edits the entry at the specified INDEX. The index refers to the index number shown in the displayed entries list.
-The index must be a positive integer.
-At least one of the optional fields must be provided.
-Existing values will be updated to the input values.
+This command lists all types of recent data entries.
 
 ==== Deletes a specified data entry from the diabetes tracker app: `delete`
 
 Format: `delete INDEX`
 
-Index must be a positive integer
+Index must be a positive integer.
 
 The index refers to the index number shown in the displayed entries list
+
+==== Edits a specified data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
 
 === CALENDAR AND REMINDER
 
@@ -770,7 +770,7 @@ one user compared to another.
 
 ==== Display the daily/weekly/monthly average of records in a line graph: `average`
 
-Format: `average a/AVERAGE_TYPE r/RECORD_TYPE [n/COUNT]`
+Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
 
 AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
 RECORD_TYPE is either "bloodsugar" or "bmi". +
@@ -782,10 +782,10 @@ Else, COUNT is set to 5 by default and show most recent 5 average values.
 NOTE: If SugarMummy does not show __exactly__ COUNT number of average values,
 that means you do not have enough records in the database.
 
-Example usage 1: `average a/weekly r/bloodsugar`:
+Example usage 1: `average a/weekly rt/bloodsugar`:
 Shows the latest 5 weekly average of blood sugar records.
 
-Example usage 2: `average a/daily r/bmi n/9`:
+Example usage 2: `average a/daily rt/bmi n/9`:
 Shows the latest 9 weekly average of BMI records.
 
 
@@ -794,7 +794,7 @@ Shows the latest 9 weekly average of BMI records.
 Shows minimum, maximum, average of the records. Categorize records into low, normal, high values
 in pie chart.
 
-Format: `summary r/RECORD_TYPE [d/START_DATE]`
+Format: `summary rt/RECORD_TYPE [d/START_DATE]`
 
 If START_DATE is given, statistics from START_DATE to the current date will be retrieved.
 Else, statistics will be based on all data.
@@ -904,6 +904,10 @@ SugarMummy will recommend list of possible commands that can be add on to user c
 
 Clears all recorded data in SugarMummy.
 
+=== Editing specific record entries in the list: `edit INDEX [h/VALUE] [w/VALUE] [con/VALUE]`
+
+Allows the user to edit specific fields within a previously created entry.
+
 === Encrypting data files: `enc [KEY]`
 
 The user can optionally provide a key to encrypt all the data. Afterwards, all the stored user input can only be viewed
@@ -930,14 +934,15 @@ The user is able to interact with others who is using SugarMummy. A community pl
 
 [start=1]
 . *Achievement*: `achvm`
-. *Add*: `add r/RECORD_TYPE v/VALUE t/TIME [t/TIME_END]`
-E.g. `add r/bloodsugar v/10 t/now`
+. *Add*: `add rt/RECORD_TYPE dt/DATETIME` and parameters a record requires
+E.g. `add rt/BLOODSUGAR dt/2019-12-12 12:12 con/10`
+E.g. `add rt/BMI dt/2019-12-12 12:12 h/1 w/1`
 . *Add Biography* : `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
 . *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
 E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
-. *Average*: `average a/AVERAGE_TYPE r/Record_TYPE [n/COUNT]`
-E.g. `average a/weekly r/bloodsugar n/3`
+. *Average*: `average a/AVERAGE_TYPE rt/Record_TYPE [n/COUNT]`
+E.g. `average a/weekly rt/bloodsugar n/3`
 . *Bio*: `bio`
 . *Bg*: `bg COLOUR` or `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]` or `bg
 E.g. `bg /Users/Bob/Pictures/bg.jpg s/cover`
@@ -949,8 +954,6 @@ E.g. `calendar ymd/2019-12-24`
 . *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
 E.g. `delete 2`
-. *Edit*: `edit INDEX [v/VALUE] [t/TIME] [t/TIME_END]`
-E.g. `edit 1 v/15 t/now`
 . *Export*: `export [d/START_DATE]`
 E.g `export d/01.09.2019`
 . *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
@@ -962,8 +965,8 @@ E.g. `editbio p/1/234567 p/2/3456789`
 . *Font Color*: `fontcolor COLOUR` or `fontcolour`
 E.g. `fontcolor yellow`
 E.g. `fontcolor #FFFF00`
-. *List*: `list [r/RECORD_TYPE] ...`
-E.g. `list r/bloodsugar r/sleep r/food`
+. *List*: `list`
+E.g. `list`
 . *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 E.g. `recmf -p -m -f fn/chicken`
 . *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
@@ -972,8 +975,8 @@ E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `search tp/event v/NUH`
 . *Snooze*: `snooze [tp/TIME_PERIOD]`
 E.g `snooze 30min`
-. *Summary*: `summary r/RECORD_TYPE [d/START_DATE]`
-E.g `summary r/bloodsugar d/01.09.2019`
+. *Summary*: `summary rt/RECORD_TYPE [d/START_DATE]`
+E.g `summary rt/bloodsugar d/01.09.2019`
 
 == FAQ
 
