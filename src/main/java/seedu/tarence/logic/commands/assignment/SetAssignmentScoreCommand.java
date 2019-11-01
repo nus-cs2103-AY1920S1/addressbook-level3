@@ -43,7 +43,7 @@ public class SetAssignmentScoreCommand extends AssignmentCommand {
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_INDEX + "ASSIGNMENT INDEX "
             + PREFIX_INDEX + "STUDENT INDEX "
-            + PREFIX_SCORE + "STUDENT SCORE"
+            + PREFIX_SCORE + "STUDENT SCORE\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "

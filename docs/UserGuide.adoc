@@ -261,18 +261,30 @@ Imports tutorials via NUSMods url.
 
 Format: `import` [URL]
 
-=== Marks attendance of a tutorial `mark`
+=== Marks attendance of a tutorial `markAttendance`
 
 Marks/Toggles attendance of a tutorial or a student.
 
 Format:
-* `mark` i/[TUTORIAL_INDEX] w/[WEEK]
-* `mark tn/[TUTORIAL_NAME] m/[MODULE_NAME] w/[WEEK] n/[STUDENT NAME]`
+* `markAttendance` i/[TUTORIAL_INDEX] w/[WEEK]
+* `markAttendance` tn/[TUTORIAL_NAME] m/[MODULE_NAME] w/[WEEK] n/[STUDENT NAME]
 
 ****
-* You can use either tutorial index or tutorial name with module code to specify the module.
+* You can use either tutorial index or tutorial name with module code to specify the tutorial.
 * Specifying the student name marks/toggles the attendance of a student, otherwise the entire tutorial
 will have their attendance marked.
+****
+
+=== Exports attendance of a tutorial to csv `exportAttendance`
+
+Exports attendance of a tutorial.
+
+Format:
+* `exportAttendance` i/[TUTORIAL_INDEX] f/[FILENAME](Optional)
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the tutorial.
+* The filename field is optional and the tutorial name will be specified as the filename by default.
 ****
 
 === Adding an Assignment : `addAssignment`
@@ -282,11 +294,78 @@ Adds an assignment to a Tutorial.
 Format:
 * `addAssignment` i/[TUTORIAL_INDEX] n/[ASSIGNMENT_NAME] score/[MAX_SCORE] sd/START_DATE ed/END_DATE
 
+****
+* You can use either tutorial index or tutorial name with module code to specify the tutorial.
+****
+
+=== Deleting an Assignment : `deleteAssignment`
+
+Deletes an Assignment from a Tutorial.
+
+Format:
+* `deleteAssignment` i/[TUTORIAL_INDEX] n/[ASSIGNMENT_NAME] score/[MAX_SCORE] sd/START_DATE ed/END_DATE
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the tutorial.
+* You can also use i/[ASSIGNMENT INDEX] to specify the assignment, instead of inputting assignment details.
+****
+
+=== Set an Assignment score for a Student : `setAssignmentScore`
+
+Sets an Assignment score for a Student.
+
+Format:
+* `setAssignmentScore` i/[TUTORIAL_INDEX] i/[ASSIGNMENT_INDEX] i/[STUDENT_INDEX] score/[score]
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the tutorial.
+* Tutorial, Assignment, Student indexes are specified in a fixed order.
+****
+
 === Adding an Event : `addEvent`
 
 Adds an Event to a Tutorial.
 
 Format: `addEvent` i/[TUTORIAL_INDEX] n/[EVENT_NAME] sd/[START_DATE] ed/[END_DATE]
+
+=== Deleting an Event : `deleteEvent`
+
+Adds an Event to a Tutorial.
+
+Format: `addEvent` i/[TUTORIAL_INDEX] n/[EVENT_NAME] sd/[START_DATE] ed/[END_DATE]
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the Tutorial.
+* You can also use i/[EVENT INDEX] to specify the Event, instead of inputting Event details.
+****
+
+=== Editing an Event : `editEvent`
+
+Edits an Event in a Tutorial.
+
+Format: `editEvent` i/[EVENT_INDEX] i/[TUTORIAL_INDEX] n/[EVENT_NAME] sd/[START_DATE] ed/[END_DATE]
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the Tutorial.
+* Event detail fields (EVENT_NAME, START_DATE, END_DATE) are optional.
+****
+
+=== List Events in a Tutorial : `listEvents`
+
+Lists Events in a Tutorial.
+
+Format: `listEvents` i/[TUTORIAL_INDEX]
+
+****
+* You can use either tutorial index or tutorial name with module code to specify the Tutorial.
+****
+
+=== Set start of semester : `setSemStart`
+
+Sets the start date of the semester. Determines dates of tutorial Events.
+
+Format:
+* `setSemStart` sd/START_DATE
 
 === Undo Previously-entered Commands : `undo`
 
@@ -378,14 +457,3 @@ e.g. `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S t
 
 === Commands coming in v2.0
 * *Clear* : `clear`
-
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-
-* *List* : `list`
-
-* *Add Assignment* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
