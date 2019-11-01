@@ -14,7 +14,7 @@ import seedu.ichifund.model.budget.BudgetDescriptionPredicate;
  */
 public class FindBudgetCommand extends Command {
 
-    public static final String COMMAND_WORD = "findbud";
+    public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all budgets whose descriptions contain"
             + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

@@ -35,7 +35,7 @@ import seedu.ichifund.model.transaction.TransactionType;
  */
 public class EditTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "edittx";
+    public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the transaction identified "
             + "by the index number used in the displayed transaction list. "

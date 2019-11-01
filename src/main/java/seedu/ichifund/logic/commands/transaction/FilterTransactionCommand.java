@@ -24,7 +24,7 @@ import seedu.ichifund.model.transaction.TransactionType;
  */
 public class FilterTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "filtertx";
+    public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters transactions as specified by parameters, "
             + "and displays them as a list with index numbers. "

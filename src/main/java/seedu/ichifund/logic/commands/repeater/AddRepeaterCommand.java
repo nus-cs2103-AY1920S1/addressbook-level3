@@ -29,7 +29,7 @@ import seedu.ichifund.model.transaction.Transaction;
  */
 public class AddRepeaterCommand extends Command {
 
-    public static final String COMMAND_WORD = "addrep";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a repeater to IchiFund. "
             + "Parameters: "

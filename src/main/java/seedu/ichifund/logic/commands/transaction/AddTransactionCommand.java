@@ -33,7 +33,7 @@ import seedu.ichifund.model.transaction.TransactionType;
  */
 public class AddTransactionCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtx";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to IchiFund "
             + "and switches view to show new transaction. \n"
