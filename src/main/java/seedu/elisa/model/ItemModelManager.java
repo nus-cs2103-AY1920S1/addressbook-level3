@@ -13,7 +13,6 @@ import java.util.PriorityQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
