@@ -601,8 +601,8 @@ addexpense d/duck rice p/12.3111 c/food
 You may cycle thorough these commands using the arrow keys.
 
 ==== Generic commands
-MooLah has 4 generic commands which behave differently depending on which Panel in the UI is being shown at the moment.
-These commands are `add`, `list`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
+MooLah has 5 generic commands which behave differently depending on which Panel in the UI is being shown at the moment.
+These commands are `add`, `list`, `clear`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
 
 For example, you are in the Expense List Panel, then the following command:
 ----
@@ -903,7 +903,7 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 `findexpense <KEYWORD> [<MORE_KEYWORD>]`
 
 * *Clear all expenses and budgets*: +
- `clear`
+ `clearall`
 
 ---
 

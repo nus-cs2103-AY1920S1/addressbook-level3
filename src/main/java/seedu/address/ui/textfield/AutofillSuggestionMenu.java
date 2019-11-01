@@ -125,7 +125,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private void showSuggestions() {
         if (autofillSupportedCommands.size() > 0 || commandSuggestions.size() > 0) {
-            this.show(textInputControl, Side.LEFT, 0, 20);
+            this.show(textInputControl, Side.LEFT, 0, -20);
         } else {
             hide();
         }
