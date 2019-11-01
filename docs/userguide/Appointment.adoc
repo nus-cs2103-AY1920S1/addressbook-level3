@@ -5,7 +5,7 @@
 As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
 ====
 
-=== Listing All Appointments: `appt list`
+=== Listing All Appointments: `appt list` [coming in V1.4]
 You can see a list of all appointments in the app by typing `appt list`.
 
 In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt find`.
@@ -33,7 +33,7 @@ Examples:
 * `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
 Lists all appointments of that particular patient
 
-=== Viewing an Appointment: `appt view`
+=== Viewing an Appointment: `appt view` [coming in V1.4]
 
 You can see an appointment's full details using `appt view`. The appointment is selected by their *index*.
 
@@ -54,7 +54,7 @@ View the item with index number 1. This index can be found from the full list of
 * `appt view 2`
 View the item with the index number 2.
 
-=== Listing the next earliest Appointments: `appt next`
+=== Listing the next earliest Appointments: `appt next` [coming in V1.4]
 
 You can list the next earliest appointments using `appt next`.
 
@@ -65,7 +65,7 @@ Examples:
 `appt next 3` +
 Displays the next 3 earliest appointments sorted by time.
 
-=== Editing an Appointment: `appt edit`
+=== Editing an Appointment: `appt edit` [coming in V1.4]
 
 You can edit an existing appointment in the app using `appt edit`.
 
@@ -115,34 +115,6 @@ Deletes the 2nd appointment in the appointment list.
 Deletes the appointment which had been assigned the index 1.
 
 // end::delete[]
-
-=== Beginning an Appointment: `appt begin`
-
-You can begin an appointment (i.e. begin a house visit) by *index* using `appt begin`.
-
-Format: `appt begin INDEX`
-
-OR
-
-If you want to begin the next appointment that you will have, you can begin the next appointment using `appt begin next`.
-
-****
-* Begins the appointment at the specified `INDEX` if using `INDEX`. If using `appt begin next`, begins the next appointment (the appointment that will happen the soonest).
-* Beginning an appointment converts it into a visit. This allows you to use the visit's todo list as well as add details to the visit, before finally archiving the visit by marking it as finished using `visit finish`.
-* The appointment you are beginning must start within the next 3 hours (you cannot begin an appointment too early in advance).
-* When you begin an appointment, the visit time will be updated using your system clock to reflect the actual start of the visit.
-* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `appt next 2` +
-`appt begin 2` +
-Begins the 2nd earliest appointment (as shown by `appt next 2`).
-
-* `appt begin next` +
-Begins the next earliest appointment.
 
 === Deleting multiple Appointments: `appt delete` `[coming in V2.0]`
 
