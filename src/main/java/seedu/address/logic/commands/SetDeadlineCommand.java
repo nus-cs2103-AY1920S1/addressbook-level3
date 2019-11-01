@@ -26,6 +26,7 @@ import seedu.address.model.task.TaskStatus;
 public class SetDeadlineCommand extends Command {
 
     public static final String COMMAND_WORD = "set-deadline";
+    public static final String PREFIX_USAGE = "ti/ /at dd/mm/yy hh:mm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a deadline for a task "
             + "by the index number used in the displayed task list.\n"

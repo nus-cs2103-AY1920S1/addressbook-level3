@@ -40,6 +40,7 @@ public class GeneratePDFCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(GeneratePDFCommand.class);
 
     public static final String COMMAND_WORD = "pdf";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a inventory to the project Dashboard. "
             + "Parameters: "
