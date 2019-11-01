@@ -5,14 +5,23 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="windowTitle" styleClass="window-title" text="My Statistics" />
       <Label fx:id="totalSessions" text="Total sessions:" />
-      <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+      <Label fx:id="totalDuration" text="Total duration:" />
+      <Label styleClass="window-subtitle" text="My Sessions" />
+      <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" VBox.vgrow="ALWAYS">
          <content>
             <TableView fx:id="sessionsTableView" fixedCellSize="24.0" />
-         </content></ScrollPane>
-<!--      <Label fx:id="sessionsThisWeek" text="Sessions this week:" />-->
+         </content>
+      </ScrollPane>
+      <!--<Label styleClass="window-subtitle" text="My Statistics by Deck" />-->
+      <!--<ScrollPane fx:id="deckStatsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="200.0" prefHeight="200.0">-->
+      <!--   <content>-->
+      <!--      <TableView fx:id="deckStatsTableView" fixedCellSize="24.0" />-->
+      <!--   </content>-->
+      <!--</ScrollPane>-->
+      <!--      <Label fx:id="sessionsThisWeek" text="Sessions this week:" />-->
    </children>
 </fx:root>

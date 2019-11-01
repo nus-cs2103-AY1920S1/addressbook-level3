@@ -2,7 +2,9 @@
 package dream.fcard.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.DateTimeException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -95,5 +97,49 @@ public class DateTimeUtilTest {
         assertEquals(expectedString, returnedString);
     }
 
-    // todo: write tests for getStringFromDateTime
+    @Test
+    void getStringFromDuration_sevenMinutesNineSecondsApart() {
+        Duration givenDuration = Duration.ofMinutes(7)
+            .plus(Duration.ofSeconds(9));
+        String returnedString = DateTimeUtil.getStringFromDuration(givenDuration);
+        String expectedString = "7 minutes 9 seconds";
+
+        assertEquals(expectedString, returnedString);
+    }
+
+    @Test
+    void getStringFromDuration_twentyThreeSecondsApart() {
+        Duration givenDuration = Duration.ofSeconds(23);
+        String returnedString = DateTimeUtil.getStringFromDuration(givenDuration);
+        String expectedString = "23 seconds";
+
+        assertEquals(expectedString, returnedString);
+    }
+
+    @Test
+    void getStringFromDateTime_testOne() {
+        LocalDateTime givenDateTime = LocalDateTime.of(2019, 10, 31, 11, 04);
+        String returnedString = DateTimeUtil.getStringFromDateTime(givenDateTime);
+        String expectedString = "31/10/19, 11:04 AM";
+
+        assertEquals(expectedString, returnedString);
+    }
+
+    @Test
+    void getStringFromDateTime_testTwo() {
+        LocalDateTime givenDateTime = LocalDateTime.of(2019, 9, 8, 22, 47);
+        String returnedString = DateTimeUtil.getStringFromDateTime(givenDateTime);
+        String expectedString = "8/9/19, 10:47 PM";
+
+        assertEquals(expectedString, returnedString);
+    }
+
+    @Test
+    void getStringFromDateTime_invalidDateTime_throwDateTimeException() {
+        assertThrows(DateTimeException.class, () -> {
+            LocalDateTime givenDateTime = LocalDateTime.of(2019, 14, 8, 22, 47);
+            String returnedString = DateTimeUtil.getStringFromDateTime(givenDateTime);
+            String expectedString = "8/9/19 10:47 PM";
+        });
+    }
 }

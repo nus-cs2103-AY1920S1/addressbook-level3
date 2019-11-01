@@ -6,3 +6,7 @@
 .window-title {
     -fx-font-size: 24px;
 }
+
+.window-subtitle {
+   -fx-font-size: 16px;
+}

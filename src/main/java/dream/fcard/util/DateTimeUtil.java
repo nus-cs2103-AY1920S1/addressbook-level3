@@ -53,7 +53,7 @@ public class DateTimeUtil {
 
     /**
      * Returns the String representation of the given LocalDateTime object.
-     * Format: similar to "8/23/16 1:12 PM".
+     * Format: "M/D/Y, HH:MM AM/PM", similar to "23/8/16, 1:12 PM".
      * @param localDateTime The LocalDateTime object to be represented as a String.
      * @return The String representation of the given LocalDateTime object.
      */

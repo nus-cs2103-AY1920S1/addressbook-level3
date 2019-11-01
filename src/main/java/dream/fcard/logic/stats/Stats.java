@@ -108,4 +108,9 @@ public class Stats implements Serializable {
     public static Session getCurrentSession() {
         return currentSession;
     }
+
+    /** Gets the total length of time spent in sessions, as a String. */
+    public static String getTotalDurationOfSessionsAsString() {
+        return loginSessions.getTotalDurationAsString();
+    }
 }
