@@ -15,14 +15,14 @@ public class ArgumentBuilder {
     private String argument;
     
     public ArgumentBuilder() {
-        argument = " ";
+        argument = "";
     }
 
     /**
      * Adds a description argument to the string being built.
      */
     public ArgumentBuilder withDescription(String description) {
-        argument += PREFIX_DESCRIPTION + description + " ";
+        argument += " " + PREFIX_DESCRIPTION + description;
         return this;
     }
 
@@ -30,7 +30,7 @@ public class ArgumentBuilder {
      * Adds an amount argument to the string being built.
      */
     public ArgumentBuilder withAmount(String amount) {
-        argument += PREFIX_AMOUNT + amount + " ";
+        argument += " " + PREFIX_AMOUNT + amount;
         return this;
     }
 
@@ -38,7 +38,7 @@ public class ArgumentBuilder {
      * Adds a category argument to the string being built.
      */
     public ArgumentBuilder withCategory(String category) {
-        argument += PREFIX_CATEGORY + category + " ";
+        argument += " " + PREFIX_CATEGORY + category;
         return this;
     }
 
@@ -46,7 +46,7 @@ public class ArgumentBuilder {
      * Adds a day argument to the string being built.
      */
     public ArgumentBuilder withDay(String day) {
-        argument += PREFIX_DAY + day + " ";
+        argument += " " + PREFIX_DAY + day;
         return this;
     }
 
@@ -54,7 +54,7 @@ public class ArgumentBuilder {
      * Adds a month argument to the string being built.
      */
     public ArgumentBuilder withMonth(String month) {
-        argument += PREFIX_MONTH + month + " ";
+        argument += " " + PREFIX_MONTH + month;
         return this;
     }
 
@@ -62,7 +62,7 @@ public class ArgumentBuilder {
      * Adds a year argument to the string being built.
      */
     public ArgumentBuilder withYear(String year) {
-        argument += PREFIX_YEAR + year + " ";
+        argument += " " + PREFIX_YEAR + year;
         return this;
     }
 
@@ -70,7 +70,7 @@ public class ArgumentBuilder {
      * Adds a transactionType argument to the string being built.
      */
     public ArgumentBuilder withTransactionType(String transactionType) {
-        argument += PREFIX_TRANSACTION_TYPE + transactionType + " ";
+        argument += " " + PREFIX_TRANSACTION_TYPE + transactionType;
         return this;
     }
     
