@@ -600,47 +600,68 @@ Updating the UI synchronously
 
 === Training Plan Feature
 
-Training plan feature allows user to create customized training plans with specific starting date and end date that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done.
+Training plan feature allows users to create customized training plans with specific starting date and end date and that consist of selected problems in AlgoBase. Each problem is wrapped up as a task in the plan. Users can record their progress by marking problems in plans as done or undone, and they can edit, delete or search for plans.
 
 ==== Current Implementation
 
-The training plan mechanism is faciliated by `AlgoBase`. It supports the following operations:
+The training plan mechanism is faciliated by `AlgoBase`, which keeps a list of training plans. It supports the following operations:
 
-* `Algobase#addPlan()` -- Adds a new empty training plan to AlgoBase.
-* `AlgoBase#setPlan()` -- Edits an existing training plan by specifying its number.
-* `AlgoBase#removePlan()` -- Deletes a training plan by specifying its number.
-* `AlgoBase#getPlanList()` -- Returns a list of plans in AlgoBase.
+* `Algobase#addPlan()` -- Adds a new training plan.
+* `AlgoBase#setPlan()` -- Replaces an existing plan by an edited version.
+* `AlgoBase#removePlan()` -- Deletes a training plan.
+* `AlgoBase#getPlanList()` -- Returns a list of training plans.
 
-Given below is an example usage scenario and how the training plan behaves at each step.
+.Class Diagram of `Plan`
+image::plan/PlanClassDiagram.png[]
+
+Given below is an example usage scenario and how the AlgoBase behaves at each step.
 
 Step 1. The user launches the application for the first time. The `AlgoBase` will be initialized with the initial empty state.
 
-Step 2. The user switches to the plan tab and executes `addplan n/CS2040 d/past year questions start/2019-01-01 end/2019-05-04` command to add a new plan to AlgoBase. The `addplan` command calls `Model#addPlan()`, causing the modified state of AlgoBase after the `addplan` command executes to be saved in the `PlanList`.
+Step 2. The user switches to the plan tab and executes `addplan n/CS2040 d/past year questions start/2019-01-01 end/2019-05-04` command to add a new plan to AlgoBase. The `addplan` command checks if `Model#hasPlan()` and calls `Model#addPlan()`, causing the modified state of plans after the `addplan` command executes to be saved in the `PlanList`.
 
-Step 3. The user executes `listplan` to list all plans. The `listplan` command also calls `Model#updateFilteredPlanList()`. The plan `CS2040` is numbered `1` in the displayed list.
+.Sequence Diagram for the execution of `AddPlanCommand`
+image::plan/AddPlanSequenceDiagram.png[]
 
-Step 4. The user finds out that the exam date of CS2040 has changed, and decides to change the end date by executing the `editplan 1 end/2019-05-05` command. The `editplan` command will call `Model#setPlan()`, which will replace the original plan with the modified plan in the `PlanList`.
+Step 3. The user executes `listplan` to list all plans. The `listplan` command calls `Model#updateFilteredPlanList()`. The plan `CS2040` is numbered `1` in the displayed list.
+
+Step 4. The user finds out that the exam date of CS2040 has changed, and decides to change the end date of the training plan by executing the `editplan 1 end/2019-05-05` command. The `editplan` command will check if `Model#hasPlan()`, and then call `Model#setPlan()` and `Model#updateFilteredPlanList()`, which will replace the original plan with the modified plan in the `PlanList`.
+
+.Activity Diagram for the Execution of `EditPlanCommand`
+image::plan/EditPlanCommandActivityDiagram.png[]
 
 [NOTE]
-The user can also add value for an empty field by executing `editplan` command if the field was not specified when adding the plan.
+The user can also add value for an empty field by executing `editplan` command if the field has not been specified when adding the plan.
 
-Step 5. The user then decides to execute the command `findplan start/2019-03-01 end/2019-03-31`. The `findplan` command constructs a `FindPlanDescriptor` and executes `Model#updateFilteredPlanList(FindPlanDescriptor)`. A list of plans in AlgoBase that has overlapping time range with specified starting date and end date will be displayed on the plan list panel.
+Step 5. The user then decides to execute the command `findplan start/2019-03-01 end/2019-03-31` to find out what plans he has in March. The `findplan` command constructs a `FindPlanDescriptor`, and then executes `Model#getFilteredPlanList()` and `Model#updateFilteredPlanList(FindPlanDescriptor)`. A list of plans in AlgoBase that has overlapping time range with the specified starting date and end date will be displayed on the plan list panel.
+
+.Class Diagram for `FindPlanDescriptor`
+image::plan/FindPlanDescriptorClassDiagram.png[]
 
 [NOTE]
-If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified and valid, or an error message will be displayed to inform the user that both fields should be present.
+If the user wants to find plans with overlapping time range, both the starting date and the end date should be specified, and the starting date should be before or at least equal to the end date, or an error message will be displayed to inform the user the correct form of input.
 
-Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList()` and #Model#deletePlan`. The 'Model#getFilteredPlanList()' returns the last shown plan list, which is list of plans returns by the `findplan` command in step 4. Therefore, the first plan with overlapping time range is deleted.
+Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList()` and `Model#deletePlan`. The 'Model#getFilteredPlanList()' returns the last shown plan list, which is list of plans returns by the `findplan` command in step 4. Therefore, the first plan with overlapping time range is deleted.
 
 ==== Design Considerations
 
 ===== Aspect: Data Structure of TimeRange class
 
-* **Alternative 1 (current choice):** Abstract out a `TimeRange` class in package plansearchrule.
+* **Alternative 1 (current choice):** Abstract out a `TimeRange` class in package `plansearchrule`.
 ** Pros: Easy to implement.
 ** Cons: Generating a `TimeRange` object in `findplan` command adds coupling.
 * **Alternative 2:** Replace `startDate` and `endDate` fields in plans to a single field `TimeRange` .
 ** Pros: More OOP (`startDate` and `endDate` are currently `LocalDate` objects).
 ** Cons: We must ensure that the implementation complies with other date-related commands and storage of plans.
+
+===== Aspect: How to find plans with certain tasks
+
+* **Alternative 1 (current choice):** By matching names.
+** Pros: Easy to implement.
+** Cons: Users need to figure out the exact name of the task they would like to find, which is more time-consuming.
+* **Alternative 2:** By indicating index of the original problem.
+** Pros: Complies with other usages of prefix `task/`.
+** Cons: Adds coupling due to access to `filteredProblemList` in the model.
 
 //@@author
 

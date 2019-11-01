@@ -1,0 +1,54 @@
+@startuml
+
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Plan {
+    + {static} Plan updateTasks(Plan planToUpdate, Set<Task> taskSet)
+    + boolean checkWithinDateRange(LocalDate date)
+    + getSolvedTaskCount(): int
+    + getUnsolvedTaskCount(): int
+    + getTasks(): Set<Task>
+    + getTaskList(): List<Task>
+    + isSamePlan(Plan otherPlan): boolean
+    + equals(Object other): boolean
+}
+class PlanDescription {
+    + value: String
+    + {static} isDefaultDescription(String test): boolean
+    + {static} isValidDescription(String test): boolean
+    + equals(Object other): boolean
+}
+class PlanName {
+    + fullName: String
+    + {static} isValidName(String test):boolean
+    + equals(Object other): boolean
+}
+class LocalDate
+class PlanList {
+    - internalList: ObservableList<Plan>
+    - internalUnmodifiableList: ObservableList<Plan>
+    - internalTaskList: ObservableList<Task>
+    - internalUnmodifiableTaskList: ObservableList<Task>
+    - currentPlan: StringProperty
+    - solvedCount: IntegerProperty
+    - unsolvedCount: IntegerProperty
+    + add(Plan toAdd)
+    + setPlan(Plan target, Plan updatedPlan)
+    + remove(Plan toRemove)
+    + setPlans(PlanList replacement)
+    + setPlans(List<Plan> plans)
+}
+class Task
+class Id
+
+Plan --"1" Id
+Plan --"1" PlanName
+Plan --"1" PlanDescription
+Plan --"2" LocalDate
+Plan --"*" Task
+PlanList *--"*" Plan
+
+@enduml

@@ -284,6 +284,7 @@ Format: `deleteplan INDEX`
 * Deletes the plan at the specified `INDEX`.
 * The index refers to the index number shown in the displayed plan list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* `START_DATE` will be `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
 
 Examples:
 
