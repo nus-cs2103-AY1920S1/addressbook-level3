@@ -82,6 +82,8 @@ The user has the option to view the list of shows that have been marked as watch
 ==== Search Page
 
 The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+[NOTE]
+The search function may require some time to load the data from the API.
 
 image::search_page.png[width="790"]
 
@@ -93,7 +95,9 @@ preferences and history according to what is present in his lists.
 Examples include: movies he added but might have forgotten to watch,
 up to 3 most favourite genres of the user and recommendations etc.
 
-**
+[NOTE]
+The statistics function may require some time to load the data from the API.
+
 The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
 image::statistics_page.png[width="790"]
