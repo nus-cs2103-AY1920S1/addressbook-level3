@@ -143,8 +143,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
         staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
-        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
 
         tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());

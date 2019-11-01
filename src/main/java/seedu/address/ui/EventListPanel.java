@@ -17,12 +17,14 @@ import seedu.address.model.events.Event;
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
+    private final boolean displayStatus;
 
     @FXML
     private ListView<Event> eventListView;
 
-    public EventListPanel(ObservableList<Event> eventList) {
+    public EventListPanel(ObservableList<Event> eventList, boolean displayStatus) {
         super(FXML);
+        this.displayStatus = displayStatus;
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
@@ -39,7 +41,8 @@ public class EventListPanel extends UiPart<Region> {
             if (empty || event == null) {
                 Platform.runLater(() -> setGraphic(null));
             } else {
-                Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1).getRoot()));
+                Platform.runLater(() -> setGraphic(
+                        new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
             }
         }
     }

@@ -253,7 +253,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Boolean isPatientList() {
+    public Boolean isListingAppointmentsOfSinglePatient() {
         throw new AssertionError("This method should not be called.");
     }
 
