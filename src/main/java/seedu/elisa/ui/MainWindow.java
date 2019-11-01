@@ -311,6 +311,7 @@ public class MainWindow extends UiPart<Stage> {
         popup.getContent().add(new OpenItem(item).getRoot());
         popup.setHeight(1000);
         popup.setWidth(500);
+        popup.setHideOnEscape(false);
 
         this.popup = popup;
         popup.show(primaryStage);
