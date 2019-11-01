@@ -492,11 +492,17 @@ The following activity diagram below summarizes how `buy` commands works
 image::BuyActivityDiagram.png[width = "300", align="center"]
 //end::purchasing[]
 
-//tag::recommendations[]
+//tag::recommendations1[]
 === Recommendation feature
 
 The recommendation feature allows users to generate a list of personalized recommendations using the `recommend` command.
-The recommendations are tailored to each user based on their current likes, dislikes and purchase history.
+The recommendations are tailored to each user based on the factors below:
+
+****
+1. The user's likes and dislikes
+2. The user's current budget and date to expiry of budget
+3. The user's purchase history
+****
 
 Users are able to add their liked and disliked categories, tags and locations into the app using the `like` and `dislike`
 command. The recommendation system will then take into account these preferences, in addition to their purchase history,
@@ -505,7 +511,7 @@ more accurately.
 
 ==== Classes for recommendation feature in Model
 
-With the recommendation feature, a new set of classes were added.
+With the addition of the recommendation feature, a new set of classes were implemented to support the feature.
 
 A singleton class `RecommendationSystem` encapsulates the methods and classes related to this feature.
 This `RecommendationSystem` class implements the interface `Recommender` which specifies the behaviour of the system,
@@ -568,6 +574,7 @@ A similar execution sequence is performed for a dislike command by replacing ins
 
 After customizing the user's likes and dislikes, users can obtain a personalized list of recommendations
 using the `recommend` command.
+//end::recommendations1[]
 
 Each food is passed to the recommendation system and it calculates the recommendation value based on the tables below:
 
@@ -577,6 +584,7 @@ include::UserGuide.adoc[tag=recommendationbonus]
 
 include::UserGuide.adoc[tag=recommendationpenalty]
 
+//tag::recommendations2[]
 The activity diagram below shows how a sample Food is passed into `RecommendationSystem` to output a
 recommendation value:
 
@@ -625,7 +633,7 @@ two for the sake of efficiency.
 
 Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this
 design.
-//end::recommendations[]
+//end::recommendations2[]
 
 == Documentation
 

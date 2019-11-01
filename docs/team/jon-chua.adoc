@@ -111,4 +111,10 @@ include::../UserGuide.adoc[tag=recommendations]
 
 This section shows the additions that I have made to the recommendation feature of the Developer Guide.
 
-include::../DeveloperGuide.adoc[tag=recommendations]
+include::../DeveloperGuide.adoc[tag=recommendations1]
+
+The detailed tables documenting the calculation of the recommendation values can be found above at:
+<<Getting a list of recommended food items: `recommend`>>
+
+include::../DeveloperGuide.adoc[tag=recommendations2]
+

@@ -139,6 +139,13 @@ public interface Recommender {
     BigDecimal getDailyBudget();
 
     /**
+     * Gets the days to expiry of user's budget.
+     *
+     * @return The number of days to expiry of user's budget.
+     */
+    int getDaysToExpire();
+
+    /**
      * Update the user's days to expiry of budget.
      *
      * @param daysToExpire The days to expiry of budget

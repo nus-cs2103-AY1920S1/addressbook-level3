@@ -411,6 +411,11 @@ public class RecommendationSystem implements Recommender {
     }
 
     @Override
+    public int getDaysToExpire() {
+        return daysToExpire;
+    }
+
+    @Override
     public void updateDaysToExpire(int daysToExpire) {
         requireNonNull(daysToExpire);
         this.daysToExpire = daysToExpire;

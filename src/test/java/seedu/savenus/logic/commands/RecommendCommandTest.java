@@ -23,6 +23,7 @@ import seedu.savenus.model.userprefs.UserPrefs;
 import seedu.savenus.model.wallet.Wallet;
 
 //@@author jon-chua
+
 /**
  * Contains integration tests and unit tests for RecommendCommand.
  */
@@ -42,7 +43,9 @@ public class RecommendCommandTest {
     @Test
     public void execute_recommendCommand() {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                        RecommendationSystem.getInstance().getBudget(),
+                        RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
     }
@@ -50,7 +53,9 @@ public class RecommendCommandTest {
     @Test
     public void recommendCommand_notInUse_afterList() {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                        RecommendationSystem.getInstance().getBudget(),
+                        RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
 
@@ -61,7 +66,9 @@ public class RecommendCommandTest {
     @Test
     public void recommendCommand_notInUse_afterAdd() throws CommandException {
         assertCommandSuccess(new RecommendCommand(), model,
-                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget()),
+                String.format(RecommendCommand.MESSAGE_SUCCESS, RecommendationSystem.getInstance().getDailyBudget(),
+                        RecommendationSystem.getInstance().getBudget(),
+                        RecommendationSystem.getInstance().getDaysToExpire()),
                 expectedModel);
         assertTrue(model.getRecommendationSystem().isInUse());
 
