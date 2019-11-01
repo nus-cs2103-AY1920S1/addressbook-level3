@@ -77,6 +77,42 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+[[Field argument]]
+
+== Field argument
+****
+`EntityType` - single capital letter representing the entity type
+
+* **Mentor:** M
+* **Participant:** P
+* **Team:** T
+
+`ID` - the ID of the entity (optional)
+
+* **Mentor:** M-d, where d can be any positive integer
+* **Participant:** P-d, where d can be any positive integer
+* **Team:** T-d, where d can be any positive integer
+** You can also express `ID` as only a positive integer.
+
+`Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
+
+`Phone` - can be any combination of numbers, space and special characters (-), excluding bracket and country code may be included. Country code `+65` will be automatically included if it is not added.
+
+`Email` - must include an address and an email domain. It can include special characters (-,.), excluding bracket.
+
+`SubjectName` - the subject a mentor or team will be focusing on in the Hackathon +
+Must be one of the values below:
+
+* Environmental
+* Social
+* Health
+* Education
+
+`Score` - must be an integer ranging from 0 to 100.
+
+`Location` - must be an integer ranging from 0 to 1000. This indicates table number.
+****
+
 [[Features]]
 == Features
 
@@ -497,16 +533,16 @@ In order for the contents of the CSV file to be correctly loaded into Alfred, th
 
 `ID` - the ID of the entity (optional)
 
-* **Mentor:** M-`d`, where `d` can be any positive integer
-* **Participant:** P-`d`, where `d` can be any positive integer
-* **Team:** T-`d`, where `d` can be any positive integer
+* **Mentor:** M-d, where d can be any positive integer
+* **Participant:** P-d, where d can be any positive integer
+* **Team:** T-d, where d can be any positive integer
 ** You can also express `ID` as only a positive integer.
 
 `Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
 
-`Phone` - can be any combination of numbers and country code may be included
+`Phone` - can be any combination of numbers, space and special characters (-), excluding bracket and country code may be included. Country code `+65` will be automatically included if it is not added.
 
-`Email` - must include an address and an email domain
+`Email` - must include an address and an email domain. It can include special characters (-,.), excluding bracket.
 
 `SubjectName` - the subject a mentor or team will be focusing on in the Hackathon +
 Must be one of the values below:
@@ -516,9 +552,9 @@ Must be one of the values below:
 * Health
 * Education
 
-`Score` - must be an integer ranging from 0 to 100
+`Score` - must be an integer ranging from 0 to 100.
 
-`Location` - must be an integer ranging from 0 to 1000
+`Location` - must be an integer ranging from 0 to 1000. This indicates table number.
 ****
 
 ===== Mentor Data
