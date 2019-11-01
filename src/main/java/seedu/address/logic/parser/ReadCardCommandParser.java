@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CVC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -29,6 +30,11 @@ public class ReadCardCommandParser implements Parser<ReadCardCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_CVC, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCardCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
+                || argMultimap.getAllValues(PREFIX_CVC).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, ReadCardCommand.MESSAGE_USAGE));
         }
 
         Cvc cvc = ParserUtil.parseCvc(argMultimap.getValue(PREFIX_CVC).get());
