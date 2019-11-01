@@ -28,6 +28,7 @@ public class JsonAccountStorage implements AccountStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonAccountStorage.class);
 
     private static final Path accountBookFilePath = Paths.get("data", "accountslist.json");
+    
     private static File file = new File("data/accountslist.json");
 
     private Path filePath;

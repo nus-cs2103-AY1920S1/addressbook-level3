@@ -11,6 +11,8 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.storage.StorageManager;
 
 /**
  * The manager of the UI component.
@@ -24,7 +26,7 @@ public class UiManager implements Ui {
     private static boolean loggedInSuccessful = false;
 
     private static MainWindow mainWindow;
-
+    private Stage pStage;
     private Logic logic;
 
     public UiManager(Logic logic) {
