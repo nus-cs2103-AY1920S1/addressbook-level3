@@ -38,13 +38,15 @@ public class AddAnnotationCommand extends AnnotationCommand {
             + PREFIX_NOTE + "a note tagged to paragraph 3 highlighted orange "
             + PREFIX_HIGHLIGHT + "orange";
 
-    public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM = "You cannot annotate phantom paragraphs.";
+    public static final String MESSAGE_CANNOT_CHOOSE_PHANTOM_TO_ANNOTATE = "You cannot annotate phantom paragraphs "
+            + "this way. If you want to add a general note, use p/NULL instead, e.g.\n"
+            + "annotate 1 p/NULL n/i can add a general note this way!";
     //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
     public static final String MESSAGE_SUCCESS = "Annotation successfully added to paragraph %1$s:\n%2$s";
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
     private static final String MESSAGE_NOTE_ADDED = " with note \"%s\"";
 
-    private static final ParagraphIdentifier DUMMY_PID = ParagraphIdentifier.makeExistId(Index.fromOneBased(1));
+    private static final ParagraphIdentifier NULL_DUMMY_PID = new DummyParagraphIdentifier();
 
     private final AnnotationNote note;
     private final Highlight highlight;
@@ -61,11 +63,13 @@ public class AddAnnotationCommand extends AnnotationCommand {
         this.isAddGeneralNote = false;
     }
 
-    public AddAnnotationCommand(Index index) {
-        super(index, DUMMY_PID);
+    public AddAnnotationCommand(Index index, Highlight highlight, AnnotationNote note) {
+        super(index, NULL_DUMMY_PID);
+        requireNonNull(highlight);  //dummy value that will come into existence when attached to true paragraph
+        requireNonNull(note);
 
-        this.note = null;
-        this.highlight = null;
+        this.note = note;
+        this.highlight = highlight;
         this.isAddGeneralNote = true;
     }
 
@@ -76,16 +80,11 @@ public class AddAnnotationCommand extends AnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(model);
+        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
+
         OfflineDocument doc = docOriginal.copy();
 
-        if (getPid().isStray()) {
-            throw new CommandException(MESSAGE_CANNOT_ANNOTATE_PHANTOM);
-        }
-
         String returnMsg;
-
         Annotation an;
         returnMsg = String.format(MESSAGE_HIGHLIGHT_ADDED, highlight.toString());
         if (note == null) {
@@ -95,18 +94,24 @@ public class AddAnnotationCommand extends AnnotationCommand {
             returnMsg = returnMsg + String.format(MESSAGE_NOTE_ADDED, note.toString());
         }
 
-        try {
-            doc.addAnnotation(getPid(), an);
-        } catch (IllegalValueException e) {
-            throw new CommandException(COMMAND_WORD + ": " + e.getMessage());
+        if (isAddGeneralNote) {
+            doc.addPhantom(an);
+        } else {
+            if (getPid().isStray()) {
+                throw new CommandException(MESSAGE_CANNOT_CHOOSE_PHANTOM_TO_ANNOTATE);
+            }
+
+            try {
+                doc.addAnnotation(getPid(), an);
+            } catch (IllegalValueException e) {
+                throw new CommandException(COMMAND_WORD + ": " + e.getMessage());
+            }
+
         }
 
         model.updateDocument(doc);
 
-        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
-                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
-                oldBkmark.getTags(), oldBkmark.getCachedCopies());
-
+        Bookmark newBkmark = oldBkmark.copy();
         newBkmark.updateCachedCopy(doc);
         model.setBookmark(oldBkmark, newBkmark);
 
@@ -125,4 +130,20 @@ public class AddAnnotationCommand extends AnnotationCommand {
                 && highlight.equals(((AddAnnotationCommand) other).highlight)); // state check
     }
 
+
+
+}
+
+/**
+ * This is a dummy pid for a non-existent paragraph, null.
+ */
+class DummyParagraphIdentifier extends ParagraphIdentifier {
+    public DummyParagraphIdentifier() {
+        super(Index.fromOneBased(1), ParagraphType.STRAY);
+    }
+
+    @Override
+    public String toString() {
+        return "NULL (i.e. your note has been added to the general ";
+    }
 }

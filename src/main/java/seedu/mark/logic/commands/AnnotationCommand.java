@@ -47,11 +47,17 @@ public abstract class AnnotationCommand extends Command {
         return lastShownList.get(index.getZeroBased());
     }
 
-    public CachedCopy getRequiredCache(Model model) throws CommandException {
-        requireNonNull(model);
+    public OfflineDocument getRequiredDoc(Bookmark bkmark) throws CommandException {
+        requireNonNull(bkmark);
+        CachedCopy c = getRequiredCache(bkmark);
 
-        Bookmark bookmarkOwnerOfCache = getRequiredBookmark(model);
-        List<CachedCopy> caches = bookmarkOwnerOfCache.getCachedCopies();
+        return c.getAnnotations();
+    }
+
+    private CachedCopy getRequiredCache(Bookmark bkmark) throws CommandException {
+        requireNonNull(bkmark);
+
+        List<CachedCopy> caches = bkmark.getCachedCopies();
         if (caches.isEmpty()) {
             //TODO: maybe - create cache if it dne so they can annotate immediately. (then need to change ug and dg too)
             throw new CommandException(MESSAGE_NO_CACHE_AVAILABLE);
@@ -59,13 +65,6 @@ public abstract class AnnotationCommand extends Command {
 
         //TODO: pick out the appropriate cache. (change ug; default version on newwest cache; but can access others too)
         return caches.get(0);
-    }
-
-    public OfflineDocument getRequiredDoc(Model model) throws CommandException {
-        requireNonNull(model);
-        CachedCopy c = getRequiredCache(model);
-
-        return c.getAnnotations();
     }
 
     public Index getBookmarkIndex() {

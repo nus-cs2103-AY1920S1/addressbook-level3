@@ -88,6 +88,13 @@ public class Bookmark {
     }
 
     /**
+     * Returns a copy of this {@code Bookmark}.
+     */
+    public Bookmark copy() {
+        return new Bookmark(getName(), getUrl(), getRemark(), getFolder(), getTags(), getCachedCopies());
+    }
+
+    /**
      * Returns true if both bookmarks have the same name or the same url.
      * This defines a weaker notion of equality between two bookmarks.
      */

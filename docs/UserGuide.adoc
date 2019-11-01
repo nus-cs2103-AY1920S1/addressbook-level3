@@ -468,13 +468,18 @@ website. When you give this command, the UI will switch to the offline tab showi
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
 note to said paragraph. (Notes can be added to justify the highlight or as
 content-relevant notes for future reference to bookmark).
-//TODO: You can also add a general note not pertaining to any specific paragraph to the _General notes section_
-//TODO: located at the bottom of the document.
+You can also add a general note not pertaining to any specific paragraph to the bottom of the document,
+hereby known as the _General notes section_.
 
-Overwriting an existing note is possible with this command.
+NOTE: A general note is known to attach to a <<phantom-paragraph,_phantom paragraph_>>. As you can see in the offline
+copy, phantom paragraphs do not have any content displayed; they do not belong to the original web page.
+The phantom paragraphs altogether make up the _General notes section_.
+
+Overwriting an existing note that is not a general note is possible with this command.
 
 NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `S`. You can refer to the
 numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
+Phantom paragraphs are identified using numbered identifiers that begin with `S`, as opposed to <<true-paragraph,_true paragraphs_>>, whose identifiers begin with `P`.
 
 Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
@@ -482,9 +487,7 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
  * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
- `PARA_NUM` must
-//TODO: be `NULL` or it must
-begin with `P` or `S` (e.g. `P3`).
+ `PARA_NUM` must be `NULL` or it must begin with `P` or `S` (e.g. `P3`).
  If `PARA_NUM` is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
@@ -522,10 +525,6 @@ When you give this command, the UI will switch to the offline tab showing the re
 You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
 on the offline copy to revert it to a clean slate. You can also choose to remove a note from the
 <<stray-notes,_General notes section_>>. If the given paragraph does not have any annotations to remove, nothing is performed.
-
-NOTE: A general note is known to attach to a <<phantom-paragraph,_phantom paragraph_>>. As you can see in the offline
-copy, phantom paragraphs do not have any content displayed; they do not belong to the original web page. Phantom paragraphs are
-identified using numbered identifiers that begin with `S`, as opposed to <<true-paragraph,_true paragraphs_>>, whose identifiers begin with `P`.
 
 You are not allowed to remove only the highlight from a phantom paragraph since it does not display a highlight in the first place.
 
@@ -872,7 +871,7 @@ An copy of a bookmarked website that is used for offline viewing. It is stored a
 
 [[stray-notes]] General notes::
 Annotated notes that are not attached to an existing paragraph are described to be general.
-General notes are found in the _General notes section_ at the bottom of the rightmost column on the offline copy.
+General notes are found at the bottom of the rightmost column on the offline copy, known as the _General notes section_.
 
 [[phantom-paragraph]] Phantom paragraph::
 A phantom paragraph does not have any displayed content and does not show any highlights. It exists to present the general note you added to the document.

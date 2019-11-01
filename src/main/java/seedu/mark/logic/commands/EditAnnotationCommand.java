@@ -72,7 +72,7 @@ public class EditAnnotationCommand extends AnnotationCommand {
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
         //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(model);
+        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
         OfflineDocument doc = docOriginal.copy();
 
         Paragraph originalP;
@@ -98,7 +98,6 @@ public class EditAnnotationCommand extends AnnotationCommand {
         if (!originalP.hasAnnotation()) {
             throw new CommandException(String.format(EditAnnotationCommand.MESSAGE_NOTHING_TO_EDIT, getPid()));
         }
-
 
         Annotation newAnnotation = getNewAnnotation(originalP);
 

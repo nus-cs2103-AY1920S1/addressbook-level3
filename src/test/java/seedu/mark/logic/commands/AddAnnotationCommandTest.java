@@ -81,7 +81,7 @@ class AddAnnotationCommandTest {
                 .withCachedCopy(new CachedCopyStub()).build();
         ModelStubAcceptingBookmarkAdded modelStub = new ModelStubAcceptingBookmarkAdded(validBookmark);
 
-        assertThrows(CommandException.class, AddAnnotationCommand.MESSAGE_CANNOT_ANNOTATE_PHANTOM, () ->
+        assertThrows(CommandException.class, AddAnnotationCommand.MESSAGE_CANNOT_CHOOSE_PHANTOM_TO_ANNOTATE, () ->
                 new AddAnnotationCommand(INDEX_FIRST_BOOKMARK, ParagraphIdentifier.makeStrayId(Index.fromOneBased(1)),
                         AnnotationNote.SAMPLE_NOTE, Highlight.GREEN)
                         .execute(modelStub, new StorageStub()));
