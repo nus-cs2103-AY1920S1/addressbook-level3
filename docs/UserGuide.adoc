@@ -97,7 +97,7 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods.
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
 
 === SML-specific Terms
 
