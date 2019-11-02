@@ -6,15 +6,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.address.model.country.Country;
 import seedu.address.address.model.person.Address;
 import seedu.address.address.model.person.Email;
 import seedu.address.address.model.person.Name;
 import seedu.address.address.model.person.Phone;
 import seedu.address.address.model.tag.Tag;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
 
 /**
