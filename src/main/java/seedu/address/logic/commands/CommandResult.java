@@ -34,6 +34,8 @@ public class CommandResult {
 
     private boolean toShowConditionPanel = false;
 
+    /** For listing the budgets. */
+    private final boolean listBudgets;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -49,6 +51,7 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
     }
 
     /**
@@ -70,8 +73,26 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
     }
 
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean listBudgets) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.panelName = null;
+        this.togglePanel = false;
+        this.toggleStats = false;
+        this.toggleGraphics = false;
+        this.fontName = null;
+        this.listFonts = false;
+        this.changeFont = false;
+        this.listBudgets = listBudgets;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
@@ -87,6 +108,7 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
+        this.listBudgets = false;
     }
 
     /**
@@ -103,6 +125,7 @@ public class CommandResult {
         this.changeFont = changeFont;
         this.toggleStats = false;
         this.toggleGraphics = false;
+        this.listBudgets = false;
     }
 
     public void showConditionPanel() {
@@ -153,6 +176,10 @@ public class CommandResult {
         return fontName;
     }
 
+    public boolean isListBudgets() {
+        return listBudgets;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -172,12 +199,14 @@ public class CommandResult {
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
-                && changeFont == otherCommandResult.changeFont;
+                && changeFont == otherCommandResult.changeFont
+                && listBudgets == otherCommandResult.listBudgets;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts,
+                changeFont, listBudgets);
     }
 
 }

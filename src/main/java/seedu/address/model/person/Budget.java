@@ -18,24 +18,7 @@ public class Budget extends Entry {
     private final Date endDate;
     private FilteredList<Expense> filteredExpenses;
     private ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate;
-
-
-    /*
-    Date - start date
-    Period - time period for which budget is effective
-    private end date = start date + period
-
-    loop through income/ expense list
-    - if income/budget is in same cat as budget && date is within start date - end date
-    - budget add/minus income/budget
-
-    LocalDate functions - plusDays(long daysToAdd)
-                        - plusWeeks(long weeksToAdd)
-                        - plusMonths(long monthsToAdd)
-                        - plusYears(long yearsToAdd)
-
-     Parser e.g. 10d/ 2m/ 1y
-     */
+    
     public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags) {
         super(cat, desc, startDate, amount, tags);
         this.startDate = startDate;
