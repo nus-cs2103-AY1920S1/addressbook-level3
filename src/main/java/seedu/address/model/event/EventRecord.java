@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Pair;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -266,6 +268,39 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
 
         return new Pair(Index.fromZeroBased(mostSimilarIndex), mostSimilarVEvent);
     }
+
+    /**
+     * Method to search for events using the eventName.
+     * @param eventNameToFind the event name to serach for
+     * @return a list of pair objects which consist of the index and event which are found. May return an empty list
+     * if there are no similar events or no events saved
+     */
+    public List<Pair<Index, VEvent>> searchVEvent(String eventNameToFind) {
+        List<Pair<Index, VEvent>> resultList = new ArrayList<>();
+        int eventNameToFindLength = eventNameToFind.length();
+        int similarityThreshold = (int) (eventNameToFindLength * 0.4); // 40% match
+
+        // 2-levels of searching occurs here
+        for (int i = 0; i < vEvents.size(); i++) {
+            VEvent vEvent = vEvents.get(i);
+            Index index = Index.fromZeroBased(i);
+
+            String eventNameStr = vEvent.getSummary().getValue();
+            int difference = LevenshteinDistance.getDefaultInstance()
+                    .apply(eventNameToFind, eventNameStr);
+
+            if (StringUtils.containsIgnoreCase(eventNameToFind,
+                    eventNameStr)) { // Search if text forms a subset of the question
+                resultList.add(new Pair(Index.fromZeroBased(i), vEvent));
+            } else if (difference <= similarityThreshold) { // Search for similar terms
+                resultList.add(new Pair(Index.fromZeroBased(i), vEvent));
+            }
+        }
+        return resultList;
+    }
+
+
+
 
     /**
      * Sets the target export file path of the events

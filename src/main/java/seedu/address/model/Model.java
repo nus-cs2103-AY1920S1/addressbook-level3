@@ -489,6 +489,8 @@ public interface Model {
 
     Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName);
 
+    List<Pair<Index, VEvent>> searchVEvent(String eventNameToFind);
+
     //endregion
 
     //region Statistics

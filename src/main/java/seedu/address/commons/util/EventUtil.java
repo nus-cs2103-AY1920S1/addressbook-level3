@@ -210,4 +210,14 @@ public class EventUtil {
         colorCategoryList.add(colorCategory);
         return colorCategoryList;
     }
+
+    /**
+     * Validates that startDateTime provided is earlier than endDateTime provided
+     * @param startDateTime LocalDateTime representation of the startDateTime
+     * @param endDateTime LocalDateTime representation of the endDateTime
+     * @return true if @param startDateTime is earlier than @param endDateTime
+     */
+    public static boolean validateStartEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return startDateTime.compareTo(endDateTime) < 0;
+    }
 }
