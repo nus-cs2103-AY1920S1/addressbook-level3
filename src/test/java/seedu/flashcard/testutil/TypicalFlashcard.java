@@ -1,11 +1,11 @@
 package seedu.flashcard.testutil;
 
-import seedu.flashcard.model.FlashcardList;
-import seedu.flashcard.model.flashcard.Flashcard;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.flashcard.model.FlashcardList;
+import seedu.flashcard.model.flashcard.Flashcard;
 
 /**
  * A utility class containing a list of {@code Flashcard} objects to be used in tests
