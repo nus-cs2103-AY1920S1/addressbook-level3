@@ -210,6 +210,9 @@ Format: `new l/DISTRICT_NUM auto/y`
 * The vehicle pane will show all available vehicles in the district.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
 
+[IMPORTANT]
+Valid district numbers are from 1 to 28!
+
 * Example usage:
 
 image::newCommandAutoYBeforeSS.png[]
