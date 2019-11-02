@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -30,7 +31,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 public class CalendarPage extends UiPart<Scene> implements Page {
-    private static final String FXML = "CalendarPage.fxml";
+    private static final String FXML = "test1.fxml";
     private static final PageType pageType = PageType.CALENDAR;
     private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
 
@@ -131,6 +132,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
     }
 
+    @FXML
     private void handleExit() {
         PageManager.closeWindows();
     }
@@ -163,16 +165,16 @@ public class CalendarPage extends UiPart<Scene> implements Page {
                 handleExit();
             }
 
-            resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowList()) {
                 handleShowList(commandResult.getFeedbackToUser());
-                resultDisplay.setDisplayText("");
+                resultDisplay.setFeedbackToUser("");
             }
 
             return commandResult;
         } catch (ParseException | CommandException e) {
-            resultDisplay.setDisplayText(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
