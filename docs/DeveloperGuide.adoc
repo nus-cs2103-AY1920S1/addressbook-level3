@@ -420,11 +420,11 @@ image::HelpSequenceDiagram.png[width=700]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window. 
 
-image::HelpShow.png[width=600]
+image::HelpShow.png[width=500]
 
 The activity diagram below summarizes what happens when a user executes the `help` command.
 
-image::HelpActivityDiagram.png[]
+image::HelpActivityDiagram.png[width=300, height=300]
 
 
 ==== Design Considerations
