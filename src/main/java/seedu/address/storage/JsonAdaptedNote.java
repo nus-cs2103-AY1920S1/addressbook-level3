@@ -61,10 +61,13 @@ class JsonAdaptedNote {
         }
         final Content modelContent = new Content(content);
 
-        if (imageUrl == null || imageUrl.equals("none")) {
+        if (imageUrl == null) {
             return new Note(modelTitle, modelContent);
-        } else {
+        }
+        try {
             return new Note(modelTitle, modelContent, new Image(imageUrl));
+        } catch (IllegalArgumentException e) {
+            return new Note(modelTitle, modelContent);
         }
     }
 }

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -88,9 +89,9 @@ public class AddNoteCommandTest {
     }
 
     /**
-     * A Model stub that always accept the note being added.
+     * A Model stub that always accepts the note being added.
      */
-    private class ModelStubAcceptingNoteAdded extends ModelStub {
+    private static class ModelStubAcceptingNoteAdded extends ModelStub {
         final ArrayList<Note> notesAdded = new ArrayList<>();
 
         @Override
@@ -108,6 +109,11 @@ public class AddNoteCommandTest {
         @Override
         public ReadOnlyAppData getAppData() {
             return new AppData();
+        }
+
+        @Override
+        public Path getAppDataFilePath() {
+            return Path.of("d", "dd");
         }
     }
 }

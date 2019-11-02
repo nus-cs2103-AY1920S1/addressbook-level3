@@ -3,8 +3,6 @@
 
 participant ":EditNoteCommandParser" as ENCP LOGIC_COLOR
 participant ":EditNoteDescriptor" as END LOGIC_COLOR
-participant ":AppUtil" as NIS LOGIC_COLOR
-Actor User as U USER_COLOR
 
 [-> ENCP: parse()
 activate ENCP
@@ -23,13 +21,7 @@ opt i/ present
     alt i/none
         ENCP -> END: setImageRemoved(true)
     else else
-        ENCP -> NIS: selectImage()
-        activate NIS
-        NIS -> U: open file dialog
-        NIS <-- U: image
-        NIS --> ENCP: image
-        deactivate NIS
-        ENCP -> END: setImage(image)
+        ENCP -> END: setImageReplaced(true)
     end
 end
 [<-- ENCP: editNoteCommand

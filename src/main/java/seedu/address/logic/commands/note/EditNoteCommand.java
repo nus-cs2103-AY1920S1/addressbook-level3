@@ -1,21 +1,14 @@
 package seedu.address.logic.commands.note;
 
-import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.scene.image.Image;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -80,21 +73,10 @@ public class EditNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }
 
-        Note replaced = editedNote;
-        // Defensively copy images to data folder
-        if (nonNull(editedNote.getImage())) {
-            Path sourcePath = Paths.get(editedNote.getImageUrl().substring(5));
-            Path destPath = model.getAppDataFilePath().getParent().resolve(sourcePath.getFileName().toString());
-            try {
-                Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
-                replaced = new Note(editedNote.getTitle(), editedNote.getContent(), new Image("file:" + destPath));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        model.setNote(noteToEdit, replaced);
+        editedNote.finalizeImage(model.getAppDataFilePath().getParent());
+        model.setNote(noteToEdit, editedNote);
         model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
-        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, replaced));
+        return new CommandResult(String.format(MESSAGE_EDIT_NOTE_SUCCESS, editedNote));
     }
 
     /**
@@ -109,7 +91,10 @@ public class EditNoteCommand extends Command {
         if (editNoteDescriptor.getImageRemoved()) {
             return new Note(updatedTitle, updatedContent);
         }
-        return new Note(updatedTitle, updatedContent, editNoteDescriptor.getImage().orElse(noteToEdit.getImage()));
+        if (editNoteDescriptor.getImageReplaced()) {
+            return new Note(updatedTitle, updatedContent, true);
+        }
+        return new Note(updatedTitle, updatedContent, noteToEdit.getImage());
     }
 
     @Override
@@ -133,13 +118,13 @@ public class EditNoteCommand extends Command {
     /**
      * Stores the details to edit the lecture note with.
      * A non-empty title or content will replace the corresponding field value of the note;
-     * the image field is considered edited if <code>isImageRemoved</code> is true or image is non-null.
+     * the image is edited if <code>isImageReplaced</code> is true.
      */
     public static class EditNoteDescriptor {
         private Title title;
         private Content content;
-        private Image image;
         private boolean isImageRemoved = false;
+        private boolean isImageReplaced = false;
 
         public EditNoteDescriptor() {}
 
@@ -150,15 +135,15 @@ public class EditNoteCommand extends Command {
         public EditNoteDescriptor(EditNoteDescriptor toCopy) {
             setTitle(toCopy.title);
             setContent(toCopy.content);
-            setImage(toCopy.image);
             setImageRemoved(toCopy.isImageRemoved);
+            setImageReplaced(toCopy.isImageReplaced);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, content) || isImageRemoved || image != null;
+            return CollectionUtil.isAnyNonNull(title, content) || isImageRemoved || isImageReplaced;
         }
 
         public void setTitle(Title title) {
@@ -177,20 +162,20 @@ public class EditNoteCommand extends Command {
             return Optional.ofNullable(content);
         }
 
-        public void setImage(Image image) {
-            this.image = image;
-        }
-
-        public Optional<Image> getImage() {
-            return Optional.ofNullable(image);
-        }
-
         public void setImageRemoved(boolean isImageRemoved) {
             this.isImageRemoved = isImageRemoved;
         }
 
         boolean getImageRemoved() {
             return isImageRemoved;
+        }
+
+        public void setImageReplaced(boolean isImageReplaced) {
+            this.isImageReplaced = isImageReplaced;
+        }
+
+        boolean getImageReplaced() {
+            return isImageReplaced;
         }
 
         @Override
@@ -210,8 +195,8 @@ public class EditNoteCommand extends Command {
 
             return getTitle().equals(e.getTitle())
                     && getContent().equals(e.getContent())
-                    && getImage().equals(e.getImage())
-                    && isImageRemoved == e.isImageRemoved;
+                    && isImageRemoved == e.isImageRemoved
+                    && isImageReplaced == e.isImageReplaced;
         }
     }
 }
