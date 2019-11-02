@@ -60,7 +60,7 @@ public class ParserUtil {
         if (!CustomDate.isValidDate(trimmedDate)) {
             throw new ParseException(CustomDate.MESSAGE_CONSTRAINTS);
         }
-        return new CustomDate(trimmedDate);
+        return new CustomDate(trimmedDate.toLowerCase());
     }
 
     /**
@@ -90,7 +90,7 @@ public class ParserUtil {
         if (!RankMethod.isValidRankMethod(trimmedRankMethod)) {
             throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
         }
-        return RankMethod.getRankMethodCorrespondingToName(rankMethod);
+        return RankMethod.getRankMethodCorrespondingToName(rankMethod.toLowerCase());
     }
 
     /**

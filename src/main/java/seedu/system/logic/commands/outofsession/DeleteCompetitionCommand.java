@@ -26,7 +26,7 @@ public class DeleteCompetitionCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_COMPETITION_SUCCESS = "Deleted Competition: %1$s";
+    public static final String MESSAGE_DELETE_COMPETITION_SUCCESS = "Deleted competition: %1$s";
 
     private final Index targetIndex;
 

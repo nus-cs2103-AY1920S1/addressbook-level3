@@ -186,14 +186,19 @@ Format: `listPerson`
 Commands related to managing persons participating in competitions will be introduced now.
 
 ==== Adding a new participation: `addParticipation`
-Adds an existing person as shown in the Person list (shown in the GUI) into an existing competition as shown in the Competition list (shown in the GUI). User also needs to supply 3 weight attempts for each of the following events:
+Adds an existing person displayed in the Person list on the user interface into an
+existing competition displayed in the Competition list on the user interface.
+User also needs to supply 3 weight attempts for each of the following events:
 
 1. Squat
 2. Bench
 3. Deadlift
 
 Format: `addParticipation n/Athlete_Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3 `
-Note: S1 means the 1st attempted weight for the Squat and so on.
+Note: S1 means the 1st attempted weight for the Squat and so on. Users can use commands
+`listPerson` and `listCompetition` to see the full set of persons and competitions respectively
+in order to give the full set of ability to add any person to any competition in the system
+that does not exist already.
 
 Example:
 

@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.system.commons.core.GuiSettings;
 import seedu.system.commons.core.LogsCenter;
+import seedu.system.logic.commands.outofsession.EditParticipationCommand;
 import seedu.system.model.competition.Competition;
 import seedu.system.model.participation.Participation;
 import seedu.system.model.person.Person;
@@ -130,6 +131,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
+        updateDependentParticipations(target, editedPerson);
         persons.setElement(target, editedPerson);
     }
 
@@ -212,6 +214,7 @@ public class ModelManager implements Model {
     public void setCompetition(Competition target, Competition editedCompetition) {
         requireAllNonNull(target, editedCompetition);
 
+        updateDependentParticipations(target, editedCompetition);
         competitions.setElement(target, editedCompetition);
     }
 
@@ -358,6 +361,38 @@ public class ModelManager implements Model {
     @Override
     public void endSession() {
         session.end();
+    }
+
+    //============ Private functions to cope with the many-to-many relationship ==============================
+
+    /**
+     * Updates all participation associated with a {@code person} with the new {@code updatedPerson}
+     * @param person the person that is associated with the the target participations.
+     * @param updatedPerson the person the participations are to be updated with.
+     */
+    private void updateDependentParticipations(Person person, Person updatedPerson) {
+        for (Participation participation : this.participations.getListOfElements()) {
+            if (person.equals(participation.getPerson())) {
+                Participation newParticipation =
+                    EditParticipationCommand.createEditedParticipation(participation, updatedPerson);
+                participations.setElement(participation, newParticipation);
+            }
+        }
+    }
+
+    /**
+     * Updates all participation associated with a {@code competition} with the new {@code updatedCompetition}
+     * @param competition the competition that is associated with the the target participations.
+     * @param updatedCompetition the competition the participations are to be updated with.
+     */
+    private void updateDependentParticipations(Competition competition, Competition updatedCompetition) {
+        for (Participation participation : this.participations.getListOfElements()) {
+            if (competition.equals(participation.getCompetition())) {
+                Participation newParticipation =
+                    EditParticipationCommand.createEditedParticipation(participation, updatedCompetition);
+                participations.setElement(participation, newParticipation);
+            }
+        }
     }
 
     //==========================================================================================

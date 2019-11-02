@@ -24,7 +24,7 @@ import seedu.system.model.person.Name;
 import seedu.system.model.person.Person;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the system.
  */
 public class EditPersonCommand extends Command {
 
@@ -42,7 +42,7 @@ public class EditPersonCommand extends Command {
             + PREFIX_DOB + "12/02/1995"
             + PREFIX_GENDER + "MALE";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 

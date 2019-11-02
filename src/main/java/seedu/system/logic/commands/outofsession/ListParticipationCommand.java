@@ -22,10 +22,11 @@ public class ListParticipationCommand extends Command {
 
     public static final String COMMAND_WORD = "listParticipation";
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
-    public static final String MESSAGE_SUCCESS_FOR_COMPETITION = "Listed participants for ";
+    public static final String MESSAGE_SUCCESS_FOR_COMPETITION = "Listed participants for competition %1$s";
     public static final String MESSAGE_SUCCESS_FOR_ALL = "Listed all participants";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " Competition Name";
-    public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
+    public static final String MESSAGE_COMPETITION_NOT_FOUND =
+        "The competition with the given name \"%1$s\" does not exist.";
 
     private final Name competitionName;
 
@@ -72,13 +73,13 @@ public class ListParticipationCommand extends Command {
         }
 
         if (competition == null) {
-            return new CommandResult(MESSAGE_COMPETITION_NOT_FOUND + competitionName);
+            return new CommandResult(String.format(MESSAGE_COMPETITION_NOT_FOUND , competitionName));
         }
 
         Competition finalCompetition = competition;
         Predicate<Participation> filterByCompetition = p -> p.getCompetition().isSameElement(finalCompetition);
         model.updateFilteredParticipationList(filterByCompetition);
 
-        return new CommandResult(MESSAGE_SUCCESS_FOR_COMPETITION + competition.toString(), COMMAND_TYPE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_FOR_COMPETITION , competition.getName()), COMMAND_TYPE);
     }
 }

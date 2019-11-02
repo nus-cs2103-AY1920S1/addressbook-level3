@@ -33,7 +33,7 @@ public class AddParticipationCommand extends Command {
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
     public static final String MESSAGE_DUPLICATE_PARTICIPATION = "This participation already exists.";
     public static final String MESSAGE_SUCCESS =
-            " is added to the participation list for "; // athlete name MESSAGE_SUCCESS competition
+            " is added to the participation list for competition "; // athlete name MESSAGE_SUCCESS competition
     public static final String MESSAGE_USAGE = COMMAND_WORD + " "
             + PREFIX_NAME + "Athlete_Name "
             + PREFIX_COMP + "Competition_Name "

@@ -38,7 +38,7 @@ public class ParticipationCard extends UiPart<Region> {
         this.participation = participation;
         id.setText(displayedIndex + ". ");
         name.setText(participation.getPerson().getName().toString());
-        competition.setText(participation.getCompetition().toString());
+        competition.setText("Competition: " + participation.getCompetition().toString());
         String[] scores = participation.getThreeLiftScore().split("/");
         bestSquat.setText("Best Squat Attempt: " + scores[0] + "kg");
         bestBench.setText("Best Bench Press Attempt: " + scores[1] + "kg");

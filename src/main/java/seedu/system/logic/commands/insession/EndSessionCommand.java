@@ -1,6 +1,8 @@
 package seedu.system.logic.commands.insession;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.system.model.Model.PREDICATE_SHOW_ALL_COMPETITIONS;
+import static seedu.system.model.Model.PREDICATE_SHOW_ALL_PARTICIPATIONS;
 
 import seedu.system.logic.commands.Command;
 import seedu.system.logic.commands.CommandResult;
@@ -28,6 +30,8 @@ public class EndSessionCommand extends Command {
     public CommandResult execute(Model model) throws CommandException, ParseException {
         requireNonNull(model);
         Competition compInSession = model.getOngoingCompetition();
+        model.updateFilteredParticipationList(PREDICATE_SHOW_ALL_PARTICIPATIONS);
+        model.updateFilteredCompetitionList(PREDICATE_SHOW_ALL_COMPETITIONS);
         model.endSession();
         return new CommandResult(compInSession + MESSAGE_SUCCESS);
     }
