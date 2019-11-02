@@ -17,9 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.UserState;
 import seedu.address.model.ReadOnlyUserState;
-
+import seedu.address.model.UserState;
 
 public class JsonUserStateStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths

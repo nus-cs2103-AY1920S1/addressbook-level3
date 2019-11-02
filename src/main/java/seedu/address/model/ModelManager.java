@@ -143,6 +143,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addOperation(BankAccountOperation operation) {
+        versionedUserState.add(operation);
+    }
+
+    @Override
+    public void addOperation(LedgerOperation operation) {
+        versionedUserState.add(operation);
+    }
+
+    @Override
     public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
@@ -191,16 +201,6 @@ public class ModelManager implements Model {
     public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
-    }
-
-    @Override
-    public void addOperation(BankAccountOperation operation) {
-        versionedUserState.add(operation);
-    }
-
-    @Override
-    public void addOperation(LedgerOperation operation) {
-        versionedUserState.add(operation);
     }
 
     @Override

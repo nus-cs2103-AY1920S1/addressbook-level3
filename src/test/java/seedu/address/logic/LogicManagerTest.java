@@ -20,7 +20,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.*;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
@@ -44,7 +47,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonUserStateStorage bankAccountStorage =
-                new JsonUserStateStorage(temporaryFolder.resolve("bankAccount.json"));
+            new JsonUserStateStorage(temporaryFolder.resolve("bankAccount.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(bankAccountStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
