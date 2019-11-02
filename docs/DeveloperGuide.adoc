@@ -157,7 +157,7 @@ image:BetterModelClassDiagramNew.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.PNG[]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
