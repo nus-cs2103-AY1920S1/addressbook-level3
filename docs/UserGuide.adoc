@@ -18,8 +18,8 @@ By: `AY1920S1-CS2103T-F11-4`  Since: `September 2019`  Licence: `MIT`
 
 == Introduction
 
-NUStudy is an application for managing two kinds of informational material:
-lecture notes and flash cards. Their primary purpose is preparing for exams
+NUStudy is an application for managing three kinds of informational material:
+lecture notes, quizzes and revision tasks. Their primary purpose is preparing for exams
 and tests in universities, but they can also be useful for refreshing memory,
 particularly after a module has ended (the reliance of some computing modules
 on prior knowledge is rather heavy).
@@ -31,8 +31,9 @@ the results. The overall appearance is similar to a simple note-taking client.
 
 .  Ensure you have Java 11+ installed.
 .  Download the latest `nustudy.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Copy the file to the folder you want to use as the application's home folder.
+.  Double-click the file to start the app (if this does not work, use `java -jar nustudy.jar`).
+The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -72,8 +73,9 @@ will pop up, and you can select the image from your file system. Once done, you 
 
 image::screenshots/addnote.png[]
 
-Your images are copied into the local application data folder of NUStudy, so don't worry about losing track of
-your images – you can always take them along with the application.
+It is fine to back out of the image selection dialog; an image can always be added later using `editnote`.
+Your images are copied into the application's data folder, so don't worry about losing them –
+you can always take them along.
 
 ==== Editing lecture notes: `editnote`
 If your lecture notes need updating, use this command, providing arguments `t/`, `c/` and `i/` (at least one)
@@ -155,10 +157,10 @@ You can edit the fields of an existing question by providing the fields you want
 Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
-* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed
+question list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
 Examples:
@@ -371,7 +373,7 @@ The heading will copy the question body. +
 The GUI will display all tasks upon completing the command. +
 Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
 Example: +
-`rq 1 dt/11/11/2019 tm/1500`
+`rq i/1 dt/11/11/2019 tm/1500`
 
 ==== Remove revision task: `rdelete`
 You can remove a particular revision task from current list with this command. +

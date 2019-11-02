@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.commands.note.AddNoteCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -31,7 +30,6 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
      */
     public AddNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_CONTENT, PREFIX_IMAGE);
-        Note note;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_CONTENT) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE));
@@ -39,11 +37,7 @@ public class AddNoteCommandParser implements Parser<AddNoteCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
-        if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
-            note = new Note(title, content, AppUtil.selectImage());
-        } else {
-            note = new Note(title, content);
-        }
+        Note note = new Note(title, content, argMultimap.getValue(PREFIX_IMAGE).isPresent());
         return new AddNoteCommand(note);
     }
 

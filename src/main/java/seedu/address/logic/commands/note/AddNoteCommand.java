@@ -1,18 +1,10 @@
 package seedu.address.logic.commands.note;
 
-import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import javafx.scene.image.Image;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,20 +48,9 @@ public class AddNoteCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TITLE);
         }
 
-        Note added = toAdd;
-        // Defensively copy images to data folder
-        if (nonNull(toAdd.getImage())) {
-            Path sourcePath = Paths.get(toAdd.getImageUrl().substring(5));
-            Path destPath = model.getAppDataFilePath().getParent().resolve(sourcePath.getFileName().toString());
-            try {
-                Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
-                added = new Note(toAdd.getTitle(), toAdd.getContent(), new Image("file:" + destPath));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        model.addNote(added);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, added));
+        toAdd.finalizeImage(model.getAppDataFilePath().getParent());
+        model.addNote(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
