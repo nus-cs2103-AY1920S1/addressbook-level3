@@ -40,7 +40,7 @@ class DeleteFromGroupCommandSuggesterTest extends SuggesterImplTester {
         final String groupName = groupWithMultiplePeople.getGroupName().toString();
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, groupName),
-                new CommandArgument(CliSyntax.PREFIX_NAME, 1, "")
+                new CommandArgument(CliSyntax.PREFIX_NAME, 1, EMPTY_STRING)
         );
 
         final List<String> expectedNames = personsInGroup.stream()
@@ -56,7 +56,7 @@ class DeleteFromGroupCommandSuggesterTest extends SuggesterImplTester {
     void getSuggestions_nonExistentGroupBlankPersonName_noSuggestions() {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, "non-existent group name"),
-                new CommandArgument(CliSyntax.PREFIX_NAME, 1, "")
+                new CommandArgument(CliSyntax.PREFIX_NAME, 1, EMPTY_STRING)
         );
 
         assertNoSuggestions(argumentList, argumentList.get(1));
@@ -65,7 +65,7 @@ class DeleteFromGroupCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestions_missingGroupPrefixBlankPersonName_noSuggestions() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_NAME, 0, "")
+                new CommandArgument(CliSyntax.PREFIX_NAME, 0, EMPTY_STRING)
         );
 
         assertNoSuggestions(argumentList, argumentList.get(0));
@@ -74,8 +74,8 @@ class DeleteFromGroupCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestions_blankGroupPrefixBlankPersonName_noSuggestions() {
         final ArgumentList argumentList = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, ""),
-                new CommandArgument(CliSyntax.PREFIX_NAME, 0, "")
+                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, EMPTY_STRING),
+                new CommandArgument(CliSyntax.PREFIX_NAME, 0, EMPTY_STRING)
         );
 
         assertNoSuggestions(argumentList, argumentList.get(1));
@@ -85,7 +85,7 @@ class DeleteFromGroupCommandSuggesterTest extends SuggesterImplTester {
     void getSuggestions_whitespaceGroupPrefixBlankPersonName_noSuggestions() {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, " "),
-                new CommandArgument(CliSyntax.PREFIX_NAME, 0, "")
+                new CommandArgument(CliSyntax.PREFIX_NAME, 0, EMPTY_STRING)
         );
 
         assertNoSuggestions(argumentList, argumentList.get(1));

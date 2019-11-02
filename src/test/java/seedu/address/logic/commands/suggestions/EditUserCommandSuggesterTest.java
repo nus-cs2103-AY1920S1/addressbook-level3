@@ -70,7 +70,7 @@ class EditUserCommandSuggesterTest extends SuggesterImplTester {
             final Prefix prefix, final List<String> expectedSuggestions) {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_EDIT, 0, KNOWN_PERSON.getName().toString()),
-                new CommandArgument(prefix, 1, "")
+                new CommandArgument(prefix, 1, EMPTY_STRING)
         );
 
         assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);

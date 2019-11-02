@@ -18,7 +18,7 @@ class DeletePersonCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestion_multiPersonFirstExactSecondBlank_suggestionsExcludeFirstPersonName() {
         final String firstPersonName = allPersonNames().findFirst().orElseThrow();
-        final String secondPersonName = "";
+        final String secondPersonName = EMPTY_STRING;
 
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_NAME, 0, firstPersonName),

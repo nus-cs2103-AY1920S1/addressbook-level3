@@ -19,11 +19,10 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
 
     @Test
     void getSuggestion_exactGroupBlankPersonName_allPersonNames() {
-        final ArgumentList argumentList = singularArgumentListOfCommandArgument(
-                CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUPNAME1.toString()
+        final ArgumentList argumentList = argumentListOf(
+                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 0, TypicalGroups.GROUPNAME1.toString()),
+                new CommandArgument(CliSyntax.PREFIX_NAME, 1, EMPTY_STRING)
         );
-        argumentList.add(new CommandArgument(CliSyntax.PREFIX_NAME, 1, ""));
-
         final List<String> expectedNames = allPersonNames().collect(Collectors.toUnmodifiableList());
 
         assertSuggestionsEquals(argumentList, argumentList.get(1), expectedNames);
@@ -44,10 +43,10 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
 
     @Test
     void getSuggestion_exactPersonBlankGroupName_allGroupNames() {
-        final ArgumentList argumentList = singularArgumentListOfCommandArgument(
-                CliSyntax.PREFIX_NAME, 0, TypicalPersonDescriptor.ALICE.getName().toString()
+        final ArgumentList argumentList = argumentListOf(
+                new CommandArgument(CliSyntax.PREFIX_NAME, 0, TypicalPersonDescriptor.ALICE.getName().toString()),
+                new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 1, EMPTY_STRING)
         );
-        argumentList.add(new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 1, ""));
 
         final List<String> expectedGroupNames = allGroupNames().collect(Collectors.toUnmodifiableList());
         assertSuggestionsEquals(argumentList, argumentList.get(1), expectedGroupNames);

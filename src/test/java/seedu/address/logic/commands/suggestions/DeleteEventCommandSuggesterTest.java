@@ -28,7 +28,7 @@ class DeleteEventCommandSuggesterTest extends SuggesterImplTester {
     @Test
     void getSuggestion_userEventsBlankEventName_allUserEvents() {
         final ArgumentList arguments = argumentListOf(
-                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 0, "")
+                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 0, EMPTY_STRING)
         );
         final List<String> expectedEventNames = getPersonEventNames(model.getUser())
                 .collect(Collectors.toUnmodifiableList());
@@ -49,7 +49,7 @@ class DeleteEventCommandSuggesterTest extends SuggesterImplTester {
 
         final ArgumentList arguments = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_NAME, 0, knownPersonName.toString()),
-                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 1, "")
+                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 1, EMPTY_STRING)
         );
         final List<String> expectedEventNames = getPersonEventNames(knownPerson)
                 .collect(Collectors.toUnmodifiableList());
@@ -63,7 +63,7 @@ class DeleteEventCommandSuggesterTest extends SuggesterImplTester {
 
         final ArgumentList arguments = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_NAME, 0, unknownPerson.toString()),
-                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 1, "")
+                new CommandArgument(CliSyntax.PREFIX_EVENTNAME, 1, EMPTY_STRING)
         );
 
         assertNoSuggestions(arguments, arguments.get(1));

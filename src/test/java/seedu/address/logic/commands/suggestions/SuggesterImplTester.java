@@ -38,6 +38,7 @@ import seedu.address.testutil.personutil.TypicalPersonDescriptor;
  * Abstract class used to test classes that extend from the {@link Suggester} class.
  */
 abstract class SuggesterImplTester {
+    protected static final String EMPTY_STRING = "";
     protected static final List<String> NO_SUGGESTIONS = List.of();
     protected static final Prefix UNRELATED_PREFIX = new Prefix("test/");
     protected static final CommandArgument UNRELATED_COMMAND_ARGUMENT = new CommandArgument(
