@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import com.typee.logic.parser.Prefix;
 
@@ -55,6 +56,17 @@ public class ArgumentMultimap {
 
     public void clearValues(Prefix prefix) {
         argMultimap.remove(prefix);
+    }
+
+    public boolean isDisjointWith(ArgumentMultimap argumentMultimap) {
+        Set<Prefix> keys = argMultimap.keySet();
+        Set<Prefix> newKeys = argumentMultimap.argMultimap.keySet();
+        keys.retainAll(newKeys);
+        return keys.isEmpty();
+    }
+
+    public boolean isEmpty() {
+        return argMultimap.isEmpty();
     }
 
     /**

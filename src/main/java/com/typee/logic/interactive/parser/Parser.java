@@ -41,15 +41,10 @@ public class Parser implements InteractiveParser {
     }
 
     private void parse(String commandText, Prefix... prefixes) throws ParseException {
-        try {
-            if (isActive()) {
-                parseActive(commandText, prefixes);
-            } else {
-                parseInactive(commandText, prefixes);
-            }
-        } catch (StateTransitionException e) {
-            throw new ParseException(e.getMessage());
+        if (!isActive()) {
+            parseInactive(commandText);
         }
+        parseActive(commandText, prefixes);
     }
 
     @Override
@@ -92,19 +87,19 @@ public class Parser implements InteractiveParser {
     private void parseActive(String commandText, Prefix... prefixes) throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
         try {
-            currentState = currentState.transition(new ArgumentMultimap(), argumentMultimap);
+            while (!argumentMultimap.isEmpty()) {
+                currentState = currentState.transition(argumentMultimap);
+            }
         } catch (StateTransitionException e) {
-            throw new ParseException(currentState.getStateConstraints());
+            throw new ParseException(e.getMessage());
         }
     }
 
-    private void parseInactive(String commandText, Prefix... prefixes) throws ParseException,
-            StateTransitionException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
+    private void parseInactive(String commandText) throws ParseException {
         String commandWord = getCommandWord(commandText);
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            currentState = (new TypeState()).transition(new ArgumentMultimap(), argumentMultimap);
+            currentState = new TypeState(new ArgumentMultimap());
             break;
 
         default:

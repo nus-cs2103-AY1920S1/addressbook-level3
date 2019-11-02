@@ -7,9 +7,10 @@ import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
 public interface State {
-    State transition(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException;
+    State transition(ArgumentMultimap newArgs) throws StateTransitionException;
 
     String getStateConstraints();
 
     boolean isEndState();
+
 }

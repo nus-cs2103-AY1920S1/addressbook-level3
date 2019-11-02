@@ -3,14 +3,11 @@ package com.typee.logic.interactive.parser.state.addmachine;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.parser.Prefix;
-import com.typee.logic.parser.exceptions.ParseException;
 
 public class TypeState implements State {
 
@@ -18,13 +15,35 @@ public class TypeState implements State {
             + " meeting or interview.";
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
             + " \"t/\".";
+    private static final String MESSAGE_DUPLICATE_ARGUMENTS = "The parameter corresponding to the entered argument"
+            + " has already been processed.";
 
+    private final ArgumentMultimap soFar;
+
+    public TypeState(ArgumentMultimap soFar) {
+        this.soFar = soFar;
+    }
 
     @Override
-    public State transition(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException {
+    public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
         requireNonNull(soFar);
         requireNonNull(newArgs);
+
         Optional<String> typeValue = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE);
+
+        performGuardChecks(newArgs, typeValue);
+
+        collateArguments(newArgs);
+
+        return new DateState(soFar);
+    }
+
+    private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> typeValue)
+            throws StateTransitionException {
+        if (!soFar.isDisjointWith(newArgs)) {
+            throw new StateTransitionException(MESSAGE_DUPLICATE_ARGUMENTS);
+        }
+
         if (typeValue.isEmpty()) {
             throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
         }
@@ -32,10 +51,6 @@ public class TypeState implements State {
         if (!isValid(typeValue.get())) {
             throw new StateTransitionException(MESSAGE_CONSTRAINTS);
         }
-
-        collateArguments(soFar, newArgs);
-        continuouslyTransition()
-
     }
 
     @Override
@@ -54,9 +69,9 @@ public class TypeState implements State {
                 || commandText.equalsIgnoreCase("Appointment");
     }
 
-    private void collateArguments(ArgumentMultimap soFar, ArgumentMultimap newArgs) {
+    private void collateArguments(ArgumentMultimap newArgs) {
         String engagementType = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE).get();
         soFar.put(PREFIX_ENGAGEMENT_TYPE, engagementType);
-        newArgs.clearValues()
+        newArgs.clearValues(PREFIX_ENGAGEMENT_TYPE);
     }
 }
