@@ -36,7 +36,6 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         List<District> districts = ParserUtil.parseDistricts(argMultimap.getValue(PREFIX_DISTRICT).get());
 
-
         if (districts.size() != 1) {
             throw new ParseException(MESSAGE_NOT_ONE_DISTRICT);
         }
