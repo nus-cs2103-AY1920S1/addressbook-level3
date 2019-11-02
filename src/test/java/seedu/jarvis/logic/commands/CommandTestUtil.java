@@ -7,6 +7,8 @@ import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_EMAIL;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_PHONE;
 import static seedu.jarvis.logic.parser.CliSyntax.AddressSyntax.PREFIX_TAG;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
+import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 import static seedu.jarvis.testutil.Assert.assertThrows;
@@ -53,6 +55,9 @@ public class CommandTestUtil {
     public static final String VALID_DESC_EARPHONES = "Earphones";
     public static final String VALID_MONEY_EARPHONES = "30.50";
 
+    public static final String VALID_CCA_DESC_TRACK = "Track";
+    public static final String VALID_CCA_TYPE_TRACK = "sport";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -63,6 +68,9 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    public static final String CCA_DESC = " " + PREFIX_CCA_NAME + VALID_CCA_DESC_TRACK;
+    public static final String CCA_TYPE = " " + PREFIX_CCA_TYPE + VALID_CCA_TYPE_TRACK;
 
     public static final String INSTAL_DESC_NETFLIX = " " + PREFIX_DESCRIPTION + VALID_DESC_NETFLIX;
     public static final String INSTAL_MONEY_NETFLIX = " " + PREFIX_MONEY + VALID_MONEY_NETFLIX;
