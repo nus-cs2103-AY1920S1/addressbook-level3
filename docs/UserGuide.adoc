@@ -95,7 +95,7 @@ Provides a link to this user guide.
 
 Format: `help`
 
-=== Managing transactions: `transaction`
+=== Managing transactions: `txn`
 
 ==== Add a transaction: `txn out|in`
 
