@@ -254,10 +254,6 @@ public class MainWindow extends UiPart<Stage> {
         stats.setVisible(false);
     }
 
-    public NoteListPanel getNoteListPanel() {
-        return noteListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *

@@ -14,8 +14,6 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main
 
-By: `AY1920S1-CS2103T-F11-4`  Since: `September 2019`  Licence: `MIT`
-
 == Introduction
 
 NUStudy is an application for managing three kinds of informational material:
@@ -75,7 +73,8 @@ image::screenshots/addnote.png[]
 
 It is fine to back out of the image selection dialog; an image can always be added later using `editnote`.
 Your images are copied into the application's data folder, so don't worry about losing them –
-you can always take them along.
+you can always take them along. Images resize according to the window, but if an image is small enough that it can fit at its
+natural resolution, it is left that way.
 
 ==== Editing lecture notes: `editnote`
 If your lecture notes need updating, use this command, providing arguments `t/`, `c/` and `i/` (at least one)
@@ -293,11 +292,13 @@ Example:
 
 Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. +
 
+.Typing `quiz` command
 image::quiz/QuizModeCommand.png[]
 
 Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
 on the third column. +
 
+.Result of `quiz` command
 image::quiz/QuizModeCommandResult.png[]
 
 ==== Answer the quiz question
@@ -311,10 +312,12 @@ Example:
 
 Step 1: Types your `answer` in the command box and presses `Enter` to execute the command +
 
+.Typing answer in the command line
 image::quiz/QuizAnswer.png[]
 
 Step 2: The result of your answer will reflect your correctness and the next question will be displayed.
 
+.The result after answer
 image::quiz/QuizAnswerResult.png[]
 
 ==== Show an answer : `show`
@@ -329,6 +332,7 @@ Step 1: Types `show` in the command box and presses `Enter` to execute the comma
 
 Step 2: The answer of current question will be displayed. +
 
+.Typing `show` command and its result
 image::quiz/ShowAnswerCommand.png[]
 
 ==== Skip a question : `skip`
@@ -344,10 +348,12 @@ Example:
 
 Step 1: Types `skip` in the command box and presses `Enter` to execute the command. +
 
+.Typing `skip` command
 image::quiz/SkipCommand.png[]
 
 Step 2: The current question is skipped and next question will be displayed. +
 
+.The result of `skip` command
 image::quiz/SkipCommandResult.png[]
 
 ==== Exit test mode : `quit`
@@ -364,10 +370,12 @@ Example:
 
 Step 1: Types `quit` in the command box and presses `Enter` to execute the command. +
 
+.Typing `quit` command
 image::quiz/QuitQuizCommand.png[]
 
 Step 2: The result shows message of exit from the quiz mode and the original questions will appear.
 
+.The result of `quit` command
 image::quiz/QuitQuizCommandResult.png[]
 // end::quiz[]
 
@@ -410,9 +418,9 @@ Format: `report INDEX`
 ==== Get overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
-You can also add a `dt/` field to get questions that you have done within that time period.
-The format for date is dd/MM/yyyy.
-Typing any other non-statistics command will close this panel. +
+You can also add two `dt/` fields representing a time period to get questions you did
+within that time period. The format for date is dd/MM/yyyy. Typing any other non-statistics
+command will close this panel. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 // end::overview[]
 
@@ -432,9 +440,9 @@ this approach because we would like to allow you to customise the task headings 
 we disassociate the task from notes and questions once created.
 
 ==== Add a revision task for a note: `rn`
-You can add a revision task for a note to the current revision task list with this command. +
-The heading will copy the title. +
-The GUI will display all tasks upon completing the command. +
+You can add a revision task for a note to the current revision task list with this command.
+The heading will copy the title and the GUI will display all tasks upon completing the command.
+An invalid date will be interpreted as the nearest valid date. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
 Example: +
 

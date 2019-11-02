@@ -27,9 +27,9 @@ public class NoteListPanel extends PanelComponent<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Note} using a {@code NoteCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Note} using a {@code NoteListCard}.
      */
-    class NoteListViewCell extends ListCell<Note> {
+    static class NoteListViewCell extends ListCell<Note> {
         @Override
         protected void updateItem(Note note, boolean empty) {
             super.updateItem(note, empty);
@@ -38,7 +38,7 @@ public class NoteListPanel extends PanelComponent<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new NoteCard(note, getIndex() + 1).getRoot());
+                setGraphic(new NoteListCard(note, getIndex() + 1).getRoot());
             }
         }
     }

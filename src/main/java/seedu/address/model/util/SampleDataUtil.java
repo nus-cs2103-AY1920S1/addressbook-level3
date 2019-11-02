@@ -13,7 +13,6 @@ import seedu.address.model.question.Difficulty;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.QuestionBody;
 import seedu.address.model.question.Subject;
-import seedu.address.model.quiz.QuizResult;
 import seedu.address.model.task.Heading;
 import seedu.address.model.task.Task;
 
@@ -56,20 +55,6 @@ public class SampleDataUtil {
         };
     }
 
-    public static QuizResult[] getQuizResult() {
-        return new QuizResult[] {
-            new QuizResult(new Answer("Binary search"),
-                    new QuestionBody("Which algorithm can be used to find an item in a sorted list?"),
-                    new Subject("CS2040"), new Difficulty("Easy"), "2019/10/24 21:46:31", true),
-            new QuizResult(new Answer("Object-oriented"),
-                    new QuestionBody("What programming paradigm is Java?"),
-                    new Subject("CS2040"), new Difficulty("Easy"), "2019/10/30 21:46:31", true),
-            new QuizResult(new Answer("something"),
-                    new QuestionBody("What keyword is used to declare exception-handling code in Java?"),
-                    new Subject("CS2030"), new Difficulty("Easy"), "2019/10/03 21:46:31", false),
-        };
-    }
-
     public static ReadOnlyAppData getSampleAppData() {
         AppData sampleAb = new AppData();
         for (Note sampleNote: getSampleNotes()) {
@@ -80,9 +65,6 @@ public class SampleDataUtil {
         }
         for (Task sampleTask: getSampleTasks()) {
             sampleAb.addTask(sampleTask);
-        }
-        for (QuizResult sampleQuizResult : getQuizResult()) {
-            sampleAb.addQuizResult(sampleQuizResult);
         }
         return sampleAb;
     }

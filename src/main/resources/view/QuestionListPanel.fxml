@@ -2,7 +2,14 @@
 
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="questionListView" VBox.vgrow="ALWAYS" />
+<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+    <Text fill="#fff" text="Questions">
+        <font>
+            <Font size="18"/>
+        </font>
+    </Text>
+    <ListView fx:id="questionListView" VBox.vgrow="ALWAYS"/>
 </VBox>
