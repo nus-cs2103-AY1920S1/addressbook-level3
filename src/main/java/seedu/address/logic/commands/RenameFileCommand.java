@@ -75,7 +75,7 @@ public class RenameFileCommand extends Command {
         }
         model.setFile(fileToRename, newFile);
 
-        return new CommandResult(String.format(MESSAGE_RENAME_FILE_SUCCESS, fileToRename));
+        return new CommandResult(String.format(MESSAGE_RENAME_FILE_SUCCESS, newFile));
     }
 
     @Override
