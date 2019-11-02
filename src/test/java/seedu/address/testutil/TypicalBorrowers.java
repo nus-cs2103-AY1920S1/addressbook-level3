@@ -28,6 +28,8 @@ public class TypicalBorrowers {
     public static final BorrowerId ID_FIRST_BORROWER = new BorrowerId("K0001");
     public static final BorrowerId ID_SECOND_BORROWER = new BorrowerId("K0002");
 
+    public static final BorrowerId ID_ALICE = new BorrowerId("K0001");
+
     public static final String ID_DESC_FIRST_BORROWER = " " + PREFIX_BORROWER_ID + "K0001";
 
     public static final Borrower ALICE = new BorrowerBuilder().withName("Alice Pauline")
