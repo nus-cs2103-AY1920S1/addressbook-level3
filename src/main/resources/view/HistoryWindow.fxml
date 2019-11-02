@@ -26,6 +26,7 @@
                 <children>
                     <Label fx:id="commandHistoryTitle" styleClass="prefix-label, prefix_purple" text="MAMS Command History" />
 
+
                     <HBox fx:id="hotKeyHelpBar" styleClass="pane-with-border" alignment="CENTER">
                         <ImageView fitHeight="40" fitWidth="40">
                             <image>
@@ -60,6 +61,7 @@
                     </HBox>
 
                     <VBox fx:id="historyDisplay" minWidth="200" minHeight="200" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>

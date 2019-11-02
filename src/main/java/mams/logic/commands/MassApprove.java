@@ -37,10 +37,10 @@ public class MassApprove extends Approve {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Appeal> lastShownList = model.getFilteredAppealList();
+        List<Appeal> fullAppealList = model.getFullAppealList();
 
         for (String appealId : validIds) {
-            for (Appeal appeal : lastShownList) {
+            for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
                     Appeal appealToApprove = appeal;
@@ -53,15 +53,15 @@ public class MassApprove extends Approve {
                             Module editedModule;
                             String moduleCode;
 
-                            List<Student> lastShownStudentList = model.getFilteredStudentList();
-                            List<Module> lastShownModuleList = model.getFilteredModuleList();
+                            List<Student> fullStudentList = model.getFullStudentList();
+                            List<Module> fullModuleList = model.getFullModuleList();
 
                             String appealType = appealToApprove.getAppealType();
                             String studentToEditId = appealToApprove.getStudentId();
 
                             if (appealType.equalsIgnoreCase("Increase workload")) {
 
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
 
@@ -83,7 +83,7 @@ public class MassApprove extends Approve {
                                 moduleCode = appealToApprove.getModuleToDrop();
 
                                 //Check if student exists
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
                                 if (studentToCheckList.isEmpty()) {
@@ -94,7 +94,7 @@ public class MassApprove extends Approve {
                                 //check if student has the module (ready for deletion).
                                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                                 boolean hasModule = false;
-                                for (Tag tag : studentModules) {
+                                for (Tag tag : studentModules) {    
                                     if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
                                         hasModule = true;
                                     }
@@ -104,7 +104,7 @@ public class MassApprove extends Approve {
                                 }
 
                                 //check if module exist
-                                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                                List<Module> moduleToCheckList = fullModuleList.stream()
                                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                         .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {
@@ -155,7 +155,7 @@ public class MassApprove extends Approve {
 
                                 moduleCode = appealToApprove.getModuleToAdd();
 
-                                List<Student> studentToCheckList = lastShownStudentList.stream()
+                                List<Student> studentToCheckList = fullStudentList.stream()
                                         .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                         .collect(Collectors.toList());
                                 if (studentToCheckList.isEmpty()) {
@@ -164,7 +164,7 @@ public class MassApprove extends Approve {
                                 studentToEdit = studentToCheckList.get(0);
 
                                 //check if module exist
-                                List<Module> moduleToCheckList = lastShownModuleList.stream()
+                                List<Module> moduleToCheckList = fullModuleList.stream()
                                         .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                         .collect(Collectors.toList());
                                 if (moduleToCheckList.isEmpty()) {

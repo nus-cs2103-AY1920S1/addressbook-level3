@@ -468,7 +468,7 @@ To set the student’s maximum modular credit for this semester to a new value.
 To add remarks to a student’s particulars page
 
 * **approve**:
-** `approve [INDEX] [rr/REMARK]`
+** `approve [a/INDEX] [r/REMARK]`
 - e.g `approve a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as approved.
 
 ** `approve mass/ [APPEAL_ID]...`
@@ -476,7 +476,7 @@ To add remarks to a student’s particulars page
 
 * **reject**:
 -
-** `reject [INDEX] [rr/REMARK]`
+** `reject [a/INDEX] [r/REMARK]`
 - e.g `reject a/2 r/meets requisites` Marks the 2nd appeal in the appeal list as rejected.
 
 ** `reject mass/ [APPEAL_ID]...`
