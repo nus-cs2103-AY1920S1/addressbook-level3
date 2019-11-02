@@ -22,7 +22,7 @@ class GetStatisticsCommandTest {
 
     @Test
     public void constructor_nullQuizResultFilter_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null));
+        assertThrows(NullPointerException.class, () -> new GetStatisticsCommand(null, ""));
     }
 
     /*@Test
@@ -44,7 +44,7 @@ class GetStatisticsCommandTest {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withSubjects(new ArrayList<>(Arrays.asList("random")))
                 .buildWithSubjects();
-        GetStatisticsCommand statisticsCommand = new GetStatisticsCommand(quizResultFilter);
+        GetStatisticsCommand statisticsCommand = new GetStatisticsCommand(quizResultFilter, "\n[random]");
         assertCommandFailure(statisticsCommand, model, MESSAGE_NO_STATISTICS);
     }
 }

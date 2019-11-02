@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
@@ -20,12 +20,13 @@ public class QuizResultFilterBuilder {
     private QuizResultFilter quizResultFilter;
     private List<Subject> subjects;
     private Difficulty difficulty;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Boolean isCorrectQns;
     private Stack<FilterType> operations;
 
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     public QuizResultFilterBuilder() {
         quizResultFilter = new QuizResultFilter();
@@ -54,7 +55,7 @@ public class QuizResultFilterBuilder {
      * Sets the {@code StartDate} of the {@code QuizResultFilter} that we are building.
      */
     public QuizResultFilterBuilder withStartDate(String startDate) throws ParseException {
-        this.startDate = dateFormatter.parse(startDate);
+        this.startDate = LocalDate.parse(startDate, formatter);
         return this;
     }
 
@@ -62,7 +63,7 @@ public class QuizResultFilterBuilder {
      * Sets the {@code EndDate} of the {@code QuizResultFilter} that we are building.
      */
     public QuizResultFilterBuilder withEndDate(String endDate) throws ParseException {
-        this.endDate = dateFormatter.parse(endDate);
+        this.endDate = LocalDate.parse(endDate, formatter);
         return this;
     }
 
