@@ -2,6 +2,7 @@ package seedu.jarvis.logic.commands.course;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.jarvis.logic.commands.Command;
@@ -13,6 +14,9 @@ import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
+/**
+ * Clears all courses in Course Planner.
+ */
 public class ClearCourseCommand extends Command {
     public static final String COMMAND_WORD = "clear-course";
     public static final boolean HAS_INVERSE = true;
@@ -36,14 +40,26 @@ public class ClearCourseCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        deleted = model.getUnfilteredCourseList();
-        deleted.forEach(model::deleteCourse);
+
+        // copy to deleted
+        deleted = new ArrayList<>();
+        model.getUnfilteredCourseList().forEach(course -> {
+            deleted.add(new Course(
+                course.getTitle(), course.getFaculty(), course.getDescription(),
+                course.getCourseCode(), course.getCourseCredit(), course.getPrereqTree(),
+                course.getPreclusion(), course.getFulfillRequirements()
+            ));
+        });
+
+        model.getCoursePlanner().getUniqueCourseList().setCourses(new ArrayList<>());
         model.setViewStatus(ViewType.LIST_COURSE);
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
+        // deleted has courses that were originally in course planner
+        requireNonNull(model);
         deleted.forEach(model::addCourse);
         model.setViewStatus(ViewType.LIST_COURSE);
         return new CommandResult(MESSAGE_INVERSE_SUCCESS, true);

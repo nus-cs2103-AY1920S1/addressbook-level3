@@ -485,6 +485,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setCoursePlanner(CoursePlanner cp) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ViewStatus getViewStatus() {
         throw new AssertionError("This method should not be called.");
     }
