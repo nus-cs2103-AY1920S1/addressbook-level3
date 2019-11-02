@@ -254,7 +254,7 @@ Note: You are allowed to have more than one `INDEX`.
 ****
 
 ==== Clears wallet purchase history and food items: `clear`
-Clears wallet, purchase history and food items in the application.
+Clears wallet, purchase history, savings account, wallet, likes, dislikes and aliases in the application.
 
 ****
 *Format*: `clear`
@@ -269,7 +269,7 @@ This is done so that the user is able to get the food which is most relevant to 
 You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
 The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
 `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-THe directions are as followed: `ASC` or `DESC`.
+The directions are as followed: `ASC` or `DESC`.
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
@@ -663,6 +663,22 @@ image::removedislike-all.png[align="center", width=700]
 |===
 //end::recommendations[]
 
+=== Alias
+
+==== Editing the alias for a specific command: `alias`
+
+Users are able to given an alias word for any given command in $aveNUS. You need to give one `COMMANDWORD` and
+one optional `ALIASWORD`. If no `ALIASWORD` is given, the `ALIASWORD` for the specific `COMMANDWORD` will be cleared.
+
+[NOTE]
+Alias Words can only be alphanumeric.
+
+****
+*Format*: `alias COMMANDWORD [ALIASWORD]`
+*Example*: `alias sort shuffleAround`
+****
+
+
 == Frequently Asked Questions
 
 * *Will the available food items only be localized around a certain location?
@@ -696,6 +712,9 @@ Unfortunately you are unable to change the app’s language
 | <<Add a food item: `add`, `add`>>
 | Add food item.
 | ```add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NIL```
+| <<Editing the alias for a specific command: `alias`, `alias`>>
+| Editing the alias word for any given command word in $aveNUS.
+| ```alias sort shuffleAround```
 | <<Auto sorts list based on custom comparator: `autosort`, `autosort`>>
 | Allows the user to sort every time the food list is changed. This is based on a created custom comparator.
 | ```autosort ON```
@@ -706,7 +725,7 @@ Unfortunately you are unable to change the app’s language
 | Allows users the log a food expense into the application.
 | ```buy 1```
 | <<Clears wallet purchase history and food items: `clear`, `clear`>>
-| Clears wallet, purchase history and food items.
+| Clears wallet, purchase history, savings account, wallet, likes, dislikes and aliases.
 | ```clear```
 | <<Collapse the food card: `collapse`, `collapse`>>
 | Makes the Food Card more or less compact, depending on the user's preference.
