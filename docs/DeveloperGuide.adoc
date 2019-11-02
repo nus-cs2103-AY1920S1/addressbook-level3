@@ -131,6 +131,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteTaskCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::ModelDevGuide[]
 [[Design-Model]]
 === Model component
 
@@ -150,6 +151,7 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Member` or 'Task' can reference. This would allow `Project Dashboard` to only require one `Tag` object per unique `Tag`, instead of each `Member` or 'Task' needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagramNew.png[]
+// end::ModelDevGuide[]
 
 [[Design-Storage]]
 === Storage component
@@ -305,8 +307,9 @@ is able to customise.
 ** Pros: User has greater flexibility in choosing themes for +Work.
 ** Cons: We must ensure that all UI components switch themes consistently. This may take a long time to test, due to large number of views
 offered by +Work. Furthermore the compatibility of the theme with JavaFx must be regarded as well.
-end::settings[]
+// end::settings[]
 
+// tag::statistics[]
 === Statistics feature
 ==== Implementation
 
@@ -368,6 +371,7 @@ image::GetStatisticsActivityDiagram.png[]
 ** Cons: Decreases the ease of comparison between tasks and members
 // end::statistics[]
 
+// tag::member[]
 === Member Feature
 ==== Implementation
 The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks. Apart from the typical commands ('add-member', 'delete-member', 'find-member') involved in such a central class, the member features also introduce a 'set-image' command. The set-image command allows users to set an image in their computer as the profile picture of a member in +Work.

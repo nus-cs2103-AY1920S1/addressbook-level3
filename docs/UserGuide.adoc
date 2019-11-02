@@ -91,7 +91,7 @@ using the format `mt/... mt/... mt/...`
 ====
 
 '''
-
+// tag::UniversalCommands[]
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
@@ -133,7 +133,9 @@ Format: `help`
 image::Help.png[width=790]
 
 '''
+// end::UniversalCommands[]
 
+// tag::MemberCommands[]
 === Member-related Commands
 
 ==== Adding a member: `add-member` +
@@ -152,16 +154,15 @@ command prompt box.
 
 image::DuringAdd.png[width="790"]
 
-*Step 3:* After you hit kbd:[Enter], a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
+*Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
 image::DoneAdd.png[width="790"]
 
-The addition of a new member can also be seen from the list of members down below:
+The addition of a new member can also be seen from the list of members as shown down below:
 
 image::ListAdd.png[width="790"]
 
-
-[NOTE]
+[IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
 
 [NOTE]
@@ -194,12 +195,12 @@ image::SetImage.png[width="790"]
 [NOTE]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
-[NOTE]
+[IMPORTANT]
 If you shift the image's location in your computer, +Work will be unable to find the image to display. It
 is recommended that you store all the images in a central folder to prevent this from happening.
 
 
-=== Editing a member : `edit-member`
+==== Editing a member : `edit-member`
 To edit a member in +Work, using the command `edit-member` following the format below.
 
 Format: `edit-member mi/MEMBER_ID mn/MEMBER_NAME mt/MEMBER_TAG`
@@ -292,6 +293,7 @@ image::BeforeFire.png[width="790"]
 image::AfterFireMember.png[width="790"]
 
 '''
+// end::MemberCommands[]
 
 === Task-related Commands
 
@@ -504,6 +506,8 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 '''
 ////
+
+// tag::Statistics[]
 === Statistics Commands
 
 ==== Getting statistics of members: `member-stats` +
@@ -511,10 +515,13 @@ To get statistics relating to the members in +Work, use the statistics command f
 
 Format: `member-stats` +
 
-Calling the `member-stats` command will result in the statistics being display as follows:
+Calling the `member-stats` command will result in the statistics being displayed as follows:
 
 image::MemberStats.png[width="790"]
 
+[NOTE]
+The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
+project member in +Work.
 
 ==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
@@ -524,8 +531,13 @@ Calling the `task-stats` command will result in the statistics being displayed a
 
 image::TaskStats.png[width="790"]
 
+[NOTE]
+The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
+as well as the time taken for each inputted tasks in +Work.
 
 '''
+// end::Statistics[]
+
 === Settings Commands
 
 ==== Switching the theme of +Work: `theme`
@@ -585,7 +597,7 @@ For example, when you type `add-mem` into the command-line, +Work will prompt yo
 
 ////
 
-// tag::dataencryption[]
+tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
