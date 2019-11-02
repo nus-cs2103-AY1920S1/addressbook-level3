@@ -18,8 +18,8 @@ public class TaskDate {
                     + "\n"
                     + "Or subsequently, the entered month does not have the that particular day.";
     public final String day;
-    public final String month;
-    public final String year;
+    private final String month;
+    private final String year;
     public final String taskDate;
 
     /**
@@ -43,7 +43,6 @@ public class TaskDate {
      * Returns true if given string is a valid date
      */
     public static boolean isValidTaskDate(String test) {
-        //TODO: give reference to https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
         if (test == null) {
             return false;
         }
