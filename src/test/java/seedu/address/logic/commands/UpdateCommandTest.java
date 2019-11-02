@@ -272,6 +272,20 @@ public class UpdateCommandTest {
         String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
         assertCommandFailure(updateCommand, model, expectedMessage);
     }
+
+    @Test
+    public void executeBody_setBodyStatusToCop_success() throws CommandException {
+        Body body = new BodyBuilder().build();
+        model.addEntity(body);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(CONTACT_POLICE);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(model.getNumberOfNotifs(), 1);
+    }
     //@@author
 
     @Test

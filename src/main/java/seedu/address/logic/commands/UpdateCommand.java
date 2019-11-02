@@ -163,6 +163,7 @@ public class UpdateCommand extends UndoableCommand {
                         || (originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                         && (!updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                             && !updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))))) {
+                    // auto-update status to CONTACT_POLICE
                     handleRemovingNotifs(model, originalBodyDescriptor, updateBodyDescriptor);
                 }
 
@@ -181,6 +182,12 @@ public class UpdateCommand extends UndoableCommand {
                     throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
                 }
 
+                // add notif when a user manually sets the bodyStatus to CONTACT_POLICE
+                if (updateBodyDescriptor.getBodyStatus().equals(Optional.of(CONTACT_POLICE))
+                    && !doesNotifExist(model)) {
+                    Notif notif = new Notif((Body) entity);
+                    model.addNotif(notif);
+                }
             }
             //@@author
 
@@ -293,6 +300,23 @@ public class UpdateCommand extends UndoableCommand {
         }
 
         body.setFridgeId(null);
+    }
+
+    /**
+     * Checks whether the notification for a particular body exists in the model
+     * @param model                  refers to the AddressBook model.
+     * @return whether a notif exists in the model.
+     */
+    private boolean doesNotifExist(Model model) {
+        Body body = (Body) entity;
+
+        for (Notif notif : model.getFilteredNotifList()) {
+            if (notif.getBody().getIdNum().equals(body.getIdNum())) {
+                return true;
+            }
+        }
+
+        return false;
     }
     //@@author
 
