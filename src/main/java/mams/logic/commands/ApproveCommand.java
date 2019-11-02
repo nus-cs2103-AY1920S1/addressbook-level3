@@ -8,10 +8,10 @@ import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
 import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
+import static mams.logic.commands.ClashCommand.ClashCase;
+import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
@@ -31,6 +31,8 @@ import mams.model.tag.Tag;
  * Approves a appeal in mams.
  */
 public class ApproveCommand extends Approve {
+
+
 
     private final Index index;
     private final String reason;
@@ -169,8 +171,9 @@ public class ApproveCommand extends Approve {
                 type += "drop module";
 
             } else {
-
+                ArrayList<ClashCase> clashCases = new ArrayList<ClashCase>();
                 moduleCode = appealToApprove.getModuleToAdd();
+
 
                 List<Student> studentToCheckList = fullStudentList.stream()
                         .filter(p -> p.getMatricId().toString().equals(studentToEditId)).collect(Collectors.toList());
@@ -195,6 +198,36 @@ public class ApproveCommand extends Approve {
                         throw new CommandException(MESSAGE_DUPLICATE_MODULE);
                     }
                 }
+
+
+                //Get all the modules student has and add them into an arraylist of modules for checking
+                ArrayList<Module> currentModules = new ArrayList<>();
+                for (Tag currentModule : studentModules) {
+                    String modCode = currentModule.getTagName();
+                    List<Module> filteredModulesList = model.getFullModuleList()
+                            .stream()
+                            .filter(m -> m.getModuleCode().equalsIgnoreCase(modCode))
+                            .collect(Collectors.toList());
+                    Module filteredModule = filteredModulesList.get(0);
+                    currentModules.add(filteredModule);
+                }
+
+                //Checks if current modules clashes with requested module
+                for (Module currentModule : currentModules) {
+                    if (getClashCase(currentModule, moduleToEdit).isPresent()) {
+                        clashCases.add(getClashCase(currentModule, moduleToEdit).get());
+                    }
+                }
+
+                //If there exists clashes notify admin via feedback message
+                if (clashCases.size() != 0) {
+                    return new CommandResult(MESSAGE_CLASH_IN_STUDENT
+                            + studentToEditId
+                            + ":\n"
+                            + getClashDetails(clashCases)
+                            + "Unable to approve this appeal");
+                }
+
 
                 //add module to student.
                 Set<Tag> ret = new HashSet<>();
@@ -287,4 +320,40 @@ public class ApproveCommand extends Approve {
         return index.equals(e.index)
                 && reason.equals(e.reason);
     }
+
+
+    private Optional<ClashCommand.ClashCase> getClashCase(Module moduleA, Module moduleB) {
+        int[] timeTableA = moduleA.getTimeSlotToIntArray();
+        int[] timeTableB = moduleB.getTimeSlotToIntArray();
+        ArrayList<Integer> slots = new ArrayList<>();
+        for (int i : timeTableA) {
+            for (int j : timeTableB) {
+                if (i == j) {
+                    slots.add(i);
+                }
+            }
+        }
+        if (!slots.isEmpty()) {
+            ClashCommand.ClashCase c = new ClashCommand.ClashCase();
+            c.setModuleA(moduleA);
+            c.setModuleB(moduleB);
+            c.setClashingSlots(slots);
+            return Optional.of(c);
+        }
+        return Optional.empty();
+    }
+
+    private String getClashDetails(ArrayList<ClashCase> clashCases) {
+        StringBuilder s = new StringBuilder();
+        for (ClashCase c : clashCases) {
+            s.append(c.getModuleCodeA());
+            s.append("  ");
+            s.append(c.getModuleCodeB());
+            s.append("\n");
+            s.append(c.getClashingSlots());
+            s.append("\n");
+        }
+        return s.toString();
+    }
+
 }

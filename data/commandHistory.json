@@ -299,5 +299,80 @@
     "output" : "Displayed items with ID: C000000",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572622903981
+  }, {
+    "input" : "clash m/1 m/2",
+    "output" : "There is no timetable clash.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683274646
+  }, {
+    "input" : "clash m/1 m/3",
+    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683277116
+  }, {
+    "input" : "clash m/4 m/3",
+    "output" : "Timetable clash detected: \nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683287728
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected: \nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683452516
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected: \n for A0180011CS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683552421
+  }, {
+    "input" : "approve a/11",
+    "output" : "Approved C000010\nStudent max credits updated to : 30",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683752663
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683755498
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected for A0180011 CS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683763396
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected for A0180011:\nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683893624
+  }, {
+    "input" : "approve mass/  C000000   C000001 c000003     c000011",
+    "output" : "Successfully approved: [C000000, C000001, C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685071937
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685096567
+  }, {
+    "input" : "approve mass/ C000011",
+    "output" : "Successfully approved: [C000011]\nInvalid appeal IDs: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685298030
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685305558
+  }, {
+    "input" : "approve mass/ C000011",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685317929
+  }, {
+    "input" : "approve mass/ c000011",
+    "output" : "No appeals were approved\nAppeals with module clash: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685531694
   } ]
 }

@@ -70,7 +70,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180011",
-    "tagged" : [ "CS1231", "CS2030", "CS2040" ]
+    "tagged" : [ "CS2030", "CS2040" ]
   }, {
     "name" : "Lucy Lomas  ",
     "credits" : "23",
@@ -318,7 +318,7 @@
     "timeSlot" : "21,20,57,58,59"
   }, {
     "quota" : "80",
-    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180011", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
+    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
     "moduleCode" : "CS1231",
     "moduleName" : "Discrete Structures",
     "moduleDescription" : "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
@@ -552,7 +552,7 @@
     "appealDescription" : "I wish to take this module to clear my prerequisite",
     "previousModule" : "",
     "newModule" : "",
-    "moduleToAdd" : "CS2030",
+    "moduleToAdd" : "CS1231",
     "moduleToDrop" : "",
     "resolved" : false,
     "result" : "",
