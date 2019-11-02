@@ -23,9 +23,7 @@ public class DeleteFromGroupCommandSuggester extends Suggester {
             final Model model, final ArgumentList arguments, final CommandArgument commandArgument) {
         final Prefix prefix = commandArgument.getPrefix();
 
-        if (!SUPPORTED_PREFIXES.contains(prefix)) {
-            return null;
-        } else if (prefix.equals(CliSyntax.PREFIX_GROUPNAME)) {
+        if (prefix.equals(CliSyntax.PREFIX_GROUPNAME)) {
             return getGroupNameSuggestions(model, commandArgument);
         } else if (prefix.equals(CliSyntax.PREFIX_NAME)) {
             final Optional<String> groupNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_GROUPNAME);
