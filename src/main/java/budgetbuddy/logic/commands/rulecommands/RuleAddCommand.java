@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.rulecommands;
 
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
@@ -10,7 +11,13 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.RuleManager;
+import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.rule.Rule;
+import budgetbuddy.model.rule.RuleAction;
+import budgetbuddy.model.rule.RulePredicate;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
+import budgetbuddy.model.script.ScriptName;
 
 /**
  * Adds a rule.
@@ -29,6 +36,7 @@ public class RuleAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New rule added: %1$s";
     public static final String MESSAGE_DUPLICATE_RULE = "This rule already exists in the Rule Engine.";
+    public static final String MESSAGE_SCRIPT_NOT_FOUND = "The script specified in this rule does not exist.";
 
     private final Rule rule;
 
@@ -42,14 +50,34 @@ public class RuleAddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary());
         RuleManager ruleManager = model.getRuleManager();
+        ScriptLibrary scriptLibrary = model.getScriptLibrary();
 
         if (ruleManager.hasRule(rule)) {
             throw new CommandException(MESSAGE_DUPLICATE_RULE);
         }
 
+        RulePredicate pred = rule.getPredicate();
+        RuleAction act = rule.getAction();
+        if (pred.getType().equals(Rule.TYPE_SCRIPT)) {
+            ScriptName scriptName = ((PredicateScript) pred).getScriptName();
+            if (!hasScript(scriptName, scriptLibrary)) {
+                throw new CommandException(MESSAGE_SCRIPT_NOT_FOUND);
+            }
+        }
+        if (act.getType().equals(Rule.TYPE_SCRIPT)) {
+            ScriptName scriptName = ((ActionScript) act).getScriptName();
+            if (!hasScript(scriptName, scriptLibrary)) {
+                throw new CommandException(MESSAGE_SCRIPT_NOT_FOUND);
+            }
+        }
+
         ruleManager.addRule(rule);
         return new CommandResult(String.format(MESSAGE_SUCCESS, rule), CommandCategory.RULE);
+    }
+
+    private boolean hasScript(ScriptName name, ScriptLibrary scriptLibrary) {
+        return scriptLibrary.getScript(name) != null;
     }
 }
