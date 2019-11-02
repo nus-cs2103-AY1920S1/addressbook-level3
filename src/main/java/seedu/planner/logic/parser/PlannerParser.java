@@ -17,7 +17,7 @@ import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.InitCommand;
 import seedu.planner.logic.commands.ListContactCommand;
-import seedu.planner.logic.commands.OptimiseBudgetCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
 import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoCommand;
@@ -94,7 +94,7 @@ public class PlannerParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
-        case OptimiseBudgetCommand.COMMAND_WORD:
+        case OptimiseCommand.COMMAND_WORD:
             return new OptimiseBudgetCommandParser().parse(arguments);
 
         case ViewCommand.COMMAND_WORD:

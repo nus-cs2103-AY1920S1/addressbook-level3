@@ -23,10 +23,10 @@ import seedu.planner.model.field.Cost;
 /**
  * Optimises a Day's activities.
  */
-public class OptimiseBudgetCommand extends UndoableCommand {
+public class OptimiseCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "optimise";
     public static final String MESSAGE_SUCCESS = "Day has been optimised!";
-
+    public static final String MESSAGE_DAY_EMPTY = "Day is empty!";
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
             "Optimises the day based on the total cost of activities in a day.",
@@ -39,9 +39,9 @@ public class OptimiseBudgetCommand extends UndoableCommand {
     private List<Path> paths;
 
     /**
-     * Creates an OptimiseBudgetCommand to optimise a day's activities.
+     * Creates an OptimiseCommand to optimise a day's activities.
      */
-    public OptimiseBudgetCommand(Index dayIndex) {
+    public OptimiseCommand(Index dayIndex) {
         requireNonNull(dayIndex);
         this.dayIndex = dayIndex;
     }
@@ -83,10 +83,12 @@ public class OptimiseBudgetCommand extends UndoableCommand {
     /**
      * Creates an adjacency list of all the activities
      */
-    private TreeMap<ActivityWithTime, List<ActivityWithTime>> makeAdjList(Day day) {
+    private TreeMap<ActivityWithTime, List<ActivityWithTime>> makeAdjList(Day day) throws CommandException {
         TreeMap<ActivityWithTime, List<ActivityWithTime>> adjList = new TreeMap<>();
         List<ActivityWithTime> activities = day.getListOfActivityWithTime();
-
+        if (activities.size() == 0) {
+            throw new CommandException(MESSAGE_DAY_EMPTY);
+        }
         for (int i = 0; i < activities.size(); i++) {
             ActivityWithTime currAct = activities.get(i);
             Optional<ActivityWithTime> nextAct = day.findNextActNoOverlap(Index.fromZeroBased(i));

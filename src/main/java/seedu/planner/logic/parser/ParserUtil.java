@@ -34,7 +34,6 @@ import seedu.planner.model.tag.TagWithTime;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_DURATION = "Duration is not a non-zero unsigned positive long value";
     public static final String MESSAGE_INVALID_PRIORITY = "Value of priority "
             + "is not a non-zero unsigned positive integer.";
     private static final String DATE_FORMAT_1 = "d-M-yyyy";
@@ -306,20 +305,19 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String min} into an {@code Duration}.
+     * Parses a {@code String duration} into an {@code Duration}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException
      */
-    public static Duration parseDuration(String min) throws ParseException {
-        requireNonNull(min);
-        try {
-            String trimmedMin = min.trim();
-            Integer duration = Integer.parseInt(trimmedMin);
-            return new Duration(duration);
-        } catch (NumberFormatException e) {
-            throw new ParseException(MESSAGE_INVALID_DURATION);
+    public static Duration parseDuration(String s) throws ParseException {
+        requireNonNull(s);
+        String trimmedStr = s.trim();
+        if (!Duration.isValidDuration(s)) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
         }
+        Integer duration = Integer.parseInt(trimmedStr);
+        return new Duration(duration);
     }
 
     /**
