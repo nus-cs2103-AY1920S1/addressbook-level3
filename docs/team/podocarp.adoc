@@ -41,8 +41,12 @@ It has >10k LOC.
 ** Project management:
 *** Added Travis CI for code quality assurance.
 *** Added Coveralls for code test coverage assurance.
+*** Reviewed and assisted in major PR for `ExpenseCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98[#98]
+*** Reviewed major PR for `ActivityCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73]
+*** Reviewed major PR for `InviteCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/103[#103]
+*** Reviewed smaller non-trivial PRs: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/46[#46] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/54[#54] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/72[#72] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/117[#117] 
 ** Enhancements to existing features:
-*** Made expense command accept arbitrary combinations of participants and made it mesh with the algorithm.
+*** Added tests on other PRs https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e[(dbb83e)]
 
 == Contributions to the User Guide
 
