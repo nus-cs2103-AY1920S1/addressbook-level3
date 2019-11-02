@@ -116,7 +116,7 @@ Examples:
 ==== Listing all records of current and past competitions: listCompetition
 This command has no parameters
 
-Format: listCompetition
+Format: `listCompetition`
 
 === Commands related to person (athlete)
 Commands related to managing persons (athletes) outside of a competition setting shall be introduced now.
