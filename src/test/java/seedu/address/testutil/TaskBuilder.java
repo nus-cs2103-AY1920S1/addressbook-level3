@@ -18,11 +18,11 @@ import seedu.address.model.calendar.util.SampleDataUtil;
  */
 public class TaskBuilder {
 
-    public static final String DEFAULT_TITLE = "CS2100 Assignment";
+    public static final String DEFAULT_TITLE = "CS2110 Assignment";
     public static final String DEFAULT_TIME = "10:00";
     public static final String DEFAULT_DESCRIPTION = "Write by hand";
     public static final String DEFAULT_DAY = "monday";
-    public static final String DEFAULT_DEADLINE = "19-11-2019";
+    public static final String DEFAULT_DEADLINE = "01-09-2020";
     public static final int DEFAULT_WEEK = 0;
 
     private TaskTitle title;
