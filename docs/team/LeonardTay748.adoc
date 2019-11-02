@@ -61,15 +61,66 @@ My role in the team was to design and write the codes for the statistics and hel
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+This section will explain the operation of two features that I have implemented, starting with the statistics feature and followed by the help feature. 
 
-include::../UserGuide.adoc[tag=dataencryption]
+Viewing the statistics: `stats`
+
+This command displays three types of statistics to the user when the command `stats` is executed.
+
+To view statistics:
+
+1. Type `stats` into the command box, and press *enter* to execute it.
+
+image::StatsCommand.png[width="790"]
+
+2. The result box will display the message "Statistics displayed"
+
+image::StatsCommandBox.png[width="790"]
+
+3. A pop-up window will appear, displaying three different charts. However, the middle and rightmost charts will be empty initially because they are synchronised with the test feature, and will only display values after a test has been ran.
+
+image::StatsWindow.png[width="790"]
+
+The following portion is an explanation of how the help feature operates.
+
+Help feature: `help`
+
+This commmand displays to the user, a full list of commands supported by the application, when the command `help` is executed.
+
+To get help:
+
+1. Type `help` into the command box, and press *enter* to execute it.
+
+image::HelpCommand.png[width="790"]
+
+2. The result box will display the message "Opened help window."
+
+image::HelpCommandBox.png[width="790"]
+
+3. A pop-up window will appear, displaying a summary of all the commands available to the user.
+
+image::HelpWindow.png[width="790"]
+
 
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+The statistics feature is facilitated by the following classes
+
+* `_StatsCommand_` -- Returns the message to be displayed on the command box.
+* `_MainWindow_` -- Checks if the statistics window should be opened.
+* `_StatsWindow_` -- Builds the statistics window display.
+* `_Model_` -- Provides the statistics needed.
+* `_Scene_` -- To create an object that contains all the physical contents of the pop-up window.
+* `_FlowPane_` -- To create the layout of the pop-up window.
+* `_Stage_` -- To create the pop-up window.
+
+Given below is a sequence diagram on the operation of the statistics feature.
+
+image::StatisticsSequenceDiagram.png[width="790"]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
