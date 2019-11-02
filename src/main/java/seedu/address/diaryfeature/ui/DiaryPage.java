@@ -125,7 +125,7 @@ public class DiaryPage extends UiPart<Region> implements Page {
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | NullPointerException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

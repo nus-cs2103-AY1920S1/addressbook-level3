@@ -8,12 +8,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.diaryfeature.logic.parser.ParserUtil;
+import seedu.address.diaryfeature.logic.parser.Validators;
+import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.TitleParseException;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
-import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 /**
  * Jackson-friendly version of {@link seedu.address.diaryfeature.model.diaryEntry.DiaryEntry}.
@@ -53,33 +57,12 @@ public class JsonAdaptedDiaryEntry {
         /**
          * Converts this Jackson-friendly adapted person object into the addressBookModel's {@code Person} object.
          *
-         * @throws IllegalValueException if there were any data constraints violated in the adapted person.
          */
-        public DiaryEntry toModelType() throws IllegalValueException, ParseException, TitleException {
-
-            if (title == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
-            }
-
-            final Title modelTitle = new Title(title);
-
-            if (date == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date is missing"));
-            }
-            final Date modelDate = DateFormatter.convertToDate(date);
-
-            if (place == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Place.class.getSimpleName()));
-            }
-
-            final Place modelPlace = new Place(place);
-
-            if (memory == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Memory.class.getSimpleName()));
-            }
-            final Memory modelMemory = new Memory(memory);
-
-
+        public DiaryEntry toModelType() throws DiaryEntryParseException {
+            final Title modelTitle = ParserUtil.parseTitle(title);
+            final Date modelDate = ParserUtil.parseDate(date);
+            final Place modelPlace = ParserUtil.parsePlace(place);
+            final Memory modelMemory = ParserUtil.parseMemory(memory);
             return new DiaryEntry(modelTitle,modelDate,modelPlace,modelMemory);
         }
 

@@ -1,14 +1,13 @@
 package seedu.address.diaryfeature.model.util;
 
-import java.text.ParseException;
 
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
-import seedu.address.diaryfeature.model.exceptions.TitleException;
 
 
 /**
@@ -24,7 +23,7 @@ public class SampleDataUtil {
                 new DiaryEntry(new Title("Temp 2"), DateFormatter.convertToDate("31/12/2019 1400"),
                         new Place("Kokomo"),new Memory("Aruba, Bahama, come on pretty mama"))
             };
-        } catch (TitleException | ParseException ex) {
+        } catch (DiaryEntryParseException error) {
             return null;
         }
 

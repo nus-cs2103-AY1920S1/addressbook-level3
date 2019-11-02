@@ -9,33 +9,31 @@ import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.Optional;
 
 import seedu.address.diaryfeature.logic.commands.FindSpecificCommand;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.diaryfeature.logic.predicates.FindSpecificPredicate;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
  * Parses input arguments and creates a new AddCommand object
 */
 
-public class FindSpecificCommandParser implements Parser<Command> {
+public class FindSpecificCommandParser {
     ArgumentMultimap argMultimap;
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
      */
 
-    public Command parse(String args) throws ParseException {
-        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+    public Command parse(String args) throws EmptyArgumentException {
+        String trimmed = ParserUtil.parseArgs(args,FindSpecificCommand.COMMAND_WORD);
+        argMultimap = ArgumentTokenizer.tokenize(trimmed, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
         return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue()));
     }
-
 
 
     private String[] getPresentValue() {

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.diaryfeature.model.exceptions.TitleException;
+import seedu.address.diaryfeature.logic.parser.exceptions.TitleException;
 
 
 public class TitleTest {

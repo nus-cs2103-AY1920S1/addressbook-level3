@@ -18,7 +18,7 @@ public class AddCommand extends Command<DiaryModel> {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry to the diaryBook. ";
 
 
-    public static final String MESSAGE_SUCCESS = "New entry added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New entry added:";
 
     private final DiaryEntry toAdd;
 
@@ -35,7 +35,7 @@ public class AddCommand extends Command<DiaryModel> {
         requireNonNull(model);
 
         model.addDiaryEntry(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(MESSAGE_SUCCESS + "\n" +  toAdd);
     }
 
     @Override

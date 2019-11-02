@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
+
 /**
  * TimeFormatter class takes in an input string of a date and outputs it in the proper.
  * Date/Time format, specified by the Java Date class
@@ -17,9 +19,13 @@ public class DateFormatter {
      * @return Date specified by user.
      */
 
-    public static java.util.Date convertToDate(String str) throws ParseException {
-        SimpleDateFormat myFormatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        return myFormatter.parse(str);
+    public static java.util.Date convertToDate(String str) throws DateParseException {
+        try {
+            SimpleDateFormat myFormatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+            return myFormatter.parse(str);
+        } catch (ParseException error) {
+            throw new DateParseException();
+        }
     }
 
     /**
