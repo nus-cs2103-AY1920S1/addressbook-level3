@@ -26,7 +26,6 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class RemovePaidCommandTest {
 
@@ -97,6 +96,7 @@ public class RemovePaidCommandTest {
 
         expectedModel.addPurchase(INDEX_FIRST_PURCHASE.getZeroBased(), purchaseToDelete);
         expectedModel.updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
+
         assertCommandInverseSuccess(removePaidCommand, model, inverseExpectedMessage, expectedModel);
     }
 
