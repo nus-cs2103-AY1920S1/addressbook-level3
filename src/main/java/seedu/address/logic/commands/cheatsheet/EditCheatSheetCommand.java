@@ -35,7 +35,7 @@ public class EditCheatSheetCommand extends Command {
     public static final String COMMAND_WORD = EDIT;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the cheatsheet identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed cheatsheet list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TITLE + "TITLE] "
@@ -85,8 +85,8 @@ public class EditCheatSheetCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code CheatSheet} with the details of {@code cheatSheetToEdit}
+     * edited with {@code editCheatSheetDescriptor}.
      */
     public static CheatSheet createEditedCheatSheet(CheatSheet cheatSheetToEdit,
                                                  EditCheatSheetDescriptor editCheatSheetDescriptor, boolean isAdd) {
@@ -129,7 +129,7 @@ public class EditCheatSheetCommand extends Command {
      * @param tags list of tags to remove
      * @return updated list of tags
      */
-    private static Set<Tag> updateTags(CheatSheet cheatSheetToEdit, Set<Tag> tags) {
+    public static Set<Tag> updateTags(CheatSheet cheatSheetToEdit, Set<Tag> tags) {
         Set<Tag> tagList = new HashSet<>();
 
         if (tags.isEmpty()) {
@@ -152,7 +152,7 @@ public class EditCheatSheetCommand extends Command {
      * @param contents existing contents
      * @return relevant contents
      */
-    private static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
+    public static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
         Set<Content> contentList = new HashSet<>();
 
         for (Content content: contents) {
@@ -171,7 +171,7 @@ public class EditCheatSheetCommand extends Command {
      * @param indexes the indexes of the contents to be removed
      * @return set of contents with indicated contents removed
      */
-    private static Set<Content> updateContents(CheatSheet cheatSheetToEdit, ArrayList<Integer> indexes) {
+    public static Set<Content> updateContents(CheatSheet cheatSheetToEdit, ArrayList<Integer> indexes) {
         Set<Content> contentList = new HashSet<>();
 
         if (indexes == null || indexes.isEmpty()) {
@@ -207,8 +207,8 @@ public class EditCheatSheetCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the cheatsheet with. Each non-empty field value will replace the
+     * corresponding field value of the cheatsheet.
      */
     public static class EditCheatSheetDescriptor {
         private Title title;

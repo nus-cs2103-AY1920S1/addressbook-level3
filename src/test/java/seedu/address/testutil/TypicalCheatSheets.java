@@ -19,19 +19,19 @@ import seedu.address.model.cheatsheet.CheatSheet;
 public class TypicalCheatSheets {
 
     public static final CheatSheet CS1 = new CheatSheetBuilder()
-            .withTitle("Cheatsheet 1 title")
+            .withTitle("Cheatsheet 1")
             .withTags("cs2103t").build();
     public static final CheatSheet CS2 = new CheatSheetBuilder()
-            .withTitle("Cheatsheet 2 title")
+            .withTitle("cs 2")
             .withTags("cs2101").build();
     public static final CheatSheet CS3 = new CheatSheetBuilder()
-            .withTitle("Cheatsheet 3 title")
+            .withTitle("Cheatsheetszxc 3")
             .withTags("cs2102").build();
     public static final CheatSheet CS4 = new CheatSheetBuilder()
-            .withTitle("Cheatsheet 4 title")
+            .withTitle("ccss 4")
             .withTags("cs2105").build();
     public static final CheatSheet CS5 = new CheatSheetBuilder()
-            .withTitle("Cheatsheet 5 title")
+            .withTitle("sc 5")
             .withTags("lsm1301").build();
 
     // Manually added - CheatSheet's details found in {@code CommandTestUtil}

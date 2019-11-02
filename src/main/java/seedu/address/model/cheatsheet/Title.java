@@ -20,13 +20,13 @@ public class Title {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String value;
+    public final String fullTitle;
 
     public Title(String title) {
         requireNonNull(title);
         title = title.trim();
         checkArgument(isValidTitle(title), MESSAGE_CONSTRAINTS);
-        this.value = title;
+        this.fullTitle = title;
     }
 
     /**
@@ -39,18 +39,18 @@ public class Title {
 
     @Override
     public String toString() {
-        return value;
+        return fullTitle;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Title // instanceof handles nulls
-                && value.equals(((Title) other).value)); // state check
+                && fullTitle.equals(((Title) other).fullTitle)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return fullTitle.hashCode();
     }
 }
