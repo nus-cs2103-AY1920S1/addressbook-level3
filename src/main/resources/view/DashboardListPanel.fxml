@@ -51,6 +51,6 @@
             <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
          </VBox.margin>
       </HBox>
-       <ListView fx:id="dashboardListView" prefHeight="322.0" prefWidth="377.0" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="dashboardListView" prefHeight="322.0" prefWidth="377.0" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

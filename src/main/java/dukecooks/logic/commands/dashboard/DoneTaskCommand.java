@@ -43,17 +43,21 @@ public class DoneTaskCommand extends Command {
 
         Dashboard taskToMark = lastShownList.get(targetIndex.getZeroBased());
 
-        if (taskToMark.getTaskStatus().isDone(taskToMark.getTaskStatus().toString())) {
+        if (taskToMark.getTaskStatus().getDoneStatus()) {
+
             throw new CommandException(Messages.MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE);
         }
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);
 
         if (model.checkForPrize(lastShownList)) {
-            return new CommandResult(String.format(MESSAGE_DONE_FIVE_SUCCESS, createDoneTask));
+
+            model.changeDashboard(lastShownList);
+            return new CommandResult(MESSAGE_DONE_FIVE_SUCCESS, true, false, false);
 
         } else {
             return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, createDoneTask));
+
         }
     }
 
@@ -70,7 +74,7 @@ public class DoneTaskCommand extends Command {
     private static Dashboard createDoneTask(Dashboard key) {
         assert key != null;
 
-        TaskStatus status = new TaskStatus("COMPLETE");
+        TaskStatus status = new TaskStatus("RECENTLY COMPLETED");
         return new Dashboard(key.getDashboardName(), key.getTaskDate(), status);
     }
 

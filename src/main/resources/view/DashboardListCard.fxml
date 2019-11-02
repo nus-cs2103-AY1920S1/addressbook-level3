@@ -37,7 +37,7 @@
                             </children>
                         </HBox>
                         <Label fx:id="taskDate" styleClass="cell_small_label" text="\$taskDate" />
-                          <Label fx:id="taskStatus" text="\$taskStatus" />
+                        <Label fx:id="taskStatus" text="\$taskStatus" />
                     </children>
                 </VBox>
             </children>

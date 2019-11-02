@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox>
+            <children>
+                <Label fx:id="title" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="150.0" text="WorkoutPlanner                     " textFill="#797373">
+                <font>
+                    <Font name="Devanagari Sangam MN" size="36.0" />
+                </font>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" top="5.0" />
+                </padding>
+                </Label>
+                <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                    <children>
+                      <Label fx:id="workoutTitle" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="113.0" text="Exercises" textFill="#797373">
+                          <font>
+                              <Font name="Devanagari Sangam MN" size="36.0" />
+                          </font>
+                      </Label>
+                        <ListView fx:id="exerciseListView" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="workoutListView" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="workoutTitle1" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="113.0" text="Workout" textFill="#797373">
+                     <font>
+                        <Font name="Devanagari Sangam MN" size="36.0" />
+                     </font>
+                  </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -29,7 +29,7 @@ public class ExerciseListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class ExerciseListViewCell extends ListCell<Exercise> {
+    static class ExerciseListViewCell extends ListCell<Exercise> {
         @Override
         protected void updateItem(Exercise exercise, boolean empty) {
             super.updateItem(exercise, empty);

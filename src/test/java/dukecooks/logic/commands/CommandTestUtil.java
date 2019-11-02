@@ -63,7 +63,7 @@ import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
 import dukecooks.model.workout.exercise.components.Intensity;
@@ -332,11 +332,11 @@ public class CommandTestUtil {
     public static void assertExerciseCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        WorkoutPlanner expectedWorkoutPlanner = (WorkoutPlanner) actualModel.getWorkoutPlanner();
+        ExerciseCatalogue expectedWorkoutPlanner = (ExerciseCatalogue) actualModel.getExerciseCatalogue();
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedWorkoutPlanner, actualModel.getWorkoutPlanner());
+        assertEquals(expectedWorkoutPlanner, actualModel.getExerciseCatalogue());
         assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
     }
 

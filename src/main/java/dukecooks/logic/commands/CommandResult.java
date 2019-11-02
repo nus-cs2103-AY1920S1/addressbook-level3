@@ -11,13 +11,13 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /**
+     * Reward that a user gets if 5 new tasks are completed.
+     */
+    private final boolean showReward;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
-
-    /**
-     * Provide statistic information to user.
-     */
-    private final boolean showStats;
 
     /** The application should exit. */
     private final boolean exit;
@@ -25,10 +25,10 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean showStats, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showReward, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showReward = showReward;
         this.showHelp = showHelp;
-        this.showStats = showStats;
         this.exit = exit;
     }
 
@@ -44,12 +44,12 @@ public class CommandResult {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public boolean isShowReward() {
+        return showReward;
     }
 
-    public boolean isShowStats() {
-        return showStats;
+    public boolean isShowHelp() {
+        return showHelp;
     }
 
     public boolean isExit() {
@@ -69,14 +69,14 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                && showReward == otherCommandResult.showReward
                 && showHelp == otherCommandResult.showHelp
-                && showStats == otherCommandResult.showStats
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, showStats, exit);
+        return Objects.hash(feedbackToUser, showReward, showHelp, exit);
     }
 
 }

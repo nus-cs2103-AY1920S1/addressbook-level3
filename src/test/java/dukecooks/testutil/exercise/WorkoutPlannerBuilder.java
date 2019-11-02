@@ -1,6 +1,6 @@
 package dukecooks.testutil.exercise;
 
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 
 /**
@@ -10,13 +10,13 @@ import dukecooks.model.workout.exercise.components.Exercise;
  */
 public class WorkoutPlannerBuilder {
 
-    private WorkoutPlanner dukeCooks;
+    private ExerciseCatalogue dukeCooks;
 
     public WorkoutPlannerBuilder() {
-        dukeCooks = new WorkoutPlanner();
+        dukeCooks = new ExerciseCatalogue();
     }
 
-    public WorkoutPlannerBuilder(WorkoutPlanner dukeCooks) {
+    public WorkoutPlannerBuilder(ExerciseCatalogue dukeCooks) {
         this.dukeCooks = dukeCooks;
     }
 
@@ -28,7 +28,7 @@ public class WorkoutPlannerBuilder {
         return this;
     }
 
-    public WorkoutPlanner build() {
+    public ExerciseCatalogue build() {
         return dukeCooks;
     }
 }

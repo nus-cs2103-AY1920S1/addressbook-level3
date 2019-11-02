@@ -213,6 +213,15 @@ reduces the amount of switch cases within `DukeCooksParser` and makes testing mo
 
 // tag::dashboard[]
 === Dashboard features
+=== What makes up a Dashboard?
+
+In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
+a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
+
+.Dashboard Class Diagram
+[caption="Figure 9: "]
+image::DashboardClassDiagram.png[width="790"]
+
 ==== Implementation
 The functions add/delete/edit/find/list task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
@@ -224,11 +233,11 @@ The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It e
 
 The operations are as followed:
 
-* `DukeCooks v1.3#add()` -- Adds and saves the task into `DukeCooks`.
-* `DukeCooks v1.3#delete()` -- Removes the specified task from `DukeCooks`.
-* `DukeCooks v1.3k#edit()` -- Edits the specified with a new task name and/or date.
-* `DukeCooks v1.3#find()` -- Finds a list of task with a given keyword.
-* `DukeCooks v1.3#list()` -- Finds a list of task with a given keyword.
+* `DukeCooks#add()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks#delete()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks#edit()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks#find()` -- Finds a list of task with a given keyword.
+* `DukeCooks#list()` -- Lists all the tasks in DukeCooks.
 
 These operations are exposed in the Model interface as `Model#addDashboard()`,
 `Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and

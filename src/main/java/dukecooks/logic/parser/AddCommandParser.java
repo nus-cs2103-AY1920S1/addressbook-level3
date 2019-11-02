@@ -14,6 +14,7 @@ import dukecooks.logic.commands.health.AddHealthCommand;
 import dukecooks.logic.commands.mealplan.AddMealPlanCommand;
 import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
+import dukecooks.logic.commands.workout.AddWorkoutCommand;
 import dukecooks.logic.parser.dashboard.AddTaskCommandParser;
 import dukecooks.logic.parser.diary.AddDiaryCommandParser;
 import dukecooks.logic.parser.diary.AddPageCommandParser;
@@ -23,6 +24,7 @@ import dukecooks.logic.parser.health.AddHealthCommandParser;
 import dukecooks.logic.parser.mealplan.AddMealPlanCommandParser;
 import dukecooks.logic.parser.profile.AddProfileCommandParser;
 import dukecooks.logic.parser.recipe.AddRecipeCommandParser;
+import dukecooks.logic.parser.workout.AddWorkoutCommandParser;
 
 /**
  * Parses input arguments and creates a new AddRecipeCommand object
@@ -73,6 +75,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         case AddProfileCommand.VARIANT_WORD:
             return new AddProfileCommandParser().parse(arguments);
+
+        case AddWorkoutCommand.VARIANT_WORD:
+            return new AddWorkoutCommandParser().parse(arguments);
+
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

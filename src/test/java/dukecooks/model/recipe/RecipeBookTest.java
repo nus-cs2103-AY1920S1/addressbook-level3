@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.exceptions.DuplicateRecipeException;
+import dukecooks.model.recipe.exceptions.RecipeNotFoundException;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.recipe.RecipeBuilder;
 import javafx.collections.FXCollections;
@@ -75,6 +76,30 @@ public class RecipeBookTest {
         Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER)
                 .build();
         assertTrue(recipeBook.hasRecipe(editedMilo));
+    }
+
+    @Test
+    public void retrieveRecipe_nullRecipe_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> recipeBook.retrieveRecipe(null));
+    }
+
+    @Test
+    public void retrieveRecipe_recipeNotInRecipeBook_throwsRecipeNotFoundException() {
+        Assert.assertThrows(RecipeNotFoundException.class, () -> recipeBook.retrieveRecipe(MILO));
+    }
+
+    @Test
+    public void retrieveRecipe_recipeInRecipeBook_success() {
+        recipeBook.addRecipe(MILO);
+        assertEquals(MILO, recipeBook.retrieveRecipe(MILO));
+    }
+
+    @Test
+    public void retrieveRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
+        recipeBook.addRecipe(MILO);
+        Recipe editedMilo = new RecipeBuilder(MILO).withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER)
+                .build();
+        assertEquals(MILO, recipeBook.retrieveRecipe(editedMilo));
     }
 
     @Test

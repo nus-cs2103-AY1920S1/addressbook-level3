@@ -9,7 +9,6 @@ import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.dashboard.components.Rewards;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,9 +40,10 @@ public class MainWindow extends UiPart<Stage> {
     private MealPlanListPanel mealPlanListPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
-    private ExerciseListPanel exerciseListPanel;
+    private WorkoutListPanel workoutListPanel;
     private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
+    private RewardWindow rewardWindow;
     private HelpWindow helpWindow;
     private Event event;
 
@@ -52,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatusBarFooter mealPlanPathStatus;
     private StatusBarFooter recordPathStatus;
     private StatusBarFooter personPathStatus;
-    private StatusBarFooter exercisePathStatus;
+    private StatusBarFooter workoutPathStatus;
     private StatusBarFooter diaryPathStatus;
 
     @FXML
@@ -108,6 +108,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        rewardWindow = new RewardWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -173,11 +174,11 @@ public class MainWindow extends UiPart<Stage> {
      * Initializes all Panels.
      */
     void initializePanels() {
-        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList(), new Rewards());
+        dashboardListPanel = new DashboardListPanel(logic.getFilteredDashboardList());
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
     }
@@ -191,7 +192,7 @@ public class MainWindow extends UiPart<Stage> {
         mealPlanPathStatus = new StatusBarFooter(logic.getMealPlansFilePath());
         recordPathStatus = new StatusBarFooter(logic.getHealthRecordsFilePath());
         personPathStatus = new StatusBarFooter(logic.getUserProfileFilePath());
-        //TODO EXERCISE: set up getExerciseFilePath() method in Logic class
+        workoutPathStatus = new StatusBarFooter(logic.getWorkoutCatalogueFilePath());
         diaryPathStatus = new StatusBarFooter(logic.getDiaryFilePath());
     }
 
@@ -204,6 +205,16 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Opens the reward window
+     */
+    @FXML
+    public void handleReward() {
+        if (!rewardWindow.isShowing()) {
+            rewardWindow.show();
         }
     }
 
@@ -290,11 +301,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "exercise":
             //TODO:
-            versatilePanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
-            //TODO EXERCISE: add exercisePathStatus once missing getExerciseFilePath() is in Logic class
-            // - refer to initializeFilePath()
-            //statusbarPlaceholder.getChildren().add(exercisePathStatus.getRoot());
+            versatilePanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
             featureMode.setText("Exercise");
+            workoutListPanel.handleSwitch(type);
             break;
         case "diary":
             //TODO:
@@ -368,6 +378,10 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowReward()) {
+                handleReward();
+            }
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
