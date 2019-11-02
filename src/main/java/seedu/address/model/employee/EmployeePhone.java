@@ -11,7 +11,9 @@ public class EmployeePhone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeePhone numbers should only contain numbers, and it should be at least 3 digits long";
+            "EmployeePhone numbers should only contain numbers, and it should be at "
+                    + "least 3 digits long, AddMin+ automatically assumes the input "
+                    + "phone number to be +65 and users do not have to enter it.";
     public static final String VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
