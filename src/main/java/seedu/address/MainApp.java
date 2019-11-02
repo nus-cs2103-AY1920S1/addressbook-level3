@@ -3,6 +3,9 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -312,33 +315,60 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         if (!TestStorage.isUserExist()) {
-            Optional<String> result = DialogManager.showCreatePasswordDialog();
-            if (result.isPresent()) {
-                try {
-                    TestStorage.initPassword(result.get());
-                    initWithPassword(result.get());
-                    startSecureIt(primaryStage);
-                } catch (IOException e) {
-                    //TODO: if init password fails
-                }
-            }
-        } else {
-            while (true) {
-                Optional<String> result = DialogManager.showValidatePasswordDialog();
-                if (result.isPresent()) {
+            showDialog(
+                DialogManager::showCreatePasswordDialog,
+                result -> !"".equals(result),
+                result -> {
                     try {
-                        if (TestStorage.testPassword(result.get())) {
-                            initWithPassword(result.get());
-                            startSecureIt(primaryStage);
-                            break;
-                        }
+                        TestStorage.initPassword(result);
+                        initWithPassword(result);
+                        startSecureIt(primaryStage);
+                    } catch (IOException e) {
+                        //TODO: if init password fails
+                    }
+                }
+            );
+        } else {
+            showDialog(
+                DialogManager::showValidatePasswordDialog,
+                password -> {
+                    try {
+                        return TestStorage.testPassword(password);
                     } catch (IOException e) {
                         //TODO: if test password fails
+                        return false;
                     }
-                } else {
-                    break;
+                },
+                result -> {
+                    initWithPassword(result);
+                    startSecureIt(primaryStage);
                 }
+            );
+        }
+    }
+
+    /**
+     * Display a dialog specified by the method supplied. After the dialog is dismissed, it
+     * validates the result based on the validation given, and redisplay the dialog if the
+     * validation fails. Otherwise, the callback is executed based on the result.
+     * @param method specifies which dialog to be displayed.
+     * @param validation validates the result from the dialog.
+     * @param callback executes after validation succeeded.
+     */
+    private void showDialog(Function<Boolean, Optional<String>> method,
+                           Predicate<String> validation,
+                           Consumer<String> callback) {
+        boolean validationFailed = false;
+        while (true) {
+            Optional<String> result = method.apply(validationFailed);
+            if (result.isEmpty()) {
+                break;
             }
+            if (validation.test(result.get())) {
+                callback.accept(result.get());
+                break;
+            }
+            validationFailed = true;
         }
     }
 
