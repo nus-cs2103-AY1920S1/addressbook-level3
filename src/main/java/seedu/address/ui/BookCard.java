@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 
 /**
@@ -57,7 +58,7 @@ public class BookCard extends UiPart<Region> {
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
         if (book.isCurrentlyLoanedOut()) {
             loanStatus.setText("On Loan");
-            dueDate.setText("Due: " + book.getLoan().get().getDueDate());
+            dueDate.setText("Due: " + DateUtil.formatDate(book.getLoan().get().getDueDate()));
             renewCount.setText("Renewed: " + book.getLoan().get().getRenewCount() + " times");
         }
 
