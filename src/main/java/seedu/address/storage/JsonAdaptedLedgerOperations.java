@@ -9,6 +9,10 @@ import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.util.Date;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Jackson-friendly version of {@link JsonAdaptedLedgerOperations}.
  */
@@ -18,18 +22,25 @@ public class JsonAdaptedLedgerOperations {
 
     private final String date;
     private final String amount;
+    private final List<JsonAdaptedPerson> people = new ArrayList<>();
 
     // TODO: include peopleInvolved
     @JsonCreator
     public JsonAdaptedLedgerOperations(@JsonProperty("date") String date,
-                                       @JsonProperty("amount") String amount) {
+                                       @JsonProperty("amount") String amount,
+                                       @JsonProperty("people") List<JsonAdaptedPerson> people) {
         this.date = date;
         this.amount = amount;
+        if (people != null) {
+            this.people.addAll(people);
+        }
     }
 
     public JsonAdaptedLedgerOperations(LedgerOperation source) {
         date = source.getDate().toString();
         amount = source.getAmount().toString();
+        people.addAll(source.getPeopleInvolved().asUnmodifiableObservableList()
+                        .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
