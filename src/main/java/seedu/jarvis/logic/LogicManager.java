@@ -1,7 +1,6 @@
 package seedu.jarvis.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableStringValue;
@@ -14,8 +13,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.JarvisParser;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.Storage;
@@ -74,7 +71,6 @@ public class LogicManager implements Logic {
      */
     private void saveModel() throws CommandException {
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveCcaTracker(model.getCcaTracker());
             storage.saveCoursePlanner(model.getCoursePlanner());
             storage.savePlanner(model.getPlanner());
@@ -83,21 +79,6 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override

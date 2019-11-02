@@ -23,11 +23,10 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.Cca;
+import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.StorageManager;
-import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.JsonCoursePlannerStorage;
 import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
@@ -47,8 +46,6 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
                 temporaryFolder.resolve("historymanager.json"));
@@ -59,8 +56,8 @@ public class LogicManagerTest {
         JsonPlannerStorage plannerStorage = new JsonPlannerStorage(temporaryFolder.resolve("planner.json"));
         JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
                 temporaryFolder.resolve("financetracker.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
-                ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, historyManagerStorage, ccaTrackerStorage,
+                coursePlannerStorage, plannerStorage, financeTrackerStorage);
         model = new ModelManager();
         logic = new LogicManager(model, storage);
     }
@@ -106,22 +103,20 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() {
+    public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         JsonHistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
                 temporaryFolder.resolve("ioExceptionHistoryManager.json"));
-        JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(
+        JsonCcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerIoExceptionThrowingStub(
                 temporaryFolder.resolve("ioExceptionCcaTracker.json"));
         JsonCoursePlannerStorage coursePlannerStorage = new JsonCoursePlannerStorage(
                 temporaryFolder.resolve("ioExceptionCoursePlanner.json"));
         JsonPlannerStorage plannerStorage = new JsonPlannerStorage(temporaryFolder.resolve("ioExceptionPlanner.json"));
         JsonFinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(
                 temporaryFolder.resolve("ioExceptionFinanceTracker.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage,
+        StorageManager storage = new StorageManager(userPrefsStorage, historyManagerStorage,
                 ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
         logic = new LogicManager(model, storage);
 
@@ -136,11 +131,6 @@ public class LogicManagerTest {
         expectedModel.rememberExecutedCommand(new AddCcaCommand(cca));
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
     /**
@@ -184,8 +174,7 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -205,13 +194,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonCcaTrackerIoExceptionThrowingStub extends JsonCcaTrackerStorage {
+        private JsonCcaTrackerIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveCcaTracker(CcaTracker ccaTracker, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
