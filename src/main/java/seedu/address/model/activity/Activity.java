@@ -64,6 +64,24 @@ public class Activity {
         this(primaryKeyCounter++, title, ids);
     }
 
+    /**
+     * Returns a new Activity instance with fields modified from the supplied activity.
+     * @param activity Activity instance to duplicate.
+     * @param title Title of the updated activity.
+     * @return a new Activity instance with the editable fields updated.
+     */
+    public Activity(Activity activity, Title title) {
+        participantIds = activity.participantIds;
+        participantActive = activity.participantActive;
+        idDict = activity.idDict;
+        expenses = activity.expenses;
+        participantBalances = activity.participantBalances;
+        transferMatrix = activity.transferMatrix;
+        debtMatrix = activity.debtMatrix;
+        primaryKey = activity.primaryKey;
+        this.title = title;
+    }
+
     public int getPrimaryKey() {
         return primaryKey;
     }

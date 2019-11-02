@@ -22,7 +22,7 @@ public class Title {
     /**
      * Constructs a {@code Title}.
      *
-     * @param name A valid title.
+     * @param title A valid title.
      */
     public Title(String title) {
         requireNonNull(title);

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -17,6 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -44,20 +47,23 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_WRONG_CONTEXT = "You can only edit when viewing a contact or activity.";
 
     private final EditPersonDescriptor editPersonDescriptor;
+    private final EditActivityDescriptor editActivityDescriptor;
 
     /**
      * @param editPersonDescriptor details to edit the person with
+     * @param editActivityDescriptor details to edit the person with
      */
-    public EditCommand(EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(editPersonDescriptor);
+    public EditCommand(EditPersonDescriptor editPersonDescriptor, EditActivityDescriptor editActivityDescriptor) {
+        requireAllNonNull(editPersonDescriptor, editActivityDescriptor);
 
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editActivityDescriptor = new EditActivityDescriptor(editActivityDescriptor);
     }
 
     @Override
@@ -65,6 +71,9 @@ public class EditCommand extends Command {
         requireNonNull(model);
 
         if (model.getContext().getType() == ContextType.VIEW_CONTACT) {
+            if (!editPersonDescriptor.isAnyFieldEdited()) {
+                throw new CommandException(MESSAGE_NOT_EDITED);
+            }
 
             Person personToEdit = model.getContext().getContact().get();
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
@@ -81,7 +90,18 @@ public class EditCommand extends Command {
             model.setContext(newContext);
             return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), newContext);
         } else if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
-            throw new CommandException(MESSAGE_WRONG_CONTEXT);
+            if (!editActivityDescriptor.isAnyFieldEdited()) {
+                throw new CommandException(MESSAGE_NOT_EDITED);
+            }
+
+            Activity activityToEdit = model.getContext().getActivity().get();
+
+            Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+
+            model.setActivity(activityToEdit, editedActivity);
+            Context newContext = new Context(editedActivity);
+            model.setContext(newContext);
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedActivity), newContext);
         } else {
             throw new CommandException(MESSAGE_WRONG_CONTEXT);
         }
@@ -104,6 +124,18 @@ public class EditCommand extends Command {
                 updatedEmail, updatedAddress, updatedTags);
     }
 
+    /**
+     * Creates and returns a {@code Activity} with the details of {@code activityToEdit}
+     * edited with {@code editActivityDescriptor}.
+     */
+    private static Activity createEditedActivity(Activity activityToEdit,
+                                                 EditActivityDescriptor editActivityDescriptor) {
+        assert activityToEdit != null;
+
+        Title updatedTitle = editActivityDescriptor.getTitle().orElse(activityToEdit.getTitle());
+        return new Activity(activityToEdit, updatedTitle);
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -118,7 +150,59 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return editPersonDescriptor.equals(e.editPersonDescriptor);
+        return editPersonDescriptor.equals(e.editPersonDescriptor)
+                && editActivityDescriptor.equals(e.editActivityDescriptor);
+    }
+
+    /**
+     * Stores the details to edit the activity with. Each non-empty field value will replace the
+     * corresponding field value of the activity.
+     */
+    public static class EditActivityDescriptor {
+        private Title title;
+
+        public EditActivityDescriptor() {}
+
+        /**
+         * Copy constructor.
+         */
+        public EditActivityDescriptor(EditActivityDescriptor toCopy) {
+            setTitle(toCopy.title);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(title);
+        }
+
+        public void setTitle(Title title) {
+            this.title = title;
+        }
+
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditActivityDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditActivityDescriptor e = (EditActivityDescriptor) other;
+
+            return getTitle().equals(e.getTitle());
+        }
+
     }
 
     /**
