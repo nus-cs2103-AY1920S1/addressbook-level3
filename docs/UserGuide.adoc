@@ -530,7 +530,7 @@ Switches to Schedule Tab Panel. +
 Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
-Date should be in the format YYYY.MM.DD with valid year, month and date.
+Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
@@ -547,7 +547,7 @@ image::ug-command/ug-add-s.png[width="800"]
 [TIP]
 Order index should be a positive integer and must exist in the order list.
 [TIP]
-Date should be in the format YYYY.MM.DD with valid year, month and date.
+Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
 Time should be in the 24-hour format HH.MM with valid hour and minute.
 [TIP]
