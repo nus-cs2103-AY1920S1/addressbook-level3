@@ -3,7 +3,6 @@ package seedu.address.ui.cap;
 import static seedu.address.commons.core.Messages.MESSAGE_GAIN_RANKING;
 import static seedu.address.commons.core.Messages.MESSAGE_LOST_RANKING;
 
-
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;

@@ -1,7 +1,10 @@
-package seedu.address.model.cap.person.Rank;
+package seedu.address.model.cap.person.rank;
 
 import seedu.address.model.cap.person.DegreeClassification;
 
+/**
+ * Represents a class for a new student to the school that has no degree classification yet.
+ */
 public class Freshie extends Rank {
 
     private static final String TITLE = "FRESHIE";
@@ -26,6 +29,11 @@ public class Freshie extends Rank {
         return imageFilePath;
     }
 
+    /**
+     * To check if the cap given is within the range of the catagorisation of this rank/ class.
+     * @param cap CUMULATIVE AVERAGE POINT
+     * @return
+     */
     public static boolean isWithinRange(double cap) {
         if (cap >= MINIMUM_CAP && cap <= MAXIMUM_CAP) {
             return true;

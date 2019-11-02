@@ -1,26 +1,34 @@
 package seedu.address.model.cap;
 
-import seedu.address.model.cap.person.Rank.Freshie;
-import seedu.address.model.cap.person.Rank.Fail;
-import seedu.address.model.cap.person.Rank.FirstClass;
-import seedu.address.model.cap.person.Rank.Pass;
-import seedu.address.model.cap.person.Rank.Rank;
-import seedu.address.model.cap.person.Rank.SecondLower;
-import seedu.address.model.cap.person.Rank.SecondUpper;
-import seedu.address.model.cap.person.Rank.ThirdClass;
+import seedu.address.model.cap.person.rank.Fail;
+import seedu.address.model.cap.person.rank.FirstClass;
+import seedu.address.model.cap.person.rank.Freshie;
+import seedu.address.model.cap.person.rank.Pass;
+import seedu.address.model.cap.person.rank.Rank;
+import seedu.address.model.cap.person.rank.SecondLower;
+import seedu.address.model.cap.person.rank.SecondUpper;
+import seedu.address.model.cap.person.rank.ThirdClass;
 
+/**
+ * Encapsulates the AchievementManager class that manages the achievement processes.
+ */
 public class AchievementManager {
 
     private Rank currentRank = new Freshie(); // default rank for new students
-    double prevCap;
-    double currCap = 0.0; // default cap at the start
-    boolean hasRankChanged = false;
-    boolean hasDownGraded = false;
-    boolean hasUpGraded = false;
+    private double prevCap;
+    private double currCap = 0.0; // default cap at the start
+    private boolean hasRankChanged = false;
+    private boolean hasDownGraded = false;
+    private boolean hasUpGraded = false;
 
     public AchievementManager() {
     }
 
+    /**
+     * This method updates the achievementManager with the new cap which allows it to execute the necessary
+     * procedures to update the achievement status.
+     * @param cap
+     */
     public void updateCap(double cap) {
         prevCap = currCap;
         currCap = cap;
@@ -57,6 +65,14 @@ public class AchievementManager {
 
     public boolean hasAchievementChanged() {
         return hasRankChanged;
+    }
+
+    public boolean hasUpGraded() {
+        return hasUpGraded;
+    }
+
+    public boolean hasDownGraded() {
+        return hasDownGraded;
     }
 
     public Rank getCurrentRank() {

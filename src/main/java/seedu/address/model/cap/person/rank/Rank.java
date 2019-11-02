@@ -1,11 +1,11 @@
-package seedu.address.model.cap.person.Rank;
+package seedu.address.model.cap.person.rank;
 
-import static java.util.Objects.*;
+import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.cap.person.*;
+import seedu.address.model.cap.person.DegreeClassification;
 
 /**
- * Represents an Academic year of a NUS student.
+ * Represents an degree classification.
  * Guarantees: immutable.
  */
 public abstract class Rank {

@@ -6,6 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
+/**
+ * An UI component that displays an achievement badge of a {@code student}.
+ */
 public class AchievementBadge extends UiPart<Region> {
 
     private static final String FXML = "AchievementBadge.fxml";

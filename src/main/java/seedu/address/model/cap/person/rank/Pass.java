@@ -1,16 +1,19 @@
-package seedu.address.model.cap.person.Rank;
+package seedu.address.model.cap.person.rank;
 
 import seedu.address.model.cap.person.DegreeClassification;
 
-public class Fail extends Rank {
+/**
+ * Represents a Pass grade.
+ */
+public class Pass extends Rank {
 
-    private static final String TITLE = "FAIL";
-    private static final double MAXIMUM_CAP = 1.99;
-    private static final double MINIMUM_CAP = 0.0;
-    private static final String imageFilePath = "/images/failcourse.png";
+    private static final String TITLE = "PASS";
+    private static final double MAXIMUM_CAP = 2.99;
+    private static final double MINIMUM_CAP = 2.00;
+    private static final String imageFilePath = "/images/pass.png";
 
-    public Fail() {
-        super(DegreeClassification.FIRST, TITLE);
+    public Pass() {
+        super(DegreeClassification.PASS, TITLE);
     }
 
     public static double getMaximumCap() {
@@ -26,6 +29,11 @@ public class Fail extends Rank {
         return imageFilePath;
     }
 
+    /**
+     * To check if the cap given is within the range of the catagorisation of this rank/ class.
+     * @param cap CUMULATIVE AVERAGE POINT
+     * @return
+     */
     public static boolean isWithinRange(double cap) {
         if (cap >= MINIMUM_CAP && cap <= MAXIMUM_CAP) {
             return true;

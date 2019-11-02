@@ -1,11 +1,19 @@
 package seedu.address.storage.cap;
 
-import com.fasterxml.jackson.annotation.*;
-import seedu.address.commons.exceptions.*;
-import seedu.address.logic.cap.parser.*;
-import seedu.address.model.cap.person.*;
-import seedu.address.model.common.Module;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
+import seedu.address.logic.cap.parser.ParserUtil;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.person.Title;
+import seedu.address.model.common.Module;
 
 /**
  * Jackson-friendly version of {@link ModuleCode}.

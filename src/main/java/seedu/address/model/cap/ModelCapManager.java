@@ -4,19 +4,21 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.scene.chart.*;
-import javafx.scene.image.*;
+import javafx.scene.chart.PieChart;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cap.person.Rank.*;
 import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.util.*;
+import seedu.address.model.cap.util.GradeHash;
 import seedu.address.model.common.Module;
 
 /**
@@ -265,6 +267,9 @@ public class ModelCapManager implements Model {
         return isDowngraded;
     }
 
+    /**
+     * updates the class for the student based on his/her new CAP.
+     */
     public void updateRank() {
         achievementManager.updateCap(getFilteredCapInformation());
         if (achievementManager.hasAchievementChanged()) {
