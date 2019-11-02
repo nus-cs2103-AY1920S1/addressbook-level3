@@ -13,8 +13,9 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.TabCommandType;
 import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 
 /**
  * Close tabs in the GUI.
@@ -35,6 +36,7 @@ public class OpenTabCommand extends Command {
         + PREFIX_MODEL_TYPE + "problem "
         + PREFIX_MODEL_INDEX + "1\n";
 
+    public static final String MESSAGE_INVALID_TAB_COMMAND_TYPE = "Invalid Tab Command Type";
     public static final String MESSAGE_INVALID_MODEL = "Model [%1$s] does not exist.";
     public static final String MESSAGE_INVALID_INDEX = "Tab at index [%1$s] does not exist.";
 
@@ -82,14 +84,18 @@ public class OpenTabCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        TabManager tabManager = model.getGuiState().getTabManager();
+        WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
         try {
             Id modelId = retrieveId(model, modelType, modelIndex);
             TabData tabData = new TabData(modelType, modelId);
-            if (tabManager.openTab(tabData) == 0) {
+            TabCommandType result = tabManager.openDetailsTab(tabData);
+            switch(result) {
+            case OPEN_DETAILS:
                 return new CommandResult(String.format(MESSAGE_SUCCESS, modelIndex.getOneBased()));
-            } else {
+            case SWITCH_DETAILS:
                 return new CommandResult(String.format(MESSAGE_SWITCH_SUCCESS, modelIndex.getOneBased()));
+            default:
+                throw new CommandException(MESSAGE_INVALID_TAB_COMMAND_TYPE);
             }
         } catch (IndexOutOfBoundsException exception) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX, modelIndex.getOneBased()));

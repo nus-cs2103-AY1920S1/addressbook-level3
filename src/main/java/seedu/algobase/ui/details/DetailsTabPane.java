@@ -2,7 +2,6 @@ package seedu.algobase.ui.details;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
@@ -55,7 +54,7 @@ public class DetailsTabPane extends UiPart<Region> {
 
         addListenerForTabChanges();
         addListenerForIndexChange(readOnlyTabManager.getDetailsTabPaneIndex());
-        addListenerToTabPaneIndexChange(writeOnlyTabManager::setDetailsTabPaneIndex);
+        addListenerToTabPaneIndexChange(writeOnlyTabManager);
     }
 
     /**
@@ -93,14 +92,14 @@ public class DetailsTabPane extends UiPart<Region> {
     /**
      * Adds an index change listener to the tab pane.
      *
-     * @param indexChangeHandler A callback function for when the index of the tabPane changes.
+     * @param tabManager The TabManager to be modified.
      */
-    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(WriteOnlyTabManager tabManager) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
-                    indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
+                    tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
                 }
             }
         });

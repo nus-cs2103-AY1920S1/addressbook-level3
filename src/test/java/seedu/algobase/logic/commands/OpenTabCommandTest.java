@@ -140,8 +140,8 @@ class OpenTabCommandTest {
             guiState = new GuiState();
             TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId());
             TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId());
-            guiState.getTabManager().addDetailsTabData(tabData1);
-            guiState.getTabManager().addDetailsTabData(tabData2);
+            guiState.getTabManager().openDetailsTab(tabData1);
+            guiState.getTabManager().openDetailsTab(tabData2);
             Problem[] problems = SampleDataUtil.getSampleProblems();
             internalList = FXCollections.observableList(Arrays.asList(problems));
         }

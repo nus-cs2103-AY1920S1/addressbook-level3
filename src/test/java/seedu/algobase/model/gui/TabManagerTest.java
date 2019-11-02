@@ -11,9 +11,9 @@ import seedu.algobase.model.ModelType;
 
 public class TabManagerTest {
 
-    private static final Index OLD_VALUE = ModelType.PROBLEM.getDisplayTabPaneIndex();
-    private static final Index NEW_VALUE = ModelType.TAG.getDisplayTabPaneIndex();
-    private static final Index ILLEGAL_VALUE = Index.fromZeroBased(ModelType.values().length);
+    private static final Index OLD_VALUE = Index.fromZeroBased(0);
+    private static final Index NEW_VALUE = Index.fromZeroBased(1);
+    private static final Index ILLEGAL_VALUE = Index.fromZeroBased(10);
 
     @Test
     public void setDisplayTabPaneIndex_indexWithinRange_success() {
@@ -23,7 +23,7 @@ public class TabManagerTest {
         tabManager.getDisplayTabPaneIndex().addListener((observable, oldValue, newValue) -> {
             testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
-        tabManager.setDisplayTabPaneIndex(NEW_VALUE);
+        tabManager.switchDisplayTab(NEW_VALUE);
 
         assertEquals(NEW_VALUE, testValues[0], "Listener does not update value correctly");
     }
@@ -37,7 +37,7 @@ public class TabManagerTest {
             testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
 
-        assertThrows(IndexOutOfBoundsException.class, () -> tabManager.setDisplayTabPaneIndex(ILLEGAL_VALUE));
+        assertThrows(IndexOutOfBoundsException.class, () -> tabManager.switchDetailsTab(ILLEGAL_VALUE));
     }
 
     @Test
@@ -45,16 +45,16 @@ public class TabManagerTest {
         TabManager tabManager = new TabManager();
         TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId());
         TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId());
-        tabManager.addDetailsTabData(tabData1);
-        tabManager.addDetailsTabData(tabData2);
+        tabManager.openDetailsTab(tabData1);
+        tabManager.openDetailsTab(tabData2);
         Index[] testValues = new Index[] { OLD_VALUE };
 
         tabManager.getDetailsTabPaneIndex().addListener((observable, oldValue, newValue) -> {
             testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
-        tabManager.setDetailsTabPaneIndex(NEW_VALUE);
+        tabManager.switchDetailsTab(OLD_VALUE);
 
-        assertEquals(NEW_VALUE, testValues[0], "Listener does not update value correctly");
+        assertEquals(OLD_VALUE, testValues[0], "Listener does not update value correctly");
     }
 
     @Test
@@ -66,6 +66,6 @@ public class TabManagerTest {
             testValues[0] = Index.fromZeroBased((newValue.intValue()));
         });
 
-        assertThrows(IndexOutOfBoundsException.class, () -> tabManager.setDetailsTabPaneIndex(ILLEGAL_VALUE));
+        assertThrows(IndexOutOfBoundsException.class, () -> tabManager.switchDetailsTab(ILLEGAL_VALUE));
     }
 }

@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
         DisplayTab findRuleListPaneTab = new DisplayTab(ModelType.FINDRULE.getTabName(), findRuleListPanel);
         return new DisplayTabPane(
-            logic.getGuiState(),
+            logic.getGuiState().getTabManager(),
             problemListPanelTab,
             tagListPanelTab,
             planListPanelTab,
