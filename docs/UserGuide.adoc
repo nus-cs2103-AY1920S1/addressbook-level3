@@ -73,12 +73,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |Member ID (set by you)
 |mt/
 |Member tag
-|tn/
-|Image URL
 |im/
+|Image Path
+|tn/
 |Task name
 |s/
 |Task status
+|tt/
+|Task tag
 |===
 
 
@@ -113,6 +115,8 @@ Format: `settings` +
 Calling the `settings` command will bring you to the following page:
 
 image::Settings.png[width=790]
+
+You can refer to section 
 
 
 ==== Viewing help: `help` +
