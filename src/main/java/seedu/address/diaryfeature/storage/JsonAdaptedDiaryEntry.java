@@ -52,6 +52,7 @@ public class JsonAdaptedDiaryEntry {
             date = source.getDateAsStringtoStore();
             place = source.getPlace().toString();
             memory = source.getMemory().toSave();
+
         }
 
         /**

@@ -17,6 +17,7 @@ public class DiaryEntry {
     private final Date date;
     private final Place place;
     private final Memory memory;
+    private boolean isPrivate = false;
 
 
     /**
@@ -56,11 +57,17 @@ public class DiaryEntry {
     }
 
     public void setPrivate() {
+        isPrivate = true;
         this.memory.setPrivate();
     }
 
     public void unPrivate() {
+        isPrivate = false;
         this.memory.unPrivate();
+    }
+
+    public boolean getPrivacy() {
+        return isPrivate;
     }
 
     /**

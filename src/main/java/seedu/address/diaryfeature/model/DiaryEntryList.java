@@ -40,11 +40,13 @@ public class DiaryEntryList {
     public void setDiaryEntryPrivate(int index) {
         DiaryEntry removed = entries.get(index - 1 );
         removed.setPrivate();
+        entries.set(index-1,removed);
     }
 
     public void setDiaryEntryUnPrivate(int index) {
         DiaryEntry removed = entries.get(index - 1);
         removed.unPrivate();
+        entries.set(index-1,removed);
     }
 
 
