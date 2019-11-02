@@ -19,7 +19,7 @@
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />
         </stylesheets>
-         <HBox alignment="CENTER" styleClass="pane-with-border" prefHeight="1000" onKeyPressed="#handleKeyPress">
+         <HBox alignment="CENTER" styleClass="pane-with-border" onKeyPressed="#handleKeyPress">
             <children>
                <Label fx:id="helpMessage" text="Label" styleClass="prefix-label">
                   <HBox.margin>

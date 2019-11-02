@@ -48,7 +48,7 @@ public class AddModCommand extends ModCommand {
 
         boolean checkIfModuleIndex(String moduleIdentifier) {
             assert moduleIdentifier != null;
-            return !moduleIdentifier.substring(0,1).contains("C");
+            return !moduleIdentifier.substring(0, 1).contains("C");
         }
 
         boolean checkIfStudentIndex(String studentIdentifier) {
@@ -200,9 +200,9 @@ public class AddModCommand extends ModCommand {
      * @throws CommandException if the student has insufficient credits
      */
     void checkStudentWorkloadLimit(Student studentToEdit) throws CommandException {
-        int CurrWorkload = studentToEdit.getNumberOfMods() * 4;
-        int MaxWorkload = studentToEdit.getCredits().getIntVal();
-        if ((MaxWorkload - CurrWorkload) < 4) {
+        int currWorkload = studentToEdit.getNumberOfMods() * 4;
+        int maxWorkload = studentToEdit.getCredits().getIntVal();
+        if ((maxWorkload - currWorkload) < 4) {
             throw new CommandException(MESSAGE_CREDIT_INSUFFICIENT);
         }
     }

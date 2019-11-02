@@ -46,12 +46,14 @@ public class RemoveModCommand extends ModCommand {
 
         boolean checkIfModuleIndex(String moduleIdentifier) {
             assert moduleIdentifier != null;
-            return !moduleIdentifier.substring(0,1).contains("C");
+            return !moduleIdentifier.substring(0, 1).contains("C");
+
         }
 
         boolean checkIfStudentIndex(String studentIdentifier) {
             assert studentIdentifier != null;
             return !studentIdentifier.substring(0, 1).contains("A");
+
         }
 
         public RemoveModCommand build() {
@@ -112,8 +114,12 @@ public class RemoveModCommand extends ModCommand {
         return updateList(model, studentToEdit, moduleToEdit, ret, ret2, MESSAGE_REMOVE_MOD_SUCCESS);
     }
 
-
-
+    /**
+     * Checks if module exists
+     * @param moduleList module list being checked
+     * @return module if found
+     * @throws CommandException if module is not found
+     */
     Module returnModuleIfExist(List<Module> moduleList) throws CommandException {
 
         if (moduleUsingIndex) {
@@ -136,6 +142,12 @@ public class RemoveModCommand extends ModCommand {
         }
     }
 
+    /**
+     * Checks if student exists for deletion.
+     * @param studentList student list being checked
+     * @return student if found
+     * @throws CommandException if student does not exist
+     */
     Student returnStudentIfExist(List<Student> studentList) throws CommandException {
 
         if (studentUsingIndex) {

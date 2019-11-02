@@ -291,6 +291,8 @@ public class Module {
         final StringBuilder builder = new StringBuilder();
         int startTimeSlot = 0;
 
+        assert(slots.length != 0);
+
         int test;
         for (int i = 0; i < slots.length; i++) {
             test = slots[i];
@@ -301,8 +303,11 @@ public class Module {
                         .append(" ")
                         .append(getTime(slots[i]))
                         .append(" to ")
-                        .append(getTime(slots[i] + 1))
-                        .append(" "); //Ends at next hour
+                        .append(getTime(slots[i] + 1)); //Ends at next hour
+                // addition of separating comma
+                if (i != slots.length - 1) {
+                    builder.append(", ");
+                }
                 startTimeSlot = 0;
             } else if (startTimeSlot == 0 && (i != slots.length - 1)) {
                 //first hour of 2/3hr sessions.
@@ -313,8 +318,11 @@ public class Module {
                         .append(" ")
                         .append(getTime(startTimeSlot))
                         .append(" to ")
-                        .append(getTime(slots[i] + 1))
-                        .append(" "); //Ends at next hour
+                        .append(getTime(slots[i] + 1)); //Ends at next hour
+                // addition of separating comma
+                if (i != slots.length - 1) {
+                    builder.append(", ");
+                }
                 startTimeSlot = 0;
             }
         }

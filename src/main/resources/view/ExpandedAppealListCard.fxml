@@ -72,6 +72,11 @@
 
             <Label fx:id="appealDescriptionPrefix" styleClass="cell_big_label, orange-text-label" text="Student Reason:"/>
             <Label fx:id="appealDescription" styleClass="cell_small_label, description_text" text="\$appealDescription" />
+
+            <Label minHeight="20" />
+
+            <Label fx:id="adminRemarksPrefix" styleClass="cell_big_label, orange-text-label" text="Admin Remarks:"/>
+            <Label fx:id="adminRemarks" styleClass="cell_small_label, description_text" text="\$adminRemarks" />
         </VBox>
     </GridPane>
 </HBox>

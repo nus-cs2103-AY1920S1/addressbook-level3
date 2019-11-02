@@ -38,7 +38,19 @@ public abstract class ModCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MODULE = "Student is already registered for this module.";
     public static final String MESSAGE_MISSING_MODULE = "Student is not registered for this module. ";
 
-    protected CommandResult updateList(Model model, Student studentToEdit, Module moduleToEdit, Set<Tag> ret, Set<Tag> ret2, String messageRemoveModSuccess) {
+    /**
+     * Updates the list after AddModCommand and RemoveModCommand
+     * @param model mams model
+     * @param studentToEdit student to be edited
+     * @param moduleToEdit module to edited
+     * @param ret new tags for student
+     * @param ret2 new tags for module
+     * @param messageRemoveModSuccess result given in GUI window
+     * @return commandResult of action
+     */
+    protected CommandResult updateList(Model model, Student studentToEdit,
+                                       Module moduleToEdit, Set<Tag> ret, Set<Tag> ret2,
+                                       String messageRemoveModSuccess) {
         Student studentWithRemovedModule;
         Module moduleWithRemovedStudent;
         studentWithRemovedModule = new Student(studentToEdit.getName(),

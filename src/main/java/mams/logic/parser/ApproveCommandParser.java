@@ -23,6 +23,7 @@ import mams.model.appeal.Appeal;
  * Parses input arguments and creates a new {@code ApproveCommand} object
  */
 public class ApproveCommandParser implements Parser<Approve> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code ApproveCommand}
      * and returns a {@code ApproveCommand} object for execution.
@@ -58,7 +59,7 @@ public class ApproveCommandParser implements Parser<Approve> {
             List<String> validIds = new ArrayList<>();
             List<String> invalidIds = new ArrayList<>();
             for (String appeal : appeals) {
-                appeal = appeal.trim();
+                appeal = appeal.toUpperCase().trim();
                 if (Appeal.isValidAppealId(appeal)) {
                     if (!validIds.contains(appeal)) {
                         validIds.add(appeal);
