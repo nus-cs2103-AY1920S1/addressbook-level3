@@ -7,10 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SalaryPaid;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -46,8 +45,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_PAY, PREFIX_PENDINGPAY,
-                        PREFIX_TOTALSALARY, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_JOIN_DATE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_PAY,
+                        PREFIX_SalaryPaid, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_JOIN_DATE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_EMAIL, PREFIX_ADDRESS)
@@ -60,7 +59,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         EmployeeGender employeeGender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
         EmployeeSalaryPaid employeeSalaryPaid = ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get());
         EmployeePay employeePay =
-                ParserUtil.parseTotalSalary(argMultimap.getValue(PREFIX_TOTALSALARY).get());
+                ParserUtil.parseTotalSalary(argMultimap.getValue(PREFIX_SalaryPaid).get());
         EmployeePhone employeePhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         EmployeeEmail employeeEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         EmployeeAddress employeeAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());

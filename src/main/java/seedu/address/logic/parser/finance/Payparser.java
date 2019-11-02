@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SalaryPaid;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.finance.Pay;
@@ -25,7 +25,7 @@ public class Payparser implements Parser<Pay> {
     public Pay parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PAY);
+                ArgumentTokenizer.tokenize(args, PREFIX_SalaryPaid);
 
         Index index;
 
@@ -39,8 +39,8 @@ public class Payparser implements Parser<Pay> {
         }
 
         EditEmployeeDescriptor editEmployeeDescriptor = new EditEmployeeDescriptor();
-        if (argMultimap.getValue(PREFIX_PAY).isPresent()) {
-            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get()));
+        if (argMultimap.getValue(PREFIX_SalaryPaid).isPresent()) {
+            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parsePay(argMultimap.getValue(PREFIX_SalaryPaid).get()));
         }
 
         if (!editEmployeeDescriptor.isAnyFieldEdited()) {

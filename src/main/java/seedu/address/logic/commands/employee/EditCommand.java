@@ -7,10 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SalaryPaid;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -47,8 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PAY + "PAY] "
-            + "[" + PREFIX_PENDINGPAY + "PENDINGPAY] "
-            + "[" + PREFIX_TOTALSALARY + "TOTALSALARY] "
+            + "[" + PREFIX_SalaryPaid + "Salary Paid] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
