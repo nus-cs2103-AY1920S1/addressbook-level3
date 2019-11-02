@@ -1,12 +1,14 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.ui.StatsPanel;
@@ -33,25 +35,63 @@ public class StatsCommand extends Command {
     private final Timestamp endDate;
 
     /**
-     * Creates an StatsCommand to calculate statistics between 2 dates {@code Timestamp}
+     * Creates a StatsCommand to calculate statistics between 2 dates {@code Timestamp}
      */
     public StatsCommand(Timestamp startDate, Timestamp endDate) {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    //can consider this to be private now that there are other static methods available
+
+    /**
+     * Creates a StatsCommand that only has a start date
+     * @param startDate The start date
+     */
+    public static StatsCommand createOnlyWithStartDate(Timestamp startDate) {
+        requireNonNull(startDate);
+        return new StatsCommand(startDate, null);
+    }
+
+    /**
+     * Creates a StatsCommand that only has an end date
+     * @param endDate The end date
+     */
+    public static StatsCommand createOnlyWithEndDate(Timestamp endDate) {
+        requireNonNull(endDate);
+        return new StatsCommand(null, endDate);
+    }
+
+    /**
+     * Creates a StatsCommand that contains both a start date and end date
+     * @param startDate The start date
+     * @param endDate The end date
+     */
+    public static StatsCommand createWithBothDates(Timestamp startDate, Timestamp endDate) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        return new StatsCommand(startDate, endDate);
+    }
+
+    /**
+     * Creates a StatsCommand that does not contain a start date or end date
+     */
+    public static StatsCommand createWithNoDate() {
+        return new StatsCommand(null, null);
+    }
 
     @Override
-    protected void validate(Model model) {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasPrimaryBudget()) {
+            throw new CommandException(MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET);
+        }
     }
+
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD, startDate, endDate, null, false);
+        model.calculateStatistics(COMMAND_WORD, startDate, endDate, false);
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 

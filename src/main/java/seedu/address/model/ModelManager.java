@@ -16,7 +16,6 @@ import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -291,6 +290,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPrimaryBudget() {
+        return getPrimaryBudget() != null;
+    }
+
+    @Override
     public void switchBudgetTo(Description targetDescription) {
         mooLah.switchBudgetTo(targetDescription);
     }
@@ -358,11 +362,10 @@ public class ModelManager implements Model {
     //=========== Statistics ================================================================================
 
     @Override
-    public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
-                                    BudgetPeriod period, boolean isBudgetMode) {
+    public void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudgetMode) {
         ObservableList<Expense> primaryBudgetExpenses = getPrimaryBudget().getExpenses();
         Statistics statistics = Statistics.calculateStats(primaryBudgetExpenses, command, date1, date2,
-                period, isBudgetMode);
+                getPrimaryBudget(), isBudgetMode);
         this.setStatistics(statistics);
     }
 
@@ -371,6 +374,7 @@ public class ModelManager implements Model {
     }
 
     public void setStatistics(Statistics statistics) {
+        requireNonNull(statistics);
         this.statistics = statistics;
     }
 

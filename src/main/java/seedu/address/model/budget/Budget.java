@@ -39,6 +39,7 @@ public class Budget {
     //Constructor for user, four fields.
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period) {
         requireAllNonNull(description, amount, startDate, period);
+
         this.description = description;
         this.amount = amount;
         this.window = new BudgetWindow(startDate, period);
@@ -49,10 +50,10 @@ public class Budget {
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period,
                   ObservableList<Expense> expenses, boolean isPrimary) {
         this(description, amount, startDate, period);
+
         requireAllNonNull(expenses, isPrimary);
         this.expenses = expenses;
         this.isPrimary = isPrimary;
-        // could be useless
     }
 
     public Description getDescription() {

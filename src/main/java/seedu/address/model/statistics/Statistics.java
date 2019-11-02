@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.commands.statistics.StatsCompareCommand;
 import seedu.address.logic.commands.statistics.StatsTrendCommand;
-import seedu.address.model.budget.BudgetPeriod;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -69,20 +69,20 @@ public class Statistics {
      * @param command Command word provided by the user
      * @param date1 First date input given by the user
      * @param date2 Second date input given by the user
-     * @param period Period of time that may be relevant to the operation
+     * @param primaryBudget The primary budget whose statistics is taken
      */
     public static Statistics calculateStats(ObservableList<Expense> expenses, String command,
                                             Timestamp date1, Timestamp date2,
-                                            BudgetPeriod period, boolean isBudgetMode) {
+                                            Budget primaryBudget, boolean isBudgetMode) {
         requireNonNull(expenses);
         List<Category> validCategories = Category.getValidCategories();
         switch (command) {
         case StatsCommand.COMMAND_WORD:
-            return PieChartStatistics.run(expenses, validCategories, date1, date2);
+            return PieChartStatistics.run(expenses, validCategories, date1, date2, primaryBudget);
         case StatsCompareCommand.COMMAND_WORD:
-            return TabularStatistics.run(expenses, validCategories, date1, date2, period);
+            return TabularStatistics.run(expenses, validCategories, date1, date2, primaryBudget);
         case StatsTrendCommand.COMMAND_WORD:
-            return TrendStatistics.run(expenses, validCategories, date1, date2, period, isBudgetMode);
+            return TrendStatistics.run(expenses, validCategories, date1, date2, primaryBudget, isBudgetMode);
         default:
             return null;
         }

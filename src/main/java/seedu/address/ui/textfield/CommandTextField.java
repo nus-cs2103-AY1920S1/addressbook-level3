@@ -14,7 +14,6 @@ import static org.fxmisc.wellbehaved.event.EventPattern.eventType;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyPressed;
 import static org.fxmisc.wellbehaved.event.EventPattern.keyReleased;
 import static org.fxmisc.wellbehaved.event.EventPattern.mousePressed;
-import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -106,7 +105,7 @@ public class CommandTextField extends Region {
         functionalTextField = new TextField();
         autofillMenu = new AutofillSuggestionMenu(functionalTextField, currentCommand);
         functionalTextField.setContextMenu(autofillMenu);
-        //functionalTextField.setTextFormatter(new TextFormatter<String>(this::placeholderReplacement));
+        functionalTextField.setTextFormatter(new TextFormatter<String>(this::placeholderReplacement));
 
         //------------ visible text area ---------------
 
@@ -431,11 +430,6 @@ public class CommandTextField extends Region {
     private TextFormatter.Change placeholderReplacement(TextFormatter.Change change) {
 
         if (change.isContentChange()) {
-            // prevent insertion of newline and < > characters
-            //            change.setText(change.getText().replaceAll(PLACEHOLDER_REGEX, ""));
-            change.setText(change.getText().replaceAll("[\\n\\r]", ""));
-
-
             String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
 
             Matcher command =
@@ -449,55 +443,6 @@ public class CommandTextField extends Region {
             } else {
                 currentCommand.setValue("");
             }
-
-
-            // insert placeholder
-            if (!currentCommand.get().isBlank() && change.isAdded()) {
-                String cmd = currentCommand.get();
-                String beforecaret = change.getControlNewText().substring(0, change.getRangeEnd() + 1);
-                List<String> tokens = List.of(beforecaret.split("\\s+"));
-                String possiblePrefix = tokens.get(tokens.size() - 1);
-                if (stringToSupportedCommands.get(cmd).getPrefix(possiblePrefix) != null) {
-                    String desc = stringToSupportedCommands.get(cmd).getDescription(possiblePrefix);
-                    if (beforecaret.endsWith(" " + possiblePrefix)) {
-                        change.setText(change.getText() + "<" + desc + ">");
-                    }
-                }
-            }
-
-            Pattern placeHolderPattern = Pattern.compile(PLACEHOLDER_REGEX);
-            Matcher placeholder = placeHolderPattern.matcher(change.getControlText());
-            // replace the entire placeholder if change occurs within it
-            while (placeholder.find()) {
-                // find group until caret lies inside
-                if ((change.isAdded()
-                        && change.getControlCaretPosition() <= placeholder.end()
-                        && change.getControlCaretPosition() >= placeholder.start())
-                        || ((change.isDeleted()
-                        && change.getControlCaretPosition() <= placeholder.end()
-                        && change.getControlCaretPosition() >= placeholder.start()))) {
-
-                    String before = change.getControlText().substring(0, placeholder.start());
-                    String mid = change.getText();
-                    String after = change.getControlText().substring(placeholder.end());
-                    String replacement = before + mid + after;
-
-                    change.setRange(0, change.getControlText().length());
-
-                    change.setText(replacement);
-                    change.setCaretPosition((before + mid).length());
-                    change.setAnchor((before + mid).length());
-                    break;
-                }
-            }
-        }
-
-        if (change.isReplaced()) {
-            visibleTextArea.replaceText(change.getRangeStart(), change.getRangeEnd(), change.getText());
-        } else if (change.isDeleted()) {
-            visibleTextArea.deleteText(change.getRangeStart(), change.getRangeEnd());
-        } else if (change.isAdded()) {
-            visibleTextArea.insertText(change.getRangeStart(), change.getText());
         }
         return change;
     }

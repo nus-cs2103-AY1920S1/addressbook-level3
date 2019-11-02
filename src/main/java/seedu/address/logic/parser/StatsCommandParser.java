@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -12,7 +11,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.budget.UniqueBudgetList;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
 
@@ -22,10 +20,10 @@ import seedu.address.model.statistics.Statistics;
 public class StatsCommandParser implements Parser<StatsCommand> {
 
 
-    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of(
-            PREFIX_START_DATE, PREFIX_END_DATE
-    ));
-    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
+    public static final List<Prefix> REQUIRED_PREFIXES = Collections.unmodifiableList(List.of());
+
+    public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of(
+            PREFIX_START_DATE, PREFIX_END_DATE));
 
     /**
      * Parses the given {@code String} of arguments in the context of the StatsCommand
@@ -33,9 +31,6 @@ public class StatsCommandParser implements Parser<StatsCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public StatsCommand parse(String args) throws ParseException {
-        if (UniqueBudgetList.staticIsEmpty()) {
-            throw new ParseException(MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET);
-        }
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_DATE, PREFIX_END_DATE);
@@ -55,20 +50,16 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             checkStartBeforeEnd(argMultimap);
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            return StatsCommand.createWithBothDates(startDate, endDate);
         } else if (isStartPresent) {
             startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            endDate = startDate.createForwardTimestamp(UniqueBudgetList.getPrimaryBudgetPeriod());
+            return StatsCommand.createOnlyWithStartDate(startDate);
         } else if (isEndPresent) {
             endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
-            startDate = endDate.createBackwardTimestamp(UniqueBudgetList.getPrimaryBudgetPeriod());
+            return StatsCommand.createOnlyWithEndDate(endDate);
         } else {
-            //possibly further develop on the BudgetWindow structure, which uses the current window
-            Timestamp centreDate = Timestamp.getCurrentTimestamp();
-            endDate = centreDate.createForwardTimestamp(UniqueBudgetList.getPrimaryBudgetPeriod());
-            startDate = centreDate.createBackwardTimestamp(UniqueBudgetList.getPrimaryBudgetPeriod());
+            return StatsCommand.createWithNoDate();
         }
-
-        return new StatsCommand(startDate, endDate);
     }
 
     /**

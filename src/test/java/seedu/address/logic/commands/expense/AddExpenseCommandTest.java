@@ -27,7 +27,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -303,6 +302,11 @@ public class AddExpenseCommandTest {
         }
 
         @Override
+        public boolean hasPrimaryBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void switchBudgetTo(Description targetDescription) {
             throw new AssertionError("This method should not be called.");
         }
@@ -365,7 +369,7 @@ public class AddExpenseCommandTest {
 
         @Override
         public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
-                                        BudgetPeriod period, boolean isBudgetMode) {
+                                        boolean isBudgetMode) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -1,15 +1,15 @@
 package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.ui.StatsPanel;
 
@@ -26,39 +26,35 @@ public class StatsCompareCommand extends Command {
             + ": Compare statistics between two time periods\n"
             + "Parameters: "
             + "[" + PREFIX_FIRST_START_DATE + "START_DATE] "
-            + "[" + PREFIX_SECOND_START_DATE + "END_DATE] "
-            + PREFIX_PERIOD + "PERIOD\n"
+            + "[" + PREFIX_SECOND_START_DATE + "END_DATE]\n "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FIRST_START_DATE + "11-11-1111 "
-            + PREFIX_SECOND_START_DATE + "12-12-1212 "
-            + PREFIX_PERIOD + "month";
+            + PREFIX_SECOND_START_DATE + "12-12-1212 ";
 
     private final Timestamp firstStartDate;
 
     private final Timestamp secondStartDate;
 
-    private final BudgetPeriod period;
-
-    public StatsCompareCommand(Timestamp date1, Timestamp date2, BudgetPeriod period) {
+    public StatsCompareCommand(Timestamp date1, Timestamp date2) {
         requireNonNull(date1);
         requireNonNull(date2);
-        requireNonNull(period);
 
         this.firstStartDate = date1;
         this.secondStartDate = date2;
-        this.period = period;
     }
 
     @Override
-    protected void validate(Model model) {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasPrimaryBudget()) {
+            throw new CommandException(MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET);
+        }
     }
-
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, period, false);
+        model.calculateStatistics(COMMAND_WORD, firstStartDate , secondStartDate, false);
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
 
@@ -67,8 +63,7 @@ public class StatsCompareCommand extends Command {
         return other == this //short circuit if same object
                 || (other instanceof StatsCompareCommand // instance of handles nulls
                 && firstStartDate.equals(((StatsCompareCommand) other).firstStartDate)
-                && secondStartDate.equals(((StatsCompareCommand) other).secondStartDate)
-                && period.equals(((StatsCompareCommand) other).period));
+                && secondStartDate.equals(((StatsCompareCommand) other).secondStartDate));
     }
 }
 

@@ -429,7 +429,7 @@ the user's decision) that can then be added as expenses when their due dates are
 
 //end::events[]
 
-// category::stats[]
+// tag::statsdg[]
 === Statistics Feature
 
 The statistics feature is facilitated by the `Statistics` class, which is part of the `model` package.
@@ -525,7 +525,7 @@ instead of the default option we have prioritised. Currently, statistics under `
 and users may have different preferences for formats. Various options such as checking across different budgets other than within the same budget can also be considered.
 
 
-// end::stats[]
+// end::statsdg[]
 
 
 // category::Alias[]
