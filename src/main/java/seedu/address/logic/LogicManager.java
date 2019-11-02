@@ -96,7 +96,6 @@ public class LogicManager implements Logic {
             } catch (CommandException | ParseException ex) {
                 logger.info("Resetting commands should not throw any exception: " + ex.getMessage());
             }
-
             lastCommandWord = currCommandWord;
         }
 
