@@ -154,11 +154,11 @@ command prompt box.
 
 image::DuringAdd.png[width="790"]
 
-*Step 3:* After you hit kbd:[Enter], a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
+*Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
 image::DoneAdd.png[width="790"]
 
-The addition of a new member can also be seen from the list of members down below:
+The addition of a new member can also be seen from the list of members as shown down below:
 
 image::ListAdd.png[width="790"]
 
