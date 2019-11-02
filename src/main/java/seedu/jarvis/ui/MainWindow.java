@@ -99,7 +99,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        primaryStage.setResizable(false);
     }
 
     public Stage getPrimaryStage() {
@@ -137,8 +136,8 @@ public class MainWindow extends UiPart<Stage> {
         tabPanePlaceHolder.setMinHeight(345);
 
         tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 40);
-            tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 40);
+            tabPanePlaceHolder.setTabMinWidth(tabPanePlaceHolder.getWidth() / 4 - (5));
+            tabPanePlaceHolder.setTabMaxWidth(tabPanePlaceHolder.getWidth() / 4 - (5));
         });
 
         parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
