@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 
 
+
 /**
  * An UI component that displays information of a {@code Diary}.
  */
@@ -51,11 +52,13 @@ public class PageCard extends UiPart<Region> {
         pageDescription.setText(page.getDescription().fullPageDescription);
 
         // Set page image
-        if (page.getImage().getUrl() != null) {
-            Image image = new Image(String.valueOf(page.getImage().getUrl()));
+        String imagePath = page.getImage().getDataPath();
+        if (getClass().getResourceAsStream(imagePath) != null) {
+            // Load from resources folder
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
             pageImage.setImage(image);
         } else {
-            Image image = new Image(getClass().getResourceAsStream(page.getImage().getFilePath()));
+            Image image = new Image(page.getImage().getImageViewDataPath());
             pageImage.setImage(image);
         }
     }
