@@ -3,6 +3,8 @@ package seedu.address.logic.commands.cheatsheet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CHEATSHEET;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_IMPORTANT;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager;
+import seedu.address.testutil.CheatSheetBuilder;
+import seedu.address.ui.CheatsheetTabWindowController;
 
 public class ViewSpecificCheatSheetTagCommandTest {
     @Test
@@ -21,10 +25,12 @@ public class ViewSpecificCheatSheetTagCommandTest {
     public void execute_cheatSheetAcceptedByModel_addSuccessful() throws Exception {
         ModelManager model = new ModelManager();
         Index validIndex = new Index(1);
-        CommandResult commandResult = new ViewSpecificCheatSheetTagCommand(validIndex).execute(model);
+        CheatsheetTabWindowController.setCurrCheatSheet(
+                new CheatSheetBuilder().withTags(VALID_TAG_CHEATSHEET, VALID_TAG_IMPORTANT).build());
 
+        CommandResult commandResult = new ViewSpecificCheatSheetTagCommand(validIndex).execute(model);
         assertEquals(
-                String.format(AddCheatSheetCommand.MESSAGE_SUCCESS, validIndex.getOneBased()),
+                String.format(ViewSpecificCheatSheetTagCommand.VIEW_TAG_CONTENT_SUCCESS, validIndex.getOneBased()),
                 commandResult.getFeedbackToUser());
     }
 

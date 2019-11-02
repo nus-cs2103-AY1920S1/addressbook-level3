@@ -30,6 +30,10 @@ public class CheatsheetTabWindowController {
         return currCheatSheet;
     }
 
+    public static void setCurrCheatSheet(CheatSheet cs) {
+        currCheatSheet = Optional.of(cs);
+    }
+
     /**
      * Displays empty body of the cheatsheet
      */
