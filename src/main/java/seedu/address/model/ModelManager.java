@@ -484,7 +484,14 @@ public class ModelManager implements Model {
         latestUnconflictedStartTime.add(Calendar.HOUR_OF_DAY, 1);
 
         List<Schedule> schedules = scheduleBook.getList();
+
+        // defensive filter for orderless schedule - in 0 orders
+        // extra filter for same schedule
         schedules.stream()
+                .filter(x -> 0 != orderBook.getList().stream()
+                        .filter(y -> y.getSchedule().isPresent())
+                        .filter(y -> y.getSchedule().get().isSameAs(x))
+                        .count())
                 .filter(x -> !x.isSameAs(schedule))
                 .filter(x -> x.getCalendar().after(earliestUnconflictedStartTime))
                 .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
