@@ -41,10 +41,10 @@
     -fx-border-width: 0 0 2 0;
 }
 
-#helpMessage, #userGuideURL, #quickGuide {
+#helpMessage, #userGuideUrl, #quickGuide {
     -fx-font-size: 12pt;
     -fx-font-family: "Gill Sans MT";
-    -fx-text-fill: #555555;
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
     -fx-line-spacing: 5px;
 }

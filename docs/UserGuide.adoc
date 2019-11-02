@@ -49,7 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * All commands listed are *case-insensitive*.
-* Words in `UPPER_CASE` represent the parameters to be specified. +
+* Words in `UPPER_CASE` represent the parameters to be specified.
+Parameter headers are required to be in lower-case. +
 e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are *optional*. +
 e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/cough` or as `n/John Doe`.
@@ -90,7 +91,7 @@ Adds a patient to VISIT's address book. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-A patient can have any number of tags (including 0)
+A patient can have any number of tags (including 0). Tags will be appear in lowercase and ignore duplicates.
 
 *Examples*:
 
@@ -232,7 +233,7 @@ image::UGAddVisit3.png[width="790"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
 Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
-Format: `editvisit INDEX [i/REPORT INDEX]`
+Format: `editvisit INDEX [i/REPORT_INDEX]`
 
 [NOTE]
 If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
@@ -266,7 +267,7 @@ image::UGEditVisit4.png[width="790"]
 ==== Deleting a visitation report : `deletevisit`
 
 Deletes the specified visitation report. +
-Format: `deletevisit INDEX [d/REPORT INDEX]`
+Format: `deletevisit INDEX [d/REPORT_INDEX]`
 
 [NOTE]
 If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
