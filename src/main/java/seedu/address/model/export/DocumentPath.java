@@ -70,7 +70,8 @@ public class DocumentPath extends ExportPath {
         }
 
         return new DirectoryPath(
-                fullPath
+                fullPath.getRoot()
+                + fullPath
                 .subpath(0, nameCount - 1)
                 .toString()
         );
