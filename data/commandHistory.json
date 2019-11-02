@@ -374,5 +374,100 @@
     "output" : "No appeals were approved\nAppeals with module clash: [C000011]",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572685531694
+  }, {
+    "input" : "view s/2",
+    "output" : "Displayed items with ID: A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686612819
+  }, {
+    "input" : "approve a/16",
+    "output" : "Approved C000015\nStudent max credits updated to : 26",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686625387
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686633648
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nA0180000 max credits updated to: 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686992309
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687000087
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved module from : A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687003371
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687011246
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved module from : CS2105",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687245274
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687252174
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from : CS2105",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687359723
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687404495
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687457764
+  }, {
+    "input" : "",
+    "output" : "Invalid command format! \nhelp: Shows program usage instructions.\nExample: help",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572687458233
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687461396
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687463515
+  }, {
+    "input" : "approve a/3",
+    "output" : "Approved C000002\nRemoved CS2040 from A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687474073
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687479401
+  }, {
+    "input" : "approvea/4",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572687483445
+  }, {
+    "input" : "approve a/4",
+    "output" : "Approved C000003\nAdded CS1020 to : A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687485848
   } ]
 }

@@ -4,13 +4,13 @@
     "credits" : "20",
     "prevMods" : "CS1010, CS1020",
     "matricId" : "A0180000",
-    "tagged" : [ "CS1231", "CS2030", "C000000", "CS2040" ]
+    "tagged" : [ "CS1020", "CS1231", "CS2100", "CS2030", "C000000", "CS2040" ]
   }, {
     "name" : "Madonna Morgado  ",
     "credits" : "23",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180001",
-    "tagged" : [ "C000001", "CS1231", "CS2106", "CS2105", "CS2101" ]
+    "tagged" : [ "C000001", "CS1231", "CS2040", "CS2106", "CS2101" ]
   }, {
     "name" : "Ronna Rousey  ",
     "credits" : "24",
@@ -22,7 +22,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180003",
-    "tagged" : [ "CS1231", "CS2220", "C000003", "CS2030" ]
+    "tagged" : [ "CS1231", "CS2220", "C000003", "CS1010", "CS2030" ]
   }, {
     "name" : "Tamala Touchette  ",
     "credits" : "22",
@@ -40,7 +40,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180006",
-    "tagged" : [ "CS1020", "C000006", "CS2101" ]
+    "tagged" : [ "CS1020", "CS2309", "C000006", "CS2101" ]
   }, {
     "name" : "Staci Snowden  ",
     "credits" : "23",
@@ -124,7 +124,7 @@
     "credits" : "20",
     "prevMods" : "CS1010, CS2309",
     "matricId" : "A0180020",
-    "tagged" : [ "CS1020", "CS1231", "CS2105" ]
+    "tagged" : [ "CS1020", "CS1231", "CS2040", "CS2105" ]
   }, {
     "name" : "Tanisha Tolle  ",
     "credits" : "23",
@@ -160,7 +160,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180026",
-    "tagged" : [ "CS1020", "CS2309", "CS2101" ]
+    "tagged" : [ "CS1020", "CS2030", "CS2309", "CS2101" ]
   }, {
     "name" : "Kermit Kerekes  ",
     "credits" : "20",
@@ -301,55 +301,55 @@
     "tagged" : [ "CS2030", "CS2309", "CS2106" ]
   } ],
   "modules" : [ {
-    "quota" : "50",
-    "tagged" : [ ],
+    "quota" : "25",
+    "tagged" : [ "A0180003" ],
     "moduleCode" : "CS1010",
     "moduleName" : "Programming Methodology",
     "moduleDescription" : "This module introduces the fundamental concepts of problem solving by computing and programming using an imperative programming language. It is the first and foremost introductory course to computing. Topics covered include computational thinking and computational problem solving, designing and specifying an algorithm, basic problem formulation and problem solving approaches, program development, coding, testing and debugging, fundamental programming constructs (variables, types, expressions, assignments, functions, control structures, etc.), fundamental data structures (arrays, strings, composite data types), basic sorting, and recursion.",
     "lecturerName" : "Tung Kum Hoe Anthony",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "60",
-    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180012", "A0180024", "A0180035", "A0180046", "A0180026", "A0180006", "A0180008" ],
+    "quota" : "30",
+    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180000", "A0180012", "A0180024", "A0180035", "A0180046", "A0180026", "A0180006", "A0180008" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
     "moduleDescription" : "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for SoC and FoS students.",
     "lecturerName" : "Tan Sun Teck",
     "timeSlot" : "21,20,57,58,59"
   }, {
-    "quota" : "80",
-    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
+    "quota" : "40",
+    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180011", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
     "moduleCode" : "CS1231",
     "moduleName" : "Discrete Structures",
     "moduleDescription" : "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
     "lecturerName" : "Terence Sim",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
-    "tagged" : [ "A0180031", "A0180010", "A0180021", "A0180032", "A0180000", "A0180033", "A0180011", "A0180023", "A0180013", "A0180003", "A0180036", "A0180047", "A0180004", "A0180049", "A0180028", "A0180009" ],
+    "quota" : "20",
+    "tagged" : [ "A0180031", "A0180010", "A0180021", "A0180032", "A0180000", "A0180033", "A0180023", "A0180013", "A0180003", "A0180036", "A0180047", "A0180004", "A0180026", "A0180049", "A0180028", "A0180009" ],
     "moduleCode" : "CS2030",
     "moduleName" : "Programming Methodology II",
     "moduleDescription" : "This module is a follow up to CS1010. It explores two modern programming paradigms, object-oriented programming and functional programming. Through a series of integrated assignments, students will learn to develop medium-scale software programs in the order of thousands of lines of code and tens of classes using objectoriented design principles and advanced programming constructs available in the two paradigms. Topics include objects and classes, composition, association, inheritance, interface, polymorphism, abstract classes, dynamic binding, lambda expression, effect-free programming, first class functions, closures, continuations, monad, etc.",
     "lecturerName" : "LEE LIAK GHEE",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
-    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180043", "A0180000", "A0180011", "A0180012", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
+    "quota" : "20",
+    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180020", "A0180043", "A0180000", "A0180011", "A0180012", "A0180001", "A0180002", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
     "moduleDescription" : "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, and basic analysis of algorithms.",
     "lecturerName" : "Chong Ket Fah",
     "timeSlot" : "40,41,10,11,12"
   }, {
-    "quota" : "50",
-    "tagged" : [ ],
+    "quota" : "25",
+    "tagged" : [ "A0180000" ],
     "moduleCode" : "CS2100",
     "moduleName" : "Computer Organisation",
     "moduleDescription" : "The objective of this module is to familiarise students with the fundamentals of computing devices. Through this module students will understand the basics of data representation, and how the various parts of a computer work, separately and with each other. This allows students to understand the issues in computing devices, and how these issues affect the implementation of solutions. Topics covered include data representation systems, combinational and sequential circuit design techniques, assembly language, processor execution cycles, pipelining, memory hierarchy and input/output systems.",
     "lecturerName" : "LI ZHAOYING",
     "timeSlot" : "32,33,12,13"
   }, {
-    "quota" : "40",
+    "quota" : "30",
     "tagged" : [ "A0180042", "A0180021", "A0180044", "A0180001", "A0180046", "A0180014", "A0180047", "A0180026", "A0180005", "A0180016", "A0180006", "A0180028", "A0180039", "A0180019" ],
     "moduleCode" : "CS2101",
     "moduleName" : "Effective Communication for Computing Professionals",
@@ -357,15 +357,15 @@
     "lecturerName" : "Shirley James",
     "timeSlot" : "29,30,31,54,55"
   }, {
-    "quota" : "40",
-    "tagged" : [ "A0180041", "A0180020", "A0180031", "A0180021", "A0180032", "A0180044", "A0180001", "A0180002", "A0180035", "A0180025", "A0180036", "A0180016", "A0180027", "A0180038", "A0180039", "A0180007" ],
+    "quota" : "20",
+    "tagged" : [ "A0180041", "A0180020", "A0180031", "A0180021", "A0180032", "A0180044", "A0180002", "A0180035", "A0180025", "A0180036", "A0180016", "A0180027", "A0180038", "A0180039", "A0180007" ],
     "moduleCode" : "CS2105",
     "moduleName" : "Introduction to Computer Networks",
     "moduleDescription" : "This module aims to provide a broad introduction to computer networks and network application programming. It covers the main concepts, the fundamental principles, and the high-level workings of important protocols in each of the Internet protocol layer. Topics include the Web and Web applications, DNS services, socket programming, reliable protocols, transport and network layer protocols, secure communication, LAN, and data communication. Practical assignments and handson exercises expose students to network application programming and various networking tools and utilities.",
     "lecturerName" : "Zhou Lifeng",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
+    "quota" : "40",
     "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180001", "A0180037", "A0180005", "A0180049", "A0180029" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
@@ -373,7 +373,7 @@
     "lecturerName" : "ANG RAY YAN",
     "timeSlot" : "1,2,45,46,47"
   }, {
-    "quota" : "50",
+    "quota" : "20",
     "tagged" : [ "A0180040", "A0180030", "A0180022", "A0180045", "A0180003", "A0180014", "A0180004", "A0180048", "A0180017", "A0180008", "A0180009" ],
     "moduleCode" : "CS2220",
     "moduleName" : "Introduction to Computational Biology",
@@ -381,8 +381,8 @@
     "lecturerName" : "Limsoon Wong",
     "timeSlot" : "30,31,32,33"
   }, {
-    "quota" : "40",
-    "tagged" : [ "A0180033", "A0180015", "A0180026", "A0180048", "A0180027", "A0180049", "A0180028", "A0180039" ],
+    "quota" : "10",
+    "tagged" : [ "A0180033", "A0180015", "A0180026", "A0180048", "A0180027", "A0180049", "A0180028", "A0180039", "A0180006" ],
     "moduleCode" : "CS2309",
     "moduleName" : "CS Research Methodology",
     "moduleDescription" : "This module is for research students.",
@@ -414,8 +414,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2105",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000002",
@@ -554,6 +554,118 @@
     "newModule" : "",
     "moduleToAdd" : "CS1231",
     "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000012",
+    "appealType" : "Drop module",
+    "studentId" : "A0180012",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I want to take other modules",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "CS1231",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000013",
+    "appealType" : "Increase workload",
+    "studentId" : "A0180013",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 30,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000014",
+    "appealType" : "Add module",
+    "studentId" : "A0180014",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS2040",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000015",
+    "appealType" : "Increase workload",
+    "studentId" : "A0180015",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 26,
+    "appealDescription" : "I want to graduate by next sem",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000016",
+    "appealType" : "Drop module",
+    "studentId" : "A0180016",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I cannot cope with the workload",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "CS2101",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000017",
+    "appealType" : "Add module",
+    "studentId" : "A0180017",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to explore other modules",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS2030",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000018",
+    "appealType" : "Add module",
+    "studentId" : "A0180018",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I wish to take this module to clear my prerequisite",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "CS2101",
+    "moduleToDrop" : "",
+    "resolved" : false,
+    "result" : "",
+    "remark" : ""
+  }, {
+    "appealId" : "C000019",
+    "appealType" : "Drop module",
+    "studentId" : "A0180019",
+    "academicYear" : "AY2019",
+    "studentWorkload" : 0,
+    "appealDescription" : "I want to relax this sem",
+    "previousModule" : "",
+    "newModule" : "",
+    "moduleToAdd" : "",
+    "moduleToDrop" : "CS2040",
     "resolved" : false,
     "result" : "",
     "remark" : ""

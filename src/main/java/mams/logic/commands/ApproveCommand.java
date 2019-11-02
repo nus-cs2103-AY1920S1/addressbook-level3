@@ -2,16 +2,20 @@ package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import static mams.logic.commands.AddModCommand.MESSAGE_ADD_MOD_SUCCESS;
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
 import static mams.logic.commands.ClashCommand.ClashCase;
 import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
-import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
+import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
+import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
+import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import mams.commons.core.Messages;
@@ -66,6 +70,7 @@ public class ApproveCommand extends Approve {
             String feedback = "";
             String target = "";
             String type = "";
+            String change = "";
             int workLoad = 0;
             String moduleCode;
 
@@ -93,9 +98,10 @@ public class ApproveCommand extends Approve {
                             studentToEdit.getTags());
                 model.setStudent(studentToEdit, editedStudent);
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-                feedback += MESSAGE_CREDIT_CHANGE_SUCCESS;
+                feedback += MESSAGE_STUDENT_CREDIT_CHANGE;
                 workLoad = appealToApprove.getStudentWorkload();
                 type += "increase workload";
+                target += studentToEditId;
 
             } else if (appealType.equalsIgnoreCase("Drop module")) {
                 moduleCode = appealToApprove.getModuleToDrop();
@@ -166,9 +172,10 @@ public class ApproveCommand extends Approve {
                 model.setModule(moduleToEdit, editedModule);
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
                 model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-                feedback = MESSAGE_REMOVE_MOD_SUCCESS;
+                feedback = MESSAGE_STUDENT_REMOVE_MOD;
                 target = studentToEditId;
                 type += "drop module";
+                change += moduleCode;
 
             } else {
                 ArrayList<ClashCase> clashCases = new ArrayList<ClashCase>();
@@ -263,9 +270,10 @@ public class ApproveCommand extends Approve {
                 model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
                 model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
-                feedback = MESSAGE_ADD_MOD_SUCCESS;
+                feedback = MESSAGE_STUDENT_ADD_MOD;
                 target = studentToEditId;
                 type += "add module";
+                change += moduleCode;
             }
 
 
@@ -286,9 +294,9 @@ public class ApproveCommand extends Approve {
             model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
 
             if (type.equalsIgnoreCase("increase workload")) {
-                return new CommandResult(generateSuccessMessageWorkload(appealToApprove, feedback, workLoad));
+                return new CommandResult(generateSuccessMessageWorkload(appealToApprove, feedback, workLoad, target));
             } else {
-                return new CommandResult(generateSuccessMessage(approvedAppeal, feedback, target));
+                return new CommandResult(generateSuccessMessageModule(approvedAppeal, feedback, target, change));
             }
         } else {
             return new CommandResult(MESSAGE_APPEAL_ALREADY_APPROVED);
@@ -296,11 +304,11 @@ public class ApproveCommand extends Approve {
 
     }
 
-    private String generateSuccessMessage(Appeal appealToApprove, String feedback, String target) {
-        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target);
+    private String generateSuccessMessageModule(Appeal appealToApprove, String feedback, String target, String change) {
+        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, change) + target;
     }
-    private String generateSuccessMessageWorkload(Appeal appealToApprove, String feedback, int workLoad) {
-        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, workLoad);
+    private String generateSuccessMessageWorkload(Appeal appealToApprove, String feedback, int workLoad, String target) {
+        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target, workLoad);
     }
 
     @Override
