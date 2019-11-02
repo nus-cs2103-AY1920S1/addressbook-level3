@@ -49,7 +49,7 @@ public class EventCard extends UiPart<Region> {
         this.event = event;
         index.setText(Integer.toString(displayedIndex));
         description.setText(event.getDescription().fullDescription);
-        price.setText("$" + event.getPrice().value);
+        price.setText("$" + event.getPrice());
         categories.getChildren().add(new Label(event.getCategory().getCategoryName()));
         date.setText(event.getTimestamp().fullTimestamp.format(DateTimeFormatter.ISO_DATE));
         time.setText(null);

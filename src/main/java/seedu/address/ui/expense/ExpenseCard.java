@@ -60,7 +60,7 @@ public class ExpenseCard extends UiPart<Region> {
         this.expense = expense;
         index.setText(Integer.toString(displayedIndex));
         description.setText(expense.getDescription().fullDescription);
-        price.setText("$" + expense.getPrice().value);
+        price.setText("$" + expense.getPrice());
         categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
         date.setText(expense.getTimestamp().fullTimestamp.format(DateTimeFormatter.ISO_DATE));
         time.setText(null);

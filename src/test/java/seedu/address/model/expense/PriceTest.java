@@ -25,28 +25,24 @@ public class PriceTest {
         assertThrows(NullPointerException.class, () -> Price.isValidPrice(null));
 
         // invalid prices
+        assertFalse(Price.isValidPrice("0")); // price is 0
         assertFalse(Price.isValidPrice("")); // empty string
         assertFalse(Price.isValidPrice(" ")); // spaces only
         assertFalse(Price.isValidPrice("price")); // non-numeric
         assertFalse(Price.isValidPrice("9011p041")); // alphabets within digits
+        assertFalse(Price.isValidPrice("90,11$041")); // non-fullstop punctuation within digits
         assertFalse(Price.isValidPrice("9312 1534")); // spaces within digits
-        assertFalse(Price.isValidPrice("9312,")); // end with comma
-        assertFalse(Price.isValidPrice("9312.")); // end with period
-        assertFalse(Price.isValidPrice(".9312")); // begin with period
-        assertFalse(Price.isValidPrice(",9312")); // begin with comma
-        assertFalse(Price.isValidPrice("9,3.12")); // multiple commas
         assertFalse(Price.isValidPrice("9.31.2")); // multiple periods
-        assertFalse(Price.isValidPrice("9,.312")); // period and comma
         assertFalse(Price.isValidPrice("-9123")); // negative
 
 
         // valid prices
-        assertTrue(Price.isValidPrice("0")); // price is 0
         assertTrue(Price.isValidPrice("91"));
         assertTrue(Price.isValidPrice("911")); // exactly 3 numbers
         assertTrue(Price.isValidPrice("93121534"));
-        assertTrue(Price.isValidPrice("931,21534")); // comma
-        assertTrue(Price.isValidPrice("931.21534")); // period
+        assertTrue(Price.isValidPrice("931.")); // 0 decimal places
+        assertTrue(Price.isValidPrice("931.2")); // 1 decimal place
+        assertTrue(Price.isValidPrice("931.21")); // 2 decimal places
         assertTrue(Price.isValidPrice("93121534"));
         assertTrue(Price.isValidPrice("124293842033123")); // long prices
     }
