@@ -86,7 +86,7 @@ public class FinSecParser {
      * Returns a {@code CreateShortCutCommand} if the task exists or an {@code ShortCutRequestCommand} if it does not.
      */
     public Command checkCommand(String currentInput, String prevInput) {
-        if (FinSecParser.commandList.containsKey(currentInput)) {
+        if (FinSecParser.commandList.containsValue(currentInput)) {
             FinSecParser.commandList.put(prevInput, FinSecParser.commandList.get(currentInput));
             return new CreateShortCutCommand(FinSecParser.commandList.get(currentInput), prevInput);
         } else {
