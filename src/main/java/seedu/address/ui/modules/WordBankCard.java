@@ -13,7 +13,10 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
 
 /**
@@ -43,13 +46,15 @@ public class WordBankCard extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    private ModularDisplay.ModularDisplayExecuteCallBack commandExecutor;
+
     /**
      * Card containing the details of the word bank.
      *
      * @param wordBank       The card representing its corresponding word bank.
      * @param displayedIndex The index of the word bank.
      */
-    public WordBankCard(WordBank wordBank, int displayedIndex) {
+    WordBankCard(WordBank wordBank, int displayedIndex) {
         super(FXML);
         this.wordBank = wordBank;
         id.setText(displayedIndex + ". ");
@@ -106,6 +111,16 @@ public class WordBankCard extends UiPart<Region> {
 
         event.consume();
         System.out.println("dragDetection done");
+
+        try {
+            commandExecutor.execute("export w/dragAndDropInternalExport" + wordBank.getName()
+                    + " f/" + System.getProperty("user.home"));
+        } catch (CommandException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -158,4 +173,15 @@ public class WordBankCard extends UiPart<Region> {
     //
     //        event.consume();
     //    }
+
+    /**
+     * Registers a method that will be called by the handleDragDetection to simulate an Export command as though
+     * it were a user.
+     *
+     * @param commandExecutor Method to register.
+     */
+    void registerDragAndDropCallBack(ModularDisplay.ModularDisplayExecuteCallBack commandExecutor) {
+        this.commandExecutor = commandExecutor;
+    }
+
 }

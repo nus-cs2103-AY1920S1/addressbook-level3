@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
@@ -27,13 +28,25 @@ public class ExportCommand extends WordBankCommand {
 
     private static final String MESSAGE_EXPORT_CARD_SUCCESS = "Exported word bank: %1$s to location : %2$s";
 
-    private static String wordBankName;
-    private static File directory;
-    private static WordBank wordBank;
+    private String wordBankName;
+    private String directoryString;
+    private WordBank wordBank;
 
     public ExportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
-        this.directory = directory;
+        this.directoryString = directory.toString();
+    }
+
+    /**
+     * Called by drag and drop internally.
+     * User should not call this.
+     *
+     * @param wordBankName "dragAndDropInternalExport" + wordBankName
+     */
+    public ExportCommand(String wordBankName) {
+        int len =  "dragAndDropInternalExport".length();
+        this.wordBankName = wordBankName.substring(len);
+        this.directoryString = "the place you dropped.";
     }
 
     @Override
@@ -45,8 +58,9 @@ public class ExportCommand extends WordBankCommand {
             throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
         }
 
-        return new ExportCommandResult(String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directory.toString()),
-                wordBankName, directory.toPath());
+        return new ExportCommandResult(
+                String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directoryString),
+                wordBankName, Paths.get(directoryString));
     }
 
     @Override
@@ -58,16 +72,4 @@ public class ExportCommand extends WordBankCommand {
                 .equals(((seedu.address.logic.commands.wordbankcommands.ExportCommand) other).wordBankName));
     }
 
-
-    public static WordBank getWordBank() {
-        return wordBank;
-    }
-
-    public static File getDirectory() {
-        return directory;
-    }
-
-    public static String getWordBankName() {
-        return wordBankName;
-    }
 }

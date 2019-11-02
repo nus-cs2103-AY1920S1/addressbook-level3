@@ -1,9 +1,14 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Random;
 
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -48,7 +53,7 @@ public class ModularDisplay {
      *
      * @param appManager GameManager who will render lists.
      */
-    public ModularDisplay(AppManager appManager) {
+    ModularDisplay(AppManager appManager) {
         loadBankPanel = new LoadBankPanel(appManager.getStorage());
         titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
@@ -187,5 +192,25 @@ public class ModularDisplay {
         hintLabel.updateHintLabel(hint);
         paneToDisplay.getChildren().clear();
         paneToDisplay.getChildren().add(createQuestionHints().getRoot());
+    }
+
+    /**
+     * Registers a method that will be called by the ModularDisplay to simulate an Import or Export command as though
+     * it were a user.
+     * @param commandExecutor Method to register.
+     */
+    void registerDragAndDropCalLBack(ModularDisplayExecuteCallBack commandExecutor) {
+        requireAllNonNull(commandExecutor);
+        loadBankPanel.registerDragAndDropCallBack(commandExecutor);
+    }
+
+
+    /**
+     * Call-back functional interface from ModularDisplay to MainWindow, represents the ModularDisplay sending
+     * a command to the app as though it were another user.
+     */
+    @FunctionalInterface
+    public interface ModularDisplayExecuteCallBack {
+        CommandResult execute(String commandText) throws CommandException, ParseException;
     }
 }

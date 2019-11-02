@@ -139,6 +139,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //Setting modularDisplay to load mode by default.
         modularDisplay.swapToHomeDisplay(modularDisplayPlaceholder);
+        modularDisplay.registerDragAndDropCalLBack(this::executeCommand);
 
         //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
@@ -158,7 +159,6 @@ public class MainWindow extends UiPart<Stage> {
         appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
         //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.registerMainWindowExecuteCallBack(this::executeCommand);
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
