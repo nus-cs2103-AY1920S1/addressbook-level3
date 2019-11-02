@@ -22,9 +22,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -35,7 +35,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing schedule in SML.
  */
-public class EditScheduleCommand extends UndoableCommand {
+public class EditScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-s";
 
@@ -76,7 +76,7 @@ public class EditScheduleCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+    public CommandResult execute(Model model, CommandHistory commandHistory,
                                  UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 

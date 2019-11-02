@@ -97,7 +97,7 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+A meetup with buyer to pass the goods.
 
 === SML-specific Terms
 
@@ -482,7 +482,7 @@ Format: `complete-o INDEX`
 
 ==== Cancel an order : `cancel`
 Cancels the order at the specified index. +
-Format: `cancel INDEX`
+Format: `cancel-o INDEX`
 
 ==== List the orders : `list-o`
 List all the orders in the list. +
@@ -530,11 +530,11 @@ Switches to Schedule Tab Panel. +
 Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
-Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+Date should be in the format YYYY.MM.DD with valid year, month and date.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
 *Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
 
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
@@ -547,7 +547,7 @@ image::ug-command/ug-add-s.png[width="800"]
 [TIP]
 Order index should be a positive integer and must exist in the order list.
 [TIP]
-Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+Date should be in the format YYYY.MM.DD with valid year, month and date.
 [TIP]
 Time should be in the 24-hour format HH.MM with valid hour and minute.
 [TIP]
@@ -612,11 +612,6 @@ Currently, the following commands are undoable and redoable. +
 . Delete Phone
 . Clear Phone
 
-. Add Schedule
-. Edit Schedule
-. Delete Schedule
-. Clear Schedule
-
 
 [underline]#Format#: `undo`
 
@@ -648,12 +643,7 @@ Currently, the following commands are undoable and redoable. +
 . Delete Phone
 . Clear Phone
 
-. Add Schedule
-. Edit Schedule
-. Delete Schedule
-. Clear Schedule
-
-[underline]#Format#: `redo`
+[underline]#Format#: `undo`
 
 [underline]#Examples#:
 
