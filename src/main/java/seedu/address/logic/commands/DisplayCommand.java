@@ -42,10 +42,17 @@ public class DisplayCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        return new CommandResult(getMessageSuccess(this.displayIndicator, this.displayFormat),
+            this.displayIndicator, this.displayFormat);
+    }
+
+    public static String getMessageSuccess(DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
+        requireNonNull(displayIndicator);
+        requireNonNull(displayFormat);
         String messageSuccess =
             "Displayed " + displayIndicator
                 + " with " + displayFormat + " successfully.";
-        return new CommandResult(messageSuccess, this.displayIndicator, this.displayFormat);
+        return messageSuccess;
     }
 
     @Override
