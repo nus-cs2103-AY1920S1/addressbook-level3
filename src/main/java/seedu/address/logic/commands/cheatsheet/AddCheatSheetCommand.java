@@ -82,15 +82,22 @@ public class AddCheatSheetCommand extends Command {
     }
 
     /**
-     * Retrieves all the notes with the relevant tags
+     * Retrieves all the notes and flashcards with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
         Set<Content> contentList = new HashSet<>();
 
-        // get within the notes
+        // get all notes
         ObservableList<Note> noteList = model.getFilteredNoteList();
-        NoteFragmentContainsTagPredicate noteFragmentTagPredicate =
-                new NoteFragmentContainsTagPredicate(tags);
+        NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
+        model.updateFilteredNoteList(noteTagPredicate);
+
+        for (Note note: noteList) {
+            contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+        }
+
+        // get all note fragments within the notes
+        NoteFragmentContainsTagPredicate noteFragmentTagPredicate = new NoteFragmentContainsTagPredicate(tags);
 
         for (Note note: noteList) {
             for (NoteFragment nf : note.getNoteFragments()) {
@@ -100,24 +107,14 @@ public class AddCheatSheetCommand extends Command {
             }
         }
 
-        // get all notes
-        NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
-        model.updateFilteredNoteList(noteTagPredicate);
-
-        for (Note note: noteList) {
-            contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
-        }
-
         // get all flashcards
         FlashcardContainsTagPredicate flashcardTagPredicate = new FlashcardContainsTagPredicate(tags);
         model.updateFilteredFlashcardList(flashcardTagPredicate);
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
         for (Flashcard flashcard: flashcardList) {
-            contentList.add(new Content(flashcard.getQuestion().toString(),
-                    flashcard.getAnswer().toString(), flashcard.getTags()));
-
-            System.out.println(contentList.toString());
+            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString(),
+                    flashcard.getTags()));
         }
 
         return contentList;
