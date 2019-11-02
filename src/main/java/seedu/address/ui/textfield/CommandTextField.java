@@ -116,14 +116,14 @@ public class CommandTextField extends Region {
 
         visibleTextArea = new StyleClassedTextArea();
         visibleTextArea.setDisable(true);
-        functionalTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (t1) {
-                visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
-            } else {
-                clear();
-                visibleTextArea.setShowCaret(Caret.CaretVisibility.OFF);
-            }
-        });
+        //        functionalTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+        //            if (t1) {
+        //                visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
+        //            } else {
+        //                clear();
+        //                visibleTextArea.setShowCaret(Caret.CaretVisibility.OFF);
+        //            }
+        //        });
 
         functionalTextField.caretPositionProperty().addListener((unused1, unused2, position) -> {
             visibleTextArea.displaceCaret((int) position);
@@ -154,7 +154,8 @@ public class CommandTextField extends Region {
         functionalTextField.setOpacity(0.0);
         StackPane stackPane = new StackPane();
         stackPane.setId("SyntaxBox"); // for css styling css
-        stackPane.getChildren().addAll(visibleTextArea, functionalTextField);
+        stackPane.getChildren().addAll(functionalTextField);
+        //stackPane.getChildren().addAll(visibleTextArea, functionalTextField);
         getChildren().add(stackPane);
 
         //------------ for alignment of actual and visible text area ---------------
@@ -182,26 +183,26 @@ public class CommandTextField extends Region {
             visibleTextArea.setPrefWidth(width.doubleValue());
             visibleTextArea.setMinWidth(width.doubleValue());
             visibleTextArea.setMaxWidth(width.doubleValue());
-            clear();
+            //clear();
         });
 
         // prevent certain behaviour
-        Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
-        Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
-        Nodes.addInputMap(functionalTextField, consumeTabKey);
-        Nodes.addInputMap(functionalTextField, consumeMouseDragEvent);
+        // Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
+        // Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
+        // Nodes.addInputMap(functionalTextField, consumeTabKey);
+        // Nodes.addInputMap(functionalTextField, consumeMouseDragEvent);
         Nodes.addInputMap(visibleTextArea, consumeUndoRedoEvent);
         Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
         Nodes.addInputMap(visibleTextArea, consumeTabKey);
         Nodes.addInputMap(visibleTextArea, consumeMouseDragEvent);
 
         // prevent selection of text
-        functionalTextField.selectionProperty().addListener((observableValue, indexRange, t1) -> {
-            if (t1.getLength() > 0) {
-                functionalTextField.deselect();
-                visibleTextArea.deselect();
-            }
-        });
+        //        functionalTextField.selectionProperty().addListener((observableValue, indexRange, t1) -> {
+        //            if (t1.getLength() > 0) {
+        //                functionalTextField.deselect();
+        //                visibleTextArea.deselect();
+        //            }
+        //        });
     }
 
     /**
