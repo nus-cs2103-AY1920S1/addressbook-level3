@@ -341,8 +341,8 @@ image::UG-NoShortcut1.png[width="800"]
 image::UG-NoShortcut2.png[width="800"]
 
 [[UG-NoShortcutResult]]
-[reftext="Figure 3.11.3"]
-[caption="Figure 3.11.3: "]
+[reftext="Figure 3.11.1.3"]
+[caption="Figure 3.11.1.3: "]
 .Since it is a genuine typo, entering 'n' will allow you to continue.
 image::UG-NoShortcut3.png[width="800"]
 
