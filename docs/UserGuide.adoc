@@ -311,8 +311,8 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Split* `split [f/FLAG] $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]` +
-Example: `split $/100 f/loan n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* *Split* `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
+Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 * *Out* : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
 * *In* `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
@@ -322,7 +322,7 @@ Example: `set $/100 d/10102019 c/food`
 * *View* : `view TAB` +
 Example: `view transaction`
 * *Delete* : `delete TYPE+INDEX` +
-Example: `delete t1 $/200 n/waiter c/work`
+Example: `delete t1`
 * *Update* : `update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]` +
 Example: `update b1 $/100 c/transport`
 * *Sort* : `sort PREDICATE` +
@@ -330,7 +330,7 @@ Example: `sort amount`
 * *Filter* : `filter CATEGORY...` +
 Example: `filter food`
 * *Project* : `project DURATION` +
-Example: `project 10`
+Example: `project d/22072020`
 * *Redo* : `redo`
 * *Undo* : `undo`
 * *Clear* : `clear`
