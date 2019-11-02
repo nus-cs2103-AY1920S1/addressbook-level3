@@ -157,11 +157,19 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Updates the current tab on display
      */
-    private void updateView(PanelTab tabToView) {
-        if (tabToView != null) {
-            TabPane pane = (TabPane) outputDisplayPlaceholder.getChildren().get(0);
-            pane.getSelectionModel().select(tabToView);
+    private void updateView(PanelTab tabToView, CommandCategory category) {
+        if (tabToView == null) {
+            return;
         }
+
+        if (category.isSecondaryCategory()) {
+            tabToView.setSecondaryPanel();
+        } else {
+            tabToView.setPrimaryPanel();
+        }
+
+        TabPane pane = (TabPane) outputDisplayPlaceholder.getChildren().get(0);
+        pane.getSelectionModel().select(tabToView);
     }
 
     /**
@@ -216,17 +224,10 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             CommandCategory category = commandResult.getCommandCategory();
-            PanelTab tabToView;
-            if (category != null) {
-                if (category.isSecondaryCategory()) {
-                    tabToView = tabMap.get(category.getPrimaryCategory(category));
-                    tabToView.setSecondaryPanel();
-                } else {
-                    tabToView = tabMap.get(category);
-                    tabToView.setPrimaryPanel();
-                }
-                updateView(tabToView);
-            }
+            PanelTab tabToView = category.isSecondaryCategory()
+                    ? tabMap.get(category.getPrimaryCategory(category))
+                    : tabMap.get(category);
+            updateView(tabToView, category);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
