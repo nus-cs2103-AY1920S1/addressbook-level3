@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         // Add observers into commandBox observer list
         commandBox.addObserver(autoCompletePanel);
         commandBox.addObserver(resultDisplay);
-        // Add data senders into autoCompletePanel dataSender list
+        // Set data sender for commandBox
         commandBox.setDataSender(autoCompletePanel);
 
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
@@ -213,10 +213,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public AppointmentListPanel getAppointmentListPanel() {
         return appointmentListPanel;
-    }
-
-    public AutoCompletePanel getAutoCompletePanel() {
-        return autoCompletePanel;
     }
 
     public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {

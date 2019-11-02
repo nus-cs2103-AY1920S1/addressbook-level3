@@ -327,9 +327,9 @@ public class AutoCompleteWordStorage {
         ObservableList<AutoCompleteWord> oListAllObjectWord = FXCollections.observableArrayList();
 
         oListAllObjectWord.add(new ObjectWord(PAT_OBJECTWORD, PAT_DESCRIPTION));
-        oListAllObjectWord.add(new ObjectWord(APP_OBJECT_WORD, APP_DESCRIPTION));
         oListAllObjectWord.add(new ObjectWord(VISIT_OBJECT_WORD, VISIT_DESCRIPTION));
         oListAllObjectWord.add(new ObjectWord(APPT_OBJECT_WORD, APPT_DESCRIPTION));
+        oListAllObjectWord.add(new ObjectWord(APP_OBJECT_WORD, APP_DESCRIPTION));
 
         return oListAllObjectWord;
     }

@@ -74,10 +74,6 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
         autoCompleteWordListView.scrollTo(selectedIndex);
     }
 
-    public int getSelectedIndex() {
-        return selectedIndex;
-    }
-
     public int getTotalItems() {
         return autoCompleteWordListView.getItems().size();
     }
@@ -107,6 +103,7 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
+    // handle up and down key separately
     @Override
     public void update(KeyCode keyCode) {
         switch (keyCode) {
@@ -119,10 +116,10 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
         }
     }
 
-    // prereq key is not shift/up/down
+    // Do not handle up down button pressed
     @Override
     public void update(KeyCode keyCode, String resultString) {
-        if (keyCode != KeyCode.SHIFT && keyCode != KeyCode.UP && keyCode != KeyCode.DOWN) {
+        if (keyCode != KeyCode.UP && keyCode != KeyCode.DOWN) {
             updateListView(resultString);
         }
     }

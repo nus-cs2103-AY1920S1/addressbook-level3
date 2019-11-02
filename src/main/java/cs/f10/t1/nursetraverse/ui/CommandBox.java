@@ -89,16 +89,22 @@ public class CommandBox extends UiPart<Region>{
             switch (event.getCode()) {
             case UP:
             case DOWN:
-                notifyObservers(event.getCode());
+                notifyObserversKeyPressed(event.getCode());
+                try {
+                    String textToPassWhenUpDownKeyPressed = receiveFromSender()[1];
+                    notifyObserversToChange(event.getCode(), textToPassWhenUpDownKeyPressed);
+                } catch (NullPointerException e) {
+                    logger.info("There is nothing in the suggested word list, thus cannot receive anything from sender.");
+                }
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;
             case RIGHT:
                 try {
-                    String[] dataFromSender = receiveFromSender();
-                    String textToDisplay = dataFromSender[0];
+                    String textToDisplay = receiveFromSender()[0];
                     commandTextField.setText(textToDisplay);
                     // Notify observers to update based on textToBeDisplayed
-                    notifyObservers(KeyCode.RIGHT, textToDisplay);
+                    notifyObserversKeyPressed(event.getCode());
+                    notifyObserversToChange(KeyCode.RIGHT, textToDisplay);
                     commandTextField.positionCaret(commandTextField.getText().length());
                 } catch (NullPointerException e) {
                     logger.info("Nothing is selected thus right key does not work");
@@ -106,15 +112,12 @@ public class CommandBox extends UiPart<Region>{
                 break;
             case ENTER:
                 //handleCommandEntered() will be executed first before this
-                notifyObservers(KeyCode.ENTER, commandTextField.getText());
-                break;
-            case SHIFT:
-                String[] dataFromSender = receiveFromSender();
-                String textToPassWhenShiftKeyPressed = dataFromSender[1];
-                notifyObservers(KeyCode.SHIFT, textToPassWhenShiftKeyPressed);
+                notifyObserversKeyPressed(event.getCode());
+                notifyObserversToChange(KeyCode.ENTER, commandTextField.getText());
                 break;
             default:
-                notifyObservers(event.getCode(), commandTextField.getText() + event.getText());
+                notifyObserversKeyPressed(event.getCode());
+                notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
             }
         });
     }
@@ -123,23 +126,23 @@ public class CommandBox extends UiPart<Region>{
         observers.add(observer);
     }
 
-    public void notifyObservers(KeyCode keyCode) {
+    public void setDataSender(DataSender dataSender) {
+        this.dataSender = dataSender;
+    }
+
+    private void notifyObserversKeyPressed(KeyCode keyCode) {
         for (Observer observer : observers) {
             observer.update(keyCode);
         }
     }
 
-    public void notifyObservers(KeyCode keyCode, String resultString) {
+    private void notifyObserversToChange(KeyCode keyCode, String resultString) {
         for (Observer observer : observers) {
             observer.update(keyCode, resultString);
         }
     }
 
-    public void setDataSender(DataSender dataSender) {
-        this.dataSender = dataSender;
-    }
-
-    public String[] receiveFromSender() {
+    private String[] receiveFromSender() {
         return dataSender.sendData();
     }
 }
