@@ -2,37 +2,43 @@ package seedu.address.logic.commands.cli;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
 
+
 /**
  * Adds module to a semester
  */
 public class AddModuleCommand extends Command {
     public static final String COMMAND_WORD = "addmod";
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Assigning a module to a given semester";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Assigning modules to a given semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assigns the specified module to a given semester of the current study plan.\n"
+            + ": Assigns the specified modules to a given semester of the current study plan.\n"
             + "Parameters: "
             + "SEMESTER "
-            + "MODULE_CODE\n";
+            + "MODULE_CODE ... "
+            + "MODULE_CODE\n"
+            + "Example: addmod Y1S1 CS1101S CS1231S";
 
-    public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s";
-    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the semester";
-    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "This module does not exist.";
-    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "This semester does not exist.";
+    public static final String MESSAGE_SUCCESS = "Module %1$s added to %2$s.";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Module %1$s already exists in %2$s.";
+    public static final String MESSAGE_MODULE_DOES_NOT_EXIST = "Module %1$s does not exist.";
+    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "Semester %1$s does not exist.";
 
     private final SemesterName sem;
-    private final String moduleCode;
+    private final List<String> moduleCodes;
 
-    public AddModuleCommand(String moduleCode, SemesterName sem) {
-        requireNonNull(moduleCode);
+    public AddModuleCommand(List<String> moduleCodes, SemesterName sem) {
+        requireNonNull(moduleCodes);
         requireNonNull(sem);
+        assert moduleCodes.size() > 0;
         this.sem = sem;
-        this.moduleCode = moduleCode;
+        this.moduleCodes = moduleCodes;
     }
 
     @Override
@@ -40,20 +46,31 @@ public class AddModuleCommand extends Command {
         requireNonNull(model);
 
         if (model.getSemester(this.sem) == null) {
-            throw new CommandException(MESSAGE_SEMESTER_DOES_NOT_EXIST);
+            throw new CommandException(String.format(MESSAGE_SEMESTER_DOES_NOT_EXIST, this.sem));
         }
 
-        if (model.semesterHasModule(this.moduleCode, this.sem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_MODULE);
-        }
+        StringBuilder resultString = new StringBuilder();
 
-        if (!model.isValidModuleCode(this.moduleCode)) {
-            throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
-        }
+        for (String moduleCode : moduleCodes) {
+            if (model.semesterHasModule(moduleCode, this.sem)) {
+                resultString.append(String.format(MESSAGE_DUPLICATE_MODULE, moduleCode, this.sem));
+                resultString.append("\n");
+                continue;
+            }
 
-        model.addModule(moduleCode, sem);
+            if (!model.isValidModuleCode(moduleCode)) {
+                resultString.append(String.format(MESSAGE_MODULE_DOES_NOT_EXIST, moduleCode));
+                resultString.append("\n");
+                continue;
+            }
+
+            model.addModule(moduleCode, sem);
+            resultString.append(String.format(MESSAGE_SUCCESS, moduleCode, this.sem));
+            resultString.append("\n");
+        }
+        resultString.setLength(resultString.length() - 1);
         model.addToHistory();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, moduleCode, sem));
+        return new CommandResult(resultString.toString());
     }
 
     @Override
@@ -61,6 +78,6 @@ public class AddModuleCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddModuleCommand // instanceof handles nulls
                 && sem.equals(((AddModuleCommand) other).sem)
-                && moduleCode.equals(((AddModuleCommand) other).moduleCode));
+                && moduleCodes.equals(((AddModuleCommand) other).moduleCodes));
     }
 }

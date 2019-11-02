@@ -6,6 +6,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -64,7 +67,9 @@ public class ModulePlannerParserTest {
     public void parseCommand_add() throws Exception {
         AddModuleCommand command = (AddModuleCommand) parser.parseCommand(
                 AddModuleCommand.COMMAND_WORD + " " + VALID_MODULE_CODE + " " + VALID_SEMESTER);
-        assertEquals(new AddModuleCommand(VALID_MODULE_CODE, VALID_SEMESTER_NAME), command);
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(VALID_MODULE_CODE);
+        assertEquals(new AddModuleCommand(validModuleCodes, VALID_SEMESTER_NAME), command);
     }
 
     @Test

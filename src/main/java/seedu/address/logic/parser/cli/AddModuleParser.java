@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.MODULE_PATTERN;
 import static seedu.address.logic.parser.CliSyntax.SEMESTER_PATTERN;
 
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -39,14 +40,16 @@ public class AddModuleParser implements Parser<AddModuleCommand> {
                 ArgumentTokenizer.tokenize(args, MODULE_PATTERN, SEMESTER_PATTERN);
 
         if (!arePatternsPresent(argMultimap, MODULE_PATTERN, SEMESTER_PATTERN)
-                || argMultimap.getNumberOfArgsForPattern(MODULE_PATTERN) != 1
                 || argMultimap.getNumberOfArgsForPattern(SEMESTER_PATTERN) != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddModuleCommand.MESSAGE_USAGE));
         }
         SemesterName semesterName = ParserUtil.parseSemester(argMultimap.getValue(SEMESTER_PATTERN).get());
-        String moduleCode = ParserUtil.parseModule(argMultimap.getValue(MODULE_PATTERN).get());
+        List<String> moduleCodes = argMultimap.getAllValues(MODULE_PATTERN);
+        for (String s : moduleCodes) {
+            s = ParserUtil.parseModule(s);
+        }
 
-        return new AddModuleCommand(moduleCode, semesterName);
+        return new AddModuleCommand(moduleCodes, semesterName);
     }
 }

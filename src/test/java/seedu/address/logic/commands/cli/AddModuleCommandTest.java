@@ -1,9 +1,8 @@
 package seedu.address.logic.commands.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalModule.CS1101S;
 import static seedu.address.testutil.TypicalModule.CS2102;
 import static seedu.address.testutil.TypicalModule.CS3244;
@@ -14,7 +13,9 @@ import static seedu.address.testutil.TypicalSemesterList.TYPICAL_SEMESTER_LIST;
 import static seedu.address.testutil.TypicalSemesterList.TYPICAL_SEMESTER_LIST_WITH_CS1101S;
 import static seedu.address.testutil.TypicalStudyPlans.getTypicalStudyPlan;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,14 +33,16 @@ import seedu.address.testutil.StudyPlanBuilder;
 import seedu.address.testutil.TypicalModulesInfo;
 
 class AddModuleCommandTest {
+
     @Test
-    public void constructor_nullTagName_throwsNullPointerException() {
-        String validModuleCode = CS1101S.getModuleCode().toString();
-        assertThrows(NullPointerException.class, () -> new AddModuleCommand(validModuleCode, null));
+    public void constructor_nullSemester_throwsNullPointerException() {
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(CS1101S.getModuleCode().toString());
+        assertThrows(NullPointerException.class, () -> new AddModuleCommand(validModuleCodes, null));
     }
 
     @Test
-    public void constructor_nullModuleCode_throwsNullPointerException() {
+    public void constructor_nullModuleCodes_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddModuleCommand(null, SemesterName.Y1S1));
     }
 
@@ -48,11 +51,12 @@ class AddModuleCommandTest {
         assertThrows(NullPointerException.class, () -> new AddModuleCommand(null, null));
     }
 
-
     @Test
     public void execute_moduleNotPresentInStudyPlan_newModuleAddSuccessful()
             throws CloneNotSupportedException, CommandException {
-        AddModuleCommand addModuleCommand = new AddModuleCommand("CS1101S", SemesterName.Y1S1);
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(CS1101S.getModuleCode().toString());
+        AddModuleCommand addModuleCommand = new AddModuleCommand(validModuleCodes, SemesterName.Y1S1);
 
         HashMap<String, Module> moduleHashMap = new HashMap<>();
         moduleHashMap.put("ST2334", ST2334);
@@ -89,37 +93,92 @@ class AddModuleCommandTest {
     }
 
     @Test
-    public void execute_invalidModuleCode_throwsException() {
+    public void execute_invalidModuleCode_failure() throws CommandException {
         StudyPlan studyPlan = getTypicalStudyPlan();
 
         Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
                 new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
         model.activateFirstStudyPlan();
 
-        AddModuleCommand addModuleCommand = new AddModuleCommand("CS3133", SemesterName.Y1S1);
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.activateFirstStudyPlan();
+
+        List<String> invalidModuleCodes = new ArrayList<>();
+        invalidModuleCodes.add("CS3133");
+
+        AddModuleCommand addModuleCommand = new AddModuleCommand(invalidModuleCodes, SemesterName.Y1S1);
+        CommandResult res = addModuleCommand.execute(model);
+
+        assertEquals(model.getActiveStudyPlan(), expectedModel.getActiveStudyPlan());
+        assertEquals(res.getFeedbackToUser(), String.format(AddModuleCommand.MESSAGE_MODULE_DOES_NOT_EXIST,
+                "CS3133"));
+    }
+
+    @Test
+    public void execute_duplicateModule_failure() throws CommandException {
+        StudyPlan studyPlan = getTypicalStudyPlan();
+
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        Model expectedModel = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        expectedModel.activateFirstStudyPlan();
+
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(ST2334.getModuleCode().toString());
+
+        AddModuleCommand addModuleCommand = new AddModuleCommand(validModuleCodes, SemesterName.Y1S1);
+        CommandResult res = addModuleCommand.execute(model);
+
+        assertEquals(model.getActiveStudyPlan(), expectedModel.getActiveStudyPlan());
+        assertEquals(res.getFeedbackToUser(), String.format(AddModuleCommand.MESSAGE_DUPLICATE_MODULE,
+                ST2334.getModuleCode().toString(), SemesterName.Y1S1));
+    }
+
+    @Test
+    public void execute_semesterDoesNotExist_throwsException() {
+        StudyPlan studyPlan = getTypicalStudyPlan();
+
+        Model model = new ModelManager(new ModulePlannerBuilder().withStudyPlan(studyPlan).build(),
+                new UserPrefs(), TypicalModulesInfo.getTypicalModulesInfo());
+        model.activateFirstStudyPlan();
+
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(CS1101S.getModuleCode().toString());
+
+        AddModuleCommand addModuleCommand = new AddModuleCommand(validModuleCodes, SemesterName.Y1ST1);
         assertThrows(CommandException.class, () -> addModuleCommand.execute(model),
-                AddModuleCommand.MESSAGE_MODULE_DOES_NOT_EXIST);
+                String.format(AddModuleCommand.MESSAGE_SEMESTER_DOES_NOT_EXIST, "Y1ST1"));
     }
 
     @Test
     public void equals() {
-        AddModuleCommand addModuleCommand = new AddModuleCommand("CS3244", SemesterName.Y1S2);
-        AddModuleCommand otherAddModuleCommand = new AddModuleCommand("CS3233", SemesterName.Y1S1);
+        List<String> validModuleCodes = new ArrayList<>();
+        validModuleCodes.add(CS3244.getModuleCode().toString());
+        AddModuleCommand addModuleCommand = new AddModuleCommand(validModuleCodes, SemesterName.Y1S2);
+        List<String> otherValidModuleCodes = new ArrayList<>();
+        otherValidModuleCodes.add("CS3233");
+        AddModuleCommand otherAddModuleCommand = new AddModuleCommand(otherValidModuleCodes, SemesterName.Y1S1);
 
         // same object -> returns true
-        assertTrue(addModuleCommand.equals(addModuleCommand));
+        assertEquals(addModuleCommand, addModuleCommand);
 
         // same values -> returns true
-        AddModuleCommand addModuleCommandCopy = new AddModuleCommand("CS3244", SemesterName.Y1S2);
-        assertTrue(addModuleCommand.equals(addModuleCommandCopy));
+        List<String> validModuleCodesCopy = new ArrayList<>();
+        validModuleCodesCopy.add(CS3244.getModuleCode().toString());
+        AddModuleCommand addModuleCommandCopy = new AddModuleCommand(validModuleCodes, SemesterName.Y1S2);
+        assertEquals(addModuleCommand, addModuleCommandCopy);
 
         // different types -> returns false
-        assertFalse(addModuleCommand.equals(1));
+        assertNotEquals(1, addModuleCommand);
 
         // null -> returns false
-        assertFalse(addModuleCommand.equals(null));
+        assertNotEquals(null, addModuleCommand);
 
-        // different module code -> returns false
-        assertFalse(addModuleCommand.equals(otherAddModuleCommand));
+        // different module codes -> returns false
+        assertNotEquals(addModuleCommand, otherAddModuleCommand);
     }
 }

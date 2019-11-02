@@ -92,14 +92,17 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        logger.info("Filling Main Window.");
         StudyPlan sp = logic.getActiveStudyPlan();
         if (sp == null) {
+            logger.info("No active study plan present.");
             NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
             semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
             studyPlanId.setText("");
             title.setText(NO_ACTIVE_STUDY_PLAN);
             mcCount.setText("");
         } else {
+            logger.info("An active study plan is present.");
             ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
             semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
             semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
@@ -139,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+        logger.info("Main Window closing.");
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -162,6 +166,7 @@ public class MainWindow extends UiPart<Stage> {
             mcCount.setText(sp == null ? "" : sp.getMcCountString());
 
             if (commandResult.isChangesActiveStudyPlan()) {
+                logger.info("Study plan has been changed. Refreshing display.");
                 if (sp == null) {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
                     semesterListPanelPlaceholder.getChildren().remove(0);

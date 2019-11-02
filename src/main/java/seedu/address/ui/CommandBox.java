@@ -2,16 +2,20 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyModulePlanner;
+
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -22,6 +26,8 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private StackPane commandBox;
@@ -39,8 +45,10 @@ public class CommandBox extends UiPart<Region> {
         autocomplete.setId("commandTextField");
         autocomplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
+                logger.info("Command entered.");
                 handleCommandEntered();
             } else if (keyEvent.getCode() == KeyCode.TAB) {
+                logger.info("Autocomplete requested.");
                 autocomplete.handleAutocomplete();
                 keyEvent.consume();
             }
