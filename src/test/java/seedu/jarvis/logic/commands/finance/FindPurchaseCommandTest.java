@@ -23,7 +23,6 @@ import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
-import seedu.jarvis.model.finance.InstallmentNameContainsKeywordsPredicate;
 import seedu.jarvis.model.finance.PurchaseNameContainsKeywordsPredicate;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;

@@ -71,4 +71,8 @@ public class Installment {
     public boolean isSameInstallment(Installment installment) {
         return this.equals(installment);
     }
+
+    public boolean isSimilarInstallment(Installment installment) {
+        return this.description.equals(installment.description);
+    }
 }

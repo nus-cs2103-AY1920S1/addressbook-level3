@@ -35,6 +35,7 @@ import seedu.jarvis.model.viewstatus.ViewType;
  * A default model stub that have all of the methods failing.
  */
 public class ModelStub implements Model {
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -253,6 +254,10 @@ public class ModelStub implements Model {
 
     @Override
     public boolean hasInstallment(Installment installment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    public boolean hasSimilarInstallment(Installment installment) {
         throw new AssertionError("This method should not be called.");
     }
 
