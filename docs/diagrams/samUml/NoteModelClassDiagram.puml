@@ -5,12 +5,12 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Logic <<Rectangle>>{
-Class NoteFragmentFeatureUtil LOGIC_COLOR
+Class NoteFeatureUtil LOGIC_COLOR
 }
 
 Package Model <<Rectangle>>{
 Class StudyBuddyItem
-Class AddressBook
+Class StudyBuddyBook
 Class ModelManager
 Class UniqueNoteList
 
@@ -30,14 +30,15 @@ Title -right[hidden]- Content
 
 ModelManager ---> "1" Note : filtered list
 UniqueNoteList o--> "*" Note
-ModelManager o-left-> "1" AddressBook
-AddressBook *-down-> "1" UniqueNoteList
+ModelManager o-left-> "1" StudyBuddyBook
+StudyBuddyBook *-down-> "1" UniqueNoteList
 Note o--> "*" NoteFragment
 NoteFragment --|> Note
-Note -right-> NoteFragmentFeatureUtil
+Note -right-> NoteFeatureUtil
 Note -left-|> StudyBuddyItem
 Note *--> "1" Content
 Note *--> "1" Title
-Note *-up-> "*" Tag
+Note o-up-> "*" Tag
+NoteFeatureUtil --> NoteFragment
 
 @enduml
