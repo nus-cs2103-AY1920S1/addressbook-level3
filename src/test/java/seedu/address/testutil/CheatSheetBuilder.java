@@ -14,9 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class CheatSheetBuilder {
 
-    public static final String DEFAULT_TITLE = "cs2100 finals";
-    public static final String DEFAULT_CONTENT = "110 in binary is 5 in decimal";
-    public static final String DEFAULT_CONTENT_TAG = "contentTag";
+    public static final String DEFAULT_TITLE = "title";
 
     private Title title;
     private Set<Content> contents;
@@ -24,15 +22,7 @@ public class CheatSheetBuilder {
 
     public CheatSheetBuilder() {
         title = new Title(DEFAULT_TITLE);
-        Set<Content> contents = new HashSet<>();
-
-        Tag contentTag = new Tag(DEFAULT_CONTENT_TAG);
-        HashSet<Tag> contentTagList = new HashSet<>();
-        contentTagList.add(contentTag);
-
-        contents.add(new Content(DEFAULT_CONTENT, contentTagList));
-
-        this.contents = contents;
+        this.contents = new HashSet<>();
         tags = new HashSet<>();
     }
 
