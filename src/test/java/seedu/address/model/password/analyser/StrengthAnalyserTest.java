@@ -7,8 +7,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -20,7 +20,7 @@ class StrengthAnalyserTest {
 
     @Test
     void calculateStrength_passwordWeak() {
-        Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("password"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult1 = StrengthAnalyser.calculateStrength(p1);
@@ -28,7 +28,7 @@ class StrengthAnalyserTest {
                 true, false, false, false);
         assertEquals(actualResult1, expectedResult1);
 
-        Password p2 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p2 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("!@#"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult2 = StrengthAnalyser.calculateStrength(p2);
@@ -36,7 +36,7 @@ class StrengthAnalyserTest {
                 false, false, false, true);
         assertEquals(actualResult2, expectedResult2);
 
-        Password p3 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p3 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("123asddd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult3 = StrengthAnalyser.calculateStrength(p3);
@@ -47,7 +47,7 @@ class StrengthAnalyserTest {
 
     @Test
     void calculateStrength_passwordStrong() {
-        Password p1 = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p1 = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("P@sSw0Rd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult1 = StrengthAnalyser.calculateStrength(p1);

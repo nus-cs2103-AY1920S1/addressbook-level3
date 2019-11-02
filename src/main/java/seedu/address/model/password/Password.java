@@ -17,7 +17,7 @@ import seedu.address.model.util.DateUtil;
  */
 public class Password {
     // Identity fields
-    private final Description description;
+    private final PasswordDescription passwordDescription;
 
     // Data fields
     private final Username username;
@@ -31,10 +31,10 @@ public class Password {
     /**
      * Every field must be present and not null.
      */
-    public Password(Description description, Username username, PasswordValue passwordValue,
+    public Password(PasswordDescription passwordDescription, Username username, PasswordValue passwordValue,
                     PasswordModifiedAt passwordModifiedAt, Website website, Set<Tag> tags) {
-        requireAllNonNull(description, username, passwordValue, passwordModifiedAt);
-        this.description = description;
+        requireAllNonNull(passwordDescription, username, passwordValue, passwordModifiedAt);
+        this.passwordDescription = passwordDescription;
         this.username = username;
         this.passwordValue = passwordValue;
         this.passwordModifiedAt = passwordModifiedAt;
@@ -43,8 +43,8 @@ public class Password {
         passwordExpireAt = new PasswordExpireAt(DateUtil.findPasswordExpireAt(this.passwordModifiedAt.value));
     }
 
-    public Description getDescription() {
-        return description;
+    public PasswordDescription getPasswordDescription() {
+        return passwordDescription;
     }
 
     public Username getUsername() {
@@ -107,7 +107,7 @@ public class Password {
     public String toNonAsterixString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
-                .append(getDescription())
+                .append(getPasswordDescription())
                 .append(" Username: ")
                 .append(getUsername())
                 .append(" Password: ")
@@ -122,11 +122,11 @@ public class Password {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Description: ")
-                .append(getDescription())
+                .append(getPasswordDescription())
                 .append(" Username: ")
                 .append(getUsername())
                 .append(" Password: ")
-                .append(getPasswordValue())
+                .append(getNonEncryptedPasswordValue())
                 .append("\n");
 
         return builder.toString();
@@ -142,7 +142,8 @@ public class Password {
         }
 
         return otherPassword != null
-                && otherPassword.getDescription().equals(getDescription());
+                && otherPassword.getUsername().equals(getUsername())
+                && otherPassword.getPasswordDescription().equals(getPasswordDescription());
     }
 
     /**
@@ -160,7 +161,7 @@ public class Password {
         }
 
         Password otherPerson = (Password) other;
-        return otherPerson.getDescription().equals(getDescription())
+        return otherPerson.getPasswordDescription().equals(getPasswordDescription())
                 && otherPerson.getUsername().equals(getUsername())
                 && otherPerson.getPasswordValue().equals(getPasswordValue())
                 && otherPerson.getTags().equals(getTags());
@@ -170,6 +171,6 @@ public class Password {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(description, username, passwordValue, passwordModifiedAt, website, tags);
+        return Objects.hash(passwordDescription, username, passwordValue, passwordModifiedAt, website, tags);
     }
 }

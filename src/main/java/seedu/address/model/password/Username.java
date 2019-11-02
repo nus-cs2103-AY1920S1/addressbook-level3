@@ -8,14 +8,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Username {
     public static final String MESSAGE_CONSTRAINTS =
-            "Username should only contain alphanumeric characters, underscore, hyphen and spaces"
-            + "and adhere to the following constraints:\n"
-            + "1) Should not have two underscores, two hypens or two spaces in a row\n"
-            + "2) Should not have a underscore, hypen or space at the start or end\n"
-            + "3) Should not be empty \n"
-            + "4) Be at least 2 characters long";
+            "Username should only contain alphanumeric characters, underscore, hyphen, spaces and address sign"
+            + " and adhere to the following constraints:\n"
+            + "1) Should not have two underscores, two hypens, two spaces or two address sign in a row\n"
+            + "2) Should not have a underscore, hypen, space or address sign at the start or end\n"
+            + "3) Be between 2 characters to 25 characters long\n"
+            + "Username is case-insensitive";
 
-    private static final String VALIDATION_REGEX = "^(?![_ .])(?!.*[ _.]{2})([a-zA-Z0-9. _]{2,})(?<![_ .])$";
+    private static final String VALIDATION_REGEX = "^(?![@_ .])(?!.*[ @_.]{2})([a-zA-Z0-9. _@]{2,30})(?<![_@ .])$";
 
 
     public final String value;
@@ -42,7 +42,7 @@ public class Username {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Username // instanceof handles nulls
-                && value.equals(((Username) other).value)); // state check
+                && value.toLowerCase().equals(((Username) other).value.toLowerCase())); // state check
     }
 
     @Override

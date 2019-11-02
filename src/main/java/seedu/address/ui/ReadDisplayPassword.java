@@ -52,7 +52,7 @@ public class ReadDisplayPassword extends UiPart<Region> {
      */
     public void setFeedbackToUser(Password password, Index index) {
         requireNonNull(password);
-        description.setText(index.getOneBased() + ". " + password.getDescription().value);
+        description.setText(index.getOneBased() + ". " + password.getPasswordDescription().value);
         username.setText(password.getUsername().value);
         passwordValue.setText(password.getPasswordValue().toString());
         lastModified.setText(password.getPasswordModifiedAt().toString());
