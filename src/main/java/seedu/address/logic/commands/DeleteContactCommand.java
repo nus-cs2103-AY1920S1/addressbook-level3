@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
-import seedu.address.storage.SuggestionsStorage;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
@@ -49,7 +48,6 @@ public class DeleteContactCommand extends Command {
         AutocorrectSuggestion toDelete = new AutocorrectSuggestion("add_claim n/"
                 + contactToDelete.getName().fullName);
         model.deleteAutocorrectSuggestion(toDelete);
-        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, contactToDelete));
     }
 

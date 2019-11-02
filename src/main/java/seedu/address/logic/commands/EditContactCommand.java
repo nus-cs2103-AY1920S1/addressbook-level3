@@ -25,7 +25,6 @@ import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.SuggestionsStorage;
 
 /**
  * Edits the details of an existing contact in the address book.
@@ -90,7 +89,6 @@ public class EditContactCommand extends Command {
         AutocorrectSuggestion editedSuggestion = new AutocorrectSuggestion("add_claim n/"
                 + editedContact.getName().toString());
         model.setAutocorrectSuggestion(suggestionToEdit, editedSuggestion);
-        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedContact));
     }
