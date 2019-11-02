@@ -22,7 +22,7 @@ public class RegisterStaffCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "newdoctor";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a staff member to the system. "
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
             + PREFIX_NAME + "NAME "
@@ -40,7 +40,7 @@ public class RegisterStaffCommand extends ReversibleCommand {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New staff added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This staff already registered.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This staff member has already been registered.";
 
     private final Person toAdd;
 

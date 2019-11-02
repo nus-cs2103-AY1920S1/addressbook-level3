@@ -64,7 +64,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 * Items in square brackets are optional e.g `-name <NAME> [-tag <TAG>]` can be used as `-name John Doe -tag friend` or as `-name John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[-tag <TAG>]...` can be used as `{nbsp}` (i.e. 0 times), `-tag friend`, `-tag friend -tag family` etc.
 * Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
-* A Reference Id refers to an string of alphanumeric characters that can be used to uniquely identifies a person, such as a membership number or NRIC.
+* A Reference Id refers to a string of atleast 3 alphanumeric characters (case-insensitive) that can be used to uniquely identify a person, such as a membership number or NRIC.
 A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
 Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
 
@@ -76,7 +76,7 @@ IMPORTANT: All timings are based on the system's clock.
 
 ==== Searches patient by arguments: `patient` ====
 
-Filters patients whose reference ids, names or phone numbers contains the given keyword. +
+Filters patients whose reference ids, names or phone number contains the given keyword. +
 If no search keyword is provided, all registered patients will be displayed. +
 
 Format: `patient [<SEARCH_KEYWORD>]`
@@ -88,11 +88,17 @@ Registers a new patient. Only patient's reference id and name is compulsory fiel
 Format:  `register -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+IMPORTANT: As a design decision, undoing the registration of a patient is allowed.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any patient.*
+
 ==== Updates patients’ profiles: `edit` ====
 
 Updates the particulars of a patients +
+
 NOTE: Must be in the patient listing screen for this command to be accepted. +
-IMPORTANT: Editing tags will overwrite all existing tags+
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
 
 Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
@@ -100,12 +106,12 @@ Format: `edit <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PH
 
 === Staff Personal Management ===
 
-==== Views doctors: `doctors` ====
+====  Searches staff doctor by arguments: `doctor` ====
 
-Finds staff doctors whose reference ids, names or phone numbers contains the given keyword. +
+Filters staff doctor whose reference ids, names or phone number contains the given keyword. +
 If no search keyword is provided, all registered doctors will be displayed. +
 
-Format: `doctors [<SEARCH_KEYWORD>]`
+Format: `doctor [<SEARCH_KEYWORD>]`
 
 ==== Registers a new doctor: `newdoctor` ====
 
@@ -115,9 +121,17 @@ If the staff reference identifier is not specified, a unique identifier will be 
 Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
 
+IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any staff doctor.*
+
 ==== Updates a doctor's profile: `updatedoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+
+NOTE: Must be in the staff listing screen for this command to be accepted. +
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
 
 Format: `updatedoctor <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
@@ -195,7 +209,7 @@ Format: `addappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges an existing appointment once the patient has arrived +
-Format: `ackappt -id <REFERENCE_ID>`
+Format: `ackappt <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +

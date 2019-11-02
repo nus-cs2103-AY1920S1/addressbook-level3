@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui.autocomplete;
 
 import java.util.Collections;
@@ -5,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -40,7 +42,6 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("ackappt", Set.of("-id")),
             Map.entry("addappt", Set.of("-id", "-rec", "-num", "-start")),
             Map.entry("addshift", Set.of("-id", "-rec", "-num", "-start")),
             Map.entry("changeappt", Set.of("-start")),
@@ -90,6 +91,9 @@ public class AutoCompleter {
             ResumeCommand.COMMAND_WORD
     };
 
+    private static final Pattern HAS_FLAG = Pattern.compile("(.* )?(?<!-)\\w+\\s+$");
+    private static final Pattern CONTINUOUS_SPACES = Pattern.compile("\\s+");
+
     private final Trie trie;
     private String currentQuery;
 
@@ -108,11 +112,11 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
-        if (currentQuery.matches("(.* )?(?<!-)\\w+\\s+$")) {
+        if (HAS_FLAG.matcher(currentQuery).matches()) {
             try {
                 Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));
                 HashSet<String> available = new HashSet<>(result);
-                available.removeAll(List.of(currentQuery.split("\\s+")));
+                available.removeAll(List.of(CONTINUOUS_SPACES.split(currentQuery)));
                 if (result.contains("-tag")) {
                     available.add("-tag");
                 }
