@@ -2,20 +2,22 @@ package seedu.address.model.currency;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.model.itinerary.Name;
+
 /**
  * Generic abstraction of customisedCurrency.
  */
 public class CustomisedCurrency {
 
     // Compulsory fields
-    private final String name;
-    private final String symbol;
-    private final double rate;
+    private final Name name;
+    private final Symbol symbol;
+    private final Rate rate;
 
     /**
      * Constructs an {@code CustomisedCurrency}.
      */
-    public CustomisedCurrency(String name, String symbol, double rate) {
+    public CustomisedCurrency(Name name, Symbol symbol, Rate rate) {
         requireAllNonNull(name, symbol, rate);
         this.name = name;
         this.symbol = symbol;
@@ -23,13 +25,13 @@ public class CustomisedCurrency {
     }
 
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
-    public String getSymbol() {
+    public Symbol getSymbol() {
         return symbol;
     }
-    public double getRate() {
+    public Rate getRate() {
         return rate;
     }
 
@@ -46,7 +48,7 @@ public class CustomisedCurrency {
             return otherCurrency != null
                     && otherCurrency.getName().equals(getName())
                     && otherCurrency.getSymbol().equals(getSymbol())
-                    && otherCurrency.getRate() == (getRate());
+                    && otherCurrency.getRate().equals(getRate());
         }
     }
 }

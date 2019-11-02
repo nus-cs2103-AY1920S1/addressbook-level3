@@ -12,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
 import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
 import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
+import seedu.address.model.itinerary.Name;
 
 /**
  * List containing {@code CustomisedCurrency}s.
@@ -86,7 +87,8 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
      */
     public void remove(CustomisedCurrency toRemove) throws CurrencyNotFoundException, CurrencyNotRemovableException {
         requireNonNull(toRemove);
-        if (toRemove.isSameCustomisedCurrency(new CustomisedCurrency("SGD", "$", 1.00))) {
+        if (toRemove.isSameCustomisedCurrency(
+                new CustomisedCurrency(new Name("SGD"), new Symbol("1"), new Rate("1.00")))) {
             throw new CurrencyNotRemovableException();
         }
         if (!internalList.remove(toRemove)) {
@@ -102,7 +104,8 @@ public class CurrencyList implements Iterable<CustomisedCurrency> {
     public void remove(Index index) throws CurrencyNotRemovableException {
         requireNonNull(index);
         if (internalList.get(index.getZeroBased())
-                .isSameCustomisedCurrency(new CustomisedCurrency("SGD", "$", 1.00))) {
+                .isSameCustomisedCurrency(
+                        new CustomisedCurrency(new Name("SGD"), new Symbol("1"), new Rate("1.00")))) {
             throw new CurrencyNotRemovableException();
         }
         internalList.remove(index.getZeroBased());

@@ -14,6 +14,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.Rate;
+import seedu.address.model.currency.Symbol;
+import seedu.address.model.itinerary.Name;
 
 /**
  *
@@ -82,9 +85,9 @@ public class EditCurrencyFieldCommand extends Command {
      * corresponding field value of the expenditure.
      */
     public static class EditCurrencyDescriptor {
-        private Optional<String> name;
-        private Optional<String> symbol;
-        private Optional<Double> rate;
+        private Optional<Name> name;
+        private Optional<Symbol> symbol;
+        private Optional<Rate> rate;
 
         public EditCurrencyDescriptor() {
             name = Optional.empty();
@@ -161,9 +164,9 @@ public class EditCurrencyFieldCommand extends Command {
          * @return Edited {@code CustomisedCurrency} instance.
          */
         public CustomisedCurrency buildCurrency(CustomisedCurrency currency) {
-            String currencyName = currency.getName();
-            String symbol = currency.getSymbol();
-            Double rate = currency.getRate();
+            Name currencyName = currency.getName();
+            Symbol symbol = currency.getSymbol();
+            Rate rate = currency.getRate();
 
             if (this.name.isPresent()) {
                 currencyName = this.name.get();
@@ -186,27 +189,27 @@ public class EditCurrencyFieldCommand extends Command {
         }
 
 
-        public void setName(String name) {
+        public void setName(Name name) {
             this.name = Optional.of(name);
         }
 
-        public Optional<String> getName() {
+        public Optional<Name> getName() {
             return name;
         }
 
-        public void setSymbol(String symbol) {
+        public void setSymbol(Symbol symbol) {
             this.symbol = Optional.of(symbol);
         }
 
-        public Optional<String> getSymbol() {
+        public Optional<Symbol> getSymbol() {
             return symbol;
         }
 
-        public void setRate(Double rate) {
+        public void setRate(Rate rate) {
             this.rate = Optional.of(rate);
         }
 
-        public Optional<Double> getRate() {
+        public Optional<Rate> getRate() {
             return rate;
         }
 

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.Rate;
+import seedu.address.model.currency.Symbol;
+import seedu.address.model.itinerary.Name;
 
 /**
  * Jackson friendly version of {@code CustomisedCurrency}.
@@ -33,9 +36,9 @@ public class JsonAdaptedCurrency {
      * Converts a given {@code CustomisedCurrency} into this class for Jackson use.
      */
     public JsonAdaptedCurrency(CustomisedCurrency source) {
-        this.name = source.getName();
-        this.symbol = source.getSymbol();
-        this.rate = source.getRate();
+        this.name = source.getName().toString();
+        this.symbol = source.getSymbol().toString();
+        this.rate = source.getRate().getValue();
     }
 
     /**
@@ -47,9 +50,10 @@ public class JsonAdaptedCurrency {
 
         final String modelName = name;
         final String modelSymbol = symbol;
-        final double modelRate = rate;
+        final String modelRate = String.valueOf(rate);
 
-        return new CustomisedCurrency(modelName, modelSymbol, modelRate);
+        return new CustomisedCurrency(new Name(modelName),
+                new Symbol(modelSymbol), new Rate(modelRate));
     }
 
 }

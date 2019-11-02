@@ -38,7 +38,7 @@ public class CurrencyPage extends Page<AnchorPane> {
 
     private TextFormItem currencyNameFormItem;
     private DoubleFormItem currencyRateFormItem;
-    private TextFormItem currencySymbolFormItem;
+    private TextFormItem currencysymbolFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -86,6 +86,20 @@ public class CurrencyPage extends Page<AnchorPane> {
                 }).collect(Collectors.toList());
         currencyCardsContainer.getChildren().addAll(currencyCards);
         currencyScrollPane.setContent(currencyCardsContainer);
+
+        EditCurrencyFieldCommand.EditCurrencyDescriptor currentEditDescriptor =
+                model.getPageStatus().getEditCurrencyDescriptor();
+
+        if (currentEditDescriptor == null) {
+            return;
+        }
+
+        currentEditDescriptor.getName().ifPresent(name ->
+                currencyNameFormItem.setValue(name.toString()));
+        currentEditDescriptor.getSymbol().ifPresent(symbol ->
+                currencysymbolFormItem.setValue(symbol.toString()));
+        currentEditDescriptor.getRate().ifPresent(rate ->
+                currencyRateFormItem.setValue(rate.getValue()));
     }
 
     /**
@@ -98,10 +112,14 @@ public class CurrencyPage extends Page<AnchorPane> {
                     EditCurrencyFieldCommand.COMMAND_WORD
                             + " " + PREFIX_NAME + nameFormValue);
         });
-        currencySymbolFormItem = new TextFormItem("Symbol of Currency : ", symbol -> {
+        VBox symbolFormItem = new VBox();
+
+        currencysymbolFormItem = new TextFormItem("Symbol of Currency : ", symbol -> {
             mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
                     + " " + PREFIX_SYMBOL + symbol);
         });
+        symbolFormItem.getChildren().add(currencysymbolFormItem.getRoot());
+        symbolFormItem.getChildren().add(new PresetSymbols(mainWindow).getRoot());
         currencyRateFormItem = new DoubleFormItem("SGD $1.00 = ", rate -> {
             mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
                     + " " + PREFIX_RATE + rate);
@@ -111,7 +129,7 @@ public class CurrencyPage extends Page<AnchorPane> {
 
         formItemsPlaceholder.getChildren().addAll(
                 currencyNameFormItem.getRoot(),
-                currencySymbolFormItem.getRoot(),
+                symbolFormItem,
                 currencyRateFormItem.getRoot());
     }
 
