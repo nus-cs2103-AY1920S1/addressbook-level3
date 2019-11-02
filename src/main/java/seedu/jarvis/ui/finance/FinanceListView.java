@@ -48,8 +48,8 @@ public class FinanceListView extends View<AnchorPane> {
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
 
         spentAmount.setText("Monthly expenses: $" + model.getTotalSpending() + "");
-        purchaseListHeader.setText("Your Purchases");
-        installmentListHeader.setText("Monthly Payments");
+        purchaseListHeader.setText("What I bought this month...");
+        installmentListHeader.setText("What I pay for monthly...");
         statisticHeader.setText("Statistics");
 
         if (model.calculateRemainingAmount() > 0) {
