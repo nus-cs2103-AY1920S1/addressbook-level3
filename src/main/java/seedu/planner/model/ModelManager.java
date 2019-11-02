@@ -212,19 +212,22 @@ public class ModelManager implements Model {
      * {@code Activity} is changed, the {@code Contact} is also updated.
      */
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
-        if (newAcc.getContact().isPresent()) {
-            if (oldAcc.getContact().isPresent()) {
-                Contact oldContact = activityContactMap.remove(oldAcc);
-                List<Accommodation> oldList = contactAccommodationMap.remove(oldContact);
+        if (oldAcc.getContact().isPresent()) {
+            Contact oldContact = accommodationContactMap.remove(oldAcc);
+            List<Accommodation> oldList = contactAccommodationMap.remove(oldContact);
+            oldList.set(oldList.indexOf(oldAcc), newAcc);
+            if (newAcc.getContact().isPresent()) {
                 Contact newContact = newAcc.getContact().get();
-                oldList.set(oldList.indexOf(oldAcc), newAcc);
-
                 setContact(oldContact, newContact);
                 contactAccommodationMap.put(newContact, oldList);
                 accommodationContactMap.put(newAcc, newContact);
             } else {
-                addAccommodationMapping(newAcc);
+                accommodationContactMap.put(newAcc, oldContact);
+                contactAccommodationMap.put(oldContact, oldList);
             }
+        } else if (newAcc.getContact().isPresent()) {
+            addContact(newAcc.getContact().get());
+            addAccommodationMapping(newAcc);
         }
     }
 
