@@ -34,6 +34,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         return deleteCommand;
     }
 
+    /**
+     * Creates a DeletePersonCommand object if the flag given is for a person.
+     */
     public DeletePersonCommand parsePerson(String args) throws ParseException {
         args = args.replaceAll(FLAG_PERSON.toString(), "");
         try {
