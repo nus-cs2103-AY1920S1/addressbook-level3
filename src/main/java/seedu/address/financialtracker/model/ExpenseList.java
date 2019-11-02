@@ -2,7 +2,7 @@ package seedu.address.financialtracker.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
+import java.util.Comparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,19 +15,56 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class ExpenseList {
 
+    //-----------define sorting types------------//
+    private final Comparator<? super Expense> BY_DATE =
+            (ep1, ep2) -> ep2.getTime().valueToCompare - ep1.getTime().valueToCompare;
+    private final Comparator<? super Expense> BY_TIME = (ep1, ep2) -> ep2.getDate()
+            .getDateToCompare().compareTo(ep1.getDate().getDateToCompare());
+    private final Comparator<? super Expense> BY_AMOUNT = (ep1, ep2) ->
+            Double.compare(ep2.getAmount().numericalValue, ep1.getAmount().numericalValue);
+
     private final String country;
     private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(expenses);
+    private Comparator<? super Expense> currentComparator;
 
     public ExpenseList(String country) {
         this.country = country;
+        this.currentComparator = null;
     }
 
+    /**
+     * Sort this expense list according to current comparator.
+     */
     private void sort() {
-        Collections.sort(expenses, (ep1, ep2) -> ep2.getTime().valueToCompare - ep1.getTime().valueToCompare);
-        Collections.sort(expenses, (ep1, ep2) -> ep2.getDate()
-                .getDateToCompare().compareTo(ep1.getDate().getDateToCompare()));
+        if (currentComparator == null) {
+            expenses.sort(BY_DATE);
+            expenses.sort(BY_TIME);
+        } else {
+            expenses.sort(currentComparator);
+        }
+    }
+
+    /**
+     * Change the comparator method specified by user.
+     * @param comparator the comparator to compare
+     */
+    public void setComparator(String comparator) {
+        switch(comparator) {
+        case "DATE":
+            this.currentComparator = BY_DATE;
+            break;
+        case "TIME":
+            this.currentComparator = BY_TIME;
+            break;
+        case "AMOUNT":
+            this.currentComparator = BY_AMOUNT;
+            break;
+        case "DEFAULT":
+            this.currentComparator = null;
+        }
+        sort();
     }
 
     /**

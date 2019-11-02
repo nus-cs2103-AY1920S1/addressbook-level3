@@ -47,6 +47,13 @@ public class Model {
     }
 
     /**
+     * Set the comparator methods in financial tracker.
+     */
+    public void setComparator(String comparator) {
+        this.financialTracker.setComparator(comparator);
+    }
+
+    /**
      * Returns an expense list from the underlying Map of financial tracker.
      */
     public ObservableList<Expense> getExpenseList() {
@@ -67,7 +74,6 @@ public class Model {
     }
 
     //todo: this implementation is so bad. Change it?
-
     /**
      * Update the Financial Tracker after reading from storage memory.
      */

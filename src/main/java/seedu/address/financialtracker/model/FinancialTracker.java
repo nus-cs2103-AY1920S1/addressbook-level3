@@ -36,8 +36,16 @@ public class FinancialTracker {
     }
 
     /**
+     * Set the comparator method in an expense list.
+     * @param comparator comparator types specified in string.
+     */
+    public void setComparator(String comparator) {
+        expenseListMap.get(currentCountry).setComparator(comparator);
+    }
+
+    /**
      * Changes current country key.
-     * @param country
+     * @param country the country to change
      */
     public void setCurrentCountry(String country) {
         if (expenseListMap.containsKey(country)) {

@@ -8,6 +8,7 @@ import seedu.address.financialtracker.logic.commands.AddFinCommand;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
 import seedu.address.financialtracker.logic.commands.EditFinCommand;
 import seedu.address.financialtracker.logic.commands.HelpCommand;
+import seedu.address.financialtracker.logic.commands.SortFinCommand;
 import seedu.address.financialtracker.logic.commands.SummaryCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -56,6 +57,9 @@ public class FinancialTrackerParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case SortFinCommand.COMMAND_WORD:
+            return new SortFinCommandParser().parse(arguments);
+
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);
 
@@ -63,7 +67,7 @@ public class FinancialTrackerParser {
             return new ExitCommand();
 
         default:
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException("Unknown command, wanna try typing 'help'?");
         }
     }
 
