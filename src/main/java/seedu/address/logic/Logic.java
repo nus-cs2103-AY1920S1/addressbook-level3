@@ -37,6 +37,8 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<CategoryStatistics> getListOfStatsForBarChart();
+
     ObservableList<CategoryStatistics> getListOfStatsForExpense();
 
     ObservableList<CategoryStatistics> getListOfStatsForIncome();

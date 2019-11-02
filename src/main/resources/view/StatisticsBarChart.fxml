@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+
+<StackedBarChart fx:id="barChart" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <xAxis>
+    <CategoryAxis fx:id="dateOfRecord" side="BOTTOM" />
+  </xAxis>
+  <yAxis>
+    <NumberAxis fx:id="statisticsForDay" side="LEFT" />
+  </yAxis>
+</StackedBarChart>

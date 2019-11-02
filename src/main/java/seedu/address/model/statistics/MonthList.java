@@ -45,7 +45,7 @@ public class MonthList {
         mapOfIncomeCategories = FXCollections.observableHashMap();
         listOfDailyStatistics = FXCollections.observableArrayList();
         mapOfDailyLists = FXCollections.observableHashMap();
-        this.yearMonth = YearMonth.of(month, year);
+        this.yearMonth = YearMonth.of(year, month);
         totalExpense = 0.00;
         totalIncome = 0.00;
         initRecords();

@@ -7,6 +7,8 @@ import javafx.collections.ObservableList;
  */
 public interface Statistics {
 
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
+
     /**
      * Returns the list of statistics for Expense.
      *

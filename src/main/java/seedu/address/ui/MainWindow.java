@@ -142,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         statsListPanel = new StatisticsWindow(logic);
         statsGraphics = new StatisticsGraphics(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome());
+        statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
 
         entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());

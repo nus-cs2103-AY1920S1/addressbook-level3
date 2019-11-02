@@ -84,6 +84,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForBarChart() {
+        return stats.getListOfStatsForBarChart();
+    }
+
+    @Override
     public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
         return stats.getListOfStatsForExpense();
     }

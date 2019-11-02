@@ -122,7 +122,9 @@ public class StatisticsManager implements Statistics {
     }
 
     public void updateLineCharts(Date monthToShow) {
-
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
+        MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
+        this.listOfStatsForDaily = monthListToCalculate.calculateBarChart();
     }
 
     /**
@@ -186,6 +188,11 @@ public class StatisticsManager implements Statistics {
             listOfMonths.add(monthListToCalculate);
         }
         return listOfMonths;
+    }
+
+    @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return listOfStatsForDaily;
     }
 
     @Override

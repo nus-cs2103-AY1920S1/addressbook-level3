@@ -1,6 +1,7 @@
 package seedu.address.model.statistics;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -33,6 +34,11 @@ public class DailyStatistics {
 
     public LocalDate getExactDay() {
         return this.exactDay;
+    }
+
+    public int getNumberOfDays() {
+        YearMonth yearMonth = YearMonth.of(this.exactDay.getYear(), this.exactDay.getMonthValue());
+        return yearMonth.lengthOfMonth();
     }
 
     public double getTotalExpense() {
