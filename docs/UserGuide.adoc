@@ -412,9 +412,9 @@ Format: `report INDEX`
 ==== Get overview of questions attempted: `overview`
 Get an overview of the types of questions that have been attempted overall.
 A panel containing a stacked bar graph, sorted by subjects will be returned.
-You can also add a `dt/` field to get questions that you have done within that time period.
-The format for date is dd/MM/yyyy.
-Typing any other non-statistics command will close this panel. +
+You can also add two `dt/` fields representing a time period to get questions you did
+within that time period. The format for date is dd/MM/yyyy. Typing any other non-statistics
+command will close this panel. +
 Format: `overview [dt/START_DATE dt/END_DATE]`
 // end::overview[]
 
