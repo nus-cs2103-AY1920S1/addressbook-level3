@@ -44,7 +44,7 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
 
     // Display Tab
     public boolean isValidDisplayTabPaneIndex(int index) {
-        return index >= 0 && index < ModelType.values().length;
+        return index >= 0 && index < ModelType.numberOfTabs;
     }
 
     @Override

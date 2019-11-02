@@ -9,12 +9,14 @@ public enum ModelType {
     PROBLEM (0, "problem", "Problems"),
     TAG (1, "tag", "Tags"),
     PLAN (2, "plan", "Training Plans"),
-    TASK (3, "task", "Tasks"),
-    FINDRULE (4, "findrule", "Find Rules");
+    FINDRULE (3, "findrule", "Find Rules"),
+    TASK (4, "task", "Tasks");
+
 
     private final Index displayTabPaneIndex;
     private final String commandArgumentValue;
     private final String tabName;
+    public static final int numberOfTabs = 4;
 
     ModelType(int displayTabPaneIndex, String commandArgumentValue, String tabName) {
         this.displayTabPaneIndex = Index.fromZeroBased(displayTabPaneIndex);
