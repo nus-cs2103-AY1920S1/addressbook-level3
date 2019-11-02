@@ -41,7 +41,7 @@ public class DiaryEntryCard extends UiPart<Region> {
     public DiaryEntryCard(DiaryEntry entryInput, int displayedIndex) {
         super(FXML);
         this.entry = entryInput;
-        id.setText("DIARY ENTRY NO:" + displayedIndex + ". ");
+        id.setText(displayedIndex + ". ");
         title.setText("TITLE: " + entry.getTitle().toString());
         date.setText("DATE: " + entry.getDate().toString());
         System.out.println(entry.getPlace());
