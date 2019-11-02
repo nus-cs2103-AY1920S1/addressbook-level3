@@ -61,7 +61,7 @@ a parameter which can be used as `n/mala at deck`.
 ==== Adding Expense: `add`
 Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
-in the list of categories.
+in the list of categories. Amount must be larger than 0 and positive.
 
 Format: `add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
@@ -72,7 +72,7 @@ Examples:
 
 ==== Adding Income : `add`
 Adds a new Income to your total/daily/weekly/monthly spending with current timestamp.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.
+Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive.
 
 Format: `add typ/Income cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 

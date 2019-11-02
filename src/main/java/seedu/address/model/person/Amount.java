@@ -12,7 +12,7 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain numbers, and it should be only 2 decimal points at maximum";
-    public static final String VALIDATION_REGEX = "[0-9]+([.][0-9]{1,2})?";
+    public static final String VALIDATION_REGEX = "[0-9]+([.][0-9]{1,2})?(E-?[0-9]{1,2})?";
     public final double value;
 
     /**
