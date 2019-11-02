@@ -1,23 +1,28 @@
-= John Doe - Project Portfolio
+= Eugene Teu Chu Wei - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: Seller Manager Lite Junior
 
 ---
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Seller Manager Lite is a desktop application used for managing a business operational and logistical needs. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 27 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *ability to generate statistics*
+** What it does: allows the user to query total `Revenue`, `Cost` and `profit` on all past orders. Contains 2 types of input mode: 
+ *** No date input: This mode is to give users a quick way of obtaining the numbers 
+ *** Date input: This mode is to produce a monthly chart view of the statistics
+ 
+** Justification: Being business owners, this feature should be very essential for the owners to be able to track their statistics and numbers while running their day to day operations. This allows them to more easily plan and monitor their business while using these numbers.
+** Highlights: This feature cut across several layers in the entire projecet e.g logic, UI, model and hence desiging it in such a way that it was able to work with the existing Model View Controller architecture was a very important albeit tedious step. It required an in-depth analysis of design alternatives.
+*** The implementation was also challenging as I made very sure no to violate any of the SOLID principles.
+
+** Credits: The [apache commons math libraries](https://commons.apache.org/proper/commons-math/) was used in the actual calculation. However, the main difficulty of this feature does not come from the actual calculation but extracting the correct and appropiate data needed for this in the appropiate manner.  
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -50,6 +55,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=statisticsCommand]
+
 //include::../UserGuide.adoc[tag=delete]
 
 //include::../UserGuide.adoc[tag=dataencryption]
@@ -60,9 +67,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=statisticsCommand]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+//include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs
