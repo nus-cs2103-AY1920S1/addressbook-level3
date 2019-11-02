@@ -99,7 +99,9 @@ public class DetailsTabPane extends UiPart<Region> {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
+                if (newValue.intValue() >= 0) {
+                    indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
+                }
             }
         });
     }
@@ -114,7 +116,6 @@ public class DetailsTabPane extends UiPart<Region> {
                 clearTabs();
                 addTabsToTabPane(change.getList());
                 tabsPlaceholder.requestLayout();
-                selectLastTab();
             }
         });
     }

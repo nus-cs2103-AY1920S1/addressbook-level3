@@ -17,6 +17,7 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.GuiState;
+import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
@@ -60,6 +61,9 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+
+        TabManager tabManager = getGuiState().getTabManager();
+        tabManager.refreshTabManager();
 
         return commandResult;
     }

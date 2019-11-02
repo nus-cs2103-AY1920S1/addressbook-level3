@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.gui;
 
 import static seedu.algobase.commons.util.CollectionUtil.isWithinListRange;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
@@ -7,13 +7,14 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_TYPE;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.TabManager;
-import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 
 /**
  * Close tabs in the GUI.
@@ -85,17 +86,9 @@ public class OpenTabCommand extends Command {
         try {
             Id modelId = retrieveId(model, modelType, modelIndex);
             TabData tabData = new TabData(modelType, modelId);
-            try {
-                // Adds a new tab and switches to that tab
-                tabManager.addDetailsTabData(tabData);
-                Index tabIndex = tabManager.getDetailsTabIndex(tabData);
-                tabManager.setDetailsTabPaneIndex(tabIndex);
+            if (tabManager.openTab(tabData) == 0) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, modelIndex.getOneBased()));
-            // If TabData is not unique, switch to the existing tab
-            } catch (DuplicateTabDataException e) {
-                assert tabManager.hasDetailsTabData(tabData);
-                Index tabIndex = tabManager.getDetailsTabIndex(tabData);
-                tabManager.setDetailsTabPaneIndex(tabIndex);
+            } else {
                 return new CommandResult(String.format(MESSAGE_SWITCH_SUCCESS, modelIndex.getOneBased()));
             }
         } catch (IndexOutOfBoundsException exception) {

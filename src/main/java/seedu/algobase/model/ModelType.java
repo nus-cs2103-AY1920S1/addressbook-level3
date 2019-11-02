@@ -12,11 +12,11 @@ public enum ModelType {
     FINDRULE (3, "findrule", "Find Rules"),
     TASK (4, "task", "Tasks");
 
+    public static final int NUMBER_OF_TABS = 4;
 
     private final Index displayTabPaneIndex;
     private final String commandArgumentValue;
     private final String tabName;
-    public static final int numberOfTabs = 4;
 
     ModelType(int displayTabPaneIndex, String commandArgumentValue, String tabName) {
         this.displayTabPaneIndex = Index.fromZeroBased(displayTabPaneIndex);

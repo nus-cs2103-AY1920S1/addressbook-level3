@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.gui.SwitchTabCommand;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.GuiState;

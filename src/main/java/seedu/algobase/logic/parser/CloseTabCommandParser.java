@@ -5,7 +5,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_INDEX;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.CloseTabCommand;
+import seedu.algobase.logic.commands.gui.CloseTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 
 /**

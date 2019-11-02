@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.exceptions.DuplicateTabDataException;
 
 /**
  * The main TabManager of the GUI.
@@ -37,14 +38,42 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
      * Resets the TabManager.
      */
     public void resetData(ReadOnlyTabManager tabManager) {
+        this.tabsData.setTabsData(tabManager.getTabsDataList());
         this.detailsTabPaneIndex.setValue(tabManager.getDetailsTabPaneIndex().getValue());
         this.displayTabPaneIndex.setValue(tabManager.getDisplayTabPaneIndex().getValue());
-        this.tabsData.setTabsData(tabManager.getTabsDataList());
+    }
+
+    /**
+     * Refresh the TabManager.
+     */
+    public void refreshTabManager() {
+        this.tabsData.refresh();
+    }
+
+    /**
+     * Opens a new tab with a given tab data.
+     *
+     * @param tabData contains the data to open a new tab.
+     */
+    public int openTab(TabData tabData) {
+        try {
+            // Adds a new tab and switches to that tab
+            addDetailsTabData(tabData);
+            Index tabIndex = getDetailsTabIndex(tabData);
+            setDetailsTabPaneIndex(tabIndex);
+            return 0;
+            // If TabData is not unique, switch to the existing tab
+        } catch (DuplicateTabDataException e) {
+            assert hasDetailsTabData(tabData);
+            Index tabIndex = getDetailsTabIndex(tabData);
+            setDetailsTabPaneIndex(tabIndex);
+            return 1;
+        }
     }
 
     // Display Tab
     public boolean isValidDisplayTabPaneIndex(int index) {
-        return index >= 0 && index < ModelType.numberOfTabs;
+        return index >= 0 && index < ModelType.NUMBER_OF_TABS;
     }
 
     @Override
