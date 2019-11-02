@@ -18,8 +18,10 @@ import seedu.address.model.queue.Room;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class RemoveRoomCommandParser implements Parser<ReversibleActionPairCommand> {
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index given";
 
     private List<Room> lastShownList;
+    private Index index;
 
     public RemoveRoomCommandParser(Model model) {
         this.lastShownList = model.getConsultationRoomList();
@@ -33,16 +35,20 @@ public class RemoveRoomCommandParser implements Parser<ReversibleActionPairComma
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(args);
-            Room roomToRemove = ParserUtil.getEntryFromList(lastShownList, index);
-            return new ReversibleActionPairCommand(
-                    new RemoveRoomCommand(roomToRemove),
-                    new AddConsultationRoomCommand(roomToRemove));
-
+            index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveRoomCommand.MESSAGE_USAGE), pe);
         }
+
+        if (lastShownList.size() < index.getOneBased()) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        Room roomToRemove = ParserUtil.getEntryFromList(lastShownList, index);
+            return new ReversibleActionPairCommand(
+                    new RemoveRoomCommand(roomToRemove),
+                    new AddConsultationRoomCommand(roomToRemove));
+
     }
 
 }
