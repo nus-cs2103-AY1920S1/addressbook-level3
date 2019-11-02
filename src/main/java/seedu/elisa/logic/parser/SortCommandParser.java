@@ -13,7 +13,9 @@ import seedu.elisa.logic.parser.exceptions.ParseException;
  * Parser to create a sort command with the right arguments
  */
 public class SortCommandParser {
-    public static final String DESCRIPTION = "desc";
+    public static final String DESC = "desc";
+    public static final String DESCRIPTION = "description";
+    public static final String PRI = "pri";
     public static final String PRIORITY = "priority";
 
     /**
@@ -33,15 +35,17 @@ public class SortCommandParser {
 
         Comparator<Item> comparator;
         switch(flag.toLowerCase()) {
+        case DESC:
         case DESCRIPTION:
             comparator = (item1, item2) -> item1.getItemDescription().getDescription()
-                    .compareTo(item2.getItemDescription().getDescription());
+                    .compareToIgnoreCase(item2.getItemDescription().getDescription());
             break;
+        case PRI:
         case PRIORITY:
             comparator = (item1, item2) -> item1.getPriority().compareTo(item2.getPriority());
             break;
         default:
-            throw new ParseException("The flag given for sort command is incorrect. "
+            throw new ParseException("The parameter given for sort command is incorrect. "
                     + "Example usage: \"sort desc\"");
         }
         return new SortCommand(Optional.of(comparator));
