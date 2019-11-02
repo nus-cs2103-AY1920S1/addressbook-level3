@@ -96,7 +96,7 @@ public class ActivityCommandTest {
 
         String warningMessage = String.format(ActivityCommand.WARNING_SEARCH_RESULTS, "Pauline", 2);
 
-        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS, emptyActivity, "", warningMessage),
+        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS + ActivityCommand.MESSAGE_WARNING, emptyActivity, "", warningMessage),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(emptyActivity), modelStub.activityList);
     }

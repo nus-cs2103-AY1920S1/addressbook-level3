@@ -34,7 +34,8 @@ public class ActivityCommand extends Command {
             + "Example: activity t/Mala dinner p/Kaedoon p/Giak Lhee p/Veken";
 
     public static final String MESSAGE_SUCCESS =
-            "%s successfully created with following participants:\n%s\nWarnings:\n%s";
+            "%s successfully created with following participants:\n%s\n";
+    public static final String MESSAGE_WARNING = "Warnings:\n%s";
     public static final String WARNING_SEARCH_RESULTS =
             "Unable to add person with search term \"%s\", as there were %d matches found.\n";
     public static final String WARNING_DUPLICATE_PERSON =
@@ -106,7 +107,12 @@ public class ActivityCommand extends Command {
         model.addActivity(toAdd);
         model.setContext(newContext);
         model.updateFilteredPersonList(x -> toAdd.getParticipantIds().contains(x.getPrimaryKey()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage, warningMessage), newContext);
+        if (warningMessage.length() == 0) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, successMessage), newContext);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_WARNING,
+                        toAdd, successMessage, warningMessage), newContext);
+        }
     }
 
     @Override

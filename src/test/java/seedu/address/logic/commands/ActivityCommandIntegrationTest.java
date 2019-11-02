@@ -69,7 +69,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 2);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + ActivityCommand.MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
@@ -97,7 +98,8 @@ public class ActivityCommandIntegrationTest {
                 searchTerm,
                 0);
         String successMessage = String.format(
-                ActivityCommand.MESSAGE_SUCCESS,
+                ActivityCommand.MESSAGE_SUCCESS
+                + ActivityCommand.MESSAGE_WARNING,
                 validActivity,
                 "",
                 warningMessage);
