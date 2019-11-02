@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_UNUSED_ARGUMENT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,6 +17,16 @@ public class DoneCommand extends Command implements ReversibleCommand {
 
     private Command undoCommand;
     private Command redoCommand;
+
+    private String unusedArguments = null;
+
+    public DoneCommand() {}
+
+    public DoneCommand(String unusedArguments) {
+        if (!unusedArguments.equals("")) {
+            this.unusedArguments = unusedArguments;
+        }
+    }
 
     /**
      * Executes the command and returns the result message.
@@ -33,6 +44,12 @@ public class DoneCommand extends Command implements ReversibleCommand {
         undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId());
         redoCommand = this;
         model.exitsServeMode();
+
+        if (unusedArguments != null) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS
+                    + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD),
+                    false, false, false, true);
+        }
         return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
     }
 
