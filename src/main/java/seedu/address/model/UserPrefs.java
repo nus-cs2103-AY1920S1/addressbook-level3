@@ -209,6 +209,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     /**
+     * Reset Appointment Data completely.
+     */
+    public void resetAppointments() {
+        appointmentTable = AppointmentTable.getDefaultAppointments();
+    }
+
+    /**
      * Gets the date that the JSON was last updated.
      */
     public LocalDate getLastUpdate() {
