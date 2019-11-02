@@ -61,7 +61,7 @@ public class SampleDataUtil {
     public static ReadOnlyUserState getSampleAccount() {
         UserState sampleUserState = new UserState();
         for (BankAccountOperation sampleTxn : getSampleTransactions()) {
-            sampleUserState.addOperation(sampleTxn);
+            sampleUserState.add(sampleTxn);
         }
         return sampleUserState;
     }

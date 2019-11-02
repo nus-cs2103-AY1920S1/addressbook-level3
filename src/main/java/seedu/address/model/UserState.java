@@ -55,48 +55,62 @@ public class UserState implements ReadOnlyUserState {
         return ledger;
     }
 
-    public void removeTransaction(BankAccountOperation transaction) {
-        bankAccount.removeTransaction(transaction);
+    public void remove(BankAccountOperation transaction) {
+        bankAccount.remove(transaction);
     }
 
-    public void removeBudget(Budget budget) {
-        bankAccount.removeBudget(budget);
+    public void remove(Budget budget) {
+        bankAccount.remove(budget);
     }
 
-    public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
+    public void set(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         bankAccount.setTransaction(transactionTarget, transactionEdit);
     }
 
-    public void setBudget(Budget budgetTarget, Budget budgetEdit) {
+    public void set(Budget budgetTarget, Budget budgetEdit) {
         bankAccount.setBudget(budgetTarget, budgetEdit);
     }
 
-    public void addOperation(BankAccountOperation transaction) {
-        bankAccount.addTransaction(transaction);
+    public void add(BankAccountOperation transaction) {
+        bankAccount.add(transaction);
     }
 
-    public void addOperation(LedgerOperation operation) {
+    public void add(LedgerOperation operation) {
         ledger.addOperation(operation);
     }
 
-    public void addBudget(Budget budget) {
-        bankAccount.addBudget(budget);
+    public void add(Budget budget) {
+        bankAccount.add(budget);
     }
 
-    public void setTransactions(List<BankAccountOperation> transactionHistory) {
+    public void set(List<BankAccountOperation> transactionHistory) {
         bankAccount.setTransactions(transactionHistory);
     }
 
-    public boolean hasTransaction(BankAccountOperation txn) {
-        return bankAccount.hasTransaction(txn);
+    public boolean has(BankAccountOperation txn) {
+        return bankAccount.has(txn);
     }
 
-    public boolean hasBudget(Budget budget) {
-        return bankAccount.hasBudget(budget);
+    public boolean has(Budget budget) {
+        return bankAccount.has(budget);
     }
 
-    // TODO?
-    // public boolean hasLedger(LedgerOperation ledgerOperation) {
-    //     return ledger.hasLedger(ledger);
-    // }
+    public boolean has(LedgerOperation ledgerOperation) {
+        return ledger.has(ledgerOperation);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof UserState)) {
+            return false;
+        }
+
+        UserState otherUserState = (UserState) other;
+        return this.ledger.equals(otherUserState.ledger)
+                && this.bankAccount.equals(otherUserState.bankAccount);
+    }
 }

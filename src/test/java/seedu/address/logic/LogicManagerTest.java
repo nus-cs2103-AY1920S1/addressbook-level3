@@ -17,13 +17,19 @@ import seedu.address.logic.commands.CommandResult;
 
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.*;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.InTransaction;
+import seedu.address.model.transaction.Transaction;
 import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TypicalTransactions;
 
 
 public class LogicManagerTest {
@@ -58,8 +64,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String inCommand = InCommand.COMMAND_WORD + "$/100 n/work d/10102019";
-        assertCommandSuccess(inCommand, InCommand.MESSAGE_SUCCESS, model);
+        String inCommand = InCommand.COMMAND_WORD + " $/100 n/milk c/food d/10112019";
+        assertCommandSuccess(inCommand, String.format(InCommand.MESSAGE_SUCCESS, TypicalTransactions.ALICE), model);
     }
 
     // TODO: FIX

@@ -25,7 +25,7 @@ public class UserStateBuilder {
      * @param transaction An operation
      */
     public UserStateBuilder withTransaction(BankAccountOperation transaction) {
-        userState.addOperation(transaction);
+        userState.add(transaction);
         return this;
     }
 

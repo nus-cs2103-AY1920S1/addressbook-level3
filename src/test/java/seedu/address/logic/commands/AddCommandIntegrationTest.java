@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
         Transaction validTransaction = new BankOperationBuilder().build();
 
         Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
-        expectedModel.addOperation(validTransaction);
+        expectedModel.add(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);

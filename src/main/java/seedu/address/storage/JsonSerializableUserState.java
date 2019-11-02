@@ -68,18 +68,18 @@ class JsonSerializableUserState {
         UserState userState = new UserState();
         for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {
             BankAccountOperation txn = jsonAdaptedBankOperations.toModelType();
-            if (userState.hasTransaction(txn)) {
+            if (userState.has(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            userState.addOperation(txn);
+            userState.add(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            if (userState.hasBudget(budget)) {
+            if (userState.has(budget)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
             }
-            userState.addBudget(budget);
+            userState.add(budget);
         }
 
         for (JsonAdaptedLedgerOperations jsonAdaptedLedgerOperations : ledgers) {
@@ -88,7 +88,7 @@ class JsonSerializableUserState {
             // if (userState.hasLedger(ledgerOperation)) {
             //     throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
             // }
-            userState.addOperation(ledgerOperation);
+            userState.add(ledgerOperation);
         }
 
         return userState;

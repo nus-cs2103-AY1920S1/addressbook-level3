@@ -104,42 +104,42 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
-        return versionedUserState.getBankAccount().hasTransaction(transaction);
+        return versionedUserState.getBankAccount().has(transaction);
     }
 
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return versionedUserState.getBankAccount().hasBudget(budget);
+        return versionedUserState.getBankAccount().has(budget);
     }
 
     @Override
     public void deleteTransaction(BankAccountOperation transaction) {
-        versionedUserState.removeTransaction(transaction);
+        versionedUserState.remove(transaction);
     }
 
     @Override
     public void deleteBudget(Budget budget) {
-        versionedUserState.removeBudget(budget);
+        versionedUserState.remove(budget);
     }
 
     @Override
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 
-        versionedUserState.setTransaction(transactionTarget, transactionEdit);
+        versionedUserState.set(transactionTarget, transactionEdit);
     }
 
     @Override
     public void setBudget(Budget budgetTarget, Budget budgetEdit) {
         requireAllNonNull(budgetTarget, budgetEdit);
 
-        versionedUserState.setBudget(budgetTarget, budgetEdit);
+        versionedUserState.set(budgetTarget, budgetEdit);
     }
 
     @Override
     public void addOperation(Budget budget) {
-        versionedUserState.addBudget(budget);
+        versionedUserState.add(budget);
     }
 
     @Override
@@ -184,7 +184,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setTransactions(List<BankAccountOperation> transactionHistory) {
-        versionedUserState.setTransactions(transactionHistory);
+        versionedUserState.set(transactionHistory);
     }
 
     @Override
@@ -195,12 +195,12 @@ public class ModelManager implements Model {
 
     @Override
     public void addOperation(BankAccountOperation operation) {
-        versionedUserState.addOperation(operation);
+        versionedUserState.add(operation);
     }
 
     @Override
     public void addOperation(LedgerOperation operation) {
-        versionedUserState.addOperation(operation);
+        versionedUserState.add(operation);
     }
 
     @Override

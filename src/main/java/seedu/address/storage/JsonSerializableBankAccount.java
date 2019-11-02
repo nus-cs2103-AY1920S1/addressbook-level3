@@ -72,18 +72,18 @@ class JsonSerializableBankAccount {
         UserState user = new UserState();
         for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {
             BankAccountOperation txn = jsonAdaptedBankOperations.toModelType();
-            if (user.hasTransaction(txn)) {
+            if (user.has(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            user.addOperation(txn);
+            user.add(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            if (user.hasBudget(budget)) {
+            if (user.has(budget)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
             }
-            user.addBudget(budget);
+            user.add(budget);
         }
         return user;
     }

@@ -28,7 +28,7 @@ public interface ReadOnlyBankAccount {
 
     ObservableList<Budget> getBudgetHistory();
 
-    boolean hasTransaction(BankAccountOperation transaction);
+    boolean has(BankAccountOperation transaction);
 
-    boolean hasBudget(Budget budget);
+    boolean has(Budget budget);
 }

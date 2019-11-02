@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.BankAccount;
 import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -79,7 +78,7 @@ public class TypicalTransactions {
     public static UserState getTypicalUserState() {
         UserState ba = new UserState();
         for (BankAccountOperation op : getTypicalTransactions()) {
-            ba.addOperation(op);
+            ba.add(op);
         }
         return ba;
     }
@@ -90,7 +89,7 @@ public class TypicalTransactions {
     public static UserState getTypicalUnsortedUserState() {
         UserState unsortedBa = new UserState();
         for (BankAccountOperation op : getTypicalUnsortedTransactions()) {
-            unsortedBa.addOperation(op);
+            unsortedBa.add(op);
         }
         return unsortedBa;
     }

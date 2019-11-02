@@ -86,7 +86,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      *
      * @param txn Transaction to be added to bank account.
      */
-    public void addTransaction(BankAccountOperation txn) {
+    public void add(BankAccountOperation txn) {
         transactions.add(txn);
         updateBudgets(txn);
         Amount newBalance = txn.handleBalance(this.balance);
@@ -99,7 +99,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      *
      * @param bud Budget to be added to bank account.
      */
-    public void addBudget(Budget bud) {
+    public void add(Budget bud) {
         budgets.add(bud);
     }
 
@@ -107,7 +107,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
-    public void removeTransaction(BankAccountOperation key) {
+    public void remove(BankAccountOperation key) {
         transactions.remove(key);
         this.balance = this.balance.subtractAmount(key.getAmount());
     }
@@ -116,7 +116,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * Removes {@code key} from this {@code BankAccount}.
      * {@code key} must exist in the bank account.
      */
-    public void removeBudget(Budget key) {
+    public void remove(Budget key) {
         budgets.remove(key);
     }
 
@@ -126,7 +126,7 @@ public class BankAccount implements ReadOnlyBankAccount {
      * @param transaction Transaction to be checked.
      * @return true if transaction is in bank account, else otherwise.
      */
-    public boolean hasTransaction(BankAccountOperation transaction) {
+    public boolean has(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
     }
@@ -134,7 +134,7 @@ public class BankAccount implements ReadOnlyBankAccount {
     /**
      * Checks if budget exists in bank account.
      */
-    public boolean hasBudget(Budget budget) {
+    public boolean has(Budget budget) {
         requireNonNull(budget);
         return budgets.contains(budget);
     }
@@ -186,10 +186,5 @@ public class BankAccount implements ReadOnlyBankAccount {
         return this.transactions.equals(otherBankAccount.transactions)
             && this.budgets.equals(otherBankAccount.budgets)
             && this.balance.equals(otherBankAccount.balance);
-    }
-
-    // TODO: remove after implementing VersionedUserState
-    public void addLoan(LedgerOperation operation) {
-        // stub
     }
 }
