@@ -1,19 +1,22 @@
 package seedu.flashcard.testutil;
 
-import seedu.flashcard.model.flashcard.Choice;
-import seedu.flashcard.model.tag.Tag;
-import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
-import seedu.flashcard.model.flashcard.Answer;
-import seedu.flashcard.model.flashcard.Definition;
-import seedu.flashcard.model.flashcard.McqFlashcard;
-import seedu.flashcard.model.flashcard.Question;
-import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
+import seedu.flashcard.model.flashcard.Answer;
+import seedu.flashcard.model.flashcard.Choice;
+import seedu.flashcard.model.flashcard.Definition;
+import seedu.flashcard.model.flashcard.McqFlashcard;
+import seedu.flashcard.model.flashcard.Question;
+import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
+import seedu.flashcard.model.tag.Tag;
+
+/**
+ * A utility class to help with building EditFlashcardDescriptor objects.
+ */
 public class EditFlashcardDescriptorBuilder {
 
     private EditFlashcardDescriptor descriptor;

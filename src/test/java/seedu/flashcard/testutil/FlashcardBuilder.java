@@ -1,5 +1,10 @@
 package seedu.flashcard.testutil;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.flashcard.model.flashcard.Answer;
 import seedu.flashcard.model.flashcard.Choice;
 import seedu.flashcard.model.flashcard.Definition;
@@ -9,11 +14,9 @@ import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
 import seedu.flashcard.model.util.SampleDataUtil;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+/**
+ * A utility class to help building flashcards.
+ */
 public class FlashcardBuilder {
 
     public static final String DEFAULT_QUESTION = "Is watermelon sweet?";

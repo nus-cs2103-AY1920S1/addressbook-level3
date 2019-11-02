@@ -1,10 +1,13 @@
 package seedu.flashcard.testutil;
 
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_CHOICE;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_DEFINITION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.flashcard.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.List;
+import java.util.Set;
 
 import seedu.flashcard.logic.commands.AddCommand;
 import seedu.flashcard.logic.commands.EditCommand.EditFlashcardDescriptor;
@@ -13,9 +16,6 @@ import seedu.flashcard.model.flashcard.Flashcard;
 import seedu.flashcard.model.flashcard.McqFlashcard;
 import seedu.flashcard.model.flashcard.ShortAnswerFlashcard;
 import seedu.flashcard.model.tag.Tag;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * A utility class of flashcards
@@ -68,8 +68,10 @@ public class FlashcardUtil {
      */
     public static String getEditFlashcardDescriptorDetails(EditFlashcardDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getQuestion().ifPresent(question -> sb.append(PREFIX_QUESTION).append(question.question).append(" "));
-        descriptor.getDefinition().ifPresent(definition -> sb.append(PREFIX_DEFINITION).append(definition.definition).append(" "));
+        descriptor.getQuestion().ifPresent(question
+            -> sb.append(PREFIX_QUESTION).append(question.question).append(" "));
+        descriptor.getDefinition().ifPresent(definition
+            -> sb.append(PREFIX_DEFINITION).append(definition.definition).append(" "));
         descriptor.getAnswer().ifPresent(answer -> sb.append(PREFIX_ANSWER).append(answer.answer).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
