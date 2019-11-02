@@ -111,9 +111,9 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 Examples:
 
-* `out $/100 n/milk c/food c/drinks`
-* `out $/29 n/taxi c/transport`
-* `out $/12 n/burger`
+* `out $/100 d/01012019 n/milk c/food c/drinks`
+* `out $/29 d/29022020 n/taxi c/transport`
+* `out $/12 d/31122019 n/burger`
 
 === Logging Income : `in`
 
@@ -130,9 +130,9 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 Examples:
 
-* `in $/100 n/errand c/work c/drinks`
-* `in $/200 n/mom c/family`
-* `in $/120 n/work`
+* `in $/100 d/01012019 n/errand c/work c/drinks`
+* `in $/200 d/29022020 n/mom c/family`
+* `in $/120 d/31122019 n/work`
 
 === Setting a Budget : `set`
 
