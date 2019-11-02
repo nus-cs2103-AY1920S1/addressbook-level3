@@ -48,13 +48,10 @@ public class EditClaimCommandParser implements Parser<EditClaimCommand> {
             editClaimDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_CASH).isPresent()) {
-            editClaimDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_CASH).get()));
+            editClaimDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_CASH).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editClaimDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editClaimDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editClaimDescriptor::setTags);
 

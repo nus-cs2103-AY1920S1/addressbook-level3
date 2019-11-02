@@ -16,7 +16,6 @@ endif::[]
 
 By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
-//@@author {lawncegoh}
 == Introduction
 
 FinSec is a Financial Planner that helps the finance secretaries of any department in National University of Singapore,
@@ -58,12 +57,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy) p/PHONE NUMBER`,
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy)`,
  `NAME`, `DESCRIPTION`, `CASH AMOUNT`, `DATE`, `PHONE NUMBER` are parameters that the user has to type in.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
 ====
 
 === Viewing help : `help`
@@ -183,12 +181,12 @@ Adds a claim to the claims list +
 
 Keyword: `add_claim`
 
-Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
+Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/NAME [t/TAG]`
 
 Examples:
 
 ....
-add_claim d/Sports Equipment a/115.2 date/29-12-2019 n/Lee Wei Gen p/96777777 t/Sports
+add_claim d/Sports Equipment a/115.2 date/29-12-2019 n/Lee Wei Gen t/Sports
 ....
 
 ====
@@ -199,7 +197,7 @@ image::warning.png[width = "20", float = "left"]
 
 * `AMOUNT` should be up to 2 decimal places only. +
 * `DATE` should be a valid date (eg. 29-02-2019 not valid). +
-* A contact must already exist with the inputted `NAME` and `PHONE`.
+* A contact must already exist with the inputted `NAME`.
 
 ====
 
@@ -727,8 +725,8 @@ e.g. `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd
 * *Edit contact* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
 e.g. `edit_contact 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
 
-* *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
-e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
+* *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
+e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen t/Sports`
 
 * *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`

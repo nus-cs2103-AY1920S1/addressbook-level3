@@ -193,7 +193,7 @@ public class ModelManager implements Model {
     */
     public boolean hasContactFor(Claim claim) {
         requireNonNull(claim);
-        return finSec.hasContact(claim.getName(), claim.getPhone());
+        return finSec.hasContact(claim.getName());
     }
 
     @Override
