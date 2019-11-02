@@ -130,7 +130,8 @@ public class AutoCompleteListHandler {
     public void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
         if (objectList.size() != 0 && objectList.get(0) instanceof ObjectWord) {
             for (int i = 0; i < objectList.size(); i++) {
-                objectList.set(i, new ObjectWord(objectList.get(i).getSuggestedWord() + "-"));
+                objectList.set(i, new ObjectWord(objectList.get(i).getSuggestedWord() + "-",
+                        objectList.get(i).getDescription()));
             }
         }
     }

@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.ui;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListHandler;
@@ -14,18 +15,19 @@ import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 
 /**
  * Panel containing the list of suggested words cards.
  */
-public class AutoCompletePanel extends UiPart<Region> {
+public class AutoCompletePanel extends UiPart<Region> implements Observer, DataSender {
     private static final String FXML = "AutoCompletePanel.fxml";
-
-    private int selectedIndex = 0;
 
     private AutoCompleteListHandler autoCompleteListHandler;
     private MatchedWordUpdater matchedWordUpdater;
+
+    private int selectedIndex = 0;
 
     @FXML
     private ListView<AutoCompleteWord> autoCompleteWordListView;
@@ -105,10 +107,31 @@ public class AutoCompletePanel extends UiPart<Region> {
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
-    /**
-     * @return string representation of all the matched words plus current selected word
-     */
-    public String getStringAfterSelection() {
-        return matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
+    @Override
+    public void update(KeyCode keyCode) {
+        switch (keyCode) {
+        case UP:
+            setSelected(selectedIndex - 1);
+            break;
+        case DOWN:
+            setSelected(selectedIndex + 1);
+            break;
+        }
+    }
+
+    // prereq key is not shift/up/down
+    @Override
+    public void update(KeyCode keyCode, String resultString) {
+        if (keyCode != KeyCode.SHIFT && keyCode != KeyCode.UP && keyCode != KeyCode.DOWN) {
+            updateListView(resultString);
+        }
+    }
+
+    @Override
+    public String[] sendData() {
+        String textAfterSelection = matchedWordUpdater.getCombinedMatchedWords() + getSelected().getSuggestedWord();
+        String selectedWordDescription = getSelected().getDescription();
+
+        return new String[]{textAfterSelection, selectedWordDescription};
     }
 }

@@ -148,6 +148,12 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        // Add observers into commandBox observer list
+        commandBox.addObserver(autoCompletePanel);
+        commandBox.addObserver(resultDisplay);
+        // Add data senders into autoCompletePanel dataSender list
+        commandBox.setDataSender(autoCompletePanel);
+
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
                 ongoingVisitTabPage,

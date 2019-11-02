@@ -5,8 +5,8 @@ package cs.f10.t1.nursetraverse.autocomplete;
  */
 public class IndexWord extends AutoCompleteWord {
 
-    public IndexWord(String suggestedIndex) {
-        super(suggestedIndex);
+    public IndexWord(String suggestedIndex, String description) {
+        super(suggestedIndex, description);
     }
 
     @Override
