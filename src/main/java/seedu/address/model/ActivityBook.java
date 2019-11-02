@@ -118,6 +118,20 @@ public class ActivityBook implements ReadOnlyActivityBook {
         return true;
     }
 
+    /**
+     * Checks whether the person with ID is present in any activity.
+     * @param personId Id of the person to check.
+     * @return True if person exists, false otherwise.
+     */
+    public boolean hasPerson(Integer personId) {
+        for (Activity activity : activityList) {
+            if (activity.hasPerson(personId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public int hashCode() {
         return activityList.hashCode();
