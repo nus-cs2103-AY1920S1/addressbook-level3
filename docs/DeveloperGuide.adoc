@@ -354,35 +354,98 @@ as a `LinkedList` implementation.
 
 //@@author LeonardTay748
 // tag::statistics[]
-=== Statistics Feature
-The statistics feature allows users to view the overall statistics (i.e. number of good, hard and easy flashcards in application and those completed in test mode)
+=== Statistics feature
+The statistics feature allows users to view the overall statistics in a single pop-up window.
 
 ==== Implementation
 This feature is supported by the following classes:
 
 * `StatsCommand` -- Carries the message to be displayed to the user.
+* `MainWindow` -- Opens a specific window as required.
+* `StatsWindow` -- Builds the statistics window display.
 * `RatingContainsKeywordPredicate` -- To generate a predicate for good, hard and easy ratings.
-* `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode
+* `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode.
+* `Stage` -- To create the pop-up window.
+* `Scene` -- To create an object that contains all the physical contents of the pop-up window.
+* `FlowPane` -- To create the layout of the pop-up window.
 
-The following sequence diagram shows how the `stats` operation works:
+The sequence diagram below shows how the statistics operation works.
 
-image::StatisticsSequenceDiagram.png[]
+image::StatisticsSequenceDiagram.png[width=700]
 
-The following activity diagram summarizes what happens when a user executes the `stats` command:
+The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window. 
+
+image::StatisticsShow.png[width=600]
+
+The activity diagram below summarizes what happens when a user executes the `stats` command.
 
 image::StatisticsActivityDiagram.png[]
 
+
 ==== Design Considerations
+The following aspect was a consideration when designing the statistics feature.
+
 Aspect: Methods to collect statistics
 
 * **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
 ** Pros: This is easy to implement.
 ** Cons: This requires extra lines of code to combine all the statistics.
+
+
 * **Alternative 2:** Collect all statistics using the model.
 ** Pros: This allows the collection of all statistics with minimal methods involved.
 ** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
 
+Alternative 1 was chosen simply because it was easier to implement within the given period of time.
+
 // end::statistics[]
+
+// tag::help[]
+=== Help feature
+The help feature allows a user to refer to a summary of commands supported by the application.
+
+==== Implementation
+This feature is supported by the following classes:
+
+* `HelpCommand` -- Carries the message to be displayed to the user.
+* `MainWindow` -- Opens a specific window as required.
+* `HelpWindow` -- Builds the help window display.
+* `Image` -- To convert a png file into an `Image` object.
+* `ImageView` -- To convert an `Image` object into a view.
+* `Stage` -- To display the view.
+
+The sequence diagram below shows how the help operation works.
+
+image::HelpSequenceDiagram.png[width=700]
+
+The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window. 
+
+image::HelpShow.png[width=600]
+
+The activity diagram below summarizes what happens when a user executes the `help` command.
+
+image::HelpActivityDiagram.png[]
+
+
+==== Design Considerations
+The following aspect was a consideration when designing the help feature.
+
+
+Aspect: Ways to display the command summary
+
+* **Alternative 1 (Current choice):** Display a snapshot with all the commands supported by the application.
+** Pros: The display can be quickly ammended with any addition or removal of command(s).    
+** Cons: The size of the snapshot displayed needs to be large to ensure sufficient picture resolution.
+
+
+* **Alternative 2:** Display as text.
+** Pros: This results in a higher-resolution display of the command summary.
+** Cons: This requires changing the code.
+
+
+Alternative 1 was chosen simply because it was easier to update the displayed command summary.
+
+// end::help[]
 
 //@@author
 === Logging
