@@ -111,6 +111,9 @@ public class WordBank implements ReadOnlyWordBank {
 
     /**
      * Returns true if both word banks have the same name.
+     *
+     * @param other word bank.
+     * @return true if both word banks have the same name.
      */
     public boolean isSameName(WordBank other) {
         if (other == null) {
@@ -121,6 +124,12 @@ public class WordBank implements ReadOnlyWordBank {
         return s1.equals(s2);
     }
 
+    /**
+     * Returns true if both word banks have the same name.
+     *
+     * @param other word bank.
+     * @returnn true if both word banks have the same name.
+     */
     public boolean isSameName(String other) {
         if (other == null) {
             return false;

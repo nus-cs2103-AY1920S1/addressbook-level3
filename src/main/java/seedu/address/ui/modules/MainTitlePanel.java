@@ -23,7 +23,7 @@ import javafx.util.StringConverter;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.globalstatistics.WeeklyPlayed;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.ui.AvatarImageUtil;
 import seedu.address.ui.UiPart;
 

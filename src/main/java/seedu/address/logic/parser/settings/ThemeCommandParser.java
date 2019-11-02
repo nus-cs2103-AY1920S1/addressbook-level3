@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appsettings.ThemeEnum;
 
 /**
- * Parses input arguments and creates a new GuessCommand object
+ * Parses input arguments and creates a new ThemeCommand object
  */
 public class ThemeCommandParser implements Parser<ThemeCommand> {
 

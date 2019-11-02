@@ -10,9 +10,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
 import seedu.address.ui.modules.BankLabelPanel;
@@ -25,7 +25,6 @@ import seedu.address.ui.modules.QuestionLabel;
 import seedu.address.ui.modules.SettingsPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
-
 
 
 /**
@@ -54,7 +53,7 @@ public class ModularDisplay {
      * @param appManager GameManager who will render lists.
      */
     ModularDisplay(AppManager appManager) {
-        loadBankPanel = new LoadBankPanel(appManager.getStorage());
+        loadBankPanel = new LoadBankPanel(appManager.getFilteredWordBankList());
         titleScreenPanel = new TitleScreenPanel();
         settingsPanel = new SettingsPanel(appManager.getAppSettings());
         questionLabel = new QuestionLabel();
@@ -98,7 +97,7 @@ public class ModularDisplay {
                 new WordBankStatisticsPanel(appManager.getActiveWordBankStatistics(),
                         appManager.getActiveWordBank()).getRoot());
         twoSplitColumnLayout.addToRightPane(
-                new CardListPanel(appManager.getFilteredPersonList()).getRoot());
+                new CardListPanel(appManager.getFilteredCardList()).getRoot());
         paneToDisplay.getChildren().add(twoSplitColumnLayout.getRoot());
     }
 
@@ -119,7 +118,7 @@ public class ModularDisplay {
      */
     public void swapToList(StackPane paneToDisplay) {
         paneToDisplay.getChildren().clear();
-        paneToDisplay.getChildren().add(new CardListPanel(appManager.getFilteredPersonList()).getRoot());
+        paneToDisplay.getChildren().add(new CardListPanel(appManager.getFilteredCardList()).getRoot());
     }
 
     /**

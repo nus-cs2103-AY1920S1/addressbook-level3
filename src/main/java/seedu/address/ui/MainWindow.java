@@ -159,7 +159,7 @@ public class MainWindow extends UiPart<Stage> {
         appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
         //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.registerMainWindowExecuteCallBack(this::executeCommand);
-        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getWordBanksFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         //Set up command box
@@ -292,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
+     * Updates the HintDisplay section of the UI with the {@code hintString}.
      */
     private void updateHintDisplay(String hintString) {
         modularDisplay.updateHint(hintString, modularDisplayPlaceholder);

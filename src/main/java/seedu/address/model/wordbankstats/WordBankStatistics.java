@@ -1,4 +1,4 @@
-package seedu.address.statistics;
+package seedu.address.model.wordbankstats;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import seedu.address.model.appsettings.DifficultyEnum;
 import seedu.address.model.card.Card;
+import seedu.address.statistics.GameStatistics;
 
 /**
  * Represents the overall statistics of a word bank.

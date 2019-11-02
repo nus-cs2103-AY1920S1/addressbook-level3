@@ -17,9 +17,10 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -42,8 +43,11 @@ public interface Logic extends UiLogicHelper {
      */
     ReadOnlyWordBank getCurrentWordBank();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns an unmodifiable view of the filtered list of word banks */
+    ObservableList<WordBank> getFilteredWordBankList();
 
     /**
      * Returns the user prefs' word banks file path.
@@ -60,12 +64,7 @@ public interface Logic extends UiLogicHelper {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    void saveUpdatedWbStatistics(GameStatistics gameStats) throws CommandException;
-
-    /**
-     * This method should be called every time a game finishes to correctly update global statistics
-     */
-    void incrementPlay() throws CommandException;
+    void updateStatistics(GameStatistics gameStats) throws CommandException;
 
     WordBankStatistics getActiveWordBankStatistics();
 

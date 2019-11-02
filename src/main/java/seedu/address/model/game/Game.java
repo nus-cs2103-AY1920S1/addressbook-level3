@@ -30,9 +30,11 @@ public class Game {
     private Index cardIndex;
 
     /**
-     * Constructor for Game instance that takes in a WordBank.
-     * WordBank must not be null.
-     * @param wordBank WordBank that current Game session will run on.
+     * Creates a new Game session.
+     *
+     * @param wordBank WordBank where the list of cards will be created from.
+     * @param cardShuffler Lambda that specifies the shuffling method to be applied.
+     * @param difficulty Difficulty that the current game session is to run on.
      */
     public Game(ReadOnlyWordBank wordBank, CardShuffler cardShuffler, DifficultyEnum difficulty) {
         requireAllNonNull(wordBank, cardShuffler, difficulty);
@@ -102,6 +104,10 @@ public class Game {
             isOver = getCurrIndex().getZeroBased() >= shuffledDeckOfCards.size() ? true : false;
             return isOver;
         }
+    }
+
+    public long getTimeAllowedPerQuestion() {
+        return currentGameDifficulty.getTimeAllowedPerQuestion();
     }
 
     public void forceStop() {

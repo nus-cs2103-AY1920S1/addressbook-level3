@@ -21,10 +21,11 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -51,11 +52,19 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Sets the gameTimer instance to be a new GameTimer object with the appropriate {@code timeAllowedPerQuestion}
+     * based on the requested Difficulty setting.
+     *
+     * If hints are enabled, the {@code hintFormatSize} of the current
+     * question will be used to initialize the HintTimingQueue in the GameTimer.
+     */
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = GameTimer.getInstance("Time Left", timeAllowedPerQuestion,
                 this::skipOverToNextQuestion,
                 this::updateTimerDisplay,
                 this::updateHints);
+
         if (logic.hintsAreEnabled()) {
             gameTimer.initHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         }
@@ -93,41 +102,51 @@ public class AppManager {
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
 
             // update statistics upon receiving a GameCommandResult with a Card
-            if (gameCommandResult.getCard().isPresent()) {
-                gameStatisticsBuilder.addDataPoint(
-                        gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
-                        gameCommandResult.getCard().get());
-            }
+            updateGameStatistics(gameCommandResult);
             // should make logic save the updated game statistics
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
-                logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
-                logic.incrementPlay();
+                logic.updateStatistics(gameStatisticsBuilder.build());
             }
         }
 
-        // AppManager will always abort Timer when a new valid command is entered while Game is running.
+        /** AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            setGameTimer(logic.getTimeAllowedPerQuestion(),
-                    logic.getHintFormatSizeFromCurrentGame());
+            setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
+
             Platform.runLater(() -> {
 
                 /** Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
+
+                /** Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
-
         }
 
         return commandResult;
     }
 
+    /**
+     * Update the {@code gameStatisticsBuilder} with the {@code gameCommandResult}.
+     */
+    private void updateGameStatistics(GameCommandResult gameCommandResult) {
+        if (gameCommandResult.getCard().isPresent()) {
+            gameStatisticsBuilder.addDataPoint(
+                    gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                    gameCommandResult.getCard().get());
+        }
+    }
     public String getSelectedWbName() {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
+    /**
+     * Gets the logic object from itself.
+     * @return Logic instance
+     */
     public Logic getLogic() {
         return logic;
     }
@@ -164,19 +183,23 @@ public class AppManager {
         return logic.getGlobalStatistics();
     }
 
-    public ObservableList<Card> getFilteredPersonList() {
+    public ObservableList<Card> getFilteredCardList() {
         return logic.getFilteredCardList();
+    }
+
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return logic.getFilteredWordBankList();
     }
 
     public GuiSettings getGuiSettings() {
         return logic.getGuiSettings();
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getWordBanksFilePath() {
         return logic.getWordBanksFilePath();
     }
 
-    // <---------------------------------------- CallBacks to Pass Into Timer------------------------------------>
+    // <---------------------------------------- CallBacks to Pass Into GameTimer-------------------------------->
 
     private void updateHints() {
         this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
@@ -199,7 +222,7 @@ public class AppManager {
         }
     }
 
-    // <---------------------------Methods to register UI components to be called back by AppManager------------->
+    // <-----------------------Methods to register UI components to be called back by AppManager----------------->
 
     /**
      * Registers a method that will be called by the AppManager to update the UI's TimerDisplay

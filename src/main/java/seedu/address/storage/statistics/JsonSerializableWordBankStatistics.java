@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import seedu.address.statistics.CardStatistics;
-import seedu.address.statistics.ScoreData;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.CardStatistics;
+import seedu.address.model.wordbankstats.ScoreData;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * A Word Bank Statistics class that is serializable to JSON format.

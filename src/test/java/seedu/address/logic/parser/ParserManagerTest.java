@@ -46,7 +46,7 @@ class ParserManagerTest {
     @Test
     void getGameMode() {
         try {
-            parserManager.parseCommand("bank sample");
+            parserManager.parseCommand("select sample");
             parserManager.updateState(true, true);
             parserManager.parseCommand("open");
             parserManager.parseCommand("start");

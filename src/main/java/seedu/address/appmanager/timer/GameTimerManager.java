@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 /**
- * Represents a countdown timer that runs during a Game session (if enabled).
+ * Represents a countdown timer that runs during a Game session.
  */
 public class GameTimerManager implements GameTimer {
 
@@ -14,21 +14,28 @@ public class GameTimerManager implements GameTimer {
     private long totalTimeGiven; // the initial time allocated for the timer.
     private long timeLeft; // the time left of this timer, updated by the timer.
     private String mainMessage;
+
+    /** Call-back functions that this GameTimerManager is dependent on. */
     private SkipOverCallBack skipOverCallBack;
     private UpdateTimerCallBack updateTimerCallBack;
     private UpdateHintCallBack updateHintCallBack;
+
     private boolean cancelled = false;
+
     // By default no hints (and by extension by HintTimingQueue) are provided.
     private HintTimingQueue hintTimingQueue = null;
-    // If no hints are enabled, nextTimeForHint is set at -1 (placeholder for null).
+
+    // If no hints are enabled, nextTimeForHint is set at -100ms (placeholder for null).
     private long nextTimeForHint = -100L;
 
     /**
-     * Creates a new GameTimerManager instance, but does not run it yet.
+     * Creates a new GameTimerManager instance but does not run it yet.
      *
-     * @param mainMessage String of the message intended to be shown on UI.
-     * @param durationInMs Duration that the Timer runs for, in milliseconds.
-     * @param skipOverCallBack call-back function to send 'skip" command back to MainWindow.
+     * @param mainMessage Main message to feed back to UI.
+     * @param durationInMs Total duration that this countdown timer is to run for.
+     * @param skipOverCallBack Call-back function to notify that a skip-over is to be executed.
+     * @param updateTimerCallBack Call-back function to notify that TimerDisplay needs to be updated.
+     * @param updateHintCallBack Call-back function to notify that HintDisplay needs to be updated.
      */
     public GameTimerManager(String mainMessage, long durationInMs,
                             SkipOverCallBack skipOverCallBack,
@@ -40,7 +47,8 @@ public class GameTimerManager implements GameTimer {
         this.updateHintCallBack = updateHintCallBack;
         this.totalTimeGiven = durationInMs;
         this.timeLeft = totalTimeGiven;
-        // Mark this Timer thread as Daemon or else Java won't exit properly.
+
+        /** Marks this current java.util.Timer instance as a Daemon thread to ensure JVM exits properly. */
         this.timer = new Timer(true);
     }
 
@@ -61,8 +69,9 @@ public class GameTimerManager implements GameTimer {
     }
 
     /**
-     * Starts the timer and updates the JavaFX UI periodically.
-     * Runs on same thread as JavaFX UI.
+     * Starts the timer and updates the AppManager periodically via Call-backs.
+     * When this method is called, it executes on the JavaFX Application Thread, but
+     * it's inner run() method in TimerTask executes on a different thread.
      */
     public void run() {
         timer.schedule(new TimerTask() {
@@ -106,7 +115,7 @@ public class GameTimerManager implements GameTimer {
     }
 
     /**
-     * Stops the current TimerTask and performs a callBack to AppManager to simulate a skip command.
+     * Stops the current TimerTask and performs a callBack to AppManager to simulate a SkipCommand.
      */
     private void stopAndCallBackToSkipOver() {
         cancelled = true;

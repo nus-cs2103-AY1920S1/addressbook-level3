@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.nio.file.Path;
@@ -33,9 +32,9 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
 import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -70,12 +69,6 @@ public class LogicManager implements Logic, UiLogicHelper {
         commandResult = command.execute(model);
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
 
-        // todo need to save wordbankstatistics after deletion.
-        // todo possible solution -> just save on every command like how the word bank is saved.
-        // todo currently, on deletion, the statistics is deleted on the model, and will be saved only if
-        // todo a game is played with that word bank. If no game is played, and the app is closed, the statistics
-        // todo will stay there forever...
-
         try {
             if (getMode().equals(ModeEnum.SETTINGS)) {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
@@ -95,7 +88,7 @@ public class LogicManager implements Logic, UiLogicHelper {
             commandResult = new CommandResult("Word bank file is corrupted.");
         } catch (WordBankNotFoundException | IllegalValueException | DuplicateWordBankException e) {
             commandResult = new CommandResult(e.getMessage());
-        }  catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -110,6 +103,11 @@ public class LogicManager implements Logic, UiLogicHelper {
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return model.getFilteredCardList();
+    }
+
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return storage.getFilteredWordBankList();
     }
 
     @Override
@@ -128,7 +126,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
-    public void saveUpdatedWbStatistics(GameStatistics gameStatistics) throws CommandException {
+    public void updateStatistics(GameStatistics gameStatistics) throws CommandException {
         try {
             WordBankStatistics currWbStats;
             if (model.getWordBankStatistics() == null) {
@@ -145,10 +143,13 @@ public class LogicManager implements Logic, UiLogicHelper {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+        incrementPlay();
     }
 
-    @Override
-    public void incrementPlay() throws CommandException {
+    /**
+     * Increments the number of play in global statistics.
+     */
+    private void incrementPlay() throws CommandException {
         try {
             requireNonNull(model.getGlobalStatistics());
             GlobalStatistics globalStats = model.getGlobalStatistics();

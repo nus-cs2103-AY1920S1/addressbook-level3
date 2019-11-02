@@ -3,7 +3,6 @@ package seedu.address.storage.wordbanks;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -134,7 +133,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             }
         }
         this.readOnlyWordBankList = new WordBankList(wordBankList);
-        System.out.println(readOnlyWordBankList + "<------------------initWordBankList");
     }
 
     /**
@@ -262,7 +260,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
 
         if (optWb.isPresent()) {
             WordBank wb = (WordBank) optWb.get();
-            addWordBank(wb);saveWordBank(wb);
+            addWordBank(wb);
+            saveWordBank(wb);
 
         } else {
             throw new WordBankNotFoundException();
@@ -270,12 +269,11 @@ public class JsonWordBankListStorage implements WordBankListStorage {
     }
 
 
-
     /**
      * Retrieves the word bank, add to internal list, then add to storage.
      *
      * @param wordBankName cannot be null.
-     * @param filePath cannot be null.
+     * @param filePath     cannot be null.
      */
     @Override
     public void exportWordBank(String wordBankName, Path filePath) {

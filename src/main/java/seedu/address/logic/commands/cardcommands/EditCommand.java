@@ -40,9 +40,8 @@ public class EditCommand extends CardCommand {
             + "Eg: " + COMMAND_WORD + " 1 "
             + PREFIX_MEANING + "evolves into Kadabra";
 
-    private static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-
+    private static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited card: %1$s";
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
 

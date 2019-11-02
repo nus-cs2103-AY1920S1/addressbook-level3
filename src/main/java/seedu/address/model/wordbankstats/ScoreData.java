@@ -1,4 +1,4 @@
-package seedu.address.statistics;
+package seedu.address.model.wordbankstats;
 
 /**
  * Represents the score data for a game.

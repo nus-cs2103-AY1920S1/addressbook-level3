@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -17,8 +16,8 @@ import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.appsettings.AppSettingsStorage;
 import seedu.address.storage.globalstatistics.GlobalStatisticsStorage;
 import seedu.address.storage.statistics.WordBankStatisticsListStorage;

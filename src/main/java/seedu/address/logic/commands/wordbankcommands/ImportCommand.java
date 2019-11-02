@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WORD;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,10 +24,10 @@ public class ImportCommand extends WordBankCommand {
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
-    public static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s from location : %2$s";
+    private static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s from location : %2$s";
 
-    private static String wordBankName;
-    private static File directory;
+    private String wordBankName;
+    private File directory;
 
     public ImportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
@@ -39,10 +37,6 @@ public class ImportCommand extends WordBankCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Path finalPath = Paths.get(directory.toString(), wordBankName + ".json");
-
-        Path p1 = Paths.get(directory.toString(), wordBankName + ".json");
-//        File f =
 
         return new ImportCommandResult(String.format(MESSAGE_IMPORT_CARD_SUCCESS, wordBankName, directory),
                 this.directory.toPath(), wordBankName);
@@ -57,11 +51,4 @@ public class ImportCommand extends WordBankCommand {
                 .equals(((seedu.address.logic.commands.wordbankcommands.ImportCommand) other).wordBankName));
     }
 
-    public static File getDirectory() {
-        return directory;
-    }
-
-    public static String getWordBankName() {
-        return wordBankName;
-    }
 }

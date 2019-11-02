@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.card.Card;
 import seedu.address.model.game.Guess;
+import seedu.address.model.wordbankstats.ScoreData;
 
 /**
  * A class that manages all statistics to be added during the game.
@@ -58,8 +59,6 @@ public class GameStatisticsBuilder {
 
     /**
      * Builds the resulting {@code GameStatistics} object.
-     *
-     * @return
      */
     public GameStatistics build() {
         return new GameStatistics(title,

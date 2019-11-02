@@ -2,10 +2,10 @@ package seedu.address.ui.modules;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -32,10 +32,10 @@ public class LoadBankPanel extends UiPart<Region> {
     @FXML
     private ListView<WordBank> loadBankView;
 
-    public LoadBankPanel(Storage storage) {
+    public LoadBankPanel(ObservableList<WordBank> wbl) {
         super(FXML);
         this.storage = storage;
-        loadBankView.setItems(storage.getFilteredWordBankList());
+        loadBankView.setItems(wbl);
         loadBankView.setCellFactory(listView -> new LoadBankViewCell());
     }
 
@@ -86,10 +86,10 @@ public class LoadBankPanel extends UiPart<Region> {
             String childString = p.getFileName().toString();
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
 
-//        if(firstFile.exists()) {
-//            Path p = firstFile.toPath();
-//            String childString = p.getFileName().toString();
-//            String wordBankName = getFileNameWithoutExtension(firstFile);
+            //        if(firstFile.exists()) {
+            //            Path p = firstFile.toPath();
+            //            String childString = p.getFileName().toString();
+            //            String wordBankName = getFileNameWithoutExtension(firstFile);
 
             try {
                 commandExecutor.execute("import w/" + wordBankName
