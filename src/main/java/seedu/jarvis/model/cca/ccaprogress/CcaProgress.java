@@ -6,6 +6,7 @@ import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.List;
 
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotSetException;
 import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
@@ -72,8 +73,12 @@ public class CcaProgress {
     /**
      * Gets the current {@code CcaMilestone}.
      */
-    public CcaMilestone getCurrentCcaMilestone() {
+    public CcaMilestone getCurrentCcaMilestone() throws CcaProgressNotIncrementedException {
         Index ccaMilestoneIndex = Index.fromOneBased(ccaCurrentProgress.getCurrentProgress());
+        System.out.println(ccaMilestoneIndex.getZeroBased());
+        if (ccaMilestoneIndex.getZeroBased() < 0) {
+            throw new CcaProgressNotIncrementedException();
+        }
         CcaMilestone ccaMilestone = ccaMilestoneList.getCcaMilestone(ccaMilestoneIndex);
         return ccaMilestone;
     }
@@ -115,11 +120,7 @@ public class CcaProgress {
      * Returns true if the progress is the minimum.
      */
     public boolean progressAtMin() {
-        if (ccaCurrentProgress.progressAtMin()) {
-            return true;
-        }
-
-        return false;
+        return ccaCurrentProgress.progressAtMin();
     }
 
     /**

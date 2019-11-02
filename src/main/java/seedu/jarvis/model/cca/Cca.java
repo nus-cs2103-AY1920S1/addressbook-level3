@@ -9,6 +9,7 @@ import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
 import seedu.jarvis.model.cca.ccaprogress.CcaProgress;
 import seedu.jarvis.model.cca.exceptions.CcaProgressAlreadySetException;
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
 /**
@@ -73,7 +74,7 @@ public class Cca {
     /**
      * Gets the current {@code CcaMilestone}.
      */
-    public CcaMilestone getCurrentCcaMilestone() {
+    public CcaMilestone getCurrentCcaMilestone() throws CcaProgressNotIncrementedException {
         return ccaProgress.getCurrentCcaMilestone();
     }
 

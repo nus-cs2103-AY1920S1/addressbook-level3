@@ -11,6 +11,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Shape;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.Equipment;
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.ui.UiPart;
 
 /**
@@ -98,7 +99,12 @@ public class CcaCard extends UiPart<Region> {
             return;
         }
 
-        progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
+        try {
+            progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
+        } catch (CcaProgressNotIncrementedException e) {
+            progressName.setText(TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET);
+        }
+
     }
 
     /**
