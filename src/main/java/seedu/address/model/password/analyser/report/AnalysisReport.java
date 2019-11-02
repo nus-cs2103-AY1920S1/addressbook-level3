@@ -1,16 +1,18 @@
 package seedu.address.model.password.analyser.report;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.password.Password;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
  * Represents the Analysis Report formed from the {@code Result} objects from the various {@code Anlayser} Objects
  */
 public class AnalysisReport {
-    private static final String MESSAGE_DIVIDER = "----------------------------------------\n";
-    private static final String MESSAGE_INIT =
+    protected static final String MESSAGE_DIVIDER = "----------------------------------------\n";
+    protected static final String MESSAGE_INIT =
             "  ____                           ___ _____  \n"
                     + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
                     + " \\___ \\ / _ \\/ __| | | | '__/ _ \\| |  | |   \n"
@@ -26,12 +28,16 @@ public class AnalysisReport {
             "Description", ":", "Username", ":", "Password", ":", "Result") + "\n";
     private static final String MESSAGE_COLUMNS = COLUMN1 + COLUMN2 + COLUMN1;
 
-    private StringBuilder reportBuilder;
+    protected StringBuilder reportBuilder;
+    protected List<List<Result>> results;
+    protected List<String> resultsHeader;
     /**
      * Constructs an Analysis Report.
      */
     public AnalysisReport() {
         this.reportBuilder = new StringBuilder();
+        this.results = new ArrayList<>();
+        this.resultsHeader = new ArrayList<>();
         reportBuilder.append(MESSAGE_INIT);
     }
 
@@ -39,19 +45,13 @@ public class AnalysisReport {
      * Writes summary information about analysis for all passwords.
      */
     public void write(List<Result> results) {
+        this.results.add(results);
         reportBuilder.append(MESSAGE_COLUMNS);
         for (Result o : results) {
             reportBuilder.append(o);
         }
         reportBuilder.append("\n");
         //TODO good way to write title
-    }
-    /**
-     * Writes further in-depth information about a specific result.
-     */
-    public void write(Result result) {
-        reportBuilder.append(result.getGreaterDetail());
-        reportBuilder.append(MESSAGE_DIVIDER);
     }
 
     /**
@@ -60,18 +60,37 @@ public class AnalysisReport {
      * @param header
      */
     public void writeHeading(String header) {
+        this.resultsHeader.add(header);
         reportBuilder.append(header);
     }
 
     /**
-     * Writes password in String format.
+     * Returns the results list of {@code Result} specified by index.
      *
-     * @param password
+     * @param index the index to in list to retrieve from.
+     * @return the specified type of Result.
      */
-    public void writePassword(Password password) {
-        reportBuilder.append(password);
-        reportBuilder.append(MESSAGE_DIVIDER);
+    public ObservableList<Result> getTargetResults(int index) {
+        List<Result> targetList = this.results.get(index);
+        ObservableList<Result> resultObservableList = FXCollections.observableArrayList();
+        resultObservableList.addAll(targetList);
+        return resultObservableList;
     }
+
+    /**
+     * Returns the header for the type of {@code Result} specified by index.
+     *
+     * @param index the index to in list to retrieve from.
+     * @return the specified header of the type of Result.
+     */
+    public String getTargetHeader(int index) {
+        return this.resultsHeader.get(index);
+    }
+
+    public List<List<Result>> getResults() {
+        return this.results;
+    }
+
     @Override
     public String toString() {
         return reportBuilder.toString();

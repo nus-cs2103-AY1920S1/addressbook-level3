@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.Analyser;
-import seedu.address.model.password.analyser.report.AnalysisReport;
+import seedu.address.model.password.analyser.report.StrongAnalysisReport;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
@@ -34,7 +34,7 @@ public class AnalyseStrongPasswordCommand extends AnalysePasswordCommand {
         if (index.getZeroBased() >= passwordList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
         }
-        AnalysisReport analysisReport = new AnalysisReport();
+        StrongAnalysisReport analysisReport = new StrongAnalysisReport();
         analysisReport.writePassword(passwordList.get(index.getZeroBased()));
         List<Analyser> analyserList = super.getRequiredAnalysers();
         for (Analyser analyser : analyserList) {
