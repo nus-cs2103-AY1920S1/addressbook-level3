@@ -312,6 +312,9 @@
     -fx-font-size: 1em;
 }
 
+.default-color0.chart-pie { -fx-pie-color: #88ffa5; }
+.default-color1.chart-pie { -fx-pie-color: #ff938c; }
+
 .stats-pane-color {
     -fx-background-color: #383838;
 }

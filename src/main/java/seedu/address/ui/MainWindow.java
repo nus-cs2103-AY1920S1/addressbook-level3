@@ -231,6 +231,7 @@ public class MainWindow extends UiPart<Stage> {
             statsPanelPlaceholder.getChildren().clear();
             stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getUniqueSubjectList());
             statsPanelPlaceholder.getChildren().add(stackBarChart.getRoot());
+            stackBarChart.setMouseover();
             break;
         case REPORT:
             statsPanelPlaceholder.getChildren().clear();

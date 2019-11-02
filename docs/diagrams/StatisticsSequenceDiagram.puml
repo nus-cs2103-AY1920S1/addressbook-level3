@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AppDataParser" as AppDataParser LOGIC_COLOR
 participant ":GetStatisticsCommandParser" as GetStatisticsCommandParser LOGIC_COLOR
-participant ":GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
+participant "g:GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
 participant "c:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -29,16 +29,16 @@ create GetStatisticsCommand
 GetStatisticsCommandParser -> GetStatisticsCommand
 activate GetStatisticsCommand
 
-GetStatisticsCommand --> GetStatisticsCommandParser
+GetStatisticsCommand --> GetStatisticsCommandParser : g
 deactivate GetStatisticsCommand
 
-GetStatisticsCommandParser --> AppDataParser
+GetStatisticsCommandParser --> AppDataParser : g
 deactivate GetStatisticsCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 GetStatisticsCommandParser -[hidden]-> AppDataParser
 destroy GetStatisticsCommandParser
 
-AppDataParser --> LogicManager
+AppDataParser --> LogicManager : g
 deactivate AppDataParser
 
 LogicManager -> GetStatisticsCommand : execute()
