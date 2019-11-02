@@ -30,21 +30,32 @@ public class EditInstallmentCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-install";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Jarvis will edit an installment in the finance "
+            + "tracker by the index number used in the displayed installment list. \n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
-            + "[" + PREFIX_MONEY + "MONEY] "
+            + "[" + PREFIX_MONEY + "MONEY] " + "\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Netflix subscription "
             + PREFIX_MONEY + "13.50";
 
-    public static final String MESSAGE_EDIT_INSTALLMENT_SUCCESS = "Edited installment: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_COMMAND_SYNTAX = "Command format: " + COMMAND_WORD + " "
+            + "INDEX (must be a positive integer) "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_MONEY + "MONEY] ";
+    public static final String MESSAGE_DESCRIPTION_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + InstallmentDescription.MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_MONEY_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + InstallmentMoneyPaid.MESSAGE_CONSTRAINTS;
+
+    public static final String MESSAGE_EDIT_INSTALLMENT_SUCCESS = "Jarvis has edited your installment! \n%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. \n"
+            + MESSAGE_COMMAND_SYNTAX;
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists in your list.";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Reversed editing on installment: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_REVERSE = "Jarvis has reversed the editing of this installment"
+            + ": %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;

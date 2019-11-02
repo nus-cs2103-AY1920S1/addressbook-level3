@@ -39,7 +39,7 @@ public class SetInstallmentCommand extends Command {
     public static final String MESSAGE_MONEY_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
             + InstallmentMoneyPaid.MESSAGE_CONSTRAINTS;
 
-    public static final String MESSAGE_SUCCESS = "Jarvis has added your installment! %1$s";
+    public static final String MESSAGE_SUCCESS = "Jarvis has added your installment! \n%1$s";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists!";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this purchase: %1$s";

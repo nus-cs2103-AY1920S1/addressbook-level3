@@ -42,9 +42,6 @@ public class FinanceParserUtil {
     public static InstallmentMoneyPaid parseInstallmentMoneySpent(String money) throws ParseException {
         requireNonNull(money);
         String trimmedMoney = money.trim();
-        if (Double.parseDouble(money) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
         return new InstallmentMoneyPaid(trimmedMoney);
     }
 
@@ -69,9 +66,6 @@ public class FinanceParserUtil {
     public static PurchaseMoneySpent parsePurchaseAmount(String moneySpent) throws ParseException {
         requireNonNull(moneySpent);
         String trimmedMoney = moneySpent.trim();
-        if (Double.parseDouble(moneySpent) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
         return new PurchaseMoneySpent(trimmedMoney);
     }
 

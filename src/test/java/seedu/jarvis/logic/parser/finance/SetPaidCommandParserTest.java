@@ -7,7 +7,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_DESC_LUNCH;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PURCHASE_MONEY_LUNCH;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.MONEY_MESSAGE_CONSTRAINTS;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +48,7 @@ public class SetPaidCommandParserTest {
     @Test
     public void parse_invalidMoneyAmount_failure() {
         assertParseFailure(parser, PURCHASE_DESC_LUNCH + INVALID_PURCHASE_MONEY,
-                MONEY_MESSAGE_CONSTRAINTS);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        SetPaidCommand.MESSAGE_AMOUNT_ERROR));
     }
 }
