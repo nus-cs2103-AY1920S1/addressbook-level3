@@ -21,7 +21,7 @@ package Command {
 Class ABCCommand
 note left: ABCCommand = \nFindCommand, \nListCommand, \nBudgetCommand, etc
 Class XYZCommand
-note left: XYZCommand = \nAddExpenseCommand, \nAddIncomeCommand, \nUndoCommand, etc
+note left: XYZCommand = \nAddExpenseCommand, \nAddIncomeCommand, etc
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 class "<<Interface>>\nUndoable" as Undoable

@@ -11,6 +11,7 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class BalanceBar
+Class FilteredBar
 Class ResultDisplay
 Class TransactionListPanel
 Class ExpenseCard
@@ -39,6 +40,7 @@ MainWindow *-down-> "1" ResultDisplay
 MainWindow *-down-> "1" TransactionListPanel
 MainWindow *-down-> "1" BalanceBar
 MainWindow *-down-> "1" StatusBarFooter
+MainWindow *-down-> "1" FilteredBar
 
 
 TransactionListPanel *-down-> "*" ExpenseCard
@@ -56,6 +58,7 @@ TransactionListPanel -down--|> UiPart
 ExpenseCard ---|> UiPart
 IncomeCard --|> UiPart
 HelpWindow ---|> UiPart
+FilteredBar ---|> UiPart
 
 TransactionListPanel ..> Model
 UiManager -right-> Logic

@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main/tree/master
 
 image::logo/logo.png[align="center"]
 
@@ -36,19 +36,95 @@ This developer guide specifies the technical and non-technical details of THRIFT
 The technical aspects include the design and architecture while the non-technical aspects include the user stories, use cases and <<nfr, NFRs>>.
 
 === About the document
+TIP: This symbol indicates a tip that you may find useful when enhancing THRIFT.
+
+NOTE: This symbol indicates information that you may want to take note of when enhancing THRIFT.
+
+WARNING: This symbol indicates information that you need to be cautious of when enhancing THRIFT.
 
 [horizontal]
 *add_expense n/Laksa v/4*:: Bold text indicates user input.
 
-_/src/java/thrift/logic/Logic.java_:: Italic text indicates that it is a file path.
+_/src/java/thrift/logic/Logic.java_:: Italic text indicates that it is a file/github path.
 
-`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name.
+`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable/parameter name.
 
 `**THRIFT**`:: Bold text with mark-up indicates a class/package name.
 
+`__Model.java__`:: Italic text with mark-up indicates a file name.
+
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+In this section, we will be introducing the way to set up THRIFT.
+
+=== Prerequisites
+
+. JDK 11 or above
+. IntelliJ IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to *File* > *Settings* > *Plugins* to re-enable them.
+
+=== Setting up the project in your computer
+
+. Fork this repo, and clone the fork to your computer
+. Open IntelliJ (if you are not in the welcome screen, click *File* > *Close Project* to close the existing project dialog first)
+. Set up the correct JDK version for Gradle
+.. Click *Configure* > *Project Defaults* > *Project Structure*
+.. Click *New...* and find the directory of the JDK
+. Click *Import Project*
+. Locate the `__build.gradle__` file and select it. Click *OK*
+. Click *Open as Project*
+. Click *OK* to accept the default settings.
+
+=== Verifying the setup
+
+. Run the `*thrift.Main*` and try a few commands
+. <<Testing,Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+
+. Go to *File* > *Settings...* (Windows/Linux), or *IntelliJ IDEA* > *Preferences...* (macOS)
+. Select *Editor* > *Code Style* > *Java*
+. Click on the *Imports* tab to set the order
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to *999* to prevent IntelliJ from contracting the import statements
+* For `Import Layout`: The order is *import static all other imports*, *import java.\**, *import javax.**, *import org.\**, *import com.**, *import all other imports*. Add a *<blank line>* between each *import*
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, the documentation will still have the THRIFT branding and refer to the _AY1920S1-CS2103T-W12-2/main_ repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to _AY1920S1-CS2103T-W12-2/main_), you should do the following:
+
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`_build.gradle_`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`_DeveloperGuide.adoc_`] and link:{repoURL}/docs/UserGuide.adoc[`_UserGuide.adoc_`] with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<Design-Architecture, THRIFT's architecture>>.
 
 == Design
 
@@ -803,15 +879,182 @@ instead of just its size
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: _config.json_).
 
 == Documentation
-Refer to the guide <<Documentation#, here>>.
+We use asciidoc for writing documentation.
 
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render .adoc files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.
+
+=== Editing Diagrams
+
+See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the _docs/_ directory to HTML format.
+.  Go to your generated HTML files in the _build/docs_ folder, right click on them and select *Open with* -> *Google Chrome*.
+.  Within Chrome, click on the *Print* option in Chrome's menu.
+.  Set the destination to *Save as PDF*, then click *Save* to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+.Saving documentation as PDF files in Chrome
+image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The link:{repoURL}/build.gradle[`_build.gradle_`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `_build.gradle_` file will use their default value, if any.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
+
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each .adoc file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
+
+[TIP]
+Attributes left unset in .adoc files will use their default value, if any.
+
+[cols="1,2a,1", options="header"]
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `_UserGuide_`, `_DeveloperGuide_`, `_AboutUs_`, `_ContactUs_`
+
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[_docs/stylesheets_] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some properties of the site's design.
+
+The files in link:{repoURL}/docs/templates[_docs/templates_] controls the rendering of .adoc files into HTML5.
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[_docs/templates_] requires some knowledge and experience with Ruby and Asciidoctor's API.
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+The THRIFT team does not provide support for modified template files.
+====
+
+[[Testing]]
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+This section describes the type of tests used in THRIFT and how it can be executed.
+
+=== Running Tests
+
+There are two ways to run tests.
+
+*Method 1: Using IntelliJ JUnit test runner*
+
+* To run all tests, right-click on the _src/test/java_ folder and choose *Run 'All Tests'*
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose *Run 'ABC'*
+
+*Method 2: Using Gradle*
+
+* Open a console and run the command *gradlew clean test* (Mac/Linux: *./gradlew clean test*)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+=== Types of tests
+
+We have three types of tests:
+
+.  _Unit tests_ targeting the lowest level methods/classes. +
+e.g. `*thrift.commons.util.StringUtilTest*`
+.  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
+e.g. `*thrift.storage.StorageManagerTest*`
+.  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
+e.g. `*thrift.logic.LogicManagerTest*`
+
+
+=== Troubleshooting Testing
+**Problem: Keyboard and mouse movements are not simulated on macOS Mojave, resulting in GUI Tests failure.**
+
+* Reason: From macOS Mojave onwards, applications without `Accessibility` permission cannot simulate certain keyboard and mouse movements.
+* Solution: Open *System Preferences*, click *Security and Privacy* -> *Privacy* -> *Accessibility*, and check the box beside *Intellij IDEA*.
+
+.`Accessibility` permission is granted to *IntelliJ IDEA*
+image::testfx-idea-accessibility-permissions.png[width="600"]
 
 == Dev ops
+This section describes the practices and tools used during development.
 
-Refer to the guide <<DevOps#, here>>.
+=== Build Automation
+
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+
+=== Continuous Integration
+
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+
+=== Coverage Reporting
+
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+
+=== Documentation Previews
+
+When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+
+=== Making a Release
+
+Here are the steps to create a new release.
+
+.  Update the version number in link:{repoURL}/src/main/java/thrift/MainApp.java[`_MainApp.java_`].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Tag the repo with the version number. e.g. v0.1
+.  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
+
+=== Managing Dependencies
+
+A project often depends on third-party libraries. For example, THRIFT depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+
+[loweralpha]
+. Include those libraries in the repo (this bloats the repo size)
+. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product scope
