@@ -38,7 +38,7 @@ class JsonAdaptedRecord {
     public JsonAdaptedRecord(Record source) {
         type = source.getType().type;
         value = String.valueOf(source.getValue().value);
-        timestamp = source.getTimestamp().timestamp;
+        timestamp = source.getTimestamp().toString();
     }
 
     /**

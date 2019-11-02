@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.common.Name;
+import dukecooks.model.profile.person.Name;
 import dukecooks.testutil.Assert;
 
 public class JsonAdaptedPersonTest {
