@@ -353,7 +353,7 @@ This command adds a deadline to a person's reimbursement.
 
 . Type the command with all parameters filled in, as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[]
 
 [start = 2]
@@ -363,7 +363,7 @@ If the deadline is successfully added, Leo will respond with a success message a
 deadline will now show for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
 
-.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
+//.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[]
 
 [NOTE]
@@ -388,7 +388,7 @@ This command finds the reimbursement for a specified person.
 
 . Type the command, along with the person's name you'd like to find into command box:
 
-.Screenshot of the user input into Command Box for Find Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Find Command in Reimbursement Tab
 image::Reimbursement/ReimbursementFindCommand.png[]
 
 [start = 2]
@@ -397,7 +397,7 @@ image::Reimbursement/ReimbursementFindCommand.png[]
 Leo will respond with a success message and the tab will show the person's corresponding reimbursement, if it exists. +
 Otherwise, Leo will show an error message indicating that the person is not in reimbursement list.
 
-.Diagram of successful find command in reimbursement tab
+//.Diagram of successful find command in reimbursement tab
 image::Reimbursement/ReimbursementFindCommandSuccess.png[]
 
 ==== Going Back to Display the Full List
@@ -408,7 +408,7 @@ This command helps to display the full reimbursement list after `find` and `dead
 * Steps:
 . Type `back` into the Command Box
 
-.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
+//.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[]
 
 [start = 2]
@@ -416,7 +416,7 @@ image::Reimbursement/ReimbursementBackCommand.png[]
 
 The tab will now show the full reimbursement list.
 
-.Screenshot of a successful user input for Back Command in Reimbursement Tab
+//.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[]
 
 ==== Marking a Command as Done
@@ -429,7 +429,7 @@ This command helps to mark a reimbursement as done and remove it from reimbursem
 . Type the command, along with the person's name whose reimbursement is to be marked as done,
 as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommand.png[]
 
 [start = 2]
@@ -437,7 +437,7 @@ image::Reimbursement/ReimbursementDoneCommand.png[]
 
 The reimbursement for that person will be removed from the tab, as shown below:
 
-.Screenshot of a successful user input for Done Command in Reimbursement Tab
+//.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[]
 
 ==== Sorting the List Based on Amount
@@ -448,7 +448,7 @@ This command helps to sort the reimbursement lists based on amount, in descendin
 * Steps:
 . Type the command `sort amount`, as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[]
 
 [start = 2]
@@ -456,7 +456,7 @@ image::Reimbursement/ReimbursementSortAmountCommand.png[]
 
 The reimbursements are sorted in descending order of the amount.
 
-.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
+//.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[]
 
 ==== Sorting the list based on name: `sort name`
@@ -467,7 +467,7 @@ This command helps to sort the reimbursement lists based on name, in alphabetica
 * Steps:
 . Type the command `sort name`, as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommand.png[]
 
 [start = 2]
@@ -475,7 +475,7 @@ image::Reimbursement/ReimbursementSortNameCommand.png[]
 
 The reimbursements are sorted in alphabetical order of person's name.
 
-.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
+//.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortNameCommandSuccess.png[]
 
 ==== Sorting the list based on deadline: `sort date`
@@ -486,7 +486,7 @@ This command helps to sort the reimbursement lists based on deadline, in order o
 * Steps:
 . Type the command `sort date `, as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommand.png[]
 
 [start = 2]
@@ -494,7 +494,7 @@ image::Reimbursement/ReimbursementSortDateCommand.png[]
 
 The reimbursements are sorted by deadline date.
 
-.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
+//.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[]
 
 === Inventory Tab
@@ -530,7 +530,7 @@ The attributes can also be inputted in any order.
 * Steps:
 . Type the command with all parameters filled in, as shown in the screenshot below:
 
-.Screenshot of the user input into the Command Box for the Add Command in the Inventory Tab
+//.Screenshot of the user input into the Command Box for the Add Command in the Inventory Tab
 image::inventoryUG/AddStep1.png[]
 
 [start = 2]
@@ -539,7 +539,7 @@ image::inventoryUG/AddStep1.png[]
 If the command is successfully added, Leo will respond with a success message and the item
 will be shown in the table. This is shown in the screenshot below:
 
-.Screenshot of a successful user input for the Add Command in the Inventory Tab
+//.Screenshot of a successful user input for the Add Command in the Inventory Tab
 image::inventoryUG/AddSuccess.png[]
 
 [NOTE]
@@ -558,7 +558,7 @@ Example:
 * Steps:
 . Type the command with the ID of the item to be deleted as shown below:
 
-.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
+//.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteStep1.png[]
 
 [start = 2]
@@ -566,7 +566,7 @@ image::inventoryUG/DeleteStep1.png[]
 
 Leo will respond with a success message and the item will be removed from the table as shown below:
 
-.Screenshot of a successful user input for the Delete Command in the Inventory Tab
+//.Screenshot of a successful user input for the Delete Command in the Inventory Tab
 image::inventoryUG/DeleteSuccess.png[]
 
 ==== Edit an Item:
@@ -585,7 +585,7 @@ You may edit any combination, permutation and number of the attributes, as long 
 * Steps:
 . Type the command with the ID of the item to be edited, along with the new parameters to be changed, as shown below:
 
-.Screenshot of user input into Command Box for the Edit Command in the Inventory Tab
+//.Screenshot of user input into Command Box for the Edit Command in the Inventory Tab
 image::inventoryUG/EditStep1.png[]
 
 [start = 2]
@@ -593,7 +593,7 @@ image::inventoryUG/EditStep1.png[]
 
 Leo will respond with a success message and the updated item will be shown in the table as shown below:
 
-.Screenshot of a successful user input for the Edit Command in the Inventory Tab
+//.Screenshot of a successful user input for the Edit Command in the Inventory Tab
 image::inventoryUG/EditSuccess.png[]
 
 ==== Sort Items:
@@ -673,19 +673,19 @@ Steps:
 
 1. Type the command with a category specified as shown in the screenshot below:
 
-.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
+//.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand1.png[]
 
 [start = 2]
 2. Enter the required description and quantity according to the items suggested by Leo as shown below:
 
-.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
+//.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand2.png[]
 
 [start = 3]
 . Hit `Enter`
 
-.Screenshot of the response message for Add Command in Cashier Tab
+//.Screenshot of the response message for Add Command in Cashier Tab
 image::cashierUG/AddCommand3.png[]
 
 Leo will respond to the successful addition with a response message.
@@ -705,13 +705,13 @@ The specified index should correspond to the row index of the item on the table.
 
 1. Type the command with an index specified as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
+//.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of the response message for Delete Command in Cashier Tab
+//.Screenshot of the response message for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand2.png[]
 
 Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
@@ -744,19 +744,19 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 
 1.1 To edit by index, enter the command with an index and quantity specified as shown in the screenshot below:
 
-.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
+//.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand1.png[]
 
 [start = 2]
 1.2. To edit by description, enter the required description and quantity as shown below:
 
-.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
+//.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
 image::cashierUG/EditCommand3.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of response message for Edit Command in Cashier Tab
+//.Screenshot of response message for Edit Command in Cashier Tab
 image::cashierUG/EditCommand3.png[]
 
 If successfully updated, Leo will respond with a response message. The quantity will be updated in the table.
@@ -784,13 +784,13 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 1. Type the command with a cashier's name specified as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
+//.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of response message for Set Cashier Command in Cashier Tab
+//.Screenshot of response message for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand2.png[]
 
 If set successfully, Leo will respond with a response message. The cashier in the bottom row will be updated.
@@ -819,13 +819,13 @@ The cashier must be set before checking out. Else, checkout cannot proceed.
 
 1. Type the command with the amount that the customer is paying as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
+//.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of response message for Checkout Command in Cashier Tab
+//.Screenshot of response message for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand2.png[]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
@@ -851,13 +851,13 @@ This command is irreversible. Please use at your own discretion.
 
 1. Type only the "clear" command word as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Clear Command in Cashier Tab
+//.Screenshot of user input into Command Box for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand1.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of response message for Clear Command in Cashier Tab
+//.Screenshot of response message for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand2.png[]
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
@@ -897,13 +897,13 @@ The amount should be non-negative.
 * Steps:
 . Type the command with the corresponding target and amount.
 
-.Screenshot of user input into Command Box for Set Command in Overview Tab
+//.Screenshot of user input into Command Box for Set Command in Overview Tab
 image::overviewUG/SetCommandExample.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of a successful user input for Set Command in Overview Tab
+//.Screenshot of a successful user input for Set Command in Overview Tab
 image::overviewUG/SetCommandResult.png[]
 
 Leo displays a confirmation showing that the goal was successfully set. +
@@ -927,13 +927,13 @@ The percentage value should be a value from 0 - 100.
 * Steps:
 . Type the command with the corresponding target and amount.
 
-.Screenshot of user input into Command Box for Notify Command in Overview Tab
+//.Screenshot of user input into Command Box for Notify Command in Overview Tab
 image::overviewUG/NotifyCommandExample.png[]
 
 [start = 2]
 . Hit `Enter`
 
-.Screenshot of a successful user input for Notify Command in Overview Tab
+//.Screenshot of a successful user input for Notify Command in Overview Tab
 image::overviewUG/NotifyCommandResult.png[]
 
 Leo displays a confirmation showing that the notification was successfully set. +
@@ -946,7 +946,7 @@ Notifications show only once per app run, or whenever a target or threshold is m
 
 The following screenshot shows an example of the notifications:
 
-.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
+//.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
 image::overviewUG/NotificationExample.png[]
 
 === Saving the data
