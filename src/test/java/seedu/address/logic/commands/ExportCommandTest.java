@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_HISTOR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_JSON_EXPORT_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalFlashCards.NUS;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
@@ -22,6 +23,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.category.Category;
 import seedu.address.model.export.DocumentPath;
+import seedu.address.model.export.ExportPath;
+import seedu.address.model.export.JsonExportPath;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -32,6 +35,7 @@ public class ExportCommandTest {
     private DocumentPath firstDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_1);
     private DocumentPath secondDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_2);
     private DocumentPath thirdDocumentPath = new DocumentPath(VALID_DOCUMENT_PATH_2);
+    private JsonExportPath firstJsonExportPath = new JsonExportPath(VALID_JSON_EXPORT_PATH_1);
     private Category firstCategory = new Category(VALID_CATEGORY_HISTORY);
     private Category secondCategory = new Category(VALID_CATEGORY_LOCATION);
     private Category thirdCategory = new Category(VALID_CATEGORY_LOCATION);
@@ -40,6 +44,7 @@ public class ExportCommandTest {
     private ExportCommand secondCommand = new ExportCommand(secondCategory, secondDocumentPath);
     private ExportCommand thirdCommand = new ExportCommand(thirdCategory, thirdDocumentPath);
     private ExportCommand fourthCommand = new ExportCommand(firstCategory, secondDocumentPath);
+    private ExportCommand fifthCommand = new ExportCommand(secondCategory, firstJsonExportPath);
 
     @Test
     public void equals() {
@@ -64,7 +69,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_validInput_fileCreated() {
+    public void execute_validInputDocument_fileCreated() {
         model.addFlashCard(NUS);
         String expectedMessage = String.format(
                 ExportCommand.MESSAGE_EXPORT_SUCCESS,
@@ -78,20 +83,35 @@ public class ExportCommandTest {
         deleteFileIfExists(secondDocumentPath);
     }
 
-    private boolean isFilePresent(DocumentPath documentPath) {
+    @Test
+    public void execute_validInputJson_fileCreated() {
+        model.addFlashCard(NUS);
+        String expectedMessage = String.format(
+                ExportCommand.MESSAGE_EXPORT_SUCCESS,
+                1,
+                firstJsonExportPath.toAbsolutePathString()
+        );
+
+        deleteFileIfExists(firstJsonExportPath);
+        assertCommandSuccess(fifthCommand, model, expectedMessage, model);
+        assertTrue(isFilePresent(firstJsonExportPath));
+        deleteFileIfExists(firstJsonExportPath);
+    }
+
+    private boolean isFilePresent(ExportPath exportPath) {
         return isFileExists(
-                documentPath.getPath()
+                exportPath.getPath()
         );
     }
 
-    private void deleteFile(DocumentPath documentPath) {
-        File file = new File(documentPath.toString());
+    private void deleteFile(ExportPath exportPath) {
+        File file = new File(exportPath.toString());
         file.delete();
     }
 
-    private void deleteFileIfExists(DocumentPath documentPath) {
-        if (isFilePresent(documentPath)) {
-            deleteFile(documentPath);
+    private void deleteFileIfExists(ExportPath exportPath) {
+        if (isFilePresent(exportPath)) {
+            deleteFile(exportPath);
         }
     }
 
