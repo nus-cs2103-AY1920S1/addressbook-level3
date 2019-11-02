@@ -64,7 +64,7 @@ public class ImportCommand extends Command {
 
         if (optionalList.isEmpty()) {
             return new CommandResult(
-                    "Could not find any flashcards to import."
+                    "Could not find any flashcards to import. Are you sure you got the path correct?"
             );
         } else {
             List<FlashCard> list = optionalList.get();
