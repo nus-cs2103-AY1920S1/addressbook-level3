@@ -116,7 +116,9 @@ public class WordBank implements ReadOnlyWordBank {
         if (other == null) {
             return false;
         }
-        return getName().equals(other.getName());
+        String s1 = getName().toLowerCase();
+        String s2 = other.getName().toLowerCase();
+        return s1.equals(s2);
     }
 
     public String getName() {

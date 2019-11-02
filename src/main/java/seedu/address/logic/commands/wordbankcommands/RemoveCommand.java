@@ -30,13 +30,13 @@ public class RemoveCommand extends WordBankCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankFromName(wordBankName);
-        if (wb == null) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
+        if (model.hasWordBank(wordBankName)) {
+            WordBank wb = model.getWordBankFromName(wordBankName);
+            model.updateWordBank(wordBankName);
+            return new RemoveCommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName), wordBankName);
+        } else {
+            throw new CommandException(Messages.MESSAGE_INVALID_WORD_BANK_NAME);
         }
-
-        model.updateWordBank(wordBankName);
-        return new RemoveCommandResult(String.format(MESSAGE_REMOVE_CARD_SUCCESS, wordBankName), wordBankName);
     }
 
     @Override
