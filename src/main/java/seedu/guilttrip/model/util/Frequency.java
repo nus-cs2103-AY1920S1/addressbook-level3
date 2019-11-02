@@ -39,21 +39,26 @@ public enum Frequency {
         case "every day":
         case "everyday":
         case "every night":
+        case "day":
             return DAILY;
         case "fortnightly":
             return FORTNIGHTLY;
         case "monthly":
-        case "mthly":
+        case "mth":
         case "every month":
+        case "month":
             return MONTHLY;
         case "quarterly":
             return QUARTERLY;
         case "yearly":
         case "anually":
+        case "year":
+        case "yr":
             return ANUALLY;
         case "weekly":
-        case "wkly":
+        case "wk":
         case "every week":
+        case "week":
         default:
             return WEEKLY;
         }
