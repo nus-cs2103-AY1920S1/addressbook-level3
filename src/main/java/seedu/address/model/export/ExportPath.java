@@ -22,5 +22,5 @@ public abstract class ExportPath {
     public abstract Path getPath();
     public abstract String toAbsolutePathString();
     public abstract void export(List<FlashCard> list) throws IOException;
-    public abstract Optional<List<FlashCard>> importFrom() throws IOException, DataConversionException, UnsupportedOperationException;
+    public abstract Optional<List<FlashCard>> importFrom() throws DataConversionException, UnsupportedOperationException;
 }

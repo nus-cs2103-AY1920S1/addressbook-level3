@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -115,6 +117,13 @@ public class JsonExportPath extends ExportPath {
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    @Override
+    public Optional<List<FlashCard>> importFrom() throws DataConversionException {
+        return JsonImportUtil.importFlashCardsFromJson(
+                this
+        );
     }
 
     /**

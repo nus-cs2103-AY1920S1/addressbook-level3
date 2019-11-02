@@ -5,7 +5,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,8 +12,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.export.ExportPath;
-import seedu.address.model.export.JsonExportPath;
-import seedu.address.model.export.JsonImportUtil;
 import seedu.address.model.flashcard.FlashCard;
 
 /**
@@ -47,18 +44,11 @@ public class ImportCommand extends Command {
         requireNonNull(model);
 
         try {
-            //TODO TODO oughta delegate to the exportpath.
-            if (exportPath instanceof JsonExportPath) {
-                return importFromJsonPath(
-                        (JsonExportPath) exportPath,
-                        model
-                );
-            } else {
-                throw new CommandException("need json path");
-            }
-        } catch (IOException e) {
-            throw new CommandException(e.getMessage());
-        } catch (DataConversionException e) {
+            return applyImport(
+                    model,
+                    exportPath.importFrom()
+            );
+        } catch (DataConversionException | UnsupportedOperationException e) {
             throw new CommandException(e.getMessage());
         }
     }
@@ -70,15 +60,11 @@ public class ImportCommand extends Command {
                 && exportPath.equals(((ImportCommand) other).exportPath)); // state check
     }
 
-    private CommandResult importFromJsonPath(JsonExportPath jsonExportPath, Model model)
-            throws IOException, DataConversionException {
-        Optional<List<FlashCard>> optionalList = JsonImportUtil.importFlashCardsFromJson(
-                jsonExportPath
-        );
+    private CommandResult applyImport(Model model, Optional<List<FlashCard>> optionalList) {
 
         if (optionalList.isEmpty()) {
             return new CommandResult(
-                    "cannot find eh"
+                    "Could not find any flashcards to import"
             );
         } else {
             List<FlashCard> list = optionalList.get();
