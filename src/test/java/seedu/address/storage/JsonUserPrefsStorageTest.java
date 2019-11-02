@@ -101,7 +101,6 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void saveUserPrefs_allInOrder_success() throws DataConversionException, IOException {
-
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 

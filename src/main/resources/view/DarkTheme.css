@@ -17,7 +17,7 @@
 }
 
 .label-bright-footnote {
-    -fx-font-size: 8pt;
+    -fx-font-size: 9pt;
     -fx-font-family: "Gill Sans MT";
     -fx-text-fill: white;
     -fx-opacity: 1;
@@ -39,6 +39,14 @@
     -fx-background-color: derive(#121924, 20%);
     -fx-border-color: derive(#5a5a5a, 10%);
     -fx-border-width: 0 0 2 0;
+}
+
+#helpMessage, #userGuideURL, #quickGuide {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Gill Sans MT";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+    -fx-line-spacing: 5px;
 }
 
 .text-field {
@@ -130,6 +138,15 @@
     -fx-background-color: #2e3f64;
 }
 
+.list-cell #visitCardPane {
+    -fx-background-color: derive(#121924, 20%);
+    -fx-border-width: 0 0 0 5;
+    -fx-border-color: #b4b4b4;
+    -fx-border-insets: 10px;
+}
+
+/*
+ * Disabled change of color upon mouse click
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
 }
@@ -143,6 +160,7 @@
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
+*/
 
 .list-cell .label {
     -fx-text-fill: white;
@@ -177,7 +195,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Gill Sans MT";
-    -fx-font-size: 13pt;
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
 }
 
@@ -243,16 +261,16 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 4 22 4 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 1;
-    -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
-    -fx-font-family: "Gill Sans MT", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
-}
+     -fx-padding: 4 20 4 20;
+     -fx-border-color: #e2e2e2;
+     -fx-border-width: 1;
+     -fx-background-radius: 0;
+     -fx-background-color: #1d1d1d;
+     -fx-font-family: "Gill Sans MT", Helvetica, Arial, sans-serif;
+     -fx-font-size: 11pt;
+     -fx-text-fill: #d8d8d8;
+     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+ }
 
 .button:hover {
     -fx-background-color: #3a3a3a;
@@ -284,6 +302,22 @@
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color, 30%);
+}
+
+/*
+ * Custom Button Class for Profile Generation
+ */
+
+.profileButton {
+    -fx-padding: 4 10 4 10;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 1;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Gill Sans MT", Helvetica, Arial, sans-serif;
+    -fx-font-size: 7pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .dialog-pane {

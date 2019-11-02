@@ -192,23 +192,23 @@ An unfortunate side effect to matching the longest matching macro increases the 
 
 // end::alias[]
 
-[[followupImplementation]]
-// tag::followup[]
-=== Follow-up and Reminders feature
+[[appointmentsImplementation]]
+// tag::appointments[]
+=== Appointments feature
 ==== Implementation
-Both mechanisms are facilitated by the `Reminder` class.
+The Appointments feature comprises of Reminders and Follow-Ups. Both mechanisms are facilitated by the `AppointmentTable` class, with individual Appointment data stored in the `Appointment` class.
 
 It implements the following operations:
 
-* `Reminder#addReminder(reminder)` -- Adds a new reminder.
-* `Reminder#getReminders()` -- Retrieves the reminders for output.
+* `AppointmentTable#addAppointment(appointment)` -- Adds a new appointment.
+* `AppointmentTable#outputAppointments()` -- Retrieves the appointments for output.
 
-These operations are exposed in the `Model` interface as `Model#addReminder(reminder)` and `Model#getReminders()` respectively.
+These operations are exposed in the `Model` interface as `Model#addAppointment(reminder)` and `Model#outputAppointments()` respectively.
 
 The following sequence diagram shows how adding a follow-up or reminder works:
 
-image::AddReminderSequenceDiagram.png[]
-// end::followup[]
+image::AddAppointmentSequenceDiagram.png[]
+// end::appointments[]
 
 [[profileImplementation]]
 // tag::profile[]
@@ -222,20 +222,17 @@ Given below is a simple example usage scenario demonstrate how Profile feature b
 Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
 
 image::Profile0.png[]
-_{Show activity diagram of opening profile window}_
 
 Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
 
 image::Profile1.png[]
-_{Show activity diagram of closing profile window}_
 
 [NOTE]
 The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
 
-This sequence diagram summarizes what happens when a user executes the Profile Command:
+This sequence diagram fully shows what happens when a user executes the Profile Command:
 
-image::ProfileSequenceDiagram.png[]
-_{Show extended sequence diagram of opening and closing profile window}_
+image::ProfileSequenceDiagram1.png[]
 
 ==== Design Considerations
 

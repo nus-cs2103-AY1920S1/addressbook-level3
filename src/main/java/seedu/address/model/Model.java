@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Appointment;
 
 /**
  * The API of the Model component.
@@ -13,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -79,6 +84,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -86,16 +94,35 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
+    /**
      * Adds the given reminder.
      * @param type Type of reminder - 0 for reminder and 1 for follow-up
+     * @param description Description of the appointment
      * @param days Number of days for the reminder
      */
-    void addReminder(int type, String description, int days);
+    void addAppointment(int type, String description, int days) throws CommandException;
+
+    /**
+     * Deletes the given reminder.
+     * @param description Description of the appointment
+     * @param days Number of days for the reminder
+     */
+    void deleteAppointment(String description, int days);
+
+    /**
+     * Sorts the appointments by date.
+     */
+    void sortAppointments();
 
     /**
      * Creates a String with all reminders and follow-ups for easy display.
      */
-    String outputReminders();
+    String outputAppointments();
 
     /**
      * Adds a given alias into the alias table.

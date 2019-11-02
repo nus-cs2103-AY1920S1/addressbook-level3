@@ -64,7 +64,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 
 ==== Viewing help : `help`
 
-Shows a list of available user commands. +
+Shows a quick list of user commands. A link to this User Guide is also provided for the full overview of commands. +
 Format: `help`
 
 ==== Exiting the program : `exit`
@@ -74,7 +74,10 @@ Format: `exit`
 
 
 === *Viewing and Managing Patients*
+
+====
 VISIT can store all the patient information for doctors to have them easily accessible. The following commands enable doctors to be able to add patients and their relevant particulars to be tracked by VISIT, and also view a list of patients that have been entered.
+====
 
 ==== Listing all patients : `list`
 
@@ -134,6 +137,26 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any patient having names `Betsy`, `Tim`, or `John`
 
+==== Viewing a Patient's Full Profile : `profile`
+
+Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing `q` to quit, or `p` to generate a text file of the profile. +
+Format: `profile INDEX`
+
+[NOTE]
+Generated text version of profiles are saved under the `generated_profiles` folder of the application.
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+* The generated text file will overwrite the older text file if it exists.
+****
+
+*Examples*:
+
+* `profile 2` +
+Opens up a pop-up panel detailing the profile of the patient with the index of 2.
+
 // tag::delete[]
 ==== Deleting a patient : `delete`
 
@@ -161,100 +184,84 @@ Deletes the 1st patient in the results of the `find` command.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Setting shorthand commands: `alias`
-
-Set an alias for a command to do shorthand. +
-Format: `alias l/[SHORTHAND] v/[COMMAND]`
-
-Examples:
-
-* `alias l/ls v/list` +
-Typing `ls` now works equivalently as `list`.
-* `alias l/h v/help` +
-Typing `h` now works equivalently as `help`.
-
-=== Deleting shorthand commands: `unalias`
-
-Delete a existing alias. +
-Format: `unalias [SHORTHAND]`
-
-Examples:
-
-* `unalias ls` +
-Typing `ls` is no longer equivalent to `list`.
-
-=== Showing all existing aliases: `showalias`
-
-Show all existing aliases. +
-Format: `showalias`
-
-Examples:
-
-* `showalias` +
-Shows all the existing aliases.
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Viewing Full Profile : `profile`
-
 [WARNING]
 Be careful when entering this, as this will erase all patient data from VISIT!
 
 
 === *Viewing and Managing Visits*
+
+====
 VISIT enables doctors to also track the visitations for each patient, allowing the specification of diagnosis, medications prescribed as well as other general comments per visit.
-
-==== Viewing Full Profile : `profile`
-
-Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing q to quit, or p to generate a text file of the profile. +
-Format: `profile INDEX`
-
-****
-* Shows full profile for the patient at the specified INDEX.
-* The index refers to the index number shown in the displayed patient list.
-* The index must be a positive integer 1, 2, 3, …
-* The generated text file will overwrite the older text file if it exists.
-****
-
-*Examples*:
-
-* `profile 2` +
-Opens up a pop-up panel detailing the profile of the patient with the index of 2.
+====
 
 ==== Adding a new visitation report for a patient : `addvisit`
 Opens a pop-up panel that enables the specification of a new visitation report for a particular patient. +
+
 Format: `addvisit INDEX [v/DATE]`
 
-* Date must be in the "dd/MM/yyyy" format (i.e. `v/19/10/2019`)
+*Example*:
 
+Let's say that you have just got a patient's folder of past visits and you want to record a house call made on 3rd January 2019.
+The patient is 1st in the list.
+
+To enter the details of the report into VISIT:
+
+1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
++
+image::UGAddVisit0.png[width="790"]
++
+* Date must be in the "dd/MM/2yyy" format (i.e. `v/19/10/2019`)
 [TIP]
-If no date is specified, `addvisit` will default to the current local date of the computer.
+If no date is specified and the command is used without the prefix 'v/' (for example `addvisit 1`), the report will default to the current local date of the computer.
+2. Key in the details in the respective fields of the pop-up form that appears.
++
+image::UGAddVisit1.png[width="790"]
++
+* Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
+* Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
+3. Click the kbd:[Submit] button or press kbd:[F2] to save your entry.
+4. The pop-up form closes and the display box will display a message indicating a successful entry.
++
+image::UGAddVisit2.png[width="790"]
++
 
-*Examples*:
+[NOTE]
+While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
 
-* `addvisit 1` +
-Adds new visitation report for the patient at index 1, defaulting to the current date on the computer. A new panel allowing the specifications of the visitation to be entered.
-
-* `addvisit 1 v/19/10/2019` +
-Adds new visitation report dated 19th of October 2019, will be added for the patient at index 1. A new panel allowing the specifications of the visitation to be entered.
-
+image::UGAddVisit3.png[width="790"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
 Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
 Format: `editvisit INDEX [i/REPORT INDEX]`
 
 [NOTE]
-If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit, simply re-enter the command with the desired report index.
+If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
 
-*Examples*:
+image::UGEditVisit0.png[width="790"]
 
-* `editvisit 1` +
-A panel will appear showing the list of visits for the patient at index 1 along with the relevant report indexes.
-* `editvisit 1 i/1` +
-A panel will appear to allow for the amendment of the 1st visitation report of the person at index 1.
+*Example*:
+
+Let's say you want to edit the 2nd visit report of a patient and the patient is the 3rd name in the list.
+
+1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
++
+image::UGEditVisit1.png[width="790"]
++
+2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
++
+image::UGEditVisit2.png[width="790"]
++
+* Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
+* Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
+3. Click the kbd:[Submit] button or press kbd:[F2] to save your edits.
+4. The pop-up form closes and the display box will display a message indicating a successful entry.
+
+image::UGEditVisit3.png[width="790"]
+
+[NOTE]
+An error will be thrown if the report with the given report index does not exist or the index given is not a number.
+
+image::UGEditVisit4.png[width="790"]
 
 ==== Deleting a visitation report : `deletevisit`
 
@@ -264,16 +271,34 @@ Format: `deletevisit INDEX [d/REPORT INDEX]`
 [NOTE]
 If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
-*Examples*:
+image::UGDeleteVisit0.png[width="790"]
 
-* `deletevisit 1` +
-A panel will appear showing the list of visits for the patient at index 1 along with the relevant report indexes.
-* `deletevisit 1 d/1` +
-The 1st visitation report of the person at index 1 will be deleted.
+*Example*:
 
+Let's say you want to delete the 1st visit report of a patient and the patient is the 2nd name in the list.
+
+1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
++
+image::UGDeleteVisit1.png[width="790"]
++
+2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
+
+image::UGDeleteVisit2.png[width="790"]
+
+[NOTE]
+An error will be thrown if the report with the given report index does not exist or the index given is not a number.
+
+image::UGDeleteVisit3.png[width="790"]
+
+For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
+
+image::UGNoRecords.png[width="790"]
 
 === *Follow-Ups and Reminders*
+
+====
 VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up appointments or other timed reminders.
+====
 
 ==== Adding a follow-up reminder with patient : `followup`
 
@@ -306,8 +331,12 @@ Creates a reminder “Two Point Hospital closed” that will display at launch f
 Shows a pop-up containing the message of the day text. +
 Format: `show`
 
+
 === *Optimization for Command-Line Interface (CLI) Users*
+
+====
 VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
+====
 
 ==== Setting a shorthand command / alias : `alias`
 
@@ -321,15 +350,25 @@ Typing `ls` now works equivalently as typing `list`.
 * `alias l/show all patients v/list` +
 Typing `show all patients` now works equivalently as typing `list`.
 
-==== Deleting a shorthand commands / alias : `deletealias`
+==== Removing a shorthand command / alias : `unalias`
 
 Delete an existing alias. +
-Format: `deletealias SHORTHAND`
+Format: `unalias SHORTHAND`
 
 *Examples*:
 
-* `deletealias ls` +
+* `unalias ls` +
 Typing `ls` will no longer be equivalent to typing `list`.
+
+==== Showing all existing shorthand commands / aliases : `aliaslist`
+
+Show all existing aliases. +
+Format: `aliaslist`
+
+Examples:
+
+* `aliaslist` +
+Shows all the existing aliases.
 
 === *Saving the data*
 
@@ -381,14 +420,14 @@ e.g. `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234
 e.g. `edit 2 n/Betsy Crower t/`
 * *Locating patient by name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find Betsy Tim John`
+* *Viewing Full Profile* : `profile INDEX` +
+e.g. `profile 1`
 * *Deleting a patient* : `delete INDEX` +
 e.g. `delete 2`
 * *Clearing all patient data* : `clear`
 
 === *Viewing and Managing Visits*
 
-* *Viewing Full Profile* : `profile INDEX` +
-e.g. `profile 1`
 * *Adding a new visitation report for a patient* : `addvisit INDEX [v/DATE]` +
 e.g. `addvisit 1 v/19/10/2019`
 * *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT INDEX]` +
@@ -408,5 +447,6 @@ e.g. `reminder Two Point Hospital closed d/7`
 
 * *Setting a shorthand command / alias* : `alias l/SHORTHAND v/COMMAND` +
 e.g. `alias l/show all patients v/list`
-* *Deleting a shorthand commands / alias* : `deletealias SHORTHAND` +
-e.g. `deletealias show all patients`
+* *Removing a shorthand command / alias* : `unalias SHORTHAND` +
+e.g. `unalias show all patients`
+* *Showing all existing shorthand commands / aliases* : `aliaslist`

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.VisitReport;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,11 +34,13 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private MotdWindow motdWindow;
     private VisitRecordWindow visitWindow;
     private VisitListPanel visitListPanel;
+    private EmptyVisitList emptyVisitList;
     private AliasListWindow aliasListWindow;
     private ProfileWindow profilePanel;
 
@@ -53,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane reminderListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -72,6 +76,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(visitWindow.getMessage());
         });
         visitListPanel = new VisitListPanel();
+        emptyVisitList = new EmptyVisitList();
         aliasListWindow = new AliasListWindow();
         profilePanel = new ProfileWindow();
     }
@@ -126,6 +131,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        reminderListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 
     /**
@@ -180,6 +188,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         visitWindow.hide();
         visitListPanel.hide();
+        emptyVisitList.hide();
         profilePanel.hide();
         primaryStage.hide();
     }
@@ -202,6 +211,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleShowVisitForm() {
+        if (visitListPanel.isShowing()) {
+            visitListPanel.hide();
+        }
         if (!visitWindow.isShowing()) {
             visitWindow.show();
         } else {
@@ -218,6 +230,18 @@ public class MainWindow extends UiPart<Stage> {
             visitListPanel.show();
         } else {
             visitListPanel.focus();
+        }
+    }
+
+    /**
+     * Opens the empty visit list prompt window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleEmptyVisitList() {
+        if (!emptyVisitList.isShowing()) {
+            emptyVisitList.show();
+        } else {
+            emptyVisitList.focus();
         }
     }
 
@@ -271,14 +295,20 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowVisitList()) {
-                visitListPanel.setup(commandResult.getObservableVisitList());
-                handleShowVisitList();
+                ObservableList<VisitReport> visits = commandResult.getObservableVisitList();
+                if (visits.isEmpty()) {
+                    handleEmptyVisitList();
+                } else {
+                    visitListPanel.setup(visits);
+                    handleShowVisitList();
+                }
             }
 
             if (commandResult.isShowProfile()) {
-                profilePanel.setup(commandResult.getProfilePerson());
+                profilePanel.setup(commandResult.getProfilePerson(), logic);
                 handleProfilePanel();
             }
+
             if (commandResult.isShowAliasList()) {
                 aliasListWindow.setup(commandResult.getFeedbackToUser());
                 handleAliasListWindow();

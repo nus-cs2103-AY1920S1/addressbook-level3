@@ -64,12 +64,19 @@
                     </padding>
                     <StackPane fx:id="personListPanelPlaceholder" prefWidth="178.0" VBox.vgrow="ALWAYS" />
                    </VBox>
-                  <VBox fx:id="reminderList" prefWidth="466.0" styleClass="pane-with-border" GridPane.rowIndex="1" GridPane.rowSpan="4" />
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Patients" GridPane.columnIndex="1">
+                  <VBox fx:id="appointmentList" prefWidth="466.0" styleClass="pane-with-border" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                     <children>
+                        <StackPane fx:id="reminderListPanelPlaceholder" prefWidth="100.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </VBox>
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Patients 👪" GridPane.columnIndex="1">
                      <padding>
                         <Insets left="10.0" />
                      </padding></Label>
-                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Appointments">
+                  <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="label-header" text="Appointments 📆">
                      <padding>
                         <Insets left="10.0" />
                      </padding>
@@ -77,7 +84,7 @@
                </children>
             </GridPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane fx:id="resultDisplayPlaceholder" minHeight="120.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
