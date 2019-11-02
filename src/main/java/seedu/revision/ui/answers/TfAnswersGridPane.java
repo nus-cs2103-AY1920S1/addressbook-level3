@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 
@@ -15,9 +16,9 @@ public class TfAnswersGridPane extends AnswersGridPane {
     private final Logger logger = LogsCenter.getLogger(TfAnswersGridPane.class);
 
     @FXML
-    private Button option1;
+    private Label option1;
     @FXML
-    private Button option2;
+    private Label option2;
 
     /**
      * Instantiates TfAnswersGridPane to display True and False answers.

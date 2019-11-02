@@ -30,6 +30,8 @@ import seedu.revision.ui.bar.ProgressIndicatorBar;
 import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
 import seedu.revision.ui.bar.Timer;
 
+import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -132,22 +134,18 @@ public class StartQuizWindow extends Window {
 
             if (commandResult.isExit()) {
                 handleExit();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                return new CommandResult().build();
             }
 
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
                     && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
+                return new CommandResult().build();
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
+                return new CommandResult().build();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);
@@ -156,9 +154,7 @@ public class StartQuizWindow extends Window {
             currentAnswerable = answerableIterator.next();
 
             if (previousAnswerable != null && answerableIterator.hasNext()) {
-                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
-                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                if (previousLevel < currentLevel) {
+                if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
                     handleNextLevel(currentAnswerable);
                 }
             }
@@ -185,7 +181,8 @@ public class StartQuizWindow extends Window {
     private void handleNextLevel(Answerable nextAnswerable) {
         int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
 
         alert.setTitle("Well done!");
         alert.setHeaderText(null);

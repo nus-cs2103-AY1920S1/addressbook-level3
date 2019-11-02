@@ -21,6 +21,7 @@
 .option-label {
     -fx-max-height: Infinity;
     -fx-max-width: Infinity;
+    -fx-text-fill: white;
     -fx-font-family: "Lucida Bright",  "Times New Roman";
     -fx-font-style: normal;
     -fx-font-size: 15;

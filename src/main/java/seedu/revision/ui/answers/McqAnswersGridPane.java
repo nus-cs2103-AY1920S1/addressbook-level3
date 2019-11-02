@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.answer.Answer;
@@ -17,13 +18,13 @@ public class McqAnswersGridPane extends AnswersGridPane {
     private final Logger logger = LogsCenter.getLogger(McqAnswersGridPane.class);
 
     @FXML
-    private Button option1;
+    private Label option1;
     @FXML
-    private Button option2;
+    private Label option2;
     @FXML
-    private Button option3;
+    private Label option3;
     @FXML
-    private Button option4;
+    private Label option4;
 
     public McqAnswersGridPane(Answerable answerable) {
         super(MCQ_GRID_PANE_FXML, answerable);

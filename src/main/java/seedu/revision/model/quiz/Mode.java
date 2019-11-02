@@ -15,7 +15,7 @@ public abstract class Mode {
 
     public static final String MESSAGE_CONSTRAINTS = "Mode can only be normal / arcade / custom";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */

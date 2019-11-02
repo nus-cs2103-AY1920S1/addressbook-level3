@@ -358,10 +358,6 @@
     -fx-vgap: 10;
 }
 
-#answerPane .correct .label {
-
-}
-
 #answerPane .label {
     -fx-min-height: 30;
     -fx-max-width: 200;
@@ -374,6 +370,3 @@
     -fx-background-radius: 2;
     -fx-font-size: 15;
 }
-/*.alert {*/
-/*    -fx-background-color: red;*/
-/*}*/
