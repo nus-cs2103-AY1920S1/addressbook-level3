@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -497,6 +498,9 @@ public class ModelManager implements Model {
                 .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
                 .sorted(Comparator.comparing(Schedule::getCalendar))
                 .forEach(conflicts::add);
+
+        // dummy use - Collections to import (so it is not unused)
+        Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
 
         return conflicts;
     }
