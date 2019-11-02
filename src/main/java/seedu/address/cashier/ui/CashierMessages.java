@@ -17,8 +17,8 @@ public class CashierMessages {
     public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
             + "To add an item to the table, please type \"add [c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n";
 
-    public static final String MESSAGE_NO_COMMAND = "Sorry! There is no such command. The commands you can input are add, "
-            + "delete, edit, clear, cashier, checkout.";
+    public static final String MESSAGE_NO_COMMAND = "Sorry! There is no such command. The commands you can input are "
+            + "add, delete, edit, clear, cashier, checkout.";
 
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
             + "the specified description in the sales list.\n";
@@ -47,11 +47,11 @@ public class CashierMessages {
     public static final String INDEX_NOT_A_NUMBER = "Please input the row index of the item "
             + "according to the table.\n";
 
-    public static final String QUANTITY_NOT_A_NUMBER = "Please input an integer for the quantity of item to be "
-            + "sold.\n\n";
+    public static final String QUANTITY_NOT_A_NUMBER = "Please input an positive integer for the quantity of item "
+            + "to be sold.\n\n";
 
     public static final String QUANTITY_NOT_POSITIVE = "Please input a "
-            + "positive integer for the quantity of item to be sold.\n";
+            + "positive integer for the quantity of item to be sold. 0 is also not allowed\n";
 
     public static final String MESSAGE_ADD_CASHIER = "Added cashier successfully. Cashier-in-charge is: %s.\n";
 
@@ -69,9 +69,6 @@ public class CashierMessages {
     public static final String MESSAGE_ADDED_ITEM = "Added item: %s %s";
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\n Deleted successfully.";
-
-//    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
-//            + "add, cashier, checkout, clear, delete and edit.";
 
     /**
      * Returns a message containing all the items description according to the category.
