@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class DateTimeUtil {
 
-    public static final String DEFAULT_INPUT_FORMAT = "dd/MM/yyyy kk:mm";
+    public static final String DEFAULT_INPUT_FORMAT = "dd-MM-yyyy kk:mm";
     public static final String DISPLAY_FORMAT_TWENTY_FOUR_HOUR = "EEEE, MMM dd, yyyy HH:mm";
     public static final String DISPLAY_FORMAT_TWELVE_HOUR = "EEEE, MMM dd, yyyy hh:mm a";
 
@@ -38,24 +38,12 @@ public class DateTimeUtil {
         return defaultFormatter;
     }
 
+    /**
+     * Switches the default clock display format of +Work with {@code newFormat}.
+     */
     public static void switchDisplayFormat(DateTimeFormatter newFormat) {
         defaultDisplayFormat = newFormat;
     }
-
-    /**
-     * Allows user to switch display formats.
-     * Currently used only in {@code DateTimeUtilTest}.
-     * TODO implement with ENUM instead!
-     */
-    /*
-    public static void switchDisplayFormatToTwentyFour() {
-        defaultDisplayFormat = displayFormatterTwentyFourHour;
-    }
-
-    public static void switchDisplayFormatToTwelve() {
-        defaultDisplayFormat = displayFormatterTwelveHour;
-    }
-    */
 
     /**
      * Parses the date time given by the user.
