@@ -28,6 +28,8 @@ Get started on this journey by installing SML and take a quick tour of our main 
 .  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  If Double-clicking does not work, open your command line prompt / terminal, navigate to it and
+input `java -jar [filename]` to run the file
 
 === User Interface
 
@@ -668,7 +670,9 @@ image::ug-command/ug-history.png[width="800"]
 
 ==== Generate stats : `generate-s`
 
-`v1.4` only allows statistics on orders marked as `Completed` and calculates the three type of
+`v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`
+
+This function calculates the three type of
 statistics as shown below.
 
 Accepts two types of input: Without date input and with date input +
