@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
@@ -49,12 +48,11 @@ public class ModelManager implements Model {
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
     private final VersionedAddressBook versionedAddressBook;
-    private final TimeUtil timeTracker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, TimeUtil timeTracker) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -75,11 +73,10 @@ public class ModelManager implements Model {
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
         createExpensesfromAutoExpenses();
-        this.timeTracker = timeTracker;
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new TimeUtil());
+        this(new AddressBook(false), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -488,13 +485,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredWishes(Predicate<Wish> predicate) {
+    public void updateFilteredWishes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredBudgets(Predicate<Budget> predicate) {
+    public void updateFilteredBudgets(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
@@ -561,9 +558,6 @@ public class ModelManager implements Model {
     }
 
     // =========== TrackTime =============================================================
-    public TimeUtil getTimeTracker() {
-        return timeTracker;
-    }
 
     @Override
     public boolean equals(Object obj) {

@@ -38,7 +38,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 2, 1, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -47,7 +47,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected TimeUtil timeTracker;
 
     @Override
     public void init() throws Exception {
@@ -64,9 +63,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        timeTracker = new TimeUtil();
-
-        model = initModelManager(storage, userPrefs, timeTracker);
+        model = initModelManager(storage, userPrefs);
         StatisticsManager stats = new StatisticsManager(model);
         model.setStats(stats);
         logic = new LogicManager(model, stats, storage);
@@ -78,7 +75,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, TimeUtil timeTracker) {
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -89,15 +86,13 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-            SampleDataUtil.addCategories(initialData);
+            initialData = new AddressBook(true);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-            SampleDataUtil.addCategories(initialData);
+            initialData = new AddressBook(true);
         }
 
-        return new ModelManager(initialData, userPrefs, timeTracker);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -176,10 +171,12 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        TimeUtil.startTimer();
     }
 
     @Override
     public void stop() {
+        TimeUtil.endTimer();
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());

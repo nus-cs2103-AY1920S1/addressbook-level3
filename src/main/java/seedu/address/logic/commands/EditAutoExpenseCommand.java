@@ -38,13 +38,18 @@ public class EditAutoExpenseCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Expense identified "
             + "by the index number used in the displayed Expenses list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) " + PREFIX_DESC + "REMINDER_MESSAGE" + PREFIX_AMOUNT
-            + "QUOTA " + PREFIX_FREQ + "FREQUENCY" + PREFIX_DATE + "DATE" + "[" + PREFIX_TAG + "TAG]...\n" + "Example: "
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_DESC + "DESCRIPTION "
+            + PREFIX_AMOUNT + "AMOUNT "
+            + PREFIX_FREQ + "FREQUENCY "
+            + PREFIX_DATE + "DATE "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: "
             + COMMAND_WORD + " 1 " + PREFIX_AMOUNT + "5.60";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Auto Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guiltTripper!";
 
     private final Index index;
     private final EditAutoExpenseDescriptor editAutoExpenseDescriptor;

@@ -37,6 +37,8 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label amt;
     @FXML
+    private Label category;
+    @FXML
     private FlowPane tags;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
@@ -48,6 +50,7 @@ public class ExpenseCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(expense.getDate().toString());
         amt.setText("$" + expense.getAmount().value);
+        category.setText(expense.getCategory().categoryName);
 
         expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -14,7 +14,7 @@ import seedu.address.ui.UiPart;
  */
 public class StatisticsWindow extends UiPart<Region> {
 
-    private static final String FXML = "/statistics/Statistics.fxml";
+    private static final String FXML = "statistics/Statistics.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

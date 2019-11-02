@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.util.TimeUtil;
 import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
@@ -232,9 +231,9 @@ public interface Model {
 
     void updateFilteredIncomes(Predicate<Income> predicate);
 
-    void updateFilteredWishes(Predicate<Wish> predicate);
+    void updateFilteredWishes(Predicate<Entry> predicate);
 
-    void updateFilteredBudgets(Predicate<Budget> predicate);
+    void updateFilteredBudgets(Predicate<Entry> predicate);
 
     void updateFilteredAutoExpenses(Predicate<AutoExpense> predicate);
 
@@ -267,8 +266,4 @@ public interface Model {
      */
     void commitAddressBook();
 
-    /**
-     * get TimeUtil object
-     */
-    TimeUtil getTimeTracker();
 }

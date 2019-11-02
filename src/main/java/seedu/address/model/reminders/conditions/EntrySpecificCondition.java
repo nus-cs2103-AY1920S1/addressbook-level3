@@ -21,7 +21,7 @@ public class EntrySpecificCondition extends Condition implements PropertyChangeL
         public boolean test(Entry entry) {
             assert(targetEntry == entry);
             timeBeforeDeadline = Period.between(currDate, targetEntry.getDate().getDate());
-            return !((bufferPeriod.minus( timeBeforeDeadline)).isNegative());
+            return !((bufferPeriod.minus(timeBeforeDeadline)).isNegative());
         }
     };
     public EntrySpecificCondition(Entry entry, Period bufferPeriod) {
