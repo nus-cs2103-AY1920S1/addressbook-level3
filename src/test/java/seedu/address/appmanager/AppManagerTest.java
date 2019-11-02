@@ -205,7 +205,7 @@ class AppManagerTest {
         }
 
         @Override
-        public ReadOnlyWordBank getAddressBook() {
+        public ReadOnlyWordBank getCurrentWordBank() {
             return null;
         }
 

@@ -1,7 +1,6 @@
 package seedu.address.ui.modules;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;

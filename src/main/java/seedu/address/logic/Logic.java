@@ -40,7 +40,7 @@ public interface Logic extends UiLogicHelper {
      *
      * @see seedu.address.model.Model#getCurrentWordBank()
      */
-    ReadOnlyWordBank getAddressBook();
+    ReadOnlyWordBank getCurrentWordBank();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Card> getFilteredCardList();

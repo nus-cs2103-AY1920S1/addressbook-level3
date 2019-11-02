@@ -35,7 +35,6 @@ public class FindCommand extends CardCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCardList(predicate);
-        System.out.println(model.getFilteredCardList().size() + "<---------- FIND COMMAND");
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredCardList().size()));
     }

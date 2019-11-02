@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.UiPart;
 
@@ -38,6 +39,9 @@ public class WordBankCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
     /**
      * Card containing the details of the word bank.

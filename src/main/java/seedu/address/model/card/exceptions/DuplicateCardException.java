@@ -8,4 +8,8 @@ public class DuplicateCardException extends RuntimeException {
     public DuplicateCardException() {
         super("Operation would result in duplicate cards");
     }
+
+    public DuplicateCardException(String message) {
+        super(message);
+    }
 }

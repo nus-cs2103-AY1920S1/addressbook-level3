@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.wordbankcommands;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -32,6 +31,6 @@ public abstract class WordBankCommandResult extends CommandResult {
         this.filePath = filePath;
     }
 
-    public abstract void updateStorage(Storage storage) throws DataConversionException, FileNotFoundException, IllegalValueException;
+    public abstract void updateStorage(Storage storage) throws DataConversionException, IllegalValueException;
 
 }

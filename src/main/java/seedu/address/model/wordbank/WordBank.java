@@ -110,7 +110,7 @@ public class WordBank implements ReadOnlyWordBank {
     }
 
     /**
-     * Returns true if both cards have the same meaning.
+     * Returns true if both word banks have the same name.
      */
     public boolean isSameName(WordBank other) {
         if (other == null) {
@@ -118,6 +118,15 @@ public class WordBank implements ReadOnlyWordBank {
         }
         String s1 = getName().toLowerCase();
         String s2 = other.getName().toLowerCase();
+        return s1.equals(s2);
+    }
+
+    public boolean isSameName(String other) {
+        if (other == null) {
+            return false;
+        }
+        String s1 = getName().toLowerCase();
+        String s2 = other.toLowerCase();
         return s1.equals(s2);
     }
 

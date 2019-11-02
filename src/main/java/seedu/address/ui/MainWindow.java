@@ -29,7 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String FIRST_MESSAGE_LOAD_BANK = "Welcome to Dukemon!\n"
+    private static final String FIRST_MESSAGE_SELECT_BANK = "Welcome to Dukemon!\n"
             + "Start by selecting a bank:\n"
             + "Eg. select sample";
 
@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
 
-    public MainWindow(Stage primaryStage, AppManager appManager) {
+    MainWindow(Stage primaryStage, AppManager appManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -94,7 +94,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-    public Stage getPrimaryStage() {
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Give user instruction to load a bank when first starting up the app.
-        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_LOAD_BANK);
+        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_SELECT_BANK);
 
         //Set up timer display
         timerDisplay = new TimerDisplay();
@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {

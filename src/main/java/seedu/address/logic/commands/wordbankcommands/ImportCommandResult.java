@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.wordbankcommands;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -15,14 +14,13 @@ public class ImportCommandResult extends WordBankCommandResult {
 
     private String wordBankName;
 
-    public ImportCommandResult(String feedback, Path filePath, String wordBankName) {
+    ImportCommandResult(String feedback, Path filePath, String wordBankName) {
         super(feedback, filePath);
         this.wordBankName = wordBankName;
     }
 
     @Override
-    public void updateStorage(Storage storage)
-            throws DataConversionException, FileNotFoundException, IllegalValueException {
+    public void updateStorage(Storage storage) throws DataConversionException, IllegalValueException {
         storage.importWordBank(wordBankName, filePath);
     }
 }

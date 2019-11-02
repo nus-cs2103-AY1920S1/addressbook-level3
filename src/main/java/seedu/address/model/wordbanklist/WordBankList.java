@@ -65,7 +65,7 @@ public class WordBankList implements ReadOnlyWordBankList {
     @Override
     public WordBank getWordBankFromName(String name) {
         for (WordBank wb : wordBankList) {
-            if (wb.getName().equals(name)) {
+            if (wb.isSameName(name)) {
                 return wb;
             }
         }

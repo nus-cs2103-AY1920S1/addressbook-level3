@@ -42,7 +42,7 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic, UiLogicHelper {
-    public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
+    private static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -95,7 +95,7 @@ public class LogicManager implements Logic, UiLogicHelper {
             commandResult = new CommandResult("Word bank file is corrupted.");
         } catch (WordBankNotFoundException | IllegalValueException | DuplicateWordBankException e) {
             commandResult = new CommandResult(e.getMessage());
-        } catch (IOException ioe) {
+        }  catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -103,7 +103,7 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
-    public ReadOnlyWordBank getAddressBook() {
+    public ReadOnlyWordBank getCurrentWordBank() {
         return model.getCurrentWordBank();
     }
 
