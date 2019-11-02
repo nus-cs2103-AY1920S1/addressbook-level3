@@ -223,7 +223,8 @@ public class ModelManager implements Model {
 
     @Override
     public void sortReverseFilteredClaimListByName() {
-        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(new ClaimNameComparator().reversed()));
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(
+                new ClaimNameComparator().reversed()));
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
     }
