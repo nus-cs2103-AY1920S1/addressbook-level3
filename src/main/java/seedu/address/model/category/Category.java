@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
  */
 public class Category {
 
-
-
     public static final String MESSAGE_CONSTRAINTS =
             "Category should only be one of the following: FOOD, TRAVEL, TRANSPORT, SHOPPING, UTILITIES, "
                     + "HEALTHCARE, ENTERTAINMENT, EDUCATION, OTHERS.";

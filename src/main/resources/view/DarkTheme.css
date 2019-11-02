@@ -146,7 +146,7 @@
     -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
 }
 
-#expenseCardPane #clip {
+#expenseCardPane #iconBackground {
     -fx-fill: -colour-category;
 }
 
