@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
-import static seedu.address.commons.core.Messages.MESSAGE_STILL_IN_SERVE_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 
 import seedu.address.logic.commands.exceptions.CommandException;
