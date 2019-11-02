@@ -57,9 +57,7 @@ public class Pay extends Command {
         }
 
         Employee employeeToEdit = lastShownList.get(index.getZeroBased());
-        int salaryPaid = employeeToEdit.getEmployeeSalaryPaid().getValue();
-        Double startDouble = Double.parseDouble(salaryPaid);
-
+        int salaryPaid = employeeToEdit.getEmployeeSalaryPaid().getValue() + 100;
 
 //        String end = editedEmployee.getEmployeeSalaryPaid().value;
 //        Double endDouble = Double.parseDouble(end);
@@ -75,9 +73,11 @@ public class Pay extends Command {
 //        double ps = ttDouble - amt;
 //        String oput = (int) ps + "";
 //        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
+        String output = "100";
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(output, editedEmployee), "Finance");
+
+        return new CommandResult(String.format(output, salaryPaid), "Finance");
     }
 
     @Override

@@ -10,6 +10,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.EmployeeSalaryPaid;
 
 /**
@@ -39,10 +40,16 @@ public class Payparser implements Parser<Pay> {
                     "Parameters: INDEX (must be a positive integer)" +
                     " p/PAY" + "Example: pay 1 p/100")));
         }
+        Employee e = new Employee();
 
         if (argMultimap.getValue(PREFIX_SalaryPaid).isPresent()) {
-//            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parsePay(argMultimap.getValue(PREFIX_SalaryPaid).get()));
+            employeeSalaryPaid = ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_SalaryPaid).get());
+            e.setEmployeeSalaryPaid(ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_SalaryPaid).get()));
         }
+        else{
+            employeeSalaryPaid = null;
+        }
+        
 
         return new Pay(index, employeeSalaryPaid);
     }

@@ -33,18 +33,16 @@ public class Undopay extends Command {
     public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: undopay 1 p/100";
 
     private final Index index;
-    private final EditEmployeeDescriptor editEmployeeDescriptor;
+    private final EmployeeSalaryPaid salaryPaid;
 
     /**
      * @param index of the employee in the filtered employee list to edit
-     * @param editEmployeeDescriptor details to edit the employee with
+     * @param salaryPaid details to edit the employee with
      */
-    public Undopay(Index index, EditEmployeeDescriptor editEmployeeDescriptor) {
+    public Undopay(Index index, EmployeeSalaryPaid salaryPaid) {
         requireNonNull(index);
-        requireNonNull(editEmployeeDescriptor);
-
         this.index = index;
-        this.editEmployeeDescriptor = new EditEmployeeDescriptor(editEmployeeDescriptor);
+        this.salaryPaid = salaryPaid;
     }
 
     @Override
@@ -56,34 +54,23 @@ public class Undopay extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }
 
-        Employee employeeToEdit = lastShownList.get(index.getZeroBased());
-        String start = employeeToEdit.getEmployeeSalaryPaid().value;
-        Double startDouble = Double.parseDouble(start);
 
 
-        Employee editedEmployee = createEditedEmployee(employeeToEdit, editEmployeeDescriptor);
-        String end = editedEmployee.getEmployeeSalaryPaid().value;
-        Double endDouble = Double.parseDouble(end);
+//        double amt = startDouble + endDouble;
+//        String output = (int) amt + "";
 
-
-        double amt = startDouble + endDouble;
-        String output = (int) amt + "";
-
-        //set amt
-        editedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
+        //set amteditedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
 //        String tt = editedEmployee.getEmployeeTotalsalary().value;
 //        Double ttDouble = Double.parseDouble(tt);
 //        double ps = ttDouble - amt;
 //        String oput = (int) ps + "";
 //        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
 
-        if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
-            throw new CommandException(output);
-        }
 
-        model.setEmployee(employeeToEdit, editedEmployee);
+        String output = salaryPaid + "";
+
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(output, editedEmployee),"Finance");
+        return new CommandResult(String.format(output, salaryPaid), "Finance");
     }
 
 
@@ -102,8 +89,7 @@ public class Undopay extends Command {
 
         // state check
         Undopay e = (Undopay) other;
-        return index.equals(e.index)
-                && editEmployeeDescriptor.equals(e.editEmployeeDescriptor);
+        return index.equals(e.index) && salaryPaid.equals(e.salaryPaid);
     }
 
 }

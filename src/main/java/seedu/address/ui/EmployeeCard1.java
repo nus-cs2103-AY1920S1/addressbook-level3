@@ -71,7 +71,7 @@ public class EmployeeCard1 extends UiPart<Region> {
         }
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
-        phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid().value);
+        phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
         address.setText("Total Salary : $" + "Employeecar1");
         email.setText("Pending to Pay : $" + "Employeecard1");
         employee.getTags().stream()
@@ -84,7 +84,7 @@ public class EmployeeCard1 extends UiPart<Region> {
         this.employee = employee;
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
-        phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid().value);
+        phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
         address.setText("Total Salary : $" + "Employeecard1");
         email.setText("Pending to Pay : $" + "Employeecard1");
         employee.getTags().stream()
