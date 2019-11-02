@@ -139,9 +139,9 @@ updates the phone number and email address of the logged in account to be `91234
 * `update 2 n/Betsy Crower t/` +
 updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
 
-==== Coming in v2.0
+==== Incident Auto Update `[coming in v2.0]`
 
-Any updates to a user account will search for all incidents created by the account and update those details as well.
+Any updates to user account details will search for all incidents created by the account and update those references as well.
 
 === Listing accounts : `list-a`
 
@@ -205,6 +205,10 @@ Deletes the 2nd account in the incident Manager.
 * `find-a Agent01` +
 `delete-a 1` +
 Deletes the 1st account in the results of the `find` command.
+
+==== Incident Auto Update `[coming in v2.0]`
+
+Deleting a user will search for all incidents created by the user and place a `deleted` flag next to the account details.
 
 // end::account[]
 
@@ -328,12 +332,6 @@ image::submitCommandWithParamsAfterScreenshot.png[]
 
 Using `submit` in both modes right after using `fill` thus enables convenient submitting of newly filled complete incident report drafts.
 // end::incident[]
-
-// tag::common[]
-//=== Clearing all entries : `clear`
-//
-//Clears all entries from the incident Manager. +
-//Format: `clear`
 
 === Listing all incidents: `list-i`
 Shows a list of all incidents in the Incident Manager +
@@ -540,6 +538,12 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
+
+// tag::common[]
+//=== Clearing all entries : `clear`
+//
+//Clears all entries from the incident Manager. +
+//Format: `clear`
 
 === Exiting the program : `exit`
 
