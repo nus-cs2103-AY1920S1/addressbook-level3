@@ -37,16 +37,14 @@ public class GameWindow extends UiPart<Stage> {
      */
     private GameWindow(Stage root, Player player) {
         super(FXML, root);
-        player.setInputAs(playerInput.textProperty());
-        gameOver.visibleProperty().bind(player.getGameOverProperty());
-        gamePlay.getChildren().addAll(new PlayerInformation(player).getRoot(), new GameBody(player).getRoot());
-        root.getScene().getStylesheets().addAll(this.getClass().getResource("/view/GameWindow.css").toExternalForm());
+        initialize(player);
+        addStylesheet(root, "/view/GameWindow.css");
     }
 
     /**
      * Creates a game instance in new Window with a new player if there is no existing game instance or if the current
      * game is over.
-    */
+     */
     public static GameWindow getInstance() {
         if (gameInstance == null || player.getGameOverProperty().get()) {
             player = new Player();
@@ -62,9 +60,33 @@ public class GameWindow extends UiPart<Stage> {
 
     @FXML
     private void handleSpaceBar(KeyEvent keyEvent) {
-        if (keyEvent.getCode().equals(KeyCode.SPACE)) {
+        if (keyEvent.getCode().equals(KeyCode.SPACE) || keyEvent.getCode().equals(KeyCode.ENTER)) {
             playerInput.clear();
         }
+    }
+
+    /**
+     * Initialize game play with PlayerInformation and GameBody, and bind player input text property and game over
+     * property according to {@code player}.
+     *
+     * @param player The player that is currently on the game window.
+     */
+    private void initialize(Player player) {
+        player.setInputAs(playerInput.textProperty());
+        gameOver.visibleProperty().bind(player.getGameOverProperty());
+        gamePlay.getChildren().add(new PlayerInformation(player).getRoot());
+        gamePlay.getChildren().add(new GameBody(player).getRoot());
+    }
+
+    /**
+     * Adds the stylesheet given by the resource {@code name} to the {@code stage}
+     *
+     * @param stage The stage that the stylesheet is being applied to.
+     * @param name The name of the resource.
+     */
+    private void addStylesheet(Stage stage, String name) {
+        String resource = this.getClass().getResource(name).toExternalForm();
+        stage.getScene().getStylesheets().add(resource);
     }
 
     /**
