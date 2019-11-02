@@ -32,7 +32,6 @@ public class PaySlip extends Command {
         List<Employee> employeeList = model.getAddressBook().getEmployeeList();
         String first = employeeList.get(0).getEmployeePay().value;
         String output = first;
-
-        return new CommandResult(output);
+        return new CommandResult(String.format(output),"Finance");
     }
 }

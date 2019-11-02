@@ -1,16 +1,7 @@
 package seedu.address.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_JOIN_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PENDINGPAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TOTALSALARY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -52,22 +43,11 @@ public class Pay extends Command {
             + "by the index number used in the displayed employee list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_PAY + "PAY] "
-            + "[" + PREFIX_PENDINGPAY + "PENDINGPAY] "
-            + "[" + PREFIX_TOTALSALARY + "TOTALSALARY] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_JOIN_DATE + "JOINDATE] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_PAY + "100 ";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This employee already exists in the employeeAddress book.";
+    public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: undopay 1 p/100";
 
     private final Index index;
     private final EditEmployeeDescriptor editEmployeeDescriptor;
@@ -83,6 +63,7 @@ public class Pay extends Command {
         this.index = index;
         this.editEmployeeDescriptor = new EditEmployeeDescriptor(editEmployeeDescriptor);
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -120,7 +101,7 @@ public class Pay extends Command {
 
         model.setEmployee(employeeToEdit, editedEmployee);
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(output, editedEmployee));
+        return new CommandResult(String.format(output, editedEmployee),"Finance");
     }
 
     /**
@@ -181,7 +162,7 @@ public class Pay extends Command {
      * Stores the details to edit the employee with. Each non-empty field value will replace the
      * corresponding field value of the employee.
      */
-    public static class EditEmployeeDescriptor extends Undopay.EditEmployeeDescriptor {
+    public static class EditEmployeeDescriptor {
         private EmployeeName employeeName;
         private EmployeePhone employeePhone;
         private EmployeeEmail employeeEmail;
@@ -349,4 +330,5 @@ public class Pay extends Command {
         }
     }
 }
+
 
