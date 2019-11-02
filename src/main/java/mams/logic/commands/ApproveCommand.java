@@ -360,7 +360,7 @@ public class ApproveCommand extends Approve {
     }
 
 
-    private Optional<ClashCommand.ClashCase> getClashCase(Module moduleA, Module moduleB) {
+    private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
         int[] timeTableA = moduleA.getTimeSlotToIntArray();
         int[] timeTableB = moduleB.getTimeSlotToIntArray();
         ArrayList<Integer> slots = new ArrayList<>();
@@ -372,7 +372,7 @@ public class ApproveCommand extends Approve {
             }
         }
         if (!slots.isEmpty()) {
-            ClashCommand.ClashCase c = new ClashCommand.ClashCase();
+            ClashCase c = new ClashCase();
             c.setModuleA(moduleA);
             c.setModuleB(moduleB);
             c.setClashingSlots(slots);
