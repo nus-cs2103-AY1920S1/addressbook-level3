@@ -28,13 +28,8 @@ public class DeleteTripCommand extends DeleteCommand {
         this.trip = trip;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        try {
-            calendar.deleteEvent(trip);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(e.getMessage());
-        }
-
+    public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
+        calendar.deleteEvent(trip);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, trip.toString());
         return new CommandResult(formattedFeedback);
     }

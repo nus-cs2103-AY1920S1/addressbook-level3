@@ -12,7 +12,7 @@ import seedu.address.calendar.model.event.Trip;
 
 import java.util.Optional;
 
-public class AddCommandAlternativeParser extends AddCommandParser {
+public class AlternativeAddCommandParser extends AddCommandParser {
     @Override
     AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate, Optional<Info> info) {
         switch (eventType) {

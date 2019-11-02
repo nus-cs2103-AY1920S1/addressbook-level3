@@ -29,13 +29,8 @@ public class DeleteHolidayCommand extends DeleteCommand {
         this.holiday = holiday;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        try {
-            calendar.deleteEvent(holiday);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(e.getMessage());
-        }
-
+    public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
+        calendar.deleteEvent(holiday);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, holiday.toString());
         return new CommandResult(formattedFeedback);
     }
