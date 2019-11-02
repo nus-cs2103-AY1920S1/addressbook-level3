@@ -22,6 +22,10 @@ public class CliSyntax {
     // Aesthetics Prefixes
     public static final Prefix PREFIX_BG_SIZE = new Prefix("s/");
     public static final Prefix PREFIX_BG_REPEAT = new Prefix("r/");
+    public static final Prefix PREFIX_FONT_COLOUR = new Prefix("fontcolour/");
+    public static final Prefix PREFIX_FONT_COLOR = new Prefix("fontcolor/");
+    public static final Prefix PREFIX_BACKGROUND = new Prefix("bg/");
+
 
     // Stats Prefixes
     public static final Prefix PREFIX_AVGTYPE = new Prefix("a/");
