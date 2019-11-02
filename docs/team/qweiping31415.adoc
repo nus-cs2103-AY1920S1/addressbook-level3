@@ -9,25 +9,29 @@
 
 == Overview
 
-This portfolio aims to document the contributions made by Quek Wei Ping to MooLah
+This portfolio aims to document the contributions my contributions to MooLah
 
 My team of 4 Computer Science students and I were tasked with enhancing a basic Command
 Line Interface desktop application AddressBook - Level 3 for our Software Engineering project.
 Over 6 weeks, we chose to morph it into a finance tracker application called MooLah. This enhanced application
 allows the typical NUS student to manage past expenses with the use of budgets, be reminded of
 future and recurring expenses, with added convenience coming from user-friendly input formats, aliases
-and helpful statistics. It is written in Java, and has about 17 kLoC.
+and helpful statistics. It is written in Java, and has about XXX kLoC(TO BE CONFIRMED).
+My main developer responsibility in the team consists of the statistics features across every component.
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to generate statistics* in MooLah
-** What it does: allows the user to view statistics concerning his expenses either by summarising them,
-or providing a deeper analysis such as comparisons and trends. Integrated to work with undo/redo and budget commands.
-** Justification: This feature improves the product significantly because users can now analyse
-their spending habits with these tools at a varying level of depth.
-** Highlights: This feature allows users to manage different use cases such as various number of periods,
-and reflects the different changes simultaneously across categories. It requires adjustments with the existing
-model, logic, UI components and complements the current implementation of other core features such as budgets.
+* *Big feature*: I have added *the ability to generate statistics* in MooLah
+** What it does: This features consists of a basic summary of expenses, a side-to-side comparison
+as well as a trend analysis across different periods of time.
+** Justification: This feature improves the product significantly because the problem
+of untracked expenditure is greatly solved by allowing users to monitor their spending habits,
+with the added flexibility of choosing their visual representation as well as varying levels of depth.
+** Highlights: As the feature is closely coupled to the budget component and requires to support other dependencies such as
+undo/redo, constant coordination with other developers is required.
+
+
 
 * *Code contributed*: TO BE FILLED IN
 
@@ -36,10 +40,9 @@ model, logic, UI components and complements the current implementation of other 
 ** Project management:
 *** Initiated the renaming of the product to MooLah
 *** Reviewed pull requests of team mates
-*** In charge of statistics features in every component
-*** In charge of Scheduling and tracking of tasks, including defining milestone tasks, consolidating discussion minutes.
-*** In charge of Deliverables and deadlines, including facilitated meetings every Wednesday and Friday, to ensure
-that project deliverables are done on time and in the right format.
+*** Facilitated meetings every Wednesday and Friday and consolidated discussion minutes,
+*** Scheduled milestone tasks and ensure that project deliverables are completed on time in the right format.
+
 
 ** Enhancements to existing features:
 *** Refactored Tag classes from AddressBook - Level 3  to Category class (TO BE FILLED IN)
@@ -72,9 +75,6 @@ _
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
 
 == PROJECT: MooLah
 

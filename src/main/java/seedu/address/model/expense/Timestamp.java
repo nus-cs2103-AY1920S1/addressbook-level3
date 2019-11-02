@@ -267,10 +267,7 @@ public class Timestamp implements Comparable<Timestamp> {
     public String showDate() {
         LocalDate date = this.getDate();
         return date.format(FORMATTER_WITHOUT_TIME);
-
-
     }
-
 
 
 }

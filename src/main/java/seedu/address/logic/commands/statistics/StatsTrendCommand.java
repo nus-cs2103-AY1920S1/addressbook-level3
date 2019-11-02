@@ -1,13 +1,14 @@
 package seedu.address.logic.commands.statistics;
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Mode;
 import seedu.address.model.statistics.TrendStatistics;
@@ -37,41 +38,84 @@ public class StatsTrendCommand extends Command {
 
     private final Timestamp startDate;
     private final Timestamp endDate;
-    private final BudgetPeriod period;
     private final boolean mode;
 
 
-    public StatsTrendCommand(Timestamp date1, Timestamp date2, BudgetPeriod period, Mode mode) {
-        requireNonNull(date1);
-        requireNonNull(date2);
-        requireNonNull(period);
+    private StatsTrendCommand(Timestamp date1, Timestamp date2, Mode mode) {
         requireNonNull(mode);
 
         this.startDate = date1;
         this.endDate = date2;
-        this.period = period;
         this.mode = mode.isBudgetMode();
     }
 
+
     @Override
-    protected void validate(Model model) {
+    protected void validate(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.hasPrimaryBudget()) {
+            throw new CommandException(MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET);
+        }
     }
+
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.calculateStatistics(COMMAND_WORD , startDate, endDate, period, mode);
+        model.calculateStatistics(COMMAND_WORD , startDate, endDate, mode);
         return new CommandResult(MESSAGE_SUCCESS, false, false, StatsPanel.PANEL_NAME);
     }
+
+    /**
+     * Creates a StatsTrendCommand that only contains a start date
+     * @param startDate The start date
+     * @param mode The mode specified by the user
+     */
+    public static StatsTrendCommand createOnlyWithStartDate(Timestamp startDate, Mode mode) {
+        requireNonNull(startDate);
+        return new StatsTrendCommand(startDate, null, mode);
+    }
+
+    /**
+     * Creates a StatsTrendCommand that only contains an end date
+     * @param endDate The end date
+     * @param mode The mode specified by the user
+     */
+    public static StatsTrendCommand createOnlyWithEndDate(Timestamp endDate, Mode mode) {
+        requireNonNull(endDate);
+        return new StatsTrendCommand(null, endDate, mode);
+    }
+
+    /**
+     * Creates a StatsTrendCommand that contains a start date and an end date
+     * @param startDate The start date
+     * @param endDate The end date
+     * @param mode The mode specified by the user
+     */
+    public static StatsTrendCommand createWithBothDates(Timestamp startDate, Timestamp endDate, Mode mode) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(mode);
+        return new StatsTrendCommand(startDate, endDate, mode);
+    }
+
+    /**
+     * Creates a StatsTrendCommand that does not contain a start date or end date
+     * @param mode The mode specified by the user
+     */
+    public static StatsTrendCommand createWithNoDate(Mode mode) {
+        return new StatsTrendCommand(null, null, mode);
+    }
+
+
+
 
     @Override
     public boolean equals(Object other) {
         return other == this //short circuit if same object
                 || (other instanceof StatsTrendCommand // instance of handles nulls
                 && startDate.equals(((StatsTrendCommand) other).startDate)
-                && endDate.equals(((StatsTrendCommand) other).endDate)
-                && period.equals(((StatsTrendCommand) other).period));
+                && endDate.equals(((StatsTrendCommand) other).endDate));
     }
 }
 

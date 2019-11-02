@@ -9,7 +9,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetPeriod;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
@@ -203,6 +202,8 @@ public interface Model {
 
     Budget getPrimaryBudget();
 
+    boolean hasPrimaryBudget();
+
     void addBudget(Budget budget);
 
     void switchBudgetTo(Description description);
@@ -249,7 +250,7 @@ public interface Model {
 
     // ================================ STATS =======================================
 
-    void calculateStatistics(String command, Timestamp date1, Timestamp date2, BudgetPeriod period, boolean isBudget);
+    void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudget);
 
     Statistics getStatistics();
 

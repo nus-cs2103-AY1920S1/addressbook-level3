@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -32,10 +33,28 @@ public class PieChartStatistics extends Statistics {
 
     private PieChartStatistics(ObservableList<Expense> expenses, List<Category> validCategories,
                                Timestamp startDate, Timestamp endDate) {
+
         super(expenses, validCategories);
         this.startDate = startDate;
         this.endDate = endDate;
         this.expenses = getExpenses();
+    }
+
+    /**
+     * A method to practise defensive programming
+     * @param expenses List of expenses
+     * @param validCategories List of allowed categories in MooLah
+     * @param startDate The start date of the tracking period
+     * @param endDate The end date of the tracking period
+     */
+    private static PieChartStatistics verify(ObservableList<Expense> expenses, List<Category> validCategories,
+                               Timestamp startDate, Timestamp endDate) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        requireNonNull(expenses);
+        requireNonNull(validCategories);
+
+        return new PieChartStatistics(expenses, validCategories, startDate, endDate);
     }
 
     /**
@@ -44,14 +63,33 @@ public class PieChartStatistics extends Statistics {
      * @param validCategories List of allowed categories in MooLah
      * @param startDate The start date of the tracking period
      * @param endDate The end date of the tracking period
+     * @param primaryBudget The primary budget whose statistics is taken
      */
     public static PieChartStatistics run(ObservableList<Expense> expenses, List<Category>
-            validCategories, Timestamp startDate, Timestamp endDate) {
+            validCategories, Timestamp startDate, Timestamp endDate, Budget primaryBudget) {
 
-        PieChartStatistics statistics = new PieChartStatistics(expenses, validCategories, startDate, endDate);
+        requireNonNull(primaryBudget);
+
+        boolean isStartPresent = startDate != null;
+        boolean isEndPresent = endDate != null;
+
+        if (isStartPresent && isEndPresent) {
+            //pass
+        } else if (isStartPresent) {
+            endDate = startDate.createForwardTimestamp(primaryBudget.getPeriod()).minusDays(1);
+        } else if (isEndPresent) {
+            startDate = endDate.createBackwardTimestamp(primaryBudget.getPeriod()).plusDays(1);
+        } else {
+            startDate = primaryBudget.getStartDate();
+            endDate = primaryBudget.getEndDate();
+        }
+
+
+        PieChartStatistics statistics = PieChartStatistics.verify(expenses, validCategories, startDate, endDate);
         statistics.generatePieChartData();
         return statistics;
     }
+
 
 
     /**
@@ -95,6 +133,7 @@ public class PieChartStatistics extends Statistics {
 
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
+
             if (date.compareDateTo(startDate) != -1 && date.compareDateTo(endDate) != 1) {
                 int index = budgetCategories.indexOf(expense.getCategory());
                 expensesInCategories.get(index).add(expense);
@@ -112,8 +151,7 @@ public class PieChartStatistics extends Statistics {
             categories.add(expense.getCategory());
         }
 
-        List<Category> result = new ArrayList<>(categories);
-        return result;
+        return new ArrayList<>(categories);
     }
 
     /**

@@ -2,11 +2,12 @@ package seedu.address.model.statistics;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.budget.BudgetPeriod;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.category.Category;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
@@ -24,7 +25,6 @@ public class TabularStatistics extends Statistics {
 
     private Timestamp secondEndDate;
 
-    //private List<TableEntry> differenceTable;
     private List<FiveElementTableEntry> unionDifferenceTable;
 
     private int categorySize;
@@ -65,16 +65,18 @@ public class TabularStatistics extends Statistics {
      * @param validCategories List of allowed categories in MooLah
      * @param firstStartDate The starting date meant for the first period to be compared
      * @param secondStartDate The starting date meant for the second period to be compared
-     * @param period The interval of time used to construct both the first and second period for comparison
+     * @param primaryBudget The primary budget whose statistics is taken
      */
     public static TabularStatistics run(ObservableList<Expense> expenses, List<Category> validCategories,
-                                        Timestamp firstStartDate, Timestamp secondStartDate, BudgetPeriod period) {
+                                        Timestamp firstStartDate, Timestamp secondStartDate, Budget primaryBudget) {
         requireNonNull(firstStartDate);
         requireNonNull(secondStartDate);
-        requireNonNull(period);
+        requireNonNull(primaryBudget);
 
-        Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period.getPeriod()));
-        Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period.getPeriod()));
+        Period period = primaryBudget.getPeriod().getPeriod();
+
+        Timestamp firstEndDate = new Timestamp(firstStartDate.getFullTimestamp().plus(period)).minusDays(1);
+        Timestamp secondEndDate = new Timestamp(secondStartDate.getFullTimestamp().plus(period)).minusDays(1);
 
         TabularStatistics statistics = new TabularStatistics(expenses, validCategories,
                 firstStartDate, firstEndDate,
@@ -169,7 +171,7 @@ public class TabularStatistics extends Statistics {
 
         for (Expense expense : expenses) {
             Timestamp date = expense.getTimestamp();
-            if (date.compareTo(startDate) != -1 && date.compareTo(endDate) != 1) {
+            if (date.compareDateTo(startDate) != -1 && date.compareDateTo(endDate) != 1) {
                 data.get(categorySize).add(expense);
                 int index = Category.indexOfInList(expense.getCategory());
                 data.get(index).add(expense);

@@ -62,6 +62,7 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.statistics.StatsCommand;
 import seedu.address.logic.commands.statistics.StatsCompareCommand;
+import seedu.address.logic.commands.statistics.StatsTrendCommand;
 import seedu.address.logic.commands.ui.ViewPanelCommand;
 import seedu.address.logic.parser.AddAliasCommandParser;
 import seedu.address.logic.parser.AddBudgetCommandParser;
@@ -75,6 +76,7 @@ import seedu.address.logic.parser.EditEventCommandParser;
 import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
+import seedu.address.logic.parser.StatsTrendCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
 import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -93,7 +95,6 @@ import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.event.EventListPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
-import seedu.address.ui.panel.PlaceholderPanel;
 import seedu.address.ui.panel.SinglePanelView;
 import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 
@@ -230,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
                 new BudgetListPanel(logic.getFilteredBudgetList()));
         singlePanelView.setPanel(EventListPanel.PANEL_NAME,
                 new EventListPanel(logic.getFilteredEventList(), true));
-        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
+        //singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
 
         // startup panel = expense list panel
         try {
@@ -373,6 +374,11 @@ public class MainWindow extends UiPart<Stage> {
                 StatsCompareCommand.COMMAND_WORD,
                 StatsCompareCommandParser.REQUIRED_PREFIXES,
                 StatsCompareCommandParser.OPTIONAL_PREFIXES);
+
+        commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                StatsTrendCommand.COMMAND_WORD,
+                StatsTrendCommandParser.REQUIRED_PREFIXES,
+                StatsTrendCommandParser.OPTIONAL_PREFIXES);
 
         // general commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
