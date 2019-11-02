@@ -555,7 +555,7 @@ This section showcases three commands you can use to generate different kinds of
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-This command allows you to generate an individual report in a PDF filename `Report <body_ID>.pdf` located in the folder containing the jar file.
+This command allows you to generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file.
 
 image::reportlocation.png[width="790"]
 You can also add your signature name to the report by following the command format below.
@@ -572,7 +572,7 @@ Outputs the report PDF for body ID B00000123 in the folder containing the jar fi
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-This command allows you to generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in the folder containing the jar file.
+This command allows you to generate all individual reports in a PDF filename `[subheader]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
@@ -588,7 +588,7 @@ Outputs the PDF containing reports for all bodies in the folder containing the j
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in the folder containing the jar file.
+This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `[subheader]#Report Summary.pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
