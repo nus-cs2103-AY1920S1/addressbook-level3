@@ -37,7 +37,7 @@ deactivate LogicManager
 [-> MainWindow : executeCommand(stats)
 activate MainWindow
 
-       alt commandResult.isShowStats()
+
        MainWindow -> MainWindow : handleStats()
            activate MainWindow
 

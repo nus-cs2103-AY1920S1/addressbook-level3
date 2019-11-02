@@ -1,0 +1,43 @@
+//@@author LeonardTay748
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":HelpWindow" as HelpWindow UI_COLOR
+end box
+
+box JavaFx EXTERNAL_LIBRARY_COLOR_T1
+participant ":Image" as Image EXTERNAL_LIBRARY_COLOR
+participant ":ImageView" as ImageView EXTERNAL_LIBRARY_COLOR
+participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
+end box
+
+group sd show help
+-> HelpWindow : show()
+
+                HelpWindow -> Image : Image()
+                activate Image
+                HelpWindow <-- Image : image
+                deactivate Image
+
+                HelpWindow -> ImageView : setImage(image)
+                activate ImageView
+                HelpWindow <-- ImageView :
+                deactivate ImageView
+
+                HelpWindow -> Stage : getRoot()
+                activate Stage
+                HelpWindow <-- Stage : root
+                deactivate Stage
+
+                HelpWindow -> Stage : show()
+                activate Stage
+                HelpWindow <-- Stage :
+                deactivate Stage
+
+                <-- HelpWindow :
+                deactivate HelpWindow
+
+end
+
+@enduml
