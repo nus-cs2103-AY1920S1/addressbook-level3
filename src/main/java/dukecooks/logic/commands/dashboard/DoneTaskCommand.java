@@ -58,8 +58,7 @@ public class DoneTaskCommand extends Command {
             return new CommandResult(MESSAGE_DONE_FIVE_SUCCESS, true, false, false);
 
         } else {
-            return new CommandResult(MESSAGE_DONE_TASK_SUCCESS );
-
+            return new CommandResult(MESSAGE_DONE_TASK_SUCCESS);
         }
     }
 
