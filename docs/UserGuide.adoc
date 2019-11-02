@@ -201,6 +201,21 @@ After any of the 3 scenarios above user can override the warning by entering the
 
 if no remaining or overdue flashcards for revision found, application exits immediately.
 
+=== Editing a tag: `edit tag` (proposed in v2.0)
+
+Edits a tag by the specified index.
+
+    Format: edit tag/CURRENT tag/NEW
+
+    Example usage: edit tag/midterm tag/finals
+
+    Expected output:
+    Tag editted!
+    All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
+
+Allows the user to easily modify the tags of all the items. For instance, if every item that is marked difficult does not appear hard to you
+anymore, you could replace all items tagged 'difficult' with a tag 'moderate'.
+
 == Flashcard Feature
 
 === Creating a flashcard: `add`
