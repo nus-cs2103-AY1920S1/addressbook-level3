@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -45,6 +46,11 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Imported all spending. \nAdded %s spending.";
     public static final String MESSAGE_SUCCESS_WITH_ERRORS = "Imported %s spending. "
             + "\nThe following line has errors and were not imported:\n%s";
+
+    public static final String MESSAGE_INVALID_CSV = "Invalid headers detected. "
+            + "\nPlease ensure the csv file only has 5 columns and the first row contains only the following values:"
+            + "\nname,date,remark,cost,tagged";
+    public static final String MESSAGE_NO_CONTENT = "No content detected.";
 
     private final FilePath fullFilePath;
 
@@ -130,20 +136,40 @@ public class ImportCommand extends Command {
         MappingIterator<Map<String, String>> it = mapper.readerFor(Map.class)
                 .with(schema)
                 .readValues(csvFile);
+        JsonParser a = it.getParser();
+
+        if (!it.hasNext()) {
+            throw new IOException(MESSAGE_NO_CONTENT);
+        }
         while (it.hasNext()) {
             count++;
             Map<String, String> rowAsMap = it.next();
-            if (rowAsMap.size() == 5) {
-                try {
-                    Spending spending = createSpending(rowAsMap);
-                    spendings.add(spending);
-                } catch (ParseException p) {
-                    errors.add("Row " + count + ": " + p.getMessage() + "\n");
-                }
+            if (!isValidCsv(rowAsMap)){
+                throw new IOException(MESSAGE_INVALID_CSV);
+            }
+            try {
+                Spending spending = createSpending(rowAsMap);
+                spendings.add(spending);
+            } catch (ParseException p) {
+                errors.add("Row " + count + ": " + p.getMessage() + "\n");
             }
         }
 
         return new Pair<>(spendings, errors);
+    }
+
+    public boolean isValidCsv(Map<String, String> map) {
+        if (map.size() != 5) {
+            return false;
+        } else {
+            if (map.get("name") == null || map.get("cost") == null || map.get("date") == null
+                    || map.get("remark") == null || map.get("tagged") == null) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
     }
 
     @Override
