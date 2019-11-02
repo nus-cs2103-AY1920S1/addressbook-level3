@@ -2,8 +2,8 @@
 
 start
 :User adds a cca;
-if () then (cca exists)
-    :cca is added to CcaTracker;
+if () then (cca does not exist)
+    :Cca is added to CcaTracker;
     :User receives message that cca is added;
     :User adds a progress;
     if () then (Progress exists)
@@ -25,7 +25,7 @@ if () then (cca exists)
         :User receives message that progress already exists;
 
     endif
-else (cca does not exist)
+else (cca exists)
     :User receives message that cca is duplicate;
 endif
 stop
