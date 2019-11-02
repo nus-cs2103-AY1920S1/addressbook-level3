@@ -48,6 +48,8 @@ public class ParserUtil {
                                                             + "and 'deadline' only.";
     public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
     public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
+    public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -225,6 +227,13 @@ public class ParserUtil {
                 res[count] = formattedDate;
                 count++;
             }
+
+            if (count == 2) {
+                if (splitDate[0].compareTo(splitDate[1]) > 0) {
+                    throw new ParseException(MESSAGE_WRONG_ORDER_DATE);
+                }
+            }
+
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }
