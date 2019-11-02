@@ -18,9 +18,9 @@
     </icons>
     <scene>
         <Scene>
-            <AnchorPane prefHeight="500.0" prefWidth="500.0">
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="275.0" minWidth="308.0" prefWidth="503.0">
             <children>
-               <VBox fx:id="visitRecordForm" prefHeight="500.0" prefWidth="500.0" styleClass="background">
+               <VBox fx:id="visitRecordForm" layoutY="5.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                      <Label styleClass="label-bright" text="Prescription :" />
                      <TextArea fx:id="medicine" prefHeight="65.0" prefWidth="483.0" promptText="Prescription given to the patient" styleClass="text-field-visit" wrapText="true" VBox.vgrow="SOMETIMES">
@@ -43,12 +43,13 @@
                         <VBox.margin>
                            <Insets top="5.0" />
                         </VBox.margin></TextArea>
-                     <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="480.0">
+                     <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                         <children>
-                           <VBox alignment="CENTER_LEFT" maxHeight="33.0" maxWidth="1.7976931348623157E308" minHeight="33.0" minWidth="-Infinity" prefHeight="33.0" prefWidth="399.0">
+                           <VBox alignment="CENTER_LEFT" maxHeight="33.0" maxWidth="1.7976931348623157E308" minHeight="33.0" minWidth="205.0" prefHeight="33.0">
                               <children>
                                  <Label styleClass="label-bright-footnote" text="SHIFT + Tab  -  Previous Field (Up)" />
                                  <Label styleClass="label-bright-footnote" text="CTRL + Tab  -  Next Field (Down)" />
+                                 <VBox prefHeight="200.0" prefWidth="100.0" />
                               </children>
                               <HBox.margin>
                                  <Insets />
@@ -57,6 +58,7 @@
                                  <Insets left="5.0" />
                               </padding>
                            </VBox>
+                           <VBox maxHeight="33.0" maxWidth="1.7976931348623157E308" minHeight="33.0" minWidth="0.0" prefHeight="33.0" HBox.hgrow="ALWAYS" />
                            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveReport" text="Save">
                               <HBox.margin>
                                  <Insets />
