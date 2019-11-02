@@ -158,12 +158,13 @@ public class UniqueGroceryListTest {
     /*@Test
     public void setGroceryList_listWithDuplicateGroceryItem_throwsDuplicateFoodException() {
         List<GroceryItem> listWithDuplicateGroceryItems = Arrays.asList(BANANA, BANANA);
-        assertThrows(DuplicateFoodException.class, () -> uniqueGroceryList.setGroceryList(listWithDuplicateGroceryItems));
+        assertThrows(DuplicateFoodException.class, () ->
+                uniqueGroceryList.setGroceryList(listWithDuplicateGroceryItems));
     }*/
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueGroceryList.asUnmodifiableObservableList().remove(0));
+            -> uniqueGroceryList.asUnmodifiableObservableList().remove(0));
     }
 }
