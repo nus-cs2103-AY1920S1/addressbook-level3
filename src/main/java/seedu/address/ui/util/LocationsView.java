@@ -5,10 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.gmaps.Location;
 import seedu.address.ui.UiPart;
 
 /**
@@ -16,39 +18,61 @@ import seedu.address.ui.UiPart;
  */
 public class LocationsView extends UiPart<Region> {
     private static final String FXML = "LocationsView.fxml";
+    private static final String firstChoiceTitle = "First choice: ";
+    private static final String secondChoiceTitle = "Second choice: ";
+    private static final String thirdChoiceTitle = "Third choice: ";
 
     @FXML
-    private StackPane locationMapPlaceholder;
+    private GridPane locationViewContainer;
+
     @FXML
-    private VBox textContainer;
+    private StackPane locationOverviewCard;
+
     @FXML
-    private Label firstLocationLabel;
+    private StackPane firstLocationCard;
+
     @FXML
-    private Label secondLocationLabel;
+    private StackPane secondLocationCard;
+
     @FXML
-    private Label thirdLocationLabel;
-    @FXML
-    private Label firstAvg;
-    @FXML
-    private Label secondAvg;
-    @FXML
-    private Label thirdAvg;
-    @FXML
-    private StackPane locationsViewContainer;
+    private StackPane thirdLocationCard;
+
+    //Independent parts inside locations view.
+    private Image placeholder1;
+    private Image placeholder2;
+    private Image placeholder3;
+    private String firstClosest;
+    private String firstAvg;
+    private String secondClosest;
+    private String secondAvg;
+    private String thirdClosest;
+    private String thirdAvg;
 
     public LocationsView(ClosestCommonLocationData data) {
         super(FXML);
-        Image placeHolder = SwingFXUtils.toFXImage(data.getImage(), null);
-        ImageView imageView = new ImageView(placeHolder);
-        imageView.setFitWidth(400.0);
-        imageView.setFitHeight(400.0);
-        locationMapPlaceholder.getChildren().add(imageView);
-        firstLocationLabel.setText(data.getFirstClosest());
-        firstAvg.setText(data.getFirstAvg() + "");
-        secondLocationLabel.setText(data.getSecondClosest());
-        secondAvg.setText(data.getSecondAvg() + "");
-        thirdLocationLabel.setText(data.getThirdClosest());
-        thirdAvg.setText(data.getThirdAvg() + "");
+        this.placeholder1 = SwingFXUtils.toFXImage(data.getImage(), null);
+        this.placeholder2 = SwingFXUtils.toFXImage(data.getImage(), null);
+        this.placeholder3 = SwingFXUtils.toFXImage(data.getImage(), null);
+        this.firstClosest = data.getFirstClosest();
+        this.firstAvg = data.getFirstAvg();
+        this.secondClosest = data.getSecondClosest();
+        this.secondAvg = data.getSecondAvg();
+        this.thirdClosest = data.getThirdClosest();
+        this.thirdAvg = data.getThirdAvg();
+
+        //LocationOverview overview = new LocationOverview(firstClosest, data.getLocationEntered(),
+        //        data.getValidLocation(), data.getInvalidLocation());
+
+        //locationOverviewCard.getChildren().add(overview.getRoot());
+
+        firstLocationCard.getChildren().add(new LocationCard(firstChoiceTitle,
+                placeholder1, firstClosest, firstAvg).getRoot());
+
+        secondLocationCard.getChildren().add(new LocationCard(secondChoiceTitle,
+                placeholder2, secondClosest, secondAvg).getRoot());
+
+        thirdLocationCard.getChildren().add(new LocationCard(thirdChoiceTitle,
+                placeholder3, thirdClosest, thirdAvg).getRoot());
     }
 
 }

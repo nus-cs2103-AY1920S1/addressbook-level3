@@ -484,6 +484,19 @@
     -fx-text-fill: #FFFFFF;
 }
 
+#locationCardContainer {
+    -fx-background-color: #393E46;
+    -fx-border-color: lightblue;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+#locationCardContainer #locationTitle, #locationAvgTravelDistanceLabel {
+    -fx-opacity: 0.67;
+    -fx-font-family: Garamond;
+}
+
 #listHeaderContainer {
     -fx-border-color: #393E46;
     -fx-border-style: solid none none none;
