@@ -9,7 +9,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Website {
     public static final String MESSAGE_CONSTRAINTS =
             "Website is optional and could be blank. NIL will be used instead.";
-    //TODO: Finish this
 
     private static final String VALIDATION_REGEX = ".*";
 
@@ -30,7 +29,11 @@ public class Website {
 
     @Override
     public String toString() {
-        return value;
+        if (!value.equals("NIL")) {
+            return value;
+        } else {
+            return "";
+        }
     }
 
     @Override

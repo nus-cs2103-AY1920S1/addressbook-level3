@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class PasswordDescription {
     public static final String MESSAGE_CONSTRAINTS =
-            "Descriptions should only contain alphanumeric characters and spaces"
+            "Descriptions should only contain alphabets, numbers and spaces"
             + " and adhere to the following constrains: \n"
             + "1) Be between 2 characters to 30 characters long\n"
             + "Description is case-insensitive and will automatically be changed to UPPER-CASE";
@@ -16,7 +16,7 @@ public class PasswordDescription {
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String VALIDATION_REGEX = "^([a-zA-Z0-9 ]){0,25}$";
+    private static final String VALIDATION_REGEX = "^([a-zA-Z0-9 ]){2,25}$";
 
     public final String value;
 

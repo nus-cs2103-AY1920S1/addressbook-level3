@@ -8,9 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Username {
     public static final String MESSAGE_CONSTRAINTS =
-            "Username should only contain alphanumeric characters, underscore, hyphen, spaces and address sign"
+            "Username should only contain alphabets, numbers, underscores, hyphens, spaces and address signs"
             + " and adhere to the following constraints:\n"
-            + "1) Should not have two underscores, two hypens, two spaces or two address sign in a row\n"
+            + "1) Should not have two underscores, two hypens, two spaces or two address signs in a row\n"
             + "2) Should not have a underscore, hypen, space or address sign at the start or end\n"
             + "3) Be between 2 characters to 25 characters long\n"
             + "Username is case-insensitive";
