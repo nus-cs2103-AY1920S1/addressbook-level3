@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.logic.commands.cheatsheet.EditCheatSheetCommand.createEditedCheatSheet;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -86,13 +87,20 @@ public class AddCheatSheetCommand extends Command {
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
         Set<Content> contentList = new HashSet<>();
 
-        // get all notes and their fragments
-        ObservableList<Note> noteList = model.getFilteredNoteList();
+        // get all notes
         NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
         model.updateFilteredNoteList(noteTagPredicate);
+        ObservableList<Note> noteList = model.getFilteredNoteList();
 
         for (Note note: noteList) {
             contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+        }
+
+        // get all note fragments
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
+        noteList = model.getFilteredNoteList();
+
+        for (Note note : noteList) {
             for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
                 contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
             }
