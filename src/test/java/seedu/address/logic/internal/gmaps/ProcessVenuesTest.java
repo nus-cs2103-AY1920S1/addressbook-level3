@@ -61,7 +61,7 @@ class ProcessVenuesTest {
         ArrayList<Location> validLocationList = processVenues.getValidLocationList();
         for (int i = 0; i < validLocationList.size(); i++) {
             String currValidLocation = validLocationList.get(i).getValidLocation();
-            String path = Cache.imagePath(currValidLocation);
+            String path = Cache.loadImagePath(currValidLocation);
             assertTrue(FileUtil.isFileExists(Path.of(path)));
         }
     }

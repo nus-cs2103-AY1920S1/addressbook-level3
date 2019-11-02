@@ -25,11 +25,25 @@ public class ClosestCommonLocationData {
     private ArrayList<String> invalidLocation;
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public BufferedImage getImage() {
+    public BufferedImage getImageFirst() {
         if (firstClosest.contains("NUS_")) {
             logger.warning(firstClosest + " must not have NUS_ prefix");
         }
         return Cache.loadImage("NUS_" + firstClosest);
+    }
+
+    public BufferedImage getImageSecond() {
+        if (firstClosest.contains("NUS_")) {
+            logger.warning(secondClosest + " must not have NUS_ prefix");
+        }
+        return Cache.loadImage("NUS_" + secondClosest);
+    }
+
+    public BufferedImage getImageThird() {
+        if (firstClosest.contains("NUS_")) {
+            logger.warning(thirdClosest + " must not have NUS_ prefix");
+        }
+        return Cache.loadImage("NUS_" + thirdClosest);
     }
 
     public void setFirstClosest(String firstClosest) {

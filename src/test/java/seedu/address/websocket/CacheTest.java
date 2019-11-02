@@ -84,7 +84,7 @@ class CacheTest {
 
     @Test
     public void imagePath() {
-        String expectedPath = Cache.imagePath("NUS_foo");
+        String expectedPath = Cache.loadImagePath("NUS_foo");
         assertTrue(expectedPath.contains("NUS_foo.png"));
     }
 }
