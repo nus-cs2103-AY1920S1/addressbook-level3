@@ -13,7 +13,7 @@ import dukecooks.model.workout.exercise.ExerciseCatalogue;
 public class ClearExerciseCommandTest {
 
     @Test
-    public void execute_emptyDukeCooks_success() {
+    public void execute_emptyExercises_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -22,7 +22,7 @@ public class ClearExerciseCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyDukeCooks_success() {
+    public void execute_nonEmptyExercises_success() {
         Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
         expectedModel.setExerciseCatalogue(new ExerciseCatalogue());

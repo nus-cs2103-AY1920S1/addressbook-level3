@@ -2,7 +2,6 @@ package dukecooks.logic.commands.mealplan;
 
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
-import static dukecooks.testutil.recipe.TypicalRecipes.OMELETTE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,6 +18,7 @@ import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.testutil.TypicalIndexes;
 import dukecooks.testutil.mealplan.EditMealPlanDescriptorBuilder;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
+import dukecooks.testutil.recipe.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -30,15 +30,15 @@ public class EditMealPlanCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        model.addRecipe(MILO);
-        model.addRecipe(OMELETTE);
         MealPlan editedMealPlan = new MealPlanBuilder().build();
+        model.addRecipe(MILO);
+        model.addRecipe(new RecipeBuilder().build());
 
         String expectedMessage = String.format(EditMealPlanCommand.MESSAGE_EDIT_MEALPLAN_SUCCESS, editedMealPlan);
 
         Model expectedModel = new ModelManager(new MealPlanBook(model.getMealPlanBook()), new UserPrefs());
         expectedModel.addRecipe(MILO);
-        expectedModel.addRecipe(OMELETTE);
+        expectedModel.addRecipe(new RecipeBuilder().build());
         expectedModel.setMealPlan(model.getFilteredMealPlanList().get(0), editedMealPlan);
 
         EditMealPlanCommand.EditMealPlanDescriptor descriptor =
@@ -48,7 +48,7 @@ public class EditMealPlanCommandTest {
 
         CommandTestUtil.assertCommandSuccess(editMealPlanCommand, model, expectedMessage, expectedModel);
         model.deleteRecipe(MILO);
-        model.deleteRecipe(OMELETTE);
+        model.deleteRecipe(new RecipeBuilder().build());
     }
 
     @Test
