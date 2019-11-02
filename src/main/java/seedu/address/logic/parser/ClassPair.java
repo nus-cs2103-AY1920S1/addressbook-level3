@@ -10,9 +10,9 @@ public class ClassPair {
     private Class parser;
 
     /**
-     * A simple constructor to create a pair of classes
-     * @param command
-     * @param parser
+     * A simple constructor to create a pair of classes.
+     * @param command class
+     * @param parser class
      */
     public ClassPair(Class command, Class parser) {
         this.command = command;

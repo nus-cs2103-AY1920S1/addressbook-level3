@@ -12,7 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Uses java reflections to process a list of classes.
  */
 @SuppressWarnings("unchecked")
 public class ClassUtil {
@@ -24,7 +24,7 @@ public class ClassUtil {
     }
 
     /**
-     * Adds classPair into internal list
+     * Adds classPair into internal list.
      * @param classPair
      */
     public void add(ClassPair classPair) {
@@ -40,12 +40,12 @@ public class ClassUtil {
         List<String> result = new ArrayList<>();
         for (ClassPair clsPair : classPairs) {
             try {
-                Class cls = clsPair.getCommand();
-                Field f = cls.getField(attr);
-                String strValue = (String) f.get(null);
-                result.add(strValue);
+                Class commandClass = clsPair.getCommand();
+                Field field = commandClass.getField(attr);
+                String value = (String) field.get(null);
+                result.add(value);
             } catch (NoSuchFieldException | IllegalAccessException e) {
-                //result.add(null);
+                System.err.println(e);
             }
         }
         return result;
@@ -60,23 +60,22 @@ public class ClassUtil {
      */
     public Command getCommandInstance(String commandWord, String arguments)
             throws ParseException {
-        for (ClassPair clsPair : classPairs) {
+        for (ClassPair classPair : classPairs) {
             try {
-                Class cls = clsPair.getCommand();
-                Field f = cls.getField("COMMAND_WORD");
-                String strValue = (String) f.get(null);
-                if (strValue.equals(commandWord)) {
-                    Class parser = clsPair.getParser();
+                Class commandClass = classPair.getCommand();
+                Field field = commandClass.getField("COMMAND_WORD");
+                String value = (String) field.get(null);
+                if (value.equals(commandWord)) {
+                    Class parser = classPair.getParser();
                     if (parser == null) {
-                        Constructor cons = cls.getConstructor();
-                        Command test = (Command) cons.newInstance();
-                        return test;
+                        Constructor constructor = commandClass.getConstructor();
+                        Command command = (Command) constructor.newInstance();
+                        return command;
                     } else {
-                        Constructor cons = parser.getConstructor();
-                        Parser test = (Parser) cons.newInstance();
-                        return test.parse(arguments);
+                        Constructor constructor = parser.getConstructor();
+                        Parser commandParser = (Parser) constructor.newInstance();
+                        return commandParser.parse(arguments);
                     }
-
                 }
             } catch (NoSuchFieldException | NoSuchMethodException | InstantiationException | IllegalAccessException
                     | InvocationTargetException e) {

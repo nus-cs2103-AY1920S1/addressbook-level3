@@ -7,13 +7,13 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new BankCommand object.
  */
 public class BankCommandParser implements Parser<BankCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the BankCommand
+     * and returns a BankCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public BankCommand parse(String userInput) throws ParseException {

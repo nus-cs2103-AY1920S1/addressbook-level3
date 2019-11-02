@@ -86,7 +86,7 @@ public class MainApp extends Application {
         logger.info("initialized Storage");
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModel(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -110,7 +110,7 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
 
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModel(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyWordBankList> optionalWbl = storage.getWordBankList();
         WordBankList wbl = (WordBankList) optionalWbl.get();
         WordBankStatisticsList wbStatsList = storage.getWordBankStatisticsList();

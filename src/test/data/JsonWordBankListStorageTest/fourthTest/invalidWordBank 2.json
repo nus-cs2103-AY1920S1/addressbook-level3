@@ -1,0 +1,8 @@
+{
+  "wordBank" : [ {
+    "id" : "sample-id",
+    "name" : "            ",
+    "description" : "It sleeps eighteen hours a day, but employs telekinesis even while sleeping.",
+    "tagged" : [ "psychic" ]
+  }]
+}
