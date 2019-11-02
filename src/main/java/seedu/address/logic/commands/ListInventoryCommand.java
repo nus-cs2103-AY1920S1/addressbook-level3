@@ -7,6 +7,7 @@ import seedu.address.model.Model;
 
 public class ListInventoryCommand extends Command{
     public static final String COMMAND_WORD = "list-inv";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_SUCCESS = "Listed all inventories";
 
@@ -14,7 +15,7 @@ public class ListInventoryCommand extends Command{
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
+        //model.updateFilteredInventoriesList(PREDICATE_SHOW_ALL_INVENTORIES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

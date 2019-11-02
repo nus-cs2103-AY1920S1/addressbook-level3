@@ -17,6 +17,7 @@ import java.util.List;
 public class FindMeetingTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "find-meeting-time";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_SUCCESS = "Found a meeting time";
 

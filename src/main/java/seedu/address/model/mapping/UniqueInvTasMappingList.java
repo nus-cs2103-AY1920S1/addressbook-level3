@@ -3,6 +3,7 @@ package seedu.address.model.mapping;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.List;
 
@@ -20,13 +21,20 @@ import seedu.address.model.mapping.exceptions.MappingNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Task#isSameTask(Task)
  */
 public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
 
     private final ObservableList<InvTasMapping> internalList = FXCollections.observableArrayList();
     private final ObservableList<InvTasMapping> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    /*private final ArrayList<Integer> lonelyInv = new ArrayList<>();
+
+    public ArrayList<Integer> getLonelyInv() {
+        return lonelyInv;
+    }
+    private void addLonelyInv(int x) {
+        lonelyInv.add(x);
+    }*/
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -76,7 +84,9 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new MappingNotFoundException();
-        }
+        }/* else {
+            this.addLonelyInv(toRemove.getInventoryIndex());
+        }*/
     }
 
     public void setMappings(UniqueInvTasMappingList replacement) {
@@ -125,6 +135,15 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
                 iterator.add(updatedMapping);
             }
         }
+
+        /*for(int i = 0; i < lonelyInv.size(); i++) {
+            if(index == lonelyInv.get(i)) {
+                lonelyInv.remove(i);
+                i--;
+            } else if (lonelyInv.get(i) > index) {
+                lonelyInv.set(i, lonelyInv.get(i) - 1);
+            }
+        }*/
     }
 
     /**
@@ -164,4 +183,24 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
         }
         return true;
     }
+
+    public ObservableList<ObservableList<InvTasMapping>> getMappings() {
+        ObservableList<ObservableList<InvTasMapping>>result = FXCollections.observableArrayList();
+        for(InvTasMapping map: internalList) {
+            boolean isAdded = false;
+            for(ObservableList<InvTasMapping> e: result) {
+                if(e.get(0).getTaskIndex() == (map.getTaskIndex())) {
+                    e.add(map);
+                    isAdded = true;
+                }
+            }
+            if(!isAdded) {
+                ObservableList<InvTasMapping>listToAdd = FXCollections.observableArrayList();
+                listToAdd.add(map);
+                result.add(listToAdd);
+            }
+        }
+        return result;
+    }
+
 }

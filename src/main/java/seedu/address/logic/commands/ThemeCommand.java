@@ -9,6 +9,7 @@ import seedu.address.model.settings.Theme;
  */
 public class ThemeCommand extends Command {
     public static final String COMMAND_WORD = "theme";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles theme between light or dark."
             + "Parameters: [light/dark]\n"

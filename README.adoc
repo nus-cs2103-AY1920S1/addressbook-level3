@@ -6,7 +6,7 @@ image:https://travis-ci.org/AY1920S1-CS2103T-T12-1/main.svg?branch=master["Build
  "Smash those deadlines"
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui-old.png[width="600"]
 endif::[]
 
 ifndef::env-github[]

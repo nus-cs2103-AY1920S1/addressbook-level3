@@ -46,6 +46,6 @@ class JsonAdaptedInvMemMapping {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public InvMemMapping toModelType() throws IllegalValueException {
-        return new InvMemMapping(inventoryIndex, memberIndex);
+        return new InvMemMapping(memberIndex, inventoryIndex);
     }
 }

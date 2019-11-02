@@ -17,6 +17,7 @@ import seedu.address.model.member.Member;
  */
 public class AddMemberCommand extends Command {
     public static final String COMMAND_WORD = "add-member";
+    public static final String PREFIX_USAGE = "mn/ mi/ mt/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to the address book. "
             + "Parameters: "

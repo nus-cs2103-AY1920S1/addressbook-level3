@@ -17,6 +17,7 @@ import seedu.address.model.task.Task;
 public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add-task";
+    public static final String PREFIX_USAGE = "tn/ s/ tt/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the dashboard. "
             + "Parameters: "
@@ -50,7 +51,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult("Type-3 /" + String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

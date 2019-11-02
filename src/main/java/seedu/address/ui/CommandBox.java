@@ -85,6 +85,9 @@ public class CommandBox extends UiPart<Region> {
                 if (!entriesPopup.isShowing()) {
                     entriesPopup.show(this.commandTextField, Side.BOTTOM, 0, 0);
                 }
+                if(searchResult.size() == 1 && searchResult.getFirst().equals(text)) {
+                    entriesPopup.hide();
+                }
             } else {
                 entriesPopup.hide();
             }
