@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -26,7 +27,7 @@
                   <items>
                         <SplitPane dividerPositions="0.5, 0.5, 0.5" orientation="VERTICAL">
                            <items>
-                              <Label fx:id="numericalStatistics" prefHeight="35.0" prefWidth="225.0" text="Numerical Statistics" textAlignment="CENTER" underline="true" wrapText="true">
+                              <Label fx:id="numericalStatistics" minHeight="36.0" prefHeight="35.0" prefWidth="225.0" text="Numerical Statistics" textAlignment="CENTER" underline="true" wrapText="true">
                                  <font>
                                     <Font size="25.0" />
                                  </font></Label>
@@ -56,7 +57,11 @@
                                   <NumberAxis label="Calorie Intake" side="LEFT" />
                                 </yAxis>
                               </BarChart>
-                              <PieChart fx:id="foodChart" title="Food Chart" />
+                              <ScrollPane>
+                                 <content>
+                                    <PieChart fx:id="foodChart" title="Food Chart" />
+                                 </content>
+                              </ScrollPane>
                           </items>
                         </SplitPane>
                   </items>
