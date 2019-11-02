@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 class MonthParser {
     private static final String FORMAT_ERROR_MESSAGE = "Incorrect month format.";
     private static final String MONTH_ERROR_MESSAGE = "No such month can be found.";
+    private static final String MONTH_EXTRA_ARG = "after month";
 
     private static final String MONTH_STR_KEY = "monthStr";
     private static final String MONTH_STR_PATTERN = "(?<" + MONTH_STR_KEY + ">\\S{3,})";
@@ -23,7 +24,12 @@ class MonthParser {
             return Optional.empty();
         }
 
-        String input = monthInput.get();
+        String input = monthInput.get().trim();
+
+        if (ParserUtil.hasCharInValue(input)) {
+            System.out.println("here");
+            throw new ParseException(String.format(ParserUtil.MESSAGE_ARG_EXTRA, MONTH_EXTRA_ARG));
+        }
 
         final Matcher matcher = MONTH_FORMAT.matcher(input.trim());
 

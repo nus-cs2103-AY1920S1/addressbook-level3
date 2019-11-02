@@ -18,7 +18,8 @@ public class ClashException extends RuntimeException {
                     return accum;
                 })
                 .trim();
-        String exceptionMsg = String.format(super.getMessage() + " with:\n%s\n", collisionsStr);
+        String exceptionMsg = String.format(super.getMessage() + " with:\n%s\n\nWould you still like to continue "
+                + "with the operation? Please type yes or no.", collisionsStr);
         return exceptionMsg;
     }
 }

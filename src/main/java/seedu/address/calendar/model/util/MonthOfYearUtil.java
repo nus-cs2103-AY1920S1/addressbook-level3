@@ -17,7 +17,7 @@ public class MonthOfYearUtil {
     }
 
     static boolean isValidMonthNum(int monthNum) {
-        return monthNum < MonthOfYear.values().length;
+        return monthNum < MonthOfYear.values().length && monthNum > 0;
     }
 
     static MonthOfYear convertNumToMonth(int monthNum) {
