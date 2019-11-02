@@ -30,11 +30,11 @@ The Incident Management System is a desktop application used for managing incide
 ** Project management:
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Team tasks:
-*** Implemented the Session API for all developers to access account features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/66[#66]
+*** Implemented the Session API for all developers to access account features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/66[#66]]
 *** Morphed Person Model to deal with new Account Features [https://github.com/AY1920S1-CS2103-T11-1/main/pull/48[#48]]
-*** Refactored Address Book references to Incident Manager [https://github.com/AY1920S1-CS2103-T11-1/main/pull/111[#111]
+*** Refactored Address Book references to Incident Manager [https://github.com/AY1920S1-CS2103-T11-1/main/pull/111[#111]]
 ** Enhancements to existing features:
-*** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]
+*** Improved the GUI to function in varying screen resolutions [https://github.com/AY1920S1-CS2103-T11-1/main/pull/69[#69]]
 ** Tools:
 *** Integrated new Github plugins (Coveralls & Codacy) to the team repo
 
