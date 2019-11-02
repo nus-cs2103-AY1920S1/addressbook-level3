@@ -17,8 +17,8 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.script.Script;
+import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.storage.Storage;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
@@ -67,6 +67,10 @@ public class LogicManager implements Logic {
         return model.getAccountsManager().getFilteredAccountList();
     }
 
+    @Override
+    public ObservableList<Transaction> getTransactionList() {
+        return model.getFilteredTransactions();
+    }
     @Override
     public ObservableList<Loan> getFilteredLoanList() {
         return model.getLoansManager().getFilteredLoans();

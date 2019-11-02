@@ -16,6 +16,7 @@ import budgetbuddy.ui.tab.LoanTab;
 import budgetbuddy.ui.tab.PanelTab;
 import budgetbuddy.ui.tab.RuleTab;
 import budgetbuddy.ui.tab.ScriptTab;
+import budgetbuddy.ui.tab.TransactionTab;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -125,6 +126,9 @@ public class MainWindow extends UiPart<Stage> {
         AccountTab accountTab = new AccountTab(logic.getAccountList());
         tabMap.put(CommandCategory.ACCOUNT, accountTab);
 
+        TransactionTab transactionTab = new TransactionTab(logic.getTransactionList());
+        tabMap.put(CommandCategory.TRANSACTION, transactionTab);
+
         RuleTab ruleTab = new RuleTab(logic.getRuleList());
         tabMap.put(CommandCategory.RULE, ruleTab);
 
@@ -137,7 +141,8 @@ public class MainWindow extends UiPart<Stage> {
         ScriptTab scriptTab = new ScriptTab(logic.getScriptList());
         tabMap.put(CommandCategory.SCRIPT, scriptTab);
 
-        OutputDisplay outputDisplay = new OutputDisplay(accountTab, ruleTab, loanTab, loanSplitTab, scriptTab);
+        OutputDisplay outputDisplay = new OutputDisplay(accountTab, transactionTab, ruleTab,
+                loanTab, loanSplitTab, scriptTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();

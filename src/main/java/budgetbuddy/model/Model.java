@@ -59,7 +59,14 @@ public interface Model {
     ObservableList<Transaction> getFilteredTransactions();
 
     /**
+     * Resets the list of filtered transactions
+     */
+    void resetFilteredTransactionList();
+
+    /**
      * Returns the accounts manager.
      */
     AccountsManager getAccountsManager();
+
+
 }

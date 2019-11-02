@@ -36,6 +36,7 @@ public class TransactionList implements Iterable<Transaction> {
         internalList.add(toAdd);
     }
 
+
     /**
      * Returns the Transaction at the specified index in the list.
      * @param toGet The index of the target transaction.
@@ -56,6 +57,15 @@ public class TransactionList implements Iterable<Transaction> {
         requireAllNonNull(txnIndex, editedTransaction);
 
         internalList.set(txnIndex.getZeroBased(), editedTransaction);
+    }
+
+    /**
+     * Replaces all transactions within the list with the transactions from another TransactionList.
+     * {@code toCopy} must not be a null list.
+     */
+    public void setAll(TransactionList toCopy) {
+        requireNonNull(toCopy);
+        internalList.setAll(toCopy.internalList);
     }
 
     /**

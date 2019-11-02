@@ -48,6 +48,7 @@ public class TransactionDeleteCommand extends Command {
 
         Transaction transactionToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.getAccountsManager().getActiveAccount().deleteTransaction(transactionToDelete);
+        model.getAccountsManager().transactionListUpdateSource();
         return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete),
                 CommandCategory.TRANSACTION);
     }

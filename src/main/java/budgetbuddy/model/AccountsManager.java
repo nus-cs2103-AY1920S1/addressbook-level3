@@ -11,6 +11,7 @@ import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exceptions.AccountNotFoundException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -23,6 +24,7 @@ public class AccountsManager {
     private final FilteredList<Account> filteredAccounts;
 
     private Index activeAccountIndex;
+    private final TransactionList activeTransactionList;
 
     /**
      * Creates a new list of accounts.
@@ -33,6 +35,8 @@ public class AccountsManager {
         activeAccountIndex = Index.fromZeroBased(0);
         // TODO add proper default data
         addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
+        activeTransactionList = new TransactionList();
+        activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
 
     /**
@@ -45,6 +49,8 @@ public class AccountsManager {
         this.accounts = new UniqueAccountList(accounts);
         this.activeAccountIndex = activeAccountIndex;
         filteredAccounts = new FilteredList<>(this.getAccounts());
+        activeTransactionList = new TransactionList();
+        activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
 
     /**
@@ -52,6 +58,13 @@ public class AccountsManager {
      */
     public ObservableList<Account> getFilteredAccountList() {
         return filteredAccounts;
+    }
+
+    /**
+     * Returns an unmodifiable view of the current active account's transactionlist.
+     */
+    public ObservableList<Transaction> getActiveTransactionList() {
+        return activeTransactionList.asUnmodifiableObservableList();
     }
 
     /**
@@ -195,5 +208,20 @@ public class AccountsManager {
         }
 
         activeAccountIndex = newActiveIndex;
+    }
+
+    /**
+     * Switches the account source for the TransactionList
+     */
+    public void transactionListSwitchSource(Account account) {
+        setActiveAccount(account);
+        activeTransactionList.setAll(account.getTransactionList());
+    }
+
+    /**
+     * Updates the transactionList linked to the currentActiveAccount
+     */
+    public void transactionListUpdateSource() {
+        activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }
 }

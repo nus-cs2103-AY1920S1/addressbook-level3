@@ -105,6 +105,7 @@ public class TransactionEditCommand extends ScriptCommand {
             targetAccount.addTransaction(updatedTransaction);
             Index updatedTxnIndex = Index.fromOneBased(targetAccount.getTransactionList().getTransactionsCount());
             RuleEngine.executeRules(model, scriptEngine, updatedTxnIndex, targetAccount);
+            model.getAccountsManager().transactionListSwitchSource(targetAccount);
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);

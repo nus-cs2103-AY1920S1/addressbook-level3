@@ -9,6 +9,7 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.script.Script;
+import budgetbuddy.model.transaction.Transaction;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 
@@ -29,6 +30,11 @@ public interface Logic {
      * Returns an unmodifiable view of the list of accounts.
      */
     ObservableList<Account> getAccountList();
+
+    /**
+     * Returns an unmodifiable view of the list of transactions.
+     */
+    ObservableList<Transaction> getTransactionList();
 
     /**
      * Returns an unmodifiable view of the list of loans.
