@@ -32,7 +32,8 @@ public class GetQnsCommandParserTest {
                 .withIsCorrectQns("true")
                 .withSubjects(new ArrayList<>())
                 .buildWithSubjectsAndResult();
-        GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter);
+        GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter,
+                "Here are the correct questions:");
 
         assertParseSuccess(parser, " -c", expectedCommand);
 
@@ -41,7 +42,7 @@ public class GetQnsCommandParserTest {
                 .withIsCorrectQns("false")
                 .withSubjects(new ArrayList<>())
                 .buildWithSubjectsAndResult();
-        expectedCommand = new GetQnsCommand(quizResultFilter);
+        expectedCommand = new GetQnsCommand(quizResultFilter, "Here are the incorrect questions:");
 
         assertParseSuccess(parser, " -i", expectedCommand);
     }
@@ -53,7 +54,8 @@ public class GetQnsCommandParserTest {
                 .withIsCorrectQns("true")
                 .withSubjects(new ArrayList<>(Arrays.asList("CS2103T")))
                 .buildWithSubjectsAndResult();
-        GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter);
+        GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter,
+                "Here are the correct questions for [CS2103T]:");
 
         assertParseSuccess(parser, " -c s/CS2103T", expectedCommand);
 
@@ -62,7 +64,8 @@ public class GetQnsCommandParserTest {
                 .withIsCorrectQns("true")
                 .withSubjects(new ArrayList<>(Arrays.asList("CS2103T", "CS2101")))
                 .buildWithSubjectsAndResult();
-        expectedCommand = new GetQnsCommand(quizResultFilter);
+        expectedCommand = new GetQnsCommand(quizResultFilter,
+                "Here are the correct questions for [CS2102T, CS2101]:");
 
         assertParseSuccess(parser, " -c s/CS2103T s/CS2101", expectedCommand);
 

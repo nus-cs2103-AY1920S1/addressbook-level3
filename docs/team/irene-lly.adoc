@@ -4,10 +4,13 @@
 :stylesDir: ../stylesheets
 
 == About the project
-My team of 4 software engineering students and I were tasked with
-enhancing a basic command line interface desktop addressbook application
+This portfolio documents my contributions to NUStudy, a learning application.
+Our team of 5 software engineering students were tasked with
+enhancing a basic command line interface desktop Addressbook application
 as part of our Software Engineering project in CS2103T.
-We chose to morph it into an application to facilitate learning for students.
+We were asked to conceptualize and implement enhancements to the existing application
+and do it in a manner such that future developers can continue working on it.
+After some deliberation, we decided to morph it into an application to facilitate learning for students.
 The morphed application, NUStudy, enables students to add and manage notes;
 test their knowledge with questions that they have added;
 get statistics of how well they have answered these questions;
@@ -16,15 +19,16 @@ and set tasks to plan their revision schedule.
 I contributed to this project by implementing the statistics feature as documented below.
 In particular, I have implemented the `stats`, `questions`, `report` and `overview` commands.
 The following sections illustrate the enhancements in more detail,
-as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+as well as the relevant documentation I have added to the user and developer guides in
+relation to these enhancements.
 
 Note the following symbols and formatting used in this document: +
-`stats`: A grey highlight (called a mark-up) indicates that this is a command that can be inputted
+`stats`: A grey highlight indicates that this is a command that can be inputted
 into the command line and executed by the application. +
 *Bold*: A bolded word indicates an action to be taken by the user.
 
 == Summary of contributions
-This section shows the enhancements I have made to the project as well as other contributions.
+This section shows the enhancements I have added to the project as well as my other contributions.
 
 **Enhancement added**: I added the ability to get statistics of the questions done in the quizzes.
 
@@ -32,14 +36,14 @@ This section shows the enhancements I have made to the project as well as other 
 and return an overview of how well they have done the questions.
 * Justification: The `questions` and `report` commands help users to get an
 idea of what subjects they are weaker in and see the common mistakes that they have made.
-The `stats` and `overview` commands give users an idea of which questions they
+The `stats` and `overview` commands gives users an idea of which questions they
 should attempt more of and what subjects they have been neglecting.
 Overall, the purpose of the statistics feature is to provide users with a rough
 outline of their progress in mastering the foundations of the subject.
 * Highlights: This enhancement affects existing commands and commands to be added in future.
 An in-depth analysis of design alternatives is required in the future.
-The implementation was challenging as it required changes to existing models and logic classes.
-* Credits:
+The implementation was also challenging as it required changes to existing models
+and logic classes.
 
 **Code contributed**: Please click this link to see a sample of my code:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=irene-lly[here]
@@ -56,6 +60,7 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]
 **	Contributed to forum discussions:
 https://github.com/nus-cs2103-AY1920S1/forum/issues/71[#71]
+**  Reported bugs found from other team's applications:
 *	Enhancements to existing features:
 **	Updated the GUI so that different panels can be stacked:
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/56[#56]
@@ -71,7 +76,7 @@ showing additions that I have made for the statistics features.
 include::../UserGuide.adoc[tag=stats]
 
 Example:
-Let's say you have answered some questions from a particular subject previously
+Let's say you have answered some questions from CS2103T previously
 and you would like a ballpark figure to estimate how well you know the subject.
 
 To get this figure:

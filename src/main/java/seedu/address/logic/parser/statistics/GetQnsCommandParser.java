@@ -50,6 +50,12 @@ public class GetQnsCommandParser implements Parser<GetQnsCommand> {
         return new GetQnsCommand(quizResultFilter, returnMessage(getCorrectQns, subjects));
     }
 
+    /**
+     * Returns a string to be placed in the result display.
+     * @param getCorrectQns Denotes if message includes correct or incorrect questions.
+     * @param subjects Denotes the subjects to include in the result display.
+     * @return The message to be placed in result display.
+     */
     private String returnMessage(boolean getCorrectQns, List<Subject> subjects) {
         String returnMessage;
         if (!subjects.isEmpty()) {
