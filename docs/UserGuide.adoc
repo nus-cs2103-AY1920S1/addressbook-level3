@@ -327,21 +327,20 @@ Result:
 
 No shortcut is created. Continue using FinSec as per normal!
 
-<<UG-NoShortcutexample>>, <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
-[[UG-NoShortcutexample]]
+<<UG-NoShortcutexample1>>, <<UG-NoShortcutExample2>> and <<UG-NoShortcutResult>> shows what you can expect to see after typing in the example: `add_conagtact`.
+[[UG-NoShortcutexample1]]
 [reftext="Figure 3.11.1.1"]
 [caption="Figure 3.11.1.1: "]
 .When a user enters an accidental typo
 image::UG-NoShortcut1.png[width="800"]
 
-[[UG-NoShortcutResult]]
+[[UG-NoShortcutExample2]]
 [reftext="Figure 3.11.1.2"]
 [caption="Figure 3.11.1.2: "]
 .The result after entering the typo. FinSec will ask you if you want to create a shortcut.
 image::UG-NoShortcut2.png[width="800"]
 
-
-
+[[UG-NoShortcutResult]]
 [reftext="Figure 3.11.3"]
 [caption="Figure 3.11.3: "]
 .Since it is a genuine typo, entering 'n' will allow you to continue.
