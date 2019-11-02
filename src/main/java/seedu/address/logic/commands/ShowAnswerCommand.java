@@ -34,12 +34,4 @@ public class ShowAnswerCommand extends Command {
                 || (other instanceof ShowAnswerCommand) // instanceof handles nulls
                 && keyboardFlashCardsParser.equals(((ShowAnswerCommand) other).keyboardFlashCardsParser);
     }
-
-    /*
-    @Override
-    public String toString() {
-        return "placeholder";
-    }
-     */
-
 }
