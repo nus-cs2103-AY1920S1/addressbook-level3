@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Jarvis" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
+         title="Jarvis" minWidth="1000" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/jarvis.png" />
   </icons>
@@ -23,52 +24,54 @@
         <URL value="@CustomExtensions.css" />
       </stylesheets>
 
-      <VBox fx:id = "parentVBox">
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-        <TabPane fx:id="tabPanePlaceHolder" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE" stylesheets="@CustomTabPane.css" >
-          <tabs>
-            <Tab text="Planner" >
-              <content>
-                <StackPane fx:id="plannerContentPlaceholder" VBox.vgrow="ALWAYS" />
-              </content>
-            </Tab>
-            <Tab text="Modules">
-              <content>
-                <StackPane fx:id="moduleContentPlaceholder" VBox.vgrow="ALWAYS" />
-              </content>
-            </Tab>
-            <Tab text="Ccas">
-              <content>
-                <StackPane fx:id="ccaContentPlaceholder" VBox.vgrow="ALWAYS" />
-              </content>
-            </Tab>
-            <Tab text="Finances">
-              <content>
-                <StackPane fx:id="financeContentPlaceholder" VBox.vgrow="ALWAYS" />
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+      <HBox>
+        <VBox fx:id = "parentVBox">
+          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+            <Menu mnemonicParsing="false" text="File">
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            </Menu>
+          </MenuBar>
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
+          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                     minHeight="100" prefHeight="100" maxHeight="100">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
+          <TabPane fx:id="tabPanePlaceHolder" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE" stylesheets="@CustomTabPane.css" >
+            <tabs>
+              <Tab text="Planner" >
+                <content>
+                  <StackPane fx:id="plannerContentPlaceholder" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Modules">
+                <content>
+                  <StackPane fx:id="moduleContentPlaceholder" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Ccas">
+                <content>
+                  <StackPane fx:id="ccaContentPlaceholder" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+              <Tab text="Finances">
+                <content>
+                  <StackPane fx:id="financeContentPlaceholder" VBox.vgrow="ALWAYS" />
+                </content>
+              </Tab>
+            </tabs>
+          </TabPane>
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        </VBox>
+      </HBox>
     </Scene>
   </scene>
 </fx:root>

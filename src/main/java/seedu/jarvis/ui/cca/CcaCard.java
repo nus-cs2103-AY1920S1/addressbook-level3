@@ -18,7 +18,7 @@ import seedu.jarvis.ui.UiPart;
  */
 public class CcaCard extends UiPart<Region> {
 
-    private static final String FXML = "CcaListCard2.fxml";
+    private static final String FXML = "CcaListCard.fxml";
     private static final String TEXT_CCA_PROGRESS_NOT_SET_YET = "Not set";
 
     /**
