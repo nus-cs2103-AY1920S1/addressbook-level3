@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MoveFileCommand;
-import seedu.address.logic.commands.RenameFileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.file.FilePath;
 
@@ -26,7 +25,7 @@ public class MoveFileCommandParser implements Parser<MoveFileCommand> {
             return new MoveFileCommand(index, newPath);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameFileCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveFileCommand.MESSAGE_USAGE), pe);
         }
     }
 
