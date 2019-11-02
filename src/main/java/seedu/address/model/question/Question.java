@@ -16,10 +16,10 @@ public class Question {
     /**
      * Constructs a new question. All fields must be present and non-null.
      *
-     * @param questionBody    The questions's content, which must be unique.
-     * @param answer     The question's answer, which do not have to be unique.
-     * @param subject    The question's subject, which do not have to be unique.
-     * @param difficulty The question's difficulty, which do not have to be unique.
+     * @param questionBody The question's content, which must be unique.
+     * @param answer The question's answer.
+     * @param subject The question's subject.
+     * @param difficulty The question's difficulty.
      */
     public Question(QuestionBody questionBody, Answer answer, Subject subject, Difficulty difficulty) {
         requireAllNonNull(questionBody, answer, subject, difficulty);
