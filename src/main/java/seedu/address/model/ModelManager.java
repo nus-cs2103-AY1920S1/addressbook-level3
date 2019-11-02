@@ -198,7 +198,7 @@ public class ModelManager implements Model {
 
     @Override
     public void sortFilteredClaimListByName() {
-        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted());
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(new ClaimNameComparator()));
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
     }
@@ -223,8 +223,8 @@ public class ModelManager implements Model {
 
     @Override
     public void sortReverseFilteredClaimListByName() {
-        Comparator<Claim> reverseComparator = Comparator.comparing(Claim::toString).reversed();
-        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(reverseComparator));
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(
+                new ClaimNameComparator().reversed()));
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
     }
@@ -439,8 +439,6 @@ public class ModelManager implements Model {
     public void updateFilteredCommandsList(Predicate<CommandItem> predicate) {
         filteredCommands.setPredicate(predicate);
     }
-
-
 }
 
 /**
@@ -460,8 +458,8 @@ class ContactNameComparator implements Comparator<Contact> {
 class ClaimNameComparator implements Comparator<Claim> {
     @Override
     public int compare(Claim claim1, Claim claim2) {
-        return claim1.getName().toString().toUpperCase()
-                .compareTo(claim2.getName().toString().toUpperCase());
+        return claim1.getDescription().toString().toUpperCase()
+                .compareTo(claim2.getDescription().toString().toUpperCase());
     }
 }
 
