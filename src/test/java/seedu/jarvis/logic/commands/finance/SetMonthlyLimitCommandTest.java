@@ -25,6 +25,8 @@ import seedu.jarvis.model.finance.MonthlyLimit;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.MonthlyLimitBuilder;
 
@@ -122,6 +124,7 @@ public class SetMonthlyLimitCommandTest {
     private class ModelStubAcceptingSpendingLimitSet extends ModelStub {
 
         private MonthlyLimit spendingLimit = null;
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public void setMonthlyLimit(MonthlyLimit limit) {
@@ -135,6 +138,11 @@ public class SetMonthlyLimitCommandTest {
                 return Optional.empty();
             }
             return Optional.of(spendingLimit);
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
     }
 }

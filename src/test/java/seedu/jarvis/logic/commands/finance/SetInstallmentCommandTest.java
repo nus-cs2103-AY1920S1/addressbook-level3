@@ -32,6 +32,8 @@ import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
@@ -166,6 +168,7 @@ public class SetInstallmentCommandTest {
      */
     private class ModelStubWithInstallment extends ModelStub {
         private final Installment installment;
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         ModelStubWithInstallment(Installment installment) {
             requireNonNull(installment);
@@ -177,6 +180,11 @@ public class SetInstallmentCommandTest {
             requireNonNull(installment);
             return this.installment.isSameInstallment(installment);
         }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
+        }
     }
 
     /**
@@ -184,6 +192,7 @@ public class SetInstallmentCommandTest {
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
         final ArrayList<Installment> installmentsAdded = new ArrayList<>();
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public boolean hasInstallment(Installment installment) {
@@ -200,6 +209,11 @@ public class SetInstallmentCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
     }
 
