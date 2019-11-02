@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
@@ -28,6 +29,7 @@ class JsonSerializableProjectDashboard {
     public static final String MESSAGE_DUPLICATE_INVENTORIES = "Inventory list contains duplicate inventory(s).";
     public static final String MESSAGE_DUPLICATE_MEMBERS = "Members list contains duplicate member(s).";
     public static final String MESSAGE_DUPLICATE_MAPPINGS = "Mappings list contains duplicate mapping(s).";
+    public static final String MESSAGE_DUPLICATE_CALENDARS = "Mappings list contains duplicate calendar(s).";
 
     private final List<JsonAdaptedTask> tasks = new ArrayList<>();
     private final List<JsonAdaptedMember> members = new ArrayList<>();
@@ -35,6 +37,7 @@ class JsonSerializableProjectDashboard {
     private final List<JsonAdaptedInvMemMapping> invMemMappings = new ArrayList<>();
     private final List<JsonAdaptedInvTasMapping> invTasMappings = new ArrayList<>();
     private final List<JsonAdaptedTasMemMapping> tasMemMappings = new ArrayList<>();
+    private final List<JsonAdaptedCalendar> calendars = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableProjectDashboard} with the given task.
@@ -48,13 +51,15 @@ class JsonSerializableProjectDashboard {
                                                         List<JsonAdaptedInvTasMapping> invTasMappings,
                                             @JsonProperty("tasMemMappings")
                                                         List<JsonAdaptedTasMemMapping> tasMemMappings,
-                                            @JsonProperty("inventory") List<JsonAdaptedInventory> inventory) {
+                                            @JsonProperty("inventory") List<JsonAdaptedInventory> inventory,
+                                            @JsonProperty("calendars") List<JsonAdaptedCalendar> calendars) {
         this.tasks.addAll(tasks);
         this.inventory.addAll(inventory);
         this.members.addAll(members);
         this.invMemMappings.addAll(invMemMappings);
         this.invTasMappings.addAll(invTasMappings);
         this.tasMemMappings.addAll(tasMemMappings);
+        this.calendars.addAll(calendars);
     }
 
     /**
@@ -74,6 +79,8 @@ class JsonSerializableProjectDashboard {
         invTasMappings.addAll(source.getInvTasMappingList().stream().map(JsonAdaptedInvTasMapping::new)
                 .collect(Collectors.toList()));
         tasMemMappings.addAll(source.getTasMemMappingList().stream().map(JsonAdaptedTasMemMapping::new)
+                .collect(Collectors.toList()));
+        calendars.addAll(source.getCalendarList().stream().map(JsonAdaptedCalendar::new)
                 .collect(Collectors.toList()));
     }
 
@@ -127,6 +134,13 @@ class JsonSerializableProjectDashboard {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MAPPINGS);
             }
             projectDashboard.addMapping(tasMemMapping);
+        }
+        for (JsonAdaptedCalendar jsonAdaptedCalendar : calendars) {
+            CalendarWrapper calendar = jsonAdaptedCalendar.toModelType();
+            if (projectDashboard.hasCalendar(calendar)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CALENDARS);
+            }
+            projectDashboard.addCalendar(calendar);
         }
         return projectDashboard;
     }

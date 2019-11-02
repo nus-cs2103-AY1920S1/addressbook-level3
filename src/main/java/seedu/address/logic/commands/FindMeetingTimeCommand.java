@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.Model;
 
 import java.time.Duration;
@@ -39,11 +42,12 @@ public class FindMeetingTimeCommand extends Command {
         requireNonNull(model);
 
         //Replace after including meeting display into UI
-        List<LocalDateTime> possibleMeetingTimes = model.findMeetingTime(startDate, endDate, meetingDuration);
+        ObservableList<Meeting> possibleMeetingTimes =
+                model.findMeetingTime(startDate, endDate, meetingDuration);
         String LIST_OF_TIMINGS = "The following are good meeting times: \n";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        for (LocalDateTime dateTime : possibleMeetingTimes) {
-            LIST_OF_TIMINGS += dateTime.format(formatter) + "\n";
+        for (Meeting dateTime : possibleMeetingTimes) {
+            LIST_OF_TIMINGS += dateTime.getDateTime().format(formatter) + "\n";
         }
         return new CommandResult(LIST_OF_TIMINGS);
     }

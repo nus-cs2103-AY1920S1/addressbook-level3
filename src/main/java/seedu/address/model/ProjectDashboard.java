@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.UniqueCalendarList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
@@ -390,7 +391,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return calendars.asUnmodifiableObservableList();
     }
 
-    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+    public ObservableList<Meeting> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
         return calendars.findMeetingTime(startDate, endDate, meetingDuration);
     }
 }

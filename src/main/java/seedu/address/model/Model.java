@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
@@ -242,7 +243,7 @@ public interface Model {
 
     boolean hasCalendar(CalendarWrapper calendar);
 
-    List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG);
+    ObservableList<Meeting> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG);
 
     // Settings
 

@@ -43,8 +43,6 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     private final ObservableList<CalendarWrapper> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarWrapper> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-    private static final int END_HOUR = 22;
-    private static final int END_MINUTE = 00;
 //    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
 //            .getInstance()
 //            .createRegistry()
@@ -322,7 +320,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
         return completeList;
     }
 
-    public LinkedHashMap<LocalDateTime, Integer> generateAttendance(LocalDateTime lcdStartDate,
+    public LinkedHashMap<LocalDateTime, List<MemberName>> generateAttendance(LocalDateTime lcdStartDate,
                                                                     LocalDateTime lcdEndDate,
                                                                     Duration meetingDuration,
                                                                     net.fortuna.ical4j.model.Period searchPeriod) {
@@ -330,17 +328,16 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
         List<LocalDateTime> meetingTimeslots = generateTimeslots(lcdStartDate, lcdEndDate,
                 meetingDuration, lastDailyMeetingTime);
 
-        LinkedHashMap<LocalDateTime, Integer> attendance = new LinkedHashMap<>();
+        LinkedHashMap<LocalDateTime, List<MemberName>> attendance = new LinkedHashMap<>();
         for (LocalDateTime timeslot : meetingTimeslots) {
-            attendance.put(timeslot, 0);
+            attendance.put(timeslot, new ArrayList<MemberName>());
         }
         for (CalendarWrapper memberCalendar : internalList) {
             List<LocalDateTime> memberAvailability =
                     generateMemberAvailibility(memberCalendar.getAvailabilityDuringPeriod(searchPeriod),
                             meetingDuration,
                             lastDailyMeetingTime);
-
-            addMemberAvailability(attendance, memberAvailability);
+            addMemberAvailability(attendance, memberAvailability, memberCalendar.getMemberName());
         }
         return attendance;
     }
@@ -350,36 +347,45 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     //Convert from ical4j.DateTime to time.LocalDateTime
     //Normalise PeriodList of each calendar
     //For each period, extract smaller period for meeting times and increment HashMap
+    public ObservableList<Meeting> findMeetingTime(LocalDateTime startDate,
+                                                         LocalDateTime endDate,
+                                                         Duration duration) {
+        ObservableList<Meeting> meetingList = FXCollections.observableArrayList();
+        ObservableList<Meeting> meetingUnmodifiableList =
+                FXCollections.unmodifiableObservableList(meetingList);
 
-    ////Sample Duration
-//        LocalDateTime startDate = LocalDateTime.parse("20191028T000000Z");
-//        LocalDateTime endDate = LocalDateTime.parse("20191101T170000Z");
-    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration) {
         net.fortuna.ical4j.model.DateTime ical4jStartDate = new DateTime(java.sql.Timestamp.valueOf(startDate));
         net.fortuna.ical4j.model.DateTime ical4jEndDate = new DateTime(java.sql.Timestamp.valueOf(endDate));
 
         net.fortuna.ical4j.model.Period searchPeriod =
                 new net.fortuna.ical4j.model.Period(ical4jStartDate, ical4jEndDate);
 
-        LinkedHashMap<LocalDateTime, Integer> timeslotAttendance = generateAttendance(startDate, endDate,
+        LinkedHashMap<LocalDateTime, List<MemberName>> timeslotAttendance = generateAttendance(startDate, endDate,
                                                                     duration, searchPeriod);
-        List<LocalDateTime> bestTimeSlots = new ArrayList<>();
-        int count = 1;
-        Iterator<LocalDateTime> timeIterator = timeslotAttendance.keySet().iterator();
-        while (timeIterator.hasNext()) {
-            LocalDateTime current = timeIterator.next();
-            int currentNum = timeslotAttendance.get(current);
-            if (currentNum == count) {
-                bestTimeSlots.add(current);
+        int maxAttendance = 0;
+        for (LocalDateTime timeslot : timeslotAttendance.keySet()) {
+            List<MemberName> memberNameList = timeslotAttendance.get(timeslot);
+            int numAttendance = memberNameList.size();
+            if (numAttendance > maxAttendance) {
+                meetingList = FXCollections.observableArrayList();
+                maxAttendance = numAttendance;
+                Meeting newMeetingDate = new Meeting(timeslot, memberNameList);
+                System.out.println(newMeetingDate);
+                meetingList.add(newMeetingDate);
+            } else if (numAttendance == maxAttendance) {
+                Meeting newMeetingDate = new Meeting(timeslot, memberNameList);
+                System.out.println(newMeetingDate);
+                meetingList.add(newMeetingDate);
             }
         }
-        return bestTimeSlots;
+        return meetingList;
     }
 
-    public static void addMemberAvailability(HashMap<LocalDateTime, Integer> attendance,
-                                             List<LocalDateTime> memberAvailability) {
+    public static void addMemberAvailability(HashMap<LocalDateTime, List<MemberName>> attendance,
+                                             List<LocalDateTime> memberAvailability,
+                                             MemberName memberName) {
         for (LocalDateTime availableSlot : memberAvailability) {
-            attendance.put(availableSlot, attendance.get(availableSlot) + 1);
+            attendance.get(availableSlot).add(memberName);
         }
     }
 

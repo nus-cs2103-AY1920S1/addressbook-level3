@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
 import java.io.FileNotFoundException;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import net.fortuna.ical4j.model.Calendar;
@@ -15,10 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.calendar.DataAccess;
 import seedu.address.model.calendar.FilePath;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.member.MemberName;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskStatus;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -53,18 +49,19 @@ public class AddCalendarParser implements Parser<AddCalendarCommand> {
         //Remove after testing
         count ++;
         //
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_NAME, PREFIX_FILE_PATH);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MEMBER_NAME, PREFIX_FILE_PATH);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MEMBER_NAME, PREFIX_FILE_PATH)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCalendarCommand.MESSAGE_USAGE));
         }
 
-        MemberName memberName = ParserUtil.parseMemberName(argMultimap.getValue(PREFIX_MEMBER_NAME).get());
         FilePath filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE_PATH).get());
 
-        Calendar calendar = DataAccess.getCalendarFile(filePath);
-        CalendarWrapper memberCalendar = new CalendarWrapper(memberName, calendar);
+        MemberName memberName = ParserUtil.parseMemberName(argMultimap.getValue(PREFIX_MEMBER_NAME).get());
+        String calendarStorageFormat = DataAccess.getCalendarStorageFormat(filePath);
+        Calendar calendar = ParserUtil.parseCalendar(calendarStorageFormat);
+
+        CalendarWrapper memberCalendar = new CalendarWrapper(memberName, calendar, calendarStorageFormat);
 
         return new AddCalendarCommand(memberCalendar);
     }
@@ -77,4 +74,3 @@ public class AddCalendarParser implements Parser<AddCalendarCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
-

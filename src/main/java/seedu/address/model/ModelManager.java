@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
@@ -382,7 +383,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+    public ObservableList<Meeting> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
         return projectDashboard.findMeetingTime(startDate, endDate, meetingDuration);
     }
 
