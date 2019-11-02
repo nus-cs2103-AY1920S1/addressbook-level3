@@ -35,10 +35,10 @@ public class AddClaimCommandParser implements Parser<AddClaimCommand> {
     public AddClaimCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_CASH, PREFIX_DATE,
-                         PREFIX_PHONE, PREFIX_TAG);
+                         PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_CASH, PREFIX_DATE,
-                PREFIX_NAME, PREFIX_PHONE) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddClaimCommand.MESSAGE_USAGE));
         }
 
@@ -46,10 +46,9 @@ public class AddClaimCommandParser implements Parser<AddClaimCommand> {
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_CASH).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Claim claim = new PendingClaim(description, amount, date, name, phone, tagList);
+        Claim claim = new PendingClaim(description, amount, date, name, tagList);
 
         return new AddClaimCommand(claim);
     }
