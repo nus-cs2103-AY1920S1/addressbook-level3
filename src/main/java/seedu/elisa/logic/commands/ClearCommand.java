@@ -21,6 +21,10 @@ public class ClearCommand extends UndoableCommand {
         requireNonNull(model);
         beforeClear = model.getItemStorage().deepCopy();
         model.clear();
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

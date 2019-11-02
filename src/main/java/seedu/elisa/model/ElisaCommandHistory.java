@@ -23,4 +23,6 @@ public interface ElisaCommandHistory {
     public UndoableCommand peekRedo();
 
     public int sizeRedo();
+
+    public void clearRedo();
 }

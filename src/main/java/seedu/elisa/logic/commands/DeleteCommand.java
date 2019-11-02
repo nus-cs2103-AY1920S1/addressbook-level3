@@ -49,6 +49,10 @@ public class DeleteCommand extends UndoableCommand {
             RescheduleTask.removeFromAllTasks(itemDeleted.getEvent().get());
         }
 
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemDeleted));
     }
 
