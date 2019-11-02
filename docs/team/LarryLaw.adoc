@@ -72,6 +72,8 @@ image:https://api.codacy.com/project/badge/Grade/b4c6f87fc11549a49da8e727b71a9cc
 
 include::../UserGuide.adoc[tag=display]
 
+include::../UserGuide.adoc[tag=addperson]
+
 == Contributions to the Developer Guide
 
 |===

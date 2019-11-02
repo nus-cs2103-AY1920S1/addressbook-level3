@@ -69,6 +69,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+// tag::addperson[]
 === Adding a person: `add`
 
 Adds a person to the list of people +
@@ -86,6 +87,12 @@ Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH g
 Examples:
 
 * `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1912 g/Male`
+
+Expected Output:
+```
+New person added: John Doe NRIC: S0000001J Phone: 98765432 Email: johnd@example.com Address: 311, Clementi Ave 2, #02-25 Date of birth: 12 December 1912 Gender: Male
+```
+// end::addperson[]
 
 === Adding a policy: `addpolicy`
 
@@ -623,7 +630,7 @@ If `no`,
 You may edit John Doe’s profile using the edit command. For more information, type help.
 ```
 
-=== Expanding a profile
+=== Expanding a profile: `expandperson`
 Expands the profile details on the right panel.
 
 Format:
@@ -633,7 +640,7 @@ Examples:
 
 `expandperson 1`
 
-=== Expanding a policy
+=== Expanding a policy: `expandpolicy`
 Expands the policy details on the right panel.
 
 Format:
