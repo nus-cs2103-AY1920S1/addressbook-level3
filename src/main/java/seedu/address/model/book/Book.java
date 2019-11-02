@@ -17,7 +17,7 @@ import seedu.address.model.loan.LoanList;
  * Represents a Book in the Catalog.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Book {
+public class Book implements Comparable<Book> {
     private static final Loan NULL_LOAN = null;
 
     // Identity fields
@@ -150,6 +150,10 @@ public class Book {
                 this.getLoan().orElse(NULL_LOAN),
                 this.getGenres(),
                 newHistory);
+    }
+
+    public int compareTo(Book b) {
+        return this.getSerialNumber().compareTo(b.getSerialNumber());
     }
 
     /**
