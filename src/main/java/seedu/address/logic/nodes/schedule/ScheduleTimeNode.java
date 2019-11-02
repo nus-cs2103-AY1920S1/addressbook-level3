@@ -22,4 +22,5 @@ public class ScheduleTimeNode extends Node<Schedule> {
         backingList.forEach(schedule -> values.add(schedule.getCalendar().getTime().toString()));
         return values;
     }
+
 }
