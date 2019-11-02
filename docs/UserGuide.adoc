@@ -373,15 +373,16 @@ Format: `redo`
 ** offduty: `offduty <ENTRY_ID>`
 
 * *Appointment Management* +
-** addappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>] [-rec REPEATEDLY] [-num TIMES]`
-** ackappt: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
-** appointments: `appointments [-phone <PATIENT_NAME | PATIENT_IC>]`
+** addappt: `addappt [-id <PATIENT_NAME | PATIENT_IC>] [-rec REPEATEDLY] [-num TIMES]`
+** ackappt: `ackappt <REFERENCE_ID>`
+** appointments: `appointments <REFERENCE_ID>`
 ** cancelappt: `cancelappt <ENTRY_ID>`
 ** changeappt: `changeappt <ENTRY_ID> [-start <START_TIMING>]`
 ** missappt: `missappt`
 ** settle: `settle <ENTRY_ID>`
 
 * *Duty-shift Management* +
+** shift: `shift [<REFERENCE_ID>]`
 ** addshift: `addshift [-id STAFF_REFERENCE_ID] -start <START_TIMING> [-rec REPEATEDLY] [-num REPEATED_TIMES]`
 ** cancelshift: `cancelshift <ENTRY_ID>`
 ** changeshift: `changeshift <ENTRY_ID> [-start <START_TIMING>]`

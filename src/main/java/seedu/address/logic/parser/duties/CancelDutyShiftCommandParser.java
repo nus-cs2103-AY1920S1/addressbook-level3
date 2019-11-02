@@ -40,7 +40,7 @@ public class CancelDutyShiftCommandParser implements Parser<ReversibleActionPair
         Index index;
 
         if (!model.isListingAppointmentsOfSingleStaff()) {
-            throw new ParseException(Messages.MESSAGE_NOT_STAFFLIST);
+            throw new ParseException(String.format(Messages.MESSAGE_NOT_STAFFLIST, CancelDutyShiftCommand.COMMAND_WORD));
         }
 
         try {

@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.appointments.ChangeAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -48,7 +49,7 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START, PREFIX_END);
 
         if (!model.isListingAppointmentsOfSingleStaff()) {
-            throw new ParseException(Messages.MESSAGE_NOT_STAFFLIST);
+            throw new ParseException(String.format(Messages.MESSAGE_NOT_STAFFLIST, ChangeDutyShiftCommand.COMMAND_WORD));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_START) || argMultimap.getPreamble().isEmpty()) {
