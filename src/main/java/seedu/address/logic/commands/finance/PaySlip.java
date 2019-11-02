@@ -30,7 +30,7 @@ public class PaySlip extends Command {
         int amount = totalH * 10;
         //output = "Total Payment for all events: $" + amount + "\nBreakdown: " + totalH + " hours, $10.0/h";
         List<Employee> employeeList = model.getAddressBook().getEmployeeList();
-        String first = employeeList.get(0).getEmployeePay().value;
+        String first = employeeList.get(0).getEmployeeSalaryPaid().value;
         String output = first;
         return new CommandResult(String.format(output),"Finance");
     }

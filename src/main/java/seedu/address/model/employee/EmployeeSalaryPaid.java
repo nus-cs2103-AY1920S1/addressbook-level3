@@ -1,28 +1,27 @@
 package seedu.address.model.employee;
 
+import static java.util.Objects.requireNonNull;
+
 /**
- * Represents a Employee's PendingPay  in the address book.
+ * Represents a Employee's Salary (per hour) in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}
  */
-public class EmployeePendingPay {
+public class EmployeeSalaryPaid {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeePay numbers should only contain numbers, and it should be at least 3 digits long";
+            "EmployeeSalaryPaid numbers should only contain numbers";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    public String value;
-    //private final int value; <--Should be using this instead!
+    public final String value;
 
-    public EmployeePendingPay() {
-        //value = 0;
-    }
 
     /**
-     * Constructs a {@code EmployeePay}.
+     * Constructs a {@code EmployeeSalaryPaid}.
      *
      * @param pay A valid Pay number.
      */
-    public EmployeePendingPay(String pay) {
+    public EmployeeSalaryPaid(String pay) {
+        requireNonNull(pay);
         value = pay;
     }
 
@@ -30,7 +29,7 @@ public class EmployeePendingPay {
      * Returns true if a given string is a valid Pay number.
      */
     public static boolean isValidPay(String test) {
-        return true;
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
@@ -41,8 +40,8 @@ public class EmployeePendingPay {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmployeePendingPay // instanceof handles nulls
-                && value.equals(((EmployeePendingPay) other).value)); // state check
+                || (other instanceof EmployeeSalaryPaid // instanceof handles nulls
+                && value.equals(((EmployeeSalaryPaid) other).value)); // state check
     }
 
     @Override
@@ -51,5 +50,4 @@ public class EmployeePendingPay {
     }
 
 }
-
 

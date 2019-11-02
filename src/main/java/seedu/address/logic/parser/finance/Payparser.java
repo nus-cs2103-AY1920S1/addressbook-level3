@@ -40,7 +40,7 @@ public class Payparser implements Parser<Pay> {
 
         EditEmployeeDescriptor editEmployeeDescriptor = new EditEmployeeDescriptor();
         if (argMultimap.getValue(PREFIX_PAY).isPresent()) {
-            editEmployeeDescriptor.setEmployeePay(ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get()));
+            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get()));
         }
 
         if (!editEmployeeDescriptor.isAnyFieldEdited()) {

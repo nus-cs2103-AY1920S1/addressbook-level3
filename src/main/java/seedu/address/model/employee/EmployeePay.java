@@ -1,27 +1,25 @@
 package seedu.address.model.employee;
 
-import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Employee's Salary (per hour) in the address book.
+ * Represents a Employee's Pay  in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}
  */
 public class EmployeePay {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeePay numbers should only contain numbers";
+            "EmployeePay should only contain numbers, and it should be at least 1 digits long";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    public final String value;
+    public String value;
+    //private final int value; <--Should be using this instead!
 
 
     /**
-     * Constructs a {@code EmployeePay}.
+     * Constructs a {@code EmployeeSalaryPaid}.
      *
      * @param pay A valid Pay number.
      */
     public EmployeePay(String pay) {
-        requireNonNull(pay);
         value = pay;
     }
 
@@ -29,7 +27,7 @@ public class EmployeePay {
      * Returns true if a given string is a valid Pay number.
      */
     public static boolean isValidPay(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override

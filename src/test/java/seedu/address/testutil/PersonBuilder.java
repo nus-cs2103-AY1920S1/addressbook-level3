@@ -5,17 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePay;
-import seedu.address.model.employee.EmployeePendingPay;
-import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeeTotalSalary;
+import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -33,20 +24,20 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private EmployeeName employeeName;
-    private EmployeePay employeePay;
+    private EmployeeSalaryPaid employeeSalaryPaid;
     private EmployeePendingPay employeePendingPay;
     private EmployeePhone employeePhone;
-    private EmployeeTotalSalary employeeTotalSalary;
+    private EmployeePay employeePay;
     private EmployeeEmail employeeEmail;
     private EmployeeAddress employeeAddress;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         employeeName = new EmployeeName(DEFAULT_NAME);
-        employeePay = new EmployeePay(DEFAULT_PAY);
+        employeeSalaryPaid = new EmployeeSalaryPaid(DEFAULT_PAY);
         employeePendingPay = new EmployeePendingPay(DEFAULT_PENDINGPAY);
         employeePhone = new EmployeePhone(DEFAULT_PHONE);
-        employeeTotalSalary = new EmployeeTotalSalary((DEFAULT_TOTALSALARY));
+        employeePay = new EmployeePay((DEFAULT_TOTALSALARY));
         employeeEmail = new EmployeeEmail(DEFAULT_EMAIL);
         employeeAddress = new EmployeeAddress(DEFAULT_ADDRESS);
         tags = new HashSet<>();
@@ -57,10 +48,10 @@ public class PersonBuilder {
      */
     public PersonBuilder(Employee employeeToCopy) {
         employeeName = employeeToCopy.getEmployeeName();
-        employeePay = employeeToCopy.getEmployeePay();
+        employeeSalaryPaid = employeeToCopy.getEmployeeSalaryPaid();
         employeePendingPay = employeeToCopy.getEmployeePendingPay();
         employeePhone = employeeToCopy.getEmployeePhone();
-        employeeTotalSalary = employeeToCopy.getEmployeeTotalsalary();
+        employeePay = employeeToCopy.getEmployeeTotalsalary();
         employeeEmail = employeeToCopy.getEmployeeEmail();
         employeeAddress = employeeToCopy.getEmployeeAddress();
         tags = new HashSet<>(employeeToCopy.getTags());
@@ -102,7 +93,7 @@ public class PersonBuilder {
      * Sets the {@code EmployeePhone} of the {@code Employee} that we are building.
      */
     public PersonBuilder withPay(String pay) {
-        this.employeePay = new EmployeePay(pay);
+        this.employeeSalaryPaid = new EmployeeSalaryPaid(pay);
         return this;
     }
 
@@ -118,7 +109,7 @@ public class PersonBuilder {
      * Sets the {@code EmployeePhone} of the {@code Employee} that we are building.
      */
     public PersonBuilder withTotalSalary(String pay) {
-        this.employeeTotalSalary = new EmployeeTotalSalary(pay);
+        this.employeePay = new EmployeePay(pay);
         return this;
     }
 
@@ -136,7 +127,7 @@ public class PersonBuilder {
      */
     public Employee build() {
         return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
-                        new EmployeePay("0"), new EmployeePendingPay("0"), new EmployeeTotalSalary("0"), employeePhone,
+                        new EmployeeSalaryPaid("0"), new EmployeePendingPay("0"), new EmployeePay("0"), employeePhone,
                         employeeEmail, employeeAddress,
                         new EmployeeJoinDate(LocalDate.parse("11/12/2011",
                                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))), tags);

@@ -15,16 +15,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePay;
-import seedu.address.model.employee.EmployeePendingPay;
-import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeeTotalSalary;
+import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
@@ -77,43 +69,29 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeePay parsePay(String pay) throws ParseException {
+    public static EmployeeSalaryPaid parsePay(String pay) throws ParseException {
+        requireNonNull(pay);
+        String trimmedPay = pay.trim();
+        if (!EmployeeSalaryPaid.isValidPay(trimmedPay)) {
+            throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
+        }
+        return new EmployeeSalaryPaid(trimmedPay);
+    }
+
+
+    /**
+     * Parses a {@code String phone} into a {@code EmployeePhone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code phone} is invalid.
+     */
+    public static EmployeePay parseTotalSalary(String pay) throws ParseException {
         requireNonNull(pay);
         String trimmedPay = pay.trim();
         if (!EmployeePay.isValidPay(trimmedPay)) {
             throw new ParseException(EmployeePay.MESSAGE_CONSTRAINTS);
         }
         return new EmployeePay(trimmedPay);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code EmployeePhone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static EmployeePendingPay parsePendingPay(String pay) throws ParseException {
-        requireNonNull(pay);
-        String trimmedPay = pay.trim();
-        if (!EmployeePendingPay.isValidPay(trimmedPay)) {
-            throw new ParseException(EmployeePendingPay.MESSAGE_CONSTRAINTS);
-        }
-        return new EmployeePendingPay(trimmedPay);
-    }
-
-    /**
-     * Parses a {@code String phone} into a {@code EmployeePhone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static EmployeeTotalSalary parseTotalSalary(String pay) throws ParseException {
-        requireNonNull(pay);
-        String trimmedPay = pay.trim();
-        if (!EmployeeTotalSalary.isValidPay(trimmedPay)) {
-            throw new ParseException(EmployeeTotalSalary.MESSAGE_CONSTRAINTS);
-        }
-        return new EmployeeTotalSalary(trimmedPay);
     }
 
     /**

@@ -14,13 +14,12 @@ import seedu.address.model.tag.Tag;
 public class Employee {
     /**
      * Suggested Improvements:
-     * Rename 'EmployeePay' as 'EmployeeSalary' (More accurate variable naming)
-     * Abstract EmployeeTotalSalary and EmployeePendingPay to EmployeeFinances (its already there)
+     * Rename 'EmployeeSalaryPaid' as 'EmployeeSalary' (More accurate variable naming)
+     * Abstract EmployeePay and EmployeePendingPay to EmployeeFinances (its already there)
      */
 
-    private EmployeeTotalSalary employeeTotalSalary; //remove
-    private EmployeePendingPay employeePendingPay; //remove
     private EmployeePay employeePay;
+    private EmployeeSalaryPaid employeeSalaryPaid;
 
 
     // Identity fields
@@ -35,14 +34,12 @@ public class Employee {
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
-    private final EmployeeFinances employeeFinances = new EmployeeFinances();
 
     /**
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeePay employeePay, EmployeePendingPay employeePendingPay,
-                    EmployeeTotalSalary employeeTotalSalary,
+                    EmployeeSalaryPaid employeeSalaryPaid, EmployeePay employeePay,
                     EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
@@ -52,9 +49,8 @@ public class Employee {
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
+        this.employeeSalaryPaid = employeeSalaryPaid;
         this.employeePay = employeePay;
-        this.employeePendingPay = employeePendingPay;
-        this.employeeTotalSalary = employeeTotalSalary;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
     }
@@ -67,9 +63,8 @@ public class Employee {
         this.employeeId = null;
         this.employeeGender = null;
         this.employeeJoinDate = null;
+        this.employeeSalaryPaid = null;
         this.employeePay = null;
-        this.employeePendingPay = null;
-        this.employeeTotalSalary = null;
         this.tags.addAll(tags);
     }
 
@@ -93,20 +88,15 @@ public class Employee {
         return employeeId;
     }
 
-    public EmployeePay getEmployeePay() {
-        return employeePay;
+    public EmployeeSalaryPaid getEmployeeSalaryPaid() {
+        return employeeSalaryPaid;
     }
 
-    public EmployeeTotalSalary getEmployeeTotalsalary() {
-        EmployeeTotalSalary e = new EmployeeTotalSalary("10000");
+    public EmployeePay getEmployeeTotalsalary() {
+        EmployeePay e = new EmployeePay("10000");
 //        return employeeFinances.getTotalPay(); use this
         return e;
 
-    }
-
-    public EmployeePendingPay getEmployeePendingPay() {
-        return employeePendingPay;
-//        return employeeFinances.getPendingPay(); use this
     }
 
     public EmployeeGender getEmployeeGender() {
@@ -117,22 +107,14 @@ public class Employee {
         return employeeJoinDate;
     }
 
+    public void setEmployeeSalaryPaid(EmployeeSalaryPaid employeeSalaryPaid) { //shouldnt need this
+        this.employeeSalaryPaid = employeeSalaryPaid;
+    }
+
     public void setEmployeePay(EmployeePay employeePay) { //shouldnt need this
         this.employeePay = employeePay;
     }
 
-    public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) { //shouldnt need this
-        this.employeeTotalSalary = employeeTotalSalary;
-    }
-
-    public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) { //shouldnt need this
-        this.employeePendingPay = employeePendingPay;
-    }
-
-    //use this pls!
-    public void updateEmployeeFinances(EmployeeTotalSalary totalSalary, EmployeePendingPay pendingSalary) {
-        employeeFinances.setFinances(totalSalary, pendingSalary);
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -173,8 +155,7 @@ public class Employee {
         return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
-                && otherEmployee.getEmployeePay().equals(getEmployeePay())
-                && otherEmployee.getEmployeePendingPay().equals(getEmployeePendingPay())
+                && otherEmployee.getEmployeeSalaryPaid().equals(getEmployeeSalaryPaid())
                 && otherEmployee.getEmployeeTotalsalary().equals(getEmployeeTotalsalary())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
@@ -197,11 +178,9 @@ public class Employee {
                 .append(getEmployeeId())
                 .append(" EmployeeGender: ")
                 .append(getEmployeeGender())
+                .append(" EmployeeSalaryPaid: ")
+                .append(getEmployeeSalaryPaid())
                 .append(" EmployeePay: ")
-                .append(getEmployeePay())
-                .append(" EmployeePendingPay: ")
-                .append(getEmployeePendingPay())
-                .append(" EmployeeTotalSalary: ")
                 .append(getEmployeeTotalsalary())
                 .append(" EmployeePhone: ")
                 .append(getEmployeePhone())

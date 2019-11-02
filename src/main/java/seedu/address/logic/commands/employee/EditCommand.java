@@ -27,17 +27,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.Employee;
-import seedu.address.model.employee.EmployeeAddress;
-import seedu.address.model.employee.EmployeeEmail;
-import seedu.address.model.employee.EmployeeGender;
-import seedu.address.model.employee.EmployeeId;
-import seedu.address.model.employee.EmployeeJoinDate;
-import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeePay;
-import seedu.address.model.employee.EmployeePendingPay;
-import seedu.address.model.employee.EmployeePhone;
-import seedu.address.model.employee.EmployeeTotalSalary;
+import seedu.address.model.employee.*;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
 
 
@@ -126,20 +117,17 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
                 .orElse(employeeToEdit.getTags());
         EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
+        EmployeeSalaryPaid updatedEmployeeSalaryPaid = editEmployeeDescriptor.getEmployeeSalaryPaid()
+                .orElse(employeeToEdit.getEmployeeSalaryPaid());
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
-                .orElse(employeeToEdit.getEmployeePay());
-        EmployeePendingPay updatedEmployeePendingPay = editEmployeeDescriptor.getEmployeePendingPay()
-                .orElse(employeeToEdit.getEmployeePendingPay());
-        EmployeeTotalSalary updatedEmployeeTotalSalary = editEmployeeDescriptor.getEmployeeTotalSalary()
                 .orElse(employeeToEdit.getEmployeeTotalsalary());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
-        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeePay,
-                updatedEmployeePendingPay, updatedEmployeeTotalSalary,
-                updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
+        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeeSalaryPaid,
+                updatedEmployeePay, updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
 
@@ -171,9 +159,8 @@ public class EditCommand extends Command {
         private EmployeeEmail employeeEmail;
         private EmployeeAddress employeeAddress;
         private EmployeeJoinDate employeeJoinDate;
+        private EmployeeSalaryPaid employeeSalaryPaid;
         private EmployeePay employeePay;
-        private EmployeePendingPay employeePendingPay;
-        private EmployeeTotalSalary employeeTotalSalary;
         private EmployeeGender employeeGender;
         private EmployeeId employeeId;
         private Set<Tag> tags;
@@ -192,9 +179,8 @@ public class EditCommand extends Command {
             setEmployeeAddress(toCopy.employeeAddress);
             setEmployeeId(toCopy.employeeId);
             setEmployeeGender(toCopy.employeeGender);
-            setEmployeePay(toCopy.employeePay);
-            setEmployeePendingPay(toCopy.employeePendingPay);
-            setEmployeeTotalSalary(toCopy.employeeTotalSalary);;
+            setEmployeeSalaryPaid(toCopy.employeeSalaryPaid);
+            setEmployeePay(toCopy.employeePay);;
             setEmployeeJoinDate(toCopy.employeeJoinDate);
             setTags(toCopy.tags);
         }
@@ -204,7 +190,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(employeeName, employeePhone, employeeEmail, employeeAddress, tags,
-                    employeeGender, employeeJoinDate, employeePay);
+                    employeeGender, employeeJoinDate, employeeSalaryPaid);
         }
 
         public void setEmployeeName(EmployeeName employeeName) {
@@ -227,28 +213,20 @@ public class EditCommand extends Command {
             this.employeeId = employeeId;
         }
 
+        public void setEmployeeSalaryPaid(EmployeeSalaryPaid employeeSalaryPaid) {
+            this.employeeSalaryPaid = employeeSalaryPaid;
+        }
+
+        public Optional<EmployeeSalaryPaid> getEmployeeSalaryPaid() {
+            return Optional.ofNullable(employeeSalaryPaid);
+        }
+
         public void setEmployeePay(EmployeePay employeePay) {
             this.employeePay = employeePay;
         }
 
         public Optional<EmployeePay> getEmployeePay() {
             return Optional.ofNullable(employeePay);
-        }
-
-        public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
-            this.employeePendingPay = employeePendingPay;
-        }
-
-        public Optional<EmployeePendingPay> getEmployeePendingPay() {
-            return Optional.ofNullable(employeePendingPay);
-        }
-
-        public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) {
-            this.employeeTotalSalary = employeeTotalSalary;
-        }
-
-        public Optional<EmployeeTotalSalary> getEmployeeTotalSalary() {
-            return Optional.ofNullable(employeeTotalSalary);
         }
 
         public void setEmployeeGender(EmployeeGender employeeGender) {
@@ -324,9 +302,8 @@ public class EditCommand extends Command {
                     && getEmployeeEmail().equals(e.getEmployeeEmail())
                     && getEmployeeAddress().equals(e.getEmployeeAddress())
                     && getTags().equals(e.getTags())
+                    && getEmployeeSalaryPaid().equals(e.getEmployeeSalaryPaid())
                     && getEmployeePay().equals(e.getEmployeePay())
-                    && getEmployeePendingPay().equals(e.getEmployeePendingPay())
-                    && getEmployeeTotalSalary().equals(e.getEmployeeTotalSalary())
                     && getEmployeeId().equals(e.getEmployeeId())
                     && getEmployeeGender().equals(e.getEmployeeGender())
                     && getEmployeeJoinDate().equals(e.getEmployeeJoinDate());
