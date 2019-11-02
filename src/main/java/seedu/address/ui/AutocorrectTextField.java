@@ -98,7 +98,8 @@ public class AutocorrectTextField extends TextField {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
-                    endOfNextWord();
+                    //sets the caret position to the end of the string
+                    end();
                     suggestionsPopup.hide();
                 }
             });
