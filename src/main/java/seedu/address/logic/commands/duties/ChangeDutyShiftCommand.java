@@ -2,6 +2,7 @@ package seedu.address.logic.commands.duties;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import seedu.address.logic.commands.common.CommandResult;
@@ -17,11 +18,12 @@ import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
  * Changes the details of the duty shift.
  */
 public class ChangeDutyShiftCommand extends ReversibleCommand {
-    public static final String COMMAND_WORD = "changeshift";
+    public static final String COMMAND_WORD = "editshift";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": changes the details of a duty shift "
             + "by the index number used in the displayed duty roster.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + PREFIX_ENTRY + "INDEX (must be a positive integer) "
             + PREFIX_START + "PREFIX_START "
             + PREFIX_END + "PREFIX_END\n"
             + "Example: " + COMMAND_WORD + " 1 "
