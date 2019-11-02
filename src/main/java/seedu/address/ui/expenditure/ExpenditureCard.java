@@ -22,7 +22,6 @@ public class ExpenditureCard extends UiPart<HBox> {
     private Label nameLabel;
     @FXML
     private Label budgetLabel;
-
     @FXML
     private VBox propertiesContainer;
 
