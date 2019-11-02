@@ -29,16 +29,17 @@ traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. En
 .  Download the latest `ichifund.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your IchiFund.
 .  Double-click the file to start IchiFund. The GUI should appear in a few seconds.
+* Alternatively, open a command window and run `java -jar ichifund.jar` in the appropriate directory.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-E.g., typing *`help`* and pressing kbd:[Enter] will open the help window. +
+E.g., typing `help` and pressing kbd:[Enter] will open the help window. +
 Here are some example commands you can try in the transaction tab:
 
-* **`add`**`de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
-* **`filter`**`m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
-* *`exit`* : exits IchiFund
+* `add de/Lunch a/12.30` : adds an expenditure item for "Lunch" to IchiFund.
+* `filter m/10 y/2019 c/!all ty/exp` : finds all expenditure items from October 2019.
+* `exit` : exits IchiFund
 
 .  Refer to <<Navigation>> for details on how to navigate through IchiFund.
 .  Refer to <<Features>> for details of each command.
@@ -87,12 +88,12 @@ These commands are recognised regardless of which tab you are currently using.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by you. +
-E.g., *`add`*`de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as *`addtx`*`de/AirPods a/299.00`.
+E.g., `add de/DESCRIPTION a/AMOUNT`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `add de/AirPods a/299.00`.
 
 * Items in square brackets are optional. +
-E.g. *`add`*`de/DESCRIPTION a/AMOUNT [c/CATEGORY]` can be used as
-** *`add`*`de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets`
-** *`add`*`de/Saving for iPhone 11 Pro Max a/271.80`.
+E.g. `add de/DESCRIPTION a/AMOUNT [c/CATEGORY]` can be used as
+** `add de/Saving for iPhone 11 Pro Max a/271.80 c/Gadgets`
+** `add de/Saving for iPhone 11 Pro Max a/271.80`.
 
 * You can use items with `…​` after them multiple times, including zero times. +
 E.g., `[s/KEYWORD]…​` can be used as
@@ -102,7 +103,7 @@ E.g., `[s/KEYWORD]…​` can be used as
 ** etc.
 
 * You can enter parameters in any order. +
-E.g., if the command specifies *`add`*`de/DESCRIPTION a/AMOUNT`, *`add`*`a/AMOUNT de/DESCRIPTION` is also acceptable.
+E.g., if the command specifies `add de/DESCRIPTION a/AMOUNT`, `add a/AMOUNT de/DESCRIPTION` is also acceptable.
 ====
 
 === IchiFund Basics
@@ -181,7 +182,7 @@ This makes it easier for you to access the transactions in the current month!
 
 // tag::filtertx[]
 [[filtertx]]
-==== Filtering transactions: `filter`
+==== Filtering transaction: `filter`
 Format: `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TYPE]`
 
 To better understand how your money goes down the drain, it is critical to organise and filter your
@@ -235,7 +236,7 @@ the command word `filter` is keyed in at the start.
 // end::filtertx[]
 
 [[addtx]]
-==== Creating transaction: `addtx`
+==== Creating transaction: `add`
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 As painful as it is to remind yourself each time you part with your money, it is essential to meticulously
@@ -307,9 +308,9 @@ The feature for adding transactions is built to work best under these constraint
 | Description | Up to 50 alphanumeric characters, case-sensitive
 | Amount | Positive number, with up to 2 decimal places; maximum value of $100000 for each transaction
 | Category | Up to 50 alphanumeric characters, case-insensitive
-| Day | Numerical value from 1-31
-| Month | Numerical value from 1-12
-| Year | Numerical value from 2000-9999
+| Day | Whole number from 1-31
+| Month | Whole number from 1-12
+| Year | Whole number from 2000-9999
 | Type | Either "in" or "exp"
 |==============================
 
@@ -490,7 +491,7 @@ To revert the budget list so that all budgets are listed, simply execute `find` 
 
 === Loans [Coming in v2.0]
 
-==== Adding new loan: `loannew `
+==== Adding new loan: `add`
 
 Adds new loan to list. +
 Format: `loannew  i/AMOUNT  n/NAME d/DESCRIPTION`
@@ -498,9 +499,9 @@ Format: `loannew  i/AMOUNT  n/NAME d/DESCRIPTION`
 Examples:
 
 * `loannew  a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
-Takes input with initialization values and adds them to a lost of current unpaid loans.
+Takes input with initialization values and adds them to a list of current unpaid loans.
 
-==== Marking Loan Paid: `loan paid`
+==== Marking Loan Paid: `paid`
 
 Marks loan as paid or reduces amount from payment. +
 Format: `loanpaid i/INDEX [i/AMOUNT]`
@@ -508,11 +509,11 @@ Format: `loanpaid i/INDEX [i/AMOUNT]`
 Examples:
 
 * `loanpaid i/4 a/4000` +
-Takes input with initialization values and adds them to a lost of current unpaid loans.
+Takes input with initialization values and adds them to a list of current unpaid loans.
 
-==== Loan Categorical Search: `loanshow`
+==== Finding loan: `find`
 
-Shows all loans with certain name or description or date , or all loans+
+Shows all loans with certain name or description or date , or all loans +
 Format: `loanshow [s/KEYWORD]`
 
 Examples:
@@ -520,9 +521,9 @@ Examples:
 * `loanshow s/charlie` +
 Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown.
 
-==== Adding new loan: `loantotal`
+==== Adding new loan: `total`
 
-Finds and shows nett amount to pay/owed with keyword+
+Finds and shows nett amount to pay/owed with keyword +
 Format: `loantotal s/KEYWORD`
 
 Examples:
@@ -530,7 +531,7 @@ Examples:
 * `loantotal s/12/12/2000` +
 If no keyword is given, it returns total difference in amount owed to other parties and amount to be paid.
 
-==== Adding new loan: `loanset`
+==== Editing new loan: `edit`
 
 Changes existing loan +
 Format: `loanset i/INDEX [a/AMOUNT] [d/DATE] [n/NAME] [d/DESCRIPTION]`
@@ -540,7 +541,7 @@ Examples:
 * `loanset i/3 n/Lee d/For food in NY` +
 Takes input with initialization values for current loan identified by index, change any value.
 
-==== Adding new loan: `loansort`
+==== Sorting all loans: `sort`
 
 Finds and shows all loans sorted +
 Format: `loansort s/BY`
@@ -650,17 +651,17 @@ Displays expenditure ranking chart for July 2019.
 * *Transaction Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 * *Transaction Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 * *Transaction Delete* : `delete INDEX`
-* *Transaction Find* : `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
+* *Transaction Filter* : `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
 * *Transaction Repeater Add* : `add de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
 * *Transaction Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
 * *Transaction Repeater Delete* : `delete INDEX [d/DELETEALL]`
 * *Transaction Repeater Find* : `find [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`  (Coming in v2.0)
-* *Loan Add new* : `loannew a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
-* *Loan Payment* : `loanpaid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
-* *Loan Categorical Search* : `loanshow [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Net Amount* : `loantotal [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Value Update* : `loanset i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
-* *Loan Sort By Value* : `loansort s/BY`  (Coming in v2.0)
+* *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
+* *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
+* *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
+* *Loan Net Amount* : `total [s/KEYWORD]`  (Coming in v2.0)
+* *Loan Value Update* : `edit i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
+* *Loan Sort By Value* : `sort s/BY`  (Coming in v2.0)
 * *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
 * *Budget Delete* : `delete INDEX`
 * *Budget Find* : `find KEYWORD [MORE_KEYWORDS]`

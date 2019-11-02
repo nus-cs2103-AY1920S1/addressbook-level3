@@ -10,7 +10,7 @@ import java.time.LocalDate;
  */
 public class Year implements Comparable<Year> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Year should only contain years from 2000 to 9999";
+            "Year should only contain whole numbers from 2000 to 9999";
     public static final String VALIDATION_REGEX = "[2-9]\\d\\d\\d";
     public final int yearNumber;
 

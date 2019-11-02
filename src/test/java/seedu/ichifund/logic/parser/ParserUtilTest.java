@@ -18,8 +18,9 @@ import seedu.ichifund.model.transaction.TransactionType;
 
 public class ParserUtilTest {
     public static final String INVALID_DESCRIPTION = "!?";
-    public static final String INVALID_AMOUNT = "0.0";
-    public static final String INVALID_POSITIVE_AMOUNT = "-50.00";
+    public static final String INVALID_AMOUNT_FORMAT = "1.9";
+    public static final String INVALID_AMOUNT_NEGATIVE = "-50.00";
+    public static final String INVALID_AMOUNT_ZERO = "0.00";
     public static final String INVALID_CATEGORY = "?!";
     public static final String INVALID_DAY = "32";
     public static final String INVALID_MONTH = "13";
@@ -89,7 +90,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAmount_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_AMOUNT));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_AMOUNT_FORMAT));
     }
 
     @Test
@@ -112,7 +113,9 @@ public class ParserUtilTest {
 
     @Test
     public void parsePositiveAmount_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveAmount(INVALID_POSITIVE_AMOUNT));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveAmount(INVALID_AMOUNT_FORMAT));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveAmount(INVALID_AMOUNT_NEGATIVE));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveAmount(INVALID_AMOUNT_ZERO));
     }
 
     @Test
