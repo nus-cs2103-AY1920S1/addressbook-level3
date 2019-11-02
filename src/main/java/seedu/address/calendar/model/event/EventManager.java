@@ -448,6 +448,7 @@ public class EventManager {
         Stream<Event> relevantEngagements = engagedSchedule.getCollisions(eventQuery)
                 .stream()
                 .flatMap(event -> engagements.get(event).stream());
+
         return Stream.concat(relevantVacations, relevantEngagements)
                 .collect(Collectors.toCollection(ArrayList::new));
     }

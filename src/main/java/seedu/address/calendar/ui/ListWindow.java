@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import seedu.address.calendar.commands.ListCommand;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.UiPart;
 
@@ -91,7 +92,7 @@ public class ListWindow extends UiPart<Stage> {
     void showEvents(String eventsToShow) {
         clearAll();
 
-        if (!eventsToShow.contains(SEPARATOR)) {
+        if (eventsToShow.equals(ListCommand.MESSAGE_LIST_FAILED)) {
             setInvisible(commitmentCard, holidayCard, schoolBreakCard, tripCard);
             showEmpty();
             return;
