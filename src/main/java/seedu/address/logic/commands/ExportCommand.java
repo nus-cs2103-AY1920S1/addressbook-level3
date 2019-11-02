@@ -36,7 +36,7 @@ public class ExportCommand extends Command {
             + PREFIX_CATEGORY + "CS2105 "
             + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String MESSAGE_EXPORT_SUCCESS = "Export was successful! You can find your file at "
+    public static final String MESSAGE_EXPORT_SUCCESS = "%d FlashCard(s) were exported! You can find your file at "
             + "the following path:\n%s";
 
     private final Category category;
@@ -57,19 +57,19 @@ public class ExportCommand extends Command {
         requireNonNull(model);
 
         try {
-            this.exportPath.export(
-                    getFlashCardsByCategory(model, category)
+            List<FlashCard> flashCardList = getFlashCardsByCategory(model, category);
+            this.exportPath.export(flashCardList);
+
+            return new CommandResult(
+                    String.format(
+                            MESSAGE_EXPORT_SUCCESS,
+                            flashCardList.size(),
+                            exportPath.toAbsolutePathString()
+                    )
             );
         } catch (IOException e) {
             throw new CommandException(Messages.MESSAGE_EXPORT_IO_EXCEPTION);
         }
-
-        return new CommandResult(
-                String.format(
-                        MESSAGE_EXPORT_SUCCESS,
-                        exportPath.toAbsolutePathString()
-                )
-        );
     }
 
     @Override
