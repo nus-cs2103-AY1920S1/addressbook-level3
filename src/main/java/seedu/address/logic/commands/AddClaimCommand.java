@@ -21,10 +21,10 @@ public class AddClaimCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a claim. "
             + "Parameters: "
+            + PREFIX_NAME + "NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_CASH + "CASH AMOUNT "
             + PREFIX_DATE + "DATE (dd-MM-yyyy) "
-            + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "

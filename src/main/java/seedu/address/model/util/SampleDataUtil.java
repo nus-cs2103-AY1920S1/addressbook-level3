@@ -4,15 +4,18 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
+import seedu.address.model.claim.Amount;
+import seedu.address.model.claim.Description;
+import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
+import seedu.address.model.income.Income;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,7 +31,14 @@ public class SampleDataUtil {
 
     public static AutocorrectSuggestion[] getSampleSuggestions() {
         return new AutocorrectSuggestion[] {
-            new AutocorrectSuggestion("add_claim n/john doe")
+            new AutocorrectSuggestion("add_claim n/John Doe")
+        };
+    }
+
+    public static Income[] getSampleIncomes() {
+        return new Income[] {
+                new Income(new Description("Shirt sales"), new Amount("100"), new Date("11-11-2019"),
+                        new Name("Joshua Seet"), new Phone("98279222"),getTagSet("FOP"))
         };
     }
 
@@ -39,6 +49,9 @@ public class SampleDataUtil {
         }
         for (AutocorrectSuggestion sampleSuggestion : getSampleSuggestions()) {
             sampleFs.addAutocorrectSuggestion(sampleSuggestion);
+        }
+        for (Income sampleIncome: getSampleIncomes()) {
+            sampleFs.addIncome(sampleIncome);
         }
         return sampleFs;
     }
