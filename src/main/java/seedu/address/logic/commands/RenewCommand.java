@@ -9,6 +9,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_IN_SERVE_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_LOANED_BY_BORROWER;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -102,7 +103,7 @@ public class RenewCommand extends ReversibleCommand {
         undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
         redoCommand = this;
         commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, renewedBook,
-                servingBorrower, extendedDueDate));
+                servingBorrower, DateUtil.formatDate(extendedDueDate)));
 
         return commandResult;
     }
