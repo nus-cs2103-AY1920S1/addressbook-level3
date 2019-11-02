@@ -182,8 +182,11 @@ public class BankAccount implements ReadOnlyBankAccount {
         }
 
         BankAccount otherBankAccount = (BankAccount) other;
-        return this.transactions.equals(otherBankAccount.transactions)
-            && this.budgets.equals(otherBankAccount.budgets)
-            && this.balance.equals(otherBankAccount.balance);
+        System.out.println("O: " + transactions);
+        System.out.println("C: " + otherBankAccount.transactions);
+
+        return this.budgets.equals(otherBankAccount.budgets)
+            && this.balance.equals(otherBankAccount.balance)
+            && this.transactions.equals(otherBankAccount.transactions);
     }
 }

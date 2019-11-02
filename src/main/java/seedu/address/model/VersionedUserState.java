@@ -85,8 +85,8 @@ public class VersionedUserState extends UserState {
 
         // state check
         return super.equals(otherVersionedUserState)
-            && userStateList.equals(otherVersionedUserState.userStateList)
-            && currentStatePointer == otherVersionedUserState.currentStatePointer;
+            && currentStatePointer == otherVersionedUserState.currentStatePointer
+            && userStateList.equals(otherVersionedUserState.userStateList);
     }
 
     /**

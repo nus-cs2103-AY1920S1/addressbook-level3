@@ -17,18 +17,12 @@ import seedu.address.logic.commands.CommandResult;
 
 import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Description;
-import seedu.address.model.transaction.InTransaction;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.StorageManager;

@@ -1,10 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
@@ -29,9 +26,9 @@ public class FilterCommandTest {
     @Test
     public void equals() {
         TransactionContainsCategoriesPredicate firstPredicate =
-                new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
+            new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
         TransactionContainsCategoriesPredicate secondPredicate =
-                new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
+            new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);

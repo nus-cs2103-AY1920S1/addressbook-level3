@@ -34,8 +34,8 @@ public class SortCommandTest {
         AmountComparator amountComparator = new AmountComparator();
         List<BankAccountOperation> sortedTransactionHistory =
             expectedSortedByAmountModel.getBankAccount().getSortedTransactionHistory(amountComparator);
-        expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
-        expectedSortedByAmountModel.commitUserState();
+        System.out.println(model.getBankAccount().getTransactionHistory());
+        System.out.println(sortedTransactionHistory);
         assertCommandSuccess(new SortCommand(amountComparator), model,
             SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
     }
