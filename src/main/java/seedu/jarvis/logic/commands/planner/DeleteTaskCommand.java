@@ -114,7 +114,7 @@ public class DeleteTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task deletedTask = tasks.getTask(targetIndex);
+        deletedTask = tasks.getTask(targetIndex);
         model.deleteTask(targetIndex);
         model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
         model.setViewStatus(ViewType.LIST_PLANNER);
