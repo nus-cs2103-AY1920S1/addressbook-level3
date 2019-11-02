@@ -3,11 +3,11 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
 import static mams.logic.commands.ClashCommand.ClashCase;
 import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
 import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
@@ -304,11 +304,24 @@ public class ApproveCommand extends Approve {
 
     }
 
-    private String generateSuccessMessageModule(Appeal appealToApprove, String feedback, String target, String change) {
-        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, change) + target;
+    private String generateSuccessMessageModule(Appeal appealToApprove,
+                                                String feedback,
+                                                String target,
+                                                String change) {
+        return "Approved "
+                + appealToApprove.getAppealId()
+                + "\n"
+                + String.format(feedback, change)
+                + target;
     }
-    private String generateSuccessMessageWorkload(Appeal appealToApprove, String feedback, int workLoad, String target) {
-        return "Approved " + appealToApprove.getAppealId() + "\n" + String.format(feedback, target, workLoad);
+    private String generateSuccessMessageWorkload(Appeal appealToApprove,
+                                                  String feedback,
+                                                  int workLoad,
+                                                  String target) {
+        return "Approved "
+                + appealToApprove.getAppealId()
+                + "\n"
+                + String.format(feedback, target, workLoad);
     }
 
     @Override
