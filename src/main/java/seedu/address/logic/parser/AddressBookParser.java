@@ -35,7 +35,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.ViewStatisticsCommand;
 import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.SwitchStatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
@@ -229,7 +229,7 @@ public class AddressBookParser {
         case DeleteAutoExpenseCommand.COMMAND_WORD:
             return new DeleteAutoExpenseCommandParser().parse(arguments);
 
-        case StatisticsCommand.COMMAND_WORD:
+        case ViewStatisticsCommand.COMMAND_WORD:
             return new StatisticsCommandParser().parse(arguments);
 
         case TogglePanelCommand.COMMAND_WORD:

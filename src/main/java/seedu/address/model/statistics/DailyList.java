@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,19 +20,15 @@ import seedu.address.model.person.Income;
 public class DailyList {
     private FilteredList<Expense> listOfExpenses;
     private FilteredList<Income> listOfIncomes;
+    private LocalDate date;
     private double totalExpense;
     private double totalIncome;
-    private int day;
-    private Month month;
-    private int year;
 
     public DailyList(FilteredList<Expense> retrievedExpenseList, FilteredList<Income> retrievedIncomeList, int day,
                      Month month, int year) {
         listOfExpenses = new FilteredList<Expense>(retrievedExpenseList);
         listOfIncomes = new FilteredList<Income>(retrievedIncomeList);
-        this.day = day;
-        this.month = month;
-        this.year = year;
+        this.date = LocalDate.of(year, month, day);
         totalExpense = 0.00;
         totalIncome = 0.00;
         initLoadFromFilteredList(retrievedExpenseList);
@@ -60,6 +57,16 @@ public class DailyList {
         return totalIncome;
     }
 
-    public double calcuulat
-
+    public DailyStatistics calculateBarChart() {
+        double totalExpense = 0.00;
+        double totalIncome = 0.00;
+        for (int i = 0; i < listOfExpenses.size(); i++) {
+            totalExpense = totalExpense + listOfExpenses.get(i).getAmount().value;
+        }
+        for (int i = 0; i < listOfExpenses.size(); i++) {
+            totalIncome = totalIncome + listOfIncomes.get(i).getAmount().value;
+        }
+        DailyStatistics statisticsForDay = new DailyStatistics(this.date ,totalExpense, totalIncome);
+        return statisticsForDay;
+    }
 }

@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,6 +23,7 @@ import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.storage.Storage;
 
 /**
@@ -32,13 +34,13 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Statistics stats;
+    private final StatisticsManager stats;
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
 
-    public LogicManager(Model model, Statistics stats, Storage storage) {
+    public LogicManager(Model model, StatisticsManager stats, Storage storage) {
         this.model = model;
         this.stats = stats;
         this.storage = storage;
@@ -56,6 +58,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
+            if (command instanceof StatisticsCommand) {
+                commandResult = command.execute(model, stats, history);
+            }
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);

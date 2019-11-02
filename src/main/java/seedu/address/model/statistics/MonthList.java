@@ -1,6 +1,8 @@
 package seedu.address.model.statistics;
 
 import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +24,11 @@ public class MonthList {
     private List<Category> listOfIncomeCategories;
     private ObservableMap<Category, FilteredList<Expense>> mapOfExpenseCategories;
     private ObservableMap<Category, FilteredList<Income>> mapOfIncomeCategories;
+    private ObservableList<DailyStatistics> listOfDailyStatistics;
+    private ObservableMap<Integer, DailyList> mapOfDailyLists;
     private FilteredList<Expense> filteredListForExpense;
     private FilteredList<Income> filteredListForIncome;
-    private Month month;
-    private int year;
+    private YearMonth yearMonth;
     private double totalExpense;
     private double totalIncome;
 
@@ -40,8 +43,9 @@ public class MonthList {
         this.filteredListForIncome = filteredListOfIncome;
         mapOfExpenseCategories = FXCollections.observableHashMap();
         mapOfIncomeCategories = FXCollections.observableHashMap();
-        this.month = month;
-        this.year = year;
+        listOfDailyStatistics = FXCollections.observableArrayList();
+        mapOfDailyLists = FXCollections.observableHashMap();
+        this.yearMonth = YearMonth.of(month, year);
         totalExpense = 0.00;
         totalIncome = 0.00;
         initRecords();
@@ -63,6 +67,12 @@ public class MonthList {
             FilteredList<Income> filteredByCategory = new FilteredList<Income> (this.filteredListForIncome,
                     new EntryContainsCategoryPredicate(toFilterCategory));
             mapOfIncomeCategories.put(toFilterCategory, filteredByCategory);
+        }
+
+        for (int j = 1; j <= this.yearMonth.lengthOfMonth(); j++) {
+            DailyList dailyListOfMonth = new DailyList(filteredListForExpense, filteredListForIncome, j,
+                    this.yearMonth.getMonth(), this.yearMonth.getYear());
+            this.mapOfDailyLists.put(j, dailyListOfMonth);
         }
     }
 
@@ -90,8 +100,14 @@ public class MonthList {
         }
     }
 
-    public ArrayList<Double> calculateBarChart() {
-        ArrayList<Double> listOfCategories 
-        for (int i = 0 )
+    public ObservableList<DailyStatistics> calculateBarChart() {
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            DailyList dl = this.mapOfDailyLists.get(i);
+            DailyStatistics statsCalculate = dl.calculateBarChart();
+            if (!listOfDailyStatistics.get(i).equals(statsCalculate)) {
+                listOfDailyStatistics.set(statsCalculate);
+            }
+        }
+        return listOfDailyStatistics;
     }
 }

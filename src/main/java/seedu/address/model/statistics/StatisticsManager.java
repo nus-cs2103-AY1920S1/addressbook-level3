@@ -25,8 +25,7 @@ public class StatisticsManager implements Statistics {
     private ObservableMap<Integer, ObservableMap<Integer, MonthList>> yearlyRecord;
     private ObservableList<CategoryStatistics> listOfStatsForExpense;
     private ObservableList<CategoryStatistics> listOfStatsForIncome;
-    private ObservableList<DailyStatistics> listOfStatsForDailyExpense;
-    private ObservableList<DailyStatistics> listOfStatsForDailyIncome;
+    private ObservableList<DailyStatistics> listOfStatsForDaily;
     private FilteredList<Expense> modelTotalFilteredExpenses;
     private FilteredList<Income> modelTotalFilteredIncomes;
     private CategoryList listOfCategories;
@@ -42,8 +41,7 @@ public class StatisticsManager implements Statistics {
         yearlyRecord = FXCollections.observableHashMap();
         listOfStatsForExpense = FXCollections.observableArrayList();
         listOfStatsForIncome = FXCollections.observableArrayList();
-        listOfStatsForDailyExpense = FXCollections.observableArrayList();
-        listOfStatsForDailyIncome = FXCollections.observableArrayList();
+        listOfStatsForDaily = FXCollections.observableArrayList();
         initRecords(currentYear);
         initStats();
     }
@@ -79,12 +77,14 @@ public class StatisticsManager implements Statistics {
             @Override
             public void onChanged(Change<? extends Expense> change) {
                 updateListOfStats();
+                updateLineCharts();
             }
         });
         modelTotalFilteredIncomes.addListener(new ListChangeListener<Income>() {
             @Override
             public void onChanged(Change<? extends Income> change) {
                 updateListOfStats();
+                updateLineCharts();
             }
         });
         updateListOfStats();
@@ -117,10 +117,8 @@ public class StatisticsManager implements Statistics {
 
     public void updateLineCharts() {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
-        MonthList monthListToCarryOutMonthlyCalculations = yearOfRecord.get(LocalDate.now().getMonth().getValue());
-        monthListToCarryOutMonthlyCalculations.calculateBarChart(this.listOfStatsForDailyIncome);
-        monthListToCarryOutMonthlyCalculations.calculateBarChart(this.listOfStatsForDailyExpense)
-
+        MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
+        this.listOfStatsForDaily = monthListToCalculate.calculateBarChart();
     }
 
     public void updateLineCharts(Date monthToShow) {
