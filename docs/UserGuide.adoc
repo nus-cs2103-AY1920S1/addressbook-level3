@@ -362,7 +362,8 @@ same time as the note is created.
 
     Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
 
-NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+IMPORTANT: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not
+'tag/'.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
