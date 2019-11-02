@@ -520,9 +520,16 @@ NOTE: Once again, this question will be better addressed holistically once all 3
 
 ===== Future Implementation (Coming in v2.0)
 
-For each of the command words, users will be given the option to choose a Visual Representation method they prefer,
-instead of the default option we have prioritised. Currently, statistics under `stats` mode can only be displayed in a pie chart,
-and users may have different preferences for formats. Various options such as checking across different budgets other than within the same budget can also be considered.
+For each of the command words, users will be given the option to choose a Visual Representation method they prefer
+if the use case allows for it, instead of the default option we have prioritised.
+Currently, statistics under `stats` mode can only be displayed in a pie chart,
+and users may have different preferences for formats. The current implementation for MooLah
+is such that only expenses up to the current date will be included and any expenses after the current date
+is considered an event, which is not tracked by statistics. The inclusion of events in statistics
+can be a possible complementary feature to a prediction feature to pre-empt users about their incoming expenses.
+Last of all, more modes can be added to all existing commands, such as comparing with periods across different budgets
+other than being restricted within the same budget
+
 
 
 // end::statsdg[]

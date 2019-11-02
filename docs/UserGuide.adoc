@@ -752,7 +752,7 @@ while the cells in the second pair of columns, denoted as the "difference column
 represents the difference in frequency and difference in total expenditure.
 
 
-Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2> [pr/<PERIOD>]`
+Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2>`
 
 [NOTE]
 - Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
@@ -762,7 +762,8 @@ Please refer to the above documentation for more information.
 
 - Expenses to be included in the statistics generated include those on the start dates and end dates itself.
 
-- `PERIOD` takes in either of the following keywords: week, month, year
+- The end dates for both start dates specified by the user are constructed using the period
+that the current budget is using. To switch the period of analysis, consider editing the duration of the budget.
 
 - The cells in the "similarity columns" denote only non-negative values. This is because it
 shows the frequency and total expenditure common to both periods.
@@ -771,20 +772,17 @@ shows the frequency and total expenditure common to both periods.
 the values for differences in frequency and differences in total expenditure for each category
 is calculated using the formula `second period – first period`.
 
+- The default size of the applicaton window accounts just sufficiently for a nicely fitted view of the
+table columns. Adjustments to the program window should not be made, otherwise some columns may be covered
+or excess space will be revealed.
+
 `[Coming in v2.0]`
-- day is ideally recognised as a keyword to `PERIOD`
 - constructing periods with start dates doesn't align with the principles of the application
 as compared to end dates.
 
 
 
 [TIP]
-- There is no need to specify all the parameters if the outcomes of the example usage scenarios
-below fit your needs
-
-- If `PERIOD` is empty, the period of the current budget will be considered as
-the unit of time to construct the 2 periods to be compared.
-
 - If zeroes are observed in the similarity columns, it may be possible that there is no
 overlap between the 2 periods or there are no expenses recorded in the common period.
 
@@ -793,8 +791,8 @@ comparison.
 
 Example of configurations:
 `statscompare sd1/12-12 sd2/ 1 month ago'
-`stats sd2/ today sd1/ytd pr/ week`
-`stats sd2/ 23-09-2019 sd1/1 year ago  pr/ month`
+`stats sd2/ today sd1/ytd `
+`stats sd2/ 23-09-2019 sd1/1 year ago`
 
 
 Step-by-step guide:
@@ -814,9 +812,23 @@ of the money spent from their categorical expenses in specified
 units of time between the period specified in the current budget.
 
 The visual output of the statistics shown is in the form of plotted
-trend lines, one for each category and every plotted point on a line
-represents the total expenditure starting from its stated date,
-till before the start of the next date.
+trend lines.
+
+Currently 2 modes of usage can be selected.
+
+The first one is a `category`
+mode where each individual trend lines represents one categories and
+every plotted point on a line represents the total expenditure starting from its stated date,
+till before the stated date of the next point.
+
+The second mode is a `budget` mode where only 2 trend lines can be observed.
+The first trend line represents the budget limit where every plotted point represents
+the budget limit set starting from its stated date,
+till before the stated date of the next point.
+
+The second trend line represents the total expenditure for all expenses regardless of category,
+where every plotted point represents the total expenditure starting from its stated date,
+till before the stated date of the next point.
 
 Format: `statstrend [sd/<START_DATE>] [ed/<END_DATE>] mode/MODE`
 
@@ -833,7 +845,14 @@ Please refer to the above documentation for more information.
 
 - We only allow a maximum of 34 plotted points to be displayed, which means that in any specified
 time interval bounded by the start date and end date, we will produce at most 34 time intervals of
-the specified unit of time starting from the start date.
+the specified unit of time starting from the start date. This is also a design consideration to coordinate
+with the size of the application window.
+
+- The first plotted point that would be observed should be the start date of the window of the current budget
+closest to the start date of analysis. Note that the two need not be the same.
+
+- Even though the current application doesn't allow for expenses to be added into dates ahead of the current date,
+the budget windows after the most recent possible window will still be shown for ths command
 
 - The categories that do not have any expenses in any of the time intervals will not be reflected
 as trend lines in the Statistics Panel.
@@ -845,20 +864,18 @@ as trend lines in the Statistics Panel.
 - There is no need to specify all the parameters if the outcomes of the example usage scenarios
 below fit your needs
 
-- If `START_DATE` is specified but `END_DATE` is empty, statistics is calculated till 34 unit of time after `START_DATE`.
+- If `START_DATE` is specified but `END_DATE` is empty, the end date of analysis is constructed till 34 unit of time after `START_DATE`,
+before the consideration of the earliest available window of the current budget.
 
-- If `START_DATE` is empty but `END_DATE` is specified, the statistics is calculated starting from
-34 units of time before `END_DATE`.
+- If `START_DATE` is empty but `END_DATE` is specified, the start date of analysis is constructed from 34 unit of time before `END_DATE`,
+before the consideration of the earliest available window of the current budget.
 
-- If both `START_DATE` and `END_DATE` are empty, statistics will be calculated 17 units of time before the current date
-till 17 units of time after the current date.
+- If both `START_DATE` and `END_DATE` are empty, the start date of analys is constructed from 17 units of time before the start date
+of the current window of the current budget and the end date of analysis is constructed from 17 units after the
+start date of the current window of the current budget.
 
 - The unit interval of time is set to always be the period of the current budget,
 hence to access other time modes of this command, please edit the budget's period.
-
-`[Coming in v2.0]`
-- `mode/budget` of this command is still work in progress. It will run with unintended output.
-Hence not written in the UG
 
 
 Example of configurations:
@@ -872,7 +889,7 @@ Step-by-step guide:
 For example, MooLah is currently at the "school" budget with these expenses in window 1
 (sd1 to ed1) and window2(sd2 to ed2)
 
-To generate the table view:
+To generate the trend lines:
 
 . Type `statstrend mode/category` into the command box and press `Enter` to execute it.
 . The result box will display the message trend line generated.
