@@ -190,10 +190,8 @@ public class Cca {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("-")
-                .append(getCcaType())
-                .append(". ")
-                .append(getEquipmentList());
+                .append(". Type: ")
+                .append(getCcaType());
         return builder.toString();
     }
 }
