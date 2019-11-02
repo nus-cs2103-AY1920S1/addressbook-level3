@@ -172,7 +172,9 @@ public class ParserUtil {
         if (!Amount.isValidAmount(trimmedAmount)) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
         } else if (Amount.isNegative(trimmedAmount)) {
-            throw new ParseException(Amount.NEGATIVE_AMOUNT_CONSTRAINT);
+            throw new ParseException(Amount.POSITIVE_AMOUNT_CONSTRAINT);
+        } else if (Amount.isZero(trimmedAmount)) {
+            throw new ParseException(Amount.POSITIVE_AMOUNT_CONSTRAINT);
         }
         return new Amount(trimmedAmount);
     }
