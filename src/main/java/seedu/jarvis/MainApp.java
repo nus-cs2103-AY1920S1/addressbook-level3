@@ -160,8 +160,15 @@ public class MainApp extends Application {
      */
     private CoursePlanner readCoursePlanner(Storage storage) {
         try {
-            return storage.readCoursePlanner().orElseGet(CoursePlanner::new);
+            Optional<CoursePlanner> optionalCoursePlanner = storage.readCoursePlanner();
+            if (optionalCoursePlanner.isPresent()) {
+                return optionalCoursePlanner.get();
+            } else {
+                logger.info("Data file not found. Will be starting with a sample Course Planner");
+                return SampleDataUtil.getSampleCoursePlanner();
+            }
         } catch (DataConversionException | IOException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Course Planner");
             return new CoursePlanner();
         }
     }

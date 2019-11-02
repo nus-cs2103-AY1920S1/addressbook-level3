@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -45,6 +46,8 @@ import seedu.jarvis.model.viewstatus.ViewType;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
+
     private final HistoryManager historyManager;
     private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
@@ -53,7 +56,6 @@ public class ModelManager implements Model {
     private final CcaTracker ccaTracker;
     private final Planner planner;
     private ViewStatus viewStatus;
-
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -441,6 +443,14 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Calculates total expenditure by user for this month to be rendered onto Ui.
+     */
+    @Override
+    public String getTotalSpending() {
+        return df2.format(calculateTotalSpending());
+    }
+
+    /**
      * Calculates remaining available amount by user.
      */
     @Override
@@ -748,6 +758,16 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Task> getFilteredTaskList() {
         return planner.getFilteredTaskList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    @Override
+    public ObservableList<Task> getUnfilteredTaskList() {
+        return planner.getUnfilteredTaskList();
     }
 
     /**

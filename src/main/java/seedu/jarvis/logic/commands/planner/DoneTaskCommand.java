@@ -10,9 +10,11 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
@@ -29,10 +31,10 @@ public class DoneTaskCommand extends Command {
             + "INDEX"
             + "\nExample: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "%1$s marked as done.";
+    public static final String MESSAGE_SUCCESS = "%1$s\nmarked as done.";
     public static final String MESSAGE_TASK_ALREADY_DONE = "This task has already been marked as completed.";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_UNDONE = "%1$s marked as undone.";
+    public static final String MESSAGE_INVERSE_SUCCESS_UNDONE = "%1$s\nmarked as undone.";
     public static final String MESSAGE_INVERSE_TASK_ALREADY_UNDONE = "Task has already been marked as undone";
 
     public static final boolean HAS_INVERSE = true;
@@ -111,8 +113,10 @@ public class DoneTaskCommand extends Command {
         }
 
         model.markTaskAsDone(targetIndex);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask));
+        doneTask = model.getTask(targetIndex);
+        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.setViewStatus(ViewType.LIST_PLANNER);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask), true);
     }
 
     @Override
@@ -125,14 +129,13 @@ public class DoneTaskCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        Task undone = model.getTask(targetIndex);
-        if (undone.getStatus() == Status.NOT_DONE) {
+        if (doneTask.getStatus() == Status.NOT_DONE) {
             throw new CommandException(MESSAGE_INVERSE_TASK_ALREADY_UNDONE);
         }
 
-        undone.markAsNotDone();
+        doneTask.markAsNotDone();
 
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, undone));
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_UNDONE, doneTask));
 
     }
 

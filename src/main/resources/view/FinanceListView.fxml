@@ -2,20 +2,49 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <SplitPane>
-        <ListView fx:id="purchaseListView" maxHeight="1.7976931348623157E308" VBox.vgrow="NEVER" />
-    </SplitPane>
-    <VBox>
-
-            <ListView fx:id="installmentListView" maxHeight="1.7976931348623157E308" VBox.vgrow="NEVER" />
-
-            <Label fx:id="spentAmount" maxHeight="220" minHeight="50.0" minWidth="250.0" />
-            <Label fx:id="remainingAmount" maxHeight="260" minHeight="50.0" minWidth="250.0" />
-
-    </VBox>
-</HBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1240.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="25.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="26.0" fitWidth="1240.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
+   </top>
+   <bottom>
+      <Pane prefHeight="100.0" prefWidth="1240.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="96.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <ProgressIndicator maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" progress="0.0" VBox.vgrow="ALWAYS" />
+            <Label fx:id="spentAmount" prefHeight="40.0" prefWidth="460.0" />
+            <Label fx:id="remainingAmount" prefHeight="40.0" prefWidth="482.0" />
+         </children></VBox>
+   </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" text="What I pay for monthly..." textAlignment="CENTER" />
+            <Label />
+            <ListView fx:id="installmentListView" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" text="What I bought this month..." textAlignment="CENTER" />
+            <Label />
+            <ListView fx:id="purchaseListView" prefWidth="200.0" />
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

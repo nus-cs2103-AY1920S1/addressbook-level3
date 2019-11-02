@@ -30,4 +30,17 @@ public enum Frequency {
         return test.equals(FREQ_DAILY) || test.equals(FREQ_WEEKLY)
                 || test.equals(FREQ_MONTHLY) || test.equals(FREQ_YEARLY);
     }
+
+    @Override
+    public String toString() {
+        if (this == DAILY) {
+            return "Daily";
+        } else if (this == WEEKLY) {
+            return "Weekly";
+        } else if (this == MONTHLY) {
+            return "Monthly";
+        } else {
+            return "Yearly";
+        }
+    }
 }

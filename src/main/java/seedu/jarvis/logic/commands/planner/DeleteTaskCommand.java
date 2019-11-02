@@ -11,8 +11,10 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.TaskList;
 import seedu.jarvis.model.planner.tasks.Task;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDeleteTaskCommand;
@@ -114,8 +116,9 @@ public class DeleteTaskCommand extends Command {
 
         Task deletedTask = tasks.getTask(targetIndex);
         model.deleteTask(targetIndex);
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask));
+        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+        model.setViewStatus(ViewType.LIST_PLANNER);
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask), true);
 
     }
 

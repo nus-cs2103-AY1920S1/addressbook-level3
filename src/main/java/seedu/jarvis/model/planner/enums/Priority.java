@@ -27,6 +27,17 @@ public enum Priority {
         return test.equals(PRIORITY_HIGH) || test.equals(PRIORITY_MED) || test.equals(PRIORITY_LOW);
     }
 
+    @Override
+    public String toString() {
+        if (this == HIGH) {
+            return "High";
+        } else if (this == MED) {
+            return "Medium";
+        } else {
+            return "Low";
+        }
+    }
+
 }
 
 

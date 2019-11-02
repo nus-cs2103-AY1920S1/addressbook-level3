@@ -3,14 +3,17 @@ package seedu.jarvis.ui;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
@@ -24,6 +27,7 @@ import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
+import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.template.View;
 
 /**
@@ -49,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private VBox parentVBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -127,10 +134,9 @@ public class MainWindow extends UiPart<Stage> {
          * in CommandBox or ResultDisplay.
          */
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.TAB) {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
-                model.setViewStatus(ViewType.getNextViewType(model.getViewStatus().getViewType()));
-                handleSwitch();
             }
         });
     }
@@ -139,6 +145,39 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
+            tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
+            tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
+        });
+
+        tabPanePlaceHolder.getSelectionModel()
+            .selectedItemProperty()
+            .addListener((obs, oldValue, newValue) -> {
+                if (oldValue.getText().equals(newValue.getText())) {
+                    return;
+                }
+                switch (newValue.getText()) {
+                case "Planner":
+                    model.setViewStatus(ViewType.LIST_PLANNER);
+                    break;
+                case "Modules":
+                    model.setViewStatus(ViewType.LIST_COURSE);
+                    break;
+                case "Ccas":
+                    model.setViewStatus(ViewType.LIST_CCA);
+                    break;
+                case "Finances":
+                    model.setViewStatus(ViewType.LIST_FINANCE);
+                    break;
+                default:
+                    break;
+                }
+                handleSwitch();
+                commandUpdater.executeUpdateCallback();
+            });
+
+        parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -241,6 +280,11 @@ public class MainWindow extends UiPart<Stage> {
             toUpdatePlaceHolder = ccaContentPlaceholder;
             break;
 
+        case LIST_PLANNER:
+            newView = new TaskListView(this, logic, model);
+            toUpdatePlaceHolder = plannerContentPlaceholder;
+            break;
+
         case LIST_FINANCE:
             newView = new FinanceListView(this, logic, model);
             toUpdatePlaceHolder = financeContentPlaceholder;
@@ -276,7 +320,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param view The {@code Page} to switch to.
      */
     private void switchContent(View<? extends Node> view, StackPane toUpdatePlaceHolder) {
-        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = view.getRoot();
 
         List<Node> currentChildren = toUpdatePlaceHolder.getChildren();

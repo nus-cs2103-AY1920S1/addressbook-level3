@@ -37,10 +37,10 @@ public class CheckCommand extends Command {
     /** To print to user */
     public static final String MESSAGE_NO_PREREQS = "%1$s has no prerequisites!";
     public static final String MESSAGE_CAN_TAKE_COURSE =
-        "%s: You are able to take this course!\n These are the prerequisites you have satisfied: %s";
+        "%s: You are able to take this course!\n\nThese are the prerequisites you have satisfied:\n\n%s";
 
     public static final String MESSAGE_CANNOT_TAKE_COURSE =
-        "%s: You are not able to take this course!\n These are the prerequisites for this course: %s";
+        "%s: You are not able to take this course!\n\nThese are the prerequisites for this course:\n\n%s";
 
     public static final boolean HAS_INVERSE = false;
 
