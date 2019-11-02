@@ -116,6 +116,8 @@ public class AppManager {
 
                 /** Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
+
+                /** Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
 

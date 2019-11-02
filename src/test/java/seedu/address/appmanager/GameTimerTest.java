@@ -52,8 +52,6 @@ public class GameTimerTest {
         }
         assertTrue(appManagerStub.skipCalled);
         assertTrue(appManagerStub.timerDisplayUpdated);
-
-        // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
     }
 
     @Test

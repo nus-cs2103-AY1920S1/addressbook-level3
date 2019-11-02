@@ -443,16 +443,16 @@ Turns hints off.
 ==== Changing difficulty : `difficulty`
 
 Changes the difficulty of the game. +
-Format: `difficulty low/medium/high`
+Format: `difficulty easy/medium/hard`
 
 Examples:
 
 * `difficulty low` +
-Changes the difficulty to low. (Timer = 30 seconds)
+Changes the difficulty to low. (Timer = 15 seconds)
 * `difficulty medium` +
-Changes the difficulty to medium. (Timer = 20 seconds)
+Changes the difficulty to medium. (Timer = 10 seconds)
 * `difficulty high` +
-Changes the difficulty to high. (Timer = 10 seconds)
+Changes the difficulty to high. (Timer = 5 seconds)
 
 
 
