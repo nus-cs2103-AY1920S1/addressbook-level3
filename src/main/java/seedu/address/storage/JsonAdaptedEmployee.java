@@ -30,7 +30,6 @@ class JsonAdaptedEmployee {
     private final String address;
     private final String id;
     private final String pay;
-    private final String totalsalary;
     private final String gender;
     private final String joindate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -42,7 +41,6 @@ class JsonAdaptedEmployee {
     public JsonAdaptedEmployee(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address,
                                @JsonProperty("id") String id, @JsonProperty("Pay") String pay,
-                               @JsonProperty("TotalSalary") String totalsalary,
                                @JsonProperty("gender") String gender, @JsonProperty("joindate") String joindate,
                                @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -53,7 +51,6 @@ class JsonAdaptedEmployee {
         this.joindate = joindate;
         this.gender = gender;
         this.pay = pay;
-        this.totalsalary = totalsalary;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -70,7 +67,6 @@ class JsonAdaptedEmployee {
         this.joindate = "11/11/2011";
         this.gender = "male";
         this.pay = "0";
-        this.totalsalary = "0";
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -85,8 +81,7 @@ class JsonAdaptedEmployee {
         email = source.getEmployeeEmail().value;
         address = source.getEmployeeAddress().value;
         id = source.getEmployeeId().id;
-        pay = source.getEmployeeSalaryPaid().value;
-        totalsalary = source.getEmployeeTotalsalary().value;
+        pay = source.getEmployeePay().value;
         gender = source.getEmployeeGender().gender;
         joindate = source.getEmployeeJoinDate().toString();
         tagged.addAll(source.getTags().stream()
@@ -114,15 +109,11 @@ class JsonAdaptedEmployee {
         }
         final EmployeeId modelEmployeeId = new EmployeeId(id);
 
-        if (!EmployeeSalaryPaid.isValidPay(pay)) {
-            throw new IllegalValueException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
-        }
-        final EmployeeSalaryPaid modelEmployeeSalaryPaid = new EmployeeSalaryPaid(pay);
-
-        if (!EmployeePay.isValidPay(totalsalary)) {
+        if (!EmployeePay.isValidPay(pay)) {
             throw new IllegalValueException(EmployeePay.MESSAGE_CONSTRAINTS);
         }
-        final EmployeePay modelEmployeePay = new EmployeePay(totalsalary);
+        final EmployeePay modelEmployeePay = new EmployeePay(pay);
+
 
         if (gender == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -180,7 +171,7 @@ class JsonAdaptedEmployee {
         final EmployeeAddress modelEmployeeAddress = new EmployeeAddress(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender, modelEmployeeSalaryPaid,
+        return new Employee(modelEmployeeId, modelEmployeeName, modelEmployeeGender,
                 modelEmployeePay, modelEmployeePhone, modelEmployeeEmail, modelEmployeeAddress,
                 modelEmployeeJoinDate, modelTags);
     }

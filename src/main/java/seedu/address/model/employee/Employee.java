@@ -39,8 +39,7 @@ public class Employee {
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeeSalaryPaid employeeSalaryPaid, EmployeePay employeePay,
-                    EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
@@ -49,8 +48,8 @@ public class Employee {
         this.employeeId = employeeId;
         this.employeeGender = employeeGender;
         this.employeeJoinDate = employeeJoinDate;
-        this.employeeSalaryPaid = employeeSalaryPaid;
         this.employeePay = employeePay;
+        this.employeeSalaryPaid = employeeSalaryPaid;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
     }
@@ -92,10 +91,8 @@ public class Employee {
         return employeeSalaryPaid;
     }
 
-    public EmployeePay getEmployeeTotalsalary() {
-        EmployeePay e = new EmployeePay("10000");
-//        return employeeFinances.getTotalPay(); use this
-        return e;
+    public EmployeePay getEmployeePay() {
+        return employeePay;
 
     }
 
@@ -155,8 +152,7 @@ public class Employee {
         return otherEmployee.getEmployeeId().equals(getEmployeeId())
                 && otherEmployee.getEmployeeName().equals(getEmployeeName())
                 && otherEmployee.getEmployeeGender().equals(getEmployeeGender())
-                && otherEmployee.getEmployeeSalaryPaid().equals(getEmployeeSalaryPaid())
-                && otherEmployee.getEmployeeTotalsalary().equals(getEmployeeTotalsalary())
+                && otherEmployee.getEmployeePay().equals(getEmployeePay())
                 && otherEmployee.getEmployeePhone().equals(getEmployeePhone())
                 && otherEmployee.getEmployeeEmail().equals(getEmployeeEmail())
                 && otherEmployee.getEmployeeAddress().equals(getEmployeeAddress())
@@ -178,10 +174,8 @@ public class Employee {
                 .append(getEmployeeId())
                 .append(" EmployeeGender: ")
                 .append(getEmployeeGender())
-                .append(" EmployeeSalaryPaid: ")
-                .append(getEmployeeSalaryPaid())
                 .append(" EmployeePay: ")
-                .append(getEmployeeTotalsalary())
+                .append(getEmployeePay())
                 .append(" EmployeePhone: ")
                 .append(getEmployeePhone())
                 .append(" EmployeeEmail: ")

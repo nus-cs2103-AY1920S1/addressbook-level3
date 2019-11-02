@@ -28,7 +28,6 @@ import seedu.address.model.employee.EmployeeGender;
 import seedu.address.model.employee.EmployeeId;
 import seedu.address.model.employee.EmployeeJoinDate;
 import seedu.address.model.employee.EmployeeName;
-import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.tag.Tag;
@@ -57,16 +56,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         EmployeeId employeeId = ParserUtil.parseEmployeeId();
         EmployeeName employeeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         EmployeeGender employeeGender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
-        EmployeeSalaryPaid employeeSalaryPaid = ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get());
         EmployeePay employeePay =
-                ParserUtil.parseTotalSalary(argMultimap.getValue(PREFIX_SalaryPaid).get());
+                ParserUtil.parseTotalSalary(argMultimap.getValue(PREFIX_PAY).get());
         EmployeePhone employeePhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         EmployeeEmail employeeEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         EmployeeAddress employeeAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         EmployeeJoinDate employeeJoinDate = ParserUtil.parseJoinDate(argMultimap.getValue(PREFIX_JOIN_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Employee employee = new Employee(employeeId, employeeName, employeeGender, employeeSalaryPaid,
+        Employee employee = new Employee(employeeId, employeeName, employeeGender,
                 employeePay, employeePhone, employeeEmail, employeeAddress, employeeJoinDate, tagList);
 
         return new AddCommand(employee);

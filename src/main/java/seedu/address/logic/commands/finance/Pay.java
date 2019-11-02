@@ -79,11 +79,11 @@ public class Pay extends Command {
         String output = (int) amt + "";
 
         //set amt
-        editedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
-        String tt = editedEmployee.getEmployeeTotalsalary().value;
-        Double ttDouble = Double.parseDouble(tt);
-        double ps = ttDouble - amt;
-        String oput = (int) ps + "";
+//        editedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
+//        String tt = editedEmployee.getEmployeeTotalsalary().value;
+//        Double ttDouble = Double.parseDouble(tt);
+//        double ps = ttDouble - amt;
+//        String oput = (int) ps + "";
 //        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
 
         if (!employeeToEdit.isSameEmployee(editedEmployee) && model.hasEmployee(editedEmployee)) {
@@ -114,16 +114,14 @@ public class Pay extends Command {
         Set<Tag> updatedTags = editEmployeeDescriptor.getTags()
                 .orElse(employeeToEdit.getTags());
         EmployeeId updatedEmployeeId = editEmployeeDescriptor.getEmployeeId().orElse(employeeToEdit.getEmployeeId());
-        EmployeeSalaryPaid updatedEmployeeSalaryPaid = editEmployeeDescriptor.getEmployeeSalaryPaid()
-                .orElse(employeeToEdit.getEmployeeSalaryPaid());
         EmployeePay updatedEmployeePay = editEmployeeDescriptor.getEmployeePay()
-                .orElse(employeeToEdit.getEmployeeTotalsalary());
+                .orElse(employeeToEdit.getEmployeePay());
         EmployeeGender updatedEmployeeGender = editEmployeeDescriptor.getEmployeeGender()
                 .orElse(employeeToEdit.getEmployeeGender());
         EmployeeJoinDate updatedEmployeeJoinDate = editEmployeeDescriptor.getEmployeeJoinDate()
                 .orElse(employeeToEdit.getEmployeeJoinDate());
 
-        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender, updatedEmployeeSalaryPaid,
+        return new Employee(updatedEmployeeId, updatedEmployeeName, updatedEmployeeGender,
                 updatedEmployeePay, updatedEmployeePhone, updatedEmployeeEmail, updatedEmployeeAddress,
                 updatedEmployeeJoinDate, updatedTags);
     }
