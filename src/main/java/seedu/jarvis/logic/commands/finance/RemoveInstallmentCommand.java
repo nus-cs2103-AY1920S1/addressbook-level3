@@ -18,21 +18,22 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemoveInstallmentCommand;
 
 /**
- * Deletes an existing purchase identified using its displayed index in the finance tracker.
+ * Deletes an existing installment identified using its displayed index in the finance tracker.
  */
 public class RemoveInstallmentCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-install";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the installment identified by the index number used in the displayed list of purchases.\n"
+            + ": Jarvis will remove the installment identified by the index number used in the displayed list of "
+            + "installments.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_INSTALLMENT_SUCCESS = "Deleted Installment: %1$s";
+    public static final String MESSAGE_DELETE_INSTALLMENT_SUCCESS = "Jarvis has removed this installment! \n%1$s";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New person added: %1$s";
-    public static final String MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST = "Person already added: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "Jarvis has added this installment back: %1$s";
+    public static final String MESSAGE_INVERSE_INSTALLMENT_TO_ADD_ALREADY_EXIST = "Installment was already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -44,7 +45,7 @@ public class RemoveInstallmentCommand extends Command {
      * Creates a {@code RemoveInstallmentCommand} and sets the targetIndex to the {@code Index}
      * of the {@code Installment} to be deleted.
      *
-     * @param targetIndex {@code Index} of the {@code Purchase} to be deleted.
+     * @param targetIndex {@code Index} of the {@code Installment} to be deleted.
      * @param deletedInstallment Installment that was deleted, which can be null.
      */
     public RemoveInstallmentCommand(Index targetIndex, Installment deletedInstallment) {
