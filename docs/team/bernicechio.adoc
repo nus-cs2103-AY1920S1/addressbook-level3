@@ -55,9 +55,9 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 
 ** Project management: Remove non-existing developers photos from `docs/images` folder (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/130[#130])
 ** Documentation
+*** updated Document Generation section in the User Guide (Pull request )
 *** made cosmetic tweaks to existing contents of the Developer Guide (Commits: https://github.com/AY1920S1-CS2103T-T13-2/main/commit/02abc4c16450c0f627eb0401e210a4e82e883dc6[1], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/8a189ab2262d3e28a64f05fbc4f7f09fca6f6bca[2], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/c22ec137fdfa00f9530a22d4b319910c0158e338[3])
 *** updated existing diagrams and color scheme for diagrams of the Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/137[#137])
-*** updated Document Generation section in the User Guide (Pull request )
 *** updated Section 4.4 Generate PDF feature in the Developer Guide (Pull request )
 *** updated Appendix B User Stories in the Developer Guide (Commit https://github.com/AY1920S1-CS2103T-T13-2/main/commit/96c7bdd079d527cfa6e1fbdec7cfe630bafe84c4[1])
 ** Community
