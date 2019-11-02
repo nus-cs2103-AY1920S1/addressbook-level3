@@ -1,0 +1,63 @@
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 13px;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.cell_smallest_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11px;
+}
+
+.list-cell:filled:even, .tab-cell:filled:even {
+    -fx-background-color: #DEF2F1;
+}
+
+.list-cell:filled:odd, .tab-cell:filled:odd {
+    -fx-background-color: #FEFEFE;
+}
+
+.table-row-cell:filled:selected {
+    -fx-background-color: #75a2c7;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #75a2c7;
+}
+
+.list-cell:filled:selected {
+    -fx-text-fill: #000000;
+}
+
+.visit-card {
+    -fx-border-style: solid none solid none;
+    -fx-border-width: 1;
+    -fx-border-color: lightgrey;
+    -fx-padding: 0 0 5px 0;
+}
+
+.hint {
+    -fx-text-fill: grey;
+}
+
+.bold {
+    -fx-font-weight: bold;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-background-color: #61bfba;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-text-fill: white;
+}

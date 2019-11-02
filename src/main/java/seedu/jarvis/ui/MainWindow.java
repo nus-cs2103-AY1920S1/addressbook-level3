@@ -101,6 +101,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        primaryStage.setResizable(false);
     }
 
     public Stage getPrimaryStage() {
@@ -145,36 +146,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
-            tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
-            tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 30);
-        });
+        tabPanePlaceHolder.setMinWidth(785);
+        tabPanePlaceHolder.setMinHeight(345);
 
-        tabPanePlaceHolder.getSelectionModel()
-            .selectedItemProperty()
-            .addListener((obs, oldValue, newValue) -> {
-                if (oldValue.getText().equals(newValue.getText())) {
-                    return;
-                }
-                switch (newValue.getText()) {
-                case "Planner":
-                    model.setViewStatus(ViewType.LIST_PLANNER);
-                    break;
-                case "Modules":
-                    model.setViewStatus(ViewType.LIST_COURSE);
-                    break;
-                case "Ccas":
-                    model.setViewStatus(ViewType.LIST_CCA);
-                    break;
-                case "Finances":
-                    model.setViewStatus(ViewType.LIST_FINANCE);
-                    break;
-                default:
-                    break;
-                }
-                handleSwitch();
-                commandUpdater.executeUpdateCallback();
-            });
+        tabPanePlaceHolder.widthProperty().addListener((observable, oldValue, newValue) -> {
+            tabPanePlaceHolder.setTabMinWidth((tabPanePlaceHolder.getWidth() / 4) - 40);
+            tabPanePlaceHolder.setTabMaxWidth((tabPanePlaceHolder.getWidth() / 4) - 40);
+        });
 
         parentVBox.setVgrow(tabPanePlaceHolder, Priority.ALWAYS);
 

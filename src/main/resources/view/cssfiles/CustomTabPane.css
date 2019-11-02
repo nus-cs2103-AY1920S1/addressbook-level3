@@ -1,5 +1,6 @@
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    /*-fx-padding: 0 0 0 1;*/
+    -fx-padding: 10 10 10 10;
     -fx-background-color: #383838;
     -fx-alignment: center;
 }
