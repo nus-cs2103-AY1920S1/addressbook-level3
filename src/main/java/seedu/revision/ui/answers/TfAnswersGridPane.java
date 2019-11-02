@@ -3,7 +3,6 @@ package seedu.revision.ui.answers;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;

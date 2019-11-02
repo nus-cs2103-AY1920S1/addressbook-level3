@@ -9,13 +9,14 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  */
 public class Question {
 
-    public static final String MESSAGE_CONSTRAINTS = "Questions should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Questions must be less that 300 characters and "
+            + "should not be blank";
 
     /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^(?=\\s*\\S).*$";
+    public static final String VALIDATION_REGEX = "^(?=.{0,300}$)(?=\\s*\\S).*$";
 
     public final String value;
 

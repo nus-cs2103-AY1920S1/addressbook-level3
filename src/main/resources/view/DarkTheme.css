@@ -370,3 +370,22 @@
     -fx-background-radius: 2;
     -fx-font-size: 15;
 }
+
+.alert.error.dialog-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-graphic: url("/images/very-sad.png");
+    -fx-graphic-text-gap: 50;
+}
+
+.alert.confirmation.dialog-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-graphic: url("/images/happy.png");
+}
+
+.alert.information.dialog-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-graphic: url("/images/very-happy.png");
+}
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}

@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
+
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -11,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -29,8 +33,6 @@ import seedu.revision.ui.answers.TfAnswersGridPane;
 import seedu.revision.ui.bar.ProgressIndicatorBar;
 import seedu.revision.ui.bar.ScoreProgressAndTimerGridPane;
 import seedu.revision.ui.bar.Timer;
-
-import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -242,11 +244,15 @@ public class StartQuizWindow extends Window {
     @FXML
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
         alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
+
         if (mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext()) {
+            alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Better luck next time! :P Your score is " + score
                     + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                     + "Try again?\n"

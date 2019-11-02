@@ -50,8 +50,8 @@ public abstract class Window extends UiPart<Stage> {
     @FXML
     protected StackPane scoreProgressAndTimerPlaceholder;
 
-    public Window(String FXML, Stage primaryStage, MainLogic mainLogic) {
-        super(FXML, primaryStage);
+    public Window(String fxml, Stage primaryStage, MainLogic mainLogic) {
+        super(fxml, primaryStage);
         this.primaryStage = primaryStage;
         this.mainLogic = mainLogic;
         setAccelerators();

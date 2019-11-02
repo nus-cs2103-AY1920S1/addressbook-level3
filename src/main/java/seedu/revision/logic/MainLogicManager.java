@@ -5,7 +5,6 @@ import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
