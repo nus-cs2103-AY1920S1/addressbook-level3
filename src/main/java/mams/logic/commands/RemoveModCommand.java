@@ -22,33 +22,57 @@ public class RemoveModCommand extends ModCommand {
 
     public static final String MESSAGE_REMOVE_MOD_SUCCESS = "Removed module from : %1$s";
 
-    private final String matricId;
-    private final String moduleCode;
-    private final String index;
-    private boolean usingIndex;
+    private final String moduleIdentifier;
+    private final String studentIdentifier;
+    private boolean moduleUsingIndex;
+    private boolean studentUsingIndex;
 
     /**
      * Builder class for RemoveModCommand.
      */
     public static class RemoveModCommandBuilder {
-        private String matricId; //either
-        private final String moduleCode; //required
-        private String index; //or
-        private boolean usingIndex; //required
 
-        public RemoveModCommandBuilder (String moduleCode, boolean usingIndex) {
-            this.moduleCode = moduleCode;
-            this.usingIndex = usingIndex;
+        private final String moduleIdentifier;
+        private final String studentIdentifier;
+        private boolean moduleUsingIndex;
+        private boolean studentUsingIndex;
+
+        public RemoveModCommandBuilder (String moduleIdentifier, String studentIdentifier) {
+            this.moduleIdentifier = moduleIdentifier;
+            this.studentIdentifier = studentIdentifier;
+            this.moduleUsingIndex = checkIfModuleIndex(moduleIdentifier);
+            this.studentUsingIndex = checkIfStudentIndex(studentIdentifier);
         }
 
-        public RemoveModCommandBuilder setMatricId (String matricId) {
-            this.matricId = matricId;
-            return this;
+        /**
+         * Checks if identifier given for prefix m/ is a number
+         * @param moduleIdentifier string given under m/
+         * @return true if is a index given
+         */
+        boolean checkIfModuleIndex(String moduleIdentifier) {
+            assert moduleIdentifier != null;
+            boolean result = true;
+            if (moduleIdentifier.substring(0, 1).contains("C")
+                    || moduleIdentifier.substring(0, 1).contains("c")) {
+                result = false;
+            }
+
+            return result;
         }
 
-        public RemoveModCommandBuilder setIndex (String index) {
-            this.index = index;
-            return this;
+        /**
+         * Checks if identifier given for prefix s/ is a number
+         * @param studentIdentifier string given under s/
+         * @return true if is a index given
+         */
+        boolean checkIfStudentIndex(String studentIdentifier) {
+            assert studentIdentifier != null;
+            boolean result = true;
+            if (studentIdentifier.substring(0, 1).contains("A")
+                    || studentIdentifier.substring(0, 1).contains("a")) {
+                result = false;
+            }
+            return result;
         }
 
         public RemoveModCommand build() {
@@ -57,10 +81,10 @@ public class RemoveModCommand extends ModCommand {
     }
 
     private RemoveModCommand(RemoveModCommandBuilder builder) {
-        this.moduleCode = builder.moduleCode;
-        this.matricId = builder.matricId;
-        this.index = builder.index;
-        this.usingIndex = builder.usingIndex;
+        this.moduleIdentifier = builder.moduleIdentifier;
+        this.studentIdentifier = builder.studentIdentifier;
+        this.moduleUsingIndex = builder.moduleUsingIndex;
+        this.studentUsingIndex = builder.studentUsingIndex;
     }
 
     /**
@@ -73,62 +97,25 @@ public class RemoveModCommand extends ModCommand {
      */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Student> lastShownStudentList = model.getFilteredStudentList();
-        List<Module> lastShownModuleList = model.getFilteredModuleList();
-
+        List<Student> studentList;
+        List<Module> moduleList;
         Student studentToEdit;
         Student studentWithRemovedModule;
         Module moduleToEdit;
         Module moduleWithRemovedStudent;
 
-        //check if module exist
-        List<Module> moduleToCheckList = lastShownModuleList.stream()
-                .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
-        if (moduleToCheckList.isEmpty()) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
-        moduleToEdit = moduleToCheckList.get(0);
+        moduleList = moduleUsingIndex ? model.getFilteredModuleList() : model.getFullModuleList();
+        studentList = studentUsingIndex ? model.getFilteredStudentList() : model.getFullStudentList();
 
-        //check if student exist
-        if (usingIndex) { //by index
-            int tempIndex = Integer.parseInt(index);
-            if (tempIndex < 1) {
-                throw new CommandException(ModCommand.MESSAGE_USAGE_REMOVE_MOD);
-            }
-            int tempIndexZeroBased = tempIndex - 1;
-            if (tempIndexZeroBased >= lastShownStudentList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-            }
-            studentToEdit = lastShownStudentList.get(tempIndexZeroBased);
-        } else { //by matricId
-            List<Student> studentToCheckList = lastShownStudentList.stream()
-                    .filter(p -> p.getMatricId().toString().equals(matricId)).collect(Collectors.toList());
-            if (studentToCheckList.isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-            }
-            studentToEdit = studentToCheckList.get(0);
-        }
-
-        /*
-        Check if student has the module (ready for deletion). mams.json is assumed to be
-        correct. Student field in Module object is not checked.
-         */
-        Set<Tag> studentModules = studentToEdit.getCurrentModules();
-        boolean hasModule = false;
-        for (Tag tag: studentModules) {
-            if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                hasModule = true;
-            }
-        }
-        if (!hasModule) {
-            throw new CommandException(MESSAGE_MISSING_MODULE);
-        }
+        moduleToEdit = returnModuleIfExist(moduleList);
+        studentToEdit = returnStudentIfExist(studentList);
+        checkIfStudentHasModule(studentToEdit, moduleToEdit.getModuleCode());
 
         //create a tag list without the module for the new student
         Set<Tag> ret = new HashSet<>();
         Set<Tag> studentAllTags = studentToEdit.getTags();
         for (Tag tag : studentAllTags) {
-            if (!tag.getTagName().equalsIgnoreCase(moduleCode)) {
+            if (!tag.getTagName().equalsIgnoreCase(moduleToEdit.getModuleCode())) {
                 ret.add(tag);
             }
         }
@@ -143,27 +130,84 @@ public class RemoveModCommand extends ModCommand {
         }
 
         //replace old student and old module objects with edited modules.
-        studentWithRemovedModule = new Student(studentToEdit.getName(),
-                studentToEdit.getCredits(),
-                studentToEdit.getPrevMods(),
-                studentToEdit.getMatricId(),
-                ret);
-
-        moduleWithRemovedStudent = new Module(moduleToEdit.getModuleCode(),
-                moduleToEdit.getModuleName(),
-                moduleToEdit.getModuleDescription(),
-                moduleToEdit.getLecturerName(),
-                moduleToEdit.getTimeSlot(),
-                moduleToEdit.getQuota(),
-                ret2);
-
-        model.setStudent(studentToEdit, studentWithRemovedModule);
-        model.setModule(moduleToEdit, moduleWithRemovedStudent);
-        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_REMOVE_MOD_SUCCESS,
-                studentWithRemovedModule.getName()));
+        return updateList(model, studentToEdit, moduleToEdit, ret, ret2, MESSAGE_REMOVE_MOD_SUCCESS);
     }
+
+    /**
+     * Checks if module exists
+     * @param moduleList module list being checked
+     * @return module if found
+     * @throws CommandException if module is not found
+     */
+    Module returnModuleIfExist(List<Module> moduleList) throws CommandException {
+
+        if (moduleUsingIndex) {
+            int tempIndex = Integer.parseInt(moduleIdentifier);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= moduleList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            }
+            return moduleList.get(tempIndexZeroBased);
+        } else {
+            List<Module> moduleToCheckList = moduleList.stream()
+                    .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleIdentifier)).collect(Collectors.toList());
+            if (moduleToCheckList.isEmpty()) {
+                throw new CommandException(MESSAGE_INVALID_MODULE);
+            }
+            return moduleToCheckList.get(0);
+        }
+    }
+
+    /**
+     * Checks if student exists for deletion.
+     * @param studentList student list being checked
+     * @return student if found
+     * @throws CommandException if student does not exist
+     */
+    Student returnStudentIfExist(List<Student> studentList) throws CommandException {
+
+        if (studentUsingIndex) {
+            int tempIndex = Integer.parseInt(studentIdentifier);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= studentList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+            }
+            return studentList.get(tempIndexZeroBased);
+        } else {
+            List<Student> studentToCheckList = studentList.stream()
+                    .filter(p -> p.getMatricId().toString().equalsIgnoreCase(studentIdentifier))
+                    .collect(Collectors.toList());
+            if (studentToCheckList.isEmpty()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
+            }
+            return studentToCheckList.get(0);
+        }
+    }
+
+    /**
+     * Checks if students has the module ready for deletion
+     * @param studentToEdit student to be checked
+     * @throws CommandException if the student does not have the module
+     */
+    private void checkIfStudentHasModule(Student studentToEdit, String moduleCode) throws CommandException {
+        Set<Tag> studentModules = studentToEdit.getCurrentModules();
+        boolean hasModule = false;
+        for (Tag tag: studentModules) {
+            if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
+                hasModule = true;
+            }
+        }
+        if (!hasModule) {
+            throw new CommandException(MESSAGE_MISSING_MODULE);
+        }
+    }
+
 
     @Override
     public boolean equals(Object other) {

@@ -1,8 +1,14 @@
 package mams.logic.commands;
 
-import static mams.logic.parser.CliSyntax.PREFIX_INDEX;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
+
+import java.util.Set;
+
+import mams.model.Model;
+import mams.model.module.Module;
+import mams.model.student.Student;
+import mams.model.tag.Tag;
 
 
 /**
@@ -12,24 +18,61 @@ public abstract class ModCommand extends Command {
 
     public static final String COMMAND_WORD_ADD_MOD = "addmod";
     public static final String COMMAND_WORD_REMOVE_MOD = "removemod";
-    public static final String MESSAGE_USAGE_ADD_MOD = COMMAND_WORD_ADD_MOD + ": Adds a module to a student in MAMS "
-            + "identified by index number used in the displayed student list or "
-            + "their matric id. \n"
-            + "Example: " + PREFIX_INDEX + " index (must be a positive integer) OR "
-            + PREFIX_STUDENT + "MATRIC_ID and "
-            + PREFIX_MODULE + "MODULE_CODE ";
+    public static final String MESSAGE_USAGE_ADD_MOD = COMMAND_WORD_ADD_MOD
+            + ": Adds a module to a student in MAMS. \n"
+            + "Example: "
+            + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list)"
+            + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list)";
 
     public static final String MESSAGE_USAGE_REMOVE_MOD = COMMAND_WORD_REMOVE_MOD
-            + ": Remove a module from a student in MAMS "
-            + "identified by index number used in the displayed student list or "
+            + ": Remove a module from a student in MAMS. \n"
             + "their matric id. \n"
-            + "Example: " + PREFIX_INDEX + " index (must be a positive integer) OR "
-            + PREFIX_STUDENT + "MATRIC_ID and "
-            + PREFIX_MODULE + "MODULE_CODE ";
+            + "Example: "
+            + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list)"
+            + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list)";
 
-    public static final String MESSAGE_MISSING_MATRICID_OR_INDEX = "Please enter 1 valid Matric ID or Index. ";
+    public static final String MESSAGE_MISSING_MATRICID_OR_INDEX = "Please enter a valid Matric ID or Index. ";
     public static final String MESSAGE_INVALID_MODULE = "Please enter 1 valid Module Code. ";
+    public static final String MESSAGE_MORE_THAN_ONE_MODULE = "Please specify only 1 Module Code";
+    public static final String MESSAGE_MORE_THAN_ONE_IDENTIFIER = "Please specify only 1 index or Matric ID";
     public static final String MESSAGE_DUPLICATE_MODULE = "Student is already registered for this module.";
     public static final String MESSAGE_MISSING_MODULE = "Student is not registered for this module. ";
+
+    /**
+     * Updates the list after AddModCommand and RemoveModCommand
+     * @param model mams model
+     * @param studentToEdit student to be edited
+     * @param moduleToEdit module to edited
+     * @param ret new tags for student
+     * @param ret2 new tags for module
+     * @param messageRemoveModSuccess result given in GUI window
+     * @return commandResult of action
+     */
+    protected CommandResult updateList(Model model, Student studentToEdit,
+                                       Module moduleToEdit, Set<Tag> ret, Set<Tag> ret2,
+                                       String messageRemoveModSuccess) {
+        Student studentWithRemovedModule;
+        Module moduleWithRemovedStudent;
+        studentWithRemovedModule = new Student(studentToEdit.getName(),
+                studentToEdit.getCredits(),
+                studentToEdit.getPrevMods(),
+                studentToEdit.getMatricId(),
+                ret);
+
+        moduleWithRemovedStudent = new Module(moduleToEdit.getModuleCode(),
+                moduleToEdit.getModuleName(),
+                moduleToEdit.getModuleDescription(),
+                moduleToEdit.getLecturerName(),
+                moduleToEdit.getTimeSlot(),
+                moduleToEdit.getQuota(),
+                ret2);
+
+        model.setStudent(studentToEdit, studentWithRemovedModule);
+        model.setModule(moduleToEdit, moduleWithRemovedStudent);
+        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+        return new CommandResult(String.format(messageRemoveModSuccess,
+                studentWithRemovedModule.getName()));
+    }
 
 }

@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import static mams.logic.commands.AddModCommand.MESSAGE_ADD_MOD_SUCCESS;
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.ClashCommand.ClashCase;
+import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_REMOVE_MOD_SUCCESS;
 import static mams.logic.commands.SetCredits.MESSAGE_CREDIT_CHANGE_SUCCESS;
-import static mams.logic.commands.ClashCommand.ClashCase;
-import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 
 import java.util.*;
 import java.util.stream.Collectors;

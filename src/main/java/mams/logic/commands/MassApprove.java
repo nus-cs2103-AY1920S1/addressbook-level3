@@ -1,9 +1,9 @@
 package mams.logic.commands;
 
 import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
+import static mams.logic.commands.ClashCommand.ClashCase;
 import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-import static mams.logic.commands.ClashCommand.ClashCase;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -93,7 +93,7 @@ public class MassApprove extends Approve {
                                 //check if student has the module (ready for deletion).
                                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                                 boolean hasModule = false;
-                                for (Tag tag : studentModules) {    
+                                for (Tag tag : studentModules) {
                                     if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
                                         hasModule = true;
                                     }

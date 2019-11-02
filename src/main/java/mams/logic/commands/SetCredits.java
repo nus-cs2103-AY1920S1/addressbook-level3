@@ -74,7 +74,7 @@ public class SetCredits extends StudentCommand {
 
         // check if credit value is valid
         if (!Credits.isValidCredits(newCredits)) {
-            throw new CommandException(Messages.MESSAGE_INVALD_CREDIT_VALUE);
+            throw new CommandException(Messages.MESSAGE_INVALID_CREDIT_VALUE);
         }
 
         //check if current mods satisfy new credits
