@@ -28,13 +28,12 @@ public class AddIncomeCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESCRIPTION + "Shirt sales"
-            + PREFIX_CASH + "307"
-            + PREFIX_DATE + "1/11/2019 "
+            + PREFIX_DESCRIPTION + "Shirt sales "
+            + PREFIX_CASH + "307 "
+            + PREFIX_DATE + "11-11-2019 "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_TAG + "Marketing"
-            + PREFIX_TAG + "Freshman Orientation Programme";
+            + PREFIX_TAG + "Marketing ";
 
     public static final String MESSAGE_SUCCESS = "New income added: %1$s";
     public static final String MESSAGE_DUPLICATE_INCOME = "This income already exists";

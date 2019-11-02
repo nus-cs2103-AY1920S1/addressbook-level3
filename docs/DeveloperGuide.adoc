@@ -272,7 +272,7 @@ For example:
 
 *Example*
 
-Given below is an example usage scenario of how `add_income` mechanisam behaves at each step.
+Given below is an example usage scenario of how `add_income` mechanism behaves at each step.
 
 *Step 1:* The user executes `add_income d/shirt sales c/100.05 date/11-11-2019 n/John Doe p/91111111` to add an income of $100.05 of shirt sales received from John Doe who is contactable at 91111111.
 
@@ -359,7 +359,40 @@ Here is an example of a step-by-step process on how the edit command alters an a
 
 
 === Shortcut feature
-// end::dataencryption[]
+
+This feature gives the user an option to create a shortcut when an unknown command is entered into FinSec.
+
+*Overview*
+
+To enable an easy implementation of this feature, we have created a TreeMap to store the default commands and shortcuts in the `FinSecParser`. Each command and shortcut have their Command Word stored as they key value (so as to ensure there are no duplicates) and Command task as the values.
+
+All default commands and shortcuts are also initialised as `CommandItem` objects which would be handled by the `Model Manager` class whenever we add or delete a shortcut. Command classes such as `ShortCutRequestCommand`, `CreateShortcutCommand` and `NoShortCutCommand` are created to facilitate the
+implementation of the shortcut feature.
+
+When a user enters a command, `FinSecParser` would parse the input and check if the first word of the input is in the TreeMap key set. If the command word is not in the key set, FinSec would create a `ShortCutRequestCommand` and return the `ShortCutRequestCommand` object with `CommandWord` as the parameter.
+
+*Example*
+
+Given below is an example usage scenario of how the shortcut feature mechanism behaves at each step.
+
+*Step 1 :* The user launches FinSec for the first time. The `FinSecParser` will be initialised. All the default commands will be added to the TreeMap using `FinSecParser#initialiseDefaultCommands()`. Previously created shortcuts would be added to the TreeMap from the constructor of the `FinSecParser`, where the ObservableList<CommandItem> will be the parameter.
+
+*Step 2 :* The user enters an unknown command that is not recognised by FinSec. FinSec then returns a `ShortCutRequestCommand`.
+
+*Step 3 :* `ShortCutRequestCommand` is executed in `LogicManager` and LogicManager would save the command word in a Stack. A `CommandResult` with a new Boolean value of "createShortCut" is then returned to `MainWindow` to display the result of the entry. The `CommandResult#isCreateShortCut()` sets the `MainWindow#unknownEntry` to true.
+
+*Step 4 :* Since now the boolean value of `MainWindow#unknownEntry` is true, the next input would use a different execute command. Instead of the usual method `LogicManager#execute(String command)`, the next input would be executed by `LogicManager#executeUnknownInput(String command)`. Hence, if the subsequent input by the user is `n`, a `NoShortCutCommand` would be executed
+and it would return a `CommandResult` with a false value of `createShortCut` which would reinstate back the normal state of FinSec.
+
+*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid defaul command is entered, a new `CreateShortCutCommand` object is returned.
+
+*Step 6 :* When a `CreateShortCutCommand` object is returned, it is executed in `LogicManager` and `LogicManager` would use `CreateShortCutCommand#execute()` to add the `CommandItem` into the `Model` which is handled by the `ModelManager`.
+
+*Step 7 :* `CreateShortCutCommmand` would then return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
+
+The following activity diagram summarises what happens when a user executes an unknown command:
+
+
 
 === Budget feature
 
