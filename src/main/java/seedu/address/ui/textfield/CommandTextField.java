@@ -1,49 +1,32 @@
 package seedu.address.ui.textfield;
 
-import static javafx.scene.input.KeyCode.C;
 import static javafx.scene.input.KeyCode.DOWN;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.TAB;
 import static javafx.scene.input.KeyCode.UP;
-import static javafx.scene.input.KeyCode.V;
-import static javafx.scene.input.KeyCode.Y;
-import static javafx.scene.input.KeyCombination.SHIFT_ANY;
-import static javafx.scene.input.KeyCombination.SHORTCUT_ANY;
-import static javafx.scene.input.KeyCombination.SHORTCUT_DOWN;
-import static org.fxmisc.wellbehaved.event.EventPattern.eventType;
-import static org.fxmisc.wellbehaved.event.EventPattern.keyPressed;
-import static org.fxmisc.wellbehaved.event.EventPattern.keyReleased;
-import static org.fxmisc.wellbehaved.event.EventPattern.mousePressed;
 
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
-import org.fxmisc.wellbehaved.event.EventPattern;
-import org.fxmisc.wellbehaved.event.InputMap;
 import org.reactfx.Subscription;
 
-import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.Event;
-import javafx.geometry.Insets;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.logic.parser.Prefix;
 
 /**
@@ -60,30 +43,7 @@ public class CommandTextField extends Region {
     private static final String STRING_STYLE = "string";
     private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
-    private static InputMap<Event> consumeCopyPasteEvent = InputMap.consume(EventPattern.anyOf(
-            keyPressed(C, SHIFT_ANY, SHORTCUT_DOWN),
-            keyPressed(V, SHIFT_ANY, SHORTCUT_DOWN),
-            keyReleased(C, SHIFT_ANY, SHORTCUT_DOWN),
-            keyReleased(V, SHIFT_ANY, SHORTCUT_DOWN)));
-    private static InputMap<Event> consumeTabKey = InputMap.consume(EventPattern.anyOf(
-            keyPressed(TAB, SHIFT_ANY, SHORTCUT_ANY)));
-
-    private static InputMap<Event> consumeEnterKeyEvent = InputMap.consume(EventPattern.anyOf(
-            keyPressed(ENTER, SHIFT_ANY, SHORTCUT_ANY),
-            keyReleased(ENTER, SHIFT_ANY, SHORTCUT_ANY)));
-    private static InputMap<Event> consumeUndoRedoEvent = InputMap.consume(EventPattern.anyOf(
-            keyPressed(Y, SHIFT_ANY, SHORTCUT_DOWN),
-            keyPressed(KeyCode.Z, SHIFT_ANY, SHORTCUT_DOWN),
-            keyReleased(Y, SHIFT_ANY, SHORTCUT_DOWN),
-            keyReleased(KeyCode.Z, SHIFT_ANY, SHORTCUT_DOWN)));
-    private static InputMap<Event> consumeMouseDragEvent = InputMap.consume(EventPattern.anyOf(
-            eventType(MouseEvent.MOUSE_DRAGGED),
-            eventType(MouseEvent.DRAG_DETECTED),
-            mousePressed().unless(e -> e.getClickCount() == 1 && !e.isShiftDown())));
-
-
-    private TextField functionalTextField;
-    private StyleClassedTextArea visibleTextArea;
+    private StyleClassedTextArea textField;
     private InputHistory inputHistory;
 
     private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
@@ -92,43 +52,87 @@ public class CommandTextField extends Region {
 
     private Subscription syntaxHighlightSubscription;
 
-    public CommandTextField() {
+    public CommandTextField(Consumer<String> textGetter) {
         super();
+
+        setId("SyntaxBox"); // for css styling css
 
         // to store patterns/syntax
         stringToSupportedCommands = new HashMap<>();
 
         currentCommand = new SimpleStringProperty("");
 
-        //--------------- actual text field with auto fill menu --------------
+        //--------------- textarea with behaviour modified to prevent new lines --------------
 
-        functionalTextField = new TextField();
-        autofillMenu = new AutofillSuggestionMenu(functionalTextField, currentCommand);
-        functionalTextField.setContextMenu(autofillMenu);
-        functionalTextField.setTextFormatter(new TextFormatter<String>(this::placeholderReplacement));
+        textField = new StyleClassedTextArea() {
+            @Override
+            public void paste() {
+                super.paste();
+                textField.replaceText(textField.getText().replaceAll("[\\n\\r]", ""));
+            }
 
-        //------------ visible text area ---------------
+            @Override
+            public void insertText(int position, String text) {
+                super.insertText(position, text.replaceAll("[\\n\\r]", ""));
+            }
+        };
+        getChildren().addAll(textField);
 
-        //visibleTextArea = new StyleClassedTextArea();
-        //visibleTextArea.setDisable(true);
-        //        functionalTextField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-        //            if (t1) {
-        //                visibleTextArea.setShowCaret(Caret.CaretVisibility.ON);
-        //            } else {
-        //                clear();
-        //                visibleTextArea.setShowCaret(Caret.CaretVisibility.OFF);
-        //            }
-        //        });
+        // ----- sizing ------
 
-        //        functionalTextField.caretPositionProperty().addListener((unused1, unused2, position) -> {
-        //        //    visibleTextArea.displaceCaret((int) position);
-        //         //   visibleTextArea.requestFollowCaret();
-        //        });
+        // height to look like single line input
+        double h = 25;
+        textField.setPrefHeight(h);
+        textField.setMaxHeight(h);
+        textField.setMinHeight(h);
 
+        // update width so re-sizes properly
+        widthProperty().addListener((unused1, unused2, width) -> {
+            textField.setPrefWidth(width.doubleValue());
+            textField.setMinWidth(width.doubleValue());
+            textField.setMaxWidth(width.doubleValue());
+        });
+
+        // autofill menu
+        autofillMenu = new AutofillSuggestionMenu(textField, currentCommand);
+        textField.setContextMenu(autofillMenu);
+
+        //------------ prevent entering to remain single line ---------------
+
+        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (keyEvent.getCode().equals(ENTER)) {
+                textGetter.accept(getText().replaceAll("[\\r\\n]", ""));
+                keyEvent.consume();
+            } else if (keyEvent.getCode().equals(TAB)) {
+                keyEvent.consume();
+            }
+        });
+
+        autofillMenu.showingProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (!t1) {
+                textField.requestFocus();
+            }
+        });
+
+        // --------- current command property -------
+        textField.textProperty().addListener((observableValue, s, t1) -> {
+            String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
+
+            Matcher command =
+                    Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s+")
+                            .matcher(t1);
+
+            if (command.find()) {
+                String cmd = command.group("COMMAND");
+                currentCommand.setValue(cmd);
+            } else {
+                currentCommand.setValue("");
+            }
+        });
 
         // --------- input history -------
         inputHistory = new InputHistory();
-        functionalTextField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(UP)) {
                 try {
                     replaceWithPreviousInput();
@@ -143,69 +147,13 @@ public class CommandTextField extends Region {
                 }
             }
         });
-
-        // to overlay elements
-        //functionalTextField.setBackground(Background.EMPTY);
-        //functionalTextField.setOpacity(0.0);
-        StackPane stackPane = new StackPane();
-        stackPane.setId("SyntaxBox"); // for css styling css
-        stackPane.getChildren().addAll(functionalTextField);
-        //stackPane.getChildren().addAll(visibleTextArea, functionalTextField);
-        getChildren().add(stackPane);
-
-        //------------ for alignment of actual and visible text area ---------------
-
-        functionalTextField.setPadding(Insets.EMPTY);
-        //functionalTextField.setBackground(Color.WHITE);
-
-        // ----- sizing ------
-
-        functionalTextField.fontProperty().addListener((unused1, unused2, font) -> {
-            double h = font.getSize() + 5;
-            //            visibleTextArea.setPrefHeight(h);
-            //            visibleTextArea.setMaxHeight(h);
-            //            visibleTextArea.setMinHeight(h);
-            functionalTextField.setPrefHeight(h);
-            functionalTextField.setMaxHeight(h);
-            functionalTextField.setMinHeight(h);
-        });
-
-        widthProperty().addListener((unused1, unused2, width) -> {
-            functionalTextField.setPrefWidth(width.doubleValue());
-            functionalTextField.setMinWidth(width.doubleValue());
-            functionalTextField.setMaxWidth(width.doubleValue());
-
-            //            visibleTextArea.setPrefWidth(width.doubleValue());
-            //            visibleTextArea.setMinWidth(width.doubleValue());
-            //            visibleTextArea.setMaxWidth(width.doubleValue());
-            //clear();
-        });
-
-        // prevent certain behaviour
-        // Nodes.addInputMap(functionalTextField, consumeCopyPasteEvent);
-        // Nodes.addInputMap(functionalTextField, consumeUndoRedoEvent);
-        // Nodes.addInputMap(functionalTextField, consumeTabKey);
-        // Nodes.addInputMap(functionalTextField, consumeMouseDragEvent);
-        //        Nodes.addInputMap(visibleTextArea, consumeUndoRedoEvent);
-        //        Nodes.addInputMap(visibleTextArea, consumeEnterKeyEvent);
-        //        Nodes.addInputMap(visibleTextArea, consumeTabKey);
-        //        Nodes.addInputMap(visibleTextArea, consumeMouseDragEvent);
-
-        // prevent selection of text
-        //        functionalTextField.selectionProperty().addListener((observableValue, indexRange, t1) -> {
-        //            if (t1.getLength() > 0) {
-        //                functionalTextField.deselect();
-        //                visibleTextArea.deselect();
-        //            }
-        //        });
     }
 
     /**
      * Clears the text.
      */
     public void clear() {
-        functionalTextField.clear();
-        //visibleTextArea.clear();
+        textField.clear();
     }
 
     /**
@@ -223,10 +171,9 @@ public class CommandTextField extends Region {
      */
     public void replaceWithPreviousInput() throws NoSuchElementException {
         String previous = inputHistory.getPreviousInput();
-        // if no exception thrown
         clear();
         for (Character character : previous.toCharArray()) {
-            functionalTextField.insertText(functionalTextField.getLength(), character.toString());
+            textField.insertText(textField.getLength(), character.toString());
         }
     }
 
@@ -236,10 +183,9 @@ public class CommandTextField extends Region {
      */
     public void replaceWithNextInput() throws NoSuchElementException {
         String next = inputHistory.getNextInput();
-        // if no exception thrown
         clear();
         for (Character character : next.toCharArray()) {
-            functionalTextField.insertText(functionalTextField.getLength(), character.toString());
+            textField.insertText(textField.getLength(), character.toString());
         }
     }
 
@@ -249,25 +195,25 @@ public class CommandTextField extends Region {
      * @return The text property value of the text area with placeholders replaced with an empty String.
      */
     public String getText() {
-        return functionalTextField.getText();
+        return textField.getText();
         //return functionalTextField.getText().replaceAll(PLACEHOLDER_REGEX, "");
     }
 
-    public ReadOnlyStringProperty textProperty() {
-        return functionalTextField.textProperty();
+    public ObservableValue<String> textProperty() {
+        return textField.textProperty();
     }
 
     /**
      * Enable syntax highlighting.
      */
     public void enableSyntaxHighlighting() {
-        //        syntaxHighlightSubscription =
-        //                visibleTextArea.multiPlainChanges()
-        //                        .successionEnds(Duration.ofMillis(500))
-        //                        .subscribe(ignore -> {
-        //                            visibleTextArea.setStyleSpans(
-        //                                    0, computeHighlighting(visibleTextArea.getText()));
-        //                        });
+        syntaxHighlightSubscription =
+                textField.multiPlainChanges()
+                        .successionEnds(Duration.ofMillis(50))
+                        .subscribe(ignore -> {
+                            textField.setStyleSpans(
+                                    0, computeHighlighting(getText()));
+                        });
     }
 
 
@@ -277,21 +223,21 @@ public class CommandTextField extends Region {
      * @param styleClass style class to apply to the text in the text area.
      */
     public void overrideStyle(String styleClass) {
-        //        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        //        spansBuilder.add(Collections.singleton(styleClass), visibleTextArea.getLength());
-        //        visibleTextArea.setStyleSpans(0, spansBuilder.create());
-        //        if (syntaxHighlightSubscription != null) {
-        //            syntaxHighlightSubscription.unsubscribe();
-        //}
+        StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
+        spansBuilder.add(Collections.singleton(styleClass), textField.getLength());
+        textField.setStyleSpans(0, spansBuilder.create());
+        if (syntaxHighlightSubscription != null) {
+            syntaxHighlightSubscription.unsubscribe();
+        }
     }
 
     /**
      * Import the css stylesheet containing the different styles for the syntax highlighter.
      */
     public void importStyleSheet(Scene parentSceneOfNode) {
-        //        parentSceneOfNode.getStylesheets()
-        //                .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
-        //        enableSyntaxHighlighting();
+        parentSceneOfNode.getStylesheets()
+                .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
+        enableSyntaxHighlighting();
     }
 
 
@@ -340,7 +286,6 @@ public class CommandTextField extends Region {
 
             return computeHighlighting(text, p, prefixCount);
         }
-
         // if not a command
         spansBuilder.add(Collections.emptyList(), text.length());
         return spansBuilder.create();
@@ -419,32 +364,4 @@ public class CommandTextField extends Region {
         spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
         return spansBuilder.create();
     }
-
-    /**
-     * Take a {@code TextFormatter.Change} and returns a new {@code TextFormatter.Change} with appropriate modifcation
-     * in order to handle auto fill and syntax suggestion.
-     *
-     * @param change The original non-formatted changes.
-     * @return The formatted changes.
-     */
-    private TextFormatter.Change placeholderReplacement(TextFormatter.Change change) {
-
-        if (change.isContentChange()) {
-            String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
-
-            Matcher command =
-                    Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s+")
-                            .matcher(change.getControlNewText());
-
-            // add placeholder if match prefix
-            if (command.find()) {
-                String cmd = command.group("COMMAND");
-                currentCommand.setValue(cmd);
-            } else {
-                currentCommand.setValue("");
-            }
-        }
-        return change;
-    }
-
 }
