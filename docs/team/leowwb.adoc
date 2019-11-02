@@ -81,7 +81,7 @@ _{you can add/remove categories in the list above}_
 == Contributions to the User Guide
 
 |===
-|_We had to update the original addressbook User Guide with instructions on how to use the enhancements that we added. The following are excerpts of my contributions to said User Guide. They showcase my ability to write documentation targeting end-users._
+|_My team's complete overhaul of the addressbook application meant that we also had to rewrite much of the User Guide. The following are excerpts of my contributions to this effort. They showcase my ability to write documentation that targets end-users._
 |===
 
 _(start of extract from User Guide)_
@@ -95,7 +95,7 @@ _(end of extract from User Guide)_
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following are sections that I have written for the Developer Guide. They showcase my ability to write technical documentation targeting developers, as well as the technical depth of my contributions to the project._
 |===
 
 _(start of extract from User Guide)_
