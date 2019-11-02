@@ -223,8 +223,11 @@ public class EditTripFieldCommand extends Command {
                 photo = this.photo;
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget,
+            Trip newTrip = new Trip(tripName, startDate, endDate, destination, budget,
                     trip.getDayList(), trip.getExpenditureList(), trip.getDiary(), trip.getInventoryList(), photo);
+            newTrip.initializeDayList();
+
+            return newTrip;
         }
 
         /**
