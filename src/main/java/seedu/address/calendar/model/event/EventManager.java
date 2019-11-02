@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class EventManager {
@@ -139,19 +140,13 @@ public class EventManager {
 
     private boolean removeEngagement(Event event) throws NoSuchElementException {
         if (!engagements.containsKey(event)) {
-            throw new NoSuchElementException("There is no event at this time.");
+            throw new NoSuchElementException("There is no event with the same start and end dates.");
         }
 
         List<Event> requiredList = engagements.get(event);
 
         if (!isDuplicateEvent(event, requiredList)) {
-            String requiredListStr = requiredList.stream()
-                    .map(Event::toString)
-                    .reduce("", (prev, curr) -> prev + "- " + curr + "\n")
-                    .trim();
-            String exceptionMessage = String.format("There is no such commitment/trip at this time. "
-                    + "Commitments/trips at this time:\n%s",
-                    requiredListStr);
+            String exceptionMessage = getRelevantEventsAsString(event);
             throw new NoSuchElementException(exceptionMessage);
         }
 
@@ -170,19 +165,13 @@ public class EventManager {
 
     private boolean removeVacation(Event event) throws NoSuchElementException {
         if (!vacations.containsKey(event)) {
-            throw new NoSuchElementException("There is no vacation at this time.");
+            throw new NoSuchElementException("There is no event with the same start and end dates.");
         }
 
         List<Event> requiredList = vacations.get(event);
 
         if (!isDuplicateEvent(event, requiredList)) {
-            String requiredListStr = requiredList.stream()
-                    .map(Event::toString)
-                    .reduce("", (prev, curr) -> prev + "- " + curr + "\n")
-                    .trim();
-            String exceptionMessage = String.format("There is no such vacation at this time. "
-                    + "Vacations at this time:\n%s",
-                    requiredListStr);
+            String exceptionMessage = getRelevantEventsAsString(event);
             throw new NoSuchElementException(exceptionMessage);
         }
 
@@ -197,6 +186,39 @@ public class EventManager {
             assert false : "This event should exist in vacationSchedule";
         }
         return true;
+    }
+
+    public String getRelevantEventsAsString(Event event) {
+        List<Event> relevantList = getEventsAtSpecificTime(event)
+                .collect(Collectors.toCollection(ArrayList::new));
+        String relevantListStr = IntStream.range(0, relevantList.size())
+                .mapToObj(i -> String.format("%d. %s", i + 1, relevantList.get(i)))
+                .reduce("", (prev, curr) -> prev + curr + "\n")
+                .trim();
+        return  String.format("There is no such event with the same start and end dates. "
+                + "Event(s) with the same start and end dates:\n%s\n"
+                + "If you would like to select an option, enter the relevant index. "
+                + "Otherwise, type 'no' or other commands.",
+                relevantListStr);
+    }
+
+    public Stream<Event> getEventsAtSpecificTime(EventQuery eventQuery) {
+        Event event = Event.getEventPlaceHolder(eventQuery);
+        return getEventsAtSpecificTime(event);
+    }
+
+    public Stream<Event> getEventsAtSpecificTime(Event event) {
+        List<Event> relevantEvents = new ArrayList<>();
+
+        if (engagements.containsKey(event)) {
+            relevantEvents.addAll(engagements.get(event));
+        }
+
+        if (vacations.containsKey(event)) {
+            relevantEvents.addAll(vacations.get(event));
+        }
+
+        return relevantEvents.stream();
     }
 
     private void removeFromList(Event eventToRemove, List<Event> requiredList) {

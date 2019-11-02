@@ -28,13 +28,8 @@ public class DeleteCommitmentCommand extends DeleteCommand {
         this.commitment = commitment;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        try {
-            calendar.deleteEvent(commitment);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(e.getMessage());
-        }
-
+    public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
+        calendar.deleteEvent(commitment);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, commitment.toString());
         return new CommandResult(formattedFeedback);
     }

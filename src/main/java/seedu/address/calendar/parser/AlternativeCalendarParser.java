@@ -1,9 +1,12 @@
 package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.AddCommand;
+import seedu.address.calendar.commands.DeleteCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import java.util.regex.Matcher;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -15,22 +18,26 @@ public class AlternativeCalendarParser extends Parser {
     protected Command<Calendar> parseCommand(String commandWord, String arguments) throws ParseException {
         switch(commandWord) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommandAlternativeParser().parse(arguments);
+            return new AlternativeAddCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new AlternativeDeleteCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
     public Option parseOptionCommand(String commandText) {
-        if (isYes(commandText)) {
+        String trimmed = commandText.trim();
+
+        if (isYes(trimmed)) {
             return Option.getTrue();
         }
 
-        if (isNo(commandText)) {
+        if (isNo(trimmed)) {
             return Option.getFalse();
         }
 
-        return Option.getInstance(textToInt(commandText));
+        return Option.getInstance(textToInt(trimmed));
     }
 
     private int textToInt(String commandText) {

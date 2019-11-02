@@ -31,13 +31,8 @@ public class DeleteSchoolBreakCommand extends DeleteCommand {
         this.schoolBreak = schoolBreak;
     }
 
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        try {
-            calendar.deleteEvent(schoolBreak);
-        } catch (NoSuchElementException e) {
-            throw new CommandException(e.getMessage());
-        }
-
+    public CommandResult execute(Calendar calendar) throws CommandException, NoSuchElementException {
+        calendar.deleteEvent(schoolBreak);
         String formattedFeedback = String.format(MESSAGE_DELETE_SUCCESS, schoolBreak.toString());
         return new CommandResult(formattedFeedback);
     }

@@ -15,6 +15,7 @@ import java.nio.file.NoSuchFileException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Calendar {
     private ViewOnlyMonth viewOnlyMonth;
@@ -77,6 +78,14 @@ public class Calendar {
                 .trim();
     }
 
+    public Stream<Event> getEvents(EventQuery eventQuery) {
+        return events.getEvents(eventQuery);
+    }
+
+    public Stream<Event> getEventsAtSpecificTime(EventQuery eventQuery) {
+        return events.getEventsAtSpecificTime(eventQuery);
+    }
+
     // todo: update response message to indicate that the view has also been updated
 
     public boolean isAvailable(EventQuery eventQuery) {
@@ -107,12 +116,10 @@ public class Calendar {
             List<Event> eventList = readOnlyCalendar.get().getEventList();
             events.clear();
             for (Event event : eventList) {
-                events.add(event);
+                events.addIgnoreClash(event);
             }
         } catch (DuplicateEventException e) {
             throw e;
-        } catch (ClashException e) {
-            // do nothing
         } catch (NoSuchElementException e) {
             throw new NoSuchFileException("Data file not found. Will be starting with a sample AddressBook");
         }
