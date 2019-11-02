@@ -1,7 +1,8 @@
 package seedu.address.transaction.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_NEGATIVE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_POSITIVE_TRANSACTION;
 
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
@@ -34,7 +35,11 @@ public class DeleteIndexCommand extends DeleteCommand {
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException(TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION);
         }
-        return new CommandResult(String.format(MESSAGE_DELETE_TRANSACTION, transaction));
+        if (transaction.isNegative()) {
+            return new CommandResult(String.format(MESSAGE_DELETE_NEGATIVE_TRANSACTION, transaction));
+        } else {
+            return new CommandResult(String.format(MESSAGE_DELETE_POSITIVE_TRANSACTION, transaction));
+        }
     }
 
     @Override

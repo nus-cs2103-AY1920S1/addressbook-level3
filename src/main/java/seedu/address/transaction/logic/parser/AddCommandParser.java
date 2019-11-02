@@ -28,6 +28,8 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements CommandParserWithPersonModel {
+    private static final double MAX_AMOUNT_ACCEPTED = 9999.9;
+    private static final double MIN_AMOUNT_ACCEPTED = -9999.9;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -56,6 +58,11 @@ public class AddCommandParser implements CommandParserWithPersonModel {
         String amountString = argMultimap.getValue(PREFIX_AMOUNT).get();
         try {
             double amount = Double.parseDouble(amountString);
+            if (amount > MAX_AMOUNT_ACCEPTED) {
+                throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE);
+            } else if (amount < MIN_AMOUNT_ACCEPTED) {
+                throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL);
+            }
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             Transaction transaction = new Transaction(datetime, description, category, amount, person,
                     0, false);
@@ -68,9 +75,7 @@ public class AddCommandParser implements CommandParserWithPersonModel {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
         } catch (NumberFormatException e) {
             throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
-        } /*catch (e) {
-            throw new ParseException(TransactionMessages.MESSAGE_INVALID_ADD_COMMAND_FORMAT);
-        }*/
+        }
     }
 
     /**

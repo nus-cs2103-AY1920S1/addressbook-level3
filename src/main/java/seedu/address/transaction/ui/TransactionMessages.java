@@ -52,15 +52,29 @@ public class TransactionMessages {
     public static final String MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON = "Sorry! There is no such transaction of the "
             + "inputted person.";
 
-    public static final String MESSAGE_TRANSACTION_EDITED = "Edited Transaction:\n%s";
+    public static final String MESSAGE_POSITIVE_TRANSACTION_EDITED = "Edited transaction that is a EARNING:\n%s";
+
+    public static final String MESSAGE_NEGATIVE_TRANSACTION_EDITED = "Edited transaction that is a SPENDING:\n%s";
 
     public static final String MESSAGE_FIND_COMMAND = "I've found %s matching transactions!";
 
-    public static final String MESSAGE_ADD_TRANSACTION = "Added Transaction:\n%s";
+    public static final String MESSAGE_ADD_POSITIVE_TRANSACTION = "Added Transaction that is an EARNING:\n%s";
 
-    public static final String MESSAGE_DELETE_TRANSACTION = "Deleted Transaction:\n%s";
+    public static final String MESSAGE_ADD_NEGATIVE_TRANSACTION = "Added transaction that is a SPENDING:\n%s";
+
+    public static final String MESSAGE_DELETE_POSITIVE_TRANSACTION = "Deleted Transaction that is an EARNING:\n%s";
+
+    public static final String MESSAGE_DELETE_NEGATIVE_TRANSACTION = "Deleted Transaction that is a SPENDING:\n%s";
 
     public static final String MESSAGE_DELETE_BY_PERSON = "I've deleted all transactions by this member:\n%s";
 
     public static final String MESSAGE_WRONG_AMOUNT_FORMAT = "Sorry! The amount should be a number.";
+
+    public static final String MESSAGE_AMOUNT_TOO_LARGE = "Sorry! The amount entered for the positive transaction "
+            + "is too large. Try to separate it into a few transactions instead!";
+
+    public static final String MESSAGE_AMOUNT_TOO_SMALL = "Sorry! The amount entered for the negative transaction "
+            + "is too small. Try to separate it into a few transactions instead!";
+
+
 }

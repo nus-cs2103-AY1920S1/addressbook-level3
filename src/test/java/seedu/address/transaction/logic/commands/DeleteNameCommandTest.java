@@ -42,7 +42,7 @@ class DeleteNameCommandTest {
     @Test
     void execute_unFilteredList_successful() {
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.ALICE);
-        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE));
+        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE.getName()));
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.ALICE);
         assertCommandSuccess(deleteNameCommand, model, message,
@@ -53,7 +53,7 @@ class DeleteNameCommandTest {
     void execute_filteredList_successful() {
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.ALICE);
-        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE));
+        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.ALICE.getName()));
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.ALICE);
         showNoTransaction(expectedModel);
@@ -72,7 +72,7 @@ class DeleteNameCommandTest {
     void execute_noTransactionOfPersonSpecifiedFilteredListButInTransactionList_successful() {
         showTransactionsOfPerson(model, TypicalPersons.ALICE.getName().toString());
         DeleteNameCommand deleteNameCommand = new DeleteNameCommand(TypicalPersons.BENSON);
-        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.BENSON));
+        String message = String.format(String.format(MESSAGE_DELETE_BY_PERSON, TypicalPersons.BENSON.getName()));
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.ALICE.getName().toString());
         expectedModel.deleteAllTransactionOfPerson(TypicalPersons.BENSON);

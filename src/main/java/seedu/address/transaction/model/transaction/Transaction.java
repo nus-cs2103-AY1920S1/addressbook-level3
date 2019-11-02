@@ -13,6 +13,7 @@ public class Transaction {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final double TO_REMOVE_NEGATIVE_SIGN = -1.0;
     private LocalDate date;
     private String description;
     private String category;
@@ -98,6 +99,22 @@ public class Transaction {
         return isReimbursed ? "1" : "0";
     }
 
+    public boolean isNegative() {
+        return this.amount < 0;
+    }
+
+    /**
+     * Returns the amount without the negative sign if it is negative.
+     * @return Amount
+     */
+    public double getAmountWithoutNegativeSign() {
+        if (isNegative()) {
+            return TO_REMOVE_NEGATIVE_SIGN * amount;
+        } else {
+            return amount;
+        }
+    }
+
     /**
      *Formats the Transaction object to be written into a text file.
      * @return Formatted String.
@@ -115,7 +132,8 @@ public class Transaction {
     public String toString() {
         String msg = "Date: " + this.date.format(DATE_TIME_FORMATTER) + "\nDescription: " + this.description
                 + "\nCategory: "
-                + this.category + "\nAmount: $" + this.amount + "\nPaid by: " + this.person.getName();
+                + this.category + "\nAmount: $" + getAmountWithoutNegativeSign()
+                + "\nPaid by: " + this.person.getName();
         return msg;
     }
 

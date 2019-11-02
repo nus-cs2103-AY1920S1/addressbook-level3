@@ -6,8 +6,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.showTransactionsOfPerson;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NEGATIVE_TRANSACTION_EDITED;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_POSITIVE_TRANSACTION_EDITED;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ import seedu.address.testutil.EditTransactionDescriptorBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.transaction.Transaction;
 
@@ -35,7 +37,7 @@ class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(1, descriptor);
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.setTransaction(model.getFilteredList().get(0), editedTransaction);
@@ -54,7 +56,7 @@ class EditCommandTest {
                 .build();
         EditCommand editCommand = new EditCommand(filterListSize, descriptor);
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.setTransaction(lastTransaction, editedTransaction);;
@@ -67,9 +69,23 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(1, new EditCommand.EditTransactionDescriptor());
         Transaction editedTransaction = model.getFilteredList().get(0);
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
+    }
+
+    @Test
+    public void execute_noFieldSpecifiedUnfilteredListNegativeTransaction_success() {
+        Model model = new ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
+        EditCommand editCommand = new EditCommand(1, new EditCommand.EditTransactionDescriptor());
+        Transaction editedTransaction = model.getFilteredList().get(0);
+
+        String expectedMessage = String.format(MESSAGE_NEGATIVE_TRANSACTION_EDITED, editedTransaction);
+
+        ModelManager expectedModel = new ModelManager(new TypicalTransactions()
+                .getTransactionListWithReimbursementNeeded());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, personModel);
     }
@@ -84,7 +100,7 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(1,
                 new EditTransactionDescriptorBuilder(editedTransaction).build());
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
@@ -103,7 +119,7 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(1,
                 new EditTransactionDescriptorBuilder(editedTransaction).build());
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
@@ -120,7 +136,7 @@ class EditCommandTest {
         EditCommand editCommand = new EditCommand(1,
                 new EditTransactionDescriptorBuilder().build());
 
-        String expectedMessage = String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction);
+        String expectedMessage = String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction);
 
         ModelManager expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         showTransactionsOfPerson(expectedModel, TypicalPersons.BENSON.getName().toString());
