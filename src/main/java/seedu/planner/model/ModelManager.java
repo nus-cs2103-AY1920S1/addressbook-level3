@@ -335,7 +335,8 @@ public class ModelManager implements Model {
                             int indexOfOldItem = listOfActivityWithTime.indexOf(x);
                             ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldItem);
                             listOfActivityWithTime.set(indexOfOldItem, new ActivityWithTime(newActivity,
-                                    oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+                                    oldActivityWithTime.getStartTime(),
+                                    oldActivityWithTime.getStartTime().plusMinutes(newActivity.getDuration().value)));
                         }
                     });
                     activityDayMap.put(newActivity, listOfDays);
@@ -355,6 +356,24 @@ public class ModelManager implements Model {
                 return newAccommodation;
             }).collect(Collectors.toList());
             contactAccommodationMap.put(newContact, newList);
+        }
+    }
+
+    /**
+     * Updates the mapping when there is a change in a {@code Day}.
+     */
+    private void updateMapping(Day oldDay, Day newDay) {
+        List<ActivityWithTime> oldList = oldDay.getListOfActivityWithTime();
+        for (ActivityWithTime act : oldList) {
+            activityDayMap.get(act.getActivity()).remove(oldDay);
+        }
+        List<ActivityWithTime> newList = newDay.getListOfActivityWithTime();
+        for (ActivityWithTime act : newList) {
+            if (activityDayMap.containsKey(act.getActivity())) {
+                activityDayMap.get(act.getActivity()).add(newDay);
+            } else {
+                activityDayMap.put(act.getActivity(), new ArrayList<>(Arrays.asList(newDay)));
+            }
         }
     }
 
@@ -642,6 +661,7 @@ public class ModelManager implements Model {
     }
 
     public void setDay(Day oldDay, Day newDay) {
+        updateMapping(oldDay, newDay);
         this.itinerary.setDay(oldDay, newDay);
     }
 
