@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -18,8 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.FlashcardTitleContainsKeywordsPredicate;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.TitleContainsKeywordsPredicate;
+import seedu.address.model.note.NoteTitleContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -37,6 +40,19 @@ public class CommandTestUtil {
     public static final String VALID_ANSWER_TWO = "Ctrl + Shift + F7";
     public static final String VALID_TAG_INTELLIJ = "IntelliJ";
     public static final String VALID_TAG_SHORTCUTS = "Shortcuts";
+    public static final String VALID_TAG_CHEATSHEET = "cheatsheet";
+    public static final String VALID_TAG_FORMULA = "formula";
+    public static final String VALID_TAG_IMPORTANT = "important";
+
+
+    public static final String VALID_TITLE_MATH = "cheatsheet for maths";
+    public static final String VALID_TITLE_GEM = "cheatsheet for gem module";
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Title&"; // '&' not allowed in titles
+
+    public static final String TITLE_DESC_CS1 = " " + PREFIX_TITLE + VALID_TITLE_MATH;
+    public static final String TITLE_DESC_CS2 = " " + PREFIX_TITLE + VALID_TITLE_GEM;
+    public static final String TAG_DESC_CHEATSHEET = " " + PREFIX_TAG + VALID_TAG_CHEATSHEET;
+    public static final String TAG_DESC_IMPORTANT = " " + PREFIX_TAG + VALID_TAG_IMPORTANT;
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -48,6 +64,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_MODULE = "cs2100";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -59,6 +76,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_MODULE = " " + PREFIX_TAG + VALID_TAG_MODULE;
 
     public static final String VALID_TITLE_SAMPLE = "Sample title";
     public static final String VALID_TITLE_PIPELINE = "Pipelining Definition";
@@ -114,15 +132,20 @@ public class CommandTestUtil {
         }
     }
 
+
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
+    /*
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        //
+
+        CommandResult expectedCommandResult; = new GlobalCommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
+    */
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -140,6 +163,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
@@ -158,12 +182,28 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
+    public static void showFlashcardAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredFlashcardList().size());
+
+        Flashcard flashcard = model.getFilteredFlashcardList().get(targetIndex.getZeroBased());
+        final String[] splitTitle = flashcard.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredFlashcardList(new FlashcardTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        assertEquals(1, model.getFilteredFlashcardList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the note at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
     public static void showNoteAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredNoteList().size());
 
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
         final String[] splitTitle = note.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+        model.updateFilteredNoteList(new NoteTitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+
+        System.out.println("Notes: " + model.getFilteredNoteList().size());
 
         assertEquals(1, model.getFilteredNoteList().size());
     }

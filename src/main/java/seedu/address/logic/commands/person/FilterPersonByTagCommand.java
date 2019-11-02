@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.person.PersonContainsTagPredicate;
 
@@ -54,6 +55,6 @@ public class FilterPersonByTagCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(tagPredicate);
-        return new CommandResult(FILTER_TAG_MESSAGE_SUCCESS + displayTagKeywords());
+        return new GlobalCommandResult(FILTER_TAG_MESSAGE_SUCCESS + displayTagKeywords());
     }
 }

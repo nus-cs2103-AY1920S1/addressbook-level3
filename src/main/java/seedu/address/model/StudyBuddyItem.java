@@ -19,6 +19,7 @@ public class StudyBuddyItem {
     private final Set<Tag> tags = new HashSet<>();
 
     public StudyBuddyItem(Set<Tag> tags) {
+
         this.tags.addAll(tags);
     }
 

@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.CheatSheetCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cheatsheet.CheatSheet;
@@ -80,7 +81,7 @@ public class EditCheatSheetCommand extends Command {
 
         model.setCheatSheet(cheatSheetToEdit, editedCheatSheet);
         model.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
-        return new CommandResult(String.format(MESSAGE_EDIT_CHEATSHEET_SUCCESS, editedCheatSheet));
+        return new CheatSheetCommandResult(String.format(MESSAGE_EDIT_CHEATSHEET_SUCCESS, editedCheatSheet));
     }
 
     /**
@@ -92,20 +93,76 @@ public class EditCheatSheetCommand extends Command {
         assert cheatSheetToEdit != null;
 
         Title updatedTitle = editCheatSheetDescriptor.getTitle().orElse(cheatSheetToEdit.getTitle());
-        Set<Tag> updatedTags = editCheatSheetDescriptor.getTags().orElse(cheatSheetToEdit.getTags());
+
         Set<Content> updatedContents;
+        ArrayList<Integer> indexes = editCheatSheetDescriptor.getIndexes();
 
         if (isAdd) {
+            // new add command
             updatedContents = editCheatSheetDescriptor.getContents().orElse(cheatSheetToEdit.getContents());
+        } else if (indexes == null) {
+            // not editing contents
+            updatedContents = cheatSheetToEdit.getContents();
         } else {
-            updatedContents = updateContents(cheatSheetToEdit, editCheatSheetDescriptor.getIndexes());
-            if (updatedContents == null || updatedContents.isEmpty()) {
-                updatedContents = cheatSheetToEdit.getContents();
+            // editing contents
+            updatedContents = updateContents(cheatSheetToEdit, indexes);
+        }
+
+        // updating tags comes after the updating of contents
+        Set<Tag> updatedTags;
+
+        if (editCheatSheetDescriptor.getTags().isEmpty()) {
+            updatedTags = cheatSheetToEdit.getTags();
+        } else {
+            updatedTags = updateTags(cheatSheetToEdit, editCheatSheetDescriptor.getTags().get());
+
+            // remove irrelevant contents
+            updatedContents = removeIrrelevantContent(updatedTags, updatedContents);
+        }
+
+        return new CheatSheet(updatedTitle, updatedContents, updatedTags);
+    }
+
+    /**
+     * Removes user specified tags from the tag list of cheatsheet.
+     * @param cheatSheetToEdit targeted cheatsheet
+     * @param tags list of tags to remove
+     * @return updated list of tags
+     */
+    private static Set<Tag> updateTags(CheatSheet cheatSheetToEdit, Set<Tag> tags) {
+        Set<Tag> tagList = new HashSet<>();
+
+        if (tags.isEmpty()) {
+            return null;
+        }
+
+        for (Tag tag: cheatSheetToEdit.getTags()) {
+            // ignores all invalid tags
+            if (!tags.contains(tag)) {
+                tagList.add(tag);
             }
         }
 
+        return tagList;
+    }
 
-        return new CheatSheet(updatedTitle, updatedContents, updatedTags);
+    /**
+     * Removes irrelevant content when its tag(s) are removed from the cheatsheet
+     * @param tags cheatsheet's tags
+     * @param contents existing contents
+     * @return relevant contents
+     */
+    private static Set<Content> removeIrrelevantContent(Set<Tag> tags, Set<Content> contents) {
+        Set<Content> contentList = new HashSet<>();
+
+        for (Content content: contents) {
+            Set<Tag> tagList = content.getTags();
+            if (!Collections.disjoint(tags, tagList)) {
+                contentList.add(content);
+            }
+        }
+
+        return contentList;
     }
 
     /**

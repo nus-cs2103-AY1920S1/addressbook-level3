@@ -1,0 +1,60 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "cs:AddCheatSheetCommand" as AddCheatSheetCommand LOGIC_COLOR
+participant "edit:EditCheatSheetDescriptor" as EditCheatSheetDescriptor LOGIC_COLOR
+participant "editedCheatSheet:CheatSheet" as CheatSheet LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+AddCheatSheetCommand -> Model : addCheatSheet(toAdd)
+activate Model
+
+Model --> AddCheatSheetCommand
+deactivate Model
+
+create EditCheatSheetDescriptor
+AddCheatSheetCommand -> EditCheatSheetDescriptor
+activate EditCheatSheetDescriptor
+
+EditCheatSheetDescriptor --> AddCheatSheetCommand
+deactivate EditCheatSheetDescriptor
+
+AddCheatSheetCommand -> AddCheatSheetCommand : getRelevantContents(tags, model)
+activate AddCheatSheetCommand
+
+AddCheatSheetCommand --> AddCheatSheetCommand : contents
+deactivate AddCheatSheetCommand
+
+AddCheatSheetCommand -> EditCheatSheetDescriptor : setContents(contents)
+activate EditCheatSheetDescriptor
+
+EditCheatSheetDescriptor --> AddCheatSheetCommand
+deactivate EditCheatSheetDescriptor
+
+create CheatSheet
+AddCheatSheetCommand -> CheatSheet : createEditedCheatSheet(toAdd, edit, true)
+activate CheatSheet
+
+CheatSheet --> AddCheatSheetCommand
+deactivate CheatSheet
+
+AddCheatSheetCommand -> Model : setCheatSheet(toAdd, editedCheatSheet)
+activate Model
+
+Model --> AddCheatSheetCommand
+deactivate Model
+
+create CommandResult
+AddCheatSheetCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCheatSheetCommand
+deactivate CommandResult
+
+@enduml

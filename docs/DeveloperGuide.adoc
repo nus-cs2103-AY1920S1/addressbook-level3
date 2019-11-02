@@ -20,11 +20,10 @@ By: `Team AY1920S1-CS2103T-W13-3`
 == Introduction
 
 Welcome to StudyBuddy Pro!
-StudyBuddy Pro is a desktop-based application intended for
-students in the School of Computing at NUS that prefer to use a to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-StudyBuddy Pro effectively tackles the problem of target users having spent large amount of time for quality study revision.
-To lessen time consumption to produce same study revision quality for target users, StudyBuddy Pro provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
+StudyBuddy Pro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
+
+StudyBuddy Pro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
 
 This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddy Pro's information for set-ups, its architectures and its key features.
 
@@ -57,7 +56,7 @@ Indicates additional information that are helpful. Fret not, tips can be good to
 
 === Syntax
 
-Do refer to the syntax below that will be used across the documents for references. These will prove to be useful when you are reading this document.
+Do refer to _Table 1_ below for the various syntax that will be used across the documents for references. These will prove to be useful when you are reading this document.
 
 .Syntax Table
 [options = "header"]
@@ -67,23 +66,38 @@ Do refer to the syntax below that will be used across the documents for referenc
 | link:#1[link] | Indicates internal/external links
 |===
 
+These syntax will be used in any context across the document. Possible places that they may appear are in _examples_, _explanations_ and _descriptions_. Take note of these syntax as they may have different meaning compared to normal texts!
+
+For example, `switch` is a command for you to type in the CLI so that the function can be executed. However, 'switch' in plain text can mean the switch device itself or to switch amongst some things.
+
+====
+An example of `switch` versus 'switch':
+
+- ... `switch` to toggle between the features ...
+- ... is able to switch between features ...
+====
+
 == Setting up
 
 Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddy Pro on your device(s)!
 
 == Design
 
+The following sections will show how StudyBuddy Pro is being constructed in details.
+
 [[Design-Architecture]]
 === Architecture
+
+The _figure 1_ below displays the high-level design of our StudyBuddy Pro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+
+The architecture diagram describes the relationships between the components, and here is a quick overview of each component:
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -112,6 +126,8 @@ For example, the `Logic` component in _Figure 2_ defines it's API in the `Logic.
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+The `logic` component's class diagram shows the relationships between the components it interacts with. Also, it provides the flow of the actions with arrows.
+
 [discrete]
 ==== How the application modes works?
 
@@ -123,27 +139,39 @@ In each mode, the users will interact with only the modes' commands, unless it i
 - `switch cs` - switches to cheatsheet mode
 - `switch notes` - switches to notes mode
 
-The following is an Activity Diagram that describes the execution of the `switch` command.
+The following _figure 3_ is an activity diagram that describes the execution of the `switch` command.
 
 .Activity Diagram of `Switch` command execution
 image::jasmineDiagrams/SwitchActivityDiagram.png[]
 
+From the activity diagram above, it shows the logic flow of the actions taken when user executes the `switch` command. Also, it shows the checks taken placed to verify the command that was parsed.
+
 [discrete]
 ==== How the architecture components interact with each other
 
-Assuming that the user is currently in the _flashcard_ mode.
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _figure 4_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command
+[IMPORTANT]
+====
+Assuming that the user is currently in the _flashcard_ mode.
+====
+
+.Sequence diagram of component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The sections below give more details of each component.
+The above sequence diagram illustrates the relationships between each components in the StudyBuddy Pro's architecture. The sections below will give more details of each of those components.
 
 [[Design-Ui]]
-=== UI component
+=== User Interface (UI) component
 
-.Structure of the UI Component
+This section describes the behaviour of the `UI` component in details.
+The _figure 5_ below portrays the internal structures of the `UI` components and their interactions.
+
+.Class diagram of the structure of the `UI` Component
 image::UiClassDiagram.png[]
+
+The class diagram above draws out the relationships between the internal components and their flow of actions.
+The segment below provides more details of the `UI` components and its API's link.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -159,9 +187,15 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+This section describes the behaviour of the `logic` component in details.
+The _figure 6_ below portrays the internal structures of the `logic` components and their interactions.
+
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Class diagram of the structure of the `logic` Component
 image::LogicClassDiagram.png[]
+
+The class diagram above draws out the relationships between the internal components and their flow of actions.
+The segment below provides more details of the `logic` components and its API's link.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -172,20 +206,22 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+The _figure 7_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 [IMPORTANT]
 ====
 Assuming that the user is in the _flashcard_ mode.
 ====
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Sequence diagram for the interactions Inside the `logic` Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-IMPORTANT
+[IMPORTANT]
 ====
 The lifeline for `DeleteFlashcardCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 ====
+
+The above sequence diagram clearly portrays the execution of the `delete 1` command with relevant _methods_ being called. Also, it provides the action flow and _return variables_ accordingly.
 
 [[Design-Model]]
 === Model component
@@ -202,8 +238,14 @@ The `Model`,
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
+This section describes the behaviour of the `storage` component in details.
+The _figure 8_ below portrays the internal structures of the `storage` components and their interactions.
+
+.Class diagram of the structure of the `Storage` Component
 image::StorageClassDiagram.png[]
+
+The class diagram above draws out the relationships between the internal components and their flow of actions.
+The segment below provides more details of the `storage` components and its API's link.
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -256,16 +298,49 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 ** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
 
+===== Aspect: How tag predicates are implemented
+
+image::kaibindiagrams/tagPredicateCodeSnippet.png[]
+Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
+
+* The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
+* As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
+** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
+that might have tags containing [difficult].
+
 ==== Usage of Tags
 
+===== a. To search for items
+
 ** Inside each feature
-*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
-** Using Tags globally
-*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
-** Currently, the user is able to specify multiple tags in his/her query.
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `filter tag/cs2100`).
+** Searching using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
+** Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
+** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+Diagram 8 : Sequence diagram of filtering all StudyBuddyItems by a tag.
+
+===== b. For Auto-generation of CheatSheets
+
+** Upon adding a cheatsheet, the cheatsheet will make use of tags to automatically pull contents from other features of StudyBuddyPro.
+** StudyBuddyItems with tags that match the user's input will be pulled over.
+** This feature will be further elaborated in the next section, Section 4.4.
+
+===== c. For TimeTrial Mode
+
+** The TimeTrial Mode of the flashcard feature, will make use of the tagging feature.
+** It will do so by filtering out flashcards with tags that match the user's input.
+** For instance, if a user wishes to revise only important flashcards, he/she could enter the following command, `timetrial important`.
+
+[IMPORTANT]
+====
+The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
+====
+** The TimeTrial feature will be further elaborated in Section 4.5.
 
 ==== [Proposed] Future improvements
 
@@ -278,9 +353,9 @@ image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
-=== Auto-generated cheatsheet with customizable contents feature
+=== Customizable Auto-generated Cheatsheet Feature
 
-[NOTE]
+[IMPORTANT]
 All the operations assume the user is in the _cheatsheet_ mode.
 
 ==== Implementation
@@ -291,7 +366,7 @@ The first step is to auto-generate cheatsheet, and the second step is to enable 
 ===== Step 1: Auto-generation
 
 The auto-generation mechanism is used in the `AddCheatSheetCommand` during creation of the cheatsheet.
-After creation, the cheatsheet is then stored in the `studyBuddy` storage.
+After creation, the cheatsheet is then stored in the `studyBuddyBook`.
 
 It is involved in the following operations:
 
@@ -301,31 +376,143 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following sequence diagram shows how the auto-generation operation works:
+The following _figure 9_ shows a high-level view of how the auto-generation operation works.
 
+.Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+
+Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+
+.Detailed sequence diagram for retrieval of tagged contents
+image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
+
+The above sequence diagram shows the complete action flow for the execution of methods.
+Here is a brief summary of the steps taken to create the cheatsheet:
+
+1. A new _cheatsheet_ object is created with the parsed _title_ and _tags_.
+
+2. Another new _cheatsheet_ object is created with the relevant contents extracted according to the _tags_ specified.
+
+3. The first _cheatsheet_ object is replaced with the second _cheatsheet_ object while retaining its _title_ and _tags_.
+
+Different _cheatsheet_ objects are created to ensure that the _cheatsheet_ object itself is not modifiable.
 
 ===== Step 2: Customizing contents
 
 The customization is based on the contents that the user wants to remove.
 
-The auto-generation mechanism is used in
-the AddCheatSheetCommand during creation of the cheatsheet.
-After creation, the cheatsheet is then stored in the studyBuddy storage
+The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
+
+It is involved in the following operations:
+
+- `EditCheatSheetCommand#execute()` -- Edits the cheatsheet
+
+- `EditCheatSheetCommand#updateContents()` -- Retrieves the contents to be retained in the cheatsheet
+
+The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
+
+The following _figure 11_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
+
+[IMPORTANT]
+====
+The index provided after `c/` indicates the content to be _removed_, not to be _retained_.
+====
+
+.Activity diagram of the `edit` command for the removal of contents
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[]
+
+The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
+
+Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ of _tags_ and _contents_.
+
+.Example of tags and contents in the cheatsheet
+
+|===
+|Tag | Content
+
+|tag1
+|content1
+
+|tag2
+|content2
+
+|tag2
+|content3
+|===
+
+According to the above table, if the order of removal is not followed, the system will be able to remove _tag2_ first before _content2_. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
 
 ==== Design Considerations
-===== Aspect:
+===== Aspect: How auto-generation is implemented
 
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** Replacing the newly created cheatsheet with another cheatsheet object containing all the relevant contents
+** Pros: Retains the object originality and easier to implement.
+** Cons: Invoking the edit method to create a new cheatsheet object may be complicated and messy.
+* **Alternative 2:** Reformat the way the `add` function works and abstract it such that it will be generalized.
+** Pros: Codes may be cleaner and easier to understand.
+** Cons: Harder to implement. More abstraction and modifications have to be done. Might change the format of the system.
+
+===== Aspect: How customization of contents is implemented
+
+* **Alternative 1 (current choice):** Places all contents that are not within the indexes specified by users into a new cheatsheet object and the targeted cheatsheet object with the respective changes.
+** Pros: Retains the object originality and easier to implement.
+** Cons: Large amount of contents may result in longer processing time as it loops to find all contents not removed. It is messier to comprehend.
+* **Alternative 2:** Reformat the way the `edit` function works and abstract it such that it will be generalized.
+** Pros: Codes may be cleaner and easier to understand.
+** Cons: Harder to implement. More abstraction and modifications have to be done.
 
 ==== [Proposed] Future improvements
 
+- Alerts users of possible duplications of contents
+- Allows users to gauge the size of the contents (whether if it fits in single-sided or double-sided A4 paper)
+- Allows users to export the cheatsheets
+- Allows updates of cheatsheet
+    -- Currently, contents are taken upon creation. Hence, any objects with specified tags will not be added into the cheatsheet after the creation of the cheatsheet.
+
+=== Flashcards Time Trial Feature
+
+==== Implementation
+a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
+
+image:: To be added
+
+b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
+c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
+d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
+e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
+1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
+2.	A KeyFrame to call the FlashcardTabWindowController#showFlashcardAns method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
+3.	A KeyFrame is then added to the timeline to call the FlashcardTabWindowController#resetViews method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
+
+==== Design Considerations
+===== Aspect: How the timetrial is implemented
+
+* **Alternative 1 (current choice):** 1.	Using the `TimeLine` class to set the timer
+object.
+** Pros: Tidier and easier to understand.
+** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
+* **Alternative 2:** Looping Thread.sleep() to set the timer
+** Pros: Easier to implement
+** Cons: Code will be messier and harder to read
+
+===== Aspect: How to continue the time trial
+
+* **Alternative 1 (current choice): Each flashcard and its’ respective answer is displayed for a set period of time before the next flashcard**
+** Pros: Easier to implement
+** Cons: Inflexible as user can only view the answer for a set amount of time
+* **Alternative 2:** Allowing users to input commands to display the flashcard answer / move on to the next flashcard
+** Pros: Better flow of time trial feature and improved user experience
+** Cons: Hard to implement
+
+==== [Proposed] Future improvements
+** Allowing users to set their own time limit for each flashcard in the time trial mode
+*** Command will be inputted to set the duration of the timer for each flashcard
+** Allowing users to decide when to move on to the next flashcard
+*** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
+
 === Remind Flashcard Feature
+
+{To be completed soon}
 
 ==== Implementation
 The  remind feature is facilitated by ``
@@ -377,6 +564,9 @@ Notes are used in the creation of CheatSheet objects as well as in general use o
 
 ==== Implementation
 
+[NOTE]
+All the operations assume that the user is in the _notes_ mode.
+
 Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
 
 image::samDiagrams/NoteModelClassDiagram.png[]
@@ -422,17 +612,63 @@ This feature can be achieved by:
 ** More precise inclusion of tags when creating CheatSheet objects
 ** Ability to nest tags inside each other
 
+=== Deletion prompting feature
+Upon deletion of any StudyBuddyItem, the user will be prompted once before they can
+successfully delete the specified item.
+
+==== Implementation
+
+[NOTE]
+The deletion prompting applies to all three modes in StudyBuddyPro.
+
+The activity diagram below shows how the user is prompted upon calling a delete command.
+
+image::kaibindiagrams/activitydiagramdeleteprompt.png[]
+Diagram 20 : Activity Diagram for prompting user upon deletion.
+
+* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
+
+==== Usage of deletion prompts
+* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
+* The user only needs to hit enter once more to successfully delete the item.
+
+==== Design considerations
+Aspect : Deletion prompts versus Undo feature.
+
+Current Implementation (prompting user before delete)
+
+* Pros
+** Much easier to implement as compared to undo feature.
+** Hitting enter once more to delete is highly convenient for the user, as
+compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
+
+* Cons
+** Less versatile than the undo feature.
+** User might still accidentally delete the wrong item.
+
+
+
 == Documentation
 
-Refer to the guide <<Documentation#, here>>.
+Please do refer to the guide <<Documentation#, here>> for more information about this section!
 
 == Testing
 
-Refer to the guide <<Testing#, here>>.
+Please do refer to the guide <<Testing#, here>> for more information about this section!
 
 == Dev Ops
 
-Refer to the guide <<DevOps#, here>>.
+Please do refer to the guide <<DevOps#, here>> for more information about this section!
+
+== Appendixes
+
+The following sections will be titled as '_Appendix_' followed by an alphabet in alphabetical order to denote the different appendixes.
+The following is an example of an appendix heading.
+
+*Appendix Z: ABC*
+
+- Alphabet 'Z' indicates its placing in the order of appendixes
+- Phrase 'ABC' indicates the title of the appendix
 
 [appendix]
 == Product Scope

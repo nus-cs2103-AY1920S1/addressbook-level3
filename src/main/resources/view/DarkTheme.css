@@ -351,6 +351,11 @@
     -fx-font-size: 11;
 }
 
+#timerLabel {
+    -fx-text-fill: white;
+    -fx-font-size: 70px;
+}
+
 #qnsTextArea .content {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: #383838;
@@ -369,7 +374,7 @@
 #titleTextArea .content {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: #383838;
-     -fx border-top-width: 1px;
+     -fx-border-top-width: 1px;
 	 -fx-background-radius: 0;
 	 -fx-text-fill: white;
 }
@@ -377,7 +382,7 @@
 #contentTextArea .content {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: #383838;
-     -fx border-top-width: 1px;
+     -fx-border-top-width: 1px;
 	 -fx-background-radius: 0;
 	 -fx-text-fill: white;
 }

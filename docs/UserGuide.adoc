@@ -1,4 +1,4 @@
-= StudyBuddy - User Guide
+= StudyBuddyPro - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,52 +19,67 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-StudyBuddy Level 1 is for students in the School of Computing at NUS
-that prefer to use a desktop app to help their studies.
-StudyBuddy is also optimized for those who prefer to work with
+StudyBuddyPro is a student application that aims to simplify the hassle of revision
+by providing a suite of tools for effective revision.
+
+StudyBuddyPro is optimized for students who prefer to work with
 a Command Line Interface (CLI) while still having the benefits of a
-Graphical User Interface (GUI). Being highly familiar working with CLI,
-Computing Students can greatly benefit from the app to
-manage their studies efficiently and faster than traditional GUI apps.
+Graphical User Interface (GUI).
+
+Moreover, StudyBuddyPro comes geared with pre-loaded features specially
+catered for computing students. So whether you're a computing student getting
+used to a CLI for the first time or if you're a CLI expert who wants to reap
+the benefits of a fast typing speed, give StudyBuddyPro a try! {To be implemented!}
+
+If you're interested, head over to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
+section to get started!
 
 == Quick Start
 
-<NOT IN DRAFT>
+NOTE: Please ensure you have Java 11 or above installed before proceeding!
 
+1. Download the latest version of `StudyBuddyPro.jar` https://github.com/AY1920S1-CS2103T-W13-3/main/releases[here].
+
+2. Place the file in the folder you want to set as the home directory. All data and
+miscellaneous files associated with StudyBuddyPro will be placed in this folder.
+
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+refer to the first question in the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
+for help!
+
++
+image::Ui.png[width="700"]
++
+
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
+section for a quick overview of all the available commands!
 
 == Command Format / Rules
 
 Things noted here are standardization of the User Guide.
 These points are absolute, unless stated otherwise in the specific section(s).
 
-****
-* All commands are written in ENGLISH with no weird symbols.
+=== How to read the Command sections
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.
-E.g. `add <t/TITLE>` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
+* Words in `UPPER_CASE` are parameters to be supplied by the user.
+E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
-* Items in square brackets are optional.
-E.g `t/TITLE [t/TAG]` can be used as `t/Midterm note t/exam` or as `t/Midterm`.
+* Items indicated in square brackets are optional.
+E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
-E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family`
+E.g. `[tag/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tag/friend`, `tag/friend tag/family`.
 
-* All flashcards, notes, cheatsheets objects will be given a unique `id` on creation.
+=== General rules for all commands
 
-* All flashcards, notes, cheatsheets objects can have a maximum of 5 `TAG` each.
+* All commands are written in English with alphanumeric characters.
 
-* All `MODULE` parameters are a `TAG`.
+* Any indexes provided (denoted by `id`) must be a positive integer (e.g. 1, 2, 3, ...).
 
-* In EDITING (`edit`):
-    ** All optional fields provided, except `t/TAG`, will overwrite their relevant fields.
-    ** `t/TAG` optional field, will be added to the flashcard, if they do not already exist.
-
-* In DELETING (`delete`), Confirmation reply of `y` or `n` has to be given, else no objects is deleted.
-    ** `y` indicates `YES` and notes will be deleted.
-    ** `n` indicates `NO` and notes will not be deleted.
-
-* Any indexes (`id`) must be positive integer (e.g. 1, 2, 3, ...).
-The indexes refers to the index number shown in the displayed list of objects (e.g. flashcards, notes, cheatsheets, tags).
+* All flashcards, notes, and cheatsheets can have a maximum of 10 tags.
 
 * Only exact matches of any searches will be returned.
 E.g. "noted" will return "noted" but not "note" or "notes"
@@ -72,86 +87,163 @@ E.g. "noted" will return "noted" but not "note" or "notes"
 * All searches are case insensitive.
 E.g. 'cs2103t' will match 'CS2103T'
 
-****
-
 == Global Commands
 
-=== Getting into FiveFlash function: `ff`
+Global commands in StudyBuddyPro are commands that can be called regardless of which mode the user is currently in.
 
-Brings the user to the FiveFlash section, regardless of where the user is.
+=== Entering the various modes of StudyBuddyPro: `switch`
 
-    Format: ff
+Upon startup, you will be prompted to enter one of the modes before you can proceed.
 
-=== Getting into FiveNotes function: `fn`
+==== Getting into Flashcard mode: `switch fc`
 
-Brings the user to the FiveNotes section, regardless of where the user is.
+Switches the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-commands[Flashcard]
+mode regardless of where the user is.
 
-    Format: fn
+    Format: switch fc
 
-=== Getting into FiveCheat function: `fc`
+==== Getting into Notes function: `switch notes`
 
-Brings the user to the FiveCheat section, regardless of where the user is.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#6-note-commands[Notes]
+mode regardless of where the user is.
 
-    Format: fc
+    Format: switch notes
 
-=== Listing tags: `tag list`
+==== Getting into CheatSheet function: `switch cs`
 
-Lists all the tags available in the application.
+Brings the user to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#7-cheatsheet-commands[CheatSheet]
+mode regardless of where the user is.
 
-    Format: tag list
-
-=== Editing tags: `tag edit`
-
-Replaces the existing tag with <TAG_ID> with <NEW_TAG_NAME> in the application.
-
-    Format: tag edit id/TAG_ID n/NEW_TAG_NAME
-
-=== Deleting tags: `tag delete`
-
-Deletes all tags from the application.
-
-    Format: tag delete [-c]
-
-* If `-c` is flagged, all contents tagged to the all tags are deleted.
+    Format: switch cs
 
 === Viewing Help: `help`
 
-Views the help session of all the functionality.
+A pop-up dialog box will display a URL link to a help document.
 
-    Format: help [-fc] [-fn] [-ff]
+    Format: help
 
-* Only ONE of the optional fields can be provided in one command. E.g.
-    ** Correct commands: "help", "help -fc", "help -fn", "help -ff"
-    ** Wrong commands: "help -fc -fn", "help -fc -fn -ff"
-* If `fc` flagged, returns the help section of the 'FiveCheat' feature.
-* If `fn` flagged, returns the help section of the 'FiveNotes' feature.
-* If `ff` flagged, returns the help section of the 'FiveFlash' feature.
+=== Listing all StudyBuddy items by their tag : `filterall`
 
-== FiveFlash
+Lists all StudyBuddy items with matching tags in the application.
 
-=== Creating flashcards: `new`
+    Format: filterall tag/TAG [tag/TAG]...
 
-1. Creates a new flashcard from user input question <QUESTION> and answer <ANSWER>.
+    Example usage: filterall tag/CS2100
 
-   Format: new q/QUESTION a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+    Expected output:
+        Lists the whole StudyBuddy after filtering by tag(s) :
+    CS2100
+    Flashcard: 6.
+        Question: What is 101 Binary in its Decimal form?
+        Answer: 5
+        Title: BinaryQn
+        Tags: [cs2100]
+    CheatSheet: 7.
+        Title: cs2100 stuff
+        Tags: [cs2100]
+        Contents: [ 1. Pipelining is a process where a processor executes multiple processes simultaneously.]
+            [ 2. Question: What is 101 Binary in its Decimal form?; Answer: 5 ]
+    Note: 5.
+        Title: Pipelining Defition
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+        Tags: [cs2100]
+    Note Fragment: 6-2.
+        Title: About
+        Content: highlighted
+        Tags: [cs2100]
 
-2. Creates a new flashcard from file input <FILE_NAME> and answer <ANSWER>.
+The user is also able to specify a multiple number of tags.
+For example,
 
-    Format: new f/<FILE_NAME> a/ANSWER t/TITLE m/MODULE [h/HINT] [tag/TAG]...
+    filterall tag/CS2100 tag/difficult
 
-* File must be in specified directory.
-* File input must be of type jpg.
+will list all items that match at least one of the specified tags.
 
-=== Viewing flashcards: `view`
+NOTE: 'Note Fragments' are described further in the Notes section (see Section 6.1).
 
-Displays flashcard <FLASHCARD_ID> to user without answer.
+=== Exiting the application: `exit`
 
-    Format: view id/FLASHCARD_ID [-h] [-a] [-tag]
+Checks if there are any remaining flashcards to revise for the day
+or overdue flashcards to revise before exiting the application.
 
-* `-h`, `-a` or `-tag` can be used after entering view flashcard mode to view flashcard's hint, answer or tags respectively.
-* View page displays flashcard title, module and question by default.
+    Example usage: exit
 
-=== Editing flashcards: `edit`
+If there are flashcards due for revision today but no overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Type 'exit' again to exit the application!
+
+If there are no flashcards due for revision today but there are overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are your overdue flashcards:
+    1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
+    Type 'exit' again to exit the application!
+
+If there are both flashcards due for revision today and overdue flashcards:
+
+    Expected output: Are you sure you want to exit? You still have the following flashcards overdue or left
+    to revise for today:
+    Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Here are your overdue flashcards:
+    1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
+    Type 'exit' again to exit the application!
+
+After any of the 3 scenarios above user can override the warning by entering the `exit` command again.
+
+if no remaining or overdue flashcards for revision found, application exits immediately.
+
+== Flashcard Feature
+
+=== Creating a flashcard: `add`
+
+Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
+
+    Format: add q/QUESTION a/ANSWER t/TITLE [tag/TAG]...
+
+    Example usage: add q/What is 100 Binary in its Decimal form? a/4 t/Binary Stuff tag/CS2100
+
+    Expected output: New flashcard added:
+        Title: Binary Stuff
+        Statictics: This flashcard was last viewed on: 2019-11-01. This flashcard should next be viewed on 2019-11-02 for optimum revision!
+        Question: What is 100 Binary in its Decimal form?
+        Answer: 4
+        Tags: [cs2100]
+
+=== Viewing a flashcard: `view`
+
+Displays flashcard <FLASHCARD_INDEX> to user without answer.
+
+    Format: view (index)
+
+    Example usage: view 6
+
+    Expected output: Viewing flashcard:
+        Title: BinaryQn
+        Question: What is 101 Binary in its Decimal form?
+        Tags: [cs2100]
+
+=== Revealing a flashcard's answer: `show`
+
+Displays the answer of the flashcard currently loaded.
+
+    Format: show
+
+    Example usage: show
+
+    Expected output: Flashcard answer loaded
+
+=== Editing a flashcard: `edit`
+
+{Coming in v2.0}
 
 Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
@@ -161,146 +253,385 @@ Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
 
 === Listing flashcards: `list`
 
+{Answer to be removed in v2.0}
+
 Lists all flashcards.
 
-   Format: list [tag/TAG]...
+   Format: list
 
-* If more than one tag is specified, lists only flashcards which satisfy all specified tags.
+    Expected output: Listed all flashcards:
+    Question: What is my name?
+    Answer: Sahil
+    Title: Test Name Question 1
+    Statistics: This flashcard was last viewed on: 2019-10-29. This flashcard should next be viewed on 2019-10-30 for optimum revision!
+    Tags: [pop]
 
-=== Deleting flashcards: `delete`
+=== Deleting a flashcard: `delete`
 
-Deletes the flashcard with <FLASHCARD_ID> or flashcard(s) with specified tag(s).
+Deletes the flashcard by <FLASHCARD_INDEX>.
 
-   Format: delete [id/FLASHCARD_ID] [tag/TAG]...
+The user will be prompted once to confirm their deletion.
 
-* At least one of the optional fields must be specified.
+   Format: delete (index)
 
-=== Time Trial: `time`
+    Example usage: delete 6
+
+    Expected output: Are you sure you would like to delete the following flashcard?
+	    Question: What is 101 Binary in its Decimal form?
+	    Answer: 5
+	    Title: BinaryQn
+	    Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+	    Tags: [cs2100]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the flashcard will be deleted.
+
+    Expected output: Deleted Flashcard:
+        Question: What is 101 Binary in its Decimal form?
+        Answer: 5
+        Title: BinaryQn
+        Statistics: This flashcard was last viewed on: 2019-10-31. This flashcard should next be viewed on 2019-11-01 for optimum revision!
+        Tags: [cs2100]
+
+=== Time Trial: `timetrial`
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
-    Format: time [time/TIME] [tag/TAG]...
+    Format: timetrial [tag/TAG]...
 
 * At least one tag must be specified.
-* If more than one tag is specified, selects only flashcards which satisfy all specified tags.
-* Default <TIME> will be 30 seconds, if not specified.
+* If more than one tag is specified, selects all flashcards that contains any of the specified tags.
+* Default <TIME> will be 5 seconds.
+* Answer will be flashed for 3 seconds.
+ts
+=== Listing by tags: `filter`
 
-== FiveNotes
+* Filters the flashcard library by the user specified tag(s).
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* Flashcards that match at least one of the specified tags will be displayed.
 
-=== Creating notes: `new`
+    Format: filter tag/TAG [tag/TAG]...
 
-Creates a notes with empty content, unless specified, under <MODULE> section.
+    Example usage: filter tag/difficult
 
-    Format: new m/MODULE [t/NOTE_TITLE] [c/NOTE_CONTENT] [tag/TAG]...
+    Expeted output: Filter flashcards by tag(s) :
+        [difficult]
+        8. Question: What is 1+1?
+            Title: Basic addition
+            Tags: [difficult]
+        10. Question: What is 2x3?
+            Title: Maths
+            Tags: [difficult][important]
 
-=== Editing notes: `edit`
+=== Remind
 
-Edits the specified note's title or content or tag(s).
+Reminds the user regarding the flashcards due for revision today and the flashcards
+overdue for revision. Automatically suggests a new date the flashcard should next be
+viewed at for optimal learning. These increments scale with time i.e. suggested viewing
+dates are closer at the start and spread further after more viewings. The suggested
+date for the next viewing of all flashcards can be viewed under the `list` command.
 
-   Format: edit id/NOTE_ID [t/TITLE] [c/NOTE_CONTENT] [tag/TAG]...
+{Give example}
 
-* At least one of the optional fields must be specified.
+    Example usage: remind
 
-=== Deleting notes: `delete`
+If no flashcards due for revision today and no overdue flashcards:
 
-1. Deletes notes with specified <MODULE> or specified note with <NOTE_ID> or all notes.
+    Expected output: Well done - No due or overdue flashcards!
 
-   Format: delete [m/MODULE] [id/NOTE_ID] [-a]
+If there are flashcards due for revision today but no overdue flashcards:
 
-* At least one of the optional fields must be specified.
-* If `a` is flagged, all notes will be deleted.
+    Expected output: Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
 
-2. Deletes specified tag(s) of note with <NOTE_ID>.
+If there are no flashcards due for revision today but there are overdue flashcards:
 
-    Format: delete id/NOTE_ID [tag/TAG]...
+    Expected output: Here are your overdue flashcards:
+    1. Math Question 1 - What is 2 x 2? (Was due on 2019-10-30)
 
-* At least one tag must be specified.
+If there are both flashcards due for revision today and overdue flashcards:
 
-=== Viewing notes: `view`
+    Expected output: Here are the flashcards due today:
+    1. Math Question 1 - What is 2 x 2?
+    Here are your overdue flashcards:
+    1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
 
-Views the note with <NOTE_ID>.
+== Notes Feature:
 
-    Format: view id/NOTE_ID
+=== Creating a note: `add`
+
+* Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
+of an existing note title.
+
+    Format: add t/TITLE c/CONTENT [tag/TAG]...
+
+    Example usage: add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes
+    simultaneously. tag/CS2100
+
+    Expected output:
+    New note added:
+        Title: Pipelining Definition
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+        Tags: [cs2100]
+
+* More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
+same time as the note is created.
+
+* Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
+`FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
+
+    Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
+
+NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+
+* In the following example, two note fragment tags are added to the same note fragment:
+
+    Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+
+    Expected output:
+    New note added:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
+
+* Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
+
+NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
+For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
+commands.
+
+=== Deleting a note: `delete`
+
+Deletes the note of index `NOTE_INDEX`.
+
+The user will be prompted once to confirm their deletion.
+
+    Format: delete (index)
+
+    Example usage: delete 3
+
+    Expected output:
+        Are you sure you would like to delete the following note?
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+        Tags: [about]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the note will be deleted.
+
+    Deleted note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
+
+=== Viewing a note: `view`
+
+Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
+
+NOTE: To view the note with its note fragment tags, use the `viewraw` command instead (see Section 6.4).
+
+    Format: view (index)
+
+    Example usage: view 3
+
+    Expected output:
+    Viewing note:
+        Title: About
+        Content: Notes can be highlighted if needed
+        Tags: [about]
+
+=== Viewing a raw note: `viewraw`
+
+Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all note fragment tags.
+
+    Format: viewraw (index)
+
+    Example usage: viewraw 3
+
+    Expected output:
+    Viewing raw note:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Tags: [about]
 
 === Listing notes: `list`
 
-1. Lists all notes found in the user's notes.
+* Lists all notes found in StudyBuddyPro.
 
-   Format: list [-m] [-t]
+   Format: list
 
-* If `-m` flagged, lists all modules found in notes.
-* If `-t` flagged, lists all titles found in notes.
+   Expected output: a complete list of all notes currently in StudyBuddyPro
 
-2. Lists all notes from <MODULE>.
+    Example output:
+    Listing all notes:
+    1.
+        Title: Pipelining Definition
+        Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
+        Tags: [cs2100]
+    2.
+        Title: UML Diagrams
+        Content: UML Diagrams help with visualizing project structure.
+        Tags: [cs2103t]
 
-   Format: list m/MODULE [-t]
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
+visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
-* If `-t` flagged, lists all titles found in notes.
+=== Listing by tags: `filter`
 
-== FiveCheat
+* Filters the note library by the user specified tag(s).
+* The user must specify at least one tag, and can specify multiple tags.
+* Notes that match at least one of the specified tags will be displayed.
+* Note fragment tags containing at least one of the specified tags will also be displayed, even if their parent note is
+not tagged.
 
-=== Creating cheatsheets: `new`
+    Format: filter tag/TAG [tag/TAG]...
 
-Creates a new cheatsheet with <TITLE> and <MODULE>.
+    Example usage: filter tag/difficult
 
-   Format: new t/TITLE m/MODULE [tag/TAG]...
+    Expeted output: Filter notes by tag(s) :
+        [difficult]
+        2. Title: Tough Math
+            Content: 1 + 2 is 3.
+            Tags: [difficult]
+        4. Title: MA1521 Chapter 5
+            Content: dy/dx = 0 is turning point of bellcurve.
+            Tags: [difficult][MA1521]
+        5-1. Title: CS2103T
+              Content: sequence diagram
+              Tags: [difficult][diagram]
 
-=== Editing cheatsheets: `edit`
+NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
+'5-1' means 'the first note fragment tag in the fifth note'.
 
-Edits cheatsheet's content with <CHEATSHEET_ID>, unless optional fields are specified.
+=== Editing a note: `edit` (Coming in v2.0)
 
-   Format: edit id/CHEATSHEET_ID [t/TITLE] [m/MODULE] [tag/TAG]...
+Edits a note's title, content, or tags. The note will be referred to by their original title `ORIGINAL_TITLE`.
 
-=== Deleting cheatsheets: `delete`
+* The user can specify one of the optional fields to edit.
 
-1. Deletes cheatsheets with specified <MODULE> or specified cheatsheet with <CHEATSHEET_ID> or all cheatsheets.
+    Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
 
-   Format: delete [m/MODULE] [id/CHEATSHEET_ID] [-a]
+    Example usage: edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
 
-* At least one of the optional fields must be specified.
-* If `-a` flagged, all cheatsheets will be deleted.
+    Expected output:
+    Edited Note:
+        Title: Pipelined Definition
+        Content: Pipelining is a process where a processor executes multiple processes simultaneously.
+        Tags: [cs2100finals]
 
-2. Deletes specified tag(s) of cheatsheet with <CHEATSHEET_ID>.
+== CheatSheet Feature:
 
-    Format: delete id/CHEATSHEET_ID [tag/TAG]...
+=== Creating a cheatSheet: `add`
 
-* At least one tag must be specified.
+* Adds a cheatSheet from user input title <TITLE> and content <CONTENT>.
+* Flashcards and notes in StudyBuddyPro that have the specified tag will be pulled over to be used as content in the
+cheatsheet.
 
-=== Listing cheatsheets: `list`
+    Format: add t/TITLE [tag/TAG]...
 
-1. Lists all cheatsheets found in the user's notes.
+    Example usage: add t/CS2100 Midterm CheatSheet tag/cs2100midterm
 
-   Format: list [-m] [-t]
+    Expected output: New cheatsheet added:
+    Title: CS2100 Midterm CheatSheet
+    Tags: [cs2100midterm]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+        [ 2. 110 in Binary is 6 in Decimal ]
 
-* If `-m` flagged, lists all modules found in the user's cheatsheets.
-* If `-t` flagged, lists all titles found in the user's cheatsheets.
+=== Editing a cheatSheet: `edit`
 
-2. Lists all cheatsheets from <MODULE>.
+* In EDITING (`edit`):
+** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
+** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
 
-   Format: list m/MODULE [-t]
+Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
 
-* If `-t` flagged, lists all titles found in the user's cheatsheets.
+* The user can specify one of the optional fields to edit.
+
+    Format: edit (index) [t/TITLE] [tag/TAG]...
+
+    Example usage: edit 8 t/cs2100 final cheatsheet tag/cs2100finals
+
+    Expected output: Edited Cheatsheet:
+        Title: cs2100 final cheatsheet
+        Tags: [cs2100finals]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+
+=== Deleting a cheatSheet: `delete`
+
+Deletes a cheatSheet by the specified index.
+
+The user will be prompted once to confirm their deletion.
+
+    Format: delete (index)
+
+    Example usage: delete 8
+
+    Expected output:
+        Are you sure you would like to delete the following cheatsheet?
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+        Hit enter again to confirm your deletion.
+
+Upon hitting enter, then the specified cheatsheet will be deleted.
+
+    Expected output: Deleted Cheatsheet:
+        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+            [ 2. 110 in Binary is 6 is Decimal ]
+
+=== Listing cheatSheets: `list`
+
+* Lists all cheatSheets found in StudyBuddyPro.
+
+   Format: list
+
+   Expected output: a complete list of all cheatSheets currently in StudyBuddyPro
+
+=== Listing by tags: `filter`
+
+* Filters the cheatSheet library by the user specified tag(s).
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* CheatSheets that match at least one of the specified tags will be displayed.
+
+    Format: filter tag/TAG [tag/TAG]...
+
+    Example usage: filter tag/difficult
+
+    Expeted output: Filter cheatSheets by tag(s) :
+        [difficult]
+        2. Title: Tough Math
+            Tags: [difficult][math]
+            Content: [ 1. Question: What's 1+1; Answer: 2 ]
+                [ 2. Question: what is 100 + 10; Answer: 110 ]
+        7. Title: MA1521 Chapter 5
+            Tags: [difficult]
+            Content: [ 1. dy/dx is a process where mathematicians..]
+                [ 2. Question: what is dy/dx?; Answer: find gradient]
+
+
 
 == FAQ
 
-<NOT INCLUDED IN DRAFT>
-
-*Q*: Do I need to create a new tag before using the tag? +
-*A*: No, you do not need to. Tags, if not exist, are automatically created.
+*Q*: Help! Double-clicking `StudyBuddyPro.jar` does not launch the application - what
+should I do? +
+*A*: Trying running the application from the command line using the following command:
+`java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
+do this while Mac users can use the Terminal application.
 
 == Command Summary
 
-<NOT INCLUDED IN DRAFT>
+{To be added}
 
-== Mock-up User Interface
+=== Global Commands
 
-image::UiMockUp1.png[width="790"]
-image::UiMockUp2.png[width="790"]
+=== Flashcard Commands
 
-== Draft Workflow (To-be-removed)
+=== Note Commands
 
-image::WorkflowDraft.png[width="790"]
-
-
+=== CheatSheet Commands
 
 

@@ -315,7 +315,7 @@ public class ModelManager implements Model {
         return sb.toString();
     }
 
-    //===================CheatSheetBook============================================================
+    //===================CheatSheet============================================================
 
     @Override
     public void addCheatSheet(CheatSheet cheatSheet) {
@@ -360,55 +360,95 @@ public class ModelManager implements Model {
 
     //========================COLLECT TAGGED ITEMS TO DISPLAY======================================
     @Override
-    public ArrayList<StudyBuddyItem> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
-        ArrayList<StudyBuddyItem> taggedItems = new ArrayList<>();
+    public ArrayList<String> collectTaggedItems(Predicate<StudyBuddyItem> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int flashcardIndex = 0;
+        int cheatSheetIndex = 0;
+        int noteIndex = 0;
+        int noteFragmentIndex = 0;
         for (Flashcard fc : addressBook.getFlashcardList()) {
+            flashcardIndex++;
             if (predicate.test(fc)) {
-                taggedItems.add(fc);
+                taggedItems.add("Flashcard: " + flashcardIndex + ". " + fc.toString());
             }
         }
         for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            cheatSheetIndex++;
             if (predicate.test(cs)) {
-                taggedItems.add(cs);
+                taggedItems.add("CheatSheet: " + cheatSheetIndex + ". " + cs.toString());
             }
         }
         for (Note n : addressBook.getNoteList()) {
+            noteIndex++;
             if (predicate.test(n)) {
-                taggedItems.add(n);
+                taggedItems.add("Note: " + noteIndex + ". " + n.toString());
             }
+            for (Note noteFrag : n.getNoteFragments()) {
+                noteFragmentIndex++;
+                if (predicate.test(noteFrag)) {
+                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". "
+                            + noteFrag.toString());
+                }
+            }
+            noteFragmentIndex = 0;
         }
         return taggedItems;
     }
 
     @Override
-    public ArrayList<CheatSheet> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
-        ArrayList<CheatSheet> taggedItems = new ArrayList<>();
+    public ArrayList<String> collectTaggedCheatSheets(Predicate<CheatSheet> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int cheatSheetIndex = 0;
         for (CheatSheet cs : addressBook.getCheatSheetList()) {
+            cheatSheetIndex++;
             if (predicate.test(cs)) {
-                taggedItems.add(cs);
+                taggedItems.add(cheatSheetIndex + ". " + cs.toString());
             }
         }
         return taggedItems;
     }
 
     @Override
-    public ArrayList<Flashcard> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
-        ArrayList<Flashcard> taggedItems = new ArrayList<>();
+    public ArrayList<String> collectTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int flashcardIndex = 0;
+        for (Flashcard fc : addressBook.getFlashcardList()) {
+            flashcardIndex++;
+            if (predicate.test(fc)) {
+                taggedItems.add(flashcardIndex + ". " + fc.toString());
+            }
+        }
+        return taggedItems;
+    }
+
+    @Override
+    public ArrayList<Flashcard> getTaggedFlashcards(Predicate<Flashcard> predicate) {
+        ArrayList<Flashcard> taggedFlashcards = new ArrayList<>();
         for (Flashcard fc : addressBook.getFlashcardList()) {
             if (predicate.test(fc)) {
-                taggedItems.add(fc);
+                taggedFlashcards.add(fc);
             }
         }
-        return taggedItems;
+        return taggedFlashcards;
     }
 
     @Override
-    public ArrayList<Note> collectTaggedNotes(Predicate<Note> predicate) {
-        ArrayList<Note> taggedItems = new ArrayList<>();
+    public ArrayList<String> collectTaggedNotes(Predicate<Note> predicate) {
+        ArrayList<String> taggedItems = new ArrayList<>();
+        int noteIndex = 0;
+        int noteFragmentIndex = 0;
         for (Note n : addressBook.getNoteList()) {
+            noteIndex++;
             if (predicate.test(n)) {
-                taggedItems.add(n);
+                taggedItems.add(noteIndex + ". " + n.toString());
             }
+            for (Note noteFrag : n.getNoteFragments()) {
+                noteFragmentIndex++;
+                if (predicate.test(noteFrag)) {
+                    taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
+                }
+            }
+            noteFragmentIndex = 0;
         }
         return taggedItems;
     }

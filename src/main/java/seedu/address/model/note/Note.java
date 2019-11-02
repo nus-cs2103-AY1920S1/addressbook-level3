@@ -1,10 +1,16 @@
 package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_CONTENT_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
+import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.logic.commands.note.NoteFragmentFeatureUtil;
 import seedu.address.model.StudyBuddyItem;
 import seedu.address.model.tag.Tag;
 
@@ -17,7 +23,7 @@ public class Note extends StudyBuddyItem {
     // Identity fields
     private final Title title;
     private final Content content;
-
+    private final List<NoteFragment> noteFragments;
 
     /**
      * Every field must be present and not null, except for tags.
@@ -27,6 +33,7 @@ public class Note extends StudyBuddyItem {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
+        this.noteFragments = NoteFragmentFeatureUtil.parseNoteFragmentsFromNote(this);
     }
 
     public Title getTitle() {
@@ -35,6 +42,20 @@ public class Note extends StudyBuddyItem {
 
     public Content getContent() {
         return content;
+    }
+
+    public Content getContentCleanedFromTags() {
+        String rawContent = content.toString();
+        String cleanedContent = rawContent.replaceAll(NOTE_FRAGMENT_CONTENT_DETECTION_REGEX, "")
+                .replaceAll(NOTE_FRAGMENT_TAG_DETECTION_REGEX, " ")
+                .replaceAll(NOTE_FRAGMENT_START_DETECTION_REGEX, " ")
+                .replaceAll(NOTE_FRAGMENT_END_DETECTION_REGEX, " ")
+                .trim();
+        return new Content(cleanedContent);
+    }
+
+    public List<NoteFragment> getNoteFragments() {
+        return noteFragments;
     }
 
     /**
@@ -78,13 +99,12 @@ public class Note extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("\nTitle: ")
+        builder.append("\n\tTitle: ")
                 .append(getTitle())
-                .append("\nContent: ")
+                .append("\n\tContent: ")
                 .append(getContent())
-                .append("\nTags: ");
+                .append("\n\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

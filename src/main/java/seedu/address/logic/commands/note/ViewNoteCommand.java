@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.NoteCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.note.Note;
@@ -23,7 +24,8 @@ public class ViewNoteCommand extends Command {
     public static final String COMMAND_WORD = VIEW;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays a flashcard.\n"
+            + ": Displays a note.\n"
+            + "Note is displayed without intra-note tags. Use 'viewraw' to view the raw note.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -45,11 +47,11 @@ public class ViewNoteCommand extends Command {
         }
 
         Note note = lastShownList.get(targetIndex.getZeroBased());
+        Note cleanedNote = new Note(note.getTitle(), note.getContentCleanedFromTags(), note.getTags());
 
-        return new CommandResult(model.getFilteredNoteList().isEmpty()
+        return new NoteCommandResult(model.getFilteredNoteList().isEmpty()
                 ? Messages.MESSAGE_NO_MATCHING_NOTE_FOUND
-                : String.format(VIEW_NOTE_SUCCESS, note), false, false,
-                false, Optional.empty(), Optional.empty(), Optional.empty(), Optional.of(note));
+                : String.format(VIEW_NOTE_SUCCESS, cleanedNote), Optional.of(cleanedNote));
     }
 
     @Override

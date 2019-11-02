@@ -5,10 +5,12 @@ import static seedu.address.commons.core.Messages.ADD;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Model;
@@ -25,10 +27,12 @@ public class AddFlashcardCommand extends Command {
             + "Flashcard will be assigned a unique id when created.\n"
             + "Parameters: " + PREFIX_QUESTION + "[QUESTION] "
             + PREFIX_ANSWER + "[ANSWER] "
-            + PREFIX_TITLE + "[TITLE]\n"
+            + PREFIX_TITLE + "[TITLE] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_QUESTION + "What is 6 + 19? "
             + PREFIX_ANSWER + "25 "
-            + PREFIX_TITLE + "Basic addition question 1";
+            + PREFIX_TITLE + "Basic addition question 1 "
+            + PREFIX_TAG + "math";
 
     public static final String MESSAGE_SUCCESS = "New flashcard added: %1$s";
     public static final String MESSAGE_DUPLICATE_FLASHCARD = "This flashcard already exists in the application";
@@ -53,7 +57,7 @@ public class AddFlashcardCommand extends Command {
         }
 
         model.addFlashcard(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new FlashcardCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

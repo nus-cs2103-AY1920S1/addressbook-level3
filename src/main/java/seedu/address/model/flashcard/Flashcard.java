@@ -17,6 +17,7 @@ public class Flashcard extends StudyBuddyItem {
     private final Question question;
     private final Answer answer;
     private final Title title;
+    private final Statistics statistics;
 
     /**
      * Every field must be present and not null.
@@ -27,6 +28,19 @@ public class Flashcard extends StudyBuddyItem {
         this.question = question;
         this.answer = answer;
         this.title = title;
+        this.statistics = new Statistics();
+    }
+
+    /**
+     * Every field must be present and not null. For use when converting from JSON.
+     */
+    public Flashcard(Question question, Answer answer, Title title, Statistics statistics, Set<Tag> tags) {
+        super(tags);
+        requireAllNonNull(question, answer, statistics, tags);
+        this.question = question;
+        this.answer = answer;
+        this.title = title;
+        this.statistics = statistics;
     }
 
     public Question getQuestion() {
@@ -41,15 +55,19 @@ public class Flashcard extends StudyBuddyItem {
         return title;
     }
 
-    /**
-     * Returns whether the flashcard contains a question in the form of a image file.
-     */
-    public boolean isImageFlashcard() {
-        return false;
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     /**
-     * Returns true if both flashcards have all the same fields.
+     *
+     */
+    public void updateStatistics() {
+        this.statistics.onView();
+    }
+
+    /**
+     * Returns true if both flashcards have all the same fields except the statistics field.
      */
     @Override
     public boolean equals(Object other) {
@@ -77,13 +95,15 @@ public class Flashcard extends StudyBuddyItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion())
-                .append(" Answer: ")
-                .append(getAnswer())
-                .append(" Title: ")
-                .append(getTitle())
-                .append(" Tags: ");
+        builder.append("\tQuestion: ")
+                .append(getQuestion() + "\n")
+                .append("\tAnswer: ")
+                .append(getAnswer() + "\n")
+                .append("\tTitle: ")
+                .append(getTitle() + "\n")
+                .append("\tStatistics: ")
+                .append(getStatistics() + "\n")
+                .append("\tTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.cheatsheet.exceptions.CheatSheetNotFoundException;
+import seedu.address.model.cheatsheet.exceptions.DuplicateCheatSheetException;
 
 /**
  * Represents a list of CheatSheets that are unique.
@@ -37,7 +37,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet> {
     public void add(CheatSheet toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCheatSheetException();
         }
         internalList.add(toAdd);
     }
@@ -52,11 +52,11 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new CheatSheetNotFoundException();
         }
 
         if (!target.isSameCheatSheet(editedCheatSheet) && contains(editedCheatSheet)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCheatSheetException();
         }
 
         internalList.set(index, editedCheatSheet);
@@ -69,7 +69,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet> {
     public void remove(CheatSheet toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new CheatSheetNotFoundException();
         }
     }
 
@@ -85,7 +85,7 @@ public class UniqueCheatSheetList implements Iterable<CheatSheet> {
     public void setCheatSheets(List<CheatSheet> cheatSheets) {
         requireAllNonNull(cheatSheets);
         if (!cheatSheetsAreUnique(cheatSheets)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCheatSheetException();
         }
 
         internalList.setAll(cheatSheets);
