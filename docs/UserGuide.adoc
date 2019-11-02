@@ -163,7 +163,7 @@ Examples:
 ==== Finding person(s): `findPerson`
 Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
 
-Format: `findPerson [KEYWORD(s)]`
+Format: `findPerson [KEYWORD 1] [KEYWORD 2] ... [KEYWORD N]`
 
 Examples:
 
