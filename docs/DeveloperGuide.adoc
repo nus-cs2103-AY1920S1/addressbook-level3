@@ -438,6 +438,9 @@ According to the above table, if the order of removal is not followed, the syste
 
 === Flashcards Time Trial Feature
 
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
 
@@ -478,6 +481,9 @@ object.
 *** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
 
 === Remind Flashcard Feature
+
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
 
 {To be completed soon}
 
@@ -525,33 +531,87 @@ close the application.
 deadline.
 // end::remind[]
 
-=== Note feature
+=== Add Tags Within Notes feature
 
-Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
+`Notes` are used in the creation of `CheatSheet` objects as well as in general use of StudyBuddy Pro. This Add Tags
+Within Notes feature allows for the addition of tags within the content of the `Note`, to allow more precise
+highlighting and tagging of information.
 
-==== Implementation
-
-[NOTE]
+[IMPORTANT]
 All the operations assume that the user is in the _notes_ mode.
 
-Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
+==== Design Implementation of Notes
+
+`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the diagram below:
 
 image::samDiagrams/NoteModelClassDiagram.png[]
 
+`Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`. `NoteFragment` objects are used to
+represent the specific areas within a `Note` that have been tagged. Each tag within a `Note` is referred to as a *note
+fragment tag* (which is represented by a `NoteFragment` object).
+
+`NoteFragments` contain:
+
+** A `Title` that is the same as their parent `Note`
+** A `Content` that is a substring of their parent `Note`
+** Any indicated `Tags` that are independent of their parent `Note`
+
+`NoteFragments` are viewed or used in the following situations:
+
+** Viewable through `filter` commands
+** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
+
 ==== Usages of Notes
 
-Notes can be used to:
+`Notes` can be used to:
 
 ** Store information under a title
-** Categorize information via the use of Tags
-** Provide information to CheatSheets for collation
+** Categorize information via the use of `Tags`
+** Provide information to `CheatSheets` for collation
 
-Notes can currently be:
+`Notes` can currently be:
 
-** Added to StudyBuddyBook
-** Deleted from StudyBuddyBook
-** Viewed from StudyBuddyBook
-** Viewed with filter from StudyBuddyBook
+** Added to `StudyBuddyBook`
+** Deleted from `StudyBuddyBook`
+** Viewed raw or cleaned from `StudyBuddyBook`
+** Viewed using `filter` from `StudyBuddyBook`
+
+==== Design Implementation of the Add Tags Within Notes feature
+
+The Add Tags Within Notes feature was implemented in the following way:
+
+** Creation of a `NoteFragment` class that represents one tag within a `Note`
+** Have each `Note` contain any number of `NoteFragments` in a list
+** Upon addition of a `Note`, parse its `Content` to check for any note fragment tags within it
+** Create any required `NoteFragment` objects and add them to the list in their parent `Note`
+** Since `NoteFragments` are contained within `Notes`, when a `Note` is deleted, its `NoteFragments` will be deleted as well.
+
+`Note` depends on a static method in `NoteFeatureUtil#parseNoteFragmentsFromNote()` to create `NoteFragments`.
+`NoteFragments` are accessible through the `filter` methods in `ModelManager#collectTaggedItems()` and
+`ModelManager#collectTaggedNotes()`.
+
+The method of parsing `Content` relies on the use of `Prefixes` around each note fragment tag. Each note fragment
+tag is specified with a start ("/\*") and end ("*/") marker, and its content and tags are also represented with
+`Prefixes` 'C/' and 'TAG/'.
+
+[NOTE]
+'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the note fragment tag would
+raise an error (since only one 'c/' tag is allowed per command).
+
+When a `add` command is made, only the `Prefixes` 't/', 'c/', and 'tag/' are identified. A `Note` is then created with
+the desired `Title`, `Content`, and `Tags`. After creation, the `Content` of the `Note` is parsed immediately for the
+`Prefixes` '/\*', '*/', 'C/', and 'TAG/'. All four `Prefixes` must be present for the note fragment tag to be
+considered valid. Otherwise, an exception is thrown.
+
+The sequence diagram below describes the process of adding a new note that contains a note fragment tag:
+
+
+
+==== Usages of the Add Tags Within Notes feature
+
+** More precise inclusion of tags when creating CheatSheet objects
+** Ability to nest tags inside each other
+
 
 The sequence diagram below describes the calls within the Model component upon the addition of a Note object:
 
@@ -561,23 +621,6 @@ The two main steps of the process are:
 
 ** The parsing of a Command from the input String
 ** The execution of the Command which alters Model
-
-==== [Proposed] Note content tagging feature
-
-The proposed feature involves the application of tags within the Note content.
-
-===== Design Implementation
-
-This feature can be achieved by:
-
-** Including a user-inputted tag within portions of the Note content
-** Parsing for this content tag when filtering by tag
-** Listing these content fragments upon filtering by tag
-
-===== Usages of feature
-
-** More precise inclusion of tags when creating CheatSheet objects
-** Ability to nest tags inside each other
 
 == Documentation
 
