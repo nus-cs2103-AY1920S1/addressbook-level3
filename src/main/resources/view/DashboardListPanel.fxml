@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="441.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="441.0" prefWidth="545.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="title" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="42.0" prefHeight="54.0" prefWidth="181.0" style="-fx-background-color: white;" text="Dashboard" VBox.vgrow="NEVER">
          <font>
@@ -35,10 +40,20 @@
                   <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="201.0" progress="0.0" />
                </children>
             </VBox>
-            <Region prefHeight="100.0" prefWidth="50.0" />
+            <Region prefHeight="65.0" prefWidth="40.0" />
+            <VBox prefHeight="65.0" prefWidth="145.0">
+               <children>
+                  <Label text="Today's Date" />
+                  <Label fx:id="todayDate" prefHeight="40.0" prefWidth="150.0" text="\$todayDate">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
             <VBox prefHeight="200.0" prefWidth="150.0">
                <children>
-                  <Label text="Date">
+                  <Label text="Calendar">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>

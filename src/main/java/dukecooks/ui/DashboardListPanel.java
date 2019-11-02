@@ -1,5 +1,7 @@
 package dukecooks.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,10 +10,7 @@ import dukecooks.model.dashboard.components.Dashboard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 
 /**
@@ -36,6 +35,9 @@ public class DashboardListPanel extends UiPart<Region> {
     @FXML
     private ProgressBar progressBar;
 
+    @FXML
+    private Label todayDate;
+
     public DashboardListPanel(ObservableList<Dashboard> dashboardList) {
         super(FXML);
         this.dashboardList = dashboardList;
@@ -49,22 +51,15 @@ public class DashboardListPanel extends UiPart<Region> {
      */
     public double taskLeft(List<Dashboard> l) {
         long num = l.stream().filter(i -> i.getTaskStatus().getDoneStatus()).count();
-        String s1 = Long.toString(num) + ".0";
-        String s2 = Integer.toString(l.size()) + ".0";
+        String s1 = num + ".0";
+        String s2 = l.size() + ".0";
         return Double.parseDouble(s1) / Double.parseDouble(s2);
     }
 
-    /**
-     * Checks if 5 new tasks are done.
-     */
-    public boolean doneFive(List<Dashboard> l) {
-        l.stream().filter(i -> i.getTaskStatus().getNotDoneStatus());
-        int size = l.size();
-        if (size % 5 == 0) {
-            return true;
-        } else {
-            return false;
-        }
+    public String updateDate() {
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
     }
 
     /**
@@ -77,6 +72,7 @@ public class DashboardListPanel extends UiPart<Region> {
             super.updateItem(dashboard, empty);
             value = taskLeft(dashboardList);
             progressBar.setProgress(value);
+            todayDate.setText(updateDate());
             if (empty || dashboard == null) {
                 setGraphic(null);
                 setText(null);
