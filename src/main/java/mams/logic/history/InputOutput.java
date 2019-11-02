@@ -1,4 +1,4 @@
-package mams.logic;
+package mams.logic.history;
 
 import static mams.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -52,7 +52,7 @@ public class InputOutput {
 
     @Override
     public int hashCode() {
-        return Objects.hash(input, output);
+        return Objects.hash(input, output, isExecutionSuccessful, timeStamp);
     }
 
     @Override

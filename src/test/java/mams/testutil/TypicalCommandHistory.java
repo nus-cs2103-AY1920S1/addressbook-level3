@@ -9,8 +9,8 @@ import static mams.testutil.TypicalTimeStamps.TIME_STAMP_6;
 
 import java.util.Arrays;
 
-import mams.logic.CommandHistory;
-import mams.logic.InputOutput;
+import mams.logic.history.CommandHistory;
+import mams.logic.history.InputOutput;
 
 /**
  * Utility class for building a sample CommandHistory populated with dummy InputOutput data

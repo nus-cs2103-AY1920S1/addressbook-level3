@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.history;
 
 import java.util.logging.Logger;
 
@@ -8,7 +8,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import mams.commons.core.LogsCenter;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
+import mams.ui.UiPart;
+import mams.ui.appeal.AppealListPanel;
 
 /**
  * Panel displaying command history in list form.
@@ -37,7 +39,7 @@ public class HistoryListPanel extends UiPart<Region> {
      * @param isHideOutput
      */
     public void hideOutput(boolean isHideOutput) {
-        logger.fine("HideOutput flag has been set to true");
+        logger.fine("Command output in the command history window has been hidden");
         this.isHideOutput = isHideOutput;
     }
 
@@ -49,6 +51,7 @@ public class HistoryListPanel extends UiPart<Region> {
         int lastIndex = commandHistoryList.size() - 1;
         itemListView.scrollTo(lastIndex);
         itemListView.getSelectionModel().select(lastIndex);
+        itemListView.getFocusModel().focus(lastIndex);
     }
 
     public InputOutput getCurrentlySelectedInputOutput() {

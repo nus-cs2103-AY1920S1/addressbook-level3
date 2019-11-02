@@ -57,7 +57,6 @@
                             </image>
                         </ImageView>
                         <Label fx:id="closeLabel" styleClass="cell_small_label, blue-text-label" text="Close Window" />
-
                     </HBox>
 
                     <VBox fx:id="historyDisplay" minWidth="200" minHeight="200" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
@@ -67,6 +66,13 @@
                         </padding>
                         <StackPane fx:id="historyDisplayPanelPlaceholder" styleClass="stack-pane, history-display" VBox.vgrow="ALWAYS" />
                     </VBox>
+
+                    <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                               minHeight="75" prefHeight="75" maxHeight="75">
+                        <padding>
+                            <Insets top="5" right="10" bottom="5" left="10" />
+                        </padding>
+                    </StackPane>
                 </children>
                 <opaqueInsets>
                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />

@@ -1,4 +1,4 @@
-package mams.logic;
+package mams.logic.history;
 
 import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_1;
 import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_2;

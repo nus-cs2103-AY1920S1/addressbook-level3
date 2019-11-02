@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.student;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.student.Student;
+import mams.ui.UiPart;
 
 /**
  * A UI component that displays the full expanded information of an {@code Student}.
@@ -48,6 +49,8 @@ public class ExpandedStudentCard extends UiPart<Region> {
     private FlowPane appealTags;
     @FXML
     private Label numberOfMods;
+    @FXML
+    private Label previousModules;
 
     public ExpandedStudentCard(Student student) {
         super(FXML);
@@ -58,6 +61,7 @@ public class ExpandedStudentCard extends UiPart<Region> {
         currentMods.setText(formatCurrentModuleListToText());
         currentAppeals.setText(formatCurrentAppealListToText());
         numberOfMods.setText(Integer.toString(student.getNumberOfMods()));
+        previousModules.setText(student.getPrevMods().toString());
         student.getCurrentAppeals().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> appealTags.getChildren().add(new Label(tag.tagName)));

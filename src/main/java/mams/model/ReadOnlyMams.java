@@ -22,5 +22,9 @@ public interface ReadOnlyMams {
      */
     ObservableList<Module> getModuleList();
 
+    /**
+     * Returns an unmodifiable view of the appeal list.
+     * This list will not contain any duplicate modules.
+     */
     ObservableList<Appeal> getAppealList();
 }

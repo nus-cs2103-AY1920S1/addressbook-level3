@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.module;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import mams.commons.core.LogsCenter;
 import mams.model.module.Module;
+import mams.ui.UiPart;
 
 /**
  * Panel containing the list of modules.
