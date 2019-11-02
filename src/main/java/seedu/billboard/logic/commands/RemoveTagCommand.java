@@ -2,7 +2,6 @@ package seedu.billboard.logic.commands;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
