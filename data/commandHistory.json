@@ -1,0 +1,713 @@
+{
+  "inputOutputs" : [ {
+    "input" : "view a/1",
+    "output" : "Displayed items with ID: C000000",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved module from : A0180001",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "approve a/3",
+    "output" : "Approved C000002\nRemoved module from : A0180002",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view a/5",
+    "output" : "Displayed items with ID: C000004",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "set",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "help",
+    "output" : "Opened help window.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "history -h",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "addmod 1",
+    "output" : "addmod: Adds a module to a student in MAMS identified by index number used in the displayed student list or their matric id. \nExample: i/ index (must be a positive integer) OR s/MATRIC_ID and m/MODULE_CODE ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "addmod i/1 s/1",
+    "output" : "addmod: Adds a module to a student in MAMS identified by index number used in the displayed student list or their matric id. \nExample: i/ index (must be a positive integer) OR s/MATRIC_ID and m/MODULE_CODE ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "find a/test",
+    "output" : "0 appeals listed!\n",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "clash a/3",
+    "output" : "Module not found ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "clash a/1",
+    "output" : "This is not a add/drop module appeal. No need to check clashes.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "clash a/2",
+    "output" : "Module not found ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "clash a/3",
+    "output" : "Module not found ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "clash a/4",
+    "output" : "There is no timetable clash.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view s/3",
+    "output" : "Displayed items with ID: A0180002",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "approve a/6",
+    "output" : "Approved C000005\nAdded module to : A0180002",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view a/6",
+    "output" : "Displayed items with ID: C000005",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view a/7",
+    "output" : "Displayed items with ID: C000006",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view a/6 s/3",
+    "output" : "Displayed items with ID: C000005 A0180002",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 0
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572601893641
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572602064257
+  }, {
+    "input" : "view s/",
+    "output" : "Invalid command format! \nTip: If you're trying to retrieve items by ID, use the Find command!\nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572602068030
+  }, {
+    "input" : "list s/",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572602071072
+  }, {
+    "input" : "list -s",
+    "output" : "Listed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572602075701
+  }, {
+    "input" : "addmod ",
+    "output" : "addmod: Adds a module to a student in MAMS identified by index number used in the displayed student list or their matric id. \nExample: i/ index (must be a positive integer) OR s/MATRIC_ID and m/MODULE_CODE ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606061573
+  }, {
+    "input" : "addmod s/1 m/CS1010",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572606078480
+  }, {
+    "input" : "addmod s/A014 m/CS1010",
+    "output" : "The student matric ID provided is invalid",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606138169
+  }, {
+    "input" : "addmod s/A m/CS1010",
+    "output" : "The student matric ID provided is invalid",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606143155
+  }, {
+    "input" : "addmod s/1 m/CS1010",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606146590
+  }, {
+    "input" : "addmod s/2 m/CS1010",
+    "output" : "Added module to : Madonna Morgado  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572606148013
+  }, {
+    "input" : "addmod s/100 m/CS1010",
+    "output" : "The student index provided is invalid",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606152200
+  }, {
+    "input" : "addmod s/-1 m/CS1010",
+    "output" : "addmod: Adds a module to a student in MAMS identified by index number used in the displayed student list or their matric id. \nExample: i/ index (must be a positive integer) OR s/MATRIC_ID and m/MODULE_CODE ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606156993
+  }, {
+    "input" : "addmod s/0 m/CS1010",
+    "output" : "addmod: Adds a module to a student in MAMS identified by index number used in the displayed student list or their matric id. \nExample: i/ index (must be a positive integer) OR s/MATRIC_ID and m/MODULE_CODE ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606159372
+  }, {
+    "input" : "addmod s/100 m/CS1010",
+    "output" : "The student index provided is invalid",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606162840
+  }, {
+    "input" : "addmod s/1 m/CS1010",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606164611
+  }, {
+    "input" : "addmod s/A0180000 m/CS1010",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606170785
+  }, {
+    "input" : "addmod s/A0180001 m/CS1010",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572606173038
+  }, {
+    "input" : "addmod s/A0180002 m/CS1010",
+    "output" : "Added module to : Ronna Rousey  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572606174200
+  }, {
+    "input" : "view m/1",
+    "output" : "Displayed items with ID: CS1010",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572606519112
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572606524971
+  }, {
+    "input" : "view -s",
+    "output" : "Invalid command format! \nTip: If you're trying to retrieve items by ID, use the Find command!\nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572609745549
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572609747447
+  }, {
+    "input" : "addmod s/1 m/CS1020",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572609766034
+  }, {
+    "input" : "addmod s/1 m/CS1020",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572609768221
+  }, {
+    "input" : "addmod s/1 m/CS1033",
+    "output" : "Please enter 1 valid Module Code. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572609782502
+  }, {
+    "input" : "addmod s/20 m/CS1033",
+    "output" : "Please enter 1 valid Module Code. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572609790177
+  }, {
+    "input" : "addmod s/20 m/CS1010",
+    "output" : "Added module to : Angeles Atienza  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572609794476
+  }, {
+    "input" : "addmod s/40 m/CS1010",
+    "output" : "Added module to : Yoshiko Yutzy  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572609798260
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612054327
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612055749
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612057803
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612058003
+  }, {
+    "input" : "removemod s/1 m/1",
+    "output" : "Removed module from : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612063488
+  }, {
+    "input" : "removemod s/1 m/1",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612064661
+  }, {
+    "input" : "removemod s/1 m/1",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612065227
+  }, {
+    "input" : "removemod s/2 m/1",
+    "output" : "Removed module from : Madonna Morgado  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612066971
+  }, {
+    "input" : "removemod s/2 m/1",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612067923
+  }, {
+    "input" : "removemod s/2 m/1",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612068385
+  }, {
+    "input" : "removemod s/2 m/1",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612068613
+  }, {
+    "input" : "removemod s/2 m/2",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612069915
+  }, {
+    "input" : "removemod s/2 m/2",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612071598
+  }, {
+    "input" : "removemod s/2 m/2",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612071831
+  }, {
+    "input" : "removemod s/1 m/2",
+    "output" : "Removed module from : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612077855
+  }, {
+    "input" : "removemod s/1 m/2",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612079495
+  }, {
+    "input" : "addmod s/1 m/2",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612086785
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612089300
+  }, {
+    "input" : "addmod s/1 m/2",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612090458
+  }, {
+    "input" : "addmod s/1 m/3",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612107012
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612110088
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612235541
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612241128
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612243040
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612244580
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612245293
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612253010
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612257914
+  }, {
+    "input" : "addmod m/1 s/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612265392
+  }, {
+    "input" : "",
+    "output" : "Invalid command format! \nhelp: Shows program usage instructions.\nExample: help",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612265691
+  }, {
+    "input" : "addmod m/1 s/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612267603
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612481288
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612482448
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612483519
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572612483712
+  }, {
+    "input" : "removemod s/1 m/1",
+    "output" : "Removed module from : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572612486915
+  }, {
+    "input" : "addmod i/1 m/2",
+    "output" : "Please enter a valid Matric ID or Index. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572676905801
+  }, {
+    "input" : "addmod s/1 m/2",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572676913227
+  }, {
+    "input" : "addmod s/1 m1",
+    "output" : "addmod: Adds a module to a student in MAMS. \nExample: s/MATRIC_ID or INDEX(Student list)m/MODULE_CODE or INDEX(Module list)",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677945619
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677948413
+  }, {
+    "input" : "addmod s/1 m/2",
+    "output" : "Module has reached max quota, unable to accept any more students. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677950107
+  }, {
+    "input" : "addmod s/1 m/3",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677951435
+  }, {
+    "input" : "addmod s/1 m/4",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677952589
+  }, {
+    "input" : "addmod s/1 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677955018
+  }, {
+    "input" : "addmod s/1 m/6",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677956618
+  }, {
+    "input" : "addmod s/1 m/7",
+    "output" : "Unable to add module to student as it will exceed student's credit limit.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677958363
+  }, {
+    "input" : "removemod s/1 m/2",
+    "output" : "Student is not registered for this module. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677966339
+  }, {
+    "input" : "removemod s/1 m/3",
+    "output" : "Removed module from : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677967823
+  }, {
+    "input" : "removemod s/1 m/4",
+    "output" : "Removed module from : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677970309
+  }, {
+    "input" : "addmod s/1 m/6",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572677975747
+  }, {
+    "input" : "addmod s/1 m/7",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677984619
+  }, {
+    "input" : "addmod s/1 m/8",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572677986025
+  }, {
+    "input" : "addmod s/1 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678174244
+  }, {
+    "input" : "addmod s/2 m/5",
+    "output" : "Added module to : Madonna Morgado  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678177164
+  }, {
+    "input" : "addmod s/2 m/11",
+    "output" : "Unable to add module to student as it will exceed student's credit limit.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678184284
+  }, {
+    "input" : "addmod s/7 m/11",
+    "output" : "Added module to : Scott Shinkle  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678187224
+  }, {
+    "input" : "addmod s/10 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678204534
+  }, {
+    "input" : "addmod s/30 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678207512
+  }, {
+    "input" : "addmod s/20 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678208714
+  }, {
+    "input" : "addmod s/21 m/5",
+    "output" : "Added module to : Idella Israel  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678211357
+  }, {
+    "input" : "view m.5",
+    "output" : "Invalid command format! \nTip: If you're trying to retrieve items by ID, use the Find command!\nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678321086
+  }, {
+    "input" : "view m/5",
+    "output" : "Displayed items with ID: CS2040",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678322696
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678331817
+  }, {
+    "input" : "addmod s/1 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678337994
+  }, {
+    "input" : "addmod s/25 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678340440
+  }, {
+    "input" : "addmod s/26 m/1",
+    "output" : "Module has reached max quota, unable to accept any more students. ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678341669
+  }, {
+    "input" : "view -m",
+    "output" : "Invalid command format! \nTip: If you're trying to retrieve items by ID, use the Find command!\nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678354410
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678359298
+  }, {
+    "input" : "view s/3 m/4",
+    "output" : "Displayed items with ID: CS2030 A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678409621
+  }, {
+    "input" : "addmod s/5",
+    "output" : "addmod: Adds a module to a student in MAMS. \nExample: s/MATRIC_ID or INDEX(Student list)m/MODULE_CODE or INDEX(Module list)",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678415883
+  }, {
+    "input" : "addmod s/A0180023 m/CS2030",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678432251
+  }, {
+    "input" : "addmod s/A0180023 m/1",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678456282
+  }, {
+    "input" : "addmod s/A0180026 m/1",
+    "output" : "Added module to : Cameron Charon  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678460709
+  }, {
+    "input" : "addmod s/1 m/2",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678487456
+  }, {
+    "input" : "addmod s/1 m/4",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678489516
+  }, {
+    "input" : "addmod s/1 m/5",
+    "output" : "Student is already registered for this module.",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678490942
+  }, {
+    "input" : "addmod s/1 m/6",
+    "output" : "Added module to : Celina Conyers  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678491860
+  }, {
+    "input" : "view s/7",
+    "output" : "Displayed items with ID: A0180006",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678512350
+  }, {
+    "input" : "addmod s/3 m/1",
+    "output" : "The student index provided is invalid",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572678517152
+  }, {
+    "input" : "addmod s/A0180003 m/1",
+    "output" : "Added module to : Williemae Whitworth  ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572678524483
+  }, {
+    "input" : "view s/1",
+    "output" : "Displayed items with ID: A0180000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572679695328
+  }, {
+    "input" : "lsit",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572679699076
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572679700460
+  }, {
+    "input" : "view s/5",
+    "output" : "Displayed items with ID: A0180004",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572679702479
+  }, {
+    "input" : "add m/1 s/1",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572679735436
+  }, {
+    "input" : "addmod m/1 s/1",
+    "output" : "Unable to add module to student as the student already has already completed the module ",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572679749474
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572679785642
+  } ]
+}

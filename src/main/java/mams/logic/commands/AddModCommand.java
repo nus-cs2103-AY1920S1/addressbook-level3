@@ -1,6 +1,8 @@
 package mams.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static mams.commons.core.Messages.MESSAGE_CREDIT_INSUFFICIENT;
+import static mams.commons.core.Messages.MESSAGE_STUDENT_COMPLETED_MODULE;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,34 +24,36 @@ public class AddModCommand extends ModCommand {
 
     public static final String MESSAGE_ADD_MOD_SUCCESS = "Added module to : %1$s";
 
-    private final String matricId;
-    private final String moduleCode;
-    private final String index;
-    private boolean usingIndex;
+    private final String moduleIdentifier;
+    private final String studentIdentifier;
+    private boolean moduleUsingIndex;
+    private boolean studentUsingIndex;
 
     /**
      * Builder class for AddModCommand.
      */
     public static class AddModCommandBuilder {
 
-        private String matricId; //either
-        private final String moduleCode; //required
-        private String index; //or
-        private boolean usingIndex; //required
+        private final String moduleIdentifier;
+        private final String studentIdentifier;
+        private boolean moduleUsingIndex;
+        private boolean studentUsingIndex;
 
-        public AddModCommandBuilder (String moduleCode, boolean usingIndex) {
-            this.moduleCode = moduleCode;
-            this.usingIndex = usingIndex;
+        public AddModCommandBuilder (String moduleIdentifier, String studentIdentifier) {
+            this.moduleIdentifier = moduleIdentifier;
+            this.studentIdentifier = studentIdentifier;
+            this.moduleUsingIndex = checkIfModuleIndex(moduleIdentifier);
+            this.studentUsingIndex = checkIfStudentIndex(studentIdentifier);
         }
 
-        public AddModCommandBuilder setMatricId (String matricId) {
-            this.matricId = matricId;
-            return this;
+        boolean checkIfModuleIndex(String moduleIdentifier) {
+            assert moduleIdentifier != null;
+            return !moduleIdentifier.substring(0,1).contains("C");
         }
 
-        public AddModCommandBuilder setIndex (String index) {
-            this.index = index;
-            return this;
+        boolean checkIfStudentIndex(String studentIdentifier) {
+            assert studentIdentifier != null;
+            return !studentIdentifier.substring(0, 1).contains("A");
         }
 
         public AddModCommand build() {
@@ -58,10 +62,10 @@ public class AddModCommand extends ModCommand {
     }
 
     private AddModCommand(AddModCommandBuilder builder) {
-        this.moduleCode = builder.moduleCode;
-        this.matricId = builder.matricId;
-        this.index = builder.index;
-        this.usingIndex = builder.usingIndex;
+        this.moduleIdentifier = builder.moduleIdentifier;
+        this.studentIdentifier = builder.studentIdentifier;
+        this.moduleUsingIndex = builder.moduleUsingIndex;
+        this.studentUsingIndex = builder.studentUsingIndex;
     }
 
     /**
@@ -74,81 +78,146 @@ public class AddModCommand extends ModCommand {
      */
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Student> lastShownStudentList = model.getFilteredStudentList();
-        List<Module> lastShownModuleList = model.getFilteredModuleList();
-
+        List<Student> studentList;
+        List<Module> moduleList;
         Student studentToEdit;
         Student studentWithAddedModule;
         Module moduleToEdit;
         Module moduleWithAddedStudent;
 
-        //check if module exist
-        List<Module> moduleToCheckList = lastShownModuleList.stream()
-                .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
-        if (moduleToCheckList.isEmpty()) {
-            throw new CommandException(MESSAGE_INVALID_MODULE);
-        }
-        moduleToEdit = moduleToCheckList.get(0);
+        moduleList = moduleUsingIndex ? model.getFilteredModuleList() : model.getFullModuleList();
+        studentList = studentUsingIndex ? model.getFilteredStudentList() : model.getFullStudentList();
 
-        //check if student exist
-        if (usingIndex) { //by index
-            int tempIndex = Integer.parseInt(index);
-            if (tempIndex < 1) {
-                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
-            }
-            int tempIndexZeroBased = tempIndex - 1;
-            if (tempIndexZeroBased >= lastShownStudentList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
-            }
-            studentToEdit = lastShownStudentList.get(tempIndexZeroBased);
-        } else { //by matricId
-            List<Student> studentToCheckList = lastShownStudentList.stream()
-                    .filter(p -> p.getMatricId().toString().equals(matricId)).collect(Collectors.toList());
-            if (studentToCheckList.isEmpty()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-            }
-            studentToEdit = studentToCheckList.get(0);
-        }
+        //various checks
+        moduleToEdit = returnModuleIfExist(moduleList);
+        studentToEdit = returnStudentIfExist(studentList);
+        checkIfStudentHasModule(studentToEdit, moduleToEdit.getModuleCode());
+        checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
+        checkQuotaLimit(moduleToEdit);
+        checkStudentWorkloadLimit(studentToEdit);
+        checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
 
-        //check if student already has module.
-        Set<Tag> studentModules = studentToEdit.getCurrentModules();
-        for (Tag tag: studentModules) {
-            if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                throw new CommandException(MESSAGE_DUPLICATE_MODULE);
-            }
-        }
-
-        //add module to student.
+        //add module to student
         Set<Tag> studentAllTags = studentToEdit.getTags();
         Set<Tag> ret = new HashSet<>(studentAllTags);
-        ret.add(new Tag(moduleCode));
+        ret.add(new Tag(moduleToEdit.getModuleCode()));
 
         //add student to module field
         Set<Tag> moduleAllStudents = moduleToEdit.getStudents();
         Set<Tag> ret2 = new HashSet<>(moduleAllStudents);
         ret2.add(new Tag(studentToEdit.getMatricId().toString()));
 
-        //replace old student and old module objects with edited modules.
-        studentWithAddedModule = new Student(studentToEdit.getName(),
-                studentToEdit.getCredits(),
-                studentToEdit.getPrevMods(),
-                studentToEdit.getMatricId(),
-                ret);
+        //replace old student and old module objects with new objects
+        return updateList(model, studentToEdit, moduleToEdit, ret, ret2, MESSAGE_ADD_MOD_SUCCESS);
+    }
 
-        moduleWithAddedStudent = new Module(moduleToEdit.getModuleCode(),
-                moduleToEdit.getModuleName(),
-                moduleToEdit.getModuleDescription(),
-                moduleToEdit.getLecturerName(),
-                moduleToEdit.getTimeSlot(),
-                moduleToEdit.getQuota(),
-                ret2);
+    /**
+     * Checks if the module exists
+     * @param moduleList mMdule list being checked
+     * @return Module if found
+     * @throws CommandException if module is not found
+     */
+    Module returnModuleIfExist(List<Module> moduleList) throws CommandException {
 
-        model.setStudent(studentToEdit, studentWithAddedModule);
-        model.setModule(moduleToEdit, moduleWithAddedStudent);
-        model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-        model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        return new CommandResult(String.format(MESSAGE_ADD_MOD_SUCCESS,
-                studentWithAddedModule.getName()));
+        if (moduleUsingIndex) {
+            int tempIndex = Integer.parseInt(moduleIdentifier);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= moduleList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+            }
+            return moduleList.get(tempIndexZeroBased);
+        } else {
+            List<Module> moduleToCheckList = moduleList.stream()
+                    .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleIdentifier)).collect(Collectors.toList());
+            if (moduleToCheckList.isEmpty()) {
+                throw new CommandException(MESSAGE_INVALID_MODULE);
+            }
+            return moduleToCheckList.get(0);
+        }
+    }
+
+    /**
+     * Checks if the student exists in mams.
+     * @param studentList student list in mams
+     * @return student if found
+     * @throws CommandException if student is not found
+     */
+    Student returnStudentIfExist(List<Student> studentList) throws CommandException {
+
+        if (studentUsingIndex) {
+            int tempIndex = Integer.parseInt(studentIdentifier);
+            if (tempIndex < 1) {
+                throw new CommandException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            }
+            int tempIndexZeroBased = tempIndex - 1;
+            if (tempIndexZeroBased >= studentList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+            }
+            return studentList.get(tempIndexZeroBased);
+        } else {
+            List<Student> studentToCheckList = studentList.stream()
+                    .filter(p -> p.getMatricId().toString().equals(studentIdentifier)).collect(Collectors.toList());
+            if (studentToCheckList.isEmpty()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
+            }
+            return studentToCheckList.get(0);
+        }
+    }
+
+    /**
+     * Checks if students has already has the module.
+     * @param studentToEdit student to be checked
+     * @param moduleCode module being added
+     * @throws CommandException if the student already has the module
+     */
+    void checkIfStudentHasModule(Student studentToEdit, String moduleCode) throws CommandException {
+        Set<Tag> studentModules = studentToEdit.getCurrentModules();
+        for (Tag tag: studentModules) {
+            if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
+                throw new CommandException(MESSAGE_DUPLICATE_MODULE);
+            }
+        }
+    }
+
+    /**
+     * Checks if the module has reached max quota.
+     * @param moduleToEdit module being checked
+     * @throws CommandException if the quota is reached. (and the student should not be added)
+     */
+    void checkQuotaLimit(Module moduleToEdit) throws CommandException {
+        if (moduleToEdit.getCurrentEnrolment() == moduleToEdit.getQuotaInt()) {
+            throw new CommandException(Module.MESSAGE_CONSTRAINTS_QUOTA_REACHED);
+        }
+    }
+
+    /**
+     * Checks if adding a module will exceed the student's credit limit.
+     * All modules have a workload of 4MC.
+     * @param studentToEdit student being checked
+     * @throws CommandException if the student has insufficient credits
+     */
+    void checkStudentWorkloadLimit(Student studentToEdit) throws CommandException {
+        int CurrWorkload = studentToEdit.getNumberOfMods() * 4;
+        int MaxWorkload = studentToEdit.getCredits().getIntVal();
+        if ((MaxWorkload - CurrWorkload) < 4) {
+            throw new CommandException(MESSAGE_CREDIT_INSUFFICIENT);
+        }
+    }
+
+    /**
+     * Checks if the student has already taken the module before.
+     * @param studentToEdit student being checked
+     * @param moduleCode module being added
+     * @throws CommandException if the student has previously completed the module
+     */
+    void checkIfStudentCompletedModule(Student studentToEdit, String moduleCode) throws CommandException {
+        String prevMods = studentToEdit.getPrevMods().toString();
+        if (prevMods.contains(moduleCode)) {
+            throw new CommandException(MESSAGE_STUDENT_COMPLETED_MODULE);
+        }
     }
 
     @Override
@@ -168,3 +237,4 @@ public class AddModCommand extends ModCommand {
         return false;
     }
 }
+
