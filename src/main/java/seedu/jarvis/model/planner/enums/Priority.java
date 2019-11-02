@@ -12,9 +12,9 @@ public enum Priority {
     LOW;
 
     public static final String MESSAGE_CONSTRAINTS = "Priority levels can only have the following values:\n"
-                                                       + "'high', 'med' or 'low'";
+                                                       + "'high', 'medium' or 'low'";
     public static final String PRIORITY_HIGH = "high";
-    public static final String PRIORITY_MED = "med";
+    public static final String PRIORITY_MED = "medium";
     public static final String PRIORITY_LOW = "low";
 
 
