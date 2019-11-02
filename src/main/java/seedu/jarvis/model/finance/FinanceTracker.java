@@ -310,7 +310,7 @@ public class FinanceTracker {
      * @return Optional that contains the monthly limit if it exists
      */
     public Optional<MonthlyLimit> getMonthlyLimit() {
-        return Optional.of(monthlyLimit);
+        return Optional.ofNullable(monthlyLimit);
     }
 
     /**
