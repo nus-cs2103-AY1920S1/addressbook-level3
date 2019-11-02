@@ -226,11 +226,12 @@ Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be 
 ****
 
 ==== Finds food items based on keywords: `find`
-Finds a food items based on a specific FIELD or fields. At least one FIELD must be given.
+Finds a food items based on specific keywords. Following which, the food items containing the specific keywords will
+be shown in the food list.
 
 ****
-*Format*: `find n/NAME d/DESCRIPTION ...`
-*Example*: `find n/Chicken d/Rice`
+*Format*: `find KEYWORD ...`
+*Example*: `find Chicken Rice`
 ****
 
 //tag::filters[]
@@ -238,9 +239,13 @@ Finds a food items based on a specific FIELD or fields. At least one FIELD must 
 Filters the food items based on the criteria specified. Note: You can need to
 have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
 
+[NOTE]
+Based on v1.4, you are only allowed to enter `PRICE` as a `FIELD`. Other fields will be available for use
+in v2.0 and above.
+
 ****
 *Format*: `filter FIELD QUANTIFIER VALUE`
-*Example*: `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+*Example*: `filter PRICE LESS_THAN 4.00`
 ****
 //end::filters[]
 
@@ -733,8 +738,8 @@ Unfortunately you are unable to change the app’s language
 | Filters the food items based on the criteria specified.
 | `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
 | <<Finds food items based on keywords: `find`, `find`>>
-| Finds food items based on specified fields.
-| ```find n/Chicken d/Rice```
+| Finds food items based on specified keywords.
+| ```find Chicken Rice```
 | <<Viewing Help: `help`, `help`>>
 | Display possible uses of the application.
 | ```help```
