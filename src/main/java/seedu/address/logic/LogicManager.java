@@ -102,7 +102,8 @@ public class LogicManager implements Logic {
 
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
-        } else if (command instanceof SetFocusOnTabCommand) {
+        }
+        if (command instanceof SetFocusOnTabCommand) {
             try {
                 command.execute(model);
             } catch (CommandException ex) {
@@ -116,8 +117,8 @@ public class LogicManager implements Logic {
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
         lastEagerEvaluationThread = new Thread(() -> {
             try {
-                Thread.sleep(100);
-                previousEagerEvaluationThread.join(500);
+                Thread.sleep(200);
+                previousEagerEvaluationThread.join();
             } catch (InterruptedException ex) {
                 logger.info("Skipping eager evaluation execution ");
                 return;
