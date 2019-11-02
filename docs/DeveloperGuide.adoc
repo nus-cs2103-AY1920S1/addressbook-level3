@@ -373,7 +373,7 @@ The sequence diagram below shows how the statistics operation works.
 
 image::StatisticsSequenceDiagram.png[width=700]
 
-The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window. 
+The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window.
 
 image::StatisticsShow.png[width=600]
 
@@ -418,7 +418,7 @@ The sequence diagram below shows how the help operation works.
 
 image::HelpSequenceDiagram.png[width=700]
 
-The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window. 
+The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window.
 
 image::HelpShow.png[width=500]
 
@@ -434,7 +434,7 @@ The following aspect was a consideration when designing the help feature.
 Aspect: Ways to display the command summary
 
 * **Alternative 1 (Current choice):** Display a snapshot with all the commands supported by the application.
-** Pros: The display can be quickly ammended with any addition or removal of command(s).    
+** Pros: The display can be quickly ammended with any addition or removal of command(s).  
 ** Cons: The size of the snapshot displayed needs to be large to ensure sufficient picture resolution.
 
 
