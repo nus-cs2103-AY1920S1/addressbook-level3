@@ -1,5 +1,7 @@
 package calofit.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -61,6 +63,8 @@ public class ReportWindow extends UiPart<Stage> {
      */
     private ReportWindow(Stage root, Statistics statistics) {
         super(FXML, root);
+
+        requireNonNull(statistics);
 
         numericalStatistics.setBackground(new Background(
                 new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)
@@ -135,13 +139,14 @@ public class ReportWindow extends UiPart<Stage> {
      */
     public ReportWindow(Statistics statistics) {
         this(new Stage(), statistics);
+        logger.fine("Report page is being generated.");
     }
 
     /**
      * Displays the ReportWindow to the user.
      */
     public void show() {
-        logger.fine("Showing report page about the application.");
+        logger.fine("Showing report page displaying statistics of CaloFit this month.");
         getRoot().show();
         getRoot().centerOnScreen();
     }
@@ -150,6 +155,7 @@ public class ReportWindow extends UiPart<Stage> {
      * Hides the ReportWindow from the user.
      */
     public void hide() {
+        logger.fine("Report page is closed");
         getRoot().hide();
     }
 }
