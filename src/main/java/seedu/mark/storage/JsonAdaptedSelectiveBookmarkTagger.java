@@ -36,6 +36,7 @@ public class JsonAdaptedSelectiveBookmarkTagger {
      * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
      */
     public SelectiveBookmarkTagger toModelType() {
+        // TODO: disallow empty predicates?
         return new SelectiveBookmarkTagger(new Tag(tag), predicate.toModelType());
     }
 

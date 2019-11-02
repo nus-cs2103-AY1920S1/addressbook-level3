@@ -47,7 +47,21 @@ public class JsonAdaptedBookmarkPredicate {
      * {@code BookmarkPredicate} object.
      */
     public BookmarkPredicate toModelType() {
-        return new BookmarkPredicate().withNameKeywords(nameKeywords).withoutNameKeywords(notNameKeywords)
-                .withUrlKeywords(urlKeywords).withoutUrlKeywords(notUrlKeywords);
+        BookmarkPredicate predicate = new BookmarkPredicate();
+
+        if (!nameKeywords.isEmpty()) {
+            predicate = predicate.withNameKeywords(nameKeywords);
+        }
+        if (!notNameKeywords.isEmpty()) {
+            predicate = predicate.withoutNameKeywords(notNameKeywords);
+        }
+        if (!urlKeywords.isEmpty()) {
+            predicate = predicate.withUrlKeywords(urlKeywords);
+        }
+        if (!notUrlKeywords.isEmpty()) {
+            predicate = predicate.withoutUrlKeywords(notUrlKeywords);
+        }
+
+        return predicate;
     }
 }
