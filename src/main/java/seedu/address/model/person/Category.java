@@ -37,6 +37,11 @@ public class Category {
         return this.categoryName;
     }
 
+    public String getCategoryType() {
+        return this.categoryType;
+    }
+
+
     /**
      * Returns the truth value for whether the categoryType specified is in the Validation List.
      */
@@ -53,7 +58,7 @@ public class Category {
         }
 
         return otherCategory != null
-                && otherCategory.categoryName.equals(otherCategory.categoryName);
+                && this.categoryName.equals(otherCategory.categoryName);
     }
 
     @Override

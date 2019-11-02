@@ -64,7 +64,7 @@ public class EditCategoryCommand extends Command {
         //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
         //TODO possible if doesn't work properly
-        if (!categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
+        if (categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
         }
 

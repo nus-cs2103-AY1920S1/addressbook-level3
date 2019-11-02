@@ -89,7 +89,6 @@ public interface Model {
      */
     boolean hasEntry(Entry entry);
 
-
     boolean hasReminder(Reminder reminder);
 
     boolean hasCondition(Condition condition);

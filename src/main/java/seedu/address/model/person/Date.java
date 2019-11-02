@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoField;
 
 import seedu.address.model.util.Frequency;
@@ -21,37 +23,46 @@ public class Date {
 
     public static final String MESSAGE_CONSTRAINTS_FOR_STATS = "Date is not in a valid format. Below are some of the "
             + "possible formats. [yyyy-MM] , [yyyy MM]";
+
+    public static final String MESSAGE_DATE_INVALID = "Date is not valid as it exceeds the maximum allowed days "
+            + "allowed for the month";
+
+    public static final String MESSAGE_MONTH_INVALID = "Date is not valid as it exceeds the maximum allowed months "
+            + " allowed for the year";
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
      */
     private static final DateTimeFormatter INPUTFORMATTER = new DateTimeFormatterBuilder()
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy MM dd"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/dd"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM/d"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-d"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy.MM.d"))
-            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("dd/M/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("d/MM/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("d-MM-yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy")).toFormatter();
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu MM dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu/MM/dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu/MM/d"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM-dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM-d"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu.MM.dd"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu.MM.d"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/MM/uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd/M/uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/MM/uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d/M/uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d-MM-uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd-MM-uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.uuuu")).toFormatter();
+
+    private static final DateTimeFormatter INPUTFORMATTERWITHRESOLVER = INPUTFORMATTER
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private static final DateTimeFormatter OUTPUTFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static final DateTimeFormatter INPUTMONTHFORMATTER = new DateTimeFormatterBuilder()
-            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1).appendOptional(DateTimeFormatter.ofPattern("MM/yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("MM-yyyy")).appendOptional(DateTimeFormatter.ofPattern("MM/yy"))
-            .appendOptional(DateTimeFormatter.ofPattern("M/yyyy")).appendOptional(DateTimeFormatter.ofPattern("M-yyyy"))
-            .appendOptional(DateTimeFormatter.ofPattern("M/yy")).appendOptional(DateTimeFormatter.ofPattern("yy/MM"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy/MM"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy MM"))
-            .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM")).toFormatter();
+            .parseDefaulting(ChronoField.DAY_OF_MONTH, 1).appendOptional(DateTimeFormatter.ofPattern("MM/uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("MM-uuuu")).appendOptional(DateTimeFormatter.ofPattern("MM/uu"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/uuuu")).appendOptional(DateTimeFormatter.ofPattern("M-uuuu"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/uu")).appendOptional(DateTimeFormatter.ofPattern("yy/uu"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu/MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu MM"))
+            .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM")).toFormatter();
 
     private LocalDate date;
     private String fullTime;
@@ -66,11 +77,15 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         try {
-            LocalDate ldt = LocalDate.parse(date, INPUTFORMATTER);
+            LocalDate ldt = LocalDate.parse(date, INPUTFORMATTERWITHRESOLVER);
             this.date = ldt;
             parseDate();
-        } catch (Exception pe) {
-            checkArgument(false, MESSAGE_CONSTRAINTS_FOR_ENTRIES);
+        } catch (DateTimeParseException pe) {
+            if (pe.getMessage().contains("unparsed text found")) {
+                checkArgument(false, MESSAGE_CONSTRAINTS_FOR_ENTRIES);
+            } else {
+                checkArgument(false, MESSAGE_DATE_INVALID);
+            }
         }
     }
 
@@ -79,8 +94,12 @@ public class Date {
         try {
             LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
             this.date = ldt;
-        } catch (Exception pe) {
-            checkArgument(false, MESSAGE_CONSTRAINTS_FOR_STATS);
+        } catch (DateTimeParseException pe) {
+            if (pe.getMessage().contains("Invalid value for MonthOfYear")) {
+                checkArgument(false, MESSAGE_CONSTRAINTS_FOR_STATS);
+            } else {
+                checkArgument(false, MESSAGE_MONTH_INVALID);
+            }
         }
     }
 
@@ -93,14 +112,6 @@ public class Date {
 
     private void parseDate() {
         fullTime = date.format(OUTPUTFORMATTER);
-    }
-
-    /**
-     * Returns true if a given string is a valid name.
-     */
-    public static boolean isValidDate(String test) {
-        return test != null; // put this for now
-        // return test.matches(VALIDATION_REGEX);
     }
 
     public LocalDate getDate() {

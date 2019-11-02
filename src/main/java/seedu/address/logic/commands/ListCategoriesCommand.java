@@ -12,9 +12,9 @@ import seedu.address.model.person.Category;
 /**
  * Lists the available Categories in guiltTrip.
  */
-public class ListCategoryCommand extends Command {
+public class ListCategoriesCommand extends Command {
 
-    public static final String COMMAND_WORD = "listCategory";
+    public static final String COMMAND_WORD = "listCategories";
 
     public static final String MESSAGE_SUCCESS = "Listed all categories \n Income: %1$s \n Expense: %2$s";
 

@@ -76,7 +76,7 @@ public class EditIncomeCommand extends Command {
         Income entryToEdit = lastShownList.get(index.getZeroBased());
         Income editedEntry = createEditedIncome(entryToEdit, editEntryDescriptor);
 
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 

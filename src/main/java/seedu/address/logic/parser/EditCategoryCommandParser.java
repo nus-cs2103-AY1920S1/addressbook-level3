@@ -3,8 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OLD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
@@ -25,15 +25,15 @@ public class EditCategoryCommandParser implements Parser<EditCategoryCommand> {
     public EditCategoryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_OLD_NAME, PREFIX_DESC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_CATEGORY, PREFIX_DESC)
+        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_OLD_NAME, PREFIX_DESC)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCategoryCommand.MESSAGE_USAGE));
         }
 
-        String typeOfCategory = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
-        String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        String typeOfCategory = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        String categoryName = argMultimap.getValue(PREFIX_OLD_NAME).get().toLowerCase();
         String newCategoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
 
         Category categoryToEdit = new Category(categoryName, typeOfCategory);

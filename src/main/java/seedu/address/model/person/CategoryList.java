@@ -18,10 +18,10 @@ import seedu.address.model.person.exceptions.DuplicateCategoryException;
 public class CategoryList {
 
     public static final String MESSAGE_CONSTRAINTS_IN_LIST =
-            "The category is already in the existing list of categories. ";
+            "The category is already in the existing " + "%1$s" + " category list";
 
     public static final String MESSAGE_CONSTRAINTS_NOT_IN_LIST =
-            "The category is not in the existing list of categories. ";
+            "The category is not in the existing " + "%1$s" + " category list";
 
     public static final String LIST_IS_EMPTY =
             "Unable to remove category from the category empty list!. ";
@@ -104,7 +104,8 @@ public class CategoryList {
      */
     public void add(Category category) {
         requireNonNull(category);
-        checkArgument(isValidAndNotInList(category), MESSAGE_CONSTRAINTS_IN_LIST);
+        checkArgument(isValidAndNotInList(category), String.format(MESSAGE_CONSTRAINTS_IN_LIST,
+                category.getCategoryType()));
         ObservableList<Category> typeOfCategory;
         if (category.categoryType.equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
@@ -121,7 +122,8 @@ public class CategoryList {
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
         //checks if it is in list. Also works for cases where List has 0 categories.
-        checkArgument(!isValidAndNotInList(toRemove), MESSAGE_CONSTRAINTS_NOT_IN_LIST);
+        checkArgument(!isValidAndNotInList(toRemove), String.format(MESSAGE_CONSTRAINTS_NOT_IN_LIST,
+                toRemove.getCategoryType()));
         ObservableList internalList = determineWhichList(toRemove.categoryType);
 
         if (!internalList.remove(toRemove)) {

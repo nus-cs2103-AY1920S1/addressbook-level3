@@ -61,7 +61,7 @@ a parameter which can be used as `n/mala at deck`.
 ==== Adding Expense: `add`
 Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
-in the list of categories. Amount must be larger than 0 and positive.
+in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
 Format: `add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
@@ -72,7 +72,7 @@ Examples:
 
 ==== Adding Income : `add`
 Adds a new Income to your total/daily/weekly/monthly spending with current timestamp.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive.
+Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
 Format: `add typ/Income cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
@@ -111,7 +111,7 @@ Adds an automatically recurring expense every day/week/month (frequency) with th
 Format: `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category>
  [tg/<tag1> tg/<tag2> d/<starting date>]`
 
-To list all categories, you can type `listCategory`.
+To list all categories, you can type `listCategories`.
 
 Examples:
 
@@ -192,20 +192,20 @@ Examples:
 ==== Editing Category : `editCategory`
 Edits a current category's description.
 
-Format: `editCategory typ/<category type> cat/<old category name> n/<new category name>`
+Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
 
 Examples:
 
-* `editCategory typ/Income cat/Business n/HotelManagement`
-* `editCategory typ/Expense cat/Family n/Baby Planning`
+* `editCategory cat/Income o/Business n/HotelManagement`
+* `editCategory cat/Expense o/Family n/Baby Planning`
 
-==== Listing Categories : `listCategory`
+==== Listing Categories : `listCategories`
 
 Lists all the current categories the user has.
 
-Format: `listCategory`
+Format: `listCategories`
 
-Example: `listCategory`
+Example: `listCategories`
 
 ==== Deleting Category : `deleteCategory`
 Deletes a category from guiltTrip. The category that is deleted should not have any entries under it.
@@ -606,14 +606,6 @@ Examples:
 * `sortWishlistPriority ascending`
 * `sortWishlistPriority descending`
 
-
-==== Search WishList : `findWish`
-Search wishlist for items containing keyword in their description +
-Format: `findWish <keyword>`
-Examples:
-
-* `findWish mala`
-
 ==== Purchase WishList : `purchase` [coming in v2.0]
 Purchases the item at the stated index from your current wishlist
 
@@ -712,8 +704,8 @@ do so.
 .. editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]
 .. deleteBudget <index>
 .. addCategory cat/<category> n/<category name>
-.. editCategory typ/<category type> cat/<old category name> n/<new category name>
-.. listCategory
+.. editCategory cat/<category type> o/<old category name> n/<new category name>
+.. listCategories
 .. deleteCategory cat/<category type> n/<category name>
 
 . Statistics:

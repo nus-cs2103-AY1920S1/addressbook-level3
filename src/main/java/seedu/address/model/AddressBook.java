@@ -357,6 +357,12 @@ public class AddressBook implements ReadOnlyAddressBook {
                     .collect(Collectors.toList());
             filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
         }
+        ObservableList<Entry> toCheckEntryList = this.getEntryList();
+        List<Entry> filteredListOfEntry = toCheckEntryList.stream()
+                .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName)
+                        && t.getCategory().categoryType.equalsIgnoreCase(categoryType))
+                .collect(Collectors.toList());
+        filteredListOfEntry.stream().forEach(t -> setEntry(t, t.modifiedCategory(newCategoryName)));
         indicateModified();
     }
 

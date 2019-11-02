@@ -48,7 +48,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the finance app.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "There are no changes in the edit. You are still "
+            + "entering the same entry.";
 
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;
@@ -76,10 +77,11 @@ public class EditCommand extends Command {
 
         Entry entryToEdit = lastShownList.get(index.getZeroBased());
         Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
-
-        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+        System.out.println(entryToEdit.isSameEntry(editedEntry));
+        if (entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
+
         //TODO is there a more elegant way
         model.setEntry(entryToEdit, editedEntry);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
@@ -100,9 +102,7 @@ public class EditCommand extends Command {
         }
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(entryToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
-        System.out.println(updatedName);
         Date updatedDate = editEntryDescriptor.getDate().orElse(entryToEdit.getDate());
-        System.out.println(updatedDate + "ASD");
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 

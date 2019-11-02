@@ -15,7 +15,7 @@ import seedu.address.model.person.SortType;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an entry to guiltTrip(). \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the list of entries in guiltTrip(). \n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_SEQUENCE + "SEQUENCE "
