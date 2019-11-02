@@ -8,19 +8,29 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+
+image::docs/images/Ui_Welcome.png[width="790"]
+
+image::docs/images/Ui_Bio.png[width="790"]
+
+image::docs/images/Ui_Records.png[width="790"]
+
+image::docs/images/Ui_Graph.png[width="790"]
+
+image::docs/images/Ui_Calendar.png[width="790"]
+
+image::docs/images/Ui_Achievements.png[width="790"]
+
 endif::[]
 
 SugarMummy aims to help type II diabetes patients to live more healthily, conveniently, and happily.
 It is a free software with useful functions:
 
-* Data tracker for various data types (blood sugar levels,  diets,
-exercise, clinic appointments, medical finance and so on!)
+* Data tracker for various data types (blood sugar levels and bmi)
 * Easy-to-use reminder and calendar
-* Personalized user experience and bio encouragements
-* Weekly and Monthly summary for your activities and health level
-* Customized recommendations for food and fun quizzes about
-healthy dieting
+* Personalized user experience (achievements, biography, and motivational quotes)
+* Daily, Weekly and Monthly graph summary for your activities and health level
+* Customized recommendations for healthy dieting
 
 == Getting Started
 

@@ -809,6 +809,27 @@ motivational quotes personalise the experience of each user by making it truly u
 by one user is guaranteed to differ by random chance, and even for the same quotes, they are likely speak differently to
 one user compared to another.
 
+==== Saves the user's preferred themes: `[coming in v2.0]`
+
+Allows users to save current fontcolours and background colours as themes that they can name and retrieve after.
+
+* Upon entering commands, users can list, add, edit, delete or apply current themes to set colours and backgrounds to
+the ones that they have previously saved.
+
+==== Shows a cartoon avatar that represents the user: `[coming in v2.0]`
+
+Displays a cartoon that represents the user by observing the user's data such as BMI.
+
+* As the user's records such as BMI changes, the users' avatar automatically changes accordingly (eg. size, width,
+height of avatar)
+
+==== Follow up on user's goals: `[coming in v2.0]`
+
+Allows users to save goals in a certain format such the program will be able to follow-up on the user's goals. eg.
+Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they
+have worked towards their goal(s)). Users may also set reminders to remind them of their goal and receive timely
+feedback.
+
 === DATA ANALYSIS
 
 ==== Display the daily/weekly/monthly average of records in a line graph: `average`
