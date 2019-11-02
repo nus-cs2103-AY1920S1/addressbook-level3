@@ -19,8 +19,14 @@ By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 //@@author {lawncegoh}
 == Introduction
 
-FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
-The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
+FinSec is a Financial Planner that helps the finance secretaries of any department in National University of Singapore,
+preferably from the School of Computing so that they would be more likely to like the idea of having a Command Line Interface (CLI) app.
+The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is CLI based,
+thus favoring people who can type fast. +
+
+We are the solution to all of your organisation's financial needs.
+
+What are you waiting for? Download the app now and enjoy!
 
 //@@author {lawncegoh}
 == Quick Start
@@ -30,6 +36,11 @@ The app focuses on the tracking of claims that will help the While FinSec has a 
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+<<Ui>> shows the UI of the application upon booting up.
+[[Ui]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
+.Finsec's UI when you open up the application
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -47,8 +58,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+//@@author {lawncegoh}
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy) p/PHONE NUMBER`,
+ `NAME`, `DESCRIPTION`, `CASH AMOUNT`, `DATE`, `PHONE NUMBER` are parameters that the user has to type in.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
