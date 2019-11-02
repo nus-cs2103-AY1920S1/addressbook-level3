@@ -21,6 +21,7 @@ import mams.model.tag.Tag;
 public class RemoveModCommand extends ModCommand {
 
     public static final String MESSAGE_REMOVE_MOD_SUCCESS = "Removed module from : %1$s";
+    public static final String MESSAGE_STUDENT_REMOVE_MOD = "Removed %s from ";
 
     private final String moduleIdentifier;
     private final String studentIdentifier;

@@ -414,8 +414,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2105",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000002",

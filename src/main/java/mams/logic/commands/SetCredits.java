@@ -19,7 +19,7 @@ import mams.model.student.Student;
 public class SetCredits extends StudentCommand {
 
     public static final String MESSAGE_CREDIT_CHANGE_SUCCESS = "Student max credits updated to : %d";
-
+    public static final String MESSAGE_STUDENT_CREDIT_CHANGE = "%s max credits updated to: %d";
     private final String matricId;
     private final String newCredits;
     private final Index index;

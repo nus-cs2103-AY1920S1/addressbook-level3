@@ -23,7 +23,7 @@ import mams.model.tag.Tag;
 public class AddModCommand extends ModCommand {
 
     public static final String MESSAGE_ADD_MOD_SUCCESS = "Added module to : %1$s";
-
+    public static final String MESSAGE_STUDENT_ADD_MOD = "Added %s to : ";
     private final String moduleIdentifier;
     private final String studentIdentifier;
     private boolean moduleUsingIndex;
