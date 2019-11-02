@@ -2,9 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -191,24 +191,19 @@ public class AppData implements ReadOnlyAppData {
     // quiz operations
 
     /**
-     * Returns a list with questions for quiz with {@code numOfQuestions}, {@code subject} and {@code difficulty}.
+     * Returns a list with questions for quiz with {@code numQuestions}, {@code subject} and {@code difficulty}.
      */
-    public ObservableList<Question> getQuizQuestions(int numOfQuestions, Subject subject, Difficulty difficulty) {
-        ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
+    public ObservableList<Question> getQuizQuestions(int numQuestions, Subject subject, Difficulty difficulty) {
         List<Question> filteredQuestions = getQuestionList()
                 .stream()
-                .filter(question -> subject.toString().equalsIgnoreCase(question.getSubject().toString())
-                        && difficulty.toString().equalsIgnoreCase(question.getDifficulty().toString()))
+                .filter(question -> subject.subject.equalsIgnoreCase(question.getSubject().subject)
+                        && difficulty.difficulty.equalsIgnoreCase(question.getDifficulty().difficulty))
                 .collect(Collectors.toList());
-
-        Random random = new Random();
-        for (int i = 0; i < numOfQuestions; i++) {
-            int randomIndex = random.nextInt(filteredQuestions.size());
-            Question question = filteredQuestions.get(randomIndex);
-            quizQuestions.add(question);
-            filteredQuestions.remove(randomIndex);
+        if (filteredQuestions.size() < numQuestions) {
+            throw new IllegalArgumentException("(you have " + filteredQuestions.size() + ")");
         }
-        return quizQuestions;
+        Collections.shuffle(filteredQuestions);
+        return FXCollections.observableList(filteredQuestions.subList(0, numQuestions));
     }
 
     /**
