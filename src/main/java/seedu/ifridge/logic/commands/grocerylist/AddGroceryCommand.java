@@ -56,8 +56,8 @@ public class AddGroceryCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
         }
 
-        if (toAdd.getAmount().isEmptyAmount()) {
-            throw new CommandException(Amount.MESSAGE_INVALID_AMOUNT);
+        if (Amount.isEmptyAmount(toAdd.getAmount())) {
+            throw new CommandException(Amount.MESSAGE_ZERO_AMOUNT);
         }
 
         UnitDictionary unitDictionary = model.getUnitDictionary();

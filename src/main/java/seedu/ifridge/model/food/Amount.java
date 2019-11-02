@@ -48,6 +48,10 @@ public class Amount {
     public static final float KG_TO_OUNCE = 1.0f / 0.0283495f;
     public static final float LITRE_TO_MILLILITRE = 1.0f / 0.001f;
 
+    public static final float MINIMUM_USAGE_FOR_KG = 0.0001f;
+    public static final float MINIMUM_USAGE_FOR_L = 0.0001f;
+    public static final float MINIMUM_USAGE_FOR_QUANTITY = 0.1f;
+
     public static final String MESSAGE_UNIT_DOES_NOT_MATCH = "Unit does not match with the existing items";
     public static final String MESSAGE_UNIT_TYPE_DOES_NOT_MATCH = "Unit type does not match with the other items";
     public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed "
@@ -56,7 +60,8 @@ public class Amount {
     public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
             + "with the same name.";
     public static final String MESSAGE_INVALID_AMOUNT = "Amount is invalid.\n" + MESSAGE_CONSTRAINTS;
-
+    public static final String MESSAGE_ZERO_AMOUNT = "Amount cannot be zero/negligible"
+            + "(at least 0.1g or 0.1ml or 0.1units).\n" + MESSAGE_CONSTRAINTS;
 
     private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
     private static Matcher m;
@@ -74,10 +79,17 @@ public class Amount {
 
         m = p.matcher(amount);
         m.find();
-        String value = m.group(1);
-        String unit = m.group(3);
+        String trimmedValue = m.group(1).trim();
+        String trimmedUnit = m.group(3).trim();
 
-        fullAmt = value.trim() + unit.trim();
+        float floatValue = Float.parseFloat(trimmedValue);
+
+        if (floatValue == Math.round(floatValue)) {
+            fullAmt = Math.round(floatValue) + trimmedUnit;
+        } else {
+            float formattedValue = Float.parseFloat(String.format("%.2f", floatValue));
+            fullAmt = formattedValue + trimmedUnit;
+        }
     }
 
     /**
@@ -172,9 +184,10 @@ public class Amount {
      * @return The weight of the given Amount object.
      */
     public static float getAmountInKg(Amount amt) {
-        String unit = getUnit(amt);
-        float value = getValue(amt);
+        return getAmountInKg(getValue(amt), getUnit(amt));
+    }
 
+    public static float getAmountInKg(float value, String unit) {
         switch (unit) {
         case UNIT_KILOGRAM:
             return value;
@@ -208,9 +221,10 @@ public class Amount {
      * @return The volume of the given Amount object.
      */
     public static float getAmountInLitre(Amount amt) {
-        String unit = getUnit(amt);
-        float value = getValue(amt);
+        return getAmountInLitre(getValue(amt), getUnit(amt));
+    }
 
+    public static float getAmountInLitre(float value, String unit) {
         switch (unit) {
         case UNIT_LITRE:
             return value;
@@ -391,8 +405,37 @@ public class Amount {
         }
     }
 
-    public boolean isEmptyAmount() {
-        return getValue(this) == 0;
+    public static boolean isEmptyAmount(Amount amt) {
+        return isEmptyAmount(getValue(amt), getUnit(amt));
+    }
+
+    /**
+     * Checks based on the value and unit, whether it is an empty amount (based on the minimum allowed in this app).
+     * @param value The value of the amount.
+     * @param unit The unit of the amount.
+     * @return Returns true if the value is zero/negligible.
+     */
+    public static boolean isEmptyAmount(float value, String unit) {
+        switch (unit) {
+        case UNIT_GRAM:
+        case UNIT_POUND:
+        case UNIT_OUNCE:
+            value = getAmountInKg(value, unit);
+            return value < MINIMUM_USAGE_FOR_KG;
+        case UNIT_KILOGRAM:
+            return value < MINIMUM_USAGE_FOR_KG;
+
+        case UNIT_MILLILITRE:
+            value = getAmountInLitre(value, unit);
+            return value < MINIMUM_USAGE_FOR_L;
+        case UNIT_LITRE:
+            return value < MINIMUM_USAGE_FOR_L;
+
+        case UNIT_QUANTITY:
+            return value < MINIMUM_USAGE_FOR_QUANTITY;
+        default:
+            return false;
+        }
     }
 
     @Override

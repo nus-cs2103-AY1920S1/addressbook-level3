@@ -38,7 +38,7 @@ public class UseGroceryCommand extends Command {
             + "Example: glist " + COMMAND_WORD + " 1 a/100g";
 
     public static final String MESSAGE_USE_GROCERY_ITEM_SUCCESS = "Used grocery item: %1$s";
-    public static final String MESSAGE_NOT_USED = "At least amount field must be provided.";
+    public static final String MESSAGE_NOT_USED = Amount.MESSAGE_ZERO_AMOUNT;
 
     private final Index index;
     private final UseGroceryItemDescriptor useGroceryItemDescriptor;
@@ -123,7 +123,7 @@ public class UseGroceryCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAmountUsed() {
-            return (Amount.getValue(amount) != 0);
+            return !Amount.isEmptyAmount(amount);
         }
 
         public void setName(Name name) {
