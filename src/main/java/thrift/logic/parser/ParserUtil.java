@@ -198,12 +198,14 @@ public class ParserUtil {
         try {
             String[] occurrenceParts = inputOccurrence.split(":");
             String frequency = occurrenceParts[0].trim().toLowerCase();
-            if (!Occurrence.isValidFrequency(frequency)) {
+            if (!Occurrence.isValidFrequency(frequency) || occurrenceParts.length != 2) {
+                // Throw exception if frequency invalid or input occurrence string has missing or extra parts
                 throw new ParseException(Occurrence.OCCURRENCE_CONSTRAINTS);
             }
 
             int numOccurrences = Integer.parseInt(occurrenceParts[1].trim());
-            if (numOccurrences <= 0 || numOccurrences > 12 || ("yearly".equals(frequency) && numOccurrences > 5)) {
+            if (numOccurrences < 0 || numOccurrences > 12 || ("yearly".equals(frequency) && numOccurrences > 5)) {
+                // Throw exception if number of occurrences invalid for its frequency
                 throw new ParseException(Occurrence.OCCURRENCE_CONSTRAINTS);
             }
             return new Occurrence(frequency, numOccurrences);

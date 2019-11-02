@@ -22,14 +22,22 @@ public class CloneCommandParserTest {
     public void parse_missingParts_failure() {
         //no index specified
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, CommandTestUtil.OCCURRENCE_TOKEN, MESSAGE_INVALID_FORMAT);
+
+        // no occurrence specified with "o/" prefix
+        assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1"
+                + CommandTestUtil.OCCURRENCE_TOKEN, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_validArgs_returnsCloneCommand() {
         // Clone with index only
         assertParseSuccess(parser, CommandTestUtil.INDEX_TOKEN + "2", new CloneCommand(
-                TypicalIndexes.INDEX_SECOND_TRANSACTION, new Occurrence("daily", 1)));
+                TypicalIndexes.INDEX_SECOND_TRANSACTION, new Occurrence("daily", 0)));
+
+        // Clone with index and occurrence number of 0
+        assertParseSuccess(parser, CommandTestUtil.INDEX_TOKEN + "1" + CommandTestUtil.OCCURRENCE_TOKEN
+                + "weekly:0", new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
+                new Occurrence("weekly", 0)));
 
         // Clone with index and valid occurrence
         assertParseSuccess(parser, CommandTestUtil.INDEX_TOKEN + "3" + CommandTestUtil.OCCURRENCE_TOKEN
@@ -70,10 +78,6 @@ public class CloneCommandParserTest {
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1" + CommandTestUtil.OCCURRENCE_TOKEN
                 + "daily:-3", MESSAGE_INVALID_FORMAT);
 
-        // input 0 for occurrence
-        assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1" + CommandTestUtil.OCCURRENCE_TOKEN
-                + "weekly:0", MESSAGE_INVALID_FORMAT);
-
         // not integer value input for occurrence
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1" + CommandTestUtil.OCCURRENCE_TOKEN
                 + "monthly:three", MESSAGE_INVALID_FORMAT);
@@ -95,5 +99,15 @@ public class CloneCommandParserTest {
                 + "monthly:13", MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "1" + CommandTestUtil.OCCURRENCE_TOKEN
                 + "yearly:6", MESSAGE_INVALID_FORMAT);
+
+        // No number of occurrence input
+        assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "2" + CommandTestUtil.OCCURRENCE_TOKEN
+                + "daily", MESSAGE_INVALID_FORMAT);
+
+        // Extra parts of occurrence parameter input
+        assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "2" + CommandTestUtil.OCCURRENCE_TOKEN
+                + "weekly:10:11", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.INDEX_TOKEN + "2" + CommandTestUtil.OCCURRENCE_TOKEN
+                + "monthly:5:6:7:gsdfgfdsg:sfaf:3yerst5:sf5sr447u:", MESSAGE_INVALID_FORMAT);
     }
 }

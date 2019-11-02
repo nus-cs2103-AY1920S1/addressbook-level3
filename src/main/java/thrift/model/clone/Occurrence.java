@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 import thrift.logic.commands.exceptions.CommandException;
+import thrift.logic.parser.CliSyntax;
 
 /**
  * Represents how many times and with what frequency (how much time apart) a {@code Transaction} should be cloned.
@@ -14,8 +15,10 @@ import thrift.logic.commands.exceptions.CommandException;
 public class Occurrence {
     public static final String OCCURRENCE_CONSTRAINTS = "Occurrence must be in the format \"FREQUENCY:"
             + "NUMBER_OF_OCCURRENCES\"."
-            + "\n- Valid FREQUENCY values are: \"daily\", \"weekly\", \"monthly\", \"yearly\""
-            + "\n- Valid NUMBER_OF_OCCURRENCES ranges are: 1 - 5 with \"yearly\", 1 - 12 with other frequencies";
+            + "\n- Valid FREQUENCY values are: \"daily\", \"weekly\", \"monthly\", \"yearly\"."
+            + "\n- Valid NUMBER_OF_OCCURRENCES ranges are: 0 - 5 with \"yearly\", 0 - 12 with other frequencies.\n"
+            + "If NUMBER_OF_OCCURRENCES is 0, one clone will be created on the same date as original "
+            + "transaction as if\nno " + CliSyntax.PREFIX_OCCURRENCE + "OCCURRENCE parameter was input.";
     private static final String[] validFrequencies = {"daily", "weekly", "monthly", "yearly"};
 
     private final String frequency;

@@ -117,7 +117,7 @@ public class ThriftParserTest {
         CloneCommand command = (CloneCommand) parser.parseCommand(
                 CloneCommand.COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX
                         + TypicalIndexes.INDEX_FIRST_TRANSACTION.getOneBased());
-        assertEquals(new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, new Occurrence("daily", 1)), command);
+        assertEquals(new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION, new Occurrence("daily", 0)), command);
     }
 
     @Test

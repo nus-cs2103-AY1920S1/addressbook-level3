@@ -25,7 +25,7 @@ public class CloneCommandParser extends AddTransactionCommandParser implements P
 
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getIndexFromCommand());
-            Occurrence occurrence = new Occurrence("daily", 1);
+            Occurrence occurrence = new Occurrence("daily", 0);
 
             if (argMultimap.getValue(CliSyntax.PREFIX_OCCURRENCE).isPresent()) {
                 occurrence = ParserUtil.parseOccurrence(argMultimap.getSingleValue(CliSyntax.PREFIX_OCCURRENCE).get());

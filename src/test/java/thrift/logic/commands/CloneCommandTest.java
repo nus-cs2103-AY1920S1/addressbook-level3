@@ -34,6 +34,7 @@ public class CloneCommandTest {
 
     private Model model = new ModelManager(TypicalTransactions.getTypicalThrift(), new UserPrefs(),
             new PastUndoableCommands());
+    private final int zeroOccurrence = 0;
     private final int oneOccurrence = 1;
     private final int twelveOccurrences = 12;
     private final int fiveOccurrences = 5;
@@ -42,7 +43,7 @@ public class CloneCommandTest {
     public void constructor_nullReceivedFields_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new CloneCommand(null, null));
         assertThrows(NullPointerException.class, () ->
-             new CloneCommand(null, new Occurrence("monthly", 5)));
+             new CloneCommand(null, new Occurrence("monthly", fiveOccurrences)));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class CloneCommandTest {
         Transaction transactionToClone = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_SECOND_TRANSACTION.getZeroBased());
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
-                new Occurrence("daily", oneOccurrence));
+                new Occurrence("daily", zeroOccurrence));
 
         Income expectedTransaction = new IncomeBuilder()
                 .withDescription(transactionToClone.getDescription().value)
@@ -60,7 +61,7 @@ public class CloneCommandTest {
                 .withTags(transactionToClone.getTags().iterator().next().tagName)
                 .build();
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", oneOccurrence);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
 
         ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
@@ -72,7 +73,7 @@ public class CloneCommandTest {
     @Test
     public void execute_invalidIndexBaseOccurrenceUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        CloneCommand cloneCommand = new CloneCommand(outOfBoundIndex, new Occurrence("daily", oneOccurrence));
+        CloneCommand cloneCommand = new CloneCommand(outOfBoundIndex, new Occurrence("daily", zeroOccurrence));
 
         assertCommandFailure(cloneCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
@@ -82,7 +83,7 @@ public class CloneCommandTest {
         Transaction transactionToClone = model.getFilteredTransactionList()
                 .get(TypicalIndexes.INDEX_FIRST_TRANSACTION.getZeroBased());
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
-                new Occurrence("daily", oneOccurrence));
+                new Occurrence("daily", zeroOccurrence));
 
         Expense expectedTransaction = new ExpenseBuilder()
                 .withDescription(transactionToClone.getDescription().value)
@@ -92,7 +93,7 @@ public class CloneCommandTest {
                 .withTags(transactionToClone.getTags().iterator().next().tagName)
                 .build();
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", oneOccurrence);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
 
         ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
@@ -109,7 +110,7 @@ public class CloneCommandTest {
         // ensures that outOfBoundIndex is still in bounds of thrift list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThrift().getTransactionList().size());
 
-        CloneCommand cloneCommand = new CloneCommand(outOfBoundIndex, new Occurrence("daily", oneOccurrence));
+        CloneCommand cloneCommand = new CloneCommand(outOfBoundIndex, new Occurrence("for today", zeroOccurrence));
 
         assertCommandFailure(cloneCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
@@ -121,15 +122,18 @@ public class CloneCommandTest {
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
                 new Occurrence("monthly", twelveOccurrences));
 
+        Date originalDate = transactionToClone.getDate().getDate();
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
                 + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "monthly", twelveOccurrences);
 
         ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
-        for (int i = 0; i < twelveOccurrences; i++) {
+        for (int i = 1; i <= twelveOccurrences; i++) {
             Calendar calendar = Calendar.getInstance();
+            calendar.setTime(originalDate);
             calendar.add(Calendar.MONTH, i);
             String date = DATE_FORMATTER.format(calendar.getTime());
+
             Income expectedTransaction = new IncomeBuilder()
                     .withDescription(transactionToClone.getDescription().value)
                     .withDate(date)
@@ -158,16 +162,19 @@ public class CloneCommandTest {
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
                 new Occurrence("yearly", fiveOccurrences));
 
+        Date originalDate = transactionToClone.getDate().getDate();
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
                 + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "yearly", fiveOccurrences);
 
         ModelManager expectedModel = new ModelManager(model.getThrift(), new UserPrefs(),
                 new PastUndoableCommands());
 
-        for (int i = 0; i < fiveOccurrences; i++) {
+        for (int i = 1; i <= fiveOccurrences; i++) {
             Calendar calendar = Calendar.getInstance();
+            calendar.setTime(originalDate);
             calendar.add(Calendar.YEAR, i);
             String date = DATE_FORMATTER.format(calendar.getTime());
+
             Expense expectedTransaction = new ExpenseBuilder()
                     .withDescription(transactionToClone.getDescription().value)
                     .withDate(date)
@@ -212,9 +219,9 @@ public class CloneCommandTest {
         //simulates user performing clone command
         expectedModel.addExpense(expectedTransaction);
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
-                new Occurrence("daily", 1));
+                new Occurrence("daily", zeroOccurrence));
         assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
 
         //undo
@@ -240,9 +247,9 @@ public class CloneCommandTest {
         //simulates user performing clone command
         expectedModel.addExpense(expectedTransaction);
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_FIRST_TRANSACTION,
-                new Occurrence("daily", 1));
+                new Occurrence("daily", zeroOccurrence));
         assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
 
         //undo
@@ -272,9 +279,9 @@ public class CloneCommandTest {
         //simulates user performing clone command
         expectedModel.addIncome(expectedTransaction);
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
-                new Occurrence("daily", 1));
+                new Occurrence("daily", zeroOccurrence));
         assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
 
         //undo
@@ -300,9 +307,9 @@ public class CloneCommandTest {
         //simulates user performing clone command
         expectedModel.addIncome(expectedTransaction);
         String expectedMessage = String.format(CloneCommand.MESSAGE_CLONE_TRANSACTION_SUCCESS, transactionToClone)
-                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "daily", 1);
+                + "\n" + String.format(CloneCommand.MESSAGE_NUM_CLONED_TRANSACTIONS, "for today", oneOccurrence);
         CloneCommand cloneCommand = new CloneCommand(TypicalIndexes.INDEX_SECOND_TRANSACTION,
-                new Occurrence("daily", 1));
+                new Occurrence("daily", zeroOccurrence));
         assertCommandSuccess(cloneCommand, model, expectedMessage, expectedModel);
 
         //undo

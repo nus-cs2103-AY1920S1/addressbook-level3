@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import thrift.commons.core.LogsCenter;
 import thrift.commons.core.Messages;
 import thrift.commons.core.index.Index;
 import thrift.commons.util.CollectionUtil;
@@ -69,6 +71,8 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     public static final String UNDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
     public static final String REDO_SUCCESS = "Updated Transaction: %1$s\nOriginal: %2$s";
 
+    private static final Logger logger = LogsCenter.getLogger(UpdateCommand.class);
+
     private final Index index;
     private final UpdateTransactionDescriptor updateTransactionDescriptor;
     private Index actualIndex;
@@ -82,7 +86,7 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
     public UpdateCommand(Index index, UpdateTransactionDescriptor updateTransactionDescriptor) {
         requireNonNull(index);
         requireNonNull(updateTransactionDescriptor);
-
+        assert index.getZeroBased() >= 0 : "Index of transaction to be updated is negative";
         this.index = index;
         this.updateTransactionDescriptor = new UpdateTransactionDescriptor(updateTransactionDescriptor);
         this.actualIndex = null;
@@ -109,7 +113,9 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
 
         transactionToUpdate = lastShownList.get(index.getZeroBased());
         String originalTransactionNotification = String.format(MESSAGE_ORIGINAL_TRANSACTION, transactionToUpdate);
+
         updatedTransaction = createUpdatedTransaction(transactionToUpdate, updateTransactionDescriptor);
+        logger.info("Instance of [UPDATED TRANSACTION] [" + updatedTransaction + "] created");
         String updatedTransactionNotification = String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction);
 
         actualIndex = model.getIndexInFullTransactionList(transactionToUpdate).get();
@@ -142,6 +148,7 @@ public class UpdateCommand extends ScrollingCommand implements Undoable {
         if (transactionToUpdate instanceof Expense) {
             return new Expense(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         } else {
+            assert transactionToUpdate instanceof Income : "Transaction to Update not of type Expense or Income";
             return new Income(updatedDescription, updatedValue, updatedRemark, updatedDate, updatedTags);
         }
     }
