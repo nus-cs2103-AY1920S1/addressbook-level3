@@ -106,7 +106,7 @@ public abstract class Task {
             return true;
         }
 
-        if (!(other instanceof Task)) {
+        if (!(other instanceof Task) ) {
             return false;
         }
 
