@@ -47,4 +47,8 @@ public class InventoryMessages {
 
     public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description and category is the same as that"
             + " of an existing item. We have added the quantity to the existing item.";
+
+    public static final String MESSAGE_ON_CASHIER_MODE= "Sorry, you cannot modify any existing items while on "
+            + "cashier mode. \nTo turn off the cashier mode, please clear all items on Cashier Tab by "
+            + "inputting \"clear\" on the Cashier Tab";
 }

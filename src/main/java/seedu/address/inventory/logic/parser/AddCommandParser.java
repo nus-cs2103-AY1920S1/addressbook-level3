@@ -1,5 +1,7 @@
 package seedu.address.inventory.logic.parser;
 
+import static seedu.address.cashier.model.ModelManager.onCashierMode;
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_ON_CASHIER_MODE;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_COST;
 import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
@@ -10,6 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchItemException;
@@ -27,7 +30,7 @@ public class AddCommandParser {
      * Parses the input and returns an AddCommand.
      */
     public static AddCommand parse(String args, InventoryList inventoryList) throws ParseException,
-            NumberFormatException, NotANumberException, NoSuchItemException {
+            NumberFormatException, NotANumberException, NoSuchItemException, OnCashierModeException {
         int index = inventoryList.size() + 1;
         if (args.contains(" p/")) {
             ArgumentMultimap argMultimap =
@@ -56,6 +59,9 @@ public class AddCommandParser {
 
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
+                if (onCashierMode) {
+                    throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
+                }
                 int itemIndex = inventoryList.getIndex(description);
                 Item current = inventoryList.get(itemIndex);
                 current.setQuantity(current.getQuantity() + quantity);
@@ -89,6 +95,9 @@ public class AddCommandParser {
             Item item = new Item(description, category, quantity, cost, index);
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
+                if (onCashierMode) {
+                    throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
+                }
                 int itemIndex = inventoryList.getIndex(description);
                 Item current = inventoryList.get(itemIndex);
                 current.setQuantity(current.getQuantity() + quantity);

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.cashier.logic.Logic;
 import seedu.address.inventory.model.Item;
+import seedu.address.person.commons.core.LogsCenter;
 
 /**
  * Defines the display for the Cashier tab in the user interface.
@@ -21,6 +23,7 @@ import seedu.address.inventory.model.Item;
 public class Cashier extends UiPart<Region> {
 
     private static final String FXML = "Cashier.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private TableView<Item> tableView;
@@ -48,24 +51,26 @@ public class Cashier extends UiPart<Region> {
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, String>("quantity"));
         subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
 
+        // for total amount
         SimpleStringProperty amount = new SimpleStringProperty();
         String s = String.valueOf(logic.getAmount());
         amount.setValue(s);
         amount.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                System.out.println("Old: " + oldValue + ", New: " + newValue);
+                logger.info("Old amount: " + oldValue + ", New amount: " + newValue);
             }
         });
         totalAmountLabel.textProperty().bind(amount);
 
+        // for cashier-in-charge
         SimpleStringProperty cashierProperty = new SimpleStringProperty();
         String str = String.valueOf(logic.getCashier());
         cashierProperty.setValue(str);
         cashierProperty.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                System.out.println("Old: " + oldValue + ", New: " + newValue);
+                logger.info("Previous cashier: " + oldValue + ", New cashier: " + newValue);
             }
         });
         cashierLabel.textProperty().bind(cashierProperty);

@@ -17,6 +17,7 @@ import seedu.address.inventory.logic.commands.SortQuantityCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
@@ -104,7 +105,8 @@ public class InventoryTabParserTest {
 
         try {
             command = parser.parseCommand("delete number", new InventoryList());
-        } catch (NotANumberException | ParseException | NoSuchSortException | NoSuchItemException e) {
+        } catch (NotANumberException | ParseException | NoSuchSortException | NoSuchItemException
+                | OnCashierModeException e) {
             assertEquals(InventoryMessages.MESSAGE_NOT_A_NUMBER, e.getMessage());
         }
     }
@@ -144,7 +146,8 @@ public class InventoryTabParserTest {
 
         try {
             command = parser.parseCommand("sort person", new InventoryList());
-        } catch (NoSuchSortException | ParseException | NotANumberException | NoSuchItemException e) {
+        } catch (NoSuchSortException | ParseException | NotANumberException | NoSuchItemException
+                | OnCashierModeException e) {
             assertEquals(InventoryMessages.MESSAGE_NO_SUCH_SORT_COMMAND, e.toString());
         }
     }
@@ -153,7 +156,8 @@ public class InventoryTabParserTest {
     public void parser_invalidCommandExceptionTest() {
         try {
             parser.parseCommand("command", new InventoryList());
-        } catch (NoSuchSortException | NoSuchItemException | NotANumberException | ParseException e) {
+        } catch (NoSuchSortException | NoSuchItemException | NotANumberException | ParseException
+                | OnCashierModeException e) {
             assertEquals(InventoryMessages.MESSAGE_NO_COMMAND, e.getMessage());
         }
     }

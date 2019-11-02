@@ -35,6 +35,8 @@ public class ModelManager implements Model {
     private Transaction checkoutTransaction;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    public static boolean onCashierMode = false;
+
     /**
      * Initializes a ModelManager with the given inventory list and transaction list.
      */
@@ -171,6 +173,7 @@ public class ModelManager implements Model {
     public void addItem(Item item) {
         assert item != null : "Item added cannot be null.";
         salesList.add(item);
+        onCashierMode = true;
     }
 
     /**
@@ -183,6 +186,7 @@ public class ModelManager implements Model {
     @Override
     public Item addItem(String description, int qty) throws NoSuchItemException {
         requireNonNull(description);
+        onCashierMode = true;
         for (Item item : salesList) {
             if (item.getDescription().equalsIgnoreCase(description)) {
                 int originalQty = item.getQuantity();
@@ -219,6 +223,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteItem(int index) {
         salesList.remove(index - 1);
+        onCashierMode = salesList.size() == 0 ? false : true;
     }
 
     @Override
@@ -291,6 +296,7 @@ public class ModelManager implements Model {
     @Override
     public void clearSalesList() {
         this.salesList = new ArrayList<Item>();
+        onCashierMode = false;
     }
 
     /**
@@ -447,6 +453,7 @@ public class ModelManager implements Model {
         Transaction transaction = new Transaction(LocalDate.now().format(Transaction.DATE_TIME_FORMATTER),
                 SALES_DESCRIPTION, SALES_CATEGORY, amount, person, this.transactionList.size(), false);
         checkoutTransaction = transaction;
+        onCashierMode = false;
         return transaction;
     }
 

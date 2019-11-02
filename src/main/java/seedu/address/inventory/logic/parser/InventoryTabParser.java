@@ -1,5 +1,8 @@
 package seedu.address.inventory.logic.parser;
 
+import static seedu.address.cashier.model.ModelManager.onCashierMode;
+import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_ON_CASHIER_MODE;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +12,7 @@ import seedu.address.inventory.logic.commands.EditCommand;
 import seedu.address.inventory.logic.commands.SortCommand;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.ui.InventoryMessages;
@@ -34,7 +38,7 @@ public class InventoryTabParser {
      * @throws NoSuchSortException if the user input is a SortCommand that does not sort by the existing categories.
      */
     public Command parseCommand(String userInput, InventoryList inventoryList) throws ParseException,
-            NotANumberException, NoSuchSortException, NoSuchItemException {
+            NotANumberException, NoSuchSortException, NoSuchItemException, OnCashierModeException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(InventoryMessages.MESSAGE_NO_COMMAND);
@@ -52,9 +56,15 @@ public class InventoryTabParser {
             }
 
         case DeleteIndexCommand.COMMAND_WORD:
+            if (onCashierMode) {
+                throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
+            }
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
+            if (onCashierMode) {
+                throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
+            }
             return new EditCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
