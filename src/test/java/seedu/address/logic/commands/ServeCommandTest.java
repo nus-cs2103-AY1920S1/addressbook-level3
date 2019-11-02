@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.testutil.TypicalBorrowers.BOB;
 import static seedu.address.testutil.TypicalBorrowers.ALICE;
+import static seedu.address.testutil.TypicalBorrowers.BOB;
 import static seedu.address.testutil.TypicalBorrowers.ID_ALICE;
 
 import org.junit.jupiter.api.Test;
