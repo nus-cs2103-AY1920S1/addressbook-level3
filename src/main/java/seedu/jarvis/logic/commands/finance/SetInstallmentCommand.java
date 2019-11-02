@@ -17,7 +17,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedSetInstallmentCommand;
 
 /**
- * Adds a purchase to the finance tracker.
+ * Adds an installment to the finance tracker.
  */
 public class SetInstallmentCommand extends Command {
 
@@ -40,9 +40,11 @@ public class SetInstallmentCommand extends Command {
             + InstallmentMoneyPaid.MESSAGE_CONSTRAINTS;
 
     public static final String MESSAGE_SUCCESS = "Jarvis has added your installment! \n%1$s";
+    public static final String MESSAGE_SUCCESS_WITH_WARNING = "Jarvis has added this installment, but please note that "
+            + "there already exists a similar installment in the finance tracker!. Installment added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists!";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this purchase: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this installment: %1$s";
     public static final String MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND = "Installment was already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
@@ -93,7 +95,7 @@ public class SetInstallmentCommand extends Command {
      * finance tracker.
      *
      * @param model {@code Model} which the command should operate on.
-     * @return {@code CommandResult} that purchase was added successfully.
+     * @return {@code CommandResult} that installment was added successfully.
      * @exception CommandException if there is already an {@code Installment} matching the installment to be
      * added to the finance tracker.
      */
@@ -107,6 +109,10 @@ public class SetInstallmentCommand extends Command {
 
         model.addInstallment(toAdd);
         model.setViewStatus(ViewType.LIST_FINANCE);
+
+        if (model.hasSimilarInstallment(toAdd)) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, toAdd), true);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }

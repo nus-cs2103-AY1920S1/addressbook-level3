@@ -87,7 +87,7 @@ public class SetPaidCommandTest {
 
     /**
      * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
-     * execution, that the added installment was deleted from the finance tracker.
+     * execution, that the added purchase was deleted from the finance tracker.
      * */
     @Test
     public void executeInverse_success() {
@@ -147,7 +147,7 @@ public class SetPaidCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the purchase being added.
      */
     private class ModelStubAcceptingPurchaseAdded extends ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();

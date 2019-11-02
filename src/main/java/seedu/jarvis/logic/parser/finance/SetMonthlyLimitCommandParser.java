@@ -37,7 +37,13 @@ public class SetMonthlyLimitCommandParser implements Parser<SetMonthlyLimitComma
                     SetMonthlyLimitCommand.MESSAGE_USAGE));
         }
 
-        MonthlyLimit limitAmount = FinanceParserUtil.parseMonthlyLimit(argMultimap.getValue(PREFIX_MONEY).get());
+        MonthlyLimit limitAmount = null;
+        try {
+            limitAmount = FinanceParserUtil.parseMonthlyLimit(argMultimap.getValue(PREFIX_MONEY).get());
+        } catch (IllegalArgumentException amountException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetMonthlyLimitCommand.MESSAGE_MONEY_ERROR));
+        }
 
         return new SetMonthlyLimitCommand(limitAmount);
     }

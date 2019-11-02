@@ -40,8 +40,8 @@ public class JsonAdaptedSetMonthlyLimitCommand extends JsonAdaptedCommand implem
      * {@code JsonAdaptedSetMonthlyLimitCommand}.
      */
     public JsonAdaptedSetMonthlyLimitCommand(SetMonthlyLimitCommand setMonthlyLimitCommand) {
-        originalLimit = setMonthlyLimitCommand.getOriginalLimit().map(MonthlyLimit::toString).orElse(null);
-        updatedLimit = setMonthlyLimitCommand.getUpdatedLimit().toString();
+        originalLimit = setMonthlyLimitCommand.getOriginalLimit().map(MonthlyLimit::getLimitValue).orElse(null);
+        updatedLimit = setMonthlyLimitCommand.getUpdatedLimit().getLimitValue();
     }
 
     /**
@@ -55,6 +55,8 @@ public class JsonAdaptedSetMonthlyLimitCommand extends JsonAdaptedCommand implem
     public Command toModelType() throws IllegalValueException {
         boolean isValidUpdatedLimit = updatedLimit != null && MonthlyLimit.isValidAmount(updatedLimit);
         boolean isValidOriginalLimit = originalLimit == null || MonthlyLimit.isValidAmount(originalLimit);
+        System.out.println(isValidUpdatedLimit);
+        System.out.println(isValidOriginalLimit);
 
         if (!isValidUpdatedLimit || !isValidOriginalLimit) {
             throw new IllegalValueException(MESSAGE_INVALID_LIMIT);

@@ -403,6 +403,17 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    public boolean hasSimilarInstallment(Installment installment) {
+        requireNonNull(installment);
+
+        return financeTracker.hasSimilarInstallment(installment);
+    }
+
+    /**
      * Replaces the installment in the list with {@code editedInstallment}.
      * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.

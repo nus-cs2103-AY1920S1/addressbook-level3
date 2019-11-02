@@ -120,7 +120,7 @@ public class EditInstallmentCommand extends Command {
      * Gets the original {@code Installment} wrapped in an {@code Optional} before the edit, which is empty if the edit
      * has not been made.
      *
-     * @return {@code Optional} of {@code Installment} before the edit, or empty if the person has not been edited.
+     * @return {@code Optional} of {@code Installment} before the edit, or empty if the installment has not been edited.
      */
     public Optional<Installment> getOriginalInstallment() {
         return Optional.ofNullable(originalInstallment);
