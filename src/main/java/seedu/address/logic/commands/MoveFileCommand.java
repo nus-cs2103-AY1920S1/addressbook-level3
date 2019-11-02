@@ -25,7 +25,7 @@ public class MoveFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Move the file identified by the index number from the displayed file list.\n"
             + "Parameters: INDEX NEW_LOCATION\n"
-            + "Example: " + COMMAND_WORD + " 1 /Desktop";
+            + "Example: " + COMMAND_WORD + " 1 /Users/YOUR_USERNAME/Desktop";
 
     public static final String MESSAGE_RENAME_FILE_SUCCESS = "File moved: %1$s";
     public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot move file.";

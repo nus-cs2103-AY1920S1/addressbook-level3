@@ -26,7 +26,7 @@ public class AddFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an encrypted file in user's file system using the specified file path.\n"
             + "Parameters: FILEPATH [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " /Desktop/[LOCKED] Test.txt t/personal";
+            + "Example: " + COMMAND_WORD + " /Users/YOUR_USERNAME/Desktop/[LOCKED] Test.txt t/personal";
 
     public static final String MESSAGE_SUCCESS = "File added: %1$s";
     public static final String MESSAGE_FAILURE = "Cannot add file.";
