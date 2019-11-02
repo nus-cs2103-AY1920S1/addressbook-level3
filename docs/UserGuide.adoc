@@ -112,7 +112,7 @@ Edit one or multiple fields of an existing task. `INDEX` should be a positive in
 should already exist on the current week's calendar. Editing the deadline is only available for `ToDoTask`.
 
 Format: `edit  INDEX <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TIME <tag>TAG` +
-e.g. `1 <title>CS2108 Assignment <day>friday`
+e.g. `edit 1 <title>CS2108 Assignment <day>friday`
 
 ==== Delete existing task: `delete`
 Delete an existing task. `INDEX` should be a positive integer and a task with the number `INDEX`
