@@ -26,22 +26,34 @@ public class ClosestCommonLocationData {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public BufferedImage getImageFirst() {
-        if (firstClosest.contains("NUS_")) {
+        if (firstClosest == null) {
+            logger.warning("Did not set first closest location");
+            return null;
+        } else if (firstClosest.contains("NUS_")) {
             logger.warning(firstClosest + " must not have NUS_ prefix");
+            return null;
         }
         return Cache.loadImage("NUS_" + firstClosest);
     }
 
     public BufferedImage getImageSecond() {
-        if (firstClosest.contains("NUS_")) {
+        if (secondClosest == null) {
+            logger.warning("Did not set second closest location");
+            return null;
+        } else if (secondClosest.contains("NUS_")) {
             logger.warning(secondClosest + " must not have NUS_ prefix");
+            return null;
         }
         return Cache.loadImage("NUS_" + secondClosest);
     }
 
     public BufferedImage getImageThird() {
-        if (firstClosest.contains("NUS_")) {
+        if (thirdClosest == null) {
+            logger.warning("Did not set first closest location");
+            return null;
+        } else if (thirdClosest.contains("NUS_")) {
             logger.warning(thirdClosest + " must not have NUS_ prefix");
+            return null;
         }
         return Cache.loadImage("NUS_" + thirdClosest);
     }
