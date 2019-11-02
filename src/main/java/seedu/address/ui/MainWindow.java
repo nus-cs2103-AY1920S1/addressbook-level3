@@ -36,7 +36,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
-import seedu.address.logic.commands.alias.ListAliasCommand;
+import seedu.address.logic.commands.alias.ListAliasesCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.ClearBudgetsCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetByIndexCommand;
@@ -46,7 +46,7 @@ import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetsCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
-import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
+import seedu.address.logic.commands.budget.SwitchPeriodCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -56,7 +56,7 @@ import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
-import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpensesCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -78,7 +78,7 @@ import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.StatsTrendCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
-import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
+import seedu.address.logic.parser.SwitchPeriodCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
@@ -284,7 +284,7 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList());
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ListExpenseCommand.COMMAND_WORD,
+                ListExpensesCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 
@@ -341,9 +341,9 @@ public class MainWindow extends UiPart<Stage> {
                 EditBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                SwitchBudgetWindowCommand.COMMAND_WORD,
-                SwitchBudgetWindowCommandParser.REQUIRED_PREFIXES,
-                SwitchBudgetWindowCommandParser.OPTIONAL_PREFIXES);
+                SwitchPeriodCommand.COMMAND_WORD,
+                SwitchPeriodCommandParser.REQUIRED_PREFIXES,
+                SwitchPeriodCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ClearBudgetsCommand.COMMAND_WORD,
@@ -360,7 +360,7 @@ public class MainWindow extends UiPart<Stage> {
                 Collections.emptyList(),
                 Collections.emptyList());
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                ListAliasCommand.COMMAND_WORD,
+                ListAliasesCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
 

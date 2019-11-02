@@ -13,7 +13,7 @@ import seedu.address.ui.alias.AliasPanel;
 /**
  * Create an alias for common user input.
  */
-public class ListAliasCommand extends Command {
+public class ListAliasesCommand extends Command {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS + "es";
     public static final String COMMAND_DESCRIPTION = "List aliases";
