@@ -99,6 +99,13 @@ public interface PlannerModel {
     ObservableList<Task> getFilteredTaskList();
 
     /**
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    ObservableList<Task> getUnfilteredTaskList();
+
+    /**
      * Marks a {@code Task} at the specified {@code Index} as done
      * @param i {@code Index} of the {@code Task} to be marked as done
      */

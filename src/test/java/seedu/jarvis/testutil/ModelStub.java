@@ -277,6 +277,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public String getTotalSpending() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public double calculateRemainingAmount() {
         throw new AssertionError("This method should not be called.");
     }
@@ -421,6 +426,11 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Task> getUnfilteredTaskList() {
         throw new AssertionError("This method should not be called.");
     }
 

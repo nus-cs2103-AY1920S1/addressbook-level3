@@ -94,7 +94,7 @@ public class SetPaidCommand extends Command {
         }
 
         model.addPurchase(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**

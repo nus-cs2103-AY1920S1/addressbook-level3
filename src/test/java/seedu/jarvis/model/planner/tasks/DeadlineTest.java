@@ -14,6 +14,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.enums.TaskType;
 
 
 class DeadlineTest {
@@ -86,7 +87,7 @@ class DeadlineTest {
         d.addTag(new Tag("school"));
         d.addTag(new Tag("cs"));
 
-        String expected = "Deadline: homework by 2019-10-10\nPriority: LOW\nFrequency: MONTHLY"
+        String expected = "Deadline: homework by 2019-10-10\nPriority: Low\nFrequency: Monthly"
                             + "\nTags: [[cs], [school]]";
 
         assertEquals(expected, d.toString());
@@ -144,5 +145,14 @@ class DeadlineTest {
         Deadline d = new Deadline("homework", due);
 
         assertEquals(Status.NOT_DONE, d.getStatus());
+    }
+
+    @Test
+    void getTaskType() {
+        LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
+        Deadline d = new Deadline("homework", due);
+
+        TaskType expected = TaskType.DEADLINE;
+        assertEquals(expected, d.getTaskType());
     }
 }

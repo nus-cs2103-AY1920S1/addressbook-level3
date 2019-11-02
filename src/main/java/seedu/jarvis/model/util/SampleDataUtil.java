@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.commons.util.CourseUtil;
+import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
 import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Address;
@@ -12,6 +14,8 @@ import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.course.CoursePlanner;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,6 +44,17 @@ public class SampleDataUtil {
         };
     }
 
+    public static Course[] getSampleCourses() {
+        return new Course[] {
+            CourseUtil.getCourse("CG1111").get(),
+            CourseUtil.getCourse("CS1010").get(),
+            CourseUtil.getCourse("CS1231").get(),
+            CourseUtil.getCourse("MA1511").get(),
+            CourseUtil.getCourse("MA1512").get(),
+            CourseUtil.getCourse("GER1000").get()
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -57,4 +72,10 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    public static CoursePlanner getSampleCoursePlanner() {
+        CoursePlanner cp = new CoursePlanner();
+        Arrays.stream(getSampleCourses()).forEach(cp::addCourse);
+        cp.setCourseDisplayText(ShowCourseHelpCommand.MESSAGE_HELP);
+        return cp;
+    }
 }

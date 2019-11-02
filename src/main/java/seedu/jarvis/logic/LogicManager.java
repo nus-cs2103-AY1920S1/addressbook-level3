@@ -17,6 +17,7 @@ import seedu.jarvis.model.Model;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.storage.Storage;
 
 /**
@@ -109,7 +110,6 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    @Override
     public ObservableList<Command> getExecutedCommandsList() {
         return model.getExecutedCommandsList();
     }
@@ -118,6 +118,20 @@ public class LogicManager implements Logic {
     public ObservableList<Command> getInverselyExecutedCommandsList() {
         return model.getInverselyExecutedCommandsList();
     }
+
+    // Planner ===========================================================================
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Task> getUnfilteredTaskList() {
+        return model.getUnfilteredTaskList();
+
+    }
+
 
     // Course Planner ====================================================================
 
