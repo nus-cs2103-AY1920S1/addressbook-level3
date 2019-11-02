@@ -128,6 +128,7 @@ public class VisitRecordWindow extends UiPart<Stage> {
         diagnosis.clear();
         remarks.clear();
         this.hide();
+        this.msg = "";
     }
 
 

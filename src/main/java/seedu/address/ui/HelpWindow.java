@@ -17,16 +17,25 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-f12-2.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "For detailed help, check out the User Guide:";
-    public static final String QUICK_GUIDE = "Here are some Commands to get started: "
+    public static final String QUICK_GUIDE = "Here is a quick list of Commands to get started: "
             + "(Note: Optional parameters are labelled in [ ] )\n"
-            + "\t\u2022 Add a Patient - add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]\n"
+            + "\t\u2022 Add a Patient - add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]\n"
+            + "\t\u2022 Edit a Patient field - edit INDEX [n/NAME] [p/PHONE]...\n"
             + "\t\u2022 Find a Patient - find KEYWORD [MORE KEYWORDS]\n"
+            + "\t\u2022 Delete a Patient - delete INDEX"
             + "\t\u2022 Show all Patients - list\n"
-            + "\t\u2022 Add a new Visit report for a patient - addvisit INDEX [v/DATE]\n"
-            + "\t\u2022 Show a patient's full profile - profile INDEX\n"
-            + "\t\u2022 Create a shortcut command - alias l/SHORTHAND v/COMMAND\n"
-            + "\t\u2022 Delete a shortcut command - unalias SHORTHAND\n"
-            + "\t\u2022 Create a Reminder - reminder TEXT [d/DAYS]";
+            + "\t\u2022 Add a new Visit report for a Patient - addvisit INDEX [v/DATE]\n"
+            + "\t\u2022 Edit a Visit report of a Patient - editvisit INDEX [i/REPORT_INDEX]\n"
+            + "\t\u2022 Delete a Visit report of a Patient - deletevisit INDEX [d/REPORT_INDEX]\n"
+            + "\t\u2022 Show a Patient's full profile - profile INDEX\n"
+            + "\t\u2022 Create a Shortcut command - alias l/SHORTHAND v/COMMAND\n"
+            + "\t\u2022 Delete a Shortcut command - unalias SHORTHAND\n"
+            + "\t\u2022 Show all Shortcut commands - aliaslist\n"
+            + "\t\u2022 Create a Reminder - reminder TEXT [d/DAYS]\n"
+            + "\t\u2022 Create a Follow-up visit - followup INDEX [d/DAYS]\n"
+            + "\t\u2022 Remove an Appointment - removeappt DESCRIPTION [d/DAYS]\n"
+            + "\t\u2022 Show the Message of the Day - show\n"
+            + "\t\u2022 Sort Appointments - sort";
 
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);

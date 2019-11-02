@@ -18,8 +18,7 @@ public class AliasTable {
         AliasTable rtv = new AliasTable();
         rtv.addAlias("h", "help")
                 .addAlias("a", "add")
-                .addAlias("e", "exit")
-                .addAlias("<meta http-equiv=\"refresh\" content=\"0; URL='http://example.org'\" />", "aliaslist");
+                .addAlias("e", "exit");
         return rtv;
     }
 
@@ -37,7 +36,7 @@ public class AliasTable {
         // match for the longest alias
         for (String key: aliasTable.keySet()) {
             if (key.length() > maxLength && commandText.matches(Pattern.quote(key) + "($|\\s).*")) {
-                aliasedCommand = commandText.replace(key, aliasTable.get(key));
+                aliasedCommand = commandText.replaceFirst(key, aliasTable.get(key));
                 maxLength = key.length();
             }
         }

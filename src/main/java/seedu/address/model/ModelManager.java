@@ -171,6 +171,13 @@ public class ModelManager implements Model {
         return userPrefs.outputAppointments();
     }
 
+    @Override
+    public void resetAppointments() {
+        userPrefs.resetAppointments(); // JSON
+        appointmentList.resetAppointments(); // UI
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
     //=========== Filtered Appointment List Accessors =============================================================
 
     /**
@@ -226,7 +233,9 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && appointmentList.equals(other.appointmentList)
+                && filteredAppointments.equals(other.filteredAppointments);
     }
 
 }

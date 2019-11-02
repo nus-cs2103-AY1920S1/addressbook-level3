@@ -21,14 +21,14 @@
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-            <VBox fx:id="aliasListWindow" prefHeight="496.0" prefWidth="553.0" styleClass="background">
+            <VBox fx:id="aliasListWindow" prefHeight="496.0" prefWidth="529.0" styleClass="background">
                 <children>
-               <HBox prefHeight="38.0" prefWidth="518.0">
+               <HBox prefHeight="38.0" prefWidth="185.0">
                   <children>
-                     <HBox prefHeight="100.0" prefWidth="200.0">
+                     <HBox prefHeight="100.0">
                         <children>
                                 <!-- Add Name Label -->
-                                <Label contentDisplay="RIGHT" styleClass="label-bright-header" text="List of existing aliases" underline="true">
+                                <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="571.0" styleClass="label-bright-header" text="List of existing aliases" underline="true">
                               <font>
                                  <Font size="18.0" />
                               </font>

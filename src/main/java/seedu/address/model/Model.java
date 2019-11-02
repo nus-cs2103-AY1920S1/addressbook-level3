@@ -128,6 +128,11 @@ public interface Model {
     String outputAppointments();
 
     /**
+     * Reset Appointment Data completely.
+     */
+    void resetAppointments();
+
+    /**
      * Adds a given alias into the alias table.
      * @param alias Alias name
      * @param aliasTo Alias value

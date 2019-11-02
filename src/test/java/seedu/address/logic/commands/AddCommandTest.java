@@ -135,6 +135,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addAlias(String alias, String aliasTo) {
             throw new AssertionError("This method should not be called.");
         }

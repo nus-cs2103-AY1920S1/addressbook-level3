@@ -87,13 +87,13 @@ public class AppointmentTable {
             if (antiDuplicate(reminders, description, days)) {
                 reminders.put(description, days);
             } else {
-                throw new CommandException("Appointment already exists");
+                throw new CommandException("Appointment already exists.");
             }
         } else {
             if (antiDuplicate(followup, description, days)) {
                 followup.put(description, days);
             } else {
-                throw new CommandException("Appointment already exists");
+                throw new CommandException("Appointment already exists.");
             }
         }
         return this;

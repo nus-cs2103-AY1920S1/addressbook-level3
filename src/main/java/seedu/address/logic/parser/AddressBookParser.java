@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ARGUMENTS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -73,12 +74,18 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ListCommand();
 
         case AddVisitCommand.COMMAND_WORD:
@@ -103,18 +110,33 @@ public class AddressBookParser {
             return new DeleteAppointmentCommandParser().parse(arguments);
 
         case SortAppointmentsCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new SortAppointmentsCommand();
 
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new HelpCommand();
 
         case ShowCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ShowCommand();
 
         case AliasListCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new AliasListCommand();
 
         default:
