@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
 import mams.logic.history.InputOutput;
+import mams.ui.ResultDisplay;
 import mams.ui.UiPart;
 
 /**
@@ -21,12 +22,17 @@ public class HistoryWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HistoryWindow.class);
     private static final String FXML = "HistoryWindow.fxml";
 
+    private static final String MESSAGE_COPY_FEEDBACK = "Copied the following command to system clipboard:\n%1$s";
+
     private boolean hideOutputHistory;
 
     private HistoryListPanel historyListPanel;
+    private ResultDisplay historyWindowFeedback;
 
     @FXML
     private StackPane historyDisplayPanelPlaceholder;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
     /**
      * Creates a new HistoryWindow.
@@ -38,6 +44,8 @@ public class HistoryWindow extends UiPart<Stage> {
         this.hideOutputHistory = hideOutputHistory;
         this.historyListPanel = new HistoryListPanel(commandHistory);
         historyDisplayPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+        this.historyWindowFeedback = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(historyWindowFeedback.getRoot());
 
         // Global event filter: whenever ESC key is pressed, exit HistoryWindow regardless of focus.
         root.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
@@ -99,6 +107,7 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public void hide() {
         getRoot().hide();
+        historyWindowFeedback.clearDisplay();
     }
 
     /**
@@ -125,6 +134,7 @@ public class HistoryWindow extends UiPart<Stage> {
         InputOutput selected = historyListPanel.getCurrentlySelectedInputOutput();
         copiedText.putString(selected.getInput());
         clipboard.setContent(copiedText);
+        historyWindowFeedback.setFeedbackToUser(String.format(MESSAGE_COPY_FEEDBACK, selected.getInput()));
     }
 
     /**

@@ -44,12 +44,12 @@
     -fx-background-color: #20212A;
 }
 
-#timeStamp .label {
-    -fx-font-size: 10px;
-}
-
 .label.time-stamp {
     -fx-font-family: "Roboto Mono for Powerline";
     -fx-font-size: 11;
     -fx-text-fill: #FA77C3;
+}
+
+#timeStamp .label {
+    -fx-font-size: 10px;
 }

@@ -51,6 +51,7 @@ public class HistoryListPanel extends UiPart<Region> {
         int lastIndex = commandHistoryList.size() - 1;
         itemListView.scrollTo(lastIndex);
         itemListView.getSelectionModel().select(lastIndex);
+        itemListView.getFocusModel().focus(lastIndex);
     }
 
     public InputOutput getCurrentlySelectedInputOutput() {

@@ -9,6 +9,8 @@
 <?import javafx.stage.Stage?>
 
 <?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
@@ -19,9 +21,25 @@
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />
         </stylesheets>
-         <HBox alignment="CENTER" styleClass="pane-with-border" onKeyPressed="#handleKeyPress">
-            <children>
-               <Label fx:id="helpMessage" text="Label" styleClass="prefix-label">
+        <VBox alignment="CENTER" styleClass="pane-with-border" onKeyPressed="#handleKeyPress">
+            <HBox fx:id="hotKeyHelpBar" styleClass="pane-with-border" alignment="CENTER">
+                <ImageView fitHeight="40" fitWidth="100">
+                    <image>
+                        <Image url="@/images/space-icon.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="SpaceLabel" styleClass="cell_small_label, blue-text-label" text="Copy URL" />
+
+                <ImageView fitHeight="40" fitWidth="40">
+                    <image>
+                        <Image url="@/images/esc-icon.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="closeLabel" styleClass="cell_small_label, blue-text-label" text="Close Window" />
+            </HBox>
+
+         <HBox alignment="CENTER" styleClass="pane-with-border">
+                <Label fx:id="helpMessage" text="Label" styleClass="prefix-label">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
@@ -31,7 +49,6 @@
                      <Insets left="5.0" />
                   </HBox.margin>
                </Button>
-            </children>
             <opaqueInsets>
                <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
             </opaqueInsets>
@@ -39,6 +56,7 @@
                <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
             </padding>
          </HBox>
+        </VBox>
     </Scene>
   </scene>
 </fx:root>
