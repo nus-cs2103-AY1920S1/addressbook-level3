@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.mark.commons.exceptions.IllegalValueException;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.folderstructure.FolderStructure;
 
@@ -48,10 +49,16 @@ public class JsonAdaptedFolderStructure {
      * Converts this Jackson-friendly adapted bookmark object
      * into the model's {@code FolderStrucutre} object.
      */
-    public FolderStructure toModelType() {
-        return new FolderStructure(new Folder(name), subfolders.stream().map(
-                JsonAdaptedFolderStructure::toModelType).collect(
-                Collectors.toList()));
+    public FolderStructure toModelType() throws IllegalValueException {
+        if (!Folder.isValidFolder(name)) {
+            throw new IllegalValueException(Folder.MESSAGE_CONSTRAINTS);
+        }
+        List<FolderStructure> list = new ArrayList<>();
+        for (JsonAdaptedFolderStructure subfolder : subfolders) {
+            FolderStructure toModelType = subfolder.toModelType();
+            list.add(toModelType);
+        }
+        return new FolderStructure(new Folder(name), list);
     }
 
     @Override

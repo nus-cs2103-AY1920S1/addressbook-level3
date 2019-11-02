@@ -27,6 +27,8 @@ public class JsonSerializableMarkTest {
             TEST_DATA_FOLDER.resolve("duplicateFolderInFolderStructureMark.json");
     private static final Path NO_ROOT_FOLDER_IN_STRUCTURE_FILE =
             TEST_DATA_FOLDER.resolve("noRootFolderInStructureMark.json");
+    private static final Path NONEXISTENT_FOLDER_IN_BOOKMARK =
+            TEST_DATA_FOLDER.resolve("nonexistentFolderInBookmark.json");;
 
 
     @Test
@@ -60,10 +62,18 @@ public class JsonSerializableMarkTest {
     }
 
     @Test
-    public void toModelType_duplicateFolderInStrucutre_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateFolderInStructure_throwsIllegalValueException() throws Exception {
         JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(DUPLICATE_FOLDER_IN_STRUCTURE_FILE,
                 JsonSerializableMark.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableMark.MESSAGE_DUPLICATE_FOLDER,
+                dataFromFile::toModelType);
+    }
+
+    @Test
+    public void toModelType_nonexistentFolderInBookmark_throwsIllegalValueException() throws Exception {
+        JsonSerializableMark dataFromFile = JsonUtil.readJsonFile(NONEXISTENT_FOLDER_IN_BOOKMARK,
+                JsonSerializableMark.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableMark.MESSAGE_NONEXISTENT_FOLDER,
                 dataFromFile::toModelType);
     }
 
