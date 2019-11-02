@@ -25,13 +25,13 @@ public class RemoveTagCommand extends TagCommand {
             + ": Removes tag(s) from the expense identified "
             + "by the index number used in the last expense listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]\n"
+            + PREFIX_TAG + "[TAG] (1 or more)\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
     public static final String MESSAGE_RM_TAG_SUCCESS = "Removed tag(s) from Expense: %1$s";
 
-    public static final String MESSAGE_RM_TAG_FAILURE = "No tag(s) removed";
+    public static final String MESSAGE_RM_TAG_FAILURE = "No tag(s) to be removed";
 
     private final Index index;
     private List<String> tagNames;

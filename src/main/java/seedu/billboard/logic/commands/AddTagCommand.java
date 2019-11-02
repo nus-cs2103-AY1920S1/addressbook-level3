@@ -25,13 +25,13 @@ public class AddTagCommand extends TagCommand {
             + ": Adds tag(s) to the expense identified "
             + "by the index number used in the last expense listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]\n"
+            + PREFIX_TAG + "[TAG] (1 or more)\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: \n%1$s";
 
-    public static final String MESSAGE_ADD_TAG_FAILURE = "No tag(s) added";
+    public static final String MESSAGE_ADD_TAG_FAILURE = "No tag(s) to be added";
 
     private final Index index;
     private List<String> tagNames;
