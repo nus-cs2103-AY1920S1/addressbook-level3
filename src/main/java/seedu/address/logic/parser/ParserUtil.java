@@ -184,7 +184,7 @@ public class ParserUtil {
         requireNonNull(title);
         String trimmedTitle = title.trim();
         if (!seedu.address.model.cheatsheet.Title.isValidTitle(trimmedTitle)) {
-            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+            throw new ParseException(seedu.address.model.cheatsheet.Title.MESSAGE_CONSTRAINTS);
         }
         return new seedu.address.model.cheatsheet.Title(trimmedTitle);
     }
