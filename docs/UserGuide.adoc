@@ -97,7 +97,7 @@ attendance and performance.
 
 Type the athlete's particulars in the format given below.
 
-Format : `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]... [i/IMAGE]`
+Format : `add n/NAME p/PHONE e/EMAIL g/GENDER a/ADDRESS [t/TAG]... [i/IMAGE]`
 
 [NOTE]
 ====
@@ -108,7 +108,7 @@ You can include any number of tags (zero tags are also allowed) to an athlete an
 is optional.
 ====
 
-Example: `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+Example: `add n/John Doe p/98765432 e/johnd@example.com g/male a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
 
 image::beforeAdd.png[width=450]
 
@@ -636,7 +636,7 @@ This command restores Athletick to the state before the previous command was exe
 [NOTE]
 ====
 Take note that the `undo` feature only applies to undoable commands.
-Undoable commands include: `add`, `delete`, `edit`, `clear`, `attendance` and `training` .
+Undoable commands include: `add`, `delete`, `edit`, `clear` and `training`.
 
 The `undo` command will not be able to undo commands that cannot be undone.
 Let’s say you have executed a `list` command to list out all the athletes information in Athletick.
@@ -692,10 +692,13 @@ Executing the `undo` command again will reverse the `clear` command as well.
 Following this, executing the `redo` command will reverse the most recent `undo` command and re-execute the `clear`
 command.
 Executing the `redo` command again will reverse the second most recent `undo` command and re-execute the `add` command.
+
+The `redo` command can only be executed immediately after a `undo` command.
 ====
 
 Let’s say you have executed the `delete` command to delete Mohamad Ali from your list.
 You may undo this action and restore Mohamad Ali’s information by executing the `undo` command. (See Undoing a previous command.)
+
 
 Then, if you decide that you want the contact to remain deleted after all,
 you may very quickly do so by executing the `redo` command to reverse the `undo` command that you had just executed.
