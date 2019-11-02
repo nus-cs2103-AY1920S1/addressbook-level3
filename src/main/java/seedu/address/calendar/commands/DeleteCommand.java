@@ -22,5 +22,6 @@ public abstract class DeleteCommand extends Command<Calendar> {
             + CliSyntax.PREFIX_NAME + " NAME " + "\n"
             + "Example: " + COMMAND_WORD + " commitment " + CliSyntax.PREFIX_START_DAY + " 29 "
             + CliSyntax.PREFIX_START_MONTH + " Nov " + CliSyntax.PREFIX_NAME + " CS2103 exam";
+
 }
 
