@@ -19,6 +19,8 @@ public class AliasCommand extends Command {
     public static final String PROPER_USAGE = "%s\n"
             + "You will need one command word and one keyword only.\n" + EXAMPLE_USAGE;
 
+    public static final String INVALID_ALIAS_WORD = "%s is not a valid alias word. It must be alphanumeric.";
+
     public static final String WORD_ALREADY_EXISTS_USAGE = "%s is already an alias for %s.\n"
             + "Please either clear the alias for %s for use another word.";
     public static final String COMMAND_WORD_USAGE = "%s is already a command word.\n"

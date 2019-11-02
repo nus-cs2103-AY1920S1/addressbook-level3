@@ -10,6 +10,8 @@ import seedu.savenus.logic.parser.exceptions.ParseException;
  */
 public class AliasCommandParser implements Parser<AliasCommand> {
 
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
     @Override
     public AliasCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
@@ -23,6 +25,10 @@ public class AliasCommandParser implements Parser<AliasCommand> {
         if (hasOnlyCommandWord(fieldKeyWords)) {
             return new AliasCommand(fieldKeyWords[0], "");
         } else if (hasCommandAndKAliasWord(fieldKeyWords)) {
+            if (!isAliasWordValid(fieldKeyWords[1])) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        String.format(AliasCommand.INVALID_ALIAS_WORD, fieldKeyWords[1])));
+            }
             return new AliasCommand(fieldKeyWords[0], fieldKeyWords[1]);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -47,5 +53,9 @@ public class AliasCommandParser implements Parser<AliasCommand> {
      */
     public boolean hasCommandAndKAliasWord(String[] keywords) {
         return keywords.length == 2;
+    }
+
+    public boolean isAliasWordValid(String aliasWord) {
+        return aliasWord.matches(VALIDATION_REGEX);
     }
 }
