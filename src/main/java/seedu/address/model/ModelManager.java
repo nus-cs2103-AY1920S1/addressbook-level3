@@ -479,7 +479,6 @@ public class ModelManager implements Model {
     public void updateFilteredExpenses(Predicate<Expense> predicate) {
         requireNonNull(predicate);
         filteredExpenses.setPredicate(predicate);
-        versionedAddressBook.updateBudgets(filteredExpenses);
     }
 
     @Override

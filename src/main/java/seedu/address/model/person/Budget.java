@@ -18,7 +18,7 @@ public class Budget extends Entry {
     private final Date endDate;
     private FilteredList<Expense> filteredExpenses;
     private ExpenseMatchesBudgetPredicate expenseMatchesBudgetPredicate;
-    
+
     public Budget(Category cat, Description desc, Date startDate, Period period, Amount amount, Set<Tag> tags) {
         super(cat, desc, startDate, amount, tags);
         this.startDate = startDate;
