@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -25,6 +26,8 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
         try {
             description = argMultimap.getPreamble();
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("-1"));
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MESSAGE_INVALID_DAYS);
         } catch (Exception ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteAppointmentCommand.MESSAGE_USAGE), ex);

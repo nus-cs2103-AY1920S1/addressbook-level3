@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -28,13 +29,16 @@ public class ReminderCommandParser implements Parser<ReminderCommand> {
         try {
             description = argMultimap.getPreamble();
             if (description == null || description.trim().equals("")) {
-                throw new ParseException(MESSAGE_EMPTY); // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
+                throw new IllegalValueException(MESSAGE_EMPTY);
             }
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));
             if (days < 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
-                // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
+                throw new NumberFormatException(String.format(MESSAGE_INVALID_DAYS));
             }
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_EMPTY));
         } catch (Exception ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReminderCommand.MESSAGE_USAGE), ex);
         }

@@ -30,11 +30,12 @@ public class FollowUpCommandParser implements Parser<FollowUpCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             days = Integer.parseInt(argMultimap.getValue(PREFIX_DAYS).orElse("7"));
             if (days < 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
-                // This will fall-through to MESSAGE_INVALID_COMMAND_FORMAT
+                throw new NumberFormatException(String.format(MESSAGE_INVALID_DAYS));
             }
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FollowUpCommand.MESSAGE_USAGE), ive);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DAYS));
         }
 
         return new FollowUpCommand(index, days);
