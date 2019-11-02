@@ -3,8 +3,6 @@ package seedu.address.model.question;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Question}'s {@code QuestionBody} matches any of the keywords given.
  */
@@ -17,8 +15,8 @@ public class BodyContainsKeywordsPredicate implements Predicate<Question> {
 
     @Override
     public boolean test(Question question) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(question.getQuestionBody().body, keyword));
+        String body = question.getQuestionBody().body;
+        return keywords.stream().anyMatch(s -> body.toLowerCase().contains(s.toLowerCase()));
     }
 
     @Override

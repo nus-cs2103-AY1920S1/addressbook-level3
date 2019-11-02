@@ -47,6 +47,9 @@ public class QuizModeCommandParser implements Parser<QuizModeCommand> {
 
         try {
             numOfQuestions = ParserUtil.parseNumber(argMultimap.getValue(PREFIX_NUMBER).get());
+            if (numOfQuestions < 1) {
+                throw new ParseException(INVALID_NUMBER);
+            }
             subject = ParserUtil.parseSubject(argMultimap.getValue(PREFIX_SUBJECT).get());
             difficulty = ParserUtil.parseDifficulty(argMultimap.getValue(PREFIX_DIFFICULTY).get());
         } catch (NumberFormatException e) {
