@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.*;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import seedu.address.commons.exceptions.IllegalValueException;
