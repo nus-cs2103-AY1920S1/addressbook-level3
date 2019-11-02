@@ -15,27 +15,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalBorrowers.*;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.UserSettings;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteByIndexCommand;
-import seedu.address.logic.commands.DeleteBySerialNumberCommand;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.logic.commands.EditBorrowerCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.LoanCommand;
-import seedu.address.logic.commands.PayCommand;
-import seedu.address.logic.commands.RegisterCommand;
-import seedu.address.logic.commands.RenewCommand;
-import seedu.address.logic.commands.ReturnCommand;
-import seedu.address.logic.commands.ServeCommand;
-import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.BorrowerRecords;
 import seedu.address.model.Catalog;
@@ -139,6 +125,14 @@ public class CatalogParserTest {
                 RegisterCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY + " "
                         + PREFIX_PHONE + VALID_PHONE_AMY + " " + PREFIX_EMAIL + VALID_EMAIL_AMY)
                 instanceof RegisterCommand);
+    }
+
+    @Test
+    public void parseCommand_unregister() throws Exception {
+        BorrowerIdGenerator.setBorrowers(getTypicalBorrowerRecords());
+        assertTrue(parser.parseCommand(
+                UnregisterCommand.COMMAND_WORD + " " + PREFIX_BORROWER_ID + ID_FIRST_BORROWER)
+                instanceof UnregisterCommand);
     }
 
     @Test
