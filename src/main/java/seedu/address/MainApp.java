@@ -16,19 +16,19 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 
-import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.UserState;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.BankAccountStorage;
-import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserStateStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        BankAccountStorage bankAccountStorage = new JsonBankAccountStorage(userPrefs.getBankAccountFilePath());
-        storage = new StorageManager(bankAccountStorage, userPrefsStorage);
+        UserStateStorage userStateStorage = new JsonUserStateStorage(userPrefs.getUserStateFilePath());
+        storage = new StorageManager(userStateStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,21 +75,24 @@ public class MainApp extends Application {
      * or an empty bank account will be used instead if errors occur when reading {@code storage}'s bank account.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyBankAccount> bankAccountOptional;
-        ReadOnlyBankAccount initialData;
+        Optional<ReadOnlyUserState> userStateOptional;
+        ReadOnlyUserState initialData;
         try {
-            bankAccountOptional = storage.readBankAccount();
-            if (!bankAccountOptional.isPresent()) {
+            userStateOptional = storage.readUserState();
+            if (!userStateOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BankAccount");
             }
-            initialData = bankAccountOptional.orElseGet(SampleDataUtil::getSampleBankAccount);
+            initialData = userStateOptional.orElseGet(SampleDataUtil::getSampleAccount);
+            logger.info("Successfully create initial data");
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BankAccount");
-            initialData = new BankAccount();
+            initialData = new UserState();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty BankAccount");
-            initialData = new BankAccount();
+            initialData = new UserState();
         }
+
+        assert initialData != null;
 
         return new ModelManager(initialData, userPrefs);
     }

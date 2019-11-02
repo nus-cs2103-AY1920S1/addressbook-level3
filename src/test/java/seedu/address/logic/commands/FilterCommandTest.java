@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,15 +23,15 @@ import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
  */
 public class FilterCommandTest {
 
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     @Test
     public void equals() {
         TransactionContainsCategoriesPredicate firstPredicate =
-                new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
+            new TransactionContainsCategoriesPredicate(Collections.singletonList("first"));
         TransactionContainsCategoriesPredicate secondPredicate =
-                new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
+            new TransactionContainsCategoriesPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -53,18 +53,20 @@ public class FilterCommandTest {
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 
+    // TODO: more testcases
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
         TransactionContainsCategoriesPredicate predicate = preparePredicate(" ");
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
+        expectedModel.commitUserState();
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code TransactionContainsCategoriesPredicate}.
      */
     private TransactionContainsCategoriesPredicate preparePredicate(String userInput) {
         return new TransactionContainsCategoriesPredicate(Arrays.asList(userInput.split("\\s+")));

@@ -8,11 +8,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount implements Comparable<Amount> {
 
+    public static final int UNSIGNED_INT_LIMIT = 100000000;
+
     public static final String MESSAGE_CONSTRAINTS =
         "Amounts should only be in integer or double, and it should not be blank";
 
     public static final String DOUBLE_CONSTRAINTS =
-        "Doubles passed into Amount constructor should have maximum 2 decimal places";
+        "Amount should have maximum 2 decimal places";
+
+    public static final String INT_CONSTRAINTS =
+        "Amount should not exceed $" + UNSIGNED_INT_LIMIT / 100 + ".\n";
 
     public static final String SHARE_CONSTRAINTS =
         "Shares cannot be negative";
@@ -22,20 +27,39 @@ public class Amount implements Comparable<Amount> {
     public Amount(double amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), DOUBLE_CONSTRAINTS);
-        this.amount = (int) Math.floor(amount * 100);
+        int cents = (int) Math.round(amount * 100);
+        checkArgument(isWithinLimits(cents), INT_CONSTRAINTS);
+        this.amount = cents;
     }
 
+    /**
+     * Creates Amount object of {@code amount} cents
+     *
+     * @param amount amount in cents
+     */
     public Amount(int amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
+        checkArgument(isWithinLimits(amount), INT_CONSTRAINTS);
         this.amount = amount;
     }
 
     /**
-     * Returns true if a given value is a valid amount.
+     * Returns true if a given value has maximally 2 decimal points.
      */
     public static boolean isValidAmount(double amount) {
-        return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
+        // String amountStr = "" + amount;
+        // int indexOfPeriod = amountStr.lastIndexOf(".");
+        // return indexOfPeriod == -1
+        //     || amountStr.substring(indexOfPeriod + 1).length() <= 2;
+        return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * 1.13E-13;
+    }
+
+    /**
+     * Checks if absolute value of {@code amount} is less than {@code MAX_AMOUNT}
+     */
+    public static boolean isWithinLimits(int cents) {
+        return cents >= -UNSIGNED_INT_LIMIT && cents <= UNSIGNED_INT_LIMIT;
     }
 
     /**
@@ -93,6 +117,9 @@ public class Amount implements Comparable<Amount> {
      * @return negative amount
      */
     public Amount makeNegative() {
+        if (amount < 0) {
+            return new Amount(this.amount);
+        }
         final int newAmount = this.amount * -1;
         return new Amount(newAmount);
     }

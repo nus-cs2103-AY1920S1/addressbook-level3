@@ -13,9 +13,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.BankAccountParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.storage.Storage;
 
 /**
@@ -43,7 +44,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveBankAccount(model.getBankAccount());
+            storage.saveUserState(model.getUserState());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,13 +53,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBankAccount getBankAccount() {
-        return model.getBankAccount();
+    public ReadOnlyUserState getUserState() {
+        return model.getUserState();
     }
 
     @Override
-    public Path getBankAccountFilePath() {
-        return model.getBankAccountFilePath();
+    public Path getUserStateFilePath() {
+        return model.getUserStateFilePath();
     }
 
     @Override
@@ -84,6 +85,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Budget> getBudgetList() {
         return model.getFilteredBudgetList();
+    }
+
+    @Override
+    public ObservableList<LedgerOperation> getLedgerOperationsList() {
+        return model.getFilteredLedgerOperationsList();
     }
 
 }

@@ -77,7 +77,11 @@ public class CommandResult {
         return exit;
     }
 
-    public Tab isSwitchTab() {
+    public boolean isSwitchTab() {
+        return switchTab != null;
+    }
+
+    public Tab getTab() {
         return switchTab;
     }
 

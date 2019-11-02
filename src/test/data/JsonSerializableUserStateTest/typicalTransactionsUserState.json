@@ -1,5 +1,5 @@
 {
-  "_comment": "BankAccount saves file which contains the same Transaction values as in TypicalTransactions#getTypicalBankAccount()",
+  "_comment": "UserState save file which contains the same Transaction values as in TypicalTransactions#getTypicalUserState()",
   "transactions": [
     {
       "description": "milk",
@@ -58,5 +58,6 @@
       ]
     }
   ],
-  "budgets": []
+  "budgets": [],
+  "ledgers": []
 }

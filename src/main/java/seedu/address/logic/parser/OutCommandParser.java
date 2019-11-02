@@ -28,11 +28,22 @@ public class OutCommandParser implements Parser<OutCommand> {
     @Override
     public OutCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
+        }
+
+        /* handles negative amount */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
+
+        /* handles 0 value */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
+            && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
+            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_ZERO));
         }
 
         Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());

@@ -45,10 +45,24 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
         UpdateTransactionDescriptor updateTransactionDescriptor = new UpdateTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            /* handles negative amount */
+            if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+                throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_NEGATIVE));
+            }
+
+            /* handles 0 value */
+            if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
+                && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
+                throw new ParseException(String.format(UpdateCommand.MESSAGE_AMOUNT_ZERO));
+            }
             updateTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             updateTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            updateTransactionDescriptor.setDescription(
+                ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get()));
         }
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
             .ifPresent(updateTransactionDescriptor::setCategories);
@@ -56,6 +70,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         if (!updateTransactionDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }
+
 
         return new UpdateCommand(type, index, updateTransactionDescriptor);
     }

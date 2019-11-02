@@ -36,7 +36,7 @@ public class SortCommand extends Command {
         List<BankAccountOperation> sortedTransactionHistory =
             model.getBankAccount().getSortedTransactionHistory(comparator);
         model.setTransactions(sortedTransactionHistory);
-        model.commitBankAccount();
+        model.commitUserState();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

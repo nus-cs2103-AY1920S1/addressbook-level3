@@ -31,12 +31,10 @@ public class Projection {
      */
     public void project() {
         double [] balances = extractBalances();
-        // TODO: pass in double[] for input values (or use list.toarray(double))
         double [] dates = extractDates();
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
         double projectionAmount = Math.round(projector.predict(daysToProject)) / 100.0;
-        System.out.println(projectionAmount);
         projection = new Amount(projectionAmount);
         Stage graph = new ProjectionLineGraph(this);
         graph.show();

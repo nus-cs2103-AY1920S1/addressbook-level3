@@ -124,10 +124,10 @@ public class CommandTestUtil {
         BankAccountOperation transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());
 
         final List<String> categories = transaction
-                .getCategories()
-                .stream()
-                .map(category -> category.getCategoryName())
-                .collect(Collectors.toList());
+            .getCategories()
+            .stream()
+            .map(category -> category.getCategoryName())
+            .collect(Collectors.toList());
         model.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
 
         assertEquals(1, model.getFilteredTransactionList().size());
@@ -139,7 +139,7 @@ public class CommandTestUtil {
     public static void deleteFirstTransaction(Model model) {
         BankAccountOperation firstTransaction = model.getFilteredTransactionList().get(0);
         model.deleteTransaction(firstTransaction);
-        model.commitBankAccount();
+        model.commitUserState();
     }
 
 }

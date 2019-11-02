@@ -9,7 +9,8 @@ import seedu.address.model.util.Date;
 public interface LedgerOperation {
     Amount handleBalance(Amount balance, UniquePersonList peopleInLedger);
 
-    boolean isSameTransaction(BankAccountOperation transaction);
+    // TODO
+    boolean isSameLedgerOperation(LedgerOperation ledgerOperation);
 
     Date getDate();
 
