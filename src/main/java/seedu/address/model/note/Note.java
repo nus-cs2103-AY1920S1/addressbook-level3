@@ -2,9 +2,15 @@ package seedu.address.model.note;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 
 import javafx.scene.image.Image;
+import seedu.address.commons.util.AppUtil;
 
 /**
  * Represents an NUStudy lecture note. Its title and content are guaranteed non-null;
@@ -13,32 +19,41 @@ import javafx.scene.image.Image;
 public class Note {
     private final Title title;
     private final Content content;
-    private final Image image;
+    private boolean needsImage;
+    private Image image = null;
 
     /**
-     * Constructs a new lecture note. Both fields must be present and non-null. The image field is set to null.
+     * Constructs a new lecture note. The title and content must be present and non-null;
+     * if needsImage is true, allows the selection of an image later with finalizeImage().
      *
      * @param title The lecture note's title, which must be unique among all lecture notes.
      * @param content The lecture note's content (newlines are supported), which do not have to be unique.
+     * @param needsImage Whether an image is intended for this lecture note.
      */
-    public Note(Title title, Content content) {
+    public Note(Title title, Content content, boolean needsImage) {
         requireAllNonNull(title, content);
         this.title = title;
         this.content = content;
-        this.image = null;
+        this.needsImage = needsImage;
     }
 
     /**
-     * Constructs a new lecture note with an image. The image may be null, in which case NUStudy proceeds as with
-     * the two-argument constructor.
+     * Constructs a new lecture note, but without an image.
+     *
+     * @see Note#Note(Title, Content, boolean)
+     */
+    public Note(Title title, Content content) {
+        this(title, content, false);
+    }
+
+    /**
+     * Constructs a new lecture note with an image already present, which may be null.
      *
      * @param image The image associated with this lecture note.
      * @see Note#Note(Title, Content)
      */
     public Note(Title title, Content content, Image image) {
-        requireAllNonNull(title, content);
-        this.title = title;
-        this.content = content;
+        this(title, content);
         this.image = image;
     }
 
@@ -56,6 +71,30 @@ public class Note {
 
     public String getImageUrl() {
         return image != null ? image.getUrl() : "none";
+    }
+
+    /**
+     * Finalizes this note's image if one is needed, copying it into the parent directory provided.
+     * This method's main body can only be executed once.
+     */
+    public void finalizeImage(Path parent) {
+        requireAllNonNull(parent);
+        if (!needsImage) {
+            return;
+        }
+        image = AppUtil.selectImage();
+        if (image != null) {
+            // selectImage() prefixes the URL with "file:", so we only need to remove the prefix
+            Path sourcePath = Paths.get(image.getUrl().substring(5));
+            Path destPath = parent.resolve(sourcePath.getFileName().toString());
+            try {
+                Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
+                image = new Image("file:" + destPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        needsImage = false;
     }
 
     /**
