@@ -59,7 +59,7 @@ public class EditRepeaterCommandParser implements Parser<EditRepeaterCommand> {
                         argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editRepeaterDescriptor.setAmount(ParserUtil.parseAmount(
+            editRepeaterDescriptor.setAmount(ParserUtil.parsePositiveAmount(
                         argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
