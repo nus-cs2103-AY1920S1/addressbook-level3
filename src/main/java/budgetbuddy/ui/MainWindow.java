@@ -1,7 +1,5 @@
 package budgetbuddy.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.HashMap;
 import java.util.logging.Logger;
 

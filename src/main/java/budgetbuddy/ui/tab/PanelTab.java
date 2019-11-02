@@ -17,11 +17,15 @@ public abstract class PanelTab extends Tab {
     private DisplayPanel secondaryPanel;
 
     public PanelTab(DisplayPanel panel, String imageFileName) {
-        this.primaryPanel = panel;
-        this.secondaryPanel = null;
+        this(panel, null, imageFileName);
+    }
+
+    public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
+        this.primaryPanel = primaryPanel;
+        this.secondaryPanel = secondaryPanel;
 
         setClosable(false);
-        setContent(panel.getRoot());
+        setContent(primaryPanel.getRoot());
 
         // Create image
         ImageView currImage = new ImageView(AppUtil.getImage(imageFileName));
@@ -38,11 +42,6 @@ public abstract class PanelTab extends Tab {
                 currImage.setEffect(desaturateEffect);
             }
         });
-    }
-
-    public PanelTab(DisplayPanel primaryPanel, DisplayPanel secondaryPanel, String imageFileName) {
-        this(primaryPanel, imageFileName);
-        this.secondaryPanel = secondaryPanel;
     }
 
     public void setPrimaryPanel() {
