@@ -646,6 +646,7 @@ Format:
 - `piechart`
 - `barchart`
 - `linechart`
+* Note that every format supports every indicator
 ****
 
 Examples:

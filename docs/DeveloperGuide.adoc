@@ -803,6 +803,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
 === Use case: Merging a duplicate person with different fields
 
 *MSS*
