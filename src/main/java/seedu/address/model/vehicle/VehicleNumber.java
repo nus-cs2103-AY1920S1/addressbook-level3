@@ -41,36 +41,6 @@ public class VehicleNumber {
     }
 
     /**
-     * Adds to list of unique vehicle numbers.
-     * @param vNum
-     */
-    public static void addVehicleNumber(String vNum) {
-        if (!isDuplicateVNum(vNum)) {
-            vehicleNumbers.add(vNum);
-        }
-    }
-
-    /**
-     * Deletes from the list of unique vehicle numbers.
-     * @param vNum is vehicle number to be deleted.
-     */
-    public static void deleteVehicleNumber(String vNum) {
-        vehicleNumbers.remove(vNum);
-    }
-
-    /**
-     * Checks if vehicle number already exists.
-     * @param vNum
-     * @return
-     */
-    public static boolean isDuplicateVNum(String vNum) {
-        if (vehicleNumbers.contains(vNum.toUpperCase())) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Returns true if a given string is a valid VehicleNumber.
      */
     public static boolean isValidVehicleNumber(String test) {

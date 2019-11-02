@@ -223,6 +223,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasVNum(String vNum) {
+        requireNonNull(vNum);
+        return incidentManager.hasVehicleNumber(vNum);
+    }
+
+    @Override
     public void setVehicle(Vehicle target, Vehicle editedVehicle) {
         requireAllNonNull(target, editedVehicle);
         incidentManager.setVehicle(target, editedVehicle);

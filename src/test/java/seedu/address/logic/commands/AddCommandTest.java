@@ -196,6 +196,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasVNum(String vNum) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setVehicle(Vehicle target, Vehicle editedVehicle) {
             throw new AssertionError("This method should not be called.");
         }

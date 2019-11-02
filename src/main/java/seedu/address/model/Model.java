@@ -144,6 +144,11 @@ public interface Model {
     boolean hasVehicle(Vehicle vehicle);
 
     /**
+     * Returns true if a vehicle of the same vehicle number exists in the Incident Manager.
+     */
+    boolean hasVNum(String vNum);
+
+    /**
      * Replaces the given Vehicle {@code target} with {@code editedVehicle}.
      * {@code target} must exist in the Incident Manager.
      * The identity of {@code target} must not be the same as another vehicle in the Incident Manager

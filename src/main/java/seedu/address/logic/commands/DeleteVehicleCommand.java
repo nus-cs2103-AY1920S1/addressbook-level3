@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.Vehicle;
-import seedu.address.model.vehicle.VehicleNumber;
 
 /**
  * Deletes a vehicle identified using its index in the IMS.
@@ -44,9 +43,6 @@ public class DeleteVehicleCommand extends Command {
         if (toDelete.getAvailability().equals(new Availability("Busy"))) {
             throw new CommandException(MESSAGE_DELETE_VEHICLE_ERROR);
         }
-
-        //delete the vehicle number of the deleted vehicle from the list of unique vehicle numbers
-        VehicleNumber.deleteVehicleNumber(toDelete.getVehicleNumber().toString());
 
         model.deleteVehicle(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_VEHICLE_SUCCESS, toDelete));
