@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JSON_EXPORT_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalFlashCards.NUS;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
@@ -18,6 +19,7 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -96,6 +98,16 @@ public class ExportCommandTest {
         assertCommandSuccess(fifthCommand, model, expectedMessage, model);
         assertTrue(isFilePresent(firstJsonExportPath));
         deleteFileIfExists(firstJsonExportPath);
+    }
+
+    @Test
+    public void execute_nonExistentCategory_exceptionThrown() {
+        assertThrows(
+            CommandException.class, () ->
+                fifthCommand.execute(
+                        model
+                )
+        );
     }
 
     private boolean isFilePresent(ExportPath exportPath) {
