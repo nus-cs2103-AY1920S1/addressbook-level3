@@ -394,12 +394,14 @@ type of CCA. The types of the CCA will be limited to the following:
 . `club`
 . `uniformedGroup`
 
-Format: `add-cca n/NAME t/TYPE e/EQUIPMENT`
+Note that equipment for each `Cca` is not compulsory.
+
+Format: `add-cca n/NAME t/TYPE [e/EQUIPMENT]`
 
 ===== Example
 ----
 add-cca n/Swimming t/sport e/swimming trunks e/goggles
-add-cca n/Canoeing t/sport e/Boat e/Paddle
+add-cca n/Canoeing t/sport
 add-cca n/Guitar Ensemble t/performingArt e/guitar
 ----
 
@@ -461,6 +463,8 @@ add-progress n/Guitar Ensemble l/8
 
 ==== Increment progress level: `increment-progress`
 Increments the progress for a CCA at the specified index.
+
+Note that progress can only be incremented if a progress has been added to that Cca.
 
 Format: `increment-progress INDEX`
 
