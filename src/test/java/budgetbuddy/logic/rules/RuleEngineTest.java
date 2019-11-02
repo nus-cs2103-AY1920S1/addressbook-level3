@@ -207,7 +207,7 @@ class RuleEngineTest {
     public class AccountStub extends Account {
 
         public AccountStub() {
-            super(new Name("TestName"), new Description("TestDesc"), new TransactionList());
+            super(new Name("TestName"), new Description("TestDesc"), new TransactionList(), 0);
         }
     }
 

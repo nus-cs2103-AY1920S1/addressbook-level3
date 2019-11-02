@@ -17,9 +17,11 @@ import javafx.collections.ObservableList;
 public class TransactionList implements Iterable<Transaction> {
 
     public static final String MESSAGE_CONSTRAINTS = "TransactionList can not be null";
+    public final Amount balance = new Amount(0);
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
 
     /**
      * Returns true if the list contains an equivalent Transaction as the given argument.
@@ -79,6 +81,13 @@ public class TransactionList implements Iterable<Transaction> {
             // TODO handle transactions not found
             throw new TransactionNotFoundException();
         }
+    }
+
+    /**
+     * Returns the total balance of the transactionList
+     */
+    public Amount getBalance() {
+        return balance;
     }
 
     /**

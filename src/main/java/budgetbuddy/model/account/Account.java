@@ -21,15 +21,17 @@ public class Account {
     private Description description;
     private final TransactionList transactionList;
     private boolean isActive = false;
+    private final long balance;
 
     /**
      * Every field must be present and not null.
      */
-    public Account(Name name, Description description, TransactionList transactionList) {
+    public Account(Name name, Description description, TransactionList transactionList, long balance) {
         requireAllNonNull(name, transactionList);
         this.name = name;
         this.description = description;
         this.transactionList = transactionList;
+        this.balance = transactionList.balance.toLong();
     }
 
     public Name getName() {
@@ -72,6 +74,10 @@ public class Account {
         this.isActive = false;
     }
 
+    public long getBalance() {
+        return balance;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -90,7 +96,7 @@ public class Account {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, transactionList);
+        return Objects.hash(name, description, transactionList, balance);
     }
 
     @Override

@@ -25,6 +25,8 @@ public class AccountCard extends UiPart<Region> {
     private Label id;
     @FXML
     private Label description;
+    @FXML
+    private Label balance;
 
     public AccountCard(Account account, int displayedIndex) {
         super(FXML);
@@ -33,6 +35,7 @@ public class AccountCard extends UiPart<Region> {
         id.setMinWidth(30);
         name.setText(account.getName().toString());
         description.setText(account.getDescription().toString());
+        balance.setText("Balance: $" + String.valueOf(account.getBalance()));
     }
 
     @Override

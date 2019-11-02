@@ -34,7 +34,7 @@ public class AccountsManager {
         this.accounts = new UniqueAccountList();
         filteredAccounts = new FilteredList<>(this.getAccounts());
         // TODO add proper default data
-        addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
+        addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList(), 0));
         activeTransactionList = new TransactionList();
         activeTransactionList.setAll(getActiveAccount().getTransactionList());
     }

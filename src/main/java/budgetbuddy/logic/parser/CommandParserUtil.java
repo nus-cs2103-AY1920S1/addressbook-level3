@@ -73,7 +73,7 @@ public class CommandParserUtil {
     public static Account parseAccount(String account) {
         requireNonNull(account);
         String trimmedAccount = account.trim();
-        return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList());
+        return new Account(new Name(trimmedAccount), new Description("null"), new TransactionList(), 0);
     }
 
     /**

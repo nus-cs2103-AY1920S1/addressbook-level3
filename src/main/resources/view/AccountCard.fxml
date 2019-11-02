@@ -30,5 +30,11 @@
             <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
         </VBox>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="2">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <Label fx:id="balance" text="Your balance is $\$first" styleClass="cell_big_label" />
+        </VBox>
     </GridPane>
 </HBox>

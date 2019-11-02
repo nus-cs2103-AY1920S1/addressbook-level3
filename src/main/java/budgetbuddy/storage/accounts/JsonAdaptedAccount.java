@@ -21,17 +21,20 @@ public class JsonAdaptedAccount {
     private final String name;
     private final String description;
     private final String transactionList;
+    private final String balance;
 
     /**
      * Constructs a {@code JsonAdaptedAccount} with the given account details.
      */
     public JsonAdaptedAccount(@JsonProperty("name") String name,
                            @JsonProperty("description") String description,
-                           @JsonProperty("transactionList") String transactionList) {
+                           @JsonProperty("transactionList") String transactionList,
+                              @JsonProperty("balance") String balance) {
         requireAllNonNull(name, description, transactionList);
         this.name = name;
         this.description = description;
         this.transactionList = transactionList;
+        this.balance = balance;
     }
 
     /**
@@ -43,6 +46,7 @@ public class JsonAdaptedAccount {
         description = source.getDescription().toString();
         // TODO !!!
         transactionList = source.getTransactionList().toString();
+        balance = String.valueOf(source.getBalance());
     }
 
     /**
@@ -50,7 +54,7 @@ public class JsonAdaptedAccount {
      * @throws IllegalValueException If any data constraints were violated in the adapted account.
      */
     public Account toModelType() throws IllegalValueException {
-        return new Account(checkName(), checkDescription(), checkTransactionList());
+        return new Account(checkName(), checkDescription(), checkTransactionList(), checkBalance());
     }
 
     /**
@@ -97,5 +101,17 @@ public class JsonAdaptedAccount {
         }
         // TODO Deserialise transactions...
         return new TransactionList();
+    }
+
+    /**
+     * Checks that adapted balance can be converted into model's {@code balance}
+     * @throws NumberFormatException If adapted object cannot be converted.
+     */
+    private long checkBalance() throws NumberFormatException {
+        try {
+            return Long.parseLong(balance);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("It is not a valid balance");
+        }
     }
 }
