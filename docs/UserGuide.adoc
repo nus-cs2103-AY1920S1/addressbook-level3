@@ -133,20 +133,20 @@ A task *can* have the following *attributes*:
 | Task Type | Format
 
 |`Todo`
-|`add-task t/todo des/TASK-DESCRIPTION [#TAG]... [p/PRIORITY r/FREQ]`
+|`add-task t/todo des/TASK-DESCRIPTION [#TAG]... [p/PRIORITY f/FREQ]`
 
 |`Event`
-|`add-task t/event des/TASK-DESCRIPTION d/START-DATE//END-DATE [#TAG]... [p/PRIORITY r/FREQ]`
+|`add-task t/event des/TASK-DESCRIPTION d/START-DATE//END-DATE [#TAG]... [p/PRIORITY f/FREQ]`
 
 |`Deadline`
-|`add-task t/deadline des/TASK-DESCRIPTION d/DUE-DATE [#TAG]... [p/PRIORITY r/FREQ]`
+|`add-task t/deadline des/TASK-DESCRIPTION d/DUE-DATE [#TAG]... [p/PRIORITY f/FREQ]`
 |===
 
 NOTE: Duplicate tasks are not allowed in the Planner!
 
 ===== Example
 ----
-add-task t/event des/workshop r/weekly d/25/12/2019//26/12/2019
+add-task t/event des/workshop f/weekly d/25/12/2019//26/12/2019
 add-task t/deadline des/cs2101 assignment d/20/09/2019 p/high
 ----
 
@@ -189,7 +189,7 @@ and priority level of a task: `edit-task INDEX//des/NEW-TASK-DESCRIPTION p/NEW-P
 ----
 edit-task 1//des/project part 2
 edit-task 2//des/project part 2 d/18/09/2019
-edit-task 3//r/weekly
+edit-task 3//f/weekly
 ----
 
 ==== Updating a task's status: `done-task`
