@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
@@ -80,6 +81,12 @@ public interface Logic {
      * Returns the project statistics.
      */
     Statistics getStatistics();
+
+    /**
+     * Returns possible meeting times;
+     */
+    MeetingQuery getMeetingQuery();
+
 
     /**
      * Returns the current theme of +Work.

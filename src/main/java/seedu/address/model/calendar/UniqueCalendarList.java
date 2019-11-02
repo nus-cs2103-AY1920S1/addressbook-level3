@@ -347,12 +347,8 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     //Convert from ical4j.DateTime to time.LocalDateTime
     //Normalise PeriodList of each calendar
     //For each period, extract smaller period for meeting times and increment HashMap
-    public ObservableList<Meeting> findMeetingTime(LocalDateTime startDate,
-                                                         LocalDateTime endDate,
-                                                         Duration duration) {
+    public MeetingQuery findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration) {
         ObservableList<Meeting> meetingList = FXCollections.observableArrayList();
-        ObservableList<Meeting> meetingUnmodifiableList =
-                FXCollections.unmodifiableObservableList(meetingList);
 
         net.fortuna.ical4j.model.DateTime ical4jStartDate = new DateTime(java.sql.Timestamp.valueOf(startDate));
         net.fortuna.ical4j.model.DateTime ical4jEndDate = new DateTime(java.sql.Timestamp.valueOf(endDate));
@@ -369,16 +365,14 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
             if (numAttendance > maxAttendance) {
                 meetingList = FXCollections.observableArrayList();
                 maxAttendance = numAttendance;
-                Meeting newMeetingDate = new Meeting(timeslot, memberNameList);
-                System.out.println(newMeetingDate);
+                Meeting newMeetingDate = new Meeting(timeslot, duration, memberNameList);
                 meetingList.add(newMeetingDate);
-            } else if (numAttendance == maxAttendance) {
-                Meeting newMeetingDate = new Meeting(timeslot, memberNameList);
-                System.out.println(newMeetingDate);
+            } else if (numAttendance != 0 && numAttendance == maxAttendance) {
+                Meeting newMeetingDate = new Meeting(timeslot, duration, memberNameList);
                 meetingList.add(newMeetingDate);
             }
         }
-        return meetingList;
+        return new MeetingQuery(meetingList, startDate, endDate, duration);
     }
 
     public static void addMemberAvailability(HashMap<LocalDateTime, List<MemberName>> attendance,

@@ -100,6 +100,10 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
             break;
 
+        case "find-meeting-time":
+            paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
+            break;
+
         case "settings":
 
         case "theme":

@@ -15,6 +15,7 @@ import seedu.address.model.task.Task;
 
 import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
+import seedu.address.ui.views.MeetingListPanel;
 import seedu.address.ui.views.MemberListPanel;
 import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
@@ -40,6 +41,7 @@ public class UserViewNavigator {
     private InventoryListPanel inventoryListPanel;
     private MemberStatisticsView memberStatsView;
     private TaskStatisticsView taskStatsView;
+    private MeetingListPanel meetingListPanel;
     private SettingsView settingsView;
     private CommandListPanel commandListPanel;
 
@@ -185,6 +187,11 @@ public class UserViewNavigator {
     public void loadTaskStatsView(Logic logic) {
         taskStatsView = new TaskStatisticsView(logic.getStatistics(), logic.getFilteredTaskList());
         userViewController.setUserView(taskStatsView);
+    }
+
+    public void loadMeetingTimesView(Logic logic) {
+        meetingListPanel = new MeetingListPanel(logic.getMeetingQuery());
+        userViewController.setUserView(meetingListPanel);
     }
 
     /**

@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.calendar.Meeting;
+import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.Model;
 
 import java.time.Duration;
@@ -42,12 +43,13 @@ public class FindMeetingTimeCommand extends Command {
         requireNonNull(model);
 
         //Replace after including meeting display into UI
-        ObservableList<Meeting> possibleMeetingTimes =
-                model.findMeetingTime(startDate, endDate, meetingDuration);
+        model.findMeetingTime(startDate, endDate, meetingDuration);
+        MeetingQuery meetingQuery = model.getMeetingQuery();
         String LIST_OF_TIMINGS = "The following are good meeting times: \n";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        ObservableList<Meeting> possibleMeetingTimes = meetingQuery.getMeetingList();
         for (Meeting dateTime : possibleMeetingTimes) {
-            LIST_OF_TIMINGS += dateTime.getDateTime().format(formatter) + "\n";
+            LIST_OF_TIMINGS += dateTime.getStartTime().format(formatter) + dateTime.getMemberNameList().size() + "\n";
         }
         return new CommandResult(LIST_OF_TIMINGS);
     }
