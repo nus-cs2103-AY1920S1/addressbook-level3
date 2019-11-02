@@ -24,7 +24,7 @@ public class RuleDeleteCommand extends Command {
             + "<rule index> "
             + "Example: " + COMMAND_WORD + " 3";
 
-    public static final String MESSAGE_SUCCESS = "Deleted Rule #%1$s";
+    public static final String MESSAGE_SUCCESS = "Rule #%1$d Deleted.";
 
     private final Index targetIndex;
 

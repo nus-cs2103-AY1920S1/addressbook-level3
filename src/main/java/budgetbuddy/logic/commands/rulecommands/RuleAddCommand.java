@@ -24,11 +24,11 @@ public class RuleAddCommand extends Command {
             + PREFIX_PREDICATE + "PREDICATE "
             + PREFIX_ACTION + "ACTION "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PREDICATE + "amount less than 10 "
-            + PREFIX_ACTION + "add to budget daily";
+            + PREFIX_PREDICATE + "desc contains food "
+            + PREFIX_ACTION + "set_cat Food";
 
     public static final String MESSAGE_SUCCESS = "New rule added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RULE = "This rule already exists in budget buddy.";
+    public static final String MESSAGE_DUPLICATE_RULE = "This rule already exists in the Rule Engine.";
 
     private final Rule rule;
 

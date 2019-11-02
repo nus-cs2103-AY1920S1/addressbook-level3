@@ -56,6 +56,6 @@ public class ActionScript extends RuleAction {
 
     @Override
     public String toString() {
-        return scriptName.toString();
+        return String.format("run script %s", scriptName.toString());
     }
 }

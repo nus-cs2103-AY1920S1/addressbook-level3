@@ -20,7 +20,7 @@ public class RuleListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Rules listed in order of addition.";
     public static final String MESSAGE_NO_RULES =
-            "No rules found in your list. Make a new rule with `rule add`.";
+            "No rules found in the Rule Engine. Make a new rule with `rule add`.";
 
     @Override
     public CommandResult execute(Model model) {
