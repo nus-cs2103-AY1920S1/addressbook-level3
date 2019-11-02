@@ -73,12 +73,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private MenuItem helpMenuItem;
 
     @FXML
-    private MenuItem checkForUpdatesMenuItem;
-
-    @FXML
-    private MenuItem aboutUsMenuItem;
-
-    @FXML
     private StackPane omniPanelPlaceholder;
 
     @FXML
@@ -132,8 +126,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-        setAccelerator(checkForUpdatesMenuItem, KeyCombination.valueOf("F2"));
-        setAccelerator(aboutUsMenuItem, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -173,7 +165,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
         anchorPane.getChildren().add(aco.getRoot());
-        AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
 
     /**
@@ -202,44 +194,20 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        try {
+            getDesktop().browse(URI.create("https://clerkpro.netlify.com/userguide#Features"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     void show() {
         primaryStage.show();
-    }
-
-    /**
-     * Opens URI to User Guide.
-     */
-    @FXML
-    private void handleHelp() {
-        try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Opens URI to Releases.
-     */
-    @FXML
-    private void handleCheckForUpdates() {
-        try {
-            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Opens URI to About Us.
-     */
-    @FXML
-    private void handleAboutUs() {
-        try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -284,10 +252,10 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called whenever AutoComplete selected command.
      */
     public void updateCommandAutoComplete(String commandText) {
-        logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
+        logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
     }
 
     /**
@@ -334,7 +302,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
-        Region region;
+        Region region = null;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
             region = patientListPanel.getRoot();

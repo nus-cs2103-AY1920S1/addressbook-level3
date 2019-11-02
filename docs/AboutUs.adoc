@@ -18,7 +18,7 @@ Role: Team Lead
 Responsibilities:
 
 . CRUD for patients, doctors and appointment models
-. Eager Evaluation (Logic)
+. Eager Evaluation
 . Undo/Redo functionality
 . Integration of project items
 
@@ -32,10 +32,10 @@ Role: Developer, DevOps
 
 Responsibilities:
 
-. AutoCompleter & History
-. Eager Evaluation (UI)
-. Testing & Version Control
+. AutoCompleter
+. History
 . UI
+. Testing & Version Control
 
 '''
 

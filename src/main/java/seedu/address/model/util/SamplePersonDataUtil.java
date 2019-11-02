@@ -44,7 +44,7 @@ public class SamplePersonDataUtil {
     }
 
     public static Person[] getSamplePersons() {
-        int count = 100;
+        int count = 1000;
         Person[] listOfPersons = new Person[count];
         for (int i = 0; i < count; i++) {
             if (i % 10 == 0) {
