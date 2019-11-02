@@ -28,11 +28,11 @@ public class ExpiryDateTest {
 
         // blank expiry date
         assertFalse(ExpiryDate.isValidExpiryDate("")); // empty string
-        assertFalse(ExpiryDate.isValidExpiryDate(" ")); // spaces only
+        assertFalse(ExpiryDate.isValidExpiryDate("  ")); // spaces only
 
         // missing parts
         assertFalse(ExpiryDate.isValidExpiryDate("03/2019")); // missing day
-        assertFalse(ExpiryDate.isValidExpiryDate("02-03")); // missing year
+        assertFalse(ExpiryDate.isValidExpiryDate("02/03")); // missing year
 
         // invalid parts
         assertFalse(ExpiryDate.isValidExpiryDate("10/21/2019")); // invalid month
@@ -40,15 +40,16 @@ public class ExpiryDateTest {
         assertFalse(ExpiryDate.isValidExpiryDate("03 /05/2008")); // contain spaces
         assertFalse(ExpiryDate.isValidExpiryDate(" 03/05/2019")); // leading space
         assertFalse(ExpiryDate.isValidExpiryDate("10/10/2019 ")); // trailing space
-        assertFalse(ExpiryDate.isValidExpiryDate("02-03-2019.")); // trailing period
+        assertFalse(ExpiryDate.isValidExpiryDate("02/03/2019.")); // trailing period
 
         // wrong format
-        assertFalse(ExpiryDate.isValidExpiryDate("12/28/2019")); // wrong format
-        assertFalse(ExpiryDate.isValidExpiryDate("2019/12/28")); // wrong format
-        assertFalse(ExpiryDate.isValidExpiryDate("12-28-2019")); // wrong format
-        assertFalse(ExpiryDate.isValidExpiryDate("2019.12.28")); // wrong format
+        assertFalse(ExpiryDate.isValidExpiryDate("12/28/2019")); // wrong date format
+        assertFalse(ExpiryDate.isValidExpiryDate("2019/12/28")); // wrong date format
+        assertFalse(ExpiryDate.isValidExpiryDate("28-12-2019")); // wrong format
+        assertFalse(ExpiryDate.isValidExpiryDate("28.12.2019")); // wrong format
 
         // valid expiry date
         assertTrue(ExpiryDate.isValidExpiryDate("03/05/2008")); // forward slash format
+        assertTrue(ExpiryDate.isValidExpiryDate("29/02/2016")); // leap year
     }
 }
