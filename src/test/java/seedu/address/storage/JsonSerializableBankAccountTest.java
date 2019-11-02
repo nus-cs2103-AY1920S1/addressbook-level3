@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.BankAccount;
+import seedu.address.model.UserState;
 import seedu.address.testutil.TypicalTransactions;
 
 public class JsonSerializableBankAccountTest {
@@ -28,8 +29,8 @@ public class JsonSerializableBankAccountTest {
     public void toModelType_typicalTransactionsFile_success() throws Exception {
         JsonSerializableBankAccount dataFromFile = JsonUtil.readJsonFile(TYPICAL_TRANSACTIONS_FILE,
             JsonSerializableBankAccount.class).get();
-        BankAccount bankAccountFromFile = dataFromFile.toModelType();
-        BankAccount typicalTransactionsBankAccount = TypicalTransactions.getTypicalBankAccount();
+        UserState bankAccountFromFile = dataFromFile.toModelType();
+        UserState typicalTransactionsBankAccount = TypicalTransactions.getTypicalUserState();
         assertEquals(bankAccountFromFile, typicalTransactionsBankAccount);
     }
 

@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.BankAccount;
+import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.
@@ -73,10 +76,10 @@ public class TypicalTransactions {
     /**
      * Returns a {@code BankAccount} with all the typical persons.
      */
-    public static BankAccount getTypicalBankAccount() {
-        BankAccount ba = new BankAccount();
+    public static UserState getTypicalUserState() {
+        UserState ba = new UserState();
         for (BankAccountOperation op : getTypicalTransactions()) {
-            ba.addTransaction(op);
+            ba.addOperation(op);
         }
         return ba;
     }
@@ -84,10 +87,10 @@ public class TypicalTransactions {
     /**
      * Returns a {@code BankAccount} with all the typical persons in unsorted amount order.
      */
-    public static BankAccount getTypicalUnsortedBankAccount() {
-        BankAccount unsortedBa = new BankAccount();
+    public static UserState getTypicalUnsortedUserState() {
+        UserState unsortedBa = new UserState();
         for (BankAccountOperation op : getTypicalUnsortedTransactions()) {
-            unsortedBa.addTransaction(op);
+            unsortedBa.addOperation(op);
         }
         return unsortedBa;
     }
@@ -98,5 +101,14 @@ public class TypicalTransactions {
 
     public static List<BankAccountOperation> getTypicalUnsortedTransactions() {
         return new ArrayList<>(Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
+    }
+
+    //TODO: implement:
+    public static List<LedgerOperation> getTypicalLedgerOperations() {
+        return null;
+    }
+    //TODO: implement:
+    public static List<Budget> getTypicalBudget() {
+        return null;
     }
 }

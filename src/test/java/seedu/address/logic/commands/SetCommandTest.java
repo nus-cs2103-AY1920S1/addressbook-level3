@@ -18,10 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.BankAccount;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyBankAccount;
-import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -113,27 +110,22 @@ public class SetCommandTest {
         }
 
         @Override
-        public void handleOperation(BankAccountOperation transaction) {
+        public void setUserState(ReadOnlyUserState bankAccount) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
+        public void addOperation(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addBudget(Budget budget) {
+        public void addOperation(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addTransaction(BankAccountOperation transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setUserState(ReadOnlyBankAccount newData) {
+        public void addOperation(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -169,6 +161,11 @@ public class SetCommandTest {
 
         @Override
         public void setTransactions(List<BankAccountOperation> transactionHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserState getUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,11 +214,16 @@ public class SetCommandTest {
 
         @Override
         public ObservableList<Budget> getFilteredBudgetList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deleteBudget(Budget budgetToDelete) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -255,23 +257,19 @@ public class SetCommandTest {
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
+        public void addOperation(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void handleOperation(Budget budget) {
-            addBudget(budget);
-        }
-
         @Override
-        public void addBudget(Budget budget) {
+        public void addOperation(Budget budget) {
             requireNonNull(budget);
             budgetsAdded.add(budget);
         }
 
         @Override
         public void commitUserState() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

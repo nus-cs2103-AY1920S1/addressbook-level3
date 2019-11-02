@@ -19,6 +19,7 @@ public class JsonAdaptedLedgerOperations {
     private final String date;
     private final String amount;
 
+    // TODO: include peopleInvolved
     @JsonCreator
     public JsonAdaptedLedgerOperations(@JsonProperty("date") String date,
                                        @JsonProperty("amount") String amount) {

@@ -46,7 +46,7 @@ public class SetCommand extends Command {
         if (model.hasBudget(budget)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
         } else {
-            model.addBudget(budget);
+            model.addOperation(budget);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
         }

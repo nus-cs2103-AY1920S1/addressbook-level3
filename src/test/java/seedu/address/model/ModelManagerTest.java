@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
-import seedu.address.testutil.BankAccountBuilder;
+import seedu.address.testutil.UserStateBuilder;
 
 
 public class ModelManagerTest {
@@ -40,14 +40,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setBankAccountFilePath(Paths.get("bank/account/file/path"));
+        userPrefs.setUserStateFilePath(Paths.get("bank/account/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setBankAccountFilePath(Paths.get("new/bank/account/file/path"));
+        userPrefs.setUserStateFilePath(Paths.get("new/bank/account/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -87,7 +87,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
-        modelManager.handleOperation(ALICE);
+        modelManager.addOperation(ALICE);
         assertTrue(modelManager.hasTransaction(ALICE));
     }
 
@@ -99,13 +99,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        BankAccount bankAccount = new BankAccountBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
-        BankAccount differentBankAccount = new BankAccount();
+        UserState userState = new UserStateBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
+        UserState differentUserState = new UserState();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(bankAccount, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(bankAccount, userPrefs);
+        modelManager = new ModelManager(userState, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(userState, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -118,7 +118,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different bankAccount -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentBankAccount, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentUserState, userPrefs)));
 
 
         // different filteredList -> returns false
@@ -128,7 +128,7 @@ public class ModelManagerTest {
             .map(category -> category.getCategoryName())
             .collect(Collectors.toList());
         modelManager.updateFilteredTransactionList(new TransactionContainsCategoriesPredicate(categories));
-        assertFalse(modelManager.equals(new ModelManager(bankAccount, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(userState, userPrefs)));
 
 
         // resets modelManager to initial state for upcoming tests
@@ -136,7 +136,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setBankAccountFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(bankAccount, differentUserPrefs)));
+        differentUserPrefs.setUserStateFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(userState, differentUserPrefs)));
     }
 }

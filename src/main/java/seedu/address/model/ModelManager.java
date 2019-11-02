@@ -138,12 +138,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addTransaction(BankAccountOperation transaction) {
-        versionedUserState.addTransaction(transaction);
-    }
-
-    @Override
-    public void addBudget(Budget budget) {
+    public void addOperation(Budget budget) {
         versionedUserState.addBudget(budget);
     }
 
@@ -199,13 +194,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void handleOperation(BankAccountOperation operation) {
-        versionedUserState.addTransaction(operation);
+    public void addOperation(BankAccountOperation operation) {
+        versionedUserState.addOperation(operation);
     }
 
     @Override
-    public void handleOperation(LedgerOperation operation) {
-        versionedUserState.addLedgerOperation(operation);
+    public void addOperation(LedgerOperation operation) {
+        versionedUserState.addOperation(operation);
     }
 
     @Override

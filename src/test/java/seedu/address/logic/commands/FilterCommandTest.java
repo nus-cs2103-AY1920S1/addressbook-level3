@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,8 +23,8 @@ import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
  */
 public class FilterCommandTest {
 
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     @Test
     public void equals() {

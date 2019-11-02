@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 import static seedu.address.testutil.TypicalTypes.TYPE_TRANSACTION;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import seedu.address.model.transaction.BankAccountOperation;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -36,7 +36,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
         expectedModel.commitUserState();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -61,7 +61,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
 
-        Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         expectedModel.deleteTransaction(transactionToDelete);
         showNoTransaction(expectedModel);
         expectedModel.commitUserState();

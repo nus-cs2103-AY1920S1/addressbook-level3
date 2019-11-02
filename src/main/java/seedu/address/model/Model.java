@@ -138,21 +138,19 @@ public interface Model {
      *
      * @param operation
      */
-    void handleOperation(BankAccountOperation operation);
+    void addOperation(BankAccountOperation operation);
 
-    void handleOperation(LedgerOperation operation);
+    /**
+     * Adds the given ledgerOperation.
+     * {@code ledgerOperation} must not already exist in the bank account.
+     */
+    void addOperation(LedgerOperation operation);
 
     /**
      * Adds the given budget.
      * {@code budget} must not already exist in the bank account.
      */
-    void addBudget(Budget budget);
-
-    /**
-     * Adds the given budget.
-     * {@code budget} must not already exist in the bank account.
-     */
-    void addTransaction(BankAccountOperation bankAccountOperation);
+    void addOperation(Budget budget);
 
     /**
      * Returns an unmodifiable view of the filtered transaction list

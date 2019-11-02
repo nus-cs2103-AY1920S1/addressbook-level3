@@ -50,7 +50,7 @@ public class InCommand extends Command {
         if (model.hasTransaction(transaction)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
         } else {
-            model.handleOperation(transaction);
+            model.addOperation(transaction);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
         }

@@ -71,8 +71,12 @@ public class UserState implements ReadOnlyUserState {
         bankAccount.setBudget(budgetTarget, budgetEdit);
     }
 
-    public void addTransaction(BankAccountOperation transaction) {
+    public void addOperation(BankAccountOperation transaction) {
         bankAccount.addTransaction(transaction);
+    }
+
+    public void addOperation(LedgerOperation operation) {
+        ledger.addOperation(operation);
     }
 
     public void addBudget(Budget budget) {
@@ -81,10 +85,6 @@ public class UserState implements ReadOnlyUserState {
 
     public void setTransactions(List<BankAccountOperation> transactionHistory) {
         bankAccount.setTransactions(transactionHistory);
-    }
-
-    public void addLedgerOperation(LedgerOperation operation) {
-        ledger.addOperation(operation);
     }
 
     public boolean hasTransaction(BankAccountOperation txn) {

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +13,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
+// TODO: delete class?
 public class ListCommandTest {
 
     private Model model;
@@ -20,8 +21,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
-        expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        model = new ModelManager(getTypicalUserState(), new UserPrefs());
+        expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
     }
 
     @Test

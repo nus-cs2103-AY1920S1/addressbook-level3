@@ -77,14 +77,14 @@ public class JsonUserStateStorageTest {
     //     assertEquals(original, new UserState(readBack));
     //
     //     // Modify data, overwrite exiting file, and read back
-    //     original.addTransaction(HOON);
+    //     original.addOperation(HOON);
     //     original.removeTransaction(ALICE);
     //     jsonUserStateStorage.saveUserState(original, filePath);
     //     readBack = jsonUserStateStorage.readUserState(filePath).get();
     //     assertEquals(original, new UserState(readBack));
     //
     //     // Save and read without specifying file path
-    //     original.addTransaction(IDA);
+    //     original.addOperation(IDA);
     //     jsonUserStateStorage.saveUserState(original); // file path not specified
     //     readBack = jsonUserStateStorage.readUserState().get(); // file path not specified
     //     assertEquals(original, new UserState(readBack));

@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalTransactions.getTypicalUnsortedBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUnsortedUserState;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,8 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalUnsortedBankAccount(), new UserPrefs());
-        expectedSortedByAmountModel = new ModelManager(getTypicalUnsortedBankAccount(), new UserPrefs());
+        model = new ModelManager(getTypicalUserState(), new UserPrefs());
+        expectedSortedByAmountModel = new ModelManager(getTypicalUnsortedUserState(), new UserPrefs());
     }
 
     @Test

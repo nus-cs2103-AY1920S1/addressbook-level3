@@ -71,7 +71,7 @@ class JsonSerializableUserState {
             if (userState.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            userState.addTransaction(txn);
+            userState.addOperation(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
@@ -88,7 +88,7 @@ class JsonSerializableUserState {
             // if (userState.hasLedger(ledgerOperation)) {
             //     throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
             // }
-            userState.addLedgerOperation(ledgerOperation);
+            userState.addOperation(ledgerOperation);
         }
 
         return userState;

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -17,7 +17,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+        model = new ModelManager(getTypicalUserState(), new UserPrefs());
     }
 
     // TODO: Refactor into InCommandIntegrationTest
@@ -27,7 +27,7 @@ public class AddCommandIntegrationTest {
         Transaction validTransaction = new BankOperationBuilder().build();
 
         Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
-        expectedModel.addTransaction(validTransaction);
+        expectedModel.addOperation(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);

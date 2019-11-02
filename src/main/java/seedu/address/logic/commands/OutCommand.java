@@ -46,7 +46,7 @@ public class OutCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.handleOperation(transaction);
+        model.addOperation(transaction);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
     }

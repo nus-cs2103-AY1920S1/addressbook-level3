@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTransactions.ALICE;
-import static seedu.address.testutil.TypicalTransactions.getTypicalBankAccount;
+import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,23 +25,25 @@ import seedu.address.testutil.BankOperationBuilder;
 
 public class BankAccountTest {
 
-    private final BankAccount bankAccount = new BankAccount();
+    private final UserState userState = new UserState();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), bankAccount.getTransactionHistory());
+        assertEquals(Collections.emptyList(), userState.getBankAccount().getTransactionHistory());
+        assertEquals(Collections.emptyList(), userState.getBankAccount().getBudgetHistory());
+        assertEquals(Collections.emptyList(), userState.getLedger().getLedgerHistory());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bankAccount.resetData(null));
+        assertThrows(NullPointerException.class, () -> userState.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyBankAccount_replacesData() {
-        BankAccount newData = getTypicalBankAccount();
-        bankAccount.resetData(newData);
-        assertEquals(newData, bankAccount);
+        UserState newData = getTypicalUserState();
+        userState.resetData(newData);
+        assertEquals(newData, userState);
     }
 
     @Test
@@ -51,8 +53,9 @@ public class BankAccountTest {
                 .build();
         List<BankAccountOperation> newTransactions = Arrays.asList(ALICE, editedAlice);
         BankAccountStub newData = new BankAccountStub(newTransactions);
+        UserState newUserState = new UserState(newData, new Ledger());
 
-        assertThrows(DuplicateTransactionException.class, () -> bankAccount.resetData(newData));
+        assertThrows(DuplicateTransactionException.class, () -> userState.resetData(newUserState));
     }
 
     // TODO: implement test for budget during copying
@@ -63,31 +66,32 @@ public class BankAccountTest {
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> bankAccount.hasTransaction(null));
+        assertThrows(NullPointerException.class, () -> userState.hasTransaction(null));
     }
 
     @Test
     public void hasTransaction_transactionNotInBankAccount_returnsFalse() {
-        assertFalse(bankAccount.hasTransaction(ALICE));
+        assertFalse(userState.hasTransaction(ALICE));
     }
 
     @Test
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
-        bankAccount.addTransaction(ALICE);
-        assertTrue(bankAccount.hasTransaction(ALICE));
+        userState.addOperation(ALICE);
+        assertTrue(userState.hasTransaction(ALICE));
     }
 
     @Test
     public void hasTransaction_transactionWithSameIdentityFieldsInBankAccount_returnsTrue() {
-        bankAccount.addTransaction(ALICE);
+        userState.addOperation(ALICE);
         BankAccountOperation editedAlice = new BankOperationBuilder(ALICE)
                 .build();
-        assertTrue(bankAccount.hasTransaction(editedAlice));
+        assertTrue(userState.hasTransaction(editedAlice));
     }
 
     @Test
     public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> bankAccount.getTransactionHistory().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                userState.getBankAccount().getTransactionHistory().remove(0));
     }
 
     /**
@@ -120,6 +124,16 @@ public class BankAccountTest {
         @Override
         public ObservableList<Budget> getBudgetHistory() {
             return budget;
+        }
+
+        @Override
+        public boolean hasTransaction(BankAccountOperation transaction) {
+            return false;
+        }
+
+        @Override
+        public boolean hasBudget(Budget budget) {
+            return false;
         }
     }
 

@@ -22,18 +22,22 @@ class JsonSerializableBankAccount {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledger list contains duplicate Ledger operation(s).";
 
     private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
+    private final List<JsonAdaptedLedgerOperations> ledgers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
      */
     @JsonCreator
     public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
-                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
+                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
+                                       @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers) {
         this.transactions.addAll(transactions);
         this.budgets.addAll(budgets);
+        this.ledgers.addAll(ledgers);
     }
 
     /**
@@ -52,6 +56,11 @@ class JsonSerializableBankAccount {
                 .stream()
                 .map(JsonAdaptedBankOperations::new)
                 .collect(Collectors.toList()));
+        ledgers
+            .addAll(source.getLedger().getLedgerHistory()
+                    .stream()
+                    .map(JsonAdaptedLedgerOperations::new)
+                    .collect(Collectors.toList()));
     }
 
     /**
@@ -66,7 +75,7 @@ class JsonSerializableBankAccount {
             if (user.hasTransaction(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            user.addTransaction(txn);
+            user.addOperation(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {

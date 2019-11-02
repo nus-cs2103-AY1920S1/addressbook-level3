@@ -6,7 +6,7 @@ package seedu.address.logic.commands;
  */
 public class UpdateCommandTest {
     /*
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     private String typeTransaction = "t";
     private String typeBudget = "b";
