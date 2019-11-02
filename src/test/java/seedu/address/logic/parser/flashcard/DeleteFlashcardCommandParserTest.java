@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.flashcard;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.global;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -18,9 +18,10 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        GlobalCommandResult expectedCommandResult = new GlobalCommandResult(ClearCommand.MESSAGE_SUCCESS);
+        GlobalCommandResult expectedCommandResult = new GlobalCommandResult(
+                ClearCommand.MESSAGE_SUCCESS + "the entire StudyBuddy book!");
 
-        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new ClearCommand(true), model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -29,9 +30,10 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
-        GlobalCommandResult expectedCommandResult = new GlobalCommandResult(ClearCommand.MESSAGE_SUCCESS);
+        GlobalCommandResult expectedCommandResult = new GlobalCommandResult(
+                ClearCommand.MESSAGE_SUCCESS + "the entire StudyBuddy book!");
 
-        assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new ClearCommand(true), model, expectedCommandResult, expectedModel);
     }
 
 }

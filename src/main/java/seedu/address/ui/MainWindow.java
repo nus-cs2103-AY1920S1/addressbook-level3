@@ -261,6 +261,10 @@ public class MainWindow extends UiPart<Stage> {
     private void executeCheatSheetCommandHelper(CheatSheetCommandResult cheatSheetCommandResult) {
         if (cheatSheetCommandResult.getCheatSheet().isPresent()) {
             activityWindow.displayCheatSheet(cheatSheetCommandResult.getCheatSheet().get());
+        } else if (cheatSheetCommandResult.isSwitchTags()) {
+            activityWindow.switchCheatSheetContent(cheatSheetCommandResult.getTagIndex().get());
+        } else {
+            activityWindow.displayEmptyCheatSheet();
         }
     }
 

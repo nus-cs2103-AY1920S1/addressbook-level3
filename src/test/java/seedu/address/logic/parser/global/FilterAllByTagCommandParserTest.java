@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.global;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MODULE;
@@ -12,6 +12,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.global.FilterAllByTagCommand;
+import seedu.address.logic.parser.FilterAllByTagCommandParser;
 import seedu.address.model.StudyBuddyItemContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 

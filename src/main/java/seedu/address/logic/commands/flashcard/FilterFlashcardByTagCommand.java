@@ -23,7 +23,7 @@ public class FilterFlashcardByTagCommand extends Command {
             + "related flashcards with the specified \n"
             + "tags. Example : filter tag/hard tag/cs2101";
 
-    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter flashcards by tag(s) : ";
+    public static final String FILTER_TAG_MESSAGE_SUCCESS = "Filter flashcards by tag(s) :";
 
     public static final String NO_ITEM_FOUND = "There is no such FlashCard with the specified tag(s).";
 
@@ -76,6 +76,7 @@ public class FilterFlashcardByTagCommand extends Command {
             resultToDisplay.append(FILTER_TAG_MESSAGE_SUCCESS)
                     .append("\n")
                     .append(showTagQueries())
+                    .append("\n")
                     .append(sb.toString());
         }
         return new FlashcardCommandResult(resultToDisplay.toString());
