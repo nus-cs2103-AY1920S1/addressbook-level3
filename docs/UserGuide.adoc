@@ -646,8 +646,10 @@ Format:
 - `piechart`
 - `barchart`
 - `linechart`
-* Note that every format supports every indicator
 ****
+
+[NOTE]
+Every format supports every indicator
 
 Examples:
 
@@ -656,7 +658,21 @@ Displays policy popularity breakdown as a piechart.
 
 Expected Output: +
 
-image::PolicyPopBreakdown.png[width="400", align="left"]
+image::PolicyPopBreakdown.png[width="800", align="left"]
+
+`display i/age-group-breakdown f/barchart` +
+Displays age group breakdown as a barchart.
+
+Expected Output: +
+
+image::AgeGroupBreakdown.png[width="800", align="left"]
+
+`display i/gender-breakdown f/linechart` +
+Displays gender breakdown as a linechart.
+
+Expected Output: +
+
+image::GenderBreakdown.png[width="800", align="left"]
 
 === Restore Deleted Items: `restore`
 Restores an item (person or policy) in the bin specified by the user.
