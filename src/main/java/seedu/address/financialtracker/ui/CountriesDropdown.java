@@ -51,8 +51,6 @@ public class CountriesDropdown extends UiPart<Region> {
                 logger.info("Financial_Tracker Selection Menu switched to: " + countriesDropdown.getValue());
             }
         });
-
-        // new AutoCompleteComboBoxListener<ComboBox<String>>(countriesDropdown);
     }
 
 }

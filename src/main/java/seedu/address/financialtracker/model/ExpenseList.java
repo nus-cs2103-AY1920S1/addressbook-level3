@@ -16,11 +16,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class ExpenseList {
 
     //-----------define sorting types------------//
-    private final Comparator<? super Expense> BY_DATE =
-            (ep1, ep2) -> ep2.getTime().valueToCompare - ep1.getTime().valueToCompare;
-    private final Comparator<? super Expense> BY_TIME = (ep1, ep2) -> ep2.getDate()
+    private final Comparator<? super Expense> byTime = (ep1, ep2) -> ep2.getTime().valueToCompare
+            - ep1.getTime().valueToCompare;
+    private final Comparator<? super Expense> byDate = (ep1, ep2) -> ep2.getDate()
             .getDateToCompare().compareTo(ep1.getDate().getDateToCompare());
-    private final Comparator<? super Expense> BY_AMOUNT = (ep1, ep2) ->
+    private final Comparator<? super Expense> byAmount = (ep1, ep2) ->
             Double.compare(ep2.getAmount().numericalValue, ep1.getAmount().numericalValue);
 
     private final String country;
@@ -39,8 +39,8 @@ public class ExpenseList {
      */
     private void sort() {
         if (currentComparator == null) {
-            expenses.sort(BY_DATE);
-            expenses.sort(BY_TIME);
+            expenses.sort(byDate);
+            expenses.sort(byTime);
         } else {
             expenses.sort(currentComparator);
         }
@@ -53,15 +53,15 @@ public class ExpenseList {
     public void setComparator(String comparator) {
         switch(comparator) {
         case "DATE":
-            this.currentComparator = BY_DATE;
+            this.currentComparator = byDate;
             break;
         case "TIME":
-            this.currentComparator = BY_TIME;
+            this.currentComparator = byTime;
             break;
         case "AMOUNT":
-            this.currentComparator = BY_AMOUNT;
+            this.currentComparator = byAmount;
             break;
-        case "DEFAULT":
+        default:
             this.currentComparator = null;
         }
         sort();

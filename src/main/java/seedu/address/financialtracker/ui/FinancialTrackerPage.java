@@ -1,7 +1,6 @@
 package seedu.address.financialtracker.ui;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
