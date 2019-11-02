@@ -29,10 +29,6 @@ The Dashboard in DukeCooks provides an overview of the list of tasks to be done.
 
 Initial works for the Dashboard include referencing the AB3  codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
 
-.DukeCooks' Dashboard
-[caption="Figure 1: "]
-image::Ui.png[500,500]
-
 === Enhancement 1: Creating the `done` command
 
 The 'done' command was created to complement the Dashboard. The user is able to use the command 'done', to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
@@ -72,9 +68,56 @@ _{you can add/remove categories in the list above}_
 == Getting Started with DukeCooks
 
 |===
-|The following information provides a how-to guide for the feature (Dashboard), that I am in-charged of.
-|To view the full user guide of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
+|The following information are my *contributions* to the +
+*User Guide* for the feature, Dashboard.
+|To view the full *User Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
 |===
+
+=== Breaking down the Dashboard
+For first time users of the CLI, it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+
+In the image below (Figure 1), complemented with a table (Table 1), provides a brief explanation of the key components found in the Dashboard.
+
+.DukeCooks's Dashboard
+[caption="Figure 1: "]
+image::dashboard_guide.png[width="600"]
+
+.Components
+[cols="10%,30%,50%""]
+[width="100%"]
+|===
+|Number | Component |What it does
+
+|1
+|Side Panel
+|This area, filled with clickable icons, allows you to go to other parts that make up DukeCooks. At the very bottom, is a sign that tells you where you are currently at.
+
+|2
+|Progress Bar
+|This bar fills up every time you've completed a task. The progress bar also moves whenever you are finding tasks, indicating the progress for the relating tasks.
+
+|3
+|Calendar
+|This small little rectangle opens up to a calendar so that you can plan your days.
+
+|4
+|Index Number
+|This is the index number associated with the task.
+
+|5
+|Message Box
+|This is how DukeCooks communicates with you. It tells you if the command you have entered has been executed successfully or contains invalid entries.
+
+|6
+|Command Box
+|This is where the magic happens! Enter your commands in this box and let DukeCook do all the work.
+|===
+
+[NOTE]
+====
+Here in the Dashboard, the prefix: /tn for name and td/ for date, are used to indicate the fields you are entering.
+====
+Alright, now you are ready to use DukeCooks! The following are the instructions on all the commands available in the Dashboard.
 
 === pass:[<u>Going to the Dashboard</u>]
 
@@ -94,11 +137,11 @@ Format: `add task tn/_insert task here_ td/ _insert date here_`
 When entering the date for a task, please follow the given format: day/month/year
 ====
 
-Example usage: `add task tn/Bake a Cake td/29/10/2019`
+Example usage (Figure 2): `add task tn/Bake CupCakes td/20/10/2019`
 
 .Adding a task
 [caption="Figure 2: "]
-image::addtask-ug.png[width="790"]
+image::addtask-ug.png[width="600"]
 
 === pass:[<u>Editing a task's details</u>]
 
@@ -106,13 +149,18 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_`
+Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
 
-Example usage: `edit task 1 tn/Bake cupcakes td/30/10/2019`
+[NOTE]
+====
+When editing a task, you can choose to change just 1 field or edit both fields.
+====
+
+Example usage (Figure 3): `edit task 1 tn/Bake cupcakes td/21/10/2019`
 
 .Editing a task
 [caption="Figure 3: "]
-image::edittask-ug.png[width="790"]
+image::edittask-ug.png[width="600"]
 
 === pass:[<u>Removing a task</u>]
 
@@ -122,11 +170,16 @@ Well you can delete them off from DukeCooks.
 Command: `delete task` +
 Format: `delete task _index number_`
 
-Example usage: `delete task 1`
+[NOTE]
+====
+Tasks that are marked as "RECENTLY COMPLETED" or "COMPLETED", cannot be deleted.
+====
+
+Example usage (Figure 4): `delete task 1`
 
 .Deleting a task
 [caption="Figure 4: "]
-image::deletetask-ug.png[width="790"]
+image::deletetask-ug.png[width="600"]
 
 === pass:[<u>Marking a task as complete</u>]
 
@@ -136,28 +189,17 @@ Check it off the list!
 Command: `done` +
 Format: `done _index number_`
 
-Example usage: `done 2`
-
- - 1: Enter the done command into the dashboard
- - 2: The task is now marked as RECENTLY COMPLETED.
- - 3: The progress bar will be increased
+Example usage (Figure 5): `done 2`
 
 .Marking a task complete
 [caption="Figure 5: "]
-image::donetask-ug.png[width="790"]
-
-Hard at work? Marking 5 new tasks done will give a surprise! +
-A pop up window with an encouraging message will be displayed for extra motivation.
-
-.Completing 5 new tasks
-[caption="Figure 6: "]
-image::done5tasks-ug.png[width="350"]
+image::donetask-ug.png[width="600"]
 
 [NOTE]
 ====
-A task index number is available at the left side of the task's name.
+Hard at work? Marking 5 new tasks done will give a surprise! +
+A pop up window with an encouraging message will be displayed for extra motivation.
 ====
-
 === pass:[<u>Finding tasks</u>]
 
 For those who want to know what are the tasks relevant given a keyword.
@@ -165,11 +207,11 @@ For those who want to know what are the tasks relevant given a keyword.
 Command: `find task` +
 Format: `find task _keyword_`
 
-Example usage: `find task go`
+Example usage (Figure 7): `find task go`
 
 .Finding tasks with a keyword
 [caption="Figure 7: "]
-image::findtask-ug.png[width="790"]
+image::findtask-ug.png[width="600"]
 
 === pass:[<u>Viewing complete/incomplete tasks</u>]
 
@@ -180,11 +222,11 @@ Command: `list taskcomplete`
 For incomplete tasks: +
 Command: `list taskincomplete`
 
-== Contributions to the Developer Guide
+== Making DukeCooks
 
 |===
-|The following information provides an explanation of how the feature (Dashboard), that I am in-charged of, is made.
-|To view the full developer guide of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link].
+|The following information provides my *contributions* to the *Developer Guide*. An explanation of how the feature (Dashboard), that I am in-charged of, is made.
+|To view the full *Developer Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link].
 |===
 
 === What makes up a Dashboard?
@@ -194,15 +236,15 @@ a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that il
 
 .Dashboard Class Diagram
 [caption="Figure 9: "]
-image::DashboardClassDiagram.png[width="790"]
+image::DashboardClassDiagram.png[width="500"]
 
 ==== Implementation
-The functions add/delete/edit/find/list task, are found under the Dashboard. +
+The functions add/delete/edit/find/list/done task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
 by the user. The tasks are sorted accordingly by earliest date.
 Here, a task is represented by a Dashboard object.
 
-The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It extends
+The add/delete/edit/find/list/done mechanism is implemented in `DukeCooks v1.3`. It extends
 `DukeCooks` with a function to add/delete/edit/find tasks.
 
 The operations are as followed:
@@ -259,9 +301,13 @@ The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnl
 returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
 homepage. The `currentStatePointer` remains at the same location after the step.
 
-The following sequence diagram shows how the add operation works:
+The following sequence diagram (Figure 10) shows how the add operation works:
 
-image::AddTaskSequenceDiagram.png[]
+.Add task Sequence Diagram
+[caption="Figure 10: "]
+image::AddTaskSequenceDiagram.png[width="500"]
+
+==== Making Decisions
 
 *Aspect: How add/delete/edit/find/list executes*
 
