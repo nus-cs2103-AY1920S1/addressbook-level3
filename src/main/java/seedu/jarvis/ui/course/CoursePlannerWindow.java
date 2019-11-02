@@ -26,6 +26,9 @@ public class CoursePlannerWindow extends View<AnchorPane> {
 
     @Override
     public void fillPage() {
+        while (!courseSplitPane.getItems().isEmpty()) {
+            courseSplitPane.getItems().remove(0);
+        }
         courseListPanel = new CourseListPanel(logic.getUnfilteredCourseList());
 
         courseTextDisplay = new CourseTextDisplay(logic);

@@ -825,4 +825,9 @@ public class ModelManager implements Model {
     public CoursePlanner getCoursePlanner() {
         return coursePlanner;
     }
+
+    @Override
+    public void setCoursePlanner(CoursePlanner cp) {
+        coursePlanner.resetData(cp);
+    }
 }

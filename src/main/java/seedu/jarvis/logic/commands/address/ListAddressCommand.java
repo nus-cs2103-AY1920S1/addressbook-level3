@@ -16,7 +16,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  */
 public class ListAddressCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "list-address";
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 

@@ -14,6 +14,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
@@ -88,7 +89,8 @@ public class CheckCommand extends Command {
         } else {
             handleWithPrereqs(model);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toCheck), true);
     }
 
     /**
