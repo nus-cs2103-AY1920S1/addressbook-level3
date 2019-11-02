@@ -14,6 +14,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -129,7 +130,8 @@ public class AddCourseCommand extends Command {
             message += "\n" + String.format(MESSAGE_SOME_DUPLICATE_COURSES, notAdded.toString());
         }
 
-        return new CommandResult(message);
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(message, true);
     }
 
     /**
@@ -152,7 +154,8 @@ public class AddCourseCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVERSE_COURSE_NOT_FOUND, hasAdded));
         }
         hasAdded.forEach(model::deleteCourse);
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, hasAdded));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, hasAdded), true);
     }
 
     /**
