@@ -105,8 +105,6 @@ public class CompleteOrderCommandTest {
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
 
-        System.out.println(model.getOrderBook().getList().size());
-        System.out.println(model.getArchivedOrderBook().getList().size());
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Index outOfBoundIndex = INDEX_SECOND_ORDER;

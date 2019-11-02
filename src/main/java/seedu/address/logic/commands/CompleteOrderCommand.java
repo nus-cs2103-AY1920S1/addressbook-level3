@@ -36,6 +36,10 @@ public class CompleteOrderCommand extends UndoableCommand {
 
     public static final String MESSAGE_COMPLETE_ORDER_SUCCESS = "Completed Order: %1$s";
 
+    public static final String MESSAGE_UNSCHEDULED_ORDER_CANNOT_BE_COMPLETED =
+            "Unscheduled orders cannot be completed.";
+
+
     private final Index targetIndex;
 
     public CompleteOrderCommand(Index targetIndex) {
@@ -53,6 +57,11 @@ public class CompleteOrderCommand extends UndoableCommand {
         }
 
         Order orderToComplete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (orderToComplete.getStatus().equals(Status.UNSCHEDULED)) {
+            throw new CommandException(MESSAGE_UNSCHEDULED_ORDER_CANNOT_BE_COMPLETED);
+        }
+
         UUID id = orderToComplete.getId();
         Customer customer = orderToComplete.getCustomer();
         Phone phone = orderToComplete.getPhone();
@@ -60,6 +69,7 @@ public class CompleteOrderCommand extends UndoableCommand {
         Optional<Schedule> schedule = orderToComplete.getSchedule();
         Set<Tag> tags = orderToComplete.getTags();
         Order completedOrder = new Order(id, customer, phone, price, Status.COMPLETED, schedule, tags);
+
 
         if (!model.hasArchivedOrder(completedOrder)) {
             model.addArchivedOrder(completedOrder);
