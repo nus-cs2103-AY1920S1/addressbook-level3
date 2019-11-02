@@ -75,7 +75,7 @@ Adds a person to the list of people +
 Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH g/GENDER`
 
 ****
-* `DATE_OF_BIRTH` are in the form `DD.MM.YYYY` and must be before current time.
+* `DATE_OF_BIRTH` are in the form `DD.MM.YYYY`.
 * `NAME` can take any values and should not be blank.
 * `ADDRESS` can take any values and should not be blank.
 * `GENDER` must either be `Male` or `Female`.
