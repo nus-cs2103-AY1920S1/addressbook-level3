@@ -3,6 +3,9 @@ package dukecooks.model.dashboard.components;
 import static dukecooks.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Represents a TaskDate in DukeCooks.
  * Guarantees: details are present and not null, field values validated and immutable.
@@ -11,7 +14,9 @@ public class TaskDate {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Date entered is invalid, should only contain numbers, "
-                    + "expressed in day/month/year";
+                    + "expressed in day/month/year."
+                    + "\n"
+                    + "Or subsequently, the entered month does not have the that particular day.";
     public final String day;
     public final String month;
     public final String year;
@@ -31,28 +36,25 @@ public class TaskDate {
         taskDate = day + "/" + month + "/" + year;
     }
 
+    public String getDate() {
+        return taskDate;
+    }
     /**
      * Returns true if given string is a valid date
      */
     public static boolean isValidTaskDate(String test) {
-        String[] t = test.split("/");
-        int d = Integer.parseInt(t[0]);
-        int m = Integer.parseInt(t[1]);
-        int y = Integer.parseInt(t[2]);
-        boolean validDay = d > 0 && d < 32;
-        if (m == 2 && d > 29) {
-            validDay = false;
-        }
-        if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 31) {
-            validDay = false;
-        }
-        boolean validMonth = m > 0 && m < 13;
-        boolean validYear = y > 2018;
-        if (validDay && validMonth && validYear) {
-            return true;
-        } else {
+        //TODO: give reference to https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
+        if (test == null) {
             return false;
         }
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            format.parse(test);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

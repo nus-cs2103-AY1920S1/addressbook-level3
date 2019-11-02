@@ -145,7 +145,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!TaskDate.isValidTaskDate(trimmedDate)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(TaskDate.MESSAGE_CONSTRAINTS);
         }
         return new TaskDate(trimmedDate);
     }
