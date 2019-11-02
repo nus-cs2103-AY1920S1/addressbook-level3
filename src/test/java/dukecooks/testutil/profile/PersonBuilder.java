@@ -3,7 +3,7 @@ package dukecooks.testutil.profile;
 import java.util.HashSet;
 import java.util.Set;
 
-import dukecooks.model.common.Name;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;

@@ -12,7 +12,7 @@ import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Image;
-import dukecooks.model.common.Name;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.model.diary.components.DiaryName;

@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.model.common.Name;
-
 public class NameTest {
 
     @Test

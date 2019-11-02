@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dukecooks.logic.commands.profile.EditProfileCommand;
-import dukecooks.model.common.Name;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.Person;
 

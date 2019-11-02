@@ -16,7 +16,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.common.Name;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.recipe.components.Ingredient;

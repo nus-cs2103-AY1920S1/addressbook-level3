@@ -1,4 +1,4 @@
-package dukecooks.model.common;
+package dukecooks.model.profile.person;
 
 import static dukecooks.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
