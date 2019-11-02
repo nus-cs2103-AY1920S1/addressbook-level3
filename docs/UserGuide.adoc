@@ -672,7 +672,8 @@ e.g. `clear_ev_dt 2`
 | `delete_ev_dt 2 on/18/10/2019 time/1000-2000`
 | *Clear DateTime from an Event*| `clear_ev_dt EVENT_INDEX`
 | `clear_ev_dt 2`
-| *View Schedule for specific date*| `view_schedule on/DDMMYYYY` | `view_schedule on/02/12/2019`
+| *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
+| *Display Schedule for specific month*| `display_schedule for/MMYYYY` | `display_schedule for/02/12/2019`
 | *Display Entire Schedule*| `display_schedule` | `display_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
 | *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`

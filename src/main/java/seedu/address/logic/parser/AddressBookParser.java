@@ -33,6 +33,7 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.general.MainCommand;
 import seedu.address.logic.commands.general.ScheduleCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
@@ -56,6 +57,7 @@ import seedu.address.logic.parser.event.FetchEventCommandParser;
 import seedu.address.logic.parser.event.FindEventByTagCommandParser;
 import seedu.address.logic.parser.event.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.schedule.DisplayScheduleBetweenParser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 
@@ -127,6 +129,9 @@ public class AddressBookParser {
 
         case DisplayScheduleForYearMonthCommand.COMMAND_WORD:
             return new DisplayScheduleForYearMonthParser().parse(arguments);
+
+        case DisplayScheduleBetweenCommand.COMMAND_WORD:
+            return new DisplayScheduleBetweenParser().parse(arguments);
 
         case GenerateScheduleCommand.COMMAND_WORD:
             return new GenerateScheduleCommand();

@@ -159,10 +159,13 @@ public class ScheduleBox extends Tabs<AnchorPane> {
             LocalDate currentDate = LocalDate.parse(text);
             currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
             datePicker.setValue(currentDate);
-        } else {
+        } else if (text.length() > 1) {
             YearMonth currentYearMonth = YearMonth.parse(text);
             currentMonthYear.setText(monthName[currentYearMonth.getMonth().getValue() - 1]
                     + "," + currentYearMonth.getYear());
+            datePicker.getEditor().clear();
+        } else {
+            currentMonthYear.setText("");
             datePicker.getEditor().clear();
         }
     }
