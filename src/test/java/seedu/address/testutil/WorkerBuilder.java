@@ -8,6 +8,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 
@@ -23,6 +25,8 @@ public class WorkerBuilder {
     public static final String DEFAULT_DATE_JOINED = "01/01/2019";
     public static final String DEFAULT_DESIGNATION = "technician";
     public static final String DEFAULT_EMPLOYMENT_STATUS = "cleaning";
+    public static final String DEFAULT_PHOTO_PATH = Photo.PATH_TO_EXAMPLE_PHOTO;
+
 
     private Name name;
     private PhoneNumber phone;
@@ -31,6 +35,7 @@ public class WorkerBuilder {
     private Date dateJoined;
     private String designation;
     private String employmentStatus;
+    private Photo photo;
 
     public WorkerBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -39,6 +44,9 @@ public class WorkerBuilder {
             sex = ParserUtil.parseSex(DEFAULT_SEX);
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
             dateJoined = ParserUtil.parseDate(DEFAULT_DATE_JOINED);
+            // If no photo is specified, the default WorkerBuilder will have no photo.
+            //photo = ParserUtil.parsePhoto(DEFAULT_PHOTO_PATH);
+            photo = null;
         } catch (ParseException e) {
             System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
         }
@@ -57,6 +65,7 @@ public class WorkerBuilder {
         dateJoined = workerToCopy.getDateJoined();
         designation = workerToCopy.getDesignation().orElse(null);
         employmentStatus = workerToCopy.getEmploymentStatus().orElse(null);
+        photo = workerToCopy.getPhoto().orElse(null);
     }
 
     /**
@@ -126,7 +135,21 @@ public class WorkerBuilder {
         this.designation = ParserUtil.parseStringFields(designation);
         return this;
     }
+
+    /**
+     * Sets the Photo of the Worker that we are building.
+     * @throws ParseException if the photo was not parsed successfully
+     */
+    public WorkerBuilder withPhoto(String photo) throws ParseException {
+        this.photo = ParserUtil.parsePhoto(photo);
+        return this;
+    }
+
+    /**
+     * Constructs the {@code Worker} with the assigned attributes.
+     */
     public Worker build() {
-        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, photo);
     }
 }

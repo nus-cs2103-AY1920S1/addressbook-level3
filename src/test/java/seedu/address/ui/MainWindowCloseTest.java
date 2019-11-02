@@ -21,6 +21,7 @@ import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
+//@@ author shaoyi1997-reused
 /**
  * Contains tests for closing of the {@code MainWindow}.
  */
@@ -97,3 +98,4 @@ public class MainWindowCloseTest extends GuiUnitTest {
         }
     }
 }
+//@@ author

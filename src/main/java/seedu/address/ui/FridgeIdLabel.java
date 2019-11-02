@@ -6,6 +6,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import seedu.address.model.entity.IdentificationNumber;
 
+//@@ author shaoyi1997
 /**
  * An UI component that displays information of a {@code fridgeId}.
  */
@@ -37,18 +38,10 @@ public class FridgeIdLabel extends UiPart<Region> {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
-            return false;
-        }
-
-        // state check
-        FridgeIdLabel label = (FridgeIdLabel) other;
-        return fridgeIdPlaceholder.getText().equals(label.fridgeIdPlaceholder.getText());
+        return other == this // short circuit if same object
+            || (other instanceof FridgeIdLabel // instanceof handles nulls
+            && (fridgeIdPlaceholder.getText()
+                    .equals(((FridgeIdLabel) other).fridgeIdPlaceholder.getText()))); // state check
     }
 }
+//@@ author

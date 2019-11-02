@@ -23,7 +23,7 @@ class ReligionTest {
 
     @Test
     void enumerateReligion_parseReligion_success() throws ParseException {
-        assertEquals(ParserUtil.parseReligion(Religion.ISLAM.toString()), Religion.ISLAM);
+        assertEquals(ParserUtil.parseStringFields(""), Religion.ISLAM);
     }
 
 

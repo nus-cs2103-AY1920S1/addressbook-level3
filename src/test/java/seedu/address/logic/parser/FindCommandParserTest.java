@@ -24,17 +24,18 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        // no leading and trailing whitespaces
         FindCommand expectedFindCommand1 =
                 new FindCommand(Arrays.asList("Alice", "Bob"), BODY_FLAG);
         FindCommand expectedFindCommand2 =
                 new FindCommand(Arrays.asList("Alice", "Bob"), WORKER_FLAG);
+
+        // no leading and trailing whitespaces
         assertParseSuccess(parser, " -b Alice Bob", expectedFindCommand1);
-        assertParseSuccess(parser, " -w Alice Bob", expectedFindCommand1);
+        assertParseSuccess(parser, " -w Alice Bob", expectedFindCommand2);
 
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " -b   Alice  Bob  ", expectedFindCommand1);
-        assertParseSuccess(parser, " -w   Alice  Bob  ", expectedFindCommand1);
+        assertParseSuccess(parser, " -w   Alice  Bob  ", expectedFindCommand2);
     }
 
 }

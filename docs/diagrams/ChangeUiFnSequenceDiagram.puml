@@ -2,73 +2,83 @@
 !include style.puml
 
 mainframe <b>sd</b> Runnable changeUI
-box NotifCommand LOGIC_COLOR_T1
-participant "updateBodyDescriptor:UpdateBodyDescriptor" as UpdateBodyDescriptor LOGIC_COLOR
-participant "up:UpdateCommand" as UpdateCommand LOGIC_COLOR
-participant "notifWindow:NotifWindow" as NotifWindow LOGIC_COLOR
+box Logic #b0d5f7
+participant "notifCommand:NotifCommand" as NotifCommand #1f69ad
+participant "updateBodyDescriptor:UpdateBodyDescriptor" as UpdateBodyDescriptor #1f69ad
+participant "up:UpdateCommand" as UpdateCommand #1f69ad
+participant "notifWindow:NotifWindow" as NotifWindow #1f69ad
 end box
 
-participant "ses:ScheduledExecutorService" as ScheduledExecutorService LOGIC_COLOR
-
-box Model MODEL_COLOR_T1
-participant "model:Model" as Model MODEL_COLOR
-participant "body:Body" as Body MODEL_COLOR
+box Storage #f5c8a2
+participant "storage:StorageManager" as Storage #e67f25
 end box
 
--> Body :getIdNum()
-create Body
+box Model #e6bdf2
+participant "model:Model" as Model #621c78
+participant "body:Body" as Body #621c78
+end box
+
+activate NotifCommand
+
+NotifCommand -> Body :getIdNum()
 activate Body
-<-- Body :bodyId
+NotifCommand <-- Body :bodyId
 deactivate Body
 
--> UpdateBodyDescriptor :UpdateBodyDescriptor(body)
 create UpdateBodyDescriptor
+NotifCommand -> UpdateBodyDescriptor :UpdateBodyDescriptor(body)
 activate UpdateBodyDescriptor
-<-- UpdateBodyDescriptor :ubd
+NotifCommand <-- UpdateBodyDescriptor :updateBodyDescriptor
 deactivate UpdateBodyDescriptor
 
 
--> UpdateCommand :UpdateCommand(bodyId, ubd)
+
 create UpdateCommand
+NotifCommand -> UpdateCommand :UpdateCommand(bodyId, updateBodyDescriptor)
 activate UpdateCommand
-<-- UpdateCommand :up
+NotifCommand <-- UpdateCommand :up
 deactivate UpdateCommand
 
--> UpdateCommand :setUpdateFromNotif(true)
+NotifCommand -> UpdateCommand :setUpdateFromNotif(true)
 activate UpdateCommand
-<-- UpdateCommand
+NotifCommand <-- UpdateCommand
 deactivate UpdateCommand
 
--> UpdateCommand :execute(model)
+NotifCommand -> UpdateCommand :execute(model)
 activate UpdateCommand
-<-- UpdateCommand
+NotifCommand <-- UpdateCommand
 deactivate UpdateCommand
 
--> NotifWindow :NotifWindow()
+
 create NotifWindow
+NotifCommand-> NotifWindow :NotifWindow()
 activate NotifWindow
-<-- NotifWindow
+NotifCommand <-- NotifWindow
 deactivate NotifWindow
 
--> NotifWindow :setTitle("Contact Police")
+NotifCommand -> NotifWindow :setTitle("Contact Police")
 activate NotifWindow
-<-- NotifWindow
+NotifCommand <-- NotifWindow
 deactivate NotifWindow
 
--> NotifWindow :setContent("Body ...")
+NotifCommand -> NotifWindow :setContent("Body ...")
 activate NotifWindow
-<-- NotifWindow
+NotifCommand <-- NotifWindow
 deactivate NotifWindow
 
--> NotifWindow :display()
+NotifCommand -> NotifWindow :display()
 activate NotifWindow
-<-- NotifWindow
+NotifCommand <-- NotifWindow
 deactivate NotifWindow
 
--> ScheduledExecutorService :shutdown()
-create ScheduledExecutorService
-activate ScheduledExecutorService
+NotifCommand -> Model :getAddressBook()
+activate Model
+Model --> NotifCommand :addressBook
+deactivate Model
 
-destroy ScheduledExecutorService
+NotifCommand -> Storage :saveAddressBook(addressBook)
+activate Storage
+Storage --> NotifCommand
+deactivate Storage
 
 @enduml

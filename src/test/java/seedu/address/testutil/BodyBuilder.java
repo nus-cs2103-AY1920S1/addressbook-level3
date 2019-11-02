@@ -14,7 +14,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -28,7 +27,7 @@ public class BodyBuilder {
     public static final String DEFAULT_NAME = "John Doe";
     public static final Sex DEFAULT_SEX = Sex.MALE;
     public static final String DEFAULT_NRIC = "S8765432A";
-    public static final Religion DEFAULT_RELIGION = Religion.NONRELIGIOUS;
+    public static final String DEFAULT_RELIGION = "Non-religious";
     public static final String DEFAULT_CAUSE_OF_DEATH = "Heart Attack";
     public static final String DEFAULT_ORGANS_FOR_DONATION = "Liver Cornea Kidney";
     public static final BodyStatus DEFAULT_BODY_STATUS = BodyStatus.ARRIVED;
@@ -40,11 +39,12 @@ public class BodyBuilder {
     public static final String DEFAULT_NEXT_OF_KIN = "Jane Doe";
     public static final String DEFAULT_RELATIONSHIP = "Mother";
     public static final String DEFAULT_KIN_PHONE = "81234568";
+    public static final String DEFAULT_DETAILS = "note";
 
     private Name name;
     private Sex sex;
     private Nric nric;
-    private Religion religion;
+    private String religion;
 
     private String causeOfDeath;
     private List<String> organsForDonation;
@@ -60,6 +60,8 @@ public class BodyBuilder {
     private String relationship;
     private PhoneNumber kinPhoneNumber;
 
+    private String details;
+
 
     public BodyBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -74,6 +76,7 @@ public class BodyBuilder {
         nextOfKin = new Name(DEFAULT_NEXT_OF_KIN);
         relationship = DEFAULT_RELATIONSHIP;
         kinPhoneNumber = new PhoneNumber(DEFAULT_KIN_PHONE);
+        details = DEFAULT_DETAILS;
 
         try {
             dateOfBirth = ParserUtil.parseDate(DEFAULT_DATE_OF_BIRTH);
@@ -103,6 +106,8 @@ public class BodyBuilder {
         dateOfDeath = bodyToCopy.getDateOfDeath().orElse(null);
         dateOfBirth = bodyToCopy.getDateOfBirth().orElse(null);
         dateOfAdmission = bodyToCopy.getDateOfAdmission();
+
+        details = bodyToCopy.getDetails().orElse(null);
     }
 
     /**
@@ -202,11 +207,7 @@ public class BodyBuilder {
      * Sets the {@code religion} of the {@code Body} that we are building.
      */
     public BodyBuilder withReligion(String religion) {
-        try {
-            this.religion = ParserUtil.parseReligion(religion);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage() + MESSAGE_INVALID_TEST_PARAMETERS);
-        }
+        this.religion = ParserUtil.parseStringFields(religion);
         return this;
     }
 
@@ -259,13 +260,23 @@ public class BodyBuilder {
     }
 
     /**
+     * Sets the details of the {@code Body} that we are building.
+     * @param details of the body
+     * @return BodyBuilder
+     */
+    public BodyBuilder withDetails(String details) {
+        this.details = ParserUtil.parseStringFields(details);
+        return this;
+    }
+
+    /**
      * Creates a Body object using the parameters currently in this BodyBuilder object.
-     * @return
+     * @return the created Body
      */
     public Body build() {
         return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
                 organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
-                kinPhoneNumber);
+                kinPhoneNumber, details);
     }
 
     /**
@@ -273,8 +284,21 @@ public class BodyBuilder {
      * @return
      */
     public Body build(int id) {
-        return new Body(dateOfAdmission, name, sex, nric, religion, causeOfDeath,
-                organsForDonation, bodyStatus, fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship,
-                kinPhoneNumber);
+        Body body = Body.generateNewStoredBody(id, dateOfAdmission);
+        body.setName(name);
+        body.setSex(sex);
+        body.setNric(nric);
+        body.setReligion(religion);
+        body.setCauseOfDeath(causeOfDeath);
+        body.setOrgansForDonation(organsForDonation);
+        body.setBodyStatus(bodyStatus);
+        body.setFridgeId(fridgeId);
+        body.setDateOfBirth(dateOfBirth);
+        body.setDateOfDeath(dateOfDeath);
+        body.setNextOfKin(nextOfKin);
+        body.setRelationship(relationship);
+        body.setKinPhoneNumber(kinPhoneNumber);
+        body.setDetails(details);
+        return body;
     }
 }

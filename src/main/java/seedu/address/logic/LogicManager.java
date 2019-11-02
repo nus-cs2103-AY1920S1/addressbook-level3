@@ -18,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -78,6 +79,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Fridge> getFilteredFridgeList() {
         return model.getFilteredFridgeList();
+    }
+
+    @Override
+    public ObservableList<Notif> getFilteredNotifList() {
+        return model.getFilteredNotifList();
     }
 
     @Override

@@ -45,6 +45,8 @@ public class DeleteCommand extends UndoableCommand {
     private final String entityType;
 
     private Entity entityToDelete;
+    private Fridge fridge;
+    private List<Notif> notifList;
 
     public DeleteCommand(Index targetIndexNum, String entityType) {
         this.targetIndexNum = targetIndexNum;
@@ -117,6 +119,7 @@ public class DeleteCommand extends UndoableCommand {
         List<Fridge> lastShownFridgeList = model.getFilteredFridgeList();
         for (Fridge fridge : lastShownFridgeList) {
             if (fridge.getIdNum().equals(fridgeId)) {
+                this.fridge = fridge;
                 fridge.setBody(null);
             }
         }
@@ -135,6 +138,7 @@ public class DeleteCommand extends UndoableCommand {
                 notifsToRemove.add(notif);
             }
         }
+        this.notifList = new ArrayList<>(notifsToRemove);
 
         for (Notif notif : notifsToRemove) {
             model.deleteNotif(notif);
@@ -154,6 +158,12 @@ public class DeleteCommand extends UndoableCommand {
 
         try {
             model.addEntity(entityToDelete);
+            if (fridge != null) {
+                fridge.setBody((Body) entityToDelete);
+            }
+            for (Notif notif : notifList) {
+                model.addNotif(notif);
+            }
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_ENTITY_NOT_FOUND);
         }

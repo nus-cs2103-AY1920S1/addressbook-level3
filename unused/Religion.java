@@ -9,8 +9,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public enum Religion {
     CHRISTIANITY, ISLAM, NONRELIGIOUS, HINDUISM, BUDDHISM, SIKHISM,
-            JUCHE, SPIRITISM, JUDAISM, JAINISM, SHINTO;
+            JUCHE, SPIRITISM, JUDAISM, JAINISM, SHINTO, CATHOLIC, OTHERS;
 
+    private static final String MESSAGE_CONSTRAINTS = "This religion wasn't found in the default list. "
+            + "Please use \"others\".";
     /**
      * Parses {@code String religion} to return the corresponding {@code Religion}.
      */
@@ -40,8 +42,10 @@ public enum Religion {
             return JAINISM;
         case "nonreligious":
             return NONRELIGIOUS;
+        case "OTHERS":
+            return OTHERS;
         default:
-            throw new ParseException("Invalid religion");
+            throw new ParseException(MESSAGE_CONSTRAINTS);
         }
     }
 }

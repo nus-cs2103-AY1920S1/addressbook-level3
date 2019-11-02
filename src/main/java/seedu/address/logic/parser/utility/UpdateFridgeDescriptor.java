@@ -63,6 +63,11 @@ public class UpdateFridgeDescriptor implements UpdateEntityDescriptor {
         return entity;
     }
 
+    @Override
+    public Entity applyOriginal(Entity entity) {
+        return null;
+    }
+
     // Getters and Setters
     public Optional<IdentificationNumber> getBodyId() {
         return Optional.ofNullable(bodyId);

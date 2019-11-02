@@ -1,25 +1,50 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":AddCommand" as AddCommand LOGIC_COLOR
-participant "notifCommand:NotifCommand" as NotifCommand LOGIC_COLOR
+
+box Main #f5c1c1
+participant ":MainApp" as MainApp #ab1313
 end box
 
-participant "ses:ScheduledExecutorService" as ScheduledExecutorService LOGIC_COLOR
-
-box Model MODEL_COLOR_T1
-participant "model:Model" as Model MODEL_COLOR
-participant "notif:Notif" as Notif MODEL_COLOR
+box Logic #b0d5f7
+participant "addCommand:AddCommand" as AddCommand #1f69ad
+participant "<<class>>\n:NotifCommand" as StaticNotifCommand #1f69ad
+participant "notifCommand:NotifCommand" as NotifCommand #1f69ad
 end box
 
--> AddCommand :AddCommand(body)
+box Storage #f5c8a2
+participant "storage:StorageManager" as Storage #e67f25
+end box
+
+box Model #e6bdf2
+participant "model:Model" as Model #621c78
+participant "notif:Notif" as Notif #621c78
+end box
+
+box Events Center #bcdfe3
+participant "<<class>>\nses:ScheduledExecutorService" as ScheduledExecutorService #5f9ca3
+end box
+
+activate MainApp
+
+create Storage
+MainApp -> Storage :StorageManager(addressBookStorage, userPrefsStorage)
+activate Storage
+Storage --> MainApp :storage
+deactivate Storage
+
+MainApp -> StaticNotifCommand :setStorage(storage)
+activate StaticNotifCommand
+MainApp <-- StaticNotifCommand
+deactivate StaticNotifCommand
+
 create AddCommand
+MainApp -> AddCommand :AddCommand(body)
 activate AddCommand
-<-- AddCommand
+AddCommand --> MainApp :addCommand
 deactivate AddCommand
 
--> AddCommand :execute()
+MainApp -> AddCommand :execute()
 activate AddCommand
     AddCommand -> Model :addEntity(body)
     activate Model
@@ -59,7 +84,7 @@ activate AddCommand
 
         NotifCommand -> NotifCommand :startSesChangeBodyStatusUi()
         activate NotifCommand
-        ref over NotifCommand, ScheduledExecutorService : Runnable changeUI
+        ref over NotifCommand, Storage, Model : Runnable changeUI
         NotifCommand -> ScheduledExecutorService :schedule(changeUI, NOTIF_PERIOD, NOTIF_TIME_UNIT)
         activate ScheduledExecutorService
         ScheduledExecutorService --> NotifCommand

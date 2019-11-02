@@ -1,0 +1,16 @@
+/* Notification PopOver */
+
+.popover {
+}
+
+.popover > .border {
+    -fx-stroke-width: 1;
+    -fx-fill: derive(#121212, 25%);
+    -fx-effect: dropshadow(gaussian, #121212, 10.0, 0.5, 5.0, 5.0);
+}
+
+.popover > .content > .title > .text  {
+    -fx-text-fill: white;
+    -fx-padding: 20 0 15 0;
+}
+
