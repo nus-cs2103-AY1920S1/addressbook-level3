@@ -52,6 +52,8 @@ public class ImportCommand extends Command {
             throw new CommandException("There was an error in reading from the file. Perhaps it was corrupted?");
         } catch (UnsupportedOperationException e) {
             throw new CommandException(e.getMessage());
+        } catch (CommandException e) {
+            throw e;
         }
     }
 
@@ -62,10 +64,10 @@ public class ImportCommand extends Command {
                 && exportPath.equals(((ImportCommand) other).exportPath)); // state check
     }
 
-    private CommandResult applyImport(Model model, Optional<List<FlashCard>> optionalList) {
+    private CommandResult applyImport(Model model, Optional<List<FlashCard>> optionalList) throws CommandException {
 
         if (optionalList.isEmpty()) {
-            return new CommandResult(
+            throw new CommandException(
                     "Could not find any flashcards to import. Are you sure you got the path correct?"
             );
         } else {
