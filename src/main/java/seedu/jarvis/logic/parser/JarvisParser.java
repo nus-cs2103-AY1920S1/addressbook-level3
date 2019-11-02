@@ -106,20 +106,6 @@ public class JarvisParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        // addressbook commands
-        case AddAddressCommand.COMMAND_WORD:
-            return new AddAddressCommandParser().parse(arguments);
-        case EditAddressCommand.COMMAND_WORD:
-            return new EditAddressCommandParser().parse(arguments);
-        case DeleteAddressCommand.COMMAND_WORD:
-            return new DeleteAddressCommandParser().parse(arguments);
-        case ClearAddressCommand.COMMAND_WORD:
-            return new ClearAddressCommand();
-        case FindAddressCommand.COMMAND_WORD:
-            return new FindAddressCommandParser().parse(arguments);
-        case ListAddressCommand.COMMAND_WORD:
-            return new ListAddressCommand();
-
         // undo/redo commands
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
