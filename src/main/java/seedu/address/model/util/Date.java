@@ -13,7 +13,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Date implements Comparable<Date> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Date objects must adhere to the format: DDMMYYYY\n";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid date.\n" +
+        "Date objects must adhere to the format: DDMMYYYY\n";
 
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
 
@@ -30,19 +31,51 @@ public class Date implements Comparable<Date> {
      */
     public static boolean isValidDate(String test) {
         try {
-            test.matches("(0?[1-9]|[12][0-9]|3[01])(0?[1-9]|1[0-2])\\d{4}");
             DATE_FORMATTER.parse(test);
-            return true;
+            return checkDate(test);
         } catch (DateTimeParseException e) {
             return false;
         }
     }
 
+    private static boolean checkDate(String date) {
+        int day = Integer.parseInt(date.substring(0, 2));
+        int month = Integer.parseInt(date.substring(2, 4));
+        int year = Integer.parseInt(date.substring(4));
+
+        if (day < 1) {
+            return false;
+        }
+
+        // For months with 30 days.
+        if ((month == 4 || month == 6 || month == 9 || month == 11) && day <= 30) {
+            return true;
+        }
+        // For months with 31 days.
+        if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+            && day <= 31) {
+            return true;
+        }
+        // For February.
+        if (month == 2) {
+            if (day <= 28) {
+                return true;
+            } else if (day == 29) {
+                if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                    return true;
+                }
+            }
+        }
+
+        // Invalid date.
+        return false;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+            || (other instanceof Date // instanceof handles nulls
+            && date.equals(((Date) other).date)); // state check
     }
 
     @Override
@@ -70,6 +103,7 @@ public class Date implements Comparable<Date> {
 
     /**
      * Get today's date
+     *
      * @return Date object of today's date
      */
     public static Date now() {
