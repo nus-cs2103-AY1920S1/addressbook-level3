@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 .  Some example commands you can try:
 
 * *`list`* : lists all problems
-* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Wee Han'
+* **`add`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
 * **`edit`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
 * **`switchtab`**`tt/display i/2` : switches to tag tab
 * **`switchtab`**`tt/display i/3` : switches to plan tab
@@ -53,7 +53,7 @@ image::UiStartPlan.png[width="60%"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Two Sequences`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/factorial t/recursion` or as `n/factorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/recursion`, `t/recursion t/dynamic-programming` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
@@ -111,7 +111,7 @@ Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 
 Examples:
 
-* `edit 1 a/John Doe +
+* `edit 1 a/John Doe` +
 Edits the author of the 1st problem to be `John Doe` respectively.
 * `edit 2 n/permutations t/` +
 Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
@@ -249,6 +249,7 @@ Format: `listtag`
 
 Deletes an existing tag. +
 Format: `deletetag INDEX`
+
 Examples:
 
 * `deletetag 1`
@@ -257,6 +258,7 @@ Examples:
 
 Edits an existing tag. +
 Format: `edittag INDEX t/NAME`
+
 Examples:
 
 * `edittag 1 t/difficult`
@@ -271,6 +273,7 @@ Format: `add n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
 * `START_DATE` should be before or equal to `END_DATE`.
+* `START_DATE` will be `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
 
 Examples:
 
@@ -284,7 +287,6 @@ Format: `deleteplan INDEX`
 * Deletes the plan at the specified `INDEX`.
 * The index refers to the index number shown in the displayed plan list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* `START_DATE` will be `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
 
 Examples:
 
@@ -307,7 +309,7 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 
 Examples:
 
-* `edit 1 d/past year questions of sit-in labs +
+* `edit 1 d/past year questions of sit-in labs` +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
 * `edit 2 start/2019-08-13` +
 Edits the starting date of the 2nd plan to be `2019-08-13`.
