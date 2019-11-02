@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -37,11 +38,17 @@ public class EnterDayCommand extends Command {
         // Reference to in memory daylist is stored by pageStatus
         List<Day> lastShownList = model.getPageStatus().getTrip().getDayList().internalList;
 
-        if (indexToEnter.getZeroBased() >= lastShownList.size()) {
+        // Set when the trip list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToEnter.getZeroBased());
+
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
-        Day dayToEnter = lastShownList.get(indexToEnter.getZeroBased());
+        Day dayToEnter = lastShownList.get(rawZeroBasedIndex);
         model.setPageStatus(model.getPageStatus()
                 .withNewPageType(PageType.EVENT_PAGE)
                 .withNewDay(dayToEnter));
