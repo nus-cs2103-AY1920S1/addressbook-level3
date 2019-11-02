@@ -19,4 +19,5 @@ public class CacheFileNames {
     public static final String GMAPS_DISTANCE_MATRIX_PATH = CACHE_FOLDER_PATH + GMAPS_FOLDER_PATH
             + "DistanceMatrix.json";
     public static final String GMAPS_PLACES_PATH = CACHE_FOLDER_PATH + GMAPS_FOLDER_PATH + "Places.json";
+    public static final String GMAPS_PLACE_DETAILS_PATH = CACHE_FOLDER_PATH + GMAPS_FOLDER_PATH + "PlaceDetails.json";
 }

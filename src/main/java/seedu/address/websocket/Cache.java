@@ -59,6 +59,7 @@ public class Cache {
     private static NusModsApi api = new NusModsApi(AppSettings.DEFAULT_ACAD_YEAR);
     private static Optional<Object> gmapsPlaces = load(CacheFileNames.GMAPS_PLACES_PATH);
     private static Optional<Object> gmapsDistanceMatrix = load(CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
+    private static Optional<Object> gmapsPlaceDetails = load(CacheFileNames.GMAPS_PLACE_DETAILS_PATH);
 
     /**
      * Save json to file in cache folder.
@@ -376,6 +377,38 @@ public class Cache {
                 logger.info(e.getMessage());
                 logger.severe("Failed to get info for row: " + locationsRow + " column: " + locationsColumn
                         + " from caching and API");
+            }
+        }
+        return result;
+    }
+
+    /**
+     * This method is used to load the info of the place by Google Maps from the cache or Google Maps API
+     *
+     * @param locationName
+     * @return
+     */
+    public static JSONObject loadPlaceDetails(String placeId) {
+        String fullUrl = UrlUtil.generateGmapsPlaceDetailsUrl(placeId);
+        String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
+        JSONObject placesJson = new JSONObject();
+
+        if (gmapsPlaceDetails.isPresent()) {
+            placesJson = (JSONObject) gmapsPlaces.get();
+        }
+
+        JSONObject result = new JSONObject();
+        if (placesJson.get(sanitizedUrl) != null) {
+            result = (JSONObject) placesJson.get(sanitizedUrl);
+        } else {
+            try {
+                checkGmapsKey(fullUrl);
+                logger.info("Getting placeID: " + placeId + " data from Google Maps API");
+                result = GmapsApi.getPlaceDetails(placeId);
+                saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACES_PATH);
+            } catch (ConnectException e) {
+                logger.info(e.getMessage());
+                logger.severe("Failed to get info for " + placeId + " from caching and API");
             }
         }
         return result;

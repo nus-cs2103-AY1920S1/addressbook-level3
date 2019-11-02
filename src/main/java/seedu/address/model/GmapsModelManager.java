@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.TimeBookInvalidState;
 import seedu.address.logic.internal.gmaps.ClosestLocation;
+import seedu.address.logic.internal.gmaps.GenerateImage;
 import seedu.address.logic.internal.gmaps.ProcessLocationGraph;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
@@ -29,6 +30,10 @@ public class GmapsModelManager {
         } catch (TimeBookInvalidState e) {
             e.printStackTrace();
         }
+    }
+
+    public void generateImage() throws TimeBookInvalidState {
+        new GenerateImage(validLocationList).execute();
     }
 
     public ClosestCommonLocationData closestLocationData(ArrayList<String> locationNameList) {

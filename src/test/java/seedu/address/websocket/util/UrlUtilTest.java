@@ -53,6 +53,12 @@ class UrlUtilTest {
     }
 
     @Test
+    void generateGmapsPlaceDetailsUrl() {
+        String expected = "";
+        assertEquals(UrlUtil.generateGmapsPlaceDetailsUrl("ChIJBeHqfnAb2jERL1OoMUzA7yE"), "expectedUrl");
+    }
+
+    @Test
     void generateDistanceMatrixUrl() {
         ArrayList<Location> tooLongStringList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {

@@ -114,6 +114,19 @@ public class UrlUtil {
     }
 
     /**
+     * This method is used to get the details of a place from the place id
+     * @param placeId
+     * @return
+     */
+    public static String generateGmapsPlaceDetailsUrl(String placeId) {
+        String baseUrl = "https://maps.googleapis.com/maps/api/place/details/json?";
+        String placeIdQueryParams = "place_id=" + placeId + "&";
+        String apiKeyQueryParams = "key=" + gmapsApiKey + "&";
+        String fullUrl = baseUrl + placeIdQueryParams + apiKeyQueryParams;
+        return fullUrl;
+    }
+
+    /**
      * This method is used to get image from GMAPS and save to local directory
      * @param validLocationName
      * @return
