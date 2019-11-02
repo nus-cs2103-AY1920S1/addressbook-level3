@@ -171,10 +171,6 @@ public class MainWindow extends UiPart<Stage> {
         borrowerPanel.reset();
     }
 
-    public BookListPanel getBookListPanel() {
-        return bookListPanel;
-    }
-
     /**
      * Executes the command and returns the result.
      *
