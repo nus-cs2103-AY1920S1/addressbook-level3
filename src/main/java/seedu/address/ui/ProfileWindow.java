@@ -214,6 +214,16 @@ public class ProfileWindow extends UiPart<Stage> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 getRoot().hide();
             }
+            else if (KeyCode.Q == event.getCode()) {
+                getRoot().hide();
+            }
+            else if (KeyCode.P == event.getCode()) {
+                try {
+                    generateProfilePressed(new ActionEvent());
+                } catch (CommandException e) {
+                    // Action fails
+                }
+            }
         });
     }
 
