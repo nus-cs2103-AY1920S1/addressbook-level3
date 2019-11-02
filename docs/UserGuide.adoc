@@ -193,7 +193,7 @@ edit-task 3//r/weekly
 ----
 
 ==== Updating a task's status: `done-task`
-Updates the status of a task. By default on an `add-task`, all tasks are marked
+Updates the status of a task. By default on `add-task`, all tasks are marked
 as undone, represented by a `[✗]`. Upon finishing the task, the task will be
 represented with a `[✓]`.
 
@@ -221,93 +221,134 @@ Finance Tracker
 Feature by
 -> Goh Si Ning
 ////
-=== Finance Tracker
+=== Where did all my money go?
+Introducing the **Finance Tracker** feature of Jarvis, which is responsible for keeping track of all your purchases,
+monthly subscriptions and debts owed. Upon switching to the Finance tab, you will be able to see a list of purchases on
+the left and a list of your monthly subscriptions on the right. The circle in the middle indicates how much you have
+spent in relation to the spending limit set and you can see your "monthly expenses" right below that. How neat!
 
+//todo: add a ui ss
+
+As students, we often forget what we have spent on so far, which makes it hard for us to save since we do not know how
+much we are spending. But do not worry, as here's what the Finance Tracker can
+do for you:
 
 ==== Add a single-use purchase: `add-paid`
-Adds a single use purchase to the finance tracker. The amount spent will be
-added to the current spending to keep track of the budget set by the user.
+So you bought another cup of GongCha at UTown? Let's put that in.
 
-Payments have to be added with a description and a payment amount.
+This command adds a single purchase (with a description and a price) to the finance tracker.
+Don't worry about remembering __when__ you made your purchase, as Jarvis will automatically store it to today's date!
+Jarvis will then also update your monthly expenses accordingly.
 
 Format: `add-paid d/PURCHASE-DESCRIPTION a/AMOUNT`
 
 ===== Example
 ----
-pay d/lunch at the Deck a/4.50
-pay d/paid Jessica for milk tea a/2.0
+add-paid d/GongCha a/2.8
+add-paid d/GongCha a/2.89
 ----
 
-==== Delete a purchase: `delete-paid`
-Deletes a single use purchase from the list of purchases tracked by Jarvis.
+
+==== Delete a single-use purchase: `delete-paid`
+Did you return something you bought on Zalora recently? Welp, I guess that's one less purchase you made this month.
+
+This command tells Jarvis to remove the purchase at the given index on the list of purchases shown on the Finance tab.
+Jarvis will also update your monthly expenses accordingly, which also means you have more remaining budget left!
 
 Format: `delete-paid INDEX`
 
-where `INDEX` is the **one-based** index of the purchases list.
+NOTE: `INDEX` corresponds to index shown on the list "What I bought this month..." under the Finance tab. This also
+means that the index must exist within this list!
 
 
-==== Setting an installment: `add-install`
-Sets an installment, which is a subscription to a service that is paid monthly.
-The amount is assumed to be deducted on the first of every month. Each installment
-must contain a description and a subscription fee.
+==== Searching for a purchase: `find-purchases`
+Ever wondered how many cups of GongCha you bought over the past month? Brace yourself for the truth.
+
+Jarvis can help you search for your purchases that match whatever keyword you give it!
+
+Format: `find-purchases KEYWORD`
+
+===== Example
+----
+find-purchases GongCha
+----
+
+
+==== Add a monthly subscription: `add-install`
+Who can resist the plethora of shows to watch on Netflix? So you decided to jump on the bandwagon and subscribe to it
+as well.
+
+Let's tell Jarvis to store this new installment. Don't forget to key in the description and the amount you
+have to pay monthly so Jarvis can automatically keep track of this every month from now on!
 
 Format: `add-install d/INSTALLMENT-DESCRIPTION a/AMOUNT`
 
 ===== Example
 ----
-add-install n/Spotify a/9.50
 add-install n/Netflix a/13.0
+add-install n/Spotify a/9.50
 ----
 
+
+==== Delete a monthly subscription: `delete-install`
+But alas, finals are approaching, and you decided to remove all distractions to help you better study. Unfortunately,
+this means deleting your Netflix account.
+
+This command will tell Jarvis to remove the installment at the given index on the list of installments shown on the
+Finance tab. Jarvis will also update your monthly expenses accordingly.
+
+Format: `delete-install INDEX`
+
+NOTE: `INDEX` corresponds to index shown on the list "What I spend on monthly..." under the Finance tab. This also
+means that the index must exist within this list!
+
+
 ==== Edit an installment: `edit-install`
-Edits an existing installment in the list of existing installments.
+Spotify just released a new student plan? Great, that means a lower subscription fee every month!
+
+Let's inform Jarvis of the changes using the index of the installment on the list "What I spend on monthly..." under
+the Finance tab. You can either change the description or the amount or both.
 
 Format: `edit-install INDEX {d/INSTALLMENT-DESCRIPTION | a/AMOUNT}`
 
 ===== Example
 ----
 edit-install 1 a/10
-edit-install 2 d/Spotify-Family
+edit-install 2 d/Spotify student plan
+edit-install 2 d/Spotify student plan a/7.50
 ----
 
-==== Delete an installment: `delete-install`
-Deletes an installment in the list of existing installments.
 
-Format: `delete-install INDEX`
+==== Setting a monthly spending limit: `set-limit`
+It's the season to stop spending so much!
 
+Let Jarvis keep track of how much you have limited yourself to spend this month. Simply set the limit to the
+Finance Tracker.
 
-==== Setting Monthly Limit: `set-monthly`
-Sets a monthly budget limit. From the monthly limit, the program will
-automatically calculate your weekly and daily limit.
-
-Format: `set-monthly a/AMOUNT`
+Format: `set-limit a/AMOUNT`
 
 ===== Example
 ----
-set-monthly a/300
+set-limit a/300
+set-limit a/500.90
 ----
 
 If no monthly limit has been specified, the program will show:
 
 `Oops, there does not seem to be a monthly limit.`
 
-
-==== Searching for a purchase: `find-purchases`
-Searches for any purchases in the finance tracker that matches the keyword given by
-the user.
-
-Format: `find-purchases`
-
-
 ==== Listing finances: `list-finances`
-Lists all currently subscribed installments and spent purchases for the month.
+Jarvis will switch you onto the Finance tab if you are not already there. If you have previously searched through your
+purchases for something, then Jarvis returns you to the original list of purchases.
 
 Format: `list-finances`
 
 
 ==== Export to File: `export`
-Export the current expenditure to a file, either as a `.txt`, `.csv`
-or `xlsx` format.
+A feature coming to you in v2.0!
+
+Want to keep a record of your finances for this month? Simple export your current expenditures to a file, either
+as a `.txt`, `.csv` or `xlsx` format.
 
 Format: `export {csv | txt | xlsx} f/FILENAME`
 
@@ -316,8 +357,7 @@ Format: `export {csv | txt | xlsx} f/FILENAME`
 export csv f/expenditures
 ----
 
-This will create a file called `expenditures.csv` in the current directory,
-containing all expenditures.
+NOTE: Jarvis will create a file called `expenditures.csv` in the current directory, containing all expenditures.
 
 
 ////
