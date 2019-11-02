@@ -11,7 +11,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_TIMING_COMPARE_END = "The endTiming should be after startTiming \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The index provided is invalid";
     public static final String MESSAGE_PERSON_NOT_FOUND = "The person '%1$s' is not registered";
-    public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
     public static final String MESSAGE_INVALID_ROOM = "the room does not exist";
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
             "The reference ID '%1$s' does not belong to any registered person!";

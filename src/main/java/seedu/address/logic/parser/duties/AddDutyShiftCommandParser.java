@@ -2,7 +2,6 @@
 package seedu.address.logic.parser.duties;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_REFERENCEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
@@ -35,6 +34,8 @@ import seedu.address.model.events.parameters.Timing;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCommand> {
+    public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any doctor";
+
     private Model model;
 
     public AddDutyShiftCommandParser(Model model) {

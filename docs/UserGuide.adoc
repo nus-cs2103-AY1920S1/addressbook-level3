@@ -195,7 +195,7 @@ Format: `addappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges an existing appointment once the patient has arrived +
-Format: `ackappt -id <REFERENCE_ID>`
+Format: `ackappt <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
