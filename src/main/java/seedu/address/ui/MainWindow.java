@@ -46,7 +46,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CodeWindow codeWindow;
@@ -62,9 +61,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
 
     @FXML
     private ImageView imageView;
@@ -101,9 +97,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
         mainScene = primaryStage.getScene();
 
-        // todo-this-week: call the PageScene constructor with your page scene instead,
-        // e.g. Pages(primaryScene, diaryScene)
-        // note that one of the PageScene's constructor is a vararg
         PageManager.getInstance(primaryStage, mainScene, calendarPage, itineraryPage,
                 financialTrackerPage, diaryPage, achievementsPage, addressBookPage);
 
@@ -152,9 +145,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -232,10 +222,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         exit();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
