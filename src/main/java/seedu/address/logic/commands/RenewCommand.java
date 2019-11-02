@@ -66,7 +66,7 @@ public class RenewCommand extends ReversibleCommand {
             throw new CommandException(MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
 
-        Book bookToBeRenewed = lastShownBorrowerBooksList.get((int) index.getZeroBased());
+        Book bookToBeRenewed = lastShownBorrowerBooksList.get(index.getZeroBased());
         if (!bookToBeRenewed.isCurrentlyLoanedOut()) {
             throw new CommandException(String.format(MESSAGE_BOOK_NOT_ON_LOAN, bookToBeRenewed));
         }
