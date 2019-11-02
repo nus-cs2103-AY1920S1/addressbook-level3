@@ -57,8 +57,8 @@ public class TaskDeadline {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskDay // instanceof handles nulls
-                && value.equals(((TaskDay) other).value)); // state check
+                || (other instanceof TaskDeadline // instanceof handles nulls
+                && value.equals(((TaskDeadline) other).value)); // state check
     }
 
     @Override
