@@ -31,7 +31,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 public class CalendarPage extends UiPart<Scene> implements Page {
-    private static final String FXML = "test1.fxml";
+    private static final String FXML = "CalendarPage.fxml";
     private static final PageType pageType = PageType.CALENDAR;
     private static final String FILE_OPS_ERROR_MESSAGE = "Unable to save calendar";
 
