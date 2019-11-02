@@ -37,10 +37,18 @@ public class Parser implements InteractiveParser {
         }
 
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
-        if (isActive()) {
-            parseActive(commandText, arrayOfPrefixes);
-        } else {
-            parseInactive(commandText, arrayOfPrefixes);
+        parse(commandText, arrayOfPrefixes);
+    }
+
+    private void parse(String commandText, Prefix... prefixes) throws ParseException {
+        try {
+            if (isActive()) {
+                parseActive(commandText, prefixes);
+            } else {
+                parseInactive(commandText, prefixes);
+            }
+        } catch (StateTransitionException e) {
+            throw new ParseException(e.getMessage());
         }
     }
 
@@ -89,7 +97,8 @@ public class Parser implements InteractiveParser {
         }
     }
 
-    private void parseInactive(String commandText, Prefix... prefixes) throws ParseException {
+    private void parseInactive(String commandText, Prefix... prefixes) throws ParseException,
+            StateTransitionException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
         String commandWord = getCommandWord(commandText);
         switch (commandWord) {
@@ -104,7 +113,7 @@ public class Parser implements InteractiveParser {
 
     private String getCommandWord(String commandText) throws ParseException {
         String trimmedCommandText = commandText.trim();
-        List<String> commandWords = getCommandWords(trimmedCommandText);
+        List<String> commandWords = getAllCommandWords(trimmedCommandText);
 
         // If there is no unique command word, throw an exception.
         if (commandWords.size() != 1) {
@@ -114,7 +123,7 @@ public class Parser implements InteractiveParser {
         return commandWords.get(0);
     }
 
-    private List<String> getCommandWords(String trimmedCommandText) {
+    private List<String> getAllCommandWords(String trimmedCommandText) {
         Pattern pattern = Pattern.compile("^[a-zA-z]+");
         Matcher matcher = pattern.matcher(trimmedCommandText);
         List<String> commandWords = new ArrayList<>();
