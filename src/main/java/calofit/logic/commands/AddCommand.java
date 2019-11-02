@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Carbonara "
-            + PREFIX_CALORIES + "low calorie "
+            + PREFIX_CALORIES + "300 "
             + PREFIX_TAG + "salty";
 
     public static final String MESSAGE_SUCCESS = "New meal added to meal log: %1$s";
