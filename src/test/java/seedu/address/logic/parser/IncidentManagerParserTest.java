@@ -17,15 +17,15 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.EditIncidentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListIncidentsCommand;
 import seedu.address.logic.commands.ListPersonsCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -83,8 +83,8 @@ public class IncidentManagerParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        RegisterCommand command = (RegisterCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
+        assertEquals(new RegisterCommand(person), command);
     }
 
     /*

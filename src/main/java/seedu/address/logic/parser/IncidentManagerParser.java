@@ -10,9 +10,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.AddVehicleCommand;
+// import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteVehicleCommand;
@@ -30,6 +29,7 @@ import seedu.address.logic.commands.ListVehiclesCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.RegisterCommand;
 import seedu.address.logic.commands.SubmitCommand;
 import seedu.address.logic.commands.SwapCommand;
 import seedu.address.logic.commands.UpdateCommand;
@@ -68,7 +68,7 @@ public class IncidentManagerParser {
     private void checkAccess(String commandWord) throws ParseException {
         // Guard Statement for available commands prior to login.
         if (!isLoggedIn && !(commandWord.equals(LoginCommand.COMMAND_WORD)
-                || commandWord.equals(AddCommand.COMMAND_WORD)
+                || commandWord.equals(RegisterCommand.COMMAND_WORD)
                 || commandWord.equals(ExitCommand.COMMAND_WORD)
                 || commandWord.equals(HelpCommand.COMMAND_WORD))) {
             throw new ParseException(ACCESS_CONTROL_MESSAGE);
@@ -82,7 +82,7 @@ public class IncidentManagerParser {
      */
     private void checkInterface(String commandWord) throws ParseException {
         // Guard Statement for command suite corresponding to interface swaps.
-        if (!isPersonView && (commandWord.equals(AddCommand.COMMAND_WORD)
+        if (!isPersonView && (commandWord.equals(RegisterCommand.COMMAND_WORD)
                 || commandWord.equals(UpdateCommand.COMMAND_WORD)
                 || commandWord.equals(DeleteCommand.COMMAND_WORD)
                 || commandWord.equals(ListPersonsCommand.COMMAND_WORD)
@@ -124,8 +124,8 @@ public class IncidentManagerParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case RegisterCommand.COMMAND_WORD:
+            return new RegisterCommandParser().parse(arguments);
 
         case AddVehicleCommand.COMMAND_WORD:
             return new AddVehicleCommandParser().parse(arguments);

@@ -15,21 +15,34 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.IncidentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyIncidentManager;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Session;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Vehicle;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class RegisterCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new RegisterCommand(null));
+    }
+
+    //@@author madanalogy
+    @Test
+    void execute_nonAdminAddTags_throwsCommandException() {
+        ModelStubWithSession modelStub = new ModelStubWithSession();
+        Person validPerson = new PersonBuilder().withTags("admin").build();
+        RegisterCommand registerCommand = new RegisterCommand(validPerson);
+        modelStub.setSession(new PersonBuilder().build());
+
+        assertThrows(CommandException.class, Messages.MESSAGE_ACCESS_ADMIN, () -> registerCommand.execute(modelStub));
     }
 
     @Test
@@ -37,33 +50,34 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        CommandResult commandResult = new RegisterCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(String.format(RegisterCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        RegisterCommand registerCommand = new RegisterCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                RegisterCommand.MESSAGE_DUPLICATE_PERSON, () -> registerCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").withUsername("alice").build();
         Person bob = new PersonBuilder().withName("Bob").withUsername("bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        RegisterCommand addAliceCommand = new RegisterCommand(alice);
+        RegisterCommand addBobCommand = new RegisterCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        RegisterCommand addAliceCommandCopy = new RegisterCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -282,4 +296,35 @@ public class AddCommandTest {
         }
     }
 
+    //@@author madanalogy
+    /**
+     * A Model stub that allows for {@code Session} management while accepting any added person.
+     */
+    private class ModelStubWithSession extends ModelStubAcceptingPersonAdded {
+        private Session session;
+
+        ModelStubWithSession() {
+            this.session = new Session(null);
+        }
+
+        @Override
+        public void setSession(Person person) {
+            session = new Session(person);
+        }
+
+        @Override
+        public Person getLoggedInPerson() {
+            return session.getLoggedInPerson();
+        }
+
+        @Override
+        public String getLoginTime() {
+            return session.getLoginTime();
+        }
+
+        @Override
+        public boolean isLoggedIn() {
+            return session.getLoggedInPerson() != null;
+        }
+    }
 }
