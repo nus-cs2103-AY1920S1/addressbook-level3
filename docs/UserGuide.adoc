@@ -137,13 +137,13 @@ Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] 
 
 ==== Marks the doctor as on-duty: `onduty` ====
 
-Marks the doctor, based on the index given, as on-duty and assigns him/her to an consultation room list. +
+Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
 
 Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
 ==== Marks the doctor as off-duty: `offduty` ====
 
-Marks the doctor, based on the index given, as off-duty and removes him/her from the list based on the index given. +
+Marks the doctor, based on the index given, as off-duty and removes him/her from the list. +
 
 Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
@@ -165,21 +165,21 @@ Format: `dequeue <QUEUE_INDEX>`
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
-Assigns the next patient in the queue to a doctor based on the consultation room number. +
+Assigns the next patient in the queue to a doctor.. +
 
-Format: `next <ROOM_NUMBER>`
+Format: `next <ENTRY_ID>`
 
 ==== Doctor takes a break: `break`  ====
 
-Avoids directing patients to a doctor based on the room number. e.g. Doctor is on a lunch break +
+Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
 
-Format: `break <ROOM_NUMBER>`
+Format: `break <ENTRY_ID>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
-Allows patients to be directed to a doctor based on the room number. +
+Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
 
-Format: `resume <ROOM_NUMBER>`
+Format: `resume <ENTRY_ID>`
 
 
 === Appointment Management

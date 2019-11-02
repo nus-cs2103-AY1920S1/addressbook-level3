@@ -145,7 +145,13 @@ public class ModelManager implements Model {
     @Override
     public boolean isPatientInQueue(ReferenceId id) {
         requireNonNull(id);
-        return queueManager.hasId(id);
+        return queueManager.hasIdInQueue(id);
+    }
+
+    @Override
+    public boolean isPatientBeingServed(ReferenceId id) {
+        requireNonNull(id);
+        return queueManager.hasIdInRooms(id);
     }
 
     @Override

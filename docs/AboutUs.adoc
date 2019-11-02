@@ -32,10 +32,11 @@ Role: Developer, DevOps
 
 Responsibilities:
 
-. AutoCompleter
-. History
-. UI
+. AutoCompleter & History
+. Eager Evaluation (UI)
 . Testing & Version Control
+. UI
+
 
 '''
 

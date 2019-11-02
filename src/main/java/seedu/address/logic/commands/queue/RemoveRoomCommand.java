@@ -17,12 +17,12 @@ public class RemoveRoomCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "offduty";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the room identified by the index number used in the displayed rooms.\n"
+            + ": Removes the doctor on-duty from the list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_OFF_DUTY_SUCCESS = "%s is off-duty";
-    public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This room '%1$s' is not in the list";
+    public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This doctor '%1$s' is not in the list";
 
     private final Room roomToRemove;
 
