@@ -45,7 +45,7 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
-    private String lastCommandWord = "";
+    private String lastEagerCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -61,7 +61,7 @@ public class LogicManager implements Logic {
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        lastCommandWord = "";
+        lastEagerCommandWord = "";
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
@@ -88,22 +88,21 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
-        final Command command = addressBookParser.eagerEvaluateCommand(commandText);
 
-        String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
-        if (!lastCommandWord.equals(currCommandWord)) {
-            try {
-                this.execute(lastCommandWord);
-                displayResult.accept("");
-            } catch (CommandException | ParseException ex) {
-                logger.info("Resetting commands should not throw any exception: " + ex.getMessage());
-            }
-            lastCommandWord = currCommandWord;
+        //Avoid evaluating the same command
+        String currCommandWord = commandText.trim();
+        if (lastEagerCommandWord.equals(currCommandWord)) {
+            return;
         }
+        lastEagerCommandWord = currCommandWord;
 
+        // parse command to be eagerly evaluated
+        final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
         }
+
+        // execute set focus on tab
         if (command instanceof SetFocusOnTabCommand) {
             try {
                 command.execute(model);
@@ -113,6 +112,7 @@ public class LogicManager implements Logic {
             return;
         }
 
+        // multi-thread eager evaluation
         assert lastEagerEvaluationThread != null;
         lastEagerEvaluationThread.interrupt();
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;

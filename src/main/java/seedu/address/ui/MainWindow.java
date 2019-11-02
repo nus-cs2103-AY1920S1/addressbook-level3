@@ -281,7 +281,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
-        if (!commandText.isBlank() && !commandText.endsWith(" ")) {
+        if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
         }
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
