@@ -26,7 +26,7 @@ import seedu.address.transaction.model.transaction.Transaction;
  */
 public class ModelManager implements Model {
 
-    private static boolean onCashierMode = false;
+    protected static boolean onCashierMode = false;
 
     private static final String SALES_DESCRIPTION = "Items sold";
     private static final String SALES_CATEGORY = "Sales";

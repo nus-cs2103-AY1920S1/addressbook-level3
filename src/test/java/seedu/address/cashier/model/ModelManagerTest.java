@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.address.cashier.model.ModelManager.onCashierMode;
 import static seedu.address.testutil.TypicalItem.BURGER_AND_CHIPS;
 import static seedu.address.testutil.TypicalItem.CHIPS;
 import static seedu.address.testutil.TypicalItem.FISH_BURGER;
@@ -539,6 +541,13 @@ public class ModelManagerTest {
         assertEquals(modelManager.getSubtotal(CHIPS), subtotal);
     }
 
+    @Test
+    public void onCashierMode_successful() {
+        onCashierMode = true;
+        assertTrue(modelManager.onCashierMode());
+        onCashierMode = false;
+    }
 }
+
 
 
