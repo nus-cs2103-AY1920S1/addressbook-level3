@@ -90,11 +90,11 @@ public class LogicManager implements Logic {
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
         if (!lastCommandWord.equals(currCommandWord)) {
-            displayResult.accept("");
             try {
                 this.execute(lastCommandWord);
-            } catch (CommandException | ParseException e) {
-                // do nothing
+                displayResult.accept("");
+            } catch (CommandException | ParseException ex) {
+                logger.info("Resetting commands should not throw any exception: " + ex.getMessage());
             }
 
             lastCommandWord = currCommandWord;
