@@ -92,9 +92,9 @@ public class Dashboard {
 
     @Override
     public String toString() {
-        return getDashboardName() +
-                " Date: " + getTaskDate() +
-                " Status: " + getTaskStatus();
+        return getDashboardName()
+                + " Date: " + getTaskDate()
+                + " Status: " + getTaskStatus();
     }
 
 }
