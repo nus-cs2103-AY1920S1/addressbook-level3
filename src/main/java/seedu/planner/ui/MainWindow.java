@@ -152,7 +152,7 @@ public class MainWindow extends UiPart<Stage> {
             commandResult.getUiFocus().ifPresent(this::applyUiFocusChange);
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | EventException e) {
             logger.info("Invalid command: " + commandText);
             feedbackDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
             throw e;

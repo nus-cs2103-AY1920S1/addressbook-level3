@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.Command;
-import seedu.planner.logic.commands.RedoCommand;
-import seedu.planner.logic.commands.UndoCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -58,9 +56,7 @@ public class LogicManager implements Logic {
             Event undoableEvent = EventFactory.parse((UndoableCommand) command, model);
             CommandHistory.addToUndoStack(undoableEvent);
         }
-        if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
-            CommandHistory.clearRedoStack();
-        }
+
         commandResult = command.execute(model);
 
         try {
