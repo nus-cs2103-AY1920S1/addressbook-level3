@@ -4,6 +4,7 @@ import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.Interval;
 import seedu.address.calendar.model.util.IntervalSearchTree;
 
 import java.util.ArrayList;
@@ -413,6 +414,20 @@ public class EventManager {
         return Stream.concat(requiredVacations, requiredEngagements);
     }
 
+    public List<String> listAllAsString() {
+        return asList()
+                .stream()
+                .map(Event::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public List<String> listRelevantAsString(EventQuery eventQuery) {
+        return asListRelevant(eventQuery)
+                .stream()
+                .map(Event::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public List<Event> asList() {
         List<Event> eventList = new ArrayList<>();
         engagements.values()
@@ -424,6 +439,17 @@ public class EventManager {
                 .flatMap(listOfEvents -> listOfEvents.stream())
                 .forEach(event -> eventList.add(event));
         return eventList;
+    }
+
+    public List<Event> asListRelevant(EventQuery eventQuery) {
+        Stream<Event> relevantVacations = vacationSchedule.getCollisions(eventQuery)
+                .stream()
+                .flatMap(event -> vacations.get(event).stream());
+        Stream<Event> relevantEngagements = engagedSchedule.getCollisions(eventQuery)
+                .stream()
+                .flatMap(event -> engagements.get(event).stream());
+        return Stream.concat(relevantVacations, relevantEngagements)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void clear() {

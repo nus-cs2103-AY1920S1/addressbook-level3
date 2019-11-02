@@ -3,8 +3,9 @@ package seedu.address.calendar.ui;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
@@ -36,6 +37,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     private ResultDisplay resultDisplay;
     private CalendarLogic calendarLogic;
     private ReadOnlyDoubleProperty monthViewWidth;
+    private ListWindow listWindow;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -69,6 +71,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthViewWidth = weekHeader.widthProperty();
 
         fillInnerParts();
+        listWindow = new ListWindow();
     }
 
     public Scene getScene() {
@@ -132,6 +135,14 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         PageManager.closeWindows();
     }
 
+    private void handleShowList(String feedback) {
+        if (!listWindow.isShowing()) {
+            listWindow.show(feedback);
+        } else {
+            listWindow.requestFocus();
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -153,6 +164,12 @@ public class CalendarPage extends UiPart<Scene> implements Page {
             }
 
             resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowList()) {
+                handleShowList(commandResult.getFeedbackToUser());
+                resultDisplay.setDisplayText("");
+            }
+
             return commandResult;
         } catch (ParseException | CommandException e) {
             resultDisplay.setDisplayText(e.getMessage());

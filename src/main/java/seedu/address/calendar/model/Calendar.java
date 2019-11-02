@@ -63,6 +63,20 @@ public class Calendar {
         return true;
     }
 
+    public String listAll() {
+        return events.listAllAsString()
+                .stream()
+                .reduce("", (prev, curr) -> prev + "\n" + curr)
+                .trim();
+    }
+
+    public String list(EventQuery eventQuery) {
+        return events.listRelevantAsString(eventQuery)
+                .stream()
+                .reduce("", (prev, curr) -> prev + "\n" + curr)
+                .trim();
+    }
+
     // todo: update response message to indicate that the view has also been updated
 
     public boolean isAvailable(EventQuery eventQuery) {

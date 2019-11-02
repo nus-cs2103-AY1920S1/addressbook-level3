@@ -73,4 +73,12 @@ public class PageManager {
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
+
+    public static double getXPosition() {
+        return primaryStage.getX() + primaryStage.getWidth() / 2;
+    }
+
+    public static double getYPosition() {
+        return primaryStage.getY() + primaryStage.getHeight() / 2;
+    }
 }

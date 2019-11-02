@@ -20,14 +20,25 @@ public class CommandResult {
     /** The application page should change. */
     private final boolean showPage;
 
+    /** The list window should show. */
+    private final boolean showList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage, boolean showList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.showPage = showPage;
+        this.showList = showList;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
+        this(feedbackToUser, showHelp, exit, showPage, false);
     }
 
     /**
@@ -63,6 +74,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowList() {
+        return showList;
     }
 
     /** Checks whether user is requesting for a change in page.
