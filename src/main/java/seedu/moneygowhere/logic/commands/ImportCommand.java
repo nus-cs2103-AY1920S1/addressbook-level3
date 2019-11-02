@@ -79,7 +79,7 @@ public class ImportCommand extends Command {
         Remark remark = ParserUtil.parseRemark(metaRemarks);
         Cost cost = ParserUtil.parseCost(metaCost);
         Set<Tag> tagList;
-        if (metaTags.equals("")) {
+        if (metaTags.isEmpty()) {
             tagList = ParserUtil.parseTags(new ArrayList<>());
         } else {
             tagList = ParserUtil.parseTags(Arrays.asList(tags));
@@ -136,7 +136,6 @@ public class ImportCommand extends Command {
         MappingIterator<Map<String, String>> it = mapper.readerFor(Map.class)
                 .with(schema)
                 .readValues(csvFile);
-        JsonParser a = it.getParser();
 
         if (!it.hasNext()) {
             throw new IOException(MESSAGE_NO_CONTENT);
@@ -144,6 +143,7 @@ public class ImportCommand extends Command {
         while (it.hasNext()) {
             count++;
             Map<String, String> rowAsMap = it.next();
+
             if (!isValidCsv(rowAsMap)) {
                 throw new IOException(MESSAGE_INVALID_CSV);
             }
@@ -166,12 +166,8 @@ public class ImportCommand extends Command {
         if (map.size() != 5) {
             return false;
         } else {
-            if (map.get("name") == null || map.get("cost") == null || map.get("date") == null
-                    || map.get("remark") == null || map.get("tagged") == null) {
-                return false;
-            } else {
-                return true;
-            }
+            String[] keys = "name|cost|date|remark|tagged".split("\\|");
+            return Arrays.stream(keys).allMatch(map::containsKey);
         }
     }
 
