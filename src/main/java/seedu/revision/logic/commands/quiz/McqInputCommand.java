@@ -8,7 +8,7 @@ import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 
 /**
  * User inputs that answer the MCQ questions in the quiz session.

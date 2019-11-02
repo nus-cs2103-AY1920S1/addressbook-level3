@@ -28,7 +28,7 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.category.Category;
 
 /**

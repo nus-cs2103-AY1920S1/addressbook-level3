@@ -6,7 +6,7 @@ import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 
 /** TfInputCommand class used to execute user inputs for True and False Answerables. **/
 public class TfInputCommand extends Command {

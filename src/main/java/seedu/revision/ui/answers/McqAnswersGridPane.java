@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 
 /**
  * McqAnswersGridPane class used to display Mcq Answers.

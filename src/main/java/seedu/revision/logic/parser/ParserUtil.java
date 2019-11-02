@@ -13,7 +13,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.ArcadeMode;
 import seedu.revision.model.quiz.CustomMode;

@@ -22,7 +22,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 
@@ -133,7 +133,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAnswerableList().size());
 
         Answerable answerable = model.getFilteredAnswerableList().get(targetIndex.getZeroBased());
-        final String[] splitName = answerable.getQuestion().value.split("\\s+");
+        final String[] splitName = answerable.getQuestion().question.split("\\s+");
         model.updateFilteredAnswerableList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredAnswerableList().size());

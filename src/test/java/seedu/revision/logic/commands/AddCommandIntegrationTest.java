@@ -14,6 +14,7 @@ import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -29,7 +30,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newAnswerable_success() throws ParseException {
-        Answerable validAnswerable = new AnswerableBuilder().build();
+        Answerable validAnswerable = new McqBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addAnswerable(validAnswerable);

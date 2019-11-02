@@ -12,50 +12,46 @@ import static seedu.revision.testutil.TypicalAnswerables.BETA;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
-public class AnswerableTest {
+public class McqTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Answerable answerable = new AnswerableBuilder().build();
+        Answerable answerable = new McqBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> answerable.getCategories().remove(0));
     }
 
-    /*
     @Test
-    public void isSamePerson() {
+    public void isSameAnswerable() {
         // same object -> returns true
         assertTrue(A_ANSWERABLE.isSameAnswerable(A_ANSWERABLE));
 
         // null -> returns false
         assertFalse(A_ANSWERABLE.isSameAnswerable(null));
 
-
         // different question -> returns false
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BETA).build();
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
-        assertFalse(A_ANSWERABLE.isSameAnswerable(editedAlice));
+        Answerable editedAnswerable = new McqBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
+        assertFalse(A_ANSWERABLE.isSameAnswerable(editedAnswerable));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertTrue(A_ANSWERABLE.isSameAnswerable(editedAlice));
+        editedAnswerable = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertTrue(A_ANSWERABLE.isSameAnswerable(editedAnswerable));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertTrue(A_ANSWERABLE.isSameAnswerable(editedAlice));
+        editedAnswerable = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertTrue(A_ANSWERABLE.isSameAnswerable(editedAnswerable));
     }
-    */
 
     @Test
     public void equals() {
         // same values -> returns true
-        Answerable aliceCopy = new AnswerableBuilder(A_ANSWERABLE).build();
-        assertTrue(A_ANSWERABLE.equals(aliceCopy));
+        Answerable answerableCopy = new McqBuilder(A_ANSWERABLE).build();
+        assertTrue(A_ANSWERABLE.equals(answerableCopy));
 
         // same object -> returns true
         assertTrue(A_ANSWERABLE.equals(A_ANSWERABLE));
 
-        // null -> returns false
         assertFalse(A_ANSWERABLE.equals(null));
 
         // different type -> returns false
@@ -65,15 +61,15 @@ public class AnswerableTest {
         assertFalse(A_ANSWERABLE.equals(BETA));
 
         // different question -> returns false
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
-        assertFalse(A_ANSWERABLE.equals(editedAlice));
+        Answerable editedAnswerable = new McqBuilder(A_ANSWERABLE).withQuestion(VALID_QUESTION_BETA).build();
+        assertFalse(A_ANSWERABLE.equals(editedAnswerable));
 
         // different difficulty -> returns false
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BETA).build();
-        assertFalse(A_ANSWERABLE.equals(editedAlice));
+        editedAnswerable = new McqBuilder(A_ANSWERABLE).withDifficulty(VALID_DIFFICULTY_BETA).build();
+        assertFalse(A_ANSWERABLE.equals(editedAnswerable));
 
         // different categories -> returns false
-        editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertFalse(A_ANSWERABLE.equals(editedAlice));
+        editedAnswerable = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertFalse(A_ANSWERABLE.equals(editedAnswerable));
     }
 }

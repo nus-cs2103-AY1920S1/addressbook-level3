@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.revision.model.answerable.exceptions.AnswerableNotFoundException;
 import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class UniqueAnswerableListTest {
 
@@ -41,7 +42,7 @@ public class UniqueAnswerableListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueAnswerableList.add(A_ANSWERABLE);
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
+        Answerable editedAlice = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         assertTrue(uniqueAnswerableList.contains(editedAlice));
     }
@@ -85,7 +86,7 @@ public class UniqueAnswerableListTest {
     @Test
     public void setAnswerable_editedAnswerableHasSameIdentity_success() {
         uniqueAnswerableList.add(A_ANSWERABLE);
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
+        Answerable editedAlice = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         uniqueAnswerableList.setAnswerable(A_ANSWERABLE, editedAlice);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();

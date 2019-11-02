@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**

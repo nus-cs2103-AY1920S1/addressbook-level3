@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -91,6 +90,11 @@ public abstract class Answerable {
         if (otherAnswerable == this) {
             return true;
         }
+
+        if (otherAnswerable == null) {
+            return false;
+        }
+
         if (!(otherAnswerable.getClass().equals(this.getClass()))) {
             return false;
         }
@@ -100,8 +104,7 @@ public abstract class Answerable {
             isSameMCq = otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList());
         }
 
-        return otherAnswerable != null
-            && otherAnswerable.getQuestion().equals(getQuestion())
+        return otherAnswerable.getQuestion().equals(getQuestion())
             && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
             && otherAnswerable.getDifficulty().equals(getDifficulty())
             && isSameMCq;

@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.exceptions.DuplicateAnswerableException;
 import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class AddressBookTest {
 
@@ -45,7 +46,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateAnswerable_throwsDuplicateAnswerableException() {
         // Two answerables with the same identity fields
-        Answerable editedAlice = new AnswerableBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
+        Answerable editedAlice = new McqBuilder(A_ANSWERABLE).withCategories(VALID_CATEGORY_GREENFIELD)
                 .build();
         List<Answerable> newAnswerables = Arrays.asList(A_ANSWERABLE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newAnswerables);
