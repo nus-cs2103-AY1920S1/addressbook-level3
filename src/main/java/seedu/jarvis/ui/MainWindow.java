@@ -29,6 +29,7 @@ import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
+import seedu.jarvis.ui.planner.PlannerWindow;
 import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.template.View;
 
@@ -154,13 +155,13 @@ public class MainWindow extends UiPart<Stage> {
 
         // filling individual tabs
         CoursePlannerWindow cpw = new CoursePlannerWindow(this, logic, model);
-        TaskListView tlv = new TaskListView(this, logic, model);
+        PlannerWindow pw = new PlannerWindow(this, logic, model);
         CcaListView clv = new CcaListView(this, logic, model);
         FinanceListView flv = new FinanceListView(this, logic, model);
 
         model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-        tlv.fillPage();
-        plannerContentPlaceholder.getChildren().add(tlv.getRoot());
+        pw.fillPage();
+        plannerContentPlaceholder.getChildren().add(pw.getRoot());
 
         cpw.fillPage();
         moduleContentPlaceholder.getChildren().add(cpw.getRoot());
@@ -265,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case LIST_PLANNER:
-            newView = new TaskListView(this, logic, model);
+            newView = new PlannerWindow(this, logic, model);
             toUpdatePlaceHolder = plannerContentPlaceholder;
             break;
 
