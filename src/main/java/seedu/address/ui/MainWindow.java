@@ -172,6 +172,13 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Observer method invoked when changes happen.
+     */
+    public void update() {
+        updateBorrowerPanel();
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)

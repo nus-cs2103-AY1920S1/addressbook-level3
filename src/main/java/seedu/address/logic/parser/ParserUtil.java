@@ -27,7 +27,7 @@ import seedu.address.model.usersettings.RenewPeriod;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index should be a non-zero positive integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index should be a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DOLLAR_AMOUNT =
             "Dollar amount should be a non-zero number with at most 2 decimal places.";
 
