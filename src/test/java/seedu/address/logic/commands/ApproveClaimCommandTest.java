@@ -116,7 +116,7 @@ public class ApproveClaimCommandTest {
 
         @Override
         public void sortFilteredClaimListByDate() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -126,7 +126,7 @@ public class ApproveClaimCommandTest {
 
         @Override
         public void sortReverseFilteredClaimListByDate() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -136,7 +136,7 @@ public class ApproveClaimCommandTest {
 
         @Override
         public void sortFilteredIncomeListByDate() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -146,7 +146,7 @@ public class ApproveClaimCommandTest {
 
         @Override
         public void sortReverseFilteredIncomeListByDate() {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

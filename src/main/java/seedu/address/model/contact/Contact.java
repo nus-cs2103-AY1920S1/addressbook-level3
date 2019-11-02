@@ -83,8 +83,7 @@ public class Contact {
         }
 
         return otherContact != null
-                && otherContact.getName().equals(getName())
-                && (otherContact.getPhone().equals(getPhone()) || otherContact.getEmail().equals(getEmail()));
+                && otherContact.getName().equals(getName());
     }
 
     /**
@@ -102,10 +101,7 @@ public class Contact {
         }
 
         Contact otherContact = (Contact) other;
-        return otherContact.getName().equals(getName())
-                && otherContact.getPhone().equals(getPhone())
-                && otherContact.getEmail().equals(getEmail())
-                && otherContact.getTags().equals(getTags());
+        return otherContact.getName().equals(getName());
     }
 
     @Override

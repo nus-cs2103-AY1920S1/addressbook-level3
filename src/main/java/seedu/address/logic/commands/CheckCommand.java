@@ -37,6 +37,9 @@ public class CheckCommand extends Command {
      * @param index that is from user input
      */
     public CheckCommand(Index index) {
+        if (index == null) {
+            throw new NullPointerException();
+        }
         this.index = index;
     }
 
@@ -49,15 +52,19 @@ public class CheckCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Claim claimToShow = null;
         //if the current state is not claims or contacts, the check command will be invalid
         if (UiManager.getState().equals("claims")) {
             List<Claim> lastShownList = model.getFilteredClaimList();
-            //throw error if index not valid
-            if (index.getZeroBased() >= lastShownList.size()) {
+
+            for (Claim claim : lastShownList) {
+                if (Integer.parseInt(claim.getId().toString()) == index.getZeroBased()) {
+                    claimToShow = claim;
+                }
+            }
+            if (claimToShow == null) { //throw error if index not valid
                 throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
             }
-
-            Claim claimToShow = lastShownList.get(index.getZeroBased());
             return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
         } else if (UiManager.getState().equals("contacts")) {
             List<Contact> contactList = model.getFilteredContactList();

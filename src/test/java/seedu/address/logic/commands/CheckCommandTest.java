@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
@@ -12,9 +13,15 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
+//@@author {lawncegoh}
 class CheckCommandTest {
 
     private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
+
+    @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new CheckCommand(null));
+    }
 
     //    @Test
     //    public void execute_validIndexUnfilteredList_success() {
