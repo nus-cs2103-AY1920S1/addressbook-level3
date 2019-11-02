@@ -1,4 +1,4 @@
-package seedu.address.statistics;
+package seedu.address.model.wordbankstats;
 
 import static java.util.Objects.requireNonNull;
 

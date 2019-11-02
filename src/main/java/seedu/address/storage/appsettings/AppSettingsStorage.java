@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.appsettings.AppSettings;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * Represents a storage for {@link WordBankStatistics}.

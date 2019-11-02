@@ -13,8 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.StringConverter;
-import seedu.address.statistics.ScoreData;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.ScoreData;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
 /**

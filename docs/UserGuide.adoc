@@ -435,18 +435,42 @@ Changes the difficulty to medium. (Timer = 20 seconds)
 * `difficulty high` +
 Changes the difficulty to high. (Timer = 10 seconds)
 
+// tag::statsjason[]
+== Statistics
+This section covers the statistics shown to the user.
 
+=== Game Result
+The game result is shown to the user every time they finish a game. It contains information of the finished game and
+some information of the word bank.
 
+We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
+.Game Result UI.
+image::annotated_game_results_ui.png[]
 
+=== Word Bank Statistics
+The word bank statistics is shown on open mode and contains all information of the word bank.
+
+.Wordbank Statistics UI.
+image::annotated_wb_statistics_ui.png[]
+
+=== Global Statistics
+The global statistics is shown on the main title page and contains all information regarding the user's overall usage
+of the app.
+
+.Global Statistics UI.
+image::annotated_global_statistics_ui.png[]
+
+// end::statsjason[]
 
 == FAQ
+
+*Q*: How do I pronounce your app name? +
+*A*: Think Pokemon.
 
 *Q*: How do I transfer my word bank to my friend? +
 *A*: Export your word bank to your computer, then transfer him the file. He can then import the file into his Dukemon.
 
-*Q*: How do I pronounce your app name? +
-*A*: Think Pokemon.
 
 *Q*: Do I have to save data? +
 *A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.

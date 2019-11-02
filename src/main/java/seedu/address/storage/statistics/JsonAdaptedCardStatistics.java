@@ -2,7 +2,7 @@ package seedu.address.storage.statistics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.statistics.CardStatistics;
+import seedu.address.model.wordbankstats.CardStatistics;
 
 /**
  * Jackson-friendly version of {@link CardStatistics}.

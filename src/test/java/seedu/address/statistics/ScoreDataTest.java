@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.wordbankstats.ScoreData;
 
 public class ScoreDataTest {
 

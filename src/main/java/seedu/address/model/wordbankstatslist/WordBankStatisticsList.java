@@ -9,7 +9,7 @@ import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.wordbank.WordBank;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * Wraps all word bank statistics

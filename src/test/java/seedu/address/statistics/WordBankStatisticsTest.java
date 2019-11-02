@@ -13,6 +13,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.appsettings.DifficultyEnum;
+import seedu.address.model.wordbankstats.CardStatistics;
+import seedu.address.model.wordbankstats.ScoreData;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 public class WordBankStatisticsTest {
 

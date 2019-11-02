@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * Represents a storage for list of {@link WordBankStatistics}.

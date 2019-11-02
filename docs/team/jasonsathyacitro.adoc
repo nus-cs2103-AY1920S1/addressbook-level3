@@ -15,7 +15,7 @@ and it has a GUI created with JavaFX. It is written in Java, and has about 10 kL
 
 * *Major enhancement*:
 ** *added Game Result page after game ends*
-*** What it does: shows the user a page to indicate the game is over, which contains the user's performance on the
+*** What it does: It shows the user a page to indicate the game is over, which contains the user's performance on the
 current game (score, time taken), the user's progress (progress chart, achievement badges, high score, fastest clear),
 and a list of words the user has missed to help improve the user's subsequent performance.
 *** Justification: It helps game-ify the process of learning, gives the user a chance to look at how to improve their
@@ -24,20 +24,29 @@ finished.
 *** Highlights: The usage of time as a metric of performance (time taken, fastest clear) required understanding on the
 code for the timer, which led to in-depth discussion with a group mate (Koh Yida).
 
+
+.Game Result Page.
+image::game_results_ui.png[width="700"]
+
 ** *added Statistics for each word bank*
-*** What it does: shows the user a page on the summary of the statistics of a word bank (can be seen in open mode). It
+*** What it does: It shows the user a page on the summary of the statistics of a word bank (can be seen in open mode). It
 contains the user's progress (progress chart, achievement badges, high score, fastest clear) and a list of 5 words which
 the user gets wrong most often.
 *** Justification: It gives the user a way to see their progress on a specific word bank, and shows user which words the
 user is weak at.
 
+.Word Bank Statistics.
+image::wb_statistics_ui.png[width="600"]
+
 ** *added Global Statistics of overall usage*
-*** What it does: shows the user a page on the main page of their overall usage of the app. It contains the user's
+*** What it does: It shows the user a page on the main page of their overall usage of the app. It contains the user's
 total games played, weekly games count, and most played word bank.
 *** Justification: By showing the global statistics right on the home page, it makes the app feel more personalized.
 Additionally, showing the total games played and weekly games count may increase user's app usage, as each game is
 recorded and it feels like the user is making their own footprint on the app.
 
+.Global Statistics.
+image::global_statistics_ui.png[width="560"]
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated
 code files}_
@@ -48,7 +57,7 @@ code files}_
 (Card, WordBank, etc) in the very early stage of the project, which leads to increased productivity from the other
 members,
 as it was one of the biggest bottleneck of the project's progress.
-*** Searched for and collected the avatars for Dukemon which is necessary for a more fun and flavorful learning
+*** Sourced for and integrated the avatars for Dukemon that provide a more fun and flavorful learning
 experience [credit to Geovanny Gavilanes].
 *** Created the logo for the app.
 
@@ -58,10 +67,7 @@ experience [credit to Geovanny Gavilanes].
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
 end-users._
 |===
-=== *NOT YET ADDED*
-//include::../UserGuide.adoc[tag=switchingmodes]
-//include::../UserGuide.adoc[tag=quickstartsubbash]
-
+include::../UserGuide.adoc[tag=statsjason]
 
 
 == Contributions to the Developer Guide
@@ -69,7 +75,5 @@ end-users._
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project._
 |===
-=== *NOT YET ADDED*
-//include::../DeveloperGuide.adoc[tag=subbashdg2]
-//include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
+include::../DeveloperGuide.adoc[tag=jasonstats]
 

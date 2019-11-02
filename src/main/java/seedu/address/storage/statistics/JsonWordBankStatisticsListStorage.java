@@ -17,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * A class to access a list of {@code WordBankStatistics} data stored as a json file on the hard disk.

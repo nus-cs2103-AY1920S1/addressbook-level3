@@ -7,7 +7,7 @@ import seedu.address.appmanager.AppManager;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
 import seedu.address.ui.modules.BankLabelPanel;

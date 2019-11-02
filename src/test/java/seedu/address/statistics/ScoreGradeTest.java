@@ -3,6 +3,7 @@ package seedu.address.statistics;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import seedu.address.model.wordbankstats.ScoreData;
 
 public class ScoreGradeTest {
 

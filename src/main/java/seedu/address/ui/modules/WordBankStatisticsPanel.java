@@ -13,8 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.card.Card;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
-import seedu.address.statistics.CardStatistics;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.CardStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.ui.UiPart;
 
 /**
