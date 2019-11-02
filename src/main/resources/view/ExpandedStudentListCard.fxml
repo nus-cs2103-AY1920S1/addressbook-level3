@@ -51,6 +51,11 @@
             <Label fx:id="currentAppealsPrefix" styleClass="cell_big_label, pink-text-label" text="Appeals:" />
             <Label fx:id="currentAppeals" styleClass="cell_small_label, description_text" text="\$appeals" />
 
+            <Label minHeight="20" />
+
+            <Label fx:id="previousModulesPrefix" styleClass="cell_big_label, pink-text-label" text="Modules Previously Taken:" />
+            <Label fx:id="previousModules" styleClass="cell_small_label, description_text" text="\$prevMods" />
+
         </VBox>
     </GridPane>
 </HBox>

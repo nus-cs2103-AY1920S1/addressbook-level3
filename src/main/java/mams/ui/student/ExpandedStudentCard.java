@@ -49,6 +49,8 @@ public class ExpandedStudentCard extends UiPart<Region> {
     private FlowPane appealTags;
     @FXML
     private Label numberOfMods;
+    @FXML
+    private Label previousModules;
 
     public ExpandedStudentCard(Student student) {
         super(FXML);
@@ -59,6 +61,7 @@ public class ExpandedStudentCard extends UiPart<Region> {
         currentMods.setText(formatCurrentModuleListToText());
         currentAppeals.setText(formatCurrentAppealListToText());
         numberOfMods.setText(Integer.toString(student.getNumberOfMods()));
+        previousModules.setText(student.getPrevMods().toString());
         student.getCurrentAppeals().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> appealTags.getChildren().add(new Label(tag.tagName)));
