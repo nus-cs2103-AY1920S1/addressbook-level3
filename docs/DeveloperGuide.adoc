@@ -434,7 +434,7 @@ The following aspect was a consideration when designing the help feature.
 Aspect: Ways to display the command summary
 
 * **Alternative 1 (Current choice):** Display a snapshot with all the commands supported by the application.
-** Pros: The display can be quickly ammended with any addition or removal of command(s).  
+** Pros: The display can be quickly ammended with any addition or removal of command(s).
 ** Cons: The size of the snapshot displayed needs to be large to ensure sufficient picture resolution.
 
 
