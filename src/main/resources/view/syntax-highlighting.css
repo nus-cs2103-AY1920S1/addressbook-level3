@@ -8,15 +8,15 @@
 }
 
 #SyntaxBox .text-field {
-    -fx-opacity: .2;
+    -fx-opacity: 1;
     -fx-padding: 0;
-    -fx-background-color: none;
+    -fx-background-color: white;
     -fx-border-insets: 0;
     -fx-background-insets: 0;
     -fx-border-image-insets: 0;
     -fx-font-size: 20px;
     -fx-font-family: "Droid Sans Mono";
-    -fx-text-fill: none;
+    -fx-text-fill: black;
 }
 
 .error {
