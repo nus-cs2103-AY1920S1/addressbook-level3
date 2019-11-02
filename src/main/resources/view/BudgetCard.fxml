@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="budgetCardPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:id="budgetCardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="CENTER" maxHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -52,7 +52,7 @@
                                 <Label fx:id="budgetTotalAmount" />
                                 <Label fx:id="divider" />
                                 <Label fx:id="budgetAllocatedAmount" />
-                        <Label fx:id="proportionUsed" >
+                        <Label fx:id="proportionUsed" style="-fx-font-weight: bold;">
                            <padding>
                               <Insets left="3.0" />
                            </padding>

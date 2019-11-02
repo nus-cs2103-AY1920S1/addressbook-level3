@@ -19,9 +19,8 @@ endif::[]
 
 By: `Team MooLah`      Since: `Jun 2016`      Licence: `MIT`
 
+//tag::intro[]
 == Introduction
-
-
 
 MooLah is a hassle-free expense tracker for those who *prefer to use a desktop app for tracking expenses*.
 More importantly, MooLah is *optimized for those who prefer to work with a Command Line Interface* (CLI)
@@ -31,6 +30,8 @@ the addition of both expenses and events into budgets of your choosing.
 If you can type fast, MooLah can get your expense management tasks done much faster than traditional GUI expense
 trackers.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+//end::intro[]
 
 == Quick Start
 
@@ -377,6 +378,7 @@ delete 2
 ----
 Deletes the 2nd event in the list of events, shown by `listevents`.
 
+//tag::budget[]
 === Let's Do Budgeting
 
 Feel a need to cut your spending? Try the awesome budgeting feature!
@@ -538,6 +540,8 @@ Tips:
 * The time machine can only travel *back* in time! That is, if the date is in the current or future period, you'll need
 to input again.
 * Only expenses tracked under *the current budget* are shown.
+
+//end::budget[]
 
 // tag::brian[]
 

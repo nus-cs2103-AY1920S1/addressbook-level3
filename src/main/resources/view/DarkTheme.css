@@ -1,29 +1,29 @@
 * {
-    -colour-light: #42b883;
-    -colour-medium: #347474;
-    -colour-medium2: #73969c;
-    -colour-dark: #35495e;
-    -colour-highlight: #ff7e67;
-    -moneyout: #cc2c29;
-    -black1: black;
-    -grey1: #aaaaaa;
+    -colour-title: #3c3744;
+    -colour-bgfill: #746680;
+    -colour-category1: #ff7e67;
+    -colour-category: #dbd18f;
+    -colour-price: #8317ad;
+    -colour-index: #aaaaaa;
+    -colour-result: #554e61;
     /*-status-background-colour: derive(#1d1d1d, 30%);*/
-    -status-background-colour: -colour-medium;
-    /*-status-border-colour: derive(#1d1d1d, 30%);*/
+    -status-background-colour: -colour-title;
+    /*-status-border-colour:n derive(#1d1d1d, 30%);*/
     -status-border-colour: transparent;
-    -text-colour1: white;
-    -font-lightweight: "Droid Sans Mono";
-    -font-dark: black;
-    -font-semibold: "Droid Sans Mono";
-    -progress-bar-overbudget: #ac4e47;
-    -progress-bar-nearbudget: #ff7142;
-    -progress-bar-halfbudget: #fda50f;
-    -progress-bar-inbudget: #42b883;
-    -fx-font-family: "Droid Sans Mono"
+    -text-colour: white;
+
+    -font-mono: "Courier New";
+    -fx-font-family: "Courier New", sans-serif;
+
+    -progress-bar-overbudget: #fe5f55;
+    -progress-bar-nearbudget: #ffb55a;
+    -progress-bar-halfbudget: #cde460;
+    -progress-bar-inbudget: #6ecd8e;
+
 }
 
 .list-view {
-    -fx-background-color: -colour-medium2;
+    -fx-background-color: -colour-bgfill;
 }
 
 .list-cell {
@@ -32,11 +32,11 @@
 
 
 .list-cell .label {
-    -fx-text-fill: -black1;
+    -fx-text-fill: black;
 }
 
 .pane-with-border {
-    -fx-background-color: -colour-medium;
+    -fx-background-color: -colour-title;
 }
 
 .status-bar {
@@ -44,19 +44,14 @@
 }
 
 .result-display {
-    -fx-background-color: transparent;
-    -fx-font-family: -font-lightweight;
-    -fx-font-size: 12px;
-    -fx-text-fill: -font-dark;
-}
-
-.result-display .label {
-    -fx-text-fill: -black1 !important;
+    -fx-background-color: -colour-result;
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
 }
 
 .status-bar .label {
-    -fx-font-family: -font-lightweight;
-    -fx-text-fill: -text-colour1;
+    -fx-font-family: -font-mono;
+    -fx-text-fill: -text-colour;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
@@ -68,7 +63,7 @@
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: -text-colour1;
+    -fx-text-fill: -text-colour;
 }
 
 .context-menu {
@@ -76,7 +71,7 @@
 }
 
 .context-menu .label {
-    -fx-text-fill: -text-colour1;
+    -fx-text-fill: -text-colour;
     -fx-font-size: 10px;
 }
 
@@ -86,27 +81,27 @@
 
 .menu-bar .label {
     -fx-font-size: 10pt;
-    -fx-font-family: -font-lightweight;
-    -fx-text-fill: -text-colour1;
+    -fx-font-family: -font-mono;
+    -fx-text-fill: -text-colour;
     -fx-opacity: 0.9;
 }
 
 .placeholder {
-    -fx-background-color: -colour-medium2;
+    -fx-background-color: -colour-bgfill;
 }
 
 .placeholder .label{
-    -fx-font-family: -font-lightweight;
+    -fx-font-family: -font-mono;
     -fx-font-size: 20px;
 }
 
 #titlePlaceHolder {
-    -fx-background-color: -colour-medium;
+    -fx-background-color: -colour-title;
 }
 
 #titlePlaceHolder .label {
-    -fx-text-fill: -text-colour1;
-    -fx-font-family: -font-semibold;
+    -fx-text-fill: -text-colour;
+    -fx-font-family: -font-mono;
     -fx-padding: 10;
 }
 
@@ -127,12 +122,12 @@
 }
 
 #budgetCardPane {
-    -fx-background-color: -colour-medium;
+    -fx-background-color: #ac9eb8;
     -fx-padding: 10;
 }
 
 .progress-bar > .track {
-    -fx-background-color: -colour-medium2;
+    -fx-background-color: #7f7a82;
 }
 
 .progress-bar .bar {
@@ -141,7 +136,7 @@
 }
 
 .command-box {
-    -fx-background-color: -colour-medium;
+    -fx-background-color: -colour-title;
 }
 
 #expenseCardPane {
@@ -152,22 +147,23 @@
 }
 
 #expenseCardPane #clip {
-    -fx-fill: -colour-highlight;
+    -fx-fill: -colour-category;
 }
 
 #expenseCardPane .label {
-    -fx-font-family: -font-semibold;
+    -fx-font-family: -font-mono;
     -fx-font-size: 16px;
 }
 
 #expenseCardPane #index {
-    -fx-text-fill: -grey1;
+    -fx-text-fill: -colour-index;
 }
 
 #expenseCardPane #price {
-    -fx-font-family: -font-semibold;
+    -fx-font-family: -font-mono;
+    -fx-font-weight: bold;
     -fx-font-size: 18px;
-    -fx-text-fill: -moneyout;
+    -fx-text-fill: -colour-price;
     -fx-padding: 0 5 0 0;
 }
 
@@ -179,22 +175,23 @@
 }
 
 #eventCardPane #clip {
-    -fx-fill: -colour-highlight;
+    -fx-fill: -colour-category;
 }
 
 #eventCardPane .label {
-    -fx-font-family: -font-semibold;
+    -fx-font-family: -font-mono;
     -fx-font-size: 16px;
 }
 
 #eventCardPane #index {
-    -fx-text-fill: -grey1;
+    -fx-text-fill: -colour-index;
 }
 
 #eventCardPane #price {
-    -fx-font-family: -font-semibold;
+    -fx-font-family: -font-mono;
     -fx-font-size: 18px;
-    -fx-text-fill: -moneyout;
+    -fx-font-weight: bold;
+    -fx-text-fill: -colour-price;
     -fx-padding: 0 5 0 0;
 }
 
@@ -204,10 +201,10 @@
 }
 
 #commandTextField {
-    -fx-background-color: white;
-    -fx-font-family: -font-lightweight;
+    -fx-background-color: #ebdff5;
+    -fx-font-family: -font-mono;
     -fx-font-size: 13pt;
-    -fx-text-fill: -font-dark;
+    -fx-text-fill: black;
 }
 
 #filterField, #expenseListPanel, #eventListPanel, #expenseWebpage, #eventWebpage {
@@ -215,7 +212,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: -colour-medium2;
+    -fx-background-color: -colour-result;
 }
 
 #tags {

@@ -256,7 +256,7 @@ by the `add` command.
 // end::undoredo[]
 
 
-// category::budget[]
+// tag::budget[]
 === Budget feature
 ==== Implementation
 
