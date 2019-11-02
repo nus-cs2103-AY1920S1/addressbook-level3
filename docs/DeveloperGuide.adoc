@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::Typee_highlevel_architecture_diagram.png[]
+image::Typee_UML-Architecture.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -412,7 +412,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage appointments and contacts faster than a typical mouse/ GUI driven app
+*Value proposition*: increase productivity by managing appointments faster than a typical mouse/ GUI driven app
 
 [appendix]
 == User Stories
@@ -447,7 +447,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |advanced user |be able to execute compound statements |improve efficiency
 
-|`*` |bored secretary |have a built-in game feature |keep myself entertained
+|`*` |highly motivated secretary |have a typing warm-up |prepare myself for an important events like meetings.
 
 |`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work
 
