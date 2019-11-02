@@ -438,7 +438,10 @@ e.g.  `delete 10`
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* List all flashcards under a specific category - `list CATEGORY` +
+* Import flashcards from a JSON file - `import p>FILE_PATH` +
+e.g.  `import p>C:\Users\User\Documents\flashcards.json`
+* List all flashcards - list
+* List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
 * List all flashcards - 'listall'
 * Set user preference for reminders - `remind CATEGORY DD/MM HHmm` +
