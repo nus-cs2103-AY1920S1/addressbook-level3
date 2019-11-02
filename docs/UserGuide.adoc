@@ -34,7 +34,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `addressbook.jar` link:{https://github.com/AY1920S1-CS2103-F09-4/main/releases}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -44,9 +44,11 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`listpeople`* : lists all people
+* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980`: adds contact
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listpolicy`* : lists all policies
+* `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`: adds policy
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -78,7 +80,7 @@ Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH`
 
 Examples:
 
-* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980`
+* `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1912 g/Male`
 
 === Adding a policy: `addpolicy`
 
@@ -124,24 +126,26 @@ Format: `edit INDEX [n/NAME] [ic/NRIC] [p/PHONE] [e/EMAIL] [a/ADDRESS] [dob/DATE
 * Existing values will be updated to the input values.
 * If editing a person's date of birth results in him being ineligible for a policy/multiple policies he currently possesses, they will be unassigned from him.
 ****
+[NOTE]
+To edit tags, use `addTag` or `deleteTag`
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower a/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears the address tag.
 
 === Editing a policy : `editpolicy`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]] [pr/PRICE] [sa/START_AGE] [ea/END_AGE]`
+Format: `editpolicy INDEX [n/NAME] [d/DESCRIPTION] [c/[days/DAYS_VALID][months/MONTHS_VALID][years/YEARS_VALID]] [pr/PRICE] [sa/START_AGE] [ea/END_AGE]`
 
 ****
 * Edits the policy at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
+[NOTE]
+To edit policy tags, use `addPolicyTag` or `deletePolicyTag`
 
 Examples:
 
@@ -182,7 +186,7 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find family children` +
+* `findpolicy family children` +
 Returns any policy having names or descriptions containing `family` or `children`
 
 === Locating people by tags: `findtagpeople`
@@ -351,9 +355,11 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Deleted persons are moved into the bin, where they stay there for 30 days before being removed forever (currently
-set to 10 seconds so it can be tested easily, value is set in BinItem class).
+* Deleted persons are moved into the bin, where they stay there for 30 days before being removed permanently.
 ****
+[NOTE]
+Deleted items will expire in 10 seconds for testing purpose. Expired items will be removed on restart of application.
+
 
 Examples:
 
@@ -373,9 +379,10 @@ Format: `deletepolicy INDEX`
 * Deletes the policy at the specified `INDEX`.
 * The index refers to the index number shown in the displayed policy list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* Deleted policies are moved into the bin, where they stay there for 30 days before being removed forever (currently
-set to 10 seconds so it can be tested easily, value is set in BinItem class).
 ****
+[NOTE]
+Deleted items will expire in 10 seconds for testing purpose. Expired items will be removed on restart of application.
+
 
 Examples:
 
