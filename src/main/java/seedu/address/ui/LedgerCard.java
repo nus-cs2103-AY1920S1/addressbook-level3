@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.transaction.LedgerOperation;
-
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Budget}.
@@ -37,8 +37,8 @@ public class LedgerCard extends UiPart<Region> {
         // TODO FIX
         //balance.setText(ledgerOperation.getAmount().toString());
         ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
-                .sorted(Comparator.comparing(person -> person.getName().fullName))
-                .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
+            .sorted(Comparator.comparing(person -> person.getName().fullName))
+            .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class LedgerCard extends UiPart<Region> {
         // state check
         LedgerCard card = (LedgerCard) other;
         return id.getText().equals(card.id.getText())
-                && ledgerOperation.equals(card.ledgerOperation);
+            && ledgerOperation.equals(card.ledgerOperation);
     }
 }
