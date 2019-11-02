@@ -36,7 +36,7 @@ import seedu.planner.logic.commands.EditActivityCommand;
 import seedu.planner.logic.commands.EditContactCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.ListCommand;
-import seedu.planner.logic.commands.OptimiseBudgetCommand;
+import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
 import seedu.planner.logic.commands.ScheduleCommand;
 import seedu.planner.logic.commands.UndoCommand;
@@ -264,7 +264,7 @@ public class CentralDisplay extends UiPart<Region> {
                 new HelpCard(ListCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(ScheduleCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(AutoScheduleCommand.MESSAGE_USAGE).getRoot(),
-                new HelpCard(OptimiseBudgetCommand.MESSAGE_USAGE).getRoot(),
+                new HelpCard(OptimiseCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(UnscheduleCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(UndoCommand.MESSAGE_USAGE).getRoot(),
                 new HelpCard(RedoCommand.MESSAGE_USAGE).getRoot(),
