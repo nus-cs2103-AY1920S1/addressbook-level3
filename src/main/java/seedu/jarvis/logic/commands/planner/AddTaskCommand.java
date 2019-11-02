@@ -26,22 +26,55 @@ public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add-task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the planner. "
+    public static final String MESSAGE_USAGE_TODO = COMMAND_WORD + " t/todo"
+            + ": Adds a Todo task to the planner. "
             + "Parameters: "
-            + PREFIX_TASK_TYPE + "TASK TYPE "
             + PREFIX_TASK_DES + "TASK DES "
-            + PREFIX_DATE + "[DATE] "
             + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
             + PREFIX_FREQ + "[FREQUENCY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_TYPE + "todo "
             + PREFIX_TASK_DES + "borrow book "
-            + PREFIX_DATE + "3/10/2019 "
-            + PREFIX_PRIORITY + "med "
+            + PREFIX_PRIORITY + "medium "
             + PREFIX_FREQ + "weekly "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
+
+    public static final String MESSAGE_USAGE_EVENT = COMMAND_WORD + " t/event"
+            + ": Adds an Event task to the planner. "
+            + "Parameters: "
+            + PREFIX_TASK_DES + "TASK DES "
+            + PREFIX_DATE + "START DATE//END DATE "
+            + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
+            + PREFIX_FREQ + "[FREQUENCY] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TASK_TYPE + "event "
+            + PREFIX_TASK_DES + "workshop "
+            + PREFIX_DATE + "20/12/2019//20/12/2019"
+            + PREFIX_PRIORITY + "medium "
+            + PREFIX_FREQ + "weekly "
+            + PREFIX_TAG + "friends "
+            + PREFIX_TAG + "school";
+
+    public static final String MESSAGE_USAGE_DEADLINE = COMMAND_WORD + " t/deadline"
+            + ": Adds a Deadline task to the planner. "
+            + "Parameters: "
+            + PREFIX_TASK_TYPE + "TASK TYPE "
+            + PREFIX_TASK_DES + "TASK DES "
+            + PREFIX_DATE + "DUE DATE "
+            + PREFIX_PRIORITY + "[PRIORITY LEVEL] "
+            + PREFIX_FREQ + "[FREQUENCY] "
+            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TASK_TYPE + "deadline "
+            + PREFIX_TASK_DES + "assignment "
+            + PREFIX_DATE + "20/12/2019 "
+            + PREFIX_PRIORITY + "medium "
+            + PREFIX_FREQ + "weekly "
+            + PREFIX_TAG + "cs "
+            + PREFIX_TAG + "school";
 
     public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
