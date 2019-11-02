@@ -88,36 +88,65 @@ public class ParserUtil {
     public static AthletickDate parseDate(String date) throws ParseException {
         String trimmedDate = date.trim();
         if (trimmedDate.length() == 6 || trimmedDate.length() == 8) {
-            SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
-            fullDate.setLenient(false);
-            SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
-            monthYear.setLenient(false);
-            try {
-                if (trimmedDate.length() == 8) {
-                    Date d = fullDate.parse(trimmedDate);
-                    int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
-                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
-                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
-                    int type = 1;
-                    String mth = new SimpleDateFormat("MMMM").format(d);
-                    return new AthletickDate(day, month, year, type, mth);
-                } else if (date.length() == 6) {
-                    Date d2 = monthYear.parse(trimmedDate);
-                    int day = Integer.parseInt("0");
-                    int month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
-                    int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
-                    int type = 2;
-                    String mth = new SimpleDateFormat("MMMM").format(d2);
-                    return new AthletickDate(day, month, year, type, mth);
-                }
-            } catch (java.text.ParseException pe) {
-                throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " " + AthletickDate.MESSAGE_CONSTRAINTS);
+            if (trimmedDate.length() == 8) {
+                return parseDateTypeOne(trimmedDate);
+            } else if (date.length() == 6) {
+                return parseDateTypeTwo(trimmedDate);
             }
         } else {
-            throw new ParseException(AthletickDate.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(AthletickDate.MESSAGE_CONSTRAINTS,
+                    AthletickDate.DATE_FORMAT_GENERAL));
         }
         // should not reach here
         return null;
+    }
+
+    /**
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
+     * whitespaces will be trimmed. Used when date is in format DDMMYYYY.
+     *
+     * @throws ParseException if the specified date is invalid.
+     */
+    public static AthletickDate parseDateTypeOne(String date) throws ParseException {
+        try {
+            date = date.trim();
+            SimpleDateFormat fullDate = new SimpleDateFormat("ddMMyyyy");
+            fullDate.setLenient(false);
+            Date d = fullDate.parse(date);
+            int day = Integer.parseInt(new SimpleDateFormat("d").format(d));
+            int month = Integer.parseInt(new SimpleDateFormat("M").format(d));
+            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d));
+            int type = 1;
+            String mth = new SimpleDateFormat("MMMM").format(d);
+            return new AthletickDate(day, month, year, type, mth);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_ONE));
+        }
+    }
+
+    /**
+     * Parses {@code date} into a {@code AthletickDate} and returns it. Leading and trailing
+     * whitespaces will be trimmed. Used when date is in format MMYYYY.
+     *
+     * @throws ParseException if the specified date is invalid.
+     */
+    public static AthletickDate parseDateTypeTwo(String date) throws ParseException {
+        try {
+            date = date.trim();
+            SimpleDateFormat monthYear = new SimpleDateFormat("MMyyyy");
+            monthYear.setLenient(false);
+            Date d2 = monthYear.parse(date);
+            int day = Integer.parseInt("0");
+            int month = Integer.parseInt(new SimpleDateFormat("M").format(d2));
+            int year = Integer.parseInt(new SimpleDateFormat("yyyy").format(d2));
+            int type = 2;
+            String mth = new SimpleDateFormat("MMMM").format(d2);
+            return new AthletickDate(day, month, year, type, mth);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(AthletickDate.WRONG_DATE_FORMAT + " "
+                    + String.format(AthletickDate.MESSAGE_CONSTRAINTS, AthletickDate.DATE_FORMAT_TYPE_TWO));
+        }
     }
 
     /**
@@ -179,6 +208,7 @@ public class ParserUtil {
         }
         return new Email(trimmedEmail);
     }
+
     /**
      * Parses a {@code String gender} into an {@code Gender}.
      * Leading and trailing whitespaces will be trimmed.
