@@ -129,8 +129,8 @@ public abstract class Suggester {
      *
      * @param model           The {@link Model} containing the {@link seedu.address.model.person.Person}s to look
      *                        through.
-     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_NAME} containing the name to
-     *                        search for.
+     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_NAME} or
+     *                        {@link CliSyntax#PREFIX_EDIT} containing the name to search for.
      * @return A list of person names that match the search string (from {@link CommandArgument#getValue()}).
      */
     static List<String> getPersonNameSuggestions(final Model model, final CommandArgument commandArgument) {
@@ -149,8 +149,8 @@ public abstract class Suggester {
      * or {@link CliSyntax#PREFIX_EDIT}.
      *
      * @param model           The {@link Model} containing the {@link seedu.address.model.group.Group}s to look through.
-     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_GROUPNAME} containing the name
-     *                        to search for.
+     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_GROUPNAME} or
+     *                        {@link CliSyntax#PREFIX_EDIT} containing the name to search for.
      * @return A list of group names that match the search string (from {@link CommandArgument#getValue()}).
      */
     static List<String> getGroupNameSuggestions(final Model model, final CommandArgument commandArgument) {
