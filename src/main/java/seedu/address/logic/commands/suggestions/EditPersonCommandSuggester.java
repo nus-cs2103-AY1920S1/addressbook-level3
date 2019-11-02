@@ -12,7 +12,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditPersonCommand}.
@@ -74,7 +73,9 @@ public class EditPersonCommandSuggester extends Suggester {
                 return selectedPerson
                         .getTags()
                         .stream()
-                        .map(Tag::toString)
+                        .map(tag -> {
+                            return tag.tagName;
+                        })
                         .collect(Collectors.toUnmodifiableList());
             }
         }
