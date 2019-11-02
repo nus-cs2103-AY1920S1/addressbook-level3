@@ -5,6 +5,7 @@ import static dukecooks.testutil.Assert.assertThrows;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_DIARY;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static dukecooks.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,9 +17,9 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.profile.person.Name;
 import dukecooks.model.diary.components.DiaryName;
 import dukecooks.model.profile.medical.MedicalHistory;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.recipe.components.Ingredient;
 import dukecooks.model.recipe.components.RecipeName;
 

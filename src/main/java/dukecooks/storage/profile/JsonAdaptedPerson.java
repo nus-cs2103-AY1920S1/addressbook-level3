@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import dukecooks.commons.exceptions.IllegalValueException;
-import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
 

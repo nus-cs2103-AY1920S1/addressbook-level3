@@ -12,7 +12,6 @@ import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.StringUtil;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.Image;
-import dukecooks.model.profile.person.Name;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 import dukecooks.model.diary.components.DiaryName;
@@ -27,6 +26,7 @@ import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Weight;
 import dukecooks.model.recipe.components.Calories;
 import dukecooks.model.recipe.components.Carbs;
@@ -145,7 +145,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!TaskDate.isValidTaskDate(trimmedDate)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(TaskDate.MESSAGE_CONSTRAINTS);
         }
         return new TaskDate(trimmedDate);
     }

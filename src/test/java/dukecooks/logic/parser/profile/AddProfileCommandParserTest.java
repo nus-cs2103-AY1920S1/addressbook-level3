@@ -9,12 +9,13 @@ import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
-import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 import dukecooks.testutil.profile.PersonBuilder;
 
 public class AddProfileCommandParserTest {
+
     private AddProfileCommandParser parser = new AddProfileCommandParser();
 
     @Test

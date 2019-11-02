@@ -19,12 +19,12 @@ import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
 import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
-import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
 
