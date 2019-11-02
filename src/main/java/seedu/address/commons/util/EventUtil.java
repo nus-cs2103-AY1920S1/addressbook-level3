@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
@@ -215,7 +214,7 @@ public class EventUtil {
      * Validates that startDateTime provided is earlier than endDateTime provided
      * @param startDateTime LocalDateTime representation of the startDateTime
      * @param endDateTime LocalDateTime representation of the endDateTime
-     * @return true if @param startDateTime is earlier than @param endDateTime
+     * @return true if startDateTime is earlier than endDateTime
      */
     public static boolean validateStartEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return startDateTime.compareTo(endDateTime) < 0;
