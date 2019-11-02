@@ -363,7 +363,6 @@ This feature is supported by the following classes:
 * `StatsCommand` -- Carries the message to be displayed to the user.
 * `MainWindow` -- Opens a specific window as required.
 * `StatsWindow` -- Builds the statistics window display.
-* `RatingContainsKeywordPredicate` -- To generate a predicate for good, hard and easy ratings.
 * `Model` -- To provide a list of FlashCards given a rating predicate and the statistics from test mode.
 * `Stage` -- To create the pop-up window.
 * `Scene` -- To create an object that contains all the physical contents of the pop-up window.
