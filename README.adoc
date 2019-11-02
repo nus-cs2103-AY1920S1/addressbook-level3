@@ -47,7 +47,7 @@
 * *Save patient information as a .pdf file* 📄
 ** VISIT allows you to export and store a patient's profile as a .pdf in your own file system!
 * *Sleek and modern UI* 💼
-* *Tagging and Search functionality*
+* *Tagging and Search functionality* 🔎
 * *Cross platform* 🖥️
 ** Windows, macOS and Linux ready.
 
