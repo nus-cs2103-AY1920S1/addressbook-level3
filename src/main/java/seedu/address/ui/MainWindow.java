@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -44,7 +46,8 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ReportPanel reportPanel;
+
+    private String rightPanelCommandText;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -235,6 +238,7 @@ public class MainWindow extends UiPart<Stage> {
                 DisplayController displayController = null;
 
                 displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
                     logger.info("Displaying piechart...");
@@ -258,14 +262,25 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExpandPerson()) {
                 displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
-                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 displayPlaceHolder.getChildren().add(displayPanel.getRoot());
             }
 
             if (commandResult.isExpandPolicy()) {
                 displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
-                displayPlaceHolder.getChildren().removeAll();
+                displayPlaceHolder.getChildren().clear();
+                assert displayPlaceHolder.getChildren().isEmpty();
                 displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+            }
+
+            if (usesRightPane(commandResult)) {
+                rightPanelCommandText = commandText;
+            }
+
+            if (!usesRightPane(commandResult)) {
+                requireNonNull(rightPanelCommandText);
+                executeCommand(rightPanelCommandText, isSystemInput);
             }
 
             return commandResult;
@@ -274,5 +289,16 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Returns true if command result uses display place holder.
+     *
+     * @return boolean
+     */
+    private boolean usesRightPane(CommandResult commandResult) {
+        return commandResult.isDisplay()
+            || commandResult.isExpandPerson()
+            || commandResult.isExpandPolicy();
     }
 }

@@ -56,4 +56,16 @@ public class TimeUtil {
         int currentYear = calendar.get(Calendar.YEAR);
         return currentYear;
     }
+
+    public static int getCurrentMonth() {
+        Calendar calendar = Calendar.getInstance();
+        int currentMonth = calendar.get(Calendar.MONTH);
+        return currentMonth;
+    }
+
+    public static int getCurrentDate() {
+        Calendar calendar = Calendar.getInstance();
+        int currentDate = calendar.get(Calendar.DATE);
+        return currentDate;
+    }
 }
