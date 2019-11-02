@@ -47,7 +47,7 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited: %1$s";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_WRONG_CONTEXT = "You can only edit when viewing a contact or activity.";
@@ -88,7 +88,7 @@ public class EditCommand extends Command {
             model.setPerson(personToEdit, editedPerson);
             Context newContext = new Context(editedPerson);
             model.setContext(newContext);
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), newContext);
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editedPerson), newContext);
         } else if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
             if (!editActivityDescriptor.isAnyFieldEdited()) {
                 throw new CommandException(MESSAGE_NOT_EDITED);
@@ -101,7 +101,7 @@ public class EditCommand extends Command {
             model.setActivity(activityToEdit, editedActivity);
             Context newContext = new Context(editedActivity);
             model.setContext(newContext);
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedActivity), newContext);
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editedActivity), newContext);
         } else {
             throw new CommandException(MESSAGE_WRONG_CONTEXT);
         }

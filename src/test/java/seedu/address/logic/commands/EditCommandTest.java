@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ACTIVITY2;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_TITLE2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand.EditActivityDescriptor;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.ActivityBook;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Context;
 import seedu.address.model.InternalState;
@@ -26,6 +28,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Title;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ActivityBuilder;
+import seedu.address.testutil.EditActivityDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -48,7 +52,7 @@ public class EditCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(0);
         model.setContext(new Context(personToEdit));
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new UserPrefs(), new InternalState(), getTypicalActivityBook());
@@ -75,13 +79,39 @@ public class EditCommandTest {
         // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
         EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
                 new UserPrefs(), new InternalState(), getTypicalActivityBook());
 
         expectedModel.setPerson(lastPerson, editedPerson);
         Context newContext = new Context(editedPerson);
+        expectedModel.setContext(newContext);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, newContext);
+    }
+
+    @Test
+    public void execute_allFieldsSpecifiedActivityViewContext_success() { // currently only 1 field
+        int last = model.getFilteredActivityList().size();
+        Activity lastActivity = model.getFilteredActivityList().get(last - 1);
+        model.setContext(new Context(lastActivity));
+
+        ActivityBuilder activityInList = new ActivityBuilder(lastActivity);
+        Activity editedActivity = activityInList.withTitle(VALID_ACTIVITY_TITLE2).build();
+
+        EditActivityDescriptor ad = new EditActivityDescriptorBuilder().withTitle(VALID_ACTIVITY_TITLE2).build();
+
+        // Also checks that EditPersonDescriptor information is ignored because it is a activity view context
+        EditCommand editCommand = new EditCommand(DESC_AMY, ad);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedActivity);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(),
+                new UserPrefs(), new InternalState(), new ActivityBook(model.getActivityBook()));
+
+        expectedModel.setActivity(lastActivity, editedActivity);
+        Context newContext = new Context(editedActivity);
         expectedModel.setContext(newContext);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, newContext);
