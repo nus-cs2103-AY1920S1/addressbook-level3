@@ -39,7 +39,7 @@ class TaskDesContainsKeywordsPredicateTest {
 
         //Mixed-case keywords
         predicate = new TaskDesContainsKeywordsPredicate(Arrays.asList("reAd", "Book"));
-        t = new Todo("read book");
+        t = new Todo("reading book");
         assertTrue(predicate.test(t));
 
     }

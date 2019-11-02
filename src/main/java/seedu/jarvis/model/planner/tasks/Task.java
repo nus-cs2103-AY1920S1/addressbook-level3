@@ -20,7 +20,7 @@ public abstract class Task {
     public static final String EVENT = "event";
     public static final String DEADLINE = "deadline";
     public static final String TODO = "todo";
-    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     protected String taskDes;
     protected Priority priority;
