@@ -5,6 +5,8 @@ import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.expression.ActionExpression;
 import budgetbuddy.model.rule.expression.PredicateExpression;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -57,7 +59,13 @@ public class RuleCard extends UiPart<Region> {
             val.setId("predVal");
             predicateFlow.getChildren().addAll(attr, op, val);
         } else {
-            predicateFlow.getChildren().add(new Label(predicate.toString()));
+            PredicateScript predicateScript = (PredicateScript) predicate;
+            Label name = new Label(predicateScript.getScriptName().toString());
+            Label suffix = new Label("(script)");
+
+            name.setId("predScript");
+            suffix.setId("predSuffix");
+            predicateFlow.getChildren().addAll(name, suffix);
         }
 
         RuleAction action = rule.getAction();
@@ -76,7 +84,14 @@ public class RuleCard extends UiPart<Region> {
                 actionFlow.getChildren().add(val);
             }
         } else {
-            actionFlow.getChildren().add(new Label(action.toString()));
+            ActionScript actionScript = (ActionScript) action;
+            Label name = new Label(actionScript.getScriptName().toString());
+            Label suffix = new Label("(script)");
+
+
+            name.setId("actScript");
+            suffix.setId("actSuffix");
+            actionFlow.getChildren().addAll(name, suffix);
         }
     }
 

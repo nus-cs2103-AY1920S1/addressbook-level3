@@ -343,7 +343,7 @@
     -fx-vgap: 5;
 }
 
-#predOp, #actOp, #predAttr, #predVal, #actVal {
+#predOp, #actOp, #predAttr, #predVal, #actVal, #predScript, #actScript {
     -fx-padding: 1 3 3 3;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
@@ -357,6 +357,15 @@
 #predAttr, #predVal, #actVal {
     -fx-text-fill: black;
     -fx-background-color: #f8b595;
+}
+
+#predScript, #actScript {
+    -fx-text-fill: white;
+    -fx-background-color: #6c5b7c;
+}
+
+#predSuffix, #actSuffix {
+    -fx-font-size: 9px;
 }
 
 .tab-pane.floating > .tab-header-area .tab {
