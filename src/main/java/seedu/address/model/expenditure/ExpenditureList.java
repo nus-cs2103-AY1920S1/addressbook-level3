@@ -97,7 +97,15 @@ public class ExpenditureList implements Iterable<Expenditure> {
      */
     public void remove(Expenditure toRemove) throws ExpenditureNotFoundException {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        boolean updated = false;
+        for (Expenditure expenditure : internalList) {
+            if (expenditure.isSameExpenditure(toRemove)) {
+                internalList.remove(expenditure);
+            }
+            updated = true;
+        }
+
+        if (!updated) {
             throw new ExpenditureNotFoundException();
         }
     }

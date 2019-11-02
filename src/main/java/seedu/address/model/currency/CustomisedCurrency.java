@@ -51,4 +51,9 @@ public class CustomisedCurrency {
                     && otherCurrency.getRate().equals(getRate());
         }
     }
+
+    @Override
+    public String toString() {
+        return name.toString() + "(" + symbol.toString() + "),  exchange rate -- 1 : " + rate.getValue();
+    }
 }

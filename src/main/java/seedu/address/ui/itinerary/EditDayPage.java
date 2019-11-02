@@ -81,7 +81,7 @@ public class EditDayPage extends Page<AnchorPane> {
                     + " " + PREFIX_DATE_END
                     + ParserDateUtil.getStringFromDate(date.atTime(23, 59)));
         });
-        dayTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
+        dayTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditDayFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
         });

@@ -44,7 +44,7 @@ public class ExpenditureTest {
         // same name, same start and end times, same destination different attributes -> returns true
         editedExpenditureA = ExpenditureBuilder.of(EXPENDITURE_A).setBudget(new Budget(VALID_TOTAL_BUDGET_AFRICA))
                 .build();
-        assertTrue(EXPENDITURE_A.isSameExpenditure(editedExpenditureA));
+        assertFalse(EXPENDITURE_A.isSameExpenditure(editedExpenditureA));
 
         // same name, same budget, same day number -> returns true
         editedExpenditureA = ExpenditureBuilder.of(EXPENDITURE_A).build();

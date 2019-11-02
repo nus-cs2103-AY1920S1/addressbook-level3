@@ -35,7 +35,7 @@ public class EditCurrencyFieldCommand extends Command {
             + "[" + PREFIX_RATE + "RATE] "
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_SYMBOL + "$" + PREFIX_RATE + "2.00";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "Please check the format of your command!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditCurrencyDescriptor editCurrencyDescriptor;

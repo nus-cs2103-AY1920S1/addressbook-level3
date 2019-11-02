@@ -38,7 +38,7 @@ public class CurrencyPage extends Page<AnchorPane> {
 
     private TextFormItem currencyNameFormItem;
     private DoubleFormItem currencyRateFormItem;
-    private TextFormItem currencysymbolFormItem;
+    private TextFormItem currencySymbolFormItem;
 
     @FXML
     private VBox formItemsPlaceholder;
@@ -97,7 +97,7 @@ public class CurrencyPage extends Page<AnchorPane> {
         currentEditDescriptor.getName().ifPresent(name ->
                 currencyNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getSymbol().ifPresent(symbol ->
-                currencysymbolFormItem.setValue(symbol.toString()));
+                currencySymbolFormItem.setValue(symbol.toString()));
         currentEditDescriptor.getRate().ifPresent(rate ->
                 currencyRateFormItem.setValue(rate.getValue()));
     }
@@ -114,11 +114,11 @@ public class CurrencyPage extends Page<AnchorPane> {
         });
         VBox symbolFormItem = new VBox();
 
-        currencysymbolFormItem = new TextFormItem("Symbol of Currency : ", symbol -> {
+        currencySymbolFormItem = new TextFormItem("Symbol of Currency : ", symbol -> {
             mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
                     + " " + PREFIX_SYMBOL + symbol);
         });
-        symbolFormItem.getChildren().add(currencysymbolFormItem.getRoot());
+        symbolFormItem.getChildren().add(currencySymbolFormItem.getRoot());
         symbolFormItem.getChildren().add(new PresetSymbols(mainWindow).getRoot());
         currencyRateFormItem = new DoubleFormItem("SGD $1.00 = ", rate -> {
             mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
