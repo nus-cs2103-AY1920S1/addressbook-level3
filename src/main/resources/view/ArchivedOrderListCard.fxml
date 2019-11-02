@@ -83,7 +83,14 @@
                         <Label text="Status:" styleClass="cell_small_label_header" />
                         <Label fx:id="orderStatus" styleClass="cell_small_label" text="\$orderId" />
                     </HBox>
-                    <FlowPane fx:id="tags" />
+                    <HBox>
+                        <Label text="Schedule Tags:" styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="scheduleTags" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Order Tags:" styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="tags" />
+                    </HBox>
                     <padding>
                         <Insets top="5" right="5" bottom="5" left="15" />
                     </padding>

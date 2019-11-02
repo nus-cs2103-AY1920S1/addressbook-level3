@@ -58,6 +58,8 @@ public class ArchivedOrderCard extends UiPart<Region> {
     private Label orderStatus;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane scheduleTags;
 
     public ArchivedOrderCard(Order order, int displayedIndex) {
         super(FXML);
@@ -90,6 +92,11 @@ public class ArchivedOrderCard extends UiPart<Region> {
             }
         } else {
             orderStatus.setText(order.getStatus().toString());
+        }
+
+        if (order.getSchedule().isPresent()) {
+            order.getSchedule().get().getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> scheduleTags.getChildren().add(new Label(tag.tagName)));
         }
 
         order.getTags().stream()
