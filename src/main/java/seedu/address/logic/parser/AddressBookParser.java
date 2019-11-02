@@ -10,7 +10,6 @@ import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.commands.AddCategoryCommand;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.BudgetListCommand;
 import seedu.address.logic.commands.ChangeFontCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -30,6 +29,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindWishCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListBudgetCommand;
 import seedu.address.logic.commands.ListCategoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFontCommand;
@@ -157,8 +157,8 @@ public class AddressBookParser {
         case WishListCommand.COMMAND_WORD:
             return new WishListCommand();
 
-        case BudgetListCommand.COMMAND_WORD:
-            return new BudgetListCommand();
+        case ListBudgetCommand.COMMAND_WORD:
+            return new ListBudgetCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
