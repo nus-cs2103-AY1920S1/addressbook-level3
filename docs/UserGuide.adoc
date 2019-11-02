@@ -386,39 +386,41 @@ Feature by
 Add a CCA to your list. You need to to specify the name of the course and the
 type of CCA. The types of the CCA will be limited to the following:
 
-. `PerformingArts`
-. `Sports`
-. `ClubsSocieties`
-. `UniformedGroups`
+. `performingArt`
+. `sport`
+. `club`
+. `uniformedGroup`
 
-Format: `add-cca n/NAME t/TYPE`
+Format: `add-cca n/NAME t/TYPE e/EQUIPMENT`
 
 ===== Example
 ----
-add-cca n/Canoeing t/Sports
-add-cca n/Guitar Ensemble t/PerformingArts
+add-cca n/Swimming t/sport e/swimming trunks e/goggles
+add-cca n/Canoeing t/sport e/Boat e/Paddle
+add-cca n/Guitar Ensemble t/performingArt e/guitar
 ----
-
 
 ==== Delete a CCA: `delete-cca`
-Deletes the specified CCA from your list.
+Deletes the specified CCA by index from your list.
 
-Format: `delete-cca n/[NAME]`
+Format: `delete-cca INDEX`
 
 ===== Example
 ----
-delete-cca n/Canoeing
+delete-cca 1
 ----
 
 
 ==== Edit a CCA: `edit-cca`
-Edit the CCA type.
+Edits the CCA. Note that the keywords in square brackets are optional.
 
-Format: `edit-cca [n/NAME]`
+Format: `edit-cca INDEX [n/NAME] [t/TYPE] [e/EQUIPMENT]`
 
 ===== Example
 ----
-edit-cca n/Canoeing
+edit-cca 1 t/sport e/tennis racket
+edit-cca 1 t/performingArt
+edit-cca 1 n/Running e/shoes e/water bottle
 ----
 
 
@@ -431,24 +433,26 @@ Format: `list-cca`
 
 ==== Find a CCA: `find-cca`
 Find a CCA based on keyword. If no such CCA can be found, an empty list will
-be shown.
+be shown. Note that you can use any number of keywords.
 
-Format: `find-cca [k/KEYWORD]`
+Format: `find-cca KEYWORD`
 
 ===== Example
 ----
-find-cca k/Canoeing
+find-cca swimming
+find-cca canoeing guitar
 ----
 
 
 ==== Add progress levels for a CCA: `add-progress`
-Add the number of levels of possible progress for the CCA.
+Adds the progress milestones for the CCA.
 
-Format: `add-progress n/[NAME] l/[LEVELS]`
+Format: `add-progress INDEX p/MILESTONE `
 
 ===== Example
 ----
-add-progress n/Canoeing l/10
+add-progress 1 p/bronze p/silver p/gold p/gold star
+add-progress 2 p/Beginner boat p/Intermediate boat p/Racing boat
 add-progress n/Guitar Ensemble l/8
 ----
 

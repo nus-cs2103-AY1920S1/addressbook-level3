@@ -6,6 +6,7 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
@@ -49,7 +50,8 @@ public class ShowCourseHelpCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.checkCourse(MESSAGE_HELP);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override
