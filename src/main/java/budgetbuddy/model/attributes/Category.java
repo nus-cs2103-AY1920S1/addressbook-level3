@@ -40,4 +40,8 @@ public class Category {
                 || (other instanceof Category && category.equals(((Category) other).category));
     }
 
+    @Override
+    public int hashCode() {
+        return category.hashCode();
+    }
 }
