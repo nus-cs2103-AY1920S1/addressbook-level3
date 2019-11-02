@@ -66,13 +66,12 @@ public class DiaryPage extends UiPart<Region> implements Page {
 
 
 
+
     public DiaryPage() {
         super(FXML);
         this.parser = new DiaryBookParser();
         diaryScene = new Scene(diaryPane);
         JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data","diaryBook.json"));
-
-
             Optional<DiaryBook> diaryBookOptional;
             DiaryBook initialData;
             try {

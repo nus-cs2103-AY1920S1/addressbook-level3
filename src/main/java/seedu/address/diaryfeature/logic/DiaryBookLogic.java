@@ -48,6 +48,10 @@ public class DiaryBookLogic {
         return commandResult;
     }
 
+    public int getStats() {
+        return getFilteredDiaryEntryList().size();
+    }
+
 
     public ObservableList<DiaryEntry> getFilteredDiaryEntryList() {
         return diaryModel.getFilteredDiaryEntryList();
