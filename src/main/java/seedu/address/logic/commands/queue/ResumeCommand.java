@@ -17,8 +17,7 @@ public class ResumeCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "resume";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Doctor is back from his/her break. Allows patients to be directed to the doctor "
-            + "based on the room number.\n"
+            + ": Doctor is back from his/her break. Allows patients to be directed to the doctor.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
