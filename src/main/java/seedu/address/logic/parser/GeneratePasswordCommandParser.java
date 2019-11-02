@@ -39,7 +39,7 @@ public class GeneratePasswordCommandParser implements Parser {
 
         PasswordGeneratorDescriptor description = new PasswordGeneratorDescriptor();
         if (argMultimap.getValue(PREFIX_LENGTH).isPresent()) {
-            description.setLength(ParserUtil.parseLength(argMultimap.getValue(PREFIX_LENGTH).get()));
+            description.setLength(ParserUtil.parsePasswordLength(argMultimap.getValue(PREFIX_LENGTH).get()));
         }
         if (argMultimap.getValue(PREFIX_LOWER).isPresent()) {
             description.setLower(ParserUtil.parseBool(argMultimap.getValue(PREFIX_LOWER).get()));

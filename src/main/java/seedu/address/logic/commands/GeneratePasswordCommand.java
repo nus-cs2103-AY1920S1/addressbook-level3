@@ -22,10 +22,15 @@ public class GeneratePasswordCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a random password. \n"
             + "OPTIONAL Parameters: \n"
             + PREFIX_LENGTH + "LENGTH "
-            + PREFIX_LOWER + "<true/false> "
-            + PREFIX_UPPER + "<true/false> "
-            + PREFIX_NUM + "<true/false> "
-            + PREFIX_SPECIAL + "<true/false>";
+            + PREFIX_LOWER + "FALSE "
+            + PREFIX_UPPER + "FALSE "
+            + PREFIX_NUM + "FALSE "
+            + PREFIX_SPECIAL + "FALSE ";
+    public static final String MESSAGE_AT_LEAST_ONE_FIELD_CHECKED = "Input Error. At least one character field needs to be true\n";
+    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
+            + "and at least of length 4 to 25";
+    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "All characters sets are included by default.\n" +
+            "You are only required to input CHARACTER_SET/\"false\" for fields that you wish to customise.";
 
     private int length;
     private boolean lower;
@@ -44,7 +49,6 @@ public class GeneratePasswordCommand extends Command {
         this.special = configuration.getSpecial();
     }
 
-
     /**
      * Returns a CommandResult containing a randomly generated password.
      * @param model the manager model
@@ -53,9 +57,23 @@ public class GeneratePasswordCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        isValid(configuration);
         String password = GeneratorUtil.generateRandomPassword(length, lower, upper, num, special);
         ClipboardUtil.copyToClipboard(password, null);
         return new CommandResult(String.format(MESSAGE_SUCCESS, password));
+    }
+
+    /**
+     * Returns true if at least one of the character fields are checked true.
+     *
+     * @param description the user configured {@code PasswordGeneratorDescriptor}.
+     * @throws CommandException if the description input does not have any character field checked.
+     */
+    private void isValid(PasswordGeneratorDescriptor description) throws CommandException {
+        if (!(description.getLower() == true || description.getUpper() == true || description.getNum() == true
+                || description.getSpecial() == true)) {
+            throw new CommandException(MESSAGE_AT_LEAST_ONE_FIELD_CHECKED);
+        }
     }
 
     /**

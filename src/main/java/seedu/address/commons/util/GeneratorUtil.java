@@ -7,10 +7,6 @@ import java.util.ArrayList;
  * A class for generating random passwords.
  */
 public class GeneratorUtil {
-    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
-            + "and at least of length 4.";
-    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "Please input \"true\" or \"false\" "
-            + "when customizing password generation configuration.";
 
     private static String[] lowAlpha = new String[] {
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
