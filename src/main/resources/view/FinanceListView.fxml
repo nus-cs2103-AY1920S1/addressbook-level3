@@ -41,7 +41,7 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" text="What I bought this month..." textAlignment="CENTER" />
+            <Label alignment="TOP_CENTER" prefHeight="50.0" prefWidth="500.0" fx:id="purchaseListHeader" textAlignment="CENTER" />
             <Label />
             <ListView fx:id="purchaseListView" prefWidth="200.0" />
          </children>
