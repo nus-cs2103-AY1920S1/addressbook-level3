@@ -22,10 +22,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
 
-    public static final String MESSAGE_NOT_PATIENTLIST = "Cancelappt command only works when appointments "
+    public static final String MESSAGE_NOT_PATIENTLIST = "This command only works when appointments "
             + "displayed belong to the same patient.\n"
-            + "Plsease first display the patient's appointment listing by using appointmetnts <ENTRY_ID>, "
-            + "before using cancelappt/changeappt command.";
+            + "Plsease first display the patient's appointment listing by using appointmetnts <ENTRY_ID> "
+            + "before using " + "%1$s command.";
 
     public static final String MESSAGE_NOT_STAFFLIST =
             "Duty shift(s) displayed do not belong to the same staff doctor\n";
