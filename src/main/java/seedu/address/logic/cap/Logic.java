@@ -3,7 +3,8 @@ package seedu.address.logic.cap;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart.Data;
+import javafx.scene.image.Image;
+import javafx.scene.chart.PieChart;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
@@ -56,5 +57,13 @@ public interface Logic {
 
     double getFilteredMcInformation();
 
-    ObservableList<Data> getFilteredGradeCounts();
+    ObservableList<PieChart.Data> getFilteredGradeCounts();
+
+    boolean downRank();
+
+    boolean upRank();
+
+    Image getRankImage();
+
+    String getRankTitle();
 }

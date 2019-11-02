@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
@@ -126,4 +128,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     int getModuleCount();
+
+    double getFilteredCapInformation();
+
+    double getFilteredMcInformation();
+
+    ObservableList<PieChart.Data> getFilteredGradeCounts();
+
+    boolean downRank();
+
+    boolean upRank();
+
+    Image getRankImage();
+
+    String getRankTitle();
 }

@@ -25,36 +25,40 @@
 
       <VBox>
         <MenuBar fx:id="menuBar" style="-fx-background-color: #666699;" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Grades Tracker">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          <Menu mnemonicParsing="false">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" />
           </Menu>
         </MenuBar>
             <HBox prefHeight="700" prefWidth="1100">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                 <VBox fx:id="gradeList" minWidth="600" prefWidth="600" styleClass="pane-with-border">
+                   <padding>
+                     <Insets bottom="5" left="10" right="10" top="5" />
+                   </padding>
+                   <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                 </VBox>
+                  <VBox prefHeight="700.0" prefWidth="507.0">
                      <children>
-                        <StackPane fx:id="capPanelPlaceholder" maxHeight="30" minHeight="30" prefHeight="30" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
+                        <StackPane fx:id="capPanelPlaceholder" maxHeight="105.0" minHeight="30" prefHeight="105.0" prefWidth="500.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                           <padding>
                             <Insets bottom="5" left="20" right="10" top="5" />
                           </padding>
                         </StackPane>
-
-                       <VBox fx:id="gradeList" minWidth="600" prefWidth="600" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                       <StackPane fx:id="achievementPlaceHolder" maxHeight="141.0" minHeight="30" prefHeight="141.0" prefWidth="500.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                          <padding>
-                           <Insets bottom="5" left="10" right="10" top="5" />
+                           <Insets bottom="5" left="20" right="10" top="5" />
                          </padding>
-                         <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                       </VBox>
+                       </StackPane>
+                          <StackPane fx:id="pieChartDisplayPlaceholder" prefHeight="446.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                            <padding>
+                              <Insets bottom="5" left="10" right="10" top="5" />
+                            </padding>
+                          </StackPane>
                      </children>
                   </VBox>
-                    <StackPane fx:id="pieChartDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" >
-                      <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
-                      </padding>
-                    </StackPane>
                </children>
             </HBox>
         <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="ALWAYS">

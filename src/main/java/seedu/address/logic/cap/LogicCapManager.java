@@ -2,15 +2,11 @@ package seedu.address.logic.cap;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.PieChart.Data;
+import javafx.scene.image.*;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.cap.commands.Command;
@@ -21,7 +17,6 @@ import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.util.GradeHash;
 import seedu.address.model.common.Module;
 import seedu.address.storage.cap.Storage;
 
@@ -95,57 +90,38 @@ public class LogicCapManager implements Logic {
 
     @Override
     public double getFilteredCapInformation() {
-        double result = 0.0;
-        String letterGrade;
-        GradeHash gradeConverter = new GradeHash();
-        double numerator = 0.0;
-        double denominator = 0.0;
-        double modularCredit;
-        if (model.getModuleCount() != 0) {
-            for (Module module : model.getFilteredModuleList()) {
-                letterGrade = module.getGrade().getGrade();
-                modularCredit = (double) module.getCredit().getCredit();
-                numerator += gradeConverter.convertToGradePoint(letterGrade) * modularCredit;
-                denominator += modularCredit;
-            }
-        }
-
-        if (denominator != 0.0) {
-            result = numerator / denominator;
-        }
-        return result;
+        return model.getFilteredCapInformation();
     }
 
     @Override
     public double getFilteredMcInformation() {
-        double result = 0.0;
-        if (model.getModuleCount() != 0) {
-            for (Module module : model.getFilteredModuleList()) {
-                result += Integer.valueOf(module.getCredit().getCredit());
-            }
-        }
-
-        return result;
+        return model.getFilteredMcInformation();
     }
 
-    public ObservableList<Data> getFilteredGradeCounts() {
-        ObservableList<Data> result = FXCollections.observableArrayList();
-        ObservableList<Module> filteredModules = model.getFilteredModuleList();
+    @Override
+    public ObservableList<PieChart.Data> getFilteredGradeCounts() {
+        return model.getFilteredGradeCounts();
+    }
 
-        Module module;
-        HashSet<String> set = new HashSet<>();
-        ArrayList<String> list = new ArrayList<>();
-        for (int i = 0; i < filteredModules.size(); i++) {
-            module = filteredModules.get(i);
-            String grade = module.getGrade().getGrade();
-            list.add(grade);
-            set.add(grade);
-        }
+    //=========== Achievements =============================================================
 
-        for (String grade : set) {
-            result.add(new PieChart.Data(grade, Collections.frequency(list, grade)));
-        }
+    @Override
+    public boolean upRank() {
+        return model.upRank();
+    }
 
-        return result;
+    @Override
+    public boolean downRank() {
+        return model.downRank();
+    }
+
+    @Override
+    public Image getRankImage() {
+        return model.getRankImage();
+    }
+
+    @Override
+    public String getRankTitle() {
+        return model.getRankTitle();
     }
 }

@@ -170,6 +170,13 @@
     -fx-text-fill: white;
 }
 
+.cap-result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 18pt;
+    -fx-text-fill: white;
+}
+
 .result-display .label {
     -fx-text-fill: black !important;
 }

@@ -1,5 +1,9 @@
 package seedu.address.ui.cap;
 
+import static seedu.address.commons.core.Messages.MESSAGE_GAIN_RANKING;
+import static seedu.address.commons.core.Messages.MESSAGE_LOST_RANKING;
+
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -38,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private SemesterListPanel semesterListPanel;
     private InformationPanel informationPanel;
     private CapPieChart pieChartDisplay;
+    private AchievementBadge achievementBadge;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -59,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane achievementPlaceHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -127,6 +135,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         setGraphDisplay();
+
+        achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
+        achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCapLogFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -211,4 +222,19 @@ public class MainWindow extends UiPart<Stage> {
         pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
         pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
     }
+
+    //=========== Achievements =============================================================
+    /**
+     * Prompts the user when there is any downgrade or promotion in rank.
+     */
+    private String promptAchievementAlert() {
+        if (logic.downRank() && !logic.upRank()) {
+            return MESSAGE_LOST_RANKING;
+        } else if (!logic.downRank() && logic.upRank()) {
+            return MESSAGE_GAIN_RANKING;
+        }
+
+        return "No movement in class.";
+    }
+
 }

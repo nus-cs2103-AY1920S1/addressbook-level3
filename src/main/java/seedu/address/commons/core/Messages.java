@@ -18,5 +18,6 @@ public class Messages {
     //////////CAP///////////////
     public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The Module index provided is invalid";
     public static final String MESSAGE_MODULES_LISTED_OVERVIEW = "found a match in %1$d of the module(s)!";
-
+    public static final String MESSAGE_GAIN_RANKING = "Congratulations, you have attained %1$d!";
+    public static final String MESSAGE_LOST_RANKING = "You have dropped a class.";
 }

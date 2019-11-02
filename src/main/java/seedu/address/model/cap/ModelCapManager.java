@@ -4,14 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.chart.*;
+import javafx.scene.image.*;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.cap.person.Rank.*;
 import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.util.*;
 import seedu.address.model.common.Module;
 
 /**
@@ -24,6 +29,9 @@ public class ModelCapManager implements Model {
     private final CapUserPrefs capUserPrefs;
     private final FilteredList<Semester> filteredSemesters;
     private final FilteredList<Module> filteredModules;
+    private final AchievementManager achievementManager;
+    private boolean isPromoted;
+    private boolean isDowngraded;
 
     /**
      * Initializes a ModelManager with the given CapLog and userPrefs.
@@ -38,6 +46,7 @@ public class ModelCapManager implements Model {
         this.capUserPrefs = new CapUserPrefs(userPrefs);
         filteredSemesters = new FilteredList<>(this.capLog.getSemesterList());
         filteredModules = new FilteredList<>(this.capLog.getModuleList());
+        achievementManager = new AchievementManager();
     }
 
     public ModelCapManager() {
@@ -182,5 +191,100 @@ public class ModelCapManager implements Model {
         return capLog.equals(other.capLog)
                 && capUserPrefs.equals(other.capUserPrefs)
                 && filteredModules.equals(other.filteredModules);
+    }
+
+    //=========== CAP =============================================================
+
+    @Override
+    public double getFilteredCapInformation() {
+        double result = 0.0;
+        String letterGrade;
+        GradeHash gradeConverter = new GradeHash();
+        double numerator = 0.0;
+        double denominator = 0.0;
+        double modularCredit;
+        if (getModuleCount() != 0) {
+            for (Module module : getFilteredModuleList()) {
+                letterGrade = module.getGrade().getGrade();
+                modularCredit = (double) module.getCredit().getCredit();
+                numerator += gradeConverter.convertToGradePoint(letterGrade) * modularCredit;
+                denominator += modularCredit;
+            }
+        }
+
+        if (denominator != 0.0) {
+            result = numerator / denominator;
+        }
+        return result;
+    }
+
+    @Override
+    public double getFilteredMcInformation() {
+        double result = 0.0;
+        if (getModuleCount() != 0) {
+            for (Module module : getFilteredModuleList()) {
+                result += Integer.valueOf(module.getCredit().getCredit());
+            }
+        }
+
+        return result;
+    }
+
+    //=========== PieChart =============================================================
+
+    public ObservableList<PieChart.Data> getFilteredGradeCounts() {
+        ObservableList<PieChart.Data> result = FXCollections.observableArrayList();
+        ObservableList<Module> filteredModules = getFilteredModuleList();
+
+        Module module;
+        HashSet<String> set = new HashSet<>();
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < filteredModules.size(); i++) {
+            module = filteredModules.get(i);
+            String grade = module.getGrade().getGrade();
+            list.add(grade);
+            set.add(grade);
+        }
+
+        for (String grade : set) {
+            result.add(new PieChart.Data(grade, Collections.frequency(list, grade)));
+        }
+
+        return result;
+    }
+
+    //=========== Achievements =============================================================
+
+    @Override
+    public boolean upRank() {
+        return isPromoted;
+    }
+
+    @Override
+    public boolean downRank() {
+        return isDowngraded;
+    }
+
+    private Rank updateRank() {
+        achievementManager.updateCap(getFilteredCapInformation());
+        if (achievementManager.hasAchievementChanged()) {
+            isPromoted = achievementManager.isPromoted();
+            isDowngraded = achievementManager.isDownGraded();
+            return achievementManager.getCurrentRank();
+        } else {
+            isDowngraded = false;
+            isPromoted = false;
+        }
+        return achievementManager.getCurrentRank();
+    }
+
+    @Override
+    public Image getRankImage() {
+        return new Image(achievementManager.getRankImageFilePath());
+    }
+
+    @Override
+    public String getRankTitle() {
+        return achievementManager.getCurrentRank().toString();
     }
 }
