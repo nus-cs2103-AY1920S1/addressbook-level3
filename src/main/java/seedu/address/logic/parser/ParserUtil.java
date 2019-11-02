@@ -331,7 +331,7 @@ public class ParserUtil {
         } else if (parsedAuto.contains("/")) {
             throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
         } else {
-                throw new ParseException(Messages.MESSAGE_AUTO_ONLY_Y_N);
+            throw new ParseException(Messages.MESSAGE_AUTO_ONLY_Y_N);
         }
 
         return isAuto;
