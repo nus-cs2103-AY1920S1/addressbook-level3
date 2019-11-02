@@ -744,11 +744,11 @@ child `NoteFragments` to delete as well.
 
 ==== (Proposed) Future Improvements for v2.0
 
-===== `Note` Edit feature
+===== `edit` command for `Notes`
 
 This feature will allow for users to edit their `Notes`, by specifying a new `Title`, `Content`, or `Tags`.
 
-====== (Proposed) Implementation
+===== (Proposed) Implementation
 
 ** Expected inputs:
 *** The original `Title` of the `Note` to be edited
