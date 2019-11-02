@@ -1,6 +1,5 @@
 package seedu.address.inventory.logic.parser;
 
-import static seedu.address.cashier.model.ModelManager.onCashierMode;
 import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_ON_CASHIER_MODE;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_COST;
@@ -10,6 +9,7 @@ import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.stream.Stream;
 
+import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
@@ -59,7 +59,7 @@ public class AddCommandParser {
 
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
-                if (onCashierMode) {
+                if (ModelManager.onCashierMode()) {
                     throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
                 }
                 int itemIndex = inventoryList.getIndex(description);
@@ -95,7 +95,7 @@ public class AddCommandParser {
             Item item = new Item(description, category, quantity, cost, index);
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
-                if (onCashierMode) {
+                if (ModelManager.onCashierMode()) {
                     throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
                 }
                 int itemIndex = inventoryList.getIndex(description);

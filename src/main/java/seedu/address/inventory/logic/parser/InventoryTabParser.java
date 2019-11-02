@@ -1,11 +1,11 @@
 package seedu.address.inventory.logic.parser;
 
-import static seedu.address.cashier.model.ModelManager.onCashierMode;
 import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_ON_CASHIER_MODE;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.EditCommand;
@@ -56,13 +56,13 @@ public class InventoryTabParser {
             }
 
         case DeleteIndexCommand.COMMAND_WORD:
-            if (onCashierMode) {
+            if (ModelManager.onCashierMode()) {
                 throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
             }
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            if (onCashierMode) {
+            if (ModelManager.onCashierMode()) {
                 throw new OnCashierModeException(MESSAGE_ON_CASHIER_MODE);
             }
             return new EditCommandParser().parse(arguments);

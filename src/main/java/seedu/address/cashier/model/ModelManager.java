@@ -26,6 +26,8 @@ import seedu.address.transaction.model.transaction.Transaction;
  */
 public class ModelManager implements Model {
 
+    private static boolean onCashierMode = false;
+
     private static final String SALES_DESCRIPTION = "Items sold";
     private static final String SALES_CATEGORY = "Sales";
     private static ArrayList<Item> salesList = new ArrayList<Item>();
@@ -35,7 +37,6 @@ public class ModelManager implements Model {
     private Transaction checkoutTransaction;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    public static boolean onCashierMode = false;
 
     /**
      * Initializes a ModelManager with the given inventory list and transaction list.
@@ -508,6 +509,10 @@ public class ModelManager implements Model {
             }
         }
         return result;
+    }
+
+    public static boolean onCashierMode() {
+        return onCashierMode;
     }
 
 }
