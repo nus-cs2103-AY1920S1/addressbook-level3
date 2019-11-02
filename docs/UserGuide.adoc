@@ -365,9 +365,9 @@ A user can have more than one of the following types of fields:
 This means that a user can add multiple emergency contacts, for instance, by having more than one prefix for the
 argument in this form: `e/91234567` `e/98765432`.
 
-Other fields can only have one data value associated with it. If two names are attempted to be added, the program
-simply takes the latest name received. eg. In the case of `n/firstTestName` and `n/secondTestName`, the program will
-save the user's name as "secondTestName".
+Other fields can only have one data value associated with it. If multiple fields of the same type are entered for
+fields other than the ones listed above, an error message is displayed to the user, along with the prefixes that the
+user entered that can only be entered at most once.
 
 For the following fields, certain restrictions are put in place:
 
@@ -434,7 +434,9 @@ require any compulsory fields that the `addbio` command does. Any combination of
 is more than one field and the inputs are valid.
 
 Similar to the `addbio` command, an error message is shown if a user attempts to edit a biography but does not specify
-any fields.
+any fields. If multiple prefixes of the same type are entered for fields meant to contain only one data value
+(refer to `bio` section) eg. Name, an error message is displayed to the user, along with the prefixes that the
+user entered that can only be entered at most once.
 
 Data of fields may be removed by simply entering blank input for the field eg. `editbio a/` resets the address to blank.
 This, however, cannot be done for compulsory fields. An error message will be shown if a user attempts to remove

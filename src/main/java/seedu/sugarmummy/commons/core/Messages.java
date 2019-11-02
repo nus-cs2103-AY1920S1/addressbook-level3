@@ -35,6 +35,10 @@ public class Messages {
             + "Your biography could be crucial information especially in times of an emergency. "
             + "Please enter the " + BioCommand.COMMAND_WORD + " command as soon as possible to set your biography, "
             + "alright?";
+    public static final String MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL = "Please ensure there is at most one prefix "
+            + "each for the following prefixes that you keyed in: ";
+    public static final String MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR = "Please ensure there is at most one prefix "
+            + "for this prefix that you keyed in: ";
 
     //---Aesthetics---
 
