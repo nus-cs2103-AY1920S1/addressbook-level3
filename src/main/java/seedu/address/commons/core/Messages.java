@@ -8,6 +8,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_IRRELEVANT_PREFIXES =
+            "Please do not enter irrelevant prefixes/ fields!";
 
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_NO_PERSON_FOUND = "No persons found matching keyword.";
@@ -23,6 +25,7 @@ public class Messages {
     public static final String MESSAGE_NO_VEHICLES_FOUND = "No vehicles found matching keyword.";
     public static final String MESSAGE_SINGLE_VEHICLE_LISTED = "1 vehicle listed!";
     public static final String MESSAGE_VEHICLES_LISTED_OVERVIEW = "%1$d vehicles listed!";
+
     public static final String MESSAGE_VEHICLE_ASSIGNMENT_PROMPT =
             "Please include the index of the vehicle you would like to assign, with the district prefix! \n"
                     + "eg new l/1 auto/n v/1";

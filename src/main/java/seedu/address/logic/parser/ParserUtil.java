@@ -150,6 +150,9 @@ public class ParserUtil {
     public static District parseDistrict(String district) throws ParseException {
         requireNonNull(district);
         String trimmedDistrict = district.trim();
+        if (trimmedDistrict.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         try {
             int dist = Integer.parseInt(trimmedDistrict);
             if (!District.isValidDistrict(dist)) {
@@ -170,6 +173,9 @@ public class ParserUtil {
      */
     public static List<District> parseDistricts(String district) throws ParseException {
         requireNonNull(district);
+        if (district.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         try {
             List<String> splittedD = Arrays.asList(district.trim().split("\\s"));
             List<District> districts = new ArrayList<>();
@@ -195,6 +201,10 @@ public class ParserUtil {
     public static VehicleType parseVType(String vType) throws ParseException {
         requireNonNull(vType);
         String parsedVType = vType.trim().toLowerCase();
+
+        if (parsedVType.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         String[] vehicleTypes = VehicleType.VEHICLE_TYPES;
         for (String type: vehicleTypes) {
             if (parsedVType.equals(type.toLowerCase())) {
@@ -214,7 +224,9 @@ public class ParserUtil {
         requireNonNull(vNum);
         String parsedVNum = vNum.trim().toUpperCase();
 
-        if (!VehicleNumber.isValidVehicleNumber(parsedVNum)) {
+        if (parsedVNum.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        } else if (!VehicleNumber.isValidVehicleNumber(parsedVNum)) {
             throw new ParseException(MESSAGE_INVALID_VEHICLE_NUMBER);
         }
         return new VehicleNumber(parsedVNum);
@@ -316,6 +328,8 @@ public class ParserUtil {
             isAuto = true;
         } else if (parsedAuto.equals("n")) {
             isAuto = false;
+        } else if (parsedAuto.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
         } else {
             throw new ParseException(Messages.MESSAGE_AUTO_ONLY_Y_N);
         }

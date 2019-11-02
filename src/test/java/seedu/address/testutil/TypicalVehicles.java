@@ -28,6 +28,9 @@ public class TypicalVehicles {
     public static final Vehicle V4 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
                 new District(2), new Availability("BUSY"));
 
+    public static final Vehicle V5 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("GER4389F"),
+            new District(1), new Availability("AVAILABLE"));
+
     private TypicalVehicles() {} // prevents instantiation
 
     /**

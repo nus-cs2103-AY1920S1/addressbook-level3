@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VEHICLES;
 import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
 
@@ -164,7 +165,7 @@ public class IncidentManagerParser {
             return new ListIncidentsCommand(PREDICATE_SHOW_ALL_INCIDENTS);
 
         case ListVehiclesCommand.COMMAND_WORD:
-            return new ListVehiclesCommand();
+            return new ListVehiclesCommand(PREDICATE_SHOW_ALL_VEHICLES);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
