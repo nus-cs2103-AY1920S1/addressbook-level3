@@ -54,8 +54,8 @@ public class JsonAdaptedEditInstallmentDescriptor implements JsonAdapter<EditIns
     @Override
     public EditInstallmentDescriptor toModelType() throws IllegalValueException {
         EditInstallmentDescriptor editInstallmentDescriptor = new EditInstallmentDescriptor();
-        editInstallmentDescriptor.setDescription(new InstallmentDescription(description));
-        editInstallmentDescriptor.setMoneyPaid(new InstallmentMoneyPaid(amount));
+        editInstallmentDescriptor.setDescription(description != null ? new InstallmentDescription(description) : null);
+        editInstallmentDescriptor.setMoneyPaid(amount != null ? new InstallmentMoneyPaid(amount) : null);
         return editInstallmentDescriptor;
     }
 }

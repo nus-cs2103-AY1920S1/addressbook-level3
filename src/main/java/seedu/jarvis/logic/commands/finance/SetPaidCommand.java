@@ -9,6 +9,9 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.purchase.Purchase;
+import seedu.jarvis.model.finance.purchase.PurchaseDescription;
+import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedSetPaidCommand;
@@ -20,19 +23,28 @@ public class SetPaidCommand extends Command {
 
     public static final String COMMAND_WORD = "add-paid";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a payment to the finance tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Jarvis will add a purchase to the finance tracker. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_MONEY + "MONEY "
+            + PREFIX_MONEY + "MONEY " + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DESCRIPTION + "Aston's for Lunch "
-            + PREFIX_MONEY + "9.50 ";
+            + PREFIX_DESCRIPTION + "Astons for lunch "
+            + PREFIX_MONEY + "9.50";
 
-    public static final String MESSAGE_SUCCESS = "New purchase added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PURCHASE = "This purchase already exists in the finance tracker";
+    public static final String MESSAGE_COMMAND_SYNTAX = "Command format: " + COMMAND_WORD + " "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_MONEY + "MONEY";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted Payment: %1$s";
-    public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Payment already deleted: %1$s";
+    public static final String MESSAGE_DESCRIPTION_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + PurchaseDescription.MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_AMOUNT_ERROR = MESSAGE_COMMAND_SYNTAX + "\n"
+            + PurchaseMoneySpent.MESSAGE_CONSTRAINTS;
+
+    public static final String MESSAGE_SUCCESS = "Jarvis has added your purchase! \n%1$s";
+    public static final String MESSAGE_DUPLICATE_PURCHASE = "This purchase already exists!";
+
+    public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this purchase: \n%1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_NOT_FOUND = "Purchase was already deleted: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -94,6 +106,8 @@ public class SetPaidCommand extends Command {
         }
 
         model.addPurchase(toAdd);
+        model.setViewStatus(ViewType.LIST_FINANCE);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 

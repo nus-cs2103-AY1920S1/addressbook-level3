@@ -31,6 +31,8 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
@@ -149,6 +151,7 @@ public class SetPaidCommandTest {
      */
     private class ModelStubAcceptingPurchaseAdded extends ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public void addPurchase(Purchase purchase) {
@@ -165,6 +168,11 @@ public class SetPaidCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
     }
 

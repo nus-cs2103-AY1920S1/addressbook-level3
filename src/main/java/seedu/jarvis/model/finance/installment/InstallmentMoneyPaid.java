@@ -12,17 +12,17 @@ import java.text.DecimalFormat;
 public class InstallmentMoneyPaid {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Subscription fee of installments should Names should only contain alphanumeric characters and spaces, "
-                    + "and it should not be blank";
+            "Subscription fee of installments must have a maximum of 2 decimal places, be a positive value "
+                    + "and it should not be blank.";
 
     public static final String MONEY_CONSTRAINTS =
             "Money spent cannot be equal to or less than 0.";
 
-    public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1,2})?";
 
     private static DecimalFormat df2 = new DecimalFormat("#.00");
 
-    public final double installmentMoneyPaid;
+    private final double installmentMoneyPaid;
 
     /**
      * Constructs a {@code InstallmentMoneyPaid}.

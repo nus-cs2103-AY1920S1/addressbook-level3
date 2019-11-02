@@ -112,6 +112,7 @@ public class RemoveInstallmentCommand extends Command {
             deletedInstallment = model.getInstallment(targetIndex.getOneBased());
             model.deleteInstallment(targetIndex.getOneBased());
             model.setViewStatus(ViewType.LIST_FINANCE);
+
             return new CommandResult(String.format(MESSAGE_DELETE_INSTALLMENT_SUCCESS, deletedInstallment),
                     true);
         } catch (InstallmentNotFoundException e) {

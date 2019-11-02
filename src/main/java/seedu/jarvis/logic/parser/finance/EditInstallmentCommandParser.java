@@ -7,6 +7,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.finance.EditInstallmentCommand;
+import seedu.jarvis.logic.commands.finance.EditInstallmentCommand.EditInstallmentDescriptor;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
 import seedu.jarvis.logic.parser.Parser;
@@ -38,21 +39,13 @@ public class EditInstallmentCommandParser implements Parser<EditInstallmentComma
                     EditInstallmentCommand.MESSAGE_USAGE), pe);
         }
 
-        EditInstallmentCommand.EditInstallmentDescriptor editInstallmentDescriptor =
-                new EditInstallmentCommand.EditInstallmentDescriptor();
+        EditInstallmentDescriptor editInstallmentDescriptor =
+                new EditInstallmentDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editInstallmentDescriptor
-                    .setDescription(FinanceParserUtil
-                            .parseInstallmentDescription(argMultimap
-                                    .getValue(PREFIX_DESCRIPTION)
-                                    .get()));
+            validateDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get(), editInstallmentDescriptor);
         }
         if (argMultimap.getValue(PREFIX_MONEY).isPresent()) {
-            editInstallmentDescriptor
-                    .setMoneyPaid(FinanceParserUtil
-                            .parseInstallmentMoneySpent(argMultimap
-                                    .getValue(PREFIX_MONEY)
-                                    .get()));
+            validateSubscriptionFee(argMultimap.getValue(PREFIX_MONEY).get(), editInstallmentDescriptor);
         }
 
         if (!editInstallmentDescriptor.isAnyFieldEdited()) {
@@ -60,5 +53,35 @@ public class EditInstallmentCommandParser implements Parser<EditInstallmentComma
         }
 
         return new EditInstallmentCommand(index, editInstallmentDescriptor);
+    }
+
+    /**
+     * Validates the new description to be edited into an existing installment.
+     * @param description to be changed
+     * @param descriptor of the installment to be changed
+     * @throws ParseException is thrown if description is invalid
+     */
+    private void validateDescription(String description, EditInstallmentDescriptor descriptor) throws ParseException {
+        try {
+            descriptor.setDescription(FinanceParserUtil.parseInstallmentDescription(description));
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditInstallmentCommand.MESSAGE_DESCRIPTION_ERROR));
+        }
+    }
+
+    /**
+     * Validates the new subscription fee to be edited into an existing installment.
+     * @param money to be changed
+     * @param descriptor of the installment to be changed
+     * @throws ParseException is thrown if description is invalid
+     */
+    private void validateSubscriptionFee(String money, EditInstallmentDescriptor descriptor) throws ParseException {
+        try {
+            descriptor.setMoneyPaid(FinanceParserUtil.parseInstallmentMoneySpent(money));
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditInstallmentCommand.MESSAGE_MONEY_ERROR));
+        }
     }
 }
