@@ -36,9 +36,30 @@ public class UpdateCommandTest {
 
     private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
 
+    //@@author madanalogy
     @BeforeEach
     public void setUp() {
         model.setSession(AMY); // Added to simulate a logged in person
+    }
+
+    @Test
+    public void execute_nonAdminAddTags_throwsCommandException() {
+        model.setSession(new PersonBuilder().build());
+        Person updatedPerson = new PersonBuilder().withTags("Admin").build();
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(updatedPerson).build();
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_ENTITY, descriptor);
+
+        assertCommandFailure(updateCommand, model, Messages.MESSAGE_ACCESS_ADMIN);
+    }
+
+    @Test
+    public void execute_adminRemoveTagsSelf_throwsCommandException() {
+        model.setSession(new PersonBuilder().withTags("Admin").build());
+        Person updatedPerson = new PersonBuilder().build();
+        UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(updatedPerson).build();
+        UpdateCommand updateCommand = new UpdateCommand(null, descriptor);
+
+        assertCommandFailure(updateCommand, model, UpdateCommand.MESSAGE_ADMIN_REVOKE);
     }
 
     @Test

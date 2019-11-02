@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_USERNAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalPersons.AMY;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.LoginCredentialsPredicate;
 import seedu.address.model.person.Password;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Username;
 import seedu.address.testutil.PersonBuilder;
 
@@ -49,14 +49,12 @@ class LoginCommandTest {
 
     @Test
     void execute_login_success() {
-        Person user = new PersonBuilder().withUsername(VALID_USERNAME_AMY).withPassword(VALID_PASSWORD_AMY).build();
-        model.addPerson(user);
-        expectedModel.addPerson(user);
-        expectedModel.setSession(user);
+        model.addPerson(AMY);
+        expectedModel.addPerson(AMY);
+        expectedModel.setSession(AMY);
         CommandResult expectedCommandResult = new CommandResult(LoginCommand.MESSAGE_SUCCESS, true, false, false);
-        assertCommandSuccess(new LoginCommand(new LoginCredentialsPredicate(
-                new Username(VALID_USERNAME_AMY), new Password(VALID_PASSWORD_AMY))),
-                model, expectedCommandResult, expectedModel);
+        assertCommandSuccess(new LoginCommand(new LoginCredentialsPredicate(new Username(VALID_USERNAME_AMY),
+                new Password(VALID_PASSWORD_AMY))), model, expectedCommandResult, expectedModel);
     }
 
     @Test
