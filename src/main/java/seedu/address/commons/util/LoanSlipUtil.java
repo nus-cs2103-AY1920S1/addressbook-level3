@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
