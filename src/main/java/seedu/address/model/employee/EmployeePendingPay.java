@@ -10,8 +10,12 @@ public class EmployeePendingPay {
     public static final String MESSAGE_CONSTRAINTS =
             "EmployeePay numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    public final String value;
+    public String value;
+    //private final int value; <--Should be using this instead!
 
+    public EmployeePendingPay() {
+        //value = 0;
+    }
 
     /**
      * Constructs a {@code EmployeePay}.

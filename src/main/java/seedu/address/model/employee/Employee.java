@@ -12,10 +12,16 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Employee {
+    /**
+     * Suggested Improvements:
+     * Rename 'EmployeePay' as 'EmployeeSalary' (More accurate variable naming)
+     * Abstract EmployeeTotalSalary and EmployeePendingPay to EmployeeFinances (its already there)
+     */
 
+    private EmployeeTotalSalary employeeTotalSalary; //remove
+    private EmployeePendingPay employeePendingPay; //remove
     private EmployeePay employeePay;
-    private EmployeeTotalSalary employeeTotalSalary;
-    private EmployeePendingPay employeePendingPay;
+
 
     // Identity fields
     private final EmployeeName employeeName;
@@ -29,7 +35,7 @@ public class Employee {
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
-    private final EmployeeFinances employeeFinances = null; //edit later
+    private final EmployeeFinances employeeFinances = new EmployeeFinances();
 
     /**
      * Every field must be present and not null.
@@ -93,11 +99,14 @@ public class Employee {
 
     public EmployeeTotalSalary getEmployeeTotalsalary() {
         EmployeeTotalSalary e = new EmployeeTotalSalary("10000");
+//        return employeeFinances.getTotalPay(); use this
         return e;
+
     }
 
     public EmployeePendingPay getEmployeePendingPay() {
         return employeePendingPay;
+//        return employeeFinances.getPendingPay(); use this
     }
 
     public EmployeeGender getEmployeeGender() {
@@ -108,18 +117,19 @@ public class Employee {
         return employeeJoinDate;
     }
 
-    public void setEmployeePay(EmployeePay employeePay) {
+    public void setEmployeePay(EmployeePay employeePay) { //shouldnt need this
         this.employeePay = employeePay;
     }
 
-    public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) {
+    public void setEmployeeTotalSalary(EmployeeTotalSalary employeeTotalSalary) { //shouldnt need this
         this.employeeTotalSalary = employeeTotalSalary;
     }
 
-    public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) {
+    public void setEmployeePendingPay(EmployeePendingPay employeePendingPay) { //shouldnt need this
         this.employeePendingPay = employeePendingPay;
     }
 
+    //use this pls!
     public void updateEmployeeFinances(EmployeeTotalSalary totalSalary, EmployeePendingPay pendingSalary) {
         employeeFinances.setFinances(totalSalary, pendingSalary);
     }
@@ -142,7 +152,7 @@ public class Employee {
         }
 
         return otherEmployee != null
-            && otherEmployee.getEmployeeName().equals(getEmployeeName());
+                && otherEmployee.getEmployeeName().equals(getEmployeeName());
     }
 
     /**

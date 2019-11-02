@@ -9,6 +9,11 @@ public class EmployeeFinances {
     private EmployeeTotalSalary totalPay;
     private EmployeePendingPay pendingPay;
 
+    public EmployeeFinances() {
+        this.totalPay = new EmployeeTotalSalary();
+        this.pendingPay = new EmployeePendingPay();
+    }
+
     public EmployeeFinances(EmployeeTotalSalary totalPay, EmployeePendingPay pendingPay) {
         this.totalPay = totalPay;
         this.pendingPay = pendingPay;
