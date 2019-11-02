@@ -58,7 +58,7 @@ public class AddScheduleCommandTest {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
 
         CommandResult commandResult = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW)
-                .executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
+                .execute(modelStub, new CommandHistory(), new UndoRedoStack());
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, VALID_SCHEDULE),
                 commandResult.getFeedbackToUser());
@@ -71,14 +71,14 @@ public class AddScheduleCommandTest {
         ModelStub modelStub = new ModelStubWithSchedule(VALID_SCHEDULE, VALID_ORDER);
 
         assertThrows(CommandException.class, AddScheduleCommand.MESSAGE_DUPLICATE_SCHEDULE, ()
-            -> addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
+            -> addScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test
     public void execute_clashingScheduleWithNoAllow_throwsCommandException() throws CommandException {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
-        addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
+        addScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack());
 
         Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
         newCalendar.add(Calendar.MINUTE, 30);
@@ -89,14 +89,14 @@ public class AddScheduleCommandTest {
                 + ": Order 1\n";
 
         assertThrows(CommandException.class, Messages.MESSAGE_SCHEDULE_CONFLICT + conflict, ()
-            -> newAddScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack()));
+            -> newAddScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack()));
     }
 
     @Test
     public void execute_clashingScheduleWithAllow_addSuccessful() throws Exception {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
-        addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
+        addScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack());
 
         Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
         newCalendar.add(Calendar.MINUTE, 10);
@@ -105,7 +105,7 @@ public class AddScheduleCommandTest {
         AddScheduleCommand newAddScheduleCommand = new AddScheduleCommand(clash, newIndex, VALID_ALLOW);
 
         assertEquals(String.format(AddScheduleCommand.MESSAGE_SUCCESS, clash),
-                newAddScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(),
+                newAddScheduleCommand.execute(modelStub, new CommandHistory(),
                         new UndoRedoStack()).getFeedbackToUser());
 
     }
