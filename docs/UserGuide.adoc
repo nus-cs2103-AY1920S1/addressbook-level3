@@ -415,7 +415,7 @@ Format: `assignpolicy INDEX pol/POLICY NAME`
 Examples:
 
 * `listpeople` +
-`assignpolicy perindex/2 polindex/2` +
+`assignpolicy 2 pol/Senior Care` +
 Assigns the 'Senior Care' (the second policy in the list) policy to the 2nd person in the list of people.
 * `find Betsy` +
 `assignpolicy 1 pol/Accident Insurance` +
@@ -695,36 +695,7 @@ Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM E
 ```
 
 === Undo recently entered commands
-Displaying a list of recently entered commands, and the user can select the range of commands the user wants to undo.
-
-Example:
-
-`undo list`
-
-Expected Output:
-```
-Here is the list of recently entered commands:
-1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
-3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
-
-```
-
-Example:
-
-`undo 3`
-
-Expected Output:
-```
-Undoing the following commands:
-1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
-3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
-
-Okay! Commands have been undone.
-```
-
-The user can also simply enter the command `undo` to undo the most recent command.
+User can simply enter the command `undo` to undo the most recent address book change.
 
 Example:
 
@@ -732,43 +703,11 @@ Example:
 
 Expected Output:
 ```
-Undoing the following command:
-Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-
-Okay! Command has been undone.
+An undo has been performed!
 ```
 
 === Redo recently undone commands
-Displaying a list of recently entered commands, and the user can select the range of commands the user wants to undo.
-
-Example:
-
-`redo list`
-
-Expected Output:
-```
-Here is the list of recently undone commands:
-1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
-3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
-
-```
-
-Example:
-
-`redo 3`
-
-Expected Output:
-```
-Redoing the following commands:
-1. Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-2. Delete Person - Name: Jane Doe IC: S9999999J Phone: 123456789 Email: janedoe@example.com
-3. Edit Person - Name: Jonathan Doe IC: S9999999J Phone: 123456789 Email: jonathandoe@example.com
-
-Okay! Commands have been redone.
-```
-
-The user can also simply enter the command `redo` to undo the most recent command.
+User can simply enter the command `redo` to redo the most recent undone address book change.
 
 Example:
 
@@ -776,10 +715,7 @@ Example:
 
 Expected Output:
 ```
-Redoing the following command:
-Add Person - Name: John Doe IC: S9999999J Phone: 98765432 Email: johndoe@example.com
-
-Okay! Command has been redone.
+A redo has been performed!
 ```
 
 === Exiting the program : `exit`
@@ -849,13 +785,7 @@ e.g. `expandperson 1`
 e.g. `expandpolicy 1`
 * *Display*: `display i/INDICATOR f/FORMAT` +
 e.g. `display i/policy-popularity-breakdown f/piechart`
-* *List of undone commands*: `undo list`
-* *Undo till a particular command*: `undo INDEX` +
-e.g. `undo 3`
 * *Undo the most recent command*: `undo`
-* *List of undone commands*: `redo list`
-* *Undo till a particular command*: `redo INDEX` +
-e.g. `redo 3`
-* *Undo the most recent command*: `redo`
+* *Redo the most recent undone command*: `redo`
 * *Clear* : `clear`
 * *Help* : `help`
