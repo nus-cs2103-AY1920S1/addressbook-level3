@@ -41,9 +41,6 @@ public class SetPaidCommandTest {
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
                 new Planner(), new CoursePlanner());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
     }
 
     /**
@@ -147,6 +144,11 @@ public class SetPaidCommandTest {
         public boolean hasPurchase(Purchase purchase) {
             requireNonNull(purchase);
             return purchasesAdded.contains(purchase);
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
 
     }

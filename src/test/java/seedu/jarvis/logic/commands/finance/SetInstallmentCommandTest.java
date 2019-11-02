@@ -42,9 +42,6 @@ public class SetInstallmentCommandTest {
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
                 new Planner(), new CoursePlanner());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
     }
 
     /**
@@ -106,8 +103,8 @@ public class SetInstallmentCommandTest {
         String inverseExpectedMessage = String.format(
                 SetInstallmentCommand.MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, installmentToAdd);
 
-        model.deleteInstallment(4);
-        expectedModel.deleteInstallment(4);
+        model.deleteInstallment(1);
+        expectedModel.deleteInstallment(1);
         assertCommandInverseFailure(setInstallmentCommand, model, inverseExpectedMessage);
     }
 
@@ -182,6 +179,11 @@ public class SetInstallmentCommandTest {
         public void addInstallment(Installment installment) {
             requireNonNull(installment);
             installmentsAdded.add(installment);
+        }
+
+        @Override
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
     }
 

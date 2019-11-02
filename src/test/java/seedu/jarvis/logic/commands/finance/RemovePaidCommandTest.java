@@ -36,8 +36,6 @@ public class RemovePaidCommandTest {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
                 new Planner(), new CoursePlanner());
         model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
     }
 
     /**
@@ -77,7 +75,7 @@ public class RemovePaidCommandTest {
      * execution, that the deleted purchase was added back to the finance tracker.
      */
     @Test
-    public void executeInverse_success() {
+    public void executeInverse_success() throws Exception {
         Purchase purchaseToDelete = model
                 .getFilteredPurchaseList()
                 .get(INDEX_FIRST_PURCHASE.getZeroBased());
