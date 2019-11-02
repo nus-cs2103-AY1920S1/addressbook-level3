@@ -137,7 +137,7 @@ Adds a new book to library records. +
 Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
 
 [TIP]
-A book can have any number of genres (including 0).
+A book can have up to 5 genres (but can have no genres as well).
 
 [TIP]
 You do not need to specify the serial number if you wish so. +

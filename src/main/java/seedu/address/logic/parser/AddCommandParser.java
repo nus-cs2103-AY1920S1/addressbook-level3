@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_AUTHOR_NAME_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_GENRES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
@@ -28,6 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     private static final int MAX_TITLE_LENGTH = 60;
     private static final int MAX_AUTHOR_LENGTH = 60;
+    private static final int MAX_GENRE_COUNT = 5;
     private static final Loan NULL_LOAN = null;
 
     /**
@@ -57,6 +59,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(MESSAGE_AUTHOR_NAME_TOO_LONG);
         }
 
+        Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
+        if (genreList.size() > MAX_GENRE_COUNT) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_GENRES, MAX_GENRE_COUNT));
+        }
+
         boolean haveSerialNumber = argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent();
         SerialNumber serialNumber;
         if (haveSerialNumber) {
@@ -64,7 +71,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else {
             serialNumber = SerialNumberGenerator.generateSerialNumber();
         }
-        Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
         Book book = new Book(title, serialNumber, author, NULL_LOAN, genreList);
         return new AddCommand(book);
     }

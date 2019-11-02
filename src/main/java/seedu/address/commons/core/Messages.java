@@ -15,6 +15,8 @@ public class Messages {
     public static final String MESSAGE_AUTHOR_NAME_TOO_LONG = "Name of author should not be more than 30 characters!";
     public static final String MESSAGE_UNUSED_ARGUMENT = "\n\'%1$s\' is ignored as \'%2$s\'"
             + " does not accept arguments";
+    public static final String MESSAGE_TOO_MANY_GENRES =
+            "Too many genres specified! The maximum number of genres is %1$d.";
 
     // Book messages
     public static final String MESSAGE_DUPLICATE_BOOK = "Serial number provided is already in use!";
