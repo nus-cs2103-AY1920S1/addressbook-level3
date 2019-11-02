@@ -51,6 +51,12 @@ There is no need to save manually - you don't have to worry about forgetting to 
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 
+=== Simplify debts automatically
+
+SplitWiser has a fast and effective algorithm to simplify all debts that you add.
+It handles huge groups (hundreds!) and all their expenses with ease!
+No need receipt-collecting and number-crunching anymore -- SplitWiser does it all, and more!
+
 [[Commands]]
 == Commands
 ====
@@ -60,6 +66,7 @@ SplitWiser also saves its application state with your data - meaning you can re-
 * Parameters in square brackets are optional e.g `n/ACTIVITY_NAME [p/PERSON_1]` can be used as `n/Drinks p/John Doe` or as `n/Drinks`.
 * Parameters with `…`​ may be supplied multiple times, including 0 times for optional parameters, e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters may be supplied in any order e.g. if the command specifies `n/NAME hp/PHONE_NUMBER`, `hp/PHONE_NUMBER n/NAME` is also acceptable.
+* Everything is case sensitive unless otherwise stated.
 ====
 
 === Viewing help : `help`
