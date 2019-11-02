@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -51,8 +52,12 @@ public class ParserUtil {
      *                        unsigned integer).
      */
     public static String parseType(String oneBasedIndex) throws ParseException {
-        String trimmedType = oneBasedIndex.trim().substring(0, 1);
-        return trimmedType;
+        try {
+            String trimmedType = oneBasedIndex.trim().substring(0, 1);
+            return trimmedType;
+        } catch (StringIndexOutOfBoundsException ex) {
+            throw new ParseException(ex.getMessage());
+        }
     }
 
     /**
