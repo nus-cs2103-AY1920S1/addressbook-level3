@@ -50,6 +50,8 @@ to more side effects by increasing the range of the integer argument.
 such as the user guide's introduction and the developer guide's non-functional requirements.
 See https://github.com/AY1920S1-CS2103T-F11-4/main/pull/21[#21] and https://github.com/AY1920S1-CS2103T-F11-4/main/pull/22[#22]
 for examples.
+* In v1.4 I improved the graphical user interface in response to bugs filed by other people
+(https://github.com/AY1920S1-CS2103T-F11-4/main/pull/148[#148]).
 * I was the **lead integrator** for NUStudy:
 ** Managed all four releases (v1.1 to v1.4) on GitHub
 ** Set up Travis and Netlify for the project, enabling continuous integration and previews of documentation
@@ -62,7 +64,8 @@ for examples.
 * I reviewed the following pull requests non-trivially, among others: https://github.com/AY1920S1-CS2103T-F11-4/main/pull/40[#40],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/70[#70].
-* Whenever I could, I fixed bugs assigned to teammates other than me, e.g.
+* Whenever I could, I resolved issues assigned to teammates other than me, e.g.
+https://github.com/AY1920S1-CS2103T-F11-4/main/issues/123[#123], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131],
 https://github.com/AY1920S1-CS2103T-F11-4/main/issues/141[#141].
 * A detailed exposition of all code I contributed to NUStudy can be found
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Parcly-Taxel[here].

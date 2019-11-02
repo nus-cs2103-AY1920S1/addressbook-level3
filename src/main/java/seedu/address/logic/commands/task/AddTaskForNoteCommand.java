@@ -32,7 +32,6 @@ public class AddTaskForNoteCommand extends Command {
             + PREFIX_TIME + "1500";
 
     public static final String MESSAGE_SUCCESS = "Revision task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists";
 
     private final Task toAdd;
 
