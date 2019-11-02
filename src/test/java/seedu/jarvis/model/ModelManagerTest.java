@@ -225,7 +225,11 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setHistoryManagerFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setCcaTrackerFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setCoursePlannerFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setPlannerFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setFinanceTrackerFilePath(Paths.get("differentFilePath"));
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
                 differentUserPrefs, planner, coursePlanner)));
     }
