@@ -38,6 +38,8 @@ public class Messages {
     public static final String MESSAGE_NOT_ONE_DISTRICT =
             "Please ensure there is one input for district number!";
 
+    public static final String MESSAGE_AUTO_ONLY_Y_N = "Auto can only be y or n!";
+
     public static final String MESSAGE_ALL_INCIDENTS_LISTED = "Listed all incidents";
     public static final String MESSAGE_NO_INCIDENTS_LISTED = "No incident reports present in the system";
     public static final String MESSAGE_ALL_DRAFT_INCIDENTS_LISTED = "Listed all draft incident reports";
