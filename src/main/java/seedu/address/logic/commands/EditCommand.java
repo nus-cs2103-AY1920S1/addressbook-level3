@@ -82,6 +82,7 @@ public class EditCommand extends Command {
         }
         //TODO is there a more elegant way
         model.setEntry(entryToEdit, editedEntry);
+        System.out.println("ASDDD HELP");
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
@@ -100,7 +101,9 @@ public class EditCommand extends Command {
         }
         Category updatedCategory = editEntryDescriptor.getCategory().orElse(entryToEdit.getCategory());
         Description updatedName = editEntryDescriptor.getDesc().orElse(entryToEdit.getDesc());
+        System.out.println(updatedName);
         Date updatedDate = editEntryDescriptor.getDate().orElse(entryToEdit.getDate());
+        System.out.println(updatedDate + "ASD");
         Amount updatedAmount = editEntryDescriptor.getAmount().orElse(entryToEdit.getAmount());
         Set<Tag> updatedTags = editEntryDescriptor.getTags().orElse(entryToEdit.getTags());
 

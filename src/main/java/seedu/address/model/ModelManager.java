@@ -373,7 +373,6 @@ public class ModelManager implements Model {
         versionedAddressBook.setExpense(target, editedEntry);
         versionedAddressBook.updateBudgets(filteredExpenses);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
-
     }
 
     @Override
