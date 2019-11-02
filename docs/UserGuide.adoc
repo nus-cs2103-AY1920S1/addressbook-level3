@@ -193,7 +193,7 @@ edit-task 3//r/weekly
 ----
 
 ==== Updating a task's status: `done-task`
-Updates the status of a task. By default on an `add-task`, all tasks are marked
+Updates the status of a task. By default on `add-task`, all tasks are marked
 as undone, represented by a `[✗]`. Upon finishing the task, the task will be
 represented with a `[✓]`.
 
