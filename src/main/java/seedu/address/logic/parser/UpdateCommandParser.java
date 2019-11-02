@@ -45,8 +45,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             try {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
             } catch (ParseException pe) {
-                throw new ParseException(String
-                        .format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE), pe);
             }
         }
 

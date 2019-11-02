@@ -3,7 +3,6 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.LogicManager.ACCESS_CONTROL_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PASSWORD_DESC_AMY;
@@ -51,14 +50,6 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(incidentManagerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
         model.setSession(AMY); // Added to simulate a logged in person
-    }
-
-    //@@author madanalogy
-    @Test
-    void execute_notLoggedIn_throwsAccessException() {
-        model.setSession(null);
-        String swapCommand = "swap";
-        assertCommandException(swapCommand, ACCESS_CONTROL_MESSAGE);
     }
 
     @Test
