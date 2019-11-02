@@ -277,6 +277,9 @@ public class CommandParserUtil {
     public static RulePredicate parsePredicate(String predicate) throws ParseException {
         requireNonNull(predicate);
         String trimmedPred = predicate.trim();
+        if (trimmedPred.isEmpty()) {
+            throw new ParseException(RulePredicate.MESSAGE_CONSTRAINTS);
+        }
 
         if (trimmedPred.contains(" ")) {
             return parsePredicateExpr(trimmedPred);
@@ -294,6 +297,9 @@ public class CommandParserUtil {
     public static RuleAction parseAction(String action) throws ParseException {
         requireNonNull(action);
         String trimmedAct = action.trim();
+        if (trimmedAct.isEmpty()) {
+            throw new ParseException(RuleAction.MESSAGE_CONSTRAINTS);
+        }
 
         if (action.contains(" ") || Operator.isValidOperator(trimmedAct)) {
             return parseActionExpr(trimmedAct);
