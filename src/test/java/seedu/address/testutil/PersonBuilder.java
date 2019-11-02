@@ -17,7 +17,6 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Pauline";
     public static final String DEFAULT_PAY = "0";
-    public static final String DEFAULT_PENDINGPAY = "0";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_TOTALSALARY = "0";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
@@ -25,7 +24,6 @@ public class PersonBuilder {
 
     private EmployeeName employeeName;
     private EmployeeSalaryPaid employeeSalaryPaid;
-    private EmployeePendingPay employeePendingPay;
     private EmployeePhone employeePhone;
     private EmployeePay employeePay;
     private EmployeeEmail employeeEmail;
@@ -35,7 +33,6 @@ public class PersonBuilder {
     public PersonBuilder() {
         employeeName = new EmployeeName(DEFAULT_NAME);
         employeeSalaryPaid = new EmployeeSalaryPaid(DEFAULT_PAY);
-        employeePendingPay = new EmployeePendingPay(DEFAULT_PENDINGPAY);
         employeePhone = new EmployeePhone(DEFAULT_PHONE);
         employeePay = new EmployeePay((DEFAULT_TOTALSALARY));
         employeeEmail = new EmployeeEmail(DEFAULT_EMAIL);
@@ -49,9 +46,7 @@ public class PersonBuilder {
     public PersonBuilder(Employee employeeToCopy) {
         employeeName = employeeToCopy.getEmployeeName();
         employeeSalaryPaid = employeeToCopy.getEmployeeSalaryPaid();
-        employeePendingPay = employeeToCopy.getEmployeePendingPay();
         employeePhone = employeeToCopy.getEmployeePhone();
-        employeePay = employeeToCopy.getEmployeeTotalsalary();
         employeeEmail = employeeToCopy.getEmployeeEmail();
         employeeAddress = employeeToCopy.getEmployeeAddress();
         tags = new HashSet<>(employeeToCopy.getTags());
@@ -97,13 +92,6 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code EmployeePhone} of the {@code Employee} that we are building.
-     */
-    public PersonBuilder withPendingPay(String pay) {
-        this.employeePendingPay = new EmployeePendingPay(pay);
-        return this;
-    }
 
     /**
      * Sets the {@code EmployeePhone} of the {@code Employee} that we are building.
@@ -127,7 +115,7 @@ public class PersonBuilder {
      */
     public Employee build() {
         return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
-                        new EmployeeSalaryPaid("0"), new EmployeePendingPay("0"), new EmployeePay("0"), employeePhone,
+                        new EmployeePay("0"), employeePhone,
                         employeeEmail, employeeAddress,
                         new EmployeeJoinDate(LocalDate.parse("11/12/2011",
                                 DateTimeFormatter.ofPattern("dd/MM/yyyy"))), tags);

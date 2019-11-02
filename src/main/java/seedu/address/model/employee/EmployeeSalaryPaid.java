@@ -1,6 +1,5 @@
 package seedu.address.model.employee;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Employee's Salary (per hour) in the address book.
@@ -21,8 +20,11 @@ public class EmployeeSalaryPaid {
      * @param pay A valid Pay number.
      */
     public EmployeeSalaryPaid(String pay) {
-        requireNonNull(pay);
         value = pay;
+    }
+
+    public EmployeeSalaryPaid() {
+        value = "0";
     }
 
     /**

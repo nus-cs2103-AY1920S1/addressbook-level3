@@ -69,13 +69,9 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeeSalaryPaid parsePay(String pay) throws ParseException {
-        requireNonNull(pay);
-        String trimmedPay = pay.trim();
-        if (!EmployeeSalaryPaid.isValidPay(trimmedPay)) {
-            throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
-        }
-        return new EmployeeSalaryPaid(trimmedPay);
+    public static EmployeeSalaryPaid_Initialise parseSalaryPaid_Initialise(String pay) throws ParseException {
+        String trimmedPay = "0";
+        return new EmployeeSalaryPaid_Initialise(trimmedPay);
     }
 
 
@@ -85,7 +81,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeePay parseTotalSalary(String pay) throws ParseException {
+    public static EmployeePay parsePay(String pay) throws ParseException {
         requireNonNull(pay);
         String trimmedPay = pay.trim();
         if (!EmployeePay.isValidPay(trimmedPay)) {

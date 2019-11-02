@@ -21,7 +21,6 @@ public class Employee {
     private EmployeePay employeePay;
     private EmployeeSalaryPaid employeeSalaryPaid;
 
-
     // Identity fields
     private final EmployeeName employeeName;
     private final EmployeePhone employeePhone;
@@ -39,7 +38,8 @@ public class Employee {
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeePay employeePay,
+                    EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
         this.employeePhone = employeePhone;
@@ -90,6 +90,7 @@ public class Employee {
     public EmployeeSalaryPaid getEmployeeSalaryPaid() {
         return employeeSalaryPaid;
     }
+
 
     public EmployeePay getEmployeePay() {
         return employeePay;
