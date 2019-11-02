@@ -24,8 +24,8 @@ public class UndoCommand extends Command {
             if (history.isUndoneEmpty()) {
                 return new CommandResult(MESSAGE_FAILURE);
             } else {
-                System.out.println(HistoryManager.getCommands().pop());
-                System.out.println(HistoryManager.getAddressBooks().pop());
+                HistoryManager.getCommands().pop();
+                HistoryManager.getAddressBooks().pop();
                 if (history.isUndoneEmpty()) {
                     return new CommandResult(MESSAGE_FAILURE);
                 }
