@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.achievements.ui.AchievementsPage;
 import seedu.address.address.logic.AddressBookLogic;
@@ -74,6 +75,9 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private Scene commonScene;
 
+    @FXML
+    private VBox backgroundPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -100,6 +104,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
         PageManager.getInstance(primaryStage, mainScene, calendarPage, itineraryPage,
                 financialTrackerPage, diaryPage, achievementsPage, addressBookPage);
 
+        setBackgroundImage();
     }
 
     public Stage getPrimaryStage() {
@@ -108,6 +113,17 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets background image to make it resizable.
+     */
+    private void setBackgroundImage() {
+        ImageView backgroundImage = new ImageView("/images/mainpage.png");
+        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.9));
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty().multiply(0.9));
+        backgroundImage.setPreserveRatio(true);
+        backgroundPlaceholder.getChildren().add(backgroundImage);
     }
 
     /**
@@ -147,9 +163,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     void fillInnerParts() {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookLogic().getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

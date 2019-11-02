@@ -2,13 +2,11 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -49,19 +47,10 @@
                               <Insets bottom="5" left="10" right="10" top="5" />
                           </padding>
                       </StackPane>
-      
-                      <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                   </VBox>
             </bottom>
             <center>
-                   <ImageView fx:id="imageView" fitHeight="467.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                       <image>
-                           <Image url="@../images/mainpage.png" />
-                       </image>
-                       <cursor>
-                           <Cursor fx:constant="DEFAULT" />
-                       </cursor>
-                   </ImageView>
+               <VBox id="background-placeholder" fx:id="backgroundPlaceholder" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
             </center>
          </BorderPane>
          <stylesheets>

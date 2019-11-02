@@ -18,3 +18,7 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+#background-placeholder {
+    -fx-background-color: #fff;
+}
