@@ -6,11 +6,13 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.VisitReport;
 
 /**
  * Deletes record of patient by index.
@@ -66,7 +68,12 @@ public class DeleteVisitCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_REPORT_INDEX);
             }
         } else {
-            return new CommandResult(MESSAGE_MISSING_INDEX_PROMPT, editedPerson.getVisitList().getObservableRecords());
+            ObservableList<VisitReport> result = editedPerson.getVisitList().getObservableRecords();
+            if (result.isEmpty()) {
+                return new CommandResult("", result);
+            } else {
+                return new CommandResult(MESSAGE_MISSING_INDEX_PROMPT, result);
+            }
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 

@@ -17,8 +17,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.Appointment;
 
 public class UnaliasCommandTest {
 
@@ -126,6 +126,11 @@ public class UnaliasCommandTest {
 
         @Override
         public String outputAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetAppointments() {
             throw new AssertionError("This method should not be called.");
         }
 

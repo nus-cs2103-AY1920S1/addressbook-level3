@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
-import seedu.address.model.reminder.Appointment;
 
 /**
  * The API of the Model component.
@@ -84,7 +84,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered appointment list */
     ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
@@ -94,35 +94,43 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
 
     /**
-     * Adds the given reminder.
-     * @param type Type of reminder - 0 for reminder and 1 for follow-up
-     * @param description Description of the appointment
-     * @param days Number of days for the reminder
+     * Adds a new Appointment.
+     *
+     * @param type The type of appointment. 0 = Reminder, 1 = Follow-Up.
+     * @param description The description of the Appointment.
+     * @param days How many days the Appointment has remaining.
      */
     void addAppointment(int type, String description, int days) throws CommandException;
 
     /**
-     * Deletes the given reminder.
-     * @param description Description of the appointment
-     * @param days Number of days for the reminder
+     * Deletes an appointment from VISIT.
+     *
+     * @param description The description of the appointment to delete.
+     * @param days Optional number of days to specifically target the exact appointment to delete.
      */
     void deleteAppointment(String description, int days);
 
     /**
-     * Sorts the appointments by date.
+     * Sorts the list of appointments by days remaining, then name.
      */
     void sortAppointments();
 
     /**
-     * Creates a String with all reminders and follow-ups for easy display.
+     * Outputs the Appointments to readable String.
+     * Used in the Message of the Day output.
      */
     String outputAppointments();
+
+    /**
+     * Reset Appointment Data completely.
+     */
+    void resetAppointments();
 
     /**
      * Adds a given alias into the alias table.

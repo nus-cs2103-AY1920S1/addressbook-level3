@@ -12,50 +12,50 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AliasTable;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTable;
 import seedu.address.model.person.Person;
 
-public class AliasCommandTest {
+public class ReminderCommandTest {
     @Test
-    public void constructor_nullAlias_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AliasCommand(null, null));
-        assertThrows(NullPointerException.class, () -> new AliasCommand("Command", null));
-        assertThrows(NullPointerException.class, () -> new AliasCommand(null, "Alias"));
+    public void constructor_nullDescription_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ReminderCommand(null, 0));
     }
 
     @Test
-    public void execute_correctAlias_aliasSuccessful() throws Exception {
-        AliasCommandTest.ModelStubWithAliasTable modelStub = new AliasCommandTest.ModelStubWithAliasTable();
+    public void execute_correctReminder_reminderSuccessful() throws Exception {
+        ReminderCommandTest.ModelStubWithAppointmentTable modelStub = new ReminderCommandTest
+                .ModelStubWithAppointmentTable();
 
-        CommandResult commandResult = new AliasCommand("test", "help").execute(modelStub);
+        CommandResult commandResult = new ReminderCommand("test", 1).execute(modelStub);
 
-        assertEquals(String.format(AliasCommand.MESSAGE_SUCCESS, "test", "help"), commandResult.getFeedbackToUser());
+        assertEquals(String.format(ReminderCommand.MESSAGE_SUCCESS, "test", 1), commandResult.getFeedbackToUser());
         assertEquals(
-                AliasTable.getDefaultAliasTable().addAlias("test", "help"),
-                modelStub.getUserPrefs().getAliasTable()
+                AppointmentTable.getDefaultAppointments().addAppointment(0, "test", 1),
+                modelStub.getUserPrefs().getAppointmentTable()
         );
     }
 
     @Test
     public void equals() {
-        AliasCommand aliasExitCommand = new AliasCommand("test1", "exit");
-        AliasCommand aliasHelpCommand = new AliasCommand("test2", "help");
+        ReminderCommand reminderCommand = new ReminderCommand("test1", 1);
+        ReminderCommand reminderCommand2 = new ReminderCommand("test2", 2);
 
-        assertTrue(aliasExitCommand.equals(aliasExitCommand));
-        assertTrue(aliasHelpCommand.equals(aliasHelpCommand));
+        assertTrue(reminderCommand.equals(reminderCommand));
+        assertTrue(reminderCommand2.equals(reminderCommand2));
 
-        assertFalse(aliasExitCommand.equals(1));
-        assertFalse(aliasHelpCommand.equals(null));
+        assertFalse(reminderCommand.equals(1));
+        assertFalse(reminderCommand2.equals(null));
 
-        assertFalse(aliasExitCommand.equals(aliasHelpCommand));
+        assertFalse(reminderCommand.equals(reminderCommand2));
     }
 
-    private class ModelStubWithAliasTable extends ModelStub {
+    private class ModelStubWithAppointmentTable extends ModelStub {
         final UserPrefs userPrefs = new UserPrefs();
 
         @Override
@@ -64,8 +64,8 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addAlias(String alias, String aliasTo) {
-            userPrefs.addAlias(alias, aliasTo);
+        public void addAppointment(int type, String description, int days) throws CommandException {
+            userPrefs.addAppointment(type, description, days);
         }
     }
 
@@ -109,7 +109,7 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addAppointment(int type, String description, int days) {
+        public void addAppointment(int type, String description, int days) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 

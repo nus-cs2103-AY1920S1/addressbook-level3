@@ -7,12 +7,18 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Adds a reminder to VISIT.
+ * Adds a reminder appointment to VISIT.
  */
 public class ReminderCommand extends Command {
 
+    /**
+     * Word to call the Follow-Up Command.
+     */
     public static final String COMMAND_WORD = "reminder";
 
+    /**
+     * Help message on usage.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a new reminder for the user to keep track. "
             + "Parameters: "
@@ -21,13 +27,26 @@ public class ReminderCommand extends Command {
             + "Two Point Hospital closed "
             + PREFIX_DAYS + "7";
 
+    /**
+     * Success message when executed.
+     */
     public static final String MESSAGE_SUCCESS = "New reminder added: %s - %d day(s)";
 
+    /**
+     * The description of the reminder to store.
+     */
     private final String description;
+
+    /**
+     * Optional number of days for how long the reminder lasts.
+     */
     private final int days;
 
     /**
-     * Creates a ReminderCommand to add the specified {@code Reminder}
+     * Creates a ReminderCommand to add the specified {@code Appointment}.
+     *
+     * @param description The description of the reminder to store.
+     * @param days Number of days for when the follow-up occurs.
      */
     public ReminderCommand(String description, int days) {
         requireNonNull(description);
@@ -41,7 +60,6 @@ public class ReminderCommand extends Command {
         requireNonNull(model);
 
         model.addAppointment(0, description, days);
-        //model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 

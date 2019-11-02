@@ -12,50 +12,51 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.AliasTable;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentTable;
 import seedu.address.model.person.Person;
 
-public class AliasCommandTest {
+public class DeleteAppointmentCommandTest {
     @Test
-    public void constructor_nullAlias_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AliasCommand(null, null));
-        assertThrows(NullPointerException.class, () -> new AliasCommand("Command", null));
-        assertThrows(NullPointerException.class, () -> new AliasCommand(null, "Alias"));
+    public void constructor_nullDescription_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteAppointmentCommand(null, 0));
     }
 
     @Test
-    public void execute_correctAlias_aliasSuccessful() throws Exception {
-        AliasCommandTest.ModelStubWithAliasTable modelStub = new AliasCommandTest.ModelStubWithAliasTable();
+    public void execute_correctDeleteAppointment_deleteAppointmentSuccessful() throws Exception {
+        DeleteAppointmentCommandTest.ModelStubWithAppointmentTable modelStub = new DeleteAppointmentCommandTest
+                .ModelStubWithAppointmentTable();
 
-        CommandResult commandResult = new AliasCommand("test", "help").execute(modelStub);
+        CommandResult commandResult = new DeleteAppointmentCommand("test", 1).execute(modelStub);
 
-        assertEquals(String.format(AliasCommand.MESSAGE_SUCCESS, "test", "help"), commandResult.getFeedbackToUser());
+        assertEquals(String.format(DeleteAppointmentCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
         assertEquals(
-                AliasTable.getDefaultAliasTable().addAlias("test", "help"),
-                modelStub.getUserPrefs().getAliasTable()
+                AppointmentTable.getDefaultAppointments().addAppointment(0, "test", 1)
+                .deleteAppointment("test", 1),
+                modelStub.getUserPrefs().getAppointmentTable()
         );
     }
 
     @Test
     public void equals() {
-        AliasCommand aliasExitCommand = new AliasCommand("test1", "exit");
-        AliasCommand aliasHelpCommand = new AliasCommand("test2", "help");
+        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand("test1", 1);
+        DeleteAppointmentCommand deleteAppointmentCommand2 = new DeleteAppointmentCommand("test2", 2);
 
-        assertTrue(aliasExitCommand.equals(aliasExitCommand));
-        assertTrue(aliasHelpCommand.equals(aliasHelpCommand));
+        assertTrue(deleteAppointmentCommand.equals(deleteAppointmentCommand));
+        assertTrue(deleteAppointmentCommand2.equals(deleteAppointmentCommand2));
 
-        assertFalse(aliasExitCommand.equals(1));
-        assertFalse(aliasHelpCommand.equals(null));
+        assertFalse(deleteAppointmentCommand.equals(1));
+        assertFalse(deleteAppointmentCommand2.equals(null));
 
-        assertFalse(aliasExitCommand.equals(aliasHelpCommand));
+        assertFalse(deleteAppointmentCommand.equals(deleteAppointmentCommand2));
     }
 
-    private class ModelStubWithAliasTable extends ModelStub {
+    private class ModelStubWithAppointmentTable extends ModelStub {
         final UserPrefs userPrefs = new UserPrefs();
 
         @Override
@@ -64,8 +65,18 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addAlias(String alias, String aliasTo) {
-            userPrefs.addAlias(alias, aliasTo);
+        public void addAppointment(int type, String description, int days) throws CommandException {
+            userPrefs.addAppointment(type, description, days);
+        }
+
+        @Override
+        public void deleteAppointment(String description, int days) {
+            userPrefs.deleteAppointment(description, days);
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            // Do Nothing.
         }
     }
 
@@ -109,7 +120,7 @@ public class AliasCommandTest {
         }
 
         @Override
-        public void addAppointment(int type, String description, int days) {
+        public void addAppointment(int type, String description, int days) throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 

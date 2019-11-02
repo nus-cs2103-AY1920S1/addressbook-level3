@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ARGUMENTS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -12,7 +13,7 @@ import seedu.address.logic.commands.AliasCommand;
 import seedu.address.logic.commands.AliasListCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-//import seedu.address.logic.commands.DeleteAppointmentCommand;
+import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteVisitCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -25,7 +26,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ProfileCommand;
 import seedu.address.logic.commands.ReminderCommand;
 import seedu.address.logic.commands.ShowCommand;
-//import seedu.address.logic.commands.SortAppointmentsCommand;
+import seedu.address.logic.commands.SortAppointmentsCommand;
 import seedu.address.logic.commands.UnaliasCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -73,12 +74,18 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ListCommand();
 
         case AddVisitCommand.COMMAND_WORD:
@@ -98,23 +105,38 @@ public class AddressBookParser {
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments);
-        /*
+
         case DeleteAppointmentCommand.COMMAND_WORD:
             return new DeleteAppointmentCommandParser().parse(arguments);
 
         case SortAppointmentsCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new SortAppointmentsCommand();
-        */
+
         case ExitCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new HelpCommand();
 
         case ShowCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new ShowCommand();
 
         case AliasListCommand.COMMAND_WORD:
+            if (!arguments.trim().isEmpty()) {
+                throw new ParseException(MESSAGE_INVALID_ARGUMENTS);
+            }
             return new AliasListCommand();
 
         default:
