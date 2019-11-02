@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.course.TypicalCourses;
 
@@ -131,6 +132,11 @@ public class AddCourseCommandTest {
                 courses.remove(course);
             }
         }
+
+        @Override
+        public void setViewStatus(ViewType vt) {
+            return;
+        }
     }
 
     /**
@@ -149,6 +155,11 @@ public class AddCourseCommandTest {
         public void addCourse(Course course) {
             requireNonNull(course);
             coursesAdded.add(course);
+        }
+
+        @Override
+        public void setViewStatus(ViewType vt) {
+            return;
         }
     }
 }
