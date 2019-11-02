@@ -55,7 +55,7 @@ class ClosestCommonLocationDataTest {
     @Test
     void getImage() {
         closestCommonLocationData.setFirstClosest("LT17");
-        assertDoesNotThrow(()->closestCommonLocationData.getImage());
+        assertDoesNotThrow(()->closestCommonLocationData.getImageFirst());
     }
 
     @Test

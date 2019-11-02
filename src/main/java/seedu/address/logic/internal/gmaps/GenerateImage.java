@@ -23,7 +23,16 @@ public class GenerateImage {
         this.validLocationList = validLocationList;
     }
 
+    /**
+     * This command is used to execute the generation of images
+     * @throws TimeBookInvalidState
+     */
     public void execute() throws TimeBookInvalidState {
+        if (!UrlUtil.isGmapsKeyPresent()) {
+            throw new TimeBookInvalidState("Enter API key to execute the command.");
+        } else if (validLocationList.isEmpty()) {
+            throw new TimeBookInvalidState("Process Venues first before generating images.");
+        }
         populateCoordinates();
         retrieveImage();
     }

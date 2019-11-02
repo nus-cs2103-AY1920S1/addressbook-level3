@@ -18,7 +18,7 @@ import seedu.address.model.gmaps.Location;
  */
 public class UrlUtil {
 
-    private static String gmapsApiKey = "AIzaSyCu51EasekEh-NLx5gNw_1pukMABEsFlTU";
+    private static String gmapsApiKey = "";
 
     /**
      * Generates a URL object from a String.
@@ -138,5 +138,12 @@ public class UrlUtil {
         String apiKeyQueryParams = "&key=" + gmapsApiKey + "&";
         String fullUrl = baseUrl + markerQueryParam + centerQueryParam + apiKeyQueryParams;
         return fullUrl;
+    }
+
+    /**
+     *
+     */
+    public static boolean isGmapsKeyPresent() {
+        return gmapsApiKey.length() != 0;
     }
 }

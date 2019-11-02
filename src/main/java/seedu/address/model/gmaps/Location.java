@@ -26,14 +26,6 @@ public class Location {
         this.lat = lat;
     }
 
-    public String getLat() {
-        return lat;
-    }
-
-    public String getLng() {
-        return lng;
-    }
-
     public String getLatLng() {
         return lat + "," + lng;
     }
