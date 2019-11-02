@@ -77,8 +77,24 @@ public class QueueManager {
         queueList.remove(0);
     }
 
-    public boolean hasId(ReferenceId id) {
+    public boolean hasIdInQueue(ReferenceId id) {
         return queueList.contains(id);
+    }
+
+    /**
+     * Checks if a patient is being served
+     *
+     * @param id of the patient being served
+     * @return boolean which indicates whether the patient is being served
+     */
+    public boolean hasIdInRooms(ReferenceId id) {
+        UniqueElementList<ReferenceId> patientsBeingServed = new UniqueElementList<>();
+        for (Room room : roomList) {
+            if (room.hasPatientBeingServed()) {
+                patientsBeingServed.add(room.getCurrentPatient().get());
+            }
+        }
+        return patientsBeingServed.contains(id);
     }
 
     public void setPatientInQueue(ReferenceId target, ReferenceId editedId) {

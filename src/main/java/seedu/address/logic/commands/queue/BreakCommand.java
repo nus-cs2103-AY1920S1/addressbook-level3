@@ -17,7 +17,7 @@ public class BreakCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "break";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Doctor goes for a break\n"
+            + ": Doctor goes for a break. Avoids directing patients to the doctor based on the room number.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

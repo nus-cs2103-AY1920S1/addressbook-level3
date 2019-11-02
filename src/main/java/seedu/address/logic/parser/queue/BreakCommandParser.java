@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.queue.BreakCommand;
 import seedu.address.logic.commands.queue.ResumeCommand;
@@ -42,7 +41,7 @@ public class BreakCommandParser implements Parser<ReversibleActionPairCommand> {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NextCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, BreakCommand.MESSAGE_USAGE), pe);
         }
         filteredRoomList = model.getConsultationRoomList();
         if (filteredRoomList.size() < index.getOneBased()) {

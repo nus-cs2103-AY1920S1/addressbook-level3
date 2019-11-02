@@ -15,8 +15,8 @@ import seedu.address.model.ReferenceId;
 public class EnqueueCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "New person added to the queue: %s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the queue";
-
+    public static final String MESSAGE_DUPLICATE_PERSON_IN_QUEUE = "This patient already exists in the queue";
+    public static final String MESSAGE_DUPLICATE_PERSON_BEING_SERVED = "This patient is already being served";
     public static final String COMMAND_WORD = "enqueue";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueues a patient to the queue. "
@@ -39,9 +39,11 @@ public class EnqueueCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (model.isPatientInQueue(patientReferenceId)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON_IN_QUEUE);
         } else if (!model.hasPatient(patientReferenceId)) {
             throw new CommandException(String.format(Messages.MESSAGE_INVAILD_REFERENCE_ID, patientReferenceId));
+        } else if (model.isPatientBeingServed(patientReferenceId)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON_BEING_SERVED);
         }
 
         model.enqueuePatient(patientReferenceId);

@@ -20,7 +20,7 @@ public class NextCommand extends ReversibleCommand {
     public static final String MESSAGE_DOCTOR_ON_BREAK = "Doctor is currently on break";
     public static final String MESSAGE_PERSON_NOT_IN_QUEUE = "This person '%1$s' is not in the queue";
     public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the list.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a room. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allocates next patient in queue to a room.\n"
             + "Parameters: INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1";
 
