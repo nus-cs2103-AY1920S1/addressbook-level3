@@ -631,7 +631,8 @@ Examples:
 
 `expandpolicy 1`
 
-=== Display Indicator `display`
+// tag::display[]
+=== Display Indicator: `display`
 Displays indicator according to specified format.
 
 Format:
@@ -673,7 +674,10 @@ Displays gender breakdown as a linechart.
 Expected Output: +
 
 image::GenderBreakdown.png[width="800", align="left"]
+// end::display[]
 
+
+// tag::restore[]
 === Restore Deleted Items: `restore`
 Restores an item (person or policy) in the bin specified by the user.
 
@@ -698,6 +702,7 @@ Expected Output: +
 Restored item: David Georgia NRIC: S0000010T Phone: 94820001 Email: davegeorge@example.com Address: 10th Fly street
 Date of birth: 5 March 1980 Gender: Male Date deleted: 22 Oct 2019 at 09:57 PM Expiry Date: 21 Nov 2019 at 09:57 PM
 ```
+// end::restore[]
 
 === Undo recently entered commands
 Displaying a list of recently entered commands, and the user can select the range of commands the user wants to undo.
