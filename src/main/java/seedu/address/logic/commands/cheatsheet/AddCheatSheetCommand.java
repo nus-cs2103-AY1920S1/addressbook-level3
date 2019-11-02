@@ -22,8 +22,6 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
-import seedu.address.model.note.NoteFragment;
-import seedu.address.model.note.NoteFragmentContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -88,23 +86,15 @@ public class AddCheatSheetCommand extends Command {
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
         Set<Content> contentList = new HashSet<>();
 
-        // get all notes
+        // get all notes and their fragments
         ObservableList<Note> noteList = model.getFilteredNoteList();
         NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
         model.updateFilteredNoteList(noteTagPredicate);
 
         for (Note note: noteList) {
             contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
-        }
-
-        // get all note fragments within the notes
-        NoteFragmentContainsTagPredicate noteFragmentTagPredicate = new NoteFragmentContainsTagPredicate(tags);
-
-        for (Note note: noteList) {
-            for (NoteFragment nf : note.getNoteFragments()) {
-                if (noteFragmentTagPredicate.test(nf)) {
-                    contentList.add(new Content(nf.getContent().toString(), nf.getTags()));
-                }
+            for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
+                contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
             }
         }
 

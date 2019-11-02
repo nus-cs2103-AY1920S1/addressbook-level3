@@ -6,9 +6,11 @@ import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.note.NoteFeatureUtil;
 import seedu.address.model.StudyBuddyItem;
@@ -54,8 +56,14 @@ public class Note extends StudyBuddyItem {
         return new Content(cleanedContent);
     }
 
-    public List<NoteFragment> getNoteFragments() {
-        return noteFragments;
+    public List<NoteFragment> getFilteredNoteFragments(Predicate<? super NoteFragment> predicate) {
+        List<NoteFragment> noteFragmentList = Collections.emptyList();
+        for (NoteFragment noteFragment : noteFragments) {
+            if (predicate.test(noteFragment)) {
+                noteFragmentList.add(noteFragment);
+            }
+        }
+        return noteFragmentList;
     }
 
     /**
