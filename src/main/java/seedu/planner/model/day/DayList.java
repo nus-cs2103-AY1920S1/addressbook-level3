@@ -120,6 +120,10 @@ public class DayList implements Iterable<Day> {
         return listOfDays;
     }
 
+    public int getNumberOfDays() {
+        return internalList.size();
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

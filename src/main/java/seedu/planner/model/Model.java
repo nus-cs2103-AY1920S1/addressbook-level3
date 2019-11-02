@@ -339,6 +339,8 @@ public interface Model {
 
     void unscheduleActivity(Day day, Index toRemove);
 
+    int getNumberOfDays();
+
     /**
      * Returns an unmodifiable view of the filtered itinerary
      */

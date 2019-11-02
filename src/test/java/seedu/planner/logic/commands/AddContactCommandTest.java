@@ -340,6 +340,10 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public int getNumberOfDays() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public void scheduleActivity(Day day, ActivityWithTime toAdd) {
             throw new AssertionError("This method should not be called.");
         }

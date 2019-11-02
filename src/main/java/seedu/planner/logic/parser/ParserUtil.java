@@ -212,15 +212,15 @@ public class ParserUtil {
      */
     public static List<Index> parseDaysToSchedule(String days) throws ParseException {
         requireNonNull(days);
-        String[] trimmmedDays = days.trim().split(" ");
-        int numOfDays = trimmmedDays.length;
+        String[] trimmedDays = days.trim().split(" ");
+        int numOfDays = trimmedDays.length;
         List<Index> dayList = new ArrayList<>();
 
         for (int i = 0; i < numOfDays; i++) {
-            if (!Day.isValidDayNumber(trimmmedDays[i])) {
+            if (!Day.isValidDayNumber(trimmedDays[i])) {
                 throw new ParseException(Day.MESSAGE_CONSTRAINTS);
             }
-            dayList.add(parseIndex(trimmmedDays[i]));
+            dayList.add(parseIndex(trimmedDays[i]));
         }
         return dayList;
     }

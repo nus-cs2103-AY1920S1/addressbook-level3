@@ -576,6 +576,11 @@ public class ModelManager implements Model {
         return itinerary.getDays(activity);
     }
 
+    @Override
+    public int getNumberOfDays() {
+        return itinerary.getNumberOfDays();
+    }
+
     //=========== Filtered List Accessors =============================================================
     // ACCOMMODATION FilteredList
     /**

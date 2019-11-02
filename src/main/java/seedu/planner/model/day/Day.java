@@ -11,8 +11,9 @@ import seedu.planner.model.activity.Activity;
  * Guarantees: timetable is present and not null, field values are validated, immutable.
  */
 public class Day {
-    public static final String MESSAGE_CONSTRAINTS = "Number of days should be an integer greater than 0.";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d*$";
+    public static final String MESSAGE_CONSTRAINTS = "Number of days should be a non-negative integer less "
+            + "than or equal to 31.";
+    public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|[1-9])$";
 
     private final Timetable timetable;
 

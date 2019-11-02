@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
@@ -25,6 +26,7 @@ public class AddDayCommand extends AddCommand {
     );
 
     public static final String MESSAGE_SUCCESS = "%d day(s) added";
+    public static final String MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED = "Total number of days exceeds the limit of 31";
 
     private final int toAdd;
     private final Index index;
@@ -57,9 +59,12 @@ public class AddDayCommand extends AddCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        int currNumDays = model.getNumberOfDays();
+        if ((currNumDays + toAdd) > 31) {
+            throw new CommandException(MESSAGE_NUMBER_OF_DAYS_LIMIT_EXCEEDED);
+        }
         if (index == null && dayToAdd == null) {
             model.addDays(toAdd);
         } else {

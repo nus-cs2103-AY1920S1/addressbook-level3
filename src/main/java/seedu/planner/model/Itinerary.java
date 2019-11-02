@@ -143,6 +143,10 @@ public class Itinerary implements ReadOnlyItinerary {
         return days.getDays(activity);
     }
 
+    public int getNumberOfDays() {
+        return days.getNumberOfDays();
+    }
+
     //// util methods
 
     @Override
