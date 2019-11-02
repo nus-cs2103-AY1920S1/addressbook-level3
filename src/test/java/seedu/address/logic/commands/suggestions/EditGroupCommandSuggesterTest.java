@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
+import seedu.address.model.group.GroupDescriptor;
 import seedu.address.testutil.grouputil.TypicalGroups;
 
 class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
@@ -68,4 +69,17 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
         assertNoSuggestions(argumentList, argumentList.get(1));
     }
 
+    @Test
+    void getSuggestion_prefixRoleExactGroup_currentRole() {
+        final GroupDescriptor group = TypicalGroups.GROUP1;
+
+        final ArgumentList argumentList = argumentListOf(
+                new CommandArgument(CliSyntax.PREFIX_EDIT, 0, group.getGroupName().toString()),
+                new CommandArgument(CliSyntax.PREFIX_ROLE, 1, "")
+        );
+
+        final List<String> expectedSuggestions = List.of(group.getUserRole().getRole());
+        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
+        assertEquals(expectedSuggestions, actualSuggestions);
+    }
 }
