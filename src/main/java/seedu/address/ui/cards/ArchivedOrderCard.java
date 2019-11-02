@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -80,10 +79,11 @@ public class ArchivedOrderCard extends UiPart<Region> {
         orderPrice.setText(order.getPrice().value);
 
         if (order.getStatus().equals(Status.COMPLETED)) {
+            assert(order.getSchedule().isPresent());
             try {
                 orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
                         order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
-            } catch(NoSuchElementException e) {
+            } catch (NoSuchElementException e) {
                 System.out.println(e.toString());
                 orderStatus.setText("ERROR: This order should not appear here, each order can only be here "
                         + "if they have schedule and is completed");

@@ -256,6 +256,8 @@ public class StatisticManager implements Statistic {
 
     private static Stream<Order> getFilteredOrderListByDate(ReadOnlyDataBook<Order> orderBook,
                                                             StatsPayload statsPayload) {
+        assert (statsPayload.getStartingDate() != null
+                && statsPayload.getEndingDate() != null);
         ObservableList<Order> orderList = orderBook.getList();
         return StatisticManager.streamOfPresentOrders(orderList.stream())
                 .filter(currentOrder -> statsPayload.getStartingDate().compareTo(

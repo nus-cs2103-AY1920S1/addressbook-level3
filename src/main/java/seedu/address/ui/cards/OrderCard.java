@@ -79,6 +79,7 @@ public class OrderCard extends UiPart<Region> {
         orderPrice.setText(order.getPrice().value);
 
         if (order.getStatus().equals(Status.SCHEDULED)) {
+            assert(order.getSchedule().isPresent());
             orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
                     order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
         } else {
