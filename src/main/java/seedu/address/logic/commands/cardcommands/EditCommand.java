@@ -36,10 +36,11 @@ public class EditCommand extends CardCommand {
             + "[" + PREFIX_WORD + "WORD] "
             + "[" + PREFIX_MEANING + "MEANING] "
             + "[" + PREFIX_TAG + "TAG]\n"
+            + "where index is a positive integer within the list\n"
             + "Eg: " + COMMAND_WORD + " 1 "
             + PREFIX_MEANING + "evolves into Kadabra";
 
-    public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited card: %1$s";
+    private static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index index;

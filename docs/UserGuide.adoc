@@ -154,8 +154,6 @@ specified.
 * **`stop`** : Stops the current _Game_ session.
 * *`exit`* : Exit _Dukemon_.
 
-.  Refer to <<Features>> for details of each command.
-
 // end::chenhui-quickstart[]
 
 
@@ -206,8 +204,8 @@ image::SettingsMode.png[width="450"]
 ====
 
 === Home Mode & Commands image:load_mode_icon.png[load, 22]
-==== To enter loading page : `load`
-Changes the app mode to load, so that the user can perform load commands.
+==== To open word bank content : `open`
+Changes the app mode to open, so that the user can perform card commands.
 
 ==== Create new word bank : `create`
 Creates a new word bank with specified name. +
@@ -282,12 +280,13 @@ Examples:
 ==== Deleting a flash card : `delete`
 Deletes the specified word from the data set. +
 
-Format: `delete w/card`
+Format: `delete INDEX`
 
 ****
 * Deletes the word at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* 1, 2, 3, ...,
+and must be a valid index within the list.
+* The index refers to the index number shown in the displayed card list.
 ****
 
 Examples:
@@ -305,17 +304,17 @@ Format: `list`
 Views the content of a data set. +
 Format: `clear`
 
-==== Editing a data set's content : `edit`
-Edits a flash card.
+==== Editing a card's content : `edit`
+Edits a card.
 
-Format: `edit flashcardname`
+Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
 
 Examples:
 
-* `edit List of animals`
-* `edit Teeth`
+* `edit 1 w/new word m/new meaning`
+* `edit 2 m/new meaning with tag t/tagged`
 
-===== Locating a word/description: `find`
+==== Locating a word/description: `find`
 
 Finds entry whose word or description contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]...`
@@ -480,7 +479,7 @@ Changes the difficulty to high. (Timer = 10 seconds)
 
 *Q*: Do I have to save data? +
 *A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
-These commands are generally load commands.
+These commands are generally card commands.
 There is no need to save manually.
 Statistics are also stored automatically.
 
@@ -520,9 +519,9 @@ s| list m|
 
 s| add m| w/WORD_BANK m/meaning [t/TAG]
 
-s| edit m| INT w/WORD_BANK m/meaning [t/TAG]
+s| edit m| INDEX w/WORD_BANK m/meaning [t/TAG]
 
-s| delete m| INT
+s| delete m| INDEX
 
 s| find m|
 

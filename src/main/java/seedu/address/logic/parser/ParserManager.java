@@ -41,10 +41,7 @@ import seedu.address.logic.parser.home.CreateCommandParser;
 import seedu.address.logic.parser.home.ExportCommandParser;
 import seedu.address.logic.parser.home.ImportCommandParser;
 import seedu.address.logic.parser.home.RemoveCommandParser;
-import seedu.address.logic.parser.open.AddCommandParser;
-import seedu.address.logic.parser.open.DeleteCommandParser;
-import seedu.address.logic.parser.open.EditCommandParser;
-import seedu.address.logic.parser.open.FindCommandParser;
+import seedu.address.logic.parser.open.*;
 import seedu.address.logic.parser.settings.AvatarCommandParser;
 import seedu.address.logic.parser.settings.DifficultyCommandParser;
 import seedu.address.logic.parser.settings.HintsCommandParser;
@@ -119,8 +116,8 @@ public class ParserManager {
             temp.add(EditCommand.class, EditCommandParser.class);
             temp.add(DeleteCommand.class, DeleteCommandParser.class);
             temp.add(FindCommand.class, FindCommandParser.class);
-            temp.add(ClearCommand.class, null);
-            temp.add(ListCommand.class, null);
+            temp.add(ClearCommand.class, ClearCommandParser.class);
+            temp.add(ListCommand.class, ListCommandParser.class);
             temp.add(SwitchToExitCommand.class, null);
             return temp;
         case HOME:

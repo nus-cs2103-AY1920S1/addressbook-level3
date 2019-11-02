@@ -40,7 +40,8 @@ public interface WordBankListStorage {
      * @param wordBankName
      * @param filePath cannot be null.
      */
-    void importWordBank(String wordBankName, Path filePath) throws DataConversionException, WordBankNotFoundException, IllegalValueException;
+    void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException;
 
     /**
      * Retrieves the word bank, add to internal list, then add to storage.

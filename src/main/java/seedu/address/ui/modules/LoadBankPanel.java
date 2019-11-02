@@ -2,6 +2,7 @@ package seedu.address.ui.modules;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -78,24 +79,37 @@ public class LoadBankPanel extends UiPart<Region> {
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
         File firstFile = files.get(0);
+        boolean isCompleted = false;
+
         if (firstFile.exists() && getExtension(firstFile).equals("json")) {
             Path p = firstFile.toPath();
             String childString = p.getFileName().toString();
-
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
+
+//        if(firstFile.exists()) {
+//            Path p = firstFile.toPath();
+//            String childString = p.getFileName().toString();
+//            String wordBankName = getFileNameWithoutExtension(firstFile);
 
             try {
                 commandExecutor.execute("import w/" + wordBankName
                         + " f/" + p.getParent().toString());
-            } catch (CommandException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            } catch (CommandException | ParseException e) {
                 e.printStackTrace();
             }
-
+            isCompleted = true;
         }
+
+        event.setDropCompleted(isCompleted);
+        event.consume();
     }
 
+    /**
+     * Retrieves the extension of the file.
+     *
+     * @param file
+     * @return the extension of the file.
+     */
     private String getExtension(File file) {
         String fileName = file.toString();
         String extension = "";
@@ -105,6 +119,19 @@ public class LoadBankPanel extends UiPart<Region> {
             return fileName.substring(i + 1).toLowerCase();
         }
         return extension;
+    }
+
+    /**
+     * Removes the extension.
+     *
+     * @param file
+     * @return the name of the file without the extension.
+     */
+    private String getFileNameWithoutExtension(File file) {
+        String fileName = file.toString();
+        String ext = getExtension(file);
+        String fileNameWithoutExtension = fileName.substring(0, fileName.length() - ext.length());
+        return fileNameWithoutExtension;
     }
 
     /**

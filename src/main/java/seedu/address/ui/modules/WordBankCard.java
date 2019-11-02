@@ -85,17 +85,13 @@ public class WordBankCard extends UiPart<Region> {
      */
     @FXML
     private void handleDragDetection(MouseEvent event) {
-        /* drag was detected, start drag-and-drop gesture*/
         System.out.println("onDragDetected");
 
-        /* allow MOVE transfer mode */
         Dragboard db = cardPane.startDragAndDrop(TransferMode.COPY);
-
-        /* put a string on dragboard */
         ClipboardContent content = new ClipboardContent();
-        //        content.putString(wordBank.getName());
         String wordBankPath = "data/wordBanks/" + wordBank.getName() + ".json";
         File tmpFile = new File(wordBankPath);
+
         System.out.println(tmpFile);
 
         //        List<String> filePathStringList = new ArrayList<>();
@@ -122,57 +118,6 @@ public class WordBankCard extends UiPart<Region> {
         }
 
     }
-
-
-    //    public void handle(MouseEvent event) {
-    //        List<File> vec = new ArrayList<File>();
-    //        Dragboard db = source.startDragAndDrop(TransferMode.ANY);
-    //        File tmpFile = new File("test.txt");
-    //        try {
-    //            tmpFile.createNewFile();
-    //        } catch (IOException e) {
-    //            // TODO Auto-generated catch block
-    //            e.printStackTrace();
-    //        }
-    //        vec.add(tmpFile);
-    //        ClipboardContent content = new ClipboardContent();
-    //        content.putFiles(vec);
-    //        db.setContent(content);
-    //        event.consume();
-    //    }
-
-
-    //    @FXML
-    //    private void handleDragDropped(DragEvent event) {
-    //
-    //        /* data dropped */
-    //        System.out.println("onDragDropped");
-    //        /* if there is a string data on dragboard, read it and use it */
-    //        Dragboard db = event.getDragboard();
-    //        boolean success = false;
-    //        if (db.hasFiles()) {
-    //            System.out.println("db has files");
-    //            name.setText(db.getString());
-    //            success = true;
-    //        }
-    //        /* let the source know whether the string was successfully
-    //         * transferred and used */
-    //        event.setDropCompleted(success);
-    //
-    //        event.consume();
-    //    }
-
-    //    @FXML
-    //    private void handleDragDone(DragEvent event) {
-    //        /* the drag-and-drop gesture ended */
-    //        System.out.println("onDragDone");
-    //        /* if the data was successfully moved, clear it */
-    //        if (event.getTransferMode() == TransferMode.MOVE) {
-    //            name.setText("");
-    //        }
-    //
-    //        event.consume();
-    //    }
 
     /**
      * Registers a method that will be called by the handleDragDetection to simulate an Export command as though

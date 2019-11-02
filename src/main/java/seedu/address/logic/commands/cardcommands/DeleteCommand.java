@@ -19,9 +19,10 @@ public class DeleteCommand extends CardCommand {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + " INDEX\n"
+            + "where index is a positive integer within the list\n"
             + "Eg: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted card: %1$s";
+    private static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted card: %1$s";
 
     private final Index targetIndex;
 

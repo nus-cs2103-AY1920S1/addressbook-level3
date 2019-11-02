@@ -30,7 +30,6 @@ public class ExportCommand extends WordBankCommand {
 
     private String wordBankName;
     private String directoryString;
-    private WordBank wordBank;
 
     public ExportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
@@ -52,15 +51,15 @@ public class ExportCommand extends WordBankCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        WordBank wb = model.getWordBankList().getWordBankFromName(wordBankName);
-        this.wordBank = wb;
-        if (wb == null) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_WORD_BANK_NAME);
-        }
 
-        return new ExportCommandResult(
-                String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directoryString),
-                wordBankName, Paths.get(directoryString));
+        if (!model.hasWordBank(wordBankName)) {
+            throw new CommandException(Messages.MESSAGE_NON_EXISTENT_WORD_BANK_NAME);
+
+        } else {
+            return new ExportCommandResult(
+                    String.format(MESSAGE_EXPORT_CARD_SUCCESS, wordBankName, directoryString),
+                    wordBankName, Paths.get(directoryString));
+        }
     }
 
     @Override
