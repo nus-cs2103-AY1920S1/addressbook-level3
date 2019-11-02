@@ -85,8 +85,7 @@ public class Task implements Comparable<Task> {
         Task otherTask = (Task) other;
         return this.heading.equals(otherTask.getHeading())
                 && getDate().equals(otherTask.getDate())
-                && getTime().equals(otherTask.getTime())
-                && getStatusIcon().equals(otherTask.getStatusIcon());
+                && getTime().equals(otherTask.getTime());
     }
 
     /**

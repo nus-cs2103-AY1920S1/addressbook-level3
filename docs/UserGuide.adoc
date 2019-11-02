@@ -433,6 +433,10 @@ and then you delete the note or change the title of the note, the task still exi
 this approach because we would like to allow you to customise the task headings in *version v2.0* of the app. Therefore,
 we disassociate the task from notes and questions once created.
 
+NOTE: Revision tasks with the same heading, same date and same time are considered duplicate tasks and cannot co-exist
+in the revision task list. Tasks with the same heading, same date, same time, but different status are cannot co-exist
+because it does not make sense to have same tasks but different status.
+
 ==== Add a revision task for a note: `rn`
 You can add a revision task for a note to the current revision task list with this command.
 The heading will copy the title and the GUI will display all tasks upon completing the command.

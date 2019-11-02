@@ -167,7 +167,8 @@ public class TypicalAppData {
     public static final Task CONAN_TASK_MODIFIED_DATE = new TaskBuilder()
             .withNote(CONAN).withDate("06/08/2019").build();
     public static final Task CONAN_TASK_MODIFIED_TIME = new TaskBuilder().withNote(CONAN).withTime("1400").build();
-    public static final Task CONAN_TASK_DONE = new TaskBuilder().withNote(CONAN).withStatus(true).build();
+    public static final Task CONAN_TASK_DONE = new TaskBuilder()
+            .withNote(CONAN).withDate("01/10/2019").withStatus(true).build();
 
     private TypicalAppData() {} // prevents instantiation
 
