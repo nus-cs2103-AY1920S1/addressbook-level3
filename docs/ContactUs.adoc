@@ -1,4 +1,4 @@
-= Contact Us
+= Contact
 :site-section: ContactUs
 :stylesDir: stylesheets
 
