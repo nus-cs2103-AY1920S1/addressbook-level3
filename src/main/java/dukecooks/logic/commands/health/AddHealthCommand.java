@@ -18,6 +18,8 @@ public class AddHealthCommand extends AddCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a health record";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
+    public static final String MESSAGE_DUPLICATE_RECORD =
+            "A Record with corresponding timestamp already exists in Duke Cooks";
 
     private final Record toAdd;
 
@@ -32,6 +34,10 @@ public class AddHealthCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasRecord(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_RECORD);
+        }
 
         model.addRecord(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

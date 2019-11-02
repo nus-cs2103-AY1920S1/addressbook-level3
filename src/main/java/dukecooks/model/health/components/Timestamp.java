@@ -78,8 +78,8 @@ public class Timestamp {
             return false;
         }
         Timestamp otherTime = (Timestamp) other;
-        return (otherTime.getDate() == getDate())
-                && (otherTime.getTime() == getTime());
+        return (otherTime.getDate().equals(getDate()))
+                && (otherTime.getTime().equals(getTime()));
     }
 
     @Override

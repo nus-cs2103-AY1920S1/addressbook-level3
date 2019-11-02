@@ -38,9 +38,8 @@ public class UniqueRecord implements Iterable<Record> {
     }
 
     /**
-     * Adds a new user profile if does not already exist.
-     * Behavior: If user profile exists, overwrite instead.
-     * Calls (@Method setRecord) to overwrite user profile if already exists.
+     * Adds a record to the list.
+     * The record must not already exist in the list.
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
