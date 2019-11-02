@@ -152,7 +152,7 @@ public class Entry {
     @Override
     public int hashCode() {
         // use this method ford custom fields hashing instead of implementing your own
-        return Objects.hash(desc, amt, tags);
+        return Objects.hash(desc, date, amt, category, tags);
     }
 
     @Override

@@ -384,6 +384,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         entries.setEntry(target, editedEntry);
+        System.out.println("ASD");
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -397,6 +398,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
+        expenses.setExpense(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
