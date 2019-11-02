@@ -62,6 +62,8 @@ for examples.
 * I reviewed the following pull requests non-trivially, among others: https://github.com/AY1920S1-CS2103T-F11-4/main/pull/40[#40],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/70[#70].
+* Whenever I could, I fixed bugs assigned to teammates other than me, e.g.
+https://github.com/AY1920S1-CS2103T-F11-4/main/issues/141[#141].
 * A detailed exposition of all code I contributed to NUStudy can be found
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Parcly-Taxel[here].
 

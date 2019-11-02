@@ -14,6 +14,7 @@ import seedu.address.model.note.Title;
 public class JsonAdaptedNoteTest {
     private static final String INVALID_TITLE = "a\nb";
     private static final String INVALID_CONTENT = " ";
+    private static final String INVALID_IMAGE_URL = "foo";
 
     private static final String VALID_TITLE = BENSON.getTitle().toString();
     private static final String VALID_CONTENT = BENSON.getContent().toString();
@@ -52,5 +53,11 @@ public class JsonAdaptedNoteTest {
         JsonAdaptedNote note = new JsonAdaptedNote(VALID_TITLE, null, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, note::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidImageUrl_returnsNote() throws Exception {
+        JsonAdaptedNote note = new JsonAdaptedNote(VALID_TITLE, VALID_CONTENT, INVALID_IMAGE_URL);
+        assertEquals(BENSON, note.toModelType());
     }
 }

@@ -133,7 +133,8 @@ This section describes some finer details on how certain features are implemente
 Usually, we do not learn best from just text; we rely on images that our minds can process more easily.
 As such, implementing images in lecture notes was considered very important. Although some lecture notes
 have multiple images, it is always possible to combine them using basic image editing software like the
-GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most image per note.
+GNU Image Manipulation Program (GIMP) and Paint, so the implementation was limited to at most one
+image per note.
 
 ==== Implementation
 
@@ -142,16 +143,25 @@ This is out of necessity, since an `ImageView` is needed to display an image in 
 an `Image` object, not just a `String` path to the image. No significant coupling is introduced
 by this choice because `Image` objects can exist without a GUI to display them.
 
-The dialog brought up to let the user choose a file returns `null` if the dialog is closed
-_without_ choosing a file (i.e. clicking the close button). Treating `null` as "no image" would surprise the user who
-decides to edit a lecture note's image but then decides not to – the image would simply disappear without
-warning. Therefore the value `i/none` has to be explicitly provided to remove the image, and `EditNoteDescriptor`
-has an additional field `isImageRemoved` to track this. If the image comes out as `null` but `i/none` was
-not provided, the image is unchanged.
-
 The static method `selectImage()` in `AppUtil` opens up a dialog allowing the user to choose the necessary image.
 This is possible because `FileChooser#showOpenDialog()`, which shows the dialog, can be fed an argument of `null`
 instead of having to rely on a `Window` object, which is the domain of the `UI` module.
+
+The aforementioned dialog returns `null` if it is closed
+without choosing a file (i.e. clicking the close button). We interpret this as "no change"
+rather than "no image", i.e. `addnote` and `editnote` proceed as if `i/` was not provided.
+If the "no image" interpretation was used, the user who decides to edit a lecture note's image
+but then decides not to would be surprised to see the image disappear without warning.
+Therefore the value `i/none` has to be explicitly provided in `editnote` to remove the image; `EditNoteDescriptor`
+has the field `isImageRemoved` to track this.
+
+We also defer image selection until after the title has been checked against existing lecture notes,
+which saves time that would otherwise be wasted in navigating to the desired image.
+This is accomplished using
+
+* the `finalizeImage()` method of the `Note` class, calling `selectImage()`
+* the `needsImage` field of `Note`, which allows a one-time execution of `finalizeImage()`
+* the `isImageReplaced` field of `EditNoteDescriptor`
 
 .Sequence diagram for the execution of `EditNoteCommandParser`
 image::ImageSelectionSequenceDiagram.png[]
@@ -159,16 +169,13 @@ image::ImageSelectionSequenceDiagram.png[]
 The diagram above shows how `EditNoteCommandParser` creates an `EditNoteCommand`. It first
 creates an `EditNoteDescriptor` to hold details of what changes in the note, setting the new
 title (provided by the `t/` argument) and content (`c/`) as necessary. If `i/none` is present,
-the `EditNoteDescriptor` is set to remove the image and no dialog is shown. If `i/` is
-otherwise provided, `EditNoteCommandParser` calls the static method `AppUtil#selectImage()`,
-opening up the image selection dialog; the returned `Image` object is then set in the `EditNoteDescriptor`.
-An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
+the `EditNoteDescriptor` is set to remove the image. If `i/` is provided, it is set to replace
+the image. An `EditNoteCommand` containing the `EditNoteDescriptor` is finally returned for execution.
 
 Images are only referenced, not embedded, in the JSON file holding application data. These references are
 Uniform Resource Identifiers (URIs) of system files, e.g. `file:data/picture.png`. Since NUStudy is meant to be portable,
 we cannot use absolute paths, since they would break when the images are moved or deleted. Instead we copy images
-into its data folder, side-by-side with the JSON file, upon execution of any `addnote` or `editnote` command with
-an image. The references are then changed to point to these local copies, becoming relative URIs.
+into application data using `finalizeImage()`, which points references to these local copies.
 // end::lecimage[]
 
 // tag::lecimagedesignconsiderations[]
@@ -920,7 +927,7 @@ title "t" and content "c"._
 _This image should appear in place of the old image, if any, even if the filename is the same._
 . Local copy of images
 .. Close the application and move the JAR file and its associated application data to another location.
-.. Relaunch the application. _Images should display as before.
+.. Relaunch the application. _Images should display as before._
 . Silent ignoring of broken images
 .. Once lecture notes with images have been added, close NUStudy and delete all images
 in its data folder.
