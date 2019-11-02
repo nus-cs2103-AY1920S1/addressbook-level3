@@ -1,0 +1,80 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":AliasCommandParser" as AliasCommandParser LOGIC_COLOR
+participant "a:AliasCommand" as AliasCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("alias sort s")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("alias sort s")
+activate SaveNusParser
+
+create AliasCommandParser
+SaveNusParser -> AliasCommandParser
+activate AliasCommandParser
+
+AliasCommandParser --> SaveNusParser
+deactivate AliasCommandParser
+
+SaveNusParser -> AliasCommandParser : parse("sort s")
+activate AliasCommandParser
+
+create AliasCommand
+AliasCommandParser -> AliasCommand
+activate AliasCommand
+
+AliasCommand --> AliasCommandParser : a
+deactivate AliasCommand
+
+AliasCommandParser --> SaveNusParser : a
+deactivate AliasCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AliasCommandParser -[hidden]-> SaveNusParser
+destroy AliasCommandParser
+
+SaveNusParser --> LogicManager : a
+deactivate SaveNusParser
+
+LogicManager -> AliasCommand : execute()
+activate AliasCommand
+
+AliasCommand -> Model : setAliasList(AliasList aliasList)
+activate Model
+
+Model --> AliasCommand
+deactivate Model
+
+create CommandResult
+
+AliasCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AliasCommand
+deactivate CommandResult
+
+AliasCommand --> LogicManager : result
+deactivate AliasCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+LogicManager -> Storage : saveList(model.getAliasList());
+activate Storage
+
+Storage --> LogicManager
+deactivate Storage
+@enduml
