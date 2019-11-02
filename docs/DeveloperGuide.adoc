@@ -1,4 +1,4 @@
-= StudyBuddy Pro Level 3 - Developer Guide
+= StudyBuddyPro Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,15 +19,15 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-Welcome to StudyBuddy Pro!
+Welcome to StudyBuddyPro!
 
-StudyBuddy Pro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
+StudyBuddyPro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
 
-StudyBuddy Pro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
+StudyBuddyPro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
 
-This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddy Pro's information for set-ups, its architectures and its key features.
+This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddy Pro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to contact us!
 
 === Callouts Signs
 
@@ -79,16 +79,16 @@ An example of `switch` versus 'switch':
 
 == Setting up
 
-Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddy Pro on your device(s)!
+Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddyPro on your device(s)!
 
 == Design
 
-The following sections will show how StudyBuddy Pro is being constructed in details.
+The following sections will show how StudyBuddyPro is being constructed in details.
 
 [[Design-Architecture]]
 === Architecture
 
-The _figure 1_ below displays the high-level design of our StudyBuddy Pro.
+The _figure 1_ below displays the high-level design of our StudyBuddyPro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -159,7 +159,7 @@ Assuming that the user is currently in the _flashcard_ mode.
 .Sequence diagram of component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The above sequence diagram illustrates the relationships between each components in the StudyBuddy Pro's architecture. The sections below will give more details of each of those components.
+The above sequence diagram illustrates the relationships between each components in the StudyBuddyPro's architecture. The sections below will give more details of each of those components.
 
 [[Design-Ui]]
 === User Interface (UI) component
@@ -480,7 +480,7 @@ a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`
 image:: To be added
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
-c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
+c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
 d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
 e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
 1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
@@ -556,7 +556,7 @@ or incorrectly to create a more dynamic reminding schedule.
 *** Checks if the user viewed all flashcards to be revised on the day.
 *** If some of the relevant flashcards were not viewed, reminds user about remaining flashcards and stalls
 application exit.
-*** User can either go back into StudyBuddy and view the relevant flashcards or supply an `exit` command again to
+*** User can either go back into StudyBuddyPro and view the relevant flashcards or supply an `exit` command again to
 close the application.
 
 ** More statistics for motivation
@@ -690,9 +690,6 @@ compared to perhaps asking the user to input a 'yes' or 'no' to confirm their de
 ** Less versatile than the undo feature.
 ** User might still accidentally delete the wrong item.
 
-
->>>>>>> 8a3b2aad8d20f10393dd4353a68bb9537481504d
-
 == Documentation
 
 Please do refer to the guide <<Documentation#, here>> for more information about this section!
@@ -806,7 +803,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudyBuddy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `StudyBuddyPro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === *User story 1:*
@@ -849,37 +846,37 @@ Preconditions: StuddyBuddy application is opened
 
 2.	User chooses to list all cheatsheet.
 
-3.	StudyBuddy displays all cheatsheets.
+3.	StudyBuddyPro displays all cheatsheets.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC03 – Edit a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
-1.	User navigates to cheetsheat section.
+1.	User navigates to cheetsheet section.
 
 2.	User chooses to edit cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be edited.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be edited.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy asks for parameters to be edited.
+5.	StudyBuddyPro asks for parameters to be edited.
 
 6.	User inputs perimeters to be edited.
 
-7.	StudyBuddy displays edited cheatsheet.
+7.	StudyBuddyPro displays edited cheatsheet.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC04 – View a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
@@ -887,11 +884,11 @@ Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
 
 2.	User chooses to view cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be viewed.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be viewed.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy displays cheatsheet.
+5.	StudyBuddyPro displays cheatsheet.
 +
 Use case ends.
 
@@ -922,9 +919,9 @@ As a student who finds it very cumbersome to store tutorial questions that I wou
 
 [discrete]
 === Use case: UC05 – Create a flashcard from image
-Software system: StudyBuddy, OS
+Software system: StudyBuddyPro, OS
 
-Preconditions: StudyBuddy application is opened
+Preconditions: StudyBuddyPro application is opened
 
 *MSS*
 
@@ -934,31 +931,31 @@ Preconditions: StudyBuddy application is opened
 
 3.	OS asks user where screenshot should be saved.
 
-4.	User saves screenshot in designated StudyBuddy image folder with custom name.
+4.	User saves screenshot in designated StudyBuddyPro image folder with custom name.
 
-5.	User opens StudyBuddy application.
+5.	User opens StudyBuddyPro application.
 
 6.	User navigates to flashcard section.
 
 7.	User chooses to create new flashcard from image source.
 
-8.	StudyBuddy asks user for file name.
+8.	StudyBuddyPro asks user for file name.
 
 9.	User inputs file name.
 
-10.	StudyBuddy asks user for flashcard’s answer.
+10.	StudyBuddyPro asks user for flashcard’s answer.
 
 11.	User inputs flashcard’s answer.
 
-12.	StudyBuddy asks user for flashcard’s title.
+12.	StudyBuddyPro asks user for flashcard’s title.
 
 13.	User inputs flashcard’s title.
 
-14.	StudyBuddy asks user for flashcard’s module.
+14.	StudyBuddyPro asks user for flashcard’s module.
 
 15.	User inputs flashcard’s module.
 
-16.	StudyBuddy displays created flashcard.
+16.	StudyBuddyPro displays created flashcard.
 +
 Use case ends.
 
@@ -1002,15 +999,15 @@ Use case resumes from step 16.
 
 2.	User chooses to start time trial.
 
-3.	StudyBuddy asks user for time per flashcard.
+3.	StudyBuddyPro asks user for time per flashcard.
 
 4.	User inputs time per flashcard.
 
-5.	StudyBuddy asks user for tags to select flashcards for inclusion.
+5.	StudyBuddyPro asks user for tags to select flashcards for inclusion.
 
 6.	User inputs tags.
 
-7.	StudyBuddy starts time trial with specified parameters.
+7.	StudyBuddyPro starts time trial with specified parameters.
 +
 Use case ends.
 
