@@ -44,7 +44,7 @@ public class Room implements Identical<Room> {
     }
 
     public boolean hasPatientBeingServed() {
-        return !patientCurrentlyBeingServed.equals(Optional.empty());
+        return patientCurrentlyBeingServed.isPresent();
     }
 
     /**

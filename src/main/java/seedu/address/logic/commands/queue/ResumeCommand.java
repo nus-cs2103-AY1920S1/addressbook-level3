@@ -24,7 +24,7 @@ public class ResumeCommand extends ReversibleCommand {
 
     public static final String MESSAGE_SUCCESS = "Doctor %s resumes his/her duty";
     public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the list.";
-    public static final String MESSAGE_NOT_ON_BREAK = "Doctor isn't on break";
+    public static final String MESSAGE_NOT_ON_BREAK = "Doctor is not on break";
 
     private final Room roomToEdit;
     private final Room editedRoom;

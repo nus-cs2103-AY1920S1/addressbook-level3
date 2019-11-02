@@ -88,13 +88,15 @@ public class QueueManager {
      * @return boolean which indicates whether the patient is being served
      */
     public boolean hasIdInRooms(ReferenceId id) {
-        UniqueElementList<ReferenceId> patientsBeingServed = new UniqueElementList<>();
         for (Room room : roomList) {
             if (room.hasPatientBeingServed()) {
-                patientsBeingServed.add(room.getCurrentPatient().get());
+                ReferenceId patientId = room.getCurrentPatient().get();
+                if (patientId.equals(id)) {
+                    return true;
+                }
             }
         }
-        return patientsBeingServed.contains(id);
+        return false;
     }
 
     public void setPatientInQueue(ReferenceId target, ReferenceId editedId) {
