@@ -298,16 +298,49 @@ image::kaibindiagrams/TaggingFeatureClassDiagram.png[]
 ** It is designed as such to prevent users from over-cluttering the result display when they view items that have too many tags.
 ** To reduce confusion for the user, all tags will be converted to lower-case upon initialization.
 
+===== Aspect: How tag predicates are implemented
+
+image::kaibindiagrams/tagPredicateCodeSnippet.png[]
+Diagram 7 : Code Snippet of `StudyBuddyItemContainsTagPredicate#test()`
+
+* The current implementation is that test() only returns true if *all* tags specified by the user matches the current Item.
+* As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
+** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
+that might have tags containing [difficult].
+
 ==== Usage of Tags
 
+===== a. To search for items
+
 ** Inside each feature
-*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `list tag/cs2100`).
-** Using Tags globally
-*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro.
-** Currently, the user is able to specify multiple tags in his/her query.
+*** The user is able to specify a tag name to get a list view of all the items with that specified tag in the mode they are currently in (e.g. `filter tag/cs2100`).
+** Searching using Tags globally
+*** The user is also able to indicate a tag name get a list view of all the StudyBuddyItems across all 3 modes in StudyBuddyPro (e.g. `filterall tag/ma1521`).
+** Currently, the user is able to specify multiple tags in his/her query (e.g. `filter tag/cs2100 tag/difficult`).
+** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
+
+Diagram 8 : Sequence diagram of filtering all StudyBuddyItems by a tag.
+
+===== b. For Auto-generation of CheatSheets
+
+** Upon adding a cheatsheet, the cheatsheet will make use of tags to automatically pull contents from other features of StudyBuddyPro.
+** StudyBuddyItems with tags that match the user's input will be pulled over.
+** This feature will be further elaborated in the next section, Section 4.4.
+
+===== c. For TimeTrial Mode
+
+** The TimeTrial Mode of the flashcard feature, will make use of the tagging feature.
+** It will do so by filtering out flashcards with tags that match the user's input.
+** For instance, if a user wishes to revise only important flashcards, he/she could enter the following command, `timetrial important`.
+
+[IMPORTANT]
+====
+The syntax used here is slightly different. The user need not specify the `tag/` keyword to indicate that the item is a tag.
+====
+** The TimeTrial feature will be further elaborated in Section 4.5.
 
 ==== [Proposed] Future improvements
 
@@ -578,6 +611,42 @@ This feature can be achieved by:
 
 ** More precise inclusion of tags when creating CheatSheet objects
 ** Ability to nest tags inside each other
+
+=== Deletion prompting feature
+Upon deletion of any StudyBuddyItem, the user will be prompted once before they can
+successfully delete the specified item.
+
+==== Implementation
+
+[NOTE]
+The deletion prompting applies to all three modes in StudyBuddyPro.
+
+The activity diagram below shows how the user is prompted upon calling a delete command.
+
+image::kaibindiagrams/activitydiagramdeleteprompt.png[]
+Diagram 20 : Activity Diagram for prompting user upon deletion.
+
+* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
+
+==== Usage of deletion prompts
+* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
+* The user only needs to hit enter once more to successfully delete the item.
+
+==== Design considerations
+Aspect : Deletion prompts versus Undo feature.
+
+Current Implementation (prompting user before delete)
+
+* Pros
+** Much easier to implement as compared to undo feature.
+** Hitting enter once more to delete is highly convenient for the user, as
+compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
+
+* Cons
+** Less versatile than the undo feature.
+** User might still accidentally delete the wrong item.
+
+
 
 == Documentation
 
