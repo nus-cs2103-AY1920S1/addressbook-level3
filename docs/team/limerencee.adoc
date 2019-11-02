@@ -88,14 +88,13 @@ You are able to set a budget for each month in THRIFT. This allows THRIFT to dis
 NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
 
 ==== Command syntax:
-`budget v/VALUE d/MONTH`
+`budget v/VALUE d/MONTH/YEAR`
 
 ****
-* Sets your budget for the month specified in `MONTH` as `VALUE`.
+* Sets your budget for the month specified in `MONTH/YEAR` as `VALUE`.
 * `VALUE` is any positive integer below one billion.
-* `MONTH` is in `MM/YYYY`:
-** `MM` is between `01-12`.
-** `YYYY` is between `0001-9999`.
+* `MONTH` is in `MM` where it is between `01-12` inclusive.
+* `YEAR` is in `YYYY` where it is between `0001-9999` inclusive.
 ****
 
 ==== Example usage:

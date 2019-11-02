@@ -66,14 +66,13 @@ You are able to set a budget for each month in THRIFT. This allows THRIFT to dis
 NOTE: It is not compulsory to set a budget for each month and you can use THRIFT normally without setting budgets.
 
 ==== Command syntax:
-`budget v/VALUE d/MONTH`
+`budget v/VALUE d/MONTH/YEAR`
 
 ****
-* Sets your budget for the month specified in `MONTH` as `VALUE`.
-* `VALUE` is any positive integer below one billion.
-* `MONTH` is in `MM/YYYY`:
-** `MM` is between `01-12`.
-** `YYYY` is between `0001-9999`.
+* Sets your budget for the month specified in `MONTH/YEAR` as `VALUE`.
+* `VALUE` is any positive value below one billion (it can be 0).
+* `MONTH` is in `MM` where it is between `01-12` inclusive.
+* `YEAR` is in `YYYY` where it is between `0001-9999` inclusive.
 ****
 
 ==== Example usage:
@@ -109,7 +108,7 @@ One of the most important features of THRIFT is to allow you to track your expen
 ** the value `VALUE`
 ** an optional remark `REMARK`
 ** one or more optional `TAG`
-* `VALUE` is any positive integer below one billion.
+* `VALUE` is a positive number with an optional decimal point, which if specified, accepts up to 2 decimal digits.
 * `TAG` does not have spaces nor special characters.
 ****
 
@@ -145,7 +144,7 @@ Being able to add an income transaction is just as important as tracking your ex
 ** the value `VALUE`
 ** an optional remark `REMARK`
 ** one or more optional `TAG`
-* `VALUE` is any positive integer below one billion.
+* `VALUE` is a positive number with an optional decimal point, which if specified, accepts up to 2 decimal digits.
 * `TAG` does not have spaces nor special characters.
 ****
 
@@ -447,7 +446,8 @@ image::UndoAndRedo/redocommandresult.png[, 550]
 
 [[FindTag]]
 === Finding transactions with keywords: `find`
-THRIFT lets you find and list all transactions whose `REMARK` or `DESCRIPTION` contain your specified search term.
+THRIFT lets you find and list all transactions whose `REMARK` or `DESCRIPTION` contain your specified search term. `DESCRIPTION` is
+the name of the transaction which you enter as `n/DESCRIPTION`.
 
 ==== Command syntax:
 `find SEARCH_WORD [SEARCH_WORD]`
@@ -561,7 +561,7 @@ If you are especially conscious about having your data spied on, this function w
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
 == Command summary
-* <<BudgetTag, *Budget*>>: `budget v/VALUE d/MONTH` +
+* <<BudgetTag, *Budget*>>: `budget v/VALUE d/MONTH/YEAR` +
 Example: `budget v/1000 d/10/2019`
 * <<ExpenseTag, *Expense*>>:  `add_expense n/EXPENSE_NAME v/VALUE [r/REMARKS] [t/TAG]...` +
 Example: `add_expense n/Laksa v/10.50 r/At Hougang t/Lunch t/Food`

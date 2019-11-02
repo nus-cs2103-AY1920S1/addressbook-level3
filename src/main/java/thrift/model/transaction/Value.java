@@ -19,7 +19,7 @@ public class Value {
                     + "accepts up to 2 decimal digits.\nValue should also be less than 1 billion.";
     public static final String CURRENCY_CONSTRAINTS =
             "Currency should only be 'SGD', 'MYR', 'USD' OR 'EUR'!";
-    public static final String VALIDATION_REGEX = "^[1-9]\\d{0,8}(\\.\\d{0,2})?$";
+    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
     public static final String DEFAULT_CURRENCY = "SGD";
     public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
 

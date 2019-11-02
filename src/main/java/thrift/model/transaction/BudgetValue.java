@@ -13,7 +13,7 @@ public class BudgetValue {
     public static final String VALUE_CONSTRAINTS =
             "Value should only contain non-negative numbers and an optional decimal point, which if specified, "
                     + "accepts up to 2 decimal digits.\nValue should also be lesser than 1 billion.";
-    public static final String VALIDATION_REGEX = "^[0-9]\\d{0,8}(\\.\\d{0,2})?$";
+    public static final String VALIDATION_REGEX = "^\\d{1,9}(\\.\\d{0,2})?$";
 
     private Double amount;
 
