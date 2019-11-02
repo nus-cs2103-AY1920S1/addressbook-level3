@@ -25,10 +25,11 @@ public class RenameFileCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Rename the file identified by the index number from the displayed file list.\n"
             + "Parameters: INDEX NEW_FILENAME\n"
-            + "Example: " + COMMAND_WORD + " 1 Test.txt";
+            + "Example: " + COMMAND_WORD + " 1 Test";
 
     public static final String MESSAGE_RENAME_FILE_SUCCESS = "File renamed: %1$s";
-    public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot rename file.";
+    public static final String MESSAGE_RENAME_FILE_FAILURE = "Cannot rename file.\n"
+            + "Please make sure that the target file name is acceptable by your operating system.";
     public static final String MESSAGE_TARGET_FILE_EXISTS = "Cannot rename file. "
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DUPLICATE_FILE = "Target file is already in the list.";

@@ -32,7 +32,8 @@ public class MoveFileCommand extends Command {
     public static final String MESSAGE_TARGET_FILE_EXISTS = "Cannot move file. "
             + "Target file already exists.\nRename %1$s and try again.";
     public static final String MESSAGE_DUPLICATE_FILE = "Target file is already in the list.";
-    public static final String MESSAGE_IS_NOT_DIRECTORY = "Target path is not a directory.";
+    public static final String MESSAGE_IS_NOT_DIRECTORY = "Target path is not a directory.\n"
+            + "Moving into shortcuts, aliases and symbolic links is not supported currently.";
 
     private final Index targetIndex;
     private final FilePath newFilePath;

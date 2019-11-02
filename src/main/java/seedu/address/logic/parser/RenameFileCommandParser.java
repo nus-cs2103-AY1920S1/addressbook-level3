@@ -21,6 +21,9 @@ public class RenameFileCommandParser implements Parser<RenameFileCommand> {
         try {
             String trimmedArgs = args.trim();
             Index index = ParserUtil.parseIndex(trimmedArgs.split(" ")[0]);
+            if (trimmedArgs.indexOf(' ') == -1) {
+                throw new ParseException("");
+            }
             FileName newName = new FileName(trimmedArgs.substring(trimmedArgs.indexOf(' ') + 1));
             return new RenameFileCommand(index, newName);
         } catch (ParseException pe) {

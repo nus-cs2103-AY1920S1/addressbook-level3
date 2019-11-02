@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.nio.file.Path;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MoveFileCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,7 +23,11 @@ public class MoveFileCommandParser implements Parser<MoveFileCommand> {
         try {
             String trimmedArgs = args.trim();
             Index index = ParserUtil.parseIndex(trimmedArgs.split(" ")[0]);
-            FilePath newPath = new FilePath(trimmedArgs.substring(trimmedArgs.indexOf(' ') + 1));
+            if (trimmedArgs.indexOf(' ') == -1) {
+                throw new ParseException("");
+            }
+            FilePath newPath =
+                    new FilePath(Path.of(trimmedArgs.substring(trimmedArgs.indexOf(' ') + 1)).toString());
             return new MoveFileCommand(index, newPath);
         } catch (ParseException pe) {
             throw new ParseException(
