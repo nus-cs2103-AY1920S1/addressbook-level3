@@ -23,6 +23,15 @@ public class DateUtil {
     }
 
     /**
+     * Get current date in formatted string.
+     *
+     * @return Formatted string representation of today's date.
+     */
+    public static String getTodayFormattedDate() {
+        return formatDate(getTodayDate());
+    }
+
+    /**
      * Get the date that is number of days after starting date.
      * {@code days} must be non-negative.
      *
