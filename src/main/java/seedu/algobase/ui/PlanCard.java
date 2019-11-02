@@ -16,6 +16,8 @@ import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
+import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.storage.exceptions.StorageException;
 
 /**
  * An UI component that displays information of a {@code Plan}.
@@ -41,7 +43,12 @@ public class PlanCard extends UiPart<Region> {
     @FXML
     private Label endDate;
 
-    public PlanCard(Plan plan, int displayedIndex, WriteOnlyTabManager writeOnlyTabManager) {
+    public PlanCard(
+        Plan plan,
+        int displayedIndex,
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         super(FXML);
         this.plan = plan;
         id.setText(displayedIndex + ". ");
@@ -59,7 +66,7 @@ public class PlanCard extends UiPart<Region> {
         endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
         endDate.setWrapText(true);
         endDate.setTextAlignment(TextAlignment.JUSTIFY);
-        addMouseClickListener(writeOnlyTabManager);
+        addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
     }
 
     @Override
@@ -86,7 +93,10 @@ public class PlanCard extends UiPart<Region> {
      *
      * @param writeOnlyTabManager The tab manager to be written to.
      */
-    public void addMouseClickListener(WriteOnlyTabManager writeOnlyTabManager) {
+    public void addMouseClickListener(
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -95,6 +105,11 @@ public class PlanCard extends UiPart<Region> {
                         logger.info("Double Clicked on Problem card with name " + plan.getPlanName());
                         logger.info("Opening new plan tab");
                         writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PLAN, plan.getId()));
+                        try {
+                            saveStorageRunnable.save();
+                        } catch (StorageException ioe) {
+                            // Do nothing if unable to save
+                        }
                     }
                 }
             }

@@ -23,6 +23,8 @@ import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.storage.exceptions.StorageException;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -35,6 +37,7 @@ public class DetailsTabPane extends UiPart<Region> {
     private final ReadOnlyAlgoBase algoBase;
     private final ReadOnlyTabManager readOnlyTabManager;
     private final WriteOnlyTabManager writeOnlyTabManager;
+    private final SaveStorageRunnable saveStorageRunnable;
 
     @FXML
     private TabPane tabsPlaceholder;
@@ -46,6 +49,7 @@ public class DetailsTabPane extends UiPart<Region> {
         this.algoBase = logic.getAlgoBase();
         this.readOnlyTabManager = logic.getGuiState().getTabManager();
         this.writeOnlyTabManager = logic.getGuiState().getTabManager();
+        this.saveStorageRunnable = logic.getSaveAlgoBaseStorageRunnable();
 
         addTabsToTabPane(readOnlyTabManager.getTabsDataList());
         if (!readOnlyTabManager.getTabsDataList().isEmpty()) {
@@ -100,6 +104,11 @@ public class DetailsTabPane extends UiPart<Region> {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
                     tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
+                    try {
+                        saveStorageRunnable.save();
+                    } catch (StorageException e) {
+                        // Do nothing if unable to save
+                    }
                 }
             }
         });

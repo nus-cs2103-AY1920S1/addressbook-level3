@@ -17,6 +17,8 @@ import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.storage.exceptions.StorageException;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -58,7 +60,12 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ProblemCard(Problem problem, int displayedIndex, WriteOnlyTabManager writeOnlyTabManager) {
+    public ProblemCard(
+        Problem problem,
+        int displayedIndex,
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         super(FXML);
         this.problem = problem;
         id.setText(displayedIndex + ". ");
@@ -88,7 +95,7 @@ public class ProblemCard extends UiPart<Region> {
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        this.addMouseClickListener(writeOnlyTabManager);
+        this.addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
     }
 
     @Override
@@ -114,7 +121,10 @@ public class ProblemCard extends UiPart<Region> {
      *
      * @param writeOnlyTabManager the tabManager to be written to.
      */
-    public void addMouseClickListener(WriteOnlyTabManager writeOnlyTabManager) {
+    public void addMouseClickListener(
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -122,6 +132,11 @@ public class ProblemCard extends UiPart<Region> {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
                         writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PROBLEM, problem.getId()));
+                        try {
+                            saveStorageRunnable.save();
+                        } catch (StorageException ioe) {
+                            // Do nothing if unable to save
+                        }
                     }
                 }
             }

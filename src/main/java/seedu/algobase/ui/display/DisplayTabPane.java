@@ -9,6 +9,8 @@ import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
+import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.storage.exceptions.StorageException;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -21,14 +23,14 @@ public class DisplayTabPane extends UiPart<Region> {
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DisplayTabPane(TabManager tabManager, DisplayTab... displayTabs) {
+    public DisplayTabPane(TabManager tabManager, SaveStorageRunnable saveStorageRunnable, DisplayTab... displayTabs) {
         super(FXML);
 
         addTabsToTabPane(displayTabs);
         selectTab(tabManager.getDisplayTabPaneIndex().getValue().intValue());
 
         addListenerForIndexChange(tabManager.getDisplayTabPaneIndex());
-        addListenerToTabPaneIndexChange(tabManager);
+        addListenerToTabPaneIndexChange(tabManager, saveStorageRunnable);
     }
 
     /**
@@ -58,11 +60,17 @@ public class DisplayTabPane extends UiPart<Region> {
      *
      * @param tabManager A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPaneIndexChange(WriteOnlyTabManager tabManager) {
+    private void addListenerToTabPaneIndexChange(
+        WriteOnlyTabManager tabManager, SaveStorageRunnable saveStorageRunnable) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 tabManager.switchDisplayTab(Index.fromZeroBased(newValue.intValue()));
+                try {
+                    saveStorageRunnable.save();
+                } catch (StorageException ioe) {
+                    // Do nothing if unable to save
+                }
             }
         });
     }

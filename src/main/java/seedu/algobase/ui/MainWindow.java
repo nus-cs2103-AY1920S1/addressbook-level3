@@ -18,7 +18,6 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -122,7 +121,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        displayTabPane = getDisplayTabPane(logic.getGuiState().getTabManager());
+        displayTabPane = getDisplayTabPane();
         detailsTabPane = new DetailsTabPane(logic);
         taskManagementPane = new TaskManagementPane(
             logic.getProcessedTaskList(),
@@ -147,9 +146,17 @@ public class MainWindow extends UiPart<Stage> {
         mainDisplayPlaceholder.setDividerPositions(0.66);
     }
 
-    private DisplayTabPane getDisplayTabPane(WriteOnlyTabManager writeOnlyTabManager) {
-        problemListPanel = new ProblemListPanel(logic.getProcessedProblemList(), writeOnlyTabManager);
-        planListPanel = new PlanListPanel(logic.getProcessedPlanList(), writeOnlyTabManager);
+    private DisplayTabPane getDisplayTabPane() {
+        problemListPanel = new ProblemListPanel(
+            logic.getProcessedProblemList(),
+            logic.getGuiState().getTabManager(),
+            logic.getSaveAlgoBaseStorageRunnable()
+        );
+        planListPanel = new PlanListPanel(
+            logic.getProcessedPlanList(),
+            logic.getGuiState().getTabManager(),
+            logic.getSaveAlgoBaseStorageRunnable()
+        );
         tagListPanel = new TagListPanel(logic.getProcessedTagList());
         findRuleListPanel = new FindRuleListPanel(logic.getProcessedFindRuleList());
         DisplayTab problemListPanelTab = new DisplayTab(ModelType.PROBLEM.getTabName(), problemListPanel);
@@ -158,6 +165,7 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab findRuleListPaneTab = new DisplayTab(ModelType.FINDRULE.getTabName(), findRuleListPanel);
         return new DisplayTabPane(
             logic.getGuiState().getTabManager(),
+            logic.getSaveAlgoBaseStorageRunnable(),
             problemListPanelTab,
             tagListPanelTab,
             planListPanelTab,
