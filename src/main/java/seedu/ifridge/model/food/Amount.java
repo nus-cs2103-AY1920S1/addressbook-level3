@@ -20,9 +20,6 @@ public class Amount {
             + "The unit must be one of the following: \n"
             + "    - lbs, kg, g, oz, L, ml, units.";
 
-    public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
-    public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
-
     public static final String UNIT_TYPE_WEIGHT = "Weight";
     public static final String UNIT_TYPE_VOLUME = "Volume";
     public static final String UNIT_TYPE_QUANTITY = "Quantity";
@@ -34,8 +31,12 @@ public class Amount {
     public static final String UNIT_LITRE = "L";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
-    public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units)+";
-    public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
+
+    public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
+    public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
+    public static final String VALUE_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL;
+    public static final String UNIT_REGEX = "(lbs?|g|kg|oz?|L|ml|units)+";
+    public static final String VALIDATION_REGEX = VALUE_REGEX + "\\s*" + UNIT_REGEX; // TODO exclude 0 as valid input
 
     public static final float GRAM_TO_KG = 0.001f;
     public static final float POUND_TO_KG = 0.453592f;
@@ -82,11 +83,21 @@ public class Amount {
     /**
      * Tests whether an input amount is valid.
      *
-     * @param test The input amount as a {@code String}/
+     * @param test The input amount as a {@code String}.
      * @return true if the input amount is valid.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Tests whether an input unit is valid.
+     *
+     * @param test The input unit as a {@code String}.
+     * @return Returns true if the input unit is valid.
+     */
+    public boolean isValidUnit(String test) {
+        return test.matches(UNIT_REGEX);
     }
 
     /**
@@ -96,28 +107,42 @@ public class Amount {
      * @return The numerical value of the given Amount object.
      */
     public static float getValue(Amount amt) {
-        m = p.matcher(amt.toString());
-        String valueAsString = "";
-
-        m.find();
-        valueAsString = m.group(1);
-
-        return Float.valueOf(valueAsString);
+        return getValue(amt.toString());
     }
 
     /**
-     * Retrieves the unit of an {@code Amount} object, without the numerical value
+     * Retrieves the numerical value of a string amount, without the unit.
+     *
+     * @param amt The String to get the value from.
+     * @return Returns the numerical value from the input amount.
+     */
+    public static float getValue(String amt) {
+        m = p.matcher(amt);
+        m.find();
+        String value = m.group(1);
+        return Float.parseFloat(value);
+    }
+
+    /**
+     * Retrieves the unit of an {@code Amount} object, without the numerical value.
      *
      * @param amt The {@code Amount} object to get the unit from.
      * @return The unit of the Amount object in String format.
      */
     public static String getUnit(Amount amt) {
-        m = p.matcher(amt.toString());
-        String unit = "";
+        return getUnit(amt.toString());
+    }
 
+    /**
+     * Retrieves the unit of a {@code String}, without the numerical value.
+     *
+     * @param amt The {@code String} to get the unit from.
+     * @return Returns the unit from the input amount.
+     */
+    public static String getUnit(String amt) {
+        m = p.matcher(amt);
         m.find();
-        unit = m.group(3);
-
+        String unit = m.group(3);
         return unit;
     }
 

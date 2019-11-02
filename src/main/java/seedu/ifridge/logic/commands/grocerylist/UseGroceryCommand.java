@@ -39,8 +39,6 @@ public class UseGroceryCommand extends Command {
 
     public static final String MESSAGE_USE_GROCERY_ITEM_SUCCESS = "Used grocery item: %1$s";
     public static final String MESSAGE_NOT_USED = "At least amount field must be provided.";
-    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
-            + "with the same name";
 
     private final Index index;
     private final UseGroceryItemDescriptor useGroceryItemDescriptor;
