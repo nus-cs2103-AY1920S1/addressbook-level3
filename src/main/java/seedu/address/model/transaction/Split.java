@@ -78,8 +78,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
 
     @Override
     public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
-        // TODO FIX
-        return false;
+        return equals(ledgerOperation);
     }
 
     @Override

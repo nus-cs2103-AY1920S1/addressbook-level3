@@ -31,7 +31,7 @@ public class SplitCommandParser implements Parser<SplitCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_SHARE,
                 PREFIX_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_SHARE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SplitCommand.MESSAGE_USAGE));
         }
