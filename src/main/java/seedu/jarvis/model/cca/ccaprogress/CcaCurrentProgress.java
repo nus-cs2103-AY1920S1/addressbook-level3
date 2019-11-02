@@ -3,7 +3,7 @@ package seedu.jarvis.model.cca.ccaprogress;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
-import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAtMinException;
 
 /**
  * A wrapper class containing the progress of the current cca.
@@ -42,7 +42,7 @@ public class CcaCurrentProgress {
      */
     public void decreaseProgress() {
         if (progressAtMin()) {
-            throw new CcaProgressAtZeroException();
+            throw new CcaProgressAtMinException();
         }
         currentProgress--;
     }

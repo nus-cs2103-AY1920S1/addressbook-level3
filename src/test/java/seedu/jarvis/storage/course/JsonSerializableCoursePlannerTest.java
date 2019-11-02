@@ -19,7 +19,7 @@ public class JsonSerializableCoursePlannerTest {
     private static final Path TYPICAL_COURSES_FILE = TEST_DATA_FOLDER.resolve("typicalCoursePlanner.json");
 
     @Test
-    public void toModelType_typicalCcasFile_success() throws Exception {
+    public void toModelType_typicalCoursesFile_success() throws Exception {
         JsonSerializableCoursePlanner dataFromFile = JsonUtil.readJsonFile(TYPICAL_COURSES_FILE,
                 JsonSerializableCoursePlanner.class).get();
         CoursePlanner coursePlannerFromFile = dataFromFile.toModelType();
