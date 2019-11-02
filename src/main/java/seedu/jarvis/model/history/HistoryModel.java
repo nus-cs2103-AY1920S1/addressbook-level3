@@ -21,6 +21,13 @@ public interface HistoryModel {
      */
     void setHistoryManager(HistoryManager historyManager);
 
+    /**
+     * Gets the maximum number of commands that can be undone/redone.
+     *
+     * @return maximum number of commands that can be undone/redone.
+     */
+    int getHistoryRange();
+
 
     /**
      * Gets a {@code ObservableList} of {@code Command} objects that are executed.
