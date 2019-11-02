@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<Stage minHeight="300.0" minWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <ScrollPane hbarPolicy="NEVER" style="-fx-background-color: linear-gradient(to bottom right, #654ea3, #eaafc8)linear-gradient(to bottom right, #654ea3, #eaafc8); -fx-fit-to-height: true; -fx-fit-to-width: true;">
+            <content>
+                <VBox alignment="CENTER" prefHeight="309.0" prefWidth="376.0" style="-fx-padding: 25 30; -fx-background-color: linear-gradient(to bottom right, #654ea3, #eaafc8);">
+                    <children>
+                        <Label prefHeight="45.0" prefWidth="48.0" text="List:" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font></Label>
+                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 20 0;">
+                            <children>
+                                <VBox fx:id="commitments" prefHeight="50.0" prefWidth="117.0" style="-fx-padding: 10;">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="195.0" spacing="10.0">
+                                            <children>
+                                                <Circle fx:id="commitment" fill="#ca5fa6" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                                <Label prefHeight="23.0" prefWidth="122.0" text="Commitments" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                 <Label fx:id="commitmentContent" alignment="TOP_LEFT" lineSpacing="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="296.0" textFill="WHITE" wrapText="true" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="trips" prefHeight="50.0" prefWidth="117.0" style="-fx-padding: 10;">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                            <children>
+                                                <Circle fx:id="commitment1" fill="#f36886" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                                <Label prefHeight="17.0" prefWidth="99.0" text="Trips" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                 <Label fx:id="tripContent" alignment="TOP_LEFT" lineSpacing="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="296.0" textFill="WHITE" wrapText="true" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="schoolBreaks" prefHeight="50.0" prefWidth="117.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-padding: 10;">
+                                            <children>
+                                                <Circle fx:id="commitment11" fill="#fa8282" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                                <Label prefHeight="23.0" prefWidth="114.0" text="School break" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                 <Label fx:id="schoolBreakContent" alignment="TOP_LEFT" lineSpacing="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="296.0" textFill="WHITE" wrapText="true" />
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="holidays" prefHeight="50.0" prefWidth="117.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="167.0" spacing="10.0" style="-fx-padding: 10;">
+                                            <children>
+                                                <Circle fx:id="commitment111" fill="#ffaf65" radius="6.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                                                <Label prefHeight="17.0" prefWidth="99.0" text="Holidays" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="18.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                 <Label fx:id="holidayContent" alignment="TOP_LEFT" lineSpacing="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="296.0" textFill="WHITE" wrapText="true" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+                     <Label fx:id="emptyList" text="Label" />
+                    </children></VBox>
+
+            </content></ScrollPane>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="BLACK" />
+                  <Stop color="WHITE" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+        </Scene>
+    </scene>
+</Stage>
