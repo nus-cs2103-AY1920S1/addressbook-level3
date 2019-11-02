@@ -49,7 +49,6 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@example.com-")); // domain name ends with a hyphen
         assertFalse(Email.isValidEmail("a@bc")); // no dot
         assertFalse(Email.isValidEmail("peterjack@example.")); // nothing after dot
-        assertFalse(Email.isValidEmail("peterjack@example.a")); // only 1 letter after dot
         // valid email
         assertTrue(Email.isValidEmail("PeterJack_1190@example.com"));
         assertTrue(Email.isValidEmail("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
