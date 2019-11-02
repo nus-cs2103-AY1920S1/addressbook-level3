@@ -53,7 +53,7 @@ public class ProjectionLineGraph extends Stage {
         projectionLine.getXAxis().setVisible(false);
         projectionLine.getYAxis().setVisible(false);
         projectionLine.setTitle(String.format("Balance Projection over %.0f days", gradientDescent.getDataRange()));
-        projectionLine.getStylesheets().addAll(getClass().getResource("/view/chart.css").toExternalForm());
+        projectionLine.getStylesheets().addAll(getClass().getResource("/view/Chart.css").toExternalForm());
 
         //defining a series
         XYChart.Series dataSeries = new XYChart.Series();

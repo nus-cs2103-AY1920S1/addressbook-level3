@@ -23,7 +23,6 @@ public final class GradientDescent {
     private double [] actualValues;
     private double theta0;
     private double theta1;
-
     private double minData;
     private double maxData;
     private double dataMean;
@@ -32,6 +31,7 @@ public final class GradientDescent {
     private double maxOutput;
     private double outputMean;
     private double outputRange;
+    private int iterations;
 
     /**
      * Sole constructor for the Gradient Descent class
