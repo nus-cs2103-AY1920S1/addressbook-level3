@@ -91,13 +91,14 @@ public class Group {
 
     /**
      * Check if student exists in group.
+     *
      * @param student Student to check
      * @return True if student exists in the group.
      */
     public boolean checkStudentExist(Student student) {
         Name name = student.getName();
         for (Student checkStudent : studentList) {
-            if(checkStudent.getName().equals(name)) {
+            if (checkStudent.getName().equals(name)) {
                 return true;
             }
         }

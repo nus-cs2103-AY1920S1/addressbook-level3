@@ -22,8 +22,8 @@ public class StudentAddCommand extends StudentCommand {
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
-    public static final String STUDENT_NAME_INVALID = "Student's name should only contain alphabetical characters and " +
-            "space(' ').";
+    public static final String STUDENT_NAME_INVALID = "Student's name should only contain alphabetical characters"
+            + " and space(' ').";
 
     private final Student toAdd;
 

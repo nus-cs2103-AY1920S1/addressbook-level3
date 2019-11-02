@@ -51,7 +51,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
         if (groupIndexNumber > model.getGroupSize(groupId) || groupIndexNumber < 1) {
             return new CommandResult(INDEX_OUT_OF_BOUNDS);
         }
-        model.removeStudentFromGroup(groupId, groupIndexNumber-1);
+        model.removeStudentFromGroup(groupId, groupIndexNumber - 1);
         return new CommandResult(generateSuccessMessage());
     }
 

@@ -59,7 +59,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
             return new CommandResult(GROUP_ID_LEFT_EMPTY);
         }
         if (model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_ALREADY_EXISTS,groupId));
+            return new CommandResult(String.format(GROUP_ALREADY_EXISTS, groupId));
         }
         List<Student> lastShownList = model.getFilteredStudentList();
         boolean outOfBounds = false;

@@ -265,12 +265,14 @@ public class ModelManager implements Model {
 
     /**
      * Gets student with specific index number.
+     *
      * @param indexNumber Index number of student.
      * @return Student with index number specified.
      */
     public Student getStudent(int indexNumber) {
         return studentRecord.getStudent(indexNumber);
     }
+
     /**
      * Checks if the student list has a particular student.
      *
@@ -388,13 +390,14 @@ public class ModelManager implements Model {
 
     /**
      * Gets the size of the group
+     *
      * @param groupId Id of the group
      * @return size of the group queried.
      */
     public int getGroupSize(String groupId) {
         int groupSize = 0;
         int groupIndex = groupList.getGroupIndex(groupId);
-        if (groupIndex !=-1) {
+        if (groupIndex != -1) {
             Group group = groupList.getGroup(groupIndex);
             groupSize = group.getObservableListStudents().size();
         }
@@ -449,6 +452,7 @@ public class ModelManager implements Model {
 
     /**
      * Check if student already exists in group.
+     *
      * @param groupId Group id of the group.
      * @param student Student to check.
      * @return True if student exists in thr group.
@@ -456,8 +460,8 @@ public class ModelManager implements Model {
     public boolean checkStudentExistInGroup(String groupId, Student student) {
         ArrayList<Group> groupArrayList = groupList.getGroupList();
         Group queriedGroup = null;
-        for (Group group: groupArrayList) {
-            if (group.getGroupId().equals(groupId)){
+        for (Group group : groupArrayList) {
+            if (group.getGroupId().equals(groupId)) {
                 queriedGroup = group;
                 break;
             }

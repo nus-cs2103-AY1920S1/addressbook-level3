@@ -1,12 +1,11 @@
 package seedu.address.logic.commands.group;
 
+import java.util.List;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.group.Group;
 import seedu.address.model.student.Student;
-
-import java.util.List;
 
 /**
  * Represents an add student command, specific to a group.
@@ -63,9 +62,9 @@ public class GroupAddStudentCommand extends GroupCommand {
         if (groupIndexNumber > model.getGroupSize(groupId) + 1 || groupIndexNumber < 1) {
             return new CommandResult(GROUP_INDEX_OUT_OF_BOUNDS);
         }
-        Student student = model.getStudent(studentNumber-1);
-        if (model.checkStudentExistInGroup(groupId,student)) {
-            return new CommandResult(String.format(STUDENT_EXISTS_IN_GROUP,student));
+        Student student = model.getStudent(studentNumber - 1);
+        if (model.checkStudentExistInGroup(groupId, student)) {
+            return new CommandResult(String.format(STUDENT_EXISTS_IN_GROUP, student));
         }
         model.addStudentToGroup(groupId, studentNumber, groupIndexNumber);
         return new CommandResult(generateSuccessMessage());
