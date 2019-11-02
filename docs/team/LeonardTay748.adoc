@@ -17,12 +17,12 @@ This is what the Graphical User Interface (GUI) of our application looks like.
 
 image::annotatedUi.png[width="790"]
 
-My role in the team was to design and write the codes for the statistics and help features which uses the commands `stats` and `help` respectively. I will go into more detail about my contributions to the project in the following sections. 
+My role in the team was to design and write the codes for the statistics and help features which uses the commands `stats` and `help` respectively. I will go into more detail about my contributions to the project in the following sections.
 
 **Note the formatting used in this document**
 
 * Commands are highlighted: `help`
-* Class and objects are highlighted with italic font: `_class_`  
+* Class and objects are highlighted with italic font: `_class_`
 
 
 == Summary of contributions
@@ -34,7 +34,7 @@ My role in the team was to design and write the codes for the statistics and hel
 
 * *Minor enhancement*: Modified the exisiting help feature.
 ** *What it does:* It displays a full list of commands that are supported by our application, instead of providing a url to the user that directs him/her back to the user guide page.
-** *Justification:* My experience with the help feature in various applications led me to believe that providing a url link back to the user guide does not serve a good purpose. If the user is just looking for the list of commands available, then it would be a time-consuming process.  
+** *Justification:* My experience with the help feature in various applications led me to believe that providing a url link back to the user guide does not serve a good purpose. If the user is just looking for the list of commands available, then it would be a time-consuming process.
 
 * *Code contributed*:  [https://github.com/LeonardTay748/main/blob/master/src/main/java/seedu/address/ui/StatsWindow.java[Statistics Window]] [https://github.com/LeonardTay748/main/blob/master/src/main/java/seedu/address/ui/HelpWindow.java[Help Window]]
 
@@ -43,7 +43,7 @@ My role in the team was to design and write the codes for the statistics and hel
 
 ** Project management
 *** Ensure that the application is tested
-*** Ensure that the displayed messages in the application follows the standard agreed by our team 
+*** Ensure that the displayed messages in the application follows the standard agreed by our team
 ** Enhancements to existing features
 *** Added more statistics (pull request https://github.com/AY1920S1-CS2103T-T12-4/main/pull/169[#169])
 *** Standardised display output (pull request https://github.com/AY1920S1-CS2103T-T12-4/main/pull/169[#169])
@@ -61,7 +61,7 @@ My role in the team was to design and write the codes for the statistics and hel
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-This section will explain the operation of two features that I have implemented, starting with the statistics feature and followed by the help feature. 
+This section will explain the operation of two features that I have implemented, starting with the statistics feature and followed by the help feature.
 
 Viewing the statistics: `stats`
 
