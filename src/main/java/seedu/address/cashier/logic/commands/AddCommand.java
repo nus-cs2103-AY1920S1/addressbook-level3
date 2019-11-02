@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String description, int quantity) {
         assert description != null : "Description cannot be null.";
-        assert quantity >= 0 : "Quantity must be a positive integer.";
+        assert quantity > 0 : "Quantity must be a positive integer.";
 
         logger.info("description of item added: " + description);
         logger.info("quantity of item added: " + quantity);
