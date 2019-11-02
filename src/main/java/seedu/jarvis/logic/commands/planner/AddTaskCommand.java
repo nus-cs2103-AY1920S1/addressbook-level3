@@ -52,7 +52,7 @@ public class AddTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_TYPE + "event "
             + PREFIX_TASK_DES + "workshop "
-            + PREFIX_DATE + "20/12/2019//20/12/2019"
+            + PREFIX_DATE + "20/12/2019//20/12/2019 "
             + PREFIX_PRIORITY + "medium "
             + PREFIX_FREQ + "weekly "
             + PREFIX_TAG + "friends "
