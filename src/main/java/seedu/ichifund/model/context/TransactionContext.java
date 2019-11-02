@@ -1,5 +1,8 @@
 package seedu.ichifund.model.context;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.ichifund.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -28,6 +31,7 @@ public class TransactionContext implements Context<Transaction> {
      * @param transaction
      */
     public TransactionContext(Optional<Transaction> transaction) {
+        requireNonNull(transaction);
         if (transaction.isEmpty()) {
             this.month = Month.getCurrent();
             this.year = Year.getCurrent();
@@ -40,8 +44,9 @@ public class TransactionContext implements Context<Transaction> {
         this.transactionType = Optional.empty();
     }
 
-    private TransactionContext(Month month, Year year, Optional<Category> category,
+    public TransactionContext(Month month, Year year, Optional<Category> category,
                                Optional<TransactionType> transactionType) {
+        requireAllNonNull(month, year, category, transactionType);
         this.month = month;
         this.year = year;
         this.category = category;
@@ -186,11 +191,20 @@ public class TransactionContext implements Context<Transaction> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TransactionContext // instanceof handles nulls
-                && month.equals((((TransactionContext) other).month))
-                && year.equals((((TransactionContext) other).year))
-                && category.equals((((TransactionContext) other).category))); // state check
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TransactionContext)) {
+            return false;
+        }
+
+        TransactionContext otherContext = (TransactionContext) other;
+
+        return otherContext.month.equals(month)
+                && otherContext.year.equals(year)
+                && otherContext.category.equals(category)
+                && otherContext.transactionType.equals(transactionType);
     }
 
     @Override

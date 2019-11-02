@@ -1,14 +1,9 @@
 package seedu.ichifund.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.ichifund.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.ichifund.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.ichifund.testutil.Assert.assertThrows;
-import static seedu.ichifund.testutil.TypicalFundBook.PERSON_AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,20 +12,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.CommandResult;
-import seedu.ichifund.logic.commands.ListCommand;
+import seedu.ichifund.logic.commands.HelpCommand;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
+import seedu.ichifund.logic.commands.transaction.DeleteTransactionCommand;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ModelManager;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.UserPrefs;
-import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.storage.JsonFundBookStorage;
 import seedu.ichifund.storage.JsonUserPrefsStorage;
 import seedu.ichifund.storage.StorageManager;
-import seedu.ichifund.testutil.PersonBuilder;
+import seedu.ichifund.testutil.TransactionBuilder;
+import seedu.ichifund.testutil.TransactionUtil;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -58,34 +54,34 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteTransactionCommand = DeleteTransactionCommand.COMMAND_WORD + " 20";
+        assertCommandException(deleteTransactionCommand, MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String helpCommand = HelpCommand.COMMAND_WORD;
+        assertCommandSuccess(helpCommand, HelpCommand.SHOWING_HELP_MESSAGE, model);
     }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonFundBookStorage addressBookStorage =
+        JsonFundBookStorage fundBookStorage =
                 new JsonFundBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(fundBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(PERSON_AMY).withTags().build();
+        Transaction expectedTransaction = new TransactionBuilder().build();
+        String addTransactionCommand = TransactionUtil.getAddTransactionCommand(expectedTransaction);
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addTransaction(expectedTransaction);
+        expectedModel.updateTransactionContext(expectedTransaction);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+        assertCommandFailure(addTransactionCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
@@ -155,7 +151,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveFundBook(ReadOnlyFundBook addressBook, Path filePath) throws IOException {
+        public void saveFundBook(ReadOnlyFundBook fundBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

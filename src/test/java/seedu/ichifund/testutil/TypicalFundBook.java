@@ -2,14 +2,28 @@ package seedu.ichifund.testutil;
 
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_AMOUNT_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_CATEGORY_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DAY_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_MONTH_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_MONTH_BUS;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TRANSACTION_TYPE_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_TRANSACTION_TYPE_BUS;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_YEAR_ALLOWANCE;
+import static seedu.ichifund.logic.commands.CommandTestUtil.VALID_YEAR_BUS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +31,15 @@ import java.util.List;
 
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.person.Person;
+import seedu.ichifund.model.transaction.Transaction;
 
 /**
  * A utility class containing a list of {@code FundBook} related objects to be used in tests.
  */
 public class TypicalFundBook {
+
 
     public static final Person PERSON_ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -55,6 +72,20 @@ public class TypicalFundBook {
     public static final Person PERSON_BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+
+    public static final Date DATE_ALLOWANCE = new DateBuilder().withDay(VALID_DAY_ALLOWANCE)
+            .withMonth(VALID_MONTH_ALLOWANCE).withYear(VALID_YEAR_ALLOWANCE).build();
+    public static final Date DATE_BUS = new DateBuilder().withDay(VALID_DAY_BUS)
+            .withMonth(VALID_MONTH_BUS).withYear(VALID_YEAR_BUS).build();
+
+    public static final Transaction TRANSACTION_ALLOWANCE = new TransactionBuilder()
+            .withDescription(VALID_DESCRIPTION_ALLOWANCE).withAmount(VALID_AMOUNT_ALLOWANCE)
+            .withDate(DATE_ALLOWANCE).withCategory(VALID_CATEGORY_ALLOWANCE)
+            .withTransactionType(VALID_TRANSACTION_TYPE_ALLOWANCE).build();
+    public static final Transaction TRANSACTION_BUS = new TransactionBuilder()
+            .withDescription(VALID_DESCRIPTION_BUS).withAmount(VALID_AMOUNT_BUS)
+            .withDate(DATE_BUS).withCategory(VALID_CATEGORY_BUS)
+            .withTransactionType(VALID_TRANSACTION_TYPE_BUS).build();
 
     public static final Budget BUDGET_OVERALL = new BudgetBuilder().withDescription("Overall budget")
             .withAmount("1337").withMonthAndYear("12", "2012").build();

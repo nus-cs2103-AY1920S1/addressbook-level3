@@ -93,6 +93,23 @@ public class Date implements Comparable<Date> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Date)) {
+            return false;
+        }
+
+        Date otherDate = (Date) other;
+
+        return otherDate.getDay().equals(getDay())
+                && otherDate.getMonth().equals(getMonth())
+                && otherDate.getYear().equals(getYear());
+    }
+
+    @Override
     public String toString() {
         return day + "/" + month + "/" + year;
     }

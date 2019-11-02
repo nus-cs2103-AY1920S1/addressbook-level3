@@ -16,7 +16,7 @@ import seedu.ichifund.model.transaction.Transaction;
  * Deletes an existing transaction in IchiFund.
  */
 public class DeleteTransactionCommand extends Command {
-    public static final String COMMAND_WORD = "deletetx";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the transaction identified by the index number used in the displayed transaction list. "

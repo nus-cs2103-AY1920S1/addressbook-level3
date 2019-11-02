@@ -18,7 +18,7 @@ import seedu.ichifund.model.budget.Budget;
  */
 public class AddBudgetCommand extends Command {
 
-    public static final String COMMAND_WORD = "addbud";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a budget to IchiFund.\n"
             + "Parameters: "

@@ -8,16 +8,11 @@ import java.util.regex.Pattern;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
-import seedu.ichifund.logic.commands.AddCommand;
 import seedu.ichifund.logic.commands.ClearCommand;
 import seedu.ichifund.logic.commands.Command;
-import seedu.ichifund.logic.commands.DeleteCommand;
-import seedu.ichifund.logic.commands.EditCommand;
 import seedu.ichifund.logic.commands.EmptyCommand;
 import seedu.ichifund.logic.commands.ExitCommand;
-import seedu.ichifund.logic.commands.FindCommand;
 import seedu.ichifund.logic.commands.HelpCommand;
-import seedu.ichifund.logic.commands.ListCommand;
 import seedu.ichifund.logic.parser.analytics.AnalyticsFeatureParser;
 import seedu.ichifund.logic.parser.budget.BudgetFeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
@@ -65,25 +60,10 @@ public class IchiFundParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
-
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

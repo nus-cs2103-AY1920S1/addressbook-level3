@@ -16,9 +16,6 @@ public class TransactionBuilder {
     public static final String DEFAULT_AMOUNT = "20.45";
     public static final String DEFAULT_DESCRIPTION = "Spiderman";
     public static final String DEFAULT_CATEGORY = "Entertainment";
-    public static final String DEFAULT_DAY = "10";
-    public static final String DEFAULT_MONTH = "1";
-    public static final String DEFAULT_YEAR = "2019";
     public static final String DEFAULT_TRANSACTION_TYPE = "exp";
 
     private Description description;

@@ -52,7 +52,7 @@ public class Amount implements Comparable<Amount> {
     private static int getValueFromDollarAndCents(String dollar, String cents) {
         int dollarValue = Integer.parseInt(dollar);
         int centsValue = Integer.parseInt(cents);
-        if (dollarValue < 0) {
+        if (dollar.charAt(0) == '-') {
             return dollarValue * 100 - centsValue;
         } else {
             return dollarValue * 100 + centsValue;
@@ -80,12 +80,17 @@ public class Amount implements Comparable<Amount> {
         int dollars = valueInCents / 100;
         int cents = java.lang.Math.abs(valueInCents) % 100; // Absolute value required due to behaviour of %
         String centsString = convertCentsToString(cents);
-        return dollars + "." + centsString;
+
+        if (dollars == 0 && valueInCents < 0) {
+            return "-0." + centsString;
+        } else {
+            return dollars + "." + centsString;
+        }
     }
 
     /**
      * Converts a value in cents to a two character {@code String}.
-     * Precondition: The input must be less than 100.
+     * Precondition: The input must be positive and less than 100.
      *
      * @param cents The number of cents in an {@code Amount} that is less than 100.
      * @return A two character {@code String}.
