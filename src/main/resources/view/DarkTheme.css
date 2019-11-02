@@ -148,7 +148,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "COURIER";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
@@ -379,5 +379,11 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+.analyse-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "COURIER";
+    -fx-font-size: 11pt;
+    -fx-text-fill: white;
 }
 
