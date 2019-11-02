@@ -91,7 +91,7 @@ using the format `mt/... mt/... mt/...`
 ====
 
 '''
-
+// tag::UniversalCommands[]
 === Universal Commands
 
 ==== Accessing project dashboard page: `home` +
@@ -133,7 +133,9 @@ Format: `help`
 image::Help.png[width=790]
 
 '''
+// end::UniversalCommands[]
 
+// tag::MemberCommands[]
 === Member-related Commands
 
 ==== Adding a member: `add-member` +
@@ -199,7 +201,7 @@ If you shift the image's location in your computer, +Work will be unable to find
 is recommended that you store all the images in a central folder to prevent this from happening.
 
 
-=== Editing a member : `edit-member`
+==== Editing a member : `edit-member`
 To edit a member in +Work, using the command `edit-member` following the format below.
 
 Format: `edit-member mi/MEMBER_ID mn/MEMBER_NAME mt/MEMBER_TAG`
@@ -292,6 +294,7 @@ image::BeforeFire.png[width="790"]
 image::AfterFireMember.png[width="790"]
 
 '''
+// end::MemberCommands[]
 
 === Task-related Commands
 
@@ -585,7 +588,7 @@ For example, when you type `add-mem` into the command-line, +Work will prompt yo
 
 ////
 
-// tag::dataencryption[]
+tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
