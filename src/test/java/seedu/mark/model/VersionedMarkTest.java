@@ -266,7 +266,6 @@ public class VersionedMarkTest {
         assertThrows(VersionedMark.CannotRedoMarkException.class, () -> versionedMark.redo(1));
     }
 
-    //
     @Test
     public void redo_multipleMarkPointerAtEndOfStateList_throwsCannotRedoMarkException() {
         VersionedMark versionedMark = prepareMarkList(
@@ -292,7 +291,7 @@ public class VersionedMarkTest {
         // different types -> returns false
         assertFalse(versionedMark.equals(1));
 
-        // different state list -> returns false
+        // different state record list -> returns false
         VersionedMark differentMarkStateRecords = prepareMarkList(markWithBob, markWithCarl);
         assertFalse(versionedMark.equals(differentMarkStateRecords));
 

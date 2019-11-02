@@ -10,6 +10,7 @@ import seedu.mark.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new RedoCommand object
  */
 public class RedoCommandParser implements Parser<RedoCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the RedoCommand
      * and returns a RedoCommand object for execution.
