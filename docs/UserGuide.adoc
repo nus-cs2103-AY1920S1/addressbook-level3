@@ -119,23 +119,22 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 ==== Locating patient by name : `find`
 
-Finds patients whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds patients whose names contain the queried KEYWORD. +
+Format: `find KEYWORD`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Partial words will be matched as well. e.g. `Han` will match `Hans`
+* All Patients matching the keyword will be returned.
 ****
 
 *Examples*:
 
 * `find John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any patient having names `Betsy`, `Tim`, or `John`
+* `find ans` +
+Returns `Hans` and `Aziz Ansari`
 
 ==== Viewing a Patient's Full Profile : `profile`
 
