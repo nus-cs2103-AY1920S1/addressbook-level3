@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -19,6 +20,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Item;
@@ -311,9 +313,17 @@ public class MainWindow extends UiPart<Stage> {
         popup.getContent().add(new OpenItem(item).getRoot());
         popup.setHeight(1000);
         popup.setWidth(500);
+        popup.setAutoHide(true);
 
         this.popup = popup;
         popup.show(primaryStage);
+        popup.setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                CommandResult result = executeClose(new CommandResult(CloseCommand.MESSAGE_SUCCESS));
+                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+            }
+        });
     }
 
     /**
