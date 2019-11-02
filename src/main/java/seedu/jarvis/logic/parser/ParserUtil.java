@@ -20,6 +20,7 @@ import java.util.Set;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.util.StringUtil;
+import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
@@ -47,6 +48,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: d/m/yyyy.";
     public static final String MESSAGE_INVALID_TASK_TYPE = "Task type is invalid. Valid task types are: 'todo', 'event'"
                                                             + "and 'deadline' only.";
+    public static final String  MESSAGE_MULTIPLE_SAME_PREFIX = "Invalid command format. Only one instance of each "
+                                                                + "prefix is allowed.";
     public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
     public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
     public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";

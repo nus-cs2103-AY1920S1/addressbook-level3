@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -57,4 +58,19 @@ public class ArgumentMultimap {
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
     }
+
+    /**
+     * Checks if there are multiple instances of the same prefix
+     * @return true if there is, false if there is not
+     */
+    public boolean hasMultiplePrefixValues() {
+        for (Prefix p : argMultimap.keySet()) {
+            List<String> values = this.getAllValues(p);
+            if (values.size() > 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
