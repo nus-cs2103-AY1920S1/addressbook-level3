@@ -45,6 +45,7 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
+    private String lastCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
