@@ -35,7 +35,6 @@ public class ApproveCommandParser implements Parser<Approve> {
                 PREFIX_APPEAL, PREFIX_REASON, PREFIX_MASS_RESOLVE);
 
         Index index;
-        String ID;
 
         if (argMultimap.areAllPrefixesAbsent(PREFIX_APPEAL, PREFIX_MASS_RESOLVE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
