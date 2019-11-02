@@ -136,6 +136,10 @@ public class BookPredicateTest {
         // Mixed-case keywords
         predicate = new BookPredicate().setTitle("haRry bOB");
         assertTrue(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
+
+        // partial keywords
+        predicate = new BookPredicate().setTitle("har");
+        assertTrue(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
     }
 
     @Test
@@ -181,6 +185,10 @@ public class BookPredicateTest {
         // Mixed-case keywords
         predicate = new BookPredicate().setAuthor("haRry bOB");
         assertTrue(predicate.test(new BookBuilder().withAuthor("Harry Bob").build()));
+
+        // partial keywords
+        predicate = new BookPredicate().setTitle("har");
+        assertTrue(predicate.test(new BookBuilder().withTitle("Harry Bob").build()));
     }
 
     @Test
@@ -289,6 +297,10 @@ public class BookPredicateTest {
                 .withGenres(VALID_GENRE_FICTION)
                 .build();
         assertFalse(predicate.test(b));
+
+        // partial keywords -> false
+        predicate = new BookPredicate().setGenres(VALID_GENRE_FICTION);
+        assertFalse(predicate.test(new BookBuilder().withGenres(VALID_GENRE_ACTION, VALID_GENRE_NONFICTION).build()));
     }
 
     @Test
