@@ -131,7 +131,7 @@ public class AddCourseCommand extends Command {
         }
 
         model.setViewStatus(ViewType.LIST_COURSE);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, hasAdded.toString()), true);
+        return new CommandResult(message, true);
     }
 
     /**
