@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -48,7 +47,6 @@ public class GraphPanel extends UiPart<Region> {
         spendingChart.getData().add(series);
 
         spendingChart.setTitle(commandResult);
-//        spendingChart.setLegendSide(Side.RIGHT);
 
         for (XYChart.Series<String, Number> s : spendingChart.getData()) {
             for (XYChart.Data<String, Number> d : s.getData()) {
