@@ -15,15 +15,15 @@
 <Stage minHeight="300.0" minWidth="200.0" opacity="0.95" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
-            <ScrollPane id="list-main" hbarPolicy="NEVER" stylesheets="@CalendarListWindow.css">
+            <ScrollPane id="list-main" fx:id="scrollPane" hbarPolicy="NEVER" stylesheets="@CalendarListWindow.css">
             <content>
-                <VBox id="list-wrapper" alignment="CENTER" prefHeight="309.0" prefWidth="376.0" style="">
+                <VBox id="list-wrapper" alignment="CENTER" prefHeight="309.0" prefWidth="376.0">
                     <children>
                         <Label prefHeight="45.0" prefWidth="48.0" text="List:" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="24.0" />
                             </font></Label>
-                        <VBox id="cards" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        <VBox id="cards" fx:id="eventsContainer" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                             <children>
                                 <VBox fx:id="commitments" prefHeight="50.0" prefWidth="117.0" styleClass="card">
                                     <children>
@@ -37,7 +37,7 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                 <Text fx:id="commitmentContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="hello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldsh" wrappingWidth="300.0" />
+                                 <Text fx:id="commitmentContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0" />
                                     </children>
                                 </VBox>
                                 <VBox fx:id="trips" prefHeight="50.0" prefWidth="117.0" styleClass="card">
@@ -52,7 +52,7 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <Text fx:id="tripContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="hello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldsh" wrappingWidth="300.0" />
+                                        <Text fx:id="tripContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0" />
                                     </children>
                                 </VBox>
                                 <VBox fx:id="schoolBreaks" prefHeight="50.0" prefWidth="117.0" styleClass="card">
@@ -67,7 +67,7 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <Text fx:id="schoolBreakContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="hello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldsh" wrappingWidth="300.0" />
+                                        <Text fx:id="schoolBreakContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0" />
                                     </children>
                                 </VBox>
                                 <VBox fx:id="holidays" prefHeight="50.0" prefWidth="117.0" styleClass="card">
@@ -82,12 +82,12 @@
                                                 </Label>
                                             </children>
                                         </HBox>
-                                        <Text fx:id="holidayContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="hello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldshhello blahdlfhd;silfhldsh" wrappingWidth="300.0" />
+                                        <Text fx:id="holidayContent" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300.0" />
                                     </children>
                                 </VBox>
                             </children>
                         </VBox>
-                     <Label fx:id="emptyList" text="No events found." textFill="WHITE">
+                     <Label fx:id="emptyList" style="-fx-label-padding: 20;" text="No events found." textFill="WHITE">
                         <font>
                            <Font size="18.0" />
                         </font></Label>

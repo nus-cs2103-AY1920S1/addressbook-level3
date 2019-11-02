@@ -1,6 +1,11 @@
 package seedu.address.calendar.parser;
 
-import seedu.address.calendar.commands.*;
+import seedu.address.calendar.commands.AddCommand;
+import seedu.address.calendar.commands.CheckCommand;
+import seedu.address.calendar.commands.DeleteCommand;
+import seedu.address.calendar.commands.ListCommand;
+import seedu.address.calendar.commands.ShowCommand;
+import seedu.address.calendar.commands.SuggestCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -32,7 +37,7 @@ public class CalendarParser extends Parser {
             return new CheckCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

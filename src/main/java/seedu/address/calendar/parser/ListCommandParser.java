@@ -2,7 +2,6 @@ package seedu.address.calendar.parser;
 
 import seedu.address.calendar.commands.CommandUtil;
 import seedu.address.calendar.commands.ListCommand;
-import seedu.address.calendar.commands.SuggestCommand;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;

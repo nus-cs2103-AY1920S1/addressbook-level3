@@ -3,6 +3,7 @@ package seedu.address.calendar.ui;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import javafx.scene.text.Text;
@@ -42,7 +43,11 @@ public class ListWindow extends UiPart<Stage> {
     @FXML
     private Text schoolBreakContent;
     @FXML
+    private VBox eventsContainer;
+    @FXML
     private Text tripContent;
+    @FXML
+    private ScrollPane scrollPane;
 
     public ListWindow() {
         super(FXML);
@@ -79,6 +84,7 @@ public class ListWindow extends UiPart<Stage> {
 
     void show(String eventsToShow) {
         showEvents(eventsToShow);
+        scrollPane.setVvalue(0); // scroll to top
         listWindow.show();
     }
 
@@ -87,14 +93,12 @@ public class ListWindow extends UiPart<Stage> {
 
         if (!eventsToShow.contains(SEPARATOR)) {
             setInvisible(commitmentCard, holidayCard, schoolBreakCard, tripCard);
-            emptyList.setVisible(true);
-            emptyList.setManaged(true);
+            showEmpty();
             return;
         }
 
         Stream.of(eventsToShow.split("\\n"))
                 .forEach(eventToShow -> {
-
                     EventTypeDeterminer eventTypeDeterminer = new EventTypeDeterminer(eventToShow);
 
                     if (eventTypeDeterminer.isCommitment()) {
@@ -104,7 +108,6 @@ public class ListWindow extends UiPart<Stage> {
                     } else if (eventTypeDeterminer.isSchoolBreak()) {
                         schoolBreakCard.add(eventToShow);
                     } else if (eventTypeDeterminer.isTrip()) {
-                        System.out.println("is trip");
                         tripCard.add(eventToShow);
                     } else {
                         // assert false : "Every event should have a valid type";
@@ -124,9 +127,10 @@ public class ListWindow extends UiPart<Stage> {
         }
 
         if (tripCard.hasContent()) {
-            System.out.println("hye");
             tripCard.makeVisible();
         }
+
+        showEventsContainer();
     }
 
     void clearAll() {
@@ -134,8 +138,28 @@ public class ListWindow extends UiPart<Stage> {
         schoolBreakCard.makeInvisible();
         tripCard.makeInvisible();
         holidayCard.makeInvisible();
+        hideEmpty();
+        hideEventsContainer();
+    }
+
+    void showEmpty() {
+        emptyList.setVisible(true);
+        emptyList.setManaged(true);
+    }
+
+    void hideEmpty() {
         emptyList.setVisible(false);
         emptyList.setManaged(false);
+    }
+
+    void hideEventsContainer() {
+        eventsContainer.setVisible(false);
+        eventsContainer.setManaged(false);
+    }
+
+    void showEventsContainer() {
+        eventsContainer.setVisible(true);
+        eventsContainer.setManaged(true);
     }
 
     void setInvisible(EventCard... eventCards) {
