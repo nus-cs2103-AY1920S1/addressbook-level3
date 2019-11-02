@@ -297,6 +297,9 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowVisitList()) {
                 ObservableList<VisitReport> visits = commandResult.getObservableVisitList();
                 if (visits.isEmpty()) {
+                    if (visitListPanel.isShowing()) {
+                        visitListPanel.hide();
+                    }
                     handleEmptyVisitList();
                 } else {
                     visitListPanel.setup(visits);

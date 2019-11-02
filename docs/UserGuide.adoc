@@ -219,7 +219,7 @@ image::UGAddVisit1.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
-3. Click the kbd:[Submit] button or press kbd:[F2] to save your entry.
+3. Click the kbd:[Save] button or press kbd:[F2] to save your entry.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 +
 image::UGAddVisit2.png[width="790"]
@@ -253,7 +253,7 @@ image::UGEditVisit2.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
-3. Click the kbd:[Submit] button or press kbd:[F2] to save your edits.
+3. Click the kbd:[Save] button or press kbd:[F2] to save your edits.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 
 image::UGEditVisit3.png[width="790"]
