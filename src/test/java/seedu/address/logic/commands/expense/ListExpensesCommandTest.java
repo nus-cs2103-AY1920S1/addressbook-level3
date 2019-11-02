@@ -17,7 +17,7 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
-public class ListExpenseCommandTest {
+public class ListExpensesCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -31,13 +31,13 @@ public class ListExpenseCommandTest {
     @Test
     public void run_listIsNotFiltered_showsSameList() {
         expectedModel.commitModel("");
-        assertCommandSuccess(new ListExpenseCommand(), model, ListExpenseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListExpensesCommand(), model, ListExpensesCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void run_listIsFiltered_showsEverything() {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-        assertCommandSuccess(new ListExpenseCommand(), model, ListExpenseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListExpensesCommand(), model, ListExpensesCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
