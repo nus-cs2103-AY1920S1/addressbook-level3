@@ -1,5 +1,7 @@
 package seedu.sugarmummy.logic.parser.bio;
 
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CONTACT_NUMBER;
@@ -66,6 +68,16 @@ public class AddBioCommandParser implements Parser<AddBioCommand> {
                 PREFIX_MEDICAL_CONDITION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBioCommand.MESSAGE_USAGE));
+        }
+
+        List<Prefix> nonUniquePrefixes = argMultimap.getNonUniquePrefixes(PREFIX_NAME, PREFIX_DP_PATH,
+                PREFIX_PROFILE_DESC, PREFIX_NRIC, PREFIX_GENDER, PREFIX_DATE_OF_BIRTH, PREFIX_ADDRESS,
+                PREFIX_OTHER_BIO_INFO);
+
+        if (!nonUniquePrefixes.isEmpty()) {
+            throw new ParseException((nonUniquePrefixes.size() == 1
+                    ? MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR
+                    : MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL) + " " + nonUniquePrefixes);
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

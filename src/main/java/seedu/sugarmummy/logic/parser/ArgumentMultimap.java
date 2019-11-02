@@ -107,6 +107,28 @@ public class ArgumentMultimap {
         }
     }
 
+    /**
+     * Returns whether or not a given list of prefixes are all unique.
+     */
+    public boolean prefixesAreUnique(Prefix...prefixes) {
+        for (Prefix prefix : prefixes) {
+            if (!isUniquePrefix(prefix)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Prefix> getNonUniquePrefixes(Prefix...prefixes) {
+        List<Prefix> nonUniquePrefixes = new ArrayList<>();
+        for (Prefix prefix : prefixes) {
+            if (!isUniquePrefix(prefix)) {
+                nonUniquePrefixes.add(prefix);
+            }
+        }
+        return nonUniquePrefixes;
+    }
+
     @Override
     public String toString() {
         return argMultimap.toString();
