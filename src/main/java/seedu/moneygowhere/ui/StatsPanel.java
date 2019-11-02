@@ -26,6 +26,7 @@ public class StatsPanel extends UiPart<Region> {
         loadData(statsData, commandResult, currencyInUse);
     }
 
+    //@@author choongyx
     /**
      * Constructs the pie chart with the data.
      */
