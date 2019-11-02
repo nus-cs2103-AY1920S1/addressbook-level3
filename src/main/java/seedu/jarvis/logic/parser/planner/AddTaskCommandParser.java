@@ -61,7 +61,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
                               : null;
 
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
-        String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
+        String taskDes = ParserUtil.parseTaskDes(argMultimap.getValue(PREFIX_TASK_DES).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         LocalDate[] dates = new LocalDate[2];
         if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {

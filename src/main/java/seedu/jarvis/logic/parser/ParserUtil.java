@@ -47,7 +47,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_TASK_TYPE = "Task type is invalid. Valid task types are: 'todo', 'event'"
                                                             + "and 'deadline' only.";
     public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
-
+    public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -146,6 +146,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code String taskDes} to ensure it is a valid Task description
+     * @param taskDes the task description provided by the user
+     * @return a trimmed task description
+     * @throws ParseException if Task Description is blank
+     */
+    public static String parseTaskDes(String taskDes) throws ParseException {
+        String trimmedDes = taskDes.trim();
+        if (trimmedDes.isEmpty()) {
+            throw new ParseException(MESSAGE_EMPTY_TASK_DESCRIPTION);
+        }
+
+        return trimmedDes;
     }
 
     /**
