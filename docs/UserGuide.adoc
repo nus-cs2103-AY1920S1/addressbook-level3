@@ -58,7 +58,7 @@ in `lower case` are **key-words** used by the program.
 +
 For example:
 +
-`add-task t/TASK-TYPE/TASK-DESCRIPTION`
+`add-task t/TASK-TYPE des/TASK-DESCRIPTION`
 +
 In this case, `TASK-TYPE` and `TASK-DESCRIPTION` are parameters supplied by
 the user, and `add-task` is a key-word.
@@ -67,12 +67,12 @@ the user, and `add-task` is a key-word.
 +
 For example:
 +
-`add-task t/TASK-TYPE/TASK-DESCRIPTION [p/PRIORITY]`
+`add-task t/TASK-TYPE des/TASK-DESCRIPTION [p/PRIORITY]`
 +
 Can be used
 +
-With a priority level:: `add-task t/todo/assignment p/high`
-Without a priority level:: `add-task t/todo/assignment`
+With a priority level:: `add-task t/todo des/assignment p/high`
+Without a priority level:: `add-task t/todo des/assignment`
 
 3. Parameters with `...` can be used 0, or any number of items
 +
@@ -80,8 +80,8 @@ For example:
 +
 `[#TAG]...` is an optional parameter that can be used 0 or any number of times.
 +
-Without optional parameter:: `add-task t/todo/assignment`
-With optional parameter:: `add-task t/todo/assignment #cs2103t #urgent`
+Without optional parameter:: `add-task t/todo des/assignment`
+With optional parameter:: `add-task t/todo des/assignment #cs2103t #urgent`
 
 4. Jarvis can parse parameters to commands in *any order*.
 
@@ -90,16 +90,16 @@ surrounded by curly braces, e.g `{param1 | param2}`.
 +
 For example:
 +
-`delete-task {INDEX | t/TASK-DESCRIPTION}`
+`export {csv | txt | xlsx} f/FILENAME`
 +
-With Index:: `delete 2`
-With Task Description:: `delete t/Assignment`
+As a .csv file:: `export csv f/MyFile`
+With a.txt file:: `export txt f/MyFile`
 
 6. Dates `d/DATE` follow the following format: `DD/MM/YYYY`.
 +
 For example:
 +
-`add-task t/todo/assignment d/01/01/1970`
+`add-task t/todo des/assignment d/01/01/1970`
 
 ////
 Task Scheduler
@@ -109,7 +109,7 @@ Feature by
 ////
 === Task Scheduler
 
-==== List all tasks: `list-tasks` [v1.4]
+==== List all tasks: `list-tasks`
 Lists all the tasks in the planner.
 
 Format: `list-tasks`
@@ -142,10 +142,12 @@ A task *can* have the following *attributes*:
 |`add-task t/deadline des/TASK-DESCRIPTION d/DUE-DATE [#TAG]... [p/PRIORITY r/FREQ]`
 |===
 
+NOTE: Duplicate tasks are not allowed in the Planner!
+
 ===== Example
 ----
-add-task t/event/workshop r/weekly d/25/12/2019//26/12/2019
-add-task t/deadline/cs2101 assignment d/20/09/2019 p/high
+add-task t/event des/workshop r/weekly d/25/12/2019//26/12/2019
+add-task t/deadline des/cs2101 assignment d/20/09/2019 p/high
 ----
 
 ==== Deleting a task: `delete-task`
@@ -161,7 +163,7 @@ delete-task 3
 ----
 
 ==== Finding a task: `find-task`
-Locates a task from a given `KEYWORD`
+Locates a task by task description from a given `KEYWORD`
 
 Format: `find-task KEYWORD...`
 
@@ -172,20 +174,21 @@ find-task homework cs ma1101r
 ----
 
 ==== Editing a task: `edit-task` [v1.4]
-Edits the task by `TASK-DESCRIPTION` or `INDEX`.
+Edits the task at the specified index.
 
-`NEW-DESCRIPTION` can be a new task description or any of the attributes (refer to 3.2.2 Adding a Task)
-used to create a task.
+Format: `edit-task INDEX//NEW-DESCRIPTION...`
+
+`NEW-DESCRIPTION` can be a new task description or any of the other attributes (refer to 3.2.2 Adding a Task)
+used to create a task. You can also edit any number of attributes at the same time, each separated with a space.
+However, only one instance of each attribute is allowed per command.
 
 NOTE: `NEW-DESCRIPTION` must be tagged with the attribute prefix. For example, if you want to edit the task description
-or priority level of a task: `edit-task t/taskToBeEdited//des/NEW-TASK-DESCRIPTION p/NEW-PRIORITY-LEVEL`.
-
-Format: `edit-task {t/TASK-DESCRIPTION//NEW-DESCRIPTION | INDEX//NEW-DESCRIPTION}`
+and priority level of a task: `edit-task INDEX//des/NEW-TASK-DESCRIPTION p/NEW-PRIORITY-LEVEL`.
 
 ===== Example
 ----
-edit-task t/project part 1//des/project part 2
-edit-task t/project part 1//des/project part2 d/18/09/2019
+edit-task 1//des/project part 2
+edit-task 2//des/project part 2 d/18/09/2019
 edit-task 3//r/weekly
 ----
 
