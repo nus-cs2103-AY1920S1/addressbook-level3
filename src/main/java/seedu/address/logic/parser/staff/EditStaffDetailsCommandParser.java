@@ -92,7 +92,9 @@ public class EditStaffDetailsCommandParser implements Parser<ReversibleActionPai
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        EditPatientDetailsCommandParser.parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        EditPatientDetailsCommandParser
+                .parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))
+                .ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditPatientDetailsCommand.MESSAGE_NOT_EDITED);

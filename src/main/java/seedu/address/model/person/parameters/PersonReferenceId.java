@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
@@ -17,11 +18,11 @@ import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationExc
 public class PersonReferenceId implements ReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id should only contain alphanumeric characters and it should be atleast 3 characters long";
+        "Reference Id should only contain 3 to 10 (inclusive) alphanumeric characters.";
     /*
      * The reference ID should only contain alphanumeric characters.
      */
-    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,}";
+    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,10}";
     private static final HashMap<String, ReferenceId> UNIQUE_UNIVERSAL_REFERENCE_ID_MAP = new HashMap<>();
 
 
@@ -41,6 +42,26 @@ public class PersonReferenceId implements ReferenceId {
     }
 
     /**
+     * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered. Otherwise, Optional.empty.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid.
+     */
+    public static Optional<ReferenceId> lookUpReferenceId(String refId) throws ParseException {
+        requireNonNull(refId);
+        String trimmedRefId = refId.trim().toUpperCase();
+        if (!isValidId(trimmedRefId)) {
+            throw new ParseException(MESSAGE_CONSTRAINTS);
+        }
+
+        ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(trimmedRefId);
+        if (storedRefId == null) {
+            return Optional.empty();
+        }
+        return Optional.of(storedRefId);
+    }
+
+    /**
      * Parses a {@code String refId} into an {@code PersonReferenceId}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -48,18 +69,18 @@ public class PersonReferenceId implements ReferenceId {
      * has been grouped under a different classification.
      */
     private static ReferenceId issueReferenceId(String refId, boolean isStaff) throws ParseException {
-        requireNonNull(refId);
-        String trimmedRefId = refId.trim().toUpperCase();
-        if (!isValidId(trimmedRefId)) {
-            throw new ParseException(MESSAGE_CONSTRAINTS);
-        }
-        ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(trimmedRefId);
 
-        if (storedRefId == null) {
+        Optional<ReferenceId> optionalReferenceId = lookUpReferenceId(refId);
+
+        ReferenceId storedRefId;
+        if (optionalReferenceId.isEmpty()) {
+            String trimmedRefId = refId.trim().toUpperCase();
             storedRefId = new PersonReferenceId(trimmedRefId, isStaff);
             UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.put(trimmedRefId, storedRefId);
-        } else if (storedRefId.isStaffDoctor() != isStaff) {
-            throw new ReferenceIdIncorrectGroupClassificationException(storedRefId);
+        } else if (optionalReferenceId.get().isStaffDoctor() != isStaff) {
+            throw new ReferenceIdIncorrectGroupClassificationException(optionalReferenceId.get());
+        } else {
+            storedRefId = optionalReferenceId.get();
         }
 
         return storedRefId;
