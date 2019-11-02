@@ -18,7 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.*;
+
+import seedu.address.model.BankAccount;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;

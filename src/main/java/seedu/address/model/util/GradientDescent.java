@@ -76,7 +76,7 @@ public final class GradientDescent {
             this.iterations++;
             delta0 = LEARNING_RATE * deriveThetaZeroCost();
             delta1 = LEARNING_RATE * deriveThetaOneCost();
-//            System.out.println((Math.abs(delta0) + Math.abs(delta1)));
+            // System.out.println((Math.abs(delta0) + Math.abs(delta1)));
             double temp0 = theta0 - delta0;
             double temp1 = theta1 - delta1;
             theta0 = temp0;

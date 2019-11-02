@@ -48,11 +48,11 @@ public class Amount implements Comparable<Amount> {
      * Returns true if a given value has maximally 2 decimal points.
      */
     public static boolean isValidAmount(double amount) {
-//        String amountStr = "" + amount;
-//        int indexOfPeriod = amountStr.lastIndexOf(".");
-//        return indexOfPeriod == -1
-//            || amountStr.substring(indexOfPeriod + 1).length() <= 2;
-         return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * Double.MIN_VALUE;
+        // String amountStr = "" + amount;
+        // int indexOfPeriod = amountStr.lastIndexOf(".");
+        // return indexOfPeriod == -1
+        //     || amountStr.substring(indexOfPeriod + 1).length() <= 2;
+        return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * Double.MIN_VALUE;
     }
 
     /**

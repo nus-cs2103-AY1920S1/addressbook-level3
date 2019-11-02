@@ -34,7 +34,7 @@ public class Projection {
         int daysToProject = Date.daysBetween(this.date, Date.now());
         // TODO: SLAP or find appropriate rounding method in java library
         double projectionAmount = Math.floor(projector.predict(daysToProject) * 100) / 100;
-//        System.out.println(projectionAmount);
+        // System.out.println(projectionAmount);
         projection = new Amount(projectionAmount);
     }
 

@@ -10,7 +10,6 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.OutTransaction;
 import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
