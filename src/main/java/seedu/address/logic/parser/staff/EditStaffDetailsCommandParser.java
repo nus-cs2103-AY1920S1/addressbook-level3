@@ -44,7 +44,7 @@ public class EditStaffDetailsCommandParser implements Parser<ReversibleActionPai
                 ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_ID, PREFIX_NAME, PREFIX_PHONE,
                         PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (argMultimap.getValue(PREFIX_ENTRY).isPresent() || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_ENTRY).isPresent() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditStaffDetailsCommand.MESSAGE_USAGE));
         }

@@ -244,7 +244,7 @@ public class EditPatientDetailsCommandParserTest {
             ));
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
+        userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                             + PHONE_DESC_BOB;
         editedPerson = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                              .withAddress(VALID_ADDRESS_BOB).build();

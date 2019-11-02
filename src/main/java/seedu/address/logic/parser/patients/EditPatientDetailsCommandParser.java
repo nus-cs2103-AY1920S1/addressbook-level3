@@ -60,7 +60,7 @@ public class EditPatientDetailsCommandParser implements Parser<ReversibleActionP
 
         Index index;
 
-        if (argMultimap.getValue(PREFIX_ENTRY).isPresent() || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_ENTRY).isPresent() || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPatientDetailsCommand.MESSAGE_USAGE));
         }
