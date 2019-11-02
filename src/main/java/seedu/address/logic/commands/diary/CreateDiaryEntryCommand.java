@@ -26,7 +26,7 @@ public class CreateDiaryEntryCommand extends Command {
 
     private static final String MESSAGE_CREATE_SUCCESS = "Created a new diary entry!";
 
-    private static final String MESSAGE_DAY_OUT_OF_BOUNDS = "Your trip does not have that many days!";
+    private static final String MESSAGE_DAY_OUT_OF_BOUNDS = "Your trip only has %1$d days!";
 
     private final Index dayIndex;
 
@@ -66,7 +66,7 @@ public class CreateDiaryEntryCommand extends Command {
      */
     private void validateWithinTrip(int dayListSize) throws CommandException {
         if (dayIndex.getZeroBased() >= dayListSize) {
-            throw new CommandException(MESSAGE_DAY_OUT_OF_BOUNDS);
+            throw new CommandException(String.format(MESSAGE_DAY_OUT_OF_BOUNDS, dayListSize));
         }
     }
 

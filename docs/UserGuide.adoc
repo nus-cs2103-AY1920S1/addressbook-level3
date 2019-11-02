@@ -384,8 +384,9 @@ you are more comfortable with using the user interface than the command line inp
 
 In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`
 
-NOTE: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
-(see <<glossary>>) to the image file on your computer is stored!
+WARNING: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
+(see <<glossary>>) to the image file on your computer is stored! If you move or delete the original image on your system,
+then you will have to add the photo again, and a placeholder image will be shown in place of your image.
 
 ====== Using the `addphoto` command with the `fp/` prefix
 * Usage: Typing in the command `addphoto fp/<file path> [d/<description>] [dts/<date taken>]`, with the
