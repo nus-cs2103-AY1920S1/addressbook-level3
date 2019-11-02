@@ -58,7 +58,7 @@ public class RejectCommandParser implements Parser<Reject> {
             List<String> validIds = new ArrayList<>();
             List<String> invalidIds = new ArrayList<>();
             for (String appeal : appeals) {
-                appeal = appeal.trim();
+                appeal = appeal.toUpperCase().trim();
                 if (Appeal.isValidAppealId(appeal)) {
                     if (!validIds.contains(appeal)) {
                         validIds.add(appeal);
