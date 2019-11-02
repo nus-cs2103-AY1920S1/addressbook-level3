@@ -128,6 +128,10 @@ public class AppManager {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
+    /**
+     * Gets the logic object from itself.
+     * @return Logic instance
+     */
     public Logic getLogic() {
         return logic;
     }
