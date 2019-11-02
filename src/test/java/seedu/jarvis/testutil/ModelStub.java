@@ -121,6 +121,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public int getHistoryRange() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Command> getExecutedCommandsList() {
         throw new AssertionError("This method should not be called.");
     }
@@ -481,6 +486,11 @@ public class ModelStub implements Model {
 
     @Override
     public CoursePlanner getCoursePlanner() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setCoursePlanner(CoursePlanner cp) {
         throw new AssertionError("This method should not be called.");
     }
 

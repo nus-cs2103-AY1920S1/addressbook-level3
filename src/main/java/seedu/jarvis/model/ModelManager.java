@@ -140,6 +140,16 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Gets the maximum number of commands that can be undone/redone.
+     *
+     * @return maximum number of commands that can be undone/redone.
+     */
+    @Override
+    public int getHistoryRange() {
+        return HistoryManager.getHistoryRange();
+    }
+
+    /**
      * Gets a {@code ObservableList} of {@code Command} objects that are executed.
      *
      * @return {@code ObservableList} of {@code Command} objects.
@@ -824,5 +834,10 @@ public class ModelManager implements Model {
     @Override
     public CoursePlanner getCoursePlanner() {
         return coursePlanner;
+    }
+
+    @Override
+    public void setCoursePlanner(CoursePlanner cp) {
+        coursePlanner.resetData(cp);
     }
 }
