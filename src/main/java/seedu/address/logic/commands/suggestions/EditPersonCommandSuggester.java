@@ -9,9 +9,7 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditPersonCommand}.
@@ -27,23 +25,6 @@ public class EditPersonCommandSuggester extends Suggester {
             CliSyntax.PREFIX_TAG
     );
 
-    protected static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
-        final Optional<String> personNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_EDIT);
-        if (personNameInput.isEmpty()) {
-            return Optional.empty();
-        }
-
-        final Name personName = new Name(personNameInput.get());
-        Person person = null;
-        try {
-            person = model.findPerson(personName);
-        } catch (PersonNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(person);
-    }
-
     @Override
     protected List<String> provideSuggestions(
             final Model model, final ArgumentList arguments, final CommandArgument commandArgument) {
@@ -53,7 +34,7 @@ public class EditPersonCommandSuggester extends Suggester {
         if (prefix.equals(CliSyntax.PREFIX_EDIT)) {
             return model.personSuggester(value);
         } else if (SUPPORTED_PREFIXES.contains(prefix)) {
-            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
+            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments, CliSyntax.PREFIX_EDIT);
             if (optionalSelectedPerson.isEmpty()) {
                 return null;
             }

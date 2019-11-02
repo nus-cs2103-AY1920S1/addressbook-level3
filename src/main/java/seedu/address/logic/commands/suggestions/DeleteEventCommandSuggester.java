@@ -9,9 +9,7 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -22,23 +20,6 @@ public class DeleteEventCommandSuggester extends Suggester {
             CliSyntax.PREFIX_NAME,
             CliSyntax.PREFIX_EVENTNAME
     );
-
-    protected static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
-        final Optional<String> personNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_NAME);
-        if (personNameInput.isEmpty()) {
-            return Optional.empty();
-        }
-
-        final Name personName = new Name(personNameInput.get());
-        Person person = null;
-        try {
-            person = model.findPerson(personName);
-        } catch (PersonNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(person);
-    }
 
     @Override
     protected List<String> provideSuggestions(

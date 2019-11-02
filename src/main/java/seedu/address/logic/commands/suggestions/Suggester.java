@@ -39,6 +39,9 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents a source of suggestions with hidden internal logic.
@@ -161,6 +164,86 @@ public abstract class Suggester {
     }
 
     /**
+     * Gets the {@link Person} instance that was selected by the user based on the name they keyed in.
+     *
+     * @param model           The {@link Model} containing the {@link Person}s to look through.
+     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_NAME} or
+     *                        {@link CliSyntax#PREFIX_EDIT} containing the name to search for.
+     * @return The {@link Person} instance that was selected by the user.
+     */
+    static Optional<Person> getSelectedPerson(final Model model, final CommandArgument commandArgument) {
+        CollectionUtil.requireAllNonNull(model, commandArgument);
+
+        final Prefix prefix = commandArgument.getPrefix();
+        assert prefix.equals(CliSyntax.PREFIX_NAME) || prefix.equals(CliSyntax.PREFIX_EDIT);
+
+        final String personNameInput = commandArgument.getValue();
+        final Name personName = new Name(personNameInput);
+        Person person;
+        try {
+            person = model.findPerson(personName);
+        } catch (PersonNotFoundException e) {
+            person = null;
+        }
+
+        return Optional.ofNullable(person);
+    }
+
+    /**
+     * Gets the {@link Person} instance that was selected by the user based on the value in the first
+     * {@code prefixType}.
+     *
+     * @param model      The {@link Model} containing the {@link Person}s to look through.
+     * @param arguments  The {@link ArgumentList} representing all the arguments/{@link Prefix}es and their values.
+     * @param prefixType Either {@link CliSyntax#PREFIX_NAME} or {@link CliSyntax#PREFIX_EDIT}.
+     * @return The {@link Person} instance that was selected by the user.
+     */
+    static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments,
+                                              final Prefix prefixType) {
+        CollectionUtil.requireAllNonNull(model, arguments, prefixType);
+        assert prefixType.equals(CliSyntax.PREFIX_NAME) || prefixType.equals(CliSyntax.PREFIX_EDIT);
+
+        return arguments.getFirstOfPrefix(prefixType).flatMap(commandArgument -> {
+            return getSelectedPerson(model, commandArgument);
+        });
+    }
+
+    /**
+     * Gets the {@link Person} instance that was selected by the user based on the value in the first
+     * {@link CliSyntax#PREFIX_NAME}.
+     *
+     * @param model     The {@link Model} containing the {@link Person}s to look through.
+     * @param arguments The {@link ArgumentList} representing all the arguments/{@link Prefix}es and their values.
+     * @return The {@link Person} instance that was selected by the user.
+     */
+    static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
+        CollectionUtil.requireAllNonNull(model, arguments);
+
+        return getSelectedPerson(model, arguments, CliSyntax.PREFIX_NAME);
+    }
+
+    /**
+     * Gets the {@link Group} instance that matches the given {@code groupName}.
+     *
+     * @param model     The {@link Model} containing the {@link Person}s to look through.
+     * @param groupName The exact name of the group to find.
+     * @return The {@link Group} instance that matches the given {@code groupName}.
+     */
+    static Optional<Group> getGroupByName(final Model model, final String groupName) {
+        CollectionUtil.requireAllNonNull(model, groupName);
+        Group group;
+        final GroupName groupNameObj = new GroupName(groupName);
+
+        try {
+            group = model.findGroup(groupNameObj);
+        } catch (GroupNotFoundException e) {
+            group = null;
+        }
+
+        return Optional.ofNullable(group);
+    }
+
+    /**
      * Gets suggestions for a specific {@link CommandArgument} within the {@link ArgumentList}.
      *
      * @param model           The {@link Model} containing data that {@link Suggester}s might look through to provide
@@ -200,18 +283,4 @@ public abstract class Suggester {
      */
     protected abstract List<String> provideSuggestions(
             final Model model, final ArgumentList arguments, final CommandArgument commandArgument);
-
-    protected static Optional<Group> getGroupByName(final Model model, final String groupName) {
-        CollectionUtil.requireAllNonNull(model, groupName);
-        Group group;
-        final GroupName groupNameObj = new GroupName(groupName);
-
-        try {
-            group = model.findGroup(groupNameObj);
-        } catch (GroupNotFoundException e) {
-            group = null;
-        }
-
-        return Optional.ofNullable(group);
-    }
 }
