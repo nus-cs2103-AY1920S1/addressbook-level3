@@ -434,9 +434,9 @@ this approach because we would like to allow you to customise the task headings 
 we disassociate the task from notes and questions once created.
 
 ==== Add a revision task for a note: `rn`
-You can add a revision task for a note to the current revision task list with this command. +
-The heading will copy the title. +
-The GUI will display all tasks upon completing the command. +
+You can add a revision task for a note to the current revision task list with this command.
+The heading will copy the title and the GUI will display all tasks upon completing the command.
+An invalid date will be interpreted as the nearest valid date. +
 Format: `rn t/TITLE_OF_NOTE dt/START_DATE tm/START_TIME` +
 Example: +
 
