@@ -17,13 +17,8 @@ import seedu.jarvis.ui.template.View;
 public class TaskListView extends View<AnchorPane> {
     private static final String FXML = "TaskListView.fxml";
 
-    private TaskListPanel taskListPanel;
-
     @FXML
     private ListView<Task> taskListView;
-
-    @FXML
-    private SplitPane taskSplitPane;
 
     public TaskListView(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
