@@ -204,8 +204,9 @@ public interface Model {
      * If both list of indexes are empty, the {@code regimeName} provided
      * will be taken as the resolved schedule and the non-mentioned name is discarded.
      *
+     * @return resolved schedule to be added to schedule book
      */
-    void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict);
+    Schedule resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict);
 
     /**
      * Returns the conflict that is currently happening.

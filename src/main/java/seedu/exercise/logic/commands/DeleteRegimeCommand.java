@@ -177,7 +177,7 @@ public class DeleteRegimeCommand extends DeleteCommand implements PayloadCarrier
     }
 
     @Override
-    public String getResourceType() {
+    public String getCommandTypeIdentifier() {
         return RESOURCE_TYPE;
     }
 

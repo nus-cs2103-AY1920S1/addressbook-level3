@@ -1,8 +1,8 @@
 package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.exercise.logic.commands.events.EditEvent.KEY_EDITED_EXERCISE;
-import static seedu.exercise.logic.commands.events.EditEvent.KEY_ORIGINAL_EXERCISE;
+import static seedu.exercise.logic.commands.events.EditExerciseEvent.KEY_EDITED_EXERCISE;
+import static seedu.exercise.logic.commands.events.EditExerciseEvent.KEY_ORIGINAL_EXERCISE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;

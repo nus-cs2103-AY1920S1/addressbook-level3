@@ -21,7 +21,7 @@ public class DeleteExerciseEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    public DeleteExerciseEvent(EventPayload<? super Exercise> eventPayload) {
+    public DeleteExerciseEvent(EventPayload<Exercise> eventPayload) {
         this.exerciseToDelete = (Exercise) eventPayload.get(KEY_EXERCISE_TO_DELETE);
     }
 

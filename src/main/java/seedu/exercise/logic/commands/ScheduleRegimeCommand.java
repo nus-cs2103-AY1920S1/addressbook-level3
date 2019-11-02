@@ -2,23 +2,30 @@ package seedu.exercise.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.logic.commands.events.ScheduleRegimeEvent.KEY_TO_SCHEDULE;
+
+import java.util.Collection;
 
 import seedu.exercise.MainApp;
 import seedu.exercise.commons.core.State;
+import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Name;
+import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.model.util.DateChangerUtil;
 import seedu.exercise.ui.ListResourceType;
 
 /**
  * Schedules a regime at a specific date.
  */
-public class ScheduleRegimeCommand extends ScheduleCommand {
+public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCarrierCommand {
 
     public static final String MESSAGE_SUCCESS = "Regime %1$s scheduled on %2$s";
     public static final String MESSAGE_REGIME_NOT_FOUND = "Regime %1$s not in regime book";
@@ -26,14 +33,17 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         + "Opening resolve window...";
     public static final String MESSAGE_DATE_BEFORE_CURRENT_DATE = "Input date falls before today's date. \n"
         + "Please choose a date after the today's date: %1$s";
+    public static final String UNIQUE_IDENTIFIER = "scheduleRegime";
 
     private Regime regime;
     private Date dateToSchedule;
+    private EventPayload<Schedule> eventPayload;
 
     public ScheduleRegimeCommand(Name regimeName, Date date) {
         requireAllNonNull(regimeName, date);
 
         this.regime = new Regime(regimeName, new UniqueResourceList<>());
+        this.eventPayload = new EventPayload<>();
         dateToSchedule = date;
     }
 
@@ -50,9 +60,20 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         }
 
         schedule(model, toSchedule);
-
+        eventPayload.put(KEY_TO_SCHEDULE, toSchedule);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, regime.getRegimeName(), dateToSchedule),
                 ListResourceType.SCHEDULE);
+    }
+
+    @Override
+    public EventPayload<Schedule> getPayload() {
+        return eventPayload;
+    }
+
+    @Override
+    public String getCommandTypeIdentifier() {
+        return UNIQUE_IDENTIFIER;
     }
 
     @Override
@@ -85,7 +106,9 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
      */
     private Schedule getScheduleFromModel(Model model) {
         int indexOfRegime = model.getRegimeIndex(regime);
-        Regime regimeToSchedule = model.getFilteredRegimeList().get(indexOfRegime);
+        Regime regimeToSchedule = getRegimeWithUpdatedExerciseDate(
+                model.getFilteredRegimeList().get(indexOfRegime));
+
         Schedule toSchedule = new Schedule(regimeToSchedule, dateToSchedule);
 
         if (model.hasSchedule(toSchedule)) {
@@ -96,6 +119,20 @@ public class ScheduleRegimeCommand extends ScheduleCommand {
         }
 
         return toSchedule;
+    }
+
+    /**
+     * Returns a regime with all exercises' Date updated to the given date to schedule.
+     */
+    private Regime getRegimeWithUpdatedExerciseDate(Regime regime) {
+        Collection<Exercise> regimeExercises =
+                DateChangerUtil
+                        .changeAllDate(regime.getRegimeExercises().asUnmodifiableObservableList(), dateToSchedule);
+        UniqueResourceList<Exercise> exercisesWithUpdatedDate = new UniqueResourceList<>();
+        for (Exercise exercise : regimeExercises) {
+            exercisesWithUpdatedDate.add(exercise);
+        }
+        return new Regime(regime.getRegimeName(), exercisesWithUpdatedDate);
     }
 
     private void schedule(Model model, Schedule toSchedule) {

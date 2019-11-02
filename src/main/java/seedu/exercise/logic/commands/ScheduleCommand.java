@@ -7,7 +7,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 /**
  * Schedules a regime or completes a schedule on a certain date
  */
-public abstract class ScheduleCommand extends Command {
+public abstract class ScheduleCommand extends Command implements UndoableCommand, TypeDependentCommand {
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -23,4 +23,8 @@ public abstract class ScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "1";
 
+    @Override
+    public String getUndoableCommandWord() {
+        return COMMAND_WORD;
+    }
 }

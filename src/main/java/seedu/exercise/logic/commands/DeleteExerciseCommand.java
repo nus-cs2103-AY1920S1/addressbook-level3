@@ -62,7 +62,7 @@ public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarri
     }
 
     @Override
-    public String getResourceType() {
+    public String getCommandTypeIdentifier() {
         return RESOURCE_TYPE;
     }
 

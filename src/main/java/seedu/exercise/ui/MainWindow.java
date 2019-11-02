@@ -298,20 +298,20 @@ public class MainWindow extends UiPart<Stage> {
      * Checks if a the resource list has to change based on the {@code CommandResult}
      */
     private void updateResourceListTab(CommandResult commandResult) {
-        switch (commandResult.getShowListResourceType().name()) {
-        case "NULL":
+        switch (commandResult.getShowListResourceType()) {
+        case NULL:
             //no change to GUI
             return;
-        case "EXERCISE":
+        case EXERCISE:
             handleShowExerciseList();
             return;
-        case "REGIME":
+        case REGIME:
             handleShowRegimeList();
             return;
-        case "SCHEDULE":
+        case SCHEDULE:
             handleShowScheduleList();
             return;
-        case "SUGGEST":
+        case SUGGEST:
             handleShowSuggestionList();
             return;
         default:

@@ -51,7 +51,7 @@ public class EventHistoryTest {
         } catch (CommandException e) {
             e.printStackTrace();
         }
-        Event expectedEvent = new EditEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
+        Event expectedEvent = new EditExerciseEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
         Event actualEvent = eventHistory.getUndoStack().peek();
         assertEquals(expectedEvent, actualEvent);
     }

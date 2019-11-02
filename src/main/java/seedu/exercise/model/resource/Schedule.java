@@ -10,6 +10,7 @@ import seedu.exercise.storage.resource.JsonAdaptedSchedule;
  * Represents a schedule for a regime at a certain date.
  */
 public class Schedule extends Resource {
+    private static final String SCHEDULE_STRING_FORMATTER = "%s (%s)\n%s";
     private final Regime regime;
     private final Date date;
 
@@ -56,7 +57,7 @@ public class Schedule extends Resource {
 
     @Override
     public String toString() {
-        return date.toString() + "\n" + regime.toString();
+        return String.format(SCHEDULE_STRING_FORMATTER, getRegimeName(), date.toString(), regime.toString());
     }
 
     @Override

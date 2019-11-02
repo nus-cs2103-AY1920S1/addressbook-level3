@@ -6,7 +6,7 @@ import seedu.exercise.model.resource.Exercise;
 /**
  * Represents a particular edit event that can be redone or undone.
  */
-public class EditEvent implements Event {
+public class EditExerciseEvent implements Event {
 
     public static final String KEY_ORIGINAL_EXERCISE = "originalExercise";
     public static final String KEY_EDITED_EXERCISE = "editedExercise";
@@ -23,12 +23,12 @@ public class EditEvent implements Event {
     private final Exercise editedExercise;
 
     /**
-     * Creates a EditEvent to store the particular event of an exercise being edited
+     * Creates a EditExerciseEvent to store the particular event of an exercise being edited
      * in the exercise book.
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    public EditEvent(EventPayload<? super Exercise> eventPayload) {
+    public EditExerciseEvent(EventPayload<Exercise> eventPayload) {
         this.originalExercise = (Exercise) eventPayload.get(KEY_ORIGINAL_EXERCISE);
         this.editedExercise = (Exercise) eventPayload.get(KEY_EDITED_EXERCISE);
     }
@@ -69,9 +69,9 @@ public class EditEvent implements Event {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EditEvent // instanceof handles nulls
-                && originalExercise.equals(((EditEvent) other).getOriginalExercise())
-                && editedExercise.equals(((EditEvent) other).getEditedExercise()));
+                || (other instanceof EditExerciseEvent // instanceof handles nulls
+                && originalExercise.equals(((EditExerciseEvent) other).getOriginalExercise())
+                && editedExercise.equals(((EditExerciseEvent) other).getEditedExercise()));
     }
 
 }

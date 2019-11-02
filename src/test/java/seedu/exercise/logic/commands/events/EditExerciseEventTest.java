@@ -12,17 +12,17 @@ import org.junit.jupiter.api.Test;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;
 
-public class EditEventTest {
+public class EditExerciseEventTest {
 
     private Model actualModel;
     private Model expectedModel;
-    private EditEvent editEvent;
+    private EditExerciseEvent editExerciseEvent;
 
     @BeforeEach
     public void setUp() {
         expectedModel = new ModelManager();
         actualModel = new ModelManager();
-        editEvent = new EditEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
+        editExerciseEvent = new EditExerciseEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
     }
 
     @Test
@@ -30,14 +30,14 @@ public class EditEventTest {
         expectedModel.addExercise(WALK_EXERCISE);
         actualModel.addExercise(WALK_EXERCISE);
         actualModel.setExercise(WALK_EXERCISE, WALK_EXERCISE_EDITED);
-        assertUndoEventSuccess(editEvent, expectedModel, actualModel);
+        assertUndoEventSuccess(editExerciseEvent, expectedModel, actualModel);
     }
 
     @Test
     public void redo_modelAfterUndoingEditExercise_modelWithExerciseEdited() {
         expectedModel.addExercise(WALK_EXERCISE_EDITED);
         actualModel.addExercise(WALK_EXERCISE_EDITED); // Simulating edit exercise event
-        editEvent.undo(actualModel);
-        assertRedoEventSuccess(editEvent, expectedModel, actualModel);
+        editExerciseEvent.undo(actualModel);
+        assertRedoEventSuccess(editExerciseEvent, expectedModel, actualModel);
     }
 }

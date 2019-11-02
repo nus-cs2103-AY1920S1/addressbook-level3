@@ -1,4 +1,4 @@
-package seedu.exercise.logic.commands.events;
+package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
@@ -10,7 +10,6 @@ import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExe
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.exercise.logic.commands.CustomRemoveCommand;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.ModelManager;

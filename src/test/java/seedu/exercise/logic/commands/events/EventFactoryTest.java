@@ -15,9 +15,14 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_EXERCISE_C
 import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_EXERCISE_EVENT_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_REGIME_BY_ADD_EVENT_ONE_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.EDIT_REGIME_BY_DELETE_EVENT_ONE_PAYLOAD;
+import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_COMPLETE_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD;
+import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_COMPLETE_LEVEL_ONE_REGIME_EVENT_PAYLOAD;
+import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_LEVEL_ONE_REGIME_EVENT_PAYLOAD;
+import static seedu.exercise.logic.commands.events.EventTestUtil.SCHEDULE_REGIME_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedAddEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedDeleteEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedEventEquals;
+import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedScheduleEventEquals;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
 
@@ -66,7 +71,7 @@ public class EventFactoryTest {
 
     @Test
     public void commandToEvent_editCommand_returnsEditEvent() {
-        Event expectedEvent = new EditEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
+        Event expectedEvent = new EditExerciseEvent(EDIT_EXERCISE_EVENT_PAYLOAD);
         assertGeneratedEventEquals(expectedEvent, EDIT_EXERCISE_COMMAND_WITH_PAYLOAD);
     }
 
@@ -104,6 +109,19 @@ public class EventFactoryTest {
     public void generateEventFromDeleteCommand_deleteRegimeCommand_returnsEditRegimeEvent() {
         Event expectedEvent = new EditRegimeEvent(EDIT_REGIME_BY_DELETE_EVENT_ONE_PAYLOAD);
         assertGeneratedDeleteEventEquals(expectedEvent, DELETE_REGIME_COMMAND_WITH_EDIT_ONE_PAYLOAD);
+    }
+
+    @Test
+    public void generateEventFromScheduleCommand_scheduleRegimeCommand_returnsScheduleRegimeEvent() {
+        Event expectedEvent = new ScheduleRegimeEvent(SCHEDULE_LEVEL_ONE_REGIME_EVENT_PAYLOAD);
+        assertGeneratedScheduleEventEquals(expectedEvent, SCHEDULE_REGIME_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD);
+    }
+
+    @Test
+    public void generateEventFromScheduleCommand_scheduleCompleteCommand_returnsScheduleCompleteEvent() {
+        Event expectedEvent = new ScheduleCompleteEvent(SCHEDULE_COMPLETE_LEVEL_ONE_REGIME_EVENT_PAYLOAD);
+        assertGeneratedScheduleEventEquals(expectedEvent,
+                SCHEDULE_COMPLETE_COMMAND_LEVEL_ONE_REGIME_DATE_1_WITH_PAYLOAD);
     }
 
 }

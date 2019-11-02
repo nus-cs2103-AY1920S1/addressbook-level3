@@ -23,7 +23,7 @@ public class ClearEvent implements Event {
      * @param eventPayload a wrapper class that stores the exercise book in the state before the ClearEvent.
      */
     @SuppressWarnings("unchecked")
-    public ClearEvent(EventPayload<? super ReadOnlyResourceBook<Exercise>> eventPayload) {
+    public ClearEvent(EventPayload<ReadOnlyResourceBook<Exercise>> eventPayload) {
         this.exerciseBookCleared = (ReadOnlyResourceBook<Exercise>) eventPayload.get(KEY_EXERCISE_BOOK_CLEARED);
     }
 

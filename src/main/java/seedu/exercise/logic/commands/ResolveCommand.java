@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_CONTEXT;
 import static seedu.exercise.commons.util.CollectionUtil.areListsEmpty;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_CONFLICT;
+import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_RESOLVED_SCHEDULE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CONFLICT_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
@@ -15,18 +17,21 @@ import seedu.exercise.commons.core.Messages;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.commons.core.index.IndexUtil;
+import seedu.exercise.logic.commands.events.EventHistory;
+import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.UniqueResourceList;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
+import seedu.exercise.model.resource.Schedule;
 import seedu.exercise.ui.ListResourceType;
 
 /**
  * Represents a Resolve Command that resolves scheduling conflicts.
  */
-public class ResolveCommand extends Command {
+public class ResolveCommand extends Command implements UndoableCommand, PayloadCarrierCommand {
 
     public static final String COMMAND_WORD = "resolve";
 
@@ -54,12 +59,14 @@ public class ResolveCommand extends Command {
     private Conflict conflict;
     private List<Index> indexToTakeFromSchedule;
     private List<Index> indexToTakeFromConflict;
+    private EventPayload<Object> eventPayload;
 
     public ResolveCommand(Name regimeName, List<Index> indexToTakeFromSchedule, List<Index> indexToTakeFromConflict) {
         requireAllNonNull(regimeName, indexToTakeFromConflict, indexToTakeFromSchedule);
         this.regimeName = regimeName;
         this.indexToTakeFromSchedule = indexToTakeFromSchedule;
         this.indexToTakeFromConflict = indexToTakeFromConflict;
+        this.eventPayload = new EventPayload<>();
     }
 
     @Override
@@ -79,10 +86,23 @@ public class ResolveCommand extends Command {
 
         checkSelectedIndexesDoNotHaveDuplicatesFromModel(model);
 
-        resolveConflict(model);
+        Schedule resolvedSchedule = resolveConflict(model);
+        eventPayload.put(KEY_RESOLVED_SCHEDULE, resolvedSchedule);
+        eventPayload.put(KEY_CONFLICT, conflict);
+        EventHistory.getInstance().addCommandToUndoStack(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
                 conflict.getScheduledName(),
                 conflict.getConflictedName()), ListResourceType.SCHEDULE);
+    }
+
+    @Override
+    public EventPayload<Object> getPayload() {
+        return eventPayload;
+    }
+
+    @Override
+    public String getUndoableCommandWord() {
+        return COMMAND_WORD;
     }
 
     @Override
@@ -103,10 +123,15 @@ public class ResolveCommand extends Command {
                 && indexToTakeFromSchedule.equals(otherCommand.indexToTakeFromSchedule);
     }
 
-    private void resolveConflict(Model model) {
+    /**
+     * Calls the model to resolve the conflict and return a resolved Schedule object.
+     */
+    private Schedule resolveConflict(Model model) {
         requireNonNull(model);
-        model.resolveConflict(regimeName, indexToTakeFromSchedule, indexToTakeFromConflict);
+        Schedule resolvedSchedule = model.resolveConflict(regimeName,
+                indexToTakeFromSchedule, indexToTakeFromConflict);
         MainApp.setState(State.NORMAL);
+        return resolvedSchedule;
     }
 
     private Conflict getConflictFromModel(Model model) {

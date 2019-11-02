@@ -21,7 +21,7 @@ public class AddExerciseEvent implements Event {
      *
      * @param eventPayload a wrapper class that stores the essential information for undo and redo
      */
-    public AddExerciseEvent(EventPayload<? super Exercise> eventPayload) {
+    public AddExerciseEvent(EventPayload<Exercise> eventPayload) {
         this.exercise = (Exercise) eventPayload.get(KEY_EXERCISE_TO_ADD);
     }
 

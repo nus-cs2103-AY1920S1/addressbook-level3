@@ -225,7 +225,7 @@ public class AddRegimeCommand extends AddCommand implements PayloadCarrierComman
     }
 
     @Override
-    public String getResourceType() {
+    public String getCommandTypeIdentifier() {
         return RESOURCE_TYPE;
     }
 

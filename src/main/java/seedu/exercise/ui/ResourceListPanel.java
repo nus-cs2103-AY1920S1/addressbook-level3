@@ -60,12 +60,7 @@ public abstract class ResourceListPanel extends UiPart<Region> {
             public void onChanged(Change<? extends Resource> change) {
                 while (change.next()) {
                     int index = -1;
-                    if (change.wasReplaced()) {
-                        index = change.getFrom();
-                    } else if (change.wasAdded()) {
-                        index = resourceList.size() - 1;
-                    }
-
+                    index = change.getFrom();
                     if (index >= 0) {
                         selectGivenIndex(index);
                     }
