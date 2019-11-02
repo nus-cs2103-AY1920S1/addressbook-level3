@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
@@ -31,8 +32,10 @@ public class IndividualContactWindow extends UiPart<Stage> {
     private FlowPane claims;
 
     @FXML
-    private FlowPane tags;
+    private Stage root;
 
+    @FXML
+    private VBox box;
 
     /**
      * Creates a new Window.
@@ -43,6 +46,7 @@ public class IndividualContactWindow extends UiPart<Stage> {
         super(FXML, root);
         name.setText("Name: " + contact.getName().toString());
         number.setText("Contact: " + contact.getPhone().toString());
+        windowSetup();
         contact.getClaims().stream()
                 .forEach(id -> claims.getChildren().add(
                         new Label(String.valueOf("Claim " + Integer.parseInt(id.value)) + " ")));
@@ -53,6 +57,13 @@ public class IndividualContactWindow extends UiPart<Stage> {
      */
     public IndividualContactWindow(Contact contact) {
         this(new Stage(), contact);
+    }
+
+    /**
+     * Sets up settings for the individual contact window
+     */
+    public void windowSetup() {
+        box.setStyle("-fx-background-color:POWDERBLUE");
     }
 
     /**
@@ -101,5 +112,12 @@ public class IndividualContactWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
+    /**
+     * Closes the window
+     */
+    @FXML
+    private void closeAction() {
+        root.close();
+    }
 
 }

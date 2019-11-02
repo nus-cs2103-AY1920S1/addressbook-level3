@@ -38,14 +38,10 @@ public class GotoCommand extends Command {
      * @throws ParseException if the view is not properly typed by user
      */
     public GotoCommand(View view) {
-        try {
-            if (view == null) {
-                throw new ParseException("error");
-            }
-            gotoView = view;
-        } catch (ParseException e) {
-            e.getMessage();
+        if (view == null) {
+            throw new NullPointerException();
         }
+        gotoView = view;
     }
 
     /**

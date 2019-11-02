@@ -7,10 +7,10 @@
 <?import javafx.stage.Stage?>
 
 <?import javafx.scene.layout.VBox?>
-<fx:root resizable="false" title="IndividualClaim" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" resizable="false" title="IndividualClaim" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
-    <Scene>
-         <VBox alignment="CENTER">
+    <Scene onMouseClicked="#closeAction">
+         <VBox fx:id="box" alignment="CENTER">
             <children>
                 <Label fx:id="name" text="Label">
                     <HBox.margin>
@@ -39,10 +39,10 @@
                 </Label>
             </children>
             <opaqueInsets>
-               <Insets bottom="100.0" left="60.0" right="100.0" top="60.0" />
+               <Insets bottom="100.0" left="90.0" right="90.0" top="100.0" />
             </opaqueInsets>
             <padding>
-               <Insets bottom="100.0" left="60.0" right="100.0" top="60.0" />
+               <Insets bottom="100.0" left="90.0" right="90.0" top="100.0" />
             </padding>
          </VBox>
     </Scene>

@@ -3,7 +3,9 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.address.commons.core.LogsCenter;
@@ -34,6 +36,12 @@ public class IndividualClaimWindow extends UiPart<Stage> {
     @FXML
     private Label description;
 
+    @FXML
+    private VBox box;
+
+    @FXML
+    private Stage root;
+
     /**
      * Creates a new Window.
      *
@@ -41,10 +49,11 @@ public class IndividualClaimWindow extends UiPart<Stage> {
      */
     public IndividualClaimWindow(Stage root, Claim claim) {
         super(FXML, root);
+        windowSetup();
         name.setText("Name: " + claim.getName().toString());
         contact.setText("Contact: " + claim.getPhone().toString());
         date.setText("Date: " + claim.getDescription().toString());
-        amount.setText("Amount: " + claim.getAmount().toString());
+        amount.setText("Amount: $" + claim.getAmount().toString());
         description.setText("Description: " + claim.getDescription().toString());
     }
 
@@ -81,6 +90,18 @@ public class IndividualClaimWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets up settings for the individual claim window
+     */
+    public void windowSetup() {
+        name.setAlignment(Pos.CENTER);
+        contact.setAlignment(Pos.CENTER);
+        date.setAlignment(Pos.CENTER);
+        amount.setAlignment(Pos.CENTER);
+        description.setAlignment(Pos.CENTER);
+        box.setStyle("-fx-background-color:POWDERBLUE");
+    }
+
+    /**
      * Returns true if the help window is currently being shown.
      */
     public boolean isShowing() {
@@ -99,6 +120,14 @@ public class IndividualClaimWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Closes the window
+     */
+    @FXML
+    private void closeAction() {
+        root.close();
     }
 
 

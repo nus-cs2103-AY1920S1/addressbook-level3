@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertViewContactFailure;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
 import static seedu.address.testutil.Views.FIRST_VIEW;
 import static seedu.address.testutil.Views.SECOND_VIEW;
@@ -19,9 +21,20 @@ import seedu.address.model.View;
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code GotoCommand}.
  */
+//@@author {lawncegoh}
 class GotoCommandTest {
 
     private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
+
+    @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new GotoCommand(null));
+    }
+
+    @Test
+    public void execute_validView() {
+
+    }
 
     @Test
     public void execute_invalidView() {
@@ -41,13 +54,16 @@ class GotoCommandTest {
         GotoCommand gotoFirstCommandCopy = new GotoCommand(FIRST_VIEW);
         assertEquals(gotoFirstCommand, gotoFirstCommandCopy);
 
+        assertNotEquals(1, gotoFirstCommand);
+
         // different types -> returns false
         assertFalse(gotoFirstCommand.equals(1));
+        // different types -> returns false;
 
         // null -> returns false
         assertFalse(gotoFirstCommand.equals(null));
 
-        // different contact -> returns false
+        // different gotoCommands -> returns false
         assertFalse(gotoFirstCommand.equals(gotoSecondCommand));
     }
 

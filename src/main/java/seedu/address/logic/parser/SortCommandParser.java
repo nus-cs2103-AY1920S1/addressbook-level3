@@ -7,6 +7,7 @@ import seedu.address.model.SortFilter;
 /**
  * Parses the user input to return a SortCommand
  */
+//@@author {lawncegoh}
 public class SortCommandParser implements Parser<SortCommand> {
 
     /**
