@@ -7,6 +7,7 @@ import static seedu.jarvis.testutil.cca.TypicalCcaMilestones.TIGER;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.model.cca.exceptions.MaxProgressNotSetException;
 
