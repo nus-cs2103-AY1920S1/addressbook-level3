@@ -47,4 +47,6 @@ public class InventoryMessages {
 
     public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description and category is the same as that"
             + " of an existing item. We have added the quantity to the existing item.";
+
+    public static final String MESSAGE_NEGATIVE_NUMBER = "The given input cannot be negative.";
 }

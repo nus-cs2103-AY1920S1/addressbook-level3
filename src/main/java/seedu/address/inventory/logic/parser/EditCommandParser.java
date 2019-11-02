@@ -41,13 +41,40 @@ public class EditCommandParser {
             editItemDescriptor.setCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
         }
         if (argMultimap.getValue(PREFIX_QUANTITY).isPresent()) {
-            editItemDescriptor.setQuantity(Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get()));
+            try {
+                Integer quantity = Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get());
+                if (quantity < 0) {
+                    throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else {
+                    editItemDescriptor.setQuantity(quantity);
+                }
+            } catch (Exception e) {
+                throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+            }
         }
         if (argMultimap.getValue(PREFIX_COST).isPresent()) {
-            editItemDescriptor.setCost(Double.parseDouble(argMultimap.getValue(PREFIX_COST).get()));
+            try {
+                Double cost = Double.parseDouble(argMultimap.getValue(PREFIX_COST).get());
+                if (cost < 0) {
+                    throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else {
+                    editItemDescriptor.setCost(cost);
+                }
+            } catch (Exception e) {
+                throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+            }
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
-            editItemDescriptor.setPrice(Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get()));
+            try {
+                Double price = Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
+                if (price < 0) {
+                    throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else {
+                    editItemDescriptor.setPrice(price);
+                }
+            } catch (Exception e) {
+                throw new ParseException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+            }
         }
 
         if (!editItemDescriptor.isAnyFieldEdited()) {
