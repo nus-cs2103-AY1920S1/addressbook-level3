@@ -61,11 +61,16 @@ public class DeleteEventCommandSuggester extends Suggester {
                 person = model.getUser();
             }
 
+            final String searchTerm = commandArgument.getValue();
+
             return person
                     .getSchedule()
                     .getEvents()
                     .stream()
                     .map(Event::getEventName)
+                    .filter(eventName -> {
+                        return eventName.startsWith(searchTerm);
+                    })
                     .collect(Collectors.toUnmodifiableList());
         }
 
