@@ -83,6 +83,23 @@ public class AmountTest {
     }
 
     @Test
+    public void isZero() {
+        // negative
+        assertFalse(Amount.isZero("-0.50"));
+        assertFalse(Amount.isZero("-10.50"));
+        assertFalse(Amount.isZero("-50"));
+
+        // positive
+        assertFalse(Amount.isZero("0.50"));
+        assertFalse(Amount.isZero("10.50"));
+        assertFalse(Amount.isZero("50"));
+
+        // zero
+        assertTrue(Amount.isZero("0"));
+        assertTrue(Amount.isZero("0.00"));
+    }
+
+    @Test
     public void testToString() {
         assertEquals(new Amount("0").toString(), "0.00");
         assertEquals(new Amount("1").toString(), "1.00");

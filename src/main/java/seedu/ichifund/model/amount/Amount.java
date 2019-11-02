@@ -75,6 +75,14 @@ public class Amount implements Comparable<Amount> {
         return test.substring(0, 1).equals("-");
     }
 
+    /**
+     * Returns true if a given string is zero.
+     * String must first correspond to a valid amount.
+     */
+    public static boolean isZero(String test) {
+        return test.equals("0") || test.equals("0.00");
+    }
+
     @Override
     public String toString() {
         int dollars = valueInCents / 100;
