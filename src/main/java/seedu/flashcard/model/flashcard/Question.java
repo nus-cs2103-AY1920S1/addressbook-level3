@@ -10,7 +10,8 @@ import static seedu.flashcard.commons.util.AppUtil.checkArgument;
 public class Question {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Questions should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Questions should only contain alphanumeric characters, "
+                + "normal symbols like question marks and commas and spaces, and it should not be blank";
     public static final String VALIDATION_REGEX = "\\S.*";
 
     public final String question;

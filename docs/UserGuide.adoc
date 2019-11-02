@@ -157,7 +157,7 @@ Examples:
 Starts a continuous quiz on a tag or a series of tags +
 Format:
 
-Format: `quiz t/TAG...`
+Format: `quiztag t/TAG...`
 
 ****
 * Starts a continuous quiz on all flashcards in the given tags
@@ -166,7 +166,7 @@ Format: `quiz t/TAG...`
 
 Examples:
 
-* `quiz t/mathematics t/geography` : start a quiz on all the flashcards with tag `mathematics` and `geography`.
+* `quiztag t/mathematics t/geography` : start a quiz on all the flashcards with tag `mathematics` and `geography`.
 
 === Flip a flashcard
 NOTE: Only usable in quiz mode (i.e after a quiz or quiztag command)
@@ -224,7 +224,7 @@ Deletes the specified flashcard from the list of all flashcards. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person with the specified `INDEX`.
+* Deletes the flashcard with the specified `INDEX`.
 ****
 
 Example:

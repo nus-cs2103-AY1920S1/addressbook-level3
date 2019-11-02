@@ -10,7 +10,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * API of the Storage component
+ * API of the storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
