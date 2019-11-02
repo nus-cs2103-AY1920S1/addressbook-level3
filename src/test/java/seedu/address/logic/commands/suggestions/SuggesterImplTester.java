@@ -83,7 +83,12 @@ abstract class SuggesterImplTester {
     }
 
     void assertNoSuggestions(final ArgumentList arguments, final CommandArgument commandArgument) {
-        assertEquals(NO_SUGGESTIONS, getSuggestions(arguments, commandArgument));
+        assertSuggestionsEquals(arguments, commandArgument, NO_SUGGESTIONS);
+    }
+
+    void assertSuggestionsEquals(final ArgumentList arguments, final CommandArgument commandArgument,
+                                 final List<String> expectedSuggestions) {
+        assertEquals(expectedSuggestions, getSuggestions(arguments, commandArgument));
     }
 
     /**
@@ -122,7 +127,7 @@ abstract class SuggesterImplTester {
 
     @Test
     final void getSuggestions_unrelatedPrefix_noSuggestions() {
-        assertEquals(List.of(), getSuggestions(UNRELATED_ARGUMENT_LIST, UNRELATED_COMMAND_ARGUMENT));
+        assertNoSuggestions(UNRELATED_ARGUMENT_LIST, UNRELATED_COMMAND_ARGUMENT);
     }
 
     @Test
