@@ -460,6 +460,10 @@
     -fx-font-size: 11;
 }
 
+#reminderListPanel > .viewport {
+    -fx-background-color: transparent;
+}
+
 #calendarMonthScrollPane > .viewport {
     -fx-background-color: transparent;
 }
@@ -470,8 +474,6 @@
 
 #entryNumber {
     -fx-font-size: 10px;
-    -fx-border-radius: 5;
-    -fx-padding: 0 3 0 0;
 }
 
 #yearMonth {

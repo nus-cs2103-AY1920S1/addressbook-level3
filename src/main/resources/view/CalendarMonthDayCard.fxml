@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="40.0" prefWidth="100.0">
+<BorderPane fx:id="dayCard" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="30.0" prefWidth="100.0">
     <center>
         <Label fx:id="date" text="\$date"/>
     </center>
     <bottom>
-        <Label fx:id="entryNumber" styleClass="red-small" text="" BorderPane.alignment="BOTTOM_RIGHT"/>
+        <Label fx:id="entryNumber" text="" BorderPane.alignment="BOTTOM_RIGHT"/>
     </bottom>
 
 </BorderPane>

@@ -26,9 +26,12 @@ public class DailyCalendarEntries extends UiPart<Region> {
 
     public DailyCalendarEntries(LocalDate date, ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
+        this.getRoot().setStyle("-fx-border-width: 0 0 2 0; -fx-border-color: #818A90");
         day.setText(date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth() + " "
                 + date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
         day.setWrapText(true);
+        day.setStyle("-fx-background-radius: 0.2em; -fx-background-color: #818A9E; "
+                + "-fx-text-fill: white; -fx-padding: 2");
         dailyCalendarEntryList.setItems(calendarEntries
                 .filtered(calendarEntry -> calendarEntry.isOnDate(date)).sorted());
         dailyCalendarEntryList.setCellFactory(listView -> new CalendarListViewCell());

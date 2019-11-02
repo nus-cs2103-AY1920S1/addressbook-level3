@@ -6,7 +6,10 @@
 
 <?import javafx.scene.control.ListView?>
 <VBox fx:id="dailyCalendarEntries"  VBox.vgrow="ALWAYS" minHeight="0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <Label fx:id="day" text="/$day">
+    <padding>
+        <Insets top="5"></Insets>
+    </padding>
+    <Label fx:id="day" text="/$day" styleClass="cell_big_label">
         <padding>
             <Insets left="2" top="5"></Insets>
         </padding>

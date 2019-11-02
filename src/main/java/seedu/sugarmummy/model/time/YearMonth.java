@@ -31,6 +31,10 @@ public class YearMonth {
         this.yearMonth = java.time.YearMonth.of(year, month);
     }
 
+    public static YearMonth getCurrent() {
+        return new YearMonth(java.time.YearMonth.now());
+    }
+
     /**
      * Returns true if a given string is a valid year and month.
      */
