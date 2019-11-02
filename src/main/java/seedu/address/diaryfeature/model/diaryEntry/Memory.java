@@ -1,8 +1,6 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
-import static java.util.Objects.requireNonNull;
 
-import java.util.logging.Logger;
 
 public class Memory {
 
@@ -11,7 +9,10 @@ public class Memory {
             "Memory, while optional, if input, " +
             "can't be the empty string, can't only be spaces ";
 
-    public final String memory;
+    private final String memory;
+    private boolean isPrivate = false;
+    public static final String HIDDEN_MESSAGE = "*****";
+    private String showMemory;
 
     /**
      * Constructs an {@code Address}.
@@ -20,11 +21,34 @@ public class Memory {
      */
     public Memory(String input){
         memory = input;
+        showMemory = input;
     }
+
+    public boolean getPrivacy() {
+        return isPrivate;
+    }
+
+    public void setPrivate() {
+        isPrivate = true;
+        showMemory = HIDDEN_MESSAGE;
+        System.out.println("private" + showMemory);
+
+    }
+
+    public void unPrivate() {
+        isPrivate = false;
+        showMemory = memory;
+        System.out.println("unprivate" + showMemory);
+    }
+
 
 
     @Override
     public String toString() {
+        return showMemory;
+    }
+
+    public String toSave() {
         return memory;
     }
 

@@ -22,7 +22,9 @@ import seedu.address.diaryfeature.storage.JsonDiaryBookStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
@@ -46,6 +48,10 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private ResultDisplay resultDisplay;
     private DiaryBookParser parser;
     private DiaryBookLogic logicHandler;
+    private DiaryHelpWindow helpWindow;
+    private CodeWindow codeWindow;
+
+
 
 
 
@@ -67,10 +73,13 @@ public class DiaryPage extends UiPart<Region> implements Page {
 
 
 
+
+
     public DiaryPage() {
         super(FXML);
         this.parser = new DiaryBookParser();
         diaryScene = new Scene(diaryPane);
+        this.helpWindow = new DiaryHelpWindow();
         JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data","diaryBook.json"));
             Optional<DiaryBook> diaryBookOptional;
             DiaryBook initialData;
@@ -117,8 +126,9 @@ public class DiaryPage extends UiPart<Region> implements Page {
             CommandResult commandResult = logicHandler.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -131,14 +141,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
         }
     }
 
-    /**
-     * Quit after letting user read the ByeResponse.
-     *
-     */
-
-    public void exit() {
-
-    }
 
 
     /**
@@ -157,6 +159,31 @@ public class DiaryPage extends UiPart<Region> implements Page {
         Timer timer = new Timer();
         timer.schedule(myDelay,350);
     }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
+    }
+
 
     @Override
     public Scene getScene() {

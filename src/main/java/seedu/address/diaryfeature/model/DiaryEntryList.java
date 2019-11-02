@@ -37,6 +37,17 @@ public class DiaryEntryList {
         return removed;
     }
 
+    public void setDiaryEntryPrivate(int index) {
+        DiaryEntry removed = entries.get(index - 1 );
+        removed.setPrivate();
+    }
+
+    public void setDiaryEntryUnPrivate(int index) {
+        DiaryEntry removed = entries.get(index - 1);
+        removed.unPrivate();
+    }
+
+
     /**
      *
      * @return

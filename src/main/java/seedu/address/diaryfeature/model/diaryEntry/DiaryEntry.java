@@ -55,6 +55,14 @@ public class DiaryEntry {
         return memory;
     }
 
+    public void setPrivate() {
+        this.memory.setPrivate();
+    }
+
+    public void unPrivate() {
+        this.memory.unPrivate();
+    }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -102,7 +110,7 @@ public class DiaryEntry {
                 .append("Place: ")
                 .append(getPlace() + "\n")
                 .append("Memory: ")
-                .append(getMemory() + "\n");
+                .append(getMemory().toString() + "\n");
         return builder.toString();
     }
 

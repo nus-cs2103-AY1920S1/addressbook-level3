@@ -46,6 +46,14 @@ public class DiaryModel {
         return diaryBook.deleteDiaryEntry(target);
     }
 
+
+    public void setDiaryEntryPrivate(int index) {
+        diaryBook.setDiaryEntryPrivate(index);
+    }
+
+    public void setDiaryEntryUnPrivate(int index) {
+        diaryBook.setDiaryEntryUnPrivate(index);
+    }
     public String getEntriesAsString() {
         return diaryBook.getEntriesAsString();
     }
@@ -60,7 +68,6 @@ public class DiaryModel {
 
         return diaryBook.addDiaryEntry(diaryEntry);
     }
-
 
 
     /**
