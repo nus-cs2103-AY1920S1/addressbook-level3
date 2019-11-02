@@ -7,12 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
+import java.util.Set;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-
-import java.util.Set;
 
 /**
  * A utility class for Person.

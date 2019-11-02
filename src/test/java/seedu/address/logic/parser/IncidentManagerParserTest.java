@@ -67,8 +67,8 @@ public class IncidentManagerParserTest {
         assertDoesNotThrow(() -> parser.parseCommand(ListIncidentsCommand.COMMAND_WORD));
 
         // Invalid access
-        assertThrows(ParseException.class, GUI_SWAP_MESSAGE,
-                () -> parser.parseCommand(ListPersonsCommand.COMMAND_WORD));
+        assertThrows(ParseException.class,
+                GUI_SWAP_MESSAGE, () -> parser.parseCommand(ListPersonsCommand.COMMAND_WORD));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class IncidentManagerParserTest {
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ENTITY.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_ENTITY), command);
     }
-    
+
     @Test
     public void parseCommand_edit() throws Exception {
         parser.setPersonView(false);
