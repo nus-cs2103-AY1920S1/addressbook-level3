@@ -1,4 +1,4 @@
-package dukecooks.model.profile.person;
+package dukecooks.model.diary;
 
 import static dukecooks.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;

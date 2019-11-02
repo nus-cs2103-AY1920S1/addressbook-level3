@@ -43,8 +43,10 @@ public class Time {
      * Checks if it is a valid time.
      */
     public static boolean isValidTime(String time) {
-        requireNonNull(time);
-        checkArgument(isValidTimeFormat(time), MESSAGE_TIME_CONSTRAINTS);
+        if (time == null || !isValidTimeFormat(time)) {
+            return false;
+        }
+
         String[] t = time.split("[\\:]");
         int hour = Integer.parseInt(t[0]);
         int minute = Integer.parseInt(t[1]);
@@ -54,6 +56,7 @@ public class Time {
 
     /**
      * Constructs a {@code Time} from String.
+     * This method should only take valid time format inputs.
      * @param time A valid time in String format.
      */
     public static Time generateTime(String time) {

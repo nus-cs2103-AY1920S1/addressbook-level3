@@ -51,7 +51,9 @@ public class Date {
      * Checks if it is a valid date.
      */
     public static boolean isValidDate(String date) {
-        requireNonNull(date);
+        if (date == null || !isValidDateFormat(date)) {
+            return false;
+        }
         String[] d = date.split("[\\/]");
         int day = Integer.parseInt(d[0]);
         int month = Integer.parseInt(d[1]);
@@ -62,6 +64,7 @@ public class Date {
 
     /**
      * Constructs a {@code Date} from String.
+     * This method should only take valid date format inputs.
      * @param date A valid date in String format.
      */
     public static Date generateDate(String date) {

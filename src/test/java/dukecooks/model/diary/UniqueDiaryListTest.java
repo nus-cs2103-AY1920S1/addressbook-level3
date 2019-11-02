@@ -1,4 +1,4 @@
-package dukecooks.model.profile.person;
+package dukecooks.model.diary;
 
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
