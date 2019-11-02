@@ -44,6 +44,7 @@ public class AddCheatSheetCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CHEATSHEET = "This cheatsheet already exists";
     public static final String MESSAGE_SUCCESSFUL_AUTOGENERATE =
             " content(s) have been successfully generated from the other modes.";
+    public static final String MESSAGE_TAG_RESTRICTION = "Each cheatsheet must have at least 1 tag specified.";
 
     private final CheatSheet toAdd;
 
@@ -116,8 +117,6 @@ public class AddCheatSheetCommand extends Command {
         for (Flashcard flashcard: flashcardList) {
             contentList.add(new Content(flashcard.getQuestion().toString(),
                     flashcard.getAnswer().toString(), flashcard.getTags()));
-
-            System.out.println(contentList.toString());
         }
 
         return contentList;

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -46,6 +47,12 @@ public class CommandTestUtil {
 
     public static final String VALID_TITLE_MATH = "cheatsheet for maths";
     public static final String VALID_TITLE_GEM = "cheatsheet for gem module";
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "Title&"; // '&' not allowed in titles
+
+    public static final String TITLE_DESC_CS1 = " " + PREFIX_TITLE + VALID_TITLE_MATH;
+    public static final String TITLE_DESC_CS2 = " " + PREFIX_TITLE + VALID_TITLE_GEM;
+    public static final String TAG_DESC_CHEATSHEET = " " + PREFIX_TAG + VALID_TAG_CHEATSHEET;
+    public static final String TAG_DESC_IMPORTANT = " " + PREFIX_TAG + VALID_TAG_IMPORTANT;
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
