@@ -7,6 +7,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:caption_side: bottom
+
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -414,7 +416,7 @@ filtered transaction list. If the prior input is a Find Command and the list at 
 a filtered list by the Find Command's keywords, it will continue to show the filtered list at the end of the command.
 To view the full transaction list, the user would be required to input the
 Back Command where `BackCommand` calls `resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
- following section <<BackCommandSD, 3.1.3 BackCommand>>
+following section <<BackCommandSD, 3.1.3 BackCommand>>
 
 After this, the list of transactions and reimbursement tab is updated as shown in <<updateTL, Figure 11>> and <<update-reimbursement,Figure 12>>
 respectively.
@@ -427,12 +429,13 @@ The following activity diagram shows the steps needed to delete a new transactio
 image::HomeTabActivityDiagramDeleteCommand.png[]
 
 The above activity diagram assumes the index to be within the bounds of the table but if it is not, a response will
-be shown about the incorrect input. Also, as shown above, response on other incorrect inputs will also be shown.
-When a successful deletion is done, a response message is shown as well.
+be shown about the incorrect input. Also, as shown above, responses will be shown to indicate if an input is incorrect or
+when a successful deletion is done.
 
 ==== Back Command Feature
 [[BackCommandSD]]
-The `BackCommand` is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
+The `BackCommand` is called to show the full list of transactions when the table is showing
+a filtered list. It is not initialised by a specific command parser as shown in as shown in <<GeneralLogicSD, Interactions Inside the Logic Component for a Command>>
 but initialised by the `TransactionTabParser` instead.
 The following detailed sequence diagram shows how the back command works:
 
@@ -440,24 +443,46 @@ The following detailed sequence diagram shows how the back command works:
 
 image::HomeTabBackCommandSequenceDiagram.png[]
 
-//==== Sort Command Feature
-//The Sort Command is facilitated by the `VersionedtreasurerPro`. This feature allows for 3 types of sort, by name in
-//alphabetical order, by amount (from most to least) and by date (from oldest to most recent).
+==== Sort Command Feature
+The `SortCommand` allows for 3 types of sort, by name in
+alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
-//The following sequence diagram shows how the sort command works:
+The following sequence diagram shows how the sort command works:
 
-//.Sequence Diagram of Sort Command in Home Tab (transaction package)
+.Sequence Diagram of Sort Command in Home Tab (transaction package)
 
-//image::HomeTabSortCommandSequenceDiagram.png[]
+image::HomeTabSortSD.png[]
 
-//When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
-//the incorrect user input. When it is successfully sorted, there will also be a response message shown.
+When a user inputs the sort command, it is only checked that it is one of the 3 types or it will show a response about
+the incorrect user input. When it is successfully sorted, there will also be a response message shown.
 
-//Similar to the Delete Command, since the `resetPredicate()` method is not called as shown, the UI table will
-//continue to show the filtered transaction list if the prior input is a Find Command and the list at the start
-//of the activity diagram shows a filtered list by the Find Command's keywords.
-//To view the full transaction list, the user would have to input the
-//Back Command that calls `resetPredicate()`.
+Similar to the Delete Command, since the `resetPredicate()` method is not called.
+
+==== Overall Design Considerations
+This section's table explains the design considerations for some implementations in the Home Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|The Reimbursement Tab's `Model` and `Storage` interface is passed as parameters into Transaction Tab's `Logic`
+to call the methods in `Model` and `Storage` to update all the reimbursement data after a `Command` is
+executed in Home Tab.
+|The methods in Reimbursement Tab's `Model` and `Storage` is called to update all the reimbursement data in `MainWindow`
+after a `Command` is executed in Home Tab.
+|Alternative 2 was implemented. This limits access to all public methods in Reimbursement Tab's
+`Model` and `Storage` in Transaction Tab's `Logic` to prevent unwanted modifications to any of the reimbursement data.
+
+|The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
+of `ModelManager`.
+|A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
+`Logic`.
+|Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
+to `AddressBook`.
+
+|An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
+|A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
+|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would beuse frequently in `ModelManager`.
+|===
 
 === Members Tab
 This tab will help to keep track of the contact details of members in the club or society for the treasurer.
@@ -470,8 +495,6 @@ The following sequence diagram shows how the delete command works:
 .Sequence Diagram of Delete Command in Member Tab (transaction package)
 
 image::MembersDeleteSD.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked
 to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).

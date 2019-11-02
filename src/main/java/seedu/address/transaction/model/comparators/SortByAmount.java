@@ -12,11 +12,11 @@ public class SortByAmount implements Comparator<Transaction> {
     @Override
     public int compare(Transaction a, Transaction b) {
         if (a.getAmount() < b.getAmount()) {
-            return 1;
+            return -1;
         } else if (a.getAmount() == b.getAmount()) {
             return 0;
         } else {
-            return -1;
+            return 1;
         }
     }
 }

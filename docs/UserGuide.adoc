@@ -121,7 +121,7 @@ This command adds a transaction to the table and saves it into the system.
 `add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
 
 * Example:
-`add dt/24-Aug-2019, 07:00PM d/Printer ink c/Miscellaneous a/3.50 p/Janelle`
+`add dt/24-Aug-2019 d/Printer ink c/Miscellaneous a/3.50 p/Alex Yeoh`
 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
@@ -166,7 +166,7 @@ This command deletes either all transactions of a person or a single transaction
 
 * Examples:
 ** `delete 1`
-** `delete p/Alex Yeo`
+** `delete p/Alex Yeoh`
 
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
@@ -196,7 +196,13 @@ Leo will respond with the success message and the transaction(s) will be removed
 .Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2.png[]
 
-If the person does belong to any transactions, Leo will also respond with a message to inform you.
+If the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
+reimbursement record. On the other hand, if the person entered is not part of our data base shown in the Members Tab,
+Leo will respond with a message to inform you as shown in the screenshot below:
+
+image::homeUG/HomeAddUnsuccessfulStep2cr.png[width = "500"]
+
+If the person does not have any transactions, Leo will also respond with a message to inform you.
 
 ==== Edit a Transaction
 This command edits an existing transaction in the table, changing its details.
@@ -232,8 +238,8 @@ This command sorts the table of transactions into a specified order for viewing 
 
 * To sort:
 ** By date (from oldest to most recent): `sort date`
-** By name (from alphabetical order of name): `sort person`
-** By amount (from largest to smallest in amount): `sort amount`
+** By name (from alphabetical order of name): `sort name`
+** By amount (from smallest to largest in amount): `sort amount`
 ** Undo sort: `sort reset`
 
 [NOTE]
