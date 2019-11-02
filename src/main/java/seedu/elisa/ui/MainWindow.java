@@ -313,17 +313,10 @@ public class MainWindow extends UiPart<Stage> {
         popup.getContent().add(new OpenItem(item).getRoot());
         popup.setHeight(1000);
         popup.setWidth(500);
-        popup.setAutoHide(true);
+        popup.setHideOnEscape(false);
 
         this.popup = popup;
         popup.show(primaryStage);
-        popup.setOnHiding(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                CommandResult result = executeClose(new CommandResult(CloseCommand.MESSAGE_SUCCESS));
-                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
-            }
-        });
     }
 
     /**
