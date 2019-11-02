@@ -44,7 +44,7 @@ class AddCommandParser {
         if (!ParserUtil.arePrefixesPresent(argMultimap, CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } else if (ParserUtil.hasMultiplePrefixes(argMultimap, prefixes)) {
-            throw new ParseException(ParserUtil.MESSAGE_DUPLICATED_ARG);
+            throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
         // assumptions: if no start month/year specified it is the current month/year

@@ -8,7 +8,8 @@ import java.util.Optional;
 class YearParser {
     private static final String MESSAGE_NEGATIVE_YEAR_ERROR = "Invalid year. Year should be a positive number.";
     private static final String MESSAGE_YEAR_OUT_OF_RANGE = "Invalid year. Year should be between 1980 and 2200.";
-    private static final String MESSAGE_NON_INT_YEAR_ERROR = "Invalid year. Year should ba represented numerically.";
+    private static final String MESSAGE_NON_INT_YEAR_ERROR = "Invalid year. Year should be represented numerically.";
+    private static final String YEAR_EXTRA_ARG = "after year";
     private static final int YEAR_BOUND_LOWER = 1980;
     private static final int YEAR_BOUND_UPPER = 2200;
 
@@ -27,8 +28,14 @@ class YearParser {
             return Optional.empty();
         }
 
+        String yearInputStr = yearInput.get().trim();
+
+        if (ParserUtil.hasCharInValue(yearInputStr)) {
+            throw new ParseException(String.format(ParserUtil.MESSAGE_ARG_EXTRA, YEAR_EXTRA_ARG));
+        }
+
         try {
-            int year = Integer.parseInt(yearInput.get());
+            int year = Integer.parseInt(yearInputStr);
             return Optional.of(parse(year));
         } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_NON_INT_YEAR_ERROR);

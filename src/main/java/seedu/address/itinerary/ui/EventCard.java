@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.ui.UiPart;
 
@@ -54,6 +54,11 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private ImageView checkBox;
 
+    /**
+     * Constructor of the event card which makes the card based on the details of the current event.
+     * @param event current event which forms the event card in the event pane.
+     * @param displayedIndex the id for each event
+     */
     public EventCard(Event event, int displayedIndex) {
         super(fxmlCard);
         this.event = event;
@@ -96,6 +101,11 @@ public class EventCard extends UiPart<Region> {
                 && event.equals(card.event);
     }
 
+    /**
+     * Style the priority tagging to suit the event.
+     * @param command the user input on the event priority.
+     * @return the tag with different styling based on the priority of the event.
+     */
     private String selectStyle(String command) {
         String priority = command.split(" ")[1];
         switch (priority) {

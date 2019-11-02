@@ -68,6 +68,9 @@ public class PageManager {
         fadeInTransition.play();
     }
 
+    /**
+     * Closes the TravEzy application window when the user calls the exit command.
+     */
     public static void closeWindows() {
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> Platform.exit());

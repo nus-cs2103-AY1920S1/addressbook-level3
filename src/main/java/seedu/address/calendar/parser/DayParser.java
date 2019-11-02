@@ -10,7 +10,8 @@ import java.util.Optional;
 
 public class DayParser {
     private static final String MESSAGE_INVALID_DAY_RANGE_ERROR = "Invalid day. Day should exist within stated month.";
-    private static final String MESSAGE_NON_INT_DAY_ERROR = "Invalid day. Day should ba represented numerically.";
+    private static final String MESSAGE_NON_INT_DAY_ERROR = "Invalid day. Day should be represented numerically.";
+    private static final String DAY_EXTRA_ARG = "after day";
 
     private int parseDayOfMonth(String dayStr) throws ParseException {
         try {
@@ -22,7 +23,7 @@ public class DayParser {
     }
 
     private Day parse(int dayOfMonth, MonthOfYear monthOfYear, Year year) throws ParseException {
-        if (dayOfMonth < 0 || dayOfMonth > DateUtil.getNumDaysInMonth(monthOfYear, year)) {
+        if (dayOfMonth <= 0 || dayOfMonth > DateUtil.getNumDaysInMonth(monthOfYear, year)) {
             throw new ParseException(MESSAGE_INVALID_DAY_RANGE_ERROR);
         }
 
@@ -36,7 +37,13 @@ public class DayParser {
             return Optional.empty();
         }
 
-        int dayOfMonth = parseDayOfMonth(dayInput.get());
+        String dayOfMonthStr = dayInput.get().trim();
+
+        if (ParserUtil.hasCharInValue(dayOfMonthStr)) {
+            throw new ParseException(String.format(ParserUtil.MESSAGE_ARG_EXTRA, DAY_EXTRA_ARG));
+        }
+
+        int dayOfMonth = parseDayOfMonth(dayOfMonthStr);
 
         MonthOfYear monthOfYear = month.orElseGet(() -> {
             java.util.Calendar currentDate = java.util.Calendar.getInstance();

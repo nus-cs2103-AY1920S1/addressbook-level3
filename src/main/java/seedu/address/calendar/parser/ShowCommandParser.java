@@ -18,7 +18,7 @@ public class ShowCommandParser {
         if (!ParserUtil.arePrefixesPresent(argMultimap, CliSyntax.PREFIX_MONTH)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         } else if (ParserUtil.hasMultiplePrefixes(argMultimap, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR)) {
-            throw new ParseException(ParserUtil.MESSAGE_DUPLICATED_ARG);
+            throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
         Optional<MonthOfYear> monthOfYear = new MonthParser().parse(argMultimap.getValue(CliSyntax.PREFIX_MONTH));

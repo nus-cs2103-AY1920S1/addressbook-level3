@@ -491,7 +491,8 @@ intend to do. For example:
 
     title/Do CS2103T developer guide
 
-. Date: The _PREFIX_ is ``date/``. Note that the format TravEzy's Itinerary using is "ddMMyyyy". For example:
+. Date: The _PREFIX_ is ``date/``. TravEzy itinerary allows dates that starts from the year 1000 up till the year 3999.
+Note that the format TravEzy's Itinerary using is "ddMMyyyy". For example:
 
     date/30102019
 
@@ -540,7 +541,7 @@ Adds an event to your itinerary, with the parameters: title, date, time, locatio
 The _Command Word_ is ``add`` and the prefixes are ``title/`` for title, ``date/`` for date, ``time/`` for time,
 ``l/`` for location and ``d/`` for description. Location ``l/`` and Description ``d/`` are optional.
 
-Format: ``add title/TITLE date/DATE time/TIME l/LOCATION d/DESCRIPTION``
+Format: ``add title/TITLE date/DATE time/TIME [l/LOCATION] [d/DESCRIPTION]``
 
 Example:
 
@@ -692,9 +693,9 @@ The _Command Word_ is ``search``
 
 Format: ``search title/TITLE | date/DATE | time/TIME | l/LOCATION | tag/(Use the dropdown menu)``
 
-Example: If you want to search for events that are dated 10/10/1010 (Wedding theme song :D)
+Example: If you want to search for events that are dated 10/10/2010 (Wedding theme song :D)
 
-``search date/10101010``
+``search date/10102010``
 
 
 

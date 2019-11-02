@@ -2,6 +2,8 @@ package seedu.address.itinerary.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,9 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.model.Model;
 import seedu.address.ui.UiPart;
@@ -25,11 +26,11 @@ public class ClearCommandWindow extends UiPart<Stage> {
     private static final String FXML = "ClearCommandWindow.fxml";
     private Model model = null;
 
-    Notifications notificationBuilder;
+    private Notifications notificationBuilder;
 
-    Node graphic;
+    private Node graphic;
 
-    String clearSuccess = "Done! We have wiped off all your events from the face of this Earth! ( ﾟヮﾟ)";
+    private String clearSuccess = "Done! We have wiped off all your events from the face of this Earth! ( ﾟヮﾟ)";
 
     @FXML
     private Label clearMessage;
@@ -45,12 +46,11 @@ public class ClearCommandWindow extends UiPart<Stage> {
     public ClearCommandWindow(Stage root) {
         super(FXML, root);
 
-        String warning = "Warning! You are about the delete all the events that you have inserted"
-                + " into your itinerary list. This action cannot be undone. Would you like to proceed"
-                + " in clearing your whole event list?";
+        String warning = "Warning! This action CANNOT be undone. Are you sure you want to proceed?";
 
         clearMessage.setText(warning);
     }
+
 
     /**
      * Creates a new ClearWindow.
@@ -59,14 +59,16 @@ public class ClearCommandWindow extends UiPart<Stage> {
         this(new Stage());
     }
 
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    private void notification(Pos pos, Node graphic, String Text) {
+    /**
+     * Notify the user that the following action has been completed.
+     * @param pos specifies the position that the command box appears on the screen.
+     * @param graphic the picture accompanying the notification.
+     * @param text the message that is shown in the notification.
+     */
+    private void notification(Pos pos, Node graphic, String text) {
         notificationBuilder = Notifications.create()
                 .title("Clear Complete!")
-                .text(Text)
+                .text(text)
                 .graphic(graphic)
                 .hideAfter(Duration.seconds(5))
                 .position(pos)
@@ -76,6 +78,10 @@ public class ClearCommandWindow extends UiPart<Stage> {
                         System.out.println("Notification is clicked");
                     }
                 });
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     /**
