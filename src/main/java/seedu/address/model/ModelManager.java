@@ -587,9 +587,12 @@ public class ModelManager implements Model {
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
 
-            boolean isCancelledOrCompleted = o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED);
+            boolean isCancelledOrCompleted = o.getStatus().equals(Status.CANCELLED)
+                    || o.getStatus().equals(Status.COMPLETED);
 
             if (isCancelledOrCompleted) {
+
+
                 orderBook.remove(o);
 
                 if (!archivedOrderBook.has(o)) {
@@ -610,6 +613,8 @@ public class ModelManager implements Model {
             if (isNotCancelledOrCompleted) {
                 archivedOrderBook.remove(o);
 
+
+                //have to add
                 if (!orderBook.has(o)) {
                     orderBook.add(o);
                 }
@@ -628,14 +633,14 @@ public class ModelManager implements Model {
             assert (!o.getStatus().equals(Status.CANCELLED) && !o.getStatus().equals(Status.COMPLETED));
 
             boolean hasExactPhoneCopy = false;
-            for (Phone p: phones) {
+            for (Phone p : phones) {
                 if (o.getPhone().equals(p)) {
                     hasExactPhoneCopy = true;
                 }
             }
 
             boolean hasExactCustomerCopy = false;
-            for (Customer c: customers) {
+            for (Customer c : customers) {
                 if (o.getCustomer().equals(c)) {
                     hasExactCustomerCopy = true;
                 }
@@ -660,7 +665,7 @@ public class ModelManager implements Model {
         // if not cancel the orders.
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
-            assert(o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
+            assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
 
             boolean isCompletedOrder = o.getStatus().equals(Status.COMPLETED);
 
@@ -691,11 +696,39 @@ public class ModelManager implements Model {
 
         toCancelIndexList.sort(Collections.reverseOrder());
 
-        for (int index: toCancelIndexList) {
+        for (int index : toCancelIndexList) {
             Order o = archivedOrders.get(index);
             Order editedOrder = new Order(o.getId(), o.getCustomer(), o.getPhone(),
                     o.getPrice(), Status.CANCELLED, o.getSchedule(), o.getTags());
             archivedOrderBook.set(o, editedOrder);
+        }
+
+        phones = phoneBook.getList();
+
+        //Ensure that completed orders do not have phones in the existing phone book.
+        //If not, delete the phones
+        for (int i = archivedOrders.size() - 1; i >= 0; i--) {
+            Order o = archivedOrders.get(i);
+            assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
+
+            boolean isCompletedOrder = o.getStatus().equals(Status.COMPLETED);
+
+            if (isCompletedOrder) {
+                Phone phone = o.getPhone();
+                boolean hasPhoneInPhoneBook = false;
+
+                for (int j = phones.size() - 1; j >= 0; j--) {
+
+                    Phone otherPhone = phones.get(j);
+
+                    hasPhoneInPhoneBook = phone.isSameAs(phones.get(j));
+
+                    if (hasPhoneInPhoneBook) {
+                        deletePhone(otherPhone);
+                        break;
+                    }
+                }
+            }
         }
     }
 
