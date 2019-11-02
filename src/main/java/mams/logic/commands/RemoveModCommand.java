@@ -46,14 +46,23 @@ public class RemoveModCommand extends ModCommand {
 
         boolean checkIfModuleIndex(String moduleIdentifier) {
             assert moduleIdentifier != null;
-            return !moduleIdentifier.substring(0, 1).contains("C");
+            boolean result = true;
+            if (moduleIdentifier.substring(0, 1).contains("C")
+                    || moduleIdentifier.substring(0, 1).contains("c")) {
+                result = false;
+            }
 
+            return result;
         }
 
         boolean checkIfStudentIndex(String studentIdentifier) {
             assert studentIdentifier != null;
-            return !studentIdentifier.substring(0, 1).contains("A");
-
+            boolean result = true;
+            if (studentIdentifier.substring(0, 1).contains("A")
+                    || studentIdentifier.substring(0, 1).contains("a")) {
+                result = false;
+            }
+            return result;
         }
 
         public RemoveModCommand build() {
@@ -162,7 +171,7 @@ public class RemoveModCommand extends ModCommand {
             return studentList.get(tempIndexZeroBased);
         } else {
             List<Student> studentToCheckList = studentList.stream()
-                    .filter(p -> p.getMatricId().toString().equals(studentIdentifier)).collect(Collectors.toList());
+                    .filter(p -> p.getMatricId().toString().equalsIgnoreCase(studentIdentifier)).collect(Collectors.toList());
             if (studentToCheckList.isEmpty()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
             }
