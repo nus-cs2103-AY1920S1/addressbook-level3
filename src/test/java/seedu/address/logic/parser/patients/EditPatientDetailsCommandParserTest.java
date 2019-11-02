@@ -214,7 +214,7 @@ public class EditPatientDetailsCommandParserTest {
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = ENTRY_ID_EMPTY + targetIndex.getOneBased()
-                                   + PHONE_DESC_AMY+ ADDRESS_DESC_AMY + EMAIL_DESC_AMY
+                                   + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                                    + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                                    + TAG_DESC_FRIEND
                                    + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
