@@ -61,9 +61,9 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 *** updated Section 4.4 Generate PDF feature in the Developer Guide (Pull request )
 *** updated Appendix B User Stories in the Developer Guide (Commit https://github.com/AY1920S1-CS2103T-T13-2/main/commit/96c7bdd079d527cfa6e1fbdec7cfe630bafe84c4[1])
 ** Community
-*** PRs reviewed: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102]
-*** Contributed to forum discussions (Issue: https://github.com/nus-cs2103-AY1920S1/forum/issues/89[#89])
-*** Reported bugs and suggestions for other teams (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** reviewed PRs: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102]
+*** contributed to forum discussions (Issue: https://github.com/nus-cs2103-AY1920S1/forum/issues/89[#89])
+*** reported bugs and suggestions for other teams (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools: Integrated a third party library (iText) to the project (https://github.com[#42])
 
 == 3. Contributions to the User Guide
