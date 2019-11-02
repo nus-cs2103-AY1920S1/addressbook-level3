@@ -52,7 +52,7 @@ import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
- * Handles the creation and processing of rules.
+ * Represents the Rule Engine that handles the creation and processing of rules.
  */
 public class RuleEngine {
     public static final String TYPE_CATEGORY = "CATEGORY";
@@ -90,33 +90,26 @@ public class RuleEngine {
     private RuleEngine() {}
 
     /**
-     * Returns the value of a transaction's attribute given the transaction.
+     * Runs all rules against a given transaction.
      */
-    public static Object extractAttribute(Attribute attribute, Index txnIndex, Account account) {
-        Transaction txn = account.getTransaction(txnIndex);
-        switch (attribute) {
-        case DESCRIPTION:
-            return txn.getDescription();
-        case IN_AMOUNT:
-            return (txn.getDirection().equals(Direction.IN) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100.0);
-        case OUT_AMOUNT:
-            return (txn.getDirection().equals(Direction.OUT) ? 1 : -1)
-                    * (txn.getAmount().toLong() / 100.0);
-        case DATE:
-            return txn.getDate();
-        default:
-            // impossible
-            assert false : "Unhandled attribute";
-            return null;
+    public static void executeRules(Model model, ScriptEngine scriptEngine, Index txnIndex, Account account) {
+        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txnIndex, account);
+        List<Rule> ruleList = new ArrayList<>(model.getRuleManager().getRules());
+        Collections.reverse(ruleList);
+        for (Rule rule : ruleList) {
+            Testable testable = generateTestable(rule.getPredicate(), model.getScriptLibrary(), scriptEngine);
+            if (testable.test(txnIndex, account)) {
+                Performable performable = generatePerformable(rule.getAction(), model.getScriptLibrary(), scriptEngine);
+                performable.perform(model, txnIndex, account);
+            }
         }
     }
 
     /**
-     * Parses a {@code RulePredicate predicate} into a {@code Testable}.
+     * Creates a {@code Testable} from a {@code RulePredicate predicate}.
      */
-    public static Testable parseTestable(RulePredicate predicate, ScriptLibrary scriptLibrary,
-                                         ScriptEngine scriptEngine) {
+    public static Testable generateTestable(RulePredicate predicate, ScriptLibrary scriptLibrary,
+                                            ScriptEngine scriptEngine) {
         requireAllNonNull(predicate, scriptEngine);
         if (predicate.getType().equals(Rule.TYPE_EXPRESSION)) {
             PredicateExpression predExpr = (PredicateExpression) predicate;
@@ -139,10 +132,10 @@ public class RuleEngine {
     }
 
     /**
-     * Parses a {@code RuleAction action} into a {@code Performable}
+     * Creates a {@code Performable} from a {@code RuleAction action}.
      */
-    public static Performable parsePerformable(RuleAction action, ScriptLibrary scriptLibrary,
-                                               ScriptEngine scriptEngine) {
+    public static Performable generatePerformable(RuleAction action, ScriptLibrary scriptLibrary,
+                                                  ScriptEngine scriptEngine) {
         requireAllNonNull(action, scriptEngine);
         if (action.getType().equals(Rule.TYPE_EXPRESSION)) {
             ActionExpression actExpr = (ActionExpression) action;
@@ -157,22 +150,6 @@ public class RuleEngine {
                     // If an error occurs, no need to do anything.
                 }
             });
-        }
-    }
-
-    /**
-     * Runs all rules against transaction
-     */
-    public static void executeRules(Model model, ScriptEngine scriptEngine, Index txnIndex, Account account) {
-        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txnIndex, account);
-        List<Rule> ruleList = new ArrayList<>(model.getRuleManager().getRules());
-        Collections.reverse(ruleList);
-        for (Rule rule : ruleList) {
-            Testable testable = parseTestable(rule.getPredicate(), model.getScriptLibrary(), scriptEngine);
-            if (testable.test(txnIndex, account)) {
-                Performable performable = parsePerformable(rule.getAction(), model.getScriptLibrary(), scriptEngine);
-                performable.perform(model, txnIndex, account);
-            }
         }
     }
 
@@ -215,5 +192,28 @@ public class RuleEngine {
         }
 
         return true;
+    }
+
+    /**
+     * Returns the value of a transaction's attribute given the transaction.
+     */
+    public static Object extractAttribute(Attribute attribute, Index txnIndex, Account account) {
+        Transaction txn = account.getTransaction(txnIndex);
+        switch (attribute) {
+        case DESCRIPTION:
+            return txn.getDescription();
+        case IN_AMOUNT:
+            return (txn.getDirection().equals(Direction.IN) ? 1 : -1)
+                    * (txn.getAmount().toLong() / 100.0);
+        case OUT_AMOUNT:
+            return (txn.getDirection().equals(Direction.OUT) ? 1 : -1)
+                    * (txn.getAmount().toLong() / 100.0);
+        case DATE:
+            return txn.getDate();
+        default:
+            // impossible
+            assert false : "Unhandled attribute";
+            return null;
+        }
     }
 }
