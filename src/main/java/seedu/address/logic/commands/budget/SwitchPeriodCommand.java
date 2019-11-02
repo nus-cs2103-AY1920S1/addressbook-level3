@@ -5,14 +5,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.ui.budget.BudgetPanel;
 
 /**
  * Switches budget window to a period in the past.
  */
-public class SwitchBudgetWindowCommand extends UndoableCommand {
+public class SwitchPeriodCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "switchperiod";
     public static final String COMMAND_DESCRIPTION = "Switch budget to period %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Switches the budget to a past period anchored by "
@@ -27,7 +29,7 @@ public class SwitchBudgetWindowCommand extends UndoableCommand {
 
     private final Timestamp pastDate;
 
-    public SwitchBudgetWindowCommand(Timestamp pastDate) {
+    public SwitchPeriodCommand(Timestamp pastDate) {
         this.pastDate = pastDate;
     }
 
@@ -37,8 +39,14 @@ public class SwitchBudgetWindowCommand extends UndoableCommand {
     }
 
     @Override
-    protected void validate(Model model) {
+    protected void validate(Model model) throws CommandException {
         // No validation necessary.
+        Budget currentPeriod = Budget.deepCopy(model.getPrimaryBudget());
+        currentPeriod.normalize(Timestamp.getCurrentTimestamp());
+
+        if (pastDate.dateIsAfter(currentPeriod.getEndDate())) {
+            throw new CommandException("You cannot switch to a period in the future.");
+        }
     }
 
     @Override
@@ -54,7 +62,7 @@ public class SwitchBudgetWindowCommand extends UndoableCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SwitchBudgetWindowCommand // instanceof handles nulls
-                && pastDate.equals(((SwitchBudgetWindowCommand) other).pastDate)); // state check
+                || (other instanceof SwitchPeriodCommand // instanceof handles nulls
+                && pastDate.equals(((SwitchPeriodCommand) other).pastDate)); // state check
     }
 }

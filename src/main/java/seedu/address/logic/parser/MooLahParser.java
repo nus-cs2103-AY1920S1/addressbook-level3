@@ -17,7 +17,7 @@ import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetsCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
-import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
+import seedu.address.logic.commands.budget.SwitchPeriodCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -107,8 +107,8 @@ public class MooLahParser {
             return new DeleteBudgetByIndexCommandParser().parse(arguments);
         case DeleteBudgetByNameCommand.COMMAND_WORD:
             return new DeleteBudgetByNameCommandParser().parse(arguments);
-        case SwitchBudgetWindowCommand.COMMAND_WORD:
-            return new SwitchBudgetWindowCommandParser().parse(arguments);
+        case SwitchPeriodCommand.COMMAND_WORD:
+            return new SwitchPeriodCommandParser().parse(arguments);
         case ClearBudgetsCommand.COMMAND_WORD:
             return new ClearBudgetsCommand();
 

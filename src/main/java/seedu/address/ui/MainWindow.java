@@ -46,7 +46,7 @@ import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
 import seedu.address.logic.commands.budget.ListBudgetsCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
-import seedu.address.logic.commands.budget.SwitchBudgetWindowCommand;
+import seedu.address.logic.commands.budget.SwitchPeriodCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -76,7 +76,7 @@ import seedu.address.logic.parser.EditExpenseFromBudgetCommandParser;
 import seedu.address.logic.parser.StatsCommandParser;
 import seedu.address.logic.parser.StatsCompareCommandParser;
 import seedu.address.logic.parser.SwitchBudgetCommandParser;
-import seedu.address.logic.parser.SwitchBudgetWindowCommandParser;
+import seedu.address.logic.parser.SwitchPeriodCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.budget.Budget;
@@ -340,9 +340,9 @@ public class MainWindow extends UiPart<Stage> {
                 EditBudgetCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                SwitchBudgetWindowCommand.COMMAND_WORD,
-                SwitchBudgetWindowCommandParser.REQUIRED_PREFIXES,
-                SwitchBudgetWindowCommandParser.OPTIONAL_PREFIXES);
+                SwitchPeriodCommand.COMMAND_WORD,
+                SwitchPeriodCommandParser.REQUIRED_PREFIXES,
+                SwitchPeriodCommandParser.OPTIONAL_PREFIXES);
 
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ClearBudgetsCommand.COMMAND_WORD,
