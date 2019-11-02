@@ -27,7 +27,7 @@ public class GetReportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "5";
 
-    public static final String MESSAGE_SUCCESS = "Here is a report of the question:";
+    public static final String MESSAGE_SUCCESS = "Here is a report of question %s:";
     public static final String MESSAGE_NO_REPORT = "There is no data available for this question. ";
 
     private final Index index;
@@ -56,7 +56,7 @@ public class GetReportCommand extends Command {
         } catch (EmptyQuizResultListException e) {
             throw new CommandException(MESSAGE_NO_REPORT);
         }
-        CommandResult c = new CommandResult(MESSAGE_SUCCESS, 8);
+        CommandResult c = new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()), 8);
         c.setType(REPORT);
         return c;
     }

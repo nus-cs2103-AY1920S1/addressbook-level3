@@ -4,12 +4,135 @@
 :stylesDir: ../stylesheets
 
 == About the project
+This portfolio documents my contributions to NUStudy, a learning application.
+Our team of 5 software engineering students were tasked with
+enhancing a basic command line interface desktop Addressbook application
+as part of our Software Engineering project in CS2103T.
+We were asked to conceptualize and implement enhancements to the existing application
+and do it in a manner such that future developers can continue working on it.
+After some deliberation, we decided to morph it into an application to facilitate learning for students.
+The morphed application, NUStudy, enables students to add and manage notes;
+test their knowledge with questions that they have added;
+get statistics of how well they have answered these questions;
+and set tasks to plan their revision schedule.
 
+I contributed to this project by implementing the statistics feature as documented below.
+In particular, I have implemented the `stats`, `questions`, `report` and `overview` commands.
+The following sections illustrate the enhancements in more detail,
+as well as the relevant documentation I have added to the user and developer guides in
+relation to these enhancements.
+
+Note the following symbols and formatting used in this document: +
+`stats`: A grey highlight indicates that this is a command that can be inputted
+into the command line and executed by the application. +
+*Bold*: A bolded word indicates an action to be taken by the user.
 
 == Summary of contributions
+This section shows the enhancements I have added to the project as well as my other contributions.
 
+**Enhancement added**: I added the ability to get statistics of the questions done in the quizzes.
+
+* What it does: The different commands allow users to filter the quiz results
+and return an overview of how well they have done the questions.
+* Justification: The `questions` and `report` commands help users to get an
+idea of what subjects they are weaker in and see the common mistakes that they have made.
+The `stats` and `overview` commands gives users an idea of which questions they
+should attempt more of and what subjects they have been neglecting.
+Overall, the purpose of the statistics feature is to provide users with a rough
+outline of their progress in mastering the foundations of the subject.
+* Highlights: This enhancement affects existing commands and commands to be added in future.
+An in-depth analysis of design alternatives is required in the future.
+The implementation was also challenging as it required changes to existing models
+and logic classes.
+
+**Code contributed**: Please click this link to see a sample of my code:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=irene-lly[here]
+
+**Other Contributions**:
+
+* Role:
+**	I was in charge of code quality.
+My job includes making sure that the code follows a consistent style,
+is easy to understand and that the code is well-documented.
+*	Community:
+**	Reviewed pull requests (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/97[#97]
+**	Contributed to forum discussions:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/71[#71]
+**  Reported bugs found from other team's applications:
+*	Enhancements to existing features:
+**	Updated the GUI so that different panels can be stacked:
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/56[#56]
 
 == User guide contributions
+We have modified the existing Addressbook User Guide to include commands for the enhancements
+that we have added as well as remove the old commands that are not relevant to our project.
+The following is an excerpt from our User Guide,
+showing additions that I have made for the statistics features.
 
+---
+
+include::../UserGuide.adoc[tag=stats]
+
+Example:
+Let's say you have answered some questions from CS2103T previously
+and you would like a ballpark figure to estimate how well you know the subject.
+
+To get this figure:
+
+. Type `stats s/CS2103T` into the command box, and press *Enter* to execute it.
+. The result box will display the message "Here are the statistics:"
+. And you can see a pie chart of the number of correctly and incorrectly answered questions.
+
+include::../UserGuide.adoc[tag=question]
+
+Example:
+Now that you have gotten the number of correct to incorrect answers, you want to see what questions
+you have done wrong to decide on how you can further improve.
+
+To see the questions:
+
+. Type `question -i s/CS2103T` into the command box, and press *Enter* to execute it.
+. The result box will display the message "Here are the questions:"
+. And you can see a list of all your incorrectly answered questions for CS2103T and
+your past answers to it as well as a break down of the number of questions by difficulty level.
+
+include::../UserGuide.adoc[tag=report]
+
+Example:
+After getting the questions that you have done wrong, you noticed that there is one particular
+question that you have answered wrong numerous times. This just so happened to be the third
+question in the question list. You decided to investigate further.
+
+To see a report of the question:
+
+. Type `report 3` into the command box, and press *Enter* to execute it.
+. The result box will display the message "Here is a report of the question:"
+. And you can see all your attempts at the question as well as a pie chart of your results.
+
+include::../UserGuide.adoc[tag=overview]
+
+Example:
+You are finally done viewing your quiz results and want to know what
+questions you should attempt next. To be a well-rounded individual, you decided to check
+if you have been neglecting any subjects during this period of time.
+
+To see an overview of your results:
+
+. Type `overview dt/20/10/2019 dt/30/10/2019` into the command box,
+and press *Enter* to execute it.
+. The result box will display the message "Here is an overview of the questions:"
+. And you can see a stack bar chart of all questions that you have attempted
+from 20/10/2019 to 30/10/2019
 
 == Developer guide contributions
+We have also modified the existing addressBook developer guide to include implementation of
+our features as well as remove the old documentation of the addressBook features.
+Given below shows my additions to the NUStudy developer guide for the statistics feature.
+
+---
+
+include::../DeveloperGuide.adoc[tag=stats]
+
+---

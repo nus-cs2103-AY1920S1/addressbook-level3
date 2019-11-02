@@ -17,7 +17,7 @@ public class GetReportCommandTest {
 
     @Test
     public void constructor_nullQuizResultFilter_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null));
+        assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null, ""));
     }
 
     /*@Test
