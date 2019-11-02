@@ -14,16 +14,16 @@ import javafx.scene.layout.Region;
  * Panel containing the list of persons.
  */
 public class ExerciseListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "ExerciseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
 
     @FXML
-    private ListView<Exercise> personListView;
+    private ListView<Exercise> exerciseListView;
 
     public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
-        personListView.setItems(exerciseList);
-        personListView.setCellFactory(listView -> new ExerciseListViewCell());
+        exerciseListView.setItems(exerciseList);
+        exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
     }
 
     /**
@@ -38,7 +38,7 @@ public class ExerciseListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ExerciseCard(exercise, getIndex() + 1).getRoot());
+                setGraphic(new ExerciseIndexListCard(exercise, getIndex() + 1).getRoot());
             }
         }
     }

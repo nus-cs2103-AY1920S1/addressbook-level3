@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <StackPane prefHeight="150.0" prefWidth="200.0">
+      <children>
+         <ImageView pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@box-ally-home-banner-1-1170x585.jpg" />
+            </image>
+         </ImageView>
+         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+            <font>
+               <Font name="Calibri" size="54.0" />
+            </font>
+         </Text>
+      </children>
+   </StackPane>
+</HBox>

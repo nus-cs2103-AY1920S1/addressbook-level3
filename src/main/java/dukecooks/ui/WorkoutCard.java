@@ -1,14 +1,20 @@
 package dukecooks.ui;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
+import dukecooks.model.Image;
 import dukecooks.model.workout.Workout;
 
+import dukecooks.model.workout.history.WorkoutRun;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
+
+import javax.swing.text.html.ImageView;
 
 
 /**
@@ -16,37 +22,42 @@ import javafx.scene.layout.Region;
  */
 public class WorkoutCard extends UiPart<Region> {
 
-    private static final String FXML = "WorkoutListCard.fxml";
+    private static final String HIGH_FXML = "HighIntensityWorkoutPanel.fxml";
+    private static final String MEDIUM_FXML = "MediumIntensityWorkoutPanel.fxml";
+    private static final String LOW_FXML = "LowIntensityWorkoutPanel.fxml";
 
     public final Workout workout;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label workoutName;
+    private Text workoutName;
     @FXML
-    private FlowPane exercises;
+    private Text noExercises;
     @FXML
-    private FlowPane musclesTrained;
-    @FXML
-    private Label id;
-    @FXML
-    private Label averageIntensity;
+    private Text lastDone;
 
     public WorkoutCard(Workout workout, int displayedIndex) {
-        super(FXML);
+        super(fillIntensity(workout));
         this.workout = workout;
-        id.setText(displayedIndex + ". ");
-        workoutName.setText(workout.getName().workoutName);
-        exercises.getChildren().add(new Label("Exercises in Workout: "));
-        workout.getExercises().stream()
-                .sorted(Comparator.comparing(exercise -> exercise.toString()))
-                .forEach(exercise -> exercises.getChildren().add(new Label(exercise.exerciseName + " ")));
-        musclesTrained.getChildren().add(new Label("Muscles Trained: "));
-        workout.getMusclesTrained().stream()
-                .sorted(Comparator.comparing(muscleType -> muscleType.toString()))
-                .forEach(muscleType -> musclesTrained
-                        .getChildren().add(new Label(muscleType.getMuscleType() + " ")));
-        averageIntensity.setText("Average Intensity: " + workout.getAverageIntensity().toString());
+        workoutName.setText(displayedIndex + ". " + workout.getName().workoutName);
+        noExercises.setText("No. Exercises: " + workout.getExercises().size());
+        if (!workout.getHistory().getPreviousRuns().isEmpty()) {
+            lastDone.setText("Last Done: " + workout.getHistory().getMostRecentRun().getTimeEnded());
+        }
+    }
+
+    private static String fillIntensity(Workout workout) {
+        switch (workout.getAverageIntensity()) {
+
+        case LOW:
+            return LOW_FXML;
+
+        case MEDIUM:
+            return MEDIUM_FXML;
+
+        default:
+            return HIGH_FXML;
+        }
     }
 }

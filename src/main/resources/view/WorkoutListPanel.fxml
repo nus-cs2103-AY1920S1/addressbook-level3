@@ -5,38 +5,57 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <VBox>
-            <children>
-                <Label fx:id="title" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="150.0" text="WorkoutPlanner                     " textFill="#797373">
-                <font>
-                    <Font name="Devanagari Sangam MN" size="36.0" />
-                </font>
-                <padding>
-                    <Insets bottom="5.0" left="5.0" top="5.0" />
-                </padding>
-                </Label>
-                <HBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                    <children>
-                      <Label fx:id="workoutTitle" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="113.0" text="Exercises" textFill="#797373">
-                          <font>
-                              <Font name="Devanagari Sangam MN" size="36.0" />
-                          </font>
-                      </Label>
-                        <ListView fx:id="exerciseListView" HBox.hgrow="ALWAYS" />
-                        <ListView fx:id="workoutListView" HBox.hgrow="ALWAYS" />
-                  <Label fx:id="workoutTitle1" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="74.0" prefHeight="74.0" prefWidth="113.0" text="Workout" textFill="#797373">
-                     <font>
-                        <Font name="Devanagari Sangam MN" size="36.0" />
-                     </font>
-                  </Label>
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-    </content>
-</ScrollPane>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="58.0" prefWidth="350.0">
+      <children>
+         <Label fx:id="title" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Workout Planner" textFill="#797373">
+            <font>
+               <Font name="Devanagari Sangam MN" size="36.0" />
+            </font>
+            <padding>
+               <Insets bottom="5.0" left="5.0" top="5.0" />
+            </padding>
+         </Label>
+         <Pane maxHeight="-Infinity" minHeight="74.0" minWidth="0.0" prefHeight="74.0" prefWidth="0.0" HBox.hgrow="ALWAYS">
+            <padding>
+               <Insets bottom="5.0" left="5.0" top="5.0" />
+            </padding></Pane>
+      </children>
+   </HBox>
+   <HBox prefHeight="46.0" prefWidth="350.0">
+      <children>
+         <Label fx:id="title1" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" text="Exercises" textFill="#797373">
+            <font>
+               <Font name="Devanagari Sangam MN" size="36.0" />
+            </font>
+            <padding>
+               <Insets bottom="5.0" left="5.0" top="5.0" />
+            </padding>
+         </Label>
+         <Region prefWidth="230.0" />
+         <Label fx:id="title11" maxHeight="-Infinity" minHeight="74.0" prefHeight="74.0" prefWidth="204.0" text="Workouts" textFill="#797373">
+            <font>
+               <Font size="96.0" />
+            </font>
+            <padding>
+               <Insets bottom="5.0" left="5.0" top="5.0" />
+            </padding>
+         </Label>
+      </children>
+   </HBox>
+   <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <children>
+         <ListView fx:id="exerciseListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="300" />
+         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+            <content>
+               <ListView fx:id="workoutListView" />
+            </content>
+         </ScrollPane>
+      </children>
+   </HBox>
+</VBox>

@@ -30,12 +30,18 @@ public class ExerciseIndexListCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+    @FXML
+    private Label primaryMuscle;
+    @FXML
+    private Label intensity;
 
     public ExerciseIndexListCard(Exercise exercise, int displayedIndex) {
         super(FXML);
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getExerciseName().exerciseName);
+        primaryMuscle.setText("Primary Muscle:" + exercise.getMusclesTrained().getPrimaryMuscle().muscleType);
+        intensity.setText("Intensity: " + exercise.getIntensity().toString());
     }
 
     @Override
