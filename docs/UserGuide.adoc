@@ -131,8 +131,8 @@ The person should also be someone recorded in the Members Tab
 
 1. Type the command with all parameters filled in, as shown in the screenshot below:
 
-.Screenshot of the user input into the Command Box for Add Command in Home Tab
-image::homeUG/HomeAddStep1.png[]
+//.Screenshot of the user input into the Command Box for Add Command in Home Tab
+image::homeUG/HomeAddStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
@@ -140,15 +140,15 @@ image::homeUG/HomeAddStep1.png[]
 If the command is successfully added, Leo will respond with a success message and the transaction
 will be shown in the table. This is shown in the screenshot below:
 
-.Screenshot of a successful user input for Add Command in Home Tab
-image::homeUG/HomeAddStep2.png[]
+//.Screenshot of a successful user input for Add Command in Home Tab
+image::homeUG/HomeAddStep2cr.png[]
 
 [[NoSuchPerson]]
 If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the transaction
 record will not be added. This is shown in the screenshot below:
 
 .Screenshot of an unsuccessful user input for Add Command in the Home Tab due to an invalid name
-image::homeUG/HomeAddUnsuccessfulStep2.png[]
+image::homeUG/HomeAddUnsuccessfulStep2cr.png[]
 
 If the added transaction contains a negative amount (indicating an expenditure), a corresponding entry will
 automatically be shown in the Reimbursement Tab, tagged to the member who spent it.
@@ -156,8 +156,8 @@ automatically be shown in the Reimbursement Tab, tagged to the member who spent 
 Since reimbursements are aggregated by member, if the member already has other outstanding reimbursements,
 it will simply be added to his existing row. This is shown in the screenshot below:
 
-.Screenshot of the Reimbursement Tab after successfully adding a transaction
-image::homeUG/HomeAddShowInR.png[]
+//.Screenshot of the Reimbursement Tab after successfully adding a transaction
+image::homeUG/HomeAddShowInR.png[width = "400"]
 
 ==== Delete Transaction(s)
 This command deletes either all transactions of a person or a single transaction of a specific ID from the table.
@@ -172,8 +172,8 @@ This command deletes either all transactions of a person or a single transaction
 * Steps for Deleting by ID:
 1. Type the command with the ID of the transaction to be deleted as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Delete by ID command in Home tab
-image::homeUG/HomeDeleteStep1.png[]
+//.Screenshot of the user input into Command Box for Delete by ID command in Home tab
+image::homeUG/HomeDeleteStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
@@ -181,21 +181,21 @@ image::homeUG/HomeDeleteStep1.png[]
 Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
 .Screenshot of a successful user input for Delete by ID Command in Home Tab
-image::homeUG/HomeDeleteStep2.png[]
+image::homeUG/HomeDeleteStep2cr.png[]
 
 * Steps for Deleting by Person:
 1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
 
-.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
-image::homeUG/HomeDeletePStep1.png[]
+//.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
+image::homeUG/HomeDeletePStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
 
 Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
 
-.Screenshot of a successful user input for Delete by Person Command in Home Tab
-image::homeUG/HomeDeletePStep2.png[]
+//.Screenshot of a successful user input for Delete by Person Command in Home Tab
+image::homeUG/HomeDeletePStep2cr.png[]
 
 If the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
 reimbursement record. On the other hand, if the person entered is not part of our data base shown in the Members Tab,
@@ -221,16 +221,16 @@ The fields above can vary in their order. It is not compulsory to include all of
 * Steps:
 1. Type the command with the ID of the transaction to be edited, along with the new parameters to be changed, as shown in the screenshot below:
 
-.Screenshot of user input into Command Box for Edit Command in Home Tab
-image::homeUG/HomeEditStep1.png[]
+//.Screenshot of user input into Command Box for Edit Command in Home Tab
+image::homeUG/HomeEditStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
 
 Leo will respond with a success message and the updated transaction will be shown in the table as shown below:
 
-.Screenshot of a successful user input for Edit Command in Home Tab
-image::homeUG/HomeEditStep2.png[]
+//.Screenshot of a successful user input for Edit Command in Home Tab
+image::homeUG/HomeEditStep2cr.png[]
 
 If the person entered into the command is not found in the Members tab, Leo will respond to inform you which is similar to <<NoSuchPerson, Figure 3>>.
 
@@ -266,13 +266,13 @@ Transactions matching partial keywords will not be shown.
 
 Shown below is the table of all transactions:
 
-.Screenshot of all transactions in Home tab
-image::homeUG/HomeFindCurr.png[]
+//.Screenshot of all transactions in Home tab
+image::homeUG/HomeFindCurr.png[width = "400"]
 
 1. Type the command with keyword(s) to find transactions as shown in the screenshot below:
 
-.Screenshot of the user input into Command Box for Find Command in Home Tab
-image::homeUG/HomeFindStep1.png[]
+//.Screenshot of the user input into Command Box for Find Command in Home Tab
+image::homeUG/HomeFindStep1cr.png[]
 
 [start = 2]
 2. Hit `Enter`.
@@ -280,15 +280,15 @@ image::homeUG/HomeFindStep1.png[]
 Leo will respond with the number of matching transactions, and the table will show only
 transactions matching the keywords. This is shown in the screenshot below:
 
-.Screenshot of a successful user input for find command in Home tab
-image::homeUG/HomeFindStep2.png[]
+//.Screenshot of a successful user input for find command in Home tab
+image::homeUG/HomeFindStep2.png[width = "400"]
 
 [start = 3]
 3. Key in `back` and hit `Enter` to return to the table of all transactions, or enter your next command to be executed.
 The screenshot below shows the Edit Command being input as the next command:
 
-.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
-image::homeUG/HomeFindStep3.png[]
+//.Screenshot of the user input for Edit Command according to filtered table's ID in Home Tab
+image::homeUG/HomeFindStep3cr.png[]
 
 The table will continue to show the filtered table with the transaction edited according to the command, shown in the screenshot above.
 [NOTE]
@@ -297,8 +297,8 @@ All other commands require the user to input `back` to return to the full list o
 
 The screenshot below shows the table after entering `back` which shows all the transactions in the table again:
 
-.Screenshot of the user input for Back Command after entering Find Command in Home Tab
-image::homeUG/HomeFindStep3Back.png[]
+//.Screenshot of the user input for Back Command after entering Find Command in Home Tab
+image::homeUG/HomeFindStep3Back.png[width = "400"]
 
 ==== Going Back to Display the Full List
 This command helps to display the full transaction list after Find Commands. After a Find Command, the Delete, Edit, Sort Commands
