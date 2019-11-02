@@ -37,5 +37,5 @@
          <RowConstraints />
       </rowConstraints>
   </GridPane>
-   <Label fx:id="status" text="\$status" />
+   <Label fx:id="status" alignment="CENTER_RIGHT" text="\$status" />
 </HBox>
