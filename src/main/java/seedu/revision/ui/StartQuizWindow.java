@@ -1,13 +1,9 @@
 package seedu.revision.ui;
 
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
-
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -25,7 +21,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
-import seedu.revision.ui.answerables.AnswerableListPanel;
+import seedu.revision.model.quiz.Modes;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.SaqAnswersGridPane;
@@ -89,8 +85,8 @@ public class StartQuizWindow extends Window {
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-
-        this.timer = getTimerBasedOnMode(this.mode, Integer.parseInt(quizList.get(0).getDifficulty().value));
+        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);
+        this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
         int sizeOfFirstLevel = getSizeOfCurrentLevel(quizList.get(0));
         progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, sizeOfFirstLevel,
                 "%.0f/" + sizeOfFirstLevel);
@@ -144,7 +140,7 @@ public class StartQuizWindow extends Window {
             }
 
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
-                    && mode.value.equals("arcade")) {
+                    && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd();
                 return new CommandResult().withFeedBack("Quiz has ended.").build();
             }
@@ -236,8 +232,8 @@ public class StartQuizWindow extends Window {
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
                     "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-            Timer newTimer = getTimerBasedOnMode(this.mode, nextLevel);
-            timer = newTimer;
+            //Start a new timer for the next level
+            this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
             progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
             scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
         }
@@ -253,7 +249,7 @@ public class StartQuizWindow extends Window {
         alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
+        if (mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext()) {
             alert.setContentText("Better luck next time! :P Your score is " + score
                     + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                     + "Try again?\n"
@@ -323,25 +319,15 @@ public class StartQuizWindow extends Window {
         mainWindow.show();
         mainWindow.fillInnerParts();
 
-        if (mode.value.equals("custom")) {
+        if (mode.value.equals(Modes.CUSTOM.toString())) {
             mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
                     + "Type 'list' to view your full list of questions again.");
         }
     }
 
-    public AnswerableListPanel getAnswerableListPanel() {
-        return answerableListPanel;
-    }
-
+    /** Gets the index of the current question to update the progress bar. **/
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
 
-    public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
-        return currentProgressIndex.getReadOnlyProperty();
-    }
-
-    private Timer getTimerBasedOnMode(Mode mode, int nextLevel) {
-        return new Timer(mode.getTime(nextLevel), this::executeCommand);
-    }
 }
