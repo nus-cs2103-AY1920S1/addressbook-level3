@@ -36,11 +36,19 @@ import seedu.jarvis.model.planner.tasks.Todo;
  */
 public class ParserUtil {
 
+    //common
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    //finance
     public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
-    public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: dd/mm/yyyy.";
+
+    //planner
+    public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: d/m/yyyy.";
     public static final String MESSAGE_INVALID_TASK_TYPE = "Task type is invalid. Valid task types are: 'todo', 'event'"
                                                             + "and 'deadline' only.";
+    public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
+    public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
+    public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -143,6 +151,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String taskDes} to ensure it is a valid Task description
+     * @param taskDes the task description provided by the user
+     * @return a trimmed task description
+     * @throws ParseException if Task Description is blank
+     */
+    public static String parseTaskDes(String taskDes) throws ParseException {
+        String trimmedDes = taskDes.trim();
+        if (trimmedDes.isEmpty()) {
+            throw new ParseException(MESSAGE_EMPTY_TASK_DESCRIPTION);
+        }
+
+        return trimmedDes;
+    }
+
+    /**
      * Parses a {@code String priority} into a {@code Priority}.
      * @return the priority level of the task
      * @throws ParseException if the given {@code Priority} is invalid.
@@ -204,6 +227,13 @@ public class ParserUtil {
                 res[count] = formattedDate;
                 count++;
             }
+
+            if (count == 2) {
+                if (splitDate[0].compareTo(splitDate[1]) > 0) {
+                    throw new ParseException(MESSAGE_WRONG_ORDER_DATE);
+                }
+            }
+
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }

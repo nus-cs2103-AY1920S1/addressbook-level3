@@ -3,6 +3,7 @@ package seedu.jarvis.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.jarvis.logic.parser.ParserUtil.parseTaskDes;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -249,5 +250,20 @@ public class ParserUtilTest {
         LocalDate[] dates = new LocalDate[2];
         assertThrows(ParseException.class, () -> ParserUtil.buildTask("task", "borrow book",
                 dates));
+    }
+
+    @Test
+    void parseTaskDes_validInput_success() throws ParseException {
+        String expected = "taskDes";
+        String actual = parseTaskDes("  taskDes ");
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    void parseTaskDes_invalidInput_throwsException() {
+        String taskDes = "  ";
+        assertThrows(ParseException.class, () -> parseTaskDes(taskDes));
     }
 }
