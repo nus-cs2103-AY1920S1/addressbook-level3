@@ -59,7 +59,7 @@ public class EntryComparator implements Comparator<Entry> {
         case "description":
             sortByDesc = helperSortByDesc(e1, e2);
             if (sortByDesc != 0) {
-                return sortByDesc  * this.sequence.getSequence();
+                return sortByDesc * this.sequence.getSequence();
             }
 
             sortByDate = helperSortByDate(e1, e2);
@@ -81,7 +81,7 @@ public class EntryComparator implements Comparator<Entry> {
         case "time":
             sortByDate = helperSortByDate(e1, e2);
             if (sortByDate != 0) {
-                return sortByDate  * this.sequence.getSequence();
+                return sortByDate * this.sequence.getSequence();
             }
 
             sortByAmount = helperSortByAmount(e1, e2);
@@ -150,11 +150,17 @@ public class EntryComparator implements Comparator<Entry> {
         }
     }
 
+    /**
+     * Sort the Entries by Categories.
+     */
     public int helperSortByCategory(Entry e1, Entry e2) {
         return (e1.getCategory().getCategoryName().toLowerCase()).compareTo(e2.getCategory()
                 .getCategoryName().toLowerCase());
     }
 
+    /**
+     * Sort the Entries by Tags.
+     */
     public int helperSortByTag(Entry e1, Entry e2) {
         Set<Tag> firstEntryTags = e1.getTags();
         Set<Tag> secondEntryTags = e2.getTags();
