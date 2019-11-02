@@ -105,7 +105,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAgeGroupBreakdown() {
+    public void getAgeGroupBreakdown_typicalAddressBook_returnsTrue(){
         modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
         ObservableMap<String, Integer> result = modelManager.getAgeGroupBreakdown();
         ObservableMap<String, Integer> expected = TypicalPersons.getAgeGroupBreakdown();
@@ -113,7 +113,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getGenderBreakdown() {
+    public void getGenderBreakdown_typicalAddressBook_returnsTrue() {
         modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
         ObservableMap<String, Integer> result = modelManager.getGenderBreakdown();
         ObservableMap<String, Integer> expected = TypicalPersons.getGenderBreakdown();
