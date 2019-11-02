@@ -139,6 +139,13 @@ public interface FinanceTrackerModel {
     boolean hasInstallment(Installment installment);
 
     /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    boolean hasSimilarInstallment(Installment installment);
+
+    /**
      * Replaces the installment in the list with {@code editedInstallment}.
      * The identity of {@code editedInstallment} must not be the same as another existing installment in the
      * list.

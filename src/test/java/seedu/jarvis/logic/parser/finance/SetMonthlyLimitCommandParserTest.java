@@ -6,7 +6,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_MONTHLY_LIMIT;
 import static seedu.jarvis.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.jarvis.logic.parser.ParserUtil.MONEY_MESSAGE_CONSTRAINTS;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +41,7 @@ public class SetMonthlyLimitCommandParserTest {
 
     @Test
     public void parse_invalidMoneyAmount_failure() {
-        assertParseFailure(parser, INVALID_MONTHLY_LIMIT, MONEY_MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_MONTHLY_LIMIT, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SetMonthlyLimitCommand.MESSAGE_MONEY_ERROR));
     }
 }

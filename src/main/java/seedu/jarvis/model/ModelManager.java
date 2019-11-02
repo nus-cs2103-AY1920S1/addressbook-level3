@@ -66,7 +66,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with JARVIS: " + addressBook + " and user prefs " + userPrefs);
 
         this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
@@ -400,6 +400,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasInstallment(Installment installment) {
         return financeTracker.hasInstallment(installment);
+    }
+
+    /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    public boolean hasSimilarInstallment(Installment installment) {
+        requireNonNull(installment);
+
+        return financeTracker.hasSimilarInstallment(installment);
     }
 
     /**

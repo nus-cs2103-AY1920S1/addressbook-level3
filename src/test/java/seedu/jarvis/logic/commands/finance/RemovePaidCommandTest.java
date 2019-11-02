@@ -27,6 +27,7 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class RemovePaidCommandTest {
 
@@ -36,7 +37,7 @@ public class RemovePaidCommandTest {
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
                 new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addPurchase(new PurchaseStub());
+        model.addPurchase(new PurchaseBuilder().build());
         model.addPurchase(new PurchaseStub());
         model.addPurchase(new PurchaseStub());
     }

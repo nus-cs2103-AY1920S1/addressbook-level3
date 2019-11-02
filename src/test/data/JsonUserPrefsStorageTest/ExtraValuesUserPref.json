@@ -9,5 +9,10 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "addressBookFilePath" : "addressbook.json",
+  "ccaTrackerFilePath" : "ccatracker.json",
+  "coursePlannerFilePath" : "courseplanner.json",
+  "financeTrackerFilePath" : "financetracker.json",
+  "historyManagerFilePath" : "historymanager.json",
+  "plannerFilePath" : "planner.json"
 }

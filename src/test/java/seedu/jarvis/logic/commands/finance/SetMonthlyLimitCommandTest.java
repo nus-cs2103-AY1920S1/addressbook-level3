@@ -52,7 +52,7 @@ public class SetMonthlyLimitCommandTest {
     }
 
     @Test
-    public void constructor_nullInstallment_throwsNullPointerException() {
+    public void constructor_nullLimit_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new SetMonthlyLimitCommand(null));
     }
 

@@ -1,14 +1,13 @@
 package seedu.jarvis.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.jarvis.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.jarvis.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.jarvis.logic.commands.CommandTestUtil.CCA_DESC;
+import static seedu.jarvis.logic.commands.CommandTestUtil.CCA_TYPE;
+import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_CCA_DESC_TRACK;
+import static seedu.jarvis.logic.commands.CommandTestUtil.VALID_CCA_TYPE_TRACK;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,14 +17,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.jarvis.logic.commands.CommandResult;
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.logic.commands.address.ListAddressCommand;
+import seedu.jarvis.logic.commands.cca.AddCcaCommand;
+import seedu.jarvis.logic.commands.cca.ListCcaCommand;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
 import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
+import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.storage.StorageManager;
 import seedu.jarvis.storage.address.JsonAddressBookStorage;
@@ -35,7 +34,7 @@ import seedu.jarvis.storage.finance.JsonFinanceTrackerStorage;
 import seedu.jarvis.storage.history.JsonHistoryManagerStorage;
 import seedu.jarvis.storage.planner.JsonPlannerStorage;
 import seedu.jarvis.storage.userprefs.JsonUserPrefsStorage;
-import seedu.jarvis.testutil.address.PersonBuilder;
+import seedu.jarvis.testutil.cca.CcaBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -74,8 +73,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete-address 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        String deleteCommand = "delete-cca 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
     }
 
     /**
@@ -84,8 +83,8 @@ public class LogicManagerTest {
      */
     @Test
     public void execute_validCommandWithoutInverse_success() throws Exception {
-        String listCommand = ListAddressCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListAddressCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCcaCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCcaCommand.MESSAGE_SUCCESS, model);
     }
 
     /**
@@ -94,12 +93,15 @@ public class LogicManagerTest {
      */
     @Test
     public void execute_validCommandWithInverse_success() throws Exception {
-        String addCommand = AddAddressCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddCcaCommand.COMMAND_WORD + CCA_DESC + CCA_TYPE;
+        Cca cca = new CcaBuilder()
+                .withName(VALID_CCA_DESC_TRACK)
+                .withType(VALID_CCA_TYPE_TRACK)
+                .withEquipmentList()
+                .build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        String expectedMessage = String.format(AddAddressCommand.MESSAGE_SUCCESS, expectedPerson);
+        expectedModel.addCca(cca);
+        String expectedMessage = String.format(AddCcaCommand.MESSAGE_SUCCESS, cca);
         assertCommandSuccess(addCommand, expectedMessage, expectedModel);
     }
 
@@ -123,13 +125,15 @@ public class LogicManagerTest {
                 ccaTrackerStorage, coursePlannerStorage, plannerStorage, financeTrackerStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddAddressCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        String addCommand = AddCcaCommand.COMMAND_WORD + CCA_DESC + CCA_TYPE;
+        Cca cca = new CcaBuilder()
+                .withName(VALID_CCA_DESC_TRACK)
+                .withType(VALID_CCA_TYPE_TRACK)
+                .withEquipmentList()
+                .build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        expectedModel.rememberExecutedCommand(new AddAddressCommand(expectedPerson));
+        expectedModel.addCca(cca);
+        expectedModel.rememberExecutedCommand(new AddCcaCommand(cca));
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
