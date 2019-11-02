@@ -58,6 +58,7 @@ public class ExportCommand extends Command {
 
         try {
             List<FlashCard> flashCardList = getFlashCardsByCategory(model, category);
+            verifyNonEmptyFlashCardList(flashCardList, "There are no FlashCards matching the specified category.");
             this.exportPath.export(flashCardList);
 
             return new CommandResult(
@@ -118,5 +119,11 @@ public class ExportCommand extends Command {
         String categoryName = category.categoryName;
         List<String> categoryKeywordList = Collections.singletonList(categoryName);
         return categoryKeywordList;
+    }
+
+    private static void verifyNonEmptyFlashCardList(List<FlashCard> flashCardList, String message) throws CommandException {
+        if (flashCardList.size() == 0) {
+            throw new CommandException(message);
+        }
     }
 }
