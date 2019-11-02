@@ -19,11 +19,6 @@ public class Name {
         return name;
     }
 
-    /**
-     * Todo: note that it is not case sensitive
-     * @param obj
-     * @return
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -34,6 +29,6 @@ public class Name {
 
         Name otherName = (Name) obj;
         String otherNameStr = otherName.name;
-        return this.name.equalsIgnoreCase(otherNameStr);
+        return this.name.equals(otherNameStr);
     }
 }
