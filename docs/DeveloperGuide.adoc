@@ -537,6 +537,16 @@ The following activity diagram (Figure 4.4.1.b) summarizes what happens when man
 image::GenReportActivityDiagram.png[]
 Figure 4.4.1.b. Activity diagram when `genReport 1 John Doe` is executed by manager.
 
+The following code snippet from `GenReportCommand.java` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
+
+        if (bodyToGenReport == null) {
+            throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+        }
+        boolean generated = reportGenerator.generate(bodyToGenReport, sign);
+        if (!generated) {
+            throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
+        }
+
 The following class diagram (Figure 4.4.1.c) models the relationships and dependencies among classes in this feature:
 
 image::ReportGeneratorClassDiagram.png[]
