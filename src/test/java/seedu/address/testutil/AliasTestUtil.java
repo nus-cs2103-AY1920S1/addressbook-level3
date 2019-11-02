@@ -9,7 +9,7 @@ import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
-import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpensesCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -21,7 +21,7 @@ import seedu.address.model.alias.AliasMappings;
  */
 public class AliasTestUtil {
 
-    public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListExpenseCommand.COMMAND_WORD);
+    public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListExpensesCommand.COMMAND_WORD);
     public static final Alias ALIAS_ADD_WITH_ARGUMENTS = new Alias(
             "addchicken",
             FindExpenseCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN);
@@ -43,7 +43,7 @@ public class AliasTestUtil {
     public static final Alias ALIAS_NAME_EXIT = new Alias(ExitCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_FIND = new Alias(FindExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
     public static final Alias ALIAS_NAME_HELP = new Alias(HelpCommand.COMMAND_WORD, IGNORED_VALUE);
-    public static final Alias ALIAS_NAME_LIST = new Alias(ListExpenseCommand.COMMAND_WORD, IGNORED_VALUE);
+    public static final Alias ALIAS_NAME_LIST = new Alias(ListExpensesCommand.COMMAND_WORD, IGNORED_VALUE);
 
     static {
         AliasMappings tempValidAliasMappings;

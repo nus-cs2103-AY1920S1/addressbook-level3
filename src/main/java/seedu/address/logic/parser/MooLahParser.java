@@ -7,7 +7,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
-import seedu.address.logic.commands.alias.ListAliasCommand;
+import seedu.address.logic.commands.alias.ListAliasesCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.ClearBudgetsCommand;
 import seedu.address.logic.commands.budget.DeleteBudgetByIndexCommand;
@@ -26,7 +26,7 @@ import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
-import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpensesCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -81,8 +81,8 @@ public class MooLahParser {
             return new ClearCommand();
         case FindExpenseCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-        case ListExpenseCommand.COMMAND_WORD:
-            return new ListExpenseCommand();
+        case ListExpensesCommand.COMMAND_WORD:
+            return new ListExpensesCommand();
 
         //event
         case AddEventCommand.COMMAND_WORD:
@@ -125,8 +125,8 @@ public class MooLahParser {
             return new AddAliasCommandParser().parse(arguments);
         case DeleteAliasCommand.COMMAND_WORD:
             return new DeleteAliasCommandParser().parse(arguments);
-        case ListAliasCommand.COMMAND_WORD:
-            return new ListAliasCommand();
+        case ListAliasesCommand.COMMAND_WORD:
+            return new ListAliasesCommand();
 
         //general
         case ExitCommand.COMMAND_WORD:

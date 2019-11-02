@@ -24,7 +24,7 @@ import seedu.address.logic.commands.expense.AddExpenseCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
-import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpensesCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -50,7 +50,7 @@ public class AliasMappings implements Serializable {
             DeleteEventCommand.COMMAND_WORD, EditEventCommand.COMMAND_WORD,
             //expense
             AddExpenseCommand.COMMAND_WORD, DeleteExpenseCommand.COMMAND_WORD,
-            ListExpenseCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,
+            ListExpensesCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,
             EditExpenseCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
             // budget
             AddBudgetCommand.COMMAND_WORD, SwitchBudgetCommand.COMMAND_WORD,

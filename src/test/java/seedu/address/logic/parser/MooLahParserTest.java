@@ -24,7 +24,7 @@ import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.address.logic.commands.expense.FindExpenseCommand;
-import seedu.address.logic.commands.expense.ListExpenseCommand;
+import seedu.address.logic.commands.expense.ListExpensesCommand;
 import seedu.address.logic.commands.general.ClearCommand;
 import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
@@ -123,10 +123,10 @@ public class MooLahParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(
-                ListExpenseCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpenseCommand);
+                ListExpensesCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpensesCommand);
         assertTrue(parser.parseCommand(
-                ListExpenseCommand.COMMAND_WORD + " 3", "",
-                readOnlyUserPrefs) instanceof ListExpenseCommand);
+                ListExpensesCommand.COMMAND_WORD + " 3", "",
+                readOnlyUserPrefs) instanceof ListExpensesCommand);
     }
 
     @Test
