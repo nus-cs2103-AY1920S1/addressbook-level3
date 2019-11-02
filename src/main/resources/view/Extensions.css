@@ -4,7 +4,7 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #bad7df;
+    -fx-background: #ffa45c;
 }
 
 .tag-selector {
@@ -47,4 +47,8 @@
 
 #option4 {
     -fx-background-color: #b9b9b2;
+}
+
+.progress-bar {
+    -fx-accent: #ff6464;
 }

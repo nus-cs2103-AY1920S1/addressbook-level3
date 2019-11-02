@@ -260,14 +260,18 @@
     -fx-background-color: #ffa45c;
 }
 
-.dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #ffa45c;
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: derive(#878784, 20%);
 }
 
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: #5d5d5a;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button {
+    -fx-text-fill: white;
 }
 
 .dialog-pane:header *.header-panel {
@@ -360,7 +364,7 @@
 
 #answerPane .label {
     -fx-min-height: 30;
-    -fx-max-width: 200;
+    -fx-max-width: 180;
     -fx-wrap-text: true;
     -fx-start-margin: 40;
     -fx-text-fill: white;
@@ -372,20 +376,31 @@
 }
 
 .alert.error.dialog-pane {
-    -fx-background-color: derive(#ffa45c, 20%);
-    -fx-graphic: url("/images/very-sad.png");
-    -fx-graphic-text-gap: 50;
+    -fx-background-color: derive(#878784, 20%);
+    -fx-graphic: url("/images/tongue.png");
 }
 
 .alert.confirmation.dialog-pane {
-    -fx-background-color: derive(#ffa45c, 20%);
+    -fx-background-color: derive(#878784, 20%);
     -fx-graphic: url("/images/happy.png");
 }
 
 .alert.information.dialog-pane {
-    -fx-background-color: derive(#ffa45c, 20%);
-    -fx-graphic: url("/images/very-happy.png");
+    -fx-background-color: derive(#878784, 20%);
+    -fx-graphic: url("/images/thumbs-up.png");
 }
-.dialog-pane > .button-bar > .container {
-    -fx-background-color: derive(#ffa45c, 20%);
+
+.level-display {
+    -fx-text-alignment: center;
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
 }
+
+#innerLevelPlaceholder {
+    -fx-background-color: #ff8264;
+    -fx-background-radius: 50;
+}
+
+

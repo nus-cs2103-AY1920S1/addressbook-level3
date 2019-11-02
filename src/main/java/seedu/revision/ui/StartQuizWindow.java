@@ -13,8 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -42,6 +41,9 @@ public class StartQuizWindow extends Window {
 
     protected static final String FXML = "StartQuizWindow.fxml";
 
+    @FXML
+    protected StackPane levelPlaceholder;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private MainWindow mainWindow;
@@ -49,9 +51,10 @@ public class StartQuizWindow extends Window {
     private Mode mode;
 
     // Independent Ui parts residing in this Ui container
+    private CommandBox commandBox;
+    private LevelLabel levelLabel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
-    private CommandBox commandBox;
     private ProgressIndicatorBar progressIndicatorBar;
     private Timer timer;
     private ScoreProgressAndTimerGridPane progressAndTimerGridPane;
@@ -91,6 +94,10 @@ public class StartQuizWindow extends Window {
 
         int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);
         this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+
+        levelLabel = new LevelLabel(nextLevel);
+        levelPlaceholder.getChildren().add(levelLabel.getRoot());
+
         int sizeOfFirstLevel = getSizeOfCurrentLevel(quizList.get(0));
         progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, sizeOfFirstLevel,
                 "%.0f/" + sizeOfFirstLevel);
@@ -227,6 +234,9 @@ public class StartQuizWindow extends Window {
         if (result.get() == endButton) {
             handleExit();
         } else {
+            levelLabel = new LevelLabel(nextLevel);
+            levelPlaceholder.getChildren().add(levelLabel.getRoot());
+
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),

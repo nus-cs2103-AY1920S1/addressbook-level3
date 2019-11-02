@@ -31,6 +31,7 @@ public class ProgressIndicatorBar extends UiPart<Region> {
         this.workDone = workDone;
         this.totalWork = totalWork;
         this.labelFormatSpecifier = labelFormatSpecifier;
+        bar.getStyleClass().add("progress-bar");
 
         syncProgress();
         workDone.addListener(new ChangeListener<Number>() {

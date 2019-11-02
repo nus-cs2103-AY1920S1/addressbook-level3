@@ -1,7 +1,6 @@
 package seedu.revision.ui.answerables;
 
 import java.util.Comparator;
-import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +10,6 @@ import javafx.scene.layout.Region;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.ui.UiPart;
 
 /**
@@ -19,7 +17,6 @@ import seedu.revision.ui.UiPart;
  */
 public class AnswerableCard extends UiPart<Region> {
 
-    private static Set<Answer> combinedAnswerSet;
     private static final String FXML = "AnswerableListCard.fxml";
     public final Answerable answerable;
 
@@ -77,14 +74,6 @@ public class AnswerableCard extends UiPart<Region> {
         Label correctL = new Label(text);
         correctL.setStyle("-fx-background-color: #42b883");
         return correctL;
-    }
-
-    public static Set<Answer> getCombinedAnswerSet() {
-        return combinedAnswerSet;
-    }
-
-    public static void setCombinedAnswerSet(Set<Answer> combinedAnswerSet) {
-        AnswerableCard.combinedAnswerSet = combinedAnswerSet;
     }
 
     @Override
