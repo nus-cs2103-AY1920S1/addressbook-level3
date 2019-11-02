@@ -318,14 +318,28 @@ The latter debt will also have been added to your loan list, which can be checke
 === Automating with rules: `rule`
 
 // TODO: Some information here to show users perspective
+*Introducing the _Rule Engine_.*
+A way for you to automate certain actions based on a certain predicate.
+Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
+
+Rules have the following structure: If "predicate" is true, then perform "action".
+
+All rules in the Rule Engine will be executed on a transaction, when:
+
+* it is a new transaction and has been successfully added into an account.
+
+OR
+
+* it is an existing transaction and has been successfully edited.
+
+WARNING: All rules will be executed in the order they were added.
+Rules with conflicting actions will therefore be allowed.
 
 ==== Add a new rule: `rule add`
 
 Adds a new rule to the rule engine.
+Both the predicate and action have to be specified.
 A rule can be formed using either expressions or scripts, or both.
-
-NOTE: Rules with conflicting actions are allowed.
-All rules will be executed in the order they were added.
 
 Format: `rule add pred/<expression | script name> act/<expression | script name>`
 
