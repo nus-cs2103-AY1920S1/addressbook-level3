@@ -235,7 +235,7 @@ the command word `filter` is keyed in at the start.
 // end::filtertx[]
 
 [[addtx]]
-==== Creating transaction: `addtx`
+==== Creating transaction: `add`
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 
 As painful as it is to remind yourself each time you part with your money, it is essential to meticulously
