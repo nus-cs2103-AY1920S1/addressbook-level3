@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.model.activity.Activity;
 
 /**
  * Represents the timetable of a {@code Day}.
@@ -37,6 +38,15 @@ public class Timetable {
 
     public void removeActivityWithTime(Index toRemove) {
         this.timetable.remove(toRemove.getZeroBased());
+    }
+
+    /**
+     * Removes an {@code Activity} from a timetable.
+     */
+    public void removeActivity(Activity activity) {
+        while (timetable.contains(activity)) {
+            timetable.remove(timetable.indexOf(activity));
+        }
     }
 
     /**

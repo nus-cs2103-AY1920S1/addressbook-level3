@@ -107,10 +107,9 @@ public class ModelManager implements Model {
                     contactActivityMap.put(contact, new ArrayList<>(Arrays.asList(act)));
                 }
                 activityContactMap.put(act, contact);
-
-                List<Day> days = getDays(act);
-                activityDayMap.put(act, days);
             }
+            List<Day> days = getDays(act);
+            activityDayMap.put(act, days);
         }
     }
 
@@ -141,9 +140,53 @@ public class ModelManager implements Model {
             if (contactActivityMap.containsKey(contact)) {
                 contactActivityMap.get(contact).add(act);
             } else {
-                contactActivityMap.put(contact, new ArrayList<>((Arrays.asList(act))));
+                contactActivityMap.put(contact, new ArrayList<>(Arrays.asList(act)));
             }
             activityContactMap.put(act, contact);
+        }
+    }
+
+    /**
+     * Creates a mapping between an {@code Activity} and the {@code Day} containing it.
+     */
+    private void addDayMapping(Activity act, Day day) {
+        if (activityDayMap.containsKey(act)) {
+            activityDayMap.get(act).add(day);
+        } else {
+            activityDayMap.put(act, new ArrayList<>(Arrays.asList(day)));
+        }
+    }
+
+    /**
+     * Removes the mapping of an {@code Activity} in all the relevant {@code Contact} related {@code HashMap}.
+     */
+    private void removeActivityMapping(Activity act) {
+        if (activityContactMap.containsKey(act)) {
+            Contact contact = activityContactMap.remove(act);
+            contactActivityMap.remove(contact);
+        }
+    }
+
+    /**
+     * Removes the mapping of an {@code Activity} in the {@code Day} related {@code HashMap} when an activity is
+     * deleted.
+     */
+    private void removeDayMapping(Activity act) {
+        if (activityDayMap.containsKey(act)) {
+            List<Day> listOfDays = activityDayMap.remove(act);
+            for (Day day : listOfDays) {
+                day.removeActivity(act);
+            }
+        }
+    }
+
+    /**
+     * Removes the mapping of an {@code Activity} in the {@code Day} related {@code HashMap} when an activity is
+     * undscheduled.
+     */
+    private void removeDayMapping(Activity act, Day day) {
+        if (activityDayMap.containsKey(act)) {
+            activityDayMap.get(act).remove(day);
         }
     }
 
@@ -163,47 +206,87 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Removes the mapping of a {@code Contact} and it's related {@code Activity} and {@code Accommodation}.
+     */
+    private void removeContactMapping(Contact contact) {
+        if (contactActivityMap.containsKey(contact)) {
+            List<Activity> activities = contactActivityMap.remove(contact);
+            for (Activity act : activities) {
+                if (activityContactMap.containsKey(act)) {
+                    activityContactMap.remove(act);
+                }
+                Activity newAct = new Activity(act.getName(), act.getAddress(), null,
+                        act.getCost().isPresent() ? act.getCost().get() : null, act.getTags(), act.getDuration(),
+                        act.getPriority());
+                this.activities.setActivity(act, newAct);
+                updateDay(act, newAct);
+            }
+        }
+        if (contactAccommodationMap.containsKey(contact)) {
+            List<Accommodation> accommodations = contactAccommodationMap.remove(contact);
+            for (Accommodation acc : accommodations) {
+                if (accommodationContactMap.containsKey(acc)) {
+                    accommodationContactMap.remove(acc);
+                }
+                Accommodation newAcc = new Accommodation(acc.getName(), acc.getAddress(), null, acc.getTags());
+                this.accommodations.setAccommodation(acc, newAcc);
+            }
+        }
+    }
+
+    /**
+     * Updates the mapping when there is a change to an {@code Activity}.  When the {@code Activity} is changed,
+     * the {@code Day} containing it is updated.
+     */
+    private void updateDay(Activity oldAct, Activity newAct) {
+        List<Day> listOfDays = activityDayMap.remove(oldAct);
+        List<Day> newListOfDays = new ArrayList<>();
+        itinerary.getItinerary().forEach(day -> {
+            if (listOfDays.contains(day)) {
+                List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
+                List<Integer> indexOfOldActs = new LinkedList<>();
+                for (int i = 0; i < listOfActivityWithTime.size(); i++) {
+                    if (listOfActivityWithTime.get(i).getActivity().equals(oldAct)) {
+                        indexOfOldActs.add(i);
+                    }
+                }
+                for (Integer i : indexOfOldActs) {
+                    ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
+                    listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
+                            oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+                }
+                Day newDay = new Day(listOfActivityWithTime);
+                setDay(day, newDay);
+                newListOfDays.add(newDay);
+            }
+        });
+        activityDayMap.put(newAct, newListOfDays);
+    }
+
+    /**
      * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
      * {@code Activity} is changed, the {@code Contact} is also updated.
      */
     private void updateMapping(Activity oldAct, Activity newAct) {
-        if (newAct.getContact().isPresent()) {
-            if (oldAct.getContact().isPresent()) {
-                Contact oldContact = activityContactMap.remove(oldAct);
-                List<Activity> oldList = contactActivityMap.remove(oldContact);
+        if (oldAct.getContact().isPresent()) {
+            Contact oldContact = activityContactMap.remove(oldAct);
+            List<Activity> oldList = contactActivityMap.remove(oldContact);
+            oldList.set(oldList.indexOf(oldAct), newAct);
+            if (newAct.getContact().isPresent()) {
                 Contact newContact = newAct.getContact().get();
-                oldList.set(oldList.indexOf(oldAct), newAct);
-
                 setContact(oldContact, newContact);
                 contactActivityMap.put(newContact, oldList);
                 activityContactMap.put(newAct, newContact);
             } else {
-                addActivityMapping(newAct);
+                contactActivityMap.put(oldContact, oldList);
+                activityContactMap.put(newAct, oldContact);
             }
+        } else if (newAct.getContact().isPresent()) {
+            addContact(newAct.getContact().get());
+            addActivityMapping(newAct);
         }
         if (activityDayMap.containsKey(oldAct)) {
-            List<Day> listOfDays = activityDayMap.remove(oldAct);
-            List<Day> newListOfDays = new ArrayList<>();
-            itinerary.getItinerary().forEach(day -> {
-                if (listOfDays.contains(day)) {
-                    List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
-                    List<Integer> indexOfOldActs = new LinkedList<>();
-                    for (int i = 0; i < listOfActivityWithTime.size(); i++) {
-                        if (listOfActivityWithTime.get(i).getActivity().equals(oldAct)) {
-                            indexOfOldActs.add(i);
-                        }
-                    }
-                    for (Integer i : indexOfOldActs) {
-                        ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
-                        listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
-                                oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
-                    }
-                    Day newDay = new Day(listOfActivityWithTime);
-                    setDay(day, newDay);
-                    newListOfDays.add(newDay);
-                }
-            });
-            activityDayMap.put(newAct, newListOfDays);
+            updateDay(oldAct, newAct);
         }
     }
 
@@ -252,7 +335,8 @@ public class ModelManager implements Model {
                             int indexOfOldItem = listOfActivityWithTime.indexOf(x);
                             ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldItem);
                             listOfActivityWithTime.set(indexOfOldItem, new ActivityWithTime(newActivity,
-                                    oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+                                    oldActivityWithTime.getStartTime(),
+                                    oldActivityWithTime.getStartTime().plusMinutes(newActivity.getDuration().value)));
                         }
                     });
                     activityDayMap.put(newActivity, listOfDays);
@@ -272,6 +356,24 @@ public class ModelManager implements Model {
                 return newAccommodation;
             }).collect(Collectors.toList());
             contactAccommodationMap.put(newContact, newList);
+        }
+    }
+
+    /**
+     * Updates the mapping when there is a change in a {@code Day}.
+     */
+    private void updateMapping(Day oldDay, Day newDay) {
+        List<ActivityWithTime> oldList = oldDay.getListOfActivityWithTime();
+        for (ActivityWithTime act : oldList) {
+            activityDayMap.get(act.getActivity()).remove(oldDay);
+        }
+        List<ActivityWithTime> newList = newDay.getListOfActivityWithTime();
+        for (ActivityWithTime act : newList) {
+            if (activityDayMap.containsKey(act.getActivity())) {
+                activityDayMap.get(act.getActivity()).add(newDay);
+            } else {
+                activityDayMap.put(act.getActivity(), new ArrayList<>(Arrays.asList(newDay)));
+            }
         }
     }
 
@@ -416,6 +518,8 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteActivity(Activity target) {
+        removeActivityMapping(target);
+        removeDayMapping(target);
         activities.removeActivity(target);
     }
 
@@ -470,6 +574,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteContact(Contact target) {
+        removeContactMapping(target);
         contacts.removeContact(target);
     }
 
@@ -556,6 +661,7 @@ public class ModelManager implements Model {
     }
 
     public void setDay(Day oldDay, Day newDay) {
+        updateMapping(oldDay, newDay);
         this.itinerary.setDay(oldDay, newDay);
     }
 
@@ -567,11 +673,14 @@ public class ModelManager implements Model {
 
     @Override
     public void scheduleActivity(Day day, ActivityWithTime toAdd) {
+        addDayMapping(toAdd.getActivity(), day);
         day.addActivityWithTime(toAdd);
     }
 
     @Override
     public void unscheduleActivity(Day day, Index toRemove) {
+        Activity activity = day.getListOfActivityWithTime().get(toRemove.getZeroBased()).getActivity();
+        removeDayMapping(activity, day);
         day.removeActivityWithTime(toRemove);
     }
 

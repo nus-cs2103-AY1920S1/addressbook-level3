@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.planner.model.contact.Contact;
+import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
@@ -98,6 +99,10 @@ public class Activity implements Comparable<Activity> {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
+        }
+
+        if (other instanceof ActivityWithTime) {
+            return this.equals(((ActivityWithTime) other).getActivity());
         }
 
         if (!(other instanceof Activity)) {
