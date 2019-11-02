@@ -11,7 +11,7 @@ public class EmployeeJoinDate {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final String MESSAGE_CONSTRAINTS =
-            "Start Date Needed should be an in the following format dd/MM/yyyy";
+            "Join Date should be an in the following format dd/mm/yyyy";
 
     public final LocalDate joinDate;
 
@@ -37,7 +37,7 @@ public class EmployeeJoinDate {
 
     @Override
     public String toString() {
-        return joinDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return joinDate.format(FORMATTER);
     }
 
     @Override

@@ -52,10 +52,6 @@ public class EmployeeEmailTest {
 
         // valid email
         assertTrue(EmployeeEmail.isValidEmail("PeterJack_1190@example.com"));
-        assertTrue(EmployeeEmail.isValidEmail("a@bc")); // minimal
-        assertTrue(EmployeeEmail.isValidEmail("test@localhost")); // alphabets only
-        assertTrue(EmployeeEmail.isValidEmail("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
-        assertTrue(EmployeeEmail.isValidEmail("123@145")); // numeric local part and domain name
         assertTrue(EmployeeEmail.isValidEmail("a1+be!@example1.com")); // mixture of alphanumeric and special characters
         assertTrue(EmployeeEmail.isValidEmail("peter_jack@very-very-very-long-example.com")); // long domain name
         assertTrue(EmployeeEmail.isValidEmail("if.you.dream.it_you.can.do.it@example.com")); // long local part

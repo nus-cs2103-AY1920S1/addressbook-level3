@@ -28,9 +28,14 @@ public class DisplayScheduleForDateCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredScheduledEventList(predicate);
+        int eventListSize = model.getFilteredScheduledEventList().size();
+
+        String resultMessage = eventListSize == 1
+                ? Messages.MESSAGE_EVENT_LISTED_OVERVIEW
+                : Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,
-                        model.getFilteredScheduledEventList().size()), "Schedule_Update", predicate.getDate());
+                String.format(resultMessage, eventListSize), "Schedule_Update", predicate.getDate());
     }
 
     @Override

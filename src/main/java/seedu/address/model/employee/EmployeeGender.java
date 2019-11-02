@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EmployeeGender {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Gender should only be male or female, and it should not be blank";
+            "Gender should be stated as strictly either 'male' or 'female' (Case insensitive), "
+                    + "and it should not be blank";
 
     /*
      * The first character of the gender must not be a whitespace,

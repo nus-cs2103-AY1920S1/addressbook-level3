@@ -40,8 +40,13 @@ public class FindEventCommand extends Command {
             model.updateFilteredScheduledEventList(predicate);
             currentEventList = model.getFilteredScheduledEventList();
         }
+
+        String resultMessage = currentEventList.size() == 1
+                ? Messages.MESSAGE_EVENT_LISTED_OVERVIEW
+                : Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW, currentEventList.size()));
+                String.format(resultMessage, currentEventList.size()));
     }
 
     @Override

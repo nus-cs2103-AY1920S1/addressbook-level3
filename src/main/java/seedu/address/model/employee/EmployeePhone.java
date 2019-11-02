@@ -11,10 +11,10 @@ public class EmployeePhone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeePhone numbers should only contain numbers, and it should be at "
-                    + "least 3 digits long, AddMin+ automatically assumes the input "
-                    + "phone number to be +65 and users do not have to enter it.";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers should only contain numbers, and it should be at "
+                    + "between 7-15 digits long, according to the E.164 ITU-T Recommendation.\n"
+                    + "All phone numbers are assumed with the +65 extension, so it is not required to be stated.";
+    public static final String VALIDATION_REGEX = "\\d{7,15}";
     public final String value;
 
     /**

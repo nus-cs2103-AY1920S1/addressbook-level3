@@ -9,23 +9,22 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class EmployeeEmail {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
+    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain.com "
             + "and adhere to the following constraints:\n"
-            + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
-            + "2. This is followed by a '@' and then a domain name. "
+            + "1. For both the local-part and domain-part, it may contain dots but "
+            + "no two dots can appear next to each other. "
+            + "The first and last characters must not be dots. \n"
+            + "2. The local-part should only contain alphanumeric characters and the "
+            + "special characters dot (.) , dash (-), and underscore (_).\n"
+            + "3. This is followed by a '@' and then a domain name. "
             + "The domain name must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
-    // alphanumeric and special characters
-    private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
-    private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
-    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
-    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
-            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
+            + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any. \n"
+            + "    - contain at least one dot (.) \n"
+            + "    - the top-level (e.g. .com) must be at least 2 characters and at most 6 characters long \n"
+            + "    - start and end with alphanumeric characters\n";
+
+    private static final String EMAIL_REGEX = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*"
+            + "@(?!-)(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 
     public final String value;
 
@@ -44,7 +43,7 @@ public class EmployeeEmail {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(EMAIL_REGEX);
     }
 
     @Override

@@ -245,6 +245,26 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code LocalDate} is invalid.
+     */
+    public static LocalDate parseSysDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmed = date.trim();
+        LocalDate newDate;
+
+        try {
+            newDate = LocalDate.parse(trimmed, FORMATTER);
+        } catch (DateTimeException e) {
+            throw new ParseException("Date should be in the following format dd/MM/yyyy");
+        }
+
+        return newDate;
+    }
+
+    /**
      * Parses a {@code String date} into a {@code YearMonth}.
      * Leading and trailing whitespaces will be trimmed.
      *

@@ -31,9 +31,15 @@ public class FindByTagCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredEmployeeList(predicate);
+
+        int employeeListSize = model.getFilteredEmployeeList().size();
+
+        String resultMessage = employeeListSize == 1
+                ? Messages.MESSAGE_EMPLOYEE_LISTED_OVERVIEW
+                : Messages.MESSAGE_EMPLOYEES_LISTED_OVERVIEW;
+
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW,
-                        model.getFilteredEmployeeList().size()), "Employee");
+                String.format(resultMessage, employeeListSize), "Employee");
     }
 
     @Override
