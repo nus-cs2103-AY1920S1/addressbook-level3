@@ -554,20 +554,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addSchedule_scheduleHasConflictsInScheduleBook_returnsListWithOneConflict() {
-        // set up schedule in model manager
-        modelManager.addSchedule(CBD_SCHEDULE);
-        assertTrue(modelManager.hasSchedule(CBD_SCHEDULE));
-
-        Calendar newCalendar = (Calendar) CBD_SCHEDULE.getCalendar().clone();
-        newCalendar.add(Calendar.MINUTE, 10);
-        Schedule newSchedule = new ScheduleBuilder(CBD_SCHEDULE).withCalendar(newCalendar).build();
-        List<Schedule> conflicts = modelManager.getConflictingSchedules(newSchedule);
-        assertEquals(1, conflicts.size());
-        assertEquals(CBD_SCHEDULE, conflicts.get(0));
-    }
-
-    @Test
     public void setSchedule_nullFields_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setSchedule(null, null));
     }

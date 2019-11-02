@@ -488,7 +488,8 @@ public class ModelManager implements Model {
                 .filter(x -> !x.isSameAs(schedule))
                 .filter(x -> x.getCalendar().after(earliestUnconflictedStartTime))
                 .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
-                .sorted(Comparator.comparing(Schedule::getCalendar));
+                .sorted(Comparator.comparing(Schedule::getCalendar))
+                .forEach(conflicts::add);
 
         return conflicts;
     }

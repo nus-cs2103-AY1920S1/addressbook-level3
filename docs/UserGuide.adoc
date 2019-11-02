@@ -482,7 +482,7 @@ Format: `complete-o INDEX`
 
 ==== Cancel an order : `cancel`
 Cancels the order at the specified index. +
-Format: `cancel-o INDEX`
+Format: `cancel INDEX`
 
 ==== List the orders : `list-o`
 List all the orders in the list. +
@@ -653,7 +653,7 @@ Currently, the following commands are undoable and redoable. +
 . Delete Schedule
 . Clear Schedule
 
-[underline]#Format#: `undo`
+[underline]#Format#: `redo`
 
 [underline]#Examples#:
 
