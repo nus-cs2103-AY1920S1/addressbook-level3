@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -69,6 +70,19 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
+    @Test
+    public void execute_deletePersonInActivity_throwsCommandException() {
+        showPersonAtIndex(model, INDEX_FIRST);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST.getZeroBased());
+        String errmsg = String.format(DeleteCommand.MESSAGE_PERSON_INVOLVED_ACTIVITY,
+                personToDelete.getName());
+
+        Model tempmodel = new ModelManager(
+                getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
+
+        assertCommandFailure(deleteCommand, tempmodel, errmsg);
+    }
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST);
