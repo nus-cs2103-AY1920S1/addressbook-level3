@@ -18,15 +18,20 @@ By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a Command Line Interface (CLI) app.
-The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is CLI based, thus favoring people who can type fast. Starting using it now and enjoy!
+FinSec is a Financial Planner that helps the finance secretaries of any department in National University of Singapore,
+preferably from the School of Computing so that they would be more likely to like the idea of having a Command Line Interface (CLI) app.
+The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is CLI based,
+thus favoring people who can type fast. +
+
+We are the solution to all of your organisation's financial needs.
+
+What are you waiting for? Download the app now and enjoy!
 
 [cols="3,40"]
 |========
 |Icon | Meaning
 a|image::warning.png[width = "20"] | Warning to take note!
 |========
-
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -52,10 +57,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add_contact n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy) p/PHONE NUMBER`,
+ `NAME`, `DESCRIPTION`, `CASH AMOUNT`, `DATE`, `PHONE NUMBER` are parameters that the user has to type in.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
 ====
 
 === Viewing help : `help`
