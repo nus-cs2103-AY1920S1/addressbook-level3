@@ -20,15 +20,17 @@ By: `Vortex`      Since: `Sep 2019`      Licence: `MIT`
 
 Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with *SplitWiser* is here! *SplitWiser* is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy.
 
+Coming in v2.0:
++
+image::minified-mockups/main.png[width="251"]
++
+
 == Getting Started
 
 .  Ensure you have link:https://java.com/en/download/[Java 11] or above installed in your Computer.
 .  Download the latest `SplitWiser.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for SplitWiser.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::minified-mockups/main.png[width="251"]
-+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -91,16 +93,16 @@ Format: `list c/` for contacts *OR* `list a/` for activities
 
 === View a contact or activity : `view`
 
-Switches the current view to show details of a contact or activity based on their ID. +
+Switches the current view to show details of a contact or activity based on their index number in the currently/last viewed list. +
 
 Format: `view a/ACTIVITY_ID` *OR* `view c/CONTACT_ID` +
 
 Examples:
 
 * `view a/1` +
-Views the activity with ID 1, e.g. Chalet
+Views the first activity in the last viewed activity list, e.g. Chalet
 * `view c/2` +
-views the contact with ID 2, e.g. John Smith
+views the second contact in the last viewed contacts list, e.g. John Smith
 
 === Create new contact: `contact`
 
