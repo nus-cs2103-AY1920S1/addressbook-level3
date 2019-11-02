@@ -1,9 +1,9 @@
 package seedu.address.model.util;
 
+import java.util.stream.IntStream;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.BankAccountOperation;
-
-import java.util.stream.IntStream;
 
 /**
  * A utility class for performing 2-variable gradient descent
@@ -17,7 +17,7 @@ public final class GradientDescent {
 
     private double theta0;
     private double theta1;
-    private double [][] data;
+    private double[][] data;
     private int iterations;
     private ObservableList<BankAccountOperation> transactionHistory;
 
@@ -42,18 +42,24 @@ public final class GradientDescent {
         });
     }
 
+    /**
+     * TODO
+     */
     private double deriveThetaZeroCost() {
         Double cost = IntStream.range(0, data[0].length).asDoubleStream().reduce(0, (x, y) -> {
-            return x + (data[(int)y][0] - predict(data[(int)y][0]));
+            return x + (data[(int) y][0] - predict(data[(int) y][0]));
         });
-        return - 2 * cost / data[0].length;
+        return -2 * cost / data[0].length;
     }
 
+    /**
+     * TODO
+     */
     private double deriveThetaOneCost() {
         Double cost = IntStream.range(0, data[0].length).asDoubleStream().reduce(0, (x, y) -> {
-            return x + (data[(int)y][0] - predict(data[(int)y][0]) * data[(int)y][0]);
+            return x + (data[(int) y][0] - predict(data[(int) y][0]) * data[(int) y][0]);
         });
-        return - 2 * cost / data[0].length;
+        return -2 * cost / data[0].length;
     }
 
     public double predict(double x) {
@@ -75,7 +81,7 @@ public final class GradientDescent {
             double temp1 = theta1 - delta1;
             theta0 = temp0;
             theta1 = temp1;
-        } while((Math.abs(delta0) + Math.abs(delta1)) > TOLERANCE && iterations <= MAX_ITERATIONS);
+        } while ((Math.abs(delta0) + Math.abs(delta1)) > TOLERANCE && iterations <= MAX_ITERATIONS);
     }
 
     public int getIterations() {

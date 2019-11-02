@@ -123,7 +123,7 @@ Adds an income of your personal finance +
 Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ****
-* `AMOUNT` input accepts a non-negative value lesser than or equal to 1,000,000of the income.
+* `AMOUNT` input accepts a non-negative value lesser than or equal to 1,000,000 of the income.
 * `ITEM` input accepts the description of the income
 * `DATE` input accepts accepts the date of this transaction
 * `CATEGORY` input accepts the CATEGORY for this income

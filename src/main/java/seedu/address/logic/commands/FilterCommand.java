@@ -32,6 +32,7 @@ public class FilterCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredTransactionList(pred);
+        model.commitUserState();
         return new CommandResult(
             String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
                 model.getFilteredTransactionList().size()));
