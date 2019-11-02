@@ -80,6 +80,11 @@ public class Itinerary implements ReadOnlyItinerary {
         eventList.setEvent(eventToEdit, editedEvent);
     }
 
+    /**
+     * Update the json file of the itinerary by writing the data on the json file after a command which edits and
+     * changes parts of the event list in the itinerary.
+     * @param readOnlyItinerary readable itinerary which prevents editing of data.
+     */
     public void updateItinerary(ReadOnlyItinerary readOnlyItinerary) {
         eventList.clear();
         List<Event> eventList = readOnlyItinerary.getEventList();
