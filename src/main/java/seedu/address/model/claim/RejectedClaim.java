@@ -15,13 +15,12 @@ public class RejectedClaim extends Claim {
 
     private static final Status status = Status.REJECTED;
 
-    public RejectedClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone,
-                         Set<Tag> tags) {
-        super(id, description, amount, date, name, phone, tags, status);
+    public RejectedClaim(Id id, Description description, Amount amount, Date date, Name name, Set<Tag> tags) {
+        super(id, description, amount, date, name, tags, status);
     }
 
-    public RejectedClaim(Description description, Amount amount, Date date, Name name, Phone phone, Set<Tag> tags) {
-        super(description, amount, date, name, phone, tags, status);
+    public RejectedClaim(Description description, Amount amount, Date date, Name name, Set<Tag> tags) {
+        super(description, amount, date, name, tags, status);
     }
 
     public RejectedClaim(Claim source) {
@@ -30,7 +29,6 @@ public class RejectedClaim extends Claim {
                 source.getAmount(),
                 source.getDate(),
                 source.getName(),
-                source.getPhone(),
                 source.getTags(),
                 status);
     }
@@ -54,7 +52,6 @@ public class RejectedClaim extends Claim {
                 && otherClaim.getDescription().equals(getDescription())
                 && otherClaim.getName().equals(getName())
                 && otherClaim.getDate().equals(getDate())
-                && otherClaim.getPhone().equals(getPhone())
                 && otherClaim.getAmount().equals(getAmount())
                 && otherClaim.getTags().equals(getTags());
     }

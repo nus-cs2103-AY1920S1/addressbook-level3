@@ -16,14 +16,12 @@ public class PendingClaim extends Claim {
 
     private static final Status status = Status.PENDING;
 
-    public PendingClaim(Description description, Amount amount, Date date, Name name, Phone phone,
-                        Set<Tag> tags) {
-        super(description, amount, date, name, phone, tags, status);
+    public PendingClaim(Description description, Amount amount, Date date, Name name, Set<Tag> tags) {
+        super(description, amount, date, name, tags, status);
     }
 
-    public PendingClaim(Id id, Description description, Amount amount, Date date, Name name, Phone phone,
-                        Set<Tag> tags) {
-        super(id, description, amount, date, name, phone, tags, status);
+    public PendingClaim(Id id, Description description, Amount amount, Date date, Name name, Set<Tag> tags) {
+        super(id, description, amount, date, name, tags, status);
     }
 
     @Override
@@ -50,7 +48,6 @@ public class PendingClaim extends Claim {
                 && otherClaim.getDescription().equals(getDescription())
                 && otherClaim.getName().equals(getName())
                 && otherClaim.getDate().equals(getDate())
-                && otherClaim.getPhone().equals(getPhone())
                 && otherClaim.getAmount().equals(getAmount())
                 && otherClaim.getTags().equals(getTags());
     }
