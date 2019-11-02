@@ -20,20 +20,19 @@ We are a group of 5 Year 2 NUS Computer Science students, who worked together to
 In this module, each team is required to morph or enhance an exiting CLI AddressBook application, to fit the needs of a
 target group of users.
 
-Our application, +Work, is a roject management tool aimed at NUS project leaders who are in charge of a small project
-group. It allows project leaders to successfully achieve the objectives of their project, by helping them manage their
-members, meeting times, task allocations as well as personal claims for equipment purchased.
-A user can use +Work to find the most popular meeting time among his project members, when calling for a meeting.
-He can add project tasks, and members that are assigned under these tasks, into +Work to better manage the project
+Our application, +Work, is a project management tool aimed at NUS project leaders who are in charge of a small project
+group. It allows project leaders to manage their members, meeting times, task allocations as well as personal claims for items purchased.
+A user can use +Work to find the most popular meeting time among his project members, when calling for a meeting,
+and add project tasks, and members that are assigned under these tasks, into +Work to better manage the project
 manpower. Additionally, he can add inventory items into +Work to keep track of the purchases made over the course of
 the project.
 
 === Formatting of Document
-Shown down below are symbols that appear in my Project Portfolio, and their significance.
+Shown below are symbols that will appear in my Project Portfolio, and their significance.
 
 [IMPORTANT]
-Information listed in under this note is essential information that users should
-take note of, in order for +Work to function as stated.
+Information listed in this note is essential information that users should
+take note of, in order for +Work to function as mentioned in the User Guide.
 
 [NOTE]
 Information here are things that the user can learn, so as to more efficiently use +Work.
@@ -43,38 +42,51 @@ This section details all of my contributions to the project, and showcases how I
 
 === Enhancements 
 * *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
-** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion of tasks that are undone, in progress and completed, as well as the time spent on each task inputted into +Work, is retrieved.
-** Justification: This feature improves increases the functionality of +Work because it gives the user a broad overview of the project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one of the main goals of effective project management.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project
+members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion
+of tasks that are undone, in progress and completed, as well as the time spent on each task inputted into +Work, is retrieved.
+** Justification: This feature increases the functionality of +Work because it gives the user a broad overview of the
+project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out
+future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one
+of the main goals of effective project management.
+** Highlights: The statistics are displayed in the form of a Pie-Chart for easy comparison of data at a glance. The
+statistics code is also implemented such that other kinds of statistics can easily be calculated and displayed under +Work.
+Additionally, the implementation also required the use of a newly introduced
+mapping concept we added to +Work, and required extensive consideration in the integration of the two implementations.
 
 * *Major enhancement*: I added the ability for users to work with (add, delete, list, set image for) project members on +Work.
-** What it does: This feature allows the user to add project members to +Work, so that he can keep track of and manage both project tasks and members in one application.
-** Justification: This feature improves the product significantly because adds another aspect of project managmenet (member management) into +Work, and allows 
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** What it does: This feature allows the user to add project members to +Work, so that both members and tasks can be managed in one application.
+** Justification: This feature improves the product significantly because it adds another aspect of project management (member management) into +Work, and allows different tasks and members to be assigned to one another. This allows
+users to be able to draw connections between tasks and members when managing the project.
+** Highlights: One of the unique features that member has, is the ability to be assigned profile pictures. Users can
+link an image on their laptop to a specific member in +Work, to set the image as the member's profile photo. This was
+challenging to implement because I had to ensure the UI would be able to accurately display the profile picture of each
+member in an appealing way.
 
-
-* *Minor enhancement*: 
-** Enhanced the UI of Members to include the uploading of members' profile photos, as well as listing of tasks allocated to each member under individual member cards.
-** Enhanced the UI of statistics calculated in easy-to-read format.
+* *Minor enhancement*:
+** Added the ability for users to set profile pictures for members in +Work
+** Created the UI for members in +Work, which can include members' profile photos, as well as list tasks allocated to
+each member under individual member cards
+** Created the UI of statistics calculated, and made sure it was in an easy-to-read format
+** Added test cases for all additional commands and classes related to Members and Statistics
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-=== Other Significant Contribution to Project 
+=== Other Significant Contribution to Project
 ** Project management
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up the project organisation and repository at the beginning of the project
+
 ** Enhancements to existing features
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Enhanced the UI display for tasks, to include information regarding member allocated to the different tasks, in individual task cards. (Pull requests https://github.com[#36], https://github.com[#38])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
 ** Documentation
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote parts of the +Work User Guide relating to member and statistics: https://github.com[#14]
+*** Wrote parts of the +Work Developer Guide relating to member and statistics: https://github.com[#14]
+
 ** Community
 *** Reviewed PRs (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
 
 == Contributions to the User Guide
 We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
