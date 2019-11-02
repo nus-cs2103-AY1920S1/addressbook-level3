@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
@@ -18,10 +19,12 @@ import seedu.address.model.category.Category;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
 import seedu.address.model.export.ExportPath;
 import seedu.address.model.flashcard.FlashCard;
+import seedu.address.model.flashcard.Rating;
 
 /**
  * Exports all {@code FlashCard}s whose category matches the supplied argument keyword. Keyword matching is case
- * insensitive. FlashCards will have their questions and answers copied to a specified file.
+ * insensitive. FlashCards will have their questions and answers copied to a specified file. Ratings and other categories
+ * are removed.
  */
 public class ExportCommand extends Command {
 
@@ -59,7 +62,9 @@ public class ExportCommand extends Command {
         try {
             List<FlashCard> flashCardList = getFlashCardsByCategory(model, category);
             verifyNonEmptyFlashCardList(flashCardList, "There are no FlashCards matching the specified category.");
-            this.exportPath.export(flashCardList);
+            this.exportPath.export(
+                    wipeTransientData(flashCardList, category)
+            );
 
             return new CommandResult(
                     String.format(
@@ -125,5 +130,16 @@ public class ExportCommand extends Command {
         if (flashCardList.size() == 0) {
             throw new CommandException(message);
         }
+    }
+
+    private static List<FlashCard> wipeTransientData(List<FlashCard> flashCardList, Category category) {
+        return flashCardList.stream().map(
+                flashCard -> new FlashCard(
+                        flashCard.getQuestion(),
+                        flashCard.getAnswer(),
+                        new Rating(Rating.NULL),
+                        Collections.singleton(category)
+                )
+        ).collect(Collectors.toList());
     }
 }
