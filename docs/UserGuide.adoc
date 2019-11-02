@@ -95,31 +95,6 @@ Provides a link to this user guide.
 
 Format: `help`
 
-=== Managing defaults: `default` (coming in v2.0)
-
-==== Set default account: `default account` (coming in v2.0)
-
-Sets the default account.
-
-Format: `default account <id>`
-
-=== Managing the main transaction view: `view`
-
-==== Filter transactions: `view filter` (Coming in v2.0)
-
-Filters the main transaction view. If no arguments are provided, all transactions are shown.
-Otherwise, only transactions meeting all the criteria are shown.
-
-Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
-
-==== Sort transactions: `view sort` (Coming in v2.0)
-
-Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
-Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
-If omitted, sort in ascending order.
-
-Format: `view sort s/<a|c|d|x> [o/<a|d>]`
-
 === Managing transactions: `transaction`
 
 ==== Add a transaction: `txn out|in`
@@ -219,30 +194,6 @@ Examples:
 *`account find trip`
 You can see a list of accounts with the word 'trip' contained in their names.
 // end::accounts[]
-
-=== Managing categories: `category` (Coming in v2.0)
-
-==== Add a category (Coming in v2.0)
-
-Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
-
-==== List categories: `category list` (Coming in v2.0)
-
-Lists all categories.
-
-==== Rename a category: `category rename` (Coming in v2.0)
-
-Renames the specified category.
-Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
-
-Format: `category rename o/<old name> n/<new name>`
-
-==== Delete a category: `category delete` (Coming in v2.0)
-
-Deletes the specified category.
-Note that this is the same as un-categorising all transactions under the specified category.
-
-Format: `category delete n/<name>`
 
 // tag::loans[]
 === Tracking loans: `loan`
@@ -545,6 +496,35 @@ Deletes an alias.
 Format: `alias delete <alias name>`
 // end::aliases[]
 
+== Coming In v2.0
+
+Look forward to these features coming up in version 2.0 of Budget Buddy!
+
+=== Managing defaults *(Coming in v2.0)* : `default`
+
+==== Set default account: `default account`
+
+Sets the default account.
+
+Format: `default account <id>`
+
+=== Managing the main transaction view *(Coming in v2.0)* : `view`
+
+==== Filter transactions: `view filter`
+
+Filters the main transaction view. If no arguments are provided, all transactions are shown.
+Otherwise, only transactions meeting all the criteria are shown.
+
+Format: `view filter [a/<account>] [c/<category>] [f/<from date>] [t/<to date>]`
+
+==== Sort transactions: `view sort`
+
+Sorts transactions by (a)ccount, (c)ategory, (d)ate or (x)amount.
+Specify `o/a` to sort in ascending order, or `o/d` to sort in descending order.
+If omitted, sort in ascending order.
+
+Format: `view sort s/<a|c|d|x> [o/<a|d>]`
+
 // tag::budget[]
 === Managing budgets *(Coming in v2.0)* : `budget`
 
@@ -577,6 +557,30 @@ List all goals.
 ==== Delete goal(s): `goal delete`
 
 Deletes the goal with the specified goal ID.
+
+=== Managing categories *(Coming in v2.0)* : `category`
+
+==== Add a category
+
+Categories do not need to be added; you can simply use the category name and a new category will be created if no such one exists.
+
+==== List categories: `category list`
+
+Lists all categories.
+
+==== Rename a category: `category rename`
+
+Renames the specified category.
+Note that this is the same as setting the category of all transactions of category `old name` to `new name`.
+
+Format: `category rename o/<old name> n/<new name>`
+
+==== Delete a category: `category delete`
+
+Deletes the specified category.
+Note that this is the same as un-categorising all transactions under the specified category.
+
+Format: `category delete n/<name>`
 
 
 === Viewing reports *(Coming in v2.0)*: `report`
