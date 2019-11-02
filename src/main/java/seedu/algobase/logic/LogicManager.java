@@ -25,7 +25,6 @@ import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 import seedu.algobase.storage.SaveStorageRunnable;
 import seedu.algobase.storage.Storage;
-import seedu.algobase.storage.exceptions.StorageException;
 
 /**
  * The main LogicManager of the app.
@@ -58,10 +57,8 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        try {
-            getSaveAlgoBaseStorageRunnable().save();
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        if (!getSaveAlgoBaseStorageRunnable().save()) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE);
         }
 
         TabManager tabManager = getGuiState().getTabManager();
@@ -74,11 +71,12 @@ public class LogicManager implements Logic {
     public SaveStorageRunnable getSaveAlgoBaseStorageRunnable() {
         return new SaveStorageRunnable() {
             @Override
-            public void save() throws StorageException {
+            public boolean save() {
                 try {
                     storage.saveAlgoBase(model.getAlgoBase());
+                    return true;
                 } catch (IOException ioe) {
-                    throw new StorageException(ioe.toString());
+                    return false;
                 }
             }
         };

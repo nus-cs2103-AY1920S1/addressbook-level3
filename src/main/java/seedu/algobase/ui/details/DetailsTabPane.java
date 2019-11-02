@@ -24,7 +24,6 @@ import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.storage.SaveStorageRunnable;
-import seedu.algobase.storage.exceptions.StorageException;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -104,11 +103,7 @@ public class DetailsTabPane extends UiPart<Region> {
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
                     tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
-                    try {
-                        saveStorageRunnable.save();
-                    } catch (StorageException e) {
-                        // Do nothing if unable to save
-                    }
+                    saveStorageRunnable.save();
                 }
             }
         });

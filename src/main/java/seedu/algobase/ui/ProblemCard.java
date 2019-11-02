@@ -18,7 +18,6 @@ import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.storage.SaveStorageRunnable;
-import seedu.algobase.storage.exceptions.StorageException;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -132,11 +131,7 @@ public class ProblemCard extends UiPart<Region> {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + problem.getName());
                         writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PROBLEM, problem.getId()));
-                        try {
-                            saveStorageRunnable.save();
-                        } catch (StorageException ioe) {
-                            // Do nothing if unable to save
-                        }
+                        saveStorageRunnable.save();
                     }
                 }
             }
