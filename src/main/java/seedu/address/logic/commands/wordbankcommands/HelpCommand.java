@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.homecommands;
+package seedu.address.logic.commands.wordbankcommands;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
@@ -6,7 +6,7 @@ import seedu.address.model.Model;
 /**
  * Format full help instructions for every command for display.
  */
-public class HelpCommand extends HomeCommand {
+public class HelpCommand extends WordBankCommand {
 
     public static final String COMMAND_WORD = "help";
 

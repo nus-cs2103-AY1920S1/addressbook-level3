@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.homecommands;
+package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -11,7 +11,7 @@ import seedu.address.model.wordbank.WordBank;
 /**
  * Removes a word bank identified using it's unique name.
  */
-public class RemoveCommand extends HomeCommand {
+public class RemoveCommand extends WordBankCommand {
 
     public static final String COMMAND_WORD = "remove";
 
@@ -42,8 +42,10 @@ public class RemoveCommand extends HomeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.logic.commands.homecommands.RemoveCommand // instanceof handles nulls
-                && wordBankName.equals(((seedu.address.logic.commands.homecommands.RemoveCommand) other).wordBankName));
+                // instanceof handles nulls
+                || (other instanceof seedu.address.logic.commands.wordbankcommands.RemoveCommand
+                && wordBankName
+                .equals(((seedu.address.logic.commands.wordbankcommands.RemoveCommand) other).wordBankName));
     }
 
     public static String getWordBankName() {

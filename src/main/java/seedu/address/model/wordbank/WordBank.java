@@ -56,8 +56,8 @@ public class WordBank implements ReadOnlyWordBank {
      * A card with the same meaning must not already exist in the word bank.
      * The checking is handled by UniqueCardList class.
      */
-    public void addCard(Card p) {
-        cards.add(p);
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
     /**

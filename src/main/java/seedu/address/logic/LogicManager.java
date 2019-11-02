@@ -16,7 +16,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.cardcommands.CardCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.homecommands.HomeCommandResult;
+import seedu.address.logic.commands.wordbankcommands.WordBankCommandResult;
 import seedu.address.logic.parser.ParserManager;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
@@ -71,9 +71,9 @@ public class LogicManager implements Logic, UiLogicHelper {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
             }
 
-            if (commandResult instanceof HomeCommandResult) {
-                HomeCommandResult homeCommandResult = (HomeCommandResult) commandResult;
-                homeCommandResult.updateStorage(storage);
+            if (commandResult instanceof WordBankCommandResult) {
+                WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
+                wordBankCommandResult.updateStorage(storage);
             }
 
             if (commandResult instanceof CardCommandResult) {
