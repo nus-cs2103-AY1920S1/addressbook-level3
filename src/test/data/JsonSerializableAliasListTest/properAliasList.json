@@ -1,0 +1,87 @@
+{
+  "aliasList" : [ {
+    "commandWord" : "add",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "alias",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "autosort",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "budget",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "buy",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "clear",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "collapse",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "customsort",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "default",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "delete",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "dislike",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "edit",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "exit",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "filter",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "find",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "help",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "history",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "info",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "like",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "list",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "makesort",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "recommend",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "removedislike",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "removelike",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "sort",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "save",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "topup",
+    "aliasWord" : ""
+  }, {
+    "commandWord" : "viewsort",
+    "aliasWord" : ""
+  } ]
+}

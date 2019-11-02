@@ -91,8 +91,6 @@ public class AliasList {
                 return;
             }
         }
-
-        aliasPairList.add(new AliasPair(comamndWord, keyword));
     }
 
     @Override
@@ -101,7 +99,7 @@ public class AliasList {
             return true;
         }
 
-        if (this instanceof AliasList) {
+        if (object instanceof AliasList) {
             AliasList other = (AliasList) object;
             return this.getList().equals(other.getList());
         } else {
