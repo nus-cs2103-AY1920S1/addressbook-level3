@@ -1,6 +1,7 @@
 package com.typee.logic.interactive.parser.state.addmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
 import java.util.Optional;
@@ -20,7 +21,9 @@ public class TypeState implements State {
 
 
     @Override
-    public State transition(ArgumentMultimap argumentMultimap) throws StateTransitionException {
+    public State transition(ArgumentMultimap soFar, ArgumentMultimap argumentMultimap) throws StateTransitionException {
+        requireNonNull(soFar);
+        requireNonNull(argumentMultimap);
         Optional<String> typeValue = argumentMultimap.getValue(PREFIX_ENGAGEMENT_TYPE);
         if (typeValue.isEmpty()) {
             throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
@@ -30,6 +33,8 @@ public class TypeState implements State {
             throw new StateTransitionException(MESSAGE_CONSTRAINTS);
         }
 
+        soFar = collateArguments(soFar, argumentMultimap);
+        continuouslyTransition
 
     }
 

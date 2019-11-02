@@ -51,6 +51,10 @@ public class ArgumentMultimap {
         return new ArrayList<>(argMultimap.get(prefix));
     }
 
+    public void clearValues(Prefix prefix) {
+        argMultimap.remove(prefix);
+    }
+
     /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
