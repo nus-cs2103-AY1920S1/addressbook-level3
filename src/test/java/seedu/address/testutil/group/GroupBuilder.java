@@ -1,7 +1,10 @@
 package seedu.address.testutil.group;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
+
+import java.util.List;
 
 /**
  * A utility class to help build Groups.
@@ -34,8 +37,10 @@ public class GroupBuilder {
     /**
      * Sets the {@code UniqueStudentList} of the {@code Group} that we are building.
      */
-    public GroupBuilder withStudentList(UniqueStudentList studentList) {
-        this.studentList = studentList;
+    public GroupBuilder withStudentList(List<Student> studentsAsList) {
+        UniqueStudentList uniqueStudentList = new UniqueStudentList();
+        uniqueStudentList.setStudents(studentsAsList);
+        this.studentList = uniqueStudentList;
         return this;
     }
 
