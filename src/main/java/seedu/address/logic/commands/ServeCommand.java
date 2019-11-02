@@ -47,11 +47,6 @@ public class ServeCommand extends ReversibleCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.isServeMode()) {
-            throw new CommandException(String.format(MESSAGE_STILL_IN_SERVE_MODE,
-                    model.getServingBorrower().getName().toString()));
-        }
-
         if (!model.hasBorrowerId(borrowerId)) {
             throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);
         }

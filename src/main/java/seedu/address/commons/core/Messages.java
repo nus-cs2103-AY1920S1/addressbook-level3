@@ -29,8 +29,6 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_BORROWER = "Phone/Email is already in used! ";
     public static final String MESSAGE_NO_SUCH_BORROWER_ID = "No such borrower ID!";
     public static final String MESSAGE_NOT_IN_SERVE_MODE = "Not in Serve mode! Enter Serve mode to use this command!";
-    public static final String MESSAGE_STILL_IN_SERVE_MODE = "Still serving %1$s! Exit serve mode using 'Done' before"
-            + " serving someone else!";
 
     // Loan messages
     public static final String MESSAGE_BOOK_ON_LOAN = "%1$s is already on loan!";
