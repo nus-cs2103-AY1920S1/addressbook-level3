@@ -44,7 +44,11 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
      * Refreshes the TabManager.
      */
     public void refreshTabManager() {
+        int displayTabPaneIndexValue = this.displayTabPaneIndex.intValue();
+        int detailsTabPaneIndexValue = this.detailsTabPaneIndex.intValue();
         this.tabsData.refresh();
+        this.displayTabPaneIndex.setValue(displayTabPaneIndexValue);
+        this.detailsTabPaneIndex.setValue(detailsTabPaneIndexValue);
     }
 
     // ReadOnlyTabManager
