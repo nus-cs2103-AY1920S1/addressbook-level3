@@ -308,9 +308,9 @@ The feature for adding transactions is built to work best under these constraint
 | Description | Up to 50 alphanumeric characters, case-sensitive
 | Amount | Positive number, with up to 2 decimal places; maximum value of $100000 for each transaction
 | Category | Up to 50 alphanumeric characters, case-insensitive
-| Day | Numerical value from 1-31
-| Month | Numerical value from 1-12
-| Year | Numerical value from 2000-9999
+| Day | Whole number from 1-31
+| Month | Whole number from 1-12
+| Year | Whole number from 2000-9999
 | Type | Either "in" or "exp"
 |==============================
 

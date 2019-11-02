@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class Month implements Comparable<Month> {
     public static final String MESSAGE_CONSTRAINTS =
-            "Month should only contain numbers, from 1 to 12";
+            "Month should only contain whole numbers, from 1 to 12";
     public static final String VALIDATION_REGEX = "[1-9]|1[0-2]";
     public static final int[] MONTHS_30_DAYS = {4, 6, 9, 11};
     public static final int[] MONTHS_31_DAYS = {1, 3, 5, 7, 8, 10, 12};
