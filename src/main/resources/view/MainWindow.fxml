@@ -12,7 +12,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="NUStudy" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="NUStudy" minWidth="1000" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/nustudy.png"/>
     </icons>

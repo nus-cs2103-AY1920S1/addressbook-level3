@@ -750,7 +750,7 @@ Use case ends
 * 1a. Student does not specify the difficulty level
 [none]
 ** 1a1. Application shows an error message to require difficulty level input
-** 1a2. Student inputs the difficulty level following the previous tags
+** 1a2. Student inputs the difficulty level
 ** Repeat 1a1 and 1a2 until a difficulty level is provided
 * Use case resumes from step 2
 

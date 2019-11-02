@@ -20,7 +20,6 @@ import seedu.address.model.question.exceptions.QuestionNotFoundException;
  * with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
- * todo: relevant modification methods will be implemented later.
  *
  * @see Question#isSameQuestion(Question)
  */

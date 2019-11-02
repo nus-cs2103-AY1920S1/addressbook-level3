@@ -10,7 +10,7 @@ import seedu.address.model.note.Note;
 /**
  * An UI component that displays information of a {@code Note}.
  */
-public class NoteCard extends PanelComponent<Region> {
+public class NoteListCard extends PanelComponent<Region> {
     private static final String FXML = "NoteListCard.fxml";
 
     public final Note note;
@@ -26,13 +26,19 @@ public class NoteCard extends PanelComponent<Region> {
     @FXML
     private ImageView image;
 
-    public NoteCard(Note note, int displayedIndex) {
+    private final double nativeImageWidth;
+
+    public NoteListCard(Note note, int displayedIndex) {
         super(FXML);
         this.note = note;
         id.setText(displayedIndex + ". ");
         title.setText(note.getTitle().title);
         content.setText(note.getContent().content);
         image.setImage(note.getImage());
+        nativeImageWidth = note.getImageUrl().equals("none") ? Double.MAX_VALUE : note.getImage().getWidth();
+        cardPane.widthProperty().addListener((obs, oldValue, newValue) -> {
+            image.setFitWidth(Math.min(newValue.doubleValue() - 20, nativeImageWidth));
+        });
     }
 
     @Override
@@ -43,12 +49,12 @@ public class NoteCard extends PanelComponent<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NoteCard)) {
+        if (!(other instanceof NoteListCard)) {
             return false;
         }
 
         // state check
-        NoteCard card = (NoteCard) other;
+        NoteListCard card = (NoteListCard) other;
         return id.getText().equals(card.id.getText())
                 && note.equals(card.note);
     }
