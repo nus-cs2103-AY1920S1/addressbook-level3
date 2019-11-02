@@ -1,9 +1,12 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.IncidentManagerParser.ACCESS_CONTROL_MESSAGE;
+import static seedu.address.logic.parser.IncidentManagerParser.GUI_SWAP_MESSAGE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
 
@@ -11,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
@@ -20,20 +24,61 @@ import seedu.address.logic.commands.EditIncidentCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindPersonsCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListIncidentsCommand;
 import seedu.address.logic.commands.ListPersonsCommand;
+import seedu.address.logic.commands.SwapCommand;
+import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.incident.Incident;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditIncidentBuilder;
-import seedu.address.testutil.IncidentBuilder;
 import seedu.address.testutil.IncidentUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.UpdatePersonDescriptorBuilder;
 
 public class IncidentManagerParserTest {
 
     private final IncidentManagerParser parser = new IncidentManagerParser(true, true);
+
+    //@@author madanalogy
+    @BeforeEach
+    public void setUp() {
+        parser.setPersonView(true);
+        parser.setLoggedIn(true);
+    }
+
+    @Test
+    public void parseCommand_notLoggedIn_access() throws ParseException {
+        parser.setLoggedIn(false);
+
+        // Valid access
+        assertDoesNotThrow(() -> parser.parseCommand(HelpCommand.COMMAND_WORD));
+
+        // Invalid access
+        assertThrows(ParseException.class, ACCESS_CONTROL_MESSAGE, () -> parser.parseCommand(SwapCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void parseCommand_notPersonView_access() throws ParseException {
+        parser.setPersonView(false);
+
+        // Valid access
+        assertDoesNotThrow(() -> parser.parseCommand(ListIncidentsCommand.COMMAND_WORD));
+
+        // Invalid access
+        assertThrows(ParseException.class, GUI_SWAP_MESSAGE,
+                () -> parser.parseCommand(ListPersonsCommand.COMMAND_WORD));
+    }
+
+    @Test
+    public void parseCommand_update() throws Exception {
+        Person person = new PersonBuilder().build();
+        UpdateCommand.UpdatePersonDescriptor descriptor = new UpdatePersonDescriptorBuilder(person).build();
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(UpdateCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_ENTITY.getOneBased() + " " + PersonUtil.getUpdatePersonDescriptorDetails(descriptor));
+        assertEquals(new UpdateCommand(INDEX_FIRST_ENTITY, descriptor), command);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -56,11 +101,10 @@ public class IncidentManagerParserTest {
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ENTITY.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_ENTITY), command);
     }
-
+    
     @Test
     public void parseCommand_edit() throws Exception {
         parser.setPersonView(false);
-        Incident incident = new IncidentBuilder().build();
         EditIncidentCommand.EditIncident editor = new EditIncidentBuilder().build();
         EditIncidentCommand command = (EditIncidentCommand) parser.parseCommand(EditIncidentCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ENTITY.getOneBased() + " " + IncidentUtil.getEditIncidentDetails(editor));
@@ -103,6 +147,4 @@ public class IncidentManagerParserTest {
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
-
-
 }

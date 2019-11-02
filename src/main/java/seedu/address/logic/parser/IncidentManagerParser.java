@@ -58,23 +58,13 @@ public class IncidentManagerParser {
         this.isLoggedIn = isLoggedIn;
     }
 
+    //@@author madanalogy
     /**
-     * Parses user input into command for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * Checks if the user is logged in to give access.
+     * @param commandWord String representing the command.
+     * @throws ParseException if command not accessible.
      */
-    public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-
-        //@@author madanalogy
+    private void checkAccess(String commandWord) throws ParseException {
         // Guard Statement for available commands prior to login.
         if (!isLoggedIn && !(commandWord.equals(LoginCommand.COMMAND_WORD)
                 || commandWord.equals(AddCommand.COMMAND_WORD)
@@ -82,7 +72,14 @@ public class IncidentManagerParser {
                 || commandWord.equals(HelpCommand.COMMAND_WORD))) {
             throw new ParseException(ACCESS_CONTROL_MESSAGE);
         }
+    }
 
+    /**
+     * Checks if the correct interface is showing for the given command.
+     * @param commandWord String representing the command.
+     * @throws ParseException if in the wrong interface for command.
+     */
+    private void checkInterface(String commandWord) throws ParseException {
         // Guard Statement for command suite corresponding to interface swaps.
         if (!isPersonView && (commandWord.equals(AddCommand.COMMAND_WORD)
                 || commandWord.equals(UpdateCommand.COMMAND_WORD)
@@ -103,6 +100,26 @@ public class IncidentManagerParser {
                 || commandWord.equals(FillCommand.COMMAND_WORD))) {
             throw new ParseException(GUI_SWAP_MESSAGE);
         }
+    }
+
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput full user input string
+     * @return the command based on the user input
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public Command parseCommand(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        final String arguments = matcher.group("arguments");
+
+        checkAccess(commandWord);
+        checkInterface(commandWord);
 
         switch (commandWord) {
 
