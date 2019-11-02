@@ -11,7 +11,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Abstract parent class for DeleteBySerialNumberCommand and DeleteByIndexCommand.
  */
-public abstract class DeleteCommand extends Command implements ReversibleCommand {
+public abstract class DeleteCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
