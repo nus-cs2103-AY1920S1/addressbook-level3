@@ -25,7 +25,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.DataBook;
 import seedu.address.model.ReadOnlyDataBook;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.OrderBuilder;
@@ -205,8 +207,28 @@ public class AddScheduleCommandTest {
         }
 
         @Override
+        public ReadOnlyDataBook<Customer> getCustomerBook() {
+            return new DataBook<Customer>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Phone> getPhoneBook() {
+            return new DataBook<Phone>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Order> getOrderBook() {
+            return new DataBook<Order>();
+        }
+
+        @Override
         public ReadOnlyDataBook<Schedule> getScheduleBook() {
             return new DataBook<Schedule>();
+        }
+
+        @Override
+        public ReadOnlyDataBook<Order> getArchivedOrderBook() {
+            return new DataBook<Order>();
         }
 
         @Override
