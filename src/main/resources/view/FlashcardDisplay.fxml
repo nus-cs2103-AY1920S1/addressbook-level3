@@ -4,6 +4,6 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="flashcardDisplay" editable="false" styleClass="flashcard-display" wrapText="true"/>
+    xmlns:fx="http://javafx.com/fxml/1" prefWidth="300" maxWidth="Infinity" maxHeight="Infinity">
+  <TextArea fx:id="flashcardDisplay" editable="false" styleClass="flashcard-display" wrapText="true" prefWidth="300" maxWidth="Infinity" maxHeight="Infinity"/>
 </StackPane>
