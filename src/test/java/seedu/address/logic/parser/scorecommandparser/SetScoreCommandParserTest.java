@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.scorecommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -20,14 +20,16 @@ class SetScoreCommandParserTest {
     @Test
     void parse_incorrectUserInput_failure() {
         // Id not specified
-        assertParseFailure(setScoreCommandParser, "45", MESSAGE_INVALID_INDEX);
+        assertParseFailure(setScoreCommandParser, "45",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
 
         // Empty user input
         assertParseFailure(setScoreCommandParser, "",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
 
         // Score not specified
-        assertParseFailure(setScoreCommandParser, "T-2", Score.MESSAGE_CONSTRAINTS);
+        assertParseFailure(setScoreCommandParser, "T-2",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
 
         // Score out of bound
         assertParseFailure(setScoreCommandParser, "T-2 200", Score.MESSAGE_CONSTRAINTS);
@@ -36,7 +38,10 @@ class SetScoreCommandParserTest {
         assertParseFailure(setScoreCommandParser, "T-2 -200", Score.MESSAGE_CONSTRAINTS);
 
         // Invalid Id format - Belongs to a mentor
-        assertParseFailure(setScoreCommandParser, "M-2", MESSAGE_INVALID_INDEX);
+        assertParseFailure(setScoreCommandParser, "M-2 30", MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
+
+        // Invalid Id format and invalid Score - Only invalid Id caught
+        assertParseFailure(setScoreCommandParser, "M-2 -30", MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
     }
 
     @Test

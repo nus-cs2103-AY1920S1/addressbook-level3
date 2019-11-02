@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.scorecommand;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_NON_EXISTENT_TEAM;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -53,6 +53,6 @@ class SetScoreCommandTest {
         Model model = new ModelManagerStub(); // empty model
         SetScoreCommand setScoreCommand = new SetScoreCommand(VALID_TEAM_ID, VALID_SCORE);
 
-        assertCommandFailure(setScoreCommand, model, MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
+        assertCommandFailure(setScoreCommand, model, MESSAGE_NON_EXISTENT_TEAM);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.LeaderboardUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.exceptions.ParseIdException;
 import seedu.address.model.entity.Email;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Location;
@@ -33,33 +35,43 @@ import seedu.address.model.entity.Team;
 public class AlfredParserUtil {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<specifier>\\S+)(?<arguments>.*)");
-    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final Logger logger = LogsCenter.getLogger(AlfredParserUtil.class);
     private static final String ID_SEPARATOR_CHARACTER = "-";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code entityId} into an {@code Id} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid in an invalid format.
      */
-    public static Id parseIndex(String oneBasedIndex, PrefixType prefix) throws ParseException {
-        oneBasedIndex = oneBasedIndex.trim();
-        String trimmedIndex;
-        String idSeparator;
-        try {
-            trimmedIndex = oneBasedIndex.substring(2);
-            idSeparator = Character.toString(oneBasedIndex.charAt(1));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
+    public static Id parseIndex(String entityId, PrefixType prefix) throws ParseIdException {
+        entityId = entityId.trim();
+        validateIdFormat(entityId);
+        String idValue = entityId.substring(2);
+        String idSeparator = Character.toString(entityId.charAt(1));
         String expectedPrefix = prefix.name();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex) || !oneBasedIndex.startsWith(expectedPrefix)
+
+        if (!StringUtil.isNonZeroUnsignedInteger(idValue) || !entityId.startsWith(expectedPrefix)
                 || !idSeparator.equals(ID_SEPARATOR_CHARACTER)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseIdException(MESSAGE_INVALID_INDEX);
         }
-        int idNumber = Integer.parseInt(trimmedIndex);
+        int idNumber = Integer.parseInt(idValue);
         return new Id(prefix, idNumber);
+    }
+
+    /**
+     * Checks whether the format of the user inputted entity ID {@code idString} in the command
+     * is correct.
+     *
+     * @throws ParseIdException if the entity ID format is incorrect.
+     */
+    private static void validateIdFormat(String idString) throws ParseIdException {
+        try {
+            String trimmedIndex = idString.substring(2);
+            String idSeparator = Character.toString(idString.charAt(1));
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new ParseIdException(MESSAGE_INVALID_INDEX);
+        }
     }
 
     /**
@@ -99,6 +111,23 @@ public class AlfredParserUtil {
     }
 
     /**
+     * Parses the {@code userInput} to separate the arguments from the user's input, where
+     * the arguments are the additional details the user provides as part of the command's
+     * requirements. This method ensures that the arguments are not empty.
+     *
+     * @param userInput the user's command input.
+     * @return String representation of the arguments.
+     * @throws ParseException if the argument String from the command are empty.
+     */
+    public static String getNonEmptyArgumentFromCommand(String userInput) throws ParseException {
+        String args = getArgumentsFromCommand(userInput);
+        if (args.equals("")) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        return args;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -125,7 +154,7 @@ public class AlfredParserUtil {
     public static Score parseScore(String score) throws ParseException {
         requireNonNull(score);
         String trimmedScore = score.trim();
-        StringUtil.validateScore(trimmedScore);
+        validateScore(trimmedScore);
         int scoreValue = Integer.parseInt(trimmedScore);
         if (!Score.isValidScore(scoreValue)) {
             logger.severe("Score is not in the valid format: " + scoreValue);
@@ -279,5 +308,23 @@ public class AlfredParserUtil {
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+
+    /**
+     * Validates whether {@code score} is a valid integer.
+     *
+     * @param score the string representation of the score under check.
+     * @throws ParseException if the score is not a valid integer.
+     */
+    public static void validateScore(String score) throws ParseException {
+        if (score.equals("")) {
+            throw new ParseException(Score.MESSAGE_CONSTRAINTS);
+        }
+        try {
+            int scoreValue = Integer.parseInt(score);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Score.MESSAGE_CONSTRAINTS);
+        }
     }
 }

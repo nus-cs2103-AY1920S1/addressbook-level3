@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.scorecommandparser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX;
 
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import seedu.address.logic.parser.AlfredParser;
 import seedu.address.logic.parser.AlfredParserUtil;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.exceptions.ParseIdException;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Score;
@@ -24,16 +26,21 @@ public class ResetScoreCommandParser implements Parser<ScoreCommand> {
 
     @Override
     public SetScoreCommand parse(String args) throws ParseException {
-        if (args.trim().equals("")) {
-            logger.severe("User inputted team id is invalid.");
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScoreCommand.RESET_MESSAGE_USAGE));
+        Id teamId;
+
+        if (args.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetScoreCommand.RESET_MESSAGE_USAGE));
         }
 
-        Id teamId = AlfredParserUtil.parseIndex(args, PrefixType.T);
-        Score teamScore = new Score(0);
+        try {
+            teamId = AlfredParserUtil.parseIndex(args, PrefixType.T);
+        } catch (ParseIdException pe) {
+            logger.severe("Team ID for Reset Score Command is Invalid.");
+            throw new ParseIdException(MESSAGE_INVALID_TEAM_DISPLAYED_INDEX);
+        }
 
+        Score teamScore = new Score(0);
         return new SetScoreCommand(teamId, teamScore);
     }
-
-
 }

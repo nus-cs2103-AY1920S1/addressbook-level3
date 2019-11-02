@@ -29,7 +29,7 @@ public class AddMentorCommand extends AddCommand {
             + CliSyntax.PREFIX_NAME + "Bruce Wayne "
             + CliSyntax.PREFIX_PHONE + "+6591239123 "
             + CliSyntax.PREFIX_EMAIL + "customercare@batmail.com "
-            + CliSyntax.PREFIX_SUBJECT_NAME + "Artificial Intelligence "
+            + CliSyntax.PREFIX_SUBJECT_NAME + "Social "
             + CliSyntax.PREFIX_ORGANISATION + "Wayne Enterprise, Inc";
 
     private Mentor mentor;

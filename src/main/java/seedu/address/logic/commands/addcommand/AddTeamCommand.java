@@ -29,7 +29,7 @@ public class AddTeamCommand extends AddCommand {
             + CliSyntax.PREFIX_LOCATION + "TABLE_NUMBER \n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "Justice League "
-            + CliSyntax.PREFIX_SUBJECT_NAME + "Social "
+            + CliSyntax.PREFIX_SUBJECT_NAME + "Environmental "
             + CliSyntax.PREFIX_PROJECT_NAME + "Catwoman Dating App "
             + CliSyntax.PREFIX_LOCATION + "1";
 
