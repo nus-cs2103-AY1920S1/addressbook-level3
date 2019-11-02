@@ -30,9 +30,6 @@ public class FinanceParserUtil {
     public static InstallmentDescription parseInstallmentDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!InstallmentDescription.isValidDescription(trimmedDescription)) {
-            throw new ParseException(InstallmentDescription.MESSAGE_CONSTRAINTS);
-        }
         return new InstallmentDescription(trimmedDescription);
     }
 
@@ -45,7 +42,7 @@ public class FinanceParserUtil {
     public static InstallmentMoneyPaid parseInstallmentMoneySpent(String money) throws ParseException {
         requireNonNull(money);
         String trimmedMoney = money.trim();
-        if (!InstallmentMoneyPaid.isValidAmount(trimmedMoney)) {
+        if (Double.parseDouble(money) < 0) {
             throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
         }
         return new InstallmentMoneyPaid(trimmedMoney);

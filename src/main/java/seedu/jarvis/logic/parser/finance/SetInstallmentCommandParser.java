@@ -37,14 +37,22 @@ public class SetInstallmentCommandParser implements Parser<SetInstallmentCommand
                     SetInstallmentCommand.MESSAGE_USAGE));
         }
 
-        InstallmentDescription description = FinanceParserUtil
-                .parseInstallmentDescription(argMultimap
-                        .getValue(PREFIX_DESCRIPTION)
-                        .get());
-        InstallmentMoneyPaid subscriptionFee = FinanceParserUtil
-                .parseInstallmentMoneySpent(argMultimap
-                        .getValue(PREFIX_MONEY)
-                        .get());
+        InstallmentDescription description = null;
+        InstallmentMoneyPaid subscriptionFee = null;
+
+        try {
+            description = FinanceParserUtil.parseInstallmentDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } catch (IllegalArgumentException descriptionException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetInstallmentCommand.MESSAGE_DESCRIPTION_ERROR));
+        }
+
+        try {
+            subscriptionFee = FinanceParserUtil.parseInstallmentMoneySpent(argMultimap.getValue(PREFIX_MONEY).get());
+        } catch (IllegalArgumentException amountException) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    SetInstallmentCommand.MESSAGE_MONEY_ERROR));
+        }
 
         Installment installment = new Installment(description, subscriptionFee);
 
