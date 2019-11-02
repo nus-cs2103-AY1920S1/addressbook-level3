@@ -44,13 +44,14 @@ public class AddCommandTest {
 
     @Test
     public void execute_itemAcceptedByModel_addSuccessful() throws NoSuchItemException, InsufficientAmountException {
+        model.clearSalesList();
         InventoryModelStubAcceptingItemAdded inventoryModelStubWithItem = new InventoryModelStubAcceptingItemAdded();
-        inventoryModelStubWithItem.addItem(TypicalItem.FISH_BURGER);
+        inventoryModelStubWithItem.addItem(TypicalItem.CHIPS);
 
         CashierModelStubAcceptingItemAdded modelStubWithItem = new CashierModelStubAcceptingItemAdded();
         modelStubWithItem.setInventoryModelStub(inventoryModelStubWithItem);
 
-        Item anotherItem = TypicalItem.FISH_BURGER;
+        Item anotherItem = TypicalItem.CHIPS;
         AddCommand addCommand = new AddCommand(anotherItem.getDescription(),
                 anotherItem.getQuantity());
         CommandResult commandResult = addCommand.execute(modelStubWithItem, personModel);

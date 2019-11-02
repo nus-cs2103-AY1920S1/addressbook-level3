@@ -94,7 +94,7 @@ public class AddCommandParser implements Parser {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
-        if (quantity < 0) {
+        if (quantity <= 0) {
             throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
         if (modelManager.hasItemInInventory(description)
