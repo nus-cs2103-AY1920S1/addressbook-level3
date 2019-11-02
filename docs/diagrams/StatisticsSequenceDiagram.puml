@@ -19,6 +19,7 @@ end box
 
 box JavaFx EXTERNAL_LIBRARY_COLOR_T1
 participant ":Scene" as Scene EXTERNAL_LIBRARY_COLOR
+participant ":FlowPane" as FlowPane EXTERNAL_LIBRARY_COLOR
 participant ":Stage" as Stage EXTERNAL_LIBRARY_COLOR
 end box
 
