@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.model.flashcard.FlashCard;
 
@@ -143,4 +144,10 @@ public class DocumentPath extends ExportPath {
         return directoryPath.hashCode() + documentFilePath.hashCode();
     }
 
+    @Override
+    public Optional<List<FlashCard>> importFrom() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException(
+                "Importing from document file is not supported"
+        );
+    }
 }
