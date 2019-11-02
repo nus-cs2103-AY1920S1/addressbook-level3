@@ -23,9 +23,10 @@ public class Email {
     private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
-    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
+    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]{2,}$";
     private static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
-            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
+            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + "\\."
+            + DOMAIN_LAST_CHARACTER_REGEX;
 
     public final String value;
 
