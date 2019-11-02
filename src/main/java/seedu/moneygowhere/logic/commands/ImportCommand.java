@@ -72,7 +72,12 @@ public class ImportCommand extends Command {
         Date date = ParserUtil.parseDate(metaDate);
         Remark remark = ParserUtil.parseRemark(metaRemarks);
         Cost cost = ParserUtil.parseCost(metaCost);
-        Set<Tag> tagList = ParserUtil.parseTags(Arrays.asList(tags));
+        Set<Tag> tagList;
+        if (metaTags.equals("")) {
+            tagList = ParserUtil.parseTags(new ArrayList<>());
+        } else {
+            tagList = ParserUtil.parseTags(Arrays.asList(tags));
+        }
 
         return new Spending(name, date, remark, cost, tagList);
 
