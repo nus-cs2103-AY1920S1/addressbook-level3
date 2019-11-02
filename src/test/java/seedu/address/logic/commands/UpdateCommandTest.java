@@ -22,7 +22,6 @@ import static seedu.address.testutil.TypicalUndoableCommands.TYPICAL_UPDATE_COMM
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.logic.parser.utility.UpdateFridgeDescriptor;
@@ -271,7 +270,6 @@ public class UpdateCommandTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
 
         String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
-        
         assertCommandFailure(updateCommand, model, expectedMessage);
     }
     //@@author
