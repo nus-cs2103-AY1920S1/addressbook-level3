@@ -44,4 +44,11 @@ class LocationTest {
         location.setValidLocation("NUS_LTFOO");
         assertEquals(location.toString(), "Location: LTFOO, Google recognised location: NUS_LTFOO Place ID: null");
     }
+
+    @Test
+    void testLatLng() {
+        location.setLat("2.345");
+        location.setLng("1.234");
+        assertEquals("2.345,1.234", location.getLatLng());
+    }
 }

@@ -24,6 +24,7 @@ import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.module.AcadCalendar;
 import seedu.address.model.module.Holidays;
+import seedu.address.model.module.ModuleList;
 import seedu.address.model.module.ModuleSummaryList;
 import seedu.address.model.util.SampleTimeBook;
 import seedu.address.storage.JsonTimeBookStorage;
@@ -111,6 +112,12 @@ public class MainApp extends Application {
         if (moduleSummaryListOptional.isPresent()) {
             nusModsData.setModuleSummaryList(moduleSummaryListOptional.get());
             logger.info("Loaded module summary list");
+        }
+
+        Optional<ModuleList> moduleListOptional = Cache.loadModuleList();
+        if (moduleListOptional.isPresent()) {
+            nusModsData.setModuleList(moduleListOptional.get());
+            logger.info("Loaded detailed module list");
         }
 
         Optional<Holidays> holidaysOptional = Cache.loadHolidays();

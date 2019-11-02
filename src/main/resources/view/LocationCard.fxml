@@ -10,7 +10,7 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      prefHeight="600.0" prefWidth="500.0" fx:id="locationCardContainer">
+      fx:id="locationCardContainer">
     <HBox alignment="CENTER_LEFT">
         <padding>
             <Insets top="5" right="5" bottom="5" left="10" />

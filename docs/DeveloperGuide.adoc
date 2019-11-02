@@ -502,7 +502,7 @@ image::gmaps/ClosestLocationSequenceDiagram.png[]
 ==== Implementation
 This feature allows users to add their NUSMods timetable (using the `AddNusModsCommand`) to their TimeBook schedules.
 
-The `AddNusModsCommand` can be executed by the user through the CLI with the following syntax `addmods n/NAME l/NUSMODS_SHARE_LINK`. The share link contains semester number, module codes and lesson numbers, which are used for creating and adding events to the person's schedule.
+The `AddNusModsCommand` can be executed by the user through the CLI with the following syntax `addmods n/NAME link/NUSMODS_SHARE_LINK`. The share link contains semester number, module codes and lesson numbers, which are used for creating and adding events to the person's schedule.
 
 //The following class diagrams shows the structure of `Module` and `Event`:
 //TODO: class diagram for Module and Event
@@ -511,7 +511,7 @@ The following sequence diagram shows what happens when `AddNusModsCommand` is ex
 
 image::nusmods/AddNusModsSequenceDiagram.png[]
 
-. User enters `addmods n/NAME l/https//nusmods.com/...`
+. User enters `addmods n/NAME link/https//nusmods.com/...`
 . The name string will be parsed into a `Name` object. The argument string for link will be parsed in `AddNusModsCommandParser` into a `NusModsShareLink`, containing the `SemesterNo`, `ModuleCodes` and `LessonNos`. Both the `Name` and `NusModsShareLink` objects will then be passed into the `AddNusModsCommand` constructor.
 . The `AddNusModsCommand#execute` is then called by the `LogicManager`.
 . In the `AddNusModsCommand#execute` method,

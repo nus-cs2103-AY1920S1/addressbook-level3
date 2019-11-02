@@ -450,6 +450,10 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+#firstChoiceHeader #firstChoiceLocation {
+    -fx-font-family: Garamond;
+}
+
 #freeTimeslot #freeTimeslotBlock {
     -fx-background-radius: 0 !important;
     -fx-border-width: 0 !important;
@@ -495,6 +499,22 @@
 #locationCardContainer #locationTitle, #locationAvgTravelDistanceLabel {
     -fx-opacity: 0.67;
     -fx-font-family: Garamond;
+}
+
+#locationOverviewContainer {
+    -fx-background-color: #393E46;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#locationsEnteredContainer {
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+
+#locationsEnteredContainer .label {
+    -fx-font-family: Garamond;
+    -fx-opacity: 0.87;
 }
 
 #listHeaderContainer {

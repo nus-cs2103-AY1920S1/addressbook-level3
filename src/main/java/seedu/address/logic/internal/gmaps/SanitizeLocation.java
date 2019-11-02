@@ -8,9 +8,6 @@ import org.json.simple.JSONObject;
 import seedu.address.commons.exceptions.TimeBookInvalidLocation;
 import seedu.address.model.gmaps.Location;
 import seedu.address.websocket.Cache;
-import seedu.address.websocket.CacheFileNames;
-import seedu.address.websocket.util.ImageQuery;
-import seedu.address.websocket.util.UrlUtil;
 
 /**
  * This call is used to find the valid location name
@@ -21,21 +18,6 @@ public class SanitizeLocation {
      * Takes in gmapsApi so that it could be replaced by a gmapsApi stub
      */
     public SanitizeLocation() {
-    }
-
-    /**
-     * This method is used to generate static images of all the sanitized locations
-     */
-    public void generateImage() {
-        for (int i = 0; i < validLocationList.size(); i++) {
-            Location currValidLocation = validLocationList.get(i);
-            System.out.println("generating image for " + currValidLocation.getValidLocation());
-            String url = UrlUtil.generateGmapsStaticImage(currValidLocation.getPlaceId());
-            String fullPath = CacheFileNames.GMAPS_IMAGE_DIR + currValidLocation + ".png";
-            System.out.println(fullPath);
-            ImageQuery.execute(url, fullPath);
-        }
-        System.out.println("generated " + validLocationList.size() + " images");
     }
 
     /**

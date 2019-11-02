@@ -358,6 +358,7 @@ Examples:
 Deletes the event `Swimming Lessons` from `Bobby` 's schedule.
 ****
 
+// tag::addmod[]
 ==== Add Module to Schedule: `addmod`
 
 Adds an NUS module as an event to a person's schedule in TimeBook.
@@ -371,26 +372,28 @@ Format: `addmod n/NAME m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE
 
 Examples:
 
-* `addmod n/John m/CS2103T class/G01,T5`
-* `addmod n/John m/CS2103T class/G01,T5 ay/2018/2019`
-* `addmod n/John m/CS2103T class/G01,T5 ay/2019/2020 s/1`
+* `addmod n/John m/CS2103T cl/LEC:G01`: This adds CS2103T lecture G01 to John's schedule.
+* `addmod n/John m/CS3230 cl/LEC:1,TUT:08`: This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
+* `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08`: This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
 
 Step-By-Step:
 
-. Add a module's classes easily by typing `addmod` into the command box and follow the format as shown above, then press btn:[Enter] to execute it.
+. Add a module's classes easily by typing `addmod` into the command box and specifying the appropriate parameters, then press btn:[Enter] to execute it.
 
 image::nusmods/addmod1.PNG[]
 
 . If you manage to successfully add the module and its classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
 
 image::nusmods/addmod2.PNG[]
+// end::addmod[]
 
+// tag::addmods[]
 ==== Add Modules via NUSMods Link: `addmods`
 
 Already have your modules timetable on NUSMods?
 Great, you can easily add your modules timetable into TimeBook with the `addmods` command!
 
-Format: `addmods n/NAME l/NUSMODS_SHARE_LINK`
+Format: `addmods n/NAME link/NUSMODS_SHARE_LINK`
 
 ****
 * Reads the specified `NUSMODS_SHARE_LINK` to get the modules and classes, then adds the classes into the person's schedule.
@@ -400,8 +403,8 @@ Format: `addmods n/NAME l/NUSMODS_SHARE_LINK`
 
 Examples:
 
-* `addmods n/John l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
-* `addmods n/Bob l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
+* `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`: This will add the modules in the NUSMods link to John's schedule.
+* `addmods n/Bob link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`: This will add the modules in teh NUSMods link to Bob's schedule.
 
 Step-By-Step:
 
@@ -412,6 +415,7 @@ image::nusmods/addmods1.PNG[]
 . If you manage to successfully add all the modules and their respective classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
 
 image::nusmods/addmods2.PNG[]
+// end::addmods[]
 
 === Group Management
 

@@ -20,7 +20,7 @@ public class LocationOverview extends UiPart<Region> {
     private VBox locationOverviewContainer;
 
     @FXML
-    private StackPane firstChoiceHeader;
+    private HBox firstChoiceHeader;
 
     @FXML
     private Label firstChoiceLocation;
@@ -47,10 +47,13 @@ public class LocationOverview extends UiPart<Region> {
 
     public HBox getLocationCell(String title, List<String> locationsEntered) {
         HBox locationCell = new HBox();
-        VBox locationsEnteredContainer = new VBox();
+        HBox locationsEnteredContainer = new HBox();
         for (String s : locationsEntered) {
-            locationsEnteredContainer.getChildren().add(new Label(s));
+            Label label = new Label(s);
+            locationsEnteredContainer.getChildren().add(label);
         }
+        locationsEnteredContainer.setId("locationsEnteredContainer");
+        locationCell.setStyle("-fx-alignment: center;");
         locationCell.getChildren().addAll(new Label(title), locationsEnteredContainer);
         return locationCell;
     }
