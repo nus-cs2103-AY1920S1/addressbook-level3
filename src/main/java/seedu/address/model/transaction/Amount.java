@@ -68,7 +68,7 @@ public class Amount implements Comparable<Amount> {
     /**
      * Returns amount in cents.
      */
-    public int getAmount() {
+    public int getIntegerValue() {
         return this.amount;
     }
 
@@ -120,6 +120,9 @@ public class Amount implements Comparable<Amount> {
      * @return negative amount
      */
     public Amount makeNegative() {
+        if (amount < 0) {
+            return new Amount(this.amount);
+        }
         final int newAmount = this.amount * -1;
         return new Amount(newAmount);
     }

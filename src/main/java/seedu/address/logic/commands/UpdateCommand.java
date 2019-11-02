@@ -177,7 +177,7 @@ public class UpdateCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
-            setDescription(description);
+            setDescription(toCopy.description);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategories(toCopy.categories);
@@ -187,7 +187,7 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, date, categories);
+            return CollectionUtil.isAnyNonNull(description, amount, date, categories);
         }
 
         public void setDescription(Description description) {
@@ -248,7 +248,8 @@ public class UpdateCommand extends Command {
 
             return getAmount().equals(e.getAmount())
                 && getDate().equals(e.getDate())
-                && getCategories().equals(e.getCategories());
+                && getCategories().equals(e.getCategories())
+                && getDescription().equals(e.getDescription());
         }
     }
 

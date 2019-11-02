@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -112,5 +113,9 @@ public class Date implements Comparable<Date> {
     public static Date now() {
         String today = DATE_FORMATTER.format(LocalDate.now());
         return new Date(today);
+    }
+
+    public static int daysBetween(Date x, Date y) {
+        return (int) DAYS.between(x.toLocalDate(), y.toLocalDate());
     }
 }

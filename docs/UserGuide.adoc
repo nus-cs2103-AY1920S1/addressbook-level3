@@ -40,7 +40,7 @@ The GUI should appear within a few seconds.
 Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
-* `view` : shows statistics of your current finances
+* `view transaction` : shows list of your transactions.
 * `in $/100 n/mother d/31102019 c/allowance` : adds an income to your personal finance of *100* dollars with
 the category *mother* and the description *allowance*.
 * `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of *3* dollars with
@@ -111,9 +111,9 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 Examples:
 
-* `out $/100 n/milk c/food c/drinks`
-* `out $/29 n/taxi c/transport`
-* `out $/12 n/burger`
+* `out $/100 d/01012019 n/milk c/food c/drinks`
+* `out $/29 d/29022020 n/taxi c/transport`
+* `out $/12 d/31122019 n/burger`
 
 === Logging Income : `in`
 
@@ -130,9 +130,9 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 Examples:
 
-* `in $/100 n/errand c/work c/drinks`
-* `in $/200 n/mom c/family`
-* `in $/120 n/work`
+* `in $/100 d/01012019 n/errand c/work c/drinks`
+* `in $/200 d/29022020 n/mom c/family`
+* `in $/120 d/31122019 n/work`
 
 === Setting a Budget : `set`
 
@@ -259,12 +259,15 @@ Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
 
 ****
-* `DATE` only accepts date in format DDMMYYYY.
+* `DATE` input only accepts date in format DDMMYYYY.
+* `DATE` input must be preceded by its tag `d\`
+* `DATE` input must be set in the future.
 ****
 
 Examples:
 
-* `project d/10012019`
+* `project d/22072020`
+* `project d/01012020`
 
 === Redoing the Last Command : `redo`
 
