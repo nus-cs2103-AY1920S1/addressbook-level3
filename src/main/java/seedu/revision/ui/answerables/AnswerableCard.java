@@ -75,7 +75,7 @@ public class AnswerableCard extends UiPart<Region> {
 
     private Label correctLabel(String text) {
         Label correctL = new Label(text);
-        correctL.setStyle("-fx-background-color: #42956A");
+        correctL.setStyle("-fx-background-color: #42b883");
         return correctL;
     }
 

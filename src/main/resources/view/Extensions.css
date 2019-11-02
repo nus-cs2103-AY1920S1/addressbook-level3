@@ -4,7 +4,7 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: #bad7df;
 }
 
 .tag-selector {
@@ -25,10 +25,26 @@
     -fx-font-family: "Lucida Bright",  "Times New Roman";
     -fx-font-style: normal;
     -fx-font-size: 15;
-    -fx-background-color: #2a3b74;
+    -fx-background-color: #ffba5a;
     -fx-background-radius: 10;
     -fx-padding: 10;
     -fx-border-radius: 10;
     -fx-border-color: #fbf3f3;
     -fx-border-width: 3;
+}
+
+#option1 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option2 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option3 {
+    -fx-background-color: #b9b9b2;
+}
+
+#option4 {
+    -fx-background-color: #b9b9b2;
 }
