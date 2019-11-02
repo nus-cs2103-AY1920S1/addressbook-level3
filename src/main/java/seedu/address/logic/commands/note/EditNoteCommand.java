@@ -130,7 +130,6 @@ public class EditNoteCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditNoteDescriptor(EditNoteDescriptor toCopy) {
             setTitle(toCopy.title);

@@ -14,8 +14,6 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F11-4/main
 
-By: `AY1920S1-CS2103T-F11-4`  Since: `September 2019`  Licence: `MIT`
-
 == Introduction
 
 NUStudy is an application for managing three kinds of informational material:
@@ -75,7 +73,8 @@ image::screenshots/addnote.png[]
 
 It is fine to back out of the image selection dialog; an image can always be added later using `editnote`.
 Your images are copied into the application's data folder, so don't worry about losing them –
-you can always take them along.
+you can always take them along. Images resize according to the window, but if an image is small enough that it can fit at its
+natural resolution, it is left that way.
 
 ==== Editing lecture notes: `editnote`
 If your lecture notes need updating, use this command, providing arguments `t/`, `c/` and `i/` (at least one)

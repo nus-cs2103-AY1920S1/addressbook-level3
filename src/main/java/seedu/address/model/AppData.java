@@ -287,8 +287,9 @@ public class AppData implements ReadOnlyAppData {
 
     @Override
     public String toString() {
-        return notes.asUnmodifiableObservableList().size() + " lecture notes";
-        // TODO: refine later
+        return notes.asUnmodifiableObservableList().size() + " lecture notes, "
+                + questions.asUnmodifiableObservableList().size() + " questions, "
+                + tasks.asUnmodifiableObservableList().size() + " tasks";
     }
 
     @Override

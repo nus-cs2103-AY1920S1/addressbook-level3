@@ -130,7 +130,6 @@ public class EditQuestionCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditQuestionDescriptor(EditQuestionDescriptor toCopy) {
             setQuestionBody(toCopy.questionBody);

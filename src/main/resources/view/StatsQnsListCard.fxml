@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -27,8 +26,6 @@
                 </Label>
                 <Label fx:id="questionBody" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="tags" />
-            <!--            <Label fx:id="content" styleClass="cell_small_label" text="\$content" />-->
             <Label fx:id="answer" styleClass="cell_small_label" text="\$answer"/>
             <Label fx:id="result" styleClass="cell_small_label" text="\$result"/>
             <Label fx:id="subject" styleClass="cell_small_label" text="\$subject"/>
