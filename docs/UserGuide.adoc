@@ -259,12 +259,15 @@ Projects future balance based on past In or Out transactions +
 Format: `project d/DATE`
 
 ****
-* `DATE` only accepts date in format DDMMYYYY.
+* `DATE` input only accepts date in format DDMMYYYY.
+* `DATE` input must be preceded by its tag `d\`
+* `DATE` input must be set in the future.
 ****
 
 Examples:
 
-* `project d/10012019`
+* `project d/22072020`
+* `project d/01012020`
 
 === Redoing the Last Command : `redo`
 

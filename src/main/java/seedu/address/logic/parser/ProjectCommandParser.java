@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_USAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.stream.Stream;
@@ -25,6 +26,12 @@ public class ProjectCommandParser implements Parser<ProjectCommand> {
         }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+
+        System.out.println("checking date");
+        if (date.compareTo(Date.now()) <= 0) {
+            System.out.println("check failed");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_USAGE, ProjectCommand.MESSAGE_INVALID_DATE));
+        }
 
         return new ProjectCommand(date);
     }
