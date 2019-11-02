@@ -31,8 +31,8 @@ the results. The overall appearance is similar to a simple note-taking client.
 
 .  Ensure you have Java 11+ installed.
 .  Download the latest `nustudy.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app (or if this does not work, use `java -jar nustudy.jar`).
+.  Copy the file to the folder you want to use as the application's home folder.
+.  Double-click the file to start the app (if this does not work, use `java -jar nustudy.jar`).
 The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -157,10 +157,10 @@ You can edit the fields of an existing question by providing the fields you want
 Format: `editq INDEX [q/QUESTION] [a/ANSWER] [d/DIFFICULTY] [s/SUBJECT]`
 
 ****
-* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed
+question list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the question will be removed i.e adding of tags is not cumulative.
 ****
 
 Examples:
