@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.help;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +13,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
+import mams.ui.UiPart;
 
 /**
  * Controller for a help page

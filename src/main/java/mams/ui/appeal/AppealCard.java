@@ -1,10 +1,11 @@
-package mams.ui;
+package mams.ui.appeal;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.appeal.Appeal;
+import mams.ui.UiPart;
 
 /**
  * An UI component that displays information of an {@code Appeal}.

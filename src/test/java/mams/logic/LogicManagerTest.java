@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.ListCommand;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.InputOutput;
 import mams.logic.parser.exceptions.ParseException;
 import mams.model.Model;
 import mams.model.ModelManager;

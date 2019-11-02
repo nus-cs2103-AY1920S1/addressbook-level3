@@ -1,4 +1,4 @@
-package mams.logic;
+package mams.logic.history;
 
 import javafx.collections.ObservableList;
 

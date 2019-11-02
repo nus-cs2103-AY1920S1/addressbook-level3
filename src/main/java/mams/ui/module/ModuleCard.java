@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.module;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -6,6 +6,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.module.Module;
+import mams.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Module}.

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import mams.commons.exceptions.DataConversionException;
-import mams.logic.ReadOnlyCommandHistory;
+import mams.logic.history.ReadOnlyCommandHistory;
 import mams.model.ReadOnlyMams;
 import mams.model.ReadOnlyUserPrefs;
 import mams.model.UserPrefs;

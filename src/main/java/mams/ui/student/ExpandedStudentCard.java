@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.student;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -9,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.student.Student;
+import mams.ui.UiPart;
 
 /**
  * A UI component that displays the full expanded information of an {@code Student}.

@@ -1,6 +1,5 @@
-package mams.ui;
+package mams.ui.history;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,15 +10,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
+import mams.ui.UiPart;
 
 /**
  * Controller for a page displaying command history.
  */
 public class HistoryWindow extends UiPart<Stage> {
-
-    public static final String COMMAND_PROMPT_PREFIX = ">> ";
-    public static final String DOUBLE_NEWLINE = "\n\n";
 
     private static final Logger logger = LogsCenter.getLogger(HistoryWindow.class);
     private static final String FXML = "HistoryWindow.fxml";
@@ -63,27 +60,6 @@ public class HistoryWindow extends UiPart<Stage> {
         logger.fine("Feedback display in history window has been set to " + Boolean.toString(isOutputHidden));
         this.hideOutputHistory = isOutputHidden;
         historyListPanel.hideOutput(isOutputHidden);
-    }
-
-    /**
-     * Formats the given {@code commandHistory} into a {@code String} formatted for displaying
-     * in {@code HistoryWindow}
-     * @param commandHistory
-     * @return formatted text
-     */
-    private String formatCommandHistoryToString(List<InputOutput> commandHistory) {
-        StringBuilder sb = new StringBuilder();
-
-        for (InputOutput inputOutput : commandHistory) {
-            sb.append(COMMAND_PROMPT_PREFIX);
-            sb.append(inputOutput.getInput());
-            if (!hideOutputHistory) {
-                sb.append(DOUBLE_NEWLINE);
-                sb.append(inputOutput.getOutput());
-            }
-            sb.append(DOUBLE_NEWLINE);
-        }
-        return sb.toString().trim();
     }
 
     /**

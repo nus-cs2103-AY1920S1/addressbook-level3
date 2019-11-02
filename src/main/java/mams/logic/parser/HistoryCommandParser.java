@@ -21,10 +21,6 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_HIDE_OUTPUT);
 
-        if (argMultimap.getValue(PREFIX_HIDE_OUTPUT).isPresent()) {
-            return new HistoryCommand(true);
-        } else {
-            return new HistoryCommand();
-        }
+        return new HistoryCommand(argMultimap.getValue(PREFIX_HIDE_OUTPUT).isPresent());
     }
 }

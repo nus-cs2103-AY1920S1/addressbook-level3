@@ -1,11 +1,12 @@
-package mams.ui;
+package mams.ui.history;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.commons.core.index.Index;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
+import mams.ui.UiPart;
 
 /**
  * An UI component that displays information of an {@code InputOutput} for display in HistoryWindow.

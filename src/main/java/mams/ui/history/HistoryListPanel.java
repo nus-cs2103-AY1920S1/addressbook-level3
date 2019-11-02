@@ -1,4 +1,4 @@
-package mams.ui;
+package mams.ui.history;
 
 import java.util.logging.Logger;
 
@@ -8,7 +8,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import mams.commons.core.LogsCenter;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
+import mams.ui.UiPart;
+import mams.ui.appeal.AppealListPanel;
 
 /**
  * Panel displaying command history in list form.

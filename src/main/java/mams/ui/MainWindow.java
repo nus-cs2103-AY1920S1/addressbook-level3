@@ -16,6 +16,11 @@ import mams.logic.Logic;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
 import mams.logic.parser.exceptions.ParseException;
+import mams.ui.appeal.AppealListPanel;
+import mams.ui.help.HelpWindow;
+import mams.ui.history.HistoryWindow;
+import mams.ui.module.ModuleListPanel;
+import mams.ui.student.StudentListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing

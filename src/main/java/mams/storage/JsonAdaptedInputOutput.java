@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import mams.commons.core.time.TimeStamp;
 import mams.commons.exceptions.IllegalValueException;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
 
 /**
  * Jackson-friendly version of {@link InputOutput}.
