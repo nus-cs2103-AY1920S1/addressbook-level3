@@ -54,7 +54,7 @@ public class Time {
     }
 
     public static Time getCurrentTime() {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("HHmm");//dd/MM/yyyy
+        SimpleDateFormat sdfDate = new SimpleDateFormat("HHmm"); //dd/MM/yyyy
         java.util.Date now = new java.util.Date();
         String value = sdfDate.format(now);
         return new Time(value);

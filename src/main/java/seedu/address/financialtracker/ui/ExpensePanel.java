@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
-import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.ui.UiPart;
 

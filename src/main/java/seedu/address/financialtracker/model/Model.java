@@ -43,14 +43,15 @@ public class Model {
     }
 
     public String getCountry() {
-        return this.financialTracker.currentCountry;
+        return this.financialTracker.getCurrentCountry();
     }
 
     /**
      * Returns an expense list from the underlying Map of financial tracker.
      */
     public ObservableList<Expense> getExpenseList() {
-        return internalUnmodifiableExpenseListMap.get(financialTracker.currentCountry).asUnmodifiableObservableList();
+        return internalUnmodifiableExpenseListMap
+                .get(financialTracker.getCurrentCountry()).asUnmodifiableObservableList();
     }
 
     /**

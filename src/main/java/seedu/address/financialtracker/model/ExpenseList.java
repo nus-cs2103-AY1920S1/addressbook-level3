@@ -3,7 +3,6 @@ package seedu.address.financialtracker.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
-import java.util.Comparator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +26,8 @@ public class ExpenseList {
 
     private void sort() {
         Collections.sort(expenses, (ep1, ep2) -> ep2.getTime().valueToCompare - ep1.getTime().valueToCompare);
-        Collections.sort(expenses, (ep1, ep2) -> ep2.getDate().valueToCompare.compareTo(ep1.getDate().valueToCompare));
+        Collections.sort(expenses, (ep1, ep2) -> ep2.getDate()
+                .getDateToCompare().compareTo(ep1.getDate().getDateToCompare()));
     }
 
     /**
@@ -54,6 +54,10 @@ public class ExpenseList {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Check whether this list contains a specific expense.
+     * @param toCheck the expense to be checked.
+     */
     public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
         return expenses.stream().anyMatch(toCheck::equals);
@@ -83,7 +87,7 @@ public class ExpenseList {
 
     public double getSummary() {
         double sum = 0;
-        for(Expense expense : expenses) {
+        for (Expense expense : expenses) {
             sum += expense.getAmount().numericalValue;
         }
         return sum;

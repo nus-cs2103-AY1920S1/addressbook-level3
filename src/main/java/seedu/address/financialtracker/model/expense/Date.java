@@ -21,8 +21,8 @@ public class Date {
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|0[1-9])(1[0-2]|0[1-9])[0-9]{4}$";
     private static final SimpleDateFormat sdfDate = new SimpleDateFormat("ddMMyyyy");
     public final String value;
-    public java.util.Date valueToCompare;
     public final String storageDate;
+    private java.util.Date valueToCompare;
 
     public Date(String date) {
         requireNonNull(date);
@@ -58,6 +58,10 @@ public class Date {
         java.util.Date now = new java.util.Date();
         String value = sdfDate.format(now);
         return new Date(value);
+    }
+
+    public java.util.Date getDateToCompare() {
+        return valueToCompare;
     }
 
     @Override

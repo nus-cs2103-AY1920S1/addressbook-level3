@@ -2,7 +2,6 @@ package seedu.address.financialtracker.logic.commands;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Expense;
@@ -35,7 +34,7 @@ public class DeleteFinCommand extends Command<Model> {
         List<Expense> expenses = model.getExpenseList();
 
         if (index.getZeroBased() >= expenses.size()) {
-            throw new CommandException(MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX );
+            throw new CommandException(MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         }
         model.deleteExpense(index.getOneBased());
         return new CommandResult(MESSAGE_SUCCESS, false, false);

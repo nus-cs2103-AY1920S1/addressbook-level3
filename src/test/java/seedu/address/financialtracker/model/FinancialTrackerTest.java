@@ -13,10 +13,10 @@ class FinancialTrackerTest {
     @Test
     void setCurrentCountry() {
         FinancialTracker ft = new FinancialTracker();
-        assertEquals("Singapore", ft.currentCountry);
+        assertEquals("Singapore", ft.getCurrentCountry());
         ft.setCurrentCountry("Hello");
         // the set should not be success, and default value "Singapore will be returned".
-        assertEquals("Singapore", ft.currentCountry);
+        assertEquals("Singapore", ft.getCurrentCountry());
     }
 
     @Test

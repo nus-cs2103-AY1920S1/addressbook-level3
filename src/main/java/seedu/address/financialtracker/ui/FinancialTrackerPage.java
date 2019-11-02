@@ -1,6 +1,7 @@
 package seedu.address.financialtracker.ui;
 
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -33,14 +34,14 @@ import seedu.address.ui.UiPart;
  */
 public class FinancialTrackerPage extends UiPart<VBox> implements Page {
 
-    private final static PageType pageType = PageType.FINANCIAL_TRACKER;
+    private static final PageType pageType = PageType.FINANCIAL_TRACKER;
     private static final String FXML = "FinancialTrackerWindow.fxml";
 
     // Independent Ui parts residing in this Ui container
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerHelpWindow helpWindow;
     private ResultDisplay resultDisplay;
     private ExpensePanel expensePanel;
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerLogic financialTrackerLogic;
     private CountriesDropdown countriesDropdown;
     private CodeWindow codeWindow;

@@ -4,13 +4,13 @@ import java.util.logging.Logger;
 
 import seedu.address.achievements.logic.AchievementsLogic;
 import seedu.address.achievements.logic.AchievementsLogicManager;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.address.logic.AddressBookLogicManager;
-import seedu.address.storage.Storage;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.UserPrefsModel;
+import seedu.address.storage.Storage;
 
 /**
  * The main AddressBookLogicManager of the app.

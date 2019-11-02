@@ -59,6 +59,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Overloaded alternative constructor of CommandBox due to reluctant to use possible suggestions.
+     */
+    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
+        this(commandExecutor, history, new String[0]);
+    }
+
+    /**
      * Handles the key press event, {@code keyEvent}.
      */
     @FXML

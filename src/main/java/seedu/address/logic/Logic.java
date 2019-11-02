@@ -1,8 +1,8 @@
 package seedu.address.logic;
 
 import seedu.address.achievements.logic.AchievementsLogic;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.storage.Storage;
 
 /**

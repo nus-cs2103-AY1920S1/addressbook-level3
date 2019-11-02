@@ -22,13 +22,13 @@ public class CountriesDropdown extends UiPart<Region> {
 
     private static final String FXML = "CountriesDropdown.fxml";
 
-    ObservableList<String> options = FXCollections.observableArrayList();
+    private static String field = "Singapore";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private ObservableList<String> options = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> countriesDropdown;
-
-    private static String field = "Singapore";
 
     public CountriesDropdown(FinancialTrackerLogic financialTrackerLogic, ExpensePanel expensePanel) {
         super(FXML);

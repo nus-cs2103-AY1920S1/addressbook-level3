@@ -2,8 +2,8 @@ package seedu.address.financialtracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.Model;
+import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,8 +15,8 @@ public class AddFinCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the financial tracker.\n"
-            + "e.g. add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE " +
-            "(Remember to select where you at currently!)\n"
+            + "e.g. add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE "
+            + "(Remember to select where you at currently!)\n"
             + "You can also specify date and time with [date/DATE] and [time/TIME]";
     public static final String MESSAGE_SUCCESS = "Expense added";
 

@@ -1,8 +1,6 @@
 package seedu.address.financialtracker.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -44,6 +42,13 @@ public class FinancialTrackerLogic {
         }
     }
 
+    /**
+     * Use this logic class to execute commands which utilize model and storage.
+     * @param commandText user input
+     * @return CommandResult, see {@Code CommandResult}
+     * @throws CommandException if the command executed with error
+     * @throws ParseException if user inputted wrong format of command
+     */
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 

@@ -20,8 +20,8 @@ import seedu.address.logic.commands.CommandResult;
 public class SummaryCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "summary";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens up a window which shows the summary of your" +
-            "total expenses.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens up a window which shows the summary of your"
+            + "total expenses.";
 
     public static final String MESSAGE_SUCCESS = "Currently viewing the Summary Window";
 
@@ -40,8 +40,8 @@ public class SummaryCommand extends Command<Model> {
         HashMap<String, Double> modelData = model.getSummaryMap();
         double total = modelData.get("Total");
 
-        for(String key : modelData.keySet()) {
-            if(key.equals("Total")) {
+        for (String key : modelData.keySet()) {
+            if (key.equals("Total")) {
                 continue;
             }
             XYChart.Series dataSeries = new XYChart.Series();

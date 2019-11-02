@@ -21,9 +21,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
      * and trailing whitespaces will be trimmed.
-     * 
-     * @throws ParseException if the specified index is invalid (not non-zero
-     *                        unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -36,7 +34,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String amount} into a {@code Amount}. Leading and trailing
      * whitespaces will be trimmed.
-     *
      * @throws ParseException if the given {@code amount} is invalid.
      */
     public static Amount parseAmount(String amount) throws ParseException {
@@ -51,7 +48,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String description} into a {@code Description}. Leading and
      * trailing whitespaces will be trimmed.
-     *
      * @throws ParseException if the given {@code description} is invalid.
      */
     public static Description parseDescription(String description) throws ParseException {
@@ -66,7 +62,6 @@ public class ParserUtil {
     /**
      * Parses a {@code String type} into a {@code Type}. Leading and
      * trailing whitespaces will be trimmed.
-     *
      * @throws ParseException if the given {@code type} is invalid.
      */
     public static Type parseType(String type) throws ParseException {

@@ -3,6 +3,7 @@ package seedu.address.financialtracker.logic.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.financialtracker.logic.commands.AddFinCommand;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
 import seedu.address.financialtracker.logic.commands.EditFinCommand;
@@ -13,7 +14,6 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.commons.core.Messages;
 
 /**
  * Parses user input.

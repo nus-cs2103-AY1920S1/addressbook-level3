@@ -11,9 +11,13 @@ import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Encapsulate expense lists into financial tracker and allow accessing expense list accordingly by indicating
+ * which country that the user wanna access.
+ */
 public class FinancialTracker {
 
-    public String currentCountry;
+    private String currentCountry;
     private final ObservableMap<String, ExpenseList> expenseListMap = FXCollections.observableHashMap();
     private final ObservableMap<String, ExpenseList> internalUnmodifiableExpenseListMap =
             FXCollections.unmodifiableObservableMap(expenseListMap);
@@ -25,6 +29,10 @@ public class FinancialTracker {
             expenseListMap.put(obj.getDisplayCountry(), new ExpenseList(obj.getDisplayCountry()));
         }
         currentCountry = "Singapore"; //Singapore as default
+    }
+
+    public String getCurrentCountry() {
+        return currentCountry;
     }
 
     /**
@@ -83,8 +91,8 @@ public class FinancialTracker {
     public HashMap<String, Double> getSummaryMap() {
         HashMap<String, Double> summaryMap = new HashMap<>();
         double total = 0;
-        for(String key : internalUnmodifiableExpenseListMap.keySet()) {
-            if(!internalUnmodifiableExpenseListMap.get(key).isEmpty()) {
+        for (String key : internalUnmodifiableExpenseListMap.keySet()) {
+            if (!internalUnmodifiableExpenseListMap.get(key).isEmpty()) {
                 double summary = internalUnmodifiableExpenseListMap.get(key).getSummary();
                 summaryMap.put(key, summary);
                 total += summary;

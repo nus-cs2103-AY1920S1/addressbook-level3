@@ -3,7 +3,6 @@ package seedu.address.financialtracker.ui;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -21,8 +20,8 @@ import seedu.address.ui.UiPart;
  */
 public class FinancialTrackerSummaryWindow extends UiPart<Stage> {
 
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private static final String FXML = "FinancialTrackerSummaryWindow.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private Label title;
@@ -55,7 +54,8 @@ public class FinancialTrackerSummaryWindow extends UiPart<Stage> {
     /**
      * Creates a new HelpWindow.
      */
-    public FinancialTrackerSummaryWindow(ObservableList<PieChart.Data> pieChartData, ArrayList<XYChart.Series> seriesArray) {
+    public FinancialTrackerSummaryWindow(ObservableList<PieChart.Data> pieChartData,
+                                         ArrayList<XYChart.Series> seriesArray) {
         this(new Stage(), pieChartData, seriesArray);
     }
 

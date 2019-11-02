@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.PageType;
-import seedu.address.commons.core.Messages;
 
 /**
  * A parser to parse user input and create a GoToCommand object.
