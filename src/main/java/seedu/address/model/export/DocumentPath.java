@@ -109,9 +109,8 @@ public class DocumentPath extends ExportPath {
     @Override
     public void export(List<FlashCard> list) throws IOException {
         try {
-            DocumentExportUtil.exportFlashCardsToDocument(
-                    list, this
-            );
+            super.createDirectoryIfNotPresent(directoryPath);
+            DocumentExportUtil.exportFlashCardsToDocument(list, this);
         } catch (IOException e) {
             throw e;
         }

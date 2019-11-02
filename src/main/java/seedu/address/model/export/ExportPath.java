@@ -3,6 +3,7 @@
 package seedu.address.model.export;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,14 @@ public abstract class ExportPath {
     public abstract String toAbsolutePathString();
     public abstract void export(List<FlashCard> list) throws IOException;
     public abstract Optional<List<FlashCard>> importFrom() throws DataConversionException, UnsupportedOperationException;
+
+    void createDirectoryIfNotPresent(DirectoryPath directoryPath) throws IOException {
+        try {
+            Files.createDirectories(
+                    directoryPath.getPath()
+            );
+        } catch (IOException e) {
+            throw e;
+        }
+    }
 }

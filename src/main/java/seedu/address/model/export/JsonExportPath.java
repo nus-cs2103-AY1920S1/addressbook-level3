@@ -111,9 +111,8 @@ public class JsonExportPath extends ExportPath {
     @Override
     public void export(List<FlashCard> list) throws IOException {
         try {
-            JsonExportUtil.exportFlashCardsToJson(
-                    list, this
-            );
+            super.createDirectoryIfNotPresent(directoryPath);
+            JsonExportUtil.exportFlashCardsToJson(list, this);
         } catch (IOException e) {
             throw e;
         }
