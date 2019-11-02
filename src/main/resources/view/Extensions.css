@@ -22,3 +22,11 @@
 #background-placeholder {
     -fx-background-color: #fff;
 }
+
+.divider-colured {
+    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+}
+
+.placeholder-background {
+    -fx-background-color: #fff;
+}
