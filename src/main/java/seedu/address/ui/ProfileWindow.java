@@ -214,8 +214,7 @@ public class ProfileWindow extends UiPart<Stage> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 getRoot().hide();
             }
-        }
-        );
+        });
     }
 
     /**
