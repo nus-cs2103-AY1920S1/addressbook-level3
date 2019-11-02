@@ -317,7 +317,7 @@ public class ParserUtil {
         } else if (parsedAuto.equals("n")) {
             isAuto = false;
         } else {
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(Messages.MESSAGE_AUTO_ONLY_Y_N);
         }
 
         return isAuto;
