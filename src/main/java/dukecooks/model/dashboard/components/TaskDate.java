@@ -1,10 +1,10 @@
 package dukecooks.model.dashboard.components;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import static dukecooks.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Represents a TaskDate in DukeCooks.

@@ -11,7 +11,6 @@ import java.util.Optional;
 import dukecooks.commons.core.Messages;
 import dukecooks.commons.core.index.Index;
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.logic.commands.Command;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.exceptions.CommandException;
@@ -37,7 +36,6 @@ public class EditTaskCommand extends EditCommand {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Duke Cooks.";
-    public static final String MESSAGE_INVALID_DATE = "The date is invalid.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
