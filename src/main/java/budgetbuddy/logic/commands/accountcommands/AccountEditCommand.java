@@ -16,6 +16,7 @@ import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.exceptions.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.DuplicateAccountException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Name;
 
@@ -62,6 +63,8 @@ public class AccountEditCommand extends Command {
             accountsManager.editAccount(targetAccountIndex, editedAccount);
         } catch (AccountNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
+        } catch (DuplicateAccountException e) {
+            throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedAccount), CommandCategory.ACCOUNT);
     }

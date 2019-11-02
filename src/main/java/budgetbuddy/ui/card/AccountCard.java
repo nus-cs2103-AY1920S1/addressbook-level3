@@ -3,13 +3,10 @@ package budgetbuddy.ui.card;
 import budgetbuddy.model.account.Account;
 
 import budgetbuddy.ui.UiPart;
-import com.sun.prism.paint.Color;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 /**
  * An UI component that displays information of a {@code Account}.
