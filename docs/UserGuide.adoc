@@ -405,6 +405,9 @@ Date range can be input in the following ways: +
 The statistics panel will update every time the spending list displayed changes.
 For example, when a new spending with a tag is added, the statistics panel will update the pie chart to show the statistics for all spending, including the new spending.
 
+[TIP]
+The statistics panel will update with the currency set.
+
 *Examples:*
 
 * `stats`: Generates statistics for all spending.
@@ -451,6 +454,9 @@ Hovering the mouse over a point displays the date and total amount of money spen
 [TIP]
 The graph panel will update every time the spending list displayed changes.
 For example, when a new spending is added, the graph panel will update and generate a graph for all spending, including the new spending.
+
+[TIP]
+The graph panel will update with the currency set.
 
 *Examples:*
 
