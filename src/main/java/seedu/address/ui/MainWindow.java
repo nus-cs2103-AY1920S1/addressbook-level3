@@ -226,7 +226,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -239,19 +239,21 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
         }
     }
 
     /**
-     * Called whenever AutoComplete selected command.
+     * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
+
+        if (!commandText.isBlank() && !commandText.endsWith(" ")) {
+            logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+        }
+
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));

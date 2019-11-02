@@ -45,6 +45,7 @@ public class LogicManager implements Logic {
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
+    private String lastCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -87,6 +88,18 @@ public class LogicManager implements Logic {
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
+
+        String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
+        if (!lastCommandWord.equals(currCommandWord)) {
+            try {
+                this.execute(lastCommandWord);
+                displayResult.accept("");
+            } catch (CommandException | ParseException ex) {
+                logger.info("Resetting commands should not throw any exception: " + ex.getMessage());
+            }
+            lastCommandWord = currCommandWord;
+        }
+
         if (!(command instanceof NonActionableCommand)) {
             throw new RuntimeException("Only Non-actionable commands should be eagerly evaluated");
         } else if (command instanceof SetFocusOnTabCommand) {
