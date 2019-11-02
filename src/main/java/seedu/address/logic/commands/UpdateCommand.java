@@ -24,7 +24,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+import static seedu.address.model.entity.fridge.FridgeStatus.UNOCCUPIED;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,7 @@ import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Name;
@@ -88,6 +91,7 @@ public class UpdateCommand extends UndoableCommand {
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "Edited Entity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid updates to entity: %1$s";
+    public static final String MESSAGE_CANNOT_ASSIGN_FRIDGE = "A fridge cannot be assigned to a claimed fridge";
 
     private final IdentificationNumber id;
     private final UpdateEntityDescriptor updateEntityDescriptor;
@@ -167,6 +171,16 @@ public class UpdateCommand extends UndoableCommand {
                 if (!originalBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))
                         && updateBodyDescriptor.getBodyStatus().equals(Optional.of(ARRIVED))) {
                     addNotificationsForBody(model);
+                }
+
+                if ((updateBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED)))) {
+                    removeBodyFromFridge(model);
+                }
+
+                if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
+                        && ! updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null))
+                        )) {
+                    throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
                 }
 
             }
@@ -259,6 +273,18 @@ public class UpdateCommand extends UndoableCommand {
         Body body = (Body) entity;
         NotifCommand notifCommand = new NotifCommand(new Notif(body), NOTIF_PERIOD, NOTIF_TIME_UNIT);
         notifCommand.execute(model);
+    }
+
+    private void removeBodyFromFridge(Model model) {
+        Body body = (Body) entity;
+
+        for (Fridge fridge : model.getFilteredFridgeList()) {
+            if (Optional.of(fridge.getIdNum()).equals(body.getFridgeId())) {
+                fridge.setBody(null);
+            }
+        }
+
+        body.setFridgeId(null);
     }
     //@@author
 
