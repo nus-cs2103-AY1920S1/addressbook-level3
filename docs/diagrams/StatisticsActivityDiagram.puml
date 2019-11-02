@@ -1,13 +1,14 @@
+//@@author LeonardTay748
 @startuml
 start
 :User executes stats command;
 repeat
-:Gets an Updated Flashcard List based on predicate;
+:Gets an updated FlashCard list based on given predicate;
 :Gets the size of the list;
 :Number of predicate++ ;
 repeat while () is  ([number of predicate < 3])
-:Gets test mode statistics;
-:Combines all statistics;
+:Gets performance data;
+:Gets test statistics;
 :Displays all statistics ;
 
 stop
