@@ -26,6 +26,8 @@ import seedu.address.model.loan.Loan;
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final int MAX_TITLE_LENGTH = 60;
+    private static final int MAX_AUTHOR_LENGTH = 60;
     private static final Loan NULL_LOAN = null;
 
     /**
@@ -46,12 +48,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        if (title.toString().length() > 30) {
+        if (title.toString().length() > MAX_TITLE_LENGTH) {
             throw new ParseException(MESSAGE_BOOK_TITLE_TOO_LONG);
         }
 
         Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
-        if (author.toString().length() > 30) {
+        if (author.toString().length() > MAX_AUTHOR_LENGTH) {
             throw new ParseException(MESSAGE_AUTHOR_NAME_TOO_LONG);
         }
 
