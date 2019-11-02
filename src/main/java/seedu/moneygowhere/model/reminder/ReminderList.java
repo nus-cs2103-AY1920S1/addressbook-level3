@@ -1,8 +1,10 @@
 package seedu.moneygowhere.model.reminder;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.moneygowhere.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +51,14 @@ public class ReminderList implements Iterable<Reminder> {
      */
     public ObservableList<Reminder> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Replaces the contents of this list with {@code reminders}.
+     */
+    public void setReminders(List<Reminder> reminders) {
+        requireAllNonNull(reminders);
+        internalList.setAll(reminders);
     }
 
     @Override
