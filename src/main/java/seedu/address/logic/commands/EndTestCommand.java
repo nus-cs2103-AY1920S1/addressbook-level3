@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
@@ -14,12 +16,13 @@ public class EndTestCommand extends Command {
     private KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     public EndTestCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        // TODO: integrate statistics
+
         model.updatePerformance(model);
         keyboardFlashCardsParser.endTestMode();
         return new CommandResult("Test ended");

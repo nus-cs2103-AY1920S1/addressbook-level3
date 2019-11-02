@@ -13,6 +13,7 @@ public class StartCommandParser implements Parser<StartCommand> {
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     StartCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
     /**
@@ -20,11 +21,7 @@ public class StartCommandParser implements Parser<StartCommand> {
      * and returns a StartCommand object for execution.
      */
     public StartCommand parse(String args) {
-        requireNonNull(keyboardFlashCardsParser);
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            return new StartCommand(keyboardFlashCardsParser);
-        }
         return new StartCommand(keyboardFlashCardsParser, trimmedArgs);
     }
 }

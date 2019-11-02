@@ -16,6 +16,7 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     public RateQuestionCommandParser(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
@@ -24,7 +25,6 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
      * and returns a RateQuestionCommand object for execution.
      */
     public RateQuestionCommand parse(String args) throws ParseException {
-        requireNonNull(keyboardFlashCardsParser);
         String getFirstWord = args.trim().split("\\s+")[0];
 
         switch (getFirstWord) {
