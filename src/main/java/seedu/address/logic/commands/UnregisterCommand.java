@@ -11,7 +11,7 @@ import seedu.address.model.borrower.BorrowerId;
 /**
  * Unregisters a borrower from the borrower record.
  */
-public class UnregisterCommand extends Command implements ReversibleCommand {
+public class UnregisterCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "unregister";
 
@@ -24,8 +24,6 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Borrower unregistered: %1$s";
 
     private final BorrowerId id;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Creates an UnregisterCommand to add the specified {@code Borrower}
@@ -52,21 +50,13 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
         }
         Borrower toUnregister = model.getBorrowerFromId(id);
 
+        model.unregisterBorrower(toUnregister);
+
         undoCommand = new RegisterCommand(toUnregister);
         redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister.toFullString()));
 
-        model.unregisterBorrower(toUnregister);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override

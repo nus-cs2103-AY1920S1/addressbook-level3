@@ -8,14 +8,11 @@ import seedu.address.model.Model;
 /**
  * Exits the serve mode.
  */
-public class DoneCommand extends Command implements ReversibleCommand {
+public class DoneCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns to List Mode. \n"
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Exited from Serve Mode. ";
-
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Executes the command and returns the result message.
@@ -30,20 +27,13 @@ public class DoneCommand extends Command implements ReversibleCommand {
         if (!model.isServeMode()) {
             throw new CommandException(MESSAGE_NOT_IN_SERVE_MODE);
         }
+
         undoCommand = new ServeCommand(model.getServingBorrower().getBorrowerId());
         redoCommand = this;
+        commandResult = new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+
         model.exitsServeMode();
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override

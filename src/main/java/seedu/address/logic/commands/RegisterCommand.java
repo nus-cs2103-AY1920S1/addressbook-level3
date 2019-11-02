@@ -13,7 +13,7 @@ import seedu.address.model.borrower.Borrower;
 /**
  * Registers a borrower to the library records.
  */
-public class RegisterCommand extends Command implements ReversibleCommand {
+public class RegisterCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "register";
 
@@ -31,8 +31,6 @@ public class RegisterCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "New borrower added: %1$s";
 
     private final Borrower toAdd;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Creates a RegisterCommand to add the specified {@code Borrower}
@@ -54,21 +52,13 @@ public class RegisterCommand extends Command implements ReversibleCommand {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
         }
 
+        model.registerBorrower(toAdd);
+
         undoCommand = new UnregisterCommand(toAdd.getBorrowerId());
         redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
 
-        model.registerBorrower(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override

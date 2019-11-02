@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanList;
 /**
  * Edits the details of an existing Borrower in the borrower record.
  */
-public class EditBorrowerCommand extends Command implements ReversibleCommand {
+public class EditBorrowerCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -42,8 +42,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
             + MESSAGE_USAGE;
 
     private final EditBorrowerDescriptor editBorrowerDescriptor;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * @param editBorrowerDescriptor details to edit the borrower with
@@ -71,8 +69,6 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         Borrower borrowerToEdit = model.getServingBorrower();
         Borrower editedBorrower = createEditedBorrower(borrowerToEdit, editBorrowerDescriptor);
-        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
-        redoCommand = this;
 
         if (model.hasDuplicatedBorrower(editedBorrower)) {
             throw new CommandException(MESSAGE_DUPLICATE_BORROWER);
@@ -80,17 +76,12 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
-        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
-    }
 
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
+        undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
 
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     /**

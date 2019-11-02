@@ -14,7 +14,7 @@ import seedu.address.model.book.Book;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command implements ReversibleCommand {
+public class AddCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -34,8 +34,6 @@ public class AddCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "New book added: %1$s";
 
     private final Book toAdd;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Creates an AddCommand to add the specified {@code Book}
@@ -58,19 +56,10 @@ public class AddCommand extends Command implements ReversibleCommand {
 
         undoCommand = new DeleteBySerialNumberCommand(toAdd.getSerialNumber());
         redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 
         model.addBook(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override
