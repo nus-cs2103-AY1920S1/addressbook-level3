@@ -2,10 +2,12 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-// import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.transaction.LedgerOperation;
+
+import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Budget}.
@@ -24,9 +26,7 @@ public class LedgerCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
-    private Label balance;
-    // @FXML
-    // private FlowPane people;
+    private FlowPane people;
 
     public LedgerCard(LedgerOperation ledgerOperation, int displayedIndex) {
         super(FXML);
@@ -35,10 +35,10 @@ public class LedgerCard extends UiPart<Region> {
         amount.setText(ledgerOperation.getAmount().toString());
         date.setText(ledgerOperation.getDate().toString());
         // TODO FIX
-        balance.setText(ledgerOperation.getAmount().toString());
-        // ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
-        //     .sorted(Comparator.comparing(person -> person.getName().fullName))
-        //     .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
+        //balance.setText(ledgerOperation.getAmount().toString());
+        ledgerOperation.getPeopleInvolved().asUnmodifiableObservableList().stream()
+                .sorted(Comparator.comparing(person -> person.getName().fullName))
+                .forEach(person -> people.getChildren().add(new Label(person.getName().fullName)));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class LedgerCard extends UiPart<Region> {
         // state check
         LedgerCard card = (LedgerCard) other;
         return id.getText().equals(card.id.getText())
-            && ledgerOperation.equals(card.ledgerOperation);
+                && ledgerOperation.equals(card.ledgerOperation);
     }
 }

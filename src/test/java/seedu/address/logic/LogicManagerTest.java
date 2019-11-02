@@ -2,6 +2,8 @@ package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -13,15 +15,14 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
 
+import seedu.address.logic.commands.InCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyBankAccount;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.storage.JsonBankAccountStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.JsonUserStateStorage;
 import seedu.address.storage.StorageManager;
 
 
@@ -36,36 +37,30 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBankAccountStorage bankAccountStorage =
-                new JsonBankAccountStorage(temporaryFolder.resolve("bankAccount.json"));
+        JsonUserStateStorage bankAccountStorage =
+                new JsonUserStateStorage(temporaryFolder.resolve("bankAccount.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(bankAccountStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
-    /*
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
-     */
 
-    /*
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    public void execute_commandInvalidIndexError_throwsCommandException() {
+        String deleteCommand = "delete t9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }
-     */
 
-    /*
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String inCommand = InCommand.COMMAND_WORD + "$/100 n/work d/10102019";
+        assertCommandSuccess(inCommand, InCommand.MESSAGE_SUCCESS, model);
     }
-     */
 
     // TODO: FIX
     /*
@@ -137,7 +132,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getBankAccount(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getUserState(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -158,13 +153,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonBankAccountIoExceptionThrowingStub extends JsonBankAccountStorage {
+    private static class JsonBankAccountIoExceptionThrowingStub extends JsonUserStateStorage {
         private JsonBankAccountIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAccount(ReadOnlyBankAccount bankAccount, Path filePath) throws IOException {
+        public void saveUserState(ReadOnlyUserState userState, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
