@@ -14,7 +14,7 @@ public class ListEmployeeCommand extends Command {
 
     public static final String COMMAND_WORD = "list_em";
 
-    public static final String MESSAGE_SUCCESS = "Listed all employees";
+    public static final String MESSAGE_SUCCESS = "Listed all employees.";
 
 
     @Override
