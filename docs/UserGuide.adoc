@@ -275,31 +275,100 @@ image::questionCommandsDemo/clearresult.png[width = "600"]
 // tag::quiz[]
 === Quiz mode
 
-There is a built-in quiz mode in NUStudy for you to take a revision quiz.
+There is a built-in quiz mode in NUStudy for you to take a revision quiz. You can indicate the number of questions,
+subject and difficulty and the quiz will randomly select questions for you according to your requirement. You will
+answer the question one by one and your result will be given.
 
 ==== Enter quiz mode : `quiz`
 
-Enters quiz mode for you to answer questions. +
+You can enter the quiz mode using this command. +
 Format: `quiz n/NUMBER_OF_QUESTIONS d/DIFFICULTY s/SUBJECT`
 
-==== Answer the quiz question : `type answer` +
-Answers the displayed question. +
-Format: `ANSWER`
+****
+* The `NUMBER_OF_QUESTIONS` must be a positive integer.
+* `DIFFICULTY` and `SUBJECT` are case insensitive.
+****
+
+Example:
+
+Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. +
+
+image::quiz/QuizModeCommand.png[]
+
+Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
+on the third column. +
+
+image::quiz/QuizModeCommandResult.png[]
+
+==== Answer the quiz question
+You can type your `answer` in the command box to answer the question.
+
+****
+* The `answer` is case sensitive.
+****
+
+Example:
+
+Step 1: Types your `answer` in the command box and presses `Enter` to execute the command +
+
+image::quiz/QuizAnswer.png[]
+
+Step 2: The result of your answer will reflect your correctness and the next question will be displayed.
+
+image::quiz/QuizAnswerResult.png[]
 
 ==== Show an answer : `show`
 
-Shows an answer for the displayed quiz question. +
+You can check the answer for the current quiz question using this command. You can use it as reference and please do
+not use it to cheat. +
 Format: `show`
+
+Example:
+
+Step 1: Types `show` in the command box and presses `Enter` to execute the command. +
+
+Step 2: The answer of current question will be displayed. +
+
+image::quiz/ShowAnswerCommand.png[]
 
 ==== Skip a question : `skip`
 
-Skips current question and displays the next one. +
+You can skip current question and go to the next one using this command. +
 Format: `skip`
+
+****
+* The question you have skipped will be marked as false for result.
+****
+
+Example:
+
+Step 1: Types `skip` in the command box and presses `Enter` to execute the command. +
+
+image::quiz/SkipCommand.png[]
+
+Step 2: The current question is skipped and next question will be displayed. +
+
+image::quiz/SkipCommandResult.png[]
 
 ==== Exit test mode : `quit`
 
-Exits from the quiz mode. +
+You can exit from the quiz mode using this command. +
 Format: `quit`
+
+****
+* You need to `quit` the quiz mode every time after you finish quiz.
+* You can `quit` the quiz mode anytime you want.
+****
+
+Example:
+
+Step 1: Types `quit` in the command box and presses `Enter` to execute the command. +
+
+image::quiz/QuitQuizCommand.png[]
+
+Step 2: The result shows message of exit from the quiz mode and the original questions will appear.
+
+image::quiz/QuitQuizCommandResult.png[]
 // end::quiz[]
 
 === Get statistics

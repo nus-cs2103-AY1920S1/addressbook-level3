@@ -844,7 +844,7 @@ Use case ends
 
 *MSS*
 
-1. Student gives the command to enter the test mode `test [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
+1. Student gives the command to enter the test mode `quiz [n/NUMBER_OF_QUESTIONS] [d/DIFFICULTY] [s/SUBJECT]`
 2. Application shows a question with difficulty and subject indicated
 3. Application waits for the student to key in the answer
 4. Student enters the answer
@@ -852,7 +852,6 @@ Use case ends
 6. Repeat 2 - 5 until all questions are answered
 
 Use case ends
-// end::quizUseCase[]
 
 *Extensions*
 
@@ -887,6 +886,7 @@ Use case ends
 ** a1. Student gives the command `quit`
 ** a2. Application exits from the test mode
 * Use case ends
+// end::quizUseCase[]
 
 // tag::nfrglossary[]
 [appendix]

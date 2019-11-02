@@ -197,8 +197,8 @@ public class AppData implements ReadOnlyAppData {
         ObservableList<Question> quizQuestions = FXCollections.observableArrayList();
         List<Question> filteredQuestions = getQuestionList()
                 .stream()
-                .filter(question -> subject.equals(question.getSubject())
-                        && difficulty.equals(question.getDifficulty()))
+                .filter(question -> subject.toString().equalsIgnoreCase(question.getSubject().toString())
+                        && difficulty.toString().equalsIgnoreCase(question.getDifficulty().toString()))
                 .collect(Collectors.toList());
 
         Random random = new Random();
