@@ -42,7 +42,8 @@ public class AddCourseCommandTest {
         CommandResult commandResult = new AddCourseCommand(courses)
             .execute(modelStubAcceptingCourse);
 
-        assertEquals(String.format(AddCourseCommand.MESSAGE_SUCCESS, courses),
+        assertEquals(
+            String.format(AddCourseCommand.MESSAGE_SUCCESS, courses),
             commandResult.getFeedbackToUser());
         assertEquals(courses, modelStubAcceptingCourse.coursesAdded);
     }
@@ -57,7 +58,10 @@ public class AddCourseCommandTest {
         // should add CS3230
         CommandResult commandResult = addCourseCommand.execute(modelStub);
 
-        assertEquals(String.format(AddCourseCommand.MESSAGE_SUCCESS, List.of(CS3230)),
+        assertEquals(
+            String.format(AddCourseCommand.MESSAGE_SUCCESS, List.of(CS3230))
+                + "\n"
+                + String.format(AddCourseCommand.MESSAGE_SOME_DUPLICATE_COURSES, List.of(MA1521)),
             commandResult.getFeedbackToUser());
     }
 
