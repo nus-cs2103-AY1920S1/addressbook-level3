@@ -7,7 +7,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
-import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.event.EventListPanel;
 
