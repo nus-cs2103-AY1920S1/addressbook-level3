@@ -332,16 +332,16 @@ public class ParserUtil {
         // Missing preamble or redundant preamble
         String preamble = argMultimap.getPreamble();
         if (needPreamble && preamble.isEmpty()) {
-            throw new ParseException(MESSAGE_MISSING_INDEX + messageUsage);
+            throw new ParseException(MESSAGE_MISSING_INDEX + "\n" + messageUsage);
         } else if (!needPreamble && !preamble.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_REDUNDANT_PREAMBLE_FORMAT, preamble) + messageUsage);
+            throw new ParseException(String.format(MESSAGE_REDUNDANT_PREAMBLE_FORMAT, preamble) + "\n" + messageUsage);
         }
 
         // Missing compulsory Prefix
         for (Prefix compulsoryPrefix : compulsoryPrefixes) {
             if (argMultimap.getValue(compulsoryPrefix).isEmpty()) {
-                throw new ParseException(
-                        String.format(MESSAGE_MISSING_ARGUMENT_FORMAT, compulsoryPrefix.getFullUsage()) + messageUsage);
+                throw new ParseException(String.format(MESSAGE_MISSING_ARGUMENT_FORMAT, compulsoryPrefix.getFullUsage())
+                        + "\n" + messageUsage);
             }
         }
     }
