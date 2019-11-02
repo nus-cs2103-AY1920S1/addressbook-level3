@@ -42,6 +42,7 @@ public class DayThumbnail extends UiPart<AnchorPane> {
 
     private void fillDayThumbnailLabels() {
         indexLabel.setText("DAY " + displayedIndex.getOneBased() + "");
+        destinationLabel.setWrapText(true);
         destinationLabel.setText(day.getDestination().toString());
     }
 

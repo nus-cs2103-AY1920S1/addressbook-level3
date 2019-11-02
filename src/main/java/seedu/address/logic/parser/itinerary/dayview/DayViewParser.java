@@ -16,8 +16,6 @@ import seedu.address.logic.parser.navbar.NavbarViewParser;
  */
 public class DayViewParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"
-            + EnterCreateDayCommand.COMMAND_WORD + " "
-            + DeleteDayCommand.COMMAND_WORD + " "
             + EnterDayCommand.COMMAND_WORD + " "
             + EnterEditDayCommand.COMMAND_WORD + " | "
             + NavbarViewParser.MESSAGE_COMMAND_TYPES;
@@ -32,10 +30,6 @@ public class DayViewParser implements PageParser<Command> {
         }
 
         switch (commandType) {
-        case CREATE:
-            return new EnterCreateDayParser().parse(arguments);
-        case DELETE:
-            return new DeleteDayParser().parse(arguments);
         case GOTO:
             return new EnterDayParser().parse(arguments);
         case EDIT:
