@@ -40,10 +40,13 @@ public class Dashboard {
         return taskCheck;
     }
 
-    public LocalDate getLocalDate() {
+    LocalDate getLocalDate() {
         TaskDate td = getTaskDate();
-        LocalDate ld = LocalDate.of(Integer.parseInt(td.year), Integer.parseInt(td.month), Integer.parseInt(td.day));
-        return ld;
+        return LocalDate.of(Integer.parseInt(td.year), Integer.parseInt(td.month), Integer.parseInt(td.day));
+    }
+
+    public boolean isValidDashboard() {
+        return true;
     }
 
     /**
@@ -89,11 +92,9 @@ public class Dashboard {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getDashboardName())
-                .append(" Date: ").append(getTaskDate())
-                .append(" Status: ").append(getTaskStatus());
-        return builder.toString();
+        return getDashboardName() +
+                " Date: " + getTaskDate() +
+                " Status: " + getTaskStatus();
     }
 
 }

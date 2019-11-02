@@ -14,7 +14,7 @@ import dukecooks.model.dashboard.components.Dashboard;
 import dukecooks.model.dashboard.components.TaskStatus;
 
 /**
- * Adds a task into Duke Cooks
+ * Marks a task as complete into DukeCooks
  */
 public class DoneTaskCommand extends Command {
 
@@ -23,8 +23,8 @@ public class DoneTaskCommand extends Command {
             + ": Marks the task identified by the index number used in the displayed task list as complete. \n"
             + "Parameters: INDEX (must be a positive integer)\n";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task marked as complete";
-    public static final String MESSAGE_DONE_FIVE_SUCCESS = "Congrats! You've completed 5 new tasks!";
+    private static final String MESSAGE_DONE_TASK_SUCCESS = "Task marked as complete";
+    private static final String MESSAGE_DONE_FIVE_SUCCESS = "Congrats! You've completed 5 new tasks!";
 
     private final Index targetIndex;
 
@@ -50,9 +50,10 @@ public class DoneTaskCommand extends Command {
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);
 
+        model.updateFilteredDashboardList(Dashboard::isValidDashboard);
+
         if (model.checkForPrize(lastShownList)) {
 
-            model.changeDashboard(lastShownList);
             return new CommandResult(MESSAGE_DONE_FIVE_SUCCESS, true, false, false);
 
         } else {
