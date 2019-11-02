@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,12 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javafx.util.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,11 +31,13 @@ class JsonSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_WORKER = "Workers list contains duplicate worker(s).";
     public static final String MESSAGE_DUPLICATE_FRIDGE = "Fridges list contains duplicate fridge(s).";
     public static final String MESSAGE_MISSING_BODY = "The body in this fridge couldn't be found.";
+    public static final String MESSAGE_DUPLICATE_NOTIF = "Notifs list contains duplicate notif(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedBody> bodies = new ArrayList<>();
     private final List<JsonAdaptedWorker> workers = new ArrayList<>();
     private final List<JsonAdaptedFridge> fridges = new ArrayList<>();
+    private final List<JsonAdaptedNotif> notifs = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
@@ -41,11 +46,13 @@ class JsonSerializableAddressBook {
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
                                        @JsonProperty("bodies") List<JsonAdaptedBody> bodies,
                                        @JsonProperty("workers") List<JsonAdaptedWorker> workers,
-                                       @JsonProperty("fridges") List<JsonAdaptedFridge> fridges) {
+                                       @JsonProperty("fridges") List<JsonAdaptedFridge> fridges,
+                                       @JsonProperty("notifs") List<JsonAdaptedNotif> notifs) {
         this.persons.addAll(persons);
         this.bodies.addAll(bodies);
         this.workers.addAll(workers);
         this.fridges.addAll(fridges);
+        this.notifs.addAll(notifs);
     }
 
     /**
@@ -58,6 +65,7 @@ class JsonSerializableAddressBook {
         bodies.addAll(source.getBodyList().stream().map(JsonAdaptedBody::new).collect(Collectors.toList()));
         workers.addAll(source.getWorkerList().stream().map(JsonAdaptedWorker::new).collect(Collectors.toList()));
         fridges.addAll(source.getFridgeList().stream().map(JsonAdaptedFridge::new).collect(Collectors.toList()));
+        notifs.addAll(source.getNotifList().stream().map(JsonAdaptedNotif::new).collect(Collectors.toList()));
     }
 
     /**
@@ -111,7 +119,26 @@ class JsonSerializableAddressBook {
         }
         //@@author
 
+        //@@author arjavibahety
+        for (JsonAdaptedNotif jsonAdaptedNotif : notifs) {
+            Pair<Integer, Long> notifAttributes = jsonAdaptedNotif.toModelType();
+            int bodyId = notifAttributes.getKey();
+            long dateTime = notifAttributes.getValue();
+
+            List<Body> bodyList = addressBook.getBodyList();
+            Notif notif;
+            for (Body body : bodyList) {
+                if (body.getIdNum().getIdNum() == bodyId) {
+                    notif = new Notif(body);
+                    notif.setNotifCreationTime(new Date(dateTime));
+                    if (addressBook.hasNotif(notif)) {
+                        throw new IllegalValueException(MESSAGE_DUPLICATE_NOTIF);
+                    }
+                    addressBook.addNotif(notif);
+                }
+            }
+        }
+        //@@author
         return addressBook;
     }
-
 }

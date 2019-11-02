@@ -29,6 +29,7 @@ public class TypicalAddressBook {
             ab.addEntity(fridge);
         }
 
+
         for (Notif notif : TypicalNotifs.getTypicalNotifs()) {
             ab.addNotif(notif);
         }
@@ -36,4 +37,13 @@ public class TypicalAddressBook {
         return ab;
     }
 
+    //@@author ambervoong
+    public static AddressBook getTypicalStoredBodies() {
+        AddressBook ab = new AddressBook();
+        for (Body body : TypicalBodies.getTypicalStoredBodies()) {
+            ab.addEntity(body);
+        }
+        return ab;
+    }
+    //@@author
 }

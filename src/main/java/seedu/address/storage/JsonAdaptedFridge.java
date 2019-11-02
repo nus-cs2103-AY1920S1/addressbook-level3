@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -66,7 +68,7 @@ class JsonAdaptedFridge {
         try {
             idNumber = Integer.parseInt(fridgeIdNum);
         } catch (NumberFormatException e) {
-            throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
 
         // Convert FridgeStatus
@@ -86,7 +88,7 @@ class JsonAdaptedFridge {
             try {
                 actualBodyId = Integer.parseInt(body);
             } catch (NumberFormatException e) {
-                throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+                throw new IllegalValueException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
             }
         }
 

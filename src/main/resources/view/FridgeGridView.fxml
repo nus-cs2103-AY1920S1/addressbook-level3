@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import org.controlsfx.control.GridView?>
+
+
+<StackPane prefWidth="270.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridView fx:id="fridgeGridView" prefHeight="100"/>
+   </children>
+</StackPane>

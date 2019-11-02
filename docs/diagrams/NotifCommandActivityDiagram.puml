@@ -1,0 +1,14 @@
+@startuml
+start
+
+:User adds a new body;
+
+:A notif is scheduled after waiting for 10 seconds;
+
+if () then ([BodyStatus is \n `ARRIVED` after \n10 seconds ])
+    :Update status of the body to \n `CONTACT_POLICE`;
+    :Show pop-up to alert \n the user that the \n status has been updated;
+else ([else])
+endif
+stop
+@enduml

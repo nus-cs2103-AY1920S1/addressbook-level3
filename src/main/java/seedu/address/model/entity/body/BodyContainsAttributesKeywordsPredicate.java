@@ -63,7 +63,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             if (body.getSex().toString().equals("")) {
                 bodyMap.put(PREFIX_SEX, "");
             } else {
-                bodyMap.put(PREFIX_SEX, body.getSex().toString());
+                bodyMap.put(PREFIX_SEX, body.getSex().toString().toLowerCase());
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -80,7 +80,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             if (body.getDateOfBirth().isEmpty()) {
                 bodyMap.put(PREFIX_DATE_OF_BIRTH, "");
             } else {
-                bodyMap.put(PREFIX_DATE_OF_BIRTH, formatter.format(body.getDateOfBirth()));
+                bodyMap.put(PREFIX_DATE_OF_BIRTH, formatter.format(body.getDateOfBirth().get()));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -97,7 +97,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             if (body.getDateOfDeath() == null) {
                 bodyMap.put(PREFIX_DATE_OF_DEATH, "");
             } else {
-                bodyMap.put(PREFIX_DATE_OF_DEATH, formatter.format(body.getDateOfDeath()));
+                bodyMap.put(PREFIX_DATE_OF_DEATH, formatter.format(body.getDateOfDeath().get()));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -182,7 +182,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
             if (body.getReligion().isEmpty()) {
                 bodyMap.put(PREFIX_RELIGION, "");
             } else {
-                bodyMap.put(PREFIX_RELIGION, body.getReligion().get().toString());
+                bodyMap.put(PREFIX_RELIGION, body.getReligion().get().toString().toLowerCase());
             }
         } catch (Exception e) {
             System.out.println(e);

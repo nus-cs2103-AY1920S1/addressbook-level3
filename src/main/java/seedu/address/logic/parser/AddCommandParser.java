@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FRIDGE_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
@@ -21,6 +20,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHOTO;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
@@ -41,8 +42,8 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.entity.fridge.Fridge;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -51,6 +52,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@ author shaoyi1997
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -132,7 +134,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         String designation = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_DESIGNATION).orElse(""));
         String employmentStatus = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_EMPLOYMENT_STATUS)
             .orElse(""));
-        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation);
+        Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
+
+        return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, photo);
     }
 
     /**
@@ -153,23 +157,22 @@ public class AddCommandParser implements Parser<AddCommand> {
         String details = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_BODY_DETAILS).orElse(""));
         List<String> organsForDonation = ParserUtil.parseOrgansForDonation(
             argMultimap.getValue(PREFIX_ORGANS_FOR_DONATION).orElse(""));
-        Religion religion = ParserUtil.parseReligion(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
+        String religion = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELIGION).orElse(""));
         String relationship = ParserUtil.parseStringFields(argMultimap.getValue(PREFIX_RELATIONSHIP)
             .orElse(""));
-        IdentificationNumber fridgeId = ParserUtil.parseIdentificationNumber(
+        Index fridgeIdNum = ParserUtil.parseIndex(
             argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(""));
-        if (fridgeId != null) {
-            if (!fridgeId.getTypeOfEntity().equalsIgnoreCase("f")) {
-                throw new ParseException(MESSAGE_INVALID_FRIDGE_ID);
-            }
-            if (!IdentificationNumber.isExistingIdentificationNumber(fridgeId.toString())) {
+        IdentificationNumber fridgeId = null;
+        if (fridgeIdNum != null) {
+            fridgeId = IdentificationNumber.customGenerateId("F", fridgeIdNum.getOneBased());
+            if (!IdentificationNumber.isExistingIdentificationNumber(fridgeId)) {
                 throw new ParseException(MESSAGE_INEXISTENT_FRIDGE);
             }
         }
 
         return new Body(dateOfAdmission, name, sex, nric, religion,
                 causeOfDeath, organsForDonation, status, fridgeId, dateOfBirth, dateOfDeath, nameNok, relationship,
-                        phoneNok);
+                        phoneNok, details);
     }
 
     /**
@@ -178,10 +181,11 @@ public class AddCommandParser implements Parser<AddCommand> {
     private static ArgumentMultimap tokenize(String args) {
         return ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE_NUMBER,
                 PREFIX_SEX, PREFIX_DATE_OF_BIRTH, PREFIX_DATE_JOINED, PREFIX_DESIGNATION, PREFIX_STATUS,
-                        PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH,
+                        PREFIX_DATE_OF_DEATH, PREFIX_DATE_OF_ADMISSION, PREFIX_CAUSE_OF_DEATH, PREFIX_PHOTO,
                                 PREFIX_BODY_DETAILS, PREFIX_NRIC, PREFIX_RELATIONSHIP, PREFIX_RELIGION,
                                         PREFIX_NAME_NOK, PREFIX_PHONE_NOK, PREFIX_ORGANS_FOR_DONATION,
                                                 PREFIX_FRIDGE_ID, PREFIX_FLAG, PREFIX_EMPLOYMENT_STATUS,
                                                         PREFIX_TAG, PREFIX_EMAIL, PREFIX_ADDRESS);
     }
 }
+//@@ author

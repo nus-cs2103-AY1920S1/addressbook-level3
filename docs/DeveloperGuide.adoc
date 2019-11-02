@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -156,7 +157,8 @@ This section describes some noteworthy details on how certain features are imple
 // tag:uniqueIdentificationNumber[]
 === Unique Identification Number
 
-* In Mortago, each entity is assigned a unique `IdentificationNumber`.
+In Mortago, each entity is assigned a unique `IdentificationNumber`.
+
 * `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
 * Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
 * The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
@@ -170,7 +172,7 @@ The class diagram below illustrates the relation between `IdentificationNumber` 
 .Unique `IdentificationNumber` Class Diagram
 image::UniqueIdentificationNumberClassDiagram.png[]
 
-===== Determining the next free number
+===== The first consideration to examine is determining the next free number.
 
 Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
 In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
@@ -195,11 +197,11 @@ The code snippet below demonstrates how the next free number is determined.
 ----
 
 In the above `putWorker` method, the set of `keys` representing the existing ID numbers are generated and iterated through, based on the size of the `keySet`.
-This sequential iteration checks for any number that is not assigned to any worker due to the deletion of the latter, which removes the mapping of the ID number to the deleted worker.
+This sequential iteration checks for any number that is not assigned to any worker (i.e. gap) due to a prior deletion of its assigned worker, which removes the mapping of the ID number to the deleted worker.
 If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
 If there is no gap available, the next highest number is assigned to the worker.
 
-===== Execution sequence of generating a unique `IdentificationNumber` for a worker:
+===== Hence, this leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
 
 . The user executes `add -w /name Zach ...` to add a new worker to Mortago.
 . `AddCommandParser` parses the given input and calls the `Worker` constructor.
@@ -212,19 +214,27 @@ The figure below illustrates the sequence diagram of the aforementioned steps.
 .Generation of unique `IdentificationNumber` Sequence Diagram
 image::UniqueIdentificationNumberSequenceDiagram.png[]
 
-Note that the execution sequence is similar for the addition and generation of unique `IdentificationNumber` for fridges and bodies.
+Note that the execution sequence is similar for the generation of unique `IdentificationNumber` for fridges and bodies.
 
 ==== Design Considerations
 
+When designing this feature, it is important to keep in mind the scalability of the application.
+When the data set becomes large, the ID number can become arbitrarily large if gaps in the middle are not filled.
+
 *Aspect: Tracking of numbers and determination of next free number*
 
-* Alternative 1: Three counters that track the total number of each entity in the system.
-** Pros: Easy to implement.
-** Cons: Does not cater for deletion of entity as deletion creates a gap.
+* Alternative 1: Three counters that track the total number of each entity in the system and assigns the next highest number to the added entity.
+** Pros:
+*** Easy to implement.
+** Cons:
+*** Does not cater for deletion of entity as deletion creates a gap which will be left unfilled.
 * Alternative 2 (current choice): A `HashMap` keeping track of the ID numbers and their respective assigned entity.
-** Pros: Aside from tracking a unique `keySet` of ID numbers, `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
-This also allows the assigned (mapped) entity to be accessible through the `HashMap` via the `IdentificationNumber#getMapping()` method.
-** Cons: Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
+** Pros:
+*** `HashMap` allows its `keySet` to contain unique ID numbers.
+*** `HashMap` caters for deletion of entities as the `keySet` can be iterated through to check for any gaps introduced during deletion.
+*** `HashMap` also allows the assigned (mapped) entity to be made accessible via the O(1) `HashMap#get()` method.
+** Cons:
+*** Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
 
 Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
 
@@ -233,27 +243,31 @@ Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap`
 * Increasing the ease of accessibility of mapped entities
 
 The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
-before each test to reset the `HashMaps`.
+before each unit test to reset the `HashMaps`. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
 // end::uniqueIdentificationNumber[]
 
 // tag::undoredo[]
 === Undo/Redo feature
-The undo/redo feature allows the user to undo a previous command that they have made, or redo a command they have undone.
+The undo/redo feature allows you to undo a command that you have made or redo a command you have undone.
 
 ==== Implementation
 
-The core of undo/redo is placed in the undo/redo history of `ModelManager`. Its mechanism uses the Command design pattern,
-allowing each individual command to be undone/redone without knowing the specific command type.
-Classes related to undo/redo and their relationships are shown below.
+You can find the core of undo/redo in the undo/redo history of `ModelManager`.
+The history stores `UndoableCommands`, and an `UndoCommand` or `RedoCommand` will `undo()` or `redo()` commands in the history.
+The design of `UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
+It allows each individual command to be undone/redone at a high-level without needing the specific command type to be known.
+Classes related to undo/redo and their relationships are shown in Figure 11.
 
 .Class Diagram Showing Classes Used by Undo/Redo
 image::UndoClassDiagram.png[]
 
-Firstly, there are two instances of `CommandHistory`, stored internally as `commandHistory` and `undoHistory` in `ModelManager`.
-The former instance stores previously executed commands while the latter stores previously undone commands.
-`CommandHistory` wraps a `Deque<UndoableCommand>`. Its functions imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
+===== Storing executed and undone commands
 
-In `ModelManager`, four key operations regarding `CommandHistory` are implemented:
+To start off, you will find two instances of `CommandHistory` in `ModelManager`. They are  stored internally as `commandHistory` and `undoHistory`.
+`commandHistory` stores previously executed commands while `undoHistory` stores previously undone commands.
+`CommandHistory` wraps a `Deque<UndoableCommand>`. Its methods imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
+
+In `ModelManager`, four key operations to access and modify `CommandHistory` are implemented:
 
 * `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
 * `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
@@ -263,15 +277,18 @@ In `ModelManager`, four key operations regarding `CommandHistory` are implemente
 In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
 `Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
 
-
+===== Command pattern
 Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
 The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
+Commands that don't change the user-visible program state, like `find`, can still inherit directly from `Command`.
 
-A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+Here is where the Command pattern comes in. A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+
+===== Defensive programming
 When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
 Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
-
 To defend against improper undoing or redoing, an `UndoableCommand` will not be added to a CommandHistory list unless it has been executed or undone before.
 Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.
 The values are as shown below.
@@ -304,7 +321,8 @@ Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `Redo
 executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
 If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
 
-This is the mechanism of undo/redo, from start to end. Below is an example of a usage scenario that illustrates how undo/redo works.
+This is the mechanism of undo/redo, from start to end.
+Below is an example of a usage scenario to help you visualise how undo/redo works.
 
 The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
@@ -318,12 +336,13 @@ The following activity diagram shows what happens when a user executes a new `Un
 .Activity Diagram Showing the Execution Control Flow of a Command
 image::CommandProcessActivityDiagram.png[]
 
-==== Design Considerations
+==== Design considerations
 
-When designing the undo/redo feature, scalability and speed were the key considerations. After analysing the pros and cons of
-each option, it was decided that using the Command design pattern was the best option.
+When designing the undo/redo feature, scalability and speed were the key considerations.
+There was also an extra layer of difficulty as Mortago has automated commands that are both time-based and user-triggered.
+After the analysis described below, the Command pattern was thought to be the best solution.
 
-===== Aspect: How undo & redo executes
+===== Aspect: Designing the mechanism
 
 * **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
 ** Pros:
@@ -340,6 +359,11 @@ each option, it was decided that using the Command design pattern was the best o
 ** Cons:
     *** Likely to use a lot of memory.
     *** Slower for big programs.
+
+===== Aspect: Handling automated commands
+* ** Alternative 1 : Allow automated commands to be undone
+
+* ** Alterative 2 : Do not undo the automated command
 
 ===== Aspect: Storing executed/undone commands
 
@@ -360,27 +384,111 @@ each option, it was decided that using the Command design pattern was the best o
 // end::undoredo[]
 
 === Notification Feature
-A notification is a message that Mortago will display when the status of a body is automatically updated.
-If the next-of-kin of a body has not been uncontactable for 24 hours, Mortago will prompt the user to contact
-the police for a more thorough investigation and change the status of the body from `ARRIVED` to `CONTACT_POLICE`.
+This feature in Mortago acts as a reminder to a mortuary manager to contact the police when the next-of-kin of a body
+has been uncontactable for a given period of time. He / She then needs to contact the police to proceed with a
+more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
+10 seconds in Mortago.
+
+If the status of a `Body` is `ARRIVED` after the 10 second window, it is updated to `CONTACT_POLICE` and a
+pop-up alert is displayed to remind regarding the same.
+
+This command is supported by the model component `Notif` and logic component `NotifCommand`.
+
+In `Notif` command, the following are the key private variables:
+
+* `body`: Refers to the `Body` for which the `Notif` is associated with. This is passed in as a parameter when a new
+object of the class is instantiated.
+
+* `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
+changes it to `CONTACT_POLICE`.
+
+* `notifCreationTime`: Refers to a `Date` object which store the date and time at the point of addition of the body.
+
+The constructor of a `NotifCommand` must be provided with the following parameters:
+
+* `notif`: Refers to the the instance of the `Notif` which needs to be handled.
+
+* `period`: Refers to a `long` value for which the NotifCommand needs to wait before executing the `alert` function
+of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `long` which is useful in storage.
+ It will be explained in futher detail later.
+
+* `timeUnit`: Refers to a `TimeUnit` associated with the `period`.
 
 ==== Current Implementation
-Given below is the execution process of the `NotificationCommand`:
+Given below is the typical execution process of this command:
 
-1. The user executes `add -b /name John ...` to add a new body to Mortago.
-2. The add command also created a new new `Notif` using this body as the parameter.
-3. The add command instantiates a new`NotifCommand` with `Notif`, `period`, `unit` as parameters.
-`period` is a static final integer initialized for 10 seconds and `unit` is static final TimeUnit set at TimeUnit.SECONDS.
-4. `NotifCommand` creates a new static `ScheduledExecutorService` which is scheduled to update the `BodyStatus` to
-`CONTACT_POLICE` if there is no change in its status for the specified `period` using the `UpdateCommand`.
+1. The user executes `add -b /name John ...` to add a new `Body` to Mortago.
+2. The `AddCommand` creates a new `Notif` using this `Body` as the parameter.
+3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
+`period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
+4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
+bodies to `CONTACT_POLICE` if there is no change in their status for the specified `period` using the `UpdateCommand`.
 5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
 `BodyStatus`.
+
+Here is the code snippet of the `NotifCommand`:
+```
+Body body = notif.getBody();
+String notifContent = "Body Id: " + body.getIdNum()
++ "\nName: " + body.getName()
++ "\nNext of Kin has been uncontactable. Please contact the police";
+
+Runnable changeUi = () -> Platform.runLater(() -> {
+    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
+        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
+        up.setUpdateFromNotif(true);
+        try {
+            up.execute(model);
+            NotifWindow notifWindow = new NotifWindow();
+            notifWindow.setTitle("Contact Police!");
+            notifWindow.setContent(notifContent);
+            notifWindow.display();
+            storageManager.saveAddressBook(model.getAddressBook());
+        } catch (CommandException | IOException e) {
+            logger.info("Error updating the body and fridge ");
+        }
+    }
+    NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
+});
+ses.schedule(changeUi, period, timeUnit);
+```
+
+The following sequence diagrams illustrate the execution of the notification feature:
 
 .Notification Command Sequence Diagram
 image::NotifCommandSequenceDiagram.png[]
 
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
+
+The following activity diagram shows what happens when a user adds a new body and the `NotifCommand` is instantiated:
+
+.Notification Command Activity Diagram
+image::NotifCommandActivityDiagram.png[]
+
+|===
+|:bulb: *Is `NotifCommand` only executed when a `Body` is added?*
+a| No! If the status of the `Body` is changed to `ARRIVED` using the `UpdateCommand`, `NotifCommand` is still
+executed. The `Notif` is scheduled to be executed after the specified `period` from the point in time when the
+status of the body was updated.
+|===
+
+This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
+`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all
+the `Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
+time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `Body` is
+changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
+
+|===
+
+|:bulb: *When is the `NotifComand` not executed?*
+
+a|* If the status of the `Body` is changed before the 10 second window.
+
+* If the `Body` is deleted before the time period.
+
+|===
+
 
 ==== Design Considerations
 ===== Aspect: How to delay change in BodyStatus
@@ -421,7 +529,7 @@ NOTE: The lifeline for `GenReportCommandParser` and `ReportGenerator` should end
 
 The `genReport <BODY_ID>` command calls `ReportGenerator#generate(body, sign)`, which creates the document.
 
-The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
+The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID> /name NAME` command:
 
 image::GenReportActivityDiagram.png[]
 
@@ -537,7 +645,7 @@ Each button was assigned its respective handler method, based on different event
 * The method for exiting the application has already been implemented in `handleExit()`. Thus, setting the handler for the exit button to this method within the `MainWindow.fxml` file is sufficient.
 
 . Minimise Button
-* Minimisation of the application is implemented such that when the user clicks on the  minimise button (`onMouseClicked` event), the following code is called which minimises the window.
+* Minimisation of the application is implemented such that when the user clicks on the  minimise button, it triggers an `onMouseClicked` event that calls the following code.
 ```
 primaryStage.setIconified(true)
 ```
@@ -570,7 +678,7 @@ Finally, the last functionality to rebuilt is the resizability of the Window. Th
 === Statistics feature
 ==== Current Implementation
 
-The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched.
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
 In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
 
@@ -579,13 +687,12 @@ In `LineChartPanel`, four key operations that constructs the line chart and upda
 * `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
 * `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
 
-The following sequence diagram shows how a user adding a new body enables the line chart to update dynamically:
+The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
+
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected.
+The following sequence diagram shows hows `LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
 image::LineChartAddBodySequenceDiagram.png[]
-
-Similarly, the sequence diagram below shoes how a user deleting a body enables the line chart to update dynamically:
-
-image::LineChartDeleteBodySequenceDiagram.png[]
 
 ==== Design Considerations
 

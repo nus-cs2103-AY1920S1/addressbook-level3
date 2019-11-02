@@ -11,7 +11,7 @@
 :toclevels: 3
 :experimental:
 ifdef::env-github[]
-:tip-caption: :💡
+:tip-caption: 💡
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T13-2/main
@@ -24,119 +24,116 @@ Mortago is a mortuary management system for hospitals. Mortago is optimized for 
 to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
 Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
-tasks, and alerts. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
+tasks, and notifs. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary
+management
+to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
 
-Interested? Jump to <<Quick-Start>> to get started. Enjoy!
+Interested? Refer to <<Quick-Start>> below to get started. Enjoy!
 
 [[Quick-Start]]
 == Quick Start
 
+=== Setting Up
 .  Ensure you have `Java 11` or above installed in your Computer.
 .  Download the latest `mortago.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Mortago.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
+=== Exploring Mortago
+
+Upon launching Mortago, you should see the following user interface.
+
+.User Interface of Mortago
+image::Ui.png[width="790"]
+
+Type the command in the command box and press kbd:[Enter] to execute it. +
+The following are examples of some commands you can try:
 
 * *`list -b`* : lists all bodies
-* *`workers`* : switches to the workers tab
-* **`add -w`**`/name John Doe /dob 17-05-1980` :
-adds a worker named John Doe (with his date of birth) to the management system.
-* **`delete -w`**`2` : deletes the worker with staff ID W000002
+* **`add -w`**`/name John Doe /sex male /dateJoined 12-12-2012` :
+adds a worker named John Doe to the management system.
+* **`delete -w`**`1` : deletes the worker with worker ID W000001
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
 
+This section details a comprehensive walkthrough through the features in Mortago.
+In general, commands in Mortago follow a specification that is elaborated on below.
+
 ====
 *Command Specification*
 
-Most commands in Mortago are specified with the general format: `COMMAND_WORD -FLAG ATTRIBUTES`
+Most commands in Mortago follow the general format: `COMMAND_WORD -FLAG ATTRIBUTES`
 
 * `COMMAND_WORD` specifies what you want Mortago to do.
 ** eg. `add` will tell Mortago to create an entry according to the details that you supply in the later half of the command.
-* `-FLAG` specifies what type of entry you are referring to.
-** There are 3 types of entries in Mortago: worker, body and fridge. The list below details what each of the following `-FLAG` refers to.
+* `-FLAG` specifies what type of entity in Mortago you are referring to.
+** There are 3 types of entities in Mortago: worker, body and fridge. Each of them has its respective `-FLAG`, given below:
 *** `-w` indicates a worker
 *** `-b` indicates a body
 *** `-f` indicates a fridge
-* `ATTRIBUTES` specifies the information that you need to supply for the command to execute.
+* `ATTRIBUTES` specifies the information about an entity that you need to supply for the command to execute.
 
 
 *Attributes*
 
 |===
-| :bulb: What are `ATTRIBUTES`?
+a|
+[TIP]
+What are `ATTRIBUTES`?
 a| Attributes are properties of a worker, body or fridge that are supplied by you when executing a command.
 
-* e.g. `name` is an attribute for both body and worker entries.
-* The full list of attributes for each entry can be found in <<add, Section 3.1.1>>.
+* For example, `name` is an attribute for both body and worker entities.
+* The full list of attributes for each entity can be found in <<add, Section 3.1.1>>.
 
 |===
 
-* `ATTRIBUTES` are represented with the format: `/attributeName attribute`
+* `ATTRIBUTES` in this User Guide will be represented with the format: `/attributeName attributeValue`
 
-** The `/attributeName` should always be given before specifying the information of the `attribute` that the entry has.
-** eg. when specifying the `/name name` of a body with the name "John Doe", it should be given as `/name John Doe`.
+** You should always provide the `/attributeName`, exactly as it is stated in the User Guide, before specifying the details of the `attributeValue` that the entity has.
+** For example, if you want to specify the `/name name` of a body with the name "John Doe", you should give it as `/name John Doe`.
 
-
+* `ATTRIBUTES` are provided successively in commands and Mortago will not prompt you, step by step, the `ATTRIBUTES` you need to provide.
 * `ATTRIBUTES` in parentheses are optional.
-    ** e.g. The following 2 commands are valid for the update command, with the abridged format: `update -b (/religion religion /status status)`.
-        *** `update -b /religion Buddhist`
-        *** `update -b /religion Buddhist /status released`
+    ** e.g. The following 2 commands are valid for the add command, with the abridged format: `add -b /name name (/religion religion /status status)`.
+        *** `add -b /religion Buddhism`
+        *** `add -b /religion Buddhism /status arrived`
 * `ATTRIBUTES` specified in a command can be given in any order.
-    ** e.g. The following 2 commands are valid for the update command, with the abridged format: `update -b (/religion religion /status status)`.
-        *** `update -b /religion Buddhist /status released`
-        *** `update -b /status released /religion Buddhist`
-* Commands with fields tagged with `...` must be supplied at least one `ATTRIBUTE` argument. For example, when `...` appears in parentheses, it means that you must supply at least one or more valid arguments.
-    ** For the filter command: `filter (/attributeName attributeValue ...)`
-    , these are all valid commands:
-    *** `filter /firstName John` and `filter /sex F` are valid commands.
+    ** e.g. The following 2 commands are valid for the add command, with the abridged format: `add -b (/religion religion /status status)`.
+        *** `add -b /religion Buddhism /status arrived`
+        *** `add -b /status arrived /religion Buddhism`
+* `ATTRIBUTES` that are tagged with `...` and in square parentheses must be supplied with at least one `ATTRIBUTE`.
+    ** For the filter command: `filter [/attributeName attributeValue ...]`::
+    *** `filter /name John` and `filter /sex female` are valid commands.
     *** `filter` is an invalid command.
 
 
 *Identification Number*
 
-* Some commands require a -flag while some are optional. List of flags:
-    ** -b: to indicate a `body` entry
-    ** -w: to indicate a `worker` entry
-    ** -f: to indicate a `fridge` entry
-    ** -v: view the verbose description of all commands and their flags.
-    *** For example, `update -b /id 1 /name John Bear`
-is a valid command that uses a flag.
-
-
-* All entries in Mortago have a unique idfentification number tagged to it.
-
+* All entries in Mortago have a unique Identification Number tagged to it.
 * The identification number is automatically generated by Mortago for your convenience.
-
 * Identification numbers in Mortago have the format as shown below, where `#` is a number from 0-9:
     ** `body` entries: `B\\####\####`
     ** `worker` entries: `W\\#####`
     **  `fridge` entries: `F##`
-
 * If you need to supply the identification number to a command, providing the number (e.g. `20` instead of `W00020`) is sufficient.
 
 ====
 
-=== Create, Read, Update and Delete Entries
+=== Create, Read, Update and Delete Entities
 
 // tag::add[]
+This section details various commands to manage your entity entries in Mortago.
 
 [[add]]
-==== Add an entry: `add`
+==== Add an entity: `add`
 
 You can add a body, worker or fridge by entering an add command that follows the format given below.
 
 *Format*: +
-This table details how you can craft your add command to add an entry in Mortago.
+This table details how you can craft your add command to add an entity in Mortago.
 |===
 
 | Purpose |  Format
@@ -144,46 +141,57 @@ This table details how you can craft your add command to add an entry in Mortago
 | Add a new worker
 
 a|
-[source,java]
-add -w
-/name name
-/sex  sex
-/dateJoined dateJoined
-(/designation designation)
-(/employmentStatus employmentStatus)
-(/phoneNo phoneNumber)
-(/dob dateOfBirth)
+====
+add -w +
+/name name +
+/sex  sex +
+/dateJoined dateJoined +
+(/designation designation) +
+(/employmentStatus employmentStatus) +
+(/phoneNo phoneNumber) +
+(/dob dateOfBirth) +
+(/photo pathToPhoto)
+
+[IMPORTANT]
+If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
+You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file.
+
+====
 
 ---
 
 | Add a new body
 a|
-[source,java]
-add -b
-/name name
-/sex  sex
-/dod dateOfDeath
-/doa dateOfAdmission
-(/dob dateOfBirth)
-(/status status)
-(/nric nricNumber)
-(/religion religion)
-(/nameNOK nameOfNextOfKin)
-(/relationship relationshipOfNextOfKin)
-(/phoneNOK phoneOfNextOfKin)
-(/cod causeOfDeath)
-(/details details)
-(/organsForDonation organsForDonation)
+====
+add -b +
+/name name +
+/sex  sex +
+/dod dateOfDeath +
+/doa dateOfAdmission +
+(/dob dateOfBirth) +
+(/status status) +
+(/nric nricNumber) +
+(/religion religion) +
+(/NOKname nameOfNextOfKin) +
+(/relationship relationshipOfNextOfKin) +
+(/NOKphone phoneOfNextOfKin) +
+(/cod causeOfDeath) +
+(/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
+====
+
+[TIP]
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 
 ---
 | Add a new fridge
 a|
-[source,java]
+====
 add -f
+====
 
 [TIP]
-Default status: Unoccupied
+Default status: `UNOCCUPIED`
 
 |===
 
@@ -229,25 +237,47 @@ add -b
 | Body added
 
 a|
-[source,java]
+```
 add -f
+```
+{nbsp} +
+
 
 
 | Fridge added
 
 |===
-
 // end::add[]
 
 // tag::update[]
 
 [[update]]
 ==== Updating an entity: `update`
-This command allows you to update the attributes of an entity.
+
+This command allows you to update the attributes of a body or worker.
+
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
+[TIP]
+`-f` is not a valid flag for this command. Fridges will be automatically updated when bodies are assigned or removed.
+
 You can specify one or more attributes to change, but at least one valid attribute must be provided.
 
-Format: `update -flag /id id (/attributeName attributeValue ...)`
+Format: `update -FLAG /id id [/attributeName attributeValue ...]`
+
+
+|===
+| :bulb: a|
+When the `fridgeId` of a `body` is updated, changes to the fridges will be made as follows:
+
+* Previous fridge's status is set to `UNOCCUPIED` and is no longer assigned this `body`.
+
+* New fridge's status is set to `OCCUPIED` and is assigned this `body`.
+
+When you update the `CONTACT_POLICE` status of a `body`, the associated `notif` will be automatically deleted.
+
+When you update `bodyStatus` to `ARRIVED`, a `notif` pop-up will be shown after 10 seconds.
+
+|===
 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
@@ -258,63 +288,50 @@ the list of valid attributes and their command prefixes can be found below:
 | Body
 
 a|
-[source,java]
-Name (/name)
-Sex (/sex)
-NRIC (/nric)
-Date of Birth (/dob)
-Date of Death (/dod)
-Date of Admission (/doa)
-Status (/status)
-Religion (/religion)
-Name of Next-of-Kin (/nameNOK)
-Relationship (/relationship)
-Phone Number of Next-of-Kin (/phoneNOK)
-Cause of Death (/cod)
-Details (/details)
-Organs For Donation (/organsForDonation)
-Fridge ID (/fridgeId)
 
----
+Name `/name` +
+Sex `/sex` +
+NRIC `/nric` +
+Date of Birth `/dob` +
+Date of Death `/dod` +
+Date of Admission `/doa` +
+Status `/status` +
+Religion `/religion` +
+Name of Next-of-Kin `/NOKname` +
+Relationship `/relationship` +
+Phone Number of Next-of-Kin `/NOKphone` +
+Cause of Death `/cod` +
+Details `/details` +
+Organs For Donation `/organsForDonation` +
+Fridge ID `/fridgeId` +
 
 | Worker
 a|
-[source,java]
-Phone Number (/phoneNo)
-Sex (/sex)
-Date of Birth (/dob)
-Date Joined (/dateJoined)
-Designation (/designation)
-Employment Status (/status)
-
-
----
-| Fridge
-a|
-[source,java]
-Fridge Status (/status)
-Body ID (/id)
-
-[TIP]
-Make sure your dates are in the format DD/MM/YYYY!
+Phone Number `/phoneNo` +
+Sex `/sex` +
+Date of Birth `/dob` +
+Date Joined `/dateJoined` +
+Designation `/designation` +
+Employment Status `/status` +
+Photo `/photo`
 
 |===
-
+[TIP]
+Make sure you key in dates in the format DD/MM/YYYY.
 
 Example: +
 Imagine that someone (Jane Doe) just got promoted! You have to change her designation in Mortago.
 
 Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
-and her new designation.
+and her new designation. You see that her ID number is W00001.
 
 |===
 
 | Command | Expected Output
 
-|
-`update -w /id 1 /designation Senior Autopsy Technician`
+| `update -w /id 1 /designation Senior Autopsy Technician`
 
-| Status of worker 1 changed
+| Designation of Jane Doe changed to Senior Autopsy Technician.
 
 |===
 
@@ -326,15 +343,18 @@ and her new designation.
 
 Finds bodies or workers whose names contain any of the given keywords. +
 
-Below are some important information regarding this command:
-****
+Format: `find (flag) (keyword)...`
+
+|===
+| :bulb: a|
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-Format: `find (flag) (keyword)...`
+|===
+
+Format: `find -FLAG [keyword...]`
 
 Examples:
 
@@ -350,21 +370,21 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a person : `delete`
 
-Delete a body, worker or fridge entry, indicated by its id number. +
-Format: `delete -flag  id`
+You can delete a body, worker or fridge entry, using its Identification Number. +
+
+Format: `delete -FLAG  id`
+
+|===
+| :bulb: a| When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
+|===
 
 
-****
 * Deletes the body, worker or fridge entry with the specified identification number.
-* The identification number is automatically generated when an entity is created and is in the format `BXXXXXXXX`, `WXXXXX`, or `FXX` for a
-body, worker or fridge entry respectively.
-X represents any digit.
-* You only need to specify the number portion of the ID, without leading zeroes.
-****
 
 Examples:
 
 * `delete -w 1` +
+
 The worker with the identification number `W00001` will be deleted.
 
 // end::delete
@@ -378,31 +398,12 @@ Format: `clear`
 
 // end::clear[]
 
-// tag::view[]
-
-====  View an entry: `view`
-View a single entry of a body, worker, fridge.
-
-Format: `view -flag /id id`
-
-|===
-| Flags | Usage
-| -b | View the body with the given ID.
-| -w | View the worker with the given ID.
-| -f | View the fridge with the given ID.
-|===
-
-Example: `view -b /id 91` +
-View a body with the ID B00000091.
-
-// end::view[]
-
 // tag::list[]
 
 ==== List all entries: `list`
 List all entries of bodies, workers, or fridges.
 
-Format: `list -flag`
+Format: `list -FLAG`
 
 |===
 | Flags | Usage
@@ -416,33 +417,37 @@ Lists all bodies currently in Mortago.
 
 // end::list[]
 
+// tag::select[]
+
+====  Selecting a body: `select`
+
+You can select a body and view its full details by entering a select command.
+
+Format: `select id`
+
+Example: `select 1` +
+View a body with the ID B00000001.
+
+// end::select[]
+
 === General
 
-// tag::dashboard[]
+// tag::notifs[]
 
-==== Display dashboard: `dashboard`
+==== View notifs panel: `showNotifs`
+View all notifications.
 
-Brings up the dashboard to the front of the application. +
-The dashboard provides a compact view of all bodies, workers and fridges, as well as several important statistics that may be useful to you.
+A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
+of arrival of the body. For the purpose of testing, this period is set to 10 seconds instead of 24 hours.
+The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
+A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
 
-Format: `dashboard`
+Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
+If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed.
 
-// end::dashboard[]
+Format: `showNotifs`
 
-// tag::alerts[]
-
-==== View alerts panel: `alerts`
-View all alerts. Alerts are automatically generated by Mortago.
-Alerts are made when one of the following happens:
-
-* Next of kin could not be contacted within 24 hours from the time of arrival of the body.
-* The body is not claimed on the specified date of collection as specified by next of kin.
-
-Once the mortuary manager takes the relevant action, the alert will be automatically removed.
-
-Format: `alerts`
-
-// end::alerts[]
+// end::notifs[]
 
 // tag::sortfilter[]
 
@@ -467,17 +472,19 @@ All entries will be sorted and grouped according to their statuses.
 * `sort /order id asc` +
 All entries will be sorted according to their id number in ascending order.
 
-==== Filter body entries: `filter` `[coming in v2.0]`
-Filter all entries according to the given keyword in any of an entry’s attribute. All entries with matching keyword will be displayed. Keyword is case-insensitive.
+==== Filter all entries: `filter`
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
-All attributes of a body entry can be filtered. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
-Format: `filter (/attributeName attributeValue)...`
+Format: `filter -FLAG [/attributeName attributeValue ...]`
 
 Example:
-`filter /cod Car Accident`
-All body entries with car accident as the cause of death will be displayed.
+* `filter -w /sex female` +
+All female worker entries will be displayed.
 
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
 // end::sortfilter[]
 
 // tag::undoredo[]
@@ -487,15 +494,17 @@ The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
 
-[TIP]
+|===
+|:bulb: a|
 Only commands that change Mortago's data can be undone. For example, `add`, `update`, `clear`, and `delete` can be undone while
 `list` or `find` cannot be undone.
-[TIP]
-You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
-[TIP]
-Other events that occur due to a command will also be undone if the command is undone. For example, if an `add` command
-automatically generates an `alert`, the `alert` will be removed if `add` was undone.
 
+You can `undo` a `clear` command, but note that you cannot redo any past undone commands after that.
+
+Automated commands can be undone after they are executed as well.
+
+
+|===
 
 Example: +
 Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago. You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
@@ -504,7 +513,7 @@ To undo:
 
 1. Type `undo` or `u` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Undid deleting this entity: <Text>" and John Doe is now back in the list of bodies.
+3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
@@ -526,7 +535,7 @@ To redo:
 
 1. Type `redo` or `r` into the command box.
 2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Deleted this entity: <Text>" and John Doe is now absent from the list of bodies.
+3. Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent from the list of bodies.
 
 // end::undoredo[]
 
@@ -539,14 +548,83 @@ Format: `exit`
 
 // end::exit[]
 
+// tag::documentGeneration[]
+=== Document Generation
+This section showcases three commands you can use to generate different kinds of reports.
+
+// tag::genReport[]
+
+==== Generate report for a specific body: `genReport`
+This command allows you to generate an individual report in a PDF filename `Report <body_ID>.pdf` located in the folder containing the jar file.
+
+image::reportlocation.png[width="790"]
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReport bodyId (yourSignatureName)`
+
+Example:
+
+* `genReport 123 John Doe` +
+Outputs the report PDF for body ID B00000123 in the folder containing the jar file. The report contains signature of John Doe.
+
+// end::genReport[]
+
+// tag::genReports[]
+
+==== Generate reports for all bodies: `genReports`
+This command allows you to generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in the folder containing the jar file.
+
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReports (yourSignatureName)`
+
+Example:
+
+* `genReports John Doe` +
+Outputs the PDF containing reports for all bodies in the folder containing the jar file. The report contains signature of John Doe.
+
+// end::genReports[]
+
+// tag::genReportSummary[]
+
+==== Generate summary report for all bodies: `genReportSummary`
+This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in the folder containing the jar file.
+
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReportSummary (yourSignatureName)`
+
+// end::genReportSummary[]
+
+// end::documentGeneration[]
+
 === Administrative
+==== View admission statistics: `stats`
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
+
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days and is automatically updated when a body is added or deleted. You can change the time frame with the commands.
+
+The following is the correct format for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days.
+
+* To display a specific week: `stats /week 12/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019.
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019.
+
 ==== Archive entries: `archive` `[coming in v2.0]`
 Archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.
 
 Format:
 
-* `archive -flag /id id`
-* `archive -flag /status status`
+* `archive -FLAG /id id`
+* `archive -FLAG /status status`
 
 Example:
 
@@ -558,7 +636,7 @@ Archives all entries of workers who are inactive
 ==== View archived entries: `archives` `[coming in v2.0]`
 Display all archived entries.
 
-Format: `archives -flag`
+Format: `archives -FLAG`
 
 Example:
 
@@ -569,11 +647,11 @@ Display of all archived worker entries, in order of archive date
 
 // tag::feedback[]
 
-==== Give and view feedback: `feedback`
+==== Give and view feedback: `feedback` `[coming in v2.0]`
 Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
 
 Format:
-`feedback /id staffID /details details`
+`feedback /workerId workerId /details details`
 `feedback`
 
 Example:
@@ -587,74 +665,26 @@ Display of all feedback entered
 
 // tag::assign[]
 
-==== Assign tasks to worker: `assign`
+==== Assign tasks to worker: `assign` `[coming in v2.0]`
 Assign a body and task to a worker.
 
-Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
+Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 
 Example:
 
-==== View admission statistics
-View a line-chart of the number of bodies admitted to the morgue over the past 10 days.
-
-The line-chart is on the main page of the application and is automatically updated when a body is added or deleted.
-No user command is needed to display it.
-
-* `assign /bodyId 2 /staffId 1 /task send blood sample to lab for analysis` +
-Assigns worker with staff ID W00001 to body with ID B00000002 with a task description.
+* `assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis` +
+Assigns worker with worker ID W00001 to body with ID B00000002 with a task description.
 
 // end::assign[]
-
-=== Document Generation
-
-// tag::genReport[]
-
-==== Generate report on the deceased: `genReport`
-Generate an individual report from the app automatically
-
-Format: `genReport bodyID`
-
-Example:
-
-* `genReport B123` +
-Outputs the report PDF for body ID B00000123
-
-// end::genReport[]
-
-// tag::report[]
-
-==== View past individual reports: `report`
-Receive details of a past individual report.
-
-Format: `report bodyID`
-
-Example:
-
-* `report B1` +
-Outputs the past report of body ID B00000001
-
-// end::report[]
-
-// tag::reports[]
-
-==== View past reports: `reports`
-Receive a list of past reports.
-
-Format: `reports`
-
-Example: `reports` +
-Outputs the list of past reports
-
-// end::reports[]
 
 === Help
 
 // tag::help[]
 
-==== View all commands: `help`
+==== View all commands: `help` `[coming in v2.0]`
 View a summary of all available commands and their flags. Use the `-v` flag to view the detailed description of all commands and their flags.
 
-Format: `help -flag`
+Format: `help -FLAG`
 
 Example: `help -v` +
 Shows a link to the User Guide.
@@ -689,29 +719,27 @@ Lists emergency help hotlines.
 == Command Summary
 * *Add* an entry: `add`
     ** Add a new worker, body, or fridge with the
-`add -flag (/attributeName attributeValue)`
+`add -FLAG [/attributeName attributeValue...]`
 * *Update* an entry: `update`
-    ** Update the status of each worker, body, or fridge with the `update -flag (/attributeName attributeValue)`
-* *Find* : `find (keyword)...` +
+    ** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
+* *Find* : `find [keyword...]` +
     ** Find entries using a keyword. +
     Format: `find keyword`
 * *Delete* an entry: `delete`
     ** Delete a body, worker or fridge entry, indicated by its id number. +
-    Format: `delete -flag id`
+    Format: `delete -FLAG id`
 * *Clear* : `clear`
-* *View* : `view -flag /id id`
-* *List* : `list -flag`
+* *Select* : `select id`
+* *List* : `list -FLAG`
 
-* *View dashboard* : `dashboard`
-    ** Brings the dashboard to the front of the app.
-* *View alerts* : `alerts`
-    ** View all alerts brought up by the app.
+* *View notifs* : `showNotifs`
+    ** View all notifications brought up by the app.
 * *Sort* : `sort`
     ** Sort all displayed entries according to a given order. +
     Format: `sort /order order (/idOrder idOrder)`
 * *Filter* : `filter`
     ** Filter all entries according to the given keyword in any of an entry’s field. +
-    Format: `filter (/field keyword)...`
+    Format: `filter [/attribute attributeValue...]`
 * *Undo* : `undo`
     ** Undo the last executed command. +
     Format: `undo`
@@ -720,44 +748,67 @@ Lists emergency help hotlines.
     Format: `redo`
 * *Exit*: `exit`
 
+* *Generate report* : `genReport`
+    ** Generate an individual report in a PDF. +
+    Format: `genReport bodyId`
+* *Generate all reports* : `genReports`
+    ** Generate all individual reports in a PDF. +
+    Format: `genReports`
+* *Generate summary report* : `genReportSummary`
+    ** Generate an overview for all reports in a PDF. +
+    Format: `genReportSummary`
 
 * *Archive entries* : `archive` `[coming in v2.0]`
     ** Archive old or irrelevant entries.
-    Format: `archive -flag /id id`, `archive -flag /status status`
+    Format: `archive -FLAG /id id`, `archive -FLAG /status status`
 * *View archived entries* : `archives` `[coming in v2.0]`
     ** Display all archived entries.
-    Format: `archives -flag`
-* *Give and view feedback* : `feedback`
+    Format: `archives -FLAG`
+* *Give and view feedback* : `feedback` `[coming in v2.0]`
     * Give workers feedback and displays a history of all feedback entered.
-    Format: `feedback /id staffID /notes notes`, feedback`
-* *Assign tasks* : `assign`
+    Format: `feedback /workerId workerId /notes notes`, feedback`
+* *Assign tasks* : `assign` `[coming in v2.0]`
     ** Assign a body and task to a worker.
-    Format: `assign /bodyId bodyId /staffId workerId /task taskDescription`
-* *Generate report* : `genReport`
-    ** Generate an individual report from the app automatically
-    Format: `genReport bodyID`
-* *View a select report* : `report`
-    ** Receive details of a past individual report.
-    Format: `report bodyID`
-* *View past reports* : `reports`
-    ** Receive a list of past reports.
-    Format: `reports`
-
-
-* *Help summary*: `help`
+    Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
+* *Help summary*: `help` `[coming in v2.0]`
     ** Get information about the commands
-    Format: `help -flag`
-* *Help for specific command* : `help command`
+    Format: `help -FLAG` `[coming in v2.0]`
+* *Help for specific command* : `help command` `[coming in v2.0]`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
 == Glossary
 *Attribute* : In Mortago, an attribute is the property of a body, fridge or worker. +
 
-*Body/bodies* : a corpse +
+*Automated Command* : In Mortago, an automated command is a command that is not explicitly inputted by the user.
+
+*Body* : a corpse +
+
+*Worker* : an employee working in the mortuary +
+
+*Fridge* : a refrigerator used to store a body in the mortuary +
 
 *Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
 
-*Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text
+*Graphical User Interface (GUI)* : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text +
 
-*Operating system (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals
+*Operating System (OS)* :the low-level software that supports a computer's basic functions, such as scheduling tasks and controlling peripherals +
 
+*Portable Document Format (PDF)* : a file format for capturing and sending electronic documents in exactly the intended format
+
+== Appendix
+
+=== Copy a file's absolute path into the clipboard
+
+anchor:Copy-File-Path[]
+
+The following steps will guide you to copy the absolute path of a file into the clipboard.
+
+* For *Windows* User:
+. Navigate to the image file you wish to upload.
+. While holding down kbd:[Shift], right-click on the image file.
+. In the menu that appears, click `Copy as path`. The absolute path of the file will be copied into your clipboard.
+
+* For *Mac* User:
+. Navigate to the image file you wish to upload.
+. Right-click on the image file, then hold down the kbd:[Option] button.
+. In the menu that appears, click `Copy <file name> as Pathname`. The absolute path of the file will be copied into your clipboard.

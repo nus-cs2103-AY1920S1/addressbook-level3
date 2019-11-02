@@ -23,4 +23,13 @@ public class Messages {
     public static final String MESSAGE_INVALID_FRIDGE_ID = "Fridge ID is not valid.";
     public static final String MESSAGE_INEXISTENT_FRIDGE = "Fridge ID does not exist. Please enter an empty fridge's ID"
             + " or create a fridge before adding the body";
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use the following format "
+            + "to filter by:\n" + " Week: dd/MM/yyyy (example: stats /week 12/10/2019)\nMonth: MM/yyyy (example stats "
+            + "/month 12/2019)\nYear: yyyy (example: stats /year 2019)";
+    public static final String MESSAGE_STATS_DEFAULT = "Displaying admissions statistics of the last ten days.";
+    public static final String MESSAGE_STATS_WEEK = "Displaying admissions statistics of the week containing "
+            + "the day %1$s.";
+    public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of %1$s.";
+    public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the year %1$s.";
+
 }

@@ -21,13 +21,18 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
     public GenReportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         try {
-            if (args.trim().length() < 2 || args.trim().charAt(0) != 'B') {
+            if (args.trim().length() < 1) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }
-            String index = args.trim().substring(1);
+            String[] argArray = args.trim().split(" ", 2);
+            String index = argArray[0];
+            String sign = "";
+            if (argArray.length == 2) {
+                sign = argArray[1];
+            }
             if (index.matches("[0-9]+")) {
                 Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
-                return new GenReportCommand(genReportBodyId);
+                return new GenReportCommand(genReportBodyId, sign);
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenReportCommand.MESSAGE_USAGE));
             }

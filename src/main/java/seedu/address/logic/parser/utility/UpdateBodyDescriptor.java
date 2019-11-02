@@ -13,19 +13,18 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
 /**
  * Stores the details to update the body with. Each non-empty field value will replace the
- * corresponding field value of the body.
+ * corresponding field value of the body when applied.
  */
 public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     private Name name;
     private Sex sex;
     private Nric nric;
-    private Religion religion;
+    private String religion;
 
     private String causeOfDeath;
     private List<String> organsForDonation;
@@ -37,6 +36,8 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     private Name nextOfKin;
     private String relationship;
     private PhoneNumber kinPhoneNumber;
+
+    private String details;
 
     public UpdateBodyDescriptor() {
 
@@ -88,12 +89,13 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
     @Override
     public boolean isAnyFieldEdited() {
         return CollectionUtil.isAnyNonNull(name, sex, nric, religion, causeOfDeath, organsForDonation, bodyStatus,
-                fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber);
+                fridgeId, dateOfBirth, dateOfDeath, nextOfKin, relationship, kinPhoneNumber, details);
     }
 
     /**
      * Changes a {@code Body}'s fields according to the descriptor to the updated values in the
      * {@code UpdateEntityDescriptor} object if they are present and uses the existing values in the body otherwise.
+     * Guarantees: the given entity exists.
      */
     @Override
     public Entity apply(Entity entity) {
@@ -112,6 +114,28 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         body.setNextOfKin(this.getNextOfKin().orElse(body.getNextOfKin().orElse(null)));
         body.setRelationship(this.getRelationship().orElse(body.getRelationship().orElse(null)));
         body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(body.getKinPhoneNumber().orElse(null)));
+        body.setDetails(this.getDetails().orElse(body.getDetails().orElse(null)));
+        return entity;
+    }
+
+    @Override
+    public Entity applyOriginal(Entity entity) {
+        assert entity != null;
+        Body body = (Body) entity;
+        body.setName(this.getName().orElse(null));
+        body.setSex(this.getSex().orElse(null));
+        body.setNric(this.getNric().orElse(null));
+        body.setReligion(this.getReligion().orElse(null));
+        body.setCauseOfDeath(this.getCauseOfDeath().orElse(null));
+        body.setOrgansForDonation(this.getOrgansForDonation().orElse(null));
+        body.setBodyStatus(this.getBodyStatus().orElse(null));
+        body.setFridgeId(this.getFridgeId().orElse(null));
+        body.setDateOfBirth(this.getDateOfBirth().orElse(null));
+        body.setDateOfDeath(this.getDateOfDeath().orElse(null));
+        body.setNextOfKin(this.getNextOfKin().orElse(null));
+        body.setRelationship(this.getRelationship().orElse(null));
+        body.setKinPhoneNumber(this.getKinPhoneNumber().orElse(null));
+        body.setDetails(this.getDetails().orElse(null));
         return entity;
     }
 
@@ -140,11 +164,11 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
         this.nric = nric;
     }
 
-    public Optional<Religion> getReligion() {
+    public Optional<String> getReligion() {
         return Optional.ofNullable(religion);
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(String religion) {
         this.religion = religion;
     }
 
@@ -218,6 +242,14 @@ public class UpdateBodyDescriptor implements UpdateEntityDescriptor {
 
     public void setKinPhoneNumber(PhoneNumber kinPhoneNumber) {
         this.kinPhoneNumber = kinPhoneNumber;
+    }
+
+    public Optional<String> getDetails() {
+        return Optional.ofNullable(details);
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     @Override

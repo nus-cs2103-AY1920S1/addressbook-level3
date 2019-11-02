@@ -31,9 +31,22 @@ public class ClearCommand extends UndoableCommand {
         UniqueIdentificationNumberMaps.clearAllEntries();
         SelectCommand selectCommand = new SelectCommand(Integer.MAX_VALUE);
         selectCommand.execute(model);
+        listsAllEntities(model);
         setUndoable();
         model.addExecutedCommand(this);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    /**
+     * Lists all the entities.
+     */
+    private void listsAllEntities(Model model) {
+        ListBodyCommand listBodyCommand = new ListBodyCommand();
+        listBodyCommand.execute(model);
+        ListWorkerCommand listWorkerCommand = new ListWorkerCommand();
+        listWorkerCommand.execute(model);
+        ListFridgeCommand listFridgeCommand = new ListFridgeCommand();
+        listFridgeCommand.execute(model);
     }
 
     @Override

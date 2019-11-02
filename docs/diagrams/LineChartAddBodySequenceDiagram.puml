@@ -1,16 +1,7 @@
 @startuml
 !include style.puml
 
-box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
-participant "d:AddCommand" as AddCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
-end box
-
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
 participant ":AddressBook" as AddressBook MODEL_COLOR
 end box
 
@@ -20,68 +11,10 @@ participant "lineChartPanel:LineChartPanel" as LineChartPanel UI_COLOR
 
 end box
 
-[-> LogicManager : execute("add -b ...")
-activate LogicManager
-
-LogicManager -> AddressBookParser : parseCommand("add -b ...")
-activate AddressBookParser
-
-create AddCommandParser
-AddressBookParser -> AddCommandParser
-activate AddCommandParser
-
-AddCommandParser --> AddressBookParser
-deactivate AddCommandParser
-
-AddressBookParser -> AddCommandParser : parse("-b ...")
-activate AddCommandParser
-
-create AddCommand
-AddCommandParser -> AddCommand
-activate AddCommand
-
-AddCommand --> AddCommandParser : a
-deactivate AddCommand
-
-AddCommandParser --> AddressBookParser : a
-deactivate AddCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddCommandParser -[hidden]-> AddressBookParser
-destroy AddCommandParser
-
-AddressBookParser --> LogicManager : a
-deactivate AddressBookParser
-
-LogicManager -> AddCommand : execute()
-activate AddCommand
-
-AddCommand -> Model : addEntity(Body b)
-activate Model
-
-Model --> AddCommand
-deactivate Model
-
-Model -> AddressBook : addEntity(Body b)
-activate AddressBook
-
-AddressBook --> Model
-deactivate AddressBook
-
-create CommandResult
-AddCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> AddCommand
-deactivate CommandResult
-
-AddCommand --> LogicManager : result
-deactivate AddCommand
-
-[<--LogicManager
-deactivate LogicManager
-
 MainWindow -> AddressBook : getBodyList()
 activate MainWindow
+
+
 AddressBook --> MainWindow : bodyList
 deactivate MainWindow
 
@@ -95,6 +28,11 @@ deactivate LineChartPanel
 MainWindow -> LineChartPanel : getLineChart()
 activate LineChartPanel
 
+activate LineChartPanel
+
+LineChartPanel -> LineChartPanel: makeLineChart()
+
+activate LineChartPanel
 LineChartPanel -> LineChartPanel: initialiseTreeMap()
 
 LineChartPanel -> LineChartPanel: initialiseLineChart()

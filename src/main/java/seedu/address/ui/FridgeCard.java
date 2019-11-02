@@ -2,12 +2,14 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.model.entity.fridge.Fridge;
 
+//@@ author shaoyi1997
 /**
- * An UI component that displays information of a {@code Body}.
+ * An UI component that displays information of a {@code Fridge}.
  */
 public class FridgeCard extends UiPart<Region> {
 
@@ -24,20 +26,24 @@ public class FridgeCard extends UiPart<Region> {
     public final Fridge fridge;
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
     private Label status;
     @FXML
-    private Label id;
+    private StackPane fridgeIdPlaceholder;
     @FXML
-    private Label fridgeId;
+    private Label bodyIdInFridge;
 
-    public FridgeCard(Fridge fridge, int displayedIndex) {
+    public FridgeCard(Fridge fridge) {
         super(FXML);
         this.fridge = fridge;
-        id.setText(displayedIndex + ". ");
-        fridgeId.setText(fridge.getIdNum().toString());
+        fridgeIdPlaceholder.getChildren().add(new FridgeIdLabel(fridge.getIdNum()).getRoot());
         status.setText(fridge.getFridgeStatus().toString());
+        if (fridge.getBody().isPresent()) {
+            bodyIdInFridge.setText(fridge.getBody().get().getIdNum().toString());
+        } else {
+            bodyIdInFridge.setText("No body assigned");
+        }
     }
 
     @Override
@@ -48,13 +54,13 @@ public class FridgeCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BodyCard)) {
+        if (!(other instanceof FridgeCard)) {
             return false;
         }
 
         // state check
         FridgeCard card = (FridgeCard) other;
-        return id.getText().equals(card.id.getText())
-                && fridge.equals(card.fridge);
+        return fridge.equals(card.fridge);
     }
 }
+//@@ author

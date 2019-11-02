@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
+//@@ author
 /**
  * A handle to the {@code CommandBox} in the GUI.
  */
@@ -40,3 +41,4 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
         return getRootNode().getStyleClass();
     }
 }
+//@@ author

@@ -20,6 +20,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShowNotificationsCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UpdateCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -95,14 +97,19 @@ public class AddressBookParser {
             return new GenReportCommandParser().parse(arguments);
 
         case GenReportsCommand.COMMAND_WORD:
-            return new GenReportsCommand();
+            return new GenReportsCommandParser().parse(arguments);
 
         case GenReportSummaryCommand.COMMAND_WORD:
-            return new GenReportSummaryCommand();
+            return new GenReportSummaryCommandParser().parse(arguments);
+
+        case StatsCommand.COMMAND_WORD:
+            return new StatsCommandParser().parse(arguments);
+
+        case ShowNotificationsCommand.COMMAND_WORD:
+            return new ShowNotificationsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
