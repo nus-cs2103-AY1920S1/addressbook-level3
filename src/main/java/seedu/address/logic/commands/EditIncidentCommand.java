@@ -78,6 +78,9 @@ public class EditIncidentCommand extends Command {
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
         }
+        if (editedIncident.equals(incidentToEdit) && incidentToEdit.getDesc().equals(editedIncident.getDesc())) {
+            throw new CommandException(MESSAGE_INCIDENT_NOT_EDITED);
+        }
 
         model.setIncident(incidentToEdit, editedIncident);
         model.updateFilteredIncidentList(PREDICATE_SHOW_ALL_INCIDENTS);
@@ -94,12 +97,13 @@ public class EditIncidentCommand extends Command {
         Person operator = model.getLoggedInPerson();
         District updateDistrict = editIncident.getDistrict().orElse(incidentToEdit.getDistrict());
         CallerNumber updateCaller = editIncident.getCaller().orElse(incidentToEdit.getCallerNumber());
-        IncidentDateTime updateDateTime = editIncident.getDateTime().orElse(incidentToEdit.getDateTime());
+        IncidentDateTime dateTime = incidentToEdit.getDateTime();
         Description updateDesc = editIncident.getDesc().orElse(incidentToEdit.getDesc());
+        IncidentId incidentId = incidentToEdit.getIncidentId();
         Status status = incidentToEdit.getStatus();
         Vehicle vehicle = incidentToEdit.getVehicle();
 
-        return new Incident(operator, updateDistrict, updateDateTime, incidentToEdit.getIncidentId(), updateCaller,
+        return new Incident(operator, updateDistrict, dateTime, incidentId, updateCaller,
                 updateDesc, status, vehicle);
     }
 
@@ -127,22 +131,19 @@ public class EditIncidentCommand extends Command {
      */
     public static class EditIncident {
         private District district;
-        private IncidentDateTime dateTime;
         private CallerNumber caller;
         private Description desc;
-        private IncidentId id;
 
         public EditIncident() {}
 
         public EditIncident(EditIncident toCopy) {
             setDistrict(toCopy.district);
-            setDateTime(toCopy.dateTime);
             setCaller(toCopy.caller);
             setDesc(toCopy.desc);
         }
 
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(district, dateTime, caller, desc);
+            return CollectionUtil.isAnyNonNull(district, caller, desc);
         }
 
         public void setDistrict(District district) {
@@ -159,18 +160,6 @@ public class EditIncidentCommand extends Command {
 
         public Optional<CallerNumber> getCaller() {
             return Optional.ofNullable(this.caller);
-        }
-
-        public void setDateTime(IncidentDateTime dateTime) {
-            this.dateTime = dateTime;
-        }
-
-        public void setId(IncidentId id) {
-            this.id = id;
-        }
-
-        public Optional<IncidentDateTime> getDateTime() {
-            return Optional.ofNullable(this.dateTime);
         }
 
         public void setDesc(Description desc) {
@@ -198,7 +187,6 @@ public class EditIncidentCommand extends Command {
 
             return getDistrict().equals(e.getDistrict())
                     && getCaller().equals(e.getCaller())
-                    && getDateTime().equals(e.getDateTime())
                     && getDesc().equals(e.getDesc());
         }
 

@@ -17,7 +17,7 @@ import seedu.address.model.vehicle.Vehicle;
 public class DeleteVehicleCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-v";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "INDEX (must be a postive integer)\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + "1";
 
     public static final String MESSAGE_DELETE_VEHICLE_SUCCESS = "Deleted Vehicle %1$s";
@@ -39,6 +39,7 @@ public class DeleteVehicleCommand extends Command {
         }
         Vehicle toDelete = listOfVehicles.get(index.getZeroBased());
 
+        //So that vehicles currently dispatched cannot be deleted
         if (toDelete.getAvailability().equals(new Availability("Busy"))) {
             throw new CommandException(MESSAGE_DELETE_VEHICLE_ERROR);
         }

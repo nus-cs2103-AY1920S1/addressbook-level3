@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 
 import seedu.address.commons.core.index.Index;
@@ -25,14 +24,14 @@ public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
     public EditVehicleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultiMap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT, PREFIX_VNUM, PREFIX_VTYPE, PREFIX_AVAIL);
+                ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT, PREFIX_VTYPE, PREFIX_AVAIL);
 
         Index index;
 
         try {
             index = ParserUtil.parseIndex(argMultiMap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(pe.getErrorMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditVehicleCommand.MESSAGE_USAGE), pe);
         }
 
@@ -42,9 +41,6 @@ public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
         }
         if (argMultiMap.getValue(PREFIX_VTYPE).isPresent()) {
             editVehicle.setVehicleType(ParserUtil.parseVType(argMultiMap.getValue(PREFIX_VTYPE).get()));
-        }
-        if (argMultiMap.getValue(PREFIX_VNUM).isPresent()) {
-            editVehicle.setVehicleNumber(ParserUtil.parseVNum(argMultiMap.getValue(PREFIX_VNUM).get()));
         }
         if (argMultiMap.getValue(PREFIX_AVAIL).isPresent()) {
             editVehicle.setVehicleAvailability(ParserUtil.parseAvailability(argMultiMap.getValue(PREFIX_AVAIL).get()));

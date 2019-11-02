@@ -53,6 +53,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Some commands have admin restrictions. Admins accounts are identified by the `Admin` tag.
 ====
 
+[NOTE]
+An account with admin privileges is included in the sample data with `Username` *Agent01* and `Password` *password*
+
 === Viewing help : `help`
 Format: `help`
 
@@ -88,7 +91,7 @@ image::account.png[]
 === Registering an account: `register`
 
 Registers an account into the Incident Management System +
-Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...`
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...`
 
 [TIP]
 A account can have any number of tags (including 0). Only logged-in admins can add tags.
@@ -104,13 +107,13 @@ A account can have any number of tags (including 0). Only logged-in admins can a
 
 Examples:
 
-* `register n/John Doe p/98765432 e/johnd@example.com u/op1`
-* `register n/Betsy Crowe e/betsycrowe@example.com u/oc1 p/1234567 t/Team-1-OC`
+* `register n/John Doe p/98765432 e/johnd@example.com u/op1 w/password`
+* `register n/Betsy Crowe e/betsycrowe@example.com u/oc1 w/password p/1234567 t/Team-1-OC`
 
 === Updating an account : `update`
 
 Updates an existing account in the incident Manager or the own account of the user logged in if the index is left empty. +
-Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `update [INDEX] [n/NAME] [p/PHONE] [e/EMAIL] [u/USERNAME] [w/PASSWORD] [t/TAG]...`
 
 [NOTE]
 Only admins can update other user accounts. Non-admins cannot specify an index when executing the update command.
@@ -402,7 +405,7 @@ Returns any incidents whereby the description contains 'fire'
 
 === Editing an Incident: `edit-i`
 
-Edits an existing vehicle in the Incident Manager as identified by the index in the display.
+Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
 ** If an index is not provided, system will prompt for index. Does not make any edits.
@@ -415,7 +418,7 @@ If no fields are provided, incident will remain unchanged.
 ** Edits that result in duplicate incidents are not allowed
 
 [NOTE]
-Incidents with all the same fields (`DateTime`, `District`, `Description`, `Caller Number`) are considered duplicates.
+Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
 
 Example of input:
 
@@ -430,7 +433,7 @@ image::editIncident2.png[]
 
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
@@ -524,6 +527,8 @@ Format: `delete-v [INDEX]`
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
+
+** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
