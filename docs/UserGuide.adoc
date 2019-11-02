@@ -546,7 +546,8 @@ Formats:
 * `fontcolour`; or
 * `fontcolor`; or
 * `fontcolour COLOUR`; or
-* `fontcolor COLOUR`
+* `fontcolor COLOUR`; or
+* any of the above with `[bg/BACKGROUND ARGUMENTS]`
 
 To accomplish higher levels of personalisation, the user may select not only from a range of colours or standard colours,
 but _any_ colour. This means that a user can set a colour using *EITHER* colour names or hexadecimal values.
@@ -587,6 +588,18 @@ If the preferences file happen to be corrupted with unrecognised colours, or can
 By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
 respectively.
 
+Note that colours that are deemed to be too close to the dominant colour of the `background` will not be allowed to be
+set as the font colour as the text may get too difficult to read on screen. (eg. yellow font colour with white background)
+In such cases the user will be prompted to change the colour or image of the background first before proceeding with the change
+in font colour.
+
+Alternatively, the user is allowed to change the font colour and background _simultaneously_ by combining the commands for
+font colour and background, using the `bg/` prefix. eg. fontcolour yellow bg/black. This allows the user to not only
+save time but also make contrasting changes in colours which would otherwise have been difficult to achieve. For
+instance, a user intending to change the font colour from white to black with a current dark background will benefit
+from this feature as sequentially changing switching to a light background or dark font colour would be impossible.
+At most one of such prefixes may be used; using more than one results in an error message shown to the user.
+
 This program does not implement a command to clear a font colour due to its redundancy - a user, if dissatisfied with
 the font colour may simply change the colour to his or her preference, or use generic colours by keying in
 `fontcolour black` (or `fontcolor black`) along with a white background.
@@ -610,6 +623,9 @@ Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
 * `fontcolor`
 * `fONTCOLOUr wHITE`
 * `foNTcoLOr #FFffFf`
+* `fontcolour yellow bg/black`
+* `fontcolor yellow bg//Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg s/cover`
+(Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
 
 ==== Sets the background picture using a specified file path: `bg`
 
@@ -619,6 +635,7 @@ Formats:
 * `bg COLOUR`; or
 * `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]`; or
 * `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT]` (if background is already a background image)
+* any of the above with `[fontcolour/COLOUR]`
 
 Users are allowed to set the background either using a `COLOUR` or a `PATH` to a background image.
 
@@ -707,6 +724,18 @@ background image to a colour, vice versa or other combinations. If a command suc
 particular attribute of the background, only the changes made will be reported. As for colours, automatic conversion is
 done to convert hexadecimal values to colour names where possible.
 
+Note that colours that are deemed to be too close to the dominant colour of the `fontcolour` will not be allowed to be
+set as the background as the text may get too difficult to read on screen. (eg. yellow font colour with white background)
+In such cases the user will be prompted to change the `fontcolour` first before proceeding with the change
+in background.
+
+Alternatively, the user is allowed to change the font colour and background _simultaneously_ by combining the commands for
+font colour and background, using either the `fontcolour/` or `fontcolor` prefix. eg. bg black fontcolour/yellow. This allows the user to not only
+save time but also make contrasting changes in colours which would otherwise have been difficult to achieve. For
+instance, a user intending to change the font colour from white to black with a current dark background will benefit
+from this feature as sequentially changing switching to a light background or dark font colour would be impossible.
+At most one of such prefixes may be used; using more than one results in an error message shown to the user.
+
 This program does not implement a command to clear a font colour or background due to its redundancy - a user,
 if dissatisfied with the background colour may simply change the colour to his or her preference,
 or use generic colours by keying in `background white` along with a black background. As user's images are not saved in
@@ -749,9 +778,10 @@ Examples of *VALID* `bg` commands:
 * `bg /Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg`
 * `bg s/cover` (if background is already a background image)
 * `bg r/no-repeat s/contain` (if background is already a background image)
+* `bg black fontcolor/#FFFF00`
+* `bg /Users/whneo97/OneDrive/UNI/CS/Y2S1/CS2103/duke/src/main/resources/images/SpaceModified.jpg s/cover fontcolour/yellow`
 
 (Note: For each of the examples with paths above, it is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
-
 
 ==== Displays a motivational quote: `[no action required]`
 

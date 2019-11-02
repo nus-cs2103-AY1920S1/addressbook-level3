@@ -8,6 +8,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.aesthetics.Background;
+import seedu.sugarmummy.model.aesthetics.Colour;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
@@ -28,14 +29,31 @@ public class BackgroundCommand extends Command {
             + "Example: background #00FF00\n"
             + "Example: background /Users/Bob/bg.jpg s/cover\n"
             + "Example: background r/no-repeat\n"
-            + "Example: background";
-    private static final String MESSAGE_NO_CHANGE = "The colour, path, or wrap settings you've keyed in is "
+            + "Example: background\n\n"
+            + "This command may be commbined with the fontcolour command, using the prefix [fontcolour/].\n"
+            + "Example: bg white fontcolour/black\n"
+            + "Example: bg /Users/bob/black.png s/cover fontcolor/white";
+
+    public static final String MESSAGE_NO_CHANGE = "The colour, path, or wrap settings you've keyed in is "
             + "no different from what has already been set in your current settings! As such, there's nothing "
             + "for me to update :)";
 
+    private static final String MESSAGE_COLOURS_TOO_CLOSE = "Oops! The background you have keyed in has dominant "
+            + "colours that are too close to the current font colour. Please try changing your font colour first or "
+            + "selecting a different background. Alternatively you may combine the background "
+            + "command for the new background with a fontcolour command, using the prefix [fontcolour/].\n"
+            + "Example: bg white fontcolour/black\n"
+            + "Example: bg /Users/bob/black.png s/cover fontcolor/white";
+
     private Background background;
+    private FontColourCommand fontColourCommand;
 
     public BackgroundCommand() {
+    }
+
+    public BackgroundCommand(Background background, FontColourCommand fontColourCommand) {
+        this(background);
+        this.fontColourCommand = fontColourCommand;
     }
 
     public BackgroundCommand(Background background) {
@@ -64,6 +82,14 @@ public class BackgroundCommand extends Command {
             return new CommandResult(MESSAGE_CURRENT_BACKGROUND + sb.toString());
         }
 
+        Colour fontColourToCompare = fontColourCommand == null
+                ? model.getFontColour()
+                : fontColourCommand.getFontColour();
+
+        if (fontColourToCompare.isCloseTo(background.getDominantColour())) {
+            throw new CommandException(MESSAGE_COLOURS_TOO_CLOSE);
+        }
+
         Background newBackground = background;
 
         StringBuilder updateMessage = new StringBuilder();
@@ -77,8 +103,15 @@ public class BackgroundCommand extends Command {
         background.merge(previousBackground);
 
         if (previousBackground.equals(newBackground)) {
-            throw new CommandException(MESSAGE_NO_CHANGE);
+            if (fontColourCommand == null) {
+                throw new CommandException(MESSAGE_NO_CHANGE);
+            } else {
+                if (fontColourCommand.getFontColour().equals(model.getFontColour())) {
+                    throw new CommandException(MESSAGE_NO_CHANGE);
+                }
+            }
         }
+
         model.setBackground(newBackground);
 
         if (!newBackground.isBackgroundColour() && !previousBackground.isBackgroundColour()) {
@@ -100,11 +133,23 @@ public class BackgroundCommand extends Command {
                     .append(" to ").append(newBackground).append(".\n");
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + "\n" + updateMessage.toString());
+        if (fontColourCommand != null) {
+            if (!fontColourCommand.getFontColour().equals(model.getFontColour())) {
+                updateMessage.append(fontColourCommand.execute(model).getFeedbackToUser());
+            } else {
+                updateMessage.append("Font Colour: ").append(FontColourCommand.MESSAGE_NO_CHANGE);
+            }
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + updateMessage.toString().trim());
+    }
+
+    public Background getBackground() {
+        return background;
     }
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.BACKGROUND;
+        return fontColourCommand != null ? DisplayPaneType.COLOUR_AND_BACKGROUND : DisplayPaneType.BACKGROUND;
     }
 }

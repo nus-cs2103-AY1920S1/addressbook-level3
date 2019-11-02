@@ -1,10 +1,12 @@
 package seedu.sugarmummy.logic.parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Stores mapping of prefixes to their respective arguments. Each key may be associated with multiple argument values.
@@ -63,6 +65,46 @@ public class ArgumentMultimap {
      */
     public boolean isEmpty() {
         return argMultimap.size() <= 1;
+    }
+
+    /**
+     * Returns whether or not prefixes in a given list are the only prefixes in this ArgumentMultimap.
+     */
+    public boolean containsOnlyPrefixes(Prefix... prefixes) {
+        ArrayList<Prefix> keys = new ArrayList<>(Arrays.asList(prefixes));
+        keys.add(new Prefix(""));
+        Set<Prefix> keySet = argMultimap.keySet();
+        for (Prefix prefix : keySet) {
+            if (!keys.contains(prefix)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns whether or not all prefixes in a given list are contained in this ArgumentMultimap.
+     */
+    public boolean containsAllPrefixes(Prefix...prefixes) {
+        Set<Prefix> keySet = argMultimap.keySet();
+        for (Prefix prefix : prefixes) {
+            if (!keySet.contains(prefix)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns whether or not a given prefix is unique this ArgumentMultimap.
+     */
+    public boolean isUniquePrefix(Prefix prefix) {
+        Set<Prefix> keySet = argMultimap.keySet();
+        if (!keySet.contains(prefix)) {
+            return true;
+        } else {
+            return argMultimap.get(prefix).size() <= 1;
+        }
     }
 
     @Override
