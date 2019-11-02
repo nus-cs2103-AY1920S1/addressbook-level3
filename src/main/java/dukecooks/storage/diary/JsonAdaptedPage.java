@@ -1,7 +1,5 @@
 package dukecooks.storage.diary;
 
-import java.nio.file.Paths;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,8 +16,7 @@ class JsonAdaptedPage {
 
     private final String pageTitle;
     private final String pageDescription;
-    private final String imageFilePath;
-    private final String imageFileName;
+    private final String imagePath;
 
     /**
      * Constructs a {@code JsonAdaptedPage} with the given {@code pageTitle} and {@code pageDescription}.
@@ -27,12 +24,10 @@ class JsonAdaptedPage {
     @JsonCreator
     public JsonAdaptedPage(@JsonProperty("pageTitle") String pageTitle,
                            @JsonProperty("pageDescription") String pageDescription,
-                           @JsonProperty("imageFilePath") String imageFilePath,
-                           @JsonProperty("imageFileName") String imageFileName) {
+                           @JsonProperty("imagePath") String imagePath) {
         this.pageTitle = pageTitle;
         this.pageDescription = pageDescription;
-        this.imageFilePath = imageFilePath;
-        this.imageFileName = imageFileName;
+        this.imagePath = imagePath;
     }
 
     /**
@@ -41,8 +36,7 @@ class JsonAdaptedPage {
     public JsonAdaptedPage(Page source) {
         pageTitle = source.getTitle().toString();
         pageDescription = source.getDescription().toString();
-        imageFilePath = source.getImage().getFilePath();
-        imageFileName = source.getImage().getFileName();
+        imagePath = source.getImage().getDataPath();
     }
 
     /**
@@ -59,14 +53,11 @@ class JsonAdaptedPage {
             throw new IllegalValueException(PageDescription.MESSAGE_CONSTRAINTS);
         }
 
-        if (!Image.isValidImage(imageFilePath)) {
+        if (!Image.isValidImage(imagePath)) {
             throw new IllegalValueException(Image.MESSAGE_CONSTRAINTS);
         }
 
-        String resourceDirectory = Image.PATH_TO_RESOURCE + imageFileName;
-        String resourcePath = Paths.get(resourceDirectory).toString();
-
-        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(resourcePath));
+        return new Page(new Title(pageTitle), new PageDescription(pageDescription), new Image(imagePath));
     }
 
 }
