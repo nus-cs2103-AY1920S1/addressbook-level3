@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ifridge.testutil.GroceryItemBuilder;
+
 public class NameContainsKeywordsPredicateTest {
 
     @Test
@@ -36,37 +38,38 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
-    /*@Test
+    @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new GroceryItemBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+                Collections.singletonList("Banana"));
+        assertTrue(predicate.test(new GroceryItemBuilder().withName("Ripe Banana").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new GroceryItemBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Ripe", "Banana"));
+        assertTrue(predicate.test(new GroceryItemBuilder().withName("Ripe Banana").build()));
 
-        // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new GroceryItemBuilder().withName("Alice Carol").build()));
+        // Only one keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Ripe", "Banana"));
+        assertTrue(predicate.test(new GroceryItemBuilder().withName("Rotten Banana").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new GroceryItemBuilder().withName("Alice Bob").build()));
-    }*/
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("RiPe", "bANAna"));
+        assertTrue(predicate.test(new GroceryItemBuilder().withName("Ripe Banana").build()));
+    }
 
-    /*@Test
+    @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new GroceryItemBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new GroceryItemBuilder().withName("Banana").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new GroceryItemBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Rambutan"));
+        assertFalse(predicate.test(new GroceryItemBuilder().withName("Keitt mango").build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new GroceryItemBuilder().withName("Alice").build()));
-    }*/
+        // Keywords match amount, expiry date, but not name
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Kiwi", "500ml", "10/08/2020"));
+        assertFalse(predicate.test(new GroceryItemBuilder().withName("Pizza").build()));
+    }
 }

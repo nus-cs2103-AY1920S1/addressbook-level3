@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_NUTS;
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_NUTS;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalGroceryItems.BANANA;
+import static seedu.ifridge.testutil.TypicalGroceryItems.SPAGHETTI;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,32 +42,30 @@ public class GroceryItemTest {
         assertTrue(BANANA.isSameFood(editedBanana));
     }
 
-    // NOT SURE IF WE SHOULD CHECK FOR THIS SINCE WE DON'T EVEN CALL THE METHOD EQUALS AT ALL.
-    /*@Test
+    @Test
     public void equals() {
         // same object -> returns true
-        assertEquals(BANANA, BANANA);
+        assertTrue(BANANA.equals(BANANA));
 
         // same values -> returns true
         GroceryItem bananaCopy = new GroceryItemBuilder(BANANA).build();
-        assertNotEquals(BANANA, bananaCopy);
-
+        assertFalse(BANANA.equals(bananaCopy));
 
         // null -> returns false
-        assertNotEquals(null, BANANA);
+        assertFalse(BANANA.equals(null));
 
         // different type -> returns false
-        assertNotEquals(5, BANANA);
+        assertFalse(BANANA.equals(5));
 
         // different person -> returns false
-        assertNotEquals(BANANA, SPAGHETTI);
+        assertFalse(BANANA.equals(SPAGHETTI));
 
         // different name -> returns false
         GroceryItem editedBanana = new GroceryItemBuilder(BANANA).withName(VALID_NAME_NUTS).build();
-        assertNotEquals(BANANA, editedBanana);
+        assertFalse(BANANA.equals(editedBanana));
 
         // different tags -> returns false
         editedBanana = new GroceryItemBuilder(BANANA).withTags(VALID_TAG_NUTS).build();
-        assertNotEquals(BANANA, editedBanana);
-    }*/
+        assertFalse(BANANA.equals(editedBanana));
+    }
 }
