@@ -90,13 +90,10 @@ include::../UserGuide.adoc[tag=pdf-command]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=tab-switch]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=report]
 
-
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=use-case-pdf]
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
