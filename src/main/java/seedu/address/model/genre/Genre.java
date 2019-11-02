@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Genre {
 
-    public static final String MESSAGE_CONSTRAINTS = "Genre names should be alphanumeric, "
-            + "UPPERCASE & hyphenated if needed";
+    public static final String MESSAGE_CONSTRAINTS = "Genre names should be alphanumeric "
+            + "& hyphenated if needed";
     public static final String VALIDATION_REGEX = "[[A-Z]\\d][\\-[A-Z]\\d]*";
 
     public final String genreName;

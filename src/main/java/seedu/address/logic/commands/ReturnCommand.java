@@ -22,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Returns a Book with the given Index.
  */
-public class ReturnCommand extends Command implements ReversibleCommand {
+public class ReturnCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "return";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
@@ -33,8 +33,6 @@ public class ReturnCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nreturned by\nBorrower: %2$s\nFine incurred: %3$s";
 
     private final Index index;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Creates an ReturnCommand to return the currently served Borrower's {@code Book}.
@@ -99,19 +97,10 @@ public class ReturnCommand extends Command implements ReversibleCommand {
 
         undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
         redoCommand = this;
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
-    }
 
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override

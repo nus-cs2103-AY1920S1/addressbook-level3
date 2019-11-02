@@ -284,7 +284,7 @@ Loans the book with serial number B00041 to the currently served borrower.
 * `loan sn/B00201 sn/B02929 sn/B00203` - Coming in v2.0 +
 Loans the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
 
-Upon loaning a book, a printable loan slip in PDF format will be generated.
+After loaning all books, upon the `DONE` command, a printable loan slip in pdf format will be generated.
 
 ****
 .Printable loan slip generated.

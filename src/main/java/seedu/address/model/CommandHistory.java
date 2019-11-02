@@ -47,10 +47,13 @@ public class CommandHistory {
             throw new NoUndoableCommandException();
         }
 
-        CommandResult commandResult = commandHistoryList.get(currentCommandPointer).getUndoCommand().execute(model);
+        ReversibleCommand commandToUndo = commandHistoryList.get(currentCommandPointer);
+
+        // Execute the reverse command.
+        commandToUndo.getUndoCommand().execute(model);
 
         currentCommandPointer--;
-        return commandResult;
+        return commandToUndo.getCommandResult();
     }
 
     /**
@@ -65,8 +68,7 @@ public class CommandHistory {
         }
         currentCommandPointer++;
 
-        CommandResult commandResult = commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
-        return commandResult;
+        return commandHistoryList.get(currentCommandPointer).getRedoCommand().execute(model);
     }
 
     /**
