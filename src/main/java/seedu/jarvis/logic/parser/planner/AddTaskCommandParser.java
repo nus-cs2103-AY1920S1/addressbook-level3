@@ -9,6 +9,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_TYPE;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES;
+import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MULTIPLE_SAME_PREFIX;
 import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
 import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 import static seedu.jarvis.model.planner.tasks.Task.TODO;
@@ -43,12 +44,16 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
             throw new ParseException(MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES);
         }
 
+        if (argMultimap.hasMultiplePrefixValues()) {
+            throw new ParseException(MESSAGE_MULTIPLE_SAME_PREFIX);
+        }
+
         if (!argMultimap.getPreamble().isEmpty()
             || !isValidDeadline(argMultimap)
             || !isValidEvent(argMultimap)
             || !isValidTodo(argMultimap)) {
 
-            parseCommandException(argMultimap);
+            parseInvalidCommandFormat(argMultimap);
         }
 
         Priority priority = argMultimap.getValue(PREFIX_PRIORITY).isPresent()
@@ -139,7 +144,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
      * @param argMultimap {@code ArgumentMultimap}
      * @throws ParseException Invalid Command Format with the specific command usage based on the task type
      */
-    private static void parseCommandException(ArgumentMultimap argMultimap) throws ParseException {
+    private static void parseInvalidCommandFormat(ArgumentMultimap argMultimap) throws ParseException {
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
 
         switch (taskType) {

@@ -47,6 +47,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: d/m/yyyy.";
     public static final String MESSAGE_INVALID_TASK_TYPE = "Task type is invalid. Valid task types are: 'todo', 'event'"
                                                             + "and 'deadline' only.";
+    public static final String MESSAGE_MULTIPLE_SAME_PREFIX = "Invalid command format. Only one instance of each "
+                                                                + "prefix is allowed.";
     public static final String MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES = "Missing task type or task description.";
     public static final String MESSAGE_EMPTY_TASK_DESCRIPTION = "Task description cannot be blank";
     public static final String MESSAGE_WRONG_ORDER_DATE = "Start date for Event cannot be after end date";
@@ -226,11 +228,14 @@ public class ParserUtil {
             for (String d : splitDate) {
                 LocalDate formattedDate = LocalDate.parse(d, Task.getDateFormat());
                 res[count] = formattedDate;
+
                 if (!formattedDate.isLeapYear()
                     && formattedDate.getMonth() == Month.FEBRUARY
                     && Integer.parseInt(d.split("/")[0]) == 29) {
+
                     throw new ParseException(MESSAGE_INVALID_DATE);
                 }
+
                 count++;
             }
 
