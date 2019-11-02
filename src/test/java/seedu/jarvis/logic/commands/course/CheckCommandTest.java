@@ -7,7 +7,6 @@ import static seedu.jarvis.logic.commands.course.CheckCommand.MESSAGE_CAN_TAKE_C
 import static seedu.jarvis.logic.commands.course.CheckCommand.MESSAGE_NO_PREREQS;
 import static seedu.jarvis.logic.commands.course.CheckCommand.MESSAGE_SUCCESS;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.course.TypicalCourses.CS3230;
 import static seedu.jarvis.testutil.course.TypicalCourses.MA1521;
 
@@ -36,10 +35,10 @@ public class CheckCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-            new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), model.getFinanceTracker(),
-            model.getAddressBook(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
+            new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         cc = new CheckCommand(MA1521);
     }
 

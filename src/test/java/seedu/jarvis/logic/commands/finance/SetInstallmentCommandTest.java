@@ -9,7 +9,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFa
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +20,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -43,11 +40,8 @@ public class SetInstallmentCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
     }
 
     /**
@@ -100,7 +94,7 @@ public class SetInstallmentCommandTest {
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getFinanceTracker(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
         expectedModel.addInstallment(installmentToAdd);
 
@@ -109,8 +103,8 @@ public class SetInstallmentCommandTest {
         String inverseExpectedMessage = String.format(
                 SetInstallmentCommand.MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, installmentToAdd);
 
-        model.deleteInstallment(4);
-        expectedModel.deleteInstallment(4);
+        model.deleteInstallment(1);
+        expectedModel.deleteInstallment(1);
         assertCommandInverseFailure(setInstallmentCommand, model, inverseExpectedMessage);
     }
 
@@ -127,8 +121,7 @@ public class SetInstallmentCommandTest {
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.addInstallment(installmentToAdd);
 
         assertCommandSuccess(setInstallmentCommand, model, expectedMessage, expectedModel);
@@ -164,36 +157,6 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single installment.
-     */
-    private class ModelStubWithInstallment extends ModelStub {
-        private final Installment installment;
-        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
-
-        ModelStubWithInstallment(Installment installment) {
-            requireNonNull(installment);
-            this.installment = installment;
-        }
-
-        @Override
-        public boolean hasInstallment(Installment installment) {
-            requireNonNull(installment);
-            return this.installment.isSameInstallment(installment);
-        }
-
-        @Override
-        public boolean hasSimilarInstallment(Installment installment) {
-            requireNonNull(installment);
-            return this.installment.isSimilarInstallment(installment);
-        }
-
-        @Override
-        public void setViewStatus(ViewType viewType) {
-            viewStatus.setViewType(viewType);
-        }
-    }
-
-    /**
      * A Model stub that always accept the installment being added.
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
@@ -216,11 +179,6 @@ public class SetInstallmentCommandTest {
         public void addInstallment(Installment installment) {
             requireNonNull(installment);
             installmentsAdded.add(installment);
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
         }
 
         @Override
