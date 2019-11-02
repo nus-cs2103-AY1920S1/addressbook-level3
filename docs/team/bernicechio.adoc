@@ -11,19 +11,15 @@
 
 This document serves to note down my contributions to Mortago, our team’s product for our Software Engineering project.
 
-Our team consists of five computer science undergraduates undertaking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our Software Engineering project. We chose to morph it into a mortuary management system called Mortago.
+Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
 
 Mortago is a desktop application used for managing mortuaries efficiently. It is primarily used for keeping records of entries into the mortuary.
 
+Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
+tasks, and notifications. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary
+management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.
+
 The user keys in commands using a CLI, and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
-
-Here are the main features of Mortago:
-
-1.	Generate Report
-2.	View Alerts
-3.	View Dashboard
-4.	View Statistics
-5.	Undo and Redo
 
 == 2. Summary of contributions
 
@@ -70,21 +66,29 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 *** Reported bugs and suggestions for other teams (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools: Integrated a third party library (iText) to the project (https://github.com[#42])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+_{start of extract}_
+
 include::../UserGuide.adoc[tag=documentGeneration]
 
-== Contributions to the Developer Guide
+_{end of extract}_
+
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+_{start of extract}_
+
 include::../DeveloperGuide.adoc[tag=genpdf]
+
+_{end of extract}_
 
 ---
