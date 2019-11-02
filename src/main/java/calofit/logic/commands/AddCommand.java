@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import calofit.commons.core.Messages;
 import calofit.logic.commands.exceptions.CommandException;
 import calofit.model.Model;
 import calofit.model.dish.Calorie;
@@ -46,6 +47,7 @@ public class AddCommand extends Command {
 
     private Dish toAdd;
     private int dishNumber;
+    private boolean isNumber = false;
 
     /**
      * Creates an AddCommand to add the specified {@code Dish}
@@ -58,6 +60,7 @@ public class AddCommand extends Command {
     public AddCommand(int dishNumber) {
         requireNonNull(dishNumber);
         this.dishNumber = dishNumber;
+        this.isNumber = true;
     }
 
     @Override
@@ -65,12 +68,16 @@ public class AddCommand extends Command {
         requireNonNull(model);
         MealLog mealLog = model.getMealLog();
 
-        if (dishNumber != 0) {
-            Dish wantToAdd = model.getFilteredDishList().get(dishNumber - 1);
-            Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
-            mealLog.addMeal(toAddMeal);
+        if (isNumber) {
+            if (dishNumber <= 0 || dishNumber > model.getFilteredDishList().size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
+            } else {
+                Dish wantToAdd = model.getFilteredDishList().get(dishNumber - 1);
+                Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
+                mealLog.addMeal(toAddMeal);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+                return new CommandResult(String.format(MESSAGE_SUCCESS, wantToAdd));
+            }
 
         } else {
             Dish wantToAdd = toAdd;
