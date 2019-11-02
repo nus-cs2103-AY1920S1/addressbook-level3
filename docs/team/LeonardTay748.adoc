@@ -116,19 +116,67 @@ The statistics feature is facilitated by the following classes
 * `_Model_` -- Provides the statistics needed.
 * `_Scene_` -- To create an object that contains all the physical contents of the pop-up window.
 * `_FlowPane_` -- To create the layout of the pop-up window.
-* `_Stage_` -- To create the pop-up window.
+* `_Stage_` -- To display the window.
 
 Given below is a sequence diagram on the operation of the statistics feature.
 
 image::StatisticsSequenceDiagram.png[width="790"]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+The sequence diagram below details how these other classes (i.e. `_Stage_`, `_Scene_` and `_FlowPane_`) work with `_StatsWindow_` to create the statistics pop-up window.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+image::StatisticsShow.png[width="600"]
+
+The next portion explains the help feature.
+
+The help feature is facilitated by the following classes
+
+* `_HelpCommand_` -- Returns the message to be displayed on the command box.
+* `_MainWindow_` -- Checks if the help window should be opened.
+* `_HelpWindow_` -- Builds the help window display.
+* `_Image_` -- To convert a png file into an `_Image_` object.
+* `_ImageView_` -- To convert an `_Image_` object into a view.
+* `_Stage_` -- To display the window.
+
+Given below is a sequence diagram on the operation of the help feature.
+
+image::HelpSequenceDiagram.png[width="790"]
+
+The sequence diagram below details how these other classes (i.e. `_Stage_`, `_Image_` and `_ImageView_`) work with `_HelpWindow_` to create the help pop-up window.
+
+image::HelpShow.png[width="600"]
 
 
-== PROJECT: PowerPointLabs
+== Design Considerations
 
----
+The following aspect was a consideration when designing the statistics feature.
 
-_{Optionally, you may include other projects in your portfolio.}_
+Aspect: Methods to collect statistics
+
+* **Alternative 1 (Current choice):** Collect total number of good/hard/easy flashcards using predicates and those completed in test mode using the model.
+** Pros: This is easy to implement.
+** Cons: This requires extra lines of code to combine all the statistics.
+
+
+* **Alternative 2:** Collect all statistics using the model.
+** Pros: This allows the collection of all statistics with minimal methods involved.
+** Cons: This requires constant updating of the model when new FlashCards are added, removed or edited.
+
+Alternative 1 was chosen simply because it was easier to implement within the given period of time.
+
+The following aspect was a consideration when designing the help feature.
+
+
+Aspect: Ways to display the command summary
+
+* **Alternative 1 (Current choice):** Display a snapshot with all the commands supported by the application.
+** Pros: The display can be quickly ammended with any addition or removal of command(s).
+** Cons: The size of the snapshot displayed needs to be large to ensure sufficient picture resolution.
+
+
+* **Alternative 2:** Display as text.
+** Pros: This results in a higher-resolution display of the command summary.
+** Cons: This requires changing the code.
+
+
+Alternative 1 was chosen simply because it was easier to update the displayed command summary.
+
