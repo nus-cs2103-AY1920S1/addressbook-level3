@@ -405,6 +405,7 @@ Refer to <<Conditions>> to see Condition related commands.
 Adds new Reminder. Creating Reminder requires Conditions to be created first.
 The Condition Index refers to the index of the condition to add in the condition list.
 
+
 Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]`
 
 Examples:
@@ -427,12 +428,14 @@ Lists all the reminders that the user has set.
 
 Format: `listAllReminders`
 
-Example: `listAllReminders`
+Example:
+
+* `listAllReminders`
 
 ==== Edit Reminder : `editReminder`
 Edits the description/ activation conditions/ attribute being tracked/ quota of the reminder.
 
-Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>]`
+Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>] `
 
 Example:
 
@@ -477,7 +480,7 @@ The supported types of entries are Expense, Income, Wishes, Budget and AutoExpen
 
 Format: `addDateCondition <Start Date>, <End Date>`
 
-Example: `addDateCondition 2019/03/01, 2019/11/01`
+Example: 'addDateCondition 2019/03/01, 2019/11/01'
 
 ==== Add HasKeyWordCondition: `addHasKeyWordCondition`
 Adds a HasKeyWordCondition. A HasKeyWordCondition is met when the description of an entry has any of the keywords specified.
@@ -485,7 +488,7 @@ The supported types of entries are Expense, Income, Wishes, Budget and AutoExpen
 
 Format: `addHasKeyWord <keywords>`
 
-Example: `addHasKeyWordCondition mala deck food`
+Example: 'addHasKeyWordCondition mala deck food'
 
 ==== Add QuotaCondition: `addQuotaCondition`
 Adds a QuotaCondition. A QuotaCondition is met when the individual amount of an entry is above a specified amount.
@@ -493,7 +496,7 @@ The supported types of entries are Expense, Income, Wishes, Budget and AutoExpen
 
 Format: `addQuotaCondition <Quota>`
 
-Example: `addQuotaCondition 100`
+Example: 'addQuotaCondition 100'
 
 ==== Add TagsCondition: `addHasTagsCondition`
 Adds a TagsCondition. A TagsCondition is met when the description of an entry has any of the Tags specified.
@@ -501,29 +504,38 @@ The supported types of entries are Expense, Income, Wishes, Budget and AutoExpen
 
 Format: `addHasTagsConditions <Tags>`
 
-Example: `addHasTagsCondition mala deck food`
+Example:
+
+* 'addHasTagsCondition mala deck food'
 
 ==== Delete Condition: `deleteCondition`
 Removes a Condition specified by the index.
 
 Format: `deleteCondition <Index>`
 
-Example: `deleteCondition 1`
+Example:
+
+* 'deleteCondition 1'
 
 ==== Replace Condition: `replaceCondition`
 Replaces one Condition with another. All Reminders with the replaced condition will now have the replacing condition.
 
 Format: `replaceCondtion <Index of Condition being Replaced>, <Index of Replacing Condition>`
 
-Example: `replaceCondition 1, 2`
+Example:
+
+* 'replaceCondition 1, 2'
 
 ==== List Condition: `listCondition`
-Shows the list of Conditions. Conditions are listed in the Reminder Panel.
-(subjected to changes)
+Shows the list of Conditions. Conditions are listed in the Reminder Pannel.
+(To be changed)
 
 Format: `listConditions`
 
-Example: `listConditions`
+Example:
+
+* 'listConditions'
+
 
 === WishList
 
@@ -542,12 +554,14 @@ Deletes the item at the stated index from your current wishlist
 
 Format: `deleteWish <index>`
 
-Examples: `deleteWishlist 3`
+Examples:
+
+* `deleteWishlist 3`
 
 ==== Edit Wish in WishList : `editWish`
 edit the description, date, or tags of your wishes.
 
-Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<Tag>]`
+Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
 
 Examples:
 
@@ -596,7 +610,6 @@ Examples:
 ==== Search WishList : `findWish`
 Search wishlist for items containing keyword in their description +
 Format: `findWish <keyword>`
-
 Examples:
 
 * `findWish mala`

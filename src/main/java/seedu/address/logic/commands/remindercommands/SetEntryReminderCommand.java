@@ -11,6 +11,7 @@ import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.TimeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -83,7 +84,7 @@ public class SetEntryReminderCommand extends Command {
         }
         Period bufferPeriod = Period.from(temporalUnit.getDuration()).multipliedBy(temporalQuantity);
         EntrySpecificCondition entryCondition = new EntrySpecificCondition(target, bufferPeriod);
-        model.getTimeTracker().addPropertyChangeListener(entryCondition);
+        TimeUtil.addPropertyChangeListener(entryCondition);
         target.setTracker(entryCondition);
         ArrayList<Condition> conditionWrapper = new ArrayList<Condition>();
         conditionWrapper.add(entryCondition);
