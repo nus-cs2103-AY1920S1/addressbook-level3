@@ -159,7 +159,7 @@ public class SetInstallmentCommandTest {
         // null -> returns false
         assertFalse(addSpotifyCommand.equals(null));
 
-        // different purchase -> returns false
+        // different installment -> returns false
         assertFalse(addSpotifyCommand.equals(addNetflixCommand));
     }
 

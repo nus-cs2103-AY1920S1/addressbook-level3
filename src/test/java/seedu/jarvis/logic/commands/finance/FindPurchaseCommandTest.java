@@ -117,11 +117,4 @@ public class FindPurchaseCommandTest {
     private PurchaseNameContainsKeywordsPredicate preparePredicate(String userInput) {
         return new PurchaseNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
-
-    /**
-     * Parses {@code userInput} into a {@code InstallmentNameContainsKeywordsPredicate}.
-     */
-    private InstallmentNameContainsKeywordsPredicate preparePredicate2(String userInput) {
-        return new InstallmentNameContainsKeywordsPredicate(Arrays.asList(userInput));
-    }
 }

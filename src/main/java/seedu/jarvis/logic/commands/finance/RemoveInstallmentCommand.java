@@ -103,7 +103,7 @@ public class RemoveInstallmentCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
-     * @throws CommandException If targetIndex is >= the number of persons in address book.
+     * @throws CommandException If targetIndex is >= the number of installments in finance tracker.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
