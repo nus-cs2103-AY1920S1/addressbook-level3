@@ -23,11 +23,11 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto PAGE";
     private static final String EXIT_MESSAGE = "exit";
-    private static final String ADD_MESSAGE = "add a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] " +
-            "[date/DATE] [time/TIME]";
+    private static final String ADD_MESSAGE = "add a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] "
+            + "[date/DATE] [time/TIME]";
     private static final String DELETE_MESSAGE = "delete INDEX";
-    private static final String EDIT_MESSAGE = "edit INDEX a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] " +
-            "[date/DATE] [time/TIME]";
+    private static final String EDIT_MESSAGE = "edit INDEX a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] "
+            + "[date/DATE] [time/TIME]";
     private static final Logger logger = LogsCenter.getLogger(FinancialTrackerHelpWindow.class);
     private static final String FXML = "FinancialTrackerHelpWindow.fxml";
 
