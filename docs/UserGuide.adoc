@@ -286,14 +286,14 @@ Format: `listnote`
 ==== Add a student: 'add'
 
 Adds a student to TutorAid.
-Format: `add n/NAME pic/PICUTRE`
+Format: `add n/NAME c/CLASSID`
+
+[NOTE]
+You can add multiple students at a time by separating their names with a single ','.
 
 Examples:
 
-* `add n/Caesar pic/caesar.jpg`
-
-[NOTE]
-The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+* `add n/Caesar,James,Todd c/CS2030`
 
 ==== Delete a student: 'delete'
 
@@ -330,6 +330,18 @@ Examples:
 
 * `find Tom`
 
+==== Add a picture to a student: 'set_pic'
+
+Adds a picture to display next to the student card.
+Format: `set_pic INDEX pic/FILENAME`
+
+[NOTE]
+The picture specified must be in either .jpg, .png or .bmp format. It must also be located in the same directory as TutorAid.
+
+Examples:
+
+* `set_pic 2 pic/Tom.jpg`
+
 ==== Assign students to a class: 'assign_class'
 
 Assigns a class to a student or a group of students.
@@ -365,6 +377,42 @@ Format: `mark_participation INDEXES`
 Examples:
 
 * `mark_participation 1,2,3`
+
+==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
+
+Displays list of all students who have not met the set threshold in terms of attendance.
+
+[NOTE]
+Calculation will be done from start of semester to the current date.
+
+Format: `absentees THRESHOLD_PERCENTAGE`
+
+Examples:
+
+* `absentees 50` (Gives a list of students whose attendance fall below 50%)
+
+==== Check on status of student: 'check_status' [Coming in v2.0]
+
+Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+
+[NOTE]
+To be used in conjunction with `absentees`. A preset generic email will be sent by TutorAid to the student's school email account.
+
+Format: `check_status`
+
+==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
+
+Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
+The picture will be assigned to the indicated student and be displayed in TutorAid.
+
+[NOTE]
+Replaces current picture, if any.
+
+Format: `upload_pic INDEX`
+
+Examples:
+
+* `upload_pic 1`
 
 === Clearing all entries : `clear`
 

@@ -1,19 +1,21 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.CLASSID_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CLASSID_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PICTURE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PICTURE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PICTURE_BOB;
+
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Picture;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -38,10 +40,10 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PICTURE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + CLASSID_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
-        // invalid picture
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PICTURE_DESC, Picture.MESSAGE_CONSTRAINTS);
+        // invalid classid
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_CLASSID_DESC, ClassId.MESSAGE_CONSTRAINTS);
 
 
     }

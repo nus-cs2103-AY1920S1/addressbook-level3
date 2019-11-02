@@ -1,17 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PICTURE;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.classid.ClassId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Picture;
+
 
 
 
@@ -27,26 +28,25 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PICTURE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CLASSID);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PICTURE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CLASSID)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Picture picture = ParserUtil.parsePicture(argMultimap.getValue(PREFIX_PICTURE).get());
+        ArrayList<Person> listOfPeople = new ArrayList<>();
+        String names = argMultimap.getValue(PREFIX_NAME).get();
+        String[] splittedNames = names.split(",");
+        ClassId classId = ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get());
 
-        File imageTest = new File(argMultimap.getValue(PREFIX_PICTURE).get());
-
-        if (!imageTest.exists()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Make sure the picture exists "
-                    + "and is in the same directory as TutorAid!"));
+        for (String name : splittedNames) {
+            Name individualName = ParserUtil.parseName(name);
+            listOfPeople.add(new Person(individualName, classId));
         }
 
-        Person person = new Person(name, picture);
 
-        return new AddCommand(person);
+        return new AddCommand(listOfPeople);
     }
 
     /**
