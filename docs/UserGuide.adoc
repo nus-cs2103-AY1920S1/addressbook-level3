@@ -375,6 +375,12 @@ image::quiz/QuitQuizCommandResult.png[]
 You can get statistics of the questions that you have done in the app.
 The statistics functions listed below are used to filter the type of statistics that you want to get.
 
+NOTE: Quiz results stored in the app are not synchronised with the questions.
+If a question has been modified by the editq command,
+the stored quiz result will still refer to the original question
+to minimise inconsistencies in the statistics. This is because a question that has been modified to a large extent
+might cause past answers to become irrelevant and distort the statistics.
+
 // tag::stats[]
 ==== Get statistics for subjects : `stats`
 Returns a panel containing a break down of the questions by its results.

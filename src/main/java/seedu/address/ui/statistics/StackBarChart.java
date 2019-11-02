@@ -71,6 +71,7 @@ public class StackBarChart extends UiPart<Region> {
                     toolTip.setStyle("-fx-font-size: 20");
                     toolTip.setShowDelay(Duration.seconds(0));
                     Tooltip.install(column.getNode(), toolTip);
-        }));
+                })
+        );
     }
 }
