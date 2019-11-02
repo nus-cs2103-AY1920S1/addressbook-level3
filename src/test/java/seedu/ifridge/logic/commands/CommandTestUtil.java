@@ -27,47 +27,47 @@ import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_NUTS = "Nuts";
+    public static final String VALID_NAME_ORANGES = "Oranges";
     public static final String VALID_NAME_CHEESE = "Cheddar Cheese";
     public static final String VALID_NAME_TOMATO_JUICE = "Tomato Juice";
-    public static final String VALID_AMOUNT_AMY = "300g";
-    public static final String VALID_AMOUNT_BOB = "300g";
+    public static final String VALID_AMOUNT_NUTS = "120g";
+    public static final String VALID_AMOUNT_ORANGES = "15units";
     public static final String VALID_AMOUNT_CHEESE = "300g";
     public static final String VALID_AMOUNT_TOMATO_JUICE = "300ml";
-    public static final String VALID_EXPIRY_DATE_AMY = "10.08.2019";
-    public static final String VALID_EXPIRY_DATE_BOB = "10.08.2019";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_EXPIRY_DATE_NUTS = "10/12/2019";
+    public static final String VALID_EXPIRY_DATE_ORANGES = "24/11/2019";
+    public static final String VALID_TAG_CARBS = "carbs";
+    public static final String VALID_TAG_VEGETABLE = "vegetable";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_NUTS;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_ORANGES;
     public static final String NAME_DESC_CHEESE = " " + PREFIX_NAME + VALID_NAME_CHEESE;
     public static final String NAME_DESC_TOMATO_JUICE = " " + PREFIX_NAME + VALID_NAME_TOMATO_JUICE;
-    public static final String AMOUNT_DESC_AMY = " " + PREFIX_AMOUNT + VALID_AMOUNT_AMY;
-    public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_BOB;
+    public static final String AMOUNT_DESC_AMY = " " + PREFIX_AMOUNT + VALID_AMOUNT_NUTS;
+    public static final String AMOUNT_DESC_BOB = " " + PREFIX_AMOUNT + VALID_AMOUNT_ORANGES;
     public static final String AMOUNT_DESC_CHEESE = " " + PREFIX_AMOUNT + VALID_AMOUNT_CHEESE;
     public static final String AMOUNT_DESC_TOMATO_JUICE = " " + PREFIX_AMOUNT + VALID_NAME_TOMATO_JUICE;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_VEGETABLE;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_CARBS;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Mango&"; // '&' not allowed in names
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "snack*"; // '*' not allowed in tags
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300D"; // 'D' is not a valid unit
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditFoodDescriptor DESC_AMY;
-    public static final EditCommand.EditFoodDescriptor DESC_BOB;
+    public static final EditCommand.EditFoodDescriptor DESC_NUTS;
+    public static final EditCommand.EditFoodDescriptor DESC_ORANGES;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_MINCED_MEAT;
     public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_TOMATO_JUICE;
 
     static {
-        DESC_AMY = new EditFoodDescriptorBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY)
-                .withExpiryDate(VALID_EXPIRY_DATE_AMY).withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditFoodDescriptorBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB)
-                .withExpiryDate(VALID_EXPIRY_DATE_AMY).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_NUTS = new EditFoodDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
+                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_VEGETABLE).build();
+        DESC_ORANGES = new EditFoodDescriptorBuilder().withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES)
+                .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE).build();
         DESC_TEMP_MINCED_MEAT = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
         DESC_TEMP_TOMATO_JUICE = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_TOMATO_JUICE)

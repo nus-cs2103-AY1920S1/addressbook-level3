@@ -1,7 +1,7 @@
 package seedu.ifridge.logic.parser;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 
@@ -21,7 +21,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_NUTS, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);

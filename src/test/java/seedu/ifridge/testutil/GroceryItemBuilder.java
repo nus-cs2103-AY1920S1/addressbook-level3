@@ -14,9 +14,9 @@ import seedu.ifridge.model.util.SampleDataUtil;
  * A utility class to help with building Person objects.
  */
 public class GroceryItemBuilder {
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_AMOUNT = "300g";
-    public static final String DEFAULT_EXPIRY_DATE = "10.08.2019";
+    public static final String DEFAULT_NAME = "Milkshake";
+    public static final String DEFAULT_AMOUNT = "500ml";
+    public static final String DEFAULT_EXPIRY_DATE = "10/08/2020";
 
     private Name name;
     private Amount amount;

@@ -1,9 +1,7 @@
 package seedu.ifridge.testutil;
 
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_CARBS;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_VEGETABLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,34 +15,35 @@ import seedu.ifridge.model.food.GroceryItem;
  */
 public class TypicalGroceryItems {
 
-    public static final GroceryItem ALICE = new GroceryItemBuilder().withName("Alice Pauline")
-            .withTags("friends").build();
-    public static final GroceryItem BENSON = new GroceryItemBuilder().withName("Benson Meier")
-            .withTags("owesMoney", "friends").build();
-    public static final GroceryItem CARL = new GroceryItemBuilder().withName("Carl Kurz").build();
-    public static final GroceryItem DANIEL = new GroceryItemBuilder().withName("Daniel Meier")
-            .withTags("friends").build();
-    public static final GroceryItem ELLE = new GroceryItemBuilder().withName("Elle Meyer")
-            .build();
-    public static final GroceryItem FIONA = new GroceryItemBuilder().withName("Fiona Kunz")
-            .build();
-    public static final GroceryItem GEORGE = new GroceryItemBuilder().withName("George Best")
-            .build();
+    public static final GroceryItem STRAWBERRIES = new GroceryItemBuilder().withName("Strawberries")
+            .withAmount("300g").withExpiryDate("10/11/2019").withTags("berries", "fruits").build();
+    public static final GroceryItem SPAGHETTI = new GroceryItemBuilder().withName("Spaghetti")
+            .withAmount("3units").withExpiryDate("18/10/2020").withTags("dinner", "italian").build();
+    public static final GroceryItem OLIVE_OIL = new GroceryItemBuilder().withName("Olive oil")
+            .withAmount("1L").withExpiryDate("20/10/2015").withTags("healthy").build();
+    public static final GroceryItem BROCCOLI = new GroceryItemBuilder().withName("Broccoli")
+            .withAmount("1lbs").withExpiryDate("03/11/2019").withTags("greens", "healthy").build();
+    public static final GroceryItem APPLES = new GroceryItemBuilder().withName("Apples")
+            .withAmount("10units").withExpiryDate("02/12/2019").withTags("healthy", "fruits").build();
+    public static final GroceryItem GREEN_TEA_LATTE = new GroceryItemBuilder().withName("Green tea latte")
+            .withAmount("5units").withExpiryDate("05/11/2019").withTags("drink", "boba").build();
+    public static final GroceryItem EGGS = new GroceryItemBuilder().withName("Eggs")
+            .withAmount("12units").withExpiryDate("03/12/2019").build();
 
     // Manually added
-    public static final GroceryItem HOON = (GroceryItem) new GroceryItemBuilder().withName("Hoon Meier")
-            .build();
-    public static final GroceryItem IDA = (GroceryItem) new GroceryItemBuilder().withName("Ida Mueller")
-            .build();
+    public static final GroceryItem RICE_WINE = (GroceryItem) new GroceryItemBuilder().withName("Rice wine")
+            .withAmount("300ml").withExpiryDate("05/06/2021").build();
+    public static final GroceryItem CAKE = (GroceryItem) new GroceryItemBuilder().withName("Cake")
+            .withAmount("1units").withExpiryDate("05/10/2019").withTags("birthday").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final GroceryItem AMY = new GroceryItemBuilder().withName(VALID_NAME_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final GroceryItem BOB = new GroceryItemBuilder().withName(VALID_NAME_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final GroceryItem CARROTS = new GroceryItemBuilder().withName("carrots")
+            .withAmount("2lbs").withExpiryDate("28/12/2019").withTags(VALID_TAG_VEGETABLE).build();
+    public static final GroceryItem POTATOES = new GroceryItemBuilder().withName("potatoes")
+            .withAmount("1.5lbs").withExpiryDate("27/11/2019").withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_WINE = "wine"; // A keyword that matches MEIER
 
     private TypicalGroceryItems() {} // prevents instantiation
 
@@ -52,14 +51,15 @@ public class TypicalGroceryItems {
      * Returns an {@code GroceryList} with all the typical persons.
      */
     public static GroceryList getTypicalGroceryList() {
-        GroceryList ab = new GroceryList();
-        for (GroceryItem food : getTypicalPersons()) {
-            ab.addGroceryItem(food);
+        GroceryList glist = new GroceryList();
+        for (GroceryItem food : getTypicalGroceryItems()) {
+            glist.addGroceryItem(food);
         }
-        return ab;
+        return glist;
     }
 
-    public static List<GroceryItem> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    public static List<GroceryItem> getTypicalGroceryItems() {
+        return new ArrayList<>(Arrays.asList(STRAWBERRIES, SPAGHETTI, OLIVE_OIL, BROCCOLI,
+                APPLES, GREEN_TEA_LATTE, EGGS));
     }
 }
