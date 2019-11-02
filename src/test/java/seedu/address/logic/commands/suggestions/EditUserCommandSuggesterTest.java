@@ -19,7 +19,6 @@ import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
 
 class EditUserCommandSuggesterTest extends SuggesterImplTester {
@@ -51,7 +50,9 @@ class EditUserCommandSuggesterTest extends SuggesterImplTester {
     static Stream<Arguments> knownPersonPrefixesAndValueGenerator() {
         final Collection<String> tags = KNOWN_PERSON.getTags()
                 .stream()
-                .map(Tag::toString)
+                .map(tag -> {
+                    return tag.tagName;
+                })
                 .collect(Collectors.toUnmodifiableList());
 
         return Stream.of(

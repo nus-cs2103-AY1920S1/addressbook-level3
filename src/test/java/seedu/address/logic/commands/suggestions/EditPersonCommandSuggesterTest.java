@@ -17,7 +17,6 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.PersonDescriptor;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
 
 class EditPersonCommandSuggesterTest extends EditCommandSuggesterTest {
@@ -36,7 +35,9 @@ class EditPersonCommandSuggesterTest extends EditCommandSuggesterTest {
     static Stream<Arguments> knownPersonPrefixesAndValueGenerator() {
         final Collection<String> tags = KNOWN_PERSON.getTags()
                 .stream()
-                .map(Tag::toString)
+                .map(tag -> {
+                    return tag.tagName;
+                })
                 .collect(Collectors.toUnmodifiableList());
 
         return Stream.of(

@@ -9,7 +9,6 @@ import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditUserCommand}.
@@ -48,7 +47,9 @@ public class EditUserCommandSuggester extends Suggester {
             return user
                     .getTags()
                     .stream()
-                    .map(Tag::toString)
+                    .map(tag -> {
+                        return tag.tagName;
+                    })
                     .collect(Collectors.toUnmodifiableList());
         }
 
