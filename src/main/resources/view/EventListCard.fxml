@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author CarbonGrid -->
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -26,15 +27,8 @@
                 </Label>
                 <Label fx:id="refId" text="\$first" styleClass="cell_big_label"/>
                 <Label fx:id="timing" text="\$second" styleClass="cell_big_label"/>
-
             </HBox>
-
             <Label fx:id="status" text="\$third" styleClass="cell_big_label"/>
-
-<!--                        <FlowPane fx:id="status"/>-->
-            <!--            <Label fx:id="status" styleClass="cell_small_label" text="\status" />-->
-            <!--            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />-->
-            <!--            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />-->
         </VBox>
     </GridPane>
 </HBox>

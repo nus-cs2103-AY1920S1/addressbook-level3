@@ -1,32 +1,29 @@
+//@@author CarbonGrid
 package seedu.address.ui.commandboxhistory;
 
-import java.util.LinkedList;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 /**
  * Component for CommandBox's History
  */
 public class CommandBoxHistory {
-    private LinkedList<String> history = new LinkedList<>();
-    private ListIterator<String> caret = history.listIterator();
+    private final ArrayList<String> history = new ArrayList<>();
+    private int index = 0;
 
     public String getOlder() {
         try {
-            String commandText = caret.next();
-            if (!caret.hasNext()) {
-                caret.previous();
-            }
-            return commandText;
-        } catch (NoSuchElementException e) {
-            return null;
+            index = Math.max(index - 1, 0);
+            return history.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
         }
     }
 
     public String getNewer() {
         try {
-            return caret.previous();
-        } catch (NoSuchElementException e) {
+            index = Math.min(index + 1, history.size());
+            return history.get(index);
+        } catch (IndexOutOfBoundsException e) {
             return "";
         }
     }
@@ -38,8 +35,8 @@ public class CommandBoxHistory {
      */
     public void add(String commandText) {
         if (!commandText.isBlank()) {
-            history.addFirst(commandText);
+            history.add(commandText);
         }
-        caret = history.listIterator();
+        index = history.size();
     }
 }

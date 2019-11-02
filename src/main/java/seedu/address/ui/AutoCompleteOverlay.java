@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class AutoCompleteOverlay extends UiPart<Region> {
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
     private static final int X_OFFSET = 24;
 
-    private SelectionNotifier selectionNotifier;
+    private final SelectionNotifier selectionNotifier;
 
     @FXML
     private ListView<TextFlow> autoCompleteOverlay;

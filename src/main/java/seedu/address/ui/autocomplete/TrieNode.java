@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui.autocomplete;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
  * TrieNode of Trie.
  */
 public class TrieNode {
-    private HashMap<Character, TrieNode> children = new HashMap<>();
+    private final HashMap<Character, TrieNode> children = new HashMap<>();
 
     public HashMap<Character, TrieNode> getChildren() {
         return children;

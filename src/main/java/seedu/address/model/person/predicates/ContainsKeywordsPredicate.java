@@ -2,6 +2,7 @@ package seedu.address.model.person.predicates;
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.exceptions.ForceThreadInterruptException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 
@@ -17,7 +18,10 @@ public class ContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return StringUtil.containsIgnoreCase(person.getName().fullName, keyword)
+        if (Thread.currentThread().interrupted()) {
+            throw new ForceThreadInterruptException();
+        }
+        return StringUtil.containsIgnoreCase(person.getName().toString(), keyword)
                     || StringUtil.containsIgnoreCase(person.getReferenceId().toString(), keyword)
                     || StringUtil.containsIgnoreCase(person.getPhone().toString(), keyword);
     }

@@ -13,7 +13,7 @@ import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
-import seedu.address.model.events.predicates.EventContainsApprovedStatusPredicate;
+import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
@@ -27,7 +27,7 @@ public interface Model extends ReferenceIdResolver {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = new EventContainsApprovedStatusPredicate();
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = new EventApprovedPredicate();
 
 
     //=========== UserPrefs ==================================================================================
@@ -296,8 +296,19 @@ public interface Model extends ReferenceIdResolver {
      */
     void updateFilteredAppointmentList(Predicate<Event> predicate);
 
-    Boolean isPatientList();
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSinglePatient();
 
+    /**
+     * Checks whether the currently displayed appointments belong to the same patient.
+     */
+    Boolean isListingAppointmentsOfSingleStaff();
+
+    /**
+     * Checks whether the currently displayed appointments only consist of missed appointments.
+     */
     Boolean isMissedList();
 
     //=========== Duty Roster Scheduler ======================================================================

@@ -3,6 +3,7 @@ package seedu.address.logic.parser.appointments;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.List;
@@ -46,9 +47,9 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START, PREFIX_END);
 
-        if (!model.isPatientList()) {
+        if (!model.isListingAppointmentsOfSinglePatient()) {
             throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
         }
 
@@ -64,8 +65,14 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
                 throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
             }
             String startString = argMultimap.getValue(PREFIX_START).get();
-            Timing timing = ParserUtil.parseTiming(startString);
+            Timing timing;
 
+            if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+                timing = ParserUtil.parseTiming(startString, null);
+            } else {
+                String endString = argMultimap.getValue(PREFIX_END).get();
+                timing = ParserUtil.parseTiming(startString, endString);
+            }
             Event eventToEdit = lastShownList.get(idx);
             Event editedEvent = new Appointment(eventToEdit.getPersonId(), timing, new Status());
 

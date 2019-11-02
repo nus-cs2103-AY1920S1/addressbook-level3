@@ -5,7 +5,7 @@ import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.events.predicates.EventContainsApprovedStatusPredicate;
+import seedu.address.model.events.predicates.EventApprovedPredicate;
 import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
 
 /**
@@ -27,7 +27,7 @@ public class DutyShiftCommandParser implements Parser<DutyShiftCommand> {
     public DutyShiftCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new DutyShiftCommand(new EventContainsApprovedStatusPredicate());
+            return new DutyShiftCommand(new EventApprovedPredicate());
         }
         return new DutyShiftCommand(new EventContainsKeywordPredicate(args.trim().toUpperCase()));
     }

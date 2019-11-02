@@ -3,6 +3,7 @@ package seedu.address.logic.commands.appointments;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
@@ -32,12 +33,14 @@ public class AddAppCommand extends ReversibleCommand {
             + " to the address book. \n"
             + "Parameters: "
             + PREFIX_ID + "REFERENCE ID "
-            + PREFIX_START + "PREFIX_EVENT "
+            + PREFIX_START + "PREFIX_START "
+            + "[" + PREFIX_END + "PREFIX_END] "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
-            + PREFIX_START + "01/11/19 1800 "
+            + PREFIX_START + "01/11/19 0900 "
+            + PREFIX_END + "01/11/19 0940 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 
