@@ -1,7 +1,9 @@
 package com.typee.ui.game;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
+import com.typee.commons.core.LogsCenter;
 import com.typee.game.Player;
 import com.typee.game.Words;
 import com.typee.ui.UiPart;
@@ -14,6 +16,7 @@ import javafx.scene.layout.Pane;
  */
 public class MovingWord extends UiPart<Pane> {
 
+    private static final Logger logger = LogsCenter.getLogger(MovingWord.class);
     private static final String FXML = "MovingWord.fxml";
     private static final Random random = new Random();
     private static final double LOWER_BOUND = 520;
@@ -26,19 +29,15 @@ public class MovingWord extends UiPart<Pane> {
     private String word;
     private AnimationTimer animationTimer;
 
-    public MovingWord(Pane parent, Player player) {
+    public MovingWord(double fallingRate, Pane parent, Player player) {
         super(FXML);
         this.parent = parent;
         this.player = player;
+        this.fallingRate = fallingRate;
         word = Words.get(random.nextInt(Words.SIZE));
         setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
-    }
-
-    public MovingWord(double fallingRate, Pane parent, Player player) {
-        this(parent, player);
-        this.fallingRate = fallingRate;
     }
 
     private void stopAnimation() {
@@ -76,6 +75,7 @@ public class MovingWord extends UiPart<Pane> {
         } else if (player.getInputText().equals(word)) {
             stopAnimation();
             player.incrementScore(word.length() * SCORE_MULTIPLIER);
+            player.setInputAs("");
             disappear();
         }
     }
