@@ -15,6 +15,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
@@ -92,7 +93,7 @@ public class StorageManager implements Storage {
 
     @Override
     public void importWordBank(String wordBankName, Path filePath)
-            throws DataConversionException, FileNotFoundException, IllegalValueException {
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException {
         wordBankListStorage.importWordBank(wordBankName, filePath);
     }
 

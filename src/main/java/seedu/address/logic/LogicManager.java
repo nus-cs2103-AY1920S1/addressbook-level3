@@ -32,6 +32,7 @@ import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
@@ -87,17 +88,13 @@ public class LogicManager implements Logic, UiLogicHelper {
 
             if (commandResult instanceof WordBankCommandResult) {
                 WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
-                try {
-                    wordBankCommandResult.updateStorage(storage);
-                } catch (DataConversionException e) {
-                    commandResult = new CommandResult("Word bank file is corrupted.");
-                } catch (FileNotFoundException e) {
-                    commandResult = new CommandResult("File does not exist.");
-                } catch (IllegalValueException | DuplicateWordBankException e) {
-                    commandResult = new CommandResult(e.getMessage());
-                }
+                wordBankCommandResult.updateStorage(storage);
             }
 
+        } catch (DataConversionException e) {
+            commandResult = new CommandResult("Word bank file is corrupted.");
+        } catch (WordBankNotFoundException | IllegalValueException | DuplicateWordBankException e) {
+            commandResult = new CommandResult(e.getMessage());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

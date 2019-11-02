@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.storage.Storage;
 import seedu.address.ui.UiPart;
 
@@ -82,11 +83,7 @@ public class LoadBankPanel extends UiPart<Region> {
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
             try {
                 storage.importWordBank(wordBankName, p.getParent());
-            } catch (DataConversionException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalValueException e) {
+            } catch (DataConversionException | WordBankNotFoundException | IllegalValueException e) {
                 e.printStackTrace();
             }
         }

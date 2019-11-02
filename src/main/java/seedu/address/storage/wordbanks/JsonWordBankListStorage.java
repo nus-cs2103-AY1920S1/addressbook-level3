@@ -22,6 +22,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbanklist.WordBankList;
 
@@ -123,8 +124,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
                 ReadOnlyWordBank readOnlyWordBank = null;
                 try {
                     readOnlyWordBank = jsonToWordBank(wordBankPath).get();
-                } catch (DataConversionException e) {
-                    throw e;
                 } catch (IllegalValueException e) {
                     logger.info("Failed to initialise word bank list");
                     e.printStackTrace();
@@ -256,7 +255,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      */
     @Override
     public void importWordBank(String wordBankName, Path filePath)
-            throws DataConversionException, FileNotFoundException, IllegalValueException {
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException {
 
         Path finalPath = Paths.get(filePath.toString(), wordBankName + ".json");
         Optional<ReadOnlyWordBank> optWb = jsonToWordBank(finalPath);
@@ -266,7 +265,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             addWordBank(wb);saveWordBank(wb);
 
         } else {
-            throw new FileNotFoundException();
+            throw new WordBankNotFoundException();
         }
     }
 

@@ -12,6 +12,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.WordBankStatistics;
@@ -43,7 +44,8 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     void removeWordBank(String wordBankName);
 
     @Override
-    void importWordBank(String wordBankName, Path filePath) throws DataConversionException, FileNotFoundException, IllegalValueException;
+    void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException;
 
     @Override
     void exportWordBank(String wordBankName, Path filePath);
