@@ -70,6 +70,6 @@ public class Semester {
 
     @Override
     public String toString() {
-        return "Y" + academicYear.toString() + "S" + semesterPeriod.toString();
+        return academicYear.toString() + "S" + semesterPeriod.toString();
     }
 }
