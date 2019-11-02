@@ -10,7 +10,11 @@ import dukecooks.model.dashboard.components.Dashboard;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 
 /**
@@ -56,6 +60,9 @@ public class DashboardListPanel extends UiPart<Region> {
         return Double.parseDouble(s1) / Double.parseDouble(s2);
     }
 
+    /**
+     * Gets the date of today.
+     */
     public String updateDate() {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
