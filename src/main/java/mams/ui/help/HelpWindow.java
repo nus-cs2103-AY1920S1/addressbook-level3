@@ -87,8 +87,9 @@ public class HelpWindow extends UiPart<Stage> {
 
     /**
      * Changes the background fill for the helpMessage {@code Label} to a random colour. The reason
-     * why this is needed is due to a bug on JavaFX on some computers where the help window will
-     * not sometimes not load on re-opening until an event is fired (or until something "prompts" the framework).
+     * why this is needed is due to a bug on JavaFX on Mac OSX (with tab preference enabled in System Preferences)
+     * where the help window will not sometimes not load on re-opening until
+     * an event is fired (or until something "prompts" the framework).
      * By changing the Label style randomly on each re-open, we prevent this from happening. Besides,
      * it also looks nice.
      */

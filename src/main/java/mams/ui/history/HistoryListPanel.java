@@ -39,7 +39,7 @@ public class HistoryListPanel extends UiPart<Region> {
      * @param isHideOutput
      */
     public void hideOutput(boolean isHideOutput) {
-        logger.fine("HideOutput flag has been set to true");
+        logger.fine("Command output in the command history window has been hidden");
         this.isHideOutput = isHideOutput;
     }
 
