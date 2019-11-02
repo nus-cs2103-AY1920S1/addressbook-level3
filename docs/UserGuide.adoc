@@ -483,21 +483,19 @@ Generates the payslip of employee 2 from the 20th August - 20th October.
 
 //tag::Schedule[]
 === Schedule
-
-Welcome to Schedule!
-Wondering how to display and see what events you have on a specific Date or Month, or do you want to have an overview of all the dates where you have an event?
-Then you are at the right place!
+Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
+Want to have an overview of all the dates where you have an event? Then you are at the right place!
 
 To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below!
-You could either click on the Schedule Tab or just simply type in any Schedule-related commands and AddMin+ will bring you there.
+You can get to the Schedule Tab easily by either clicking on the Schedule Tab on the User Interface or
+just simply type in any Schedule-related commands and AddMin+ will bring you there.
 
 ._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[]
 
-==== Display Schedule for a specific date: `display_schedule_date`
-
-Lets say you want to check if you have any events on a specific date.
-Instead of looking through the list of events you have, you could simply use the `display_schedule_date` command to do it!
+==== Display Schedule for a specific date
+Want to check if you have any events on a specific date. Instead of looking through the list of events you have, you
+could use the `display_schedule_date` command to do it!
 
 Format: `display_schedule_date on/dd/MM/yyyy`
 
@@ -508,32 +506,30 @@ Examples:
 * on/ represents the date in dd/MM/yyyy that the user wants to display
 ****
 
-**To display schedule for a specific date (20/11/2019):**
 
-**Step 1**.
-Either type `display_schedule_date on/20/11/2019` into the command box or click on the specific date from the date picker.
+**Example: To display schedule for a specific date (20/11/2019):**
+
+**Step 1**.  Either type `display_schedule_date on/20/11/2019` into the command box or click on
+the specific date from the date picker as seen from the figure below.
 
 image::ScheduleUiStep1.png[]
 
-**Step 2**.
-The result box will display a message which inform you how many events are being listed.
-In this case the message displayed is "1 events listed!"
+**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+is "1 events listed!"
 
 image::ScheduleUiStep2.png[]
 
-**Step 3**.
-In the event list you will be able to see all the events that are on the specified date.
-In this case the only event that is on 20/11/2019 is "Talk by DEF Company".
+**Step 3**.  In the event list you will be able to see all the events that are on the specified date. In this case the only event that is on
+20/11/2019 is "Talk by DEF Company".
 
 image::ScheduleUiStep3.png[]
 
 [TIP]
 The event list will be empty and not display anything if there is no event on the specified date.
 
-==== Display Schedule for a specific Month and Year: `display_schedule`
-
-Now if you would want to see all the events you have on a specific month and year.
-Instead of looking through the list of events you have, you could simply use the `display_schedule` command to do it!
+==== Display Schedule for a specific Month and Year
+Now you would want to see all the events you have on a specific month and year. Instead of looking through the list of events you have, you
+could use the `display_schedule` command to do it!
 
 Format: `display_schedule for/MM/yyyy`
 
@@ -541,31 +537,50 @@ Format: `display_schedule for/MM/yyyy`
 * for/ represents the month and year in MM/yyyy that the user wants to display
 ****
 
-==== Generate Entire Schedule: `generate_schedule`
+**Example: To display schedule for a specific Month and Year (11/2019):**
 
-Want to have an overview of all the dates that has an event?
-Use the `generate_schedule` command to do so.
-The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates which has an event and also display all the events that happens on that date.
+**Step 1**.  Either type `display_schedule for/11/2019` into the command box or click on the month year picker buttons to
+navigate to the specific month and year.
+
+image::ScheduleUiMonthStep1.png[]
+
+**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+is "2 events listed!"
+
+image::ScheduleUiMonthStep2.png[]
+
+**Step 3**.  In the event list you will be able to see all the events that are on the specified month, year. In this case there is 2 event
+that is on 11/2019 which is "Talk by DEF Company" and "Birthday Party".
+
+image::ScheduleUiMonthStep3.png[]
+
+[TIP]
+The event list will be empty and not display anything if there is no event on the specified month, year.
+
+==== Generate Entire Schedule
+Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
+The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates
+which has an event and also display all the events that happens on that date.
 
 Format: `generate_schedule`
 
 [TIP]
 The `generate_schedule` command opens a new window to display the new list of information.
+The `generate_schedule` command processes and creates the the list based on when the command is called.
+Note that any changes to the events after the command will not be reflected. Users are advised to use the
+`generate_schedule` once all events are confirmed.
 
 **To display the entire schedule:**
 
-**Step 1**.
-Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
+**Step 1**.  Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
 
 image::ScheduleUiGenerateStep1.png[]
 
-**Step 2**.
-The result box will display the message "Schedule Generated".
+**Step 2**.  The result box will display the message "Schedule Generated".
 
 image::ScheduleUiGenerateStep2.png[]
 
-**Step 3**.
-A new window will open, displaying all the dates and events that is happening on those specific dates.
+**Step 3**.  A new window will open, displaying all the dates and events that is happening on those specific dates.
 
 image::ScheduleUiGenerateStep3.png[]
 
@@ -683,7 +698,7 @@ e.g. `clear_ev_dt 2`
 | `clear_ev_dt 2`
 | *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
 | *Display Schedule for specific month*| `display_schedule for/MMYYYY` | `display_schedule for/02/12/2019`
-| *Display Entire Schedule*| `display_schedule` | `display_schedule`
+| *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
 | *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`
 | *Navigate between Tabs* | `main, schedule` | `main, schedule`

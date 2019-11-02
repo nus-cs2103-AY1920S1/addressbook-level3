@@ -498,6 +498,7 @@ displayed is always updated as of when the user needs it, since the window is on
 ** Alternative 2 is a cleaner and more user friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many list and information.
 Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
 |========================================================================================
+
 // end::generateschedule[]
 
 === Finance
