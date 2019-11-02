@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -19,7 +19,7 @@ Class EditTripDescriptor
 }
 
 Package ui.components.form {
-abstract formItem
+abstract FormItem
 Class DateFormItem
 Class TextFormItem
 Class PhotoFormItem
@@ -52,10 +52,10 @@ EditTripPage ..|> Page
 
 EditTripPage -right-> LogicManager
 
-EditTripPage -down-> "2" DateFormItem
-EditTripPage -down-> "2" TextFormItem
-EditTripPage -down-> "1" PhotoFormItem
-EditTripPage -down-> "1" DoubleFormItem
+EditTripPage o-down-> "2" DateFormItem
+EditTripPage o-down-> "2" TextFormItem
+EditTripPage o-down-> "1" PhotoFormItem
+EditTripPage o-down-> "1" DoubleFormItem
 
 DateFormItem ..|> formItem
 TextFormItem ..|> formItem
