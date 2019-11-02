@@ -72,9 +72,13 @@ public class NewCommand extends Command {
         Incident draft = new Incident(operator, district);
         this.draft = draft; // draft created here because need operator data from model
 
+        /*
+        // unnecessary because incidents are compared based on incidentId, which depends on
+        // incident datetime, which cannot be the same.
         if (model.hasIncident(draft)) {
             throw new CommandException(MESSAGE_DUPLICATE_REPORT);
         }
+        */
 
         dispatchVehicle(draft, isAuto, model);
         model.addIncident(draft);

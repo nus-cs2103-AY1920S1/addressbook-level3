@@ -31,7 +31,7 @@ public class EditVehicleCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "VEHICLE DISTRICT] "
-            + "[" + PREFIX_VTYPE + "VEHICLE NUMBER] "
+            + "[" + PREFIX_VTYPE + "VEHICLE TYPE] "
             + "[" + PREFIX_AVAIL + "AVAILABILITY]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DISTRICT + "2 "
