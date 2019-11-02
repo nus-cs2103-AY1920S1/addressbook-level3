@@ -96,16 +96,7 @@ public class EditCommandParserTest {
         // valid price followed by invalid price. The test case for invalid price followed by valid price
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PRICE_DESC_NASI_LEMAK
-            + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
-
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Food} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_DESC_CHICKEN
-            + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_RICE + TAG_EMPTY
-            + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_RICE
-            + TAG_DESC_CHICKEN, Tag.MESSAGE_CONSTRAINTS);
+            + INVALID_PRICE_DESC, String.format(ParserUtil.DUPLICATE_FIELDS, "Price"));
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC
@@ -181,7 +172,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_rejected() {
         Index targetIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE
                 + TAG_DESC_RICE + PRICE_DESC_CHICKEN_RICE + DESCRIPTION_DESC_CHICKEN_RICE + TAG_DESC_RICE
@@ -192,17 +183,17 @@ public class EditCommandParserTest {
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, String.format(ParserUtil.DUPLICATE_FIELDS, "Price"));
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
+    public void parse_invalidValueFollowedByValidValue_failure() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + INVALID_PRICE_DESC + PRICE_DESC_NASI_LEMAK;
         EditFoodDescriptor descriptor = new EditFoodDescriptorBuilder().withPrice(VALID_PRICE_NASI_LEMAK).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, String.format(ParserUtil.DUPLICATE_FIELDS, "Price"));
         // other valid values specified
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_NASI_LEMAK + INVALID_PRICE_DESC
                 + PRICE_DESC_NASI_LEMAK;
@@ -210,7 +201,7 @@ public class EditCommandParserTest {
                 .withPrice(VALID_PRICE_NASI_LEMAK).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
                 .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        assertParseFailure(parser, userInput, String.format(ParserUtil.DUPLICATE_FIELDS, "Price"));
     }
 
     @Test
