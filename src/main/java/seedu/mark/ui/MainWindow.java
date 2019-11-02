@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -43,6 +44,15 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private DashboardPanel dashboardPanel;
     private OfflinePanel offlinePanel;
+
+    @FXML
+    private ToggleButton dashboardButton;
+
+    @FXML
+    private ToggleButton onlineButton;
+
+    @FXML
+    private ToggleButton offlineButton;
 
     @FXML
     private SplitPane splitPane;
@@ -185,18 +195,30 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Switches to dashboard view
+     */
     @FXML
     public void handleSwitchToDashboard() {
+        dashboardButton.setSelected(true);
         mainViewAreaPlaceholder.getChildren().set(0, dashboardPanel.getRoot());
     }
 
+    /**
+     * Switches to online view
+     */
     @FXML
     public void handleSwitchToOnline() {
+        onlineButton.setSelected(true);
         mainViewAreaPlaceholder.getChildren().set(0, browserPanel.getRoot());
     }
 
+    /**
+     * Switches to offline view
+     */
     @FXML
     public void handleSwitchToOffline() {
+        offlineButton.setSelected(true);
         mainViewAreaPlaceholder.getChildren().set(0, offlinePanel.getRoot());
     }
 
