@@ -1,7 +1,5 @@
 package budgetbuddy.logic.parser.commandparsers.transactioncommandparsers;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.transactioncommands.TransactionDeleteCommand;
 import budgetbuddy.logic.parser.CommandParser;
@@ -24,12 +22,7 @@ public class TransactionDeleteCommandParser implements CommandParser<Transaction
      */
     @Override
     public TransactionDeleteCommand parse(String args) throws ParseException {
-        try {
-            Index index = CommandParserUtil.parseIndex(args);
-            return new TransactionDeleteCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TransactionDeleteCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = CommandParserUtil.parseIndex(args);
+        return new TransactionDeleteCommand(index);
     }
 }

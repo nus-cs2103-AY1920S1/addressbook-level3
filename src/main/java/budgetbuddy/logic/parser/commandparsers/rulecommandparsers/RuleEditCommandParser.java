@@ -1,6 +1,5 @@
 package budgetbuddy.logic.parser.commandparsers.rulecommandparsers;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
@@ -33,13 +32,7 @@ public class RuleEditCommandParser implements CommandParser<RuleEditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_PREDICATE, PREFIX_ACTION);
 
-        Index ruleIndex;
-        try {
-            ruleIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
-        } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleEditCommand.MESSAGE_USAGE), e);
-        }
+        Index ruleIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
 
         RuleEditDescriptor ruleEditDescriptor = new RuleEditDescriptor();
         if (argMultiMap.getValue(PREFIX_PREDICATE).isPresent()) {

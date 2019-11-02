@@ -1,6 +1,5 @@
 package budgetbuddy.logic.parser.commandparsers.accountcommandparsers;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
@@ -29,13 +28,7 @@ public class AccountEditCommandParser implements CommandParser<AccountEditComman
         ArgumentMultimap argMultiMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
-        Index accountIndex;
-        try {
-            accountIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
-        } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountEditCommand.MESSAGE_USAGE), e);
-        }
+        Index accountIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
 
         AccountEditDescriptor accountEditDescriptor = new AccountEditDescriptor();
         if (argMultiMap.getValue(PREFIX_NAME).isPresent()) {

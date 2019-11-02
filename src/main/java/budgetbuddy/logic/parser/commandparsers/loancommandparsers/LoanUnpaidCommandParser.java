@@ -20,7 +20,7 @@ public class LoanUnpaidCommandParser extends MultiLoanCommandParser {
         try {
             parseMultiLoanArgs(args);
             return new LoanUnpaidCommand(loanIndices, persons);
-        } catch (ParseException | CommandException e) {
+        } catch (CommandException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanUnpaidCommand.MESSAGE_USAGE), e);
         }

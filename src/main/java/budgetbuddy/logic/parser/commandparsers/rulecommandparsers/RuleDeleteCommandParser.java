@@ -1,7 +1,5 @@
 package budgetbuddy.logic.parser.commandparsers.rulecommandparsers;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.rulecommands.RuleDeleteCommand;
 import budgetbuddy.logic.parser.CommandParser;
@@ -24,12 +22,7 @@ public class RuleDeleteCommandParser implements CommandParser<RuleDeleteCommand>
      */
     @Override
     public RuleDeleteCommand parse(String args) throws ParseException {
-        try {
-            Index index = CommandParserUtil.parseIndex(args);
-            return new RuleDeleteCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleDeleteCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = CommandParserUtil.parseIndex(args);
+        return new RuleDeleteCommand(index);
     }
 }

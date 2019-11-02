@@ -32,7 +32,7 @@ import budgetbuddy.model.transaction.TransactionList;
  */
 public class CommandParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index should be a positive integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
@@ -242,6 +242,7 @@ public class CommandParserUtil {
 
     /**
      * Parses a {@code String script} into a {@code PredicateScript}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code script} is invalid.
      */
@@ -249,12 +250,13 @@ public class CommandParserUtil {
         requireNonNull(script);
         String trimmedScript = script.trim();
 
-        ScriptName scriptName = parseScriptName(script);
+        ScriptName scriptName = parseScriptName(trimmedScript);
         return new PredicateScript(scriptName);
     }
 
     /**
      * Parses a {@code String script} into a {@code ActionScript}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code script} is invalid.
      */
@@ -262,35 +264,41 @@ public class CommandParserUtil {
         requireNonNull(script);
         String trimmedScript = script.trim();
 
-        ScriptName scriptName = parseScriptName(script);
+        ScriptName scriptName = parseScriptName(trimmedScript);
         return new ActionScript(scriptName);
     }
 
     /**
      * Parses a {@code String predicate} into a {@code RulePredicate}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code predicate} is invalid.
      */
     public static RulePredicate parsePredicate(String predicate) throws ParseException {
         requireNonNull(predicate);
-        if (predicate.contains(" ")) {
-            return parsePredicateExpr(predicate);
+        String trimmedPred = predicate.trim();
+
+        if (trimmedPred.contains(" ")) {
+            return parsePredicateExpr(trimmedPred);
         } else {
-            return parsePredicateScript(predicate);
+            return parsePredicateScript(trimmedPred);
         }
     }
 
     /**
      * Parses a {@code String action} into a {@code RuleAction}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code action} is invalid.
      */
     public static RuleAction parseAction(String action) throws ParseException {
         requireNonNull(action);
-        if (action.contains(" ") || Operator.isValidOperator(action)) {
-            return parseActionExpr(action);
+        String trimmedAct = action.trim();
+
+        if (action.contains(" ") || Operator.isValidOperator(trimmedAct)) {
+            return parseActionExpr(trimmedAct);
         } else {
-            return parseActionScript(action);
+            return parseActionScript(trimmedAct);
         }
     }
 

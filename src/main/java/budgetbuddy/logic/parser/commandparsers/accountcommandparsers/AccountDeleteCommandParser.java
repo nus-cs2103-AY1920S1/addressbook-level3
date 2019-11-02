@@ -1,7 +1,5 @@
 package budgetbuddy.logic.parser.commandparsers.accountcommandparsers;
 
-import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.logic.commands.accountcommands.AccountDeleteCommand;
 import budgetbuddy.logic.parser.CommandParser;
@@ -23,12 +21,7 @@ public class AccountDeleteCommandParser implements CommandParser<AccountDeleteCo
      * @throws ParseException if the user input does not conform the expected format
      */
     public AccountDeleteCommand parse(String args) throws ParseException {
-        try {
-            Index index = CommandParserUtil.parseIndex(args);
-            return new AccountDeleteCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountDeleteCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = CommandParserUtil.parseIndex(args);
+        return new AccountDeleteCommand(index);
     }
 }
