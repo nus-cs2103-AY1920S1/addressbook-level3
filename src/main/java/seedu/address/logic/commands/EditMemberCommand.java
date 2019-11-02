@@ -33,7 +33,6 @@ public class EditMemberCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters:" + PREFIX_MEMBER_ID + "MEMBER ID"
             + PREFIX_MEMBER_NAME + "NAME"
-            + PREFIX_MEMBER_ID + "MEMBER ID"
             + PREFIX_MEMBER_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " mi ";
 
@@ -95,10 +94,11 @@ public class EditMemberCommand extends Command {
         assert memberToEdit != null;
 
         MemberName updatedName = editMemberDescriptor.getName().orElse(memberToEdit.getName());
-        MemberId updatedMemberId = editMemberDescriptor.getId().orElse(memberToEdit.getId());
+        MemberId updatedMemberId = memberToEdit.getId();
         Set<Tag> updatedTags = editMemberDescriptor.getTags().orElse(memberToEdit.getTags());
+        String imagePath = memberToEdit.getImageUrl();
 
-        return new Member(updatedName, updatedMemberId, updatedTags);
+        return new Member(updatedName, updatedMemberId, updatedTags, imagePath);
     }
 
     @Override
@@ -125,7 +125,6 @@ public class EditMemberCommand extends Command {
      */
     public static class EditMemberDescriptor {
         private MemberName name;
-        private MemberId id;
         private Set<Tag> tags;
 
         public EditMemberDescriptor() {}
@@ -136,7 +135,6 @@ public class EditMemberCommand extends Command {
          */
         public EditMemberDescriptor(EditMemberDescriptor toCopy) {
             setName(toCopy.name);
-            setId(toCopy.id);
             setTags(toCopy.tags);
         }
 
@@ -144,16 +142,9 @@ public class EditMemberCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, id, tags);
+            return CollectionUtil.isAnyNonNull(name, tags);
         }
 
-        public void setId(MemberId id) {
-            this.id = id;
-        }
-
-        public Optional<MemberId> getId() {
-            return Optional.ofNullable(id);
-        }
         public void setName(MemberName name) {
             this.name = name;
         }
@@ -195,7 +186,6 @@ public class EditMemberCommand extends Command {
             EditMemberDescriptor e = (EditMemberDescriptor) other;
 
             return getName().equals(e.getName())
-                    && (getId().equals(e.getId()))
                     && getTags().equals(e.getTags());
         }
     }

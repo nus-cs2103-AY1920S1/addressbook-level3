@@ -36,7 +36,7 @@ public class EditMemberCommandParser implements Parser<EditMemberCommand> {
         MemberId id;
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MEMBER_ID)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditMemberCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NO_ID));
         }
 
         try {
