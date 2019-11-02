@@ -63,7 +63,7 @@ Format: `help`
 === Logging in: `login`
 
 Logs the user into the IMS and registers the active session. +
-Format: `login u/USERNAME p/PASSWORD`
+Format: `login u/USERNAME w/PASSWORD`
 
 [NOTE]
 The only commands available prior to login are `Register`, `Login`, `Help`, and `Exit`.
@@ -134,6 +134,10 @@ Examples:
 updates the phone number and email address of the logged in account to be `91234567` and `johndoe@example.com` respectively.
 * `update 2 n/Betsy Crower t/` +
 updates the name of the 2nd account to be `Betsy Crower` and clears all existing tags.
+
+==== Coming in v2.0
+
+Any updates to a user account will search for all incidents created by the account and update those details as well.
 
 === Listing accounts : `list-a`
 

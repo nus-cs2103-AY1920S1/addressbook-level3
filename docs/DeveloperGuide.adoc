@@ -252,12 +252,12 @@ NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but du
 
 ===== Aspect: How Command Restrictions are Managed
 
-* **Current Choice:** Guard statement in LogicManager prior to Command Execution.
-** Pros: Single control point, easy to maintain and debug.
-** Cons: Command still gets instantiated, memory allocated to command creation.
-* **Alternative:** Guard statement in IncidentManagerParser
-** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily.
+* **Current Choice:** Guard statement in IncidentManagerParser prior to Command Creation.
+** Pros: Early catching of restriction, command doesn't get instantiated unnecessarily. Better user experience as error message is displayed early.
 ** Cons: Need to expose model to parser, increasing coupling.
+* **Alternative:** Guard statement in LogicManager prior to Command Execution.
+** Pros: Model does not need to be exposed to parser, decreasing coupling.
+** Cons: Command still gets instantiated, memory allocated to command creation. Decreases user experience as user still has to type a proper command before the access error is thrown.
 
 ===== Aspect: How Identity Verification is Managed
 
@@ -272,14 +272,14 @@ NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but du
 
 * **Current Choice:** Utilisation of Account Tags
 ** Pros: Easy to implement.
-** Cons: Users cannot add tags to themselves.
+** Cons: Users cannot add tags to themselves unless they are an admin.
 * **Alternative:** Addition of an Admin account attribute.
 ** Pros: Distinct object class, improves cohesiveness.
 ** Cons: Hard to implement.
 
 ==== Known Issues
 
-A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption will resolve this issue, but has yet to be implemented.
+A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption will resolve this issue, but will only be implemented in v2.0
 // end::accessControl[]
 
 // tag::accountManagement[]
