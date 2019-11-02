@@ -10,7 +10,7 @@ import mams.commons.util.AppUtil;
  */
 public class PrevMods {
 
-    public static final String MESSAGE_CONSTRAINTS = "PrevMods should be comma seperated module codes ";
+    public static final String MESSAGE_CONSTRAINTS = "PrevMods should be comma separated module codes ";
     public static final String VALIDATION_REGEX = "^([\\p{Alnum}&\\s]+,)+[\\p{Alnum}&\\s]+$";
     public static final String VALIDATION_REGEX_SINGLE = "\\p{Alnum}+";
 

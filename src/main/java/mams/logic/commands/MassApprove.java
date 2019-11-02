@@ -94,7 +94,7 @@ public class MassApprove extends Approve {
                                 //check if student has the module (ready for deletion).
                                 Set<Tag> studentModules = studentToEdit.getCurrentModules();
                                 boolean hasModule = false;
-                                for (Tag tag : studentModules) {    
+                                for (Tag tag : studentModules) {
                                     if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
                                         hasModule = true;
                                     }

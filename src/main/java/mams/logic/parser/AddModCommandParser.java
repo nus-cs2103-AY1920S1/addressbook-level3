@@ -1,7 +1,6 @@
 package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static mams.logic.parser.CliSyntax.PREFIX_INDEX;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
@@ -24,22 +23,22 @@ public class AddModCommandParser implements Parser<AddModCommand> {
     public AddModCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE, PREFIX_INDEX);
+                ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE);
 
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent()) {
-            if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
-                return new AddModCommand.AddModCommandBuilder(argMultimap.getAllValues(PREFIX_MODULE).get(0),
-                         true)
-                        .setIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0)).build();
-            } else if (argMultimap.getValue(PREFIX_STUDENT).isPresent()) {
-                return new AddModCommand.AddModCommandBuilder(argMultimap.getAllValues(PREFIX_MODULE).get(0),
-                        false)
-                        .setMatricId(argMultimap.getAllValues(PREFIX_STUDENT).get(0)).build();
-            } else {
-                throw new ParseException(ModCommand.MESSAGE_MISSING_MATRICID_OR_INDEX);
-            }
-        } else {
+        if (argMultimap.getValue(PREFIX_MODULE).isEmpty()) {
             throw new ParseException(ModCommand.MESSAGE_USAGE_ADD_MOD);
         }
+        if (argMultimap.getValue(PREFIX_STUDENT).isEmpty()) {
+            throw new ParseException(ModCommand.MESSAGE_MISSING_MATRICID_OR_INDEX);
+        }
+        if (argMultimap.getAllValues(PREFIX_MODULE).size() > 1) {
+            throw new ParseException(ModCommand.MESSAGE_MORE_THAN_ONE_MODULE);
+        }
+        if (argMultimap.getAllValues(PREFIX_STUDENT).size() > 1) {
+            throw new ParseException(ModCommand.MESSAGE_MORE_THAN_ONE_IDENTIFIER);
+        }
+
+        return new AddModCommand.AddModCommandBuilder(argMultimap.getAllValues(PREFIX_MODULE).get(0),
+                argMultimap.getAllValues(PREFIX_STUDENT).get(0)).build();
     }
 }
