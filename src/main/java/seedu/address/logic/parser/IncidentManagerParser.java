@@ -39,10 +39,68 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class IncidentManagerParser {
 
+    public static final String GUI_SWAP_MESSAGE = "Please swap the interface to access the command from this suite.\n"
+            + "See help page for more information.";
+
+    public static final String ACCESS_CONTROL_MESSAGE = "Only Register, Login, Exit, and Help commands are available.\n"
+            + "Please login to access other commands. See help page for more information.";
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private boolean isPersonView;
+    private boolean isLoggedIn;
+
+    public IncidentManagerParser(boolean isPersonView, boolean isLoggedIn) {
+        this.isPersonView = isPersonView;
+        this.isLoggedIn = isLoggedIn;
+    }
+
+    //@@author madanalogy
+    /**
+     * Checks if the user is logged in to give access.
+     * @param commandWord String representing the command.
+     * @throws ParseException if command not accessible.
+     */
+    private void checkAccess(String commandWord) throws ParseException {
+        // Guard Statement for available commands prior to login.
+        if (!isLoggedIn && !(commandWord.equals(LoginCommand.COMMAND_WORD)
+                || commandWord.equals(AddCommand.COMMAND_WORD)
+                || commandWord.equals(ExitCommand.COMMAND_WORD)
+                || commandWord.equals(HelpCommand.COMMAND_WORD))) {
+            throw new ParseException(ACCESS_CONTROL_MESSAGE);
+        }
+    }
+
+    /**
+     * Checks if the correct interface is showing for the given command.
+     * @param commandWord String representing the command.
+     * @throws ParseException if in the wrong interface for command.
+     */
+    private void checkInterface(String commandWord) throws ParseException {
+        // Guard Statement for command suite corresponding to interface swaps.
+        if (!isPersonView && (commandWord.equals(AddCommand.COMMAND_WORD)
+                || commandWord.equals(UpdateCommand.COMMAND_WORD)
+                || commandWord.equals(DeleteCommand.COMMAND_WORD)
+                || commandWord.equals(ListPersonsCommand.COMMAND_WORD)
+                || commandWord.equals(FindPersonsCommand.COMMAND_WORD))) {
+            throw new ParseException(GUI_SWAP_MESSAGE);
+        } else if (isPersonView && (commandWord.equals(AddVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(EditIncidentCommand.COMMAND_WORD)
+                || commandWord.equals(EditVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(DeleteVehicleCommand.COMMAND_WORD)
+                || commandWord.equals(FindIncidentsCommand.COMMAND_WORD)
+                || commandWord.equals(FindVehiclesCommand.COMMAND_WORD)
+                || commandWord.equals(ListIncidentsCommand.COMMAND_WORD)
+                || commandWord.equals(ListVehiclesCommand.COMMAND_WORD)
+                || commandWord.equals(NewCommand.COMMAND_WORD)
+                || commandWord.equals(SubmitCommand.COMMAND_WORD)
+                || commandWord.equals(FillCommand.COMMAND_WORD))) {
+            throw new ParseException(GUI_SWAP_MESSAGE);
+        }
+    }
 
     /**
      * Parses user input into command for execution.
@@ -59,6 +117,10 @@ public class IncidentManagerParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
+        checkAccess(commandWord);
+        checkInterface(commandWord);
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -144,4 +206,15 @@ public class IncidentManagerParser {
         }
     }
 
+    public boolean isPersonView() {
+        return isPersonView;
+    }
+
+    public void setPersonView(boolean personView) {
+        isPersonView = personView;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
+    }
 }
