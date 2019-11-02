@@ -165,7 +165,7 @@ public class ParserUtil {
         requireNonNull(joinDate);
         String trimmed = joinDate.trim();
         if (!EmployeeJoinDate.isValidJoinDate(trimmed)) {
-            throw new ParseException(EmployeeName.MESSAGE_CONSTRAINTS);
+            throw new ParseException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
         }
         LocalDate newJoinDate = LocalDate.parse(trimmed, FORMATTER);
         return new EmployeeJoinDate(newJoinDate);

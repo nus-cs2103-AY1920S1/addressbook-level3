@@ -13,27 +13,30 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="100.0" prefWidth="244.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-      <BorderPane prefHeight="96.0" prefWidth="90.0">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+      <BorderPane>
          <center>
-            <ImageView fitHeight="87.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="87.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../images/event.png" />
                </image>
+            <BorderPane.margin>
+               <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+            </BorderPane.margin>
             </ImageView>
          </center>
       </BorderPane>
-      <GridPane HBox.hgrow="ALWAYS">
+      <GridPane prefHeight="70.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
          </columnConstraints>
          <children>
-            <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="136.0" prefWidth="175.0" GridPane.columnIndex="0">
+            <VBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="150.0" GridPane.columnIndex="0">
                <padding>
-                  <Insets bottom="5" left="15" right="5" top="5" />
+                  <Insets bottom="5.0" left="15.0" right="5.0" />
                </padding>
                <children>
-                  <HBox alignment="CENTER_LEFT" spacing="5">
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
                      <children>
                         <Label fx:id="id" styleClass="cell_big_label">
                            <minWidth>

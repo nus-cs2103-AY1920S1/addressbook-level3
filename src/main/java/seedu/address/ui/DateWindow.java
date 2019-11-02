@@ -87,8 +87,12 @@ public class DateWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
+                if (date.getListOfEvents().size() < 4) {
+                    setPrefHeight(26.5 + (date.getListOfEvents().size() * 105));
+                } else {
+                    setPrefHeight(425);
+                }
                 setGraphic(new DateCard(date, getIndex() + 1, null).getRoot());
-                setPrefHeight(26.5 + (date.getListOfEvents().size() * 100));
             }
         }
     }

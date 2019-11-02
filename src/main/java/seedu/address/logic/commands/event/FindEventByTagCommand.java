@@ -8,24 +8,25 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventNameContainsKeywordsPredicate;
+import seedu.address.model.event.EventTagContainsKeywordsPredicate;
 import seedu.address.ui.MainWindow;
 
 /**
- * Finds and lists all events in event list whose name contains any of the argument keywords.
+ * Finds and lists all events in event book whose tag contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindEventCommand extends Command {
-    public static final String COMMAND_WORD = "find_ev_name";
+public class FindEventByTagCommand extends Command {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose names contain any of "
+    public static final String COMMAND_WORD = "find_ev_tag";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all event whose tag contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " party";
+            + "Example: " + COMMAND_WORD + " fun free";
 
-    private final EventNameContainsKeywordsPredicate predicate;
+    private final EventTagContainsKeywordsPredicate predicate;
 
-    public FindEventCommand(EventNameContainsKeywordsPredicate predicate) {
+    public FindEventByTagCommand(EventTagContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -52,7 +53,7 @@ public class FindEventCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindEventCommand // instanceof handles nulls
-                && predicate.equals(((FindEventCommand) other).predicate)); // state check
+                || (other instanceof FindEventByTagCommand // instanceof handles nulls
+                && predicate.equals(((FindEventByTagCommand) other).predicate)); // state check
     }
 }

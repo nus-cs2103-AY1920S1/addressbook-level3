@@ -15,6 +15,7 @@ import seedu.address.logic.commands.employee.ClearCommand;
 import seedu.address.logic.commands.employee.DeleteCommand;
 import seedu.address.logic.commands.employee.EditCommand;
 import seedu.address.logic.commands.employee.FetchEmployeeCommand;
+import seedu.address.logic.commands.employee.FindByTagCommand;
 import seedu.address.logic.commands.employee.FindCommand;
 import seedu.address.logic.commands.employee.ListCommand;
 import seedu.address.logic.commands.employee.ListEmployeeCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.event.DeleteDateMappingCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.FetchEventCommand;
+import seedu.address.logic.commands.event.FindEventByTagCommand;
 import seedu.address.logic.commands.event.FindEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.general.ExitCommand;
@@ -32,6 +34,7 @@ import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.general.MainCommand;
 import seedu.address.logic.commands.general.ScheduleCommand;
 import seedu.address.logic.commands.general.SetAppDateCommand;
+import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
@@ -43,6 +46,7 @@ import seedu.address.logic.parser.employee.AddCommandParser;
 import seedu.address.logic.parser.employee.DeleteCommandParser;
 import seedu.address.logic.parser.employee.EditCommandParser;
 import seedu.address.logic.parser.employee.FetchEmployeeCommandParser;
+import seedu.address.logic.parser.employee.FindByTagCommandParser;
 import seedu.address.logic.parser.employee.FindCommandParser;
 import seedu.address.logic.parser.event.AddEventCommandParser;
 import seedu.address.logic.parser.event.AssignDateCommandParser;
@@ -51,9 +55,11 @@ import seedu.address.logic.parser.event.DeleteDateMappingCommandParser;
 import seedu.address.logic.parser.event.DeleteEventCommandParser;
 import seedu.address.logic.parser.event.EditEventCommandParser;
 import seedu.address.logic.parser.event.FetchEventCommandParser;
+import seedu.address.logic.parser.event.FindEventByTagCommandParser;
 import seedu.address.logic.parser.event.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.general.SetAppDateCommandParser;
+import seedu.address.logic.parser.schedule.DisplayScheduleBetweenParser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 
@@ -126,14 +132,23 @@ public class AddressBookParser {
         case DisplayScheduleForYearMonthCommand.COMMAND_WORD:
             return new DisplayScheduleForYearMonthParser().parse(arguments);
 
+        case DisplayScheduleBetweenCommand.COMMAND_WORD:
+            return new DisplayScheduleBetweenParser().parse(arguments);
+
         case GenerateScheduleCommand.COMMAND_WORD:
             return new GenerateScheduleCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case FindByTagCommand.COMMAND_WORD:
+            return new FindByTagCommandParser().parse(arguments);
+
         case FindEventCommand.COMMAND_WORD:
             return new FindEventCommandParser().parse(arguments);
+
+        case FindEventByTagCommand.COMMAND_WORD:
+            return new FindEventByTagCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
