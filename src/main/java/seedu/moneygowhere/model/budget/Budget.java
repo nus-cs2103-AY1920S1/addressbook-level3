@@ -188,7 +188,7 @@ public class Budget {
     public String getBudgetMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        sb.append("\n current spending:");
+        sb.append("\n Current Spending:");
         sb.append(String.format("$%.2f", sum));
         sb.append("\n Remaining Budget:");
         sb.append(String.format("$%.2f", getRemainingBudget()));

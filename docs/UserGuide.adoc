@@ -609,21 +609,13 @@ Reverses the most recent undo command. +
 
 The most recent undo command is reversed.
 
-=== Clear all spending entries : `clear`
-Clears all spending entries from the application. +
-Format: `clear`
+=== Clear all data : `clear`
+Clears all entries from the application. +
+*Format:* `clear`
 
 *Expected Output:*
 
-All spending entries are cleared.
-
-=== Clear all reminder entries : `reminder clear`
-Clears all reminder entries from the application. +
-Format: `reminder clear`
-
-*Expected Output:*
-
-All reminder entries are cleared.
+All application data is cleared.
 
 === Exiting the program : `exit`
 
@@ -681,8 +673,7 @@ e.g. `reminder n/30/08/2020 m/Pay school fee`
 e.g. `reminder delete 2`
 | *Undo*| `undo` +
 | *Redo*| `redo` +
-| *Clear all spending*| `clear` +
-| *Clear all reminders*| `reminder clear` +
+| *Clear*| `clear` +
 | *Exit*| `exit` +
 |=======================================================================
 
