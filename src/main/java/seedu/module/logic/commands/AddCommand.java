@@ -38,6 +38,8 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        model.updateFilteredArchivedModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+
         ArchivedModule archivedModule = model.findArchivedModule(predicate).orElseThrow(()
             -> new CommandException(MESSAGE_MODULE_NOT_FOUND));
 

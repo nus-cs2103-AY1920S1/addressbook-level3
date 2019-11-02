@@ -89,23 +89,31 @@ Format: `back`
 Find archived modules with the the given prefix and keyword. +
 Format: `find PREFIX\ KEYWORD ...`
 
+[NOTE]
+It is possible to use any number or combination of filters. Prefixes not present will not be considered in the search.
+
 ****
 * Prefixes: (case sensitive)
-** `mod\` : Find all modules with module code that contains the given keyword(s).
-*** Example: `find module\ cs ma st` will list all modules with module code containing `cs` or `ma` or `st`.
-** `desc\` : Find all modules with description that contains the given keyword or sentence.
+** `mod\` : Find all modules with *module code* that contains the given *keyword(s)*.
+*** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` or `ma` or `st`.
+** `title\` : Find all modules with *title* that contains the given *sentence*.
+*** Example: `find title\ software engineering` will list all modules with titles containing `"software engineering"`.
+** `desc\` : Find all modules with *description* that contains the given *sentence*.
 *** Example: `find desc\ software engineering` will list all modules with description containing `"software engineering"`.
-** `prereq\` : Find all modules with prerequisites that match the given keyword(s).
+** `prereq\` : Find all modules with *prerequisites* that match the given *keyword(s)*.
 *** Example: `find prereq\ cs2030 cs2040` will list all modules with prerequisite of `cs2030` or `cs2040`.
-** `preclu\` : Find all modules with preclusion that match the given keyword(s).
+** `preclu\` : Find all modules with *preclusion* that match the given *keyword(s)*.
 *** Example: `find preclu\ cs2030 cs2040` will list all modules with preclusion of `cs2030` or `cs2040`.
 ** `sem\` : Find all modules offered in a particular sem 1 - 4. (Sem 3 and 4 are special terms 1 and 2).
 *** Example: `find sem\ 1 3` will list all modules offered in semester 1 or special term 1.
 * The prefixes can be used together in any order to filter modules that passes all the search requirements.
-** Example: `find module\ cs2 cs3 desc\ software engineering sem\ 1` will show all modules with module code containing `cs2`
+** Example: `find mod\ cs2 cs3 desc\ software engineering sem\ 1` will show all modules with module code containing `cs2`
 or `cs3` with description containing `"software engineering"` offered in semester 1.
 * The keywords are case insensitive. e.g `cs2103t` will match `CS2103T`.
 ****
+[NOTE]
+title\ and desc\ will seach a single sentence while mod\, prereq\, preclu\ and sem\ will search for all modules with any of the keywords.
+
 
 [TIP]
 Modules are imported from NUSMods database.
@@ -279,7 +287,7 @@ Calculates the cumulative GPA of all tracked modules.
 e.g. `view cs2100`
 * *Back* `back`
 * *Find* : `find PREFIx\ KEYWORD(s) ...` +
-e.g. `find module\ cs2 cs3 desc\ software engineering prereq\ cs2030 sem\ 1 2`
+e.g. `find mod\ cs2 cs3 desc\ software engineering prereq\ cs2030 sem\ 1 2`
 * *Add* `add MODULE_CODE` +
 e.g. `add cs2101`
 * *Delete* : `delete MODULE_CODE` +

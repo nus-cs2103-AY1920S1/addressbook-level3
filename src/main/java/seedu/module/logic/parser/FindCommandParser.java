@@ -14,6 +14,7 @@ import seedu.module.model.module.predicate.ModuleCodeContainsKeywordsPredicate;
 import seedu.module.model.module.predicate.PreclusionContainsKeywordsPredicate;
 import seedu.module.model.module.predicate.PrerequisiteContainsKeywordsPredicate;
 import seedu.module.model.module.predicate.SemesterContainsKeywordsPredicate;
+import seedu.module.model.module.predicate.TitleContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object.
@@ -24,6 +25,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         {
             add("mod\\");
             add("desc\\");
+            add("title\\");
             add("prereq\\");
             add("preclu\\");
             add("sem\\");
@@ -108,6 +110,10 @@ public class FindCommandParser implements Parser<FindCommand> {
             case "mod\\":
                 list.remove(0);
                 listOfPredicates.add(new ModuleCodeContainsKeywordsPredicate(list));
+                break;
+            case "title\\":
+                list.remove(0);
+                listOfPredicates.add(new TitleContainsKeywordsPredicate(String.join(" ", list)));
                 break;
             case "desc\\":
                 list.remove(0);
