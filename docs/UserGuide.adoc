@@ -75,7 +75,10 @@ Adds a person to the list of people +
 Format: `add n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS dob/DATE_OF_BIRTH g/GENDER`
 
 ****
-* Birthdays are in the form `DD.MM.YYYY`.
+* `DATE_OF_BIRTH` are in the form `DD.MM.YYYY` and must be before current time.
+* `NAME` can take any values and should not be blank.
+* `ADDRESS` can take any values and should not be blank.
+* `GENDER` must either be `Male` or `Female`.
 * Exact input validations for `NRIC`, `PHONE_NUMBER`, `EMAIL` are specified in sections <<Incorrect NRIC Alert>>,
 <<Incorrect Contact Number Alert>>, and <<Incorrect Email Address Alert>> respectively.
 ****

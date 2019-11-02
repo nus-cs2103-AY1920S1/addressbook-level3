@@ -44,9 +44,8 @@ public class Gender {
     private static String initializeMessageConstraints() {
         String message = "Only the following genders are allowed: ";
         StringJoiner result = new StringJoiner(", ");
-        result.add(message);
         VALID_GENDER.forEach(gender -> result.add(gender));
-        return result.toString();
+        return message + result.toString();
     }
 
     public static boolean isValidGender(String test) {
