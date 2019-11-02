@@ -175,7 +175,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === [Itinerary] Edit trip/day/event feature
-==== Implementation
+==== Aspect: Model
 Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively. The
 The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` and respectively.
 They extends from `PageParser` class which serves as the abstraction for all parsers related to each __Page__.
@@ -219,6 +219,9 @@ Upon completion of the edit, the user is returned to the `TripPage/DaysPage/Even
 Below is an sequence diagram illustrating the execution of the command "edit ds/10/10/2019":
 
 image::ItineraryEditSequenceDiagram.png[]
+
+==== Aspect: User Interface
+The UI for to edit fields are associated with the `EditTripPage/EditDayPage/EditEventPAge` respectively.
 
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation

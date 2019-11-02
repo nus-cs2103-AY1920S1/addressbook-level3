@@ -54,11 +54,13 @@ public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE_START).isPresent()) {
             editTripDescriptor.setStartDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
+                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get())
+                            .withHour(0).withMinute(0));
         }
         if (argMultimap.getValue(PREFIX_DATE_END).isPresent()) {
             editTripDescriptor.setEndDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
+                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END)
+                            .get()).withHour(23).withMinute(59));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editTripDescriptor.setBudget(TripParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));

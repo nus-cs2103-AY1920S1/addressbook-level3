@@ -4,41 +4,39 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
+Package ui.itinerary <<Rectangle>>{
 Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface Logic <<Interface>>
+Class EditTripPage
+Class EditDayPage
+Class EditEventPage
 Class Model
 Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
-
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Class LogicManager
+Class PageStatus
 }
 
-Package Tag {
-Class Tag
-}
+Package ui.components.form {
+abstract formItem
+Class DateFormItem
+Class TextFormItem
+Class PhotoFormItem
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+Class HiddenOurside #FFFFFF
+HiddenOutside ..> Ui.template
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o--> "1" PageStatus
+
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList o--> "*" Person

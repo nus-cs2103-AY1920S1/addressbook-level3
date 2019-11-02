@@ -7,5 +7,5 @@ public enum EventViewCommand {
     CREATE,
     EDIT,
     DELETE,
-    SHOW
+    SHOW;
 }

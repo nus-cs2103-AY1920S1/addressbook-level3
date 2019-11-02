@@ -170,7 +170,7 @@ Now you can enter the `create` or `edit <index>` command to create a new trip fo
 
 image::eventsIndex.png[]
 
-Upon execution of either command on the events page, you will be directed to a page where one can edit the necessary details to create a new event. This page contains a form with 4 necessary fields
+Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields
 
 - Name
 - Start Time
@@ -213,9 +213,7 @@ Now you should have completed all the necessary fields and are ready to finish t
 
 Congratulations, you have created/edited an event!
 
-=== Day Setup
-
-=== Deleting an Trip/Day/Event
+=== Deleting an Trip/Event
 Deleting a Trip/Day/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page/Days Page/Events Page respectively. Each of the pages will show a list of trips/days/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
 
 image::indexExamples.png[title="Examples of different indexes displayed"]
@@ -233,9 +231,32 @@ image::deleteResult.png[title="Result of executing `delete 1`"]
 Congratulations, you have deleted a trip/day/event!
 
 === Showing Event Details
+The details of each event are displayed on the right half the **Events Page**. You can access the events page by using the navigation feature (<<How to navigate>>) found on most pages.
 
-=== Navigation
-Every page that comprises a navbar can execute the following commands to navigate to another page.
+Upon accessing the events page, the information panel on the right should be empty except the prompt "Click on an event to show details here!". The left panel holds the list of events in the particular day in chronological order.
+
+image::eventsPage.png[]
+
+To show the details of an event, execute the command `show <index>` in the command box. You should use the index on the event card in the command.
+
+image::eventIndex.png[]
+
+After executing the command, you should see the details of the event show up on the information panel. Below is an example execution of the process to show the information of the event "Breakfast:
+
+- Starting from the events page, type the command `show 1` into the command box and press enter to execute.
+
+image::showCommand.png[]
+
+- Congratulations! you should see the information on the right panel pertaining to the event the "Breakfast" event just selected.
+
+image::showCommandResult.png[]
+
+=== How to navigate
+The main form of navigation is by using the navigation bars and the commands that are available on every page they are on. The bars appear like this:
+
+image::icons.png[]
+
+Each icon on the bar refers to a specific page in the application that the current page can go to. You can access these pages by simply clicking them or executing the following commands.
 
 1. Trip Manager: `home`
 2. Itinerary : `itinerary`
@@ -243,6 +264,22 @@ Every page that comprises a navbar can execute the following commands to navigat
 4. Diary : `diary`
 5. Inventory : `inventory`
 6. Expense Manager : `expense`
+7. Bookings Manager : `bookings`
+
+NOTE: Pages that do not contain a navigation bar cannot use the navigation commands above.
+
+Below is an example of navigating from the itinerary page to the days page:
+- Begin on the itinerary page
+
+image::itineraryPage.png[]
+
+- Since the page we are trying to reach is the days page, type the command `days` into the command box.
+
+image::daysCommand.png[]
+
+- Congratulations you should now see the **Days Page**
+
+image::daysPage.png[]
 
 === Expense Manager
 

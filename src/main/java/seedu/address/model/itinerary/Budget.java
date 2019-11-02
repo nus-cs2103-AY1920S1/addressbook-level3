@@ -16,7 +16,7 @@ public class Budget {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[+]?[0-9]+([.][0-9]{1,2})?$";
+    public static final String VALIDATION_REGEX = "^(\\d+(?:,\\d{1,2})?).*";
 
     public final Double value;
 
