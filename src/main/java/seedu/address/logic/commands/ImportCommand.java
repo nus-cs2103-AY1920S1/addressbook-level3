@@ -48,7 +48,9 @@ public class ImportCommand extends Command {
                     model,
                     exportPath.importFrom()
             );
-        } catch (DataConversionException | UnsupportedOperationException e) {
+        } catch (DataConversionException e) {
+            throw new CommandException("There was an error in reading from the file. Perhaps it was corrupted?");
+        } catch (UnsupportedOperationException e) {
             throw new CommandException(e.getMessage());
         }
     }
