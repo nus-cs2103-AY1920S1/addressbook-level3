@@ -204,16 +204,6 @@ Deletes the 1st account in the results of the `find` command.
 
 === Create New Incident: `new`
 
-==== Assumptions
-* User has logged in
-
-==== Description
-* Unique ID automatically generated for report.
-* Takes in district number of accident site and dispatches vehicle near to it.
-* Once operator picks up the call, they will key in the district number of accident site to dispatch vehicles.
-
-==== Usage
-
 This command works in two ways:
 
 *1. auto/y* +
@@ -222,6 +212,9 @@ Format: `new l/DISTRICT_NUM auto/y`
 * An available vehicle in the given district will be automatically dispatched to the incident site.
 * The vehicle pane will show all available vehicles in the district.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+
+[IMPORTANT]
+Valid district numbers are from 1 to 28!
 
 * Example usage:
 
@@ -246,7 +239,12 @@ image::newCommandAutoNPromptSS.png[]
 
 image::newCommandAutoNAfterPromptSS.png[]
 
-image::newCommandAutoNAfterSS.png[]
+image::newCommandAutoNAfterSS.png[
+
+[IMPORTANT]
+If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
+For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.
 
 === Filling a draft incident report: `fill`
 Fills a draft incident report if relevant parameters are specified, otherwise lists all draft reports ready for filling.
@@ -407,7 +405,7 @@ Returns any incidents whereby the description contains 'fire'
 
 === Editing an Incident: `edit-i`
 
-Edits an existing vehicle in the Incident Manager as identified by the index in the display.
+Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
 ** If an index is not provided, system will prompt for index. Does not make any edits.
@@ -420,7 +418,7 @@ If no fields are provided, incident will remain unchanged.
 ** Edits that result in duplicate incidents are not allowed
 
 [NOTE]
-Incidents with all the same fields (`DateTime`, `District`, `Description`, `Caller Number`) are considered duplicates.
+Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
 
 Example of input:
 
@@ -435,7 +433,7 @@ image::editIncident2.png[]
 
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
@@ -482,6 +480,45 @@ Edit Vehicle that results in duplicates:
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
 
+// tag::find-v[]
+=== Finding a Vehicle: `find-v`
+Finds a vehicle by its district number, vehicle number or vehicle type.
+
+The command works in three ways:
+
+*1. Find by district*
+Format: `find-v ds/DISTRICT [MORE DISTRICTS]`
+
+** User can input multiple districts to search for vehicles in.
+
+Example usage:
+
+image::findVDsBeforeSS.png[]
+image::findVDsAfterSS.png[]
+.Fig X finding vehicle by district number.
+
+*2. Find by vehicle number*
+Format: `find-v vnum/NUMBER`
+
+** The number need not be an exact match of any vehicle number; any vehicle with input number in its vehicle number will be returned. +
+
+Example usage:
+
+image::findVVnumBeforeSS.png[]
+image::findVVnumAfterSS.png[]
+.Fig X finding vehicke by vehicle number.
+//end::find-v[]
+
+*3. Find by vehicle type*
+Format: `find-v vtype/VEHICLE TYPE`
+
+** The vehicle type keyword must match the actual vehicle type exactly.
+
+Example usage:
+
+image::findVVtypeBeforeSS.png[]
+image::findVVtypeAfterSS.png[]
+
 === Deleting a Vehicle: `delete-v`
 Deletes a vehicle in the list as identified by the index.
 
@@ -490,6 +527,8 @@ Format: `delete-v [INDEX]`
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
+
+** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]

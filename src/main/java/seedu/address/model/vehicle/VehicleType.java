@@ -18,6 +18,8 @@ public class VehicleType {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
+    public static final String[] VEHICLE_TYPES = new String[] {"Ambulance", "Patrol Car"};
+
     private final String vehicleType;
 
     /**

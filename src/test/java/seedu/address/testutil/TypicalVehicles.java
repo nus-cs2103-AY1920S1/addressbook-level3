@@ -22,7 +22,7 @@ public class TypicalVehicles {
     public static final Vehicle V2 = new Vehicle(new VehicleType("Ambulance"), new VehicleNumber("BBA2222F"),
                 new District(6), new Availability("BUSY"));
 
-    public static final Vehicle V3 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKTH1221P"),
+    public static final Vehicle V3 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("FKH1221P"),
                 new District(20), new Availability("AVAILABLE"));
 
     public static final Vehicle V4 = new Vehicle(new VehicleType("Patrol Car"), new VehicleNumber("OLI4445C"),
