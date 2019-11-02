@@ -24,14 +24,23 @@ public class JsonImportUtil {
      * @throws IOException If there is an error in accessing or reading from the file
      * @throws DataConversionException If there is an error in converting the data from the file
      */
-    public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath)
-            throws DataConversionException {
+    public static Optional<List<FlashCard>> importFlashCardsFromJson(JsonExportPath jsonExportPath) throws DataConversionException {
+        return readFromOptionalKfc(
+                getOptionalKfc(
+                        jsonExportPath
+                )
+        );
+    }
+
+    private static Optional<ReadOnlyKeyboardFlashCards> getOptionalKfc(JsonExportPath jsonExportPath) throws DataConversionException {
         JsonKeyboardFlashCardsStorage jsonStorage = new JsonKeyboardFlashCardsStorage(
                 jsonExportPath.getPath()
         );
 
-        Optional<ReadOnlyKeyboardFlashCards> optionalKfc = jsonStorage.readKeyboardFlashCards();
+        return jsonStorage.readKeyboardFlashCards();
+    }
 
+    private static Optional<List<FlashCard>> readFromOptionalKfc(Optional<ReadOnlyKeyboardFlashCards> optionalKfc) {
         if (!optionalKfc.isPresent()) {
             return Optional.empty();
         }
