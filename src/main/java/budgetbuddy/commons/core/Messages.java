@@ -17,5 +17,5 @@ public class Messages {
     public static final String MESSAGE_ACTIVE_ACCOUNT_NOT_FOUND = "The active account could not be found";
     public static final String MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL = "The last account cannot be deleted";
 
-    public static final String MESSAGE_NO_SUCH_SCRIPT = "Could not find a script named %1$s.";
+    public static final String MESSAGE_NO_SUCH_SCRIPT = "Could not find a script named \"%1$s\".";
 }

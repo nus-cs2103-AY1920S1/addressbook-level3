@@ -1,12 +1,12 @@
 package budgetbuddy.logic.commands.rulecommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_NO_SUCH_SCRIPT;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 
 import java.util.Optional;
 
-import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.Command;
@@ -38,7 +38,7 @@ public class RuleEditCommand extends Command {
             + "[" + PREFIX_ACTION + "ACTION]\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
-            + PREFIX_PREDICATE + "description contains daily";
+            + PREFIX_PREDICATE + "desc contains daily";
 
     public static final String MESSAGE_SUCCESS = "Rule #%1$d edited.";
     public static final String MESSAGE_UNEDITED = "At least one field must be provided for editing.";
@@ -66,7 +66,7 @@ public class RuleEditCommand extends Command {
         if (editedPred.getType().equals(Rule.TYPE_SCRIPT)) {
             ScriptName scriptName = ((PredicateScript) editedPred).getScriptName();
             if (scriptLibrary.getScript(scriptName) == null) {
-                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
+                throw new CommandException(String.format(MESSAGE_NO_SUCH_SCRIPT, scriptName));
             }
         }
 
@@ -74,7 +74,7 @@ public class RuleEditCommand extends Command {
         if (editedAct.getType().equals(Rule.TYPE_SCRIPT)) {
             ScriptName scriptName = ((ActionScript) editedAct).getScriptName();
             if (scriptLibrary.getScript(scriptName) == null) {
-                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
+                throw new CommandException(String.format(MESSAGE_NO_SUCH_SCRIPT, scriptName));
             }
         }
 
