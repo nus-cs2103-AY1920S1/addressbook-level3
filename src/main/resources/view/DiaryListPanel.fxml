@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -29,6 +32,111 @@
                               <ListView fx:id="pageListView" prefHeight="554.0" prefWidth="650.0" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox fx:id="pageInputPanel" prefHeight="400.0" prefWidth="523.0" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="530.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="pageInputHeader" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="98.0" prefWidth="658.0" stylesheets="@DarkTheme.css" text="Page Input Form" VBox.vgrow="NEVER">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="53.0" prefWidth="524.0">
+                           <children>
+                              <Label fx:id="titleInput1" stylesheets="@DarkTheme.css" text="Diary Name">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="diaryNameTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkInput" prefHeight="25.0" prefWidth="300.0" promptText="Please enter diary name ..." VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="53.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="titleInput" stylesheets="@DarkTheme.css" text="Page Title">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="pageTitleTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkInput" prefHeight="25.0" prefWidth="300.0" promptText="Please enter page title ..." VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="64.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="typeInput" stylesheets="@DarkTheme.css" text="Page Type">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="pageTypeTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkInput" prefHeight="26.0" prefWidth="152.0" promptText="Please enter page type ..." VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="10.0" layoutY="151.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="83.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="descriptionInput" stylesheets="@DarkTheme.css" text="Page Description">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="pageDescriptionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#checkInput" prefHeight="66.0" prefWidth="446.0" promptText="Please enter page description ..." VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="imageInput" text="Page Image">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button fx:id="imageButton" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="20.0" minWidth="85.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="85.0" stylesheets="@DarkTheme.css" text="Choose Image...">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="2.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="10.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="pageImageTextField" maxWidth="-Infinity" minWidth="-Infinity" onAction="#checkInput" prefHeight="26.0" prefWidth="446.0" promptText="Selected image path ...">
+                                 <VBox.margin>
+                                    <Insets left="35.0" top="3.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="524.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="confirmButton" mnemonicParsing="false" text="CONFIRM">
+                                 <HBox.margin>
+                                    <Insets left="35.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="cancelButton" mnemonicParsing="false" text="CANCEL">
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>

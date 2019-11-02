@@ -7,6 +7,7 @@ import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.Command;
+import dukecooks.logic.commands.CreateCommand;
 import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.ExitCommand;
@@ -52,6 +53,9 @@ public class DukeCooksParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
+
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

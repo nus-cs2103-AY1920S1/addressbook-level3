@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Logic logic;
+    protected Logic logic;
     private UiManager uiManager;
 
     // Independent Ui parts residing in this Ui container
@@ -175,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), this, 0);
     }
 
     /**
@@ -356,7 +356,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -379,6 +379,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Executes the command from GUI and returns the {@code CommandResult}.
+     *
+     * @see Logic#execute(String)
+     */
+    public CommandResult executeGuiCommand(String commandText) {
+        try {
+            return executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
+            return null;
         }
     }
 }

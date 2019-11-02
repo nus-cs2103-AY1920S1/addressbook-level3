@@ -3,18 +3,27 @@ package dukecooks.ui;
 import java.util.logging.Logger;
 
 import dukecooks.commons.core.LogsCenter;
+import dukecooks.logic.Logic;
+import dukecooks.logic.commands.diary.AddPageCommand;
+import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.parser.DukeCooksParser;
+import dukecooks.logic.parser.ParserUtil;
+import dukecooks.logic.parser.diary.AddPageCommandParser;
+import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.Page;
+import dukecooks.model.diary.components.Title;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the diary feature.
  */
 public class DiaryListPanel extends UiPart<Region> {
     private static final String FXML = "DiaryListPanel.fxml";
@@ -27,17 +36,37 @@ public class DiaryListPanel extends UiPart<Region> {
     private HBox pageViewPanel;
 
     @FXML
+    private HBox pageInputPanel;
+
+    @FXML
+    private TextField pageTitleTextField;
+
+    @FXML
+    private TextField pageTypeTextField;
+
+    @FXML
+    private TextField pageDescriptionTextField;
+
+    @FXML
+    private TextField pageImageTextField;
+
+    @FXML
+    private TextField diaryNameTextField;
+
+    @FXML
     private ListView<Page> pageListView;
 
     @FXML
     private Label diaryHeader;
 
     private ObservableList<Diary> diaryList;
+    private MainWindow mainWindow;
 
-    public DiaryListPanel(ObservableList<Diary> diaryList, int targetIndex) {
+    public DiaryListPanel(ObservableList<Diary> diaryList, MainWindow mainWindow, int targetIndex) {
         super(FXML);
 
         this.diaryList = diaryList;
+        this.mainWindow = mainWindow;
         diaryListView.setItems(diaryList);
         diaryListView.setCellFactory(listView -> new DiaryListViewCell());
 
@@ -47,7 +76,7 @@ public class DiaryListPanel extends UiPart<Region> {
     }
 
     /**
-     * Initialises Page ScrollPane Config
+     * Initialises Page List View Config
      * Gives the overview of pages in that specified diary
      */
     void initializePageListView(int targetIndex) {
@@ -67,12 +96,15 @@ public class DiaryListPanel extends UiPart<Region> {
      * Display inner components within Diary Panel.
      * Make use of boolean variables to decide which components to show/hide.
      */
-    private void showPanels(boolean isShowDiaryList, boolean isShowPageViewPanel) {
+    private void showPanels(boolean isShowDiaryList, boolean isShowPageViewPanel, boolean isShowPageInputPanel) {
         diaryListView.setVisible(isShowDiaryList);
         diaryListView.setManaged(isShowDiaryList);
 
         pageViewPanel.setVisible(isShowPageViewPanel);
         pageViewPanel.setManaged(isShowPageViewPanel);
+
+        pageInputPanel.setVisible(isShowPageInputPanel);
+        pageInputPanel.setManaged(isShowPageInputPanel);
     }
 
     /**
@@ -83,15 +115,28 @@ public class DiaryListPanel extends UiPart<Region> {
         String[] typeArr = type.split("-", 2);
         switch (typeArr[0]) {
         case "all":
-            showPanels(true, true);
+            showPanels(true, true, false);
             break;
         case "update":
             initializePageListView(Integer.parseInt(typeArr[1]));
-            showPanels(true, true);
+            showPanels(true, true, false);
+            break;
+        case "pageInput":
+            showPanels(true, false, true);
             break;
         default:
             throw new AssertionError("Something's Wrong! Invalid Diary Records page type!");
         }
+    }
+
+    @FXML
+    void checkInput() throws ParseException, CommandException {
+        String command = "add page";
+        String diaryInput = " n/ " + diaryNameTextField.getText();
+        String titleInput = " t/ " + pageTitleTextField.getText();
+        String imageInput = " i/ " + pageImageTextField.getText();
+        String descInput = " desc/ " + pageDescriptionTextField.getText();
+        mainWindow.executeGuiCommand(command + diaryInput + titleInput + imageInput + descInput);
     }
 
     /**

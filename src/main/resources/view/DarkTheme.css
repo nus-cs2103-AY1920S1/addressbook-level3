@@ -321,31 +321,38 @@
     -fx-font-size: 36px;
 }
 
-#pageInputPanel #pageHeader {
-    -fx-font-size: 36px;
+#pageInputHeader {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
+    -fx-background-color: beige;
 }
 
-#pageInputPanel #pageSubHeader {
-    -fx-font-size: 20px;
+#titleInput, #typeInput, #descriptionInput, #imageInput {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
 }
 
 #pageInputPanel .text-field {
     -fx-prompt-text-fill: grey;
-    -fx-font-size: 12px;
+    -fx-font-size: 12;
 }
 
-#pageInputPanel #errorMessage {
-    -fx-text-fill: red;
-    -fx-font-size: 12px;
+#imageButton {
+    -fx-padding: 2 2 2 2;
+    -fx-border-radius: 5;
+    -fx-background-color: #90caf9;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 8pt;
+    -fx-text-fill: grey;
 }
 
-#pageInputPanel #confirmButton {
+#confirmButton {
     -fx-background-color: #81c784;
     -fx-border-radius: 5;
     -fx-text-fill: black;
 }
 
-#pageInputPanel #cancelButton {
+#cancelButton {
     -fx-background-color: #ff5252;
     -fx-border-radius: 5;
     -fx-text-fill: black ;
@@ -373,6 +380,7 @@
 .pageCard .description {
     -fx-font-size: 14px;
 }
+
 #pageListView {
     -fx-background-insets: 0;
     -fx-padding: 0 0 0 0;

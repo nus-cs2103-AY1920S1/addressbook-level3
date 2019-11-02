@@ -33,6 +33,7 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPageCommand parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DIARY_NAME, PREFIX_PAGE_TITLE,
                         PREFIX_IMAGE, PREFIX_PAGE_DESCRIPTION);
@@ -52,6 +53,8 @@ public class AddPageCommandParser implements Parser<AddPageCommand> {
         Page pageToAdd = new Page(title, description, image);
         return new AddPageCommand(pageToAdd, diaryName);
     }
+
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
