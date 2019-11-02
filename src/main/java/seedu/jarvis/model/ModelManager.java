@@ -66,7 +66,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with JARVIS: " + addressBook + " and user prefs " + userPrefs);
 
         this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
