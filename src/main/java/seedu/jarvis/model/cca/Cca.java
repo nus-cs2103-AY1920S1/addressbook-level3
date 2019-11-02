@@ -85,11 +85,19 @@ public class Cca {
     }
 
     /**
+     * Gets {@code CcaCurrentProgress} as an int.
+     */
+    public int getCcaCurrentProgressAsInt() {
+        return ccaProgress.getCcaCurrentProgressAsInt();
+    }
+
+    /**
      * Returns true if the cca progresslist is empty.
      *
      * @return true if the cca progresslist is empty.
      */
     public boolean ccaMilestoneListIsEmpty() {
+
         return ccaProgress.ccaMilestoneListIsEmpty();
     }
 

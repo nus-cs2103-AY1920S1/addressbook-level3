@@ -20,6 +20,7 @@ public class CcaCard extends UiPart<Region> {
 
     private static final String FXML = "CcaListCard.fxml";
     private static final String TEXT_CCA_PROGRESS_NOT_SET_YET = "Not set";
+    private static final String TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET = "Not incremented";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -91,9 +92,13 @@ public class CcaCard extends UiPart<Region> {
     private void setProgressName() {
         if (cca.ccaMilestoneListIsEmpty()) {
             progressName.setText(TEXT_CCA_PROGRESS_NOT_SET_YET);
-        } else {
-            progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
+            return;
+        } else if (cca.getCcaCurrentProgressAsInt() == 0) {
+            progressName.setText(TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET);
+            return;
         }
+
+        progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
     }
 
     /**

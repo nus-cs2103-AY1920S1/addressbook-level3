@@ -25,7 +25,7 @@ public class IncreaseProgressCommand extends Command {
     public static final String COMMAND_WORD = "increment-progress";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a progress tracker to a cca. "
+            + ": Increases progress for the chosen cca. "
             + "Parameters: INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " "
             + "1 ";
