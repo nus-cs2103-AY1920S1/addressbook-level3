@@ -34,7 +34,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
         Word word = ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get());
         File directory = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILEPATH).get());
-        // todo check validation of directory and file
 
         return new ImportCommand(word.toString(), directory);
     }

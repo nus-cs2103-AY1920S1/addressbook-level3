@@ -1,11 +1,13 @@
 package seedu.address.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.globalstatistics.GlobalStatistics;
@@ -41,7 +43,7 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     void removeWordBank(String wordBankName);
 
     @Override
-    void importWordBank(String wordBankName, Path filePath);
+    void importWordBank(String wordBankName, Path filePath) throws DataConversionException, FileNotFoundException, IllegalValueException;
 
     @Override
     void exportWordBank(String wordBankName, Path filePath);

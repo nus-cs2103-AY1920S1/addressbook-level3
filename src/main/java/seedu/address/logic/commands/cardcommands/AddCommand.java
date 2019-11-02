@@ -24,9 +24,9 @@ public class AddCommand extends CardCommand {
             + PREFIX_MEANING + "MEANING "
             + "[" + PREFIX_TAG + "TAG] \n"
             + "Eg: " + COMMAND_WORD + " "
-            + PREFIX_WORD + "Charmander "
-            + PREFIX_MEANING + "Fire starter pokemon "
-            + PREFIX_TAG + "Fire";
+            + PREFIX_WORD + "CS2103 "
+            + PREFIX_MEANING + "Software engineering NUS module code "
+            + PREFIX_TAG + "CS";
 
     private final Card toAdd;
 

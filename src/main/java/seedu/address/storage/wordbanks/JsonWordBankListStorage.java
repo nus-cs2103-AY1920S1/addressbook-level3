@@ -3,6 +3,7 @@ package seedu.address.storage.wordbanks;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -49,7 +50,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates information related to word bank at specified folder.
      *
      * @param filePath of storage. By default, it is at data folder.
-     * @param folder specifies another layer of folder to contain word banks.
+     * @param folder   specifies another layer of folder to contain word banks.
      */
     public JsonWordBankListStorage(Path filePath, String folder) throws DataConversionException, IllegalValueException {
         initData(filePath, folder);
@@ -157,8 +158,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             String wordBankName = pathName.substring(len + 1, pathName.length() - ".json".length());
             return Optional.of(jsonWordBank.get().toModelTypeWithName(wordBankName));
 
-        } catch (DataConversionException e) {
-            throw e;
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw ive;
@@ -188,7 +187,7 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             FileUtil.createIfMissing(wordBankFilePath);
             JsonUtil.saveJsonFile(new JsonSerializableWordBank(wordBank), wordBankFilePath);
         } catch (IOException e) {
-            assert(false);
+            assert (false);
             e.printStackTrace();
         }
     }
@@ -253,21 +252,25 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Creates the word bank specified by the file path, add to internal list, and then add to storage.
      *
      * @param wordBankName cannot be null.
-     * @param filePath cannot be null.
+     * @param filePath     cannot be null.
      */
     @Override
-    public void importWordBank(String wordBankName, Path filePath) {
+    public void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, FileNotFoundException, IllegalValueException {
+
         Path finalPath = Paths.get(filePath.toString(), wordBankName + ".json");
-        WordBank wb = null;
-        try {
-            wb = (WordBank) jsonToWordBank(finalPath).get();
-        } catch (DataConversionException | IllegalValueException e) {
-            logger.info("Unable to import " + e.getMessage());
-            e.printStackTrace();
+        Optional<ReadOnlyWordBank> optWb = jsonToWordBank(finalPath);
+
+        if (optWb.isPresent()) {
+            WordBank wb = (WordBank) optWb.get();
+            addWordBank(wb);saveWordBank(wb);
+
+        } else {
+            throw new FileNotFoundException();
         }
-        addWordBank(wb);
-        saveWordBank(wb);
     }
+
+
 
     /**
      * Retrieves the word bank, add to internal list, then add to storage.

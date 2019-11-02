@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.nio.file.Path;
@@ -12,6 +13,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.cardcommands.CardCommandResult;
@@ -28,6 +31,7 @@ import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.WordBankStatistics;
@@ -64,7 +68,6 @@ public class LogicManager implements Logic, UiLogicHelper {
         Command command = parserManager.parseCommand(commandText);
         commandResult = command.execute(model);
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
-        // @@author
 
         // todo need to save wordbankstatistics after deletion.
         // todo possible solution -> just save on every command like how the word bank is saved.
@@ -77,14 +80,22 @@ public class LogicManager implements Logic, UiLogicHelper {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
             }
 
-            if (commandResult instanceof WordBankCommandResult) {
-                WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
-                wordBankCommandResult.updateStorage(storage);
-            }
-
             if (commandResult instanceof CardCommandResult) {
                 CardCommandResult cardCommandResult = (CardCommandResult) commandResult;
                 cardCommandResult.updateStorage(storage, (WordBank) model.getCurrentWordBank());
+            }
+
+            if (commandResult instanceof WordBankCommandResult) {
+                WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
+                try {
+                    wordBankCommandResult.updateStorage(storage);
+                } catch (DataConversionException e) {
+                    commandResult = new CommandResult("Word bank file is corrupted.");
+                } catch (FileNotFoundException e) {
+                    commandResult = new CommandResult("File does not exist.");
+                } catch (IllegalValueException | DuplicateWordBankException e) {
+                    commandResult = new CommandResult(e.getMessage());
+                }
             }
 
         } catch (IOException ioe) {

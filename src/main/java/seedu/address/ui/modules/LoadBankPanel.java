@@ -1,6 +1,7 @@
 package seedu.address.ui.modules;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.logging.Logger;
@@ -12,6 +13,8 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.storage.Storage;
 import seedu.address.ui.UiPart;
@@ -77,7 +80,15 @@ public class LoadBankPanel extends UiPart<Region> {
             String childString = p.getFileName().toString();
 
             String wordBankName = childString.substring(0, childString.length() - ".json".length());
-            storage.importWordBank(wordBankName, p.getParent());
+            try {
+                storage.importWordBank(wordBankName, p.getParent());
+            } catch (DataConversionException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
         }
     }
 

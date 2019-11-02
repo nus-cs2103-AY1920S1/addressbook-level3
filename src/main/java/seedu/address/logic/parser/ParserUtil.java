@@ -64,7 +64,7 @@ public class ParserUtil {
         }
         File directory = Paths.get(trimmedPathFile).toFile();
         if (!directory.exists()) {
-            throw new ParseException("File does not exist");
+            throw new ParseException("Folder does not exist");
         }
         return directory;
     }

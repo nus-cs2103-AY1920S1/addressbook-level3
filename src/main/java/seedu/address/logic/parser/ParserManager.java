@@ -28,7 +28,7 @@ import seedu.address.logic.commands.switches.SwitchToHomeCommand;
 import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.commands.switches.SwitchToStartCommand;
-import seedu.address.logic.commands.wordbankcommands.BankCommand;
+import seedu.address.logic.commands.wordbankcommands.SelectCommand;
 import seedu.address.logic.commands.wordbankcommands.CreateCommand;
 import seedu.address.logic.commands.wordbankcommands.ExportCommand;
 import seedu.address.logic.commands.wordbankcommands.HelpCommand;
@@ -124,7 +124,7 @@ public class ParserManager {
             temp.add(SwitchToExitCommand.class, null);
             return temp;
         case HOME:
-            temp.add(BankCommand.class, BankCommandParser.class);
+            temp.add(SelectCommand.class, BankCommandParser.class);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);

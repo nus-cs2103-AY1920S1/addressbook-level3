@@ -2,6 +2,7 @@ package seedu.address.logic.commands.wordbankcommands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME;
 
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,9 +13,9 @@ import seedu.address.statistics.WordBankStatistics;
 /**
  * Selects a word bank.
  */
-public class BankCommand extends WordBankCommand {
+public class SelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "bank";
+    public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + " WORDBANK \n"
@@ -26,7 +27,7 @@ public class BankCommand extends WordBankCommand {
 
     private String name;
 
-    public BankCommand(String name) {
+    public SelectCommand(String name) {
         this.name = name;
     }
 

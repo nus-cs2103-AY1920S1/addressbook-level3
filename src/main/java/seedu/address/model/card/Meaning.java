@@ -51,7 +51,7 @@ public class Meaning {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Meaning // instanceof handles nulls
-                && value.equals(((Meaning) other).value)); // state check
+                && value.toLowerCase().equals(((Meaning) other).value.toLowerCase())); // state check
     }
 
     @Override

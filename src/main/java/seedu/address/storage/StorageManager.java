@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
@@ -89,7 +91,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void importWordBank(String wordBankName, Path filePath) {
+    public void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, FileNotFoundException, IllegalValueException {
         wordBankListStorage.importWordBank(wordBankName, filePath);
     }
 
