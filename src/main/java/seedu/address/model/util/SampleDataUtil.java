@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import seedu.address.model.FinSec;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
@@ -37,8 +38,8 @@ public class SampleDataUtil {
 
     public static Income[] getSampleIncomes() {
         return new Income[] {
-                new Income(new Description("Shirt sales"), new Amount("100"), new Date("11-11-2019"),
-                        new Name("Joshua Seet"), new Phone("98279222"),getTagSet("FOP"))
+            new Income(new Description("Shirt sales"), new Amount("100"), new Date("11-11-2019"),
+                    new Name("Joshua Seet"), new Phone("98279222"), getTagSet("FOP"))
         };
     }
 
