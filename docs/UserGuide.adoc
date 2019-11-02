@@ -149,9 +149,9 @@ A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is 
 *Examples:*
 
 * `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
-* `add n/chicken breast c/1.80 t/meat` +
+* `add n/chicken breast c/1.80 d/today t/meat` +
 * `add n/coffee c/1.20 d/today` +
-* `add n/milo c/1.50 r/I love milo` +
+* `add n/milo c/1.50 d/tomorrow r/I love milo` +
 * `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
 *Expected Output:*
