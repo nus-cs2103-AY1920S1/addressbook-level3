@@ -8,9 +8,9 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UiChange;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
@@ -19,7 +19,7 @@ import seedu.address.model.schedule.Schedule;
 /**
  * Deletes a schedule identified using it's order's displayed index in the SML.
  */
-public class DeleteScheduleCommand extends Command {
+public class DeleteScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "delete-s";
 
@@ -38,7 +38,7 @@ public class DeleteScheduleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory commandHistory,
+    public CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
                                  UndoRedoStack undoRedoStack) throws CommandException {
         requireNonNull(model);
 
