@@ -18,7 +18,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.jarvis.commons.core.tag.Tag;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
