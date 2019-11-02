@@ -35,9 +35,9 @@ public class EditCurrencyParser implements PageParser<Command> {
         switch (commandType) {
         case EDIT:
             return new EditCurrencyFieldParser().parse(arguments);
-        case DONE:
+        case ADD:
             return new DoneEditCurrencyParser().parse(arguments);
-        case CANCEL:
+        case RETURN:
             return new CancelEditCurrencyParser().parse(arguments);
         case DELETE:
             return new DeleteCurrencyParser().parse(arguments);

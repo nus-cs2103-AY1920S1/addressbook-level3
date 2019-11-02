@@ -5,8 +5,8 @@ package seedu.address.logic.parser.currency;
  */
 public enum EditCurrencyCommand {
     EDIT,
-    DONE,
-    CANCEL,
+    ADD,
+    RETURN,
     DELETE,
     SELECT
 }

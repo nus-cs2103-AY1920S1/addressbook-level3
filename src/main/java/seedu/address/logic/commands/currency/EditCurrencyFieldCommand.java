@@ -20,7 +20,7 @@ import seedu.address.model.itinerary.Name;
 
 /**
  *
- * Constructs a command that attempts to modify the current values in the edit expenditure page.
+ * Constructs a command that attempts to modify the current values in the currency page.
  *
  */
 public class EditCurrencyFieldCommand extends Command {
