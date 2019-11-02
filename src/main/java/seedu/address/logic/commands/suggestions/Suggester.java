@@ -121,7 +121,8 @@ public abstract class Suggester {
 
     /**
      * Gets a list of person names contained within the {@link Model} that match the {@link CommandArgument#getValue()}.
-     * Requires the {@code commandArgument} to be of type {@link CliSyntax#PREFIX_NAME}.
+     * Requires the {@code commandArgument} to be of type {@link CliSyntax#PREFIX_NAME} or
+     * {@link CliSyntax#PREFIX_EDIT}.
      *
      * @param model           The {@link Model} containing the {@link seedu.address.model.person.Person}s to look
      *                        through.
@@ -133,7 +134,7 @@ public abstract class Suggester {
         CollectionUtil.requireAllNonNull(model, commandArgument);
 
         final Prefix prefix = commandArgument.getPrefix();
-        assert prefix.equals(CliSyntax.PREFIX_NAME);
+        assert prefix.equals(CliSyntax.PREFIX_NAME) || prefix.equals(CliSyntax.PREFIX_EDIT);
 
         final String personNameInput = commandArgument.getValue();
         return model.personSuggester(personNameInput);
@@ -141,7 +142,8 @@ public abstract class Suggester {
 
     /**
      * Gets a list of group names contained within the {@link Model} that match the {@link CommandArgument#getValue()}.
-     * Requires the {@code commandArgument} to be of type {@link CliSyntax#PREFIX_GROUPNAME}.
+     * Requires the {@code commandArgument} to be either of type {@link CliSyntax#PREFIX_GROUPNAME}
+     * or {@link CliSyntax#PREFIX_EDIT}.
      *
      * @param model           The {@link Model} containing the {@link seedu.address.model.group.Group}s to look through.
      * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_GROUPNAME} containing the name
@@ -152,7 +154,7 @@ public abstract class Suggester {
         CollectionUtil.requireAllNonNull(model, commandArgument);
 
         final Prefix prefix = commandArgument.getPrefix();
-        assert prefix.equals(CliSyntax.PREFIX_GROUPNAME);
+        assert prefix.equals(CliSyntax.PREFIX_GROUPNAME) || prefix.equals(CliSyntax.PREFIX_EDIT);
 
         final String groupNameInput = commandArgument.getValue();
         return model.groupSuggester(groupNameInput);
