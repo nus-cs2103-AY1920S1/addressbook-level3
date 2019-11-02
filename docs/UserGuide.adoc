@@ -125,16 +125,16 @@ A pop-up dialog box will display a URL link to a help document.
 
     Format: help
 
-=== Listing all StudyBuddy items by their tag : `filterall`
+=== Listing all StudyBuddyPro items by their tag : `filterall`
 
-Lists all StudyBuddy items with matching tags in the application.
+Lists all StudyBuddyPro items with matching tags in the application.
 
     Format: filterall tag/TAG [tag/TAG]...
 
     Example usage: filterall tag/CS2100
 
     Expected output:
-        Lists the whole StudyBuddy after filtering by tag(s) :
+        Lists the whole StudyBuddyPro after filtering by tag(s) :
     CS2100
     Flashcard: 6.
         Question: What is 101 Binary in its Decimal form?
@@ -155,6 +155,8 @@ Lists all StudyBuddy items with matching tags in the application.
         Content: highlighted
         Tags: [cs2100]
 
+NOTE: 'Note Fragments' (as seen in the example above) are described further in the Notes section (see Section 6.1).
+
 The user is also able to specify a multiple number of tags.
 For example,
 
@@ -162,7 +164,6 @@ For example,
 
 will list all items that match all of the specified tags.
 
-NOTE: 'Note Fragments' are described further in the Notes section (see Section 6.1).
 
 === Exiting the application: `exit`
 
@@ -299,7 +300,7 @@ The user will be prompted once to confirm their deletion.
 	    Tags: [cs2100]
         Hit enter again to confirm your deletion.
 
-Upon hitting enter, then the flashcard will be deleted.
+Upon hitting enter, the flashcard will be deleted.
 
     Expected output: Deleted Flashcard:
         Question: What is 101 Binary in its Decimal form?
@@ -399,19 +400,26 @@ same time as the note is created.
 
     Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
 
-NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not 'tag/'.
+IMPORTANT: The format for Note fragment content is 'C/', not 'c/', and the format for Note fragment tags is 'TAG/', not
+'tag/'.
 
 * In the following example, two note fragment tags are added to the same note fragment:
 
     Example usage: add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
 
-    Expected output:
+Expected output:
+
     New note added:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
+* This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
+"highlighted" and two tags "cs2100" and "important".
+
 * Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
+
+IMPORTANT: Overlapping note fragment tags are not allowed.
 
 NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
@@ -434,11 +442,11 @@ The user will be prompted once to confirm their deletion.
         Tags: [about]
         Hit enter again to confirm your deletion.
 
-Upon hitting enter, then the note will be deleted.
+Upon hitting enter, the note will be deleted.
 
     Deleted note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Viewing a note: `view`
@@ -454,7 +462,7 @@ NOTE: To view the note with its note fragment tags, use the `viewraw` command in
     Expected output:
     Viewing note:
         Title: About
-        Content: Notes can be highlighted if needed
+        Content: Notes can be highlighted if needed.
         Tags: [about]
 
 === Viewing a raw note: `viewraw`
@@ -468,7 +476,7 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
     Expected output:
     Viewing raw note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Listing notes: `list`
@@ -591,7 +599,7 @@ The user will be prompted once to confirm their deletion.
             [ 2. 110 in Binary is 6 is Decimal ]
         Hit enter again to confirm your deletion.
 
-Upon hitting enter, then the specified cheatsheet will be deleted.
+Upon hitting enter, the specified cheatsheet will be deleted.
 
     Expected output: Deleted Cheatsheet:
         Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]

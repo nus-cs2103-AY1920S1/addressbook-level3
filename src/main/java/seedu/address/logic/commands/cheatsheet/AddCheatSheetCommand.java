@@ -22,8 +22,6 @@ import seedu.address.model.flashcard.Flashcard;
 import seedu.address.model.flashcard.FlashcardContainsTagPredicate;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NoteContainsTagPredicate;
-import seedu.address.model.note.NoteFragment;
-import seedu.address.model.note.NoteFragmentContainsTagPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -83,30 +81,21 @@ public class AddCheatSheetCommand extends Command {
     }
 
     /**
-     * Retrieves all the notes with the relevant tags
+     * Retrieves all the notes and flashcards with the relevant tags
      */
     public Set<Content> getRelevantContents(Set<Tag> tags, Model model) {
         Set<Content> contentList = new HashSet<>();
 
-        // get within the notes
+        // get all notes and their fragments
         ObservableList<Note> noteList = model.getFilteredNoteList();
-        NoteFragmentContainsTagPredicate noteFragmentTagPredicate =
-                new NoteFragmentContainsTagPredicate(tags);
-
-        for (Note note: noteList) {
-            for (NoteFragment nf : note.getNoteFragments()) {
-                if (noteFragmentTagPredicate.test(nf)) {
-                    contentList.add(new Content(nf.getContent().toString(), nf.getTags()));
-                }
-            }
-        }
-
-        // get all notes
         NoteContainsTagPredicate noteTagPredicate = new NoteContainsTagPredicate(tags);
         model.updateFilteredNoteList(noteTagPredicate);
 
         for (Note note: noteList) {
             contentList.add(new Content(note.getContentCleanedFromTags().toString(), note.getTags()));
+            for (Note noteFrag : note.getFilteredNoteFragments(noteTagPredicate)) {
+                contentList.add(new Content(noteFrag.getContent().toString(), noteFrag.getTags()));
+            }
         }
 
         // get all flashcards
@@ -115,8 +104,8 @@ public class AddCheatSheetCommand extends Command {
         ObservableList<Flashcard> flashcardList = model.getFilteredFlashcardList();
 
         for (Flashcard flashcard: flashcardList) {
-            contentList.add(new Content(flashcard.getQuestion().toString(),
-                    flashcard.getAnswer().toString(), flashcard.getTags()));
+            contentList.add(new Content(flashcard.getQuestion().toString(), flashcard.getAnswer().toString(),
+                    flashcard.getTags()));
         }
 
         return contentList;

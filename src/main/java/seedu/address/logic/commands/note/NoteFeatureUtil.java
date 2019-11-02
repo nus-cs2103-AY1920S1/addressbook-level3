@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods used for parsing content strings in the Note classes. Parsed content is then used to
  * create NoteFragment objects, if necessary.
  */
-public class NoteFragmentFeatureUtil {
+public class NoteFeatureUtil {
     /**
      * Parses a {@code Note note} into a {@code List<NoteFragment>}.
      * @param note The Note to parse.
@@ -72,7 +72,7 @@ public class NoteFragmentFeatureUtil {
             ArgumentMultimap argMultimapCheck = ArgumentTokenizer.tokenize(string, PREFIX_NOTE_FRAGMENT_CONTENT,
                     PREFIX_NOTE_FRAGMENT_TAG);
 
-            if (!NoteFragmentFeatureUtil.arePrefixesPresent(argMultimapCheck, PREFIX_NOTE_FRAGMENT_CONTENT,
+            if (!NoteFeatureUtil.arePrefixesPresent(argMultimapCheck, PREFIX_NOTE_FRAGMENT_CONTENT,
                     PREFIX_NOTE_FRAGMENT_TAG)) {
                 throw new ParseException(MESSAGE_INCORRECT_NOTE_FRAGMENT_FORMAT);
             }
