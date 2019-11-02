@@ -2,8 +2,11 @@ package seedu.moneygowhere.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import seedu.moneygowhere.model.budget.Budget;
 
@@ -15,7 +18,7 @@ public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
 
     @FXML
-    private StackPane panePlaceHolder;
+    private HBox panePlaceHolder;
 
     @FXML
     private Label remainingBudget;
@@ -67,7 +70,7 @@ public class BudgetPanel extends UiPart<Region> {
         String defaultOutput = String.format("$%.2f", remainingAmount);
         if (percentDiff < 0) {
             remainingBudget.setTextFill(Color.web("#FF0000"));
-            return defaultOutput + " exceeded";
+            return "-" + defaultOutput;
         }
 
         if (percentDiff == 0) {
@@ -78,7 +81,7 @@ public class BudgetPanel extends UiPart<Region> {
             remainingBudget.setTextFill(Color.web("#00698B"));
         }
 
-        return defaultOutput + " left to spend";
+        return defaultOutput;
     }
 
     private String getBudgetRemark() {
@@ -87,11 +90,11 @@ public class BudgetPanel extends UiPart<Region> {
             return "Your money go where ahh?";
         } else {
             budgetRemark.setTextFill(Color.web("#00FF00"));
-            return "You are spending within your budget. Great Job!";
+            return "";
         }
     }
 
     private String getBudgetAmount() {
-        return "Your budget for this month is $" + String.format("%.02f", amount);
+        return "This month's budget: $" + String.format("%.02f", amount);
     }
 }

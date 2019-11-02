@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane id="panePlaceHolder" fx:id="panePlaceHolder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="800" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox alignment="CENTER">
-         <children>
-            <Label id="budgetRemark" fx:id="budgetRemark" alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="${panePlaceHolder.width}" styleClass="cell_big_label" textAlignment="CENTER" textOverrun="CLIP" />
-            <Label id="remainingBudget" fx:id="remainingBudget" alignment="CENTER" contentDisplay="CENTER" prefWidth="${panePlaceHolder.width}" styleClass="cell_big_label" />
-            <Label id="budgetAmount" fx:id="budgetAmount" alignment="TOP_CENTER" contentDisplay="CENTER" prefWidth="${panePlaceHolder.width}" styleClass="cell_big_label" textAlignment="CENTER" textOverrun="CLIP" />
-         </children>
-      </VBox>
-   </children>
-</StackPane>
+<HBox fx:id="panePlaceholder" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <ImageView fitHeight="87.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../images/money.png" />
+      </image>
+         <HBox.margin>
+            <Insets top="10.0" />
+         </HBox.margin>
+    </ImageView>
+
+    <VBox alignment="CENTER">
+      <children>
+        <Label id="budgetRemark" fx:id="budgetRemark" styleClass="cell_big_label" text="\$remark" textAlignment="CENTER" textOverrun="CLIP" />
+        <Label id="remainingBudget" fx:id="remainingBudget" styleClass="cell_big_label" text="\$remaining" />
+        <Label id="budgetAmount" fx:id="budgetAmount" styleClass="cell_big_label" text="\$amount" textAlignment="CENTER">
+
+        </Label>
+      </children>
+    </VBox>
+  </children>
+</HBox>

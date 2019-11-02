@@ -11,6 +11,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.moneygowhere.commons.core.GuiSettings;
 import seedu.moneygowhere.commons.core.LogsCenter;
@@ -26,7 +27,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static final String FXML = "MainWindow.fxml";
+    private static final String FXML = "MainWindow2.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -63,7 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     private TabPane tabPanePlaceholder;
 
     @FXML
-    private StackPane budgetPanelPlaceholder;
+    private VBox budgetPanelPlaceholder;
 
     @FXML
     private BudgetPanel budgetPanel;
@@ -178,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
     void show() {
         primaryStage.show();
         primaryStage.setMaximized(true);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
     }
 
     /**
