@@ -10,6 +10,10 @@ import java.util.function.Predicate;
 public class VNumKeywordsPredicate implements Predicate<Vehicle> {
     private final List<String> keywords = new ArrayList<>();
 
+    public VNumKeywordsPredicate(String vNumKeywords) {
+        this.keywords.add(vNumKeywords);
+    }
+
     public VNumKeywordsPredicate(VehicleNumber vNumKeywords) {
         this.keywords.add(vNumKeywords.toString());
     }

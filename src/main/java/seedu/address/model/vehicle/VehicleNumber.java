@@ -10,13 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class VehicleNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Vehicle Numbers should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Vehicle Numbers should only contain alphanumeric characters and spaces, and it should not be blank. \n"
+            + "All vehicle numbers must follow the format: ABC1234D";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX =
+            "[\\p{Upper}][\\p{Upper}][\\p{Upper}][\\p{Digit}][\\p{Digit}][\\p{Digit}][\\p{Digit}][\\p{Upper}]";
 
     private final String vehicleNumber;
 

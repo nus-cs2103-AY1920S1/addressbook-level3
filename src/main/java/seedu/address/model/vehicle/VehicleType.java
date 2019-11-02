@@ -1,5 +1,7 @@
 package seedu.address.model.vehicle;
 
+import java.util.ArrayList;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -17,6 +19,11 @@ public class VehicleType {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final String[] vehicleTypes = new String[] {
+            "Ambulance",
+            "Patrol Car"
+    };
 
     private final String vehicleType;
 
