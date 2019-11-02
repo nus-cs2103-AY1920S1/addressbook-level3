@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.model.Model;
 
 /**
@@ -13,6 +14,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        ClipboardUtil.copyToClipboard("", null);
         return CommandResult.builder(MESSAGE_EXIT_ACKNOWLEDGEMENT)
                 .exit()
                 .build();
