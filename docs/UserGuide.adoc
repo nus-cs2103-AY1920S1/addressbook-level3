@@ -51,7 +51,8 @@ These steps will guide you in installing MoneyGoWhere on your computer.
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
-.  Double-click the file to start the app. The GUI should appear in a few seconds as shown in `Figure 1`.
+.  Double-click the file to start the app. The GUI should appear in a few seconds  as seen in Figure 1.
+MoneyGoWhere comes preloaded with sample data to allow you to explore and familiarise with the application.
 
 +
 .User Interface of MoneyGoWhere
@@ -66,7 +67,10 @@ e.g. typing *`help`* will display the help information.
 * **`delete`**`3` : deletes the 3rd spending shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. When you are ready to get started on tracking your own finances, do type `clear` in the command box and press kbd:[Enter].
+This removes all the sample data from the application.
+. You can refer to <<Features>> for more details about each command.
+
 // end::introduction[]
 
 [[Features]]
