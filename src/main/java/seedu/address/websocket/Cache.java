@@ -59,6 +59,7 @@ public class Cache {
     private static NusModsApi api = new NusModsApi(AppSettings.DEFAULT_ACAD_YEAR);
     private static Optional<Object> gmapsPlaces = load(CacheFileNames.GMAPS_PLACES_PATH);
     private static Optional<Object> gmapsDistanceMatrix = load(CacheFileNames.GMAPS_DISTANCE_MATRIX_PATH);
+    private static Optional<Object> gmapsPlaceDetails = load(CacheFileNames.GMAPS_PLACE_DETAILS_PATH);
 
     /**
      * Save json to file in cache folder.
@@ -381,21 +382,60 @@ public class Cache {
         return result;
     }
 
+    /**
+     * This method is used to load the info of the place by Google Maps from the cache or Google Maps API
+     *
+     * @param placeId
+     * @return
+     */
+    public static JSONObject loadPlaceDetails(String placeId) {
+        String fullUrl = UrlUtil.generateGmapsPlaceDetailsUrl(placeId);
+        String sanitizedUrl = UrlUtil.sanitizeApiKey(fullUrl);
+        JSONObject placesJson = new JSONObject();
+        if (gmapsPlaceDetails.isPresent()) {
+            placesJson = (JSONObject) gmapsPlaceDetails.get();
+        }
+
+        JSONObject result = new JSONObject();
+        if (placesJson.get(sanitizedUrl) != null) {
+            result = (JSONObject) placesJson.get(sanitizedUrl);
+        } else {
+            try {
+                checkGmapsKey(fullUrl);
+                logger.info("Getting placeID: " + placeId + " data from Google Maps API");
+                result = GmapsApi.getPlaceDetails(placeId);
+                saveToJson(sanitizedUrl, result, CacheFileNames.GMAPS_PLACE_DETAILS_PATH);
+            } catch (ConnectException e) {
+                logger.info(e.getMessage());
+                logger.severe("Failed to get info for " + placeId + " from caching and API");
+            }
+        }
+        return result;
+    }
+
     private static void checkGmapsKey(String url) throws ConnectException {
         if (url.split("key=").length == 1) {
             throw new ConnectException("Enter API key to make API call");
         }
     }
 
-    //TODO: change to return Image object instead.
     /**
      * This method is used to get the file path for the image
      *
      * @param validLocation the location name with prefix NUS_
      * @return the path of the image
      */
-    public static String imagePath(String validLocation) {
+    public static String loadImagePath(String validLocation) {
         return CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
+    }
+
+    /**
+     * This method return the image write path
+     * @param validLocation
+     * @return
+     */
+    public static String writeImagePath(String validLocation) {
+        return writablePath + CacheFileNames.GMAPS_IMAGE_DIR + validLocation + ".png";
     }
 
     /**
@@ -404,7 +444,7 @@ public class Cache {
      * @return
      */
     public static BufferedImage loadImage(String validLocation) {
-        String path = imagePath(validLocation);
+        String path = loadImagePath(validLocation);
         final InputStream resourceStream = Cache.class.getResourceAsStream(path);
         BufferedImage img = null;
         try {

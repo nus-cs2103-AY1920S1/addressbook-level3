@@ -1,6 +1,7 @@
 package seedu.address.websocket.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -53,6 +54,13 @@ class UrlUtilTest {
     }
 
     @Test
+    void generateGmapsPlaceDetailsUrl() {
+        String expected = "https://maps.googleapis.com/maps/api/place/details/json?"
+                + "place_id=ChIJBeHqfnAb2jERL1OoMUzA7yE&key=&";
+        assertEquals(UrlUtil.generateGmapsPlaceDetailsUrl("ChIJBeHqfnAb2jERL1OoMUzA7yE"), expected);
+    }
+
+    @Test
     void generateDistanceMatrixUrl() {
         ArrayList<Location> tooLongStringList = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
@@ -78,8 +86,13 @@ class UrlUtilTest {
     @Test
     void generateGmapsStaticImage() {
         String expectedUrl = "https://maps.googleapis.com/maps/api/staticmap?size=500x500&zoom=17"
-                + "&markers=color:blue|size:large|label:L|NUS_LT17&center=NUS_LT17&key=&";
-        assertEquals(UrlUtil.generateGmapsStaticImage("NUS_LT17"), expectedUrl);
+                + "&markers=color:red|size:large|label:L|1.2345,5.678&center=1.2345,5.678&key=&";
+        assertEquals(UrlUtil.generateGmapsStaticImage("1.2345,5.678"), expectedUrl);
+    }
+
+    @Test
+    void isGmapsKeyPresent() {
+        assertFalse(UrlUtil.isGmapsKeyPresent());
     }
 }
 

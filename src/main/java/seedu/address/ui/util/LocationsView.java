@@ -38,7 +38,7 @@ public class LocationsView extends UiPart<Region> {
 
     public LocationsView(ClosestCommonLocationData data) {
         super(FXML);
-        Image placeHolder = SwingFXUtils.toFXImage(data.getImage(), null);
+        Image placeHolder = SwingFXUtils.toFXImage(data.getImageFirst(), null);
         ImageView imageView = new ImageView(placeHolder);
         imageView.setFitWidth(400.0);
         imageView.setFitHeight(400.0);

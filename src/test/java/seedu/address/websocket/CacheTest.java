@@ -83,8 +83,14 @@ class CacheTest {
     }
 
     @Test
-    public void imagePath() {
-        String expectedPath = Cache.imagePath("NUS_foo");
-        assertTrue(expectedPath.contains("NUS_foo.png"));
+    public void loadImagePath() {
+        String actualPath = Cache.loadImagePath("NUS_foo");
+        assertEquals("/ApiResponseCache/GoogleMapsApi/GmapsImages/NUS_foo.png", actualPath);
+    }
+
+    @Test
+    public void writeImagePath() {
+        String actualPath = Cache.writeImagePath("NUS_foo");
+        assertEquals("src/main/resources//ApiResponseCache/GoogleMapsApi/GmapsImages/NUS_foo.png", actualPath);
     }
 }

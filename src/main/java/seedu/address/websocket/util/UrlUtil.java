@@ -114,16 +114,36 @@ public class UrlUtil {
     }
 
     /**
-     * This method is used to get image from GMAPS and save to local directory
-     * @param validLocationName
+     * This method is used to get the details of a place from the place id
+     * @param placeId
      * @return
      */
-    public static String generateGmapsStaticImage(String validLocationName) {
+    public static String generateGmapsPlaceDetailsUrl(String placeId) {
+        String baseUrl = "https://maps.googleapis.com/maps/api/place/details/json?";
+        String placeIdQueryParams = "place_id=" + placeId + "&";
+        String apiKeyQueryParams = "key=" + gmapsApiKey + "&";
+        String fullUrl = baseUrl + placeIdQueryParams + apiKeyQueryParams;
+        return fullUrl;
+    }
+
+    /**
+     * This method is used to get image from GMAPS and save to local directory
+     * @param coordinates
+     * @return
+     */
+    public static String generateGmapsStaticImage(String coordinates) {
         String baseUrl = "https://maps.googleapis.com/maps/api/staticmap?size=500x500&zoom=17";
-        String markerQueryParam = "&markers=color:blue|size:large|label:L|" + validLocationName;
-        String centerQueryParam = "&center=" + validLocationName;
+        String markerQueryParam = "&markers=color:red|size:large|label:L|" + coordinates;
+        String centerQueryParam = "&center=" + coordinates;
         String apiKeyQueryParams = "&key=" + gmapsApiKey + "&";
         String fullUrl = baseUrl + markerQueryParam + centerQueryParam + apiKeyQueryParams;
         return fullUrl;
+    }
+
+    /**
+     *
+     */
+    public static boolean isGmapsKeyPresent() {
+        return gmapsApiKey.length() != 0;
     }
 }

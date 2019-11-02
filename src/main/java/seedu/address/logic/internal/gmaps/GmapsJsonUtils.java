@@ -44,6 +44,26 @@ public class GmapsJsonUtils {
         return (String) firstCandidate.get("place_id");
     }
 
+    public static double getLat(JSONObject apiResponse) {
+        JSONObject result = (JSONObject) apiResponse.get("result");
+        JSONObject geometry = (JSONObject) result.get("geometry");
+        JSONObject location = (JSONObject) geometry.get("location");
+        return (double) location.get("lat");
+    }
+
+    public static double getLng(JSONObject apiResponse) {
+        JSONObject result = (JSONObject) apiResponse.get("result");
+        JSONObject geometry = (JSONObject) result.get("geometry");
+        JSONObject location = (JSONObject) geometry.get("location");
+        return (double) location.get("lng");
+    }
+
+    public static String getAlias(JSONObject apiResponse) {
+        JSONObject result = (JSONObject) apiResponse.get("result");
+        return (String) result.get("name");
+    }
+
+
     /**
      * This method is used to get the status of the api response
      * @param apiResponse
