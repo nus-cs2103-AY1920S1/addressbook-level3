@@ -373,6 +373,9 @@ The latter debt will also have been added to your loan list, which can be checke
 Adds a new rule to the rule engine.
 A rule can be formed using either expressions or scripts, or both.
 
+NOTE: Rules with conflicting actions are allowed.
+All rules will be executed in the order they were added.
+
 Format: `rule add pred/<expression | script name> act/<expression | script name>`
 
 Refer to <<Scripting>> for script usage.
