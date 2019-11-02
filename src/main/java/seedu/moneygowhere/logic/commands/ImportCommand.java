@@ -144,7 +144,7 @@ public class ImportCommand extends Command {
         while (it.hasNext()) {
             count++;
             Map<String, String> rowAsMap = it.next();
-            if (!isValidCsv(rowAsMap)){
+            if (!isValidCsv(rowAsMap)) {
                 throw new IOException(MESSAGE_INVALID_CSV);
             }
             try {
@@ -158,6 +158,10 @@ public class ImportCommand extends Command {
         return new Pair<>(spendings, errors);
     }
 
+    /**
+     * Returns true if csv has the correct size and headers
+     * @param map A map representing a row of values from the csv file
+     */
     public boolean isValidCsv(Map<String, String> map) {
         if (map.size() != 5) {
             return false;
@@ -165,8 +169,7 @@ public class ImportCommand extends Command {
             if (map.get("name") == null || map.get("cost") == null || map.get("date") == null
                     || map.get("remark") == null || map.get("tagged") == null) {
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
