@@ -567,8 +567,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint("");
+        //primaryStage.setFullScreen(true);
+        //primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 
