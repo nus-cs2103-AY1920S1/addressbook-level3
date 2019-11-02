@@ -17,7 +17,9 @@ import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.Workout;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.model.workout.exercise.components.Exercise;
 import javafx.collections.ObservableList;
 
@@ -37,8 +39,14 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<MealPlan> PREDICATE_SHOW_ALL_MEALPLANS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to false */
+    Predicate<MealPlan> PREDICATE_SHOW_NO_MEALPLANS = unused -> false;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISE = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Workout> PREDICATE_SHOW_ALL_WORKOUT = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
@@ -284,15 +292,15 @@ public interface Model {
      */
     void setMealPlan(MealPlan target, MealPlan editedMealPlan);
 
-    //=========== Workout Planner ================================================================================
+    //=========== Exercise Catalogue ================================================================================
 
     /**
      * Replaces Workout Planner Data with {@code workoutPlanner}
      */
-    void setWorkoutPlanner(ReadOnlyWorkoutPlanner workoutPlanner);
+    void setExerciseCatalogue(ReadOnlyExerciseCatalogue exerciseCatalogue);
 
     /** Returns WorkoutPlanner */
-    ReadOnlyWorkoutPlanner getWorkoutPlanner();
+    ReadOnlyExerciseCatalogue getExerciseCatalogue();
 
 
     /**
@@ -320,6 +328,42 @@ public interface Model {
      * same as another existing exercise in the Duke Cooks.
      */
     void setExercise(Exercise target, Exercise editedExercise);
+
+    //=========== Workout Catalogue ================================================================================
+
+    /**
+     * Replaces Workout Catalogue Data with {@code workoutCatalogue}
+     */
+    void setWorkoutCatalogue(ReadOnlyWorkoutCatalogue workoutCatalogue);
+
+    /** Returns WorkoutCatalogue */
+    ReadOnlyWorkoutCatalogue getWorkoutCatalogue();
+
+    /**
+     * Returns true if an workout with the same identity as {@code workout}
+     * exists in Workout Planner.
+     */
+    boolean hasWorkout(Workout workout);
+
+    /**
+     * Adds the given workout.
+     * {@code workout} must not already exist in Duke Cooks.
+     */
+    void addWorkout(Workout workout);
+
+    /**
+     * Deletes the given exercise.
+     * The exercise must exist in Duke Cooks.
+     */
+    void deleteWorkout(Workout target);
+
+    /**
+     * Replaces the given workout {@code target} with {@code editedWorkout}.
+     * {@code target} must exist in Duke Cooks.
+     * The exercise identity of {@code editedWorkout} must not be the
+     * same as another existing exercise in the Duke Cooks.
+     */
+    void setWorkout(Workout workout, Workout editedWorkout);
 
     //=========== Diary ======================================================================================
 
@@ -460,6 +504,17 @@ public interface Model {
      */
     void updateFilteredExerciseList(Predicate<Exercise> predicate);
 
+    //=========== Filtered Workout List Accessors =============================================================
+
+    /** Returns an unmodifiable view of the filtered workout list */
+    ObservableList<Workout> getFilteredWorkoutList();
+
+    /**
+     * Updates the filter of the filtered workout list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredWorkoutList(Predicate<Workout> predicate);
+
     //=========== Filtered Diary Records List Accessors =============================================================
 
     /** Returns an unmodifiable view of the filtered diary list */
@@ -481,4 +536,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDashboardList(Predicate<Dashboard> predicate);
+
 }

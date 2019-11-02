@@ -8,7 +8,7 @@ import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
 
 public class ClearExerciseCommandTest {
 
@@ -25,7 +25,7 @@ public class ClearExerciseCommandTest {
     public void execute_nonEmptyDukeCooks_success() {
         Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
-        expectedModel.setWorkoutPlanner(new WorkoutPlanner());
+        expectedModel.setExerciseCatalogue(new ExerciseCatalogue());
 
         CommandTestUtil.assertCommandSuccess(new ClearExerciseCommand(), model,
                 ClearExerciseCommand.MESSAGE_SUCCESS, expectedModel);

@@ -32,7 +32,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExerciseCatalogue(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
 
         CommandTestUtil.assertCommandSuccess(deleteExerciseCommand, model, expectedMessage, expectedModel);
@@ -58,7 +58,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete);
 
-        Model expectedModel = new ModelManager(model.getWorkoutPlanner(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExerciseCatalogue(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoPerson(expectedModel);
 
@@ -71,7 +71,7 @@ public class DeleteExerciseCommandTest {
 
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of Duke Cooks list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getWorkoutPlanner().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseCatalogue().getExerciseList().size());
 
         DeleteExerciseCommand deleteExerciseCommand = new DeleteExerciseCommand(outOfBoundIndex);
 

@@ -25,9 +25,9 @@ public class AddExerciseCommandIntegrationTest {
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
-        Exercise exerciseInList = model.getWorkoutPlanner().getExerciseList().get(0);
+        Exercise exerciseInList = model.getExerciseCatalogue().getExerciseList().get(0);
         CommandTestUtil.assertExerciseCommandFailure(new AddExerciseCommand(exerciseInList), model, AddExerciseCommand
-                .MESSAGE_DUPLICATE_PERSON);
+                .MESSAGE_DUPLICATE_EXERCISE);
     }
 
 }

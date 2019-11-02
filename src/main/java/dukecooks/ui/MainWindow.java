@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private MealPlanListPanel mealPlanListPanel;
     private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
-    private ExerciseListPanel exerciseListPanel;
+    private WorkoutListPanel workoutListPanel;
     private DiaryListPanel diaryListPanel;
     private ResultDisplay resultDisplay;
     private RewardWindow rewardWindow;
@@ -52,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StatusBarFooter mealPlanPathStatus;
     private StatusBarFooter recordPathStatus;
     private StatusBarFooter personPathStatus;
-    private StatusBarFooter exercisePathStatus;
+    private StatusBarFooter workoutPathStatus;
     private StatusBarFooter diaryPathStatus;
 
     @FXML
@@ -174,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
         diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
     }
 
@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
         mealPlanPathStatus = new StatusBarFooter(logic.getMealPlansFilePath());
         recordPathStatus = new StatusBarFooter(logic.getHealthRecordsFilePath());
         personPathStatus = new StatusBarFooter(logic.getUserProfileFilePath());
-        //TODO EXERCISE: set up getExerciseFilePath() method in Logic class
+        workoutPathStatus = new StatusBarFooter(logic.getWorkoutCatalogueFilePath());
         diaryPathStatus = new StatusBarFooter(logic.getDiaryFilePath());
     }
 
@@ -284,11 +284,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case "exercise":
             //TODO:
-            versatilePanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
-            //TODO EXERCISE: add exercisePathStatus once missing getExerciseFilePath() is in Logic class
-            // - refer to initializeFilePath()
-            //statusbarPlaceholder.getChildren().add(exercisePathStatus.getRoot());
+            versatilePanelPlaceholder.getChildren().add(workoutListPanel.getRoot());
+            statusbarPlaceholder.getChildren().add(workoutPathStatus.getRoot());
             featureMode.setText("Exercise");
+            workoutListPanel.handleSwitch(type);
             break;
         case "diary":
             //TODO:

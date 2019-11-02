@@ -25,15 +25,33 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setMealPlanFilePath_nullPath_throwsNullPointerException() {
+    public void setMealPlansFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setMealPlanFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setMealPlansFilePath(null));
     }
 
     @Test
     public void setDiaryFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         Assert.assertThrows(NullPointerException.class, () -> userPrefs.setDiaryFilePath(null));
+    }
+
+    @Test
+    public void setHealthRecordsFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setHealthRecordsFilePath(null));
+    }
+
+    @Test
+    public void setExercisesFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setExercisesFilePath(null));
+    }
+
+    @Test
+    public void setDashboardFilePath_nullPath_throwsNullPointerException() {
+        UserPrefs userPrefs = new UserPrefs();
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setDashboardFilePath(null));
     }
 
 }

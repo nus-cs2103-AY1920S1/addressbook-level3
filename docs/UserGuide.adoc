@@ -89,113 +89,30 @@ image::Ui.png[width="790"]
 
 == Commands
 === General
-=== Recipe Book
+Before we begin, let's look at some common commands that will be used through Duke cooks.
 
-Need to organise your large collection of recipes? Look no further! You will be able to perform the various recipe-related commands listed in this section.
+==== Add commands: `add`
+Have you just created a new dish, or tried a new exercise?
+Then you may want to save your new discoveries to DukeCooks with the Add command!
+Add commands will be used whenever you want to create new things, be it exercises, tasks, recipes or health records.
 
-==== Adding a recipe:  `add recipe`
-Initializes creation of a recipe with input exerciseName. DukeCooks will prompt for ingredients. User may key in ingredients with price, in the format: `<exerciseName>` `$<price>`. Once done, user may enter `done`. DukeCooks will prompt for nutritional value in the format: `<kcal> <carbs(g)> <fat(g)> <protein(g)>`.  +
-Format: `add recipe <exerciseName>`
+==== Edit commands: `edit`
+Edit commands will be used to edit whatever entries you have made to any part of DukeCooks.
 
-Examples:
+==== List commands: `list`
+List commands will show you all your saved entries. They are also useful to navigate to different parts of DukeCooks.
 
-* `add recipe Chicken Rice` +
-Output: Recipe “Chicken Rice” has been created! Please enter the ingredients.
-* `Chicken Breast $2` +
-Output: _“Chicken Breast” has been added to the ingredients list. Anything else?_
-* `Seasoned Rice $1` +
-Output: _“Seasoned Rice” has been added to the ingredients list. Anything else?_
-* `done` +
-Output: _Ingredients list for “Chicken Rice” is complete! Please enter the nutritional value._
-* `666 55 44 30` +
-Output: _Nutritional value for “Chicken Rice” captured. “Chicken Rice” successfully created!_
+==== Find commands: `find`
+Find commands will enable you to search through all of your data to find entries matching your keywords.
 
-==== Deleting a recipe: `delete recipe`
-Deletes recipe with specified exerciseName. +
-Format: `delete recipe <exerciseName>`
+==== View commands: `view`
+View commands will be used to open up a one specific entry within DukeCooks.
 
-Examples:
+==== Delete commands: `delete`
+Delete commands will be used to delete a specific entry within DukeCooks.
 
-* `delete recipe Chicken Rice` +
-Output: _“Chicken Rice” has been deleted from the recipe book!_
-
-==== Listing your recipes: `list recipe`
-Lists all recipe names. +
-Format: `list recipe`
-
-Examples:
-
-* `list recipe` +
-Output: Lists all recipes.
-
-====  Viewing a recipe: `view recipe`
-Lists ingredients of specified recipe, nutritional value, and image, difficulty and preparation time, if applicable. +
-Format: `view recipe <exerciseName>`
-
-Examples:
-
-* `view recipe Chicken Rice` +
-Output: Shows the recipe named “Chicken Rice”, as long as it exists in the recipe book.
-
-==== Giving a recipe an image: `[coming in v2.0]`
-Adds image of recipe by retrieving the image with the specified file exerciseName. Files are to be placed in the folder [to be implemented]. +
-Format: `recipe <exerciseName> image <filename>`
-
-==== Giving a recipe a difficulty level: `[coming in v2.0]`
-Tags the recipe specified with the difficulty, ranging from 1 to 3. +
-Format: `recipe <exerciseName> difficulty <difficulty>`
-
-==== Giving a recipe preparation timing: `[coming in v2.0]`
-Tags the recipe specified with the preparation time, in minutes. +
-Format: `recipe <exerciseName> preptime <time(min)>`
-
-==== Adding a shopping list: `[coming in v2.0]`
-Creates a new shopping list with specified exerciseName. +
-Format: `add shoplist <exerciseName>`
-
-====  Deleting a shopping list: `[coming in v2.0]`
-Deletes specified shopping list. +
-Format: `delete shoplist <exerciseName>`
-
-==== Listing your shopping lists: `[coming in v2.0]`
-Lists all shopping list names. +
-Format: `list shoplist`
-
-==== Viewing a shopping list: `[coming in v2.0]`
-Collates the ingredients to be bought and returns them as a list. Also displays the total cost of the shopping list, and each ingredient’s individual price. +
-Format: `view shoplist <exerciseName>`
-
-==== Adding recipe to a shopping list: `[coming in v2.0]`
-Adds specified recipe to the shopping list. +
-Format: `shoplist <exerciseName> add <recipe>`
-
-==== Deleting a recipe from a shopping list: `[coming in v2.0]`
-Deletes specified recipe from the shopping list. +
-Format: `shoplist <exerciseName> delete <recipe>`
-
-==== Add a meal plan: `[coming in v2.0]`
-Creates a new meal plan with specified exerciseName. +
-Format: `add mealplan <exerciseName>`
-
-==== Delete a meal plan: `[coming in v2.0]`
-Deletes specified meal plan. +
-Format: `delete mealplan <exerciseName>`
-
-==== List your meal plans: `[coming in v2.0]`
-Lists all meal plan names. +
-Format: `list mealplan`
-
-==== View a meal plan: `[coming in v2.0]`
-Displays daily nutritional value of the meal plan. +
-Format: `view mealplan <exerciseName>`
-
-==== Add recipe to a meal plan: `[coming in v2.0]`
-Adds the specified recipe to the specified meal plan, according to the day listed in the `<day>` field. The `<day>` field is a number ranging from 1 to 7, for the 7 days present in the meal plan. +
-Format: `mealplan <exerciseName> <day> add <recipe exerciseName>`
-
-==== Generate a shopping list for a meal plan: `[coming in v2.0]`
-Generates a shopping list for the specified meal plan. If `<shoplist exerciseName>` is not specified, we use `<exerciseName>` by default. +
-Format: `mealplan <exerciseName> shoplist <shoplist exerciseName>`
+==== Clear commands: `clear`
+Clear commands will be used to clear all saved data.
 
 === Dashboard
 
@@ -305,101 +222,269 @@ Command: `list taskcomplete`
 For incomplete tasks: +
 Command: `list taskincomplete`
 
+=== Recipe Book
+
+Need to organise your large collection of recipes? Look no further! You will be able to perform the various recipe-related commands listed in this section.
+
+==== Adding a recipe:  `add recipe`
+Adds a recipe into the recipe book. +
+Format: `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
+[NOTE]
+====
+All nutritional value information should be entered according to their amount in grams.
+====
+
+Examples:
+
+* `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` +
+Creates a recipe with name "Chicken Rice", ingredients "Chicken" and "Rice", with nutritional information of
+666kcal, 55g carbs, 44g fats, and 30g protein.
+
+==== Editing a recipe: `edit recipe`
+Edit a recipe according to a specified index. +
+Format: `edit recipe <index> [parameters]`
+
+The possible parameters are:
+
+* `n/<name>` : edits name
+* `i/<ingredient>` : adds an ingredient
+* `i-/<ingredient>` : removes an ingredient only if it exists in the recipe
+* `cal/<calories>` : edits calories
+* `carb/<carbs>` : edits carbs
+* `fats/<fats>` : edits fats
+* `prot/<protein>` : edits protein
+
+Examples:
+
+* `edit recipe 1 n/Chicken Noodle cal/500` +
+Updates the first listed recipe to have the name "Chicken Noodle" and edit it to contain 500 calories.
+
+* `edit recipe 2 i/Noodle i-/Rice` +
+Removes the ingredient "Rice" from the first listed recipe, and adds the ingredient "Noodle".
+
+==== Listing your recipes: `list recipe`
+Lists all recipes. +
+Format: `list recipe`
+
+Examples:
+
+* `list recipe` +
+Lists all recipes saved in the recipe book.
+
+==== Finding a recipe: `find recipe`
+Finds recipes with names containing a specified keyword. +
+Format: `find recipe <keyword>`
+
+Examples:
+
+* `find recipe Chicken` +
+Lists all recipes containing "Chicken" in their name.
+
+==== Deleting a recipe: `delete recipe`
+Deletes recipe according to a specified index. +
+Format: `delete recipe <index>`
+
+Examples:
+
+* `delete recipe 1` +
+Deletes the first recipe listed within the recipe book.
+
+==== Clearing the recipe book: `clear recipe`
+Clears all recipes stored in the recipe book. +
+Format: `clear recipe`
+
+[IMPORTANT]
+====
+This action cannot be undone
+====
+
+Examples:
+* `clear recipe` +
+Deletes all recipes within the recipe book.
+
+====  Viewing a recipe: `[coming in v2.0]`
+
+==== Giving a recipe an image: `[coming in v2.0]`
+
+==== Giving a recipe a difficulty level: `[coming in v2.0]`
+
+==== Giving a recipe preparation timing: `[coming in v2.0]`
+
+=== Meal Plans
+
+Want a way to plan out your meals for an entire week? Using meal plans is a great way do that. Use the following meal plan commands to plan your weekly consumption!
+
+==== Add a meal plan: `add mealplan`
+Adds a new meal plan into the meal plan book. +
+Format: `add mealplan n/<name> day1/[name]... day2/[name]... day3/[name]... day4/[name]... day5/[name]... day6/[name]... day7/[name]...`
+
+[NOTE]
+====
+You are only able to add recipes that you have within your recipe book.
+
+Edits to recipes within your recipe book will be reflected in the affected meal plans.
+
+Deletion of recipes will also delete them from any meal plan containing them.
+====
+
+Examples:
+
+* `add mealplan n/Empty` +
+Creates an empty meal plan with the name "Empty".
+
+* `add mealplan n/Keto day1/KFC day2/4 Fingers day3/Texas Chicken day4/Arnolds day5/Popeyes day6/Nene day7/Wing Stop` +
+Creates a meal plan with the name "Keto" and the listed meals under each indicated day.
+
+==== Editing a meal plan: `edit mealplan`
+Edit a meal plan according to a specified index. +
+Format: `edit mealplan <index> [parameters]`
+
+The possible parameters are:
+
+* `n/<name>` : edits name
+* `day1/<recipe>` : adds a recipe to this day
+* `day1-/<recipe>` : removes a recipe only if it exists in this day
+* `day2/<recipe>` : adds a recipe to this day
+* `day2-/<recipe>` : removes a recipe only if it exists in this day
+* `day3/<recipe>` : adds a recipe to this day
+* `day3-/<recipe>` : removes a recipe only if it exists in this day
+* `day4/<recipe>` : adds a recipe to this day
+* `day4-/<recipe>` : removes a recipe only if it exists in this day
+* `day5/<recipe>` : adds a recipe to this day
+* `day5-/<recipe>` : removes a recipe only if it exists in this day
+* `day6/<recipe>` : adds a recipe to this day
+* `day6-/<recipe>` : removes a recipe only if it exists in this day
+* `day7/<recipe>` : adds a recipe to this day
+* `day7-/<recipe>` : removes a recipe only if it exists in this day
+
+Examples:
+
+* `edit mealplan 1 n/Bulking day-1/Salad day4/Mashed Potatoes` +
+Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and add the recipe "Mashed Potatoes" to Day 4.
+
+==== Listing your meal plans: `list mealplan`
+Lists all meal plans. +
+Format: `list mealplan`
+
+Examples:
+
+* `list mealplan` +
+Lists all meal plans saved in the meal plan book.
+
+==== Finding a meal plan: `find mealplan`
+Finds meal plans with names containing a specified keyword. +
+Format: `find mealplan <keyword>`
+
+Examples:
+
+* `find mealplan Chicken` +
+Lists all meal plans containing "Chicken" in their name.
+
+==== Finding a meal plan containing a certain recipe: `find mealplanwith`
+Finds meal plans with a specified recipe name. +
+Format: `find mealplanwith <recipe name keyword>`
+
+Examples:
+
+* `find mealplanwith Chicken Rice` +
+Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
+
+==== Delete a meal plan: `delete mealplan`
+Deletes meal plan according to a specified index. +
+Format: `delete mealplan <index>`
+
+Examples:
+
+* `delete mealplan 1` +
+Deletes the first meal plan listed within the meal plan book.
+
+==== Clearing the meal plan book: `clear mealplan`
+Clears all meal plans stored in the meal plan book. +
+Format: `clear mealplan`
+
+[IMPORTANT]
+====
+This action cannot be undone
+====
+
+Examples:
+* `clear mealplan` +
+Deletes all meal plans within the meal plan book.
+
+====  Viewing a meal plan: `[coming in v2.0]`
+
 === Health Records
 
 Going for a health checkup soon? You can use the commands in this section to manage your
 health records, all within DukeCooks!
 
-==== View User Profile:  `view profile`
-Show a summary of user’s medical history, allergies, body measurements +
-Format: `view profile`
-
-* Prompt to create profile if user profile does not exist
-
-NOTE: DukeCooks will only have one user profile!
-
-==== View Health Data:  `view health`
+==== View Health Data:  `list health`
 Views Health Records of specific type. +
-Format: `view health <type> [time period]`
+Format: `list health t/<type>`
 
-IMPORTANT:  By default, DukeCooks will show health records of past 1 month if [time period] is not specified.
+[IMPORTANT]
+====
+By default, DukeCooks will show health records of past 1 month if [time period] is not specified.
+====
 
 ****
 User can view health data under the following 8 types:
 
 . Weight
-. Waist
-. Body Fat
 . Calories
-. Heart Rate
-. Blood Pressure
 . Glucose (i.e. blood sugar)
-. Menstrual Cycle
-****
+. Carbs
+. Fats
+. Protein
 
-NOTE: Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
+****
 
 Examples:
 
-* `view health glucose 3 month` +
-Shows user’s blood sugar records of the past 3 months as of today.
-* `view health exerciseWeight` +
-Shows user’s exerciseWeight of the past *1* month as of today.
+* `list health t/weight` +
+Shows user’s weight of the past *1* month as of today.
 
 ==== Add Health Data:  `add health`
 Adds a health record of specified type with input value. +
-Format: `add health <type> <value> [date] <time>`
-
-IMPORTANT:  if [date] is not specified, DukeCooks will set as *today* to be the default.
+Format: `add health t/<type> val/<value> dt/<dd/MM/yyyy HH:mm>`
 
 ****
 User can add health data of the following 8 types:
 
 . Weight (in KG)
-. Waist (in CM)
-. Body Fat (in %)
 . Calories (in KCAL)
-. Heart Rate (in BPM)
-. Blood Pressure (in Systolic/Diastolic mmHg)
 . Glucose (in mmol/L)
-. Menstrual Cycle (by date)
-** DukeCooks can recognise if it’s a start or end date.
+. Carbs (in g)
+. Fats (in g)
+. Protein (in g)
 ****
-
-NOTE: Records of Menstrual Cycle will only be made available for users declared as female under *User Profile*.
 
 Examples:
 
-* `add health blood pressure 120/80 9am` +
+* `add health t/weight val/60 dt/21/10/2019 12:00` +
 Adds a new blood pressure record of 120/80 mmHg as of today 9am.
-* `add health menstrual` +
-Adds a new start date record if DukeCooks finds no menstrual records for the month. Else, Dukecooks will add as new end date record.
 
 ==== Edit Health Data:  `edit health`
 Edits an existing health record of specified record ID with input value to overwrite. +
-Format: `edit health <record id> <value>`
+Format: `edit health <index> val/<value>`
 
-* <record id> refers to the unique identifier attributed to each health record upon creation.
+* You can view <index> once you have entered **list health t/[type]** command.
 
 Examples:
 
-* `edit health BP129391 133/80` +
-Edits the existing blood pressure record from today 9am to 133/80 mmHg.
-* `edit health W000123 50` +
-Edits exerciseWeight record id of W000123 to 50kg.
+* `edit health 1 val/220` +
+Edits the health record with index 1 to 220.
 
 ==== Delete Health Data:  `delete health`
 Deletes an existing health record of specified record ID. +
-Format: `delete health <record id>`
+Format: `delete health <index>`
 
-* <record id> refers to the unique identifier attributed to each health record upon creation.
+* You can view <index> once you have entered **list health t/[type]** command.
 
 Examples:
 
-* `delete health BP129391` +
-Deletes the health record of BP129391.
-* `delete health W000123` +
-Deletes the health record of W000123.
+* `delete health 1` +
+Deletes the health record with index 1.
 
 ==== View Medical Appointments:  `[coming in v2.0]`
 Shows all the medical appointment for the month. +
@@ -460,7 +545,10 @@ Format: `print health <type> [MORE_TYPES] [time period]`
 
 * If more than one type of data to print, the data will be displayed in the order of input (refer to example).
 
-IMPORTANT: By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
+[IMPORTANT]
+====
+By default, DukeCooks will generate pdf with health records for the past 1 month if [time period] is not specified.
+====
 
 Examples:
 
@@ -477,34 +565,31 @@ Planning your next workout? You can refer to the commands in this section to hel
 exercise regime in DukeCooks.
 
 ==== Adding an exercise: `add exercise`
-Adds an exercise to exercise list. App will then prompt for the muscle type, level of intensity (out of 5), instructions as well as images of the steps (in directory form) (optional) in order.
-
-Once done you can add the recommended number of sets (optional), recommended number of repetitions (optional), recommended timing in minutes(optional), exerciseWeight (optional) in the format: `s/SETS r/REPETITIONS w/WEIGHT t/TIMING` +
-Format: `add exercise <exerciseName>`
+Adds an exercise to exercise list. You will be required to specify the primary muscle of the exercise, its intensity
+as well as its name. Optional fields like secondary muscles and exercise details such as reps, sets can also be added.
+The following shows the fields and which are optional: +
+* Name +
+* Primary Muscle +
+* Intensity +
+* Secondary Muscles (optional) +
+* Number of sets (optional) +
+* Number of repetitions (optional) +
+* Timing (optional)  +
+* Distance (optional) +
+* Exercise Weight (optional) +
+The format is as follow: +
+Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
 Examples:
 
-* `add exercise Inclined Bench Press` +
-Output: _Exercise “Inclined Bench Press” has been created. Please enter the muscle groups it trains, separating each muscle by a “/”._
-* `lats/chest` +
-Output: _Muscle group(s) have been added! Now lets add intensity level out of 5!_
-* `4` +
-Output: _Now let’s add the instructions!_
-* `Lie down on an inclined bench` +
-Output: _Step 1 added! Type done when you’re done with all the instructions!_
-* `Push exerciseWeight above head` +
-Output: _Step 2 added! Type done when you’re done with all the instructions!_
-* `done` +
-Output: _Almost done! If you want to add an image please specify the folder! Otherwise type “/”._
-* `/` +
-Output: _If you want to specify your reps, sets and exerciseWeight you may now do so. Otherwise type “/”._
-* `w/30kg r/5 s/5 t/1:00` +
-Output: _Nice exercise has been created!_
+* `add exercise n/Bench Press p/Chest i/medium sm/Triceps s/5 r/5 w/80 kg` +
+Output: _New Exercise added: Bench Press_
 
 
 ==== List Exercise: `list exercise`
 List exercises which matches optional parameters specified eg. muscle type/intensity. +
-Format: `list exercise m/MUSCLEGROUP i/INTENSITY`
+Format: `list exercise m/MUSCLEGROUP
 
 ==== Delete exercise: `delete exercise`
 Deletes exercise of specified index. +
@@ -514,35 +599,40 @@ Format: `delete exercise <index>`
 View all the details of an exercise of the specified index. +
 Format: `view exercise<index>`
 
-==== Add calorie: `[coming in v1.3]`
+==== Add calorie: `[coming in v2.0]`
 Tracks calorie burned per rep/set of the exercise in kcal. +
 Format: `calorie <index> <calories>`
 
-==== Check History: `[coming in v2.0]`
+==== Check History: `[coming in v1.4]`
 Checks the history of all the pass workouts as well as their statistics eg. exerciseWeight used, number of times exercise is carried out, workouts that use this exercise.
 
-==== Preset Exercises: `[coming in v2.0]`
+==== Preset Exercises:
 If the list of exercises is empty, a list of preset exercises are generated.
 
-==== Create Workout: `workout`
-Adds a workout to workout list. The app will then display a list of exercises to be added to the workout, you can then filter this by adding specifications such as muscle type. To add an exercise, simply specify the index on the current list that is displayed. If the exercise has a recommended number or reps, sets, exerciseWeight and timing you will be asked whether to follow it. Otherwise you can specify what you wish. Once you have added all the exercises, you will then be asked to specify the amount of time for rest in between sets. +
-Format: `workout <exerciseName>`
+==== Create Workout: `add workout`
+Adds a workout to workout list. The app will then prompt you to add exercises to the workout. +
+Format: `add workout n/WORKOUTNAME`
 
-==== List Workout: `list workout`
-List exercises which matches optional parameters specified eg. muscle type/intensity/total time. +
-Format: `list exercise m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
+==== Push Workout: `push exercise`
+Adds an exercise of the index shown, to a workout in the index shown. You can specify whether to use your own
+new set of exercise details (reps, sets etc) or use the default one already in the Exercise object. +
+Format: `push exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX s/SETS r/REPS d/DISTANCE t/TIMING w/WEIGHT`
 
-==== Delete workout: `delete workout`
+==== List Workout: `list workout` [coming in v1.4]
+List workouts which matches optional parameters specified eg. muscle type/intensity/total time. +
+Format: `list workout m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
+
+==== Delete workout: `delete workout` [coming in v1.4]
 Deletes workout of specified index. +
 Format: `delete workout <index>`
 
-==== Run Workout: `run`
+==== Run Workout: `run` [coming in v1.4]
 Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, exerciseWeight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
 Format: `run <index>`
 
-==== Schedule Workout: `[coming in v1.3]`
+==== Schedule Workout: `[coming in v1.4]`
 
-==== Track Body Fitness: `[coming in v1.3]`
+==== Track Body Fitness: `[coming in v1.4]`
 
 
 === Diary
@@ -550,57 +640,94 @@ Format: `run <index>`
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
 start sharing!
 
-==== Create Diary: `create diary`
-Creates a new diary with the specified exerciseName +
-Format: `create diary <diary exerciseName>`
+==== pass:[<u>Adding a diary</u>]
 
-* Diary names are unique
+Let's first get started by creating diaries with our `add diary` command
 
-Examples:
+Command: `add diary` +
+Format: `add diary n/ <diary name>`
 
-* `create diary Healthy Living` +
- Creates a new diary with the exerciseName “Healthy Living”
+Example usage: `add diary n/ Asian Cuisines`
 
-==== Delete Diary: `delete diary`
-Deletes the diary with the specified exerciseName +
-Format: `delete diary <diary exerciseName>`
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::addDiary_before.png[width="450"]
++
+. If the command succeeds, you should see the following message in the result display and a new diary will be added.
++
+image::addDiary_after.png[width="450"]
 
-* Diary exerciseName should already exist
 
-Examples:
+==== pass:[<u>Deleting a diary</u>]
 
-* `delete diary Healthy Living` +
- Deletes the diary with the exerciseName “Healthy Living”
+Accidentally created an unwanted diary? No worries! You can remove it with our `delete diary` command.
 
-==== Add Page: `add page`
-Adds a page to the end of the specified diary +
-Format: `add page <type> <diary exerciseName>` +
-* Diary should already exist
+Command: `delete diary`
+Format: `delete diary <index>`
 
-NOTE: Users can only add pages of types: health, food or exercise.
+Example usage: `delete diary 1`
 
-Examples:
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::deleteDiary_before.png[width="450"]
++
+. If the command succeeds, you will see the following message in the result display and the diary wll be removed.
++
+image::deleteDiary_after.png[width="450"]
 
-* `add page health Healthy Living` +
- Adds a health page to the diary named “Healthy Living”
+==== pass:[<u>Adding a page</u>]
 
-* `add page food Healthy Living` +
-Adds a food page to the diary named “Healthy Living”
+Want to customise your diary further? You can do so by adding pages with our `add page` command.
 
-* `add page exercise Healthy Living` +
-Adds an exercise page to the diary named “Healthy Living”
+Command: `add page`
+Command format: `add page n/ <diary name> t/ <page title> i/ <image path> desc/ <page description>`
 
-==== Delete Page: `delete page`
-Deletes the specified page from the specified diary +
-Format: `delete page <index> <diary exerciseName>`
+Example usage: `add page n/ Asian Food t/ Pho i/ src/main/resources/images/pho.jpg desc/ Simply the best!`
 
-* Diary should already exist
-* Index should a positive integer
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image:addPage_before.png[width="450"]
++
+. If the command is successful, you should see that a new page will be added and the screen shows the following.
++
+image::addPage_after.png[width="450"]
 
-Examples:
+==== pass:[<u>Deleting a page</u>]
 
-* `delete page 2 Healthy Living` +
- Deletes page 2 of the diary named “Healthy Living”
+Want to remove a page? We've got that covered with our `delete page` command.
+
+Command: `delete page`
+Format: `delete page <index> n/ <diary name>`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::deletePage_before.png[width="450"]
++
+. If the command is successful, the page will be removed and you will see the following in the result display.
++
+image::deletePage_after.png[width="450"]
+
+==== pass:[<u>Viewing a diary</u>]
+
+Want to switch over to another diary? You can do so through our `view diary` command.
+
+Command: `view diary`
+Format: `view diary <index>`
+
+Example usage: `view diary 2`
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::viewDiary_before.png[width="450"]
++
+. If the command is successful, you should see the following result.
++
+image::viewDiary_after.png[width="450"]
 
 ==== Link Recipes: `[Coming in v2.0]`
 Creates a new food page in the specified diary, using pre-existing recipes +
@@ -609,7 +736,10 @@ Format: `link recipe <recipe exerciseName> /to <diary exerciseName>`
 * Diary should already exist
 * Recipe should already exist
 
-NOTE: Deleting recipes will not delete the linked pages in diary!
+[NOTE]
+====
+Deleting recipes will not delete the linked pages in diary!
+====
 
 Examples:
 
@@ -623,7 +753,10 @@ Format: `link exercise <exercise exerciseName> /to <diary exerciseName>`
 * Diary should already exist
 * Exercise should already exist
 
-NOTE: Deleting exercises will not delete the linked pages in diary!
+[NOTE]
+====
+Deleting exercises will not delete the linked pages in diary!
+====
 
 Examples:
 
@@ -637,7 +770,10 @@ Format: `link records <record id> /to <diary exerciseName>`
 * Diary should already exist
 * Records should already exist
 
-NOTE: Deleting health records will not delete the linked pages in diary!
+[NOTE]
+====
+Deleting health records will not delete the linked pages in diary!
+====
 
 Examples:
 
@@ -667,28 +803,6 @@ Examples:
 * `edit page 2 Healthy Living` +
  Users will be able to edit some basic information in page 2 of the diary named “Healthy Living”
 
-==== View Diary: `[Coming in v2.0]`
-Allows user to view the specified diary in a page-form +
-Format: `view  <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `view Healthy Living` +
- Users will now be able to view the diary in a page-view in the GUI
-
-==== Print Diary: `[Coming in v2.0]`
-Allows user to print the specified diary in PDF format +
-Format: `print <diary exerciseName>`
-
-* Diary should already exist
-
-Examples:
-
-* `print Healthy Living` +
-A PDF format of the diary named “Healthy Living” will be generated
-
 == Command Summary
 
 *Recipe Book*
@@ -712,15 +826,14 @@ e.g. `view recipe Chicken Rice`
 
 *Health Records*
 
-* *View User Profile* : `view profile`
-* *View health data* : `view health <type> [time period]` +
-e.g. `view health glucose 3 month`
-* *Add health data* : `add health <type> <value> [date] <time>` +
-e.g. `add health blood pressure 120/80 9am`
-* *Edit health data* : `edit health <record id> <value>` +
-e.g. `edit health BP129391 133/80`
-* *Delete health data* : `delete health <record id>` +
-e.g. `delete health BP129391`
+* *View health data* : `view health t/<type>` +
+e.g. `view health t/glucose`
+* *Add health data* : `add health t/<type> val/<value> dt/<date> <time>` +
+e.g. `add health t/glucose 120 dt/21/10/2019 12:00`
+* *Edit health data* : `edit health <index> val/<value>` +
+e.g. `edit health 1 120`
+* *Delete health data* : `delete health <index>` +
+e.g. `delete health 1`
 
 *Workout Tracker*
 

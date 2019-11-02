@@ -1,5 +1,7 @@
 package dukecooks.model.mealplan.components;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,6 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
+import dukecooks.model.Model;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeName;
 
@@ -77,11 +80,15 @@ public class MealPlan {
 
         return allRecipes.toString().replace("[", "").replace("]", "").replace(",", "");
     }
+
     /**
      * Searches through all {@code Recipe} in {@code MealPlan} for instances of {@code oldRecipe},
      * and replaces it with {@code newRecipe}.
      */
     public void replaceRecipe(Recipe oldRecipe, Recipe newRecipe) {
+        requireNonNull(oldRecipe);
+        requireNonNull(newRecipe);
+
         for (RecipeName recipeName : day1) {
             if (recipeName.equals(oldRecipe.getName())) {
                 day1.remove(recipeName);
@@ -124,6 +131,72 @@ public class MealPlan {
                 day7.add(newRecipe.getName());
             }
         }
+    }
+
+    /**
+     * Searches through all {@code Recipe} in {@code MealPlan} for instances of {@code recipeToDelete},
+     * removes it, and returns an updated copy of MealPlan
+     */
+    public MealPlan[] removeRecipe(Recipe recipeToDelete, Model model) {
+        List<RecipeName> day1 = new ArrayList<>(getDay1());
+        List<RecipeName> day2 = new ArrayList<>(getDay2());
+        List<RecipeName> day3 = new ArrayList<>(getDay3());
+        List<RecipeName> day4 = new ArrayList<>(getDay4());
+        List<RecipeName> day5 = new ArrayList<>(getDay5());
+        List<RecipeName> day6 = new ArrayList<>(getDay6());
+        List<RecipeName> day7 = new ArrayList<>(getDay7());
+
+        for (int i = 0; i < day1.size(); i++) {
+            RecipeName recipeName = day1.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day1.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day2.size(); i++) {
+            RecipeName recipeName = day2.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day2.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day3.size(); i++) {
+            RecipeName recipeName = day3.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day3.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day4.size(); i++) {
+            RecipeName recipeName = day4.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day4.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day5.size(); i++) {
+            RecipeName recipeName = day5.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day5.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day6.size(); i++) {
+            RecipeName recipeName = day6.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day6.remove(i);
+                i--;
+            }
+        }
+        for (int i = 0; i < day7.size(); i++) {
+            RecipeName recipeName = day7.get(i);
+            if (recipeName.equals(recipeToDelete.getName())) {
+                day7.remove(i);
+                i--;
+            }
+        }
+
+        return new MealPlan[]{this, new MealPlan(name, day1, day2, day3, day4, day5, day6, day7)};
     }
 
     /**
@@ -248,5 +321,4 @@ public class MealPlan {
 
         return builder.toString();
     }
-
 }

@@ -30,12 +30,14 @@ import dukecooks.model.profile.UserProfile;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
 import dukecooks.model.util.DashboardSampleDataUtil;
-import dukecooks.model.util.DiarySampleDataUtil;
 import dukecooks.model.util.SampleDataUtil;
+import dukecooks.model.util.SampleDiaryDataUtil;
 import dukecooks.model.util.SampleMealPlanDataUtil;
 import dukecooks.model.util.SampleRecipeDataUtil;
-import dukecooks.model.workout.ReadOnlyWorkoutPlanner;
-import dukecooks.model.workout.WorkoutPlanner;
+import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
+import dukecooks.model.workout.WorkoutCatalogue;
+import dukecooks.model.workout.exercise.ExerciseCatalogue;
+import dukecooks.model.workout.exercise.ReadOnlyExerciseCatalogue;
 import dukecooks.storage.JsonUserPrefsStorage;
 import dukecooks.storage.Storage;
 import dukecooks.storage.StorageManager;
@@ -44,8 +46,6 @@ import dukecooks.storage.dashboard.DashboardStorage;
 import dukecooks.storage.dashboard.JsonDashboardStorage;
 import dukecooks.storage.diary.DiaryStorage;
 import dukecooks.storage.diary.JsonDiaryStorage;
-import dukecooks.storage.exercise.JsonWorkoutPlannerStorage;
-import dukecooks.storage.exercise.WorkoutPlannerStorage;
 import dukecooks.storage.health.HealthRecordsStorage;
 import dukecooks.storage.health.JsonHealthRecordsStorage;
 import dukecooks.storage.mealplan.JsonMealPlanBookStorage;
@@ -54,6 +54,10 @@ import dukecooks.storage.profile.JsonUserProfileStorage;
 import dukecooks.storage.profile.UserProfileStorage;
 import dukecooks.storage.recipe.JsonRecipeBookStorage;
 import dukecooks.storage.recipe.RecipeBookStorage;
+import dukecooks.storage.workout.JsonWorkoutCatalogueStorage;
+import dukecooks.storage.workout.WorkoutCatalogueStorage;
+import dukecooks.storage.workout.exercise.ExerciseCatalogueStorage;
+import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.ui.Ui;
 import dukecooks.ui.UiManager;
 import javafx.application.Application;
@@ -88,11 +92,14 @@ public class MainApp extends Application {
         MealPlanBookStorage mealPlanBookStorage = new JsonMealPlanBookStorage(userPrefs.getMealPlansFilePath());
         UserProfileStorage userProfileStorage = new JsonUserProfileStorage(userPrefs.getUserProfileFilePath());
         HealthRecordsStorage healthRecordsStorage = new JsonHealthRecordsStorage(userPrefs.getHealthRecordsFilePath());
-        WorkoutPlannerStorage workoutPlannerStorage = new JsonWorkoutPlannerStorage(userPrefs.getExercisesFilePath());
+        ExerciseCatalogueStorage exerciseCatalogueStorage = new JsonExerciseCatalogueStorage(userPrefs
+                .getExercisesFilePath());
+        WorkoutCatalogueStorage workoutCatalogueStorage = new JsonWorkoutCatalogueStorage(userPrefs
+                .getWorkoutFilePath());
         DiaryStorage diaryStorage = new JsonDiaryStorage(userPrefs.getDiaryFilePath());
         DashboardStorage dashboardStorage = new JsonDashboardStorage(userPrefs.getDashboardFilePath());
         storage = new StorageManager(userProfileStorage, healthRecordsStorage, recipeBookStorage, mealPlanBookStorage,
-                workoutPlannerStorage, diaryStorage, dashboardStorage, userPrefsStorage);
+                exerciseCatalogueStorage, workoutCatalogueStorage, diaryStorage, dashboardStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -121,8 +128,11 @@ public class MainApp extends Application {
         ReadOnlyHealthRecords initialHealthRecords;
         initialHealthRecords = initHealthRecords(storage);
 
-        ReadOnlyWorkoutPlanner initialWorkoutPlanner;
-        initialWorkoutPlanner = initWorkoutPlanner(storage);
+        ReadOnlyExerciseCatalogue initialExerciseCatalogue;
+        initialExerciseCatalogue = initExerciseCatalogue(storage);
+
+        ReadOnlyWorkoutCatalogue initialWorkoutCatalogue;
+        initialWorkoutCatalogue = initWorkoutCatalogue(storage);
 
         ReadOnlyDiary initialDiary;
         initialDiary = initDiary(storage);
@@ -131,7 +141,7 @@ public class MainApp extends Application {
         initialDashboard = initDashboard(storage);
 
         return new ModelManager(initialDukeCooks, initialDashboard, initialHealthRecords, initialRecipeBook,
-                initialMealPlanBook, initialWorkoutPlanner, initialDiary, userPrefs);
+                initialMealPlanBook, initialExerciseCatalogue, initialWorkoutCatalogue, initialDiary, userPrefs);
     }
 
     /**
@@ -166,22 +176,48 @@ public class MainApp extends Application {
      * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
      * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
      */
-    private ReadOnlyWorkoutPlanner initWorkoutPlanner(Storage storage) {
-        Optional<ReadOnlyWorkoutPlanner> workoutPlannerOptional;
-        ReadOnlyWorkoutPlanner initialData;
+    private ReadOnlyExerciseCatalogue initExerciseCatalogue(Storage storage) {
+        Optional<ReadOnlyExerciseCatalogue> exerciseCatalogueOptional;
+        ReadOnlyExerciseCatalogue initialData;
 
         try {
-            workoutPlannerOptional = storage.readWorkoutPlanner();
-            if (!workoutPlannerOptional.isPresent()) {
+            exerciseCatalogueOptional = storage.readExerciseCatalogue();
+            if (!exerciseCatalogueOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample DukeCooks");
             }
-            initialData = workoutPlannerOptional.orElseGet(SampleDataUtil::getSampleWorkoutPlanner);
+            initialData = exerciseCatalogueOptional.orElseGet(SampleDataUtil::getSampleExerciseCatalogue);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
-            initialData = new WorkoutPlanner();
+            initialData = new ExerciseCatalogue();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
-            initialData = new WorkoutPlanner();
+            initialData = new ExerciseCatalogue();
+        }
+
+        return initialData;
+    }
+
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s duke cooks and {@code userPrefs}. <br>
+     * The data from the sample duke cooks will be used instead if {@code storage}'s Duke Cooks is not found,
+     * or an empty dukeCooks will be used instead if errors occur when reading {@code storage}'s Duke Cooks.
+     */
+    private ReadOnlyWorkoutCatalogue initWorkoutCatalogue(Storage storage) {
+        Optional<ReadOnlyWorkoutCatalogue> workoutCatalogueOptional;
+        ReadOnlyWorkoutCatalogue initialData;
+
+        try {
+            workoutCatalogueOptional = storage.readWorkoutCatalogue();
+            if (!workoutCatalogueOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with sample Workout Catalogue");
+            }
+            initialData = workoutCatalogueOptional.orElseGet(SampleDataUtil::getSampleWorkoutCatalogue);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
+            initialData = new WorkoutCatalogue();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty DukeCooks");
+            initialData = new WorkoutCatalogue();
         }
 
         return initialData;
@@ -279,7 +315,7 @@ public class MainApp extends Application {
             if (!diaryRecordsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with sample DiaryRecords");
             }
-            initialData = diaryRecordsOptional.orElseGet(DiarySampleDataUtil::getSampleDiaryRecords);
+            initialData = diaryRecordsOptional.orElseGet(SampleDiaryDataUtil::getSampleDiaryRecords);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty DukeCooks");
             initialData = new DiaryRecords();

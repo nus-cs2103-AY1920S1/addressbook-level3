@@ -11,7 +11,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TASKNAME = new Prefix("tn/");
     public static final Prefix PREFIX_TASKDATE = new Prefix("td/");
 
-    /* User Profile */
+    /* Workout and Exercises */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PRIMARY_MUSCLE = new Prefix("p/");
     public static final Prefix PREFIX_SECONDARY_MUSCLE = new Prefix("sm/");
@@ -20,14 +20,18 @@ public class CliSyntax {
     public static final Prefix PREFIX_REPETITIONS = new Prefix("r/");
     public static final Prefix PREFIX_SETS = new Prefix("s/");
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
+    public static final Prefix PREFIX_TIMING = new Prefix("t/");
+    public static final Prefix PREFIX_WORKOUT_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_EXERCISE_INDEX = new Prefix("ei/");
+    public static final Prefix PREFIX_WORKOUT_INDEX = new Prefix("wi/");
 
     /* Recipe Book */
     public static final Prefix PREFIX_INGREDIENT = new Prefix("i/");
     public static final Prefix PREFIX_REMOVEINGREDIENT = new Prefix("i-/");
     public static final Prefix PREFIX_CALORIES = new Prefix("cal/");
-    public static final Prefix PREFIX_CARBS = new Prefix("c/");
-    public static final Prefix PREFIX_FATS = new Prefix("f/");
-    public static final Prefix PREFIX_PROTEIN = new Prefix("p/");
+    public static final Prefix PREFIX_CARBS = new Prefix("carb/");
+    public static final Prefix PREFIX_FATS = new Prefix("fats/");
+    public static final Prefix PREFIX_PROTEIN = new Prefix("prot/");
 
     /* Meal Plan Book */
     public static final Prefix PREFIX_DAY1 = new Prefix("day1/");

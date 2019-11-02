@@ -62,24 +62,24 @@ public class UniqueExerciseListTest {
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setPerson(null, ABS_ROLLOUT));
+        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercise(null, ABS_ROLLOUT));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setPerson(ABS_ROLLOUT, null));
+        Assert.assertThrows(NullPointerException.class, () -> uniqueExerciseList.setExercise(ABS_ROLLOUT, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
         Assert.assertThrows(ExerciseNotFoundException.class, () -> uniqueExerciseList
-                .setPerson(ABS_ROLLOUT, ABS_ROLLOUT));
+                .setExercise(ABS_ROLLOUT, ABS_ROLLOUT));
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniqueExerciseList.add(ABS_ROLLOUT);
-        uniqueExerciseList.setPerson(ABS_ROLLOUT, ABS_ROLLOUT);
+        uniqueExerciseList.setExercise(ABS_ROLLOUT, ABS_ROLLOUT);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(ABS_ROLLOUT);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
@@ -91,7 +91,7 @@ public class UniqueExerciseListTest {
         Exercise editedAlice = new ExerciseBuilder(ABS_ROLLOUT)
                 .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
                 .build();
-        uniqueExerciseList.setPerson(ABS_ROLLOUT, editedAlice);
+        uniqueExerciseList.setExercise(ABS_ROLLOUT, editedAlice);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(editedAlice);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
@@ -100,7 +100,7 @@ public class UniqueExerciseListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniqueExerciseList.add(ABS_ROLLOUT);
-        uniqueExerciseList.setPerson(ABS_ROLLOUT, SITUP);
+        uniqueExerciseList.setExercise(ABS_ROLLOUT, SITUP);
         UniqueExerciseList expectedUniqueExerciseList = new UniqueExerciseList();
         expectedUniqueExerciseList.add(SITUP);
         assertEquals(expectedUniqueExerciseList, uniqueExerciseList);
@@ -110,7 +110,7 @@ public class UniqueExerciseListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueExerciseList.add(ABS_ROLLOUT);
         uniqueExerciseList.add(SITUP);
-        Assert.assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setPerson(ABS_ROLLOUT, SITUP));
+        Assert.assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setExercise(ABS_ROLLOUT, SITUP));
     }
 
     @Test
