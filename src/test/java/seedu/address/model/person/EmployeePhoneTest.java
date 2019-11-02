@@ -35,7 +35,7 @@ public class EmployeePhoneTest {
         assertFalse(EmployeePhone.isValidPhone("9312 1534")); // spaces within digits
 
         // valid phone numbers
-        assertTrue(EmployeePhone.isValidPhone("911")); // exactly 3 numbers
+        assertTrue(EmployeePhone.isValidPhone("9112456")); // 7 numbers
         assertTrue(EmployeePhone.isValidPhone("93121534"));
         assertTrue(EmployeePhone.isValidPhone("124293842033123")); // long phone numbers
     }
