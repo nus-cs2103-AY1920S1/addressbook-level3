@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
+import static seedu.address.commons.core.Messages.MESSAGE_STILL_IN_SERVE_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BORROWER_ID;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -45,6 +46,11 @@ public class ServeCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.isServeMode()) {
+            throw new CommandException(String.format(MESSAGE_STILL_IN_SERVE_MODE,
+                    model.getServingBorrower().getName().toString()));
+        }
 
         if (!model.hasBorrowerId(borrowerId)) {
             throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);
