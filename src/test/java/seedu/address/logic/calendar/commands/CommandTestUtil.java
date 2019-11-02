@@ -20,6 +20,7 @@ import seedu.address.model.calendar.CalendarAddressBook;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.task.Task;
 import seedu.address.model.calendar.task.TaskTitleContainsKeywordsPredicate;
+import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 
 /**
@@ -62,21 +63,21 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    //        public static final EditCommand.EditTaskDescriptor DESC_AMY;
-    //        public static final EditCommand.EditTaskDescriptor DESC_BOB;
-    //
-    //        static {
-    //            DESC_AMY = new EditPersonDescriptorBuilder().withTaskTitle(VALID_TASKTITLE_AMY)
-    //                    .withTaskTime(VALID_TASKTIME_AMY)
-    //                    .withTaskDescription(VALID_TASKDESCRIPTION_AMY)
-    //                    .withTaskDay(VALID_TASKDAY_AMY)
-    //                    .withTaskTags(VALID_TASKTAG_FRIEND).build();
-    //            DESC_BOB = new EditPersonDescriptorBuilder().withTaskTitle(VALID_TASKTITLE_BOB)
-    //                    .withTaskTime(VALID_TASKTIME_BOB)
-    //                    .withTaskDescription(VALID_TASKDESCRIPTION_BOB).
-    //                        withTaskDay(VALID_TASKDAY_BOB)
-    //                    .withTaskTags(VALID_TASKTAG_HUSBAND, VALID_TASKTAG_FRIEND).build();
-    //        }
+    public static final EditCommand.EditTaskDescriptor DESC_AMY;
+    public static final EditCommand.EditTaskDescriptor DESC_BOB;
+
+    static {
+        DESC_AMY = new EditTaskDescriptorBuilder().withTaskTitle(VALID_TASKTITLE_AMY)
+            .withTaskTime(VALID_TASKTIME_AMY)
+            .withTaskDescription(VALID_TASKDESCRIPTION_AMY)
+            .withTaskDay(VALID_TASKDAY_AMY)
+            .withTaskTags(VALID_TASKTAG_FRIEND).build();
+        DESC_BOB = new EditTaskDescriptorBuilder().withTaskTitle(VALID_TASKTITLE_BOB)
+            .withTaskTime(VALID_TASKTIME_BOB)
+            .withTaskDescription(VALID_TASKDESCRIPTION_BOB)
+            .withTaskDay(VALID_TASKDAY_BOB)
+            .withTaskTags(VALID_TASKTAG_HUSBAND, VALID_TASKTAG_FRIEND).build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
