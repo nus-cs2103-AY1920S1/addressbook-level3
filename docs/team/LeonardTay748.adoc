@@ -3,45 +3,56 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: KeyboardFlashCards
 
 ---
 
-== Overview
+== About the project
 
-AddressBook - Level 3 is a desktop rating book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This project was part of an assignment for a second year software engineering module (2103T) offered by the National University of Singapore (NUS). The assignment required my team which consists of 5 members to morph an Address Book application (which manages contact information of people) to suit our newly identified users, within a period of 6 weeks.
+
+The target user group that we have selected are software engineering students like ourselves, who are more familiar and prefer to use a Command Line. As students, we take multiple modules each semester and in doing so, it can be difficult to organize notes for revision. Thus, we decided to provide a single platform for software engineering students to organize their learning resources into flashcards with each flashcard consisting of a question, an answer, and a rating.
+
+This is what the Graphical User Interface (GUI) of our application looks like.
+
+image::annotatedUi.png[width="790"]
+
+My role in the team was to design and write the codes for the statistics and help features which uses the commands `stats` and `help` respectively. I will go into more detail about my contributions to the project in the following sections. 
+
+**Note the formatting used in this document**
+
+* Commands are highlighted: `help`
+* Class and objects are highlighted with italic font: `_class_`  
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added a statistics feature.
+** *What it does:* It allows the user to view three different types of statistics in a single pop-up window. The statistics are displayed in the form of two bar charts and a line chart. The first bar chart shows the number of FlashCards that are rated as good, hard and easy. The second bar chart shows the number of FlashCards (good, hard and easy) that are completed during the test mode. Lastly, the line chart shows the performance of the user, displayed in percentage format. The performance takes into consideration the ratings of the FlashCards. If there are greater number of FlashCards rated as good or easy, the performance shown will be higher.
+** *Justification:* This feature improves the product significantly because a user would not have to painstakingly keep track of the number of FlashCards that have ratings. The user can also identify if his/her knowledge has improved after each test, which is a good indication of exam readiness.
+** *Highlights:* This enhancement required a synchronisation between the test mode and the statistics feature itself. The test mode was completed by another one of my team members. This made it harder to integrate my feature since it required an in-depth understanding of how the test mode works. This also required me to add codes within the framework of the test mode feature.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Modified the exisiting help feature.
+** *What it does:* It displays a full list of commands that are supported by our application, instead of providing a url to the user that directs him/her back to the user guide page.
+** *Justification:* My experience with the help feature in various applications led me to believe that providing a url link back to the user guide does not serve a good purpose. If the user is just looking for the list of commands available, then it would be a time-consuming process.  
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:  [https://github.com/LeonardTay748/main/blob/master/src/main/java/seedu/address/ui/StatsWindow.java[Statistics Window]] [https://github.com/LeonardTay748/main/blob/master/src/main/java/seedu/address/ui/HelpWindow.java[Help Window]]
 
-* *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* *Other contributions*
 
-_{you can add/remove categories in the list above}_
+** Project management
+*** Ensure that the application is tested
+*** Ensure that the displayed messages in the application follows the standard agreed by our team 
+** Enhancements to existing features
+*** Added more statistics (pull request https://github.com/AY1920S1-CS2103T-T12-4/main/pull/169[#169])
+*** Standardised display output (pull request https://github.com/AY1920S1-CS2103T-T12-4/main/pull/169[#169])
+** Documentation
+*** Made significant changes to existing contents of the User Guide and Developers Guide: https://github.com/AY1920S1-CS2103T-T12-4/main/pull/154/files[#154], https://github.com/AY1920S1-CS2103T-T12-4/main/pull/169[#169]
+** Community
+*** PRs reviewed: https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150[#150]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/LeonardTay748/ped/issues/2[#2], https://github.com/LeonardTay748/ped/issues/3[#3], https://github.com/LeonardTay748/ped/issues/6[#6], https://github.com/LeonardTay748/ped/issues/7[#7], https://github.com/LeonardTay748/ped/issues/8[#8], https://github.com/LeonardTay748/ped/issues/9[#9], https://github.com/LeonardTay748/ped/issues/10[#10], https://github.com/LeonardTay748/ped/issues/11[#11]
+
 
 == Contributions to the User Guide
 
