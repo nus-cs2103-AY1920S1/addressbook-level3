@@ -2,8 +2,10 @@ package dukecooks.logic.commands.diary;
 
 import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_DESCRIPTION;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TYPE;
 
 import java.util.List;
 
@@ -28,7 +30,9 @@ public class AddPageCommand extends AddCommand {
             + "Parameters: "
             + PREFIX_DIARY_NAME + " DIARY NAME "
             + PREFIX_PAGE_TITLE + " PAGE TITLE "
-            + PREFIX_PAGE_DESCRIPTION + " PAGE DESCRIPTION ";
+            + PREFIX_PAGE_TYPE + " PAGE TYPE "
+            + PREFIX_PAGE_DESCRIPTION + " PAGE DESCRIPTION "
+            + PREFIX_IMAGE + " PAGE IMAGE ";
 
     public static final String MESSAGE_SUCCESS = "You have added a new page with title: %1$s";
     public static final String MESSAGE_NON_EXISTENT_DIARY = "This diary does not exists!";

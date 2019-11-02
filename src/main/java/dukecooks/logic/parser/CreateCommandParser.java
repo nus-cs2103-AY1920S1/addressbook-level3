@@ -1,14 +1,14 @@
 package dukecooks.logic.parser;
 
-import dukecooks.logic.commands.CreateCommand;
-import dukecooks.logic.commands.PushCommand;
-import dukecooks.logic.commands.diary.CreatePageCommand;
-import dukecooks.logic.parser.exceptions.ParseException;
+import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import dukecooks.logic.commands.CreateCommand;
+import dukecooks.logic.commands.PushCommand;
+import dukecooks.logic.commands.diary.CreatePageCommand;
+import dukecooks.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new CreateCommand object

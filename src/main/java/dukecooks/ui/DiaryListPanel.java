@@ -2,23 +2,22 @@ package dukecooks.ui;
 
 import java.util.logging.Logger;
 
+import dukecooks.commons.core.Event;
 import dukecooks.commons.core.LogsCenter;
-import dukecooks.logic.Logic;
-import dukecooks.logic.commands.diary.AddPageCommand;
-import dukecooks.logic.commands.exceptions.CommandException;
-import dukecooks.logic.parser.DukeCooksParser;
-import dukecooks.logic.parser.ParserUtil;
-import dukecooks.logic.parser.diary.AddPageCommandParser;
-import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.commons.util.ImagePicker;
 import dukecooks.model.diary.components.Diary;
 import dukecooks.model.diary.components.Page;
-import dukecooks.model.diary.components.Title;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
+
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -26,7 +25,10 @@ import javafx.scene.layout.Region;
  * Panel containing the diary feature.
  */
 public class DiaryListPanel extends UiPart<Region> {
+
     private static final String FXML = "DiaryListPanel.fxml";
+    private static Event event;
+
     private final Logger logger = LogsCenter.getLogger(DiaryListPanel.class);
 
     @FXML
@@ -91,6 +93,38 @@ public class DiaryListPanel extends UiPart<Region> {
 
     }
 
+    /**
+     * Initialises PageInputView
+     * Renders the Page Input Form page
+     */
+    private void initializePageInputView() {
+        // Auto-changes focus to Diary Name
+        focusToDiaryName();
+        clearAllInputFields();
+
+        // Set up F2 to return focus to DiaryName TextField
+        setAccelerator(KeyCombination.keyCombination("F2"), this::focusToDiaryName);
+
+    }
+
+    /**
+     * Method that auto-focuses on the DiaryName TextField
+     */
+    private void focusToDiaryName() {
+        Platform.runLater(()-> diaryNameTextField.requestFocus());
+    }
+
+    /**
+     * Utility method that clear all inputs from the various text fields.
+     */
+    private void clearAllInputFields() {
+        diaryNameTextField.clear();
+        pageTitleTextField.clear();
+        pageTypeTextField.clear();
+        pageDescriptionTextField.clear();
+        pageImageTextField.clear();
+    }
+
 
     /**
      * Display inner components within Diary Panel.
@@ -122,6 +156,7 @@ public class DiaryListPanel extends UiPart<Region> {
             showPanels(true, true, false);
             break;
         case "pageInput":
+            initializePageInputView();
             showPanels(true, false, true);
             break;
         default:
@@ -129,14 +164,38 @@ public class DiaryListPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Executes an AddPageCommand, based on the input provided in the GUI.
+     */
     @FXML
-    void checkInput() throws ParseException, CommandException {
+    void executeInput() {
         String command = "add page";
         String diaryInput = " n/ " + diaryNameTextField.getText();
         String titleInput = " t/ " + pageTitleTextField.getText();
-        String imageInput = " i/ " + pageImageTextField.getText();
+        String pageTypeInput = " tp/ " + pageTypeTextField.getText();
         String descInput = " desc/ " + pageDescriptionTextField.getText();
-        mainWindow.executeGuiCommand(command + diaryInput + titleInput + imageInput + descInput);
+        String imageInput = " i/ " + pageImageTextField.getText();
+        mainWindow.executeGuiCommand(command + diaryInput + titleInput
+                + pageTypeInput + imageInput + descInput);
+        clearAllInputFields();
+    }
+
+    @FXML
+    void handleImagePicker() {
+        ImagePicker picker = new ImagePicker();
+        pageImageTextField.setText(picker.getImageFile().getAbsolutePath());
+    }
+
+    @FXML
+    void handleConfirmAction() {
+        executeInput();
+    }
+
+    @FXML
+    void handleCancelAction() {
+        clearAllInputFields();
+        event = Event.getInstance();
+        event.set("diary", "all");
     }
 
     /**
@@ -168,11 +227,40 @@ public class DiaryListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);;
             } else {
-                setGraphic(new PageCard(page, getIndex() + 1).getRoot());
+                setGraphic(new PageCard(page).getRoot());
             }
         }
+    }
 
+    /**
+     * Sets an accelerator the application.
+     * @param keyCombination the KeyCombination value of the accelerator
+     */
+    private void setAccelerator(KeyCombination keyCombination, Runnable executed) {
+        getRoot().getScene().getAccelerators().put(keyCombination, executed);
 
+        /*
+         * TODO: the code below can be removed once the bug reported here
+         * https://bugs.openjdk.java.net/browse/JDK-8131666
+         * is fixed in later version of SDK.
+         *
+         * According to the bug report, TextInputControl (TextField, TextArea) will
+         * consume function-key events. Because CommandBox contains a TextField, and
+         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
+         * not work when the focus is in them because the key event is consumed by
+         * the TextInputControl(s).
+         *
+         * For now, we add following event filter to capture such key events and open
+         * help window purposely so to support accelerators even when focus is
+         * in CommandBox or ResultDisplay.
+         *
+         */
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
+                executed.run();
+                event.consume();
+            }
+        });
     }
 
 }

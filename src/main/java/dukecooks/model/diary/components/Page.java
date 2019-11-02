@@ -14,6 +14,7 @@ public class Page {
     // Identity fields
     private final Title title;
     private final PageDescription description;
+    private final PageType pageType;
 
     // Optional fields
     private final Image image;
@@ -21,9 +22,10 @@ public class Page {
     /**
      * Every field must be present and not null.
      */
-    public Page(Title title, PageDescription description, Image image) {
-        CollectionUtil.requireAllNonNull(title, description, image);
+    public Page(Title title, PageType pageType, PageDescription description, Image image) {
+        CollectionUtil.requireAllNonNull(title, pageType, description, image);
         this.title = title;
+        this.pageType = pageType;
         this.description = description;
         this.image = image;
     }
@@ -38,6 +40,10 @@ public class Page {
 
     public Image getImage() {
         return image;
+    }
+
+    public PageType getPageType() {
+        return pageType;
     }
 
     /**
@@ -81,6 +87,8 @@ public class Page {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTitle())
+                .append(" Page Type: ")
+                .append(getPageType())
                 .append(" Description: ")
                 .append(getDescription().fullPageDescription);
         return builder.toString();

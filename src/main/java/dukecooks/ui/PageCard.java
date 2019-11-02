@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -41,7 +42,7 @@ public class PageCard extends UiPart<Region> {
     private Text pageDescription;
 
 
-    public PageCard(Page page, int displayedIndex) {
+    public PageCard(Page page) {
         super(FXML);
         this.page = page;
 
@@ -50,6 +51,18 @@ public class PageCard extends UiPart<Region> {
 
         // Set page description
         pageDescription.setText(page.getDescription().fullPageDescription);
+
+        // Set colour of card
+        if (page.getPageType().toString().equals("food")) {
+            // Set to yellow
+            pageTitle.setStyle("-fx-background-color: #fff176;");
+        } else if (page.getPageType().toString().equals("health")) {
+            // Set to pink
+            pageTitle.setStyle("-fx-background-color: #f8bbd0;");
+        } else {
+            // Set to green
+            pageTitle.setStyle("-fx-background-color: #aed581;");
+        }
 
         // Set page image
         String imagePath = page.getImage().getDataPath();

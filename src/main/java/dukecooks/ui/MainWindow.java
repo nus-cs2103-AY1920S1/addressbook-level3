@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    protected Logic logic;
+    private Logic logic;
     private UiManager uiManager;
 
     // Independent Ui parts residing in this Ui container

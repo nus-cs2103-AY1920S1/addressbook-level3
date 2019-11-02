@@ -324,11 +324,11 @@
 #pageInputHeader {
     -fx-font-size: 36;
     -fx-font-weight: bold;
-    -fx-background-color: beige;
+    -fx-background-color: #f2eee5;
 }
 
-#titleInput, #typeInput, #descriptionInput, #imageInput {
-    -fx-font-size: 14;
+#titleInput, #typeInput, #descriptionInput, #imageInput, #diaryNameInput {
+    -fx-font-size: 18;
     -fx-font-weight: bold;
 }
 
@@ -361,24 +361,13 @@
 #diaryHeader {
     -fx-font-size: 36;
     -fx-font-weight: bold;
-}
-
-#pageViewPanel #diaryHeaderContainer {
-    -fx-background-color: #ffe0b2;
+    -fx-background-color: #f2eee5;
 }
 
 #pageCardPane {
     -fx-border-radius: 5;
     -fx-border-color: black;
     -fx-background-color: #eeeeee;
-}
-
-.pageCard .title {
-    -fx-font-size: 20px;
-}
-
-.pageCard .description {
-    -fx-font-size: 14px;
 }
 
 #pageListView {
@@ -415,7 +404,6 @@
 #pageTitle {
     -fx-font-size: 20;
     -fx-font-weight: bold;
-    -fx-background-color: #fbe9e7;
 }
 
 #pageDescription {
