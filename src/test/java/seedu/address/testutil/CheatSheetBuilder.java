@@ -51,6 +51,15 @@ public class CheatSheetBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code contents} into a {@code Set<Content>}
+     * and set it to the {@code CheatSheet} that we are building.
+     */
+    public CheatSheetBuilder withContents(String ... contents) {
+        this.contents = SampleDataUtil.getContentSet(contents);
+        return this;
+    }
+
     public CheatSheet build() {
         return new CheatSheet(title, contents, tags);
     }
