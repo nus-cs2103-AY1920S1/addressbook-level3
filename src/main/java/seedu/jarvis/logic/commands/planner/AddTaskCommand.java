@@ -77,7 +77,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_TAG + "school";
 
     public static final String MESSAGE_SUCCESS = "New task added:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the planner";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Deleted task: %1$s";
     public static final String MESSAGE_INVERSE_TASK_NOT_FOUND = "Task already deleted: %1$s";

@@ -95,11 +95,11 @@ For example:
 As a .csv file:: `export csv f/MyFile`
 With a.txt file:: `export txt f/MyFile`
 
-6. Dates `d/DATE` follow the following format: `DD/MM/YYYY`.
+6. Dates `d/DATE` follow the following format: `d/m/yyyy`.
 +
 For example:
 +
-`add-task t/todo des/assignment d/01/01/1970`
+`add-task t/todo des/assignment d/1/1/1970`
 
 ////
 Task Scheduler
