@@ -18,8 +18,8 @@ public class TaskDate {
                     + "\n"
                     + "Or subsequently, the entered month does not have the that particular day.";
     public final String day;
-    private final String month;
-    private final String year;
+    public final String month;
+    public final String year;
     public final String taskDate;
 
     /**
