@@ -15,9 +15,10 @@ public class CashierMessages {
             + " cashier NAME\n\n";
 
     public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
-            + "To add an item to the table, please type \"add d/DESCRIPTION\n q/QUANTITY\"\n";
+            + "To add an item to the table, please type \"add [c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n";
 
-    public static final String NO_SUCH_COMMAND = "Sorry! There is no such command.\n\n";
+    public static final String MESSAGE_NO_COMMAND = "Sorry! There is no such command. The commands you can input are add, "
+            + "delete, edit, clear, cashier, checkout.";
 
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
             + "the specified description in the sales list.\n";
@@ -35,7 +36,7 @@ public class CashierMessages {
     public static final String NO_SUCH_PERSON = "Sorry! There is no such person. Please enter a valid name.\n\n";
 
     public static final String MESSAGE_INVALID_ADDCOMMAND_FORMAT = "Sorry! To add, please type \"add "
-            + "d/DESCRIPTION\n q/QUANTITY\"\n\n";
+            + "[c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n\n";
 
     /*public static final String MESSAGE_INVALID_CASHIERCOMMAND_FORMAT = "To set cashier, please type "
             + "\"cashier NAME\" \n";*/
@@ -69,8 +70,8 @@ public class CashierMessages {
 
     public static final String MESSAGE_DELETED_ITEM = "Deleted item: %s\n Deleted successfully.";
 
-    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
-            + "add, cashier, checkout, clear, delete and edit.";
+//    public static final String MESSAGE_NO_COMMAND = "Please input a valid command. The commands include\n"
+//            + "add, cashier, checkout, clear, delete and edit.";
 
     /**
      * Returns a message containing all the items description according to the category.
@@ -84,7 +85,7 @@ public class CashierMessages {
             output += (i + 1) + ". " + list.get(i) + "\n";
         }
         output += "\nTo add to the cart, please type \"add "
-                           + "c/CATEGORY d/DESCRIPTION\n q/QUANTITY\"\n\n";
+                           + "[c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n\n";
         return output;
     }
 
@@ -99,7 +100,7 @@ public class CashierMessages {
             output += (i + 1) + ". " + list.get(i) + "\n";
         }
         output += "\nTo add to the cart, please type \"add "
-                + "d/DESCRIPTION\n q/QUANTITY\"\n\n";
+                + "[c/CATEGORY] d/DESCRIPTION\n q/QUANTITY\"\n\n";
         return output;
     }
 
