@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_LOCATI
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCUMENT_PATH_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalFlashCards.NUS;
 import static seedu.address.testutil.TypicalFlashCards.getTypicalAddressBook;
 
 import java.io.File;
@@ -64,15 +65,17 @@ public class ExportCommandTest {
 
     @Test
     public void execute_validInput_fileCreated() {
+        model.addFlashCard(NUS);
         String expectedMessage = String.format(
                 ExportCommand.MESSAGE_EXPORT_SUCCESS,
-                firstDocumentPath.toAbsolutePathString()
+                1,
+                secondDocumentPath.toAbsolutePathString()
         );
 
-        deleteFileIfExists(firstDocumentPath);
-        assertCommandSuccess(firstCommand, model, expectedMessage, model);
-        assertTrue(isFilePresent(firstDocumentPath));
-        deleteFileIfExists(firstDocumentPath);
+        deleteFileIfExists(secondDocumentPath);
+        assertCommandSuccess(secondCommand, model, expectedMessage, model);
+        assertTrue(isFilePresent(secondDocumentPath));
+        deleteFileIfExists(secondDocumentPath);
     }
 
     private boolean isFilePresent(DocumentPath documentPath) {
