@@ -33,7 +33,7 @@ public class CalendarPanel extends UiPart<Region> {
     private int month;
 
     @FXML
-    private Text monthAndYear;
+    private Label monthAndYear;
 
     @FXML
     private GridPane calendarGrid;
