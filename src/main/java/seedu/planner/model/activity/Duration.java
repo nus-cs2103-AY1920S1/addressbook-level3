@@ -1,9 +1,6 @@
 package seedu.planner.model.activity;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.planner.commons.util.AppUtil.checkArgument;
-
-import seedu.planner.commons.util.StringUtil;
 
 /**
  * Represents the duration of an Activity in the application.
@@ -12,9 +9,10 @@ import seedu.planner.commons.util.StringUtil;
  */
 public class Duration {
     public static final String MESSAGE_CONSTRAINTS =
-            "Value of duration should be a non-zero positive integer";
-    public final Integer value;
+            "Duration is in minutes and should be a non-zero positive integer less than 1440";
+    public static final String VALIDATION_REGEX = "^([1-9][0-9]{0,2}|1[0-4][0-3][0-9])$";
 
+    public final Integer value;
     /**
      * Constructs a {@code Duration}.
      *
@@ -22,15 +20,14 @@ public class Duration {
      */
     public Duration(Integer duration) {
         requireNonNull(duration);
-        checkArgument(isValidDuration(duration), MESSAGE_CONSTRAINTS);
         value = duration;
     }
 
     /**
      * Returns true if a given integer is a valid duration.
      */
-    public static boolean isValidDuration(Integer test) {
-        return StringUtil.isNonZeroUnsignedInteger(test.toString()) && (test >= 0);
+    public static boolean isValidDuration(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
