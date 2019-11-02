@@ -37,7 +37,6 @@ class JsonSerializableBankAccount {
                                        @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers) {
         this.transactions.addAll(transactions);
         this.budgets.addAll(budgets);
-        this.ledgers.addAll(ledgers);
     }
 
     /**
@@ -56,11 +55,6 @@ class JsonSerializableBankAccount {
                 .stream()
                 .map(JsonAdaptedBankOperations::new)
                 .collect(Collectors.toList()));
-        ledgers
-            .addAll(source.getLedger().getLedgerHistory()
-                    .stream()
-                    .map(JsonAdaptedLedgerOperations::new)
-                    .collect(Collectors.toList()));
     }
 
     /**

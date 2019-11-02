@@ -53,15 +53,7 @@ public class FilterCommandTest {
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 
-    @Test
-    public void execute_zeroKeywords_noTransactionFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
-        TransactionContainsCategoriesPredicate predicate = preparePredicate(" ");
-        FilterCommand command = new FilterCommand(predicate);
-        expectedModel.updateFilteredTransactionList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
-    }
+    // TODO: more testcases
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

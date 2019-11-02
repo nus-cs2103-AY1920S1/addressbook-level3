@@ -17,13 +17,13 @@ import seedu.address.testutil.TypicalTransactions;
 public class JsonSerializableBankAccountTest {
 
     private static final Path TEST_DATA_FOLDER = Paths
-        .get("src", "test", "data", "JsonSerializableBankAccountTest");
+        .get("src", "test", "data", "JsonSerializableUserStateTest");
     private static final Path TYPICAL_TRANSACTIONS_FILE = TEST_DATA_FOLDER
-        .resolve("typicalTransactionsBankAccount.json");
+        .resolve("typicalTransactionsUserState.json");
     private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER
-        .resolve("invalidTransactionBankAccount.json");
+        .resolve("invalidTransactionUserState.json");
     private static final Path DUPLICATE_TRANSACTION_FILE = TEST_DATA_FOLDER
-        .resolve("duplicateTransactionBankAccount.json");
+        .resolve("duplicateTransactionUserState.json");
 
     @Test
     public void toModelType_typicalTransactionsFile_success() throws Exception {

@@ -52,7 +52,7 @@ public class Amount implements Comparable<Amount> {
 //        int indexOfPeriod = amountStr.lastIndexOf(".");
 //        return indexOfPeriod == -1
 //            || amountStr.substring(indexOfPeriod + 1).length() <= 2;
-         return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * Double.MIN_VALUE;
+         return Math.abs(amount * 100 - Math.round(amount * 100)) < 2 * 1.13E-13;
     }
 
     /**

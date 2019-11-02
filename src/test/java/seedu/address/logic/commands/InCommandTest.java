@@ -275,7 +275,6 @@ public class InCommandTest {
 
         @Override
         public void commitUserState() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override

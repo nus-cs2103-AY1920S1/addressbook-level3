@@ -269,7 +269,6 @@ public class SetCommandTest {
 
         @Override
         public void commitUserState() {
-            throw new AssertionError("This method should not be called.");
         }
 
         @Override

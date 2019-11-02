@@ -43,20 +43,20 @@ class JsonSerializableUserState {
 
     public JsonSerializableUserState(ReadOnlyUserState source) {
         transactions
-            .addAll(source.getBankAccount().getTransactionHistory()
-                .stream()
-                .map(JsonAdaptedBankOperations::new)
-                .collect(Collectors.toList()));
+                .addAll(source.getBankAccount().getTransactionHistory()
+                        .stream()
+                        .map(JsonAdaptedBankOperations::new)
+                        .collect(Collectors.toList()));
         budgets
-            .addAll(source.getBankAccount().getBudgetHistory()
-                .stream()
-                .map(JsonAdaptedBudget::new)
-                .collect(Collectors.toList()));
+                .addAll(source.getBankAccount().getBudgetHistory()
+                        .stream()
+                        .map(JsonAdaptedBudget::new)
+                        .collect(Collectors.toList()));
         ledgers
-            .addAll(source.getLedger().getLedgerHistory()
-                .stream()
-                .map(JsonAdaptedLedgerOperations::new)
-                .collect(Collectors.toList()));
+                .addAll(source.getLedger().getLedgerHistory()
+                        .stream()
+                        .map(JsonAdaptedLedgerOperations::new)
+                        .collect(Collectors.toList()));
     }
 
     /**
@@ -84,10 +84,9 @@ class JsonSerializableUserState {
 
         for (JsonAdaptedLedgerOperations jsonAdaptedLedgerOperations : ledgers) {
             LedgerOperation ledgerOperation = jsonAdaptedLedgerOperations.toModelType();
-            // TODO
-            // if (userState.hasLedger(ledgerOperation)) {
-            //     throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
-            // }
+            if (userState.has(ledgerOperation)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_LEDGER);
+            }
             userState.add(ledgerOperation);
         }
 
