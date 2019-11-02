@@ -2,11 +2,13 @@ package seedu.planner.logic.events.delete;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.AddContactCommand;
 import seedu.planner.logic.commands.DeleteContactCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.contact.Contact;
 
@@ -17,7 +19,7 @@ public class DeleteContactEvent implements Event {
     private final Index index;
     private final Contact deletedContact;
 
-    public DeleteContactEvent(Index index, Model model) {
+    public DeleteContactEvent(Index index, Model model) throws EventException {
         this.index = index;
         this.deletedContact = generateDeletedContact(model);
     }
@@ -35,9 +37,13 @@ public class DeleteContactEvent implements Event {
      * @param model Current model in the application.
      * @return Contact to be deleted.
      */
-    private Contact generateDeletedContact(Model model) {
+    private Contact generateDeletedContact(Model model) throws EventException {
         List<Contact> lastShownList = model.getFilteredContactList();
-        assert(index.getZeroBased() < lastShownList.size());
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new EventException(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        }
+
         Contact contactToDelete = lastShownList.get(index.getZeroBased());
         return contactToDelete;
     }

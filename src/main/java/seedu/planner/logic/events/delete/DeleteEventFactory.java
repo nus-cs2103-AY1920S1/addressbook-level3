@@ -49,19 +49,20 @@ public class DeleteEventFactory {
         }
     }
 
-    public static DeleteAccommodationEvent generateDeleteAccommodationEvent(Index index, Model model) {
+    public static DeleteAccommodationEvent generateDeleteAccommodationEvent(Index index, Model model)
+            throws EventException {
         return new DeleteAccommodationEvent(index, model);
     }
 
-    public static DeleteActivityEvent generateDeleteActivityEvent(Index index, Model model) {
+    public static DeleteActivityEvent generateDeleteActivityEvent(Index index, Model model) throws EventException {
         return new DeleteActivityEvent(index, model);
     }
 
-    public static DeleteContactEvent generateDeleteContactEvent(Index index, Model model) {
+    public static DeleteContactEvent generateDeleteContactEvent(Index index, Model model) throws EventException {
         return new DeleteContactEvent(index, model);
     }
 
-    public static DeleteDayEvent generateDeleteDayEvent(Index index, Model model) {
+    public static DeleteDayEvent generateDeleteDayEvent(Index index, Model model) throws EventException {
         return new DeleteDayEvent(index, model);
     }
 }

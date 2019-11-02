@@ -1,9 +1,11 @@
 package seedu.planner.logic.commands.exceptions;
 
+import seedu.planner.commons.exceptions.IllegalValueException;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */
-public class CommandException extends Exception {
+public class CommandException extends IllegalValueException {
     public CommandException(String message) {
         super(message);
     }

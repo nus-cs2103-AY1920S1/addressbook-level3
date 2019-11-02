@@ -2,11 +2,13 @@ package seedu.planner.logic.events.delete;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.AddAccommodationCommand;
 import seedu.planner.logic.commands.DeleteAccommodationCommand;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.events.Event;
+import seedu.planner.logic.events.exceptions.EventException;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 
@@ -17,7 +19,7 @@ public class DeleteAccommodationEvent implements Event {
     private final Index index;
     private final Accommodation deletedAccommodation;
 
-    public DeleteAccommodationEvent(Index index, Model model) {
+    public DeleteAccommodationEvent(Index index, Model model) throws EventException {
         this.index = index;
         this.deletedAccommodation = generateDeletedAccommodation(model);
     }
@@ -35,9 +37,13 @@ public class DeleteAccommodationEvent implements Event {
      * @param model Current model in the application.
      * @return Accommodation to be deleted.
      */
-    private Accommodation generateDeletedAccommodation(Model model) {
+    private Accommodation generateDeletedAccommodation(Model model) throws EventException {
         List<Accommodation> lastShownList = model.getFilteredAccommodationList();
-        assert(index.getZeroBased() < lastShownList.size());
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new EventException(Messages.MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX);
+        }
+
         Accommodation accommodationToDelete = lastShownList.get(index.getZeroBased());
         return accommodationToDelete;
     }
