@@ -1,12 +1,11 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;
-
-import java.util.stream.IntStream;
 
 /**
  * Represents a projection of user's balance at a set date in the future\
@@ -14,15 +13,14 @@ import java.util.stream.IntStream;
  */
 public class Projection {
 
-    public final ObservableList<BankAccountOperation> transactionHistory;
-    public final Date date;
-    public final Model model;
+    private final ObservableList<BankAccountOperation> transactionHistory;
+    private final Date date;
     private Amount projection;
+    private GradientDescent projector;
 
-    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date, Model model) {
+    public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date) {
         this.transactionHistory = transactionHistory;
         this.date = date;
-        this.model = model;
         this.project();
     }
 
@@ -35,15 +33,17 @@ public class Projection {
         double [] balances = extractBalances();
         // TODO: pass in double[] for input values (or use list.toarray(double))
         double [] dates = extractDates();
-        GradientDescent projector = new GradientDescent(balances, dates);
+        this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
-        double projectionAmount = Math.round(projector.predict(daysToProject)) / 100;
+        double projectionAmount = Math.round(projector.predict(daysToProject)) / 100.0;
         System.out.println(projectionAmount);
         projection = new Amount(projectionAmount);
+        Stage graph = new ProjectionLineGraph(this);
+        graph.show();
     }
 
-    public Amount getProjection() {
-        return this.projection;
+    public GradientDescent getProjector() {
+        return this.projector;
     }
 
     public String toString() {
@@ -57,7 +57,6 @@ public class Projection {
     private double[] extractDates() {
         double[] daysFromNow = new double[this.transactionHistory.size()];
         for (int i = 0; i < daysFromNow.length; i++) {
-            // TODO: fix days between to consider negative
             daysFromNow[i] = Date.daysBetween(Date.now(), transactionHistory.get(i).getDate());
         }
         return daysFromNow;
