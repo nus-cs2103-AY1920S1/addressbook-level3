@@ -11,6 +11,7 @@ import seedu.address.ui.UiManager;
 /**
  * Sorts the current list in reverse order
  */
+//@@author {lawncegoh}
 public class SortReverseCommand extends Command {
 
     public static final String COMMAND_WORD = "reverse";
@@ -22,7 +23,7 @@ public class SortReverseCommand extends Command {
     public static final String MESSAGE_SUCCESS_INCOMES = "Incomes List Sorted in Reverse Order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + "sorts the current list in reverse order";
+            + " sorts the current list in reverse order";
 
     public static final String MESSAGE_FAILURE = "Sort doesn't work here";
 

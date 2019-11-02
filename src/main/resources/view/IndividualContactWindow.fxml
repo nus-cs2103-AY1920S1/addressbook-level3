@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.FlowPane?>
-<fx:root resizable="false" title="IndividualClaim" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" resizable="false" title="IndividualClaim" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
-    <Scene>
-         <VBox alignment="CENTER">
+    <Scene onMouseClicked="#closeAction">
+         <VBox fx:id="box" alignment="CENTER">
             <children>
                 <Label fx:id="name" text="Label">
                     <HBox.margin>
@@ -23,13 +23,13 @@
                         <Insets right="20.0" />
                     </HBox.margin>
                 </Label>
-                <FlowPane fx:id="claims" />
+                <FlowPane fx:id="claims" alignment="CENTER"/>
             </children>
             <opaqueInsets>
-               <Insets bottom="100.0" left="60.0" right="100.0" top="60.0" />
+               <Insets bottom="100.0" right="50" top="100.0"/>
             </opaqueInsets>
             <padding>
-               <Insets bottom="100.0" left="60.0" right="100.0" top="60.0" />
+               <Insets bottom="100.0" left="50" right="100.0" top="100.0"/>
             </padding>
          </VBox>
     </Scene>

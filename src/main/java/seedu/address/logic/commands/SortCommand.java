@@ -11,6 +11,7 @@ import seedu.address.ui.UiManager;
 /**
  * Sorts the current list in normal order
  */
+//@@author {lawncegoh}
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
@@ -38,6 +39,7 @@ public class SortCommand extends Command {
 
     /**
      * Constructs a sort command
+     *
      * @param sortFilter 2 different types of filters
      * @return
      * @throws CommandException
@@ -56,6 +58,7 @@ public class SortCommand extends Command {
 
     /**
      * Execute method to determine the right filter to go to
+     *
      * @param model {@code Model} which the command should operate on.
      * @return a CommandResult after updating the model
      * @throws CommandException
@@ -98,6 +101,15 @@ public class SortCommand extends Command {
 
         }
     }
+
+    //    @Override
+    //    public boolean equals(Object other) {
+    //        if (gotoFilter.equals(((SortCommand) other).gotoFilter)) {
+    //            return true;
+    //        } else {
+    //            return false;
+    //        }
+    //    }
 }
 
 
