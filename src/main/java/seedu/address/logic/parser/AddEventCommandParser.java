@@ -34,7 +34,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
 
         Name name = null;
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            name = new Name(argMultimap.getValue(PREFIX_NAME).get());
+            name = ParserUtil.parseName((argMultimap.getValue(PREFIX_NAME).get()));
         }
 
         String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
