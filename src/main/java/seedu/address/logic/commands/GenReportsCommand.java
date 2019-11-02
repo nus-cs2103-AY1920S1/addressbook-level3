@@ -21,12 +21,17 @@ public class GenReportsCommand extends Command {
     private static final String MESSAGE_GENREPORT_SUCCESS = "Generated all reports";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for all bodies.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "John Doe";
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 
-    private ReportGenerator reportGenerator;
+    private String sign;
 
+    private ReportGenerator reportGenerator = new ReportGenerator();
+
+    public GenReportsCommand(String sign) {
+        this.sign = sign;
+    }
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -34,7 +39,7 @@ public class GenReportsCommand extends Command {
         if (lastShownList.isEmpty()) {
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
-        reportGenerator.generateAll(lastShownList);
+        reportGenerator.generateAll(lastShownList, sign);
         return new CommandResult(MESSAGE_GENREPORT_SUCCESS);
     }
 
