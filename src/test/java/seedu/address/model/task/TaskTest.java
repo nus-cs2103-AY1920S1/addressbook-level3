@@ -25,7 +25,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.task.execeptions.TaskException;
+import seedu.address.model.task.exceptions.TaskException;
 
 public class TaskTest {
     //featureUnderTest_testScenario_expectedBehavior()

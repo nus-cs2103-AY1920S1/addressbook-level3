@@ -64,6 +64,9 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    //for pdf file usage
+    implementation group: 'com.itextpdf', name: 'itext7-core', version: '7.1.8'
 }
 
 shadowJar {

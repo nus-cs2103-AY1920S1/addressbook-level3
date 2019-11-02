@@ -1,4 +1,4 @@
-package seedu.address.model.task.execeptions;
+package seedu.address.model.task.exceptions;
 
 /**
  * Represents an error that relates to a task.

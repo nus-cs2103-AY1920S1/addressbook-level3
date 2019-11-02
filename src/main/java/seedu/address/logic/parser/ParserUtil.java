@@ -153,14 +153,13 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String date} into an {@code LocalDate}.
-     * Lading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if date is invalid or is before today.
+     * @throws ParseException if date format is invalid.
      */
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!isValidDate(trimmedDate) || !isDateTodayOnwards(trimmedDate)) {
+        if (!isValidDate(trimmedDate)) {
             throw new ParseException(MESSAGE_INVALID_DATE_FORMAT);
         }
         return getDate(trimmedDate);
@@ -173,19 +172,6 @@ public class ParserUtil {
         try {
             LocalDate tempDateTime = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
         } catch (DateTimeParseException e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Check if {@code String date} is from today onwards.
-     */
-    private static boolean isDateTodayOnwards(String date) {
-        LocalDate today = LocalDate.now();
-        LocalDate dateOfDelivery = LocalDate.parse(date, DATE_FORMATTER_FOR_USER_INPUT);
-        if (dateOfDelivery.isBefore(today)) {
             return false;
         }
 

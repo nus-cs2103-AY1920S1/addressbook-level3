@@ -13,7 +13,7 @@ import static seedu.address.testutil.SampleEntity.getSecondSampleCompletedTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.task.execeptions.TaskNotFoundException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 public class TaskListTest {
 

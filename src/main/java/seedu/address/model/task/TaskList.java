@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.task.execeptions.TaskNotFoundException;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * Represents a list of delivery tasks. The `TaskList` class supports a minimal set

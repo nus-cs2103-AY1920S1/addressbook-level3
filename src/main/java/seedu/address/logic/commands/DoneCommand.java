@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Driver;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskStatus;
-import seedu.address.model.task.execeptions.TaskException;
+import seedu.address.model.task.exceptions.TaskException;
 
 /**
  * Marks a task as completed.

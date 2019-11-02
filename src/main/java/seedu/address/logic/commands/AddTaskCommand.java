@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GOODS;
 
 import java.time.LocalDate;
 
+import seedu.address.logic.GlobalClock;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Description;
 import seedu.address.model.Model;
@@ -29,9 +30,8 @@ public class AddTaskCommand extends Command {
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_DATETIME + "18/12/2019";
     public static final String MESSAGE_SUCCESS = "New task added: %s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Task is already exists in the task list.";
-
     public static final String MESSAGE_INVALID_CUSTOMER_ID = "Invalid customer id.";
+    public static final String MESSAGE_DATE_IS_IN_THE_PAST = "Date of delivery cannot be before today.";
 
     private final Description description;
     private final LocalDate date;
@@ -47,6 +47,11 @@ public class AddTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        //check if date is today onwards
+        if (date.isBefore(GlobalClock.dateToday())) {
+            throw new CommandException(MESSAGE_DATE_IS_IN_THE_PAST);
+        }
 
         Task taskToAdd = new Task(model.getNextTaskId(), description, date);
 

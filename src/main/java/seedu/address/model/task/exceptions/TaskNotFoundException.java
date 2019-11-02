@@ -1,4 +1,4 @@
-package seedu.address.model.task.execeptions;
+package seedu.address.model.task.exceptions;
 
 /**
  * Represents an error when a tasks is not found in the list.

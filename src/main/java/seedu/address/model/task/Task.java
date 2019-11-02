@@ -9,7 +9,7 @@ import seedu.address.model.Description;
 import seedu.address.model.EventTime;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
-import seedu.address.model.task.execeptions.TaskException;
+import seedu.address.model.task.exceptions.TaskException;
 
 /**
  * Represents a delivery task. All the tasks are represented by a unique id

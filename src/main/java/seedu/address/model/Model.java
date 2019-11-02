@@ -1,6 +1,8 @@
 package seedu.address.model;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
+import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 import seedu.address.model.person.Customer;
 import seedu.address.model.person.Driver;
 import seedu.address.model.person.Person;
@@ -224,4 +227,6 @@ public interface Model {
     int getNextDriverId();
 
     IdManager getIdManager();
+
+    void saveDriverTaskPdf(String filePathForPdf, LocalDate date) throws IOException, PdfNoTaskToDisplayException;
 }
