@@ -29,6 +29,9 @@ public class Messages {
     public static final String MESSAGE_VEHICLE_OOB = "Vehicle out of bounds!";
     public static final String MESSAGE_NO_AVAILABLE_VEHICLE = "No vehicle available in this district!";
     public static final String MESSAGE_VEHICLE_BUSY = "Vehicle is busy!";
+    public static final String MESSAGE_NO_SUCH_VTYPE = "No such vehicle type!";
+    public static final String MESSAGE_INVALID_VEHICLE_NUMBER = "Invalid vehicle number! "
+            + "All vehicle numbers must follow the format: ABC1234D";
 
     public static final String MESSAGE_NOT_ONE_DISTRICT =
             "Please ensure there is one input for district number!";

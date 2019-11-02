@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_VEHICLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_VTYPE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -186,28 +188,36 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String vType} into a {@code VehicleType}.
-     * Assumes no invalid vehicle type as of now.
      * @param vType
      * @return VehicleType
-     * @throws ParseException
+     * @throws ParseException when vType entered is not in static list in VehicleType class.
      */
     public static VehicleType parseVType(String vType) throws ParseException {
         requireNonNull(vType);
-        String trimmedVType = vType.trim();
-        return new VehicleType(trimmedVType);
+        String parsedVType = vType.trim().toLowerCase();
+        String[] vehicleTypes = VehicleType.VEHICLE_TYPES;
+        for (String type: vehicleTypes) {
+            if (parsedVType.equals(type.toLowerCase())) {
+                return new VehicleType(type);
+            }
+        }
+        throw new ParseException(MESSAGE_NO_SUCH_VTYPE);
     }
 
     /**
      * Parses a {@code String vNum} into a {@code VehicleNumber}.
-     * Assumes no invalid vehicle number as of now.
      * @param vNum
      * @return VehicleNumber
-     * @throws ParseException
+     * @throws ParseException if VNum does not follow the format ABC1234D
      */
     public static VehicleNumber parseVNum(String vNum) throws ParseException {
         requireNonNull(vNum);
-        String trimmedVNum = vNum.trim();
-        return new VehicleNumber(trimmedVNum);
+        String parsedVNum = vNum.trim().toUpperCase();
+
+        if (!VehicleNumber.isValidVehicleNumber(parsedVNum)) {
+            throw new ParseException(MESSAGE_INVALID_VEHICLE_NUMBER);
+        }
+        return new VehicleNumber(parsedVNum);
     }
 
     /**
@@ -301,9 +311,10 @@ public class ParserUtil {
     public static boolean parseAuto(String auto) throws ParseException {
         boolean isAuto;
         requireNonNull(auto);
-        if (auto.equals("y")) {
+        String parsedAuto = auto.toLowerCase();
+        if (parsedAuto.equals("y")) {
             isAuto = true;
-        } else if (auto.equals("n")) {
+        } else if (parsedAuto.equals("n")) {
             isAuto = false;
         } else {
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

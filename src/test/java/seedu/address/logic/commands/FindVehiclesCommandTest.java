@@ -26,7 +26,6 @@ import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
 import seedu.address.model.vehicle.VNumKeywordsPredicate;
 import seedu.address.model.vehicle.VTypeKeywordsPredicate;
-import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
 
 /**
@@ -120,7 +119,7 @@ public class FindVehiclesCommandTest {
      * @return
      */
     private VTypeKeywordsPredicate prepareVTypePredicate(String userInput) {
-        VehicleType vType = new VehicleType(userInput);
+        VehicleType vType = new VehicleType(userInput.trim());
         return new VTypeKeywordsPredicate(vType);
     }
 
@@ -130,7 +129,6 @@ public class FindVehiclesCommandTest {
      * @return
      */
     private VNumKeywordsPredicate prepareVNumPredicate(String userInput) {
-        VehicleNumber vNum = new VehicleNumber(userInput);
-        return new VNumKeywordsPredicate(vNum);
+        return new VNumKeywordsPredicate(userInput.trim());
     }
 }

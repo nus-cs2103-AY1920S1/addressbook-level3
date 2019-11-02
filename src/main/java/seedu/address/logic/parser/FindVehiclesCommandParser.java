@@ -14,7 +14,6 @@ import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
 import seedu.address.model.vehicle.VNumKeywordsPredicate;
 import seedu.address.model.vehicle.VTypeKeywordsPredicate;
-import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
 
 /**
@@ -39,8 +38,8 @@ public class FindVehiclesCommandParser implements Parser<FindVehiclesCommand> {
         } else if (arePrefixesPresent(argVTypeMap, SEARCH_PREFIX_VTYPE)) {
             VehicleType vTypeKeywords = ParserUtil.parseVType(argVTypeMap.getValue(SEARCH_PREFIX_VTYPE).get());
             return new FindVehiclesCommand(new VTypeKeywordsPredicate(vTypeKeywords));
-        } else if (arePrefixesPresent(argVNumMap, SEARCH_PREFIX_VNUM)) {
-            VehicleNumber vNumKeywords = ParserUtil.parseVNum(argVNumMap.getValue(SEARCH_PREFIX_VNUM).get());
+        } else if (arePrefixesPresent(argVNumMap, SEARCH_PREFIX_VNUM)) { // cos don't need exact match
+            String vNumKeywords = argVNumMap.getValue(SEARCH_PREFIX_VNUM).get();
             assert(vNumKeywords != null);
             return new FindVehiclesCommand(new VNumKeywordsPredicate(vNumKeywords));
         } else {
