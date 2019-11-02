@@ -99,7 +99,6 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-//        primaryStage.setResizable(false);
     }
 
     public Stage getPrimaryStage() {

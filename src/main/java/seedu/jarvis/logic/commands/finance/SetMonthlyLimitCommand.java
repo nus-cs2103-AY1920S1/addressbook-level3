@@ -23,18 +23,20 @@ public class SetMonthlyLimitCommand extends Command {
 
     public static final String COMMAND_WORD = "set-limit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the monthly spending limit in the finance "
-            + "tracker with the value input by the user. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Jarvis will set this as the monthly spending limit in "
+            + "the finance tracker. "
             + "Existing monthly limit will be overwritten by new input value.\n"
             + "Parameters: "
-            + "[" + PREFIX_MONEY + "AMOUNT] "
+            + "[" + PREFIX_MONEY + "AMOUNT]" + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MONEY + "500.0";
 
-    public static final String MESSAGE_SUCCESS = "New limit set: %1$s";
+    public static final String COMMAND_SYNTAX = "Command format: " + COMMAND_WORD + " "
+            + PREFIX_MONEY + "MONEY";
+    public static final String MESSAGE_MONEY_ERROR = COMMAND_SYNTAX + "\n"
+            + MonthlyLimit.MESSAGE_CONSTRAINTS;
 
-    public static final String MESSAGE_SET_LIMIT_SUCCESS = "Edited installment: %1$s";
-    public static final String MESSAGE_NOT_SET = "At least one value to set must be provided.";
+    public static final String MESSAGE_SUCCESS = "New limit set: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_RESET = "Monthly limit has been reset";
 

@@ -78,9 +78,6 @@ public class FinanceParserUtil {
     public static MonthlyLimit parseMonthlyLimit(String limit) throws ParseException {
         requireNonNull(limit);
         String trimmedLimit = limit.trim();
-        if (Double.parseDouble(limit) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
         return new MonthlyLimit(trimmedLimit);
     }
 
