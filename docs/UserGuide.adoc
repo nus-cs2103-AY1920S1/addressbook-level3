@@ -482,7 +482,7 @@ Examples:
 Generates the payslip of employee 2 from the 20th August - 20th October.
 
 //tag::Schedule[]
-=== Schedule
+=== Schedule Management
 Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
 Want to have an overview of all the dates where you have an event? Then you are at the right place!
 
@@ -493,7 +493,7 @@ just simply type in any Schedule-related commands and AddMin+ will bring you the
 ._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[]
 
-==== Display Schedule for a specific date
+==== Display Schedule for a specific date: `display_schedule_date`
 Want to check if you have any events on a specific date. Instead of looking through the list of events you have, you
 could use the `display_schedule_date` command to do it!
 
@@ -527,7 +527,7 @@ image::ScheduleUiStep3.png[]
 [TIP]
 The event list will be empty and not display anything if there is no event on the specified date.
 
-==== Display Schedule for a specific Month and Year
+==== Display Schedule for a specific Month and Year: `display_schedule`
 Now you would want to see all the events you have on a specific month and year. Instead of looking through the list of events you have, you
 could use the `display_schedule` command to do it!
 
@@ -557,7 +557,7 @@ image::ScheduleUiMonthStep3.png[]
 [TIP]
 The event list will be empty and not display anything if there is no event on the specified month, year.
 
-==== Generate Entire Schedule
+==== Generate Entire Schedule: `generate_schedule`
 Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
 The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates
 which has an event and also display all the events that happens on that date.
