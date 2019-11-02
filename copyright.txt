@@ -2,6 +2,10 @@
 
 Code to check for valid date is adapted from https://www.mkyong.com/java/how-to-check-if-date-is-valid-in-java/
 
+Gif used when 5 tasks are completed:
+Copyright by The Pokemon Company - https://giphy.com/gifs/pokemon-celebration-pikachu-11NlXRhFSZl4w8
+- reward.gif
+
 Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 - address_book_32.png
 - AddressApp.ico
