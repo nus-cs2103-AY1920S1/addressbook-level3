@@ -11,9 +11,9 @@ import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
 import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -304,6 +304,14 @@ public class ApproveCommand extends Approve {
 
     }
 
+    /**
+     * Formats feedback message for resolving add and remove mod appeals
+     * @param appealToApprove
+     * @param feedback
+     * @param target
+     * @param change
+     * @return
+     */
     private String generateSuccessMessageModule(Appeal appealToApprove,
                                                 String feedback,
                                                 String target,
@@ -314,6 +322,15 @@ public class ApproveCommand extends Approve {
                 + String.format(feedback, change)
                 + target;
     }
+
+    /**
+     * Formats feedback message for resolving increase workload appeals
+     * @param appealToApprove
+     * @param feedback
+     * @param workLoad
+     * @param target
+     * @return
+     */
     private String generateSuccessMessageWorkload(Appeal appealToApprove,
                                                   String feedback,
                                                   int workLoad,

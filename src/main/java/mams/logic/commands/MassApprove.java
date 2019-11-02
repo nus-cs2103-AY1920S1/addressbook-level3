@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import mams.commons.core.Messages;
 
 import mams.logic.commands.exceptions.CommandException;
+
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
