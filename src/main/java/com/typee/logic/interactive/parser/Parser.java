@@ -54,7 +54,8 @@ public class Parser implements InteractiveParser {
 
     @Override
     public CommandResult fetchResult() {
-        return null;
+        assert currentState != null : "This shouldn't happen theoretically.";
+        return new CommandResult(currentState.getStateConstraints());
     }
 
     @Override
@@ -91,7 +92,7 @@ public class Parser implements InteractiveParser {
     private void parseActive(String commandText, Prefix... prefixes) throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
         try {
-            currentState = currentState.transition(argumentMultimap);
+            currentState = currentState.transition(new ArgumentMultimap(), argumentMultimap);
         } catch (StateTransitionException e) {
             throw new ParseException(currentState.getStateConstraints());
         }
@@ -103,7 +104,7 @@ public class Parser implements InteractiveParser {
         String commandWord = getCommandWord(commandText);
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            currentState = (new TypeState()).transition(argumentMultimap);
+            currentState = (new TypeState()).transition(new ArgumentMultimap(), argumentMultimap);
             break;
 
         default:

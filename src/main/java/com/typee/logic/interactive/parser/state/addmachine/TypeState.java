@@ -3,6 +3,7 @@ package com.typee.logic.interactive.parser.state.addmachine;
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
@@ -14,22 +15,22 @@ public class TypeState implements State {
 
     private static final String MESSAGE_CONSTRAINTS = "The engagement should be an appointment,"
             + " meeting or interview.";
+    private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
+            + " \"t/\".";
 
-
-    /*
-    @Override
-    public void processInput(String commandText) throws IllegalArgumentException {
-        if (isValid(commandText)) {
-            argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, commandText);
-        } else {
-            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
-        }
-    }
-     */
 
     @Override
     public State transition(ArgumentMultimap argumentMultimap) throws StateTransitionException {
-        return
+        Optional<String> typeValue = argumentMultimap.getValue(PREFIX_ENGAGEMENT_TYPE);
+        if (typeValue.isEmpty()) {
+            throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
+        }
+
+        if (!isValid(typeValue.get())) {
+            throw new StateTransitionException(MESSAGE_CONSTRAINTS);
+        }
+
+
     }
 
     @Override
