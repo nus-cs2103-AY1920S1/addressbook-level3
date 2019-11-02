@@ -88,18 +88,26 @@ public class AddCheatSheetCommandTest {
 
         tagList1.add(new Tag("tag1"));
         tagList2.add(new Tag("tag2"));
-        tagList3.add(new Tag("tag1"));
-        tagList3.add(new Tag("tag2"));
+        tagList3.add(new Tag("tag3"));
+        tagList3.add(new Tag("tag4"));
 
         Flashcard flashcard = new Flashcard(new Question("question1"), new Answer("answer1"),
                 new Title("fctitle1"), tagList1);
 
+        Flashcard flashcard1 = new Flashcard(new Question("question2"), new Answer("answer2"),
+                new Title("fctitle2"), tagList3);
+
         Note note = new Note(new seedu.address.model.note.Title("ntitle1"),
                 new Content("content1"), tagList2);
 
+        Note note1 = new Note(new seedu.address.model.note.Title("ntitle2"),
+                new Content("content2"), tagList3);
+
         ModelManager model = new ModelManager();
         model.addFlashcard(flashcard);
+        model.addFlashcard(flashcard1);
         model.addNote(note);
+        model.addNote(note1);
 
         CheatSheet cs = new CheatSheetBuilder().build();
         AddCheatSheetCommand addCsCommand = new AddCheatSheetCommand(cs);
@@ -113,8 +121,10 @@ public class AddCheatSheetCommandTest {
                 note.getContentCleanedFromTags().toString(), note.getTags()));
 
         Set<seedu.address.model.cheatsheet.Content> content3 = new HashSet<>();
-        content3.addAll(content1);
-        content3.addAll(content2);
+        content3.add(new seedu.address.model.cheatsheet.Content(flashcard1.getQuestion().toString(),
+                flashcard1.getAnswer().toString(), flashcard1.getTags()));
+        content3.add(new seedu.address.model.cheatsheet.Content(
+                note1.getContentCleanedFromTags().toString(), note1.getTags()));
 
         // only fc
         assertEquals(content1, addCsCommand.getRelevantContents(tagList1, model));
