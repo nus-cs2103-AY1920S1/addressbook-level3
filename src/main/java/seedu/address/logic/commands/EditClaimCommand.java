@@ -42,13 +42,11 @@ public class EditClaimCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_CASH + "CASH AMOUNT] "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Logistics for Sports Day "
             + PREFIX_CASH + "252.50 "
-            + PREFIX_NAME + "WEI GEN "
-            + PREFIX_PHONE + "91234567 ";
+            + PREFIX_NAME + "WEI GEN ";
 
     public static final String MESSAGE_EDIT_CLAIM_SUCCESS = "Edited Claim: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -101,11 +99,9 @@ public class EditClaimCommand extends Command {
         Amount updatedAmount = editClaimDescriptor.getAmount().orElse(claimToEdit.getAmount());
         Date updatedDate = editClaimDescriptor.getDate().orElse(claimToEdit.getDate());
         Name updatedName = editClaimDescriptor.getName().orElse(claimToEdit.getName());
-        Phone updatedPhone = editClaimDescriptor.getPhone().orElse(claimToEdit.getPhone());
         Set<Tag> updatedTags = editClaimDescriptor.getTags().orElse(claimToEdit.getTags());
 
-        return new PendingClaim(updatedDescription, updatedAmount, updatedDate, updatedName,
-                updatedPhone, updatedTags);
+        return new PendingClaim(updatedDescription, updatedAmount, updatedDate, updatedName, updatedTags);
     }
 
     @Override
@@ -135,7 +131,6 @@ public class EditClaimCommand extends Command {
         private Amount amount;
         private Date date;
         private Name name;
-        private Phone phone;
         private Set<Tag> tags;
 
         public EditClaimDescriptor() {}
@@ -149,7 +144,6 @@ public class EditClaimCommand extends Command {
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setName(toCopy.name);
-            setPhone(toCopy.phone);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +151,7 @@ public class EditClaimCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, amount, name, phone, tags);
+            return CollectionUtil.isAnyNonNull(description, amount, name, tags);
         }
 
         public void setDescription(Description description) {
@@ -190,14 +184,6 @@ public class EditClaimCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
         }
 
         /**
@@ -235,7 +221,6 @@ public class EditClaimCommand extends Command {
             return getDescription().equals(e.getDescription())
                     && getAmount().equals(e.getAmount())
                     && getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
                     && getTags().equals(e.getTags());
         }
     }

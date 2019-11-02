@@ -24,13 +24,11 @@ public class ClaimBuilder {
     public static final String DEFAULT_AMOUNT = "152.86";
     public static final String DEFAULT_DATE = "15-12-2019";
     public static final String DEFAULT_NAME = "John";
-    public static final String DEFAULT_PHONE = "999";
 
     private Description description;
     private Amount amount;
     private Date date;
     private Name name;
-    private Phone phone;
     private Set<Tag> tags;
 
     public ClaimBuilder() {
@@ -38,7 +36,6 @@ public class ClaimBuilder {
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
         tags = new HashSet<>();
     }
 
@@ -47,7 +44,6 @@ public class ClaimBuilder {
         amount = claimToCopy.getAmount();
         date = claimToCopy.getDate();
         name = claimToCopy.getName();
-        phone = claimToCopy.getPhone();
         tags = new HashSet<>(claimToCopy.getTags());
     }
 
@@ -84,14 +80,6 @@ public class ClaimBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Claim} that we are building.
-     */
-    public ClaimBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
-        return this;
-    }
-
-    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Claim} that we are building.
      */
     public ClaimBuilder withTags(String ... tags) {
@@ -100,14 +88,14 @@ public class ClaimBuilder {
     }
 
     public Claim build() {
-        return new PendingClaim(description, amount, date, name, phone, tags);
+        return new PendingClaim(description, amount, date, name, tags);
     }
 
     public ApprovedClaim buildApproved() {
-        return new ApprovedClaim(description, amount, date, name, phone, tags);
+        return new ApprovedClaim(description, amount, date, name, tags);
     }
 
     public RejectedClaim buildRejected() {
-        return new RejectedClaim(description, amount, date, name, phone, tags);
+        return new RejectedClaim(description, amount, date, name, tags);
     }
 }

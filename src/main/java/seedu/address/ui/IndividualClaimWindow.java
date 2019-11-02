@@ -51,7 +51,6 @@ public class IndividualClaimWindow extends UiPart<Stage> {
         super(FXML, root);
         windowSetup();
         name.setText("Name: " + claim.getName().toString());
-        contact.setText("Contact: " + claim.getPhone().toString());
         date.setText("Date: " + claim.getDescription().toString());
         amount.setText("Amount: $" + claim.getAmount().toString());
         description.setText("Description: " + claim.getDescription().toString());

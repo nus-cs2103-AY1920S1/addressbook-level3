@@ -37,7 +37,6 @@ class JsonAdaptedClaim {
     private final String amount;
     private final String date;
     private final String name;
-    private final String phone;
     private final String status;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -48,7 +47,7 @@ class JsonAdaptedClaim {
     @JsonCreator
     public JsonAdaptedClaim(@JsonProperty("id") String id, @JsonProperty("description") String description,
                             @JsonProperty("amount") String amount, @JsonProperty("date") String date,
-                            @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                            @JsonProperty("name") String name,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                             @JsonProperty("status") String status) {
         this.id = id;
@@ -56,7 +55,6 @@ class JsonAdaptedClaim {
         this.amount = amount;
         this.date = date;
         this.name = name;
-        this.phone = phone;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -72,7 +70,6 @@ class JsonAdaptedClaim {
         amount = source.getAmount().value;
         date = source.getDate().text;
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -133,26 +130,15 @@ class JsonAdaptedClaim {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         switch (status) {
         case "PENDING":
-            return new PendingClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
-                    modelTags);
+            return new PendingClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelTags);
         case "APPROVED":
-            return new ApprovedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
-                    modelTags);
+            return new ApprovedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelTags);
         case "REJECTED":
-            return new RejectedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelPhone,
-                    modelTags);
+            return new RejectedClaim(modelId, modelDescription, modelAmount, modelDate, modelName, modelTags);
         default:
             logger.warning("Invalid claim status: " + status);
             throw new IllegalValueException("Status should only be PENDING, REJECTED or APPROVED");

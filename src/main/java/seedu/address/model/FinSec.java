@@ -121,10 +121,10 @@ public class FinSec implements ReadOnlyFinSec {
     /**
      * Returns true if a contact with the following name and phone identity exists in the finsec.
      */
-    public boolean hasContact(Name name, Phone phone) {
-        requireAllNonNull(name, phone);
+    public boolean hasContact(Name name) {
+        requireAllNonNull(name);
         for (Contact contact : persons) {
-            if (contact.getName().equals((name)) && contact.getPhone().equals(phone)) {
+            if (contact.getName().equals((name))) {
                 return true;
             }
         }
@@ -134,10 +134,10 @@ public class FinSec implements ReadOnlyFinSec {
     /**
      * Returns {@code contact} with the following name and phone identity in the finsec.
      */
-    public Contact findContactFor(Name name, Phone phone) {
-        requireAllNonNull(name, phone);
+    public Contact findContactFor(Name name) {
+        requireAllNonNull(name);
         for (Contact contact : persons) {
-            if (contact.getName().equals((name)) && contact.getPhone().equals(phone)) {
+            if (contact.getName().equals((name))) {
                 return contact;
             }
         }
@@ -150,9 +150,8 @@ public class FinSec implements ReadOnlyFinSec {
     public Contact findContactFor(Claim claim) {
         requireAllNonNull(claim);
         Name claimName = claim.getName();
-        Phone claimPhone = claim.getPhone();
         for (Contact contact : persons) {
-            if (contact.getName().equals((claimName)) && contact.getPhone().equals(claimPhone)) {
+            if (contact.getName().equals((claimName))) {
                 return contact;
             }
         }

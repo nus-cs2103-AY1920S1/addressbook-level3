@@ -22,7 +22,6 @@ public abstract class Claim {
     private final Description description;
     private final Amount amount;
     private final Name name;
-    private final Phone phone;
     private final Status status;
 
     // Data fields
@@ -33,14 +32,13 @@ public abstract class Claim {
      * Every field must be present and not null.
      */
     public Claim(Description description, Amount amount, Date date,
-                 Name name, Phone phone, Set<Tag> tags, Status status) {
-        requireAllNonNull(description, amount, name, phone, tags);
+                 Name name, Set<Tag> tags, Status status) {
+        requireAllNonNull(description, amount, name, tags);
         id = Id.incrementId();
         this.description = description;
         this.amount = amount;
         this.date = date;
         this.name = name;
-        this.phone = phone;
         this.tags.addAll(tags);
         this.status = status;
     }
@@ -49,14 +47,13 @@ public abstract class Claim {
      * Every field must be present and not null.
      */
     public Claim(Id id, Description description, Amount amount, Date date,
-                 Name name, Phone phone, Set<Tag> tags, Status status) {
-        requireAllNonNull(description, amount, name, phone, tags);
+                 Name name, Set<Tag> tags, Status status) {
+        requireAllNonNull(description, amount, name, tags);
         this.id = id;
         this.description = description;
         this.amount = amount;
         this.date = date;
         this.name = name;
-        this.phone = phone;
         this.tags.addAll(tags);
         this.status = status;
     }
@@ -71,10 +68,6 @@ public abstract class Claim {
 
     public Name getName() {
         return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
     }
 
     public Amount getAmount() {
@@ -113,8 +106,8 @@ public abstract class Claim {
         return otherClaim != null
                 && otherClaim.getDescription().equals(getDescription())
                 && (otherClaim.getName().equals(getName())
-                        || otherClaim.getPhone().equals(getPhone())
-                        || otherClaim.getAmount().equals(getAmount()));
+                        || otherClaim.getAmount().equals(getAmount()))
+                        || otherClaim.getDate().equals((getDate()));
     }
 
     /**
@@ -135,7 +128,6 @@ public abstract class Claim {
         return otherClaim.getDescription().equals(getDescription())
                 && otherClaim.getName().equals(getName())
                 && otherClaim.getDate().equals(getDate())
-                && otherClaim.getPhone().equals(getPhone())
                 && otherClaim.getAmount().equals(getAmount())
                 && otherClaim.getTags().equals(getTags());
     }
@@ -146,10 +138,10 @@ public abstract class Claim {
         builder.append(getDescription())
                 .append(" Amount: ")
                 .append(getAmount())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Name: ")
                 .append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

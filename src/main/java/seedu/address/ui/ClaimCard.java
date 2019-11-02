@@ -42,8 +42,6 @@ public class ClaimCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
-    @FXML
     private FlowPane tags;
 
     public ClaimCard(Claim claim, int displayedIndex) {
@@ -55,7 +53,6 @@ public class ClaimCard extends UiPart<Region> {
         description.setText(claim.getDescription().text);
         amount.setText(claim.getAmount().value);
         name.setText(claim.getName().fullName);
-        phone.setText(claim.getPhone().value);
         claim.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
