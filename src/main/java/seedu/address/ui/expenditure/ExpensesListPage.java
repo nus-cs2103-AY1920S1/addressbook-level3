@@ -11,7 +11,6 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
 import seedu.address.logic.commands.expenditure.EnterDaysViewCommand;
 import seedu.address.model.Model;
@@ -59,11 +58,6 @@ public class ExpensesListPage extends ExpensesPage {
     @FXML
     private void handleAddExpenditure() {
         mainWindow.executeGuiCommand(EnterCreateExpenditureCommand.COMMAND_WORD);
-    }
-
-    @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
     }
 
 }

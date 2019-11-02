@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.commands.trips.EnterCreateTripCommand;
 import seedu.address.logic.commands.trips.EnterTripCommand;
 import seedu.address.model.Model;
@@ -93,7 +93,8 @@ public class TripsPage extends Page<AnchorPane> {
     }
 
     @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
+    private void handleHelp() {
+        mainWindow.executeGuiCommand(HelpCommand.COMMAND_WORD);
     }
+
 }

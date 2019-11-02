@@ -54,7 +54,7 @@ public class EditEventFieldCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_LOCATION + " ABC Zoo "
             + PREFIX_BUDGET + "10";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditEventDescriptor editEventDescriptor;

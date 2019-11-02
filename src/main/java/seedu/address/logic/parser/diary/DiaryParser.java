@@ -42,7 +42,7 @@ public class DiaryParser implements PageParser {
             + DoneEditEntryTextCommand.COMMAND_WORD + " "
             + AddPhotoCommand.COMMAND_WORD + " "
             + DeletePhotoCommand.COMMAND_WORD + " | "
-            + NavbarViewParser.MESSAGE_COMMAND_TYPES;
+            + NavbarViewParser.MESSAGE_COMMAND_TYPES.replace("diary ", "");
 
     @Override
     public Command parse(String command, String arguments) throws ParseException {

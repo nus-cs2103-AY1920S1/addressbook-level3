@@ -55,12 +55,12 @@ having the ability to edit configurations in the application saves the user from
 on their system manually, which can be daunting.
 
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?q=is%3Apr+author%3Aang-zeyu+is%3Aclosed[Functional code]] [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?q=is%3Apr+author%3Aang-zeyu+is%3Aclosed[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ang-zeyu&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[Functional code]] [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?q=is%3Apr+author%3Aang-zeyu+is%3Aclosed[Test code]]
 
 * *Other contributions*:
 
 ** Idea generation:
-*** contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
+*** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
 inception, which the team agreed upon. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
 ** Enhancements to existing features
 *** Enhanced navigation bar icon looks https://github.com/AY1920S1-CS2103T-T11-4/main/pull/68[#68]

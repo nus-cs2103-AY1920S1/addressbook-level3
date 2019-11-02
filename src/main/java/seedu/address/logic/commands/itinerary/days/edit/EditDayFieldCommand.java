@@ -46,7 +46,7 @@ public class EditDayFieldCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DESCRIPTION + " First Day"
             + PREFIX_BUDGET + "3000";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditDayFieldCommand.EditDayDescriptor editDayDescriptor;

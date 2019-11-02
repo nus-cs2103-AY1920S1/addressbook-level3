@@ -25,7 +25,6 @@ import seedu.address.logic.parser.itinerary.eventview.edit.EditEventParser;
 import seedu.address.logic.parser.itinerary.overallview.ItineraryViewParser;
 import seedu.address.logic.parser.navbar.NavbarCommand;
 import seedu.address.logic.parser.navbar.NavbarViewParser;
-import seedu.address.logic.parser.preferences.PreferencesParser;
 import seedu.address.logic.parser.trips.TripManagerParser;
 import seedu.address.logic.parser.trips.edit.EditTripParser;
 import seedu.address.model.appstatus.PageStatus;
@@ -77,8 +76,6 @@ public class TravelPalParser {
         PageType currentPage = pageStatus.getPageType();
 
         switch (currentPage) {
-        case PREFERENCES:
-            return new PreferencesParser().parse(commandWord, arguments);
         case TRIP_MANAGER:
             return new TripManagerParser().parse(commandWord, arguments);
         case ADD_TRIP:
