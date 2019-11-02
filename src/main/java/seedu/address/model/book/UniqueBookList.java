@@ -3,6 +3,7 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -55,6 +56,7 @@ public class UniqueBookList implements Iterable<Book> {
             throw new DuplicateBookException();
         }
         internalList.add(toAdd);
+        Collections.sort(internalList);
         booksMap.put(toAdd.getSerialNumber(), toAdd);
     }
 
@@ -77,6 +79,7 @@ public class UniqueBookList implements Iterable<Book> {
             throw new DuplicateBookException();
         }
         internalList.set(index, editedBook);
+        Collections.sort(internalList);
 
         booksMap.remove(target.getSerialNumber());
         booksMap.put(editedBook.getSerialNumber(), editedBook);
@@ -97,6 +100,7 @@ public class UniqueBookList implements Iterable<Book> {
     public void setBooks(UniqueBookList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        Collections.sort(internalList);
         booksMap.clear();
         replacement.forEach(book -> booksMap.put(book.getSerialNumber(), book));
     }
@@ -112,6 +116,7 @@ public class UniqueBookList implements Iterable<Book> {
         }
 
         internalList.setAll(books);
+        Collections.sort(internalList);
         booksMap.clear();
         books.forEach(book -> booksMap.put(book.getSerialNumber(), book));
     }

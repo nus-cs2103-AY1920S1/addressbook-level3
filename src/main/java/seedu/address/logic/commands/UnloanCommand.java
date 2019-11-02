@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.loan.Loan;
@@ -54,6 +55,8 @@ public class UnloanCommand extends Command {
         model.setBook(bookToBeUnloaned, unloanedBook);
         model.removeLoan(loanToBeRemoved); // remove Loan object from LoanRecords in model
         model.servingBorrowerRemoveLoan(loanToBeRemoved); // remove Loan object from Borrower's currentLoanList
+
+        LoanSlipUtil.unmountSpecificLoan(loanToBeRemoved, bookToBeUnloaned);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, unloanedBook, model.getServingBorrower()));
     }

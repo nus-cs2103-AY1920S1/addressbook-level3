@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 /**
  * Loans a Book with the given Serial Number to a Borrower.
  */
-public class LoanCommand extends Command implements ReversibleCommand {
+public class LoanCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "loan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
@@ -33,8 +33,6 @@ public class LoanCommand extends Command implements ReversibleCommand {
     public static final String MESSAGE_SUCCESS = "Book: %1$s\nloaned to\nBorrower: %2$s";
 
     private final SerialNumber toLoan;
-    private Command undoCommand;
-    private Command redoCommand;
 
     /**
      * Creates an LoanCommand to loan the specified {@code Book} to the Borrower currently served.
@@ -84,6 +82,7 @@ public class LoanCommand extends Command implements ReversibleCommand {
 
         undoCommand = new UnloanCommand(updatedLoanedOutBook, bookToBeLoaned, loan);
         redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
 
         try {
             LoanSlipUtil.mountLoan(loan, updatedLoanedOutBook, servingBorrower);
@@ -91,17 +90,7 @@ public class LoanCommand extends Command implements ReversibleCommand {
             e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     @Override

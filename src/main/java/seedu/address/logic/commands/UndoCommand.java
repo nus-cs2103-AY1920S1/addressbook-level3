@@ -13,7 +13,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undoes the most recent reversible command. \n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Undone most recent command. ";
+    public static final String MESSAGE_SUCCESS = "Undone most recent command: \n";
 
     /**
      * Executes the command and returns the result message.
@@ -28,7 +28,9 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_CANNOT_UNDO_COMMAND);
         }
         CommandResult commandResult = model.undoCommand();
-        return new CommandResult(MESSAGE_SUCCESS, commandResult.isShowHelp(), commandResult.isExit(),
+        String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
+
+        return new CommandResult(msgSuccess, commandResult.isShowHelp(), commandResult.isExit(),
                 commandResult.isServe(), commandResult.isDone());
     }
 

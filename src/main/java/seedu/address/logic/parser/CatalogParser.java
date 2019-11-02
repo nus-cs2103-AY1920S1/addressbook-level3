@@ -66,7 +66,7 @@ public class CatalogParser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommand(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -75,7 +75,7 @@ public class CatalogParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return new HelpCommand(arguments);
 
         case LoanCommand.COMMAND_WORD:
             return new LoanCommandParser().parse(arguments);
@@ -93,7 +93,7 @@ public class CatalogParser {
             return new ServeCommandParser().parse(arguments);
 
         case DoneCommand.COMMAND_WORD:
-            return new DoneCommand();
+            return new DoneCommand(arguments);
 
         case ReturnCommand.COMMAND_WORD:
             return new ReturnCommandParser().parse(arguments);

@@ -12,7 +12,7 @@ public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent undone command. \n"
             + "Example: " + COMMAND_WORD;
-    public static final String MESSAGE_SUCCESS = "Redone most recent undone command. ";
+    public static final String MESSAGE_SUCCESS = "Redone most recent undone command: \n";
 
     /**
      * Executes the command and returns the result message.
@@ -27,7 +27,9 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_CANNOT_REDO_COMMAND);
         }
         CommandResult commandResult = model.redoCommand();
-        return new CommandResult(MESSAGE_SUCCESS, commandResult.isShowHelp(), commandResult.isExit(),
+        String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
+
+        return new CommandResult(msgSuccess, commandResult.isShowHelp(), commandResult.isExit(),
                 commandResult.isServe(), commandResult.isDone());
     }
 

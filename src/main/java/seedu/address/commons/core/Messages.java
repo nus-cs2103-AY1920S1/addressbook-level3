@@ -13,6 +13,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_DISPLAY_LIMIT = "Display limit must be a positive integer!";
     public static final String MESSAGE_BOOK_TITLE_TOO_LONG = "Title of book should not be more than 30 characters!";
     public static final String MESSAGE_AUTHOR_NAME_TOO_LONG = "Name of author should not be more than 30 characters!";
+    public static final String MESSAGE_UNUSED_ARGUMENT = "\n\'%1$s\' is ignored as \'%2$s\'"
+            + " does not accept arguments";
 
     // Book messages
     public static final String MESSAGE_DUPLICATE_BOOK = "Serial number provided is already in use!";

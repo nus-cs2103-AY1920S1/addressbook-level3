@@ -11,7 +11,7 @@ import seedu.address.model.book.SerialNumber;
 /**
  * Deletes a book identified using it's serial number from the catalog.
  */
-public class DeleteBySerialNumberCommand extends DeleteCommand implements ReversibleCommand {
+public class DeleteBySerialNumberCommand extends DeleteCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -23,9 +23,6 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
     public static final String MESSAGE_DELETE_BOOK_SUCCESS = "Deleted Book: %1$s";
 
     private final SerialNumber targetSerialNumber;
-    private Command undoCommand;
-    private Command redoCommand;
-
 
     public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber) {
         this.targetSerialNumber = targetSerialNumber;
@@ -47,20 +44,11 @@ public class DeleteBySerialNumberCommand extends DeleteCommand implements Revers
 
         undoCommand = new AddCommand(bookToDelete);
         redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
 
         model.deleteBook(bookToDelete);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
-    }
-
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
+        return commandResult;
     }
 
     /**
