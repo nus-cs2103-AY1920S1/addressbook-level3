@@ -195,9 +195,6 @@ User also needs to supply 3 weight attempts for each of the following events:
 3. Deadlift
 
 Format: `addParticipation n/Athlete_Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
-`listPerson` and `listCompetition` to see the full set of persons and competitions respectively
-in order to give the full set of ability to add any person to any competition in the system
-that does not exist already.
 
 Example:
 
