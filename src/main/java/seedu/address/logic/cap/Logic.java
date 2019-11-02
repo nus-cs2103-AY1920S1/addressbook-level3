@@ -10,6 +10,7 @@ import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.ReadOnlyCapLog;
+import seedu.address.model.cap.person.Rank.Rank;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
@@ -66,4 +67,6 @@ public interface Logic {
     Image getRankImage();
 
     String getRankTitle();
+
+    void updateRank();
 }

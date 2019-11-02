@@ -24,14 +24,15 @@ public class AchievementManager {
     public void updateCap(double cap) {
         prevCap = currCap;
         currCap = cap;
+        System.out.println(SecondLower.isWithinRange(currCap));
         if (FirstClass.isWithinRange(currCap)) {
             currentRank = new FirstClass();
             hasRankChanged = true;
         } else if (SecondUpper.isWithinRange(currCap)) {
-            currentRank = new SecondLower();
+            currentRank = new SecondUpper();
             hasRankChanged = true;
         } else if (SecondLower.isWithinRange(currCap)) {
-            currentRank = new SecondUpper();
+            currentRank = new SecondLower();
             hasRankChanged = true;
         } else if (ThirdClass.isWithinRange(currCap)) {
             currentRank = new ThirdClass();

@@ -12,8 +12,6 @@ public abstract class Rank {
 
     private final DegreeClassification degreeClassification;
     private String title;
-    double MINIMUM_CAP = 0.0;
-    double MAXIMUM_CAP = 5.0;
 
     /**
      * Constructs a {@code Phone}.

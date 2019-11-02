@@ -265,17 +265,15 @@ public class ModelCapManager implements Model {
         return isDowngraded;
     }
 
-    private Rank updateRank() {
+    public void updateRank() {
         achievementManager.updateCap(getFilteredCapInformation());
         if (achievementManager.hasAchievementChanged()) {
             isPromoted = achievementManager.isPromoted();
             isDowngraded = achievementManager.isDownGraded();
-            return achievementManager.getCurrentRank();
         } else {
             isDowngraded = false;
             isPromoted = false;
         }
-        return achievementManager.getCurrentRank();
     }
 
     @Override

@@ -210,6 +210,10 @@ public class MainWindow extends UiPart<Stage> {
 
             setGraphDisplay();
 
+            logic.updateRank();
+            achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
+            achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
+
             return commandResult;
         } catch (CommandException | IllegalArgumentException | ParseException e) {
             logger.info("Invalid command: " + commandText);

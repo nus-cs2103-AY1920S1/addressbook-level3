@@ -4,9 +4,9 @@ import seedu.address.model.cap.person.DegreeClassification;
 
 public class Pass extends Rank {
 
-    private static final String TITLE = "Pass";
-    private static final double MAXIMUM_CAP = 2.00;
-    private static final double MINIMUM_CAP = 2.99;
+    private static final String TITLE = "PASS";
+    private static final double MAXIMUM_CAP = 2.99;
+    private static final double MINIMUM_CAP = 2.00;
     private static final String imageFilePath = "/images/pass.png";
 
     public Pass() {
@@ -27,10 +27,15 @@ public class Pass extends Rank {
     }
 
     public static boolean isWithinRange(double cap) {
-        if (cap > MAXIMUM_CAP && cap < MINIMUM_CAP) {
+        if (cap >= MINIMUM_CAP && cap <= MAXIMUM_CAP) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return TITLE;
     }
 }

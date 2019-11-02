@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.cap.person.Rank.Rank;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
@@ -142,4 +143,6 @@ public interface Model {
     Image getRankImage();
 
     String getRankTitle();
+
+    void updateRank();
 }

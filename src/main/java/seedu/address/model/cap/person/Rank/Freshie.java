@@ -27,10 +27,15 @@ public class Freshie extends Rank {
     }
 
     public static boolean isWithinRange(double cap) {
-        if (cap > MAXIMUM_CAP && cap < MINIMUM_CAP) {
+        if (cap >= MINIMUM_CAP && cap <= MAXIMUM_CAP) {
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return TITLE;
     }
 }

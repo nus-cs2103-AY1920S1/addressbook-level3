@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.cap.commands.Command;
@@ -123,5 +123,10 @@ public class LogicCapManager implements Logic {
     @Override
     public String getRankTitle() {
         return model.getRankTitle();
+    }
+
+    @Override
+    public void updateRank() {
+        model.updateRank();
     }
 }
