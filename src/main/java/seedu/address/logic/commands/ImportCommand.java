@@ -5,9 +5,17 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT_PATH;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.export.ExportPath;
+import seedu.address.model.export.JsonExportPath;
+import seedu.address.model.export.JsonImportUtil;
+import seedu.address.model.flashcard.FlashCard;
 
 /**
  * Imports all {@code FlashCard}s from a specified file.
@@ -38,11 +46,21 @@ public class ImportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        return new CommandResult(
-                String.format(
-                        MESSAGE_IMPORT_SUCCESS
-                )
-        );
+        try {
+            //TODO TODO oughta delegate to the exportpath.
+            if (exportPath instanceof JsonExportPath) {
+                return importFromJsonPath(
+                        (JsonExportPath) exportPath,
+                        model
+                );
+            } else {
+                throw new CommandException("need json path");
+            }
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        } catch (DataConversionException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
@@ -50,5 +68,28 @@ public class ImportCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
                 && exportPath.equals(((ImportCommand) other).exportPath)); // state check
+    }
+
+    private CommandResult importFromJsonPath(JsonExportPath jsonExportPath, Model model)
+            throws IOException, DataConversionException {
+        Optional<List<FlashCard>> optionalList = JsonImportUtil.importFlashCardsFromJson(
+                jsonExportPath
+        );
+
+        if (optionalList.isEmpty()) {
+            return new CommandResult(
+                    "cannot find eh"
+            );
+        } else {
+            List<FlashCard> list = optionalList.get();
+
+            for (FlashCard flashCard : list) {
+                model.addFlashCard(flashCard);
+            }
+
+            return new CommandResult(
+                    MESSAGE_IMPORT_SUCCESS
+            );
+        }
     }
 }
