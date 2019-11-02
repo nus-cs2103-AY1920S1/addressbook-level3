@@ -5,59 +5,70 @@
 
 == Introduction
 
-My team of 5 software engineering students and I were tasked with enhancing a basic command line interface desktop
-Addressbook application for our Software Engineering project. We chose to morph it into a learning management
-application called NUStudy which is targeted to university students. This enhanced applications allows students to
-easily manage their lecture notes, test questions and revision tasks; and take a mock quiz as revision if they need.
+This portfolio is used to showcase my contribution to the CS2103T project in National University of Singapore. There
+are five students in our group, all majoring in Computer Science. We are given a task to enhance a desktop application
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address book 3] with JavaFX GUI. It supports the command line
+interface for use input.We decided to morph it in to a study management application called NUStudy which is targeted to
+university students. NUStudy is used to manage students' lecture notes, test questions and revision tasks. It also
+allows students to do mock quiz and view the statistics for better revision.
 
-This is what our project looks like:
+This is the interface of our project.
 
+.The interface of NUStudy
 image::../images/Ui.png[]
 
-This portfolio showcases my contributions to the development of NUStudy. My role was to design and write codes for
-the `quiz` features. The following sections illustrate these enhancements in more details, as well as the relevant
-documentation I have added to the user and developer guides in relation to these enhancements.
+I am responsible for designing and writing codes for quiz feature. The following sections will describe my contributions
+to the feature and relevant documentations in detail.
 
-In this portfolio, a grey highlight `term` indicates that this is a command that can be inputted into the command line
-and executed by the application and _italics_ implies a component, class or object in the architecture of the application.
-The pull requests and issues are represented by a # and its number (e.g. [#1])
+Here are some explanations of the icons and formatting used in this portfolio.
+
+****
+* A grey highlight `monospace` implies that this is a command that can be inputted and executed by the application.
+* _Italics_ implies a component, class or object in the architecture of the application.
+* The pull requests and issues are represented by a # and its number (e.g. [#1])
+****
 
 == Summary of contributions
 
-This sections shows a brief summary of my contributions to NUStudy, including coding, documentation and other relevant
-helpful contributions to the team project.
+This section briefly describes my contributions to the implementation of quiz feature and other helpful contributions to
+the group.
 
 *Enhancement added:* I added the quiz feature of the application (Starting from
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/36[#36])
 
-* What it does: The `quiz` command allows the users to enter the quiz mode of the application. Users can type answer
-on command line and the correctness will be checked to display the result. The result of each quiz will be stored and
-used to supports the report feature.
+* What it does: This feature allows the users to do a mock quiz. The `quiz` command allows the users to enter the quiz
+mode of the application. Users can type answer on command line and the correctness will be checked to show the result.
+The result of each quiz will be stored as _QuizResult_ and used to support the report feature.
 
-* Justification: In the event that users want to choose a set of questions from the application, the `quiz` command
-will randomly select questions from the storage according to the difficulty and subject specified by users. It will
-act like an actual online quiz which the question will be displayed one at a time and users need to type answer to
-receive the feedback from the application to know whether it is correct or wrong.
+* Justification:  The `quiz` command will randomly select questions from the database according to the difficulty and
+subject specified by users and stored in _QuizQuestionList_. It will act like an actual online quiz which the question
+will be displayed one at a time and users need to type answer to receive the feedback from the application to know
+whether it is correct or wrong.
 
-* Highlights: This enhancement works with commands implemented with my teammates. The result of each question from a
-quiz will be store and my teammate will use it for another feature. The implementation was challenging on how to
-override the question panel and displaying quiz questions one after another. I solve it by using a boolean to set the
-_QuestionListPanel_ in the _MainWindow_ class and adding a list containing one quiz question in _QuizQuestionList_
-class (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49]
+* Highlights: This feature cooperates with another feature implemented by my teammate. The result of each question from
+the quiz will be stored and my teammate will use it for report feature. The implementation was tricky in the beginning
+on how to override the question panel and displaying quiz questions one after another. I solve it by using a boolean
+to set the _QuestionListPanel_ in the _MainWindow_ class and adding a list containing one quiz question in
+_QuizQuestionList_ class to display question one by one(https://github.com/AY1920S1-CS2103T-F11-4/main/pull/49[#49]
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/70[#70]
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/76[#76]).
+
+*Code contributed:* You may review the report of my code contribution to the project https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Auxinnn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Auxinnn&tabRepo=AY1920S1-CS2103T-F11-4%2Fmain%5Bmaster%5D[here].
 
 *Other contributions:*
 
 * Basic design of Question feature:
-
 ** During the development of quiz feature, I helped to design a basic model of question feature so that my teammate
 could refer to the template for modification and further development (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/39[#39]).
+* Implement Quiz Result to support report feature:
+** I designed and implemented the basic architecture of quiz result so that my teammate could use it to support the
+report feature (https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/74[#74]).
 
 == User guide contributions
 
-We had to update the original addressbook User Guide with instructions for the enhancements that we had added. The
-following is an excerpt from our *NUStudy User Guide*, showing additions that I have made for the quiz features.
+We have updated the User Guide of Address Book to fit the commands of our project. The following part shows my contribution
+to the modification of *NUStudy User Guide* for quiz feature.
 
 '''
 
@@ -67,7 +78,10 @@ include::../UserGuide.adoc[tag=quizFuture]
 
 == Developer guide contributions
 
-The following section shows my additions to the *NUStudy Developer Guide* for the quiz features.
+We also updated the Developer Guide so that the style and architecture fits our project. The following parts shows my
+contribution to the modification of *NUStudy Developer Guide* for quiz feature.
+
+NOTE: In this sections, `monospace` indicates both user command and class objects and methods.
 
 '''
 

@@ -293,11 +293,13 @@ Example:
 
 Step 1: Types `quiz n/2 d/Easy s/CS2040` in the command box and presses `Enter` to execute the command. +
 
+.Typing `quiz` command
 image::quiz/QuizModeCommand.png[]
 
 Step 2: The result will show the message of successfully entering the quiz mode. The first quiz question will appear
 on the third column. +
 
+.Result of `quiz` command
 image::quiz/QuizModeCommandResult.png[]
 
 ==== Answer the quiz question
@@ -311,10 +313,12 @@ Example:
 
 Step 1: Types your `answer` in the command box and presses `Enter` to execute the command +
 
+.Typing answer in the command line
 image::quiz/QuizAnswer.png[]
 
 Step 2: The result of your answer will reflect your correctness and the next question will be displayed.
 
+.The result after answer
 image::quiz/QuizAnswerResult.png[]
 
 ==== Show an answer : `show`
@@ -329,6 +333,7 @@ Step 1: Types `show` in the command box and presses `Enter` to execute the comma
 
 Step 2: The answer of current question will be displayed. +
 
+.Typing `show` command and its result
 image::quiz/ShowAnswerCommand.png[]
 
 ==== Skip a question : `skip`
@@ -344,10 +349,12 @@ Example:
 
 Step 1: Types `skip` in the command box and presses `Enter` to execute the command. +
 
+.Typing `skip` command
 image::quiz/SkipCommand.png[]
 
 Step 2: The current question is skipped and next question will be displayed. +
 
+.The result of `skip` command
 image::quiz/SkipCommandResult.png[]
 
 ==== Exit test mode : `quit`
@@ -364,10 +371,12 @@ Example:
 
 Step 1: Types `quit` in the command box and presses `Enter` to execute the command. +
 
+.Typing `quit` command
 image::quiz/QuitQuizCommand.png[]
 
 Step 2: The result shows message of exit from the quiz mode and the original questions will appear.
 
+.The result of `quit` command
 image::quiz/QuitQuizCommandResult.png[]
 // end::quiz[]
 
