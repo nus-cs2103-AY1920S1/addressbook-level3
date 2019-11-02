@@ -14,13 +14,24 @@ public class Group {
     private UniqueStudentList studentList;
 
     /**
-     * Creates a Group instance with the appropriate attributes.
+     * Creates a Group instance with only the groupId.
      *
      * @param groupId The identifier of the group, in String representation.
      */
     public Group(String groupId) {
         this.groupId = groupId;
         this.studentList = new UniqueStudentList();
+    }
+
+    /**
+     * Creates a group instance with both the groupId and the list of students.
+     *
+     * @param groupId     Identifier of the group.
+     * @param studentList List of students.
+     */
+    public Group(String groupId, UniqueStudentList studentList) {
+        this.groupId = groupId;
+        this.studentList = studentList;
     }
 
     /**
@@ -103,5 +114,14 @@ public class Group {
             }
         }
         return false;
+    }
+
+    /**
+     * Gets the unique list of students from the group.
+     *
+     * @return Unique list of students in the group.
+     */
+    public UniqueStudentList getStudentList() {
+        return this.studentList;
     }
 }
