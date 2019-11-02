@@ -76,7 +76,7 @@ public class EditVehicleCommand extends Command {
                 && editedVehicle.getAvailability().equals(vehicleToEdit.getAvailability())) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
         }
-
+        VehicleNumber.addVehicleNumber(editedVehicle.getVehicleNumber().toString());
         model.setVehicle(vehicleToEdit, editedVehicle);
         model.updateFilteredVehicleList(PREDICATE_SHOW_ALL_VEHICLES);
         return new CommandResult(String.format(MESSAGE_EDIT_VEHICLE_SUCCESS, editedVehicle));

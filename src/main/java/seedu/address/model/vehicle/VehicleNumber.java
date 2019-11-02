@@ -44,7 +44,7 @@ public class VehicleNumber {
      * Adds to list of unique vehicle numbers.
      * @param vNum
      */
-    public void addVehicleNumber(String vNum) {
+    public static void addVehicleNumber(String vNum) {
         if (!isDuplicateVNum(vNum)) {
             vehicleNumbers.add(vNum);
         }

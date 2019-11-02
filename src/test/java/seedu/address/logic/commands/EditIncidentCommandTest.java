@@ -29,6 +29,7 @@ import seedu.address.model.IncidentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.testutil.EditIncidentBuilder;
 import seedu.address.testutil.IncidentBuilder;
@@ -94,8 +95,18 @@ public class EditIncidentCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, new EditIncident());
-        Incident editedIncident = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
+        Incident incidentToEdit = model.getFilteredIncidentList().get(INDEX_FIRST_ENTITY.getZeroBased());
+        EditIncident editIncident = new EditIncident();
+
+        Description updateDesc = new Description(incidentToEdit.getDesc().toString() + "test");
+
+        editIncident.setDesc(updateDesc);
+        EditIncidentCommand editIncidentCommand = new EditIncidentCommand(INDEX_FIRST_ENTITY, editIncident);
+
+        Incident editedIncident = new Incident(incidentToEdit.getOperator(), incidentToEdit.getDistrict(),
+                incidentToEdit.getDateTime(), incidentToEdit.getIncidentId(), incidentToEdit.getCallerNumber(),
+                updateDesc, incidentToEdit.getStatus(), incidentToEdit.getVehicle());
+
         String expectedMessage = String.format(EditIncidentCommand.MESSAGE_EDIT_INCIDENT_SUCCESS, editedIncident);
         Model expectedModel = new ModelManager(new IncidentManager(model.getIncidentManager()), new UserPrefs());
 

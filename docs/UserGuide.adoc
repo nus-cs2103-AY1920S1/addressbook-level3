@@ -402,7 +402,7 @@ Returns any incidents whereby the description contains 'fire'
 
 === Editing an Incident: `edit-i`
 
-Edits an existing vehicle in the Incident Manager as identified by the index in the display.
+Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
 ** If an index is not provided, system will prompt for index. Does not make any edits.
@@ -415,7 +415,7 @@ If no fields are provided, incident will remain unchanged.
 ** Edits that result in duplicate incidents are not allowed
 
 [NOTE]
-Incidents with all the same fields (`DateTime`, `District`, `Description`, `Caller Number`) are considered duplicates.
+Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
 
 Example of input:
 
@@ -430,7 +430,7 @@ image::editIncident2.png[]
 
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
@@ -524,6 +524,8 @@ Format: `delete-v [INDEX]`
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
+
+** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
