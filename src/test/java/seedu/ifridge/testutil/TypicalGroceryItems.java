@@ -15,8 +15,8 @@ import seedu.ifridge.model.food.GroceryItem;
  */
 public class TypicalGroceryItems {
 
-    public static final GroceryItem STRAWBERRIES = new GroceryItemBuilder().withName("Strawberries")
-            .withAmount("300g").withExpiryDate("10/11/2019").withTags("berries", "fruits").build();
+    public static final GroceryItem BANANA = new GroceryItemBuilder().withName("Banana")
+            .withAmount("8units").withExpiryDate("10/11/2019").withTags("potassium", "fruits").build();
     public static final GroceryItem SPAGHETTI = new GroceryItemBuilder().withName("Spaghetti")
             .withAmount("3units").withExpiryDate("18/10/2020").withTags("dinner", "italian").build();
     public static final GroceryItem OLIVE_OIL = new GroceryItemBuilder().withName("Olive oil")
@@ -59,7 +59,7 @@ public class TypicalGroceryItems {
     }
 
     public static List<GroceryItem> getTypicalGroceryItems() {
-        return new ArrayList<>(Arrays.asList(STRAWBERRIES, SPAGHETTI, OLIVE_OIL, BROCCOLI,
+        return new ArrayList<>(Arrays.asList(BANANA, SPAGHETTI, OLIVE_OIL, BROCCOLI,
                 APPLES, GREEN_TEA_LATTE, EGGS));
     }
 }

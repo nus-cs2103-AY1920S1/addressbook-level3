@@ -27,7 +27,7 @@ import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_NUTS = "Nuts";
+    public static final String VALID_NAME_NUTS = "Peauts";
     public static final String VALID_NAME_ORANGES = "Oranges";
     public static final String VALID_NAME_CHEESE = "Cheddar Cheese";
     public static final String VALID_NAME_TOMATO_JUICE = "Tomato Juice";
@@ -39,6 +39,7 @@ public class CommandTestUtil {
     public static final String VALID_EXPIRY_DATE_ORANGES = "24/11/2019";
     public static final String VALID_TAG_CARBS = "carbs";
     public static final String VALID_TAG_VEGETABLE = "vegetable";
+    public static final String VALID_TAG_NUTS = "nuts";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_NUTS;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_ORANGES;

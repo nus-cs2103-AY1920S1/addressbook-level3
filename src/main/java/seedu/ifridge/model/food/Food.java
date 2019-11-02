@@ -83,5 +83,4 @@ public class Food {
         //getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

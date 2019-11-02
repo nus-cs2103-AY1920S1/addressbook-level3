@@ -35,6 +35,7 @@ public class GroceryItemBuilder {
      */
     public GroceryItemBuilder(GroceryItem foodToCopy) {
         name = foodToCopy.getName();
+        amount = foodToCopy.getAmount();
         expiryDate = foodToCopy.getExpiryDate();
         tags = new HashSet<>(foodToCopy.getTags());
     }
