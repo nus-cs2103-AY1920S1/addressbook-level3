@@ -1,21 +1,11 @@
 package dukecooks.ui;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-
-import dukecooks.model.Image;
 import dukecooks.model.workout.Workout;
 
-import dukecooks.model.workout.history.WorkoutRun;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
-
-import javax.swing.text.html.ImageView;
-
 
 /**
  * An UI component that displays information of a {@code Workout}.
@@ -47,6 +37,9 @@ public class WorkoutCard extends UiPart<Region> {
         }
     }
 
+    /**
+     * Returns the corresponding fxml file name based on intensity level.
+     */
     private static String fillIntensity(Workout workout) {
         switch (workout.getAverageIntensity()) {
 
