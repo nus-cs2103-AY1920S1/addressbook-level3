@@ -1,0 +1,61 @@
+= Hon Hao Chen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TravEzy
+
+---
+
+== About the project
+
+My team of 4 software engineering students and I were tasked with enhancing a basic CLI desktop addressbook application for our Software Engineering project. We choose to morph it into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and much more. This enhanced application allows users who'd love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel.
+
+This is what our project looks like: +
+(Include Main page)
+
+My role was to design and write the codes for the Financial Tracker feature. The following sections illustrate my contributions in detail, as well as the relevant documentation I have added to the user and developer guides in relation to these contributions.
+
+== Summary of contributions
+
+This section shows a summary of my contributed feature, documentation, design consideration and other relevant contributions to the team project.
+
+* *Contribution*: added the *Financial Tracker* feature
+** What it does: allows the user to keep track of their expenses.
+** Justification: This feature improves the product significantly and is considered crucial for the application to work.
+** Highlights: This feature affects a lot.
+
+* *Code contributed*: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/76[76],
+ https://github.com/AY1920S1-CS2103T-T17-2/main/pull/47[47]
+
+* *Other contributions*:
+
+** Project management:
+
+** Enhancements to existing features:
+*** Updated the GUI color scheme: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/85[85]
+*** Wrote additional tests for existing feature: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96]
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide:
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+*** Reported bugs and suggestions for other teams in the class:
+*** Some parts of the history feature I added was adopted by several other class mates:
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=financialtracker]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+include::../DeveloperGuide.adoc[tag=financialtracker]
+

@@ -24,6 +24,8 @@ class TimeTest {
         // invalid time
         assertFalse(Time.isValidTime("")); // empty string
         assertFalse(Time.isValidTime(" ")); // spaces only
+        assertFalse(Time.isValidTime("23"));
+        assertFalse(Time.isValidTime("231"));
         assertFalse(Time.isValidTime("12:00 p.m.")); // wrong format
         assertFalse(Time.isValidTime("2400")); // off-world
 

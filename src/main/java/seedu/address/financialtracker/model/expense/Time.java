@@ -13,7 +13,7 @@ public class Time {
                     + "Valid formats: 1947, 2359, 0000\n"
                     + "Invalid formats: 07:48, 900, 2401, etc.";
 
-    public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
+    public static final String VALIDATION_REGEX = "([01]?[0-9]|2[0-3])([0-5][0-9])";
     public final String value;
     public final int valueToCompare;
     public final String storageTime;
@@ -29,7 +29,7 @@ public class Time {
      * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String time) {
-        return time.matches(VALIDATION_REGEX);
+        return time.matches(VALIDATION_REGEX) && time.length() == 4;
     }
 
     /**

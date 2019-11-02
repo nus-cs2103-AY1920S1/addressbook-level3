@@ -459,6 +459,7 @@ and anaylzed carefully with the previous event entries.
 
 Hope that you are excited as I am in all these cool features that are coming up in v2.0.
 
+// tag::financialtracker[]
 === Financial Tracker
 The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
 
@@ -504,6 +505,7 @@ image::FinancialTrackerActivityDiagram.png[]
 
 The above activity shows how `edits` command works.
 
+// end::financialtracker[]
 
 === Diary
 

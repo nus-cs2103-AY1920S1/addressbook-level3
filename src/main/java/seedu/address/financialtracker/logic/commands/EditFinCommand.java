@@ -23,7 +23,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 /**
  * Edits the details of an existing expense in the itinerary.
  */
-@SuppressWarnings("MalformedFormatString")
 public class EditFinCommand extends Command<Model> {
     public static final String COMMAND_WORD = "edit";
 
@@ -65,7 +64,7 @@ public class EditFinCommand extends Command<Model> {
         List<Expense> lastShownList = model.getExpenseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException("The expense index provided doesn't exist!");
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());

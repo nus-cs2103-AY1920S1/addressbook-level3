@@ -1,5 +1,7 @@
 package seedu.address.financialtracker.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +28,8 @@ public class SummaryCommand extends Command<Model> {
 
     @Override
     public CommandResult execute(Model model) {
+        requireNonNull(model);
+
         // initialise pie chart data
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
