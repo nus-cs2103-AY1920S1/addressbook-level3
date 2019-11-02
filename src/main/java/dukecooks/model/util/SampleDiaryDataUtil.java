@@ -19,13 +19,14 @@ public class SampleDiaryDataUtil {
 
         ArrayList<Page> pageList = new ArrayList<>(Arrays.asList(SamplePagesDataUtil.getSamplePages()));
         ObservableList<Page> pages = FXCollections.observableArrayList(pageList);
+
         return new Diary[] {
             new Diary(new DiaryName("Asian Cuisines"), pages),
-            new Diary(new DiaryName("Healthy Living"), pages),
-            new Diary(new DiaryName("Meat Lovers")),
-            new Diary(new DiaryName("Vegan Diet"), pages),
-            new Diary(new DiaryName("One Week Slimming")),
-            new Diary(new DiaryName("Core Exercises"), pages),
+            new Diary(new DiaryName("Healthy Living")),
+            new Diary(new DiaryName("Meat Lovers"), pages),
+            new Diary(new DiaryName("Vegan Diet")),
+            new Diary(new DiaryName("One Week Slimming"), pages),
+            new Diary(new DiaryName("Core Exercises")),
         };
     }
 
