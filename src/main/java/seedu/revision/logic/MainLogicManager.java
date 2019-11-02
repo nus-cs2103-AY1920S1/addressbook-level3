@@ -5,7 +5,6 @@ import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -103,9 +102,8 @@ public class MainLogicManager implements MainLogic {
     }
 
     @Override
-    public ObservableList<Answerable> getFilteredSortedAnswerableList(
-            Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
-        return model.getFilteredSortedAnswerableList(predicate, comparator);
+    public ObservableList<Answerable> getFilteredSortedAnswerableList() {
+        return model.getFilteredAnswerableList().sorted(Comparator.comparing(a -> a.getDifficulty()));
     }
 
     @Override

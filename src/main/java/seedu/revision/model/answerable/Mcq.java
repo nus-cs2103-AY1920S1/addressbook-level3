@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Set;
 
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -31,6 +30,9 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
+        if (mcq.getCorrectAnswerList().isEmpty() || mcq.getCorrectAnswerList().size() > 1) {
+            return false;
+        }
         if (mcq.getWrongAnswerList().size() != 3) {
             return false;
         }

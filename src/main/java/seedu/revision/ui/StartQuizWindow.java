@@ -1,13 +1,11 @@
 package seedu.revision.ui;
 
-import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
+import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
 
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -15,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.MainLogic;
@@ -25,7 +24,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.quiz.Mode;
-import seedu.revision.ui.answerables.AnswerableListPanel;
+import seedu.revision.model.quiz.Modes;
 import seedu.revision.ui.answers.AnswersGridPane;
 import seedu.revision.ui.answers.McqAnswersGridPane;
 import seedu.revision.ui.answers.SaqAnswersGridPane;
@@ -40,6 +39,11 @@ import seedu.revision.ui.bar.Timer;
  */
 public class StartQuizWindow extends Window {
 
+    protected static final String FXML = "StartQuizWindow.fxml";
+
+    @FXML
+    protected StackPane levelPlaceholder;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private MainWindow mainWindow;
@@ -47,9 +51,10 @@ public class StartQuizWindow extends Window {
     private Mode mode;
 
     // Independent Ui parts residing in this Ui container
+    private CommandBox commandBox;
+    private LevelLabel levelLabel;
     private ResultDisplay questionDisplay;
     private AnswersGridPane answersGridPane;
-    private CommandBox commandBox;
     private ProgressIndicatorBar progressIndicatorBar;
     private Timer timer;
     private ScoreProgressAndTimerGridPane progressAndTimerGridPane;
@@ -63,7 +68,7 @@ public class StartQuizWindow extends Window {
             this, "currentProgressIndex", 0);
 
     public StartQuizWindow(Stage primaryStage, MainLogic mainLogic, Mode mode) {
-        super(primaryStage, mainLogic);
+        super(FXML, primaryStage, mainLogic);
         this.mode = mode;
     }
 
@@ -71,7 +76,7 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.quizList = getListBasedOnMode(this.mode);
+        this.quizList = mainLogic.getFilteredSortedAnswerableList();
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -87,8 +92,12 @@ public class StartQuizWindow extends Window {
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        int nextLevel = Integer.parseInt(quizList.get(0).getDifficulty().value);
+        this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
 
-        this.timer = getTimerBasedOnMode(this.mode, Integer.parseInt(quizList.get(0).getDifficulty().value));
+        levelLabel = new LevelLabel(nextLevel);
+        levelPlaceholder.getChildren().add(levelLabel.getRoot());
+
         int sizeOfFirstLevel = getSizeOfCurrentLevel(quizList.get(0));
         progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex, sizeOfFirstLevel,
                 "%.0f/" + sizeOfFirstLevel);
@@ -134,22 +143,18 @@ public class StartQuizWindow extends Window {
 
             if (commandResult.isExit()) {
                 handleExit();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
-            }
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                return new CommandResult().build();
             }
 
             if (commandResult.getFeedbackToUser().equalsIgnoreCase("wrong")
-                    && mode.value.equals("arcade")) {
+                    && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
+                return new CommandResult().build();
             }
 
             if (!answerableIterator.hasNext()) {
                 handleEnd();
-                return new CommandResult().withFeedBack("Quiz has ended.").build();
+                return new CommandResult().build();
             }
 
             currentProgressIndex.set(getCurrentProgressIndex() + 1);
@@ -158,9 +163,7 @@ public class StartQuizWindow extends Window {
             currentAnswerable = answerableIterator.next();
 
             if (previousAnswerable != null && answerableIterator.hasNext()) {
-                int previousLevel = Integer.parseInt(previousAnswerable.getDifficulty().value);
-                int currentLevel = Integer.parseInt(currentAnswerable.getDifficulty().value);
-                if (previousLevel < currentLevel) {
+                if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
                     handleNextLevel(currentAnswerable);
                 }
             }
@@ -187,7 +190,8 @@ public class StartQuizWindow extends Window {
     private void handleNextLevel(Answerable nextAnswerable) {
         int nextLevel = Integer.parseInt(nextAnswerable.getDifficulty().value);
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
 
         alert.setTitle("Well done!");
         alert.setHeaderText(null);
@@ -230,12 +234,15 @@ public class StartQuizWindow extends Window {
         if (result.get() == endButton) {
             handleExit();
         } else {
+            levelLabel = new LevelLabel(nextLevel);
+            levelPlaceholder.getChildren().add(levelLabel.getRoot());
+
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
                     "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-            Timer newTimer = getTimerBasedOnMode(this.mode, nextLevel);
-            timer = newTimer;
+            //Start a new timer for the next level
+            this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
             progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
             scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
         }
@@ -247,11 +254,15 @@ public class StartQuizWindow extends Window {
     @FXML
     private void handleEnd() {
         currentProgressIndex.set(currentProgressIndex.get() + 1);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
         alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
+
+        if (mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext()) {
+            alert.setAlertType(Alert.AlertType.ERROR);
             alert.setContentText("Better luck next time! :P Your score is " + score
                     + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
                     + "Try again?\n"
@@ -321,57 +332,15 @@ public class StartQuizWindow extends Window {
         mainWindow.show();
         mainWindow.fillInnerParts();
 
-        if (mode.value.equals("custom")) {
+        if (mode.value.equals(Modes.CUSTOM.toString())) {
             mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
                     + "Type 'list' to view your full list of questions again.");
         }
     }
 
-    public AnswerableListPanel getAnswerableListPanel() {
-        return answerableListPanel;
-    }
-
-
+    /** Gets the index of the current question to update the progress bar. **/
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
 
-    public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
-        return currentProgressIndex.getReadOnlyProperty();
-    }
-
-    private Timer getTimerBasedOnMode(Mode mode, int nextLevel) {
-        switch (mode.value.toLowerCase()) {
-        case "normal": case "custom":
-            return new Timer(mode.getTime(), this::executeCommand);
-        case "arcade":
-            switch(nextLevel) {
-            case 2:
-                return new Timer(mode.getLevelTwoTime(), this::executeCommand);
-            case 3:
-                return new Timer(mode.getLevelThreeTime(), this::executeCommand);
-            default:
-                return new Timer(mode.getTime(), this::executeCommand);
-            }
-        default:
-            logger.warning("invalid mode");
-            return new Timer(30, this::executeCommand);
-        }
-    }
-
-    private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
-        Comparator<Answerable> difficultyComparator = Comparator.comparing(answerable ->
-                answerable.getDifficulty().value);
-        switch (mode.value.toLowerCase()) {
-        case "normal":
-            ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
-                    mode.getCombinedPredicate(), difficultyComparator);
-            return sortedList;
-        case "custom":
-            return this.mainLogic.getFilteredAnswerableList();
-        default:
-            logger.warning("invalid mode");
-            return this.mainLogic.getFilteredSortedAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE, difficultyComparator);
-        }
-    }
 }

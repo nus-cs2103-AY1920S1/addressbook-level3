@@ -29,6 +29,7 @@ import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,7 +40,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws ParseException {
-        Answerable editedAnswerable = new AnswerableBuilder().build();
+        Answerable editedAnswerable = new McqBuilder().build();
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder(editedAnswerable).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE, descriptor);
 
@@ -56,7 +57,7 @@ public class EditCommandTest {
         Index indexLastAnswerable = Index.fromOneBased(model.getFilteredAnswerableList().size());
         Answerable lastAnswerable = model.getFilteredAnswerableList().get(indexLastAnswerable.getZeroBased());
 
-        AnswerableBuilder answerableInList = new AnswerableBuilder(lastAnswerable);
+        AnswerableBuilder answerableInList = new McqBuilder(lastAnswerable);
         Answerable editedAnswerable = answerableInList.withQuestion(VALID_QUESTION_BETA)
                 .withDifficulty(VALID_DIFFICULTY_BETA)
                 .withCategories(VALID_CATEGORY_GREENFIELD).build();
@@ -91,7 +92,7 @@ public class EditCommandTest {
 
         Answerable answerableInFilteredList = model.getFilteredAnswerableList()
                 .get(INDEX_FIRST_ANSWERABLE.getZeroBased());
-        Answerable editedAnswerable = new AnswerableBuilder(answerableInFilteredList)
+        Answerable editedAnswerable = new McqBuilder(answerableInFilteredList)
                 .withQuestion(VALID_QUESTION_BETA).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ANSWERABLE,
                 new EditAnswerableDescriptorBuilder().withQuestion(VALID_QUESTION_BETA).build());

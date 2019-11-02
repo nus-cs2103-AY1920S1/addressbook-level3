@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.answer.Answer;
 
 /**
  * User inputs that answer the MCQ questions in the quiz session.

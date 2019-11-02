@@ -29,14 +29,14 @@ import seedu.revision.logic.parser.main.AddCommandParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
-import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Answerable expectedAnswerable = new AnswerableBuilder(BETA).withCategories(VALID_CATEGORY_UML).build();
+        Answerable expectedAnswerable = new McqBuilder(BETA).withCategories(VALID_CATEGORY_UML).build();
 
         // whitespace only preamble
         String userInput = (PREAMBLE_WHITESPACE + QUESTION_TYPE_MCQ + QUESTION_DESC_BETA + DIFFICULTY_DESC_BETA
@@ -56,7 +56,7 @@ public class AddCommandParserTest {
                 new AddCommand(expectedAnswerable));
 
         // multiple categories - all accepted
-        Answerable expectedAnswerableMultipleTags = new AnswerableBuilder(BETA).withCategories(VALID_CATEGORY_UML,
+        Answerable expectedAnswerableMultipleTags = new McqBuilder(BETA).withCategories(VALID_CATEGORY_UML,
                 VALID_CATEGORY_GREENFIELD).build();
         assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_BETA + DIFFICULTY_DESC_BETA
                 + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_GREENFIELD + CATEGORY_DESC_UML,

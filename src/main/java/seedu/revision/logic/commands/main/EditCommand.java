@@ -19,6 +19,7 @@ import seedu.revision.commons.util.CollectionUtil;
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.model.Model;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
@@ -26,7 +27,6 @@ import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**

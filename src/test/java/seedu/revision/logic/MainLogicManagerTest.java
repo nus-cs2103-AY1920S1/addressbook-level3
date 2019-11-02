@@ -31,7 +31,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.JsonAddressBookStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
-import seedu.revision.testutil.AnswerableBuilder;
+import seedu.revision.testutil.McqBuilder;
 
 public class MainLogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -84,7 +84,7 @@ public class MainLogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
                 + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
-        Answerable expectedAnswerable = new AnswerableBuilder(ALPHA).withCategories("UML").build();
+        Answerable expectedAnswerable = new McqBuilder(ALPHA).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
         String expectedMessage = MainLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

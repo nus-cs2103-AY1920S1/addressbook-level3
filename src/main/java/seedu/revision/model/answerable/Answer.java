@@ -1,4 +1,4 @@
-package seedu.revision.model.answerable.answer;
+package seedu.revision.model.answerable;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;

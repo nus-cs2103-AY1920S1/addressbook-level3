@@ -10,13 +10,13 @@ import java.util.Set;
 import seedu.revision.commons.core.index.Index;
 import seedu.revision.commons.util.StringUtil;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
-import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.ArcadeMode;
+import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 import seedu.revision.ui.bar.Timer;
@@ -52,9 +52,6 @@ public class ParserUtil {
         final ArrayList<Answer> answerList = new ArrayList<>();
         for (String answer : answers) {
             Answer newAnswer = parseAnswer(answer);
-            if (answerList.contains(newAnswer)) {
-                throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
-            }
             answerList.add(newAnswer);
         }
         return answerList;

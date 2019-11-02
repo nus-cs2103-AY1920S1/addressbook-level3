@@ -10,14 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.revision.commons.exceptions.IllegalValueException;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.answer.Answer;
 import seedu.revision.model.category.Category;
 
 /**
@@ -69,7 +68,7 @@ class JsonAdaptedAnswerable {
             questionType = "saq";
         }
 
-        question = source.getQuestion().value;
+        question = source.getQuestion().question;
         difficulty = source.getDifficulty().value;
         correctAnswerSet.addAll(source.getCorrectAnswerList().stream()
                 .map(JsonAdaptedAnswer::new)

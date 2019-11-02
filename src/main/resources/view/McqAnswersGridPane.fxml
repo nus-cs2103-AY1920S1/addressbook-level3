@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.layout.GridPane?>
 
-
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
 <GridPane fx:id="cardPane"
           xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
           alignment="CENTER_LEFT" >
@@ -23,32 +21,32 @@
     </rowConstraints>
 
     <children>
-        <Button styleClass="option-label" fx:id="option1" text="\$option1" wrapText="true"
+        <Label styleClass="option-label" fx:id="option1" text="\$option1" wrapText="true"
                GridPane.columnIndex="0" GridPane.rowIndex="0">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
+        </Label>
 
-        <Button styleClass="option-label" fx:id="option2" text="\$option2" wrapText="true"
+        <Label styleClass="option-label" fx:id="option2" text="\$option2" wrapText="true"
                GridPane.columnIndex="1" GridPane.rowIndex="0">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
+        </Label>
 
-        <Button styleClass="option-label" fx:id="option3" text="\$option3" wrapText="true"
+        <Label styleClass="option-label" fx:id="option3" text="\$option3" wrapText="true"
                GridPane.columnIndex="0" GridPane.rowIndex="1">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
-        <Button styleClass="option-label" fx:id="option4" text="\$option4" wrapText="true"
+        </Label>
+        <Label styleClass="option-label" fx:id="option4" text="\$option4" wrapText="true"
                GridPane.columnIndex="1" GridPane.rowIndex="1">
             <effect>
                 <DropShadow/>
             </effect>
-        </Button>
+        </Label>
     </children>
 
 

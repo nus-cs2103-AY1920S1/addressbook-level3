@@ -1,9 +1,9 @@
 package seedu.revision.model.quiz;
 
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.AppUtil.checkArgument;
+
+import java.util.function.Predicate;
 
 import seedu.revision.model.answerable.Answerable;
 
@@ -15,7 +15,7 @@ public abstract class Mode {
 
     public static final String MESSAGE_CONSTRAINTS = "Mode can only be normal / arcade / custom";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
@@ -44,18 +44,6 @@ public abstract class Mode {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public int getTime() {
-        return this.time;
-    }
-
-    public int getLevelTwoTime() {
-        return time;
-    }
-
-    public int getLevelThreeTime() {
-        return time;
-    }
-
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
     }
@@ -66,6 +54,7 @@ public abstract class Mode {
 
     public abstract Mode build();
 
+    public abstract int getTime(int nextLevel);
 
     @Override
     public String toString() {
