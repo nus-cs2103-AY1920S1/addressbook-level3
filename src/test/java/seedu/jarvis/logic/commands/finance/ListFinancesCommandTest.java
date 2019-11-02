@@ -3,7 +3,6 @@ package seedu.jarvis.logic.commands.finance;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +28,9 @@ public class ListFinancesCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
-        expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
+        expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(), model.getFinanceTracker(),
+                new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
     }
 
     /**

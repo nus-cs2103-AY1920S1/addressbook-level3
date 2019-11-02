@@ -23,7 +23,6 @@ import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.viewstatus.ViewType;
-import seedu.jarvis.ui.address.PersonListView;
 import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
@@ -181,8 +180,6 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -269,11 +266,6 @@ public class MainWindow extends UiPart<Stage> {
         StackPane toUpdatePlaceHolder;
 
         switch (currentViewType) {
-
-        case LIST_ADDRESS:
-            newView = new PersonListView(this, logic, model);
-            toUpdatePlaceHolder = ccaContentPlaceholder;
-            break;
 
         case LIST_CCA:
             newView = new CcaListView(this, logic, model);

@@ -1,21 +1,14 @@
 package seedu.jarvis.model;
 
-import static seedu.jarvis.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.ALICE;
-import static seedu.jarvis.testutil.address.TypicalPersons.BENSON;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.person.NameContainsKeywordsPredicate;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -26,7 +19,6 @@ import seedu.jarvis.testutil.CommandStub;
 import seedu.jarvis.testutil.CommandStubExecutionThrowsCommandException;
 import seedu.jarvis.testutil.CommandStubHasNoInverse;
 import seedu.jarvis.testutil.CommandStubInverseExecutionThrowsCommandException;
-import seedu.jarvis.testutil.address.AddressBookBuilder;
 
 public class ModelManagerTest {
 
@@ -38,7 +30,6 @@ public class ModelManagerTest {
         Assertions.assertEquals(new FinanceTracker(), modelManager.getFinanceTracker());
         Assertions.assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         Assertions.assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        Assertions.assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
         Assertions.assertEquals(new Planner(), modelManager.getPlanner());
     }
 
@@ -50,14 +41,12 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         Assertions.assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         Assertions.assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -81,8 +70,8 @@ public class ModelManagerTest {
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
         CcaTracker ccaTracker = new CcaTracker();
-        modelManager = new ModelManager(ccaTracker, historyManager, new FinanceTracker(), new AddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        modelManager = new ModelManager(ccaTracker, historyManager, new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         Assertions.assertEquals(historyManager, modelManager.getHistoryManager());
     }
 
@@ -205,56 +194,20 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
-    }
-
-    @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        Assertions.assertEquals(path, modelManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        Assertions.assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        Assertions.assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
-    }
-
-    @Test
     public void equals() {
         CcaTracker ccaTracker = new CcaTracker();
         HistoryManager historyManager = new HistoryManager();
         historyManager.rememberExecutedCommand(new CommandStub());
         HistoryManager differentHistoryManager = new HistoryManager();
         FinanceTracker financeTracker = new FinanceTracker();
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         Planner planner = new Planner();
         CoursePlanner coursePlanner = new CoursePlanner();
 
         // same values -> returns true
-        modelManager = new ModelManager(ccaTracker, historyManager, financeTracker, addressBook,
-                userPrefs, planner, coursePlanner);
-        ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager,
-                financeTracker, addressBook, userPrefs, planner, coursePlanner);
+        modelManager = new ModelManager(ccaTracker, historyManager, financeTracker, userPrefs, planner, coursePlanner);
+        ModelManager modelManagerCopy = new ModelManager(ccaTracker, historyManager, financeTracker, userPrefs, planner,
+                coursePlanner);
         Assertions.assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -266,29 +219,15 @@ public class ModelManagerTest {
         // different types -> returns false
         Assertions.assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
-                differentAddressBook, userPrefs, planner, coursePlanner)));
-
         // different historyManager -> returns false
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, differentHistoryManager, financeTracker,
-                addressBook, userPrefs, planner, coursePlanner)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-
-        Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
-                addressBook, userPrefs, planner, coursePlanner)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+                userPrefs, planner, coursePlanner)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         Assertions.assertFalse(modelManager.equals(new ModelManager(ccaTracker, historyManager, financeTracker,
-                addressBook, differentUserPrefs, planner, coursePlanner)));
+                differentUserPrefs, planner, coursePlanner)));
     }
 
 }

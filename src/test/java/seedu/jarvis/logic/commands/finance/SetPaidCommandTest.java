@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +19,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -40,8 +37,8 @@ public class SetPaidCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         model.addPurchase(new PurchaseStub());
         model.addPurchase(new PurchaseStub());
         model.addPurchase(new PurchaseStub());
@@ -96,8 +93,7 @@ public class SetPaidCommandTest {
                 purchaseToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.addPurchase(purchaseToAdd);
 
         assertCommandSuccess(setPaidCommand, model, expectedMessage, expectedModel);
@@ -133,18 +129,6 @@ public class SetPaidCommandTest {
     }
 
     /**
-     * A Model stub that contains a single purchase.
-     */
-    private class ModelStubWithPurchase extends ModelStub {
-        private final Purchase purchase;
-
-        ModelStubWithPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            this.purchase = purchase;
-        }
-    }
-
-    /**
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPurchaseAdded extends ModelStub {
@@ -162,10 +146,6 @@ public class SetPaidCommandTest {
             return purchasesAdded.contains(purchase);
         }
 
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
     }
 
     private static class PurchaseStub extends Purchase {

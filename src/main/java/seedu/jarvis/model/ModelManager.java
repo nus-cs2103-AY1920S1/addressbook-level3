@@ -3,7 +3,6 @@ package seedu.jarvis.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -16,10 +15,6 @@ import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
@@ -49,7 +44,6 @@ public class ModelManager implements Model {
     private static DecimalFormat df2 = new DecimalFormat("#.00");
 
     private final HistoryManager historyManager;
-    private final AddressBook addressBook;
     private final FinanceTracker financeTracker;
     private final UserPrefs userPrefs;
     private final CoursePlanner coursePlanner;
@@ -61,16 +55,15 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager,
-                        FinanceTracker financeTracker, ReadOnlyAddressBook addressBook,
-                        ReadOnlyUserPrefs userPrefs, Planner planner, CoursePlanner coursePlanner) {
+                        FinanceTracker financeTracker, ReadOnlyUserPrefs userPrefs, Planner planner,
+                        CoursePlanner coursePlanner) {
         super();
-        requireAllNonNull(ccaTracker, historyManager, financeTracker, addressBook, userPrefs, planner);
+        requireAllNonNull(ccaTracker, historyManager, financeTracker, userPrefs, planner);
 
-        logger.fine("Initializing with JARVIS: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with JARVIS: user prefs " + userPrefs);
 
         this.ccaTracker = new CcaTracker(ccaTracker);
         this.historyManager = new HistoryManager(historyManager);
-        this.addressBook = new AddressBook(addressBook);
         this.financeTracker = new FinanceTracker(financeTracker);
         this.userPrefs = new UserPrefs(userPrefs);
         this.planner = new Planner(planner);
@@ -79,8 +72,8 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new AddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        this(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(), new Planner(),
+                new CoursePlanner());
     }
 
     //=========== ViewStatus ==================================================================================
@@ -253,8 +246,6 @@ public class ModelManager implements Model {
 
     /**
      * Retrieves purchase at a particular index as seen on the list of finance tracker.
-     *
-     * @throws CommandException is thrown if purchase does not exist
      */
     @Override
     public Purchase getPurchase(int paymentIndex) {
@@ -328,8 +319,6 @@ public class ModelManager implements Model {
 
     /**
      * Retrieves installment at a particular index as seen on the list of finance tracker.
-     *
-     * @throws CommandException is thrown if installment does not exist
      */
     @Override
     public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
@@ -468,78 +457,6 @@ public class ModelManager implements Model {
         return financeTracker.calculateRemainingAmount();
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    /**
-     * Adds {@code Person} at a given index.
-     *
-     * @param zeroBasedIndex Zero-based index to add {@code Person} to.
-     * @param person {@code Person} to be added.
-     */
-    @Override
-    public void addPerson(int zeroBasedIndex, Person person) {
-        addressBook.addPerson(zeroBasedIndex, person);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return addressBook.getFilteredPersonList();
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        addressBook.updateFilteredPersonList(predicate);
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -559,8 +476,6 @@ public class ModelManager implements Model {
                 && financeTracker.getFilteredPurchaseList().equals(other.financeTracker.getFilteredPurchaseList())
                 && financeTracker.getFilteredInstallmentList().equals(other.financeTracker.getFilteredInstallmentList())
                 && planner.equals(other.planner)
-                && addressBook.equals(other.addressBook)
-                && addressBook.getFilteredPersonList().equals(other.addressBook.getFilteredPersonList())
                 && userPrefs.equals(other.userPrefs)
                 && coursePlanner.equals(other.coursePlanner)
                 && ccaTracker.equals(other.ccaTracker);
@@ -603,7 +518,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Cca getCca(Index index) throws CommandException {
+    public Cca getCca(Index index) {
         requireNonNull(index.getZeroBased());
         return ccaTracker.getCca(index);
     }

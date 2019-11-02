@@ -17,8 +17,6 @@ import seedu.jarvis.logic.Logic;
 import seedu.jarvis.logic.LogicManager;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -29,8 +27,6 @@ import seedu.jarvis.model.userprefs.UserPrefs;
 import seedu.jarvis.model.util.SampleDataUtil;
 import seedu.jarvis.storage.Storage;
 import seedu.jarvis.storage.StorageManager;
-import seedu.jarvis.storage.address.AddressBookStorage;
-import seedu.jarvis.storage.address.JsonAddressBookStorage;
 import seedu.jarvis.storage.cca.CcaTrackerStorage;
 import seedu.jarvis.storage.cca.JsonCcaTrackerStorage;
 import seedu.jarvis.storage.course.CoursePlannerStorage;
@@ -71,7 +67,6 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         HistoryManagerStorage historyManagerStorage = new JsonHistoryManagerStorage(
                 userPrefs.getHistoryManagerFilePath());
         CcaTrackerStorage ccaTrackerStorage = new JsonCcaTrackerStorage(userPrefs.getCcaTrackerFilePath());
@@ -79,7 +74,7 @@ public class MainApp extends Application {
         PlannerStorage plannerStorage = new JsonPlannerStorage(userPrefs.getPlannerFilePath());
         FinanceTrackerStorage financeTrackerStorage = new JsonFinanceTrackerStorage(userPrefs.getFinanceTrackerPath());
 
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, historyManagerStorage, ccaTrackerStorage,
+        storage = new StorageManager(userPrefsStorage, historyManagerStorage, ccaTrackerStorage,
                 coursePlannerStorage, plannerStorage, financeTrackerStorage);
 
         initLogging(config);
@@ -98,36 +93,12 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyAddressBook addressBook = readAddressBook(storage);
         HistoryManager historyManager = readHistoryManager(storage);
         CcaTracker ccaTracker = readCcaTracker(storage);
         CoursePlanner coursePlanner = readCoursePlanner(storage);
         Planner planner = readPlanner(storage);
         FinanceTracker financeTracker = readFinanceTracker(storage);
-        return new ModelManager(ccaTracker, historyManager, financeTracker, addressBook,
-                userPrefs, planner, coursePlanner);
-    }
-
-    /**
-     * Gets the {@code AddressBook} from storage.
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
-     */
-    private ReadOnlyAddressBook readAddressBook(Storage storage) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            return addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            return new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            return new AddressBook();
-        }
+        return new ModelManager(ccaTracker, historyManager, financeTracker, userPrefs, planner, coursePlanner);
     }
 
     /**

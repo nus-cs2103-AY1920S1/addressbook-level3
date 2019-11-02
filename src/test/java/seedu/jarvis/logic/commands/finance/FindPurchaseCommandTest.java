@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.DINNER_REEDZ;
 import static seedu.jarvis.testutil.finance.TypicalPurchases.LUNCH_JAPANESE;
 
@@ -35,11 +34,10 @@ public class FindPurchaseCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
     }
 
     /**

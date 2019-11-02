@@ -7,10 +7,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import seedu.jarvis.commons.exceptions.IllegalValueException;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.storage.JsonAdapter;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedAddAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedClearAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedDeleteAddressCommand;
-import seedu.jarvis.storage.history.commands.address.JsonAdaptedEditAddressCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedAddProgressCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedDeleteCcaCommand;
@@ -37,11 +33,6 @@ import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
         property = "type"
 )
 @JsonSubTypes({
-        // addressbook
-        @Type(value = JsonAdaptedAddAddressCommand.class, name = "JsonAdaptedAddAddressCommand"),
-        @Type(value = JsonAdaptedClearAddressCommand.class, name = "JsonAdaptedClearAddressCommand"),
-        @Type(value = JsonAdaptedDeleteAddressCommand.class, name = "JsonAdaptedDeleteAddressCommand"),
-        @Type(value = JsonAdaptedEditAddressCommand.class, name = "JsonAdaptedEditAddressCommand"),
         // courseplanner
         @Type(value = JsonAdaptedAddCourseCommand.class, name = "JsonAdaptedAddCourseCommand"),
         @Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand"),

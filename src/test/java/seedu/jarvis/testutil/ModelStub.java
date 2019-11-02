@@ -1,6 +1,5 @@
 package seedu.jarvis.testutil;
 
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -9,11 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.GuiSettings;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.logic.commands.Command;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.exceptions.CommandNotInvertibleException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
-import seedu.jarvis.model.address.person.Person;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestoneList;
@@ -52,61 +48,6 @@ public class ModelStub implements Model {
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void addPerson(int zeroBasedIndex, Person person) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook newData) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -342,7 +283,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Cca getCca(Index index) throws CommandException {
+    public Cca getCca(Index index) {
         throw new AssertionError("This method should not be called.");
     }
 

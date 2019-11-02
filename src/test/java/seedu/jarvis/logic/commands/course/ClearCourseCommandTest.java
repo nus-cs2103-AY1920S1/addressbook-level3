@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
@@ -42,7 +41,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             new CoursePlanner()
@@ -51,7 +49,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             getTypicalCoursePlanner()
@@ -68,7 +65,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             new CoursePlanner()
@@ -77,7 +73,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             getTypicalCoursePlanner()
@@ -99,7 +94,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             new CoursePlanner()
@@ -108,7 +102,6 @@ public class ClearCourseCommandTest {
             new CcaTracker(),
             new HistoryManager(),
             new FinanceTracker(),
-            new AddressBook(),
             new UserPrefs(),
             new Planner(),
             getTypicalCoursePlanner()

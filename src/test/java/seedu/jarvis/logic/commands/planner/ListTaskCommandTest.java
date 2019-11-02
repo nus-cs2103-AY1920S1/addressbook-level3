@@ -53,8 +53,7 @@ class ListTaskCommandTest {
         model.addTask(new Todo("book"));
 
         Model expected = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
 
         model.updateFilteredTaskList(new TaskDesContainsKeywordsPredicate(Arrays.asList("borrow")));
 
