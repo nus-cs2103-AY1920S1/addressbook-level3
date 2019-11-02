@@ -13,8 +13,8 @@ import java.time.format.DateTimeParseException;
  */
 public class Date implements Comparable<Date> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Invalid date.\n" +
-        "Date objects must adhere to the format: DDMMYYYY\n";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid date.\n"
+        + "Date objects must adhere to the format: DDMMYYYY\n";
 
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
 
@@ -38,6 +38,9 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Checks for valid date in the Gregorian calendar.
+     */
     private static boolean checkDate(String date) {
         int day = Integer.parseInt(date.substring(0, 2));
         int month = Integer.parseInt(date.substring(2, 4));
