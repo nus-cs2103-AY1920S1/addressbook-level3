@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.Collection;
@@ -53,13 +52,12 @@ class EditPersonCommandSuggesterTest extends EditCommandSuggesterTest {
     @ParameterizedTest
     @MethodSource("knownPersonPrefixesAndValueGenerator")
     void getSuggestions_exactPersonChangingPrefixBlankValue_currentPersonPrefixValue(
-            final Prefix prefix, final Collection<String> expectedSuggestions) {
+            final Prefix prefix, final List<String> expectedSuggestions) {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_EDIT, 0, KNOWN_PERSON.getName().toString()),
                 new CommandArgument(prefix, 1, "")
         );
 
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 }

@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,8 +25,8 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
         argumentList.add(new CommandArgument(CliSyntax.PREFIX_NAME, 1, ""));
 
         final List<String> expectedNames = allPersonNames().collect(Collectors.toUnmodifiableList());
-        final List<String> actualNames = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedNames, actualNames);
+
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedNames);
     }
 
     @Test
@@ -41,8 +39,7 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
         final String searchName = expectedName.substring(0, expectedName.length() - 1);
         argumentList.add(new CommandArgument(CliSyntax.PREFIX_NAME, 1, searchName));
 
-        final List<String> actualNames = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedNames, actualNames);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedNames);
     }
 
     @Test
@@ -53,8 +50,7 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
         argumentList.add(new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 1, ""));
 
         final List<String> expectedGroupNames = allGroupNames().collect(Collectors.toUnmodifiableList());
-        final List<String> actualGroupNames = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedGroupNames, actualGroupNames);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedGroupNames);
     }
 
     @Test
@@ -70,7 +66,6 @@ class AddToGroupCommandSuggesterTest extends SuggesterImplTester {
 
         argumentList.add(new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 1, searchName));
 
-        final List<String> actualGroupNames = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedGroupNames, actualGroupNames);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedGroupNames);
     }
 }

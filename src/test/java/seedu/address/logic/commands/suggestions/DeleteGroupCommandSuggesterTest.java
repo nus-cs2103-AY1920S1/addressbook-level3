@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,8 +26,7 @@ class DeleteGroupCommandSuggesterTest extends SuggesterImplTester {
                 new CommandArgument(CliSyntax.PREFIX_GROUPNAME, 1, partialSecondGroupName)
         );
         final List<String> expectedSuggestions = allGroupNames().skip(1).collect(Collectors.toUnmodifiableList());
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
 
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 }

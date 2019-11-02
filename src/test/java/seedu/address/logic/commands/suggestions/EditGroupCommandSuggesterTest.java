@@ -1,7 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -33,8 +31,7 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
         );
 
         final List<String> expectedSuggestions = List.of(TypicalGroups.GROUPREMARK1.toString());
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 
     @Test
@@ -55,8 +52,7 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
         );
 
         final List<String> expectedSuggestions = List.of(TypicalGroups.GROUPDESCRIPTION1.toString());
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 
     @Test
@@ -79,7 +75,6 @@ class EditGroupCommandSuggesterTest extends EditCommandSuggesterTest {
         );
 
         final List<String> expectedSuggestions = List.of(group.getUserRole().getRole());
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 }
