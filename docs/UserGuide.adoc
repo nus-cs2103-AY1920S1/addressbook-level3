@@ -64,6 +64,8 @@ Example: `n/ITEM [c/CATEGORY]` can be used as `n/coke c/drinks` or as `n/coke`.
 Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n/Betty` etc.
 * Parameters can be in any order. +
 Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
+* Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
+Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 ====
 
 === Splitting a Bill with Friends : `split` [Work in Progress]
