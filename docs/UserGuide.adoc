@@ -64,7 +64,7 @@ If the application does not run, follow the instructions below based on your ope
 == Getting Started
 
 Welcome to the Budget Buddy User Guide! You can scroll down to start looking at the in-depth features of Budget Buddy,
-or select a topic from the _Table of Contents_ right above.
+or select a topic from the _Table of Contents_ above.
 
 [[Features]]
 == Features
