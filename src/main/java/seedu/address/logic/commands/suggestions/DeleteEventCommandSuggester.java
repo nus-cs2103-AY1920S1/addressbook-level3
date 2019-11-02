@@ -49,12 +49,17 @@ public class DeleteEventCommandSuggester extends Suggester {
         if (prefix.equals(CliSyntax.PREFIX_NAME)) {
             return model.personSuggester(value);
         } else if (prefix.equals(CliSyntax.PREFIX_EVENTNAME)) {
-            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
-            if (optionalSelectedPerson.isEmpty()) {
-                return null;
+            final Person person;
+            if (arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_NAME).isPresent()) {
+                final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
+                if (optionalSelectedPerson.isPresent()) {
+                    person = optionalSelectedPerson.get();
+                } else {
+                    return null;
+                }
+            } else {
+                person = model.getUser();
             }
-
-            final Person person = optionalSelectedPerson.get();
 
             return person
                     .getSchedule()
