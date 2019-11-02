@@ -5,70 +5,67 @@
 
 == PROJECT: ExerHealth
 
----
-
 == Overview
 
-ExerHealth is a desktop application used for tracking and scheduling the user's exercises.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has about 10 kLoC.
+My team of 4 computer science students were tasked with changing a basic command line application. Our team
+decided to morph the application into ExerHealth. **ExerHealth** is a desktop application used for tracking
+and scheduling the user's exercises. The application has statistical analysis of exercises users have completed
+in the past. Additionally, it also acts as a personal trainer by suggesting different exercises which both
+beginners and advanced users can choose from to incorporate into their exercise regimes.
+The user interacts with it using a command line interface, and it has a GUI created with JavaFX.
+
+Below is a screenshot of what our desktop application looks like:
+
+**//TODO: Add image of UI**
+
+My role in this project was to design and develop the scheduling and resolving of scheduling conflicts features.
+The following sections will illustrate these additions to the application in finer details, as well as any
+relevant documentation that I have added into the user and developer guide.
 
 == Summary of contributions
+This section shows a summary of the contributions I have made to the codebase of ExerHealth. It also shows the overview of the documentation provided and other helpful contributions to the team project.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: Added the ability to `schedule` exercise regimes
+** What it does: The `schedule` command will allow users to schedule a stored exercise regime at a particular date of their choice.
+** Justification: This feature will enable users to keep track and plan what exercise regimes they are supposed to complete. It also acts as a calendar to help users keep track of the regimes in the next few days, weeks or months.
+** Highlights: This enhancement works well with existing features as well as future commands that
+will be added to ExerHealth. An in-depth analysis of design alternatives was necessary to ensure that
+future developers, including me, are able to extends and enhance this feature if need be.
+The implementation itself was challenging because scheduling can lead to conflicts in what regimes to complete
+at a particular date. However, this difficulty was remedied as described in *Major enhancement 2*.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 2*: Added the ability to `resolve` scheduling conflicts
+** What it does: The `resolve` command will allow users to `resolve` conflicts that arise when two regimes are scheduled on the same date.
+** Justification: This feature will allow users the flexibility to select which exercises they wish to do from the conflicting scheduled regimes. It also allows users to store the resolved regime and use it in the future.
+** Highlights: This enhancement works well with *major enhancement 1* as there is a direct link between the two. The implementation of this feature was particularly challenging because multiple resources had to be kept track of. Also, there was a need to prevent users from proceeding on with normal usage of the program until they resolve the scheduling conflict. The aforementioned requirement was technically challenging and multiple facets had to be considered in the implementation of the feature.
+
+* *Minor enhancement 1*: Added the display panel in the center of our UI to display more information on the selected resource on the left panel of our UI.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Maintainer of repository on GitHub
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+** Testing:
+*** Refactored large portions of testing codebase for fellow developers: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/120[#120]
+*** Wrote tests for existing and new features to increase code coverage (Pull requests: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#126])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/90[#90], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/102[#102]
 
 == Contributions to the User Guide
-
-
+We had to update the User Guide that was provided by the basic application(*addressbook*) so that it will reflect the features that we have added.
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the *ExerHealth User Guide*. They show the additions I have made for the `schedule` and `resolve` features. The sections below will showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=scheduleresolve]
 
 == Contributions to the Developer Guide
-
+We had to update the Developer Guide that was provided by the basic application(*addressbook*) so it will convey to future developers the implementation details of our features.
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the *ExerHealth Developer Guide*. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=resolve]

@@ -301,6 +301,8 @@ The Undo/Redo feature implementation is based on the Singleton, Command, and Fac
 ** Suitable for the context of taking in a particular Command and returning a corresponding Event
 ** Reduces coupling between Command classes and Event classes
 
+// tag::resolvefeature[]
+
 === Resolve feature
 ==== Implementation
 The resolve feature is used when there is a scheduling conflict that happens within ExerHealth. This feature will alter the state of the program. The state is known by `MainApp` and it is either `State.IN_CONFLICT` or `State.NORMAL`. Only when the state is `State.IN_CONFLICT` will `resolve` commands be allowed.
@@ -360,6 +362,8 @@ image::ScheduleActivityDiagram.png[]
 ** Cons:
 *** `UI's` execute methods will contain multiple `try/catch` which acts like a control flow mechanism which increases code smell.
 *** If there is a need to pass down information from executed Commands, an exception is unable to convey any sort of complex information that the `UI` can act on. Thus, encapsulating information in an object will be more open to extension compared to throwing an exception.
+
+// end::resolvefeature[]
 
 === Custom feature
 This feature is facilitated by both `PropertyBook` and `CustomProperty`. Whenever a user
