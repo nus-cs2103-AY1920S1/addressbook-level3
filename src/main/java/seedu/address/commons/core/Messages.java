@@ -21,7 +21,12 @@ public class Messages {
     public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missing appointmennts need to settle!";
     public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
-    public static final String MESSAGE_NOT_PATIENTLIST = "appointment(s) displayed do not belong to the same patient\n";
+
+    public static final String MESSAGE_NOT_PATIENTLIST = "Cancelappt command only works when appointments "
+            + "displayed belong to the same patient.\n"
+            + "Plsease first display the patient's appointment listing by using appointmetnts patientId, "
+            + "before using cancelappt command.";
+
     public static final String MESSAGE_NOT_STAFFLIST =
             "Duty shift(s) displayed do not belong to the same staff doctor\n";
     public static final String MESSAGE_NOT_MISSEDLIST =
