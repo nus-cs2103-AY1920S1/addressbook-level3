@@ -91,6 +91,7 @@ public class ModelManager implements Model {
     private void initMap() {
         populateActivityMap(this.activities.getActivityList());
         populateAccommodationMap(this.accommodations.getAccommodationList());
+        populateDayMap(this.itinerary.getItinerary());
     }
 
     /**
@@ -127,6 +128,23 @@ public class ModelManager implements Model {
                     contactAccommodationMap.put(contact, new ArrayList<>(Arrays.asList(acc)));
                 }
                 accommodationContactMap.put(acc, contact);
+            }
+        }
+    }
+
+    /**
+     * Iterates through the {@code Itinerary} and creates a mapping between an {@code Activity} and the {@code Day}
+     * containing it.
+     */
+    private void populateDayMap(List<Day> days) {
+        for (Day day : days) {
+            List<ActivityWithTime> activities = day.getListOfActivityWithTime();
+            for (ActivityWithTime act : activities) {
+                if (activityDayMap.containsKey(act.getActivity())) {
+                    activityDayMap.get(act.getActivity()).add(day);
+                } else {
+                    activityDayMap.put(act.getActivity(), new ArrayList<>(Arrays.asList(day)));
+                }
             }
         }
     }
@@ -239,7 +257,7 @@ public class ModelManager implements Model {
      * the {@code Day} containing it is updated.
      */
     private void updateDay(Activity oldAct, Activity newAct) {
-        List<Day> listOfDays = activityDayMap.remove(oldAct);
+        List<Day> listOfDays = activityDayMap.get(oldAct);
         List<Day> newListOfDays = new ArrayList<>();
         itinerary.getItinerary().forEach(day -> {
             if (listOfDays.contains(day)) {
@@ -260,6 +278,7 @@ public class ModelManager implements Model {
                 newListOfDays.add(newDay);
             }
         });
+        activityDayMap.remove(oldAct);
         activityDayMap.put(newAct, newListOfDays);
     }
 
