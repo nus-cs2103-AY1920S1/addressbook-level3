@@ -41,7 +41,6 @@ public class Amount implements Comparable<Amount> {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
         // TODO BUGGY HERE
-        System.out.println("Amount: " + amount);
         checkArgument(isWithinLimits(amount), INT_CONSTRAINTS);
         this.amount = amount;
     }
@@ -52,7 +51,6 @@ public class Amount implements Comparable<Amount> {
     public static boolean isValidAmount(double amount) {
         String amountStr = "" + amount;
         int indexOfPeriod = amountStr.lastIndexOf(".");
-        System.out.println(amountStr.substring(indexOfPeriod + 1));
         return indexOfPeriod == -1
             || amountStr.substring(indexOfPeriod + 1).length() <= 2;
         // return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
