@@ -105,7 +105,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAgeGroupBreakdown_typicalAddressBook_returnsTrue(){
+    public void getAgeGroupBreakdown_typicalAddressBook_returnsTrue() {
         modelManager.setAddressBook(TypicalAddressBook.getTypicalAddressBook());
         ObservableMap<String, Integer> result = modelManager.getAgeGroupBreakdown();
         ObservableMap<String, Integer> expected = TypicalPersons.getAgeGroupBreakdown();

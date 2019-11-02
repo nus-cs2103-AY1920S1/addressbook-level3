@@ -2,9 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.geometry.Rectangle2D;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
