@@ -45,8 +45,7 @@ public class RemoveRoomCommandParser implements Parser<ReversibleActionPairComma
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         Room roomToRemove = ParserUtil.getEntryFromList(lastShownList, index);
-            return new ReversibleActionPairCommand(
-                    new RemoveRoomCommand(roomToRemove),
+        return new ReversibleActionPairCommand(new RemoveRoomCommand(roomToRemove),
                     new AddConsultationRoomCommand(roomToRemove));
 
     }
