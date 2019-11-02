@@ -10,12 +10,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
 
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
-import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.logic.commands.address.EditAddressCommand;
-import seedu.jarvis.logic.commands.address.FindAddressCommand;
-import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.cca.AddProgressCommand;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
