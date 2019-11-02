@@ -10,7 +10,7 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
-participant ":ReportGenerator" as Storage STORAGE_COLOR
+participant ":ReportGenerator" as ReportGenerator STORAGE_COLOR
 end box
 
 box iText ITEXT_COLOR
@@ -18,10 +18,10 @@ participant ":Document" as Document ITEXT_COLOR_T1
 participant ":PdfWriter" as PdfWriter ITEXT_COLOR_T1
 end box
 
-[-> LogicManager : execute("genReport B1")
+[-> LogicManager : execute("genReport 1 John Doe")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("genReport B1")
+LogicManager -> AddressBookParser : parseCommand("genReport 1 John Doe")
 activate AddressBookParser
 
 create GenReportCommandParser
@@ -31,12 +31,17 @@ activate GenReportCommandParser
 GenReportCommandParser --> AddressBookParser
 deactivate GenReportCommandParser
 
-AddressBookParser -> GenReportCommandParser : parse("B1")
+AddressBookParser -> GenReportCommandParser : parse("1 John Doe")
 activate GenReportCommandParser
 
 create GenReportCommand
 GenReportCommandParser -> GenReportCommand
 activate GenReportCommand
+create ReportGenerator
+GenReportCommand -> ReportGenerator
+activate ReportGenerator
+ReportGenerator --> GenReportCommand
+deactivate ReportGenerator
 
 GenReportCommand --> GenReportCommandParser : g
 deactivate GenReportCommand
@@ -53,50 +58,63 @@ deactivate AddressBookParser
 LogicManager -> GenReportCommand : execute()
 activate GenReportCommand
 
-GenReportCommand -> Storage : generate(body)
-activate Storage
+GenReportCommand -> ReportGenerator : generate(body, John Doe)
+activate ReportGenerator
 
 create Document
-Storage -> Document
+ReportGenerator -> Document
 activate Document
-Document --> Storage
+Document --> ReportGenerator
 deactivate Document
 
-Storage -> PdfWriter : getInstance(document, new FileOutputStream("Report B00000001.pdf")
-PdfWriter --> Storage
+ReportGenerator -> PdfWriter : getInstance(document, new FileOutputStream("Report B00000001.pdf")
+PdfWriter --> ReportGenerator
 
-Storage -> Storage : addHeader(document, "Mortago Report for B00000001")
-activate Storage
-Storage -> Document : open()
-Document --> Storage
-Storage --> Storage
-deactivate Storage
+ReportGenerator -> ReportGenerator : addHeader(document, "Mortago Report for B00000001")
+activate ReportGenerator
+ReportGenerator -> Document : open()
+Document --> ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
 
-Storage -> Storage : addPersonalDetails(document, body)
-activate Storage
-Storage --> Storage
-deactivate Storage
+ReportGenerator -> ReportGenerator : addPersonalDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
 
-Storage -> Storage : addNokDetails(document, body)
-activate Storage
-Storage --> Storage
-deactivate Storage
+ReportGenerator -> ReportGenerator : addNokDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
 
-Storage -> Storage : addOtherDetails(document, body)
-activate Storage
-Storage --> Storage
-deactivate Storage
+ReportGenerator -> ReportGenerator : addOtherDetails(document, body)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
 
-Storage -> Storage : addFooter(document, writer)
-activate Storage
-Storage -> Document : close()
-Document --> Storage
-Storage -> PdfWriter : close()
-PdfWriter --> Storage
-Storage --> Storage
+ReportGenerator -> ReportGenerator : addFooter(document, sign)
+activate ReportGenerator
+ReportGenerator -> Document : add(element)
+Document --> ReportGenerator
+ReportGenerator --> ReportGenerator
+deactivate ReportGenerator
+ReportGenerator -> Document : close()
+Document --> ReportGenerator
+ReportGenerator -> PdfWriter : close()
+PdfWriter --> ReportGenerator
 
-Storage --> GenReportCommand
-deactivate Storage
+ReportGenerator --> GenReportCommand
+deactivate ReportGenerator
+ReportGenerator -[hidden]-> GenReportCommand
+destroy ReportGenerator
 
 create CommandResult
 GenReportCommand -> CommandResult

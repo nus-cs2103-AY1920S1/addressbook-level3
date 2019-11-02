@@ -409,17 +409,17 @@ The generate PDF feature is facilitated by `ReportGenerator`.
 It extends `Mortago` with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
 Additionally, it implements the following operations:
 
-* `ReportGenerator#generate(body)` -- Creates report in a PDF file for the specific body.
-* `ReportGenerator#generateAll()` -- Creates reports in a PDF file for all bodies registered in Mortago.
-* `ReportGenerator#generateSummary()` -- Creates a tabular summary report in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generate(body, sign)` -- Creates report containing sign name of manager in a PDF file for the specific body.
+* `ReportGenerator#generateAll(sign)` -- Creates reports containing sign name of manager in a PDF file for all bodies registered in Mortago.
+* `ReportGenerator#generateSummary(sign)` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram shows how the execute operation works:
 
 image::GenReportSequenceDiagram.png[]
 
-NOTE: The lifeline for `GenReportCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `GenReportCommandParser` and `ReportGenerator` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `genReport <BODY_ID>` command calls `ReportGenerator#execute()`, which creates the document.
+The `genReport <BODY_ID>` command calls `ReportGenerator#generate(body, sign)`, which creates the document.
 
 The following activity diagram summarizes what happens when a user executes a `genReport <BODY_ID>` command:
 
