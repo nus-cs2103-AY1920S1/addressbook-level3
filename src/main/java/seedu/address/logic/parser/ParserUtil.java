@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,7 +50,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     //private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy:HHmm");
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuu").withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
 
@@ -329,9 +330,6 @@ public class ParserUtil {
             LocalDate date = LocalDate.parse(tokens[0].trim(), DATE_FORMATTER);
             LocalTime startTime = LocalTime.parse(tokens[1].trim(), TIME_FORMATTER);
             LocalTime endTime = LocalTime.parse(tokens[2].trim(), TIME_FORMATTER);
-
-            /*LocalDateTime startTime = LocalDateTime.parse(tokens[0], DATE_TIME_FORMATTER);
-            LocalDateTime endTime = LocalDateTime.parse(tokens[1], DATE_TIME_FORMATTER);*/
 
             if (endTime.isBefore(startTime) || endTime.compareTo(startTime) == 0) {
                 return null;
