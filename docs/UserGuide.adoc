@@ -193,9 +193,12 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see an exp
 
 [[add]]
 ==== Add a food item: `add`
-Adds a food item to the food list. Note: Price must be in integer or double value with at most 2 decimal places.
-Note: Opening Hours must be in HHMM format.
-Note: NAME, PRICE and CATEGORY are mandatory fields.
+Adds a food item to the food list.
+
+[IMPORTANT]
+NAME, PRICE and CATEGORY are mandatory fields.
+Price must be an integer or a double with 2 decimal places and the maximum Price for a food item is $5000.
+Opening Hours must be in HHMM format.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
@@ -226,11 +229,11 @@ Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be 
 ****
 
 ==== Finds food items based on keywords: `find`
-Finds a food items based on specific keywords. Following which, the food items containing the specific keywords will
+Finds a food items based on specific keywords. Following which, the food items names containing the specific keywords will
 be shown in the food list.
 
 ****
-*Format*: `find KEYWORD ...`
+*Format*: `find KEYWORD [MORE_KEYWORDS]..` +
 *Example*: `find Chicken Rice`
 ****
 
@@ -244,7 +247,7 @@ Based on v1.4, you are only allowed to enter `PRICE` as a `FIELD`. Other fields 
 in v2.0 and above.
 
 ****
-*Format*: `filter FIELD QUANTIFIER VALUE`
+*Format*: `filter FIELD QUANTIFIER VALUE` +
 *Example*: `filter PRICE LESS_THAN 4.00`
 ****
 //end::filters[]
@@ -274,7 +277,7 @@ This is done so that the user is able to get the food which is most relevant to 
 You must always provide pairs of FIELD and DIRECTION to execute the Sorting commands.
 The fields are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
 `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-THe directions are as followed: `ASC` or `DESC`.
+The directions are as follows: `ASC` or `DESC`.
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
@@ -286,7 +289,7 @@ Sorts all the food items by some specific FIELD.
 Note: You can have more than one pair of FIELD and DIRECTION.
 
 ****
-*Format*: `sort FIELD DIRECTION ...`
+*Format*: `sort FIELD DIRECTION ...` +
 *Example*: `sort PRICE ASC`
 ****
 
@@ -295,7 +298,7 @@ Create your own custom comparator, which will be stored within the storage of th
 FIELD and DIRECTION.
 
 ****
-*Format*: `makesort FIELD DIRECTION ...`
+*Format*: `makesort FIELD DIRECTION ...` +
 *Example*: `makesort PRICE ASC`
 ****
 
@@ -311,7 +314,7 @@ Turns on and off auto sorting, based on your own custom comparator, every time y
 There are only two states, ON or OFF.
 
 ****
-*Format*: `autosort STATE`
+*Format*: `autosort STATE` +
 *Example*: `autosort ON`
 ****
 
