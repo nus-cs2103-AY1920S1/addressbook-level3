@@ -98,6 +98,7 @@ public class AutocorrectTextField extends TextField {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
+                    endOfNextWord();
                     suggestionsPopup.hide();
                 }
             });
