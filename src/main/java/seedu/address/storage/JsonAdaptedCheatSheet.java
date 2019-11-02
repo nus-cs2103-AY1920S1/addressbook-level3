@@ -48,7 +48,7 @@ public class JsonAdaptedCheatSheet {
      * Converts a given {@code CheatSheet} into this class for Jackson use.
      */
     public JsonAdaptedCheatSheet(CheatSheet source) {
-        title = source.getTitle().value;
+        title = source.getTitle().fullTitle;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

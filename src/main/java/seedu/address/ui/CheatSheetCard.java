@@ -45,7 +45,7 @@ public class CheatSheetCard extends UiPart<Region> {
         super(FXML);
         this.cheatSheet = cheatSheet;
         id.setText(displayedIndex + ". ");
-        name.setText(cheatSheet.getTitle().value);
+        name.setText(cheatSheet.getTitle().fullTitle);
         cheatSheet.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

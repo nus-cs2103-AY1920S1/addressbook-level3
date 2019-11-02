@@ -1,4 +1,4 @@
-= StudyBuddy Pro Level 3 - Developer Guide
+= StudyBuddyPro Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,15 +19,15 @@ By: `Team AY1920S1-CS2103T-W13-3`
 
 == Introduction
 
-Welcome to StudyBuddy Pro!
+Welcome to StudyBuddyPro!
 
-StudyBuddy Pro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
+StudyBuddyPro is a desktop-based application with a Graphical User Interface (GUI). It is intended for students in the School of Computing at National University of Singapore (NUS) who prefer to work with a Command Line Interface (CLI).
 
-StudyBuddy Pro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
+StudyBuddyPro aims to lessen target users' revision time consumption without compromising the quality of studies. The application provides a centralized platform for them to revise using flashcards, take notes and generate cheatsheets.
 
-This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddy Pro's information for set-ups, its architectures and its key features.
+This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddy Pro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to contact us!
 
 === Callouts Signs
 
@@ -79,16 +79,16 @@ An example of `switch` versus 'switch':
 
 == Setting up
 
-Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddy Pro on your device(s)!
+Do refer to the guide <<SettingUp#, here>> to set up our StudyBuddyPro on your device(s)!
 
 == Design
 
-The following sections will show how StudyBuddy Pro is being constructed in details.
+The following sections will show how StudyBuddyPro is being constructed in details.
 
 [[Design-Architecture]]
 === Architecture
 
-The _figure 1_ below displays the high-level design of our StudyBuddy Pro.
+The _figure 1_ below displays the high-level design of our StudyBuddyPro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -159,7 +159,7 @@ Assuming that the user is currently in the _flashcard_ mode.
 .Sequence diagram of component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
-The above sequence diagram illustrates the relationships between each components in the StudyBuddy Pro's architecture. The sections below will give more details of each of those components.
+The above sequence diagram illustrates the relationships between each components in the StudyBuddyPro's architecture. The sections below will give more details of each of those components.
 
 [[Design-Ui]]
 === User Interface (UI) component
@@ -471,13 +471,16 @@ According to the above table, if the order of removal is not followed, the syste
 
 === Flashcards Time Trial Feature
 
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
 
 image:: To be added
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
-c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
+c. Upon initialization of the StudyBuddyPro and switching to the Flashcard window, the StudyBuddyParser’s function enum will be set to parse ‘Flashcard’ commands.
 d.	The user executes (timetrial cs2100), and the StartTimeTrialCommand retrieves a List of flashcards with the associated tag through the Model#getTaggedFlashcards, which is then passed into the FlashcardTabWindowController.
 e.	The FlashcardTabWindowController then calls the FlashcardTabWindowController#startTimeTrial, which in turns construct a timeline with the following added for 3 flashcards:
 1.	A KeyFrame to call the FlashcardTabWindowController #loadTimeTrial method, which displays the question of the flashcard on the window, with a KeyValue that starts the timer on the screen.
@@ -518,6 +521,11 @@ keep track of which flashcards are due (or overdue) for revision. The second sub
 integrated with the `exit` command, and automatically asks the user for confirmation if they
 wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
 An activity diagram summarizing how the remind feature works can be found below.
+=======
+[IMPORTANT]
+The following commands assume that the user is in the _flashcard_ mode.
+
+{To be completed soon}
 
 image:: to be added + caption
 
@@ -557,7 +565,7 @@ or incorrectly to create a more dynamic reminding schedule.
 *** Checks if the user viewed all flashcards to be revised on the day.
 *** If some of the relevant flashcards were not viewed, reminds user about remaining flashcards and stalls
 application exit.
-*** User can either go back into StudyBuddy and view the relevant flashcards or supply an `exit` command again to
+*** User can either go back into StudyBuddyPro and view the relevant flashcards or supply an `exit` command again to
 close the application.
 
 ** More statistics for motivation
@@ -567,59 +575,218 @@ deadline.
 ==== Implementation of `exit` command
 // end::remind[]
 
-=== Note feature
+=== Add Tags Within Notes feature
 
-Notes are used in the creation of CheatSheet objects as well as in general use of StudyBuddyPro.
+`Notes` are used in the creation of `CheatSheet` objects as well as in general use of StudyBuddyPro. This Add Tags
+Within Notes feature allows for the addition of tags within the content of the `Note`, to allow more precise
+highlighting and tagging of information.
 
-==== Implementation
-
-[NOTE]
+[IMPORTANT]
 All the operations assume that the user is in the _notes_ mode.
 
-Notes contain a Title and some Content, with optional Tags, as shown in the diagram below:
+==== Design Implementation of Notes
+
+`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the diagram below:
 
 image::samDiagrams/NoteModelClassDiagram.png[]
 
+`Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`. `NoteFragment` objects are used to
+represent the specific areas within a `Note` that have been tagged. Each tag within a `Note` is referred to as a *note
+fragment tag* (which is represented by a `NoteFragment` object).
+
+NOTE: Note fragment tags should not be confused with `Tags`.
+
+`NoteFragments` contain:
+
+** A `Title` that is the same as their parent `Note`
+** A `Content` that is a substring of their parent `Note`
+** Any indicated `Tags` that are independent of their parent `Note`
+
+`NoteFragments` are viewed or used in the following situations:
+
+** Viewable through the `filter` and `filterall` commands
+** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
+
 ==== Usages of Notes
 
-Notes can be used to:
+`Notes` can be used to:
 
 ** Store information under a title
-** Categorize information via the use of Tags
-** Provide information to CheatSheets for collation
+** Categorize information via the use of `Tags`
+** Provide information to `CheatSheets` for collation
 
-Notes can currently be:
+`Notes` can currently be:
 
-** Added to StudyBuddyBook
-** Deleted from StudyBuddyBook
-** Viewed from StudyBuddyBook
-** Viewed with filter from StudyBuddyBook
+** Added to `StudyBuddyBook`
+** Deleted from `StudyBuddyBook`
+** Viewed raw or cleaned from `StudyBuddyBook`
+** Viewed using `filter` from `StudyBuddyBook`
 
-The sequence diagram below describes the calls within the Model component upon the addition of a Note object:
+==== Design Implementation of the Add Tags Within Notes feature
 
-image::samDiagrams/AddNoteSequenceDiagram.png[]
+The Add Tags Within Notes feature was implemented in the following way:
 
-The two main steps of the process are:
+** Creation of a `NoteFragment` class that represents one tag within a `Note`
+** Have each `Note` contain any number of `NoteFragments` in a list
+** Upon addition of a `Note`, parse its `Content` to check for any note fragment tags within it
+** Create any required `NoteFragment` objects and add them to the list in their parent `Note`
+** Since `NoteFragments` are contained within `Notes`, when a `Note` is deleted, its `NoteFragments` will be deleted as well.
 
-** The parsing of a Command from the input String
-** The execution of the Command which alters Model
+There are four main methods that involve `NoteFragments`. They are listed below:
 
-==== [Proposed] Note content tagging feature
+** `NoteFeatureUtil#parseNoteFragmentsFromNote()`: Used by `Note` to create `NoteFragments`.
+** `ModelManager#collectTaggedItems()`: Used in the `filterall` command.
+** `ModelManager#collectTaggedNotes()`: Used in the _notes_ `filter` command.
+** `AddCheatSheetCommand#getRelevantContents()`: Used to generate `CheatSheets`.
 
-The proposed feature involves the application of tags within the Note content.
+Out of these four methods, only `NoteFeatureUtil#parseNoteFragmentsFromNote()` is aware of the `NoteFragment` class.
+The other three methods are only aware of the `Note` class.
 
-===== Design Implementation
+The implementation of these four methods is shown below:
 
-This feature can be achieved by:
+===== Implementation of `NoteFeatureUtil#parseNoteFragmentsFromNote()`:
 
-** Including a user-inputted tag within portions of the Note content
-** Parsing for this content tag when filtering by tag
-** Listing these content fragments upon filtering by tag
+The method of parsing `Content` in `NoteFeatureUtil#parseNoteFragmentsFromNote()` relies on the use of `Prefixes`
+around each note fragment tag. Each note fragment tag is specified with a start ("/\*") and end ("*/") marker, and
+its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
 
-===== Usages of feature
+Example usage:
 
-** More precise inclusion of tags when creating CheatSheet objects
-** Ability to nest tags inside each other
+    add t/About c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
+
+[NOTE]
+'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the note fragment tag would
+raise an error (since only one 'c/' tag is allowed per command).
+
+Expected output:
+
+    New note added:
+        Title: About
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
+        Tags: [about]
+
+A `Note` has been added with the `Content` of "Notes can be highlighted if needed.", and a note fragment tag with
+`Content` "highlighted" and two `Tags` "cs2100" and "important". Despite this, the `Note` itself is instead tagged
+with the `Tag` "about".
+
+When an `add` command is made:
+
+** Only the `Prefixes` 't/', 'c/', and 'tag/' are identified and parsed.
+** A `Note` is then created with the desired `Title`, `Content`, and `Tags`.
+** After creation, the `Content` of the `Note` is parsed immediately for the `Prefixes` '/\*', '*/', 'C/', and 'TAG/'
+.
+** All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
+thrown.
+
+The sequence diagram below describes the process of adding a new note that contains a note fragment tag:
+
+<INSERT SEQUENCE DIAGRAM HERE, and refer to it below>
+
+===== Implementation of `NoteFragments` in `list` command:
+
+When `Notes` are listed, `NoteFragments` do not appear in the list of resulting `Notes`. This is because the
+`ListCommand#execute()` method uses `ModelManager#updatedFilteredNoteList()`, which does not check for any
+`NoteFragments` within `Notes`. This is illustrated in the <WHAT KIND OF> diagram below:
+
+<SOME DIAGRAM SHOWING CALLING OF LISTCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the text>
+
+This decision is made because the `list` command already lists all `Notes`, and therefore it would be unnecessary to
+also list all `NoteFragments`, as `NoteFragments` form a subset of `Notes`.
+
+===== Implementation of `NoteFragments` in `filter` command:
+
+When `Notes` are filtered, the method `ModelManager#collectTaggedNotes()` is used, which checks for any valid tags in
+`NoteFragments` within the `Note` as it checks each `Note`.
+
+However, `ModelManager` uses the method `Note#getFilteredNoteFragments()` to achieve this, and therefore is not
+aware of the existence of `NoteFragments`. This is illustrated in the <WHAT KIND OF> diagram below:
+
+<SOME DIAGRAM SHOWING CALLING OF FILTERCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the
+text>
+
+This diagram can be contrasted with the <WHICH NUMBER?> diagram above, which uses a different method <DESCRIBE> that
+does not account for `NoteFragments`.
+
+The separation between `Notes` and `NoteFragments` in the `filter` command allows for more finely-tuned viewing of
+specific tagged details. For instance:
+
+** A small portion of a long `Note` can be tagged out as 'important'.
+** Different parts of the same `Note` can be given different `Tags` like 'CS2103T' or 'CS2100', even as the entire
+`Note` is tagged under a larger category like 'CS'.
+
+===== Implementation of `NoteFragments` in `filterall` command:
+
+When all `StudyBuddyItems` are filtered, the method `ModeManager#collectTaggedItems()` is used, which performs a
+similar task to `ModelManager#collectTaggedNotes()`, but also collects `Flashcard` and `CheatSheet` objects as well.
+The reasoning for this decision is similar to that in the `filter` command.
+
+===== Implementation of `NoteFragments` in `add` command in `CheatSheets`:
+
+When a `CheatSheet` is created, the method `AddCheatSheetCommand#getRelevantContent()` is used to filter out all
+`Notes` and `NoteFragments` that contain the specified `Tags`. Again, `AddCheatSheetCommand` uses the method
+`Note#getFilteredNoteFragments()` to obtain the filtered list of `NoteFragments`, and is therefore unaware of the
+existence of `NoteFragment`.
+
+Since the `Tags` stored in `Notes` and `NoteFragments` are independent of each other, they are filtered in the same
+way as in the `filter` command. As a result, it is possible for a `NoteFragment` to be included in a `CheatSheet`
+even when its parent `Note` is not.
+
+==== Design Considerations of the Add Tags Within Notes feature
+
+===== Aspect: Container location for `NoteFragment`
+
+** Alternative 1 (current choice): Each `Note` contains a `List<NoteFragment>`:
+*** Pros: Much easier maintenance, since `NoteFragments` are automatically deleted with the deletion of their parent
+`Note`.
+*** Cons: O(n^2^) search time for `filter` commands, as all `NoteFragments` in each `Note` in the `UniqueNoteList`
+must be searched through to filter them out.
+
+** Alternative 2: Separate `UniqueNoteFragmentList` from `UniqueNoteList`:
+*** Pros: O(n) search time for `filter` commands, as the `UniqueNoteFragmentList` exists separately from the
+`UniqueNoteList`.
+*** Cons: Difficult to maintain; deletion of a parent Note requires searching the `UniqueNoteFragmentList` for any
+child `NoteFragments` to delete as well.
+
+==== Usages of the Add Tags Within Notes feature
+
+** Use in `filter` and `filterall` to make the GUI less cluttered
+** Use in `filter` to highlight specific sections of `Notes`
+** Use in `add` for `CheatSheets` for more parsimonious usage of space
+
+==== (Proposed) Future Improvements for v2.0
+
+===== `edit` command for `Notes`
+
+This feature will allow for users to edit their `Notes`, by specifying a new `Title`, `Content`, or `Tags`.
+
+===== (Proposed) Implementation
+
+** Expected inputs:
+*** The original `Title` of the `Note` to be edited
+*** One or more fields that the user wants to edit
+** Create an `EditCommandParser` to parse the input command using `ArgumentTokenizer`
+** Create an `EditCommand` which contains `EditCommand#execute()`
+*** This method creates a new `Note` which contains all old fields, then replaces any old field with a new field, if
+it is made available
+
+Example usage:
+
+    edit Old Title t/New Title
+
+This would result in the `Note` which was originally called 'Old Title' having its `Title` changed to 'New Title'.
+Since no two `Notes` are allowed to have the same `Title`, it is a unique identifier of the `Note` to be edited.
+
+===== Design Considerations
+
+====== Aspect: Method of editing
+
+** Alternative 1: Create a new `Note` object
+*** Pros: Is more defensive, since only a shallow copy of the `Note` object is returned.
+*** Cons: Longer command run time, as a new `Note` object needs to be created first, and then edited.
+
+** Alternative 2: Edit the exiting `Note` object
+*** Pros: Command will run faster, since no new `Note` object needs to be created.
+*** Cons: Is not defensively programmed, as `Notes` should be immutable.
 
 === Deletion prompting feature
 Upon deletion of any StudyBuddyItem, the user will be prompted once before they can
@@ -654,8 +821,6 @@ compared to perhaps asking the user to input a 'yes' or 'no' to confirm their de
 * Cons
 ** Less versatile than the undo feature.
 ** User might still accidentally delete the wrong item.
-
-
 
 == Documentation
 
@@ -770,7 +935,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `StudyBuddy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `StudyBuddyPro` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === *User story 1:*
@@ -813,37 +978,37 @@ Preconditions: StuddyBuddy application is opened
 
 2.	User chooses to list all cheatsheet.
 
-3.	StudyBuddy displays all cheatsheets.
+3.	StudyBuddyPro displays all cheatsheets.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC03 – Edit a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
-1.	User navigates to cheetsheat section.
+1.	User navigates to cheetsheet section.
 
 2.	User chooses to edit cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be edited.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be edited.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy asks for parameters to be edited.
+5.	StudyBuddyPro asks for parameters to be edited.
 
 6.	User inputs perimeters to be edited.
 
-7.	StudyBuddy displays edited cheatsheet.
+7.	StudyBuddyPro displays edited cheatsheet.
 +
 Use case ends.
 
 [discrete]
 === Use case: UC04 – View a cheatsheet
 
-Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
+Preconditions: StudyBuddyPro application is opened, User knows cheatsheet ID
 
 *MSS*
 
@@ -851,11 +1016,11 @@ Preconditions: StudyBuddy application is opened, User knows cheatsheet ID
 
 2.	User chooses to view cheatsheet.
 
-3.	StudyBuddy asks for cheatsheet ID for cheatsheet to be viewed.
+3.	StudyBuddyPro asks for cheatsheet ID for cheatsheet to be viewed.
 
 4.	User inputs cheatsheet ID.
 
-5.	StudyBuddy displays cheatsheet.
+5.	StudyBuddyPro displays cheatsheet.
 +
 Use case ends.
 
@@ -886,9 +1051,9 @@ As a student who finds it very cumbersome to store tutorial questions that I wou
 
 [discrete]
 === Use case: UC05 – Create a flashcard from image
-Software system: StudyBuddy, OS
+Software system: StudyBuddyPro, OS
 
-Preconditions: StudyBuddy application is opened
+Preconditions: StudyBuddyPro application is opened
 
 *MSS*
 
@@ -898,31 +1063,31 @@ Preconditions: StudyBuddy application is opened
 
 3.	OS asks user where screenshot should be saved.
 
-4.	User saves screenshot in designated StudyBuddy image folder with custom name.
+4.	User saves screenshot in designated StudyBuddyPro image folder with custom name.
 
-5.	User opens StudyBuddy application.
+5.	User opens StudyBuddyPro application.
 
 6.	User navigates to flashcard section.
 
 7.	User chooses to create new flashcard from image source.
 
-8.	StudyBuddy asks user for file name.
+8.	StudyBuddyPro asks user for file name.
 
 9.	User inputs file name.
 
-10.	StudyBuddy asks user for flashcard’s answer.
+10.	StudyBuddyPro asks user for flashcard’s answer.
 
 11.	User inputs flashcard’s answer.
 
-12.	StudyBuddy asks user for flashcard’s title.
+12.	StudyBuddyPro asks user for flashcard’s title.
 
 13.	User inputs flashcard’s title.
 
-14.	StudyBuddy asks user for flashcard’s module.
+14.	StudyBuddyPro asks user for flashcard’s module.
 
 15.	User inputs flashcard’s module.
 
-16.	StudyBuddy displays created flashcard.
+16.	StudyBuddyPro displays created flashcard.
 +
 Use case ends.
 
@@ -966,15 +1131,15 @@ Use case resumes from step 16.
 
 2.	User chooses to start time trial.
 
-3.	StudyBuddy asks user for time per flashcard.
+3.	StudyBuddyPro asks user for time per flashcard.
 
 4.	User inputs time per flashcard.
 
-5.	StudyBuddy asks user for tags to select flashcards for inclusion.
+5.	StudyBuddyPro asks user for tags to select flashcards for inclusion.
 
 6.	User inputs tags.
 
-7.	StudyBuddy starts time trial with specified parameters.
+7.	StudyBuddyPro starts time trial with specified parameters.
 +
 Use case ends.
 

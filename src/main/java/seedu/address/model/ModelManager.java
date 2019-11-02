@@ -383,12 +383,9 @@ public class ModelManager implements Model {
             if (predicate.test(n)) {
                 taggedItems.add("Note: " + noteIndex + ". " + n.toString());
             }
-            for (Note noteFrag : n.getNoteFragments()) {
+            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
                 noteFragmentIndex++;
-                if (predicate.test(noteFrag)) {
-                    taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". "
-                            + noteFrag.toString());
-                }
+                taggedItems.add("Note Fragment: " + noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
             }
             noteFragmentIndex = 0;
         }
@@ -442,11 +439,9 @@ public class ModelManager implements Model {
             if (predicate.test(n)) {
                 taggedItems.add(noteIndex + ". " + n.toString());
             }
-            for (Note noteFrag : n.getNoteFragments()) {
+            for (Note noteFrag : n.getFilteredNoteFragments(predicate)) {
                 noteFragmentIndex++;
-                if (predicate.test(noteFrag)) {
-                    taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
-                }
+                taggedItems.add(noteIndex + "-" + noteFragmentIndex + ". " + noteFrag.toString());
             }
             noteFragmentIndex = 0;
         }

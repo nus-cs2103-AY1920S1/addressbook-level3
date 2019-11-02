@@ -54,6 +54,7 @@ public class CheatSheet extends StudyBuddyItem {
     }
 
     public Content getContent(int index) {
+        resetContentIndexes();
         for (Content current : contents) {
             if (current.getIndex() == index) {
                 return current;

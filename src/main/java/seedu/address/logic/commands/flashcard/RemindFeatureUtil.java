@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.note;
+package seedu.address.logic.commands.flashcard;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

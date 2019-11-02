@@ -27,7 +27,7 @@ import seedu.address.testutil.CheatSheetBuilder;
 
 public class AddCheatSheetCommandTest {
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullCheatSheet_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCheatSheetCommand(null));
     }
 
@@ -45,7 +45,7 @@ public class AddCheatSheetCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateCheatSheet_throwsCommandException() {
         CheatSheet validCheatSheet = new CheatSheetBuilder().build();
         AddCheatSheetCommand addCheatSheetCommand = new AddCheatSheetCommand(validCheatSheet);
 
