@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.ReminderCommand;
-
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.ReminderCommand;
 
 public class ReminderCommandParserTest {
     private ReminderCommandParser parser = new ReminderCommandParser();

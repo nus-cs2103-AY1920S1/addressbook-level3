@@ -1,9 +1,10 @@
 package seedu.address.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.DeleteAppointmentCommand;
-
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.DeleteAppointmentCommand;
 
 public class DeleteAppointmentCommandParserTest {
     private DeleteAppointmentCommandParser parser = new DeleteAppointmentCommandParser();
