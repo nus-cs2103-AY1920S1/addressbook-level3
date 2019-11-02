@@ -6,8 +6,11 @@ import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.GradientDescent;
 
+import java.util.stream.IntStream;
+
 /**
- * Represents a projection of user's balance at a set date in the future
+ * Represents a projection of user's balance at a set date in the future\
+ * TODO: implement processData() to process data into 2D matrix before passing into gradient descent
  */
 public class Projection {
 
@@ -29,11 +32,12 @@ public class Projection {
      * TODO: Explore matrix operations using json, considering switching Tx history to csv
      */
     public void project() {
-
-        GradientDescent projector = new GradientDescent(this.transactionHistory);
-        int daysToProject = Date.daysBetween(this.date, Date.now());
-        // TODO: SLAP or find appropriate rounding method in java library
-        double projectionAmount = Math.floor(projector.predict(daysToProject) * 100) / 100;
+        double [] balances = extractBalances();
+        // TODO: pass in double[] for input values (or use list.toarray(double))
+        double [] dates = extractDates();
+        GradientDescent projector = new GradientDescent(balances, dates);
+        int daysToProject = Date.daysBetween(Date.now(), this.date);
+        double projectionAmount = Math.round(projector.predict(daysToProject)) / 100;
         System.out.println(projectionAmount);
         projection = new Amount(projectionAmount);
     }
@@ -44,5 +48,32 @@ public class Projection {
 
     public String toString() {
         return this.projection.toString();
+    }
+
+    /**
+     * Populates an array with the number of days from each transaction till the date which this projection is
+     * initialized
+     */
+    private double[] extractDates() {
+        double[] daysFromNow = new double[this.transactionHistory.size()];
+        for (int i = 0; i < daysFromNow.length; i++) {
+            // TODO: fix days between to consider negative
+            daysFromNow[i] = Date.daysBetween(Date.now(), transactionHistory.get(i).getDate());
+        }
+        return daysFromNow;
+    }
+
+    /**
+     * Populates an array with the cumulative balance values
+     * at the point of each transaction in {@code transactionHistory}
+     */
+    private double[] extractBalances() {
+        double[] balances = new double[this.transactionHistory.size()];
+        double cumulativeBalance = 0;
+        for (int i = 0; i < balances.length; i++) {
+            cumulativeBalance += transactionHistory.get(i).getAmount().getIntegerValue();
+            balances[i] = cumulativeBalance;
+        }
+        return balances;
     }
 }
