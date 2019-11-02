@@ -124,7 +124,7 @@ public class EditCommandTest {
         Person editedPerson = model.getFilteredPersonList().get(0);
         model.setContext(new Context(editedPerson));
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_USAGE);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class EditCommandTest {
         Activity editedActivity = model.getFilteredActivityList().get(0);
         model.setContext(new Context(editedActivity));
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_NOT_EDITED);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_USAGE);
     }
 
     @Test

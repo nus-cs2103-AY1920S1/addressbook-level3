@@ -203,6 +203,7 @@ Format: `edit [n/NAME] [p/PHONE] [tag/TAG] ...` for contacts OR `edit [t/ACTIVIT
 ****
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
+* Irrelevant flags will be ignored. For example, `edit p/999 t/new title` when viewing an activity will only update the title to `new title`, and `p/999` will be ignored.
 * Expenses cannot be edited.
 ****
 
