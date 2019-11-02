@@ -263,6 +263,11 @@ public interface Model {
      * Exports group to word document
      */
     void exportGroup(String groupId);
+
+    /**
+     * Gets group size
+     */
+    int getGroupSize(String groupId);
     //endregion
 
     //region Questions

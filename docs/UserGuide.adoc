@@ -161,6 +161,9 @@ The format supported by this feature includes:
 - `index` (The index number of the student you want to add the tag to)
 - `tag` (The name of the tag you want to add to the student)
 
+[NOTE]
+Tags cannot be multiple-worded, and cannot contain special characters.
+
 Examples:
 
 * *Add one tag*: `tag index/1 tag/Chemistry` +
@@ -219,6 +222,10 @@ The format supported by this feature includes:
 - `groupID` (The name of the group)
 - `studentNumber` (The index numbers of the students you want to add to the group)
 
+[NOTE]
+You are not allowed to create groups without specifying any student numbers, ie : create groups with
+no students inside the group.
+
 Examples:
 
 * `group manual groupID/G03 studentNumber/1 2 3` +
@@ -234,6 +241,11 @@ The format supported by this feature includes:
 - `groupID` (The name of the group)
 - `studentNumber` (The index number of the student you want to add to the group)
 - `groupIndexNumber` (The index number within the group that you want to add the student to)
+
+[NOTE]
+For a group that already contains students with group index numbers 1,2 and 3, the group index number you specify in
+this command can only be from 1-4, ie the index numbers that you want the new student to take, so as to ensure that there
+are no gaps in the index numbers.
 
 Examples:
 
@@ -266,7 +278,7 @@ The format supported by this feature includes:
 
 Examples:
 
-* `quiz export groupID/G01` +
+* `group export groupID/G01` +
 Exports the group named G01 to a word document named `G01.docx`, found under the exports folder.
 
 ==== Showing students from a group:

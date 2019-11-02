@@ -22,6 +22,8 @@ public class StudentAddCommand extends StudentCommand {
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student record";
+    public static final String STUDENT_NAME_INVALID = "Student's name should only contain alphabetical characters and " +
+            "space(' ').";
 
     private final Student toAdd;
 
@@ -41,6 +43,9 @@ public class StudentAddCommand extends StudentCommand {
         if (model.hasStudent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
+        if (!check(toAdd.getName().toString())) {
+            throw new CommandException(STUDENT_NAME_INVALID);
+        }
         model.addStudent(toAdd);
         return new CommandResult(generateSuccessMessage(toAdd), CommandResultType.SHOW_STUDENT);
     }
@@ -59,5 +64,30 @@ public class StudentAddCommand extends StudentCommand {
         return other == this // short circuit if same object
                 || (other instanceof StudentAddCommand // instanceof handles nulls
                 && toAdd.equals(((StudentAddCommand) other).toAdd));
+    }
+
+
+    /**
+     * Ensures that the student name does not contain characters other than
+     * letters
+     *
+     * @param name String representation of name of student.
+     * @return True if it is a valid name.
+     */
+    public boolean check(String name) {
+        if (name == null) {
+            return false;
+        }
+        int len = name.length();
+        for (int i = 0; i < len; i++) {
+            // checks whether the character is not a letter
+            // if it is not a letter ,it will return false
+            if ((Character.isLetter(name.charAt(i)) == false)) {
+                if (name.charAt(i) != ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic.commands.mark;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 
@@ -57,7 +58,9 @@ public class RemoveMarkCommand extends MarkCommand {
         if (!(studentToBeUnmarked.getIsMarked())) {
             throw new CommandException(String.format(MESSAGE_STUDENT_ALREADY_UNMARKED, toUnmark.getOneBased()));
         }
-        studentToBeUnmarked.setUnmarked();
+        Student newStudent = studentToBeUnmarked.setUnmarked();
+        model.setStudent(studentToBeUnmarked, newStudent);
+        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         return new CommandResult(generateSuccessMessage(MESSAGE_SUCCESS, toUnmark.getOneBased()));
     }
 

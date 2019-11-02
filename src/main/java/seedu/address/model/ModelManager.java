@@ -387,6 +387,21 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Gets the size of the group
+     * @param groupId Id of the group
+     * @return size of the group queried.
+     */
+    public int getGroupSize(String groupId) {
+        int groupSize = 0;
+        int groupIndex = groupList.getGroupIndex(groupId);
+        if (groupIndex !=-1) {
+            Group group = groupList.getGroup(groupIndex);
+            groupSize = group.getObservableListStudents().size();
+        }
+        return groupSize;
+    }
+
+    /**
      * Returns a students from a group in list view.
      */
     public String getStudentsFromGroup(String groupId) {

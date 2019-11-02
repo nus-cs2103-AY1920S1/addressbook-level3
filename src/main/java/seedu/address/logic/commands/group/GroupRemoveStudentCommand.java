@@ -42,10 +42,16 @@ public class GroupRemoveStudentCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (groupId.isEmpty() || groupId.equals("")) {
+            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+        }
         if (!model.checkGroupExists(groupId)) {
             return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
-        model.removeStudentFromGroup(groupId, groupIndexNumber);
+        if (groupIndexNumber > model.getGroupSize(groupId) || groupIndexNumber < 1) {
+            return new CommandResult(INDEX_OUT_OF_BOUNDS);
+        }
+        model.removeStudentFromGroup(groupId, groupIndexNumber-1);
         return new CommandResult(generateSuccessMessage());
     }
 

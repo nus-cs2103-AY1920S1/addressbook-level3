@@ -2,6 +2,8 @@ package seedu.address.logic.parser.group;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_MISSING_INPUT_FIELDS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPORT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -43,13 +45,13 @@ public class GroupCommandParser implements Parser<GroupCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer
                 .tokenize(args, PREFIX_GROUP, PREFIX_MODE_MANUAL, PREFIX_EXPORT,
                         PREFIX_GROUP_ID, PREFIX_STUDENT_NUMBER, PREFIX_DELETE,
-                        PREFIX_GROUP_INDEX_NUMBER, PREFIX_TYPE, PREFIX_LIST);
+                        PREFIX_GROUP_INDEX_NUMBER, PREFIX_TYPE, PREFIX_LIST, PREFIX_ADD);
 
         if (argMultimap.getValue(PREFIX_MODE_MANUAL).isPresent()) { // Create manual command
             return createManuallyCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) {
             return exportGroupCommand(argMultimap);
-        } else if (argMultimap.getValue(PREFIX_STUDENT_NUMBER).isPresent()) { // Add command
+        } else if (argMultimap.getValue(PREFIX_ADD).isPresent()) { // Add command
             return addStudentCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Remove command
             return removeStudentCommand(argMultimap);
@@ -90,10 +92,15 @@ public class GroupCommandParser implements Parser<GroupCommand> {
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupCreateManuallyCommand.MESSAGE_USAGE));
         }
-
         HashMap<String, String> fields = new HashMap<>();
-        fields.put("groupID", argMultimap.getValue(PREFIX_GROUP_ID).orElse(""));
-        fields.put("studentNumbers", argMultimap.getValue(PREFIX_STUDENT_NUMBER).orElse(""));
+        try {
+            fields.put("groupID", argMultimap.getValue(PREFIX_GROUP_ID).orElse(""));
+            fields.put("studentNumbers", argMultimap.getValue(PREFIX_STUDENT_NUMBER).orElse(""));
+            GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand(fields);
+            //exception is thrown if studentNumbers is left blank
+        } catch (Exception e) {
+            throw new ParseException(MESSAGE_MISSING_INPUT_FIELDS);
+        }
 
         return new GroupCreateManuallyCommand(fields);
     }
@@ -113,9 +120,16 @@ public class GroupCommandParser implements Parser<GroupCommand> {
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupAddStudentCommand.MESSAGE_USAGE));
         }
 
+        int studentNumber = 0;
+        int groupIndexNumber = 0;
+
         String groupId = argMultimap.getValue(PREFIX_GROUP_ID).orElse("");
-        int studentNumber = Integer.parseInt(argMultimap.getValue(PREFIX_STUDENT_NUMBER).orElse(""));
-        int groupIndexNumber = Integer.parseInt(argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).orElse(""));
+        try {
+            studentNumber = Integer.parseInt(argMultimap.getValue(PREFIX_STUDENT_NUMBER).orElse(""));
+            groupIndexNumber = Integer.parseInt(argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).orElse(""));
+        } catch (Exception e) {
+            throw new ParseException(MESSAGE_MISSING_INPUT_FIELDS);
+        }
 
         return new GroupAddStudentCommand(groupId, studentNumber, groupIndexNumber);
     }
@@ -134,9 +148,15 @@ public class GroupCommandParser implements Parser<GroupCommand> {
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupRemoveStudentCommand.MESSAGE_USAGE));
         }
+        String groupId = "";
+        int groupIndexNumber = 0;
 
-        String groupId = argMultimap.getValue(PREFIX_GROUP_ID).orElse("");
-        int groupIndexNumber = Integer.parseInt(argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).orElse(""));
+        try {
+            groupId = argMultimap.getValue(PREFIX_GROUP_ID).orElse("");
+            groupIndexNumber = Integer.parseInt(argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).orElse(""));
+        } catch (Exception e) {
+            throw new ParseException(MESSAGE_MISSING_INPUT_FIELDS);
+        }
 
         return new GroupRemoveStudentCommand(groupId, groupIndexNumber);
     }
