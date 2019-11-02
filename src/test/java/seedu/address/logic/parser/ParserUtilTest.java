@@ -214,37 +214,37 @@ public class ParserUtilTest {
     @Test
     public void parsePatientReferenceId_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parsePatientReferenceId(INVALID_ID1);
+            ParserUtil.issuePatientReferenceId(INVALID_ID1);
         });
 
         assertThrows(ParseException.class, PersonReferenceId.MESSAGE_CONSTRAINTS, () -> {
-            ParserUtil.parseStaffReferenceId(INVALID_ID1);
+            ParserUtil.issueStaffReferenceId(INVALID_ID1);
         });
     }
 
     @Test
     public void parsePersonReferenceId_validPatientIdWithoutWhitespace_returnsReferenceId() throws Exception {
-        ReferenceId expectedId = PersonReferenceId.parsePatientReferenceId(VALID_PATIENT_ID);
-        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(VALID_PATIENT_ID));
+        ReferenceId expectedId = PersonReferenceId.issuePatientReferenceId(VALID_PATIENT_ID);
+        assertEquals(expectedId, ParserUtil.issuePatientReferenceId(VALID_PATIENT_ID));
 
-        expectedId = PersonReferenceId.parseStaffReferenceId(VALID_STAFF_ID);
-        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(VALID_STAFF_ID));
+        expectedId = PersonReferenceId.issueStaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.issueStaffReferenceId(VALID_STAFF_ID));
     }
 
     @Test
     public void parsePatientReferenceId_validPatientIdWithWhitespace_returnsTrimmedEmail() throws Exception {
         final String patientIdWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
-        ReferenceId expectedId = PersonReferenceId.parsePatientReferenceId(VALID_PATIENT_ID);
-        assertEquals(expectedId, ParserUtil.parsePatientReferenceId(patientIdWithWhitespace));
+        ReferenceId expectedId = PersonReferenceId.issuePatientReferenceId(VALID_PATIENT_ID);
+        assertEquals(expectedId, ParserUtil.issuePatientReferenceId(patientIdWithWhitespace));
         assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
-            ParserUtil.parseStaffReferenceId(patientIdWithWhitespace);
+            ParserUtil.issueStaffReferenceId(patientIdWithWhitespace);
         });
 
         final String staffIdWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
-        expectedId = PersonReferenceId.parseStaffReferenceId(VALID_STAFF_ID);
-        assertEquals(expectedId, ParserUtil.parseStaffReferenceId(staffIdWithWhitespace));
+        expectedId = PersonReferenceId.issueStaffReferenceId(VALID_STAFF_ID);
+        assertEquals(expectedId, ParserUtil.issueStaffReferenceId(staffIdWithWhitespace));
         assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
-            ParserUtil.parsePatientReferenceId(staffIdWithWhitespace);
+            ParserUtil.issuePatientReferenceId(staffIdWithWhitespace);
         });
 
     }

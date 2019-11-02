@@ -79,7 +79,7 @@ class AppointmentsCommandTest {
         String expectedMessage = String.format(Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0);
 
         EventContainsRefIdPredicate invalidPredicate = new EventContainsRefIdPredicate(
-                PersonReferenceId.parsePatientReferenceId("0000"));
+                PersonReferenceId.issuePatientReferenceId("0000"));
 
         AppointmentsCommand command = new AppointmentsCommand(invalidPredicate);
         expectedModel.updateFilteredAppointmentList(invalidPredicate);

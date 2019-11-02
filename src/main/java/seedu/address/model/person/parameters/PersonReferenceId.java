@@ -71,7 +71,7 @@ public class PersonReferenceId implements ReferenceId {
      *
      * @throws ParseException if the given {@code PersonReferenceId} is invalid.
      */
-    public static ReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
+    public static ReferenceId issueStaffReferenceId(String staffRefId) throws ParseException {
         return issueReferenceId(staffRefId, true);
     }
 
@@ -81,7 +81,7 @@ public class PersonReferenceId implements ReferenceId {
      *
      * @throws ParseException if the given {@code PersonReferenceId} is invalid.
      */
-    public static ReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
+    public static ReferenceId issuePatientReferenceId(String patientRefId) throws ParseException {
         return issueReferenceId(patientRefId, false);
     }
 
