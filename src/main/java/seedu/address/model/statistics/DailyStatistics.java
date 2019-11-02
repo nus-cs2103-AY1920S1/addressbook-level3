@@ -64,6 +64,6 @@ public class DailyStatistics {
         return (other instanceof DailyStatistics // instanceof handles nulls
                 && ((DailyStatistics) other).getExactDay().equals(this.getExactDay())
                 && this.totalExpense == (((DailyStatistics) other).getTotalExpense())
-                && this.totalIncome == (((DailyStatistics) other).totalIncome()));
+                && this.totalIncome == (((DailyStatistics) other).getTotalIncome()));
     }
 }

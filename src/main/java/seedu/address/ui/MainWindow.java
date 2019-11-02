@@ -21,6 +21,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
+import seedu.address.ui.stats.StatisticsBarChart;
 import seedu.address.ui.stats.StatisticsGraphics;
 import seedu.address.ui.stats.StatisticsWindow;
 
@@ -43,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatisticsWindow statsListPanel;
     private StatisticsGraphics statsGraphics;
+    private StatisticsBarChart statsBar;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;

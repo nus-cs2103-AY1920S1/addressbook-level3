@@ -105,7 +105,7 @@ public class MonthList {
             DailyList dl = this.mapOfDailyLists.get(i);
             DailyStatistics statsCalculate = dl.calculateBarChart();
             if (!listOfDailyStatistics.get(i).equals(statsCalculate)) {
-                listOfDailyStatistics.set(statsCalculate);
+                listOfDailyStatistics.set(i, statsCalculate);
             }
         }
         return listOfDailyStatistics;

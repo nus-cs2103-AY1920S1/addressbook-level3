@@ -16,6 +16,5 @@ public abstract class StatisticsCommand extends Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    @Override
     public abstract CommandResult execute(Model model, StatisticsManager statsManager, CommandHistory history) throws CommandException;
 }

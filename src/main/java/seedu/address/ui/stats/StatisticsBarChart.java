@@ -75,13 +75,13 @@ public class StatisticsBarChart extends UiPart<Region> {
         dataForExpense.clear();
         int numberOfDays = statsForDaily.get(0).getNumberOfDays();
         for (int i = 1; i <= numberOfDays; i++) {
-            listOfDays.add(i);
+            listOfDays.add(Integer.toString(i));
         }
 
         for (int i = 0; i < statsForDaily.size(); i++) {
             DailyStatistics t = statsForDaily.get(i);
-            dataForExpense.add(new XYChart.Data<>(t.getDate(), t.getTotalExpense()));
-            dataForIncome.add(new XYChart.Data<>(t.getDate(), t.getTotalIncome() * -1));
+            dataForExpense.add(new XYChart.Data<String, Number>(t.getDate().toString(), t.getTotalExpense()));
+            dataForIncome.add(new XYChart.Data<String, Number>(t.getDate().toString(), t.getTotalIncome() * -1));
         }
 //        if (toAdd.isEmpty()) {
 //            statsPieChart.setVisible(false);

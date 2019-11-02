@@ -15,6 +15,7 @@ import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.DailyStatistics;
 
 /**
  * API of the Logic component
@@ -37,7 +38,7 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<CategoryStatistics> getListOfStatsForBarChart();
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
 
     ObservableList<CategoryStatistics> getListOfStatsForExpense();
 

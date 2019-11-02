@@ -21,40 +21,12 @@ public class DailyList {
     private FilteredList<Expense> listOfExpenses;
     private FilteredList<Income> listOfIncomes;
     private LocalDate date;
-    private double totalExpense;
-    private double totalIncome;
 
     public DailyList(FilteredList<Expense> retrievedExpenseList, FilteredList<Income> retrievedIncomeList, int day,
                      Month month, int year) {
         listOfExpenses = new FilteredList<Expense>(retrievedExpenseList);
         listOfIncomes = new FilteredList<Income>(retrievedIncomeList);
         this.date = LocalDate.of(year, month, day);
-        totalExpense = 0.00;
-        totalIncome = 0.00;
-        initLoadFromFilteredList(retrievedExpenseList);
-    }
-
-
-    private void initLoadFromFilteredList(FilteredList<Entry> entryList) {
-        for (int i = 0; i < entryList.size(); i++) {
-            totalExpense = totalExpense + entryList.get(i).getAmount().value;
-        }
-    }
-
-    public ObservableList<Entry> getListOfExpenses() {
-        return listOfExpenses;
-    }
-
-    public ObservableList<Income> getListOfIncomes() {
-        return listOfIncomes;
-    }
-
-    public double getTotalExpense() {
-        return totalExpense;
-    }
-
-    public double getTotalIncome() {
-        return totalIncome;
     }
 
     public DailyStatistics calculateBarChart() {
