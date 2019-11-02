@@ -31,7 +31,7 @@ public class EditVehicleCommandParser implements Parser<EditVehicleCommand> {
         try {
             index = ParserUtil.parseIndex(argMultiMap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(pe.getErrorMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditVehicleCommand.MESSAGE_USAGE), pe);
         }
 
