@@ -1,6 +1,17 @@
 package seedu.address.logic.commands.cheatsheet;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand.MESSAGE_SUCCESSFUL_AUTOGENERATE;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
@@ -13,16 +24,6 @@ import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CheatSheetBuilder;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand.MESSAGE_SUCCESSFUL_AUTOGENERATE;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class AddCheatSheetCommandTest {
     @Test

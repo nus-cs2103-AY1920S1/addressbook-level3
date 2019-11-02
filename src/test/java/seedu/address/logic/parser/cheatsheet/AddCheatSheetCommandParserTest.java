@@ -1,14 +1,5 @@
 package seedu.address.logic.parser.cheatsheet;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.FunctionMode;
-import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
-import seedu.address.model.cheatsheet.CheatSheet;
-import seedu.address.model.cheatsheet.Title;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CheatSheetBuilder;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TITLE_DESC;
@@ -19,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_IMPORTANT;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS1;
 import static seedu.address.logic.commands.CommandTestUtil.TITLE_DESC_CS2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CHEATSHEET;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FORMULA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_IMPORTANT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_GEM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_MATH;
@@ -27,6 +17,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalCheatSheets.CS6;
 import static seedu.address.testutil.TypicalCheatSheets.CS7;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.cheatsheet.AddCheatSheetCommand;
+import seedu.address.model.cheatsheet.CheatSheet;
+import seedu.address.model.cheatsheet.Title;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.CheatSheetBuilder;
 
 class AddCheatSheetCommandParserTest {
     private AddCheatSheetCommandParser parser = new AddCheatSheetCommandParser();
