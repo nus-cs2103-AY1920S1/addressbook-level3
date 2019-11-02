@@ -8,6 +8,7 @@ import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TAG;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
 import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_INVALID_TASK_TYPE;
+import static seedu.jarvis.logic.parser.ParserUtil.MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES;
 import static seedu.jarvis.model.planner.tasks.Task.DEADLINE;
 import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 import static seedu.jarvis.model.planner.tasks.Task.TODO;
@@ -17,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ArgumentMultimap;
 import seedu.jarvis.logic.parser.ArgumentTokenizer;
@@ -38,10 +40,14 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TASK_TYPE, PREFIX_TASK_DES, PREFIX_DATE,
                                                                     PREFIX_FREQ, PREFIX_PRIORITY, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)
-            || !argMultimap.getPreamble().isEmpty()
+        if (!arePrefixesPresent(argMultimap, PREFIX_TASK_TYPE, PREFIX_TASK_DES)) {
+            throw new ParseException(MESSAGE_MISSING_ESSENTIAL_ATTRIBUTES);
+        }
+
+        if (!argMultimap.getPreamble().isEmpty()
             || !isValidDeadline(argMultimap)
-            || !isValidEvent(argMultimap)) {
+            || !isValidEvent(argMultimap)
+            || !isValidTodo(argMultimap)) {
 
             parseCommandException(argMultimap);
         }
