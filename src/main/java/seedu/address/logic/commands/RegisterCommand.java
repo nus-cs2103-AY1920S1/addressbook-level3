@@ -58,7 +58,7 @@ public class RegisterCommand extends Command implements ReversibleCommand {
         redoCommand = this;
 
         model.registerBorrower(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

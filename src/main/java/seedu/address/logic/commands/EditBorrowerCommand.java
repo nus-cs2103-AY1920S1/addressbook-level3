@@ -80,7 +80,7 @@ public class EditBorrowerCommand extends Command implements ReversibleCommand {
 
         model.setBorrower(borrowerToEdit, editedBorrower);
         model.setServingBorrower(editedBorrower);
-        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
+        return new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
     }
 
     @Override

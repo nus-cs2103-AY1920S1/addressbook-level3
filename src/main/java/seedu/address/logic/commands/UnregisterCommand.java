@@ -56,7 +56,7 @@ public class UnregisterCommand extends Command implements ReversibleCommand {
         redoCommand = this;
 
         model.unregisterBorrower(toUnregister);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister.toFullString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister));
     }
 
     @Override

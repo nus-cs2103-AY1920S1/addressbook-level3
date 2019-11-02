@@ -42,7 +42,7 @@ public class EditBorrowerCommandTest {
         EditBorrowerCommand editBorrowerCommand = new EditBorrowerCommand(descriptor);
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
-                editedBorrower.toFullString());
+                editedBorrower);
 
         Model expectedModel = new ModelManager(
                 new Catalog(new Catalog()), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
@@ -67,7 +67,7 @@ public class EditBorrowerCommandTest {
         EditBorrowerCommand editCommand = new EditBorrowerCommand(descriptor);
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
-                editedBorrower.toFullString());
+                editedBorrower);
 
         Model expectedModel = new ModelManager(
                 new Catalog(), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
@@ -86,7 +86,7 @@ public class EditBorrowerCommandTest {
         Borrower editedBorrower = model.getServingBorrower();
 
         String expectedMessage = String.format(EditBorrowerCommand.MESSAGE_EDIT_BORROWER_SUCCESS,
-                editedBorrower.toFullString());
+                editedBorrower);
 
         Model expectedModel = new ModelManager(
                 new Catalog(), new LoanRecords(), model.getBorrowerRecords(), new UserPrefs());
