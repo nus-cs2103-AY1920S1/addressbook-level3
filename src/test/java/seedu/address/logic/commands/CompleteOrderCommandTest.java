@@ -104,6 +104,7 @@ public class CompleteOrderCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
+
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Index outOfBoundIndex = INDEX_SECOND_ORDER;

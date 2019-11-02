@@ -617,7 +617,6 @@ Currently, the following commands are undoable and redoable. +
 . Delete Schedule
 . Clear Schedule
 
-
 [underline]#Format#: `undo`
 
 [underline]#Examples#:

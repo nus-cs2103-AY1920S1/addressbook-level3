@@ -96,7 +96,7 @@ public class AddScheduleCommandTest {
     public void execute_clashingScheduleWithAllow_addSuccessful() throws Exception {
         ModelStubAcceptingScheduleAdded modelStub = new ModelStubAcceptingScheduleAdded();
         AddScheduleCommand addScheduleCommand = new AddScheduleCommand(VALID_SCHEDULE, VALID_INDEX, VALID_ALLOW);
-        addScheduleCommand.executeUndoableCommand(modelStub, new CommandHistory(), new UndoRedoStack());
+        addScheduleCommand.execute(modelStub, new CommandHistory(), new UndoRedoStack());
 
         Calendar newCalendar = (Calendar) VALID_SCHEDULE.getCalendar().clone();
         newCalendar.add(Calendar.MINUTE, 10);
