@@ -210,6 +210,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+// end::chenhui-storage[]
 // tag::jasonstats[]
 [[Design-Statistics]]
 === Statistics component
@@ -346,8 +347,6 @@ for the word bank statistics freely.
 === Common classes
 
 Classes used by multiple components are in the `seedu.Dukemon.commons` package.
-
-// end::chenhui-storage[]
 
 
 == Implementation

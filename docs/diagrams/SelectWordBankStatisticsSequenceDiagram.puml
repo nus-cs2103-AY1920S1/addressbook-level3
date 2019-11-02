@@ -11,7 +11,7 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":BankCommand" as BankCommand LOGIC_COLOR_T2
+participant ":SelectCommand" as SelectCommand LOGIC_COLOR_T2
 end box
 
 box ParserManager PARSERMANAGER_COLOR_T1
@@ -23,35 +23,35 @@ participant ":Model" as Model MODEL_COLOR_T3
 end box
 
 
-[-> UI : execute("bank pokemon")
+[-> UI : execute("select pokemon")
 activate UI
 
-UI -> AppManager : executeCommand\n("bank pokemon")
+UI -> AppManager : executeCommand\n("select pokemon")
 activate AppManager
 
-AppManager -> LogicManager : execute\n("bank pokemon")
+AppManager -> LogicManager : execute\n("select pokemon")
 activate LogicManager
 
-LogicManager -> ParserManager : parseCommand("bank pokemon")
+LogicManager -> ParserManager : parseCommand("select pokemon")
 activate ParserManager
 
 ParserManager --> LogicManager: command
 deactivate ParserManager
 
-create BankCommand
-LogicManager -> BankCommand : command.execute()
-activate BankCommand
+create SelectCommand
+LogicManager -> SelectCommand : command.execute()
+activate SelectCommand
 
-BankCommand -> Model : setWordBankStatistics()
+SelectCommand -> Model : setWordBankStatistics()
 activate Model #blue
-note right: The active WordBankStatistics\nis set in Model by BankCommand
+note right: The active WordBankStatistics\nis set in Model by SelectCommand
 deactivate Model
 
-BankCommand --> LogicManager: commandResult
-deactivate BankCommand
+SelectCommand --> LogicManager: commandResult
+deactivate SelectCommand
 
 LogicManager --> AppManager: commandResult
-destroy BankCommand
+destroy SelectCommand
 deactivate LogicManager
 AppManager --> UI
 deactivate AppManager
