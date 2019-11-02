@@ -39,15 +39,6 @@ public class UndoPayparser implements Parser<Undopay> {
                     " p/PAY" + "Example: pay 1 p/100"));
         }
 
-        EditEmployeeDescriptor editEmployeeDescriptor = new EditEmployeeDescriptor();
-
-        if (argMultimap.getValue(PREFIX_PAY).isPresent()) {
-            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get()));
-        }
-
-        if (!editEmployeeDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(Undopay.MESSAGE_NOT_EDITED);
-        }
 
         return new Undopay(index, editEmployeeDescriptor);
     }

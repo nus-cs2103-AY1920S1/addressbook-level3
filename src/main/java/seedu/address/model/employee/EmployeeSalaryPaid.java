@@ -9,22 +9,26 @@ public class EmployeeSalaryPaid {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "EmployeeSalaryPaid numbers should only contain numbers";
+            "EmployeeSalaryPaid should be a positive integer value";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    public final String value;
 
+    private final int value;
 
     /**
      * Constructs a {@code EmployeeSalaryPaid}.
      *
-     * @param pay A valid Pay number.
+     * @param value A valid Pay number.
      */
-    public EmployeeSalaryPaid(String pay) {
-        value = pay;
+    public EmployeeSalaryPaid(int value) {
+        this.value = value;
     }
 
     public EmployeeSalaryPaid() {
-        value = "0";
+        value = 0;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     /**
@@ -36,19 +40,14 @@ public class EmployeeSalaryPaid {
 
     @Override
     public String toString() {
-        return value;
+        return value + "";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EmployeeSalaryPaid // instanceof handles nulls
-                && value.equals(((EmployeeSalaryPaid) other).value)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
+                && value == ((EmployeeSalaryPaid) other).value); // state check
     }
 
 }

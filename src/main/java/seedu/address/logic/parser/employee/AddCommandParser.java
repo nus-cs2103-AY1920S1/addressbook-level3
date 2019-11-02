@@ -38,8 +38,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENDER, PREFIX_PAY,
                         PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_JOIN_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENDER, PREFIX_PAY,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_JOIN_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -47,8 +47,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         EmployeeId employeeId = ParserUtil.parseEmployeeId();
         EmployeeName employeeName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         EmployeeGender employeeGender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
-        EmployeePay employeePay =
-                ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get());
+        EmployeePay employeePay = ParserUtil.parsePay(argMultimap.getValue(PREFIX_PAY).get());
         EmployeePhone employeePhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         EmployeeEmail employeeEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         EmployeeAddress employeeAddress = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());

@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -69,9 +70,20 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeeSalaryPaid_Initialise parseSalaryPaid_Initialise(String pay) throws ParseException {
-        String trimmedPay = "0";
-        return new EmployeeSalaryPaid_Initialise(trimmedPay);
+    public static EmployeeSalaryPaid parseSalaryPaid(String pay) throws ParseException {
+        requireNonNull(pay);
+        String trimmedPay = pay.trim();
+        EmployeeSalaryPaid employeeSalaryPaid;
+        try {
+            int salaryPaid = Integer.parseInt(pay);
+            if (salaryPaid < 0) {
+                throw new IllegalArgumentException();
+            }
+            employeeSalaryPaid = new EmployeeSalaryPaid(salaryPaid);
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
+        }
+        return employeeSalaryPaid;
     }
 
 

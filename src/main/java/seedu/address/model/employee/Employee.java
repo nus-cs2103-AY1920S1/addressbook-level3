@@ -12,15 +12,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Employee {
-    /**
-     * Suggested Improvements:
-     * Rename 'EmployeeSalaryPaid' as 'EmployeeSalary' (More accurate variable naming)
-     * Abstract EmployeePay and EmployeePendingPay to EmployeeFinances (its already there)
-     */
-
-    private EmployeePay employeePay;
-    private EmployeeSalaryPaid employeeSalaryPaid;
-
     // Identity fields
     private final EmployeeName employeeName;
     private final EmployeePhone employeePhone;
@@ -33,12 +24,14 @@ public class Employee {
     private final EmployeeAddress employeeAddress;
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
+    private final EmployeePay employeePay;
+    private EmployeeSalaryPaid employeeSalaryPaid;
 
     /**
      * Every field must be present and not null.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
-                    EmployeePay employeePay,
+                    EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid,
                     EmployeePhone employeePhone, EmployeeEmail employeeEmail,
                     EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
         this.employeeName = employeeName;
@@ -52,6 +45,17 @@ public class Employee {
         this.employeeSalaryPaid = employeeSalaryPaid;
         this.tags.add(new Tag(employeeGender.gender));
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Creates a new Employee Object and instantiates a new {@code EmployeeSalaryPaid} object within.
+     * Called by the Add and Edit Command.
+     */
+    public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
+                    EmployeePay employeePay, EmployeePhone employeePhone, EmployeeEmail employeeEmail,
+                    EmployeeAddress employeeAddress, EmployeeJoinDate employeeJoinDate, Set<Tag> tags) {
+        this(employeeId, employeeName, employeeGender, employeePay, new EmployeeSalaryPaid(),
+                employeePhone, employeeEmail, employeeAddress, employeeJoinDate, tags);
     }
 
     public Employee() {
@@ -94,7 +98,6 @@ public class Employee {
 
     public EmployeePay getEmployeePay() {
         return employeePay;
-
     }
 
     public EmployeeGender getEmployeeGender() {
@@ -105,14 +108,9 @@ public class Employee {
         return employeeJoinDate;
     }
 
-    public void setEmployeeSalaryPaid(EmployeeSalaryPaid employeeSalaryPaid) { //shouldnt need this
+    public void setEmployeeSalaryPaid(EmployeeSalaryPaid employeeSalaryPaid) {
         this.employeeSalaryPaid = employeeSalaryPaid;
     }
-
-    public void setEmployeePay(EmployeePay employeePay) { //shouldnt need this
-        this.employeePay = employeePay;
-    }
-
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
