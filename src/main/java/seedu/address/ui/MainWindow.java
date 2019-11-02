@@ -2,12 +2,17 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.geometry.Rectangle2D;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -30,6 +35,7 @@ import seedu.address.model.visual.DisplayIndicator;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String LOGO_URL = "/images/InsurelyticsLogo.png";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -131,6 +137,8 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        setLogo();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -298,5 +306,14 @@ public class MainWindow extends UiPart<Stage> {
         return commandResult.isDisplay()
             || commandResult.isExpandPerson()
             || commandResult.isExpandPolicy();
+    }
+
+    private void setLogo() {
+        Image image = new Image(LOGO_URL);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitWidth(500);
+        imageView.setFitHeight(500);
+        displayPlaceHolder.getChildren().add(imageView);
     }
 }
