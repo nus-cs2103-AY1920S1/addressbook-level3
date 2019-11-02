@@ -27,10 +27,10 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
-import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 class AppManagerTest {
@@ -231,11 +231,6 @@ class AppManagerTest {
 
         @Override
         public void updateStatistics(GameStatistics gameStats) throws CommandException {
-
-        }
-
-        @Override
-        public void incrementPlay() throws CommandException {
 
         }
 

@@ -5,9 +5,9 @@ import java.util.Random;
 import javafx.scene.layout.StackPane;
 import seedu.address.appmanager.AppManager;
 import seedu.address.model.globalstatistics.GlobalStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.ui.layouts.TwoSplitColumnLayout;
 import seedu.address.ui.layouts.TwoSplitRowLayout;
 import seedu.address.ui.modules.BankLabelPanel;
@@ -20,7 +20,6 @@ import seedu.address.ui.modules.QuestionLabel;
 import seedu.address.ui.modules.SettingsPanel;
 import seedu.address.ui.modules.TitleScreenPanel;
 import seedu.address.ui.modules.WordBankStatisticsPanel;
-
 
 
 /**

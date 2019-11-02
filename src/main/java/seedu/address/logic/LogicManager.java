@@ -28,9 +28,9 @@ import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
-import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -134,6 +134,9 @@ public class LogicManager implements Logic, UiLogicHelper {
         incrementPlay();
     }
 
+    /**
+     * Increments the number of play in global statistics.
+     */
     private void incrementPlay() throws CommandException {
         try {
             requireNonNull(model.getGlobalStatistics());

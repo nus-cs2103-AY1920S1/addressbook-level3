@@ -13,10 +13,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.model.card.Card;
-import seedu.address.statistics.GameStatistics;
 import seedu.address.model.wordbankstats.ScoreData;
-import seedu.address.statistics.ScoreGrade;
 import seedu.address.model.wordbankstats.WordBankStatistics;
+import seedu.address.statistics.GameStatistics;
+import seedu.address.statistics.ScoreGrade;
 import seedu.address.ui.UiPart;
 
 /**

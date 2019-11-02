@@ -21,10 +21,10 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
-import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -119,6 +119,9 @@ public class AppManager {
         return commandResult;
     }
 
+    /**
+     * Update the {@code gameStatisticsBuilder} with the {@code gameCommandResult}.
+     */
     private void updateGameStatistics(GameCommandResult gameCommandResult) {
         if (gameCommandResult.getCard().isPresent()) {
             gameStatisticsBuilder.addDataPoint(

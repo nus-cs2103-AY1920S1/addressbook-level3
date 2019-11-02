@@ -5,8 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.model.wordbankstats.WordBankStatistics;
+import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 
 
 /**
