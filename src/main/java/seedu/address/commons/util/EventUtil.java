@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
@@ -62,11 +63,12 @@ public class EventUtil {
         resultEvent.setUniqueIdentifier(uniqueIdentifier);
         resultEvent.setEventName(eventName);
 
-        if (vEventToMap.getRecurrenceRule() == null) {
+        RecurrenceRule currentRule = vEventToMap.getRecurrenceRule();
+        if (currentRule == null || currentRule.equals(new RecurrenceRule())) {
             resultEvent.setRecurrenceType(RecurrenceType.NONE);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("DAILY")) {
+        } else if (currentRule.toString().contains("DAILY")) {
             resultEvent.setRecurrenceType(RecurrenceType.DAILY);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("WEEKLY")) {
+        } else if (currentRule.toString().contains("WEEKLY")) {
             resultEvent.setRecurrenceType(RecurrenceType.WEEKLY);
         }
 
@@ -87,8 +89,6 @@ public class EventUtil {
             return RecurrenceRule.parse(recurrenceString);
         } else if (recurrenceString.equalsIgnoreCase("daily")) {
             return RecurrenceRule.parse(recurrenceString);
-        } else if (recurrenceString.equalsIgnoreCase("none")) {
-            return new RecurrenceRule();
         } else {
             throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
         }

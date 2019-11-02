@@ -29,7 +29,7 @@ public class IcsEventExport implements EventExport {
         VCalendar vCalendar = new VCalendar();
         vCalendar.setVEvents(vEventRecord.getVEventList());
 
-        String fullFilePath = targetDirectory + FILE_SEPARATOR + SCHEDULE_FILE_NAME + ICS_FILE_TYPE;
+        String fullFilePath = FILE_SEPARATOR + targetDirectory + FILE_SEPARATOR + SCHEDULE_FILE_NAME + ICS_FILE_TYPE;
         String fileBody = vCalendar.toString().replaceAll("\n", "\r\n");
 
         File outputFile = new File(fullFilePath);
