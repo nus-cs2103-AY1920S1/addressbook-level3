@@ -48,6 +48,10 @@ public class TransactionEditCommandParser implements CommandParser {
                     TransactionEditCommand.MESSAGE_USAGE));
         }
 
+        if (argMultiMap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    TransactionEditCommand.MESSAGE_USAGE));
+        }
         Index transactionIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
 
         TransactionEditDescriptor transactionEditDescriptor = new TransactionEditDescriptor();

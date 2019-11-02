@@ -1,5 +1,6 @@
 package budgetbuddy.logic.parser.commandparsers.rulecommandparsers;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
@@ -30,18 +31,21 @@ public class RuleEditCommandParser implements CommandParser<RuleEditCommand> {
     @Override
     public RuleEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(args, PREFIX_PREDICATE, PREFIX_ACTION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PREDICATE, PREFIX_ACTION);
 
-        Index ruleIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RuleEditCommand.MESSAGE_USAGE));
+        }
+        Index ruleIndex = CommandParserUtil.parseIndex(argMultimap.getPreamble());
 
         RuleEditDescriptor ruleEditDescriptor = new RuleEditDescriptor();
-        if (argMultiMap.getValue(PREFIX_PREDICATE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_PREDICATE).isPresent()) {
             ruleEditDescriptor.setPredicate(
-                    CommandParserUtil.parsePredicate(argMultiMap.getValue(PREFIX_PREDICATE).get()));
+                    CommandParserUtil.parsePredicate(argMultimap.getValue(PREFIX_PREDICATE).get()));
         }
-        if (argMultiMap.getValue(PREFIX_ACTION).isPresent()) {
+        if (argMultimap.getValue(PREFIX_ACTION).isPresent()) {
             ruleEditDescriptor.setAction(
-                    CommandParserUtil.parseAction(argMultiMap.getValue(PREFIX_ACTION).get()));
+                    CommandParserUtil.parseAction(argMultimap.getValue(PREFIX_ACTION).get()));
         }
 
         if (!ruleEditDescriptor.isAnyFieldEdited()) {
