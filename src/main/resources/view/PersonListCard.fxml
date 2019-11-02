@@ -17,7 +17,7 @@
       <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="id" styleClass="cell_big_label" />
         <Label fx:id="refId" styleClass="cell_big_label" text="\$first" />
-        <Label fx:id="name" minWidth="-Infinity" styleClass="cell_big_label" text="\$second" />
+        <Label fx:id="name" styleClass="cell_big_label" text="\$second" />
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />

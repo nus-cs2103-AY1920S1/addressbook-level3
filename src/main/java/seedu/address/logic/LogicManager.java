@@ -89,11 +89,13 @@ public class LogicManager implements Logic {
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
-        if (lastCommandWord != currCommandWord) {
+        if (!lastCommandWord.equals(currCommandWord)) {
             displayResult.accept("");
             try {
                 this.execute(lastCommandWord);
-            } catch (CommandException | ParseException e) { }
+            } catch (CommandException | ParseException e) {
+                // do nothing
+            }
 
             lastCommandWord = currCommandWord;
         }
