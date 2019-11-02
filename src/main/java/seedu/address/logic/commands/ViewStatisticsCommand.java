@@ -14,7 +14,7 @@ import seedu.address.model.statistics.StatisticsManager;
 /**
  * Obtains information about the statistics from Model.
  */
-public class ViewStatisticsCommand extends StatisticsCommand {
+public class ViewStatisticsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewStatistics";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guiltTrip(). Use a comma to "
@@ -35,12 +35,12 @@ public class ViewStatisticsCommand extends StatisticsCommand {
     }
 
     @Override
-    public CommandResult execute(Model model, StatisticsManager stats, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (listOfPeriods == null) {
-            stats.updateListOfStats();
+            model.updateListOfStats();
         } else {
-            stats.updateListOfStats(listOfPeriods);
+            model.updateListOfStats(listOfPeriods);
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -31,9 +31,9 @@ public class EntryDayContainsPredicate implements Predicate<Entry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EntryTimeContainsPredicate // instanceof handles nulls
-                && monthFromUser == ((((EntryTimeContainsPredicate) other).monthFromUser))
-                && yearFromUser == ((((EntryTimeContainsPredicate) other).yearFromUser))); // state check
+                || (other instanceof EntryDayContainsPredicate // instanceof handles nulls
+                && monthFromUser == ((((EntryDayContainsPredicate) other).monthFromUser))
+                && yearFromUser == ((((EntryDayContainsPredicate) other).yearFromUser))); // state check
     }
 }
 

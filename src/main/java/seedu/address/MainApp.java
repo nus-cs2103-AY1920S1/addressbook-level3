@@ -67,9 +67,7 @@ public class MainApp extends Application {
         timeTracker = new TimeUtil();
 
         model = initModelManager(storage, userPrefs, timeTracker);
-        StatisticsManager stats = new StatisticsManager(model);
-        model.setStats(stats);
-        logic = new LogicManager(model, stats, storage);
+        logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
     }
 

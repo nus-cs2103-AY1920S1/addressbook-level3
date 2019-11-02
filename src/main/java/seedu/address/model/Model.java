@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -18,6 +20,8 @@ import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
+import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.DailyStatistics;
 import seedu.address.model.statistics.StatisticsManager;
 
 /**
@@ -36,10 +40,17 @@ public interface Model {
         x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
-    void setStats(StatisticsManager stats);
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
 
-    StatisticsManager getStats();
+    ObservableList<CategoryStatistics> getListOfStatsForExpense();
 
+    ObservableList<CategoryStatistics> getListOfStatsForIncome();
+
+    void updateListOfStats();
+
+    void updateLineCharts();
+
+    void updateListOfStats(List<Date> period);
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */

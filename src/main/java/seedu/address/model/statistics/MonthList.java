@@ -74,6 +74,12 @@ public class MonthList {
                     this.yearMonth.getMonth(), this.yearMonth.getYear());
             this.mapOfDailyLists.put(j, dailyListOfMonth);
         }
+
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            DailyList dl = this.mapOfDailyLists.get(i);
+            DailyStatistics statsCalculate = dl.calculateBarChart();
+            this.listOfDailyStatistics.add(statsCalculate);
+        }
     }
 
     /**
@@ -104,8 +110,8 @@ public class MonthList {
         for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
             DailyList dl = this.mapOfDailyLists.get(i);
             DailyStatistics statsCalculate = dl.calculateBarChart();
-            if (!listOfDailyStatistics.get(i).equals(statsCalculate)) {
-                listOfDailyStatistics.set(i, statsCalculate);
+            if (!listOfDailyStatistics.get(i - 1).equals(statsCalculate)) {
+                listOfDailyStatistics.set(i - 1, statsCalculate);
             }
         }
         return listOfDailyStatistics;

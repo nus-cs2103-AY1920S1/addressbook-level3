@@ -35,7 +35,7 @@ public class DailyList {
         for (int i = 0; i < listOfExpenses.size(); i++) {
             totalExpense = totalExpense + listOfExpenses.get(i).getAmount().value;
         }
-        for (int i = 0; i < listOfExpenses.size(); i++) {
+        for (int i = 0; i < listOfIncomes.size(); i++) {
             totalIncome = totalIncome + listOfIncomes.get(i).getAmount().value;
         }
         DailyStatistics statisticsForDay = new DailyStatistics(this.date, totalExpense, totalIncome);

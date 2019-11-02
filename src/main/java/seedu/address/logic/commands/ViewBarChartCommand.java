@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Date;
 import seedu.address.model.statistics.StatisticsManager;
 
-public class ViewBarChartCommand extends StatisticsCommand {
+public class ViewBarChartCommand extends Command {
 
     public static final String COMMAND_WORD = "viewBar";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guiltTrip(). Use a comma to "
@@ -29,9 +29,9 @@ public class ViewBarChartCommand extends StatisticsCommand {
 //    }
 
     @Override
-    public CommandResult execute(Model model, StatisticsManager stats, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        stats.updateLineCharts();
+        model.updateLineCharts();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
