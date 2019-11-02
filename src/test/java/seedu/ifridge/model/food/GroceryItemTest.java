@@ -42,6 +42,7 @@ public class GroceryItemTest {
         assertTrue(BANANA.isSameFood(editedBanana));
     }
 
+    // TODO: do we need to check for equals? it's not even called anywhere
     @Test
     public void equals() {
         // same object -> returns true

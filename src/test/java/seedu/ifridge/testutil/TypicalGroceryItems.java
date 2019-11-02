@@ -23,11 +23,11 @@ public class TypicalGroceryItems {
             .withAmount("1L").withExpiryDate("20/10/2015").withTags("healthy").build();
     public static final GroceryItem BROCCOLI = new GroceryItemBuilder().withName("Broccoli")
             .withAmount("1lbs").withExpiryDate("03/11/2019").withTags("greens", "healthy").build();
-    public static final GroceryItem APPLES = new GroceryItemBuilder().withName("Apples")
+    public static final GroceryItem APPLE = new GroceryItemBuilder().withName("Apples")
             .withAmount("10units").withExpiryDate("02/12/2019").withTags("healthy", "fruits").build();
     public static final GroceryItem GREEN_TEA_LATTE = new GroceryItemBuilder().withName("Green tea latte")
             .withAmount("5units").withExpiryDate("05/11/2019").withTags("drink", "boba").build();
-    public static final GroceryItem EGGS = new GroceryItemBuilder().withName("Eggs")
+    public static final GroceryItem EGG = new GroceryItemBuilder().withName("Eggs")
             .withAmount("12units").withExpiryDate("03/12/2019").build();
 
     // Manually added
@@ -60,6 +60,6 @@ public class TypicalGroceryItems {
 
     public static List<GroceryItem> getTypicalGroceryItems() {
         return new ArrayList<>(Arrays.asList(BANANA, SPAGHETTI, OLIVE_OIL, BROCCOLI,
-                APPLES, GREEN_TEA_LATTE, EGGS));
+                APPLE, GREEN_TEA_LATTE, EGG));
     }
 }
