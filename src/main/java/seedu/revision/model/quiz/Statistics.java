@@ -20,7 +20,7 @@ public class Statistics {
 
     private int total;
     private int score;
-    private double result = score / total;
+    private double result = (double) score / total;
 
     public Statistics(int score, int total) {
         requireNonNull(score);

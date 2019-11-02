@@ -24,6 +24,7 @@ import seedu.revision.model.ReadOnlyHistory;
 import seedu.revision.model.ReadOnlyUserPrefs;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.util.SampleDataUtil;
+import seedu.revision.model.util.SampleHistoryUtil;
 import seedu.revision.storage.AddressBookStorage;
 import seedu.revision.storage.HistoryStorage;
 import seedu.revision.storage.JsonAddressBookStorage;
@@ -100,11 +101,11 @@ public class MainApp extends Application {
         try {
             historyOptional = storage.readHistory();
             if (!historyOptional.isPresent()) {
-                logger.info("History data file not found. Will be starting with an empty history");
+                logger.info("History file not found. Will be starting with a sample history");
             }
-            initialHistory = new History();
+            initialHistory = historyOptional.orElseGet(SampleHistoryUtil::getSampleHistory);
         } catch (DataConversionException e) {
-            logger.warning("History data file not in the correct format. "
+            logger.warning("History file not in the correct format. "
                     + "Will be starting with an empty history");
             initialHistory = new History();
         } catch (IOException e) {

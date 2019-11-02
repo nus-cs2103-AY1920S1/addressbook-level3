@@ -62,7 +62,6 @@ public class StartQuizWindow extends Window {
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
     private int score = 0;
-    private int total = 0;
 
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
@@ -71,11 +70,12 @@ public class StartQuizWindow extends Window {
         super(primaryStage, mainLogic);
         this.mode = mode;
         this.model = super.mainLogic.getModel();
-        this.quizList = getListBasedOnMode(this.mode);
     }
+
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
+
     public final ReadOnlyDoubleProperty currentProgressIndexProperty() {
         return currentProgressIndex.getReadOnlyProperty();
     }
@@ -144,7 +144,6 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
-            total++;
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -241,14 +240,9 @@ public class StartQuizWindow extends Window {
     private void nextLevelHelper(Alert alert, ButtonType endButton, Answerable nextAnswerable, int nextLevel) {
         Optional<ButtonType> result = alert.showAndWait();
 
-        Statistics newResult = new Statistics(score, total);
-        updateStatistics(model, newResult);
-
         if (result.get() == endButton) {
             handleExit();
         } else {
-            score = 0;
-            total = 0;
             currentProgressIndex.set(0);
             progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
                     getSizeOfCurrentLevel(nextAnswerable),
@@ -270,10 +264,6 @@ public class StartQuizWindow extends Window {
         alert.setTitle("End of Quiz!");
         alert.setHeaderText(null);
         alert.setGraphic(null);
-        alert.setContentText("Quiz has ended! Your score is " + score + "/" + getCurrentProgressIndex() + "\n"
-                + "Try again?\n"
-                + "Press [ENTER] to try again.\n"
-                + "Press [ESC] to return to main screen.");
         if (mode.value.equals("arcade") && answerableIterator.hasNext()) {
             alert.setContentText("Better luck next time! :P Your score is " + score
                     + "/" + mainLogic.getFilteredAnswerableList().size() + "\n"
@@ -293,8 +283,6 @@ public class StartQuizWindow extends Window {
 
         alert.getButtonTypes().setAll(tryAgainButton, endButton);
 
-        Optional<ButtonType> result = alert.showAndWait();
-
         Task<Void> task = new Task<Void>() {
             @Override
             public Void call() throws Exception {
@@ -307,14 +295,10 @@ public class StartQuizWindow extends Window {
             endHelper(alert, endButton);
         });
 
-        Statistics newResult = new Statistics(score, total);
-        updateStatistics(model, newResult);
+        Statistics newResult = new Statistics(score, mainLogic.getFilteredAnswerableList().size());
+        updateHistory(model, newResult);
 
-        if (result.get() == tryAgainButton) {
-            restartQuiz();
-        } else if (result.get() == endButton) {
-            new Thread(task).start();
-        }
+        new Thread(task).start();
 
     }
 
@@ -339,7 +323,6 @@ public class StartQuizWindow extends Window {
         answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
         score = 0;
-        total = 0;
         currentProgressIndex.set(0);
         commandBox.getCommandTextField().requestFocus();
     }
@@ -353,9 +336,6 @@ public class StartQuizWindow extends Window {
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
-
-        Statistics newResult = new Statistics(score, total);
-        updateStatistics(model, newResult);
 
         if (mode.value.equals("custom")) {
             mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
@@ -402,7 +382,7 @@ public class StartQuizWindow extends Window {
         }
     }
 
-    private void updateStatistics(Model model, Statistics newResult) {
+    private void updateHistory(Model model, Statistics newResult) {
         requireNonNull(model);
         model.addStatistics(newResult);
     }

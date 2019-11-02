@@ -18,7 +18,7 @@ public class HistoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all results from your past history. ";
 
-    private static final String MESSAGE_SUCCESS = "History shown!";
+    private static final String MESSAGE_SUCCESS = "History shown! \n";
 
     /**
      * Executes the command and returns the result message.
@@ -34,7 +34,7 @@ public class HistoryCommand extends Command {
         if (history.isEmpty()) {
             return new CommandResult().withFeedBack("You have not attempted any quizzes yet!").build();
         }
-        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS + history + "You have attempted "
-                + history.size() + " quizzes so far")).withHistory(true).build();
+        return new CommandResult().withFeedBack(String.format(MESSAGE_SUCCESS + history + "\nYou have attempted "
+                + history.size() + " quizzes so far.")).withHistory(true).build();
     }
 }
