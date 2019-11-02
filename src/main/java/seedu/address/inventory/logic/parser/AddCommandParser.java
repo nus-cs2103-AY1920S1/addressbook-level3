@@ -45,7 +45,7 @@ public class AddCommandParser {
             String costString = argMultimap.getValue(PREFIX_COST).get();
             String priceString = argMultimap.getValue(PREFIX_PRICE).get();
 
-            if (!isNumeric(quantityString) || !isNumeric(costString) || !isNumeric(priceString)) {
+            if (!isValidNumeric(quantityString) || !isValidNumeric(costString) || !isValidNumeric(priceString)) {
                 throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
@@ -80,7 +80,7 @@ public class AddCommandParser {
             String category = argMultimap.getValue(PREFIX_CATEGORY).get();
             String costString = argMultimap.getValue(PREFIX_COST).get();
 
-            if (!isNumeric(quantityString) || !isNumeric(costString)) {
+            if (!isValidNumeric(quantityString) || !isValidNumeric(costString)) {
                 throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
@@ -104,7 +104,7 @@ public class AddCommandParser {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
-    private static boolean isNumeric(String strNum) {
-        return strNum.matches("-?\\d+(\\.\\d+)?");
+    private static boolean isValidNumeric(String strNum) {
+        return strNum.matches("-?\\d+(\\.\\d+)?") && (Double.parseDouble(strNum) > 0);
     }
 }

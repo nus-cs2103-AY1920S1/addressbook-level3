@@ -20,7 +20,7 @@ public class InventoryMessages {
     public static final String MESSAGE_INVALID_ADD_COMMAND_FORMAT = "Sorry! Please type add with parameters:\n"
             + "d/description c/category q/quantity co/cost [p/price]";
 
-    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a valid number.";
+    public static final String MESSAGE_NOT_A_NUMBER = "Sorry! Please input a positive number less than 9999.";
 
     public static final String NO_SUCH_ITEM_INVENTORY =
             "Sorry! There is no such item in our database. Do add the item in.";
