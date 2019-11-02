@@ -25,8 +25,6 @@ public class SetScoreCommandParser implements Parser<SetScoreCommand> {
     public SetScoreCommand parse(String args) throws ParseException {
         String score;
         String id;
-        Id teamId;
-        Score teamScore;
 
         try {
             id = AlfredParserUtil.getSpecifierFromCommand(args);
@@ -36,8 +34,8 @@ public class SetScoreCommandParser implements Parser<SetScoreCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetScoreCommand.MESSAGE_USAGE));
         }
 
-        teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
-        teamScore = AlfredParserUtil.parseScore(score);
+        Id teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
+        Score teamScore = AlfredParserUtil.parseScore(score);
         return new SetScoreCommand(teamId, teamScore);
     }
 }

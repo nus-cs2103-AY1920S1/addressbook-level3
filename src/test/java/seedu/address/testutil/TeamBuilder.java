@@ -25,7 +25,7 @@ public class TeamBuilder {
     public static final List<Participant> DEFAULT_PARTICIPANTS = new ArrayList<>();
     public static final Optional<Mentor> DEFAULT_MENTOR = Optional.empty();
     public static final String DEFAULT_SUBJECT = "ENVIRONMENTAL";
-    public static final int DEFAULT_SCORE = 100;
+    public static final int DEFAULT_SCORE = 50;
     public static final String DEFAULT_PROJECT_NAME = "Hackathon Manager";
     public static final int DEFAULT_LOCATION = 1;
 

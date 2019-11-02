@@ -62,7 +62,7 @@ public class AddScoreCommand extends ScoreCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SetScoreCommand // instanceof handles nulls
+                || (other instanceof AddScoreCommand // instanceof handles nulls
                 && id.equals(((AddScoreCommand) other).id))
                 && score.equals(((AddScoreCommand) other).score);
     }

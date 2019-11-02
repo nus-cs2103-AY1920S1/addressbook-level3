@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
@@ -78,7 +77,7 @@ public class StringUtil {
      */
     public static void validateScore(String score) throws ParseException {
         if (score.equals("")) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(Score.MESSAGE_CONSTRAINTS);
         }
         try {
             int scoreValue = Integer.parseInt(score);

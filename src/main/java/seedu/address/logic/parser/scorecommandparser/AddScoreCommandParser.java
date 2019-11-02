@@ -25,8 +25,6 @@ public class AddScoreCommandParser implements Parser<AddScoreCommand> {
     public AddScoreCommand parse(String args) throws ParseException {
         String score;
         String id;
-        Id teamId;
-        Score teamScore;
         try {
             id = AlfredParserUtil.getSpecifierFromCommand(args);
             score = AlfredParserUtil.getArgumentsFromCommand(args);
@@ -35,8 +33,8 @@ public class AddScoreCommandParser implements Parser<AddScoreCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScoreCommand.MESSAGE_USAGE));
         }
 
-        teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
-        teamScore = AlfredParserUtil.parseScore(score);
+        Id teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
+        Score teamScore = AlfredParserUtil.parseScore(score);
 
         return new AddScoreCommand(teamId, teamScore);
     }

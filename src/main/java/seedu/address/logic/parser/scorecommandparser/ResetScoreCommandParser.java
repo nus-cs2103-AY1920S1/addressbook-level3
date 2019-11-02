@@ -24,15 +24,13 @@ public class ResetScoreCommandParser implements Parser<ScoreCommand> {
 
     @Override
     public SetScoreCommand parse(String args) throws ParseException {
-        Id teamId;
-        Score teamScore = new Score(0);
-
-        try {
-            teamId = AlfredParserUtil.parseIndex(args, PrefixType.T);
-        } catch (ParseException e) {
-            logger.severe("User inputted team index is invalid.");
+        if (args.trim().equals("")) {
+            logger.severe("User inputted team id is invalid.");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScoreCommand.RESET_MESSAGE_USAGE));
         }
+
+        Id teamId = AlfredParserUtil.parseIndex(args, PrefixType.T);
+        Score teamScore = new Score(0);
 
         return new SetScoreCommand(teamId, teamScore);
     }

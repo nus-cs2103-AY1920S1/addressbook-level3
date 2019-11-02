@@ -25,8 +25,6 @@ public class SubtractScoreCommandParser implements Parser<SubtractScoreCommand> 
     public SubtractScoreCommand parse(String args) throws ParseException {
         String score;
         String id;
-        Id teamId;
-        Score teamScore;
 
         try {
             id = AlfredParserUtil.getSpecifierFromCommand(args);
@@ -37,8 +35,8 @@ public class SubtractScoreCommandParser implements Parser<SubtractScoreCommand> 
                     SubtractScoreCommand.MESSAGE_USAGE));
         }
 
-        teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
-        teamScore = AlfredParserUtil.parseScore(score);
+        Id teamId = AlfredParserUtil.parseIndex(id, PrefixType.T);
+        Score teamScore = AlfredParserUtil.parseScore(score);
 
         return new SubtractScoreCommand(teamId, teamScore);
     }
