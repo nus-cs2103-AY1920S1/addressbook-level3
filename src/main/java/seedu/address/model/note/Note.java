@@ -48,6 +48,7 @@ public class Note {
 
     /**
      * Constructs a new lecture note with an image already present, which may be null.
+     * This does not allow further editing of the image through finalizeImage().
      *
      * @param image The image associated with this lecture note.
      * @see Note#Note(Title, Content)

@@ -373,7 +373,7 @@ The heading will copy the question body. +
 The GUI will display all tasks upon completing the command. +
 Format: `rq i/INDEX_OF_QUESTION dt/START_DATE tm/START_TIME` +
 Example: +
-`rq 1 dt/11/11/2019 tm/1500`
+`rq i/1 dt/11/11/2019 tm/1500`
 
 ==== Remove revision task: `rdelete`
 You can remove a particular revision task from current list with this command. +
