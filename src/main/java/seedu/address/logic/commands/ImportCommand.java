@@ -27,7 +27,7 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String MESSAGE_IMPORT_SUCCESS = "Import was successful!";
+    public static final String MESSAGE_IMPORT_SUCCESS = "Import was successful! Number of flashcards imported: %d";
 
     private final ExportPath exportPath;
 
@@ -78,7 +78,10 @@ public class ImportCommand extends Command {
             }
 
             return new CommandResult(
-                    MESSAGE_IMPORT_SUCCESS
+                    String.format(
+                        MESSAGE_IMPORT_SUCCESS,
+                        list.size()
+                    )
             );
         }
     }
