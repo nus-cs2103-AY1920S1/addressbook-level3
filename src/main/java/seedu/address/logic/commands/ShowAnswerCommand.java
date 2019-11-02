@@ -16,6 +16,7 @@ public class ShowAnswerCommand extends Command {
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     public ShowAnswerCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
+        requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
     }
 
@@ -33,10 +34,4 @@ public class ShowAnswerCommand extends Command {
                 || (other instanceof ShowAnswerCommand) // instanceof handles nulls
                 && keyboardFlashCardsParser.equals(((ShowAnswerCommand) other).keyboardFlashCardsParser);
     }
-
-    @Override
-    public String toString() {
-        return "placeholder";
-    }
-
 }
