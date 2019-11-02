@@ -75,7 +75,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getProjectDashboard().getTaskList(),
                 logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(taskListPanel);
     }

@@ -32,7 +32,7 @@ public class MemberListPanel extends UiPart<Region> {
 
         for (int i=0; i<memberList.size(); i++) {
             Member memberInvolved = memberList.get(i);
-            int memIndex = memberList.indexOf(memberInvolved) ;
+            int memIndex = memberList.indexOf(memberInvolved);
 
             ArrayList<Task> specificTasks = new ArrayList<>();
             for (TasMemMapping mapping : tasMemMappings) {

@@ -34,6 +34,7 @@ public class TaskListPanel extends UiPart<Region> {
 
         for (int i=0; i<taskList.size(); i++) {
             Task taskInvolved = taskList.get(i);
+            int taskIndex = taskList.indexOf(taskInvolved);
             //int taskIndex = taskList.indexOf(taskInvolved);
 
             ArrayList<Member> specificMembers = new ArrayList<>();
