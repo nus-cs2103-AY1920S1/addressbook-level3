@@ -26,7 +26,7 @@ public class GuiSettingsTest {
 
     @Test
     public void constructor_overloaded() {
-        GuiSettings guiSettings = new GuiSettings(CUSTOM_WIDTH,CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
+        GuiSettings guiSettings = new GuiSettings(CUSTOM_WIDTH, CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
 
         assertEquals(guiSettings.getWindowWidth(), CUSTOM_WIDTH);
         assertEquals(guiSettings.getWindowHeight(), CUSTOM_HEIGHT);
@@ -38,8 +38,8 @@ public class GuiSettingsTest {
 
     @Test
     public void equals() {
-        GuiSettings guiSettings1 = new GuiSettings(CUSTOM_WIDTH,CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
-        GuiSettings guiSettings2 = new GuiSettings(CUSTOM_WIDTH,CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
+        GuiSettings guiSettings1 = new GuiSettings(CUSTOM_WIDTH, CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
+        GuiSettings guiSettings2 = new GuiSettings(CUSTOM_WIDTH, CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
         GuiSettings guiSettings3 = new GuiSettings();
 
         assertTrue(guiSettings1.equals(guiSettings2));
@@ -48,8 +48,8 @@ public class GuiSettingsTest {
 
     @Test
     public void hashCode_sameGuiSettingsSameHashCode() {
-        GuiSettings guiSettings1 = new GuiSettings(CUSTOM_WIDTH,CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
-        GuiSettings guiSettings2 = new GuiSettings(CUSTOM_WIDTH,CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
+        GuiSettings guiSettings1 = new GuiSettings(CUSTOM_WIDTH, CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
+        GuiSettings guiSettings2 = new GuiSettings(CUSTOM_WIDTH, CUSTOM_HEIGHT, CUSTOM_X, CUSTOM_Y);
         GuiSettings guiSettings3 = new GuiSettings();
 
         assertEquals(guiSettings1.hashCode(), guiSettings2.hashCode());
