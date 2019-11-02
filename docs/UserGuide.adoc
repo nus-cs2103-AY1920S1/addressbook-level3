@@ -347,8 +347,8 @@ Format: `alias l/SHORTHAND v/COMMAND`
 
 * `alias l/ls v/list` +
 Typing `ls` now works equivalently as typing `list`.
-* `alias l/show all patients v/list` +
-Typing `show all patients` now works equivalently as typing `list`.
+* `alias l/display all patients v/list` +
+Typing `display all patients` now works equivalently as typing `list`.
 
 ==== Removing a shorthand command / alias : `unalias`
 
@@ -446,7 +446,7 @@ e.g. `reminder Two Point Hospital closed d/7`
 === *Optimization for Command-Line Interface (CLI) Users*
 
 * *Setting a shorthand command / alias* : `alias l/SHORTHAND v/COMMAND` +
-e.g. `alias l/show all patients v/list`
+e.g. `alias l/display all patients v/list`
 * *Removing a shorthand command / alias* : `unalias SHORTHAND` +
-e.g. `unalias show all patients`
+e.g. `unalias display all patients`
 * *Showing all existing shorthand commands / aliases* : `aliaslist`
