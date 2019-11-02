@@ -292,7 +292,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Updates the HintDisplay section of the UI with the {@code resultDisplayMessage} string.
+     * Updates the HintDisplay section of the UI with the {@code hintString}.
      */
     private void updateHintDisplay(String hintString) {
         modularDisplay.updateHint(hintString, modularDisplayPlaceholder);

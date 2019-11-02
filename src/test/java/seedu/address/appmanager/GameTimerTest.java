@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 
 import seedu.address.appmanager.timer.GameTimer;
 
+/**
+ * Test class for the GameTimer and its GameTimerManager implementation
+ *
+ * @author kohyida1997
+ */
 @ExtendWith(ApplicationExtension.class)
 public class GameTimerTest {
 

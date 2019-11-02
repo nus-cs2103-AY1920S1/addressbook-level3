@@ -11,27 +11,21 @@ import seedu.address.model.game.Game;
  */
 public class SkipCommand extends GameCommand {
     public static final String COMMAND_WORD = "skip";
+    public static final String MESSAGE_GAME_OVER = "GAME OVER!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.getGame() == null) {
-            return new CommandResult(MESSAGE_NO_ACTIVE_GAME);
+        if (model.gameIsOver()) {
+            throw new CommandException(MESSAGE_NO_ACTIVE_GAME);
         }
 
         Game game = model.getGame();
-        try {
-            Card curCard = game.getCurrCard();
-            // Skip current card, move to next card.
-            game.moveToNextCard();
-
-            String msg = game.isOver()
-                    ? "GAME OVER!"
-                    : game.getCurrQuestion();
-
-            return new SkipCommandResult(curCard, msg, game.isOver());
-        } catch (UnsupportedOperationException ue) {
-            throw new CommandException(ue.getMessage());
-        }
-
+        Card curCard = game.getCurrCard();
+        // Skip current card, move to next card.
+        game.moveToNextCard();
+        String msg = game.isOver()
+                ? MESSAGE_GAME_OVER
+                : game.getCurrQuestion();
+        return new SkipCommandResult(curCard, msg, game.isOver());
     }
 }

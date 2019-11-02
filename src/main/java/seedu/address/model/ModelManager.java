@@ -156,7 +156,7 @@ public class ModelManager implements Model {
 
     @Override
     public long getTimeAllowedPerQuestion() {
-        return this.game.getCurrentGameDifficulty().getTimeAllowedPerQuestion();
+        return this.game.getTimeAllowedPerQuestion();
     }
 
     @Override

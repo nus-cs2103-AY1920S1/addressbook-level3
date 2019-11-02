@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
- * Parses input arguments and creates a new GuessCommand object
+ * Parses input arguments and creates a new AvatarCommand object
  */
 public class AvatarCommandParser implements Parser<AvatarCommand> {
 

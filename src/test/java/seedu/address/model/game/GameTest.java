@@ -58,6 +58,16 @@ public class GameTest {
             new Game(wb, x -> Collections.shuffle(x), difficultyEnum);
         });
     }
+
+    @Test
+    public void nullCardShufflerPassedIntoConstructor_throwsNullPointerException() {
+        WordBank wb = new WordBank("empty");
+        DifficultyEnum difficultyEnum = DifficultyEnum.EASY;
+        assertThrows(NullPointerException.class, () -> {
+            new Game(wb, null, difficultyEnum);
+        });
+    }
+
     @Test
     public void moveToNextCard() {
         // HashMap that maps each card to the number of times it has been seen by the user.
@@ -211,6 +221,23 @@ public class GameTest {
         Game testGame = new Game(wb, x -> Collections.shuffle(x),
                 DifficultyEnum.EASY);
         assertEquals(DifficultyEnum.EASY, testGame.getCurrentGameDifficulty());
+    }
+
+    @Test
+    void getTimeAllowedPerQuestion() {
+        WordBankBuilder wordBankBuilder = new WordBankBuilder();
+        wordBankBuilder.withCard(ABRA);
+        wordBankBuilder.withCard(BUTTERFREE);
+        wordBankBuilder.withCard(CHARIZARD);
+        wordBankBuilder.withCard(DITTO);
+        wordBankBuilder.withCard(EEVEE);
+        WordBank wb = wordBankBuilder.build();
+
+        for (int i = 0; i < DifficultyEnum.values().length; i++) {
+            Game testGame = new Game(wb, x -> Collections.shuffle(x),
+                    DifficultyEnum.values()[i]);
+            assertEquals(DifficultyEnum.values()[i].getTimeAllowedPerQuestion(), testGame.getTimeAllowedPerQuestion());
+        }
     }
 
     @Test

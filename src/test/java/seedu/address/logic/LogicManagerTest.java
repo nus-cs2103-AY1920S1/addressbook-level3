@@ -61,6 +61,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
+        /** SHA-256 hash of "invalid command". */
         String invalidCommand = "8A1954FCC1065A01AE1A6F3527120EA90E3F4BDF262A4A0A0D41374572BEE66E";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
@@ -68,8 +69,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
+        /** SHA-256 hash of "invalid bank. */
+        String invalidBank = "B0C7AE034AB804B9EB28E787D4CB76761FAE47377CE81062647F2084F7EB2D79";
+
         String bankCommand =
-                "bank 88F5D9517A2CBA49A301C160429580888B5D500BCB017C75A1F510AE5D4247E7";
+                "bank " + invalidBank;
+
+        // Attempting to load a non-existent bank.
         assertCommandException(bankCommand, MESSAGE_INVALID_WORD_BANK_NAME);
     }
 
