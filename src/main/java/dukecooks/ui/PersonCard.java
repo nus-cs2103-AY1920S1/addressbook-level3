@@ -50,7 +50,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        dateOfBirth.setText(person.getDateOfBirth().dateOfBirth);
+        dateOfBirth.setText(person.getDateOfBirth().dateOfBirth.toString());
         gender.setText(person.getGender().gender);
         bloodGroup.setText(person.getBloodType().bloodGroup);
         weight.setText(String.valueOf(person.getWeight().weight) + "kg (last updated: "

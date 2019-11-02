@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
@@ -21,6 +22,7 @@
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
     </HBox>
+   <VBox prefHeight="200.0" prefWidth="100.0" />
     <rowConstraints>
         <RowConstraints />
     </rowConstraints>

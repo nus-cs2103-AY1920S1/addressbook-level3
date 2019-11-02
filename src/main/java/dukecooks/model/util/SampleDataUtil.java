@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import dukecooks.model.common.Name;
 import dukecooks.model.health.HealthRecords;
 import dukecooks.model.health.ReadOnlyHealthRecords;
 import dukecooks.model.health.components.Record;
@@ -20,6 +19,7 @@ import dukecooks.model.profile.person.BloodType;
 import dukecooks.model.profile.person.DoB;
 import dukecooks.model.profile.person.Gender;
 import dukecooks.model.profile.person.Height;
+import dukecooks.model.profile.person.Name;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.profile.person.Weight;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
@@ -129,7 +129,7 @@ public class SampleDataUtil {
                 new BloodType("A+"),
                 new Weight("70", "13/10/2019 1230"),
                 new Height("180", "13/10/2019 1230"),
-                getMedicalHistorySet("friends"))
+                getMedicalHistorySet("diabetes stage 2", "high blood pressure"))
         };
     }
 

@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import dukecooks.commons.util.CollectionUtil;
-import dukecooks.model.common.Name;
 import dukecooks.model.profile.medical.MedicalHistory;
 
 /**

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane prefHeight="150.0" prefWidth="200.0">
+        <children>
+            <ImageView fx:id="intensityImage" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../images/Sad-Boy-Walking-in-Sunset-HD-Wallpaper.jpg" />
+                </image>
+            </ImageView>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <Text fx:id="workoutName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" textAlignment="CENTER">
+                        <font>
+                            <Font name="Microsoft YaHei Light" size="40.0" />
+                        </font>
+                    </Text>
+                    <Text fx:id="noExercises" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="noExercise" textAlignment="CENTER">
+                        <font>
+                            <Font name="Microsoft YaHei Light" size="40.0" />
+                        </font>
+                    </Text>
+                    <Text fx:id="lastDone" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Done: None" textAlignment="CENTER">
+                        <font>
+                            <Font name="Microsoft YaHei Light" size="40.0" />
+                        </font>
+                    </Text>
+                </children>
+            </VBox>
+        </children>
+    </StackPane>
+</HBox>

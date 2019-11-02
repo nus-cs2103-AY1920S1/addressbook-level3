@@ -40,29 +40,34 @@ public class Dashboard {
         return taskCheck;
     }
 
-    public LocalDate getLocalDate() {
+    LocalDate getLocalDate() {
         TaskDate td = getTaskDate();
-        LocalDate ld = LocalDate.of(Integer.parseInt(td.year), Integer.parseInt(td.month), Integer.parseInt(td.day));
-        return ld;
+        return LocalDate.of(Integer.parseInt(td.year), Integer.parseInt(td.month), Integer.parseInt(td.day));
+    }
+
+    public boolean isValidDashboard() {
+        return true;
     }
 
     /**
-     * Returns true if both todos of the same todoName have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two todos.
+     * Returns true if both tasks of the same DashboardName have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two tasks.
      */
     public boolean isSameDashboard(Dashboard otherDashboard) {
+
         if (otherDashboard == this) {
             return true;
         }
 
         return otherDashboard != null
-                && otherDashboard.getDashboardName().equals(getDashboardName());
+                && otherDashboard.getDashboardName().equals(getDashboardName())
+                && otherDashboard.getTaskDate().toString().equals(getTaskDate().toString());
     }
 
 
     /**
-     * Returns true if both todos have the same identity and data fields.
-     * This defines a stronger notion of equality between two todos.
+     * Returns true if both dashboards have the same identity and data fields.
+     * This defines a stronger notion of equality between two dashboards.
      */
     @Override
     public boolean equals(Object other) {
@@ -87,11 +92,9 @@ public class Dashboard {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getDashboardName())
-                .append(" Date: ").append(getTaskDate())
-                .append(" Status: ").append(getTaskStatus());
-        return builder.toString();
+        return getDashboardName()
+                + " Date: " + getTaskDate()
+                + " Status: " + getTaskStatus();
     }
 
 }

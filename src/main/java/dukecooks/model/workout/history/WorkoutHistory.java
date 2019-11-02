@@ -56,6 +56,13 @@ public class WorkoutHistory {
         return previousRuns;
     }
 
+    /**
+     * Returns most newly added run.
+     */
+    public WorkoutRun getMostRecentRun() {
+        return previousRuns.get(previousRuns.size() - 1);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
