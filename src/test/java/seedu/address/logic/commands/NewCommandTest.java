@@ -23,9 +23,6 @@ public class NewCommandTest {
         // differ by auto, index = 1
         NewCommand nc4 = new NewCommand(new District(20), false, 1);
 
-        // everything same but create different draft
-        NewCommand nc5 = new NewCommand(new District(1), true, 0);
-
         // same object -> returns true
         assertTrue(nc1.equals(nc1));
 
