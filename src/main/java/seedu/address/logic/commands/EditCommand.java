@@ -82,7 +82,6 @@ public class EditCommand extends Command {
         }
         //TODO is there a more elegant way
         model.setEntry(entryToEdit, editedEntry);
-        System.out.println("ASDDD HELP");
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));

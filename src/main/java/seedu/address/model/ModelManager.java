@@ -336,8 +336,9 @@ public class ModelManager implements Model {
             //TODO
             Expense toEditEntry = new Expense(editedEntry.getCategory(), editedEntry.getDesc(), editedEntry.getDate(),
                     editedEntry.getAmount(), editedEntry.getTags());
-            Expense expenseToEdit = versionedAddressBook.getExpenseList().filtered(t -> t == target).get(0);
-            versionedAddressBook.setEntry(expenseToEdit, toEditEntry);
+            Entry entryToEdit = versionedAddressBook.getEntryList().get(versionedAddressBook.getEntryList().indexOf(target));
+            Expense expenseToEdit = versionedAddressBook.getExpenseList().get(versionedAddressBook.getExpenseList().indexOf(target));
+            versionedAddressBook.setEntry(entryToEdit, toEditEntry);
             versionedAddressBook.setExpense(expenseToEdit, toEditEntry);
             versionedAddressBook.updateBudgets(filteredExpenses);
             updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
