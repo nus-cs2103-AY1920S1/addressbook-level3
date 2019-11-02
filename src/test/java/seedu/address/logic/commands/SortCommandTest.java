@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalTransactions.getTypicalUnsortedUserState;
-import static seedu.address.testutil.TypicalTransactions.getTypicalUserState;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class SortCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalUserState(), new UserPrefs());
+        model = new ModelManager(getTypicalUnsortedUserState(), new UserPrefs());
         expectedSortedByAmountModel = new ModelManager(getTypicalUnsortedUserState(), new UserPrefs());
     }
 
@@ -34,8 +33,8 @@ public class SortCommandTest {
         AmountComparator amountComparator = new AmountComparator();
         List<BankAccountOperation> sortedTransactionHistory =
             expectedSortedByAmountModel.getBankAccount().getSortedTransactionHistory(amountComparator);
-        System.out.println(model.getBankAccount().getTransactionHistory());
-        System.out.println(sortedTransactionHistory);
+        expectedSortedByAmountModel.setTransactions(sortedTransactionHistory);
+        expectedSortedByAmountModel.commitUserState();
         assertCommandSuccess(new SortCommand(amountComparator), model,
             SortCommand.MESSAGE_SUCCESS, expectedSortedByAmountModel);
     }

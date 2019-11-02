@@ -1,5 +1,9 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,10 +12,6 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.ReceiveMoney;
 import seedu.address.model.util.Date;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link JsonAdaptedLedgerOperations}.
@@ -40,7 +40,7 @@ public class JsonAdaptedLedgerOperations {
         date = source.getDate().toString();
         amount = source.getAmount().toString();
         people.addAll(source.getPeopleInvolved().asUnmodifiableObservableList()
-                        .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+            .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
