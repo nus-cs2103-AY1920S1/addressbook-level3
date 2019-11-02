@@ -19,7 +19,7 @@ public class StartCommandTest {
 
     @Test
     public void execute_noFlashCards_success() {
-        Command startCommand = new StartCommand(keyboardFlashCardsParser);
+        Command startCommand = new StartCommand(keyboardFlashCardsParser, "");
         try {
             CommandResult result = startCommand.execute(model);
             assertEquals(StartCommand.MESSAGE_NO_FLASHCARDS, result.getFeedbackToUser());
@@ -45,7 +45,7 @@ public class StartCommandTest {
         // assertTrue/False is used instead of assertEquals/NotEquals to specifically test equals()
         // but please correct me if assertEquals is actually using the class equals method
 
-        Command noTag = new StartCommand(keyboardFlashCardsParser);
+        Command noTag = new StartCommand(keyboardFlashCardsParser, "");
         Command tag = new StartCommand(keyboardFlashCardsParser, "tag");
 
         // same object -> returns true
@@ -53,7 +53,7 @@ public class StartCommandTest {
         assertTrue(tag.equals(tag));
 
         // same values -> returns true
-        Command noTagCopy = new StartCommand(keyboardFlashCardsParser);
+        Command noTagCopy = new StartCommand(keyboardFlashCardsParser, "");
         Command tagCopy = new StartCommand(keyboardFlashCardsParser, "tag");
         assertTrue(noTag.equals(noTagCopy));
         assertTrue(tag.equals(tagCopy));
@@ -72,7 +72,7 @@ public class StartCommandTest {
         assertFalse(tag.equals(anotherTag));
 
         // different abp object
-        Command diffAbp = new StartCommand(new KeyboardFlashCardsParser());
+        Command diffAbp = new StartCommand(new KeyboardFlashCardsParser(), "");
         assertFalse(noTag.equals(diffAbp));
     }
 }
