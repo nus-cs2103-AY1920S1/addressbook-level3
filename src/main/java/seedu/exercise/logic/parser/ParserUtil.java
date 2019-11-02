@@ -334,8 +334,7 @@ public class ParserUtil {
     public static String parseSuggestType(String suggestType) throws ParseException {
         requireNonNull(suggestType);
         String trimmedSuggestType = suggestType.trim();
-        if (!trimmedSuggestType.equals(SUGGEST_TYPE_BASIC)
-            && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
+        if (!trimmedSuggestType.equals(SUGGEST_TYPE_BASIC) && !trimmedSuggestType.equals(SUGGEST_TYPE_POSSIBLE)) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_TYPE, "Suggest type", SUGGEST_TYPE_BASIC, SUGGEST_TYPE_POSSIBLE));
         }

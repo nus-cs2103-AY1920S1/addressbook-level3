@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.SuggestBasicCommand;
 import seedu.exercise.logic.commands.SuggestCommand;
 import seedu.exercise.logic.commands.SuggestPossibleCommand;
@@ -27,6 +29,7 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
 
     public static final String SUGGEST_TYPE_BASIC = "basic";
     public static final String SUGGEST_TYPE_POSSIBLE = "possible";
+    private static final Logger logger = LogsCenter.getLogger(SuggestCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the SuggestCommand
@@ -69,17 +72,34 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
      * Parses arguments and returns SuggestPossibleCommand for execution
      */
     private static SuggestCommand parsePossible(ArgumentMultimap argMultimap) throws ParseException {
-        if ((!argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE) || !argMultimap.getPreamble().isEmpty())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SuggestCommand.MESSAGE_USAGE));
-        }
-        boolean operationType = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
-
         Set<Muscle> muscles = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
         Map<String, String> customPropertiesMap =
                 ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
-        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, operationType);
+        int numberOfPredicateTags = getNumberOfPredicateTags(muscles, customPropertiesMap);
+
+        if (numberOfPredicateTags == 0) {
+            logger.info("Invalid suggest possible command - no predicate tags");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE));
+        }
+
+        if (numberOfPredicateTags > 1) {
+            if ((!argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE) || !argMultimap.getPreamble().isEmpty())) {
+                logger.info("Invalid suggest possible command - no operation type");
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE));
+            }
+        }
+
+        if (argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE)) {
+            boolean operationType = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
+            Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, operationType);
+            return new SuggestPossibleCommand(predicate);
+        }
+
+        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, true);
         return new SuggestPossibleCommand(predicate);
     }
 
+    private static int getNumberOfPredicateTags(Set<Muscle> muscles, Map<String, String> customPropertiesMap) {
+        return muscles.size() + customPropertiesMap.size();
+    }
 }

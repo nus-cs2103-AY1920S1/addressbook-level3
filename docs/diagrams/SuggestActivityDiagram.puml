@@ -2,22 +2,20 @@
 skinparam activityShape rectangle
 
 start
-:Entered suggest command;
-:check if suggest type is valid;
-if() then ([Valid suggest type])
+:Entered suggest possible command;
+:check for number of predicate tags;
+if() then ([num >= 1])
+    :check if operation type is valid;
+    if() then ([valid operation type])
+         :form predicate;
+         :filter exercise tracker and database;
+         :display list to user;
+    else ([invalid operation type])
+         :inform user input is invalid;
+          endif
+else ([else])
+    :inform user input is invalid;
 
-if() then ([suggest type == "basic"])
-    :updates list to show basic exercises;
-else ([suggest type == "possible"])
-    if() then ([valid arguments])
-        :Form predicate;
-        :updates list to show exercises with matching predicate;
-    else ([Invalid arguments])
-        :show invalid arguments message;
-    endif
-    endif
-else ([Invalid suggest type])
-    :show invalid suggest type message;
 endif
 -> Program resumes;
 stop

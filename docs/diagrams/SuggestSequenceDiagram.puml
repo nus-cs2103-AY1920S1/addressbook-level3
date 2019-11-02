@@ -5,6 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
 participant ":SuggestCommandParser" as SuggestCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "s:SuggestPossibleCommand" as SuggestPossibleCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -16,7 +17,7 @@ end box
 [-> LogicManager : execute("suggest s/possible m/Leg")
 activate LogicManager
 
-LogicManager -> ExerciseBookParser : parseCommand("suggest s/possible m/Leg")
+LogicManager -> ExerciseBookParser : parseCommand("suggest s/possible o/or m/Leg")
 activate ExerciseBookParser
 
 create SuggestCommandParser
@@ -26,11 +27,19 @@ activate SuggestCommandParser
 SuggestCommandParser --> ExerciseBookParser
 deactivate SuggestCommandParser
 
-ExerciseBookParser -> SuggestCommandParser : parse("s/possible m/Leg")
+ExerciseBookParser -> SuggestCommandParser : parse("s/possible o/or m/Leg")
 activate SuggestCommandParser
 
+SuggestCommandParser -> ParserUtil : parsePredicate(...)
+activate ParserUtil
+
+ref over ParserUtil : form predicate
+
+ParserUtil -> SuggestCommandParser : p
+deactivate ParserUtil
+
 create SuggestPossibleCommand
-SuggestCommandParser -> SuggestPossibleCommand : (muscles, customProperties)
+SuggestCommandParser -> SuggestPossibleCommand : new SuggestPossibleCommand(p)
 activate SuggestPossibleCommand
 
 SuggestPossibleCommand --> SuggestCommandParser : s
@@ -48,12 +57,6 @@ deactivate ExerciseBookParser
 
 LogicManager -> SuggestPossibleCommand : execute()
 activate SuggestPossibleCommand
-
-SuggestPossibleCommand --> SuggestPossibleCommand : getPredicate()
-activate SuggestPossibleCommand
-
-SuggestPossibleCommand --> SuggestPossibleCommand :p
-deactivate SuggestPossibleCommand
 
 SuggestPossibleCommand -> Model : updateSuggestedExerciseList(p)
 activate Model

@@ -1,5 +1,7 @@
 package seedu.exercise.logic.parser.predicate;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +18,7 @@ public class ExercisePredicate implements Predicate<Exercise> {
 
     @SafeVarargs
     public ExercisePredicate(boolean isStrict, BasePropertyPredicate... predicates) {
+        requireNonNull(predicates);
         this.isStrict = isStrict;
         this.predicates = Arrays.asList(predicates);
     }

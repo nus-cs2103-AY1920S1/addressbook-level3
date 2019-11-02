@@ -399,13 +399,22 @@ Format: `suggest s/possible o/OPERATION_TYPE [m/MUSCLE CUSTOM_PROPERTY_PREFIX_NA
 
 ****
 * You must choose one of the following operation type: `and`, `or`.
-* You have to enter at least one property (muscle/custom property) to search for suggestions.
+* i.e commands such as `suggest s/possible m/Chest m/Legs` will fail whereas `suggest s/possible o/or m/Chest m/Legs` will succeed.
 
+* You have to enter at least one property (muscle/custom property) to search for suggestions.
 * i.e commands such as
 `suggest s/possible o/and` and `suggest s/possible o/or` will both fail
-whereas `suggest s/possible o/or m/Chest` will not.
+whereas `suggest s/possible o/or m/Chest` will succeed.
+
+* The operation type is optional if there is only one tag provided
+* i.e commands such as
+`suggest s/possible o/and m/Chest`, `suggest s/possible o/or m/Chest` and `suggest s/possible m/Chest`
+will all achieve the same outcome -
+display all the exercises tagged with "Chest" in the exercise tracker and ExerHealth's database.
 ****
 ===== Based on matching custom properties
+
+Similar to matching muscles tags, you can search for suggestions with matching custom property tags.
 
 After creating <<customproperty, Custom Properties>> and tracking exercises,
 you can search for suggestions with those custom properties.
@@ -481,8 +490,8 @@ e.g. `schedule n/cardio d/19/9/2019`
 * *Resolve* : `resolve n/REGIME_TO_TAKE`
 e.g. `resolve n/cardio`
 * *Suggest basic* : `suggest s/basic`
-* *Suggest possible* : `suggest s/possible [m/MUSCLE]...`
-e.g. `suggest s/possible m/chest`
+* *Suggest possible* : `suggest s/possible [o/OPERATION_TYPE] [m/MUSCLE] [CUSTOM_PROPERTY_PREFIX_NAME/VALUE]`
+e.g. `suggest s/possible m/Chest`, `suggest s/possible o/and m/Chest m/Leg`
 * *Suggest intensity* : `suggest s/intensity i/INDEX`
 eg. `suggest s/intensity 1`
 * *Custom* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`

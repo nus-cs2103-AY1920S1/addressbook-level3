@@ -463,28 +463,43 @@ From the sequence diagram:
 
 2. `ExerciseBookParser` will receive `suggest` as the command type and instantiate `SuggestCommandParser` to further parse the command.
 
-3. `SuggestCommandParser` will receive `s/possible` as the suggest type and instantiate `SuggestPossibleCommand` with `muscles` and `customProperties` as constructor parameters.
+3. `SuggestCommandParser` will receive `s/possible` as the suggest type and calls the `parsePredicate` method of `ParserUtil`
+to parse the user input to create an `ExercisePredicate` object (named `p` in the diagram).
 
-4. The `SuggestPossibleCommand` object is then returned to `SuggestCommandParser`, `ExerciseBookParser` and lastly back to `LogicManager` to execute.
+4. `SuggestCommandParser` will instantiate `SuggestPossibleCommand` with the `ExercisePredicate` as the constructor parameter.
 
-5. `LogicManager` will proceed to call execute `SuggestPossibleCommand`.
+5. The `SuggestPossibleCommand` object is then returned to `SuggestCommandParser`, `ExerciseBookParser` and lastly back to `LogicManager` to execute.
 
-6. When `SuggestPossibleCommand` is executed, it calls a self invocated method, `getPredicate`, which is created based on the `targetMuscles` and `targetCustomProperties`.
+6. `LogicManager` will proceed to call execute `SuggestPossibleCommand`.
 
 7. `SuggestPossibleCommand` then calls the `updateSuggestedExerciseList` method in `ModelManager`, passing in the predicate to filter the list of suggest exercises.
 
 8. `SuggestPossibleCommand` creates a new `CommandResult` to be returned.
 
+In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper.
+
+image::SuggestSequencePredicateDiagram.png[]
+
+From the sequence diagram above:
+
+1. `ParserUtil` creates `ExerciseMusclePredicate` and `ExerciseCustomPropertyPredicate` with the input parameters.
+
+2. Since there were no CustomProperty tags to filter, `ParserUtil` creates `ExercisePredicate` with only the `musclesPredicate` and the boolean `isStrict`.
+
+3. The resulting `ExercisePredicate` is then returned to `ParserUtil` and then `SuggestCommandParser`.
+
+
 ==== Design Considerations
 ===== Aspect: Implementation of predicate creation
-* **Choice 1 (current choice): ** `SuggestPossibleCommand` to handle the predicates.
+* **Choice 1: ** `SuggestPossibleCommand` to handle the predicates.
 ** Pros:
-*** Easy to implement and understand. The class `SuggestPossibleCommand` contains the parsing and creation of the predicate all in one place.
+*** Easy to implement and understand. The class `SuggestPossibleCommand` contains the parsing and creation of the predicate
+all in one place as it stores the tags, and creates the predicate and filters the list of exercises.
 ** Cons:
 *** Violation of SRP as `SuggestPossibleCommand`, in addition to updating the model, has to create the predicate.
-* **Choice 2: ** Predicate Factory class to handles all predicates.
+* **Choice 2 (current choice): ** Predicate class to handle all predicates.
 ** Pros:
-*** Adheres to SRP and Separation of Concern (SoC).
+*** Adheres to Single Responsibility Principle (SRP) and Separation of Concern (SoC).
 ** Cons:
 *** May increase coupling because classes that use predicates have to depend on this class.
 

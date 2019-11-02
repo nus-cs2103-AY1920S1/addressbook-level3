@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+participant "SuggestCommandParser" as SuggestCommandParser LOGIC_COLOR
+participant "ParserUtil" as ParserUtil LOGIC_COLOR
+
+SuggestCommandParser -> ParserUtil : parsePredicate(muscles, customProperties, isStrict)
+
+group form predicate
+participant ":ExerciseMusclePredicate" as ExerciseMusclePredicate LOGIC_COLOR
+participant ":ExerciseCustomPropertyPredicate" as ExerciseCustomPropertyPredicate LOGIC_COLOR
+participant ":ExercisePredicate" as ExercisePredicate LOGIC_COLOR
+
+activate ParserUtil
+
+create ExerciseMusclePredicate
+ParserUtil -> ExerciseMusclePredicate
+activate ExerciseMusclePredicate
+
+ExerciseMusclePredicate -> ParserUtil : musclesPredicate
+deactivate ExerciseMusclePredicate
+
+create ExerciseCustomPropertyPredicate
+ParserUtil -> ExerciseCustomPropertyPredicate
+activate ExerciseCustomPropertyPredicate
+
+ExerciseCustomPropertyPredicate -> ParserUtil : customPropertyPredicate
+deactivate ExerciseCustomPropertyPredicate
+
+create ExercisePredicate
+ParserUtil -> ExercisePredicate : new ExercisePredicate(musclesPredicate, isStrict)
+activate ExercisePredicate
+ExercisePredicate -> ParserUtil : p
+deactivate ExercisePredicate
+
+
+end
+
+ParserUtil -> SuggestCommandParser : p
+deactivate ParserUtil
+
+@enduml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SuggestCommandParser" as SuggestCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("suggest s/possible m/Leg")
+activate LogicManager
+
+[<--LogicManager : result
+deactivate LogicManager
+
+
+group form predicate
+participant ":SuggestCommandParser" as SuggestCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":ExercisePredicate" as ExercisePredicate LOGIC_COLOR
+participant ":ExerciseMusclePredicate" as ExerciseMusclePredicate LOGIC_COLOR
+participant ":ExerciseCustomPropertyPredicate" as ExerciseCustomPropertyPredicate LOGIC_COLOR
+end

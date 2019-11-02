@@ -31,8 +31,9 @@ public class SuggestPossibleCommandParserTest {
     public void parsePossible_compulsoryFieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SuggestCommand.MESSAGE_USAGE);
 
-        //no operation type
-        assertParseFailure(parser, DESC_SUGGEST_TYPE_POSSIBLE + MUSCLE_DESC_AEROBICS, expectedMessage);
+        //no operation type for more than one predicate tag
+        assertParseFailure(parser, DESC_SUGGEST_TYPE_POSSIBLE + MUSCLE_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL,
+                expectedMessage);
     }
 
     @Test
@@ -47,6 +48,16 @@ public class SuggestPossibleCommandParserTest {
         assertParseSuccess(parser, DESC_SUGGEST_TYPE_POSSIBLE + DESC_OPERATION_TYPE_AND
             + MUSCLE_DESC_AEROBICS + MUSCLE_DESC_BASKETBALL,
             new SuggestPossibleCommand(exercisePredicateMuscleAdd));
+    }
+
+    @Test
+    public void parsePossible_optionalOperationTypeMissing_success() {
+        Set<Muscle> targetMuscles = new HashSet<>();
+        targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));
+        BasePropertyPredicate predicateOneMuscleAnd = predicateShowExercisesWithMuscle(targetMuscles, true);
+        Predicate<Exercise> exercisePredicateOneMuscleAnd = new ExercisePredicate(true, predicateOneMuscleAnd);
+        assertParseSuccess(parser, DESC_SUGGEST_TYPE_POSSIBLE + MUSCLE_DESC_AEROBICS,
+                new SuggestPossibleCommand(exercisePredicateOneMuscleAnd));
     }
 
     @Test
