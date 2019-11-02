@@ -564,82 +564,7 @@ edit the description, date, or tags of your wishes.
 Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
 
 Examples:
-=======
-Example: `addDateCondition 2019/03/01, 2019/11/01`
 
-==== Add HasKeyWordCondition: `addHasKeyWordCondition`
-Adds a HasKeyWordCondition. A HasKeyWordCondition is met when the description of an entry has any of the keywords specified.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addHasKeyWord <keywords>`
-
-Example: `addHasKeyWordCondition mala deck food`
-
-==== Add QuotaCondition: `addQuotaCondition`
-Adds a QuotaCondition. A QuotaCondition is met when the individual amount of an entry is above a specified amount.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addQuotaCondition <Quota>`
-
-Example: `addQuotaCondition 100`
-
-==== Add TagsCondition: `addHasTagsCondition`
-Adds a TagsCondition. A TagsCondition is met when the description of an entry has any of the Tags specified.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addHasTagsConditions <Tags>`
-
-Example: `addHasTagsCondition mala deck food`
-
-==== Delete Condition: `deleteCondition`
-Removes a Condition specified by the index.
-
-Format: `deleteCondition <Index>`
-
-Example: `deleteCondition 1`
-
-==== Replace Condition: `replaceCondition`
-Replaces one Condition with another. All Reminders with the replaced condition will now have the replacing condition.
-
-Format: `replaceCondtion <Index of Condition being Replaced>, <Index of Replacing Condition>`
-
-Example: `replaceCondition 1, 2`
-
-==== List Condition: `listCondition`
-Shows the list of Conditions. Conditions are listed in the Reminder Panel.
-(subjected to changes)
-
-Format: `listConditions`
-
-Example: `listConditions`
-
-=== WishList
-
-==== Add WishList : `addWishlist`
-Adds a new item to your current wishlist
-
-Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
-
-Examples:
-
-* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
-* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
-
-==== Delete WishList : `deleteWish`
-Deletes the item at the stated index from your current wishlist
-
-Format: `deleteWish <index>`
-
-Examples: `deleteWishlist 3`
-
-==== Edit Wish in WishList : `editWish`
-edit the description, date, or tags of your wishes.
-
-Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<Tag>]`
-
-Examples:
-
->>>>>>> b706ef81ade0dcab497d86d3db18e8be1c1d010d
 * `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
 * `editWishlist 1 amt/20 tag/mala tag/expensive`
 
@@ -685,10 +610,6 @@ Examples:
 ==== Search WishList : `findWish`
 Search wishlist for items containing keyword in their description +
 Format: `findWish <keyword>`
-<<<<<<< HEAD
-=======
-
->>>>>>> b706ef81ade0dcab497d86d3db18e8be1c1d010d
 Examples:
 
 * `findWish mala`
@@ -700,12 +621,7 @@ Format: `purchase <index>`
 
 Example: `purchase 1`
 
-<<<<<<< HEAD
-
-=== Undo/ Redo
-=======
 === Undo/Redo
->>>>>>> 128a8d4c382f46bb05d364d8326d09081e671db5
 ==== Undo previous command : `undo`
 Restores the finance tracker to the state before the previous undoable command was executed.
 
