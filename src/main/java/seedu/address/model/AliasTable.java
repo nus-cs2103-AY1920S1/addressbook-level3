@@ -37,7 +37,7 @@ public class AliasTable {
         // match for the longest alias
         for (String key: aliasTable.keySet()) {
             if (key.length() > maxLength && commandText.matches(Pattern.quote(key) + "($|\\s).*")) {
-                aliasedCommand = commandText.replace(key, aliasTable.get(key));
+                aliasedCommand = commandText.replaceFirst(key, aliasTable.get(key));
                 maxLength = key.length();
             }
         }
