@@ -32,6 +32,8 @@ public class RemoveTagCommand extends TagCommand {
 
     public static final String MESSAGE_RM_TAG_SUCCESS = "Removed tag(s) from Expense: %1$s";
 
+    public static final String MESSAGE_RM_TAG_FAILURE = "No tag(s) removed";
+
     private final Index index;
     private List<String> tagNames;
 
@@ -57,7 +59,12 @@ public class RemoveTagCommand extends TagCommand {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
 
         Set<Tag> currentTags = expenseToEdit.getTags();
-        Set<Tag> tagsToRemove = removeNotInExpense(currentTags, tagNames);
+        Set<Tag> tagsToRemove = getExisting(currentTags, tagNames);
+
+        if (tagsToRemove.isEmpty()) {
+            return new CommandResult(MESSAGE_RM_TAG_FAILURE);
+        }
+
         Set<Tag> editedTags = getEditedTags(currentTags, tagsToRemove);
         model.decreaseCount(tagsToRemove);
 
@@ -65,7 +72,6 @@ public class RemoveTagCommand extends TagCommand {
                 expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
 
         model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
 
         return new CommandResult(String.format(MESSAGE_RM_TAG_SUCCESS, editedExpense));
     }
@@ -76,7 +82,7 @@ public class RemoveTagCommand extends TagCommand {
      * @param inputNames    of tags input by user.
      * @return unmodifiable set consisting of tags whose names exist in existing set of tags.
      */
-    private Set<Tag> removeNotInExpense(Set<Tag> existingTags, List<String> inputNames) {
+    private Set<Tag> getExisting(Set<Tag> existingTags, List<String> inputNames) {
         requireAllNonNull(existingTags, inputNames);
         Set<Tag> toReturn = new HashSet<>();
         for (Tag tag : existingTags) {

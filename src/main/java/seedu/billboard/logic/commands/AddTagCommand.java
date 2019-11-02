@@ -31,6 +31,7 @@ public class AddTagCommand extends TagCommand {
             + PREFIX_TAG + "SCHOOL";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: \n%1$s";
+
     public static final String MESSAGE_ADD_TAG_FAILURE = "No tag(s) added";
 
     private final Index index;
