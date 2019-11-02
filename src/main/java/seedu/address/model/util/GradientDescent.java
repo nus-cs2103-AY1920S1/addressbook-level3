@@ -1,11 +1,9 @@
 package seedu.address.model.util;
 
-import org.apache.commons.math3.exception.MathArithmeticException;
-
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
-import static java.util.stream.DoubleStream.of;
+import org.apache.commons.math3.exception.MathArithmeticException;
 
 /**
  * A utility class for performing gradient descent for linear regression
@@ -64,7 +62,8 @@ public final class GradientDescent {
         this.minOutput = DoubleStream.of(actualValues).min().orElseThrow(MathArithmeticException::new);
         this.maxOutput = DoubleStream.of(actualValues).max().orElseThrow(MathArithmeticException::new);
         this.outputRange = maxOutput - minOutput;
-        IntStream.range(0, numInputs).forEach(i -> this.actualValues[i] = (this.actualValues[i] - outputMean) / outputRange);
+        IntStream.range(0, numInputs).forEach(i ->
+                this.actualValues[i] = (this.actualValues[i] - outputMean) / outputRange);
     }
 
     /**
@@ -82,6 +81,10 @@ public final class GradientDescent {
         } while((Math.abs(delta0) > TOLERANCE || Math.abs(delta1) > TOLERANCE) && iterations <= MAX_ITERATIONS);
     }
 
+    /**
+     * @param theta the "independent" variable
+     * @return The (partial) derivative of the sum of costs for values of theta
+     */
     private double deriveTheta(int theta) {
         double cost = 0.0;
         if (theta == 0) {
@@ -96,10 +99,18 @@ public final class GradientDescent {
         return (1.0 / numInputs) * cost;
     }
 
+    /**
+     * @param input An independent variable found in the training data
+     * @return A prediction on the dependent variable based on current values of {@code theta0} and {@code theta1}
+     */
     private double computeHypothesis(double input) {
         return theta0 + theta1 * input;
     }
 
+    /**
+     * @param input An independent variable specified by the user
+     * @return A prediction on the dependent variable based on the final values of {@code theta0} and {@code theta1}
+     */
     public double predict(double input) {
         this.variable = input;
         this.minData = Math.min(minData, input);

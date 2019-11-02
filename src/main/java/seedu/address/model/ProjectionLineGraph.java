@@ -1,26 +1,23 @@
 package seedu.address.model;
 
-import javafx.geometry.Insets;
+import java.util.stream.IntStream;
+
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import seedu.address.model.util.GradientDescent;
 
-import javax.sound.sampled.Line;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
+/**
+ * JavaFX class for rendering the projection line + scatter plot graph
+ */
 public class ProjectionLineGraph extends Stage {
 
-    GradientDescent gradientDescent;
+    private GradientDescent gradientDescent;
 
     public ProjectionLineGraph(Projection projection) {
 
@@ -45,26 +42,25 @@ public class ProjectionLineGraph extends Stage {
         yAxis.setUpperBound((gradientDescent.getMaxOutput() / yUnit + 1) * yUnit);
 
         //creating the chart
-        final ScatterChart<Number,Number> dataPlot = new ScatterChart<>(xAxis,yAxis);
+        final ScatterChart<Number, Number> dataPlot = new ScatterChart<>(xAxis, yAxis);
         dataPlot.setLegendVisible(false);
 
         final LineChart<Number, Number> projectionLine = new LineChart<>(xAxis, yAxis);
         projectionLine.setLegendVisible(false);
         projectionLine.setCreateSymbols(true);
-//        projectionLine.setAlternativeRowFillVisible(false);
-//        projectionLine.setAlternativeColumnFillVisible(false);
         projectionLine.setHorizontalGridLinesVisible(false);
         projectionLine.setVerticalGridLinesVisible(false);
         projectionLine.getXAxis().setVisible(false);
         projectionLine.getYAxis().setVisible(false);
-        projectionLine.setTitle(String.format("User Balance Projection over %.0f days", gradientDescent.getDataRange()));
+        projectionLine.setTitle(String.format("Balance Projection over %.0f days", gradientDescent.getDataRange()));
         projectionLine.getStylesheets().addAll(getClass().getResource("/view/chart.css").toExternalForm());
 
         //defining a series
         XYChart.Series dataSeries = new XYChart.Series();
         dataSeries.setName("Actual Balance");
         IntStream.range(0, gradientDescent.getNumInputs()).forEach(x ->
-                dataSeries.getData().add(new XYChart.Data(gradientDescent.getInputData(x), gradientDescent.getActualValue(x)))
+                dataSeries.getData().add(new XYChart.Data(gradientDescent.getInputData(x),
+                        gradientDescent.getActualValue(x)))
         );
 
         XYChart.Series projectionSeries = new XYChart.Series();
@@ -76,7 +72,7 @@ public class ProjectionLineGraph extends Stage {
         projectionLine.getData().add(projectionSeries);
         StackPane chart = new StackPane();
         chart.getChildren().addAll(dataPlot, projectionLine);
-        Scene scene  = new Scene(chart,800,700);
+        Scene scene = new Scene(chart, 800, 700);
         this.setScene(scene);
     }
 }
