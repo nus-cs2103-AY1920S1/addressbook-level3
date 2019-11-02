@@ -9,7 +9,7 @@ import seedu.deliverymans.model.Model;
 /**
  * Assigns an order to a deliveryman
  */
-public class AssignCommand extends Command {
+public class DeliverymanAssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

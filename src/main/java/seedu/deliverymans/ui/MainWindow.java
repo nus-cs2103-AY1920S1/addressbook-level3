@@ -135,7 +135,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCustomerDatabaseFilePath()); // to be edited
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getOrderBookFilePath()); // to be edited
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -192,7 +192,6 @@ public class MainWindow extends UiPart<Stage> {
         editingRestaurantPlaceholder.setPrefHeight(0);
         editingRestaurantPlaceholder.setMinHeight(0);
 
-
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
@@ -247,17 +246,20 @@ public class MainWindow extends UiPart<Stage> {
             orderListPanel = new OrderListPanel(customer.getOrders());
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
             break;
-        case "StatusSwitchCommand":
+        case "DeliverymanStatusSwitchCommand":
             deliverymanListPanel = new DeliverymanListPanel(logic.getFilteredDeliverymenList());
             listPanelPlaceholder.getChildren().add(deliverymanListPanel.getRoot());
             statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
             break;
-        case "GetStatisticsCommand":
+        case "DeliverymanGetStatisticsCommand":
             deliverymenStatusStatisticsPanel = new DeliverymenStatusStatisticsPanel(logic.getAvailableDeliverymenList(),
                     logic.getUnavailableDeliverymenList(), logic.getDeliveringDeliverymenList());
             statisticsPlaceholder.getChildren().add(deliverymenStatusStatisticsPanel.getRoot());
             break;
-        case "EnterRecordCommand":
+        case "DeliverymanListStatusCommand":
+            statisticsPlaceholder.getChildren().add(deliverymenStatusListPanel.getRoot());
+            break;
+        case "DeliverymanEnterRecordCommand":
             DeliveryRecord record = new DeliveryRecord(new Name("Charles"));
             deliverymanRecordCard = new DeliverymanRecordCard(record);
             statisticsDisplay = new StatisticsDisplay();

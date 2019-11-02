@@ -18,7 +18,7 @@ import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeExcept
 /**
  * Changes the status of a deliveryman from AVAILABLE to UNAVAILABLE or UNAVAILABLE to AVAILABLE
  */
-public class StatusSwitchCommand extends Command {
+public class DeliverymanStatusSwitchCommand extends Command {
     public static final String COMMAND_WORD = "status";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the status of the deliveryman identified "
@@ -32,7 +32,7 @@ public class StatusSwitchCommand extends Command {
 
     private final Index targetIndex;
 
-    public StatusSwitchCommand(Index targetIndex) {
+    public DeliverymanStatusSwitchCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -55,13 +55,13 @@ public class StatusSwitchCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_CHANGE_STATUS_SUCCESS, deliverymanToEdit),
-                StatusSwitchCommand.class);
+                DeliverymanStatusSwitchCommand.class);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof StatusSwitchCommand // instanceof handles nulls
-                && targetIndex.equals(((StatusSwitchCommand) other).targetIndex)); // state check
+                || (other instanceof DeliverymanStatusSwitchCommand // instanceof handles nulls
+                && targetIndex.equals(((DeliverymanStatusSwitchCommand) other).targetIndex)); // state check
     }
 }

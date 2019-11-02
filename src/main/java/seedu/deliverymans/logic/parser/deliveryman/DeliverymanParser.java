@@ -7,15 +7,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
-import seedu.deliverymans.logic.commands.deliveryman.AddCommand;
-import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
-import seedu.deliverymans.logic.commands.deliveryman.DeleteCommand;
-import seedu.deliverymans.logic.commands.deliveryman.EditCommand;
-import seedu.deliverymans.logic.commands.deliveryman.EnterRecordCommand;
-import seedu.deliverymans.logic.commands.deliveryman.GetStatisticsCommand;
-import seedu.deliverymans.logic.commands.deliveryman.ListAvailCommand;
-import seedu.deliverymans.logic.commands.deliveryman.ListStatusCommand;
-import seedu.deliverymans.logic.commands.deliveryman.StatusSwitchCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAddCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAssignCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanDeleteCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEditCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEnterRecordCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanGetStatisticsCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanListStatusCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanStatusSwitchCommand;
 import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 
@@ -46,31 +45,28 @@ public class DeliverymanParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
+        case DeliverymanAddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-        case AssignCommand.COMMAND_WORD:
+        case DeliverymanAssignCommand.COMMAND_WORD:
             return new AssignCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeliverymanDeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case DeliverymanEditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
-        case GetStatisticsCommand.COMMAND_WORD:
-            return new GetStatisticsCommand();
+        case DeliverymanGetStatisticsCommand.COMMAND_WORD:
+            return new DeliverymanGetStatisticsCommand();
 
-        case ListStatusCommand.COMMAND_WORD:
-            return new ListStatusCommand();
+        case DeliverymanListStatusCommand.COMMAND_WORD:
+            return new DeliverymanListStatusCommand();
 
-        case ListAvailCommand.COMMAND_WORD:
-            return new ListAvailCommand();
-
-        case EnterRecordCommand.COMMAND_WORD:
+        case DeliverymanEnterRecordCommand.COMMAND_WORD:
             return new EnterRecordCommandParser().parse(arguments);
 
-        case StatusSwitchCommand.COMMAND_WORD:
+        case DeliverymanStatusSwitchCommand.COMMAND_WORD:
             return new StatusSwitchCommandParser().parse(arguments);
 
         default:

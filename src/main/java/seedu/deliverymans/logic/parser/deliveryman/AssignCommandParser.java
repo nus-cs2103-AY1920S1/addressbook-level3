@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.deliverymans.logic.commands.deliveryman.AssignCommand;
+import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAssignCommand;
 import seedu.deliverymans.logic.parser.Parser;
 import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -14,7 +14,7 @@ import seedu.deliverymans.model.Tag;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
-public class AssignCommandParser implements Parser<AssignCommand> {
+public class AssignCommandParser implements Parser<DeliverymanAssignCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -22,7 +22,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AssignCommand parse(String args) throws ParseException {
+    public DeliverymanAssignCommand parse(String args) throws ParseException {
         /* Put imports back if necessary when uncommenting this
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -65,7 +65,7 @@ import seedu.deliverymans.logic.parser.ArgumentTokenizer;
         }
          */
 
-        return new AssignCommand();
+        return new DeliverymanAssignCommand();
     }
 
     /**

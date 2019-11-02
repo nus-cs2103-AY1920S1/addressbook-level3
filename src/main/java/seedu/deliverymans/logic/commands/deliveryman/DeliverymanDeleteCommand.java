@@ -12,25 +12,24 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 
 /**
- * Views the delivery record of a deliveryman.
+ * Deletes a deliveryman identified using it's displayed index from the deliverymen book.
  */
-public class EnterRecordCommand extends Command {
-    public static final String COMMAND_WORD = "enter";
+public class DeliverymanDeleteCommand extends Command {
+
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows the delivery record of the deliveryman identified "
-            + "by the index number used in the displayed deliverymen database.\n "
+            + ": Deletes the deliveryman identified by the index number used in the displayed deliveryman list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_ENTER_RECORD_SUCCESS = "Entered the delivery record of deliveryman: %1$s ";
+    public static final String MESSAGE_DELETE_DELIVERYMAN_SUCCESS = "Deleted Deliveryman: %1$s";
 
     private final Index targetIndex;
 
-    public EnterRecordCommand(Index targetIndex) {
+    public DeliverymanDeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -43,18 +42,15 @@ public class EnterRecordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DELIVERYMAN_DISPLAYED_INDEX);
         }
 
-        Deliveryman deliverymanToView = lastShownList.get(targetIndex.getZeroBased());
-        DeliveryRecord targetRecord = model.getDeliverymanRecord(deliverymanToView);
-        model.setToShowDeliverymanRecord(targetRecord);
-
-        return new CommandResult(String.format(MESSAGE_ENTER_RECORD_SUCCESS, deliverymanToView),
-                EnterRecordCommand.class);
+        Deliveryman deliverymanToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteDeliveryman(deliverymanToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_DELIVERYMAN_SUCCESS, deliverymanToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EnterRecordCommand // instanceof handles nulls
-                && targetIndex.equals(((EnterRecordCommand) other).targetIndex)); // state check
+                || (other instanceof DeliverymanDeleteCommand // instanceof handles nulls
+                && targetIndex.equals(((DeliverymanDeleteCommand) other).targetIndex)); // state check
     }
 }

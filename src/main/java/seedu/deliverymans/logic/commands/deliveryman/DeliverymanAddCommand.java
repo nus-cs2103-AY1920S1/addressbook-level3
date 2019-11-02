@@ -15,7 +15,7 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
  * Adds a deliveryman to the deliveryman book.
  * User must be in deliveryman context to use this command.
  */
-public class AddCommand extends Command {
+public class DeliverymanAddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
@@ -34,9 +34,9 @@ public class AddCommand extends Command {
     private final Deliveryman toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Deliveryman}
+     * Creates a DeliverymanAddCommand to add the specified {@code Deliveryman}
      */
-    public AddCommand(Deliveryman deliveryman) {
+    public DeliverymanAddCommand(Deliveryman deliveryman) {
         requireNonNull(deliveryman);
         toAdd = deliveryman;
     }
@@ -56,8 +56,8 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles null
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof DeliverymanAddCommand // instanceof handles null
+                && toAdd.equals(((DeliverymanAddCommand) other).toAdd));
     }
 
 }

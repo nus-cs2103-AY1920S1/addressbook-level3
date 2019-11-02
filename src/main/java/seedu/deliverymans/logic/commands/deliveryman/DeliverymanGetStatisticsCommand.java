@@ -9,29 +9,26 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 
 /**
- * Lists all the deliverymen based on their current statuses.
+ * (to be added)
  */
-public class ListStatusCommand extends Command {
-    public static final String COMMAND_WORD = "statuses";
+public class DeliverymanGetStatisticsCommand extends Command {
+    public static final String COMMAND_WORD = "stats";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the 3 status lists of deliverymen "
-            + "in the order: AVAILABLE, DELIVERING, UNAVAILABLE from left to right.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the statistics of deliverymen statuses.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Listed the available, delivering and unavailable deliverymen";
+    public static final String MESSAGE_LIST_SUCCESS = "Displayed statistics of deliverymen statuses";
 
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
         requireNonNull(model);
 
-        //model.;
-
-        return new CommandResult(MESSAGE_SUCCESS, ListStatusCommand.class);
+        return new CommandResult(MESSAGE_LIST_SUCCESS, DeliverymanGetStatisticsCommand.class);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ListStatusCommand); // instanceof handles nulls
+                || (other instanceof DeliverymanGetStatisticsCommand); // instanceof handles nulls
     }
 }
