@@ -18,12 +18,21 @@ It has >10k LOC.
 == Summary of contributions
 
 * *Major enhancement*: added the debt simplification algorithm.
-** What it does: It simplifies all debts.
+** What it does: It simplifies all debts optimally in each activity.
 ** Justification: This is the core feature, and the main point of the entire application.
-** Highlights: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group.
+** Details: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/101[#101] 
 ** Credits: https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[This paper].
 
+* *Major enhancement*: Update bindings for every command to mesh with the algorithm.
+** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110] 
+
+* *Major enhancement*: Added persistent internal state for primary key tracking.
+** What it does: It keeps track of important variables across startups of the application.
+** Justification: We require a unique identifier for every person and activity. This enables the tracking of who is in what activity easily. In essence, it is an ID for everthing. 
+** Details: However this ID record for every object has to persist so that we don't end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104[#104]
+
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53[#53]
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=podocarp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Contribution info].
 
@@ -37,11 +46,11 @@ It has >10k LOC.
 
 == Contributions to the User Guide
 
-
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+* https://ay1920s1-cs2103t-w11-2.github.io/main/UserGuide.html#powerusers[Extra abilities]
 
 == Contributions to the Developer Guide
 
@@ -49,7 +58,7 @@ It has >10k LOC.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../UserGuide.adoc[tag=algorithm]
+* https://ay1920s1-cs2103t-w11-2.github.io/main/DeveloperGuide.html#debt-simplification-algorithm[Simplification Algorithm Implementation Details]
 
 ---
 
