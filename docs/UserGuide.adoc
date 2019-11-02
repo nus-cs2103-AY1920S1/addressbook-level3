@@ -51,6 +51,12 @@ There is no need to save manually - you don't have to worry about forgetting to 
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 
+=== Simplify debts automatically
+
+SplitWiser has a fast and effective algorithm to simplify all debts that you add.
+It handles huge groups (hundreds!) and all their expenses with ease!
+No need receipt-collecting and number-crunching anymore -- SplitWiser does it all, and more!
+
 [[Commands]]
 == Commands
 ====
@@ -314,7 +320,7 @@ This is for good reason!
 It preserves accountability and transparency.
 
 You can however forcibly delete an expense by editing the `data/activitybook.json` file if you so incline.
-Before anything, find out the `ID` of the expense that you wish to remove (this is different from the `#`index shown on the right of the GUI).
+Before anything, find out the `ID` of the expense that you wish to remove (this is different from the `#` index shown on the right of the GUI).
 Ensure the application is closed, then find the activity in question in the `json`, and edit the `expenses` field as you wish.
 
 After restarting you will see that the expense is permanantly removed from the activity.
@@ -330,7 +336,7 @@ If a contact is involved in an expense, he/she cannot be removed.
 ____
 
 To forcibly remove a contact from an activity, you will have to edit `data/activitybook.json`.
-Before anything, find out the `ID` of the person that you wish to remove (this is different from the `#`index shown on the right of the GUI).
+Before anything, find out the `ID` of the person that you wish to remove (this is different from the `#` index shown on the right of the GUI).
 You should also be extremely sure that the contact is not involved in any other activities or expenses.
 Ensure the application is closed, then find the activity in question in the `json`, and edit the `participants` field as you wish.
 
