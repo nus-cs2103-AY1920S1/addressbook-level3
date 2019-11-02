@@ -11,6 +11,7 @@ import seedu.address.ui.UiManager;
 /**
  * Sorts the current list in normal order
  */
+//@@author {lawncegoh}
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";

@@ -9,6 +9,7 @@ import seedu.address.model.View;
 /**
  * Parses input arguments and creates a new GotoCommand object
  */
+//@@author {lawncegoh}
 public class GotoCommandParser implements Parser<GotoCommand> {
 
     /**

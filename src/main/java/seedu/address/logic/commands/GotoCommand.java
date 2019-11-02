@@ -13,6 +13,7 @@ import seedu.address.model.View;
 /**
  * Lists all persons in the address book to the user.
  */
+//@@author {lawncegoh}
 public class GotoCommand extends Command {
 
     public static final String COMMAND_WORD = "goto";

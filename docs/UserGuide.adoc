@@ -16,12 +16,13 @@ endif::[]
 
 By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
+//@@author {lawncegoh}
 == Introduction
 
 FinSec is a Financial Planner that helps the finance secretaries of any department in NUS, preferably from the School of Computing so that they would be more likely to like the idea of having a CLI app.
 The app focuses on the tracking of claims that will help the While FinSec has a Graphical User Interface (GUI), its main form of input is Command Line Interface (CLI) based, thus favoring people who can type fast. Starting using it now and enjoy!
 
-
+//@@author {lawncegoh}
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -35,8 +36,8 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`add_contact`**`n/John Doe p/98765432` : adds a contact named John Doe to FinSec.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`add_contact`**`n/John Doe p/98765432 e/john@example.com` : adds a contact named John Doe to FinSec.
+* **`delete_contact`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -92,18 +93,28 @@ image::UG-HelpExample.PNG[width="800"]
 
 === Changing Views : `goto`
 
-Changes the displayed list to show Contacts, Claims or Income +
+This command changes the displayed list to show Contacts, Claims or Incomes. Such a command allows users to switch
+between the 3 lists easily. This feature has also been enhanced with the addition of tabs below the Command Result panel.
+These tabs give the same functionality as this goto feature so users can choose to type or click on the tabs. +
+
+<<UG-GotoExample>> shows the command result panel after the `goto contacts` command has been entered
+as well as the tabs that are below this panel.
+[[UG-GotoExample]]
+[reftext="Figure 3.2.1"]
+[caption="Figure 3.2.1: "]
+.FinSec giving a brief description of the `goto` command
+image::UG-GotoExample.png[width="800"]
 
 Keyword: `goto` +
 
-Additional Parameters: claims, contacts, income +
+Additional Parameters: claims, contacts, incomes +
 
 Format: `goto (parameter)`
 
 Example:
 `goto contacts`
 `goto claims`
-`goto income`
+`goto incomes`
 
 === Adding a person `add_contact`
 
@@ -416,7 +427,7 @@ Result:
 
 The shortcut is now no longer available for use.
 
-
+//@@author {lawncegoh}
 === Checking a Person or Claim : `check`
 
 Displays the details of the Person or Claim
@@ -431,12 +442,12 @@ Examples:
 * check 1 (in contacts page, show details of the person in index 1)
 * check 2 (in claims page, show details of the claim in index 2)
 ****
-
+//@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list by Contact's Name
 
-Sorts the various lists according to the contact's name in lexicographical order. The command
-is the same in all 3 lists and the objects are sorted based on the contact's name. In claims, it
-is the person who made the claim. In income, it is the entity who provided the income.
+This feature sorts the various lists according to the contact's name in lexicographical order. The command
+is the same in all 3 lists and the objects are sorted based on the contact's name. In Claims, it
+is the description of the claim. In Incomes, it is the entity who provided the income.
 
 Keyword: `sort name`
 
@@ -444,10 +455,10 @@ Format: `sort name`
 
 Examples:
 * `sort name`
-
+//@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list by Date
 
-Sorts the various lists according to the date from the oldest to newest entry.
+This feature sorts the various lists according to the date from the oldest to newest entry.
 
 Keyword: `sort date`
 
@@ -455,10 +466,10 @@ Format: `sort date`
 
 Examples:
 * `sort date`
-
+//@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order
 
-Sorts the various lists according to the contact's name in reverse lexicographical order. This command
+This feature sorts the various lists according to the contact's name in reverse lexicographical order. This command
 is not applicable in the contacts page.
 
 Keyword: `reverse name`
@@ -468,10 +479,10 @@ Format: `reverse name`
 Examples:
 
 * `reverse date`
-
+//@@author {lawncegoh}
 === Sorting the Contacts/Claims/Incomes list in reverse order by Date
 
-Sorts the various lists according to the date from the newest to oldest entry. This command is not
+This feature sorts the various lists according to the date from the newest to oldest entry. This command is not
 applicable in the contacts' page
 
 Keyword: `reverse date`
@@ -484,7 +495,7 @@ Examples:
 
 === Deleting a Contact : `delete_contact`
 
-Deletes a Person from the contact list
+Deletes a Contact from the contact list
 
 Keyword: `delete_contact`
 

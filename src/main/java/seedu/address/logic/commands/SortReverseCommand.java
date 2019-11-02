@@ -11,6 +11,7 @@ import seedu.address.ui.UiManager;
 /**
  * Sorts the current list in reverse order
  */
+//@@author {lawncegoh}
 public class SortReverseCommand extends Command {
 
     public static final String COMMAND_WORD = "reverse";
