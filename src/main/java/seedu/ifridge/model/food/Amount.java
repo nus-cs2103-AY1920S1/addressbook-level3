@@ -69,8 +69,14 @@ public class Amount {
      */
     public Amount(String amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_INVALID_AMOUNT);;
-        fullAmt = amount;
+        checkArgument(isValidAmount(amount), MESSAGE_INVALID_AMOUNT);
+
+        m = p.matcher(amount);
+        m.find();
+        String value = m.group(1);
+        String unit = m.group(3);
+
+        fullAmt = value.trim() + unit.trim();
     }
 
     /**
