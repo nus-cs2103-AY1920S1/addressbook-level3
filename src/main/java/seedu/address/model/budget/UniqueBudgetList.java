@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.exceptions.BudgetNotFoundException;
 import seedu.address.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.address.model.budget.exceptions.DuplicateBudgetException;
-import seedu.address.model.budget.exceptions.NotPastPeriodException;
+import seedu.address.model.budget.exceptions.SwitchToFuturePeriodException;
 import seedu.address.model.expense.Description;
 import seedu.address.model.expense.Timestamp;
 
@@ -134,10 +134,13 @@ public class UniqueBudgetList implements Iterable<Budget> {
      */
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireAllNonNull(pastDate);
+        Budget currentPeriod = Budget.deepCopy(getPrimaryBudget());
+        currentPeriod.normalize(Timestamp.getCurrentTimestamp());
 
-        if (pastDate.dateIsAfter(getPrimaryBudget().getStartDate().minusDays(1))) {
-            throw new NotPastPeriodException();
+        if (pastDate.dateIsAfter(currentPeriod.getEndDate())) {
+            throw new SwitchToFuturePeriodException();
         }
+
         Budget copy = Budget.deepCopy(getPrimaryBudget());
         copy.normalize(pastDate);
         //copy.updateProportionUsed();
@@ -169,7 +172,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
      */
     public void remove(Budget toRemove) {
         requireNonNull(toRemove);
-        if (toRemove.isSameBudget(getDefaultBudget())) {
+        if (toRemove.isDefaultBudget()) {
             throw new DeleteDefaultBudgetException();
         }
         if (!internalList.remove(toRemove)) {
