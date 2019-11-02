@@ -49,7 +49,8 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
                     .parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editTransactionDescriptor.setAmount(ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            editTransactionDescriptor.setAmount(ParserUtil.parsePositiveAmount(argMultimap
+                    .getValue(PREFIX_AMOUNT).get()));
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             editTransactionDescriptor.setCategory(ParserUtil
