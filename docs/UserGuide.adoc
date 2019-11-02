@@ -371,8 +371,11 @@ NOTE: The format for Note fragment content is 'C/', not 'c/', and the format for
     Expected output:
     New note added:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
+
+* This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
+"highlighted" and two tags "cs2100" and "important".
 
 * Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
 
@@ -391,7 +394,7 @@ Deletes the note of index `NOTE_INDEX`.
     Expected output:
     Deleted note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Viewing a note: `view`
@@ -407,7 +410,7 @@ NOTE: To view the note with its note fragment tags, use the `viewraw` command in
     Expected output:
     Viewing note:
         Title: About
-        Content: Notes can be highlighted if needed
+        Content: Notes can be highlighted if needed.
         Tags: [about]
 
 === Viewing a raw note: `viewraw`
@@ -421,7 +424,7 @@ Views the note of index `NOTE_INDEX`. The note is shown exactly as written, incl
     Expected output:
     Viewing raw note:
         Title: About
-        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed
+        Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
         Tags: [about]
 
 === Listing notes: `list`
