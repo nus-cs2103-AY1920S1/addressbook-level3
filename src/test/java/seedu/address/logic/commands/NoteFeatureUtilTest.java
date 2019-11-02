@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.NoteFragment;
 import seedu.address.model.note.Title;
 
-public class NoteFragmentFeatureUtilTest {
+public class NoteFeatureUtilTest {
     private static final String VALID_TITLE = "Valid title";
     private static final String VALID_CONTENT = "Valid content";
     private static final String INVALID_NOTE_FRAGMENT = "Invalid note fragment";
@@ -27,19 +27,19 @@ public class NoteFragmentFeatureUtilTest {
     @Test
     public void parseNoteFragmentMatches_stringWithOneMatch_returnsListWithOneNoteFragment() throws Exception {
         List<String> expectedList = List.of(VALID_NOTE_1_FRAGMENT_1);
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_1));
+        assertEquals(expectedList, NoteFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_1));
     }
 
     @Test
     public void parseNoteFragmentMatches_stringWithMultipleMatches_returnsListWithMultipleStrings()
             throws Exception {
         List<String> expectedList = List.of(VALID_NOTE_2_FRAGMENT_1, VALID_NOTE_2_FRAGMENT_2, VALID_NOTE_2_FRAGMENT_3);
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_2));
+        assertEquals(expectedList, NoteFeatureUtil.parseNoteFragmentMatches(VALID_NOTE_2));
     }
 
     @Test
     public void parseNoteFragmentMatches_stringWithNoMatches_returnsEmptyList() throws Exception {
-        assertEquals(Collections.emptyList(), NoteFragmentFeatureUtil.parseNoteFragmentMatches(INVALID_NOTE_FRAGMENT));
+        assertEquals(Collections.emptyList(), NoteFeatureUtil.parseNoteFragmentMatches(INVALID_NOTE_FRAGMENT));
     }
 
     /*@Test
@@ -65,14 +65,14 @@ public class NoteFragmentFeatureUtilTest {
     @Test
     public void parseNoteFragmentsFromString_emptyList_returnsEmptyList() throws Exception {
         List<NoteFragment> expectedList = Collections.emptyList();
-        assertEquals(expectedList, NoteFragmentFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
+        assertEquals(expectedList, NoteFeatureUtil.parseNoteFragmentsFromString(new Title(VALID_TITLE),
                 Collections.emptyList()));
     }
 
     @Test
     public void parseNoteFragmentsFromString_listWithInvalidString_throwsParseException() {
         List<String> actualList = List.of(INVALID_NOTE_FRAGMENT);
-        assertThrows(ParseException.class, () -> NoteFragmentFeatureUtil
+        assertThrows(ParseException.class, () -> NoteFeatureUtil
                 .parseNoteFragmentsFromString(new Title(VALID_TITLE), actualList));
     }
 }
