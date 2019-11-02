@@ -156,7 +156,18 @@ public class MainWindow extends UiPart<Stage> {
                     setTextDefault();
                     if (logic.isSystemToggle()) {
                         Platform.runLater(() -> {
-                            resultDisplay.setFeedbackToUser(PriorityCommand.PRIORITY_MODE_OFF);
+                            String feedback;
+                            switch (logic.getExitStatus()) {
+                            case PRIORITY_TIMEOUT: feedback = PriorityCommand.TIME_OUT;
+                                    break;
+                            case ALL_TASK_COMPLETED: feedback = PriorityCommand.FINISHED_ALL_TASKS;
+                                    break;
+                            default:
+                                // will never reach here as there are only two cases
+                                feedback = "";
+                            }
+
+                            resultDisplay.setFeedbackToUser(feedback);
                             updatePanels();
                         });
                     }
