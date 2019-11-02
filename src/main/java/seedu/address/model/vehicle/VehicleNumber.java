@@ -49,13 +49,22 @@ public class VehicleNumber {
             vehicleNumbers.add(vNum);
         }
     }
+
     /**
-     * Checks if vehicle number already exsits.
+     * Deletes from the list of unique vehicle numbers.
+     * @param vNum is vehicle number to be deleted.
+     */
+    public static void deleteVehicleNumber(String vNum) {
+        vehicleNumbers.remove(vNum);
+    }
+
+    /**
+     * Checks if vehicle number already exists.
      * @param vNum
      * @return
      */
     public static boolean isDuplicateVNum(String vNum) {
-        if (vehicleNumbers.contains(vNum)) {
+        if (vehicleNumbers.contains(vNum.toUpperCase())) {
             return true;
         }
         return false;

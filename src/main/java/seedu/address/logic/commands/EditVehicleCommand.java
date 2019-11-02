@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AVAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VEHICLES;
 
@@ -33,18 +32,15 @@ public class EditVehicleCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "VEHICLE DISTRICT] "
             + "[" + PREFIX_VTYPE + "VEHICLE NUMBER] "
-            + "[" + PREFIX_VNUM + "VEHICLE TYPE] "
             + "[" + PREFIX_AVAIL + "AVAILABILITY]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DISTRICT + "2 "
-            + PREFIX_VTYPE + "Ambulance "
-            + PREFIX_VNUM + "5903S ";
+            + PREFIX_VTYPE + "Ambulance ";
 
 
-    public static final String MESSAGE_DUPLICATE_VEHICLE = "This vehicle already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_VEHICLE = "This vehicle already exists in the IMS.";
     public static final String MESSAGE_EDIT_VEHICLE_SUCCESS = "Edited Vehicle: %1$s";
     public static final String MESSAGE_VEHICLE_NOT_EDITED = "No new fields were provided, vehicle is not edited.";
-
     private final Index index;
     private final EditVehicle editVehicle;
 
@@ -76,7 +72,7 @@ public class EditVehicleCommand extends Command {
                 && editedVehicle.getAvailability().equals(vehicleToEdit.getAvailability())) {
             throw new CommandException(MESSAGE_VEHICLE_NOT_EDITED);
         }
-        VehicleNumber.addVehicleNumber(editedVehicle.getVehicleNumber().toString());
+
         model.setVehicle(vehicleToEdit, editedVehicle);
         model.updateFilteredVehicleList(PREDICATE_SHOW_ALL_VEHICLES);
         return new CommandResult(String.format(MESSAGE_EDIT_VEHICLE_SUCCESS, editedVehicle));
@@ -89,10 +85,9 @@ public class EditVehicleCommand extends Command {
     public Vehicle createEditedVehicle(Vehicle vehicleToEdit, EditVehicle editDetails) {
         assert vehicleToEdit != null;
         District vehicleDistrict = editDetails.getVehicleDistrict().orElse(vehicleToEdit.getDistrict());
-        VehicleNumber vehicleNumber = editDetails.getVehicleNumber().orElse(vehicleToEdit.getVehicleNumber());
         VehicleType vehicleType = editDetails.getVehicleType().orElse(vehicleToEdit.getVehicleType());
         Availability vehicleAvailability = editDetails.getVehicleAvailability().orElse(vehicleToEdit.getAvailability());
-
+        VehicleNumber vehicleNumber = vehicleToEdit.getVehicleNumber();
         return new Vehicle(vehicleType, vehicleNumber, vehicleDistrict, vehicleAvailability);
     }
 
@@ -102,7 +97,6 @@ public class EditVehicleCommand extends Command {
      */
     public static class EditVehicle {
         private VehicleType vehicleType;
-        private VehicleNumber vehicleNumber;
         private District vehicleDistrict;
         private Availability vehicleAvailability;
 
@@ -112,7 +106,6 @@ public class EditVehicleCommand extends Command {
         public EditVehicle(EditVehicle copy) {
             this.vehicleDistrict = copy.vehicleDistrict;
             this.vehicleType = copy.vehicleType;
-            this.vehicleNumber = copy.vehicleNumber;
             this.vehicleAvailability = copy.vehicleAvailability;
         }
 
@@ -122,14 +115,6 @@ public class EditVehicleCommand extends Command {
 
         public Optional<VehicleType> getVehicleType() {
             return Optional.ofNullable(this.vehicleType);
-        }
-
-        public void setVehicleNumber(VehicleNumber vn) {
-            this.vehicleNumber = vn;
-        }
-
-        public Optional<VehicleNumber> getVehicleNumber() {
-            return Optional.ofNullable(this.vehicleNumber);
         }
 
         public void setVehicleDistrict(District d) {
@@ -159,8 +144,7 @@ public class EditVehicleCommand extends Command {
             }
 
             EditVehicle e = (EditVehicle) other;
-            return e.vehicleNumber.equals(this.vehicleNumber)
-                    && e.vehicleType.equals(this.vehicleType)
+            return e.vehicleType.equals(this.vehicleType)
                     && e.vehicleDistrict.equals(this.vehicleDistrict);
         }
     }

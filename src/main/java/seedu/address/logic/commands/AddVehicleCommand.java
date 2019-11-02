@@ -6,10 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DISTRICT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VNUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VTYPE;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.Vehicle;
+import seedu.address.model.vehicle.VehicleNumber;
 
 /**
  * Adds a vehicle to the IMS.
@@ -45,7 +47,11 @@ public class AddVehicleCommand extends Command {
         if (model.hasVehicle(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_VEHICLE);
         }
+        if (VehicleNumber.isDuplicateVNum(toAdd.getVehicleNumber().toString())) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_VEHICLE_NUMBER);
+        }
 
+        VehicleNumber.addVehicleNumber(toAdd.getVehicleNumber().toString());
         model.addVehicle(toAdd);
         return new CommandResult(String.format(MESSAGE_ADD_VEHICLE_SUCCESS, toAdd));
     }
