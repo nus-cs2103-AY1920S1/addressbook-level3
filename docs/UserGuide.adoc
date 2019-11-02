@@ -68,6 +68,10 @@ Format: `login u/USERNAME w/PASSWORD`
 [NOTE]
 The only commands available prior to login are `Register`, `Login`, `Help`, and `Exit`.
 
+Example:
+
+* `login u/Agent01 w/password`
+
 === Logging out: `logout`
 
 Logs the user out of the IMS and closes the user's session. +

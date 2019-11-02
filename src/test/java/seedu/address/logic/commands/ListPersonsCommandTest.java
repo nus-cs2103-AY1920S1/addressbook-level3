@@ -55,7 +55,7 @@ public class ListPersonsCommandTest {
         // null -> returns false
         assertFalse(listFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different tags -> returns false
         assertFalse(listFirstCommand.equals(listSecondCommand));
     }
 
