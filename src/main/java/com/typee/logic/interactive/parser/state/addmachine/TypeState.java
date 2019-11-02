@@ -4,7 +4,9 @@ import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYP
 
 import java.util.Map;
 
+import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
 public class TypeState implements State {
@@ -12,23 +14,25 @@ public class TypeState implements State {
     private static final String MESSAGE_CONSTRAINTS = "The engagement should be an appointment,"
             + " meeting or interview.";
 
-    Map<String, String> arguments;
+    ArgumentMultimap argumentMultimap;
 
-    public TypeState(Map<String, String> arguments) {
-        this.arguments = arguments;
+    public TypeState(ArgumentMultimap argumentMultimap) {
+        this.argumentMultimap = argumentMultimap;
     }
 
+    /*
     @Override
     public void processInput(String commandText) throws IllegalArgumentException {
         if (isValid(commandText)) {
-            arguments.put(PREFIX_ENGAGEMENT_TYPE.getPrefix(), commandText);
+            argumentMultimap.put(PREFIX_ENGAGEMENT_TYPE, commandText);
         } else {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
     }
+     */
 
     @Override
-    public State transition(Map<String, String> arguments) {
+    public State transition(ArgumentMultimap argumentMultimap) {
         return
     }
 
