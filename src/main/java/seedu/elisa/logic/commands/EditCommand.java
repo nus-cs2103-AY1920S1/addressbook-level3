@@ -87,7 +87,6 @@ public class EditCommand extends UndoableCommand {
         }
 
         model.editItem(oldItem, editedItem);
-      
         if (!isExecuted()) {
             model.getElisaCommandHistory().clearRedo();
             setExecuted(true);
