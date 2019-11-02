@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.activity.Activity;
 
@@ -10,21 +9,10 @@ import seedu.address.model.activity.Activity;
  * An UI component that displays information of an {@code Activity}.
  */
 public class ActivityCard extends UiPart<Region> {
-
     private static final String FXML = "ActivityCard.fxml";
-
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
 
     public final Activity activity;
 
-    @FXML
-    private HBox cardPane;
     @FXML
     private Label index;
     @FXML
@@ -39,9 +27,10 @@ public class ActivityCard extends UiPart<Region> {
         this.activity = activity;
         id.setText("ID: " + activity.getPrimaryKey());
         index.setText("#" + displayedIndex);
-        title.setText(activity.getTitle().title);
-        int numParticipants = activity.getParticipantIds().size() + 1;
-        participantCount.setText(numParticipants + (numParticipants > 1 ? " participants" : " participant"));
+        title.setText(activity.getTitle().toString());
+
+        int numParticipants = activity.getParticipantIds().size();
+        participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
     }
 
     @Override

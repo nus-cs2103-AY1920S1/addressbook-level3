@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane styleClass="person-details-pane" fx:id="detailsPane" fitToWidth="true" fitToHeight="true"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox styleClass="details-container">
+    <GridPane styleClass="person-details" HBox.hgrow="NEVER" hgap="8">
+      <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" prefWidth="120" />
+        <ColumnConstraints hgrow="SOMETIMES" />
+      </columnConstraints>
+      <VBox styleClass="image-container" alignment="CENTER" minHeight="120" GridPane.columnIndex="0">
+        <ImageView fx:id="profilePic" styleClass="person-details-image"
+            fitHeight="100" pickOnBounds="true" preserveRatio="true">
+          <Image url="@../images/person-placeholder.png" backgroundLoading="true"/>
+        </ImageView>
+      </VBox>
+      <VBox fx:id="detailsView" styleClass="data-container" alignment="CENTER" GridPane.columnIndex="1">
+        <Label fx:id="name" text="\$friend" styleClass="person-name" wrapText="true" />
+        <FlowPane alignment="CENTER" fx:id="tags" styleClass="tag-list" />
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="person-phone-container" spacing="6">
+          <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/phone-icon.png" backgroundLoading="true"/>
+          </ImageView>
+          <Label fx:id="phone" text="\$phone" styleClass="person-phone" wrapText="true" />
+        </HBox>
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="person-address-container" spacing="6">
+          <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/address-icon.png" backgroundLoading="true" />
+          </ImageView>
+          <Label fx:id="address" text="\$address" styleClass="person-address" wrapText="true" />
+        </HBox>
+        <HBox alignment="CENTER" HBox.hgrow="ALWAYS" styleClass="person-email-container" spacing="6">
+          <ImageView fitHeight="20" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/email-icon.png" backgroundLoading="true"/>
+          </ImageView>
+          <Label fx:id="email" text="\$email" styleClass="person-email" wrapText="true" />
+        </HBox>
+      </VBox>
+    </GridPane>
+    <VBox alignment="TOP_CENTER" spacing="4" styleClass="history-container" VBox.Vgrow="ALWAYS">
+      <Label alignment="CENTER" styleClass="activity-history-header" text="Activity history"
+          wrapText="true" minWidth="450" maxWidth="450" />
+      <VBox alignment="TOP_CENTER" spacing="4" fx:id="activityHistory" VBox.vgrow="SOMETIMES"
+          minWidth="450" maxWidth="450" styleClass="activity-history" />
+    </VBox>
+  </VBox>
+</ScrollPane>

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
 import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,8 +37,10 @@ public class AddCommandIntegrationTest {
                 model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addPerson(validPerson);
 
+        Context newContext = new Context(validPerson);
+        expectedModel.setContext(newContext);
         assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel, newContext);
     }
 
     @Test

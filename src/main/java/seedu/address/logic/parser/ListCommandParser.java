@@ -34,6 +34,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         if (argMultimap.getValue(PREFIX_ACTIVITY).isPresent()) {
             return new ListCommand(CommandSubType.ACTIVITY);
         } else {
+            assert argMultimap.getValue(PREFIX_CONTACT).isPresent();
             return new ListCommand(CommandSubType.CONTACT);
         }
     }

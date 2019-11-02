@@ -243,6 +243,70 @@ Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an
 ** Pros: Easy to implement. Low possibility of bugs.
 ** Cons: Significantly decreases usability of the application.
 
+// tag::algorithm[]
+=== Debt simplification algorithm
+The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
+
+We can gurantee the removal of all needless payments.
+The amount of money each person has to hand is minimized.
+We are unable to minimize the number of transactions made.
+The paper gives an overview of that problem and why it is NP-complete (subset-sum).
+
+==== Operation details
+The amounts each person owes to another is represented by a graph in an adjacency matrix.
+The algorithm represents the payments to be made as a matrix.
+There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.
+Also note that the matrices are necesarrily skew-symmetric: for example if A owes B $10, then B owes A $-10.
+
+To rephrase our gurantee in this context will be: we want to minimize weights.
+We do not care about the number of edges.
+Certainly we do not mean each person repeatedly pays out $1, $1, $1!
+Our idea of "minimum weights" refer to the total amount someone has to handle.
+
+The lower bound for the amount someone has to handle is the balance.
+We create a balance sheeet for the users which is expanded as people enter the activity.
+Each expense added, the algorithm retrieves from it:
+* who is involved,
+* who paid,
+* how much has been paid,
+splits everything correctly, and updates all the data structures appropriately.
+
+Someone's balance is positive if he received more than he owes.
+Then, a negative balance indicates them lending more than they received.
+The algorithm simply finds any two people whose balances have opposing signs.
+It is unimportant what is the magnitude of their balances (we do not need to take them in any order).
+What then happens is then the person with the smallest magnitude of balance neutralizes his balance by paying or being paid by the other party.
+The algorithm terminates when all balances are 0.
+
+==== Proof of optimality
+This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".
+
+In essence what we are constructing is a bipartite graph.
+The algorithm never allows someone who owes to be paid, or someone who is owed to pay even more.
+Hence we can classify all nodes into those with leaving edges (payers) and those with entering edges (payee).
+
+In a bipartite graph the amount each person handles is minimized.
+To see why, we have to keep in mind that the algorithm always neutralizes one of the parties' balance.
+That is to say, we will not be left with the case where someone who could pay off all his debts "overpaying".
+In such a case, someone will then have to pay him back, which means it is no longer bipartite.
+
+==== Time and Space complexity
+We take O(N^2) space and O(N) time.
+Updating of the balance sheet and matrices by the expense command is performed in O(1) time.
+
+==== Design Considerations
+
+===== Aspect: Precision
+
+* **Alternative 1 (current choice):** Just use `double`.
+** *Pros*: Easy, straightforward, good enough.
+** *Cons*: Floating point precision might stack up.
+** *Reason for choice*: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.
+
+* **Alternative 2:** Implement a `Rational` class for rational numbers.
+** Pros: Guranteed precision.
+** Cons: Seems overkill and needlessly over-engineered.
+
 === List feature
 
 The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
@@ -281,8 +345,8 @@ image::ViewSequenceDiagram.png[]
 ** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
 
 // tag::invitedisinvite[]
-=== [Proposed] Invite/Disinvite feature
-==== Proposed Implementation
+=== Invite/Disinvite feature
+==== Implementation
 
 The invite/disinvite mechanism is facilitated by `Activity`.
 It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operations:
@@ -296,9 +360,9 @@ Given below is an example usage scenario and how the invite/disinvite mechanism 
 
 Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
 
-Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast in the activity book.
+Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast with `David` as the sole participant which is stored in the `activityList`.
 
-Step 3. The user executes `invite p/Louis ...` to invite more people into the current activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The activityList will then be modified which is stored in the ActivityBook.
+Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The `activityList` will then be modified with the newly invited participants which is then stored in the `ActivityBook`.
 
 The following sequence diagram shows how the invite operation works:
 
@@ -306,23 +370,26 @@ image::InviteSequenceDiagram.png[]
 
 NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity and decides to remove that person by executing the `disinvite` command.
+Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Therefore, it is perfectly fine to remove that person from the activity since he does not owe money to anyone and no one else owes him money.
+Hence the user decides to remove that person by executing the `disinvite` command.
 
-Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The activityList will then be modified due to a change in participants which is stored in the ActivityBook.
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The `activityList` will then be modified due to a change in participants which is then stored in the `ActivityBook`.
 
-The following sequence diagram shows how the disinvite operation works:
+NOTE: The sequence diagram for the disinvite operation is omitted as it is similar to the invite operation.
 
-image::DisinviteSequenceDiagram.png[]
+The following activity diagram summarizes what happens when a user executes an invite command:
 
-NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+image::InviteActivityDiagram.png[]
+
+NOTE: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
 
 ==== Design Considerations
 
 ===== Aspect: How invite & disinvite executes
 
 * **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
-** Pros: More user-friendly.
-** Cons: Harder to implement.
+** Pros: More user-friendly. Users do not have to keep specifying which activity to invite the participants to each time an invite command is made.
+** Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.
 
 * **Alternative 2:** Invite/disinvite based on user specifying the activity number.
 ** Pros: Easy to implement.
@@ -330,12 +397,13 @@ NOTE: The lifeline for `DisinviteCommand` should end at the destroy marker (X) b
 
 ===== Aspect: Data structure to support the invite/disinvite commands
 
-* **Alternative 1 (current choice):** Use a list to store the participants ID in the activity instead of participants.
+* **Alternative 1 (current choice):** Use a list to store the participants' ID in the activity instead of participants.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Have to find particular participant that matches the ID specified.
-* **Alternative 2:** Use list to store participants.
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Harder to implement, might form same person object from the json file if not implemented properly.
+
+* **Alternative 2:** Use list to store participants instead of ID
+** Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
+** Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.
 // end::invitedisinvite[]
 
 // tag::undoredo[]

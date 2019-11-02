@@ -411,7 +411,15 @@ public class ActivityTest {
         editedLunch = new ActivityBuilder(lunch).addPerson(TypicalPersons.ALICE).build();
         assertFalse(lunch.equals(editedLunch));
 
-        //TODO: Different expenses -> returns false;
+        // TODO: Different expenses -> returns false
     }
 
+    @Test
+    public void hashCode_sameActivityValues_hashCodeIsCorrect() {
+        Activity breakfast = TypicalActivities.BREAKFAST;
+        Activity breakfastCopy = new ActivityBuilder(breakfast).build();
+
+        // activities with same values -> returns true
+        assertEquals(breakfast.hashCode(), breakfastCopy.hashCode());
+    }
 }

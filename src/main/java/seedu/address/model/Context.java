@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.model.activity.Activity;
@@ -18,7 +19,7 @@ public class Context {
     /**
      * Default constructor where context type is MAIN.
      */
-    Context() {
+    public Context() {
         this.object = Optional.empty();
         this.type = ContextType.MAIN;
     }
@@ -40,7 +41,7 @@ public class Context {
     /**
      * Constructor for a VIEW_CONTACT context.
      */
-    Context(Person person) {
+    public Context(Person person) {
         requireNonNull(person);
         object = Optional.ofNullable(person);
         type = ContextType.VIEW_CONTACT;
@@ -70,6 +71,11 @@ public class Context {
 
     public Optional<Person> getContact() {
         return object.filter(x -> type == ContextType.VIEW_CONTACT).map(x->(Person) x);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, object);
     }
 
     @Override

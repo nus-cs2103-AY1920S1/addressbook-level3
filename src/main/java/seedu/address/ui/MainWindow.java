@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -12,6 +15,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
@@ -30,8 +34,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ListPanel<Person> personListPanel;
-    private ListPanel<Activity> activityListPanel;
+    private PersonListPanel personListPanel;
+    private ActivityListPanel activityListPanel;
+    private PersonDetailsPanel personDetailsPanel;
+    private ActivityDetailsPanel activityDetailsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -80,8 +86,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the containers of this window.
      */
     void fillInnerParts() {
-        personListPanel = new ListPanel<Person>(logic.getFilteredPersonList());
-        activityListPanel = new ListPanel<Activity>(logic.getFilteredActivityList());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
 
         // Show contacts by default
         contentContainer.getChildren().add(personListPanel.getRoot());
@@ -141,26 +147,43 @@ public class MainWindow extends UiPart<Stage> {
      * {@code ContextType}.
      * @param newContext the {@code ContextType} of the updated GUI view
      */
-    private void contextSwitch(ContextType newContext) {
+    private void contextSwitch(Context newContext) {
+        requireNonNull(newContext);
+
         contentContainer.getChildren().clear();
 
-        switch (newContext) {
+        ContextType newContextType = newContext.getType();
+
+        switch (newContextType) {
         case LIST_ACTIVITY:
+            activityListPanel.refreshView();
             contentContainer.getChildren().add(activityListPanel.getRoot());
             break;
         case LIST_CONTACT:
             contentContainer.getChildren().add(personListPanel.getRoot());
+            break;
+        case VIEW_CONTACT:
+            Person viewedContact = newContext.getContact().get();
+            List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+            personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
+            contentContainer.getChildren().add(personDetailsPanel.getRoot());
+            break;
+        case VIEW_ACTIVITY:
+            Activity viewedActivity = newContext.getActivity().get();
+            List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+            activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
+            contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;
         default:
             // Do nothing (leave content container empty)
         }
     }
 
-    public ListPanel<Person> getPersonListPanel() {
+    public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
 
-    public ListPanel<Activity> getActivityListPanel() {
+    public ActivityListPanel getActivityListPanel() {
         return activityListPanel;
     }
 
@@ -183,7 +206,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            Optional<ContextType> newContext = commandResult.getUpdatedContext();
+            Optional<Context> newContext = commandResult.getUpdatedContext();
             if (newContext.isPresent()) {
                 logger.info("Updated context: " + newContext.get().toString());
                 contextSwitch(newContext.get());

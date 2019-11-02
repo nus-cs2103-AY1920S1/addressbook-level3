@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -59,5 +60,20 @@ public class ContextTest {
 
         // same ContextType but different Person -> returns false
         assertFalse(viewPersonContext.equals(new Context(TypicalPersons.BENSON)));
+    }
+
+    @Test
+    public void hashcode() {
+        Context listContext = Context.newListActivityContext();
+        Context viewContext = new Context(TypicalPersons.ALICE);
+
+        // same Context values -> returns same hashcode
+        assertEquals(listContext.hashCode(), Context.newListActivityContext().hashCode());
+        assertEquals(viewContext.hashCode(), new Context(TypicalPersons.ALICE).hashCode());
+
+        // different Context values -> returns different hashcodes
+        assertNotEquals(listContext.hashCode(), Context.newListContactContext().hashCode());
+        assertNotEquals(viewContext.hashCode(), new Context(TypicalPersons.AMY).hashCode());
+        assertNotEquals(listContext.hashCode(), viewContext.hashCode());
     }
 }

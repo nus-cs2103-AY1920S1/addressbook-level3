@@ -52,6 +52,7 @@
 
 .content-display, .card-list {
     /* Suppress blue focus ring for result display */
+    -fx-background-color: transparent;
     -fx-focus-color: transparent;
     -fx-background-insets: 1, 1, 1, 1;
     -fx-border-color: #c0c0c0;
@@ -66,6 +67,10 @@
     -fx-highlight-fill: lightblue;
 }
 
+/*
+ *  ================ LIST CARD COMPONENTS ================
+ */
+
 .person-card, .activity-card {
     -fx-padding: 8;
     -fx-background-color: transparent;
@@ -79,7 +84,6 @@
 }
 
 .person-card .person-phone {
-    -fx-padding: 2 0 0 0;
     -fx-font-size: 15px;
 }
 
@@ -97,6 +101,7 @@
 }
 
 .tag-list {
+    -fx-padding: 0 0 2 0;
     -fx-hgap: 5;
     -fx-vgap: 3;
 }
@@ -111,6 +116,173 @@
     -fx-font-weight: bold;
     -fx-text-fill: #e0e0e0;
 }
+
+/*
+ *  ================ DISPLAY PANEL COMPONENTS ================
+ */
+
+.details-container {
+    /* Suppress blue focus ring for result display */
+    -fx-background-color: #dbdbdb;
+    -fx-focus-color: transparent;
+}
+
+.person-details, .activity-details,
+.history-container .expense-history {
+    /* Add horizontal divider to visually separate details of contact from activity listings */
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 0%, #dbdbdb, #ababab, #dbdbdb);
+    -fx-border-width: 0 0 2px 0;
+}
+
+.person-details .data-container, .activity-details .data-container {
+    -fx-padding: 8 8 8 4;
+}
+
+.person-details .image-container, .activity-details .image-container {
+    /* Add internal padding */
+    -fx-padding: 8 4 8 16;
+}
+
+.person-details .person-name, .activity-details .activity-title {
+    -fx-font-family: "Noto Sans CJK SC Black", "Segoe UI", sans-serif;
+    -fx-font-weight: bolder;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.person-details .tag-list, .activity-details .activity-title,
+.activity-details .activity-participant-count-container,
+.activity-details .participant-list, .history-container .expense-history {
+    -fx-padding: 0 0 4 0;
+}
+
+.person-details .person-phone-container {
+    -fx-padding: 0 0 2 0;
+}
+
+.person-details .person-phone, .activity-details .activity-spending  {
+    -fx-font-size: 18px;
+    -fx-text-alignment: center;
+}
+
+.person-details .person-address, .person-details .person-email,
+.activity-details .activity-participant-count {
+    -fx-font-size: 15px;
+    -fx-text-alignment: center;
+}
+
+.history-container, .transfers-container {
+    -fx-padding: 4 2 0 2;
+    -fx-alignment: center;
+}
+
+.history-container .activity-history {
+    -fx-padding: 0 0 8 0;
+}
+
+.history-container .activity-history-header, .history-container .expense-history-header,
+.transfers-container .activity-transfers-header {
+    -fx-padding: 2 8 2 8;
+    -fx-background-color: #cbcbcb;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 1px;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+}
+
+.activity-history-card, .expense-card, .transfer-card {
+    -fx-padding: 4 0 4 0;
+    -fx-border-color: #c0c0c0;
+    -fx-border-radius: 1px;
+    -fx-border-width: 2px;
+    -fx-background-color: transparent;
+}
+
+.activity-history-card .image-container {
+    -fx-padding: 5;
+}
+
+.activity-history-card .details-container, .expense-card .amount-container,
+.expense-card .details-container {
+    -fx-padding: 2 5 2 5;
+}
+
+.activity-history-card .activity-title, .expense-card .expense-description {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-text-alignment: center;
+}
+
+.activity-history-card .activity-transfer-amt {
+    -fx-font-size: 15px;
+}
+
+.activity-details .participant-list,
+.expense-card .expense-sharing-list {
+    -fx-hgap: 4;
+    -fx-vgap: 4;
+}
+
+.activity-details .participant-list .label,
+.expense-card .expense-sharing-list .label,
+.transfer-card .transfer-from, .transfer-card .transfer-to {
+    -fx-background-color: royalblue;
+    -fx-padding: 2 4 2 4;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 12px;
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.expense-card .expense-amount {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.expense-card .expense-sharing-list .label,
+.transfer-card .transfer-from {
+    -fx-background-color: maroon;
+    -fx-font-size: 10px;
+}
+
+.expense-card .expense-sharing-list .expense-owner,
+.transfer-card .transfer-to {
+    -fx-background-color: darkgreen;
+    -fx-font-size: 10px;
+}
+
+.expense-card .expense-owner {
+    -fx-text-alignment: center;
+}
+
+.transfer-card .transfer-from-container, .transfer-card .transfer-to-container {
+    -fx-padding: 0 4 0 4;
+}
+
+.transfer-card .transfer-amt-container {
+    -fx-padding: 0 4 4 4;
+}
+
+.transfer-card .transfer-amount {
+    -fx-font-family: "Noto Sans CJK SC Bold", "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-alignment: center;
+}
+
+.transfer-card .label {
+    -fx-text-alignment: center;
+}
+
+/*
+ *  ================ STATUS BAR FOOTER COMPONENT ================
+ */
 
 .status-bar-root {
     -fx-padding: 10 8 4 8;
@@ -128,4 +300,3 @@
     -fx-font-size: 9pt;
     -fx-text-fill: black;
 }
-

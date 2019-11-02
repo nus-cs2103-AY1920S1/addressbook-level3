@@ -26,13 +26,13 @@ public class ListCommandParserTest {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
 
         // All irrelevant fields
-        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_ACTIVITY_TITLE + NAME_DESC_AMY,
+        assertParseFailure(parser, " " + PREFIX_TITLE + VALID_ACTIVITY_TITLE + " " + NAME_DESC_AMY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     @Test
     public void parse_bothListTypesPresent_failure() {
-        // Both type fields c/ and a/
+        // Both type fields c/ and a/ present
         assertParseFailure(parser, " " + PREFIX_CONTACT + " " + PREFIX_ACTIVITY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
@@ -55,7 +55,7 @@ public class ListCommandParserTest {
     }
 
     @Test
-    public void parse_oneListSubTypeWithArg_successWithArgIgnored() {
+    public void parse_oneListTypeWithArg_successWithArgIgnored() {
         // Type field a/ with non-empty arg value
         assertParseSuccess(parser, " " + PREFIX_ACTIVITY + VALID_PHONE_AMY,
                 new ListCommand(CommandSubType.ACTIVITY));
