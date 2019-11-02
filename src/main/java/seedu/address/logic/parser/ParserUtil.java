@@ -225,6 +225,8 @@ public class ParserUtil {
             return new Amount(Double.parseDouble(s));
         } catch (NumberFormatException ex) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
         }
 
     }

@@ -8,14 +8,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount implements Comparable<Amount> {
 
+    public static final int MAX_AMOUNT = 100000000;
+
     public static final String MESSAGE_CONSTRAINTS =
         "Amounts should only be in integer or double, and it should not be blank";
 
     public static final String DOUBLE_CONSTRAINTS =
-        "Doubles passed into Amount constructor should have maximum 2 decimal places";
+        "Amount should have maximum 2 decimal places";
 
     public static final String INT_CONSTRAINTS =
-        "Amount should not exceed $10,000,000. May result in overflow!";
+        "Amount should not exceed " + MAX_AMOUNT / 100 + ".\n";
 
     public static final String SHARE_CONSTRAINTS =
         "Shares cannot be negative";
@@ -25,13 +27,14 @@ public class Amount implements Comparable<Amount> {
     public Amount(double amount) {
         requireNonNull(amount);
         checkArgument(isValidAmount(amount), DOUBLE_CONSTRAINTS);
-        int cents = (int) Math.floor(amount * 100);
+        int cents = (int) Math.round(amount * 100);
         checkArgument(isWithinLimits(cents), INT_CONSTRAINTS);
         this.amount = cents;
     }
 
     /**
      * Creates Amount object of {@code amount} cents
+     *
      * @param amount amount in cents
      */
     public Amount(int amount) {
@@ -45,11 +48,19 @@ public class Amount implements Comparable<Amount> {
      * Returns true if a given value has maximally 2 decimal points.
      */
     public static boolean isValidAmount(double amount) {
-        return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
+        String amountStr = "" + amount;
+        int indexOfPeriod = amountStr.lastIndexOf(".");
+        System.out.println(amountStr.substring(indexOfPeriod + 1));
+        return indexOfPeriod == 1
+            || amountStr.substring(indexOfPeriod + 1).length() <= 2;
+        // return (amount * 100) % 1 < 2 * Double.MIN_VALUE;
     }
 
+    /**
+     * Checks if absolute value of {@code amount} is less than {@code MAX_AMOUNT}
+     */
     public static boolean isWithinLimits(int amount) {
-        return amount < Integer.MAX_VALUE / 2;
+        return amount >= -MAX_AMOUNT && amount <= MAX_AMOUNT;
     }
 
     /**
