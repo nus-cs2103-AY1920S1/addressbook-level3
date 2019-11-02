@@ -91,9 +91,9 @@ do complicated things in a snap. And even use your script in rules!
 
 === Viewing help: `help`
 
-Displays help. If `command` is specified, view detailed help for that command.
+Provides a link to this user guide.
 
-Format: `help [<command>]`
+Format: `help`
 
 === Managing defaults: `default` (coming in v2.0)
 
@@ -592,6 +592,12 @@ if a budget has been set up,  or a report that breaks your income and expenditur
 If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
+
+=== Getting help with specific commands *(Coming in v2.0)*: `help`
+
+Displays detailed help for a specific command.
+
+Format: `help <command word>`
 
 == Scripting API
 
