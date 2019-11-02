@@ -16,7 +16,7 @@ public class Name implements Comparable<Name> {
      * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$*";
+    public static final String VALIDATION_REGEX = "^[ a-zA-Z0-9_-]*$*";
 
     public final String fullName;
 
@@ -35,7 +35,7 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && !(test.trim().isEmpty());
     }
 
 
