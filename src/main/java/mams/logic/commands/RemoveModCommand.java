@@ -44,6 +44,11 @@ public class RemoveModCommand extends ModCommand {
             this.studentUsingIndex = checkIfStudentIndex(studentIdentifier);
         }
 
+        /**
+         * Checks if identifier given for prefix m/ is a number
+         * @param moduleIdentifier string given under m/
+         * @return true if is a index given
+         */
         boolean checkIfModuleIndex(String moduleIdentifier) {
             assert moduleIdentifier != null;
             boolean result = true;
@@ -55,6 +60,11 @@ public class RemoveModCommand extends ModCommand {
             return result;
         }
 
+        /**
+         * Checks if identifier given for prefix s/ is a number
+         * @param studentIdentifier string given under s/
+         * @return true if is a index given
+         */
         boolean checkIfStudentIndex(String studentIdentifier) {
             assert studentIdentifier != null;
             boolean result = true;
@@ -171,7 +181,8 @@ public class RemoveModCommand extends ModCommand {
             return studentList.get(tempIndexZeroBased);
         } else {
             List<Student> studentToCheckList = studentList.stream()
-                    .filter(p -> p.getMatricId().toString().equalsIgnoreCase(studentIdentifier)).collect(Collectors.toList());
+                    .filter(p -> p.getMatricId().toString().equalsIgnoreCase(studentIdentifier))
+                    .collect(Collectors.toList());
             if (studentToCheckList.isEmpty()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
             }
