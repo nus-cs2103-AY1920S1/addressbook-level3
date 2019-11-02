@@ -16,6 +16,11 @@ import javafx.stage.Stage;
 
 import seedu.address.appmanager.timer.GameTimer;
 
+/**
+ * Test class for the GameTimer and its GameTimerManager implementation
+ *
+ * @author kohyida1997
+ */
 @ExtendWith(ApplicationExtension.class)
 public class GameTimerTest {
 
@@ -52,8 +57,6 @@ public class GameTimerTest {
         }
         assertTrue(appManagerStub.skipCalled);
         assertTrue(appManagerStub.timerDisplayUpdated);
-
-        // todo: create own implementation of clock that can support manual elapsing of time, to avoid using
     }
 
     @Test

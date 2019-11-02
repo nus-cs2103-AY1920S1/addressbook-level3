@@ -134,7 +134,6 @@ public class JsonWordBankListStorage implements WordBankListStorage {
             }
         }
         this.readOnlyWordBankList = new WordBankList(wordBankList);
-        System.out.println(readOnlyWordBankList + "<------------------initWordBankList");
     }
 
     /**

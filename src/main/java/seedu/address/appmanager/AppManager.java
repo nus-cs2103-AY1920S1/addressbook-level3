@@ -51,11 +51,19 @@ public class AppManager {
         logic.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Sets the gameTimer instance to be a new GameTimer object with the appropriate {@code timeAllowedPerQuestion}
+     * based on the requested Difficulty setting.
+     *
+     * If hints are enabled, the {@code hintFormatSize} of the current
+     * question will be used to initialize the HintTimingQueue in the GameTimer.
+     */
     private void setGameTimer(long timeAllowedPerQuestion, int hintFormatSize) {
         gameTimer = GameTimer.getInstance("Time Left", timeAllowedPerQuestion,
                 this::skipOverToNextQuestion,
                 this::updateTimerDisplay,
                 this::updateHints);
+
         if (logic.hintsAreEnabled()) {
             gameTimer.initHintTimingQueue(hintFormatSize, timeAllowedPerQuestion);
         }
@@ -101,19 +109,20 @@ public class AppManager {
             }
         }
 
-        // AppManager will always abort Timer when a new valid command is entered while Game is running.
+        /** AppManager will always abort Timer when a new valid command is entered while Game is running. */
         abortAnyExistingGameTimer();
 
         if (commandResult.isPromptingGuess()) {
-            setGameTimer(logic.getTimeAllowedPerQuestion(),
-                    logic.getHintFormatSizeFromCurrentGame());
+            setGameTimer(logic.getTimeAllowedPerQuestion(), logic.getHintFormatSizeFromCurrentGame());
+
             Platform.runLater(() -> {
 
                 /** Call-back to UI to update QuestionDisplay with current Question. */
                 this.questionDisplayCallBack.updateQuestionDisplay(logic.getCurrentQuestion());
+
+                /** Starts the initialized GameTimer for this current Card. */
                 gameTimer.run();
             });
-
         }
 
         return commandResult;
@@ -185,7 +194,7 @@ public class AppManager {
         return logic.getWordBanksFilePath();
     }
 
-    // <---------------------------------------- CallBacks to Pass Into Timer------------------------------------>
+    // <---------------------------------------- CallBacks to Pass Into GameTimer-------------------------------->
 
     private void updateHints() {
         this.hintDisplayCallBack.updateHintDisplay(this.logic.getHintFormatFromCurrentGame().toString());
@@ -208,7 +217,7 @@ public class AppManager {
         }
     }
 
-    // <---------------------------Methods to register UI components to be called back by AppManager------------->
+    // <-----------------------Methods to register UI components to be called back by AppManager----------------->
 
     /**
      * Registers a method that will be called by the AppManager to update the UI's TimerDisplay

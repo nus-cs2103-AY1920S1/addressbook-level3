@@ -16,6 +16,7 @@ class StartCommandParserTest {
 
     private StartCommandParser dummyParser;
 
+    /** SHA-256 hash of "invalid difficulty" */
     private final String invalidDifficulty = "CE587EB17F05BBE2B7A0F934A8C539AF26F5CB75AA93F38AFEB7FD7082392FE8";
 
     @Test

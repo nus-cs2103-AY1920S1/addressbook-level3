@@ -8,7 +8,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appsettings.DifficultyEnum;
 
 /**
- * Parses input arguments and creates a new GuessCommand object
+ * Parses input arguments and creates a new DifficultyCommand object
  */
 public class DifficultyCommandParser implements Parser<DifficultyCommand> {
 

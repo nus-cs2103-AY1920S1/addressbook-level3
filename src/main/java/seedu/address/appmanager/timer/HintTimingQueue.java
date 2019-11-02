@@ -22,7 +22,7 @@ public class HintTimingQueue {
         }
 
         // Rate of Hint Characters being shown is linear (time between each hint character is constant).
-        // Hints are only showed after 1/4 * 15000ms have passed.
+        // Hints are only showed after 1/4 * (TIME_ALLOWED_FOR_EASY_MODE) seconds have passed.
         long delta =
                 (long) (DifficultyEnum.EASY.getTimeAllowedPerQuestion() * 0.75) / (numberOfTimings - 1);
 

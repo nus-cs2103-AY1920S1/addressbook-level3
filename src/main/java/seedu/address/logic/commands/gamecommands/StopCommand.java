@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 public class StopCommand extends GameCommand {
     public static final String COMMAND_WORD = "stop";
     private static final String MESSAGE_STOPPED = "Current Game has been forcibly stopped!";
-    private static final String MESSAGE_NO_SESSION = "There is no active game session to stop";
+    private static final String MESSAGE_NO_SESSION = "There is no active game session to stop!";
 
     /**
      * Executes the StopCommand to forcibly terminate the current game session.
@@ -19,7 +19,7 @@ public class StopCommand extends GameCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.getGame().isOver()) {
+        if (model.gameIsOver()) {
             throw new CommandException(MESSAGE_NO_SESSION);
         }
         model.getGame().forceStop();
