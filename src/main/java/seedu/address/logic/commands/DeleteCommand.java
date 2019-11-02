@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 public class DeleteCommand extends Command {
 
     // Delete already in use by deleting patients
-    public static final String COMMAND_WORD = "deletereminder";
+    public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number used in the displayed person list.\n"
