@@ -4,7 +4,10 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 
 /**
@@ -37,7 +40,8 @@ public interface WordBankListStorage {
      * @param wordBankName
      * @param filePath cannot be null.
      */
-    void importWordBank(String wordBankName, Path filePath);
+    void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException;
 
     /**
      * Retrieves the word bank, add to internal list, then add to storage.

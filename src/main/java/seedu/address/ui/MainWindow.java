@@ -29,9 +29,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String FIRST_MESSAGE_LOAD_BANK = "Welcome to Dukemon!\n"
-            + "Start by loading a bank:\n"
-            + "Eg. bank sample";
+    private static final String FIRST_MESSAGE_SELECT_BANK = "Welcome to Dukemon!\n"
+            + "Start by selecting a bank:\n"
+            + "Eg. select sample";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
 
-    public MainWindow(Stage primaryStage, AppManager appManager) {
+    MainWindow(Stage primaryStage, AppManager appManager) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -94,7 +94,7 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
     }
 
-    public Stage getPrimaryStage() {
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
@@ -139,13 +139,14 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //Setting modularDisplay to load mode by default.
         modularDisplay.swapToHomeDisplay(modularDisplayPlaceholder);
+        modularDisplay.registerDragAndDropCalLBack(this::executeCommand);
 
         //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         //Give user instruction to load a bank when first starting up the app.
-        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_LOAD_BANK);
+        resultDisplay.setFeedbackToUser(FIRST_MESSAGE_SELECT_BANK);
 
         //Set up timer display
         timerDisplay = new TimerDisplay();
@@ -158,8 +159,7 @@ public class MainWindow extends UiPart<Stage> {
         appManager.registerQuestionDisplayCallBack(this::updateQuestionDisplay);
         //Set up callback function in AppManager to call MainWindow's executeCommand
         appManager.registerMainWindowExecuteCallBack(this::executeCommand);
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(appManager.getWordBanksFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         //Set up command box
@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {

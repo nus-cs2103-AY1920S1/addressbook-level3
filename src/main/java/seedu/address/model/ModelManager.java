@@ -232,7 +232,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateWordBank(String name) {
-        if (currentWordBank.getName().equals(name)) {
+        if (currentWordBank.isSameName(name)) {
             hasBank = false;
             this.currentWordBank = SampleDataUtil.getSampleWordBank();
         }

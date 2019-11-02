@@ -6,6 +6,6 @@ package seedu.address.model.wordbank.exceptions;
  */
 public class DuplicateWordBankException extends RuntimeException {
     public DuplicateWordBankException() {
-        super("Operation would result in duplicate WordBank");
+        super("Word bank with the same name already exist :(");
     }
 }

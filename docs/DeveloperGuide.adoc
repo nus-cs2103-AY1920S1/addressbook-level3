@@ -627,11 +627,11 @@ A `Card` contains a word and a unique meaning. (May contain tags) +
 `CardCommands` work on `Cards`. +
 
 A `WordBank` contains multiple `Cards`. (May contain tags) +
-`HomeCommands` work on `WordBanks`.
+`WordBankCommands` work on `WordBanks`.
 
 A `WordBankList` contains multiple `WordBanks`.
 
-Each time a `CardCommand` or `HomeCommand` is executed, `Storage` data is synchronised and
+Each time a `CardCommand` or `WordBankCommand` is executed, `Storage` data is synchronised and
 `Model` gets updated automatically for `UI` to retrieve updated information for user viewing.
 
 {nbsp} +
@@ -652,8 +652,8 @@ image::Cards.png[]
 
 {nbsp} +
 
-.`HomeCommands`
-image::HomeCommands.png[]
+.`WordBankCommands`
+image::WordBankCommands.png[]
 
 {nbsp} +
 
@@ -731,10 +731,10 @@ Now the integration - How these data structures are stored in `Model` and `Stora
 image::WBStorage.png[]
 
 ---
-==== Implementation of CardCommands and HomeCommands
+==== Implementation of CardCommands and WordBankCommands
 A card command edits the cards within a particular word bank. Therefore it needs to make function calls through the
 WordBank data structure. +
-A home command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
+A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
 the WordBankList data structure.
 
 To have a better understanding of how these commands work, I will show you how these commands are structured in `Logic`

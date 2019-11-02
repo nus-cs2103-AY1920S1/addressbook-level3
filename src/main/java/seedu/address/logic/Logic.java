@@ -17,6 +17,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -40,10 +41,13 @@ public interface Logic extends UiLogicHelper {
      *
      * @see seedu.address.model.Model#getCurrentWordBank()
      */
-    ReadOnlyWordBank getAddressBook();
+    ReadOnlyWordBank getCurrentWordBank();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of cards */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns an unmodifiable view of the filtered list of word banks */
+    ObservableList<WordBank> getFilteredWordBankList();
 
     /**
      * Returns the user prefs' word banks file path.

@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.cardcommands.CardCommandResult;
@@ -28,6 +30,8 @@ import seedu.address.model.card.FormattedHint;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -37,7 +41,7 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic, UiLogicHelper {
-    public static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
+    private static final String FILE_OPS_ERROR_MESSAGE = "File operation failed";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -64,16 +68,10 @@ public class LogicManager implements Logic, UiLogicHelper {
         Command command = parserManager.parseCommand(commandText);
         commandResult = command.execute(model);
         parserManager.updateState(model.getHasBank(), model.gameIsOver());
-        // @@author
 
         try {
             if (getMode().equals(ModeEnum.SETTINGS)) {
                 storage.saveAppSettings(model.getAppSettings(), model.getAppSettingsFilePath());
-            }
-
-            if (commandResult instanceof WordBankCommandResult) {
-                WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
-                wordBankCommandResult.updateStorage(storage);
             }
 
             if (commandResult instanceof CardCommandResult) {
@@ -81,6 +79,15 @@ public class LogicManager implements Logic, UiLogicHelper {
                 cardCommandResult.updateStorage(storage, (WordBank) model.getCurrentWordBank());
             }
 
+            if (commandResult instanceof WordBankCommandResult) {
+                WordBankCommandResult wordBankCommandResult = (WordBankCommandResult) commandResult;
+                wordBankCommandResult.updateStorage(storage);
+            }
+
+        } catch (DataConversionException e) {
+            commandResult = new CommandResult("Word bank file is corrupted.");
+        } catch (WordBankNotFoundException | IllegalValueException | DuplicateWordBankException e) {
+            commandResult = new CommandResult(e.getMessage());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -89,13 +96,18 @@ public class LogicManager implements Logic, UiLogicHelper {
     }
 
     @Override
-    public ReadOnlyWordBank getAddressBook() {
+    public ReadOnlyWordBank getCurrentWordBank() {
         return model.getCurrentWordBank();
     }
 
     @Override
     public ObservableList<Card> getFilteredCardList() {
         return model.getFilteredCardList();
+    }
+
+    @Override
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return storage.getFilteredWordBankList();
     }
 
     @Override

@@ -146,7 +146,6 @@ public interface Model {
 
     WordBank getWordBankFromName(String name);
 
-
     DifficultyEnum getCurrentGameDifficulty();
 
     /**

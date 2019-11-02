@@ -83,7 +83,7 @@ to enter `home` mode
 ====
 *Requirements before changing mode*
 
-* A bank should be loaded
+* A bank should be selected
 * No game should be running
 
 .If other modes are available, they would be displayed beside the Command Box
@@ -126,10 +126,10 @@ image::UserGuideFlowOverview.png[width="790"]
 
 // tag::chenhui-quickstart[]
 
-Lets load the sample wordbank and play a game to get familiar.
+Lets select the sample word bank and play a game to get familiar.
 
 
-1.  `bank sample` kbd:[Enter]
+1.  `select sample` kbd:[Enter]
 * This would allow you to switch modes
 2.  `open` kbd:[Enter]
 3.  `start` kbd:[Enter]
@@ -143,7 +143,7 @@ Getting comfortable? Ready to master the application commands?
 _Some typical commands  to get familiar with are:_
 
 * *`create <NAME>`* : Create an empty _WordBank_ with specified name.
-* *`bank <NAME>`* : Select and switch to _WordBank_ with the specified name.
+* *`select <NAME>`* : Select and switch to _WordBank_ with the specified name.
 * *`add w/<WORD> m/<MEANING>`* : Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
 * *`list`* : List all _Cards_ in the current _WordBank_.
 * **`start <EASY/MEDIUM/HARD>`** : Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
@@ -153,8 +153,6 @@ specified.
 * **`guess <YOUR_ANSWER>`** : Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
 * **`stop`** : Stops the current _Game_ session.
 * *`exit`* : Exit _Dukemon_.
-
-.  Refer to <<Features>> for details of each command.
 
 // end::chenhui-quickstart[]
 
@@ -206,8 +204,8 @@ image::SettingsMode.png[width="450"]
 ====
 
 === Home Mode & Commands image:load_mode_icon.png[load, 22]
-==== To enter loading page : `load`
-Changes the app mode to load, so that the user can perform load commands.
+==== To open word bank content : `open`
+Changes the app mode to open, so that the user can perform card commands.
 
 ==== Create new word bank : `create`
 Creates a new word bank with specified name. +
@@ -228,14 +226,17 @@ Examples:
 * `Remove Vocabulary`
 
 ==== Import a word bank : `import`
-Import the word bank from a specified file path on your system. +
+Import the word bank from a specified folder path on your system. +
 Note that you can use '\' and '\\' for windows.
 
-Format: `import w/WORD_BANK f/FILE_PATH` +
+Format: `import w/WORD_BANK f/FOLDER` +
 Examples:
 
 * `import w/cs2040_graph f/~/downloads`
 * `import w/fire pokemons f//Users/chrischenhui/data`
+
+NOTE: FOLDER is the folder where the word bank file reside.
+WORBANK is the name of the file without the extension.
 
 ==== Export a word bank : `export`
 Export the word bank to a specified file path on your system. +
@@ -246,14 +247,14 @@ Examples:
 * `export w/ma1101r theorems f/~`
 * `export w/biology definitions f/~/downloads`
 
-==== Bank a word bank : `bank`
+==== Select a word bank : `select`
 Choose the word bank you want to work with.
 
-Format: `bank WORD_BANK`
+Format: `select WORD_BANK`
 Examples:
 
-* `bank CS2040`
-* `bank Biology`
+* `select CS2040`
+* `select Biology`
 
 ==== Help : `help`
 Shows help
@@ -279,12 +280,13 @@ Examples:
 ==== Deleting a flash card : `delete`
 Deletes the specified word from the data set. +
 
-Format: `delete w/card`
+Format: `delete INDEX`
 
 ****
 * Deletes the word at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* 1, 2, 3, ...,
+and must be a valid index within the list.
+* The index refers to the index number shown in the displayed card list.
 ****
 
 Examples:
@@ -302,17 +304,17 @@ Format: `list`
 Views the content of a data set. +
 Format: `clear`
 
-==== Editing a data set's content : `edit`
-Edits a flash card.
+==== Editing a card's content : `edit`
+Edits a card.
 
-Format: `edit flashcardname`
+Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
 
 Examples:
 
-* `edit List of animals`
-* `edit Teeth`
+* `edit 1 w/new word m/new meaning`
+* `edit 2 m/new meaning with tag t/tagged`
 
-===== Locating a word/description: `find`
+==== Locating a word/description: `find`
 
 Finds entry whose word or description contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]...`
@@ -501,7 +503,7 @@ image::annotated_global_statistics_ui.png[]
 
 *Q*: Do I have to save data? +
 *A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
-These commands are generally load commands.
+These commands are generally card commands.
 There is no need to save manually.
 Statistics are also stored automatically.
 
@@ -520,10 +522,10 @@ image::ParserManagerActivityDiagram.PNG[]
 |===
 | Type of command | Command name | Parameters
 
-1.6+h| Home Command
+1.6+h| Word Bank Command
 s| help |
 
-s| bank m| WORD_BANK
+s| select m| WORD_BANK
 
 s| create m| WORD_BANK
 
@@ -541,9 +543,9 @@ s| list m|
 
 s| add m| w/WORD_BANK m/meaning [t/TAG]
 
-s| edit m| INT w/WORD_BANK m/meaning [t/TAG]
+s| edit m| INDEX w/WORD_BANK m/meaning [t/TAG]
 
-s| delete m| INT
+s| delete m| INDEX
 
 s| find m|
 

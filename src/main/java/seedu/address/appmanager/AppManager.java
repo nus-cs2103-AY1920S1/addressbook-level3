@@ -21,6 +21,7 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -182,15 +183,19 @@ public class AppManager {
         return logic.getGlobalStatistics();
     }
 
-    public ObservableList<Card> getFilteredPersonList() {
+    public ObservableList<Card> getFilteredCardList() {
         return logic.getFilteredCardList();
+    }
+
+    public ObservableList<WordBank> getFilteredWordBankList() {
+        return logic.getFilteredWordBankList();
     }
 
     public GuiSettings getGuiSettings() {
         return logic.getGuiSettings();
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getWordBanksFilePath() {
         return logic.getWordBanksFilePath();
     }
 

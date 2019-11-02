@@ -5,6 +5,6 @@ package seedu.address.model.wordbank.exceptions;
  */
 public class WordBankNotFoundException extends RuntimeException {
     public WordBankNotFoundException() {
-        super("No word banks found");
+        super("Word bank file does not exist.");
     }
 }

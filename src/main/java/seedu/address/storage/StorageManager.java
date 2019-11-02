@@ -8,11 +8,13 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -89,7 +91,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void importWordBank(String wordBankName, Path filePath) {
+    public void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException {
         wordBankListStorage.importWordBank(wordBankName, filePath);
     }
 

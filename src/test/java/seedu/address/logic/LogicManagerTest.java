@@ -73,7 +73,7 @@ public class LogicManagerTest {
         String invalidBank = "B0C7AE034AB804B9EB28E787D4CB76761FAE47377CE81062647F2084F7EB2D79";
 
         String bankCommand =
-                "bank " + invalidBank;
+                "select " + invalidBank;
 
         // Attempting to load a non-existent bank.
         assertCommandException(bankCommand, MESSAGE_INVALID_WORD_BANK_NAME);
@@ -81,7 +81,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String bankSample = "bank sample";
+        String bankSample = "select sample";
         logic.execute(bankSample);
         String homeCommand = SwitchToHomeCommand.COMMAND_WORD;
         String openCommand = SwitchToOpenCommand.COMMAND_WORD;
@@ -114,7 +114,7 @@ public class LogicManagerTest {
 
     //    @Test
     //    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-    //        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    //        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredCardList().remove(0));
     //    }
 
 

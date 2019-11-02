@@ -12,7 +12,7 @@ import seedu.address.storage.Storage;
 public class CardCommandResult extends CommandResult {
     protected Card card;
 
-    public CardCommandResult(String feedback) {
+    CardCommandResult(String feedback) {
         super(feedback);
     }
 

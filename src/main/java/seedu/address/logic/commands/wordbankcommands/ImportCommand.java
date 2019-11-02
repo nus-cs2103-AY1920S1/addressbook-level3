@@ -19,15 +19,15 @@ public class ImportCommand extends WordBankCommand {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + " w/WORDBANK f/FILEPATH\n"
+            + " w/WORDBANK f/FOLDER\n"
             + "Eg: " + COMMAND_WORD + " "
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
-    public static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s from location : %2$s";
+    private static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s from location : %2$s";
 
-    private static String wordBankName;
-    private static File directory;
+    private String wordBankName;
+    private File directory;
 
     public ImportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
@@ -51,11 +51,4 @@ public class ImportCommand extends WordBankCommand {
                 .equals(((seedu.address.logic.commands.wordbankcommands.ImportCommand) other).wordBankName));
     }
 
-    public static File getDirectory() {
-        return directory;
-    }
-
-    public static String getWordBankName() {
-        return wordBankName;
-    }
 }

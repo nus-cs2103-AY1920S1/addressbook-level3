@@ -6,10 +6,12 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.WordBank;
+import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
 import seedu.address.model.wordbanklist.ReadOnlyWordBankList;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
@@ -40,7 +42,8 @@ public interface Storage extends WordBankListStorage, UserPrefsStorage, WordBank
     void removeWordBank(String wordBankName);
 
     @Override
-    void importWordBank(String wordBankName, Path filePath);
+    void importWordBank(String wordBankName, Path filePath)
+            throws DataConversionException, WordBankNotFoundException, IllegalValueException;
 
     @Override
     void exportWordBank(String wordBankName, Path filePath);
