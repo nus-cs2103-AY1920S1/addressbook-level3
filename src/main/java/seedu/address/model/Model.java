@@ -192,6 +192,11 @@ public interface Model extends ReferenceIdResolver {
     boolean isPatientInQueue(ReferenceId id);
 
     /**
+     * Checks if the patient is being served
+     */
+    boolean isPatientBeingServed(ReferenceId id);
+
+    /**
      * Checks if the patient is in queue
      */
     void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId);
