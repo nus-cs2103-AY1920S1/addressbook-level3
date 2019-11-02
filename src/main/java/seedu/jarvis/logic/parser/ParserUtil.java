@@ -11,6 +11,7 @@ import static seedu.jarvis.model.planner.tasks.Task.EVENT;
 import static seedu.jarvis.model.planner.tasks.Task.TODO;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
@@ -225,6 +226,11 @@ public class ParserUtil {
             for (String d : splitDate) {
                 LocalDate formattedDate = LocalDate.parse(d, Task.getDateFormat());
                 res[count] = formattedDate;
+                if (!formattedDate.isLeapYear()
+                    && formattedDate.getMonth() == Month.FEBRUARY
+                    && Integer.parseInt(d.split("/")[0]) == 29) {
+                    throw new ParseException(MESSAGE_INVALID_DATE);
+                }
                 count++;
             }
 
@@ -234,7 +240,7 @@ public class ParserUtil {
                 }
             }
 
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | NumberFormatException e) {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }
 
