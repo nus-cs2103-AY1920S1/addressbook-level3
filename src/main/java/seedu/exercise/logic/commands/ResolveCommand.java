@@ -46,6 +46,9 @@ public class ResolveCommand extends Command {
     public static final String MESSAGE_DUPLICATE_NAME = "Regime name %1$s already exists. Try another name";
     public static final String MESSAGE_INVALID_NAME = "Regime name is neither the scheduled regime"
             + " or the conflicting regime";
+    public static final String MESSAGE_DUPLICATE_EXERCISE_SELECTED =
+            "You have selected some exercises that are the same from both schedules.\n"
+            + "You only have to select one of them.";
 
     private Name regimeName;
     private Conflict conflict;
@@ -73,6 +76,8 @@ public class ResolveCommand extends Command {
         } else {
             checkNameIsFromConflictingSchedules();
         }
+
+        checkSelectedIndexesDoNotHaveDuplicatesFromModel(model);
 
         resolveConflict(model);
         return new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -122,6 +127,12 @@ public class ResolveCommand extends Command {
     private void checkIfProgramStateIsValid() throws CommandException {
         if (MainApp.getState() != State.IN_CONFLICT) {
             throw new CommandException(String.format(MESSAGE_INVALID_CONTEXT, getClass().getSimpleName()));
+        }
+    }
+
+    private void checkSelectedIndexesDoNotHaveDuplicatesFromModel(Model model) throws CommandException {
+        if (model.isSelectedIndexesFromRegimeDuplicate(indexToTakeFromSchedule, indexToTakeFromConflict)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE_SELECTED);
         }
     }
 

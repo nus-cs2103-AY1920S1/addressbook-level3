@@ -1,6 +1,7 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
@@ -54,7 +55,7 @@ public class ResolveCommandTest {
     private final ResolveCommand validResolveCommandWithNonEmptyIndexesDifferentName = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CHEST),
             Arrays.asList(TypicalIndexes.INDEX_ONE_BASED_FIRST),
-            new ArrayList<>());
+            Arrays.asList(TypicalIndexes.INDEX_ONE_BASED_FIRST));
     private final ResolveCommand validResolveCommandWithOutOfBoundIndexes = new ResolveCommand(
             new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
             Arrays.asList(TypicalIndexes.INDEX_VERY_LARGE_NUMBER),
@@ -165,6 +166,17 @@ public class ResolveCommandTest {
                 model, expectedMessage);
     }
 
+    @Test
+    public void execute_duplicateExerciseSelectedFromIndex_throwsCommandException() {
+        //Special conflict for testing duplcaite exercises from conflict
+        model.setConflict(TypicalConflict.VALID_CONFLICT_WITH_DUPLICATE_EXERCISES);
+        String expectedMessage = String.format(ResolveCommand.MESSAGE_DUPLICATE_EXERCISE_SELECTED);
+        Model expectedModel = deepCopyModel();
+
+        assertCommandFailure(validResolveCommandWithNonEmptyIndexesDifferentName,
+                model, expectedMessage);
+    }
+
     private Model deepCopyModel() {
         return new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
                 new ReadOnlyResourceBook<>(), model.getAllScheduleData(), new UserPrefs(),
@@ -228,6 +240,11 @@ public class ResolveCommandTest {
         @Override
         public void resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
 
+        }
+
+        @Override
+        public boolean isSelectedIndexesFromRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex) {
+            return false;
         }
     }
 }

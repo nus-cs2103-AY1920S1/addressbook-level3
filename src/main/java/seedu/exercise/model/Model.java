@@ -223,6 +223,13 @@ public interface Model {
     void setConflict(Conflict conflict);
 
     /**
+     * Checks if the indexes from scheduled and conflict regimes are duplicates.
+     *
+     * The state of the program must be {@link State#IN_CONFLICT} before calling this method.
+     */
+    boolean isSelectedIndexesFromRegimeDuplicate(List<Index> scheduledIndex, List<Index> conflictingIndex);
+
+    /**
      * Returns the {@code PropertyBook} object that is contained in {@code Model}.
      */
     PropertyBook getPropertyBook();

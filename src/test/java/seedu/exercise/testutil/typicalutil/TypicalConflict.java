@@ -12,4 +12,9 @@ public class TypicalConflict {
             .withScheduled(TypicalSchedule.VALID_SCHEDULE_CARDIO_DATE)
             .withConflict(TypicalSchedule.VALID_SCHEDULE_LEG_DATE)
             .build();
+
+    public static final Conflict VALID_CONFLICT_WITH_DUPLICATE_EXERCISES = new ConflictBuilder()
+            .withScheduled(TypicalSchedule.VALID_SCHEDULE_CARDIO_DATE)
+            .withConflict(TypicalSchedule.VALID_SCHEDULE_CARDIO_DATE)
+            .build();
 }
