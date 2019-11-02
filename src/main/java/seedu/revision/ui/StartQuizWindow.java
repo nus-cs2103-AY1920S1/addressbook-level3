@@ -73,7 +73,7 @@ public class StartQuizWindow extends Window {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        this.quizList = getListBasedOnMode(this.mode);
+        this.quizList = mainLogic.getFilteredSortedAnswerableList();
         answerableIterator = quizList.iterator();
         currentAnswerable = answerableIterator.next();
 
@@ -333,7 +333,6 @@ public class StartQuizWindow extends Window {
         return answerableListPanel;
     }
 
-
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
@@ -343,37 +342,6 @@ public class StartQuizWindow extends Window {
     }
 
     private Timer getTimerBasedOnMode(Mode mode, int nextLevel) {
-        switch (mode.value.toLowerCase()) {
-        case "normal": case "custom":
-            return new Timer(mode.getTime(), this::executeCommand);
-        case "arcade":
-            switch(nextLevel) {
-            case 2:
-                return new Timer(mode.getLevelTwoTime(), this::executeCommand);
-            case 3:
-                return new Timer(mode.getLevelThreeTime(), this::executeCommand);
-            default:
-                return new Timer(mode.getTime(), this::executeCommand);
-            }
-        default:
-            logger.warning("invalid mode");
-            return new Timer(30, this::executeCommand);
-        }
-    }
-
-    private ObservableList<Answerable> getListBasedOnMode(Mode mode) {
-        Comparator<Answerable> difficultyComparator = Comparator.comparing(answerable ->
-                answerable.getDifficulty().value);
-        switch (mode.value.toLowerCase()) {
-        case "normal":
-            ObservableList<Answerable> sortedList = this.mainLogic.getFilteredSortedAnswerableList(
-                    mode.getCombinedPredicate(), difficultyComparator);
-            return sortedList;
-        case "custom":
-            return this.mainLogic.getFilteredAnswerableList();
-        default:
-            logger.warning("invalid mode");
-            return this.mainLogic.getFilteredSortedAnswerableList(PREDICATE_SHOW_ALL_ANSWERABLE, difficultyComparator);
-        }
+        return new Timer(mode.getTime(nextLevel), this::executeCommand);
     }
 }

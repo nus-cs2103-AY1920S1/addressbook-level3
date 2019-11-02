@@ -54,4 +54,8 @@ public class CustomMode extends Mode {
     public Mode build() {
         return new CustomMode(value, time, combinedPredicate);
     }
+
+    public int getTime(int nextLevel) {
+        return this.time;
+    }
 }

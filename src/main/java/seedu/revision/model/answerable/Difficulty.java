@@ -7,7 +7,7 @@ import static seedu.revision.commons.util.AppUtil.checkArgument;
  * Represents a Questions's Difficulty in the test bank.
  * Guarantees: immutable; is valid as declared in {@link #isValidDifficulty(String)}
  */
-public class Difficulty {
+public class Difficulty implements Comparable<Difficulty> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Difficulty should only contain numbers, and it should only be 1, 2, or 3";
@@ -49,4 +49,8 @@ public class Difficulty {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(Difficulty o) {
+        return this.value.compareTo(o.value);
+    }
 }

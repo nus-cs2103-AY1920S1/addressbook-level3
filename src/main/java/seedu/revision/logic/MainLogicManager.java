@@ -103,9 +103,8 @@ public class MainLogicManager implements MainLogic {
     }
 
     @Override
-    public ObservableList<Answerable> getFilteredSortedAnswerableList(
-            Predicate<Answerable> predicate, Comparator<Answerable> comparator) {
-        return model.getFilteredSortedAnswerableList(predicate, comparator);
+    public ObservableList<Answerable> getFilteredSortedAnswerableList() {
+        return model.getFilteredAnswerableList().sorted(Comparator.comparing(a -> a.getDifficulty()));
     }
 
     @Override

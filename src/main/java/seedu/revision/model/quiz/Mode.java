@@ -44,18 +44,6 @@ public abstract class Mode {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public int getTime() {
-        return this.time;
-    }
-
-    public int getLevelTwoTime() {
-        return time;
-    }
-
-    public int getLevelThreeTime() {
-        return time;
-    }
-
     public Predicate<Answerable> getCombinedPredicate() {
         return combinedPredicate;
     }
@@ -66,6 +54,7 @@ public abstract class Mode {
 
     public abstract Mode build();
 
+    public abstract int getTime(int nextLevel);
 
     @Override
     public String toString() {

@@ -15,16 +15,6 @@ public class ArcadeMode extends Mode {
         this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }
 
-    public int getLevelTwoTime() {
-        assert time < 5 : "invalid time";
-        return time - 5;
-    }
-
-    public int getLevelThreeTime() {
-        assert time < 10 : "invalid time";
-        return time - 10;
-    }
-
     @Override
     public Mode withCombinedPredicate(Predicate<Answerable> combinedPredicate) {
         return this;
@@ -38,6 +28,17 @@ public class ArcadeMode extends Mode {
     @Override
     public Mode build() {
         return this;
+    }
+
+    public int getTime(int nextLevel) {
+        switch(nextLevel) {
+        case 2:
+            return 15;
+        case 3:
+            return 10;
+        default:
+            return this.time;
+        }
     }
 }
 

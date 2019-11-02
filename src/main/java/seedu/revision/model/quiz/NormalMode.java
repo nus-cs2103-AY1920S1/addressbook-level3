@@ -34,5 +34,9 @@ public class NormalMode extends Mode {
     public Mode build() {
         return new NormalMode();
     }
+
+    public int getTime(int nextLevel) {
+        return this.time;
+    }
 }
 
