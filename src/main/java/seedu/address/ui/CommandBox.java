@@ -60,6 +60,7 @@ public class CommandBox extends UiPart<Region> implements EventHandler<KeyEvent>
         commandTextField.setOnKeyPressed(event -> keyPressed(event.getCode()));
     }
 
+    //@@author SebastianLie
     /**
      * sets textfield according to key press
      * for up and down arrow, handles previous and next commands
