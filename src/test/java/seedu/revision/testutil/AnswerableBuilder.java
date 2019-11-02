@@ -14,7 +14,7 @@ import seedu.revision.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Answerable objects.
  */
-public abstract class AnswerableBuilder {
+public abstract class AnswerableBuilder<T extends Answerable> {
 
     public static final String DEFAULT_QUESTION = "Greenfield projects are easier than brownfield projects";
     public static final String DEFAULT_DIFFICULTY = "1";
@@ -48,7 +48,7 @@ public abstract class AnswerableBuilder {
     /**
      * Sets the {@code Question} of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withQuestion(String question) {
+    public AnswerableBuilder<T> withQuestion(String question) {
         this.question = new Question(question);
         return this;
     }
@@ -56,7 +56,7 @@ public abstract class AnswerableBuilder {
     /**
      * Sets the Correct Answer Set of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withCorrectAnswerList(ArrayList<Answer> correctAnswerList) {
+    public AnswerableBuilder<T> withCorrectAnswerList(ArrayList<Answer> correctAnswerList) {
         this.correctAnswerList = correctAnswerList;
         return this;
     }
@@ -64,13 +64,13 @@ public abstract class AnswerableBuilder {
     /**
      * Sets the Wrong Answer Set of the {@code Answerable} that we are building.
      */
-    public abstract AnswerableBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList);
+    public abstract AnswerableBuilder<T> withWrongAnswerList(ArrayList<Answer> wrongAnswerList);
 
     /**
      * Parses the {@code categories} into a {@code Set<Category>} and set it to the {@code Answerable}
      * that we are building.
      */
-    public AnswerableBuilder withCategories(String ... categories) {
+    public AnswerableBuilder<T> withCategories(String ... categories) {
         this.categories = SampleDataUtil.getCategorySet(categories);
         return this;
     }
@@ -78,15 +78,15 @@ public abstract class AnswerableBuilder {
     /**
      * Sets the {@code Difficulty} of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withDifficulty(String difficulty) {
+    public AnswerableBuilder<T> withDifficulty(String difficulty) {
         this.difficulty = new Difficulty(difficulty);
         return this;
     }
 
     /**
-     * Returns an answerable.
-     * @return the answerable.
+     * Returns a subclass of  answerable.
+     * @return the subclass of answerable.
      */
-    public abstract Answerable build();
+    public abstract T build();
 
 }

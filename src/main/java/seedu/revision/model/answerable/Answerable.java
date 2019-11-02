@@ -1,5 +1,6 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public abstract class Answerable {
      * @return true if correct or false if wrong.
      */
     public boolean isCorrect(Answer selectedAnswer) {
+        requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
             logger.info("correct answer selected");
             return true;

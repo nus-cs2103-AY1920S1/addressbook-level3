@@ -2,7 +2,7 @@
   "_comment": "Revision Tool save file which contains the same Answerable values as in TypicalAnswerables#getTypicalAddressBook()",
   "answerables" : [ {
 	"questionType": "mcq",
-    "question" : "If a subclass imposes more restrictive conditions than its parent class, it violates Liskov Substitution Principle.",
+    "question" : "What type of project is AB3?",
     "correctAnswerSet": [ "Brownfield" ],
     "wrongAnswerSet": [ "Greenfield", "Blackfield", "Whitefield" ],
     "difficulty" : "1",

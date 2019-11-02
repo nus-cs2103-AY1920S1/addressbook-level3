@@ -6,7 +6,7 @@ import seedu.revision.model.answerable.Mcq;
 
 import java.util.ArrayList;
 
-public class McqBuilder extends AnswerableBuilder {
+public class McqBuilder extends AnswerableBuilder<Mcq> {
 
     public McqBuilder() {
         super();
@@ -24,7 +24,7 @@ public class McqBuilder extends AnswerableBuilder {
     /**
      * Sets the Wrong Answer Set of the {@code Answerable} that we are building.
      */
-    public AnswerableBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
+    public McqBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
         this.wrongAnswerList = wrongAnswerList;
         return this;
     }

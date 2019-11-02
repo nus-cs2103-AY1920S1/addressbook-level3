@@ -30,6 +30,9 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
+        if (mcq.getCorrectAnswerList().isEmpty() || mcq.getCorrectAnswerList().size() > 1) {
+            return false;
+        }
         if (mcq.getWrongAnswerList().size() != 3) {
             return false;
         }
