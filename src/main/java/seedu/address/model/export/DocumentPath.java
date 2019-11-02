@@ -147,7 +147,7 @@ public class DocumentPath extends ExportPath {
     @Override
     public Optional<List<FlashCard>> importFrom() throws UnsupportedOperationException {
         throw new UnsupportedOperationException(
-                "Importing from document file is not supported"
+                "Importing from document file is not supported."
         );
     }
 }
