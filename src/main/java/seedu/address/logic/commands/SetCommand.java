@@ -20,7 +20,7 @@ import seedu.address.model.usersettings.RenewPeriod;
 /**
  * Sets the user configuration of the application.
  */
-public class SetCommand extends Command implements ReversibleCommand {
+public class SetCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "set";
 
@@ -40,9 +40,6 @@ public class SetCommand extends Command implements ReversibleCommand {
 
     private final SetUserSettingsDescriptor setUserSettingsDescriptor;
 
-    private Command undoCommand;
-    private Command redoCommand;
-
     /**
      * Creates a SetCommand to set the {@code LoanPeriod}, {@code RenewPeriod} and {@code FineIncrement}.
      *
@@ -61,23 +58,14 @@ public class SetCommand extends Command implements ReversibleCommand {
         UserSettings userSettingsToEdit = model.getUserSettings();
         UserSettings editedUserSettings = createEditedUserSettings(userSettingsToEdit, setUserSettingsDescriptor);
 
-        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit));
-        redoCommand = this;
-
         model.setUserSettings(editedUserSettings);
 
-        return new CommandResult(String.format(MESSAGE_SET_USER_SETTINGS_SUCCESS, model.getUserSettings()));
+        undoCommand = new SetCommand(getSettingsDescriptor(userSettingsToEdit));
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SET_USER_SETTINGS_SUCCESS, model.getUserSettings()));
 
-    }
+        return commandResult;
 
-    @Override
-    public Command getUndoCommand() {
-        return undoCommand;
-    }
-
-    @Override
-    public Command getRedoCommand() {
-        return redoCommand;
     }
 
     /**
