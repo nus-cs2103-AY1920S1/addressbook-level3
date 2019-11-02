@@ -125,6 +125,7 @@ This command adds a transaction to the table and saves it into the system.
 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
+The person should also be someone recorded in the Members Tab
 
 * Steps:
 
@@ -245,7 +246,7 @@ This command sorts the table of transactions into a specified order for viewing 
 [NOTE]
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
-
+[[findCommandHome]]
 ==== Find Transactions that Match Keywords:
 This command transactions matching the specified keywords for viewing and for carrying out of subsequent commands,
 based on the filtered table of transactions shown.
@@ -298,6 +299,16 @@ The screenshot below shows the table after entering `back` which shows all the t
 
 .Screenshot of the user input for Back Command after entering Find Command in Home Tab
 image::homeUG/HomeFindStep3Back.png[]
+
+==== Going Back to Display the Full List
+This command helps to display the full transaction list after Find Commands. After a Find Command, the Delete, Edit, Sort Commands
+can be entered before entering the Back Command to display the full list.
+
+* Command: `back`
+
+* Steps:
+. Type `back` into the Command Box
+. Hit 'enter'. The table should show the full list of transactions.
 
 === Reimbursements Tab
 
