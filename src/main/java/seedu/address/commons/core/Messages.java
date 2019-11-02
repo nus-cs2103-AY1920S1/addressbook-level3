@@ -22,4 +22,8 @@ public class Messages {
             + "(either due to schedule overlap or lack of manpower)";
     public static final String MESSAGE_EVENT_FULL_MANPOWER = "Event has full manpower!";
     public static final String MESSAGE_EVENT_INVALID_EMPLOYEE_ID = "Invalid Employee ID!";
+    public static final String MESSAGE_INVALID_DATE = "Invalid date: %s \n"
+            + "Date should be in the following format dd/MM/yyyy, "
+            + "be a valid Calendar Date, and be in the last 10 years.";
+    public static final String MESSAGE_TOO_OLD_DATE = "Only dates of the last 10 years is accepted";
 }

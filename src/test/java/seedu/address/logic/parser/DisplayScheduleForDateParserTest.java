@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -30,13 +31,13 @@ public class DisplayScheduleForDateParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid date format : Input - "2019/10/29"
-        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_1, EventDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_1, String.format(MESSAGE_INVALID_DATE, "2019/10/29"));
         // invalid date format : Input - "20 Aug 2019"
-        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_2, EventDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_2, String.format(MESSAGE_INVALID_DATE, "20 Aug 2019"));
         // invalid date format : Input - "date"
-        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_3, EventDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_3, String.format(MESSAGE_INVALID_DATE, "date"));
         // invalid date format : Input - "10/12"
-        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_4, EventDate.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, CommandTestUtil.INVALID_DATE_4, String.format(MESSAGE_INVALID_DATE, "10/12"));
     }
 
     @Test

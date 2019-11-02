@@ -7,11 +7,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.OldDateException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -235,12 +239,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code EventDate} is invalid.
      */
     public static EventDate parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        String trimmed = date.trim();
-        if (!EventDate.isValidDate(trimmed)) {
-            throw new ParseException(EventDate.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newDate = LocalDate.parse(trimmed, FORMATTER);
+        LocalDate newDate = parseAnyDate(date);
         return new EventDate(newDate);
     }
 
@@ -250,15 +249,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code LocalDate} is invalid.
      */
-    public static LocalDate parseSysDate(String date) throws ParseException {
+    public static LocalDate parseAnyDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmed = date.trim();
         LocalDate newDate;
 
         try {
-            newDate = LocalDate.parse(trimmed, FORMATTER);
-        } catch (DateTimeException e) {
-            throw new ParseException("Date should be in the following format dd/MM/yyyy");
+            newDate = LocalDate.parse(trimmed, DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT)
+            );
+            if (!newDate.isAfter(LocalDate.now().minusYears(10))) {
+                throw new OldDateException("Too long ago");
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_DATE, trimmed));
+        } catch (OldDateException e) {
+            throw new ParseException(Messages.MESSAGE_TOO_OLD_DATE);
         }
 
         return newDate;

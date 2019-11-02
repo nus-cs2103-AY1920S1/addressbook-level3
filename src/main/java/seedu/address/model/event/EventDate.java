@@ -6,6 +6,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Represents the Date of an Event in AddMin+. Events can span a time period of multiple days (dates).
  */
@@ -35,8 +38,10 @@ public class EventDate implements Comparable<EventDate> {
      */
     public static boolean isValidDate(String test) {
         try {
-            return LocalDate.parse(test, FORMATTER) instanceof LocalDate;
-        } catch (DateTimeException e) {
+            LocalDate date = ParserUtil.parseAnyDate(test);
+            return date instanceof LocalDate;
+
+        } catch (ParseException e) {
             return false;
         }
     }
@@ -59,7 +64,7 @@ public class EventDate implements Comparable<EventDate> {
      */
     public Stream<EventDate> datesUntil(EventDate endInclusive) {
         return getDate().datesUntil(endInclusive.getDate().plusDays(1))
-            .map(date -> new EventDate(date));
+                .map(date -> new EventDate(date));
     }
 
     @Override
