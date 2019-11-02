@@ -14,7 +14,6 @@ import seedu.address.model.vehicle.District;
 import seedu.address.model.vehicle.DistrictKeywordsPredicate;
 import seedu.address.model.vehicle.VNumKeywordsPredicate;
 import seedu.address.model.vehicle.VTypeKeywordsPredicate;
-import seedu.address.model.vehicle.VehicleNumber;
 import seedu.address.model.vehicle.VehicleType;
 
 /**

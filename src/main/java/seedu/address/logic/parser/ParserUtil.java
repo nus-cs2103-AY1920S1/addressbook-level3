@@ -195,7 +195,7 @@ public class ParserUtil {
     public static VehicleType parseVType(String vType) throws ParseException {
         requireNonNull(vType);
         String parsedVType = vType.trim().toLowerCase();
-        String[] vehicleTypes = VehicleType.vehicleTypes;
+        String[] vehicleTypes = VehicleType.VEHICLE_TYPES;
         for (String type: vehicleTypes) {
             if (parsedVType.equals(type.toLowerCase())) {
                 return new VehicleType(type);
