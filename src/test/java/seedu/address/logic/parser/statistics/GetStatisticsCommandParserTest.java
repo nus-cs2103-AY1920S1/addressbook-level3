@@ -27,7 +27,7 @@ public class GetStatisticsCommandParserTest {
     @Test
     public void parse_quizResultFilterWithoutFilter_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder().buildEmptySubjectList();
-        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter);
+        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "");
         assertParseSuccess(parser, "", expectedCommand);
     }
 
@@ -37,7 +37,7 @@ public class GetStatisticsCommandParserTest {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withSubjects(Arrays.asList("CS2103T"))
                 .buildWithSubjects();
-        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter);
+        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "\n[CS2103T]");
         assertParseSuccess(parser, " s/CS2103T", expectedCommand);
 
         // multiple subjects
@@ -45,7 +45,7 @@ public class GetStatisticsCommandParserTest {
                 .withSubjects(Arrays.asList("CS2103T", "CS2101", "CS2103"))
                 .buildWithSubjects();
 
-        expectedCommand = new GetStatisticsCommand(quizResultFilter);
+        expectedCommand = new GetStatisticsCommand(quizResultFilter, "\n[CS2103T, CS2101, CS2103]");
         assertParseSuccess(parser, " s/CS2103T s/CS2101 s/CS2103", expectedCommand);
     }
 
@@ -55,7 +55,7 @@ public class GetStatisticsCommandParserTest {
                 .withDifficulty("easy")
                 .withSubjects(new ArrayList<>())
                 .buildWithSubjectsAndDifficulty();
-        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter);
+        GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "\nEasy");
         assertParseSuccess(parser, " d/easy", expectedCommand);
     }
 
@@ -66,7 +66,7 @@ public class GetStatisticsCommandParserTest {
                 .withSubjects(new ArrayList<>(Arrays.asList("CS2103T", "CS2101")))
                 .buildWithSubjectsAndDifficulty();
         GetStatisticsCommand expectedCommand =
-                new GetStatisticsCommand(quizResultFilter);
+                new GetStatisticsCommand(quizResultFilter, "\nEasy\n[CS2103T, CS2101]");
         assertParseSuccess(parser, " d/easy s/CS2103T s/CS2101", expectedCommand);
     }
 }

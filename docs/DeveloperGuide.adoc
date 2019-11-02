@@ -338,6 +338,7 @@ updated appData in local storage when the command finishes executing.
 list operations.
 // end::quiz[]
 
+// tag::stats[]
 === Statistics feature
 ==== Implementation
 
@@ -385,6 +386,7 @@ image::StatisticsActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: The number of notes and tasks that can be seen without scrolling will be decreased.
 The charts will be small and condensed making it difficult to see the data at first glance.
+// end::stats[]
 
 === Add revision task
 ==== Implementation

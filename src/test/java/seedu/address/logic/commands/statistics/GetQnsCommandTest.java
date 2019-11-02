@@ -3,7 +3,6 @@ package seedu.address.logic.commands.statistics;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.statistics.GetQnsCommand.MESSAGE_NO_QNS;
-import static seedu.address.logic.commands.statistics.GetQnsCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
@@ -24,7 +23,7 @@ class GetQnsCommandTest {
 
     @Test
     public void constructor_nullQuizResultFilter_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null));
+        assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null, ""));
     }
 
     @Test
@@ -33,21 +32,24 @@ class GetQnsCommandTest {
                 .withIsCorrectQns("true")
                 .withSubjects(new ArrayList<>())
                 .buildWithSubjectsAndResult();
-        GetQnsCommand qnsCommand = new GetQnsCommand(quizResultFilter);
+        GetQnsCommand qnsCommand = new GetQnsCommand(quizResultFilter,
+                "Here are the correct questions:");
 
         Model expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
         expectedModel.filterQuizResult(quizResultFilter);
         expectedModel.updateQuizResultFilter(quizResultFilter);
 
-        assertCommandSuccess(qnsCommand, model, MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(qnsCommand, model, "Here are the correct questions:", expectedModel);
     }
 
     @Test
     public void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
+                .withIsCorrectQns("false")
                 .withSubjects(new ArrayList<>(Arrays.asList("random")))
                 .buildWithSubjects();
-        GetQnsCommand qnsCommand = new GetQnsCommand(quizResultFilter);
+        GetQnsCommand qnsCommand = new GetQnsCommand(quizResultFilter,
+                "Here are the incorrect questions for [random]:");
         assertCommandFailure(qnsCommand, model, MESSAGE_NO_QNS);
     }
 }
