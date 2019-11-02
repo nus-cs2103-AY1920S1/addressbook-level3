@@ -1,20 +1,18 @@
 package seedu.address.calendar.ui;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class EventCard {
-    private static final int LINE_HEIGHT = 30;
-    private static final int MAX_CHAR_PER_LINE = 40;
-    private static final int HEADER_HEIGHT = 20;
     private VBox card;
-    private Label content;
+    private Text content;
     private List<String> strings;
 
-    EventCard(VBox card, Label content) {
+    EventCard(VBox card, Text content) {
         this.card = card;
         this.content = content;
         strings = new ArrayList<>();
@@ -49,13 +47,12 @@ public class EventCard {
         String formattedResponse = strings.stream()
                 .reduce("", (prev, curr) -> prev + "\n∙" + curr);
         content.setText(formattedResponse);
-        setHeight(formattedResponse);
+        setHeight();
     }
 
-    private void setHeight(String formattedResponse) {
-        int length = formattedResponse.length();
-        int height = (length / MAX_CHAR_PER_LINE + 1) * LINE_HEIGHT;
-        content.setPrefHeight(height);
-        card.setMinHeight(height + HEADER_HEIGHT);
+    private void setHeight() {
+        card.widthProperty().addListener(((observable, oldValue, newValue) -> {
+            content.setWrappingWidth((Double) newValue * 0.8);
+        }));
     }
 }

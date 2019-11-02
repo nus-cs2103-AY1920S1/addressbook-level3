@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.ui.PageManager;
@@ -35,13 +36,13 @@ public class ListWindow extends UiPart<Stage> {
     @FXML
     private Label emptyList;
     @FXML
-    private Label commitmentContent;
+    private Text commitmentContent;
     @FXML
-    private Label holidayContent;
+    private Text holidayContent;
     @FXML
-    private Label schoolBreakContent;
+    private Text schoolBreakContent;
     @FXML
-    private Label tripContent;
+    private Text tripContent;
 
     public ListWindow() {
         super(FXML);
