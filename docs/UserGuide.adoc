@@ -162,8 +162,7 @@ The addition of a new member can also be seen from the list of members as shown 
 
 image::ListAdd.png[width="790"]
 
-
-[NOTE]
+[IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
 
 [NOTE]
@@ -196,7 +195,7 @@ image::SetImage.png[width="790"]
 [NOTE]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
 
-[NOTE]
+[IMPORTANT]
 If you shift the image's location in your computer, +Work will be unable to find the image to display. It
 is recommended that you store all the images in a central folder to prevent this from happening.
 
@@ -507,6 +506,8 @@ File explorer pops up, triggering a message to allow the user to save the pdf fi
 
 '''
 ////
+
+// tag::Statistics[]
 === Statistics Commands
 
 ==== Getting statistics of members: `member-stats` +
@@ -514,10 +515,13 @@ To get statistics relating to the members in +Work, use the statistics command f
 
 Format: `member-stats` +
 
-Calling the `member-stats` command will result in the statistics being display as follows:
+Calling the `member-stats` command will result in the statistics being displayed as follows:
 
 image::MemberStats.png[width="790"]
 
+[NOTE]
+The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
+project member in +Work.
 
 ==== Getting statistics of tasks: `task-stats` +
 To get statistics relating to the tasks in +Work, use the statistics command following the format below. +
@@ -527,8 +531,13 @@ Calling the `task-stats` command will result in the statistics being displayed a
 
 image::TaskStats.png[width="790"]
 
+[NOTE]
+The resultant statistics displayed shows the proportion of tasks that are undone, in progress and completed,
+as well as the time taken for each inputted tasks in +Work.
 
 '''
+// end::Statistics[]
+
 === Settings Commands
 
 ==== Switching the theme of +Work: `theme`

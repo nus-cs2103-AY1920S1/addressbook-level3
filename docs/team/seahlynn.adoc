@@ -1,12 +1,11 @@
 
 = Seah Lynn - Project Portfolio
-:site-section: AboutUs
-:toc:
-:toc-title:
-:toc-placement: preamble
+:site-section: ProjectPortfolio
 :sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
 
 == Introduction
 This project portfolio details my contributions to a Software Engineering group project, where my
@@ -21,7 +20,7 @@ We are a group of 5 Year 2 NUS Computer Science students, who worked together to
 In this module, each team is required to morph or enhance an exiting CLI AddressBook application, to fit the needs of a
 target group of users.
 
-Our application, +Work, is aproject management tool aimed at NUS project leaders who are in charge of a small project
+Our application, +Work, is a roject management tool aimed at NUS project leaders who are in charge of a small project
 group. It allows project leaders to successfully achieve the objectives of their project, by helping them manage their
 members, meeting times, task allocations as well as personal claims for equipment purchased.
 A user can use +Work to find the most popular meeting time among his project members, when calling for a meeting.
@@ -30,38 +29,29 @@ manpower. Additionally, he can add inventory items into +Work to keep track of t
 the project.
 
 === Formatting of Document
-Show down below are symbols that appear in my Project Portfolio, and their significance.
-
-[NOTE]
-Information here exposes a small bit of +Work's inner workings so that the user understands how a command can affect
-+Work.
-
-[TIP]
-Information here helps users use +Work more efficiently, but is not necessary in using +Work
-in the most basic sense.
+Shown down below are symbols that appear in my Project Portfolio, and their significance.
 
 [IMPORTANT]
 Information listed in under this note is essential information that users should
 take note of, in order for +Work to function as stated.
 
+[NOTE]
+Information here are things that the user can learn, so as to more efficiently use +Work.
+
 == Summary of Contributions
 This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.
 
 === Enhancements 
-* *Major enhancement*: I added *the ability to retrieve the overall statistics of tasks and members in +Work*
+* *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
 ** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion of tasks that are undone, in progress and completed, as well as the time spent on each task inputted into +Work, is retrieved.
-** Justification: This feature improves the product significantly because it gives the user a broad overview of the project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one of the main goals of effective project management.
+** Justification: This feature improves increases the functionality of +Work because it gives the user a broad overview of the project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one of the main goals of effective project management.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Major enhancement*: I added *the ability for users to work with (add, delete, list) project members on +Work*
-** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion of tasks that are undone, in progress and completed, as well as the time spent on each task inputted into +Work, is retrieved.
-** Justification: This feature improves the product significantly because it gives the user a broad overview of the project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one of the main goals of effective project management.
+* *Major enhancement*: I added the ability for users to work with (add, delete, list, set image for) project members on +Work.
+** What it does: This feature allows the user to add project members to +Work, so that he can keep track of and manage both project tasks and members in one application.
+** Justification: This feature improves the product significantly because adds another aspect of project managmenet (member management) into +Work, and allows 
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Major enhancement*: I added *the ability for users to add profile pictures for each project member in +Work*
-** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion of tasks that are undone, in progress and completed, as well as the time spent on each task inputted into +Work, is retrieved.
-** Justification: This feature improves the product significantly because it gives the user a broad overview of the project's progress and members' responsibility allocation at a glance. This makes it easier for the user to plan out future tasks and allocate them accordingly to members so that everyone has close to equal responsibility, which is one of the main goals of effective project management.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
 * *Minor enhancement*: 
 ** Enhanced the UI of Members to include the uploading of members' profile photos, as well as listing of tasks allocated to each member under individual member cards.
@@ -87,22 +77,16 @@ This section details all of my contributions to the project, and showcases how I
 
 
 == Contributions to the User Guide
-=== Current Enhancement
-=== Proposed Enhancement for Version 2.0
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=UniversalCommands]
+We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
+The following section displays my additions to the *+Work User Guide* for the `statistics` and `member` features.
 
 include::../UserGuide.adoc[tag=MemberCommands]
 
+include::../UserGuide.adoc[tag=Statistics]
 
 == Contribution to the Developer Guide
 The following section displays my additions to the *+Work Developer Guide* for the `statistics` and `member` features.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
-
 
 include::../DeveloperGuide.adoc[tag=statistics]
 
