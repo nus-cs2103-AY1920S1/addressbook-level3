@@ -219,10 +219,10 @@ Event Format: `delete_ev INDEX`
 
 Examples:
 
-* `list_em` `delete_em 2` +
+* `delete_em 2` +
 Deletes the 2nd employee in the displayed employee list.
-* `find_ev Music` `delete_ev 1` +
-Deletes the 1st event in the list shown after the `find_ev` command.
+* `delete_ev 1` +
+Deletes the 1st event in the displayed event list shown (Works on both __Main__ and __Schedule__ tab)
 
 //end::DeXun1[]
 
