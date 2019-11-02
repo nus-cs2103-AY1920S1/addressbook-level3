@@ -286,9 +286,8 @@ The commands include:
 
 These operations are exposed in the `Model` interface as `Model#getQuizQuestions(int numOfQuestions, Subject subject
 Difficulty difficulty)`, `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`,
-`Model#showQuizAnswer(int index)`, `Model#getFilteredQuizQuestionList()`, `Model#getFilteredQuizResultList()`,
-`Model#checkQuizAnswer(int index, Answer answer)`, `Model#addQuizResult(QuizResult quizResult)`,
-`Model#getFilteredQuizResultList()` and `Model#clearQuizQuestionList()` respectively.
+`Model#showQuizAnswer()`, `Model#getFilteredQuizQuestionList()`, `Model#checkQuizAnswer(Answer answer)`
+and `Model#clearQuizQuestionList()` respectively.
 
 Given below is an example usage scenario and how the question mechanism behaves at each step.
 
@@ -299,22 +298,23 @@ The `quiz` command calls `Model#getQuizQuestions(int numOfQuestions, Subject sub
 `Model#setQuizQuestionList(ObservableList<Question> quizQuestionList)`, causing the `AppData` to be updated with
 a list of specific question selected by user for quiz.
 
-Step 3. The user executes `INDEX:ANSWER` to answer the question. It calls `Model#checkQuizAnswer(int index,
-Answer answer)` and `Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result
-of the answer.
+Step 3. The user types answer to answer the question. It calls `Model#checkQuizAnswer(Answer answer)` and
+`Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result of the answer.
 
-Step 4. The user executes `show 2` command to show the answer of 2nd quiz question in the app. The `show` command calls
-`Model#showQuizAnswer(int index)`, causing the `AppData` to display the answer on the Ui.
+Step 4. The user executes `show` command to show the answer of current quiz question in the app. The `show` command calls
+`Model#showQuizAnswer()`, causing the `AppData` to display the answer on the Ui.
 
 Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
 `Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
 
 The following sequence diagram shows how the `quiz` operation works:
 
+.QuizModeSequenceDiagram
 image::QuizModeSequenceDiagram.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command for quiz:
 
+.QuizModeActivityDiagram
 image::QuizModeActivityDiagram.png[width=400]
 
 ==== Design Considerations
