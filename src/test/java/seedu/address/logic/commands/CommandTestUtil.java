@@ -16,9 +16,6 @@ import java.util.List;
 
 import seedu.address.address.logic.commands.EditCommand;
 import seedu.address.commons.core.index.Index;
-import seedu.address.itinerary.commands.AddEventCommand;
-import seedu.address.itinerary.model.EventList;
-import seedu.address.itinerary.model.Model;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.address.model.AddressBook;
 import seedu.address.address.model.AddressBookModel;

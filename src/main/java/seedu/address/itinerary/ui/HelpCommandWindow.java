@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
@@ -27,7 +29,7 @@ import seedu.address.ui.UiPart;
 @SuppressWarnings("unused")
 public class HelpCommandWindow extends UiPart<Stage> {
 
-    private static final String HELP_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    private static final String HELP_URL = "https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html";
     private static final String HELP_MESSAGE = "For more information check out our user guide here: \n" + HELP_URL;
     private static final String GREET_MESSAGE = "greet";
     private static final String SUMMARY_MESSAGE = "clear";
@@ -43,7 +45,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String HISTORY_MESSAGE = "history";
     private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
     private static final String SEARCH_MESSAGE = "search [title | date | time | location]/[keyword]";
-//    private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
+    //  private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
     private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
     private static final String GITHUB_URL = "https://github.com/ngzhaoming";
     private static final String WEBSITE_URL = "https://ngzhaoming.github.io/";
@@ -51,11 +53,12 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpCommandWindow.class);
     private static final String FXML = "HelpCommandWindow.fxml";
 
-    Notifications notificationBuilder;
+    private Notifications notificationBuilder;
 
-    Node graphic;
+    private Node graphic;
 
-    String wishSuccess = "Yeah, me too... I wish the developers can release this wish feature sooner （╯°□°）╯︵( .o.)";
+    private String wishSuccess = "Yeah, me too... I wish the developers can release "
+             + "this wish feature sooner （╯°□°）╯︵( .o.)";
 
     @FXML
     private Button copyButton;
@@ -344,17 +347,20 @@ public class HelpCommandWindow extends UiPart<Stage> {
         clipboard.setContent(url);
     }
 
-//    /**
-//     * Copies the wish command template to the clipboard.
-//     */
-//    @FXML
-//    private void copyWish() {
-//        final Clipboard clipboard = Clipboard.getSystemClipboard();
-//        final ClipboardContent url = new ClipboardContent();
-//        url.putString(WISH_MESSAGE);
-//        clipboard.setContent(url);
-//    }
+    //  /**
+    //   * Copies the wish command template to the clipboard.
+    //   */
+    //  @FXML
+    //  private void copyWish() {
+    //      final Clipboard clipboard = Clipboard.getSystemClipboard();
+    //      final ClipboardContent url = new ClipboardContent();
+    //      url.putString(WISH_MESSAGE);
+    //      clipboard.setContent(url);
+    //  }
 
+    /**
+     * Show the notification when user click on the wish button.
+     */
     @FXML
     private void handleWish() {
         getRoot().hide();
@@ -363,10 +369,16 @@ public class HelpCommandWindow extends UiPart<Stage> {
 
     }
 
-    private void notification(Pos pos, Node graphic, String Text) {
+    /**
+     * Inform the user that the following action has been completed.
+     * @param pos specifies the position that the command box appears on the screen.
+     * @param graphic the picture accompanying the notification.
+     * @param text the message that is shown in the notification.
+     */
+    private void notification(Pos pos, Node graphic, String text) {
         notificationBuilder = Notifications.create()
                 .title("Hold it!")
-                .text(Text)
+                .text(text)
                 .graphic(graphic)
                 .hideAfter(Duration.seconds(5))
                 .position(pos)

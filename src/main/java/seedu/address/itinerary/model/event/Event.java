@@ -7,6 +7,92 @@ import java.util.Comparator;
  * The events which makes up the itinerary list.
  */
 public class Event {
+    /**
+     * Comparator to sort events in the events list in order of Title.
+     */
+    private static Comparator<Event> titleComparator = Comparator.comparing((Event e) -> e.getTitle().toString())
+            .thenComparing(Object::toString);
+
+    /**
+     * Comparator to sort events in the events list in order of Location.
+     */
+    private static Comparator<Event> locationComparator = Comparator.comparing((Event e) -> e.getLocation().toString())
+            .thenComparing(Object::toString);
+
+    /**
+     * Comparator to sort events in the events list in order of date.
+     */
+    private static Comparator<Event> dateComparator = new Comparator<Event>() {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+            long d1 = formatTime(e1.getDate().toString(), e1.getTime().toString());
+            long d2 = formatTime(e2.getDate().toString(), e2.getTime().toString());
+
+            return (int) (d1 - d2);
+        }
+
+        private long formatTime(String date, String time) {
+            String result = date.substring(6) + date.substring(3, 5) + date.substring(0, 2);
+            String zone = time.substring(6);
+            if (zone.equals("a.m.")) {
+                String hour = time.substring(0, 2);
+                if (hour.equals("12")) {
+                    result = result + "00" + time.substring(3, 5);
+                } else {
+                    result = result + time.substring(0, 2) + time.substring(3, 5);
+                }
+            } else {
+                int changeTime = Integer.parseInt(time.substring(0, 2)) + 12;
+                result = result + changeTime + time.substring(3, 5);
+            }
+            return Long.parseLong(result);
+        }
+    }.thenComparing(Object::toString);
+
+
+    /**
+     * Comparator to sort events in the events list in order of Completion.
+     */
+    private static Comparator<Event> completionComparator = new Comparator<Event>() {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+            boolean doneE1 = e1.getIsDone();
+            boolean doneE2 = e2.getIsDone();
+
+            if (doneE1) {
+                return -1;
+            } else if (doneE2) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }.thenComparing(Object::toString);
+
+    /**
+     * Comparator to sort events in the events list in order of Completion.
+     */
+    private static Comparator<Event> priorityComparator = new Comparator<Event>() {
+
+        @Override
+        public int compare(Event e1, Event e2) {
+            ArrayList<String> comparisonTag = new ArrayList<>();
+            comparisonTag.add("Critical");
+            comparisonTag.add("High");
+            comparisonTag.add("Medium");
+            comparisonTag.add("Low");
+            comparisonTag.add("None");
+
+            int index1 = comparisonTag.indexOf(e1.getTag().toString().split(" ")[1]);
+            int index2 = comparisonTag.indexOf(e2.getTag().toString().split(" ")[1]);
+
+            return index1 - index2;
+        }
+    }.thenComparing(Object::toString);
+
+
     private Title title;
     private Location location;
     private Description desc;
@@ -14,6 +100,7 @@ public class Event {
     private Time time;
     private Tag tag;
     private boolean isDone;
+
 
     public Event(Title title, Date date, Location location, Description desc, Time time, Tag tag) {
         this.title = title;
@@ -76,88 +163,26 @@ public class Event {
                 && otherEvent.getTime().equals(getTime());
     }
 
-    /**
-     * Comparator to sort events in the events list in order of Title.
-     */
-    public static Comparator<Event> titleComparator = Comparator.comparing((Event e) -> e.getTitle().toString())
-            .thenComparing(Object::toString);
 
-    /**
-     * Comparator to sort events in the events list in order of Location.
-     */
-    public static Comparator<Event> locationComparator = Comparator.comparing((Event e) -> e.getLocation().toString())
-            .thenComparing(Object::toString);
+    public static Comparator<Event> getTitleComparator() {
+        return titleComparator;
+    }
 
-    /**
-     * Comparator to sort events in the events list in order of date.
-     */
-    public static Comparator<Event> dateComparator = new Comparator<Event>() {
+    public static Comparator<Event> getLocationComparator() {
+        return locationComparator;
+    }
 
-        @Override
-        public int compare(Event e1, Event e2) {
-            long d1 = formatTime(e1.getDate().toString(), e1.getTime().toString());
-            long d2 = formatTime(e2.getDate().toString(), e2.getTime().toString());
+    public static Comparator<Event> getDateComparator() {
+        return dateComparator;
+    }
 
-            return (int) (d1 - d2);
-        }
+    public static Comparator<Event> getCompletionComparator() {
+        return completionComparator;
+    }
 
-        private long formatTime(String date, String time) {
-            String result = date.substring(6) + date.substring(3, 5) + date.substring(0, 2);
-            String zone = time.substring(6);
-            if (zone.equals("a.m.")) {
-                String hour = time.substring(0, 2);
-                if (hour.equals("12")) {
-                    result = result + "00" + time.substring(3, 5);
-                } else {
-                    result = result + time.substring(0, 2) + time.substring(3, 5);
-                }
-            } else {
-                int changeTime = Integer.parseInt(time.substring(0, 2)) + 12;
-                result = result + changeTime + time.substring(3, 5);
-            }
-            return Long.parseLong(result);
-        }
-    }.thenComparing(Object::toString);
+    public static Comparator<Event> getPriorityComparator() {
+        return priorityComparator;
+    }
 
 
-    /**
-     * Comparator to sort events in the events list in order of Completion.
-     */
-    public static Comparator<Event> completionComparator = new Comparator<Event>() {
-
-        @Override
-        public int compare(Event e1, Event e2) {
-            boolean doneE1 = e1.getIsDone();
-            boolean doneE2 = e2.getIsDone();
-
-            if (doneE1) {
-                return -1;
-            } else if (doneE2) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }.thenComparing(Object::toString);
-
-    /**
-     * Comparator to sort events in the events list in order of Completion.
-     */
-    public static Comparator<Event> priorityComparator = new Comparator<Event>() {
-
-        @Override
-        public int compare(Event e1, Event e2) {
-            ArrayList<String> comparisonTag = new ArrayList<>();
-            comparisonTag.add("Critical");
-            comparisonTag.add("High");
-            comparisonTag.add("Medium");
-            comparisonTag.add("Low");
-            comparisonTag.add("None");
-
-            int index1 = comparisonTag.indexOf(e1.getTag().toString().split(" ")[1]);
-            int index2 = comparisonTag.indexOf(e2.getTag().toString().split(" ")[1]);
-
-            return index1 - index2;
-        }
-    }.thenComparing(Object::toString);
 }

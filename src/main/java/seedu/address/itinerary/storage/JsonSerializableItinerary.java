@@ -1,17 +1,21 @@
 package seedu.address.itinerary.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.itinerary.model.Itinerary;
 import seedu.address.itinerary.model.ReadOnlyItinerary;
 import seedu.address.itinerary.model.event.Event;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * Json file for itinerary which stores the data of the events in the event list.
+ */
 @JsonRootName(value = "itinerary")
 public class JsonSerializableItinerary {
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
