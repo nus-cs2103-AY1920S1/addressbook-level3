@@ -52,9 +52,8 @@ public class ServeCommandTest {
         new RegisterCommand(BOB).execute(modelManager);
         new RegisterCommand(ALICE).execute(modelManager);
 
-        BorrowerId validIdBob = new BorrowerId(VALID_ID_BOB);
-        new ServeCommand(ID_ALICE).execute(modelManager);
-        ServeCommand serveCommand = new ServeCommand(validIdBob);
+        new ServeCommand(ALICE.getBorrowerId()).execute(modelManager);
+        ServeCommand serveCommand = new ServeCommand(BOB.getBorrowerId());
 
         Assert.assertThrows(CommandException.class, ServeCommand.MESSAGE_ALREADY_IN_SERVE_MODE, () ->
                 serveCommand.execute(modelManager));
