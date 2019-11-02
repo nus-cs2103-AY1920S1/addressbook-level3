@@ -27,7 +27,9 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_EXPORT_PATH + "C:\\Users\\damithc\\Documents\\CS2105_Cheat_Sheet.docx";
 
-    public static final String MESSAGE_IMPORT_SUCCESS = "Import was successful! Number of flashcards imported: %d";
+    public static final String MESSAGE_IMPORT_SUCCESS = "Import was successful! Number of flashcards imported: %d\n";
+    public static final String MESSAGE_IMPORT_DUPLICATES = "%d duplicate FlashCards were not imported.";
+    public static final String MESSAGE_IMPORT_ALL_DUPLICATES = "There are no new FlashCards to import from that file.";
 
     private final ExportPath exportPath;
 
@@ -70,19 +72,43 @@ public class ImportCommand extends Command {
             throw new CommandException(
                     "Could not find any flashcards to import. Are you sure you got the path correct?"
             );
-        } else {
+        } else { //TODO can remove else
+            int successCount = 0;
+            int duplicateCount = 0;
             List<FlashCard> list = optionalList.get();
 
             for (FlashCard flashCard : list) {
+                if (model.hasFlashcard(flashCard)) {
+                    duplicateCount++;
+                }
+
                 model.addFlashCard(flashCard);
+                successCount++;
             }
 
             return new CommandResult(
-                    String.format(
-                        MESSAGE_IMPORT_SUCCESS,
-                        list.size()
-                    )
+                    formatCommandResultString(successCount, duplicateCount)
             );
         }
+    }
+
+    private String formatCommandResultString(int successCount, int duplicateCount) {
+        if (successCount == 0) {
+            return MESSAGE_IMPORT_ALL_DUPLICATES;
+        }
+
+        if (duplicateCount == 0) {
+            return String.format(
+                    MESSAGE_IMPORT_SUCCESS,
+                    successCount
+            );
+        }
+
+        return String.format(
+                MESSAGE_IMPORT_SUCCESS,
+                successCount,
+                MESSAGE_IMPORT_DUPLICATES,
+                duplicateCount
+        );
     }
 }
