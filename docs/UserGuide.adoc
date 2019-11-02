@@ -45,8 +45,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listpeople`* : lists all people
-* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/Male`: adds contact
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* `add n/John Doe ic/S9999999J p/98765432 e/johnd@example.com a/John street, block 123, #01-01 dob/12.09.1980 g/Male`: adds person
+* **`delete`**`3` : deletes the 3rd person shown in the current list
 * *`listpolicy`* : lists all policies
 * `add pol n/SeniorCare d/care for seniors c/months/10 pr/$50000 [sa/50 ea/75]`: adds policy
 * *`exit`* : exits the app
