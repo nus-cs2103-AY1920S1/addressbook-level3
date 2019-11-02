@@ -31,7 +31,6 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.storage.JsonAddressBookStorage;
 import seedu.revision.storage.JsonUserPrefsStorage;
 import seedu.revision.storage.StorageManager;
-import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.McqBuilder;
 
 public class MainLogicManagerTest {

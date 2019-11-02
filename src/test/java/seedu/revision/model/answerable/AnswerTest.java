@@ -1,10 +1,10 @@
 package seedu.revision.model.answerable;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class AnswerTest {
 
@@ -21,7 +21,7 @@ public class AnswerTest {
 
     @Test
     public void isValidAnswer() {
-        //Boundary Value Analysis. EPs: [0], [1-150], [151, INT_MAX]. Not possible to have negative number of characters.
+        //Boundary Value Analysis. EPs: [0],[1-150],[151, INT_MAX]. Not possible to have negative number of characters.
         // null question
         assertThrows(NullPointerException.class, () -> Answer.isValidAnswer(null));
         //Boundary Value: Empty strings and whitespace characters

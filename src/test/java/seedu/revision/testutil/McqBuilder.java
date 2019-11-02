@@ -1,11 +1,12 @@
 package seedu.revision.testutil;
 
+import java.util.ArrayList;
+
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 
-import java.util.ArrayList;
-
+/** Factory class to create {@code Mcq} objects. **/
 public class McqBuilder extends AnswerableBuilder<Mcq> {
 
     public McqBuilder() {
@@ -23,12 +24,15 @@ public class McqBuilder extends AnswerableBuilder<Mcq> {
 
     /**
      * Sets the Wrong Answer Set of the {@code Answerable} that we are building.
+     * @param wrongAnswerList
+     * @return McqBuilder object with the updated wrong answer list.
      */
     public McqBuilder withWrongAnswerList(ArrayList<Answer> wrongAnswerList) {
         this.wrongAnswerList = wrongAnswerList;
         return this;
     }
 
+    /** Builds an {@code Mcq} object with the updated parameters.**/
     public Mcq build() {
         return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }

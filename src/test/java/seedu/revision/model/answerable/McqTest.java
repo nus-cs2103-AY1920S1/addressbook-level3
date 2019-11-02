@@ -6,19 +6,19 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREEN
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_CORRECT_ANSWER;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_VALID_CORRECT_ANSWER_LIST;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 import static seedu.revision.testutil.TypicalAnswerables.BETA;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_WRONG_ANSWER_A;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_CORRECT_ANSWER;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_VALID_CORRECT_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_VALID_WRONG_ANSWER_LIST;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_WRONG_ANSWER_A;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.testutil.McqBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class McqTest {
 
@@ -47,13 +47,13 @@ public class McqTest {
 
         //Boundary Value 2 Correct Answers i.e. Empty List
         Mcq mcqWithTwoCorrectAnswers = new McqBuilder().withCorrectAnswerList(new ArrayList<>(
-                Arrays.asList( new Answer("one"), new Answer("two"))))
+                Arrays.asList(new Answer("one"), new Answer("two"))))
                 .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST).build();
         assertFalse(Mcq.isValidMcq(mcqWithTwoCorrectAnswers));
 
         //Boundary Value 2 wrong answers
         Mcq mcqWithTwoWrongAnswers = new McqBuilder().withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
-                .withWrongAnswerList(new ArrayList<>(Arrays.asList(new Answer("one"),new Answer("two")))).build();
+                .withWrongAnswerList(new ArrayList<>(Arrays.asList(new Answer("one"), new Answer("two")))).build();
         assertFalse(Mcq.isValidMcq(mcqWithTwoWrongAnswers));
 
         //Boundary Value 4 wrong answers

@@ -21,8 +21,8 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.Model;
-import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Answer;
+import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 

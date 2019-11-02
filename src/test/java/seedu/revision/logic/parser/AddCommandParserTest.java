@@ -29,7 +29,6 @@ import seedu.revision.logic.parser.main.AddCommandParser;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Question;
-import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.McqBuilder;
 
 public class AddCommandParserTest {

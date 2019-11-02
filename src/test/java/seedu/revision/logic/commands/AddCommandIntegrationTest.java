@@ -13,7 +13,6 @@ import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.McqBuilder;
 
 /**

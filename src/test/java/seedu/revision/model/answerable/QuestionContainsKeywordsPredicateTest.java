@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
-import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.McqBuilder;
 
 public class QuestionContainsKeywordsPredicateTest {

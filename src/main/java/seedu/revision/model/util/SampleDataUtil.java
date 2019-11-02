@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 
 import seedu.revision.model.AddressBook;
 import seedu.revision.model.ReadOnlyAddressBook;
+import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.TrueFalse;
-import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.category.Category;
 
 /**

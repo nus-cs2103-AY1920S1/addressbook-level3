@@ -21,7 +21,7 @@ public class QuestionTest {
 
     @Test
     public void isValidQuestion() {
-        //Boundary Value Analysis. EPs: [0], [1-300], [301, INT_MAX]. Not possible to have negative number of characters.
+        //Boundary Value Analysis. EPs: [0],[1-300],[301, INT_MAX]. Not possible to have negative number of characters.
         // null question
         assertThrows(NullPointerException.class, () -> Question.isValidQuestion(null));
 
