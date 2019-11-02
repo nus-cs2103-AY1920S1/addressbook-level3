@@ -169,6 +169,7 @@ Format: `undo`
 redo the previous command.  +
 Format: `redo`
 
+// tag::statisticsCommand[]
 ==== Generate stats : `generate-s`
 
 Accepts two types of input: Without date input and with date input +
