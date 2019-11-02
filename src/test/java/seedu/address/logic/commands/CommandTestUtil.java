@@ -9,7 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDICATOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -17,6 +19,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.visual.DisplayFormat.BARCHART;
+import static seedu.address.model.visual.DisplayFormat.LINECHART;
+import static seedu.address.model.visual.DisplayFormat.PIECHART;
+import static seedu.address.model.visual.DisplayIndicator.AGE_GROUP_BREAKDOWN;
+import static seedu.address.model.visual.DisplayIndicator.GENDER_BREAKDOWN;
+import static seedu.address.model.visual.DisplayIndicator.POLICY_POPULARITY_BREAKDOWN;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -202,6 +210,24 @@ public class CommandTestUtil {
     public static final String INVALID_START_AGE = " " + PREFIX_START_AGE + "twenty"; // only numbers are allowed
     public static final String INVALID_END_AGE = " " + PREFIX_END_AGE + "20-30"; // only numbers are allowed
 
+    // display indicator
+    public static final String DISPLAY_INDICATOR_DESC_POLICY_POPULARITY_BREAKDOWN =
+        " " + PREFIX_INDICATOR + POLICY_POPULARITY_BREAKDOWN;
+    public static final String DISPLAY_INDICATOR_DESC_AGE_GROUP_BREAKDOWN =
+        " " + PREFIX_INDICATOR + AGE_GROUP_BREAKDOWN;
+    public static final String DISPLAY_INDICATOR_DESC_GENDER_BREAKDOWN =
+        " " + PREFIX_INDICATOR + GENDER_BREAKDOWN;
+    public static final String INVALID_DISPLAY_INDICATOR_DESC =
+        " " + PREFIX_INDICATOR + "contact-list-growth-rate";
+
+    // display format
+    public static final String DISPLAY_FORMAT_DESC_PIECHART = " " + PREFIX_FORMAT + PIECHART;
+    public static final String DISPLAY_FORMAT_DESC_BARCHART = " " + PREFIX_FORMAT + BARCHART;
+    public static final String DISPLAY_FORMAT_DESC_LINECHART = " " + PREFIX_FORMAT + LINECHART;
+    public static final String INVALID_DISPLAY_FORMAT_DESC =
+        " " + PREFIX_FORMAT + "scatterplot";
+
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withNric(VALID_NRIC_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -242,7 +268,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertExpandPersonCommandSuccess(Command command, Model actualModel, String expectedMessage,
-                                                      Model expectedModel, Person personInModel) {
+                                                        Model expectedModel, Person personInModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, personInModel);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -252,7 +278,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertExpandPolicySuccess(Command command, Model actualModel, String expectedMessage,
-                                                        Model expectedModel, Policy policyInModel) {
+                                                 Model expectedModel, Policy policyInModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, policyInModel);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }

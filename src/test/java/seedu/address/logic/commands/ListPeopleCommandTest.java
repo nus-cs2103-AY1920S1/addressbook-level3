@@ -36,9 +36,6 @@ public class ListPeopleCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        assertListPeopleCommandSuccess(new ListPeopleCommand(),
-            model,
-            ListPeopleCommand.MESSAGE_SUCCESS, expectedModel);
         assertListPeopleCommandSuccess(
             new ListPeopleCommand(),
             model,

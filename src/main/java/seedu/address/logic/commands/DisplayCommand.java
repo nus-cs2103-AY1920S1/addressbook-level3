@@ -47,4 +47,12 @@ public class DisplayCommand extends Command {
                 + " with " + displayFormat + " successfully.";
         return new CommandResult(messageSuccess, this.displayIndicator, this.displayFormat);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DisplayCommand // instanceof handles nulls
+            && displayIndicator.equals(((DisplayCommand) other).displayIndicator)
+            && displayFormat.equals(((DisplayCommand) other).displayFormat));
+    }
 }
