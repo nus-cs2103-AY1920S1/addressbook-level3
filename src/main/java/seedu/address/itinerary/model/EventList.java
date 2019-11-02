@@ -1,9 +1,10 @@
 package seedu.address.itinerary.model;
 
+import java.util.List;
 
 import javafx.collections.FXCollections;
-
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
@@ -48,8 +49,13 @@ public class EventList {
         events.set(index, doneEvent);
     }
 
-    public boolean contains(Event editedEvent) {
-        for (int i = 0; i < events.size(); i++ ) {
+    /**
+     * Checks whether the current input event is already present in the event list.
+     * @param editedEvent the event currently on check.
+     * @return the boolean whether the event list already contains this event.
+     */
+    public boolean contains (Event editedEvent) {
+        for (int i = 0; i < events.size(); i++) {
             Event currEvent = events.get(i);
             if (currEvent.isSameEvent(editedEvent)) {
                 return true;
@@ -71,6 +77,15 @@ public class EventList {
         }
 
         events.set(index, editedEvent);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code events}.
+     */
+    public void setEvents(List<Event> events) {
+        CollectionUtil.requireAllNonNull(events);
+
+        this.events.setAll(events);
     }
 
     public void clear() {

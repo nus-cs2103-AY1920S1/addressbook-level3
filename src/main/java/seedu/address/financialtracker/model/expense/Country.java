@@ -2,6 +2,9 @@ package seedu.address.financialtracker.model.expense;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * An expense associated country.
+ */
 public class Country {
 
     public static final String MESSAGE_CONSTRAINTS =

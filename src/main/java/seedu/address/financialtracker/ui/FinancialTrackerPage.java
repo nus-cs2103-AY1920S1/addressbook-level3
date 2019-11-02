@@ -14,15 +14,14 @@ import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.financialtracker.logic.FinancialTrackerLogic;
 import seedu.address.financialtracker.model.Model;
-import seedu.address.financialtracker.logic.parser.FinancialTrackerParser;
 import seedu.address.financialtracker.storage.FinancialTrackerStorage;
 import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
@@ -137,7 +136,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
      */
     @FXML
     private void handleExit() {
-        this.financialTrackerScene.getWindow().hide();
+        PageManager.closeWindows();
     }
 
     @Override

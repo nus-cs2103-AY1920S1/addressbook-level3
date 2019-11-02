@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'TravEzy.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

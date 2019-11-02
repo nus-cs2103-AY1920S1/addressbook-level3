@@ -29,7 +29,7 @@ public class DateFormatter {
      * @return String format of date for easier input/ouput
      */
 
-    public static String convertToStringStore(java.util.Date idea) {
+    public static String convertToStringStore(Date idea) {
         SimpleDateFormat myFormatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         return myFormatter.format(idea);
     }

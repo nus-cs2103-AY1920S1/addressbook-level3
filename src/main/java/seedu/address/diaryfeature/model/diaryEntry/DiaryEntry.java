@@ -39,6 +39,10 @@ public class DiaryEntry {
         return DateFormatter.convertToStringPrint(date);
     }
 
+    public String getDateAsStringtoStore() {
+        return DateFormatter.convertToStringStore(date);
+    }
+
     public Date getDate() {
         return date;
     }

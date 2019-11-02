@@ -34,10 +34,11 @@ public class AddCommandParser implements Parser<Command> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String args) throws ParseException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE,PREFIX_PLACE,PREFIX_MEMORY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE,PREFIX_PLACE,PREFIX_MEMORY)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -49,8 +50,19 @@ public class AddCommandParser implements Parser<Command> {
         try {
             title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
-            memory = ParserUtil.parseMemory(argMultimap.getValue(PREFIX_MEMORY).get());
+            if(argMultimap.getValue(PREFIX_PLACE).isEmpty()) {
+                place = new Place("");
+            } else {
+                place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
+
+            }
+
+            if(argMultimap.getValue(PREFIX_MEMORY).isEmpty()) {
+                memory = new Memory("");
+            } else {
+                memory = ParserUtil.parseMemory(argMultimap.getValue(PREFIX_MEMORY).get());
+
+            }
 
 
         } catch (TitleException | java.text.ParseException ex) {

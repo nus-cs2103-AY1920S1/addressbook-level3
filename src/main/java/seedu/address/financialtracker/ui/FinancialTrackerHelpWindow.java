@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
 /**
- * Controller for a help page
+ * Controller for a help page.
  */
 @SuppressWarnings("unused")
 public class FinancialTrackerHelpWindow extends UiPart<Stage> {

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="itineraryPane" styleClass="achievement-pane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="itineraryPane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <left>
     <VBox prefWidth="50">
     </VBox>
@@ -62,7 +62,7 @@
            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
          </Menu>
        </MenuBar>
-            <HBox id="header" alignment="CENTER" prefWidth="460.0">
+            <HBox id="header" alignment="CENTER" prefHeight="110.0" prefWidth="137.0">
                <children>
                   <VBox alignment="CENTER">
                      <children>
@@ -79,7 +79,8 @@
             <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0">
                <VBox.margin>
                   <Insets bottom="20.0" />
-               </VBox.margin></HBox>
+               </VBox.margin>
+            </HBox>
          </children>
       </VBox>
    </top>

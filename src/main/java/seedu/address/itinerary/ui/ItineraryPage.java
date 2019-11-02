@@ -1,8 +1,9 @@
 package seedu.address.itinerary.ui;
 
+import static seedu.address.address.logic.AddressBookLogicManager.FILE_OPS_ERROR_MESSAGE;
+
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -12,19 +13,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.itinerary.model.Itinerary;
+import seedu.address.itinerary.logic.ItineraryLogic;
+import seedu.address.itinerary.logic.parser.ItineraryParser;
 import seedu.address.itinerary.model.Model;
-import seedu.address.itinerary.model.ReadOnlyItinerary;
-import seedu.address.itinerary.parser.ItineraryParser;
 import seedu.address.itinerary.storage.ItineraryStorage;
 import seedu.address.itinerary.storage.JsonItineraryStorage;
 import seedu.address.logic.commands.Command;
@@ -35,6 +34,7 @@ import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.UiPart;
@@ -45,7 +45,9 @@ import seedu.address.ui.UiPart;
  */
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class ItineraryPage extends UiPart<VBox> implements Page {
+
     private static final PageType pageType = PageType.ITINERARY;
+
     private static final String fxmlWindow = "ItineraryWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -66,6 +68,10 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
 
     private CodeWindow codeWindow;
 
+    private ItineraryStorage itineraryStorage;
+
+    private ItineraryLogic itineraryLogic;
+
     @FXML
     private Scene itineraryScene;
 
@@ -84,30 +90,29 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    private String[] possibleSuggestions = {
+        // For basic command
+        "greet", "summary", "goto calendar", "goto financial_tracker", "goto diary",
+        "goto main", "goto achievements", "goto address_book", "exit", "list", "help", "history", "clear",
+        // For the add command
+        "add title/", "add title/ date/ time/ l/ d/",
+        // For the edit, done and delete command
+        "delete ", "edit ", "done ",
+        // For the sort event
+        "sort by/", "title", "location", "completion", "priority", "chronological",
+        // For the search event
+        "search", "search title/ date/ time/ l/ d/ tag/"
+    };
+
     public ItineraryPage(Stage primaryStage) {
         super(fxmlWindow);
         this.itineraryScene = new Scene(itineraryPane);
         this.primaryStage = primaryStage;
         this.itineraryParser = new ItineraryParser();
         this.model = new Model();
+        this.itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
 
-        Itinerary itinerary = new Itinerary();
-        ItineraryStorage itineraryStorage = new JsonItineraryStorage(Paths.get("data" , "itinerary.json"));
-
-        try {
-            Optional<ReadOnlyItinerary> itineraryOptional = itineraryStorage.readItinerary();
-            if (itineraryOptional.isPresent()) {
-                itinerary.updateItinerary(itineraryOptional.get());
-            } else {
-                System.out.println("There is no file to read from!");
-            }
-        } catch (DataConversionException e) {
-            System.out.println("Data file not in the correct format. Will be starting with an empty Itinerary");
-            // todo: what to do about data? JUST OVERWRITE
-        } catch (IOException e) {
-            System.out.println("Problem while reading from the file. Will be starting with an empty Itinerary");
-            // todo: what to do about data? JUST OVERWRITE
-        }
+        this.itineraryLogic = new ItineraryLogic(model, itineraryStorage);
 
         fillInnerParts();
     }
@@ -123,7 +128,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList());
+        CommandBox commandBox = new CommandBox(this::executeCommand, model.getActionList(), possibleSuggestions);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         tagDropdown = new TagDropdown();
@@ -202,8 +207,14 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            try {
+                itineraryStorage.saveItinerary(model.getItinerary());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+
             if (commandResult.isExit()) {
-                handleExit();
+                PageManager.closeWindows();
             }
 
             if (commandResult.isShowHelp()) {
@@ -236,5 +247,9 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
                 event.consume();
             }
         });
+    }
+
+    public String[] getPossibleSuggestions() {
+        return possibleSuggestions;
     }
 }

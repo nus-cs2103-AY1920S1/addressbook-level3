@@ -507,6 +507,43 @@ The above activity shows how `edits` command works.
 
 === Diary
 
+
+==== Architecture
+
+.Architecture Diagram for Diary Feature
+image::DiaryArchitecture.png[]
+
+The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+
+
+`Diary Model` has multiple classes which form the basis of a Diary.
+This implementation starts at the root object, which is a `DiaryEntry`. These entries
+are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
+
+After receiving user input from `DiaryUi`, `DiaryParser`
+changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
+
+
+
+==== UI component
+
+.Structure of DiaryUi
+image::DiaryUI.png[]
+
+`DiaryUI`, which is represented above, consists of  `DiaryPage`, which encapsulates all the smaller Ui components.
+
+*The main components are the:*
+
+* `CommandBox` -> Captures user input
+
+* `ResultDisplay` -> Returns the output after the user input has passed through the DiaryCommand
+
+* `DiaryListPanel` -> Shows an easily readable version of the current DiaryBook
+
+All of these components inherit from the abstract `UiPart` Class
+
+
+
 === Address Book
 
 ==== Logic Component

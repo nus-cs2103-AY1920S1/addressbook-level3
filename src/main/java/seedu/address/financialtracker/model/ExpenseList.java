@@ -59,6 +59,12 @@ public class ExpenseList {
         return expenses.stream().anyMatch(toCheck::equals);
     }
 
+    /**
+     * Edits an expense.
+     * @param expenseToEdit The expense to be edited.
+     * @param editedExpense The new expense.
+     * @throws CommandException
+     */
     public void setExpense(Expense expenseToEdit, Expense editedExpense) throws CommandException {
         CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);
 

@@ -17,7 +17,7 @@ public interface DiaryBookStorage {
      */
     Path getDiaryBookFilePath();
 
-    void saveDiaryBook(DiaryBook adiaryBookBook) throws IOException;
+    void saveDiaryBook(DiaryBook diaryBook) throws IOException;
 
     /**
      */

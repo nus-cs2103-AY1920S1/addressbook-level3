@@ -5,11 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Region;
+
 import seedu.address.ui.UiPart;
 
+/**
+ * The priority combo box to select the priority for each event.
+ */
 public class TagDropdown extends UiPart<Region> {
 
     private static final String FXML = "ItineraryTagWindow.fxml";
+
+    private static String field = null;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -18,12 +24,10 @@ public class TagDropdown extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-    ObservableList<String> options = FXCollections.observableArrayList();
+    private ObservableList<String> options = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> tagWindow;
-
-    private static String field = null;
 
     public TagDropdown() {
         super(FXML);

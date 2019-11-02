@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -62,8 +63,11 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private MenuItem helpMenuItem;
 
+    //@FXML
+    //private StackPane personListPanelPlaceholder;
+
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private ImageView imageView;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -148,8 +152,8 @@ public class MainWindow extends UiPart<Stage> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
+        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -188,7 +192,7 @@ public class MainWindow extends UiPart<Stage> implements Page {
             }
         };
         Timer timer = new Timer();
-        timer.schedule(myDelay,350);
+        timer.schedule(myDelay, 350);
     }
 
     /**
@@ -241,24 +245,45 @@ public class MainWindow extends UiPart<Stage> implements Page {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.getAddressBookLogic().execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            if (mainCheck(commandText.split(" ")[0])) {
+                CommandResult commandResult = logic.getAddressBookLogic().execute(commandText);
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+                if (commandResult.isShowHelp()) {
+                    handleHelp();
+                }
+
+                if (commandResult.isExit()) {
+                    handleExit();
+                }
+
+                return commandResult;
+            } else {
+                CommandResult commandResult = logic.getAddressBookLogic().execute("Wrong Command");
+                logger.info("Result: " + commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+                return commandResult;
             }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Checks whether the input command is valid in the main page.
+     * @param command user input command.
+     * @return the boolean whether the command is valid in the main page.
+     */
+    private boolean mainCheck(String command) {
+        if (command.equals("goto") || command.equals("exit") || command.equals("help")) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

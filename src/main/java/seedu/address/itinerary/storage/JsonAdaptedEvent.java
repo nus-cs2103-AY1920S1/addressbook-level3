@@ -2,6 +2,7 @@ package seedu.address.itinerary.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.itinerary.model.event.Date;
 import seedu.address.itinerary.model.event.Description;
@@ -11,6 +12,9 @@ import seedu.address.itinerary.model.event.Tag;
 import seedu.address.itinerary.model.event.Time;
 import seedu.address.itinerary.model.event.Title;
 
+/**
+ * Event created based on the json save file in the local storage.
+ */
 public class JsonAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
@@ -20,6 +24,7 @@ public class JsonAdaptedEvent {
     private final String location;
     private final String description;
     private final String tag;
+    private final boolean done;
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -27,13 +32,15 @@ public class JsonAdaptedEvent {
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("title") String title, @JsonProperty("date") String date,
                             @JsonProperty("time") String time, @JsonProperty("location") String location,
-                            @JsonProperty("description") String description, @JsonProperty("tag") String tag) {
+                            @JsonProperty("description") String description, @JsonProperty("tag") String tag,
+                            @JsonProperty("done") boolean done) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.location = location;
         this.description = description;
         this.tag = tag;
+        this.done = done;
     }
 
     /**
@@ -41,11 +48,12 @@ public class JsonAdaptedEvent {
      */
     public JsonAdaptedEvent(Event source) {
         title = source.getTitle().toString();
-        date = source.getDate().toString();
-        time = source.getTime().toString();
+        date = source.getDate().getOriginalDate();
+        time = source.getTime().getOriginalTime();
         location = source.getLocation().toString();
         description = source.getDesc().toString();
         tag = source.getTag().toString();
+        done = source.getIsDone();
     }
 
     /**
@@ -84,7 +92,12 @@ public class JsonAdaptedEvent {
         }
         final Tag tag = new Tag(this.tag);
 
+        Event event = new Event(title, date, location, description, time, tag);
 
-        return new Event(title, date, location, description, time, tag);
+        if (done) {
+            event.markIsDone();
+        }
+
+        return event;
     }
 }

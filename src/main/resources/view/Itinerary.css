@@ -25,6 +25,32 @@
   -fx-text-fill: white;
 }
 
+/* Scroll Bar */
+.scroll-bar .thumb {
+  -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+  -fx-background-color: transparent;
+  -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+  -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+  -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow {
+  -fx-padding: 8 1 8 1;
+}
+
 /* Header Styling */
 #header {
   -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
@@ -38,11 +64,6 @@
 
 #border {
     -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
-}
-
-/* Progress Bar Styling */
-.progress-bar {
-    -fx-accent: #c471ed;
 }
 
 /* Card Styling */
@@ -90,64 +111,50 @@
     -fx-text-fill: white;
     -fx-font-size: 12pt;
 }
-
-/* Lin Wei's CSS for Reference */
-
-#bottom-panel {
-    -fx-background-color: #fff;
+/* Progress Bar Styling */
+.progress-bar {
+    -fx-accent: #c471ed;
 }
 
-.day-of-month {
-    -fx-font-size: 1.2em;
+/* Chart Styling */
+
+#chartTitlePlaceholder .label {
+  -fx-font-size: 14pt;
+  -fx-font-family: "Segoe UI";
+  -fx-text-fill: #61045F;
 }
 
-.day-view {
-    -fx-alignment: "TOP_CENTER";
-    -fx-padding: 10 0;
+#chartDataPlaceholder .label {
+  -fx-font-size: 10pt;
+  -fx-font-family: "Segoe UI";
+  -fx-text-fill: #AA076B;
 }
 
-#divider {
-    -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
+.default-color0.chart-bar {
+  -fx-bar-fill: #C471ED;
 }
 
-#headerPanel {
-    -fx-background-color: linear-gradient(to right, #AA076B, #61045F);
-    -fx-padding: 20;
-}
-
-#header {
-    -fx-border-color: #fff;
-    -fx-border-width: 5;
-    -fx-padding: 7;
-}
-
-.header-text {
-    -fx-text-fill: #fff;
-}
-
-#monthPanel {
-    -fx-background-color: #fff;
-    -fx-padding: 30 25;
-}
-
-#monthHeader {
-    -fx-font-size: 60;
-}
+/* Result Display */
 
 .result-display {
-    -fx-border-style: none;
-    -fx-background-color: transparent;
+  -fx-background-color: transparent;
+  -fx-font-family: "Segoe UI";
+  -fx-font-size: 13pt;
+  -fx-text-fill: black;
 }
 
-.week {
-    -fx-alignment: center;
-    -fx-text-alignment: center;
-    -fx-text-overrun: clip;
-    -fx-line-spacing: 1.2em;
-    -fx-font: 1.5em "Arial Black";
+.result-display .label {
+  -fx-text-fill: black !important;
 }
 
-#week-header {
-    -fx-border-color: #000;
-    -fx-border-style: solid none;
+/* Command Box Text Field */
+
+.text-field {
+  -fx-font-size: 12pt;
+  -fx-font-family: "Segoe UI";
 }
+.error {
+    -fx-text-fill: #61045F !important; /* The error class should always override the default text-fill style */
+}
+
+

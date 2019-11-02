@@ -7,9 +7,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.itinerary.model.event.Event;
 import seedu.address.itinerary.model.exceptions.ItineraryException;
-import seedu.address.commons.util.CollectionUtil;
 
 /**
  * Access the filtered event list of the itinerary.
@@ -59,6 +60,14 @@ public class Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+    }
+
+    public void setItinerary(ReadOnlyItinerary readOnlyItinerary) {
+        this.itinerary.resetData(readOnlyItinerary);
+    }
+
+    public ReadOnlyItinerary getItinerary() {
+        return itinerary;
     }
 
     /**
