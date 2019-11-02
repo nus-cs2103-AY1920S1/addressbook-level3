@@ -12,8 +12,7 @@ public class Username {
             + " and adhere to the following constraints:\n"
             + "1) Should not have two underscores, two hypens, two spaces or two address signs in a row\n"
             + "2) Should not have a underscore, hypen, space or address sign at the start or end\n"
-            + "3) Be between 2 characters to 25 characters long\n"
-            + "Username is case-insensitive";
+            + "3) Be between 2 characters to 25 characters long\n";
 
     private static final String VALIDATION_REGEX = "^(?![@_ .])(?!.*[ @_.]{2})([a-zA-Z0-9. _@]{2,30})(?<![_@ .])$";
 

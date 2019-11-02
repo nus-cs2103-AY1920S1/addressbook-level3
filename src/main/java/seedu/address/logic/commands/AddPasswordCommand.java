@@ -25,7 +25,10 @@ public class AddPasswordCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]";
 
     public static final String MESSAGE_SUCCESS = "New password added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book";
+    public static final String MESSAGE_DUPLICATE_PASSWORD = "This password already exists in the password book.\n"
+            + "Please ensure that your password adhere to the following constraints:\n"
+            + "1) Should not have the same description and password as those already existing in the password book\n"
+            + "2) Description and password are case-insensitive." ;
 
     private final Password toAddPassword;
 

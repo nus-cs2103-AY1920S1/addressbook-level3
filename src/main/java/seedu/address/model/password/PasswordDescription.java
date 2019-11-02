@@ -11,7 +11,7 @@ public class PasswordDescription {
             "Descriptions should only contain alphabets, numbers and spaces"
             + " and adhere to the following constrains: \n"
             + "1) Be between 2 characters to 30 characters long\n"
-            + "Description is case-insensitive and will automatically be changed to UPPER-CASE";
+            + "Description will automatically be changed to UPPER-CASE";
     /**
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
