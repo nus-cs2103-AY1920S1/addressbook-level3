@@ -25,6 +25,38 @@ public class EditPersonCommandSuggester extends Suggester {
             CliSyntax.PREFIX_TAG
     );
 
+    /**
+     * Gets the {@link Person}'s properties as a {@link List} based on the given {@link Prefix}. Used to suggest the
+     * current values of the {@link Person}.
+     *
+     * @param person The {@link Person} to obtain the desired properties from.
+     * @param prefixType The property that is desired.
+     * @return A {@link List} containing the properties of the given {@code Person} based on the {@code prefixType}.
+     */
+    protected static List<String> getCurrentValuesOfPerson(final Person person, final Prefix prefixType) {
+        if (prefixType.equals(CliSyntax.PREFIX_NAME)) {
+            return List.of(person.getName().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_PHONE)) {
+            return List.of(person.getPhone().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_EMAIL)) {
+            return List.of(person.getEmail().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_ADDRESS)) {
+            return List.of(person.getAddress().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_REMARK)) {
+            return List.of(person.getRemark().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_TAG)) {
+            return person
+                    .getTags()
+                    .stream()
+                    .map(tag -> {
+                        return tag.tagName;
+                    })
+                    .collect(Collectors.toUnmodifiableList());
+        } else {
+            return List.of();
+        }
+    }
+
     @Override
     protected List<String> provideSuggestions(
             final Model model, final ArgumentList arguments, final CommandArgument commandArgument) {
@@ -40,25 +72,7 @@ public class EditPersonCommandSuggester extends Suggester {
             }
 
             final Person selectedPerson = optionalSelectedPerson.get();
-            if (prefix.equals(CliSyntax.PREFIX_NAME)) {
-                return List.of(selectedPerson.getName().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_PHONE)) {
-                return List.of(selectedPerson.getPhone().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_EMAIL)) {
-                return List.of(selectedPerson.getEmail().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_ADDRESS)) {
-                return List.of(selectedPerson.getAddress().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_REMARK)) {
-                return List.of(selectedPerson.getRemark().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_TAG)) {
-                return selectedPerson
-                        .getTags()
-                        .stream()
-                        .map(tag -> {
-                            return tag.tagName;
-                        })
-                        .collect(Collectors.toUnmodifiableList());
-            }
+            return getCurrentValuesOfPerson(selectedPerson, prefix);
         }
 
         return null;
