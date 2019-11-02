@@ -48,28 +48,23 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         // Name and price are required fields
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        Name name = ParserUtil.parseTheNames(argMultimap.getAllValues(PREFIX_NAME));
+        Price price = ParserUtil.parseThePrices(argMultimap.getAllValues(PREFIX_PRICE));
+        Category category = ParserUtil.parseTheCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
 
         // Description is an optional field
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION)
-                .orElse(Description.DEFAULT_VALUE));
+        Description description = ParserUtil.parseTheDescriptions(argMultimap.getAllValues(PREFIX_DESCRIPTION));
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         // Location is an optional field
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION)
-                .orElse(Location.DEFAULT_VALUE));
+        Location location = ParserUtil.parseTheLocations(argMultimap.getAllValues(PREFIX_LOCATION));
 
         // Opening Hours is an optional field.
-        OpeningHours openingHours = ParserUtil.parseOpeningHours(argMultimap.getValue(PREFIX_OPENING_HOURS)
-                .orElse(OpeningHours.DEFAULT_VALUE));
+        OpeningHours openingHours = ParserUtil.parseTheOpeningHours(argMultimap.getAllValues(PREFIX_OPENING_HOURS));
 
         // Restriction is an optional field.
-        Restrictions restrictions = ParserUtil.parseRestrictions(argMultimap.getValue(PREFIX_RESTRICTIONS)
-                .orElse(Restrictions.DEFAULT_VALUE));
-
+        Restrictions restrictions = ParserUtil.parseTheRestrictions(argMultimap.getAllValues(PREFIX_RESTRICTIONS));
 
         Food food = new Food(name, price, description, category, tagList, location, openingHours, restrictions);
 

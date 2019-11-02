@@ -35,6 +35,8 @@ import seedu.savenus.model.wallet.Wallet;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String DUPLICATE_FIELDS = "You have multiple instances of %s. \n"
+            + "Please make sure you only have one instance of it.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -151,6 +153,31 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a collection of {@code String names} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple names are present.
+     */
+    public static Name parseTheNames(Collection<String> names) throws ParseException {
+        requireNonNull(names);
+        if (names.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Name"));
+        }
+
+        String theName = "";
+        for (String name : names) {
+            if (!Name.isValidName(name.trim())) {
+                throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            }
+
+            theName = name.trim();
+            break;
+        }
+
+        return new Name(theName);
+    }
+
+    /**
      * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -163,6 +190,31 @@ public class ParserUtil {
             throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }
         return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a collection of {@code String prices} into a {@code Price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple prices are present.
+     */
+    public static Price parseThePrices(Collection<String> prices) throws ParseException {
+        requireNonNull(prices);
+        if (prices.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Price"));
+        }
+
+        String thePrice = "";
+        for (String price : prices) {
+            if (!Price.isValidPrice(price)) {
+                throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+            }
+
+            thePrice = price;
+            break;
+        }
+
+        return new Price(thePrice);
     }
 
     /**
@@ -181,6 +233,31 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a collection of {@code String categories} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple categories are present.
+     */
+    public static Category parseTheCategories(Collection<String> categories) throws ParseException {
+        requireNonNull(categories);
+        if (categories.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Category"));
+        }
+
+        String theCategory = "";
+        for (String category : categories) {
+            if (!Category.isValidCategory(category)) {
+                throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+            }
+
+            theCategory = category;
+            break;
+        }
+
+        return new Category(theCategory);
+    }
+
+    /**
      * Parses a {@code String description} into an {@code description}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -196,6 +273,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a collection of {@code String descriptions} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple descriptions are present.
+     */
+    public static Description parseTheDescriptions(Collection<String> descriptions) throws ParseException {
+        requireNonNull(descriptions);
+        if (descriptions.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Description"));
+        }
+
+        if (descriptions.size() == 0) {
+            return new Description(Description.DEFAULT_VALUE);
+        }
+
+        String theDescription = "";
+
+        for (String description : descriptions) {
+            if (!Description.isValidDescription(description)) {
+                throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+            }
+
+            theDescription = description;
+            break;
+        }
+
+        return new Description(theDescription);
+    }
+
+    /**
      * Parses a {@code String location} into an {@code location}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -208,6 +315,36 @@ public class ParserUtil {
             throw new ParseException(Location.MESSAGE_CONSTRAINTS);
         }
         return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a collection of {@code String locations} into a {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple locations are present.
+     */
+    public static Location parseTheLocations(Collection<String> locations) throws ParseException {
+        requireNonNull(locations);
+        if (locations.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Location"));
+        }
+
+        if (locations.size() == 0) {
+            return new Location(Location.DEFAULT_VALUE);
+        }
+
+        String theLocation = "";
+
+        for (String location : locations) {
+            if (!Location.isValidLocation(location)) {
+                throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+            }
+
+            theLocation = location;
+            break;
+        }
+
+        return new Location(theLocation);
     }
 
     /**
@@ -229,6 +366,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a collection of {@code String openingHours} into a {@code OpeningHours}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple openingHours are present.
+     */
+    public static OpeningHours parseTheOpeningHours(Collection<String> openingHours) throws ParseException {
+        requireNonNull(openingHours);
+        if (openingHours.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "OpeningHours"));
+        }
+
+        if (openingHours.size() == 0) {
+            return new OpeningHours(OpeningHours.DEFAULT_VALUE);
+        }
+
+        String theOpeningHours = "";
+
+        for (String actualOpeningHours : openingHours) {
+            if (!OpeningHours.isValidOpeningHours(actualOpeningHours)) {
+                throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+            }
+
+            theOpeningHours = actualOpeningHours;
+            break;
+        }
+
+        return new OpeningHours(theOpeningHours);
+    }
+
+    /**
      * Parse a {@code String restrictions} into an {@code restrictions}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -241,6 +408,36 @@ public class ParserUtil {
             throw new ParseException(Restrictions.MESSAGE_CONSTRAINTS);
         }
         return new Restrictions(trimmedRestrictions);
+    }
+
+    /**
+     * Parses a collection of {@code String restrictions} into a {@code Restrictions}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid or multiple restrictions are present.
+     */
+    public static Restrictions parseTheRestrictions(Collection<String> restrictions) throws ParseException {
+        requireNonNull(restrictions);
+        if (restrictions.size() > 1) {
+            throw new ParseException(String.format(DUPLICATE_FIELDS, "Restrictions"));
+        }
+
+        if (restrictions.size() == 0) {
+            return new Restrictions(Restrictions.DEFAULT_VALUE);
+        }
+
+        String theRestriction = "";
+
+        for (String restriction : restrictions) {
+            if (!Restrictions.isValidRestrictions(restriction)) {
+                throw new ParseException(Restrictions.MESSAGE_CONSTRAINTS);
+            }
+
+            theRestriction = restriction;
+            break;
+        }
+
+        return new Restrictions(theRestriction);
     }
 
     /**

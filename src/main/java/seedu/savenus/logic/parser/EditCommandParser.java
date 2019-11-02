@@ -48,30 +48,30 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditFoodDescriptor editFoodDescriptor = new EditFoodDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editFoodDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editFoodDescriptor.setName(ParserUtil.parseTheNames(argMultimap.getAllValues(PREFIX_NAME)));
         }
         if (argMultimap.getValue(PREFIX_PRICE).isPresent()) {
-            editFoodDescriptor.setPrice(ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get()));
+            editFoodDescriptor.setPrice(ParserUtil.parseThePrices(argMultimap.getAllValues(PREFIX_PRICE)));
         }
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editFoodDescriptor.setDescription(ParserUtil.parseDescription(argMultimap
-                    .getValue(PREFIX_DESCRIPTION).get()));
+            editFoodDescriptor.setDescription(
+                    ParserUtil.parseTheDescriptions(argMultimap.getAllValues(PREFIX_DESCRIPTION)));
         }
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            editFoodDescriptor.setCategory(ParserUtil.parseCategory(argMultimap
-                    .getValue(PREFIX_CATEGORY).get()));
+            editFoodDescriptor.setCategory(
+                    ParserUtil.parseTheCategories(argMultimap.getAllValues(PREFIX_CATEGORY)));
         }
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editFoodDescriptor.setLocation(ParserUtil.parseLocation(argMultimap
-                    .getValue(PREFIX_LOCATION).get()));
+            editFoodDescriptor.setLocation(
+                    ParserUtil.parseTheLocations(argMultimap.getAllValues(PREFIX_LOCATION)));
         }
         if (argMultimap.getValue(PREFIX_OPENING_HOURS).isPresent()) {
-            editFoodDescriptor.setOpeningHours(ParserUtil.parseOpeningHours(argMultimap
-                    .getValue(PREFIX_OPENING_HOURS).get()));
+            editFoodDescriptor.setOpeningHours(
+                    ParserUtil.parseTheOpeningHours(argMultimap.getAllValues(PREFIX_OPENING_HOURS)));
         }
         if (argMultimap.getValue(PREFIX_RESTRICTIONS).isPresent()) {
-            editFoodDescriptor.setRestrictions(ParserUtil.parseRestrictions(argMultimap
-                    .getValue(PREFIX_RESTRICTIONS).get()));
+            editFoodDescriptor.setRestrictions(
+                    ParserUtil.parseTheRestrictions(argMultimap.getAllValues(PREFIX_RESTRICTIONS)));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFoodDescriptor::setTags);
 

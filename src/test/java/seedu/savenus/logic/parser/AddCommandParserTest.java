@@ -59,33 +59,33 @@ public class AddCommandParserTest {
                 + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
                 + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_CHICKEN_RICE + NAME_DESC_NASI_LEMAK
+        // multiple names not success
+        assertParseFailure(parser, NAME_DESC_CHICKEN_RICE + NAME_DESC_NASI_LEMAK
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
                 + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
                 + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
-                + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
+                + RESTRICTIONS_DESC_NASI_LEMAK, String.format(ParserUtil.DUPLICATE_FIELDS, "Name"));
 
-        // multiple prices - last price accepted
-        assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_CHICKEN_RICE
+        // multiple prices not success
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_CHICKEN_RICE
                 + PRICE_DESC_NASI_LEMAK + DESCRIPTION_DESC_NASI_LEMAK
                 + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
                 + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
-                + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
+                + RESTRICTIONS_DESC_NASI_LEMAK, String.format(ParserUtil.DUPLICATE_FIELDS, "Price"));
 
-        // multiple descriptions - last description accepted
-        assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
+        // multiple descriptions not success
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
                 + DESCRIPTION_DESC_CHICKEN_RICE + DESCRIPTION_DESC_NASI_LEMAK
                 + CATEGORY_DESC_NASI_LEMAK + TAG_DESC_CHICKEN
                 + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
-                + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
+                + RESTRICTIONS_DESC_NASI_LEMAK, String.format(ParserUtil.DUPLICATE_FIELDS, "Description"));
 
-        // multiple locations - last location accepted
-        assertParseSuccess(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
+        // multiple locations not success
+        assertParseFailure(parser, NAME_DESC_NASI_LEMAK + PRICE_DESC_NASI_LEMAK
                 + DESCRIPTION_DESC_NASI_LEMAK + CATEGORY_DESC_NASI_LEMAK
                 + TAG_DESC_CHICKEN
                 + LOCATION_DESC_CHICKEN_RICE + LOCATION_DESC_NASI_LEMAK + OPENING_HOURS_DESC_NASI_LEMAK
-                + RESTRICTIONS_DESC_NASI_LEMAK, new AddCommand(expectedFood));
+                + RESTRICTIONS_DESC_NASI_LEMAK, String.format(ParserUtil.DUPLICATE_FIELDS, "Location"));
 
         // multiple tags - all accepted
         Food expectedFoodMultipleTags = new FoodBuilder(NASI_LEMAK).withTags(VALID_TAG_CHICKEN, VALID_TAG_RICE)
