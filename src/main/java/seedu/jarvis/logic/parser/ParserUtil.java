@@ -226,11 +226,14 @@ public class ParserUtil {
             for (String d : splitDate) {
                 LocalDate formattedDate = LocalDate.parse(d, Task.getDateFormat());
                 res[count] = formattedDate;
+
                 if (!formattedDate.isLeapYear()
                     && formattedDate.getMonth() == Month.FEBRUARY
                     && Integer.parseInt(d.split("/")[0]) == 29) {
+
                     throw new ParseException(MESSAGE_INVALID_DATE);
                 }
+
                 count++;
             }
 
