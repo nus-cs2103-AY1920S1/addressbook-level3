@@ -3,8 +3,6 @@ package seedu.address.logic.parser.itinerary.dayview;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.itinerary.days.DeleteDayCommand;
-import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterDayCommand;
 import seedu.address.logic.commands.itinerary.days.EnterEditDayCommand;
 import seedu.address.logic.parser.PageParser;
