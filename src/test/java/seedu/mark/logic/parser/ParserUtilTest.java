@@ -3,6 +3,7 @@ package seedu.mark.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.mark.logic.parser.ParserUtil.NoArgumentParser;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
@@ -15,12 +16,16 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.commons.core.index.Index;
 import seedu.mark.logic.commands.AddAnnotationCommand;
+import seedu.mark.logic.commands.Command;
+import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.Model;
 import seedu.mark.model.annotation.ParagraphIdentifier;
 import seedu.mark.model.bookmark.Name;
 import seedu.mark.model.bookmark.Remark;
 import seedu.mark.model.bookmark.Url;
 import seedu.mark.model.tag.Tag;
+import seedu.mark.storage.Storage;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -213,4 +218,26 @@ public class ParserUtilTest {
                 AddAnnotationCommand.MESSAGE_CONSTRAINTS, () -> ParserUtil.parseParagraphIdentifier("p2s"));
     }
 
+    @Test
+    public void parseNoArgumentCommand_noArgument_returnsCommand() throws ParseException {
+        assert(new NoArgumentParser<>(CommandStub::new).parse("") != null);
+    }
+
+    @Test
+    public void parseNoArgumentCommand_withWhitespace_returnsCommand() throws ParseException {
+        assert(new NoArgumentParser<>(CommandStub::new).parse(" \t\n") != null);
+    }
+
+    @Test
+    public void parseNoArgumentCommand_nonEmpty_throwsParseException() throws ParseException {
+        assertThrows(ParseException.class, () -> new NoArgumentParser<>(CommandStub::new).parse(" not empty"));
+    }
+
+    private static class CommandStub extends Command {
+
+        @Override
+        public CommandResult execute(Model model, Storage storage) {
+            throw new AssertionError("This constructor should not be called.");
+        }
+    }
 }
