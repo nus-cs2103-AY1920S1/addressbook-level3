@@ -37,7 +37,7 @@ public class RejectClaimCommand extends Command {
         List<Claim> lastShownList = model.getFilteredClaimList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
         }
 
         Claim claimToApprove = lastShownList.get(targetIndex.getZeroBased());

@@ -28,7 +28,6 @@ We are the solution to all of your organisation's financial needs.
 
 What are you waiting for? Download the app now and enjoy!
 
-//@@author {lawncegoh}
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -58,12 +57,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
-//@@author {lawncegoh}
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add_claim n/NAME d/DESCRIPTION c/CASH AMOUNT date/DATE(dd-MM-yyyy) p/PHONE NUMBER`,
  `NAME`, `DESCRIPTION`, `CASH AMOUNT`, `DATE`, `PHONE NUMBER` are parameters that the user has to type in.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
 ====
 
 === Viewing help : `help`
@@ -141,6 +141,17 @@ Examples:
 add_contact n/John Doe p/98765432 e/johnd@example.com
 ....
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* There should not be duplicate `NAMES`. +
+* Only valid Singapore `PHONE` numbers (8 digits) are allowed.
+* Only valid `EMAIL` addresses are accepted.
+
+====
 === Editing a contact : `edit_contact`
 
 Edits an existing contact +
@@ -156,6 +167,16 @@ Examples:
 edit_contact 2 n/john lim p/92222223 e/johnlim@gmail.com
 ....
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Parameter warnings as per add_claim above.
+
+====
+
 === Adding a claim : `add_claim`
 
 Adds a claim to the claims list +
@@ -167,8 +188,20 @@ Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER 
 Examples:
 
 ....
-add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports
+add_claim d/Sports Equipment a/115.2 date/29-12-2019 n/Lee Wei Gen p/96777777 t/Sports
 ....
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `AMOUNT` should be up to 2 decimal places only. +
+* `DATE` should be a valid date (eg. 29-02-2019 not valid). +
+* A contact must already exist with the inputted `NAME` and `PHONE`.
+
+====
 
 === Approving a claim : `approve`
 
@@ -184,6 +217,15 @@ Examples:
 approve 1 (approves the first claim in the claim list)
 ....
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Can only approve a pending claim (ie. Approved and rejected claims cannot be approved).
+
+====
 
 * Approves the claim at the specified `INDEX`.
 * The displayed list must be the claim list.
@@ -213,6 +255,15 @@ reject 1 (approves the first claim in the claim list)
 * The index refers to the index number shown in the displayed claim list.
 * The index *must be a positive integer* 1, 2, 3, ...
 
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* Can only reject a pending claim (ie. Approved and rejected claims cannot be rejected).
+
+====
 
 //=== Editing a claim : `edit_claim`
 //
@@ -233,7 +284,6 @@ You can add an income to the incomes list by using the add income command by ent
 Keyword: `add_income`
 
 Format: `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT date/DATE n/PERSON_NAME p/PHONE_NUMBER [t/TAG]`
-
 
 Example:
 
@@ -257,6 +307,16 @@ image::UG-Add_income1.png[width="800"]
 .The result after entering the command
 image::UG-Add_income2.png[width="800"]
 
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `add_income` parameter warnings as per `add_claim`.
+
+====
 
 
 === Editing an income : `edit_income`
@@ -289,6 +349,16 @@ image::UG-Edit_income1.png[width="800"]
 [caption="Figure 3.9.2: "]
 .The result after entering the command. The first income is now edited to the newly specified fields.
 image::UG-Edit_income2.png[width="800"]
+
+====
+--
+image::warning.png[width = "20", float = "left"]
+--
+*Warning*
+
+* `add_income` parameter warnings as per `add_claim`.
+
+====
 
 === Deleting an Income : `delete_income`
 
