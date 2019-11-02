@@ -205,9 +205,12 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Removes the mapping of a {@code Contact} and it's related {@code Activity} and {@code Accommodation}.
+     */
     private void removeContactMapping(Contact contact) {
         if (contactActivityMap.containsKey(contact)) {
-            List<Activity> activities = contactActivityMap.get(contact);
+            List<Activity> activities = contactActivityMap.remove(contact);
             for (Activity act : activities) {
                 if (activityContactMap.containsKey(act)) {
                     activityContactMap.remove(act);
@@ -219,32 +222,15 @@ public class ModelManager implements Model {
                 updateDay(act, newAct);
             }
         }
-    }
-
-    /**
-     * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
-     * {@code Activity} is changed, the {@code Contact} is also updated.
-     */
-    private void updateMapping(Activity oldAct, Activity newAct) {
-        if (oldAct.getContact().isPresent()) {
-            Contact oldContact = activityContactMap.remove(oldAct);
-            List<Activity> oldList = contactActivityMap.remove(oldContact);
-            oldList.set(oldList.indexOf(oldAct), newAct);
-            if (newAct.getContact().isPresent()) {
-                Contact newContact = newAct.getContact().get();
-                setContact(oldContact, newContact);
-                contactActivityMap.put(newContact, oldList);
-                activityContactMap.put(newAct, newContact);
-            } else {
-                contactActivityMap.put(oldContact, oldList);
-                activityContactMap.put(newAct, oldContact);
+        if (contactAccommodationMap.containsKey(contact)) {
+            List<Accommodation> accommodations = contactAccommodationMap.remove(contact);
+            for (Accommodation acc : accommodations) {
+                if (accommodationContactMap.containsKey(acc)) {
+                    accommodationContactMap.remove(acc);
+                }
+                Accommodation newAcc = new Accommodation(acc.getName(), acc.getAddress(), null, acc.getTags());
+                this.accommodations.setAccommodation(acc, newAcc);
             }
-        } else if (newAct.getContact().isPresent()) {
-            addContact(newAct.getContact().get());
-            addActivityMapping(newAct);
-        }
-        if (activityDayMap.containsKey(oldAct)) {
-            updateDay(oldAct, newAct);
         }
     }
 
@@ -275,6 +261,33 @@ public class ModelManager implements Model {
             }
         });
         activityDayMap.put(newAct, newListOfDays);
+    }
+
+    /**
+     * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
+     * {@code Activity} is changed, the {@code Contact} is also updated.
+     */
+    private void updateMapping(Activity oldAct, Activity newAct) {
+        if (oldAct.getContact().isPresent()) {
+            Contact oldContact = activityContactMap.remove(oldAct);
+            List<Activity> oldList = contactActivityMap.remove(oldContact);
+            oldList.set(oldList.indexOf(oldAct), newAct);
+            if (newAct.getContact().isPresent()) {
+                Contact newContact = newAct.getContact().get();
+                setContact(oldContact, newContact);
+                contactActivityMap.put(newContact, oldList);
+                activityContactMap.put(newAct, newContact);
+            } else {
+                contactActivityMap.put(oldContact, oldList);
+                activityContactMap.put(newAct, oldContact);
+            }
+        } else if (newAct.getContact().isPresent()) {
+            addContact(newAct.getContact().get());
+            addActivityMapping(newAct);
+        }
+        if (activityDayMap.containsKey(oldAct)) {
+            updateDay(oldAct, newAct);
+        }
     }
 
     /**

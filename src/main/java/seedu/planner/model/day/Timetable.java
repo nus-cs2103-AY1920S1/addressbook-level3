@@ -40,6 +40,9 @@ public class Timetable {
         this.timetable.remove(toRemove.getZeroBased());
     }
 
+    /**
+     * Removes an {@code Activity} from a timetable.
+     */
     public void removeActivity(Activity activity) {
         while (timetable.contains(activity)) {
             timetable.remove(timetable.indexOf(activity));
