@@ -15,8 +15,11 @@ import java.time.format.DateTimeFormatter;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "^([0-2][0-9]|(3)[0-1])(\\-)(((0)[0-9])|((1)[0-2]))(\\-)\\d{4}$";
+            "Date entered should be a valid date in the form of dd-MM-yyyy";
+    public static final String VALIDATION_REGEX = "(31[\\-.](0[13578]|1[02])[\\-.](18|19|20)[0-9]{2})|"
+            + "((29|30)[\\-.](01|0[3-9]|1[1-2])[\\-.](18|19|20)[0-9]{2})|((0[1-9]|1[0-9]|2[0-8])[\\-.]"
+            + "(0[1-9]|1[0-2])[\\-.](18|19|20)[0-9]{2})|(29[\\-.](02)[\\-.](((18|19|20)"
+            + "(04|08|[2468][048]|[13579][26]))|2000))";
     private static final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final String text;
     public final LocalDate date;

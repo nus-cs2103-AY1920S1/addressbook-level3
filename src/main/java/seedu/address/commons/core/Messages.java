@@ -12,7 +12,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX = "The claim index provided is invalid";
     public static final String MESSAGE_INVALID_INCOME_DISPLAYED_INDEX = "The income index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_CANNOT_BE_APPROVED = "$1$d claim cannot be approved";
-    public static final String MESSAGE_CANNOT_BE_REJECTED = "$1$d claim cannot be rejected";
+    public static final String MESSAGE_CANNOT_BE_APPROVED = "Claim cannot be approved";
+    public static final String MESSAGE_CANNOT_BE_REJECTED = "Claim cannot be rejected";
 
 }
