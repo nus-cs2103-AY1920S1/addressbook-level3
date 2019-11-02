@@ -1,15 +1,17 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.switches.SwitchToOpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.AutoFillAction;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SwitchModeParserTest {
 
