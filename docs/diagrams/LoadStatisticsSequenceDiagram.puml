@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+
+box MainApp MAINAPP_COLOR_T1
+participant ":MainApp" as MainApp MAINAPP_COLOR_T3
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":Storage" as Storage STORAGE_COLOR_T2
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T3
+end box
+
+[-> MainApp : init()
+activate MainApp
+
+create Storage
+MainApp -> Storage
+activate Storage
+Storage --> MainApp : storage
+deactivate Storage
+
+create Model
+MainApp -> Model : initModel(storage)
+activate Model
+note right of Model: WordBankStatisticsList and\nGlobalStatistics are saved\nto the Model from the storage
+Model --> MainApp
+deactivate Model
+
+@enduml

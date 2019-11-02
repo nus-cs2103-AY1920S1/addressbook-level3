@@ -8,7 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.card.Card;
-import seedu.address.statistics.CardStatistics;
+import seedu.address.model.wordbankstats.CardStatistics;
 import seedu.address.ui.UiPart;
 
 /**

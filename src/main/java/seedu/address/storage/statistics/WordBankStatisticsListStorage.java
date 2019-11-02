@@ -3,8 +3,8 @@ package seedu.address.storage.statistics;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.statistics.WordBankStatistics;
 
 /**
  * Represents a storage for list of {@link WordBankStatistics}.

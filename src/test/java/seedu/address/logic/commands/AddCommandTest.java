@@ -29,8 +29,8 @@ import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {

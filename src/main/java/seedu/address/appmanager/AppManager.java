@@ -21,10 +21,10 @@ import seedu.address.model.appsettings.AppSettings;
 import seedu.address.model.card.Card;
 import seedu.address.model.globalstatistics.GlobalStatistics;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
 import seedu.address.statistics.GameStatisticsBuilder;
-import seedu.address.statistics.WordBankStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -93,16 +93,11 @@ public class AppManager {
             GameCommandResult gameCommandResult = (GameCommandResult) commandResult;
 
             // update statistics upon receiving a GameCommandResult with a Card
-            if (gameCommandResult.getCard().isPresent()) {
-                gameStatisticsBuilder.addDataPoint(
-                        gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
-                        gameCommandResult.getCard().get());
-            }
+            updateGameStatistics(gameCommandResult);
             // should make logic save the updated game statistics
             if (gameCommandResult.isFinishedGame()) {
                 abortAnyExistingGameTimer();
-                logic.saveUpdatedWbStatistics(gameStatisticsBuilder.build());
-                logic.incrementPlay();
+                logic.updateStatistics(gameStatisticsBuilder.build());
             }
         }
 
@@ -124,6 +119,16 @@ public class AppManager {
         return commandResult;
     }
 
+    /**
+     * Update the {@code gameStatisticsBuilder} with the {@code gameCommandResult}.
+     */
+    private void updateGameStatistics(GameCommandResult gameCommandResult) {
+        if (gameCommandResult.getCard().isPresent()) {
+            gameStatisticsBuilder.addDataPoint(
+                    gameCommandResult.getGameDataPoint(gameTimer.getElapsedMillis()),
+                    gameCommandResult.getCard().get());
+        }
+    }
     public String getSelectedWbName() {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }

@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":UI" as UI UI_COLOR
+end box
+
+box AppManager APPMANAGER_COLOR_T1
+participant ":AppManager" as AppManager APPMANAGER_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":GameCommand" as GameCommand LOGIC_COLOR_T2
+end box
+
+box ParserManager PARSERMANAGER_COLOR_T1
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+end box
+
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T3
+end box
+
+
+[-> UI : execute("guess abra")
+activate UI
+
+UI -> AppManager : executeCommand\n("guess abra")
+activate AppManager
+
+AppManager -> LogicManager : execute("guess abra")
+activate LogicManager
+
+LogicManager -> ParserManager : parseCommand("guess abra")
+activate ParserManager
+
+ParserManager --> LogicManager: command
+deactivate ParserManager
+
+create GameCommand
+LogicManager -> GameCommand : command.execute()
+activate GameCommand
+
+GameCommand -> Model : update model
+GameCommand --> LogicManager: gameCommandResult
+deactivate GameCommand
+
+LogicManager --> AppManager: gameCommandResult
+destroy GameCommand
+deactivate LogicManager
+
+AppManager -> AppManager: updateGameStatistics\n(gameCommandResult)
+
+activate AppManager #yellow
+deactivate AppManager
+note bottom: GameStatisticsBuilder\nis updated here
+
+
+AppManager --> UI
+deactivate AppManager
+
+[<- UI : update\n UI Component
+
+
+@enduml

@@ -1,7 +1,7 @@
 package seedu.address.model.wordbankstatslist;
 
 import javafx.collections.ObservableList;
-import seedu.address.statistics.WordBankStatistics;
+import seedu.address.model.wordbankstats.WordBankStatistics;
 
 /**
  * Unmodifiable view of a word bank.

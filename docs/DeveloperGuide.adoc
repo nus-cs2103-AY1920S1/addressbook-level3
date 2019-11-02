@@ -210,6 +210,138 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+// tag::jasonstats[]
+[[Design-Statistics]]
+=== Statistics component
+The Statistics component includes 2 main subcomponents:
+
+* A `GlobalStatistics`, containing the user's total number of games played and the number of games played in the
+current week.
+* A `WordBankStatisticsList`, which is a collection of `WordBankStatistics`, one for each `WordBank`.
+
+
+==== Implementation
+
+The class diagram of the Statistics component is shown below:
+
+.Statistics class diagram TO BE UPDATED.
+image::StatisticsClassDiagram.png[]
+
+
+The work of the Statistics component can be neatly captured and explained using a common series of user actions
+when operating the app.
+
+[%header,cols=3*]
+|===
+|User action
+|Statistics work
+|UI Statistics updates
+
+|User opens the app.
+|User's `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by the `MainApp`.
+|User is shown their `GlobalStatistics` and their most played word bank from the `WordBankStatisticsList` in
+the main title page.
+
+|User selects a word bank.
+|The selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded into `Model`.
+|
+
+|User opens the selected word bank.
+|
+|In open mode, User is shown the `WordBankStatistics` of the opened word bank.
+
+|User plays the game.
+|A `GameStatisticsBuilder` is used to record user actions during the game.
+|
+|User finishes the game.
+a|
+* A `GameStatistics` is created from the `GameStatisticsBuilder`.
+* The `WordBankStatistics` and `GlobalStatistics` are updated accordingly and saved to disk.
+| `GameStatistics` and the corresponding `WordBankStatistics` are displayed to user in the game result page.
+|===
+
+
+We will discuss each step with its implementation details primarily on the statistics work.
+
+===== 1. [underline]#User opens the app# +
+
+When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by
+`MainApp`.
+
+.Sequence diagram for loading statistics
+image::LoadStatisticsSequenceDiagram.png[]
+
+===== 2. [underline]#User selects a word bank# +
+When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded
+into Model. +
+
+.Sequence diagram for selecting a word bank statistics.
+image::SelectWordBankStatisticsSequenceDiagram.png[]
+It is necessary to set the active `WordBankStatistics` in the `Model` such that when the user opens the `WordBank`, the
+`WordBankStatistics` can be found in `Model` and shown in the UI.
+
+===== 3. [underline]#User opens the selected word bank# +
+In open mode, the user is shown the `WordBankStatistics` of the opened word bank, which is set in `Model` at step 2.
+
+===== 4. [underline]#User plays the game# +
+A `GameStatisticsBuilder` is used to record user actions during the game.
+
+When the user starts the game by calling a `StartCommand`, the `GameStatisticsBuilder` is initialized.
+
+.Sequence diagram when user starts a game.
+image::InitializeStatisticsSequenceDiagram.png[]
+
+During the game, the `GameStatisticsBuilder` is updated with every `GuessCommand` or `SkipCommand` made. It receives
+the timestamp from the `GameTimer` which also resides in `AppManager`.
+
+.Sequence diagram when user makes a guess.
+image::UpdateStatisticsSequenceDiagram.png[]
+
+===== [underline]#5. User finishes the game# +
+When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
+is shown to the user in the game result page.
+
+The `GameStatistics` is used to update its corresponding `WordBankStatistics`, which is then saved to disk.
+Additionally, the `GlobalStatistics` is also updated and saved to disk.
+
+.Sequence diagram for saving the statistics to disk.
+image::UpdateSaveStatisticsSequenceDiagram.png[]
+
+==== Design Considerations
+
+There were some design considerations on implementing the statistics.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+How to store `WordBankStatistics` in the storage?
+| **Store in a separate file from the `WordBank` json file, but with the same name in a different directory.**
+
+Example: `WordBank` data is stored at _data/wordbanks/pokemon.json_ while the `WordBankStatistics` data is stored at
+_data/wbstats/pokemon.json_
+
+_Pros:_ +
+More abstraction to separate the data. +
+
+_Cons:_ +
+The data is linked by name, so if the user changes the file name, the link is broken. +
+
+|**Store `WordBankStatistics` data in the same file as `WordBank`** +
+
+_Pros:_ +
+Less number of files. +
+
+_Cons:_ +
+Data is combined into one which lowers abstraction.
+
+3+|**Why we decided to choose Alternative 1:** +
+We decided that abstraction between the data is important as each team member should work in parallel, such that it is
+easier for one person to modify the storage system for the word bank and another person to modify the storage system
+for the word bank statistics freely.
+|===
+
+// end::jasonstats[]
+
 [[Design-Commons]]
 === Common classes
 
