@@ -28,10 +28,10 @@ public class OutCommandParser implements Parser<OutCommand> {
     @Override
     public OutCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OutCommand.MESSAGE_USAGE));
         }
 
@@ -42,13 +42,8 @@ public class OutCommandParser implements Parser<OutCommand> {
 
         /* handles 0 value */
         if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
-                && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
+            && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
             throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_ZERO));
-        }
-
-        /* handles amount above 1billion */
-        if (argMultimap.getValue(PREFIX_AMOUNT).get().length() > MAX_AMOUNT_LENGTH) {
-            throw new ParseException(String.format(OutCommand.MESSAGE_AMOUNT_OVERFLOW));
         }
 
         Description description = new Description(argMultimap.getValue(PREFIX_NAME).get());

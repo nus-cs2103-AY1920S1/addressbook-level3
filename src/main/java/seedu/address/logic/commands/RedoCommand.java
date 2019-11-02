@@ -19,11 +19,11 @@ public class RedoCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canRedoBankAccount()) {
+        if (!model.canRedoUserState()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoBankAccount();
+        model.redoUserState();
         model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

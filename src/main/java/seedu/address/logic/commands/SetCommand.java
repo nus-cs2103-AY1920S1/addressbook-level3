@@ -17,18 +17,18 @@ public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget to the bank account.\n"
-            + "Parameters: "
-            + PREFIX_AMOUNT + "AMOUNT "
-            + PREFIX_DATE + "DEADLINE "
-            + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_AMOUNT + "100 "
-            + PREFIX_DATE + "2019/01/01 "
-            + PREFIX_CATEGORY + "food ";
+        + "Parameters: "
+        + PREFIX_AMOUNT + "AMOUNT "
+        + PREFIX_DATE + "DEADLINE "
+        + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_AMOUNT + "100 "
+        + PREFIX_DATE + "01012019 "
+        + PREFIX_CATEGORY + "food ";
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
     public static final String MESSAGE_DUPLICATE = "This budget already exists: %1$s";
-    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 billion (i.e. 1,000,000)";
+    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
 
@@ -46,8 +46,8 @@ public class SetCommand extends Command {
         if (model.hasBudget(budget)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
         } else {
-            model.addBudget(budget);
-            model.commitBankAccount();
+            model.addOperation(budget);
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
         }
     }

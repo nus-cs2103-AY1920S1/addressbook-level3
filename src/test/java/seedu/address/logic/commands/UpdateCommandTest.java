@@ -6,7 +6,7 @@ package seedu.address.logic.commands;
  */
 public class UpdateCommandTest {
     /*
-    private Model model = new ModelManager(getTypicalBankAccount(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
 
     private String typeTransaction = "t";
     private String typeBudget = "b";
@@ -20,7 +20,7 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_TRANSACTION_SUCCESS, editedTransaction);
         Model expectedModel = new ModelManager(new BankAccount(model.getBankAccount()), new UserPrefs());
         BankAccountOperation txn = model.getFilteredTransactionList().get(0);
-        expectedModel.setTransaction(txn, editedTransaction);
+        expectedModel.set(txn, editedTransaction);
         assertCommandSuccess(updateCommand, model, expectedMessage, expectedModel);
     }
 
@@ -42,7 +42,7 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new BankAccount(model.getBankAccount()), new UserPrefs());
-        expectedModel.setTransaction(lastTransaction, editedTransaction);
+        expectedModel.set(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -74,7 +74,7 @@ public class UpdateCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new BankAccount(model.getBankAccount()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+        expectedModel.set(model.getFilteredTransactionList().get(0), editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

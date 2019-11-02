@@ -51,8 +51,12 @@ public class ParserUtil {
      *                        unsigned integer).
      */
     public static String parseType(String oneBasedIndex) throws ParseException {
-        String trimmedType = oneBasedIndex.trim().substring(0, 1);
-        return trimmedType;
+        try {
+            String trimmedType = oneBasedIndex.trim().substring(0, 1);
+            return trimmedType;
+        } catch (StringIndexOutOfBoundsException ex) {
+            throw new ParseException(ex.getMessage());
+        }
     }
 
     /**
@@ -200,10 +204,13 @@ public class ParserUtil {
         final List<Integer> intShares = new ArrayList<>();
         for (String share : shares) {
             try {
+                int shareInt = Integer.parseInt(share.trim());
+                if (shareInt < 0) {
+                    throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                }
                 intShares.add(Integer.parseInt(share.trim()));
             } catch (NumberFormatException ex) {
-                // TODO: CORRECT?
-                throw new ParseException(Amount.SHARE_CONSTRAINTS);
+                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
             }
 
         }
@@ -222,6 +229,8 @@ public class ParserUtil {
             return new Amount(Double.parseDouble(s));
         } catch (NumberFormatException ex) {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
         }
 
     }

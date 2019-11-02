@@ -31,6 +31,17 @@
                     </VBox>
                 </content>
             </Tab>
+            <Tab text="Ledger">
+                <content>
+                    <VBox fx:id="ledgerList" styleClass="pane-with-border" minWidth="340" prefWidth="340"
+                          VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <StackPane fx:id="ledgerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                </content>
+            </Tab>
         </tabs>
     </TabPane>
 </VBox>
