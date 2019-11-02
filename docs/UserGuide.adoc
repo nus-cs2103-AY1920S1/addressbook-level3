@@ -177,31 +177,43 @@ Edits the start date of the 1st event to be on the 16th September, 2019.
 * `edit_ev 2 n/Concert t/` +
 Edits the name of the 2nd event to be `Concert` and clears all existing tags.
 
-==== Find: `find_em | find_ev`
+==== Find: `find_em_name | find_em_tag | find_ev_name | find_ev_tag`
 
 Find entities whose names contain any of the given keywords.
 
-Employee Format: `find_em KEYWORD [MORE_KEYWORDS]`
+Employee Format: `find_em_name KEYWORD [MORE_KEYWORDS]`
 
-Event Format: `find_ev KEYWORD [MORE_KEYWORDS]`
+Event Format: `find_ev_name KEYWORD [MORE_KEYWORDS]`
+
+Find entities whose tag contain any of the given keywords.
+
+Employee Format: `find_em_tag KEYWORD [MORE_KEYWORDS]`
+
+Event Format: `find_ev_tag KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
+* The search for both name and tags are case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name of the entity is searched.
+* Only the name or tag of the entity is searched depending on the input command.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Entities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find_em John` +
+* `find_em_name John` +
 Returns `john` and `John Doe`
-* `find_ev Concert Musical Play` +
+* `find_ev_name Concert Musical Play` +
 Returns any event having names `Concert`, `Musical`, or `Play`
 
-* `find_ev Party` +
+* `find_ev_name Party` +
 Returns any event having names `Party` or `party`
+
+* `find_em_tag male fun` +
+Returns all employees that are tagged as `male` and `fun`
+
+* `find_ev_tag free music` +
+Returns all events that are tagged as `free` and `music`
 
 ==== Deleting an entity : `delete_em | delete_ev`
 
