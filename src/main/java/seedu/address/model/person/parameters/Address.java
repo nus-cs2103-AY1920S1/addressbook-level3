@@ -10,15 +10,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
+    public static final Address EMPTY_ADDRESS_DETAILS = new Address();
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
-
-    public static final Address EMPTY_ADDRESS_DETAILS = new Address();
+    private static final String VALIDATION_REGEX = "[^\\s].*";
 
     private final String value;
 

@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.commons.core;
 
 import java.util.HashMap;
