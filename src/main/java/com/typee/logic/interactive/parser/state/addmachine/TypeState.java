@@ -21,10 +21,10 @@ public class TypeState implements State {
 
 
     @Override
-    public State transition(ArgumentMultimap soFar, ArgumentMultimap argumentMultimap) throws StateTransitionException {
+    public State transition(ArgumentMultimap soFar, ArgumentMultimap newArgs) throws StateTransitionException {
         requireNonNull(soFar);
-        requireNonNull(argumentMultimap);
-        Optional<String> typeValue = argumentMultimap.getValue(PREFIX_ENGAGEMENT_TYPE);
+        requireNonNull(newArgs);
+        Optional<String> typeValue = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE);
         if (typeValue.isEmpty()) {
             throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
         }
@@ -33,8 +33,8 @@ public class TypeState implements State {
             throw new StateTransitionException(MESSAGE_CONSTRAINTS);
         }
 
-        soFar = collateArguments(soFar, argumentMultimap);
-        continuouslyTransition
+        collateArguments(soFar, newArgs);
+        continuouslyTransition()
 
     }
 
@@ -52,5 +52,11 @@ public class TypeState implements State {
         return commandText.equalsIgnoreCase("Meeting")
                 || commandText.equalsIgnoreCase("Interview")
                 || commandText.equalsIgnoreCase("Appointment");
+    }
+
+    private void collateArguments(ArgumentMultimap soFar, ArgumentMultimap newArgs) {
+        String engagementType = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE).get();
+        soFar.put(PREFIX_ENGAGEMENT_TYPE, engagementType);
+        newArgs.clearValues()
     }
 }
