@@ -265,6 +265,8 @@ Examples:
 
 === Training Plans
 
+Training plans consist of wrapped-up problems which we call `task` s.
+
 ==== Adding a plan: `addplan`
 
 Generates a new plan. +
