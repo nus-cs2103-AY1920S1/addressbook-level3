@@ -13,6 +13,9 @@ import seedu.address.websocket.Cache;
 import seedu.address.websocket.util.ImageQuery;
 import seedu.address.websocket.util.UrlUtil;
 
+/**
+ * This class is used as a functional class to generate images for the various locations
+ */
 public class GenerateImage {
 
     private ArrayList<Location> validLocationList;
