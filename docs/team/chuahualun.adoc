@@ -7,7 +7,7 @@
 
 == What is in this document?
 
-This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in Duke cooks.
+This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in DukeCooks.
 
 == What exactly is DukeCooks?
 
@@ -15,7 +15,7 @@ DukeCooks is a one-stop healthy lifestyle Desktop application capable of managin
 
 Current applications in the market can satisfy one out of the many needs we have. This would mean that we would have to download and keep track of a myriad of applications in our system.
 
-Here in Duke cooks, we hope to eliminate; simplify these tedious and stressful chores, all just in one single application. DukeCooks is equipped with a command-line interface (CLI). With this CLI all you have to do is key in what you want to do with an array of predefined commands ranging from adding tasks to writing a new diary entry. Then, all you have to do is sit back, relax and let DukeCooks do all the dirty work!
+Here in DukeCooks, we hope to eliminate; simplify these tedious and stressful chores, all just in one single application. DukeCooks is equipped with a command-line interface (CLI). With this CLI all you have to do is key in what you want to do with an array of predefined commands ranging from adding tasks to writing a new diary entry. Then, all you have to do is sit back, relax and let DukeCooks do all the dirty work!
 
 == Who is behind DukeCooks?
 
@@ -35,7 +35,7 @@ image::Ui.png[500,500]
 
 === Enhancement 1: Creating the `done` command
 
-The done command was created to complement the Dashboard. The user is able to use the command done, to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
+The 'done' command was created to complement the Dashboard. The user is able to use the command 'done', to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
 
 === Enhancement 2: Adding more functionality to the `list` command
 
@@ -151,7 +151,7 @@ A pop up window with an encouraging message will be displayed for extra motivati
 
 .Completing 5 new tasks
 [caption="Figure 6: "]
-image::done5tasks-ug.png[width="300"]
+image::done5tasks-ug.png[width="350"]
 
 [NOTE]
 ====
