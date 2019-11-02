@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class ReminderMessage implements Comparable<ReminderMessage> {
 
+    public static final String MESSAGE_CONSTRAINTS = "Message should not be blank";
+
     public final String value;
 
     public ReminderMessage(String message) {

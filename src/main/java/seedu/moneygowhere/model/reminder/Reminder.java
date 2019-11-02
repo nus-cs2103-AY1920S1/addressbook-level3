@@ -39,7 +39,7 @@ public class Reminder {
         } else if (remainingDays == 1) {
             return "Tomorrow";
         } else if (remainingDays < 0) {
-            return "Overdue";
+            return "Overdue\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
         } else {
             return "in " + remainingDays + " days\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
         }

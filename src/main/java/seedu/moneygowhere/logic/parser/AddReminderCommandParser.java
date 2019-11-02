@@ -30,6 +30,13 @@ public class AddReminderCommandParser extends ReminderCommandParser {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
         }
+        if (argMultimap.getValue(PREFIX_MESSAGE).isPresent()) {
+            String reminderMessage = argMultimap.getValue(PREFIX_MESSAGE).get().trim();
+
+            if (reminderMessage.isEmpty()) {
+                throw new ParseException(ReminderMessage.MESSAGE_CONSTRAINTS);
+            }
+        }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         ReminderMessage message = ParserUtil.parseMessage(argMultimap.getValue(PREFIX_MESSAGE).get());
