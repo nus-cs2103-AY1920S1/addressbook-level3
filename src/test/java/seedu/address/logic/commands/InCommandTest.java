@@ -22,6 +22,7 @@ import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
@@ -60,15 +61,15 @@ public class InCommandTest {
     @Test
     public void equals() {
         BankAccountOperation firstTransaction = new BankOperationBuilder()
-                .withCategories("Food")
-                .withAmount("100")
-                .withDate("10102019")
-                .build();
+            .withCategories("Food")
+            .withAmount("100")
+            .withDate("10102019")
+            .build();
         BankAccountOperation secondTransaction = new BankOperationBuilder()
-                .withCategories("Drinks")
-                .withAmount("80")
-                .withDate("10102019")
-                .build();
+            .withCategories("Drinks")
+            .withAmount("80")
+            .withDate("10102019")
+            .build();
         InCommand addFirstCommand = new InCommand(firstTransaction);
         InCommand addSecondCommand = new InCommand(secondTransaction);
 
@@ -115,37 +116,32 @@ public class InCommandTest {
         }
 
         @Override
-        public Path getBankAccountFilePath() {
+        public Path getUserStateFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setBankAccountFilePath(Path bankAccountFilePath) {
+        public void setUserStateFilePath(Path bankAccountFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void handleOperation(BankAccountOperation transaction) {
+        public void setUserState(ReadOnlyUserState bankAccount) {
+
+        }
+
+        @Override
+        public void addOperation(BankAccountOperation transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
+        public void addOperation(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addBudget(Budget budget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTransaction(BankAccountOperation transaction) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setBankAccount(ReadOnlyBankAccount newData) {
+        public void addOperation(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -155,32 +151,37 @@ public class InCommandTest {
         }
 
         @Override
-        public boolean canUndoBankAccount() {
+        public boolean canUndoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoBankAccount() {
+        public void undoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoBankAccount() {
+        public boolean canRedoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoBankAccount() {
+        public void redoUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitBankAccount() {
+        public void commitUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setTransactions(List<BankAccountOperation> transactionHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserState getUserState() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -228,6 +229,11 @@ public class InCommandTest {
         public void deleteBudget(Budget budgetToDelete) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
+            return null;
+        }
     }
 
     /**
@@ -261,24 +267,18 @@ public class InCommandTest {
         }
 
         @Override
-        public void handleOperation(LedgerOperation operation) {
+        public void addOperation(LedgerOperation operation) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void handleOperation(BankAccountOperation transaction) {
-            addTransaction(transaction);
-        }
-
-        @Override
-        public void addTransaction(BankAccountOperation transaction) {
+        public void addOperation(BankAccountOperation transaction) {
             requireNonNull(transaction);
             transactionsAdded.add(transaction);
         }
 
         @Override
-        public void commitBankAccount() {
-
+        public void commitUserState() {
         }
 
         @Override

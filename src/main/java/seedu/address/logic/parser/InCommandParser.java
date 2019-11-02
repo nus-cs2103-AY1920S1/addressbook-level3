@@ -27,14 +27,29 @@ public class InCommandParser implements Parser<InCommand> {
     @Override
     public InCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InCommand.MESSAGE_USAGE));
         }
+
+        /* handles negative amount */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (NEGATIVE_AMOUNT_SIGN)) {
+            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_NEGATIVE));
+        }
+
+        /* handles 0 value */
+        if (argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray()[0] == (ZERO_AMOUNT)
+            && argMultimap.getValue(PREFIX_AMOUNT).get().toCharArray().length == 1) {
+            throw new ParseException(String.format(InCommand.MESSAGE_AMOUNT_ZERO));
+
+        }
+
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get());
+
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));

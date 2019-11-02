@@ -14,12 +14,13 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path bankAccountFilePath = Paths.get("data" , "bankaccount.json");
+    private Path userStateFilePath = Paths.get("data", "bankaccount.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
      */
-    public UserPrefs() {}
+    public UserPrefs() {
+    }
 
     /**
      * Creates a {@code UserPrefs} with the prefs in {@code userPrefs}.s
@@ -35,7 +36,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setBankAccountFilePath(newUserPrefs.getBankAccountFilePath());
+        setUserStateFilePath(newUserPrefs.getUserStateFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +48,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getBankAccountFilePath() {
-        return bankAccountFilePath;
+    public Path getUserStateFilePath() {
+        return userStateFilePath;
     }
 
-    public void setBankAccountFilePath(Path bankAccountFilePath) {
-        requireNonNull(bankAccountFilePath);
-        this.bankAccountFilePath = bankAccountFilePath;
+    public void setUserStateFilePath(Path userStateFilePath) {
+        requireNonNull(userStateFilePath);
+        this.userStateFilePath = userStateFilePath;
     }
 
     @Override
@@ -68,19 +69,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && bankAccountFilePath.equals(o.bankAccountFilePath);
+            && userStateFilePath.equals(o.userStateFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, bankAccountFilePath);
+        return Objects.hash(guiSettings, userStateFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + bankAccountFilePath);
+        sb.append("\nLocal data file location : " + userStateFilePath);
         return sb.toString();
     }
 
