@@ -20,7 +20,6 @@ class TimeUtilTest {
     public void parseAgeGroup_invalidYearOfBirth_throwsIllegalArgumentException() {
         int currentYear = TimeUtil.getCurrentYear();
         int invalidYear = currentYear + 1;
-        assertThrows(IllegalArgumentException.class,
-            () -> TimeUtil.parseAgeGroup(invalidYear));
+        assertThrows(IllegalArgumentException.class, () -> TimeUtil.parseAgeGroup(invalidYear));
     }
 }
