@@ -173,7 +173,6 @@ public class AddressBookParser {
         case SettleAppCommand.COMMAND_WORD:
             return new SettleAppCommandParser(model).parse(arguments);
 
-
         case AddConsultationRoomCommand.COMMAND_WORD:
             return new AddConsultationRoomCommandParser(model).parse(arguments);
 
