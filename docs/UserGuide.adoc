@@ -40,7 +40,7 @@ The GUI should appear within a few seconds.
 Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
-* `view` : shows statistics of your current finances
+* `view transaction` : shows list of your transactions.
 * `in $/100 n/mother d/31102019 c/allowance` : adds an income to your personal finance of *100* dollars with
 the category *mother* and the description *allowance*.
 * `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of *3* dollars with
