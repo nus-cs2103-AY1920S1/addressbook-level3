@@ -20,6 +20,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -109,7 +110,7 @@ public class MainWindow extends UiPart<Stage> {
             + "Time to rein in your spending.";
     private static final Background BUDGET_WARNING_POPUP_BACKGROUND = new Background(
             new BackgroundFill(
-                    Paint.valueOf("f57d7d"),
+                    Paint.valueOf("cf6679"),
                     new CornerRadii(10),
                     new Insets(-15))
     );
@@ -685,6 +686,7 @@ public class MainWindow extends UiPart<Stage> {
         popup.setHideOnEscape(true);
         Label label = new Label(message);
         label.setBackground(BUDGET_WARNING_POPUP_BACKGROUND);
+        label.setTextFill(Color.WHITE);
         popup.getContent().add(label);
         return popup;
     }
