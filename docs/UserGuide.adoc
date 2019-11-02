@@ -130,7 +130,7 @@ Format: `txn delete <id>`
 
 You can create a new account. Each account has a unique ID and name. The user can choose to customise a description to describe the use of the account.
 
-Format: `account add [n/<name>] [d/<description>]`
+Format: `account add n/<name> [d/<description>]`
 
 Examples:
 
