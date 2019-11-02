@@ -23,7 +23,7 @@ public class CheckCommandParser {
         if (!hasDatePrefixes) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE));
         } else if (ParserUtil.hasMultiplePrefixes(argMultimap, prefixes)) {
-            throw new ParseException(ParserUtil.MESSAGE_DUPLICATED_ARG);
+            throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
         Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,
