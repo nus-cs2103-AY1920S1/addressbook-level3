@@ -100,110 +100,88 @@ public class JarvisParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
+
+        // addressbook commands
         case AddAddressCommand.COMMAND_WORD:
             return new AddAddressCommandParser().parse(arguments);
         case EditAddressCommand.COMMAND_WORD:
             return new EditAddressCommandParser().parse(arguments);
-
         case DeleteAddressCommand.COMMAND_WORD:
             return new DeleteAddressCommandParser().parse(arguments);
-
         case ClearAddressCommand.COMMAND_WORD:
             return new ClearAddressCommand();
-
         case FindAddressCommand.COMMAND_WORD:
             return new FindAddressCommandParser().parse(arguments);
-
         case ListAddressCommand.COMMAND_WORD:
             return new ListAddressCommand();
 
+        // undo/redo commands
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
-
         case RedoCommand.COMMAND_WORD:
             return new RedoCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
+        // courseplanner commands
         case LookUpCommand.COMMAND_WORD:
             return new LookUpCommandParser().parse(arguments);
-
         case AddCourseCommand.COMMAND_WORD:
             return new AddCourseCommandParser().parse(arguments);
-
         case DeleteCourseCommand.COMMAND_WORD:
             return new DeleteCourseCommandParser().parse(arguments);
-
         case CheckCommand.COMMAND_WORD:
             return new CheckCommandParser().parse(arguments);
-
         case ListCourseCommand.COMMAND_WORD:
             return new ListCourseCommand();
-
         case ShowCourseHelpCommand.COMMAND_WORD:
             return new ShowCourseHelpCommand();
 
+        // ccatracker commands
         case AddCcaCommand.COMMAND_WORD:
             return new AddCcaCommandParser().parse(arguments);
-
         case DeleteCcaCommand.COMMAND_WORD:
             return new DeleteCcaCommandParser().parse(arguments);
-
         case EditCcaCommand.COMMAND_WORD:
             return new EditCcaCommandParser().parse(arguments);
-
         case ListCcaCommand.COMMAND_WORD:
             return new ListCcaCommand();
-
         case FindCcaCommand.COMMAND_WORD:
             return new FindCcaCommandParser().parse(arguments);
-
         case AddProgressCommand.COMMAND_WORD:
             return new AddProgressCommandParser().parse(arguments);
-
         case IncreaseProgressCommand.COMMAND_WORD:
             return new IncreaseProgressCommandParser().parse(arguments);
 
+        // planner commands
         case AddTaskCommand.COMMAND_WORD:
             return new AddTaskCommandParser().parse(arguments);
-
         case DeleteTaskCommand.COMMAND_WORD:
             return new DeleteTaskCommandParser().parse(arguments);
-
         case FindTaskCommand.COMMAND_WORD:
             return new FindTaskCommandParser().parse(arguments);
-
         case DoneTaskCommand.COMMAND_WORD:
             return new DoneTaskCommandParser().parse(arguments);
-
         case ListTaskCommand.COMMAND_WORD:
             return new ListTaskCommand();
 
+        // financetracker commands
         case SetPaidCommand.COMMAND_WORD:
             return new SetPaidCommandParser().parse(arguments);
-
         case RemovePaidCommand.COMMAND_WORD:
             return new RemovePaidCommandParser().parse(arguments);
-
         case SetInstallmentCommand.COMMAND_WORD:
             return new SetInstallmentCommandParser().parse(arguments);
-
         case RemoveInstallmentCommand.COMMAND_WORD:
             return new RemoveInstallmentCommandParser().parse(arguments);
-
         case EditInstallmentCommand.COMMAND_WORD:
             return new EditInstallmentCommandParser().parse(arguments);
-
         case ListFinancesCommand.COMMAND_WORD:
             return new ListFinancesCommand();
-
         case FindPurchaseCommand.COMMAND_WORD:
             return new FindPurchaseCommandParser().parse(arguments);
-
         case SetMonthlyLimitCommand.COMMAND_WORD:
             return new SetMonthlyLimitCommandParser().parse(arguments);
 

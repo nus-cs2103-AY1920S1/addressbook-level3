@@ -21,7 +21,7 @@ import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonExce
  */
 public class AddAddressCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add-address";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "

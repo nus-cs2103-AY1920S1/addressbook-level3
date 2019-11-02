@@ -14,6 +14,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -33,8 +34,10 @@ public class AddCourseCommand extends Command {
 
     public static final String MESSAGE_SUCCESS =
         "New Course(s) added: %1$s";
+    public static final String MESSAGE_SOME_DUPLICATE_COURSES =
+        "These courses were already in your list: %1$s";
     public static final String MESSAGE_DUPLICATE_COURSES =
-        "All the courses given are already in your list!";
+        "The given course(s) are already in your list!";
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE =
         "Deleted Course(s): %1$s";
     public static final String MESSAGE_INVERSE_COURSE_NOT_FOUND =
@@ -114,7 +117,21 @@ public class AddCourseCommand extends Command {
         }
 
         hasAdded.forEach(model::addCourse);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, hasAdded.toString()));
+
+        List<Course> notAdded = toAdd.stream()
+            .distinct()
+            .filter(c -> !hasAdded.contains(c))
+            .collect(Collectors.toList());
+
+        String message = String.format(MESSAGE_SUCCESS, hasAdded.toString());
+
+        // there are courses in the command that already exist inside course planner
+        if (!notAdded.isEmpty()) {
+            message += "\n" + String.format(MESSAGE_SOME_DUPLICATE_COURSES, notAdded.toString());
+        }
+
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(message, true);
     }
 
     /**
@@ -137,7 +154,8 @@ public class AddCourseCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVERSE_COURSE_NOT_FOUND, hasAdded));
         }
         hasAdded.forEach(model::deleteCourse);
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, hasAdded));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_DELETE, hasAdded), true);
     }
 
     /**

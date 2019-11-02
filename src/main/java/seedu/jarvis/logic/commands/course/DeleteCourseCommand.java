@@ -16,6 +16,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.course.Course;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
@@ -121,7 +122,8 @@ public class DeleteCourseCommand extends Command {
         assert !isNull(targetIndex) && !isNull(toDelete);
 
         model.deleteCourse(toDelete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete), true);
     }
 
     private Course getCourseToDeleteByIndex(List<Course> lastShownList) throws CommandException {
@@ -149,7 +151,8 @@ public class DeleteCourseCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVERSE_COURSE_ALREADY_EXISTS, toDelete));
         }
         model.addCourse(targetIndex.getZeroBased(), toDelete);
-        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete));
+        model.setViewStatus(ViewType.LIST_COURSE);
+        return new CommandResult(String.format(MESSAGE_INVERSE_SUCCESS_ADD, toDelete), true);
     }
 
     /**
