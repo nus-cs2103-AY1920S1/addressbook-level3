@@ -8,9 +8,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.exceptions.NegativeLimitException;
-import seedu.jarvis.model.finance.exceptions.PurchaseNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.purchase.Purchase;
 
@@ -151,7 +149,7 @@ public class FinanceTracker {
      *
      * @param itemNumber of payment to be deleted
      */
-    public Purchase deleteSinglePurchase(int itemNumber) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(int itemNumber) {
         return purchaseList.deletePurchase(itemNumber);
     }
 
@@ -160,7 +158,7 @@ public class FinanceTracker {
      *
      * @param purchase  deleted
      */
-    public Purchase deleteSinglePurchase(Purchase purchase) throws PurchaseNotFoundException {
+    public Purchase deleteSinglePurchase(Purchase purchase) {
         requireNonNull(purchase);
 
         return purchaseList.deletePurchase(purchase);
@@ -211,7 +209,7 @@ public class FinanceTracker {
 
     //=========== Getter Methods ======================================================================
 
-    public Installment getInstallment(int instalIndex) throws InstallmentNotFoundException {
+    public Installment getInstallment(int instalIndex) {
         return installmentList.getInstallment(instalIndex);
     }
 
@@ -277,7 +275,7 @@ public class FinanceTracker {
      *
      * @param instalNumber of installment to be removed
      */
-    public Installment deleteInstallment(int instalNumber) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(int instalNumber) {
         return installmentList.deleteInstallment(instalNumber);
     }
 
@@ -286,7 +284,7 @@ public class FinanceTracker {
      *
      * @param installment to be removed
      */
-    public Installment deleteInstallment(Installment installment) throws InstallmentNotFoundException {
+    public Installment deleteInstallment(Installment installment) {
         requireNonNull(installment);
 
         return installmentList.deleteInstallment(installment);
