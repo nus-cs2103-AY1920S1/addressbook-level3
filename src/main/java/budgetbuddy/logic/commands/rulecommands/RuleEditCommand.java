@@ -6,6 +6,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 
 import java.util.Optional;
 
+import budgetbuddy.commons.core.Messages;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.CollectionUtil;
 import budgetbuddy.logic.commands.Command;
@@ -14,10 +15,14 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.RuleManager;
+import budgetbuddy.model.ScriptLibrary;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
+import budgetbuddy.model.rule.script.ActionScript;
+import budgetbuddy.model.rule.script.PredicateScript;
+import budgetbuddy.model.script.ScriptName;
 
 /**
  * Edits a rule.
@@ -50,13 +55,30 @@ public class RuleEditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireAllNonNull(model, model.getRuleManager());
+        requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary());
         RuleManager ruleManager = model.getRuleManager();
+        ScriptLibrary scriptLibrary = model.getScriptLibrary();
 
-        Rule editedRule;
+        Rule targetRule = ruleManager.getRule(targetIndex);
+        Rule editedRule = createEditedRule(targetRule, ruleEditDescriptor);
+
+        RulePredicate editedPred = editedRule.getPredicate();
+        if (editedPred.getType().equals(Rule.TYPE_SCRIPT)) {
+            ScriptName scriptName = ((PredicateScript) editedPred).getScriptName();
+            if (scriptLibrary.getScript(scriptName) == null) {
+                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
+            }
+        }
+
+        RuleAction editedAct = editedRule.getAction();
+        if (editedAct.getType().equals(Rule.TYPE_SCRIPT)) {
+            ScriptName scriptName = ((ActionScript) editedAct).getScriptName();
+            if (scriptLibrary.getScript(scriptName) == null) {
+                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
+            }
+        }
+
         try {
-            Rule targetRule = ruleManager.getRule(targetIndex);
-            editedRule = createEditedRule(targetRule, ruleEditDescriptor);
             ruleManager.editRule(targetIndex, editedRule);
         } catch (RuleNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);

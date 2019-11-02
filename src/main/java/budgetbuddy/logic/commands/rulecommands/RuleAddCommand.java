@@ -5,6 +5,7 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_ACTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PREDICATE;
 import static java.util.Objects.requireNonNull;
 
+import budgetbuddy.commons.core.Messages;
 import budgetbuddy.logic.commands.Command;
 import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
@@ -36,7 +37,6 @@ public class RuleAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New rule added: %1$s";
     public static final String MESSAGE_DUPLICATE_RULE = "This rule already exists in the Rule Engine.";
-    public static final String MESSAGE_SCRIPT_NOT_FOUND = "The script specified in this rule does not exist.";
 
     private final Rule rule;
 
@@ -59,25 +59,22 @@ public class RuleAddCommand extends Command {
         }
 
         RulePredicate pred = rule.getPredicate();
-        RuleAction act = rule.getAction();
         if (pred.getType().equals(Rule.TYPE_SCRIPT)) {
             ScriptName scriptName = ((PredicateScript) pred).getScriptName();
-            if (!hasScript(scriptName, scriptLibrary)) {
-                throw new CommandException(MESSAGE_SCRIPT_NOT_FOUND);
+            if (scriptLibrary.getScript(scriptName) == null) {
+                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
             }
         }
+
+        RuleAction act = rule.getAction();
         if (act.getType().equals(Rule.TYPE_SCRIPT)) {
             ScriptName scriptName = ((ActionScript) act).getScriptName();
-            if (!hasScript(scriptName, scriptLibrary)) {
-                throw new CommandException(MESSAGE_SCRIPT_NOT_FOUND);
+            if (scriptLibrary.getScript(scriptName) == null) {
+                throw new CommandException(String.format(Messages.MESSAGE_NO_SUCH_SCRIPT, scriptName));
             }
         }
 
         ruleManager.addRule(rule);
         return new CommandResult(String.format(MESSAGE_SUCCESS, rule), CommandCategory.RULE);
-    }
-
-    private boolean hasScript(ScriptName name, ScriptLibrary scriptLibrary) {
-        return scriptLibrary.getScript(name) != null;
     }
 }
