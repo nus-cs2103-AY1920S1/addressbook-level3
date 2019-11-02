@@ -24,8 +24,8 @@ public class PriorityCommand extends UndoableCommand {
     public CommandResult execute(ItemModel model) {
         try {
             boolean status = model.togglePriorityMode();
-            return new CommandResult(status ? PRIORITY_MODE_ON :
-                    (model.getExitStatus() == null ? PRIORITY_MODE_OFF : NO_TASK_TO_DO));
+            return new CommandResult(status ? PRIORITY_MODE_ON
+                    : (model.getExitStatus() == null ? PRIORITY_MODE_OFF : NO_TASK_TO_DO));
         } catch (IllegalListException e) {
             return new CommandResult(PRIORITY_MODE_ERROR);
         }
