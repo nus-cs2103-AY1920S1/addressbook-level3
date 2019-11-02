@@ -57,7 +57,7 @@ public class UndoCommandTest {
     public void execute_tooFewAvailableCommands_throwsCommandException() {
         undoCommand = new UndoCommand(Integer.MAX_VALUE);
         model.rememberExecutedCommand(new CommandStub());
-        assertThrows(CommandException.class, String.format(UndoCommand.MESSAGE_TOO_MANY_UNDO,
+        assertThrows(CommandException.class, String.format(UndoCommand.MESSAGE_TOO_MANY_UNDO, model.getHistoryRange(),
                 model.getAvailableNumberOfExecutedCommands()), () -> undoCommand.execute(model));
     }
 

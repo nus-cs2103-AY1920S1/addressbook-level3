@@ -45,6 +45,7 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
+        taskDes.setWrapText(true);
         taskDes.setText(task.getTaskDes());
         taskType.setText(task.getTaskType().toString());
         status.setText(task.getStatus().getIcon());
