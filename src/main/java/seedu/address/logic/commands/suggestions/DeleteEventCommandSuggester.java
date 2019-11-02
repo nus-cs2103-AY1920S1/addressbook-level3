@@ -21,6 +21,18 @@ public class DeleteEventCommandSuggester extends Suggester {
             CliSyntax.PREFIX_EVENTNAME
     );
 
+    static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
+        final Optional<CommandArgument> commandArgument = arguments.getFirstOfPrefix(CliSyntax.PREFIX_NAME);
+        if (commandArgument.isEmpty()) {
+            // user did not type a "n/" prefix, so it's implied the current User object is intended
+            return Optional.of(model.getUser());
+        }
+
+        return commandArgument.flatMap(arg -> {
+            return Suggester.getSelectedPerson(model, arg);
+        });
+    }
+
     @Override
     protected List<String> provideSuggestions(
             final Model model, final ArgumentList arguments, final CommandArgument commandArgument) {
@@ -30,21 +42,14 @@ public class DeleteEventCommandSuggester extends Suggester {
         if (prefix.equals(CliSyntax.PREFIX_NAME)) {
             return model.personSuggester(value);
         } else if (prefix.equals(CliSyntax.PREFIX_EVENTNAME)) {
-            final Person person;
-            if (arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_NAME).isPresent()) {
-                final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
-                if (optionalSelectedPerson.isPresent()) {
-                    person = optionalSelectedPerson.get();
-                } else {
-                    return null;
-                }
-            } else {
-                person = model.getUser();
+            final Optional<Person> person = getSelectedPerson(model, arguments);
+            if (person.isEmpty()) {
+                return null;
             }
 
             final String searchTerm = commandArgument.getValue();
 
-            return person
+            return person.get()
                     .getSchedule()
                     .getEvents()
                     .stream()
