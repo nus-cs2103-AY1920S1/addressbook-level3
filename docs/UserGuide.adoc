@@ -443,7 +443,7 @@ The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARR
 A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
 
 Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
-If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed. 
+If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed.
 
 Format: `showNotifs`
 
@@ -548,39 +548,55 @@ Format: `exit`
 
 // end::exit[]
 
+// tag::documentGeneration[]
 === Document Generation
+This section showcases three commands you can use to generate different kinds of reports.
 
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-Generate an individual report in a PDF filename `Report <body_ID>.pdf` located in `Mortago` file.
+This command allows you to generate an individual report in a PDF filename `Report <body_ID>.pdf` located in the folder containing the jar file.
 
-Format: `genReport bodyId /name NAME`
+image::reportlocation.png[width="790"]
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReport bodyId (yourSignatureName)`
 
 Example:
 
-* `genReport B123 /name John Doe` +
-Outputs the report PDF for body ID B00000123 containing signature of John Doe
+* `genReport 123 John Doe` +
+Outputs the report PDF for body ID B00000123 in the folder containing the jar file. The report contains signature of John Doe.
 
 // end::genReport[]
 
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-Generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in `Mortago` file.
+This command allows you to generate all individual reports in a PDF filename `Report (ALL BODIES).pdf` located in the folder containing the jar file.
 
-Format: `genReports /name NAME`
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReports (yourSignatureName)`
+
+Example:
+
+* `genReports John Doe` +
+Outputs the PDF containing reports for all bodies in the folder containing the jar file. The report contains signature of John Doe.
 
 // end::genReports[]
 
 // tag::genReportSummary[]
 
 ==== Generate summary report for all bodies: `genReportSummary`
-Generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in `Mortago` file.
+This command allows you to generate a tabular report overview containing key information for all bodies in a PDF filename `Report Summary.pdf` located in the folder containing the jar file.
 
-Format: `genReportSummary /name NAME`
+You can also add your signature name to the report by following the command format below.
+
+Format: `genReportSummary (yourSignatureName)`
 
 // end::genReportSummary[]
+
+// end::documentGeneration[]
 
 === Administrative
 ==== View admission statistics: `stats`
