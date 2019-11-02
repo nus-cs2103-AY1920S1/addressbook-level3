@@ -15,17 +15,26 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Entity {
+Interface Entity <<Interface>>
+Class UniqueEntityLists
+Class IdentificationNumber
+Class PhoneNumber
+Class Sex
+
+Package Worker {
+Class Worker
 }
 
-Package Tag {
-Class Tag
+Package Fridge {
+Class Fridge
+}
+
+Package Body {
+Class Body
+Class BodyStatus
+Class Nric
+Class Religion
 }
 }
 
@@ -40,17 +49,26 @@ ModelManager o--> "1" AddressBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Body .up.|> Entity
+Worker .up.|> Entity
+Fridge .up.|> Entity
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+AddressBook *--> "1" UniqueEntityLists
+UniqueEntityLists o--> "*" Body
 
-ModelManager -->"1" Person : filtered list
+Body *--> BodyStatus
+Body *--> Nric
+Body *--> Religion
+Body *--> IdentificationNumber
+Body *--> Sex
+Body *--> PhoneNumber
+Worker *--> IdentificationNumber
+Worker *--> Sex
+Worker *--> PhoneNumber
+Fridge *--> IdentificationNumber
+
+ModelManager -->"1" Body : filtered list
+ModelManager -->"1" Worker : filtered list
+ModelManager -->"1" Fridge : filtered list
+
 @enduml

@@ -27,6 +27,7 @@ import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.TypicalWorkers;
 import seedu.address.testutil.WorkerBuilder;
 
 class WorkerTest {
@@ -51,9 +52,8 @@ class WorkerTest {
         editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
         assertFalse(ALICE.isSameWorker(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new WorkerBuilder(ALICE).withDateJoined(WorkerBuilder.DEFAULT_DATE_JOINED)
-            .withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
+        // same identity fields, different data attributes -> returns true
+        editedAlice = new WorkerBuilder(ALICE).withDateOfBirth(WorkerBuilder.DEFAULT_DATE_OF_BIRTH)
             .withEmploymentStatus(WorkerBuilder.DEFAULT_EMPLOYMENT_STATUS).build();
         assertTrue(ALICE.isSameWorker(editedAlice));
     }
@@ -80,36 +80,37 @@ class WorkerTest {
 
     @Test
     public void equals() {
+        Worker aliceInstance = new WorkerBuilder(TypicalWorkers.ALICE).build();
         // same values -> returns true
         Worker aliceCopy = new WorkerBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        assertTrue(aliceInstance.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(aliceInstance.equals(aliceCopy));
 
         // same hashcode -> returns true
-        assertEquals(ALICE.hashCode(), aliceCopy.hashCode());
+        assertEquals(aliceInstance.hashCode(), aliceCopy.hashCode());
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(aliceInstance.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(aliceInstance.equals(5));
 
         // different person -> returns false
-        assertFalse(ALICE.equals(BENSON));
+        assertFalse(aliceInstance.equals(BENSON));
 
         // different name -> returns false
         Worker editedAlice = new WorkerBuilder(ALICE).withName(DEFAULT_NAME).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(aliceInstance.equals(editedAlice));
 
         // different phone -> returns false
         editedAlice = new WorkerBuilder(ALICE).withPhone(WorkerBuilder.DEFAULT_PHONE).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(aliceInstance.equals(editedAlice));
 
         // different sex -> returns false
         editedAlice = new WorkerBuilder(ALICE).withSex(WorkerBuilder.DEFAULT_SEX).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertFalse(aliceInstance.equals(editedAlice));
     }
 
     @Test

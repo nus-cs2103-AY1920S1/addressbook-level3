@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.beans.DefaultProperty;
 
+//@@ author shaoyi1997-reused
 /**
  * A test object which can be constructed via an FXML file.
  * Unlike other JavaFX classes, this class can be constructed without the JavaFX toolkit being initialized.
@@ -33,3 +34,4 @@ public class TestFxmlObject {
     }
 
 }
+//@@ author

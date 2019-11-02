@@ -3,6 +3,7 @@ package guitests.guihandles;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 
+//@@ author shaoyi1997-reused
 /**
  * A handle for the {@code StatusBarFooter} at the footer of the application.
  */
@@ -69,3 +70,5 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
         return !lastRememberedSaveLocation.equals(getSaveLocation());
     }
 }
+//@@ author
+

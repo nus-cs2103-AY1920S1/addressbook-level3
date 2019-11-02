@@ -1,8 +1,14 @@
 package seedu.address;
 
+import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
+import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -17,12 +23,19 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.NotifCommand;
+import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.utility.UpdateBodyDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.entity.body.Body;
+import seedu.address.model.notif.Notif;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -38,7 +51,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 2, 1, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -68,6 +81,8 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        initializeNotifCommand(model);
     }
 
     /**
@@ -166,6 +181,39 @@ public class MainApp extends Application {
 
         return initializedPrefs;
     }
+
+    //@@author arjavibahety
+
+    /**
+     * Initializes the NotifCommand.
+     * @param model refers to the model in use.
+     * @throws CommandException if an error occurs during command execution.
+     */
+    private void initializeNotifCommand(Model model) throws CommandException, IOException {
+        NotifCommand.setStorage(storage);
+        List<Notif> notifList = model.getFilteredNotifList();
+        long period = AddCommand.NOTIF_PERIOD * 1000;
+        for (Notif notif : notifList) {
+            if (notif.getBody().getBodyStatus().equals(Optional.of(ARRIVED))) {
+                Date now = new Date();
+                long dateTime = notif.getNotifCreationTime().getTime();
+                boolean notifPastPeriod = now.getTime() - dateTime > period;
+                long notifPeriod = period - now.getTime() + dateTime;
+                if (notifPastPeriod) {
+                    Body body = notif.getBody();
+                    body.setBodyStatus(CONTACT_POLICE);
+                    UpdateCommand up = new UpdateCommand(notif.getBody().getIdNum(), new UpdateBodyDescriptor(body));
+                    //up.setUpdateFromNotif(true);
+                    up.execute(model);
+                    storage.saveAddressBook(model.getAddressBook());
+                } else {
+                    NotifCommand notifCommand = new NotifCommand(notif, notifPeriod, TimeUnit.MILLISECONDS);
+                    notifCommand.execute(model);
+                }
+            }
+        }
+    }
+    //@@author
 
     @Override
     public void start(Stage primaryStage) {

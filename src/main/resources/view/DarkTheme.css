@@ -1,10 +1,10 @@
 .root {
     -fx-background-color: derive(#121212, 25%);
+    -fx-base: derive(#121212, 25%);
 }
 
 .background {
     -fx-background-color: derive(#121212, 25%);
-    background-color: #383838; /* Used in the default.html file */
 }
 
 .label {
@@ -429,11 +429,11 @@
 }
 
 .fridgeIdCircleEmpty {
-    -fx-fill: #FF7597;
+    -fx-fill: #4285F4;
 }
 
 .fridgeIdCircleFilled {
-    -fx-fill: #4285F4;
+    -fx-fill: #FF7597;
 }
 
 .chart {
@@ -492,6 +492,12 @@
     -fx-font-size: 10;
 }
 
+#notifButton {
+    -fx-background-image: url("../images/bell_icon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 .notificationButtonLabel {
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -510,7 +516,7 @@
 
 /* Styling for SelectedBodyCard */
 
-#selectedBodyId {
+#selectedBodyId, .selectedBodyId {
     -fx-text-fill: black;
     -fx-background-color: linear-gradient(to right, #FF7597, #FF0266);
     -fx-padding: 4 6 4 6;
@@ -537,8 +543,11 @@
 }
 
 #dateBox {
-    -fx-background-color: #FF7597;
-    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+    -fx-background-radius: 7;
+    -fx-border-color: #FF0266;
+    -fx-border-width: 1;
+    -fx-border-radius: 7;
 }
 
 #organs {
@@ -556,8 +565,9 @@
 }
 
 #NOK {
-    -fx-text-fill: #444444;
-    -fx-background-color: #FF7597;
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: #FF0266;
     -fx-padding: 22 20 22 40;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
@@ -571,8 +581,6 @@
     -fx-background-image: url("../images/close.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-border-radius: 0 10 0 0;
-    -fx-background-radius: 0 10 0 0;
 }
 
 #maximiseButton {
@@ -591,4 +599,43 @@
     -fx-background-image: url("../images/minimise.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+#workerCardPane .label {
+    -fx-font-size: 10;
+}
+
+#workerLessImptInfoHeaders {
+    -fx-font-weight: bold;
+    -fx-font-size: 10;
+}
+
+#workerImptInfo .label {
+    -fx-font-size: 13
+}
+
+#displayPhotoPlaceholder .label {
+    -fx-text-fill: #121212;
+    -fx-font-size: 15;
+}
+
+#fridgeListPlaceholder .label {
+    -fx-text-fill: white;
+    -fx-font-size: 9;
+}
+
+#bodyIdInFridge {
+    -fx-background-color: transparent;
+    -fx-padding: 3 5 3 5;
+    -fx-border-width: 0;
+    -fx-font-weight: bold;
+}
+
+
+/* Notification PopOver */
+
+
+.popover > .border {
+    -fx-stroke-width: 0;
+    -fx-fill: rgba(120.0,255.0,255.0, .95);
 }

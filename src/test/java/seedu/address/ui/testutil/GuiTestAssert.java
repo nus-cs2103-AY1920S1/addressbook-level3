@@ -3,13 +3,14 @@ package seedu.address.ui.testutil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Person;
+import guitests.guihandles.WorkerCardHandle;
+import guitests.guihandles.WorkerListPanelHandle;
+import seedu.address.model.entity.worker.Worker;
+import seedu.address.ui.WorkerCard;
 
+//@@ author shaoyi1997-reused
 /**
  * A set of assertion methods useful for writing GUI tests.
  */
@@ -17,52 +18,62 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
+    public static void assertCardEquals(WorkerCardHandle expectedCard, WorkerCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
+        assertEquals(expectedCard.getWorkerId(), actualCard.getWorkerId());
+        assertEquals(expectedCard.getSex(), actualCard.getSex());
+        assertEquals(expectedCard.getDateJoined(), actualCard.getDateJoined());
+        assertEquals(expectedCard.getDateJoined(), actualCard.getDateOfBirth());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getEmploymentStatus(), actualCard.getEmploymentStatus());
+        assertEquals(expectedCard.getDesignation(), actualCard.getDesignation());
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedWorker}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().toString(), actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).sorted().collect(Collectors.toList()),
-                actualCard.getTags());
+    public static void assertCardDisplaysWorker(Worker expectedWorker, WorkerCardHandle actualCard) {
+        assertEquals(expectedWorker.getName().toString(), actualCard.getName());
+        assertEquals(expectedWorker.getSex().toString(), actualCard.getSex());
+        assertEquals(WorkerCard.formatDate(expectedWorker.getDateJoined()), actualCard.getDateJoined());
+        assertEquals(expectedWorker.getIdNum().toString(), actualCard.getWorkerId());
+        assertEquals(expectedWorker.getPhone().isPresent() ? expectedWorker.getPhone().get().toString() : "-",
+                actualCard.getPhone());
+        assertEquals(expectedWorker.getDateOfBirth().isPresent()
+                ? WorkerCard.formatDate(expectedWorker.getDateOfBirth().get()) : "-", actualCard.getDateOfBirth());
+        assertEquals(expectedWorker.getDesignation().isPresent() ? expectedWorker.getDesignation().get()
+                : "-", actualCard.getDesignation());
+        assertEquals(expectedWorker.getEmploymentStatus().isPresent()
+                ? expectedWorker.getEmploymentStatus().get() : "-", actualCard.getEmploymentStatus());
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code workerListPanelHandle} displays the details of {@code workers} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
-            personListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+    public static void assertListMatching(WorkerListPanelHandle workerListPanelHandle, Worker... workers) {
+        for (int i = 0; i < workers.length; i++) {
+            workerListPanelHandle.navigateToCard(i);
+            assertCardDisplaysWorker(workers[i], workerListPanelHandle.getWorkerCardHandle(i));
         }
+        return;
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code workerListPanelHandle} displays the details of {@code workers} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
-        assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(WorkerListPanelHandle workerListPanelHandle, List<Worker> workers) {
+        assertListMatching(workerListPanelHandle, workers.toArray(new Worker[0]));
     }
 
     /**
-     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     * Asserts the size of the list in {@code workerListPanelHandle} equals to {@code size}.
      */
-    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
-        int numberOfPeople = personListPanelHandle.getListSize();
-        assertEquals(size, numberOfPeople);
+    public static void assertListSize(WorkerListPanelHandle workerListPanelHandle, int size) {
+        int numberOfWorkers = workerListPanelHandle.getListSize();
+        assertEquals(size, numberOfWorkers);
     }
 
     /**
@@ -72,3 +83,4 @@ public class GuiTestAssert {
         assertEquals(expected, resultDisplayHandle.getText());
     }
 }
+//@@ author

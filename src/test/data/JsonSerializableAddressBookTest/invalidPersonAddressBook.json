@@ -7,5 +7,6 @@
   } ],
   "bodies" : [ ],
   "workers" : [ ],
-  "fridges" : [ ]
+  "fridges" : [ ],
+  "notifs" : [ ]
 }

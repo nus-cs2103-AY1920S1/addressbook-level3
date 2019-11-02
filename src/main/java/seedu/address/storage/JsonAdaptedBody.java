@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_DATE;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,6 @@ import seedu.address.model.entity.Sex;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 import seedu.address.model.entity.body.Nric;
-import seedu.address.model.entity.body.Religion;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
@@ -51,6 +51,8 @@ class JsonAdaptedBody {
     private final String relationship;
     private final String kinPhoneNumber;
 
+    private final String details;
+
     private final List<String> organsForDonation = new ArrayList<>();
 
     /**
@@ -71,7 +73,8 @@ class JsonAdaptedBody {
                            @JsonProperty("nextOfKin") String nextOfKin,
                            @JsonProperty("relationship") String relationship,
                            @JsonProperty("kinPhoneNumber") String kinPhoneNumber,
-                           @JsonProperty("organsForDonation") List<String> organsForDonation) {
+                           @JsonProperty("organsForDonation") List<String> organsForDonation,
+                           @JsonProperty("details") String details) {
         this.bodyIdNum = bodyIdNum;
         this.dateOfAdmission = dateOfAdmission;
         this.bodyStatus = bodyStatus;
@@ -86,6 +89,7 @@ class JsonAdaptedBody {
         this.nextOfKin = nextOfKin;
         this.relationship = relationship;
         this.kinPhoneNumber = kinPhoneNumber;
+        this.details = details;
 
         if (organsForDonation != null) {
             this.organsForDonation.addAll(organsForDonation);
@@ -101,11 +105,12 @@ class JsonAdaptedBody {
         name = source.getName().toString();
         sex = source.getSex().toString();
         nric = source.getNric().map(Nric::toString).orElse(null);
-        religion = source.getReligion().map(Religion::toString).orElse(null);
+        religion = source.getReligion().orElse(null);
         causeOfDeath = source.getCauseOfDeath().orElse(null);
         nextOfKin = source.getNextOfKin().map(Name::toString).orElse(null);
         relationship = source.getRelationship().orElse(null);
         kinPhoneNumber = source.getKinPhoneNumber().map(PhoneNumber::toString).orElse(null);
+        details = source.getDetails().orElse(null);
 
         // Dates
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -179,11 +184,11 @@ class JsonAdaptedBody {
         }
 
         // Convert Religion
-        final Religion actualReligion;
+        final String actualReligion;
         if (religion == null) {
             actualReligion = null;
         } else {
-            actualReligion = ParserUtil.parseReligion(religion);
+            actualReligion = ParserUtil.parseStringFields(religion);
         }
 
         // Convert causeOfDeath
@@ -192,6 +197,14 @@ class JsonAdaptedBody {
             actualCauseOfDeath = null;
         } else {
             actualCauseOfDeath = causeOfDeath;
+        }
+
+        // Convert details
+        final String actualDetails;
+        if (details == null) {
+            actualDetails = null;
+        } else {
+            actualDetails = details;
         }
 
         // Convert fridgeId
@@ -203,7 +216,7 @@ class JsonAdaptedBody {
                 int parsedInt = Integer.parseInt(fridgeId);
                 actualFridgeId = IdentificationNumber.customGenerateId("F", parsedInt);
             } catch (NumberFormatException e) {
-                throw new IllegalValueException(IdentificationNumber.MESSAGE_CONSTRAINTS);
+                throw new IllegalValueException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
             }
         }
 
@@ -232,7 +245,7 @@ class JsonAdaptedBody {
             actualKinPhoneNumber = null;
         } else {
             if (!PhoneNumber.isValidPhoneNumber(kinPhoneNumber)) {
-                throw new IllegalValueException(PhoneNumber.VALID_NUMBER);
+                throw new IllegalValueException(PhoneNumber.MESSAGE_CONSTRAINTS);
             }
             actualKinPhoneNumber = new PhoneNumber(kinPhoneNumber);
         }
@@ -294,6 +307,7 @@ class JsonAdaptedBody {
         body.setRelationship(actualRelationship);
         body.setKinPhoneNumber(actualKinPhoneNumber);
         body.setOrgansForDonation(actualOrgansForDonation);
+        body.setDetails(actualDetails);
         return body;
     }
 }

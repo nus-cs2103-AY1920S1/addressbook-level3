@@ -10,18 +10,26 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.entity.UniqueIdentificationNumberMaps;
 
 //@@author arjavibahety
 
 public class NotifCommandTest {
     private static final long ONE_SECOND = 1000;
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model;
+
+    @BeforeEach
+    public void setup() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    }
 
     @Test
     public void execute_notifChangesBodyStatus_changeSuccessful() throws CommandException, InterruptedException {

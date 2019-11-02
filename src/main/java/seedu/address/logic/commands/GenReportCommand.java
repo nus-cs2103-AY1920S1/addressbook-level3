@@ -10,7 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
-import seedu.address.report.ReportGenerator;
+import seedu.address.storage.ReportGenerator;
 
 //@@author bernicechio
 /**
@@ -24,15 +24,20 @@ public class GenReportCommand extends Command {
     public static final String MESSAGE_GENREPORT_SUCCESS = "Generated report: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for the specific body ID.\n"
-            + "Parameters: BODY_ID\n"
-            + "Example: " + COMMAND_WORD + " B1";
+            + "Parameters: BODY_ID NAME\n"
+            + "Example: " + COMMAND_WORD + "1 John Doe";
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 
     private final Index targetIndexNum;
 
-    public GenReportCommand(Index targetIndexNum) {
+    private final String sign;
+
+    private ReportGenerator reportGenerator = new ReportGenerator();
+
+    public GenReportCommand(Index targetIndexNum, String sign) {
         this.targetIndexNum = targetIndexNum;
+        this.sign = sign;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class GenReportCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
         }
 
-        boolean generated = ReportGenerator.generate(bodyToGenReport);
+        boolean generated = reportGenerator.generate(bodyToGenReport, sign);
         if (!generated) {
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
@@ -63,6 +68,7 @@ public class GenReportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GenReportCommand // instanceof handles nulls
-                && targetIndexNum.equals(((GenReportCommand) other).targetIndexNum)); // state check
+                && targetIndexNum.equals(((GenReportCommand) other).targetIndexNum)
+                && sign.equals(((GenReportCommand) other).sign)); // state check
     }
 }

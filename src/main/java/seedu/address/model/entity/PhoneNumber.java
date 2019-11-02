@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Guarantees: immutable; is valid as declared in {@link #isValidPhoneNumber(String)}
  */
 public class PhoneNumber {
-    public static final String VALID_NUMBER = "A valid phone number contains exactly 8 digits only."
+    public static final String MESSAGE_CONSTRAINTS = "A valid phone number contains exactly 8 digits only."
             + "The country calling code is omitted and assumed to be +65. The first digit should be '8' or '9'.";
 
     public final String phoneNumber;
@@ -20,7 +20,7 @@ public class PhoneNumber {
     // Constructor
     public PhoneNumber(String phoneNumber) {
         requireNonNull(phoneNumber);
-        checkArgument(isValidPhoneNumber(phoneNumber), VALID_NUMBER);
+        checkArgument(isValidPhoneNumber(phoneNumber), MESSAGE_CONSTRAINTS);
         this.phoneNumber = phoneNumber;
     }
 

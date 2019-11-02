@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -39,16 +38,14 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <ImageView fx:id="sexIcon" fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true" />
             <Text fill="#ff0266" strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
             <Label fx:id="selectedBodyReligion" text="Religion" />
-            <ImageView fx:id="religionIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
       </HBox>
          <VBox fx:id="dateBox" alignment="CENTER">
             <children>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:">
+                     <Text fill="WHITE" layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Admission:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -57,7 +54,7 @@
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:">
+                     <Text fill="WHITE" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Death:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -66,7 +63,7 @@
                </AnchorPane>
                <AnchorPane prefWidth="260.0">
                   <children>
-                     <Text layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:">
+                     <Text fill="WHITE" layoutY="12.94921875" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Birth:">
                         <font>
                            <Font name="System Bold" size="12.0" />
                         </font></Text>
@@ -96,11 +93,11 @@
                <Insets top="25.0" />
             </VBox.margin>
          </VBox>
-         <AnchorPane prefHeight="58.0" prefWidth="237.0">
+         <AnchorPane prefWidth="237.0">
             <children>
                <HBox alignment="CENTER" layoutX="-35.0" layoutY="12.0">
                   <children>
-                  <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="N.O.K." />
+                  <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="Next of Kin" />
                      <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="160.0">
                         <children>
                            <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />

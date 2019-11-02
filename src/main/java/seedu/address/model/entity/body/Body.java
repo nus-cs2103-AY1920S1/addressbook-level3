@@ -13,6 +13,7 @@ import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.person.Name;
 
 //@@author ambervoong
+
 /**
  * Represents a Body in Mortago.
  * Guarantees: dateofAdmission and bodyIdNum is guaranteed to be present.
@@ -25,7 +26,7 @@ public class Body implements Entity {
     private Name name;
     private Sex sex;
     private Optional<Nric> nric;
-    private Optional<Religion> religion;
+    private Optional<String> religion;
 
     private Optional<String> causeOfDeath;
     private List<String> organsForDonation;
@@ -33,6 +34,7 @@ public class Body implements Entity {
     private Optional<IdentificationNumber> fridgeId;
     private Optional<Date> dateOfBirth;
     private Optional<Date> dateOfDeath;
+    private Optional<String> details;
 
     // Next of kin details
     private Optional<Name> nextOfKin;
@@ -44,9 +46,9 @@ public class Body implements Entity {
     }
 
     public Body(Date dateOfAdmission, Name name, Sex sex, Nric nric,
-                Religion religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
+                String religion, String causeOfDeath, List<String> organsForDonation, BodyStatus bodyStatus,
                 IdentificationNumber fridgeId, Date dateOfBirth, Date dateOfDeath, Name nextOfKin,
-                String relationship, PhoneNumber kinPhoneNumber) {
+                String relationship, PhoneNumber kinPhoneNumber, String details) {
         this.bodyIdNum = IdentificationNumber.generateNewBodyId(this);
         this.dateOfAdmission = dateOfAdmission;
         this.name = name;
@@ -62,6 +64,7 @@ public class Body implements Entity {
         this.nextOfKin = Optional.ofNullable(nextOfKin);
         this.relationship = Optional.ofNullable(relationship);
         this.kinPhoneNumber = Optional.ofNullable(kinPhoneNumber);
+        this.details = Optional.ofNullable(details);
 
         if (fridgeId != null) {
             Fridge fridge = (Fridge) fridgeId.getMapping();
@@ -71,7 +74,8 @@ public class Body implements Entity {
 
     /**
      * Generates a new Body with bare-minimum attributes and a custom ID. Only used for creating a Body from storage.
-     * @param id ID of the stored body.
+     *
+     * @param id              ID of the stored body.
      * @param dateOfAdmission of the stored body.
      * @return Body
      */
@@ -133,12 +137,20 @@ public class Body implements Entity {
         this.nric = Optional.ofNullable(nric);
     }
 
-    public Optional<Religion> getReligion() {
+    public Optional<String> getReligion() {
         return religion;
     }
 
-    public void setReligion(Religion religion) {
+    public void setReligion(String religion) {
         this.religion = Optional.ofNullable(religion);
+    }
+
+    public Optional<String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = Optional.ofNullable(details);
     }
 
     public Optional<Name> getNextOfKin() {
@@ -200,6 +212,7 @@ public class Body implements Entity {
     /**
      * Returns whether another object is equal to this object. Equality is defined as having identical attributes. Null
      * objects are not considered equal.
+     *
      * @param o An object.
      * @return whether the object is equal to this object.
      */
@@ -223,6 +236,7 @@ public class Body implements Entity {
                 && getFridgeId().equals(body.getFridgeId())
                 && getDateOfBirth().equals(body.getDateOfBirth())
                 && getDateOfDeath().equals(body.getDateOfDeath())
+                && getDetails().equals(body.getDetails())
                 && getNextOfKin().equals(body.getNextOfKin())
                 && getRelationship().equals(body.getRelationship())
                 && getKinPhoneNumber().equals(body.getKinPhoneNumber());
@@ -232,12 +246,14 @@ public class Body implements Entity {
     public int hashCode() {
         return Objects.hash(getDateOfAdmission(), getName(), getSex(), getNric(),
                 getReligion(), getCauseOfDeath(), getOrgansForDonation(), getBodyStatus(), getFridgeId(),
-                getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber());
+                getDateOfBirth(), getDateOfDeath(), getNextOfKin(), getRelationship(), getKinPhoneNumber(),
+                getDetails());
     }
 
     /**
      * Returns whether an object is equal to this body. The definition of equality is relaxed here to only include
-     * Nric.
+     * Nric and Name.
+     *
      * @param o An object.
      * @return whether the object is equal to this object.
      */
@@ -250,7 +266,7 @@ public class Body implements Entity {
         }
         Body body = (Body) o;
         return getNric().equals(body.getNric())
-            && getName().equals(body.getName());
+                && getName().equals(body.getName());
     }
 
     @Override
@@ -261,6 +277,7 @@ public class Body implements Entity {
     /**
      * Returns whether an object is equal to this body. The definition of equality is relaxed here to only include
      * bodyIdNum.
+     *
      * @param o An object.
      * @return whether the object is equal to this object.
      */
@@ -279,34 +296,37 @@ public class Body implements Entity {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-            .append(" Body ID: ")
-            .append(getIdNum())
-            .append(" Sex: ")
-            .append(getSex())
-            .append(" NRIC: ")
-            .append(nric.isPresent() ? nric.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Religion: ")
-            .append(religion.isPresent() ? religion.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Date of Admission: ")
-            .append(dateOfAdmission)
-            .append(" Date of Death: ")
-            .append(dateOfDeath)
-            .append(" Cause of Death: ")
-            .append(causeOfDeath.isPresent() ? causeOfDeath.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Date of Birth: ")
-            .append(dateOfBirth.isPresent() ? dateOfBirth.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Organs for Donation: ")
-            .append(organsForDonation)
-            .append(" Fridge ID: ")
-            .append(fridgeId.isPresent() ? fridgeId.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Body Status: ")
-            .append(bodyStatus.isPresent() ? bodyStatus.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Name of Next Of Kin: ")
-            .append(nextOfKin.isPresent() ? nextOfKin.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Relationship of Next of Kin: ")
-            .append(relationship.isPresent() ? relationship.get() : OPTIONAL_FIELD_EMPTY)
-            .append(" Phone of Next of Kin: ")
-            .append(kinPhoneNumber.isPresent() ? kinPhoneNumber.get() : OPTIONAL_FIELD_EMPTY);
+                .append(" Body ID: ")
+                .append(getIdNum())
+                .append(" Sex: ")
+                .append(getSex())
+                .append(" NRIC: ")
+                .append(nric.isPresent() ? nric.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Religion: ")
+                .append(religion.isPresent() ? religion.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Date of Admission: ")
+                .append(dateOfAdmission)
+                .append(" Date of Death: ")
+                .append(dateOfDeath)
+                .append(" Cause of Death: ")
+                .append(causeOfDeath.isPresent() ? causeOfDeath.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Date of Birth: ")
+                .append(dateOfBirth.isPresent() ? dateOfBirth.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Organs for Donation: ")
+                .append(organsForDonation)
+                .append(" Fridge ID: ")
+                .append(fridgeId.isPresent() ? fridgeId.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Body Status: ")
+                .append(bodyStatus.isPresent() ? bodyStatus.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Name of Next Of Kin: ")
+                .append(nextOfKin.isPresent() ? nextOfKin.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Relationship of Next of Kin: ")
+                .append(relationship.isPresent() ? relationship.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Phone of Next of Kin: ")
+                .append(kinPhoneNumber.isPresent() ? kinPhoneNumber.get() : OPTIONAL_FIELD_EMPTY)
+                .append(" Details: ")
+                .append(details.isPresent() ? details.get() : OPTIONAL_FIELD_EMPTY);
+
         return builder.toString();
     }
 }

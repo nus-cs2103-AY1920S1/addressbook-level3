@@ -21,9 +21,9 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import guitests.guihandles.WorkerListPanelHandle;
 import seedu.address.TestApp;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -31,7 +31,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalWorkers;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -86,7 +86,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalWorkers.getTypicalAddressBook();
     }
 
     /**
@@ -108,8 +108,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public WorkerListPanelHandle getWorkerListPanel() {
+        return mainWindowHandle.getWorkerListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -138,67 +138,69 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all workers in the address book.
      */
-    protected void showAllPersons() {
+    protected void showAllWorkers() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getAddressBook().getWorkerList().size(), getModel().getFilteredWorkerList().size());
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all workers with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " -b " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    protected void showWorkersWithName(String keyword) {
+        executeCommand(FindCommand.COMMAND_WORD + " -w " + keyword);
+        assertTrue(getModel().getFilteredWorkerList().size()
+                < getModel().getAddressBook().getWorkerList().size());
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all entities in the address book.
      */
-    protected void deleteAllPersons() {
+    protected void deleteAllEntities() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        assertEquals(0, getModel().getAddressBook().getBodyList().size());
+        assertEquals(0, getModel().getAddressBook().getFridgeList().size());
+        assertEquals(0, getModel().getAddressBook().getWorkerList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same entity objects as {@code expectedModel}
+     * and the worker list panel displays the workers in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getWorkerListPanel(), expectedModel.getFilteredWorkerList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code WorkerListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getWorkerListPanel().rememberSelectedWorkerCard();
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
-     * default page.
+     * Asserts that the previously selected card is now deselected.
      */
     protected void assertSelectedCardDeselected() {
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getWorkerListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * Asserts that the selected card in the worker list panel remain unchanged.
+     * @see WorkerListPanelHandle#isSelectedWorkerCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getWorkerListPanel().isSelectedWorkerCardChanged());
     }
 
     /**
@@ -242,7 +244,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getWorkerListPanel(), getModel().getFilteredWorkerList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

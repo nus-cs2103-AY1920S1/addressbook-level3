@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.fridge.Fridge;
 
+//@@ author shaoyi1997
 /**
  * Panel containing the list of bodies.
  */
@@ -42,5 +43,5 @@ public class FridgeListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
+//@@ author

@@ -21,11 +21,13 @@ public class FilterCommand extends Command {
             + "Parameters: FLAG (must be either b/w) /ATTRIBUTE attribute\n"
             + "Example: " + COMMAND_WORD + " -b /religion buddhism /cod natural";
 
+    private final ArgumentMultimap argumentMultimap;
     private final BodyContainsAttributesKeywordsPredicate bodyPredicate;
     private final WorkerContainsAttributesKeywordsPredicate workerPredicate;
     private final String flag;
 
     public FilterCommand(ArgumentMultimap argumentMultimap, String flag) {
+        this.argumentMultimap = argumentMultimap;
         this.bodyPredicate = new BodyContainsAttributesKeywordsPredicate(argumentMultimap);
         this.workerPredicate = new WorkerContainsAttributesKeywordsPredicate(argumentMultimap);
         this.flag = flag;
@@ -49,6 +51,14 @@ public class FilterCommand extends Command {
         } catch (CommandException e) {
             return new CommandResult(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FilterCommand // instanceof handles nulls
+                && bodyPredicate.equals(((FilterCommand) other).bodyPredicate)
+                && workerPredicate.equals(((FilterCommand) other).workerPredicate)); // state check
     }
 }
 

@@ -8,6 +8,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
+import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 
 //@@author ambervoong
@@ -23,6 +24,7 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
     private Date dateJoined;
     private String designation;
     private String employmentStatus;
+    private Photo photo;
 
     public UpdateWorkerDescriptor() {
     }
@@ -37,6 +39,7 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
         setDateJoined(toCopy.dateJoined);
         setDesignation(toCopy.designation);
         setEmploymentStatus(toCopy.employmentStatus);
+        setPhoto(toCopy.photo);
     }
 
     /**
@@ -51,11 +54,12 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
         this.dateJoined = worker.getDateJoined();
         this.designation = worker.getDesignation().orElse(null);
         this.employmentStatus = worker.getEmploymentStatus().orElse(null);
+        this.photo = worker.getPhoto().orElse(null);
     }
 
     @Override
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(phone, sex, dateJoined, dateOfBirth, designation, employmentStatus);
+        return CollectionUtil.isAnyNonNull(phone, sex, dateJoined, dateOfBirth, designation, employmentStatus, photo);
     }
 
     @Override
@@ -68,6 +72,21 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
         worker.setDateJoined(this.getDateJoined().orElse(worker.getDateJoined()));
         worker.setDesignation(this.getDesignation().orElse(worker.getDesignation().orElse(null)));
         worker.setEmploymentStatus(this.getEmploymentStatus().orElse(worker.getEmploymentStatus().orElse(null)));
+        worker.setPhoto(this.getPhoto().orElse(worker.getPhoto().orElse(null)));
+        return entity;
+    }
+
+    @Override
+    public Entity applyOriginal(Entity entity) {
+        assert entity != null;
+        Worker worker = (Worker) entity;
+        worker.setPhone(this.getPhone().orElse(null));
+        worker.setSex(this.getSex().orElse(null));
+        worker.setDateOfBirth(this.getDateOfBirth().orElse(null));
+        worker.setDateJoined(this.getDateJoined().orElse(null));
+        worker.setDesignation(this.getDesignation().orElse(null));
+        worker.setEmploymentStatus(this.getEmploymentStatus().orElse(null));
+        worker.setPhoto(this.getPhoto().orElse(null));
         return entity;
     }
 
@@ -118,6 +137,14 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
 
     public void setEmploymentStatus(String employmentStatus) {
         this.employmentStatus = employmentStatus;
+    }
+
+    public Optional<Photo> getPhoto() {
+        return Optional.ofNullable(photo);
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     @Override
