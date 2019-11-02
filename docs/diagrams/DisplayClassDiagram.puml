@@ -10,6 +10,7 @@ abstract class DisplayController {
 #{abstract}castData(ObservableMap): T
 #{abstract}setChart()
 #{abstract}initIndicators(Logic)
+#{abstract}requireNonNullAttributes()
 }
 abstract class AxisController {
 #xAxis: CategoryAxis
@@ -19,6 +20,7 @@ abstract class AxisController {
 +AxisController(String)
 #castData(ObservableMap): T
 #initIndicators(Logic)
+#requireNonNullAttributes()
 #{abstract}setChart()
 }
 class PieChartController{
@@ -29,6 +31,7 @@ class PieChartController{
 #castData(ObservableMap): T
 #setChart()
 #initIndicators(Logic)
+#requireNonNullAttributes()
 }
 class BarChartController{
 -FXML: String = "BarChartView.fxml"

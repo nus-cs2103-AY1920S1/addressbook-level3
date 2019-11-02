@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -227,12 +229,6 @@ public class MainWindow extends UiPart<Stage> {
                 listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
             }
 
-            if (commandResult.isReport()) {
-                reportPanel = new ReportPanel();
-                listPanelPlaceholder.getChildren().clear();
-                listPanelPlaceholder.getChildren().add(reportPanel.getRoot());
-            }
-
             if (commandResult.isDisplay()) {
                 DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
                 DisplayFormat displayFormat = commandResult.getDisplayFormat();
@@ -241,17 +237,22 @@ public class MainWindow extends UiPart<Stage> {
                 displayPlaceHolder.getChildren().clear();
                 switch (displayFormat.value) {
                 case DisplayFormat.PIECHART:
+                    logger.info("Displaying piechart...");
                     displayController = new PieChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.BARCHART:
+                    logger.info("Displaying barchart...");
                     displayController = new BarChartController(logic, displayIndicator);
                     break;
                 case DisplayFormat.LINECHART:
+                    logger.info("Displaying linechart...");
                     displayController = new LineChartController(logic, displayIndicator);
                     break;
                 default:
                     throw new ParseException(DisplayFormat.getMessageConstraints());
                 }
+
+                requireNonNull(displayController);
                 displayPlaceHolder.getChildren().add(displayController.getRoot());
             }
 

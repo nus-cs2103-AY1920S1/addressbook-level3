@@ -54,4 +54,6 @@ public abstract class DisplayController extends UiPart<Region> {
 
     protected abstract void setChart();
 
+    protected abstract void requireNonNullAttributes();
+
 }

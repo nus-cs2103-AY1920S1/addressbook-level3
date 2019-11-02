@@ -250,6 +250,12 @@ public class ModelManager implements Model {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         statefulAddressBook.getPolicyList().forEach(policy -> result.put(policy.getName().toString(), 0));
 
+        String assertionMessage = "Value in map must be initialised to zero!";
+        // Assert values in result map are initialised as 0
+        result.values().forEach((value) -> {
+            assert value == 0 : assertionMessage;
+        });
+
         // Add popularity
         statefulAddressBook.getPersonList().forEach(person -> {
             Set<Policy> policies = person.getPolicies();
@@ -268,6 +274,12 @@ public class ModelManager implements Model {
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         TimeUtil.getAgeGroup().forEach(ageGroup -> result.put(ageGroup, 0));
 
+        String assertionMessage = "Value in map must be initialised to zero!";
+        // Assert values in result map are initialised as 0
+        result.values().forEach((value) -> {
+            assert value == 0 : assertionMessage;
+        });
+
         // Add numbers
         statefulAddressBook.getPersonList().forEach(person -> {
             int yearOfBirth = person.getDateOfBirth().dateOfBirth.getYear();
@@ -283,6 +295,12 @@ public class ModelManager implements Model {
         // Set up gender
         ObservableMap<String, Integer> result = FXCollections.observableHashMap();
         Gender.getValidGender().forEach(gender -> result.put(gender, 0));
+
+        String assertionMessage = "Value in map must be initialised to zero!";
+        // Assert values in result map are initialised as 0
+        result.values().forEach((value) -> {
+            assert value == 0 : assertionMessage;
+        });
 
         // Add numbers
         statefulAddressBook.getPersonList().forEach(person -> {

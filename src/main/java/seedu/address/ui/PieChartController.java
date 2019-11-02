@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -27,7 +29,12 @@ public class PieChartController extends DisplayController {
 
     public PieChartController(Logic logic, DisplayIndicator displayIndicator) throws ParseException {
         super(FXML);
+        requireNonNull(logic);
+        requireNonNull(displayIndicator);
+
         initAttributes(logic, displayIndicator);
+        requireNonNullAttributes();
+
         setChart();
     }
 
@@ -68,5 +75,11 @@ public class PieChartController extends DisplayController {
     protected void setChart() {
         piechart.setData(pieChartData);
         piechart.setTitle(title);
+    }
+
+    @Override
+    protected void requireNonNullAttributes() {
+        requireNonNull(title);
+        requireNonNull(pieChartData);
     }
 }

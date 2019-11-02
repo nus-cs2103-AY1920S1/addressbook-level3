@@ -35,13 +35,13 @@ public class DisplayCommand extends Command {
      */
     public DisplayCommand(DisplayIndicator displayIndicator, DisplayFormat displayFormat) {
         requireNonNull(displayIndicator);
+        requireNonNull(displayFormat);
         this.displayIndicator = displayIndicator;
         this.displayFormat = displayFormat;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        requireNonNull(model);
         return new CommandResult(getMessageSuccess(this.displayIndicator, this.displayFormat),
             this.displayIndicator, this.displayFormat);
     }
