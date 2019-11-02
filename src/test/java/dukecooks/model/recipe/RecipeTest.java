@@ -2,13 +2,23 @@ package dukecooks.model.recipe;
 
 import static dukecooks.testutil.recipe.TypicalRecipes.BURGER;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
+import dukecooks.model.recipe.components.Calories;
+import dukecooks.model.recipe.components.Carbs;
+import dukecooks.model.recipe.components.Fats;
+import dukecooks.model.recipe.components.Ingredient;
+import dukecooks.model.recipe.components.Protein;
 import dukecooks.model.recipe.components.Recipe;
+import dukecooks.model.recipe.components.RecipeName;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
@@ -63,5 +73,20 @@ public class RecipeTest {
         // different ingredients -> returns false
         editedAlice = new RecipeBuilder(MILO).withIngredients(CommandTestUtil.VALID_INGREDIENT_BURGER).build();
         assertFalse(MILO.equals(editedAlice));
+    }
+
+    @Test
+    public void testRecipeHashCode() {
+        RecipeName name = new RecipeName("A");
+        Ingredient ingredient = new Ingredient("B");
+        Set<Ingredient> ingredients = new HashSet<>();
+        Calories calories = new Calories("0");
+        Carbs carbs = new Carbs("0");
+        Fats fats = new Fats("0");
+        Protein protein = new Protein("0");
+        ingredients.add(ingredient);
+        Recipe recipe1 = new Recipe(name, ingredients, calories, carbs, fats, protein);
+        Recipe recipe2 = new Recipe(name, ingredients, calories, carbs, fats, protein);
+        assertEquals(recipe1.hashCode(), recipe2.hashCode());
     }
 }

@@ -19,7 +19,7 @@ public class ClearMealPlanCommandTest {
 
         assertCommandSuccess(new ClearMealPlanCommand(), model, ClearMealPlanCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    
+
     @Test
     public void execute_nonEmptyMealPlanBook_success() {
         Model model = new ModelManager(getTypicalMealPlanBook(), new UserPrefs());
