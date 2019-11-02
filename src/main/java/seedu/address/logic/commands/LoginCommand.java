@@ -22,9 +22,9 @@ public class LoginCommand extends Command {
             + "Parameters: " + PREFIX_USERNAME + "USERNAME " + PREFIX_PASSWORD + "PASSWORD \n"
             + "Example: " + COMMAND_WORD + " u/Agent01 w/password";
 
-    private static final String MESSAGE_SUCCESS = "Login Successful!";
-    private static final String MESSAGE_FAILURE = "You have entered an invalid username or password.";
-    private static final String MESSAGE_MISUSE = "You are already logged in.";
+    public static final String MESSAGE_SUCCESS = "Login Successful!";
+    public static final String MESSAGE_FAILURE = "You have entered an invalid username or password.";
+    public static final String MESSAGE_MISUSE = "You are already logged in.";
 
     private final LoginCredentialsPredicate predicate;
 

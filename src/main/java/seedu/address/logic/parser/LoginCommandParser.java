@@ -31,8 +31,14 @@ public class LoginCommandParser implements Parser<LoginCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
         }
 
-        Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
-        Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
+        Username username;
+        Password password;
+        try {
+            username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
+            password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
+        } catch (ParseException pe) {
+            throw new ParseException(LoginCommand.MESSAGE_FAILURE, pe);
+        }
 
         return new LoginCommand(new LoginCredentialsPredicate(username, password));
     }

@@ -8,27 +8,29 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindPersonsCommand;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.logic.commands.ListPersonsCommand;
+import seedu.address.model.tag.TagContainsKeywordsPredicate;
 
-public class FindPersonsCommandParserTest {
+//@@author madanalogy
+public class ListPersonsCommandParserTest {
 
-    private FindPersonsCommandParser parser = new FindPersonsCommandParser();
+    private ListPersonsCommandParser parser = new ListPersonsCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindPersonsCommand.MESSAGE_USAGE));
+                ListPersonsCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
-        FindPersonsCommand expectedFindPersonsCommand =
-                new FindPersonsCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, "Alice Bob", expectedFindPersonsCommand);
+        ListPersonsCommand expectedListPersonsCommand =
+                new ListPersonsCommand(new TagContainsKeywordsPredicate(Arrays.asList("Team-1", "OC")));
+        assertParseSuccess(parser, "Team-1 OC", expectedListPersonsCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindPersonsCommand);
+        assertParseSuccess(parser, " \n Team-1 \n \t OC  \t", expectedListPersonsCommand);
     }
+
 }
