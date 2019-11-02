@@ -15,7 +15,6 @@ public class AliasListCommandTest {
     @Test
     public void execute_aliasList_success() {
         String expectedStringForDefaultAliasTable = "a ⟶ add\n"
-                + "<meta http-equiv=\"refresh\" content=\"0; URL='http://example.org'\" /> ⟶ aliaslist\n"
                 + "e ⟶ exit\n"
                 + "h ⟶ help\n";
         CommandResult expectedCommandResult = new CommandResult(expectedStringForDefaultAliasTable,

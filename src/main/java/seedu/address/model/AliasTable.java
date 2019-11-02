@@ -18,8 +18,7 @@ public class AliasTable {
         AliasTable rtv = new AliasTable();
         rtv.addAlias("h", "help")
                 .addAlias("a", "add")
-                .addAlias("e", "exit")
-                .addAlias("<meta http-equiv=\"refresh\" content=\"0; URL='http://example.org'\" />", "aliaslist");
+                .addAlias("e", "exit");
         return rtv;
     }
 
