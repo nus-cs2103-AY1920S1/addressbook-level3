@@ -36,7 +36,7 @@ public class TaskList extends VisualizeList {
             tl.add(item);
         }
 
-        tl.list.sort(COMPARATOR);
+        tl.sort(COMPARATOR);
 
         return tl;
     }
