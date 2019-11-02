@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
@@ -136,7 +137,7 @@ abstract class SuggesterImplTester {
         Assumptions.assumeTrue(autoTestPrefixes.contains(CliSyntax.PREFIX_NAME));
         final int inconsequentialValue = 0;
         final String presentPersonName = TypicalPersonDescriptor.ALICE.getName().toString();
-        final String searchKeyword = presentPersonName.replaceAll(" .*$", "");
+        final String searchKeyword = StringUtil.substringBefore(presentPersonName, " ");
         assert !searchKeyword.equals(presentPersonName);
 
         final ArgumentList argumentList = singularArgumentListOfCommandArgument(
