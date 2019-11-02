@@ -91,11 +91,11 @@ public class AutofillSuggestionMenu extends ContextMenu {
             }
         });
 
-        addEventFilter(KeyEvent.ANY, keyEvent -> {
-            if (keyEvent.getCode().isArrowKey()) {
-                hide();
-            }
-        });
+        //        addEventFilter(KeyEvent.ANY, keyEvent -> {
+        //            if (keyEvent.getCode().isArrowKey()) {
+        //                hide();
+        //            }
+        //        });
 
         setOnAction(this::appendChosenCompletion);
     }
