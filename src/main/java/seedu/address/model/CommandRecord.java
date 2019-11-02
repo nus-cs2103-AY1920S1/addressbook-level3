@@ -27,19 +27,19 @@ public class CommandRecord {
 
     public static CommandRecord getUndoEndPoint() {
         return new CommandRecord(null,
-                   "=============<< Cannot Undo Beyond This Point >>=============",
+                   "UNDO DELIMITER: Cannot Undo Beyond This Point",
                                  CommandType.END);
     }
 
     public static CommandRecord getRedoEndPoint() {
         return new CommandRecord(null,
-                   "=============<< Cannot Redo Beyond This Point >>=============",
+                   "REDO DELIMITER: Cannot Redo Beyond This Point",
                                  CommandType.END);
     }
 
     public static CommandRecord getCurrentStatePoint() {
         return new CommandRecord(null,
-                   "=====================<< Current State >>=====================",
+                   "CURRENT STATE: You are here!",
                                  CommandType.CURR);
     }
 

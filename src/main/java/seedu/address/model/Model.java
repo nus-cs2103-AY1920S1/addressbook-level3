@@ -183,16 +183,22 @@ public interface Model {
     void updateHistory(Command c);
 
     /**
-     * Undoes the effects of the previous command and returns the model to the state
-     * prior to the execution of the command.
+     * Undoes the effects of {@code numToUndo} previous command(s) and returns the model to the state
+     * prior to the execution of these command(s).
+     * @param numToUndo number of previous commands to undo.
+     * @throws AlfredModelHistoryException this is thrown when an error is encountered trying to alter the model
+     *                                     state while undoing the previous commands.
      */
-    void undo() throws AlfredModelHistoryException;
+    void undo(int numToUndo) throws AlfredModelHistoryException;
 
     /**
-     * Redoes the effects of the previously executed command and returns the model to the state
-     * after the execution of the command.
+     * Redoes the effects of the {@code numToRedo} next command(s) and returns the model to the state
+     * after the execution of these command(s).
+     * @param numToRedo number of next commands to redo.
+     * @throws AlfredModelHistoryException this is thrown when an error is encountered trying to alter the model
+     *                                     state while redoing the next commands.
      */
-    void redo() throws AlfredModelHistoryException;
+    void redo(int numToRedo) throws AlfredModelHistoryException;
 
     /**
      * Gets a String detailing the previously executed commands that can be undone by the user.

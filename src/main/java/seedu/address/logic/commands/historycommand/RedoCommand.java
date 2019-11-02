@@ -12,8 +12,21 @@ import seedu.address.model.entity.CommandType;
  */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Re-did 1 command";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous command";
+    public static final String MESSAGE_SUCCESS = "Un-did %1$s command(s)";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the previous command.\n"
+                                                + "Format: " + COMMAND_WORD + " [NUMBER_OF_COMMANDS_TO_REDO]\n"
+                                                + "Note that NUMBER_OF_COMMANDS_TO_REDO must be a number from 1 to 49\n"
+                                                + "and must be less than or equal to the number of commands that can\n"
+                                                + "be redone (see the output of the `history` command for this";
+    private int numToRedo;
+
+    /**
+     * Constructor for RedoCommand, indicating number of commands to redo.
+     * @param numToRedo the number of commands to redo in ModelHistory.
+     */
+    public RedoCommand(int numToRedo) {
+        this.numToRedo = numToRedo;
+    }
 
     /**
      * Executes the command and returns a CommandResult with a message.
@@ -23,12 +36,26 @@ public class RedoCommand extends Command {
      */
     public CommandResult execute(Model model) throws CommandException {
         try {
-            model.redo();
+            model.redo(this.numToRedo);
             model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
-            return new CommandResult(MESSAGE_SUCCESS, CommandType.H);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, this.numToRedo), CommandType.H);
         } catch (AlfredModelHistoryException e) {
             throw new CommandException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof RedoCommand)) {
+            return false;
+        }
+
+        RedoCommand otherCommand = (RedoCommand) other;
+        return otherCommand.numToRedo == this.numToRedo;
     }
 }

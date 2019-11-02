@@ -98,11 +98,13 @@ public class ModelHistoryManager implements ModelHistory {
     }
 
     /**
-     * Returns a boolean indicating whether the model can return to a previous backward state.
+     * Returns a boolean indicating whether the model can return to previous {@code numToUndo}-th state.
+     * @param numToUndo number of states to undo.
      * @return boolean indicating whether an undo is possible.
      */
-    public boolean canUndo() {
-        if (this.history.indexOf(this.current) > 0) {
+    public boolean canUndo(int numToUndo) {
+        System.out.println("Current index of canUndo: " + this.history.indexOf(this.current));
+        if (this.history.indexOf(this.current) - numToUndo + 1 > 0) {
             return true;
         } else {
             return false;
@@ -110,15 +112,16 @@ public class ModelHistoryManager implements ModelHistory {
     }
 
     /**
-     * Performs an undo operation and returns a ModelHistoryRecord that stores
-     * the state of the EntityLists and last used IDs after a command is undone.
+     * Performs a {@code numToUndo} undo operation(s) and returns a ModelHistoryRecord that stores
+     * the state of the EntityLists and last used IDs after those command(s) is/are undone.
+     * @param numToUndo number of states to undo.
      * @return ModelHistoryRecord with state after command is undone
      * @throws AlfredModelHistoryException
      */
-    public ModelHistoryRecord undo() throws AlfredModelHistoryException {
-        if (this.canUndo()) {
+    public ModelHistoryRecord undo(int numToUndo) throws AlfredModelHistoryException {
+        if (this.canUndo(numToUndo)) {
             int currentIndex = this.history.indexOf(this.current); //Get prev state pointer index
-            this.current = this.history.get(currentIndex - 1); //Update the current state pointer
+            this.current = this.history.get(currentIndex - numToUndo); //Update the current state pointer
             return this.current;
         } else {
             throw new AlfredModelHistoryException("Unable to undo any further!");
@@ -137,7 +140,8 @@ public class ModelHistoryManager implements ModelHistory {
         for (int j = this.history.size() - 1; j > currentIndex; j--) {
             Command futureCommand = this.history.get(j).getCommand();
             commandHistory.add(new CommandRecord((j - currentIndex),
-                                                 futureCommand.getClass().getSimpleName(),
+                                                 futureCommand.getClass().getSimpleName() + ": `"
+                                                 + futureCommand.getCommandInputString() + "`",
                                                  CommandRecord.CommandType.REDO));
         }
 
@@ -149,7 +153,8 @@ public class ModelHistoryManager implements ModelHistory {
         for (int j = this.history.indexOf(this.current); j >= 1; j--) {
             Command histCommand = this.history.get(j).getCommand();
             commandHistory.add(new CommandRecord(index,
-                                                 histCommand.getClass().getSimpleName(),
+                                                 histCommand.getClass().getSimpleName() + ": `"
+                                                 + histCommand.getCommandInputString() + "`",
                                                  CommandRecord.CommandType.UNDO));
             index++;
         }
@@ -209,11 +214,12 @@ public class ModelHistoryManager implements ModelHistory {
     }
 
     /**
-     * Returns a boolean indicating whether the model can go a previous forward state.
-     * @return boolean indicating whether an redo is possible.
+     * Returns a boolean indicating whether the model can go to the next {@code numToRedo}-th state.
+     * @param numToRedo number of commands to redo.
+     * @return boolean indicating whether such a redo is possible.
      */
-    public boolean canRedo() {
-        if (this.history.indexOf(this.current) == this.history.size() - 1) {
+    public boolean canRedo(int numToRedo) {
+        if ((this.history.indexOf(this.current) + numToRedo) >= this.history.size()) {
             return false;
         } else {
             return true;
@@ -221,15 +227,16 @@ public class ModelHistoryManager implements ModelHistory {
     }
 
     /**
-     * Performs a redo operation and returns a ModelHistoryRecord that stores
-     * the state of the EntityLists and last used IDs after a command is redone.
-     * @return ModelHistoryRecord with state after command is redone
+     * Performs {@code numToRedo} redo operation(s) and returns a ModelHistoryRecord that stores
+     * the state of the EntityLists and last used IDs after the command(s) is/are redone.
+     * @param numToRedo number of commands to redo.
+     * @return ModelHistoryRecord with state after the command(s) is/are redone
      * @throws AlfredModelHistoryException
      */
-    public ModelHistoryRecord redo() throws AlfredModelHistoryException {
-        if (this.canRedo()) {
+    public ModelHistoryRecord redo(int numToRedo) throws AlfredModelHistoryException {
+        if (this.canRedo(numToRedo)) {
             int currentIndex = this.history.indexOf(this.current);
-            this.current = this.history.get(currentIndex + 1);
+            this.current = this.history.get(currentIndex + numToRedo);
             return this.current;
         } else {
             throw new AlfredModelHistoryException("Unable to redo any further!");

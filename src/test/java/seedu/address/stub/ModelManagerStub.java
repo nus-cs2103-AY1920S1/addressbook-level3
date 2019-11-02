@@ -269,14 +269,14 @@ public class ModelManagerStub extends ModelManager {
      * Placeholder method simulating the undoing of a command in ModelHistory
      */
     @Override
-    public void undo() {
+    public void undo(int numToUndo) {
     }
 
     /**
      * Placeholder method simulating the redoing of a command in ModelHistory
      */
     @Override
-    public void redo() {
+    public void redo(int numToRedo) {
     }
 
     /**

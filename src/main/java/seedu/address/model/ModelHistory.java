@@ -17,13 +17,13 @@ public interface ModelHistory {
                               MentorList mList, int mListId,
                               TeamList tList, int tListId, Command c) throws AlfredModelHistoryException;
 
-    public boolean canUndo();
+    public boolean canUndo(int numToUndo);
 
-    public boolean canRedo();
+    public boolean canRedo(int numToRedo);
 
-    public ModelHistoryRecord undo() throws AlfredModelHistoryException;
+    public ModelHistoryRecord undo(int numToUndo) throws AlfredModelHistoryException;
 
-    public ModelHistoryRecord redo() throws AlfredModelHistoryException;
+    public ModelHistoryRecord redo(int numToRedo) throws AlfredModelHistoryException;
 
     public String getCommandHistoryString();
 

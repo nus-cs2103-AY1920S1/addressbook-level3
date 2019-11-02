@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
@@ -15,7 +14,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.AlfredModelHistoryException;
@@ -209,22 +207,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles the display of Command History in the GUI.
-     */
-    private void handleHistory() {
-        List<String> undoHistory = logic.getUndoCommandHistory();
-        List<String> redoHistory = logic.getRedoCommandHistory();
-        System.out.println("Inside handleHistory: printing");
-        for (String h : redoHistory) {
-            System.out.println(h);
-        }
-        System.out.println("=====================<< Current State >>=====================");
-        for (String h : undoHistory) {
-            System.out.println(h);
-        }
-    }
-
-    /**
      * Displays the list of Participants in Model and Storage on Graphical User Interface.
      */
     @FXML
@@ -330,7 +312,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-            handleHistory(); //DEBUG
 
             CommandType commandType = commandResult.getCommandType();
             if (commandType == null) {

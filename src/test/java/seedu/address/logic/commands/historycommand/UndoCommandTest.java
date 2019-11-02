@@ -20,9 +20,9 @@ class UndoCommandTest {
 
     @Test
     void execute_success() throws AlfredException {
-        CommandResult commandResult = new UndoCommand().execute(modelStub);
+        CommandResult commandResult = new UndoCommand(1).execute(modelStub);
 
-        assertEquals(UndoCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(String.format(UndoCommand.MESSAGE_SUCCESS, 1), commandResult.getFeedbackToUser());
         assertEquals(CommandType.H, commandResult.getCommandType());
     }
 }

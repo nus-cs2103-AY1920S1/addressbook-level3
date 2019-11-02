@@ -20,9 +20,9 @@ class RedoCommandTest {
 
     @Test
     void execute_success() throws AlfredException {
-        CommandResult commandResult = new RedoCommand().execute(modelStub);
+        CommandResult commandResult = new RedoCommand(1).execute(modelStub);
 
-        assertEquals(RedoCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(String.format(RedoCommand.MESSAGE_SUCCESS, 1), commandResult.getFeedbackToUser());
         assertEquals(CommandType.H, commandResult.getCommandType());
     }
 }
