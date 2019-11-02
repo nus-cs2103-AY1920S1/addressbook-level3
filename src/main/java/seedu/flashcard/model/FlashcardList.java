@@ -102,6 +102,7 @@ public class FlashcardList implements ReadOnlyFlashcardList {
      */
     public void flashcardsRemoveTag(Tag tag) {
         flashcards.removeTag(tag);
+        indicateModified();
     }
 
     /**
