@@ -32,7 +32,7 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_CHICKEN = "Chicken Rice";
     public static final String VALID_DESCRIPTION_TRANSPORT = "Taxi to work";
     public static final String VALID_PRICE_CHICKEN = "11111.11";
-    public static final String VALID_PRICE_TRANSPORT = "222,22222";
+    public static final String VALID_PRICE_TRANSPORT = "22222222.";
     public static final String VALID_CATEGORY_FOOD = "FoOd";
     public static final String VALID_CATEGORY_TRANSPORT = "transport";
     public static final String VALID_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";

@@ -19,7 +19,7 @@ public class ParserUtilTest {
     private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_DESCRIPTION = "Johnny Walker";
-    private static final String VALID_PRICE = "12.3456";
+    private static final String VALID_PRICE = "12.3";
     private static final String VALID_CATEGORY_1 = "utilities";
 
     private static final String WHITESPACE = " \t\r\n";

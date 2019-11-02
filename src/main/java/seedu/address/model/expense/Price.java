@@ -11,9 +11,10 @@ public class Price {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Prices should only contain numeric characters, which can be followed by at most"
-            + " 1 period or comma followed by the numbers representing the cents";
-    public static final String VALIDATION_REGEX = "\\d+([,.]\\d+)?";
+            "Prices can only be positive numbers, with cents being separated from dollars with a '.' and "
+                    + "a maximum of 2 decimal places allowed.";
+    public static final String VALIDATION_REGEX = "^\\d+(\\.\\d{0,2})?$";
+    public static final String ZERO = "0";
     public static final Price MAX_PRICE = new Price("999999999999999999999");
 
     public final String value;
@@ -33,7 +34,7 @@ public class Price {
      * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && !test.equals(ZERO);
     }
 
     public Double getAsDouble() {
@@ -42,7 +43,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return value;
+        return String.format("%.2f", getAsDouble());
     }
 
     @Override

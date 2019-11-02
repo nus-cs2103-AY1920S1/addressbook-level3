@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="MooLah" type="javafx.stage.Stage"
-         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="MooLah" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/moolah.png" />
     </icons>
@@ -24,36 +23,36 @@
                 <URL value="@Extensions.css" />
             </stylesheets>
             <BorderPane>
-                <top>
-                    <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
-                        <Menu mnemonicParsing="false" text="File">
-                            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                        </Menu>
-                    </MenuBar>
-                </top>
-                <bottom>
-                    <VBox prefWidth="100.0">
+                <center>
+                    <StackPane fx:id="panelPlaceholder" styleClass="placeholder" BorderPane.alignment="CENTER" />
+                </center>
+            <top>
+                    <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
                         <children>
-                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                                <padding>
-                                    <Insets bottom="5" left="10" right="10" top="5" />
-                                </padding>
-                            </StackPane>
+                          <MenuBar fx:id="menuBar">
+                              <Menu mnemonicParsing="false" text="File">
+                                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Help">
+                                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                              </Menu>
+                          </MenuBar>
                             <StackPane fx:id="commandBoxPlaceholder" styleClass="command-box">
                                 <padding>
                                     <Insets bottom="5" left="10" right="10" top="5" />
                                 </padding>
                             </StackPane>
-                            <StackPane fx:id="statusbarPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER" />
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100.0" minHeight="100.0" prefHeight="100.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                                <padding>
+                                    <Insets bottom="5" left="10" right="10" top="5" />
+                                </padding>
+                            </StackPane>
                         </children>
                     </VBox>
-                </bottom>
-                <center>
-                    <StackPane fx:id="panelPlaceholder" styleClass="placeholder" BorderPane.alignment="CENTER" />
-                </center>
+            </top>
+            <bottom>
+                      <StackPane fx:id="statusbarPlaceholder" styleClass="pane-with-border" BorderPane.alignment="CENTER" />
+            </bottom>
             </BorderPane>
         </Scene>
     </scene>
