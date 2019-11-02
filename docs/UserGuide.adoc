@@ -379,7 +379,7 @@ Format: `redo`
 ** cancelappt: `cancelappt <ENTRY_ID>`
 ** changeappt: `changeappt <ENTRY_ID> [-start <START_TIMING>]`
 ** missappt: `missappt`
-** settle: `settle <ENTRY_ID>`
+** settleappt: `settleappt <ENTRY_ID>`
 
 * *Duty-shift Management* +
 ** addshift: `addshift [-id STAFF_REFERENCE_ID] -start <START_TIMING> [-rec REPEATEDLY] [-num REPEATED_TIMES]`
