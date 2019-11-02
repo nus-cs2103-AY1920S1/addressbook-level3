@@ -510,11 +510,18 @@ object.
 ** Allowing users to decide when to move on to the next flashcard
 *** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
 
-=== Remind Flashcard Feature
+=== Remind Feature
 
-{To be completed soon}
+This feature aims to help the user stay on track with the user's revision schedule through two
+other sub-features. The first sub-feature is the `remind` command which helps the user
+keep track of which flashcards are due (or overdue) for revision. The second sub-feature is
+integrated with the `exit` command, and automatically asks the user for confirmation if they
+wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
+An activity diagram summarizing how the remind feature works can be found below.
 
-==== Implementation
+image:: to be added + caption
+
+==== Implementation of `remind` command
 The  remind feature is facilitated by ``
 
 image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
@@ -556,6 +563,8 @@ close the application.
 ** More statistics for motivation
 *** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
 deadline.
+
+==== Implementation of `exit` command
 // end::remind[]
 
 === Note feature
