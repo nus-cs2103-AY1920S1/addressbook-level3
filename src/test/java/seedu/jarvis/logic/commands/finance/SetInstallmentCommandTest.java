@@ -160,36 +160,6 @@ public class SetInstallmentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single installment.
-     */
-    private class ModelStubWithInstallment extends ModelStub {
-        private final Installment installment;
-        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
-
-        ModelStubWithInstallment(Installment installment) {
-            requireNonNull(installment);
-            this.installment = installment;
-        }
-
-        @Override
-        public boolean hasInstallment(Installment installment) {
-            requireNonNull(installment);
-            return this.installment.isSameInstallment(installment);
-        }
-
-        @Override
-        public boolean hasSimilarInstallment(Installment installment) {
-            requireNonNull(installment);
-            return this.installment.isSimilarInstallment(installment);
-        }
-
-        @Override
-        public void setViewStatus(ViewType viewType) {
-            viewStatus.setViewType(viewType);
-        }
-    }
-
-    /**
      * A Model stub that always accept the installment being added.
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
