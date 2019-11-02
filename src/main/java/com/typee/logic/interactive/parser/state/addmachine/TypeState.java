@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
@@ -14,11 +15,6 @@ public class TypeState implements State {
     private static final String MESSAGE_CONSTRAINTS = "The engagement should be an appointment,"
             + " meeting or interview.";
 
-    ArgumentMultimap argumentMultimap;
-
-    public TypeState(ArgumentMultimap argumentMultimap) {
-        this.argumentMultimap = argumentMultimap;
-    }
 
     /*
     @Override
@@ -32,7 +28,7 @@ public class TypeState implements State {
      */
 
     @Override
-    public State transition(ArgumentMultimap argumentMultimap) {
+    public State transition(ArgumentMultimap argumentMultimap) throws StateTransitionException {
         return
     }
 

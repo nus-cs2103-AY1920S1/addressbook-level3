@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
@@ -78,7 +81,7 @@ public class Parser implements InteractiveParser {
     }
 
     private void parseActive(String commandText, Prefix... prefixes) throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText, prefixes);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
         try {
             currentState = currentState.transition(argumentMultimap);
         } catch (StateTransitionException e) {
@@ -87,18 +90,28 @@ public class Parser implements InteractiveParser {
     }
 
     private void parseInactive(String commandText, Prefix... prefixes) throws ParseException {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
         String commandWord = getCommandWord(commandText);
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            currentState = (new TypeState()).transition(argumentMultimap);
+            break;
+
+        default:
+            throw new ParseException(MESSAGE_INVALID_COMMAND);
+        }
     }
 
     private String getCommandWord(String commandText) throws ParseException {
         String trimmedCommandText = commandText.trim();
         List<String> commandWords = getCommandWords(trimmedCommandText);
 
+        // If there is no unique command word, throw an exception.
         if (commandWords.size() != 1) {
             throw new ParseException(MESSAGE_INVALID_COMMAND);
         }
 
-        return  commandWords.get(0);
+        return commandWords.get(0);
     }
 
     private List<String> getCommandWords(String trimmedCommandText) {
