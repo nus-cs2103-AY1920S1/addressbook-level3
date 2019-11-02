@@ -280,6 +280,11 @@ public class MainWindow extends UiPart<Stage> {
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
 
+            if (commandResult.getType().equals("Schedule_Between")) {
+                selectionModel.select(1);
+                scheduleBox.setLabelText("");
+            }
+
             if (commandResult.getType().contains("Schedule")) {
                 selectionModel.select(1);
             }
