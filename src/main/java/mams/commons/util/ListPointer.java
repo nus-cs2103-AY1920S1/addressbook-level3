@@ -1,5 +1,7 @@
 package mams.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -7,8 +9,11 @@ import java.util.NoSuchElementException;
 /**
  * Class representing an iterable pointer to a List. Now adapted to take in any List of generic variable T,
  * makes a defensive copy of it internally, then returns an iterable pointer to the internal List.
+ * Note that if the original list was modified, the old ListPointer object will no longer be valid since
+ * it still points to an old internal copy of the list captured at the time of initialization.
  */
 public class ListPointer<T> {
+    // defensive copy of the list of interest.
     private List<T> list;
     private int index;
 
@@ -17,12 +22,16 @@ public class ListPointer<T> {
      * to point to the last element in {@code list}.
      */
     public ListPointer(List<T> list) {
+        requireNonNull(list);
         this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
 
     /**
-     * Appends {@code element} to the end of the list.
+     * Appends {@code element} to the end of the list. We don't check for null
+     * values here since this is meant as a generic multi-purpose container.
+     * Future developers may need to store null-able values (even if the practice
+     * is generally frowned upon).
      */
     public void add(T element) {
         list.add(element);
@@ -54,6 +63,11 @@ public class ListPointer<T> {
         return isWithinBounds(index);
     }
 
+    /**
+     * Check if a given index is within bounds of the internal defensive copy.
+     * @param index index to be checked against list
+     * @return true if within bounds, false otherwise
+     */
     private boolean isWithinBounds(int index) {
         return index >= 0 && index < list.size();
     }

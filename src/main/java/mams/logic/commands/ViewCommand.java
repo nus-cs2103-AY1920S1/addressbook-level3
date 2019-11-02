@@ -6,6 +6,7 @@ import static mams.commons.core.Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static mams.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static mams.commons.util.CollectionUtil.isAnyNonNull;
+import static mams.commons.util.CollectionUtil.requireAllNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
@@ -49,6 +50,7 @@ public class ViewCommand extends Command {
     private ViewCommandParameters params;
 
     public ViewCommand(ViewCommandParameters params) {
+        requireNonNull(params);
         this.params = params;
     }
 
@@ -67,12 +69,12 @@ public class ViewCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         // Defensive check: ViewCommandParser should have ensured at least one parameter is present
         if (!params.isAtLeastOneParameterPresent()) {
             throw new CommandException(MESSAGE_USAGE);
         }
 
-        requireNonNull(model);
         StringBuilder displayedFeedback = new StringBuilder();
 
         List<Appeal> lastShownAppealList = model.getFilteredAppealList();
@@ -115,6 +117,7 @@ public class ViewCommand extends Command {
     protected void verifyAllIndexesWithinBounds(List<Appeal> lastShownAppealList,
                                               List<Module> lastShownModuleList,
                                               List<Student> lastShownStudentList) throws CommandException {
+        requireAllNonNull(lastShownAppealList, lastShownModuleList, lastShownStudentList);
         StringBuilder errorMessage = new StringBuilder();
         boolean indexOutOfBounds = false;
 
@@ -163,6 +166,9 @@ public class ViewCommand extends Command {
      * Stores the details of the parsed parameters that a {@code ViewCommand} will operate on.
      * This helps to avoid having too many unnecessary constructors (or passing of null-values)
      * caused by the optional/combinatory nature of the parameters passed to ViewCommand.
+     * In future iterations (v1.5 & above) ViewCommand will accept both indexes and IDs, and this
+     * will avoid having too many constructors and null-value handling in ViewCommand, where
+     * it might obfuscate functional code.
      */
     public static class ViewCommandParameters {
         private Index appealIndex;
@@ -170,14 +176,17 @@ public class ViewCommand extends Command {
         private Index studentIndex;
 
         public void setAppealIndex(Index appealIndex) {
+            requireNonNull(appealIndex);
             this.appealIndex = appealIndex;
         }
 
         public void setModuleIndex(Index moduleIndex) {
+            requireNonNull(moduleIndex);
             this.moduleIndex = moduleIndex;
         }
 
         public void setStudentIndex(Index studentIndex) {
+            requireNonNull(studentIndex);
             this.studentIndex = studentIndex;
         }
 

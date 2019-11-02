@@ -1,5 +1,7 @@
 package mams.ui.appeal;
 
+import static java.util.Objects.requireNonNull;
+
 import static mams.ui.appeal.AppealCard.setApprovalStatusDisplay;
 import static mams.ui.appeal.AppealCard.setResolvedStatusDisplay;
 
@@ -53,6 +55,7 @@ public class ExpandedAppealCard extends UiPart<Region> {
 
     public ExpandedAppealCard(Appeal appeal) {
         super(FXML);
+        requireNonNull(appeal);
         this.appeal = appeal;
         appealId.setText(appeal.getAppealId());
         studentId.setText(appeal.getStudentId());

@@ -1,5 +1,7 @@
 package mams.ui.student;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -25,6 +27,7 @@ public class StudentListPanel extends UiPart<Region> {
 
     public StudentListPanel(ObservableList<Student> studentList) {
         super(FXML);
+        requireNonNull(studentList);
         this.studentList = studentList;
         itemListView.setItems(studentList);
         itemListView.setCellFactory(listView -> new StudentListViewCell());

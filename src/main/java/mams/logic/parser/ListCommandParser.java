@@ -2,9 +2,9 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import static mams.logic.parser.CliSyntax.PARAM_APPEAL;
-import static mams.logic.parser.CliSyntax.PARAM_MODULE;
-import static mams.logic.parser.CliSyntax.PARAM_STUDENT;
+import static mams.logic.parser.CliSyntax.OPTION_APPEAL;
+import static mams.logic.parser.CliSyntax.OPTION_MODULE;
+import static mams.logic.parser.CliSyntax.OPTION_STUDENT;
 
 import java.util.stream.Stream;
 
@@ -29,18 +29,18 @@ public class ListCommandParser implements Parser<ListCommand> {
         boolean showAll;
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PARAM_APPEAL, PARAM_MODULE, PARAM_STUDENT);
+                ArgumentTokenizer.tokenize(args, OPTION_APPEAL, OPTION_MODULE, OPTION_STUDENT);
 
         // if no prefixes were specified, default to list all items.
-        showAll = arePrefixesAbsent(argMultimap, PARAM_APPEAL, PARAM_STUDENT, PARAM_MODULE);
+        showAll = arePrefixesAbsent(argMultimap, OPTION_APPEAL, OPTION_STUDENT, OPTION_MODULE);
 
-        if (argMultimap.getValue(PARAM_APPEAL).isPresent() || showAll) {
+        if (argMultimap.getValue(OPTION_APPEAL).isPresent() || showAll) {
             showAppeals = true;
         }
-        if (argMultimap.getValue(PARAM_MODULE).isPresent() || showAll) {
+        if (argMultimap.getValue(OPTION_MODULE).isPresent() || showAll) {
             showModules = true;
         }
-        if (argMultimap.getValue(PARAM_STUDENT).isPresent() || showAll) {
+        if (argMultimap.getValue(OPTION_STUDENT).isPresent() || showAll) {
             showStudents = true;
         }
 
@@ -54,4 +54,10 @@ public class ListCommandParser implements Parser<ListCommand> {
     private static boolean arePrefixesAbsent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isEmpty());
     }
+
+    /**
+     * Verifies that the {@code argMultiMap} only has the relevant options, with no other values,
+     * preambles, or invalid/extra parameters
+     */
+
 }

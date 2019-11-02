@@ -1,5 +1,7 @@
 package mams.ui.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -28,6 +30,7 @@ public class HistoryListPanel extends UiPart<Region> {
 
     public HistoryListPanel(ObservableList<InputOutput> commandHistory) {
         super(FXML);
+        requireNonNull(commandHistory);
         this.commandHistoryList = commandHistory;
         itemListView.setItems(commandHistory);
         itemListView.setCellFactory(listView -> new HistoryListViewCell());

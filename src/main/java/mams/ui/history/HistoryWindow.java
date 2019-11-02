@@ -1,5 +1,7 @@
 package mams.ui.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -41,6 +43,7 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public HistoryWindow(Stage root, boolean hideOutputHistory, ObservableList<InputOutput> commandHistory) {
         super(FXML, root);
+        requireNonNull(commandHistory);
         this.hideOutputHistory = hideOutputHistory;
         this.historyListPanel = new HistoryListPanel(commandHistory);
         historyDisplayPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
@@ -57,7 +60,7 @@ public class HistoryWindow extends UiPart<Stage> {
      * @param hideOutputHistory if true, then command feedback history will be displayed along with command history
      */
     public HistoryWindow(boolean hideOutputHistory, ObservableList<InputOutput> commandHistory) {
-        this(new Stage(), hideOutputHistory, commandHistory);
+        this(new Stage(), hideOutputHistory, commandHistory); // null checking delegated to other constructor
     }
 
     /**
