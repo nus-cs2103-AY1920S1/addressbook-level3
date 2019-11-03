@@ -19,7 +19,7 @@ public class PhoneCapacityNode extends Node<Phone> {
     @Override
     public SortedSet<String> getValues() {
         SortedSet<String> values = new TreeSet<>();
-        backingList.forEach(phone -> values.add(phone.getCapacity().toString()));
+        backingList.forEach(phone -> values.add(phone.getCapacity().toString().replaceAll("GB", "")));
         return values;
     }
 
