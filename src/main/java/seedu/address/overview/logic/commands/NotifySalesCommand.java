@@ -27,7 +27,7 @@ public class NotifySalesCommand extends NotifyCommand {
         }
 
         model.setSalesThreshold(amount);
-        return new CommandResult(String.format(MESSAGE_NOTIFY_SALES_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_NOTIFY_SALES_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override

@@ -27,7 +27,7 @@ public class NotifyBudgetCommand extends NotifyCommand {
         }
 
         model.setBudgetThreshold(amount);
-        return new CommandResult(String.format(MESSAGE_NOTIFY_BUDGET_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_NOTIFY_BUDGET_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override

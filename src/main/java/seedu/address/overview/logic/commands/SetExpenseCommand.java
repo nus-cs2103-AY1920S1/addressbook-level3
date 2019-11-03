@@ -30,7 +30,7 @@ public class SetExpenseCommand extends SetCommand {
         }
 
         model.setExpenseTarget(amount);
-        return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override

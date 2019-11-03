@@ -30,7 +30,7 @@ import seedu.address.overview.logic.Logic;
  */
 public class Overview extends UiPart<Region> {
 
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private static final String FXML = "Overview.fxml";
 
     @FXML

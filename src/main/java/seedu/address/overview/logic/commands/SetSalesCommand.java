@@ -29,7 +29,7 @@ public class SetSalesCommand extends SetCommand {
         }
 
         model.setSalesTarget(amount);
-        return new CommandResult(String.format(MESSAGE_SET_SALES_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_SET_SALES_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override

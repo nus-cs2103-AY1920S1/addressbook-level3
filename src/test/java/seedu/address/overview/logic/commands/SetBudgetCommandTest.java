@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_SET_AMOUNT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_BUDGET_SUCCESS;
 
+import java.text.DecimalFormat;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
@@ -15,6 +17,7 @@ import seedu.address.testutil.TypicalOverview;
 
 public class SetBudgetCommandTest {
 
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private Model blankOverviewModel = new ModelManager(TypicalOverview.BLANK_OVERVIEW_MODEL);
 
     @Test
@@ -23,7 +26,8 @@ public class SetBudgetCommandTest {
         assertTrue(command.amount == 500.0);
 
         try {
-            assertEquals(new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS, Double.toString(500.0))),
+            assertEquals(new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS,
+                    DECIMAL_FORMAT.format(500.00))),
                     command.execute(blankOverviewModel));
         } catch (InvalidValueException e) {
             throw new AssertionError("This should not happen");

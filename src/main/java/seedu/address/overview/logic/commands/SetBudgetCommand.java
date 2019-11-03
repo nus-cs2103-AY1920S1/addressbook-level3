@@ -30,7 +30,7 @@ public class SetBudgetCommand extends SetCommand {
         }
 
         model.setBudgetTarget(amount);
-        return new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override
