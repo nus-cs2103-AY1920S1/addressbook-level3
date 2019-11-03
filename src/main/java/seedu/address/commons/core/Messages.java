@@ -22,13 +22,13 @@ public class Messages {
     public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
 
-    public static final String MESSAGE_NOT_PATIENTLIST = "This command only works when appointments "
-            + "displayed belong to the same patient.\n"
-            + "Please first display the patient's appointment listing by using <appointmetnts> <ENTRY_ID> "
-            + "before using " + "%1$s command.";
+    public static final String MESSAGE_NOT_PATIENTLIST =
+            "Safety check: Appointments displayed must belong to the same patient.\n"
+                    + "Please first display the patient's appointment listing by using <appointmetnts> <REFERENCE_ID>";
 
     public static final String MESSAGE_NOT_STAFFLIST =
-            "Duty shift(s) displayed do not belong to the same staff doctor\n";
+            "Safety check: Duty shift(s) displayed must belong to the same staff doctor. \n"
+                    + "Please first display the doctor's duty shift listing by using <shift> <REFERENCE_ID>";
 
 
     public static final String MESSAGE_NOTHING_SETTLE = "No missed appointment needs to settle";
