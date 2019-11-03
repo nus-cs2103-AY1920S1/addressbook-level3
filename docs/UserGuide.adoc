@@ -474,6 +474,14 @@ Switches to Order Tab Panel.
 Adds an order to the list of orders. +
 Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 
+****
+* Negative prices will be rejected.
+* $0 is accepted to accommodate for free transactions.
+* Prices above 1.7*10^308 will not be rejected. However, they will
+*corrupt* the data. There is no practical reason
+for a price to be that high.
+****
+
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
 Format: `find-o KEYWORD [KEYWORD]...`
