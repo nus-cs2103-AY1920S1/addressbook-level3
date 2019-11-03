@@ -76,11 +76,6 @@ Brings up the help dialog. +
 
 Format: `help`
 
-=== Show main screen : `main`
-Brings up the main screen which shows the aggregated amounts of debt. +
-
-Format: `main`
-
 === List all contacts or activities : `list`
 
 Switches the current view to list all contacts or activities. +
@@ -126,7 +121,6 @@ Creates a new contact with name John Doe and mobile number 98765432.
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* The user creating the activity will be included automatically.
 * Additional contacts to add to the activity can be specified by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
@@ -140,7 +134,7 @@ Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 Examples:
 
 * `activity t/Chalet p/John Doe` +
-Creates a new activity with title 'Chalet' and the user and John Doe as participants.
+Creates a new activity with title 'Chalet' John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
