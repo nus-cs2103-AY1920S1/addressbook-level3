@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
@@ -45,7 +46,7 @@ public class ExpenseCommand extends Command {
 
     public static final String MESSAGE_SUCCESS =
             "Expense of %s by %s successfully created (rounded to 2 decimal places)."
-            + "\n\tDescription: %s\n\tOthers involved:\n%s\nWarnings:\n";
+            + "\n\tDescription: %s\n\Others involved:\n%s";
     public static final String WARNING_DUPLICATE_PERSON =
             "\tPerson with name %s already added to expense.\n";
     public static final String MESSAGE_NON_UNIQUE_SEARCH_RESULT =
@@ -169,9 +170,16 @@ public class ExpenseCommand extends Command {
         Context newContext = new Context(activity);
         model.setContext(newContext);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                amount, payingPerson.getName(), description, successMessage.toString()) + warningMessage.toString(),
-                newContext);
+        if (warningMessage.length() == 0) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, amount,
+                        payingPerson.getName(), description,
+                        successMessage.toString()) , newContext);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS
+                        + MESSAGE_WARNING, amount, payingPerson.getName(),
+                        description, successMessage.toString(),
+                        warningMessage.toString()), newContext);
+        }
     }
 
     /**

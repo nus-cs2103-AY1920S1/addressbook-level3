@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -190,10 +191,11 @@ public class ExpenseCommandTest {
         ExpenseCommand command = new ExpenseCommand(personsDuplicate, amount, notEmptyString);
         CommandResult commandResult = command.execute(model);
 
-        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS,
+        assertEquals(String.format(ExpenseCommand.MESSAGE_SUCCESS + MESSAGE_WARNING,
                 amount, TypicalPersons.ALICE.getName(), notEmptyString,
                 "\t\t" + TypicalPersons.BENSON.getName() + "\n")
                 + String.format(ExpenseCommand.WARNING_DUPLICATE_PERSON, TypicalPersons.BENSON.getName()),
+
                 commandResult.getFeedbackToUser());
 
         Expense expense = new Expense(TypicalPersons.ALICE.getPrimaryKey(), amount,

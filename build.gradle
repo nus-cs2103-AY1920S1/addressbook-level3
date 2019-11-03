@@ -111,7 +111,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'splitwiser.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
