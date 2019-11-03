@@ -80,12 +80,15 @@ public class JsCard extends AnchorPane {
         if (result.snd().snd().equals(0)) {
             card.editFront(front + pass);
             questionTextLabel.setText(front + pass);
+            getScore.accept(true);
         } else if (result.snd().fst() != -1) {
             card.editFront(front + fail);
             questionTextLabel.setText(front + fail);
+            getScore.accept(false);
         } else {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
+            getScore.accept(false);
         }
     }
 }

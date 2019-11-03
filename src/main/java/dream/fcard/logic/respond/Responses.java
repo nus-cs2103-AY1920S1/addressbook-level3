@@ -23,7 +23,6 @@ import dream.fcard.util.RegexUtil;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
-    // DEFAULT GROUP STARTS ----------------------------------
     CREATE_NEW_DECK_WITH_NAME(
             "^((?i)create)\\s+((?i)deck/)\\s*\\S.*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -39,27 +38,6 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck name.");
-                    return true;
-                }
-    ),
-    // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
-    // Only used for MCQ and FrontBack cards
-    // Note that back for MCQ cards will be used for identifying the correct CHOICE
-    ADD_CARD(
-            "^((?i)(add)(\\s)+(deck/(.*))\\s+(priority/(.*))?\\s+(front/(.*))\\s+(back/(.*))+\\s+(choice/(.*))?\\s*",
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
-                i -> {
-                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("",
-                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
-                        i);
-                    return true;
-                }
-    ),
-    ADD_CARD_ERROR(
-            "^((?i)(add)",
-            new ResponseGroup[] {ResponseGroup.DEFAULT},
-                i -> {
-                    //Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
                     return true;
                 }
     ),
@@ -128,8 +106,8 @@ public enum Responses {
                     return true;
                 }
     );
-    // MATCH ALL GROUP ENDS --------------------------------------------------------
 
+    // MATCH ALL GROUP --------------------------------------------------------
 
     private String regex;
     private ResponseGroup[] group;

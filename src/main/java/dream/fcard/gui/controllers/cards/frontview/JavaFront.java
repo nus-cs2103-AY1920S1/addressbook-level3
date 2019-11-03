@@ -96,12 +96,15 @@ public class JavaFront extends AnchorPane {
         if (failed == 0) {
             card.editFront(front + pass);
             questionTextLabel.setText(front + pass);
+            getScore.accept(true);
         } else if (compileWrong) {
             card.editFront(front + err);
             questionTextLabel.setText(front + err);
+            getScore.accept(false);
         } else {
             card.editFront(front + fail);
             questionTextLabel.setText(front + fail);
+            getScore.accept(false);
         }
     }
 }
