@@ -16,7 +16,7 @@ public class TypeState extends State {
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
             + " \"t/\".";
 
-    protected TypeState(ArgumentMultimap soFar) {
+    public TypeState(ArgumentMultimap soFar) {
         super(soFar);
     }
 

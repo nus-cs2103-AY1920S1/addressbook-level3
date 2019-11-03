@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
+import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
@@ -16,6 +17,7 @@ import com.typee.logic.parser.exceptions.ParseException;
 
 public class Parser implements InteractiveParser {
 
+    private static final String BUFFER_TEXT = " ";
     private static final String MESSAGE_CLEAR_ALL = "// clear";
     private static final String MESSAGE_INVALID_COMMAND = "No such command exists!";
 
@@ -41,10 +43,12 @@ public class Parser implements InteractiveParser {
     }
 
     private void parse(String commandText, Prefix... prefixes) throws ParseException {
+        boolean activatedNow = false;
         if (!isActive()) {
             parseInactive(commandText);
+            activatedNow = true;
         }
-        parseActive(commandText, prefixes);
+        parseActive(commandText, activatedNow, prefixes);
     }
 
     @Override
@@ -60,7 +64,9 @@ public class Parser implements InteractiveParser {
 
     @Override
     public Command makeCommand() {
-        return null;
+        assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
+        EndState endState = (EndState) currentState;
+        return endState.buildCommand();
     }
 
     private void resetParser() {
@@ -68,7 +74,7 @@ public class Parser implements InteractiveParser {
     }
 
     private Prefix[] extractPrefixes(String commandText) {
-        Pattern pattern = Pattern.compile("^[a-zA-z]/$");
+        Pattern pattern = Pattern.compile("[a-zA-z]/");
         Matcher matcher = pattern.matcher(commandText);
         List<Prefix> prefixes = getMatches(matcher);
 
@@ -84,8 +90,17 @@ public class Parser implements InteractiveParser {
         return prefixes;
     }
 
-    private void parseActive(String commandText, Prefix... prefixes) throws ParseException {
+    private void parseActive(String commandText, boolean activatedNow, Prefix... prefixes)
+            throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
+        if (activatedNow) {
+            argumentMultimap.clearValues(new Prefix(""));
+        }
+        if (!argumentMultimap.getPreamble().isBlank()) {
+            throw new ParseException("Please input prefixes followed by arguments.");
+        } else {
+            argumentMultimap.clearValues(new Prefix(""));
+        }
         try {
             while (!argumentMultimap.isEmpty()) {
                 currentState = currentState.transition(argumentMultimap);
@@ -127,6 +142,12 @@ public class Parser implements InteractiveParser {
             commandWords.add(matcher.group());
         }
         return commandWords;
+    }
+
+    private String addBufferToString(String string) {
+        StringBuilder stringBuilder = new StringBuilder(BUFFER_TEXT);
+        stringBuilder.append(string);
+        return stringBuilder.toString();
     }
 
 }
