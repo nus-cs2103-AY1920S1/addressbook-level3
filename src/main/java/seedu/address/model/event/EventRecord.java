@@ -270,39 +270,6 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     }
 
     /**
-     * Method to search for events using the eventName.
-     * @param eventNameToFind the event name to serach for
-     * @return a list of pair objects which consist of the index and event which are found. May return an empty list
-     * if there are no similar events or no events saved
-     */
-    public List<Pair<Index, VEvent>> searchVEvent(String eventNameToFind) {
-        List<Pair<Index, VEvent>> resultList = new ArrayList<>();
-        int eventNameToFindLength = eventNameToFind.length();
-        int similarityThreshold = (int) (eventNameToFindLength * 0.4); // 40% match
-
-        // 2-levels of searching occurs here
-        for (int i = 0; i < vEvents.size(); i++) {
-            VEvent vEvent = vEvents.get(i);
-            Index index = Index.fromZeroBased(i);
-
-            String eventNameStr = vEvent.getSummary().getValue();
-            int difference = LevenshteinDistance.getDefaultInstance()
-                    .apply(eventNameToFind, eventNameStr);
-
-            if (StringUtils.containsIgnoreCase(eventNameToFind,
-                    eventNameStr)) { // Search if text forms a subset of the question
-                resultList.add(new Pair(Index.fromZeroBased(i), vEvent));
-            } else if (difference <= similarityThreshold) { // Search for similar terms
-                resultList.add(new Pair(Index.fromZeroBased(i), vEvent));
-            }
-        }
-        return resultList;
-    }
-
-
-
-
-    /**
      * Sets the target export file path of the events
      * @param targetExportPath string representation of the target file path
      */

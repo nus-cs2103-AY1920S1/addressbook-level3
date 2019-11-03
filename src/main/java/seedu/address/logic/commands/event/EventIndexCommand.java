@@ -66,7 +66,8 @@ public class EventIndexCommand extends EventCommand {
     private String generateSuggestionMessage(Pair<Index, VEvent> resultVEventPair) {
         Index vEventIndex = resultVEventPair.getKey();
         VEvent vEvent = resultVEventPair.getValue();
-        return "Could not find event specified. Did you mean this event: \n" + formatIndexVEventPair(resultVEventPair);
+        return "Could not find event specified. This is the closest event we can find: \n"
+                + formatIndexVEventPair(resultVEventPair);
     }
 
     /**

@@ -147,17 +147,21 @@ public class EventUtil {
     }
 
     /**
-     * Validates if a color number string is valid
+     * Validates if a color number string is valid, must be a integer from 0 -23.
      * @param colorNumberString numberString to be checked
      * @return true if colorNumberString is valid
      * @throws NumberFormatException when colorNumberString cannot be cast to Integer,
      * representing invalid string format
      */
-    public static boolean validateColorNumberString(String colorNumberString) throws NumberFormatException {
+    public static boolean validateColorNumberString(String colorNumberString) {
         //validate number is in range
-        Integer colorNumberInteger = Integer.parseInt(colorNumberString);
-        boolean result = numberInRange(colorNumberInteger, 0, 23);
-        return result;
+        try {
+            Integer colorNumberInteger = Integer.parseInt(colorNumberString);
+            boolean result = numberInRange(colorNumberInteger, 0, 23);
+            return result;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
     /**

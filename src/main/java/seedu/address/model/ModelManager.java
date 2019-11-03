@@ -764,10 +764,6 @@ public class ModelManager implements Model {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     }
 
-    @Override
-    public List<Pair<Index, VEvent>> searchVEvent(String eventNameToFind) {
-        return eventRecord.searchVEvent(eventNameToFind);
-    }
     //endregion
 
     @Override

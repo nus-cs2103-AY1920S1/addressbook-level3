@@ -1,6 +1,9 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.EventUtil.convertNumberToColorCategoryList;
+import static seedu.address.commons.util.EventUtil.generateUniqueIdentifier;
+import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -92,46 +95,48 @@ public class EventAddCommand extends EventCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         VEvent vEvent = new VEvent();
+
+        //event name
         vEvent.setSummary(eventName);
 
+        //event start and end datetime
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
-
         try {
             startDateTime = LocalDateTime.parse(startDateTimeString);
             endDateTime = LocalDateTime.parse(endDateTimeString);
         } catch (DateTimeParseException dtpEx) {
             throw new CommandException(BAD_DATE_FORMAT, dtpEx);
         }
-
-        if (startDateTime.compareTo(endDateTime) >= 1) {
+        if (!validateStartEndDateTime(startDateTime, endDateTime)) {
             throw new CommandException(INVALID_EVENT_RANGE);
         }
-
         vEvent.setDateTimeStart(startDateTime);
         vEvent.setDateTimeEnd(endDateTime);
 
-        String uniqueIdentifier = EventUtil.generateUniqueIdentifier(eventName,
+        //event unique identifier
+        String uniqueIdentifier = generateUniqueIdentifier(eventName,
                 startDateTimeString, endDateTimeString);
         vEvent.setUniqueIdentifier(uniqueIdentifier);
 
+        //event recurType
         if (!EventUtil.validateRecurTypeString(recurTypeString)) {
             throw new CommandException(INVALID_RECURRENCE_TYPE);
         }
-
         try {
             if (!recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
                 vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
             }
         } catch (IllegalValueException ex) {
-            throw new CommandException(ex.toString());
+            throw new CommandException(ex.getMessage(), ex);
         }
 
+        //event category
         try {
-            ArrayList<Categories> categoriesToBeSet = EventUtil.convertNumberToColorCategoryList(colorNumberString);
+            ArrayList<Categories> categoriesToBeSet = convertNumberToColorCategoryList(colorNumberString);
             vEvent.setCategories(categoriesToBeSet);
         } catch (IllegalValueException ex) {
-            throw new CommandException(ex.toString());
+            throw new CommandException(ex.getMessage(), ex);
         }
 
         if (model.hasVEvent(vEvent)) {
