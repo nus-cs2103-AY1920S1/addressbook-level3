@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -35,7 +36,6 @@ public class ActivityCommand extends Command {
 
     public static final String MESSAGE_SUCCESS =
             "%s successfully created with following participants:\n%s\n";
-    public static final String MESSAGE_WARNING = "Warnings:\n%s";
     public static final String WARNING_SEARCH_RESULTS =
             "Unable to add person with search term \"%s\", as there were %d matches found.\n";
     public static final String WARNING_DUPLICATE_PERSON =
