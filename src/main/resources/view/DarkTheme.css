@@ -375,7 +375,6 @@
     -fx-effect: dropshadow(gaussian, #222831, 2, 0.0, 3, 3);
     -fx-opacity: 0.85;
     -fx-border-width: 2;
-    -fx-background-radius: 5;
 }
 
 #colouredTimeslot:hover {
@@ -451,6 +450,10 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+#firstChoiceHeader #firstChoiceLocation {
+    -fx-font-family: Garamond;
+}
+
 #freeTimeslot #freeTimeslotBlock {
     -fx-background-radius: 0 !important;
     -fx-border-width: 0 !important;
@@ -483,6 +486,35 @@
 
 #locationsViewContainer .label {
     -fx-text-fill: #FFFFFF;
+}
+
+#locationCardContainer {
+    -fx-background-color: #393E46;
+    -fx-border-color: lightblue;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+#locationCardContainer #locationTitle, #locationAvgTravelDistanceLabel {
+    -fx-opacity: 0.67;
+    -fx-font-family: Garamond;
+}
+
+#locationOverviewContainer {
+    -fx-background-color: #393E46;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#locationsEnteredContainer {
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+
+#locationsEnteredContainer .label {
+    -fx-font-family: Garamond;
+    -fx-opacity: 0.87;
 }
 
 #listHeaderContainer {
