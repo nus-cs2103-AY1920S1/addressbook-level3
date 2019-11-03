@@ -46,7 +46,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean add(Student toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            return false;
+            throw new DuplicateStudentException();
         }
         internalList.add(toAdd);
         return true;
@@ -62,7 +62,7 @@ public class UniqueStudentList implements Iterable<Student> {
     public boolean add(int groupIndexNumber, Student toAdd) {
         int indexNumber = groupIndexNumber - 1;
         if (contains(toAdd)) {
-            return false;
+            throw new DuplicateStudentException();
         }
         internalList.add(indexNumber, toAdd);
         return true;
@@ -96,6 +96,15 @@ public class UniqueStudentList implements Iterable<Student> {
      */
     public void setStudent(Index index, Student student) {
         internalList.set(index.getZeroBased(), student);
+    }
+
+    /**
+     * Gets student with specific index number
+     * @param index Index number of student
+     * @return Student with the index number.
+     */
+    public Student getStudent(int index) {
+        return internalList.get(index);
     }
 
     /**
