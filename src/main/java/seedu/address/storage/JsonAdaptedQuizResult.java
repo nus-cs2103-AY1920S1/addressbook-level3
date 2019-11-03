@@ -83,14 +83,13 @@ class JsonAdaptedQuizResult {
         if (quizTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "quizTime"));
         }
-        final String modelQuizTime = quizTime;
 
         if (result == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "result"));
         }
         final boolean modelResult = Boolean.parseBoolean(result);
 
-        return new QuizResult(modelAnswer, modelQuestionBody, modelSubject, modelDifficulty, modelQuizTime,
-                modelResult);
+        return new QuizResult(modelAnswer, modelQuestionBody, modelSubject,
+                modelDifficulty, quizTime, modelResult);
     }
 }

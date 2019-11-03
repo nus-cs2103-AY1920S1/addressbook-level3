@@ -37,7 +37,7 @@ public class JsonUtil {
             .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
             .registerModule(new SimpleModule("SimpleModule")
                     .addSerializer(Level.class, new ToStringSerializer())
-                    .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
+                    .addDeserializer(Level.class, new LevelDeserializer()));
 
     static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
@@ -115,8 +115,8 @@ public class JsonUtil {
      */
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
-        protected LevelDeserializer(Class<?> vc) {
-            super(vc);
+        protected LevelDeserializer() {
+            super(Level.class);
         }
 
         @Override

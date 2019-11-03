@@ -69,10 +69,8 @@ public class QuizResult {
      */
     public boolean isWithinDate(LocalDate start, LocalDate end) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDate date = null;
-        date = parse(quizTime.split(" ")[0], formatter);
-        boolean isWithinDate = !(date.isBefore(start) || date.isAfter(end));
-        return isWithinDate;
+        LocalDate date = parse(quizTime.split(" ")[0], formatter);
+        return !(date.isBefore(start) || date.isAfter(end));
     }
 
     @Override

@@ -6,10 +6,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class FileUtilTest {
+class FileUtilTest {
 
     @Test
-    public void isValidPath() {
+    void isValidPath() {
         // valid path
         assertTrue(FileUtil.isValidPath("valid/file/path"));
 

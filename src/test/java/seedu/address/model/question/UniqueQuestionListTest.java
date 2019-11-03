@@ -22,23 +22,23 @@ class UniqueQuestionListTest {
     private final UniqueQuestionList uniqueQuestionList = new UniqueQuestionList();
 
     @Test
-    public void contains_nullQuestion_throwsNullPointerException() {
+    void contains_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.contains(null));
     }
 
     @Test
-    public void contains_questionNotInList_returnsFalse() {
+    void contains_questionNotInList_returnsFalse() {
         assertFalse(uniqueQuestionList.contains(ALGEBRA_QUESTION));
     }
 
     @Test
-    public void contains_questionInList_returnsTrue() {
+    void contains_questionInList_returnsTrue() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         assertTrue(uniqueQuestionList.contains(ALGEBRA_QUESTION));
     }
 
     @Test
-    public void contains_questionWithSameIdentityFieldsInList_returnsTrue() {
+    void contains_questionWithSameIdentityFieldsInList_returnsTrue() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         Question editedAlgebra = new QuestionBuilder(ALGEBRA_QUESTION)
                 .withAnswer(VALID_ANSWER_CONCEPT)
@@ -47,35 +47,35 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void add_nullQuestion_throwsNullPointerException() {
+    void add_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.add(null));
     }
 
     @Test
-    public void add_duplicateQuestion_throwsDuplicateQuestionException() {
+    void add_duplicateQuestion_throwsDuplicateQuestionException() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList.add(ALGEBRA_QUESTION));
     }
 
     @Test
-    public void setQuestion_nullTargetQuestion_throwsNullPointerException() {
+    void setQuestion_nullTargetQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestion(null, ALGEBRA_QUESTION));
     }
 
     @Test
-    public void setQuestion_nullEditedQuestion_throwsNullPointerException() {
+    void setQuestion_nullEditedQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList
                 .setQuestion(ALGEBRA_QUESTION, null));
     }
 
     @Test
-    public void setQuestion_targetQuestionNotInList_throwsQuestionNotFoundException() {
+    void setQuestion_targetQuestionNotInList_throwsQuestionNotFoundException() {
         assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList
                 .setQuestion(ALGEBRA_QUESTION, ALGEBRA_QUESTION));
     }
 
     @Test
-    public void setQuestion_editedQuestionIsSameQuestion_success() {
+    void setQuestion_editedQuestionIsSameQuestion_success() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         uniqueQuestionList.setQuestion(ALGEBRA_QUESTION, ALGEBRA_QUESTION);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
@@ -84,7 +84,7 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestion_editedQuestionHasSameIdentity_success() {
+    void setQuestion_editedQuestionHasSameIdentity_success() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         Question editedAlgebra = new QuestionBuilder(ALGEBRA_QUESTION)
                 .withAnswer(VALID_ANSWER_CONCEPT)
@@ -96,7 +96,7 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestion_editedQuestionHasDifferentIdentity_success() {
+    void setQuestion_editedQuestionHasDifferentIdentity_success() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         uniqueQuestionList.setQuestion(ALGEBRA_QUESTION, CONCEPT_QUESTION);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
@@ -105,7 +105,7 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestion_editedQuestionHasNonUniqueIdentity_throwsDuplicateQuestionException() {
+    void setQuestion_editedQuestionHasNonUniqueIdentity_throwsDuplicateQuestionException() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         uniqueQuestionList.add(CONCEPT_QUESTION);
         assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList
@@ -113,17 +113,17 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void remove_nullQuestion_throwsNullPointerException() {
+    void remove_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.remove(null));
     }
 
     @Test
-    public void remove_questionDoesNotExist_throwsQuestionNotFoundException() {
+    void remove_questionDoesNotExist_throwsQuestionNotFoundException() {
         assertThrows(QuestionNotFoundException.class, () -> uniqueQuestionList.remove(ALGEBRA_QUESTION));
     }
 
     @Test
-    public void remove_existingQuestion_removesQuestion() {
+    void remove_existingQuestion_removesQuestion() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         uniqueQuestionList.remove(ALGEBRA_QUESTION);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
@@ -131,12 +131,12 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestions_nullUniqueQuestionList_throwsNullPointerException() {
+    void setQuestions_nullUniqueQuestionList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestions((UniqueQuestionList) null));
     }
 
     @Test
-    public void setQuestions_uniqueQuestionList_replacesOwnListWithProvidedUniqueQuestionList() {
+    void setQuestions_uniqueQuestionList_replacesOwnListWithProvidedUniqueQuestionList() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         UniqueQuestionList expectedUniqueQuestionList = new UniqueQuestionList();
         expectedUniqueQuestionList.add(CONCEPT_QUESTION);
@@ -145,12 +145,12 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestions_nullList_throwsNullPointerException() {
+    void setQuestions_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueQuestionList.setQuestions((List<Question>) null));
     }
 
     @Test
-    public void setQuestions_list_replacesOwnListWithProvidedList() {
+    void setQuestions_list_replacesOwnListWithProvidedList() {
         uniqueQuestionList.add(ALGEBRA_QUESTION);
         List<Question> questionList = Collections.singletonList(CONCEPT_QUESTION);
         uniqueQuestionList.setQuestions(questionList);
@@ -160,14 +160,14 @@ class UniqueQuestionListTest {
     }
 
     @Test
-    public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
+    void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
         List<Question> listWithDuplicateQuestions = Arrays.asList(ALGEBRA_QUESTION, ALGEBRA_QUESTION);
         assertThrows(DuplicateQuestionException.class, () -> uniqueQuestionList
                 .setQuestions(listWithDuplicateQuestions));
     }
 
     @Test
-    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
+    void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> uniqueQuestionList
                 .asUnmodifiableObservableList().remove(0));
     }

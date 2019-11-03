@@ -17,17 +17,17 @@ import seedu.address.testutil.NoteBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code AddNoteCommand}.
  */
-public class AddNoteCommandIntegrationTest {
+class AddNoteCommandIntegrationTest {
 
     private Model model;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         model = new ModelManager(getTypicalAppData(), new UserPrefs());
     }
 
     @Test
-    public void execute_newNote_success() {
+    void execute_newNote_success() {
         Note validNote = new NoteBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
@@ -38,7 +38,7 @@ public class AddNoteCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateNote_throwsCommandException() {
+    void execute_duplicateNote_throwsCommandException() {
         Note noteInList = model.getAppData().getNoteList().get(0);
         assertCommandFailure(new AddNoteCommand(noteInList), model, AddNoteCommand.MESSAGE_DUPLICATE_TITLE);
     }

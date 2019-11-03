@@ -1,6 +1,8 @@
 package seedu.address.model.note;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTENT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TITLE_BOB;
@@ -11,9 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.NoteBuilder;
 
-public class NoteTest {
+class NoteTest {
     @Test
-    public void isSameNote() {
+    void isSameNote() {
         // same object -> returns true
         assertTrue(ALICE.isSameNote(ALICE));
 
@@ -30,26 +32,26 @@ public class NoteTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         // same values -> returns true
         Note aliceCopy = new NoteBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        assertEquals(ALICE, aliceCopy);
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertEquals(ALICE, ALICE);
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertNotEquals(5, ALICE);
 
         // different note -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertNotEquals(ALICE, BOB);
 
         // different name -> returns false
         Note editedAlice = new NoteBuilder(ALICE).withTitle(VALID_TITLE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertNotEquals(ALICE, editedAlice);
 
         // different address -> returns false
         editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        assertNotEquals(ALICE, editedAlice);
     }
 }

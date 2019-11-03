@@ -27,14 +27,14 @@ import seedu.address.model.note.Content;
 import seedu.address.model.note.Title;
 import seedu.address.testutil.EditNoteDescriptorBuilder;
 
-public class EditNoteCommandParserTest {
+class EditNoteCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditNoteCommand.MESSAGE_USAGE);
 
     private EditNoteCommandParser parser = new EditNoteCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
+    void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(parser, VALID_TITLE_AMY, MESSAGE_INVALID_FORMAT);
 
@@ -46,7 +46,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure(parser, "-5" + TITLE_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
@@ -61,7 +61,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_TITLE_DESC, Title.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_CONTENT_DESC, Content.MESSAGE_CONSTRAINTS); // invalid address
 
@@ -70,7 +70,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
+    void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + TITLE_DESC_AMY;
 
@@ -82,7 +82,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
+    void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY;
 
@@ -94,7 +94,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
+    void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD;
         String userInput = targetIndex.getOneBased() + TITLE_DESC_AMY;
@@ -110,7 +110,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + CONTENT_DESC_AMY + CONTENT_DESC_AMY + CONTENT_DESC_BOB;
 
@@ -122,7 +122,7 @@ public class EditNoteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
+    void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_CONTENT_DESC + CONTENT_DESC_BOB;

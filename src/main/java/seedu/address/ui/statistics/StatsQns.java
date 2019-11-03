@@ -29,7 +29,7 @@ public class StatsQns extends UiPart<Region> {
     public StatsQns(ObservableList<QuizResult> quizResultList, ObservableList<PieChart.Data> data) {
         super(FXML);
         quizResultListView.setItems(quizResultList);
-        quizResultListView.setCellFactory(listView -> new StatsQns.QuizResultListViewCell());
+        quizResultListView.setCellFactory(listView -> new QuizResultListViewCell());
         quizResultDifficultyChart.setData(data);
         quizResultDifficultyChart.setTitle("Break down of questions");
     }
@@ -51,7 +51,7 @@ public class StatsQns extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code QuizResult}
      * using a {@code StatsQnsListCard}.
      */
-    class QuizResultListViewCell extends ListCell<QuizResult> {
+    static class QuizResultListViewCell extends ListCell<QuizResult> {
         @Override
         protected void updateItem(QuizResult quizResult, boolean empty) {
             super.updateItem(quizResult, empty);

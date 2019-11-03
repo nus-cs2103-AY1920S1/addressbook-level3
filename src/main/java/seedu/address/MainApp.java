@@ -78,7 +78,7 @@ public class MainApp extends Application {
         ReadOnlyAppData initialData;
         try {
             appDataOptional = storage.readAppData();
-            if (!appDataOptional.isPresent()) {
+            if (appDataOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with sample data");
             }
             initialData = appDataOptional.orElseGet(SampleDataUtil::getSampleAppData);

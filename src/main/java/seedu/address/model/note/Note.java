@@ -83,19 +83,19 @@ public class Note {
         if (!needsImage) {
             return;
         }
-        image = AppUtil.selectImage();
-        if (image != null) {
-            // selectImage() prefixes the URL with "file:", so we only need to remove the prefix
-            Path sourcePath = Paths.get(image.getUrl().substring(5));
-            Path destPath = parent.resolve(sourcePath.getFileName().toString());
-            try {
-                Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
-                image = new Image("file:" + destPath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         needsImage = false;
+        if ((image = AppUtil.selectImage()) == null) {
+            return;
+        }
+        // selectImage() prefixes the URL with "file:", so we only need to remove the prefix
+        Path sourcePath = Paths.get(image.getUrl().substring(5));
+        Path destPath = parent.resolve(sourcePath.getFileName().toString());
+        try {
+            Files.copy(sourcePath, destPath, StandardCopyOption.REPLACE_EXISTING);
+            image = new Image("file:" + destPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

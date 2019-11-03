@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,28 +15,28 @@ import seedu.address.logic.commands.statistics.GetStatisticsCommand;
 import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.testutil.QuizResultFilterBuilder;
 
-public class GetStatisticsCommandParserTest {
+class GetStatisticsCommandParserTest {
 
     private GetStatisticsCommandParser parser = new GetStatisticsCommandParser();
 
     @Test
-    public void parse_invalidCommandFormat_failure() {
+    void parse_invalidCommandFormat_failure() {
         // multiple difficulty
         assertParseFailure(parser, " d/d1 d/d2", MESSAGE_INVALID_COMMAND_FORMAT);
     }
 
     @Test
-    public void parse_quizResultFilterWithoutFilter_success() {
+    void parse_quizResultFilterWithoutFilter_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder().buildEmptySubjectList();
         GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "");
         assertParseSuccess(parser, "", expectedCommand);
     }
 
     @Test
-    public void parse_quizResultFilterWithSubject_success() {
+    void parse_quizResultFilterWithSubject_success() {
         // one subject
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
-                .withSubjects(Arrays.asList("CS2103T"))
+                .withSubjects(Collections.singletonList("CS2103T"))
                 .buildWithSubjects();
         GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "\n[CS2103T]");
         assertParseSuccess(parser, " s/CS2103T", expectedCommand);
@@ -50,7 +51,7 @@ public class GetStatisticsCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithDifficulty_success() {
+    void parse_quizResultFilterWithDifficulty_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withDifficulty("easy")
                 .withSubjects(new ArrayList<>())
@@ -60,7 +61,7 @@ public class GetStatisticsCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithDifficultyAndSubject_success() {
+    void parse_quizResultFilterWithDifficultyAndSubject_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withDifficulty("easy")
                 .withSubjects(new ArrayList<>(Arrays.asList("CS2103T", "CS2101")))

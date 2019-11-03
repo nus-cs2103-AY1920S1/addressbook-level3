@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 class AnswerTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Answer(null));
     }
 
     @Test
-    public void constructor_invalidAnswer_throwsIllegalArgumentException() {
+    void constructor_invalidAnswer_throwsIllegalArgumentException() {
         String invalidAnswer = "";
         assertThrows(IllegalArgumentException.class, () -> new Answer(invalidAnswer));
     }
 
     @Test
-    public void isValidAnswer() {
+    void isValidAnswer() {
         // null address
         assertThrows(NullPointerException.class, () -> Answer.isValidAnswer(null));
 

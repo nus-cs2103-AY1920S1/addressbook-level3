@@ -13,12 +13,12 @@ import seedu.address.logic.commands.statistics.GetOverviewCommand;
 import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.testutil.QuizResultFilterBuilder;
 
-public class GetOverviewCommandParserTest {
+class GetOverviewCommandParserTest {
 
     private GetOverviewCommandParser parser = new GetOverviewCommandParser();
 
     @Test
-    public void parse_invalidCommandFormat_failure() {
+    void parse_invalidCommandFormat_failure() {
         assertParseFailure(parser, " dt/worfm", String.format(MESSAGE_INVALID_DATE_FORMAT,
                 GetOverviewCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " dt/worfm dt/wpck, dt/w[rd", String.format(MESSAGE_INVALID_DATE_FORMAT,
@@ -26,7 +26,7 @@ public class GetOverviewCommandParserTest {
     }
 
     @Test
-    public void parse_invalidDate_failure() {
+    void parse_invalidDate_failure() {
         assertParseFailure(parser, " dt/worfm dt/", String.format(MESSAGE_INVALID_DATE_FORMAT,
                 GetOverviewCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " dt/worfm dt/09/10/2019", String.format(MESSAGE_INVALID_DATE_FORMAT,
@@ -36,7 +36,7 @@ public class GetOverviewCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithDate_success() {
+    void parse_quizResultFilterWithDate_success() {
         try {
             QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                     .withStartDate("09/10/2019")
@@ -52,7 +52,7 @@ public class GetOverviewCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithoutDate_succcess() {
+    void parse_quizResultFilterWithoutDate_succcess() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .build();
         GetOverviewCommand expectedCommand = new GetOverviewCommand(quizResultFilter, "");

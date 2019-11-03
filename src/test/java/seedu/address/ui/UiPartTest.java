@@ -13,8 +13,7 @@ import org.junit.jupiter.api.io.TempDir;
 import javafx.fxml.FXML;
 import seedu.address.MainApp;
 
-public class UiPartTest {
-
+class UiPartTest {
     private static final String MISSING_FILE_PATH = "UiPartTest/missingFile.fxml";
     private static final String INVALID_FILE_PATH = "UiPartTest/invalidFile.fxml";
     private static final String VALID_FILE_PATH = "UiPartTest/validFile.fxml";
@@ -25,54 +24,54 @@ public class UiPartTest {
     public Path testFolder;
 
     @Test
-    public void constructor_nullFileUrl_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((URL) null, new Object()));
+    void constructor_nullFileUrl_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>((URL) null));
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>((URL) null, new Object()));
     }
 
     @Test
-    public void constructor_missingFileUrl_throwsAssertionError() throws Exception {
+    void constructor_missingFileUrl_throwsAssertionError() throws Exception {
         URL missingFileUrl = new URL(testFolder.toUri().toURL(), MISSING_FILE_PATH);
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl));
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(missingFileUrl, new Object()));
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(missingFileUrl));
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(missingFileUrl, new Object()));
     }
 
     @Test
-    public void constructor_invalidFileUrl_throwsAssertionError() {
+    void constructor_invalidFileUrl_throwsAssertionError() {
         URL invalidFileUrl = getTestFileUrl(INVALID_FILE_PATH);
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl));
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl, new Object()));
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(invalidFileUrl));
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(invalidFileUrl, new Object()));
     }
 
     @Test
-    public void constructor_validFileUrl_loadsFile() {
+    void constructor_validFileUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_PATH);
         assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl).getRoot());
     }
 
     @Test
-    public void constructor_validFileWithFxRootUrl_loadsFile() {
+    void constructor_validFileWithFxRootUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_WITH_FX_ROOT_PATH);
         TestFxmlObject root = new TestFxmlObject();
-        assertEquals(VALID_FILE_ROOT, new TestUiPart<TestFxmlObject>(validFileUrl, root).getRoot());
+        assertEquals(VALID_FILE_ROOT, new TestUiPart<>(validFileUrl, root).getRoot());
     }
 
     @Test
-    public void constructor_nullFileName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>((String) null, new Object()));
+    void constructor_nullFileName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>((String) null));
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>((String) null, new Object()));
     }
 
     @Test
-    public void constructor_missingFileName_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH));
-        assertThrows(NullPointerException.class, () -> new TestUiPart<Object>(MISSING_FILE_PATH, new Object()));
+    void constructor_missingFileName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>(MISSING_FILE_PATH));
+        assertThrows(NullPointerException.class, () -> new TestUiPart<>(MISSING_FILE_PATH, new Object()));
     }
 
     @Test
-    public void constructor_invalidFileName_throwsAssertionError() {
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
-        assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
+    void constructor_invalidFileName_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(INVALID_FILE_PATH));
+        assertThrows(AssertionError.class, () -> new TestUiPart<>(INVALID_FILE_PATH, new Object()));
     }
 
     private URL getTestFileUrl(String testFilePath) {
@@ -84,7 +83,7 @@ public class UiPartTest {
 
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
+     * It should only be used with invalid FXML files or the valid file located at {@link UiPartTest#VALID_FILE_PATH}.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
@@ -110,5 +109,4 @@ public class UiPartTest {
         }
 
     }
-
 }

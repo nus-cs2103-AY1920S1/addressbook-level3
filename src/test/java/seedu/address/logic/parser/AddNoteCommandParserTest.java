@@ -24,11 +24,11 @@ import seedu.address.model.note.Note;
 import seedu.address.model.note.Title;
 import seedu.address.testutil.NoteBuilder;
 
-public class AddNoteCommandParserTest {
+class AddNoteCommandParserTest {
     private AddNoteCommandParser parser = new AddNoteCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    void parse_allFieldsPresent_success() {
         Note expectedNote = new NoteBuilder(BOB).build();
 
         // whitespace only preamble
@@ -45,7 +45,7 @@ public class AddNoteCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
+    void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNoteCommand.MESSAGE_USAGE);
 
         // missing title prefix
@@ -59,7 +59,7 @@ public class AddNoteCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    void parse_invalidValue_failure() {
         // invalid title
         assertParseFailure(parser, INVALID_TITLE_DESC + CONTENT_DESC_BOB, Title.MESSAGE_CONSTRAINTS);
 

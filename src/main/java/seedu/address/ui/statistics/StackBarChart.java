@@ -11,7 +11,9 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 import seedu.address.model.question.Subject;
 import seedu.address.model.statistics.StackBarChartModel;
 import seedu.address.ui.UiPart;
@@ -58,7 +60,18 @@ public class StackBarChart extends UiPart<Region> {
                 + "Total number of subjects: " + subjects.size() + "\n");
     }
 
-    public StackedBarChart getChart() {
-        return bc;
+    /**
+     * Sets a mouseover event displaying the value of the stacked bar chart column.
+     */
+    public void setMouseover() {
+        bc.getData().forEach(data -> data.getData()
+                .forEach(column -> {
+                    String value = data.getName() + ", " + column.getYValue();
+                    Tooltip toolTip = new Tooltip(value);
+                    toolTip.setStyle("-fx-font-size: 20");
+                    toolTip.setShowDelay(Duration.seconds(0));
+                    Tooltip.install(column.getNode(), toolTip);
+                })
+        );
     }
 }

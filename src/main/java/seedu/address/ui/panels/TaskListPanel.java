@@ -29,7 +29,7 @@ public class TaskListPanel extends PanelComponent<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Task} using a {@code TaskListCard}.
      */
-    class TaskListViewCell extends ListCell<Task> {
+    static class TaskListViewCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);

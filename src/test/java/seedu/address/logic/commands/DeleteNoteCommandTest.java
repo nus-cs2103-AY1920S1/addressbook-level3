@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -23,12 +24,11 @@ import seedu.address.model.note.Note;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteNoteCommand}.
  */
-public class DeleteNoteCommandTest {
-
+class DeleteNoteCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    void execute_validIndexUnfilteredList_success() {
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(INDEX_FIRST);
 
@@ -41,7 +41,7 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
         DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(outOfBoundIndex);
 
@@ -49,7 +49,7 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    void execute_validIndexFilteredList_success() {
         showNoteAtIndex(model, INDEX_FIRST);
 
         Note noteToDelete = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
@@ -65,7 +65,7 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    void execute_invalidIndexFilteredList_throwsCommandException() {
         showNoteAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
@@ -78,25 +78,25 @@ public class DeleteNoteCommandTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         DeleteNoteCommand deleteFirstCommand = new DeleteNoteCommand(INDEX_FIRST);
         DeleteNoteCommand deleteSecondCommand = new DeleteNoteCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteNoteCommand deleteFirstCommandCopy = new DeleteNoteCommand(INDEX_FIRST);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different note -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 
     /**

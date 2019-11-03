@@ -1,6 +1,8 @@
 package seedu.address.model.question;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -11,10 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.QuestionBuilder;
 
-public class BodyContainsKeywordsPredicateTest {
-
+class BodyContainsKeywordsPredicateTest {
     @Test
-    public void equals() {
+    void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
@@ -22,25 +23,25 @@ public class BodyContainsKeywordsPredicateTest {
         BodyContainsKeywordsPredicate secondPredicate = new BodyContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
+        assertEquals(firstPredicate, firstPredicate);
 
         // same values -> returns true
         BodyContainsKeywordsPredicate firstPredicateCopy =
                 new BodyContainsKeywordsPredicate(firstPredicateKeywordList);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+        assertEquals(firstPredicate, firstPredicateCopy);
 
         // different types -> returns false
-        assertFalse(firstPredicate.equals(1));
+        assertNotEquals(1, firstPredicate);
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertNotEquals(null, firstPredicate);
 
         // different note -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        assertNotEquals(firstPredicate, secondPredicate);
     }
 
     @Test
-    public void test_bodyContainsKeywords_returnsTrue() {
+    void test_bodyContainsKeywords_returnsTrue() {
         // One keyword
         BodyContainsKeywordsPredicate predicate =
                 new BodyContainsKeywordsPredicate(Collections.singletonList("Alice"));
@@ -60,13 +61,13 @@ public class BodyContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_bodyDoesNotContainKeywords_returnsFalse() {
+    void test_bodyDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         BodyContainsKeywordsPredicate predicate = new BodyContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new QuestionBuilder().withQuestionBody("Alice").build()));
 
         // Non-matching keyword
-        predicate = new BodyContainsKeywordsPredicate(Arrays.asList("Carol"));
+        predicate = new BodyContainsKeywordsPredicate(Collections.singletonList("Carol"));
         assertFalse(predicate.test(new QuestionBuilder().withQuestionBody("Alice Bob").build()));
 
         // Keywords match answer, subject and difficulty, but does not match question body

@@ -3,7 +3,6 @@ package seedu.address.model.quiz;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -66,10 +65,8 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return A unique list of subjects.
      */
     public ObservableList<Subject> getUniqueSubjectList() {
-        List<Subject> subjectsList = internalList.stream()
-                .map(quizResult -> quizResult.getSubject())
-                .collect(Collectors.toList());
-        Set<Subject> uniqueSubjectList = new HashSet<Subject>(subjectsList);
+        Set<Subject> uniqueSubjectList = internalList.stream()
+                .map(QuizResult::getSubject).collect(Collectors.toSet());
         return FXCollections.observableArrayList(new ArrayList<>(uniqueSubjectList));
     }
 
@@ -79,10 +76,8 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return A unique list of difficulties.
      */
     public ObservableList<Difficulty> getUniqueDifficultyList() {
-        List<Difficulty> difficultyList = internalList.stream()
-                .map(quizResult -> quizResult.getDifficulty())
-                .collect(Collectors.toList());
-        Set<Difficulty> uniqueDifficultyList = new HashSet<Difficulty>(difficultyList);
+        Set<Difficulty> uniqueDifficultyList = internalList.stream()
+                .map(QuizResult::getDifficulty).collect(Collectors.toSet());
         return FXCollections.observableArrayList(new ArrayList<>(uniqueDifficultyList));
     }
 
@@ -107,13 +102,15 @@ public class QuizResultList implements Iterable<QuizResult> {
                         .stream()
                         .filter(quizResult -> quizResultFilter.getSubjects()
                                 .stream()
-                                .anyMatch(subject -> subject.equals(quizResult.getSubject())))
+                                .anyMatch(subject -> subject.toString()
+                                        .equalsIgnoreCase(quizResult.getSubject().toString())))
                         .collect(Collectors.toList());
                 break;
             case DIFFICULTY:
                 filteredQuizResults = filteredQuizResults
                         .stream()
-                        .filter(quizResult -> quizResult.getDifficulty().equals(quizResultFilter.getDifficulty()))
+                        .filter(quizResult -> quizResult.getDifficulty().toString()
+                                .equalsIgnoreCase(quizResultFilter.getDifficulty().toString()))
                         .collect(Collectors.toList());
                 break;
             case CORRECT:
@@ -139,9 +136,7 @@ public class QuizResultList implements Iterable<QuizResult> {
                 throw new FilterTypeNotFoundException();
             }
         }
-        ObservableList<QuizResult> quizResults = FXCollections.observableArrayList(filteredQuizResults);
-
-        return quizResults;
+        return FXCollections.observableArrayList(filteredQuizResults);
     }
 
     /**
@@ -150,15 +145,12 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return quizResults The quiz results for the question.
      */
     public ObservableList<QuizResult> getQnsReport(Question qns) {
-        List<QuizResult> qnsReport = internalList;
-        qnsReport = internalList
-                .stream()
+        List<QuizResult> qnsReport = internalList.stream()
                 .filter(quizResult -> quizResult.getQuestionBody().equals(qns.getQuestionBody())
-                    && quizResult.getDifficulty().equals(qns.getDifficulty())
-                    && quizResult.getSubject().equals(qns.getSubject()))
+                        && quizResult.getDifficulty().equals(qns.getDifficulty())
+                        && quizResult.getSubject().equals(qns.getSubject()))
                 .collect(Collectors.toList());
-        ObservableList<QuizResult> quizResults = FXCollections.observableArrayList(qnsReport);
-        return quizResults;
+        return FXCollections.observableArrayList(qnsReport);
     }
 
     @Override

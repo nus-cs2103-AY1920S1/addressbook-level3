@@ -1,6 +1,8 @@
 package seedu.address.model.question;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_CONCEPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIFFICULTY_CONCEPT;
@@ -14,9 +16,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.QuestionBuilder;
 
 class QuestionTest {
-
     @Test
-    public void isSameQuestion() {
+    void isSameQuestion() {
         // same object -> returns true
         assertTrue(ALGEBRA_QUESTION.isSameQuestion(ALGEBRA_QUESTION));
 
@@ -46,33 +47,33 @@ class QuestionTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         // same values -> returns true
         Question algebraCopy = new QuestionBuilder(ALGEBRA_QUESTION).build();
-        assertTrue(ALGEBRA_QUESTION.equals(algebraCopy));
+        assertEquals(ALGEBRA_QUESTION, algebraCopy);
 
         // same object -> returns true
-        assertTrue(ALGEBRA_QUESTION.equals(ALGEBRA_QUESTION));
+        assertEquals(ALGEBRA_QUESTION, ALGEBRA_QUESTION);
 
         // null -> returns false
-        assertFalse(ALGEBRA_QUESTION.equals(null));
+        assertNotEquals(null, ALGEBRA_QUESTION);
 
         // different type -> returns false
-        assertFalse(ALGEBRA_QUESTION.equals(5));
+        assertNotEquals(5, ALGEBRA_QUESTION);
 
         // different question -> returns false
-        assertFalse(ALGEBRA_QUESTION.equals(CONCEPT_QUESTION));
+        assertNotEquals(ALGEBRA_QUESTION, CONCEPT_QUESTION);
 
         // different question body -> returns false
         Question editedAlgebra = new QuestionBuilder(ALGEBRA_QUESTION)
                 .withQuestionBody(VALID_QUESTION_BODY_CONCEPT)
                 .build();
-        assertFalse(ALGEBRA_QUESTION.equals(editedAlgebra));
+        assertNotEquals(ALGEBRA_QUESTION, editedAlgebra);
 
         // different subject -> returns false
         editedAlgebra = new QuestionBuilder(ALGEBRA_QUESTION)
                 .withSubject(VALID_SUBJECT_CONCEPT)
                 .build();
-        assertFalse(ALGEBRA_QUESTION.equals(editedAlgebra));
+        assertNotEquals(ALGEBRA_QUESTION, editedAlgebra);
     }
 }

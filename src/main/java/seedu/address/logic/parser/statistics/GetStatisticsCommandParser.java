@@ -49,27 +49,30 @@ public class GetStatisticsCommandParser implements Parser<GetStatisticsCommand> 
         if (d.isPresent()) {
             difficulty = ParserUtil.parseDifficulty(d.get());
             quizResultFilter = new QuizResultFilter(subjects, difficulty);
+            return new GetStatisticsCommand(quizResultFilter, returnMessage(d.get(), subjects));
         } else {
             quizResultFilter = new QuizResultFilter(subjects);
+            return new GetStatisticsCommand(quizResultFilter, returnMessage(subjects));
         }
-
-        return new GetStatisticsCommand(quizResultFilter, returnMessage(d, subjects));
     }
 
     /**
-     * Returns a string to be placed in result display.
-     * @param d Denotes difficulty to include in result display.
-     * @param s Denotes subjects to include in result display.
-     * @return The message to be placed in result display.
+     * Returns a string listing some subjects.
+     *
+     * @param s the list of subjects to show
+     * @return the shown string
      */
-    private String returnMessage(Optional d, List<Subject> s) {
-        String message = "";
-        if (d.isPresent()) {
-            message += "\n[" + d.get() + "]";
-        }
-        if (!s.isEmpty()) {
-            message += "\n" + s.toString();
-        }
-        return message;
+    private String returnMessage(List<Subject> s) {
+        return !s.isEmpty() ? "\n" + s.toString() : "";
+    }
+
+    /**
+     * Returns a string listing some subjects and a difficulty.
+     *
+     * @param d difficulty to show
+     * @see #returnMessage(List)
+     */
+    private String returnMessage(String d, List<Subject> s) {
+        return "\n[" + d + "]" + returnMessage(s);
     }
 }

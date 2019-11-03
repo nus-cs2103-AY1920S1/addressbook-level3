@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 class SubjectTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Subject(null));
     }
 
     @Test
-    public void constructor_invalidSubject_throwsIllegalArgumentException() {
+    void constructor_invalidSubject_throwsIllegalArgumentException() {
         String invalidSubject = "";
         assertThrows(IllegalArgumentException.class, () -> new Subject(invalidSubject));
     }
