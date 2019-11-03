@@ -1,7 +1,6 @@
 package seedu.module.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.module.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import seedu.module.model.Model;
 
@@ -18,8 +17,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
-        model.displayTrackedList();
+        model.showAllTrackedModules();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

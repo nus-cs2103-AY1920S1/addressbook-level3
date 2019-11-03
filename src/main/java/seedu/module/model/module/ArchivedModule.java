@@ -62,18 +62,6 @@ public class ArchivedModule implements Module {
     }
 
     /**
-     * Returns true if both archived modules of the same name have the same identity field.
-     * This defines a weaker notion of equality between two modules.
-     */
-    public boolean isSameArchivedModule(ArchivedModule otherModule) {
-        if (otherModule == this) {
-            return true;
-        }
-
-        return otherModule != null && otherModule.getModuleCode().equals(getModuleCode());
-    }
-
-    /**
      * Returns true if both archived modules have the same identity and data fields.
      * This defines a stronger notion of equality between two modules.
      */

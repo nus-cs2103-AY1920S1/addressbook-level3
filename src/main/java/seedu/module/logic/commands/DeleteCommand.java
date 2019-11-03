@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
             -> new CommandException(MESSAGE_MODULE_NOT_FOUND));
 
         model.deleteModule(trackedModuleToDelete);
-        model.displayTrackedList();
+        model.showAllTrackedModules();
         return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, trackedModuleToDelete));
     }
 

@@ -34,7 +34,8 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredArchivedModuleList(listOfPredicates.stream().reduce(x -> true, Predicate::and));
-        model.displayArchivedList();
+        model.updateFilteredModuleList(listOfPredicates.stream().reduce(x -> true, Predicate::and));
+        model.updateDisplayedList();
         return new CommandResult(
                 String.format(Messages.MESSAGE_MODULES_LISTED_OVERVIEW, model.getFilteredArchivedModuleList().size()));
     }

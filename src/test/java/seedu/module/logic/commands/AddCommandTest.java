@@ -17,6 +17,8 @@ import seedu.module.model.module.ArchivedModuleList;
 import seedu.module.model.module.TrackedModule;
 import seedu.module.model.module.predicate.SameModuleCodePredicate;
 import seedu.module.testutil.ArchivedModuleBuilder;
+import seedu.module.testutil.ArchivedModuleListBuilder;
+import seedu.module.testutil.ModuleBookBuilder;
 
 public class AddCommandTest {
     private final String moduleCode = "CS2103T";
@@ -33,13 +35,15 @@ public class AddCommandTest {
     @Test
     public void execute_addValidModule_success() {
         ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
-        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
-        listOfArchivedModules.add(archivedModule);
-        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        ModuleBook moduleBook = new ModuleBookBuilder().withArchivedModules(
+            new ArchivedModuleListBuilder().withArchivedModule(archivedModule).build())
+            .build();
         model.setModuleBook(moduleBook);
         expectedModel.setModuleBook(moduleBook);
+
         TrackedModule trackedModule = new TrackedModule(archivedModule);
         expectedModel.addModule(trackedModule);
+        expectedModel.showAllTrackedModules();
 
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS, trackedModule),
                 false, false, false);
@@ -50,13 +54,15 @@ public class AddCommandTest {
     @Test
     public void execute_addLowerCaseModule_success() {
         ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
-        ArchivedModuleList listOfArchivedModules = new ArchivedModuleList();
-        listOfArchivedModules.add(archivedModule);
-        ModuleBook moduleBook = new ModuleBook(listOfArchivedModules);
+        ModuleBook moduleBook = new ModuleBookBuilder().withArchivedModules(
+            new ArchivedModuleListBuilder().withArchivedModule(archivedModule).build())
+            .build();
         model.setModuleBook(moduleBook);
         expectedModel.setModuleBook(moduleBook);
+
         TrackedModule trackedModule = new TrackedModule(archivedModule);
         expectedModel.addModule(trackedModule);
+        expectedModel.showAllTrackedModules();
 
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS, trackedModule),
                 false, false, false);

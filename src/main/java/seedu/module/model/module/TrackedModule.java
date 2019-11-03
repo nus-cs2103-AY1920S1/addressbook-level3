@@ -79,19 +79,6 @@ public class TrackedModule implements Module, Trackable {
     }
 
     /**
-     * Returns true if both modules of the same name have the same identity field.
-     * This defines a weaker notion of equality between two modules.
-     */
-    public boolean isSameModule(TrackedModule otherTrackedModule) {
-        if (otherTrackedModule == this) {
-            return true;
-        }
-
-        return otherTrackedModule != null
-                && otherTrackedModule.getModuleCode().equals(getModuleCode());
-    }
-
-    /**
      * Adds a link to the List of links in this module.
      * @param link link to add
      */

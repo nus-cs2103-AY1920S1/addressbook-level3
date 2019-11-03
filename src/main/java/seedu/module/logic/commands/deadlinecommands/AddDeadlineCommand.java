@@ -46,7 +46,7 @@ public class AddDeadlineCommand extends DeadlineCommand {
         moduleToAddDeadline.addDeadline(deadline);
 
         model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
-        model.displayTrackedList();
+        model.showAllTrackedModules();
 
         return new CommandResult(generateSuccessMessage(moduleToAddDeadline),
                 false, true, false);

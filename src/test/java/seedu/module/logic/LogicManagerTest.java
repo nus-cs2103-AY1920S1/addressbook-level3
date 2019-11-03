@@ -106,7 +106,7 @@ public class LogicManagerTest {
     @Disabled("Archived List is modifiable!")
     @Test
     public void getDisplayedList_modifyList_throwsUnsupportedOperationException() {
-        model.displayArchivedList();
+        model.showAllTrackedModules();
         assertThrows(UnsupportedOperationException.class, () -> logic.getDisplayedList().remove(0));
     }
 

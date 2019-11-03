@@ -30,11 +30,11 @@ public class ArchivedModuleListTest {
     }
 
     @Test
-    public void contains_moduleWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_moduleWithSameIdentityFieldsInList_returnsFalse() {
         archivedModuleList.add(archivedModule);
         ArchivedModule editedArchivedModule = new ArchivedModuleBuilder(archivedModule).withTitle("Different Title")
             .withDescription("The quick brown fox jumps over the lazy dog").build();
-        assertTrue(archivedModuleList.contains(editedArchivedModule));
+        assertFalse(archivedModuleList.contains(editedArchivedModule));
     }
 
     @Test

@@ -10,27 +10,27 @@ import seedu.module.testutil.ArchivedModuleBuilder;
 public class ArchivedModuleTest {
 
     @Test
-    public void isSameArchivedModule() {
+    public void isSameModule() {
         // same values -> returns true
         ArchivedModule archivedModule = new ArchivedModuleBuilder().build();
-        assertTrue(archivedModule.isSameArchivedModule(new ArchivedModuleBuilder(archivedModule).build()));
+        assertTrue(archivedModule.isSameModule(new ArchivedModuleBuilder(archivedModule).build()));
 
         // same object -> returns true
-        assertTrue(archivedModule.isSameArchivedModule(archivedModule));
+        assertTrue(archivedModule.isSameModule(archivedModule));
 
         // null -> returns false
-        assertFalse(archivedModule.isSameArchivedModule(null));
+        assertFalse(archivedModule.isSameModule(null));
 
         // different moduleCode -> returns false
-        assertFalse(archivedModule.isSameArchivedModule(new ArchivedModuleBuilder()
+        assertFalse(archivedModule.isSameModule(new ArchivedModuleBuilder()
             .withModuleCode("CS1101S").build()));
 
         // different title -> returns true
-        assertTrue(archivedModule.isSameArchivedModule(new ArchivedModuleBuilder()
+        assertTrue(archivedModule.isSameModule(new ArchivedModuleBuilder()
             .withTitle("Different Title").build()));
 
         // different description -> returns true
-        assertTrue(archivedModule.isSameArchivedModule(new ArchivedModuleBuilder()
+        assertTrue(archivedModule.isSameModule(new ArchivedModuleBuilder()
             .withDescription("The quick brown fox jumps over the lazy dog").build()));
     }
 

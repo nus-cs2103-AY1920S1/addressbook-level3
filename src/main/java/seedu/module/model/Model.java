@@ -21,6 +21,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true.
      */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_NO_MODULES = unused -> false;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -109,22 +110,21 @@ public interface Model {
     ObservableList<Module> getDisplayedList();
 
     /**
+     * Updates the displayed list to be shown.
+     */
+    void updateDisplayedList();
+
+    /**
+     * Useful method to update and display only tracked modules.
+     */
+    void showAllTrackedModules();
+
+    /**
      * Returns a TrackedModule by the index of deadline task list.
-     * @param model
      * @param index
      * @return TrackedModule object.
      */
     TrackedModule getTrackedModuleByIndex(Model model, Index index) throws CommandException;
-
-    /**
-     * Changes the current list to be shown to the ArchivedModuleList.
-     */
-    void displayArchivedList();
-
-    /**
-     * Changes the current list to be shown to the TrackedModuleList.
-     */
-    void displayTrackedList();
 
     /**
      * Returns the active module that is being viewed by the user.

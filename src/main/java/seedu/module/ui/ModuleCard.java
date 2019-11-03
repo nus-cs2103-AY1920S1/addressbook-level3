@@ -3,6 +3,7 @@ package seedu.module.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.module.model.module.Module;
 
@@ -33,6 +34,8 @@ public class ModuleCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label id;
+    @FXML
+    private Pane trackedStatus;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
@@ -41,6 +44,11 @@ public class ModuleCard extends UiPart<Region> {
         moduleCode.setText(module.getModuleCode());
         title.setText(module.getTitle());
         description.setText(module.getDescription());
+
+        if (module.isTracked()) {
+            trackedStatus.getStyleClass().clear();
+            trackedStatus.getStyleClass().add("tag-tracked");
+        }
     }
 
     @Override

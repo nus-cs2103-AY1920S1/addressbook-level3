@@ -21,4 +21,22 @@ public interface Module {
     SemesterDetailList getSemesterDetails();
 
     List<Integer> getListOfOfferedSemesters();
+
+    /**
+     * Returns true if both modules share the same module code.
+     */
+    default boolean isSameModule(Module other) {
+        if (other == null) {
+            return false;
+        }
+
+        return this.getModuleCode().equals(other.getModuleCode());
+    }
+
+    /**
+     * Retruns true if the module is a tracked module.
+     */
+    default boolean isTracked() {
+        return this instanceof Trackable;
+    }
 }
