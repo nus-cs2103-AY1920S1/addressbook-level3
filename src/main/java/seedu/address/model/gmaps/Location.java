@@ -10,12 +10,25 @@ public class Location {
     private String placeId = null;
     private String locationName;
     private String validLocation = null;
+    private String lat;
+    private String lng;
 
     public Location(String locationName) {
         requireNonNull(locationName);
         this.locationName = locationName;
     }
 
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLatLng() {
+        return lat + "," + lng;
+    }
 
     public String getPlaceId() {
         return placeId;

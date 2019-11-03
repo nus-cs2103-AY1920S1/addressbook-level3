@@ -1,13 +1,46 @@
 {
   "candidates": [
     {
+      "geometry": {
+        "location": {
+          "lat": 1.2966686,
+          "lng": 103.7788514
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 1.298010029892722,
+            "lng": 103.7802336298927
+          },
+          "southwest": {
+            "lat": 1.295310370107278,
+            "lng": 103.7775339701073
+          }
+        }
+      },
       "name": "NUS S11",
       "place_id": "ChIJMW2gnpUb2jERlUYTYSaawlc"
     },
     {
+      "geometry": {
+        "location": {
+          "lat": 1.2960652,
+          "lng": 103.7783237
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 1.297593979892722,
+            "lng": 103.7796100798927
+          },
+          "southwest": {
+            "lat": 1.294894320107278,
+            "lng": 103.7769104201073
+          }
+        }
+      },
       "name": "LT32 NUS",
       "place_id": "ChIJd6fn-FYa2jER1eMe-wts2_E"
     }
   ],
   "status": "OK"
 }
+

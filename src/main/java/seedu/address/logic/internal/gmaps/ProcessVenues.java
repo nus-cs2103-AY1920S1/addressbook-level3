@@ -46,15 +46,6 @@ public class ProcessVenues {
         return processVenuesWVenues;
     }
 
-    /**
-     * Gnerate all static images
-     * @return
-     */
-
-    public void generateImages() {
-        sanitizeLocation.generateImage();
-    }
-
     public ArrayList<Location> getValidLocationList() {
         return sanitizeLocation.getValidLocationList();
     }

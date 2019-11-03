@@ -38,8 +38,56 @@ class GmapsJsonUtilsTest {
         try {
             JSONParser parser = new JSONParser();
             apiResponse = (JSONObject) parser.parse(
-                    new FileReader("src/test/data/ApiStubsTest/GmapsPlacesOK.json.json"));
+                    new FileReader("src/test/data/ApiStubsTest/GmapsPlacesOK.json"));
             assertEquals(GmapsJsonUtils.getPlaceId(apiResponse), "ChIJMW2gnpUb2jERlUYTYSaawlc");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void getLat() {
+        try {
+            JSONParser parser = new JSONParser();
+            apiResponse = (JSONObject) parser.parse(
+                    new FileReader("src/test/data/ApiStubsTest/GmapsPlaceDetailsOK.json"));
+            assertEquals(GmapsJsonUtils.getLat(apiResponse), 1.2976883);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void getLng() {
+        try {
+            JSONParser parser = new JSONParser();
+            apiResponse = (JSONObject) parser.parse(
+                    new FileReader("src/test/data/ApiStubsTest/GmapsPlaceDetailsOK.json"));
+            assertEquals(GmapsJsonUtils.getLng(apiResponse), 103.7804811);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void getAlias() {
+        try {
+            JSONParser parser = new JSONParser();
+            apiResponse = (JSONObject) parser.parse(
+                    new FileReader("src/test/data/ApiStubsTest/GmapsPlaceDetailsOK.json"));
+            assertEquals(GmapsJsonUtils.getAlias(apiResponse), "NUS S17");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

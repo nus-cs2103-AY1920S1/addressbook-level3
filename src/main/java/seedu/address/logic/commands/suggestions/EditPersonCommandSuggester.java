@@ -9,10 +9,7 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Provides suggestions for the {@link Prefix}es of the {@link seedu.address.logic.commands.EditPersonCommand}.
@@ -28,21 +25,36 @@ public class EditPersonCommandSuggester extends Suggester {
             CliSyntax.PREFIX_TAG
     );
 
-    protected static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
-        final Optional<String> personNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_EDIT);
-        if (personNameInput.isEmpty()) {
-            return Optional.empty();
+    /**
+     * Gets the {@link Person}'s properties as a {@link List} based on the given {@link Prefix}. Used to suggest the
+     * current values of the {@link Person}.
+     *
+     * @param person The {@link Person} to obtain the desired properties from.
+     * @param prefixType The property that is desired.
+     * @return A {@link List} containing the properties of the given {@code Person} based on the {@code prefixType}.
+     */
+    protected static List<String> getCurrentValuesOfPerson(final Person person, final Prefix prefixType) {
+        if (prefixType.equals(CliSyntax.PREFIX_NAME)) {
+            return List.of(person.getName().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_PHONE)) {
+            return List.of(person.getPhone().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_EMAIL)) {
+            return List.of(person.getEmail().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_ADDRESS)) {
+            return List.of(person.getAddress().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_REMARK)) {
+            return List.of(person.getRemark().toString());
+        } else if (prefixType.equals(CliSyntax.PREFIX_TAG)) {
+            return person
+                    .getTags()
+                    .stream()
+                    .map(tag -> {
+                        return tag.tagName;
+                    })
+                    .collect(Collectors.toUnmodifiableList());
+        } else {
+            return List.of();
         }
-
-        final Name personName = new Name(personNameInput.get());
-        Person person = null;
-        try {
-            person = model.findPerson(personName);
-        } catch (PersonNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(person);
     }
 
     @Override
@@ -54,29 +66,13 @@ public class EditPersonCommandSuggester extends Suggester {
         if (prefix.equals(CliSyntax.PREFIX_EDIT)) {
             return model.personSuggester(value);
         } else if (SUPPORTED_PREFIXES.contains(prefix)) {
-            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
+            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments, CliSyntax.PREFIX_EDIT);
             if (optionalSelectedPerson.isEmpty()) {
                 return null;
             }
 
             final Person selectedPerson = optionalSelectedPerson.get();
-            if (prefix.equals(CliSyntax.PREFIX_NAME)) {
-                return List.of(selectedPerson.getName().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_PHONE)) {
-                return List.of(selectedPerson.getPhone().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_EMAIL)) {
-                return List.of(selectedPerson.getEmail().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_ADDRESS)) {
-                return List.of(selectedPerson.getAddress().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_REMARK)) {
-                return List.of(selectedPerson.getRemark().toString());
-            } else if (prefix.equals(CliSyntax.PREFIX_TAG)) {
-                return selectedPerson
-                        .getTags()
-                        .stream()
-                        .map(Tag::toString)
-                        .collect(Collectors.toUnmodifiableList());
-            }
+            return getCurrentValuesOfPerson(selectedPerson, prefix);
         }
 
         return null;

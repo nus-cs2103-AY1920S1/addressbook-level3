@@ -1,0 +1,143 @@
+{
+  "html_attributions" : [],
+  "result" : {
+    "address_components" : [
+      {
+        "long_name" : "National University of Singapore",
+        "short_name" : "National University of Singapore",
+        "types" : [ "point_of_interest", "establishment" ]
+      },
+      {
+        "long_name" : "10",
+        "short_name" : "10",
+        "types" : [ "street_number" ]
+      },
+      {
+        "long_name" : "Lower Kent Ridge Road",
+        "short_name" : "Lower Kent Ridge Rd",
+        "types" : [ "route" ]
+      },
+      {
+        "long_name" : "Queenstown",
+        "short_name" : "Queenstown",
+        "types" : [ "neighborhood", "political" ]
+      },
+      {
+        "long_name" : "Singapore",
+        "short_name" : "Singapore",
+        "types" : [ "locality", "political" ]
+      },
+      {
+        "long_name" : "Singapore",
+        "short_name" : "SG",
+        "types" : [ "country", "political" ]
+      }
+    ],
+    "adr_address" : "\u003cspan class=\"street-address\"\u003e10 Lower Kent Ridge Rd\u003c/span\u003e, National University of Singapore, \u003cspan class=\"country-name\"\u003eSingapore\u003c/span\u003e",
+    "formatted_address" : "10 Lower Kent Ridge Rd, National University of Singapore, Singapore",
+    "geometry" : {
+      "location" : {
+        "lat" : 1.2976883,
+        "lng" : 103.7804811
+      },
+      "viewport" : {
+        "northeast" : {
+          "lat" : 1.299093330291502,
+          "lng" : 103.7818037302915
+        },
+        "southwest" : {
+          "lat" : 1.296395369708498,
+          "lng" : 103.7791057697085
+        }
+      }
+    },
+    "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/school-71.png",
+    "id" : "f34b7508a1849cebfa42cd506e08044f49735ad3",
+    "name" : "NUS S17",
+    "photos" : [
+      {
+        "height" : 3264,
+        "html_attributions" : [
+          "\u003ca href=\"https://maps.google.com/maps/contrib/116093657258632042808/photos\"\u003ePenghao Chen\u003c/a\u003e"
+        ],
+        "photo_reference" : "CmRaAAAABRA3QS031QdjInZoC92suyVK8q__2xFy3POW12ADe7fipDCTcFqLt7MVaKn2Nn7mhvV3sCFMWx4vvuQntSscHmOW-XoHHwZkHnQwEOEIxtjtLwoV-DqJrnb-Z2bnyquwEhB0I93ru8lDSTOyvP1DQiq9GhSOwjs8xg5BOoArrOlI-kf8tHx2Xg",
+        "width" : 2448
+      },
+      {
+        "height" : 2448,
+        "html_attributions" : [
+          "\u003ca href=\"https://maps.google.com/maps/contrib/116093657258632042808/photos\"\u003ePenghao Chen\u003c/a\u003e"
+        ],
+        "photo_reference" : "CmRaAAAA4pmkG46DmPxnQ7PONQMGXYFHkBfKrI9zmdtCccRcLTU42-Cx6q9gA_duby-GbC5MLcxu2Doq84YA585dFSnBOqsaozhzurv-PVJf3s_0-Gc7CLp2U-Iv0tXWZTGYqi-LEhDHdjT-dcXGZT7Ik4VN-UeTGhSJrAQBC8RvWEA7mhs9SNQRQVVUUg",
+        "width" : 2448
+      },
+      {
+        "height" : 2448,
+        "html_attributions" : [
+          "\u003ca href=\"https://maps.google.com/maps/contrib/116093657258632042808/photos\"\u003ePenghao Chen\u003c/a\u003e"
+        ],
+        "photo_reference" : "CmRaAAAAbx6qszplChF4FhJpyLxKeg4fNkpBOh37dlOjzo_hAMBp3lV6Y1_cUhfHuyNYjn5YjX2VXvJhHEeodQ1Yg6AXIuwnXhME2d05ehI-3rvdRjcrSGZTMl2bncPU2fhpOg1qEhBirZt2fNbEL2DUgn-z_YonGhSfu37igsv8Hg8bcmOR8NluLJ5RbA",
+        "width" : 2448
+      },
+      {
+        "height" : 3186,
+        "html_attributions" : [
+          "\u003ca href=\"https://maps.google.com/maps/contrib/116093657258632042808/photos\"\u003ePenghao Chen\u003c/a\u003e"
+        ],
+        "photo_reference" : "CmRaAAAAGpEWvuiggXDRQCLEfODDOnCGn6-17YybrrwUPtumy7BknNpAjketicjpUPNWD09P1HqmEBSAnRch4ioeQRIJBYteO76-f3gB2vxqipGgN1OYiHQ_hgYioNHASAJsVPLBEhB1bauEYQ5DWVL2SnquqerkGhRn8czNXnIZ-AiwU4YCOSact1D35Q",
+        "width" : 5510
+      },
+      {
+        "height" : 2448,
+        "html_attributions" : [
+          "\u003ca href=\"https://maps.google.com/maps/contrib/116093657258632042808/photos\"\u003ePenghao Chen\u003c/a\u003e"
+        ],
+        "photo_reference" : "CmRaAAAADPgdfJnQVFrvkw3RMcBBPIZ5Mgtz52RfphwhdgQKopRdNdzW4LlWw1L3rNblXkapKX6-fsIrebX9yA9jwZKI5IKltkqiM6pISKyFQWe_btwfGbTLuiqVt9hedAgKXyVwEhBOvK8jSEWKesiRRIpprGnfGhQ_pMJnEfOQyT-ThC9Vnji2g3VzSA",
+        "width" : 2448
+      }
+    ],
+    "place_id" : "ChIJc9Y2SFca2jERUd33B_8nY6s",
+    "plus_code" : {
+      "compound_code" : "7QXJ+35 Singapore",
+      "global_code" : "6PH57QXJ+35"
+    },
+    "rating" : 4.3,
+    "reference" : "ChIJc9Y2SFca2jERUd33B_8nY6s",
+    "reviews" : [
+      {
+        "author_name" : "Rachel Lee",
+        "author_url" : "https://www.google.com/maps/contrib/111425255153332830473/reviews",
+        "profile_photo_url" : "https://lh6.ggpht.com/-k6MxxP1acHQ/AAAAAAAAAAI/AAAAAAAAAAA/JwP3wqik3us/s128-c0x00000000-cc-rp-mo/photo.jpg",
+        "rating" : 3,
+        "relative_time_description" : "a year ago",
+        "text" : "",
+        "time" : 1519480445
+      },
+      {
+        "author_name" : "YANGJING ZHANG",
+        "author_url" : "https://www.google.com/maps/contrib/101962273465986342772/reviews",
+        "profile_photo_url" : "https://lh3.ggpht.com/-hL8ZUZTFAyA/AAAAAAAAAAI/AAAAAAAAAAA/Kop1Bz0Gn5Q/s128-c0x00000000-cc-rp-mo-ba3/photo.jpg",
+        "rating" : 5,
+        "relative_time_description" : "a year ago",
+        "text" : "",
+        "time" : 1533641401
+      },
+      {
+        "author_name" : "Eric Tay",
+        "author_url" : "https://www.google.com/maps/contrib/109075551901585097319/reviews",
+        "profile_photo_url" : "https://lh6.ggpht.com/-A_0aXTflDLE/AAAAAAAAAAI/AAAAAAAAAAA/ahB9Z5hDL78/s128-c0x00000000-cc-rp-mo/photo.jpg",
+        "rating" : 5,
+        "relative_time_description" : "a year ago",
+        "text" : "",
+        "time" : 1538791965
+      }
+    ],
+    "scope" : "GOOGLE",
+    "types" : [ "school", "point_of_interest", "establishment" ],
+    "url" : "https://maps.google.com/?cid=12349758579483860305",
+    "user_ratings_total" : 3,
+    "utc_offset" : 480,
+    "vicinity" : "10 Lower Kent Ridge Road, National University of Singapore"
+  },
+  "status" : "OK"
+}
