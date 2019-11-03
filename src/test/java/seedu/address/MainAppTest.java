@@ -128,7 +128,7 @@ public class MainAppTest extends ApplicationTest {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
-        robot.clickOn(commandBox).write("addappt").type(KeyCode.ENTER);
+        robot.clickOn(commandBox).write("newappt").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).startsWith("Invalid command format!");
 
         robot.eraseText(7);

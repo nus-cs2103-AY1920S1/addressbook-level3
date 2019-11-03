@@ -26,7 +26,7 @@ public class SamplePersonDataUtil {
      */
     private static ReferenceId patientRefId(String refId) {
         try {
-            return PersonReferenceId.parsePatientReferenceId(refId);
+            return PersonReferenceId.issuePatientReferenceId(refId);
         } catch (ParseException ex) {
             throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
         }
@@ -37,7 +37,7 @@ public class SamplePersonDataUtil {
      */
     private static ReferenceId staffRefId(String refId) {
         try {
-            return PersonReferenceId.parseStaffReferenceId(refId);
+            return PersonReferenceId.issueStaffReferenceId(refId);
         } catch (ParseException ex) {
             throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
         }
