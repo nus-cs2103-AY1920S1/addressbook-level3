@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Pair;
-import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
