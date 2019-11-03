@@ -13,8 +13,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.ui.ModularDisplay;
 import seedu.address.ui.UiPart;
@@ -94,28 +92,21 @@ public class WordBankCard extends UiPart<Region> {
 
         System.out.println(tmpFile);
 
-        //        List<String> filePathStringList = new ArrayList<>();
-        //        filePathStringList.add(wordBankPath);
-
         List<File> filePathList = new ArrayList<>();
         filePathList.add(tmpFile);
 
         content.putFiles(filePathList);
-        //        content.putFilesByPath(filePathStringList);
-
         db.setContent(content);
 
         event.consume();
         System.out.println("dragDetection done");
 
-        try {
-            commandExecutor.execute("export w/dragAndDropInternalExport" + wordBank.getName()
-                    + " f/" + System.getProperty("user.home"));
-        } catch (CommandException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        //        try {
+        //            commandExecutor.execute("export w/dragAndDropInternalExport" + wordBank.getName()
+        //                    + " f/" + System.getProperty("user.home"));
+        //        } catch (CommandException | ParseException e) {
+        //            e.printStackTrace();
+        //        }
 
     }
 

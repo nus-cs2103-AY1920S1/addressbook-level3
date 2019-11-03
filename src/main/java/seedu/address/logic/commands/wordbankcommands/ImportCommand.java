@@ -24,7 +24,8 @@ public class ImportCommand extends WordBankCommand {
             + PREFIX_WORD + "sample "
             + PREFIX_FILEPATH + "~/downloads";
 
-    private static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s from location : %2$s";
+    private static final String MESSAGE_IMPORT_CARD_SUCCESS = "Imported word bank: %1$s\n"
+        + "Location : %2$s";
 
     private String wordBankName;
     private File directory;

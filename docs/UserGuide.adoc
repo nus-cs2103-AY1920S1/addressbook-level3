@@ -115,6 +115,10 @@ Likewise, you can drag and drop a json word bank into your app.
 
 Try it!
 
+NOTE: The drag and drop feature works fine on Windows, but exporting through drag and drop may sometimes crash the app
+on Mac. +
+To avoid this on Mac, simply use the export command instead.
+
 === QuickStart
 
 .General program flow of Dukemon, showing how the different parts work together.
@@ -227,16 +231,20 @@ Examples:
 
 ==== Import a word bank : `import`
 Import the word bank from a specified folder path on your system. +
-Note that you can use '\' and '\\' for windows.
+
+FOLDER is the folder where the word bank file reside. +
+WORDBANK is the name of the file without the extension. +
+Dukemon can only read json word bank files.
 
 Format: `import w/WORD_BANK f/FOLDER` +
 Examples:
 
+(Use \ for Windows)
+
 * `import w/cs2040_graph f/~/downloads`
 * `import w/fire pokemons f//Users/chrischenhui/data`
 
-NOTE: FOLDER is the folder where the word bank file reside.
-WORBANK is the name of the file without the extension.
+NOTE: You can also drag and drop a word bank into your app.
 
 ==== Export a word bank : `export`
 Export the word bank to a specified file path on your system. +
@@ -246,6 +254,9 @@ Examples:
 
 * `export w/ma1101r theorems f/~`
 * `export w/biology definitions f/~/downloads`
+
+NOTE: You can also drag and drop a word bank out your app. +
+However, dragging and dropping may crash the app on Mac system.
 
 ==== Select a word bank : `select`
 Choose the word bank you want to work with.
