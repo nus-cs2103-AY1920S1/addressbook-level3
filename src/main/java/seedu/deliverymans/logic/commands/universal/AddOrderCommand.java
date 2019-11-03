@@ -119,7 +119,8 @@ public class AddOrderCommand extends Command {
         } else {
             for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
                 if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
-                    if (!deliveryman.getStatus().getDescription().equals("UNAVAILABLE")) {
+                    final String desc = deliveryman.getStatus().getDescription();
+                    if (desc.equals("AVAILABLE")) {
                         deliverymanToAdd = deliveryman.getName();
                         // Set deliveryman status here
                     } else {
