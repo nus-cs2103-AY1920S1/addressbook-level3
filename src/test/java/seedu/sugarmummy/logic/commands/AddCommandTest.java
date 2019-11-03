@@ -52,7 +52,7 @@ public class AddCommandTest {
     private LocalTime lt = LocalTime.of(8, 0, 0);
     private DateTime dt = new DateTime(ld, lt);
     private BloodSugar bs = new BloodSugar(new Concentration("12.34"), dt);
-    private Bmi bmi = new Bmi(new Height("12.34"), new Weight("23.34"), dt);
+    private Bmi bmi = new Bmi(new Height("2.34"), new Weight("23.34"), dt);
 
     @Test
     public void constructor_nullRecord_throwsNullPointerException() {

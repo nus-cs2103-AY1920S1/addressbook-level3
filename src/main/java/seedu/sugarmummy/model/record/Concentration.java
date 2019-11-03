@@ -9,11 +9,11 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
  */
 public class Concentration {
 
+    public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private static final double CONCENTRATION_CONSTRAINT = 400;
     public static final String MESSAGE_CONSTRAINTS =
-            "Concentration should only contain a positive real number "
-                + "and must be less than " + CONCENTRATION_CONSTRAINT + " after rounding to 2 d.p.";
-    public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
+            "Concentration should only contain a positive real number between 0 and "
+                + CONCENTRATION_CONSTRAINT + "exclusive after rounding to 2 d.p.";
     private final double concentration;
 
     public Concentration(String concentration) {
@@ -23,12 +23,17 @@ public class Concentration {
         this.concentration = roundDouble(concentration);
     }
 
+    /**
+     * Returns true if a given string is a valid concentration.
+     * A concentration is considered valid if it complies with VALIDATION_REGEX and
+     * it is less than the CONCENTRATION_CONSTRAINT after rounding.
+     */
     public static boolean isValidConcentration(String test) {
         if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
 
-        return roundDouble(test) < CONCENTRATION_CONSTRAINT;
+        return roundDouble(test) > 0 && roundDouble(test) < CONCENTRATION_CONSTRAINT;
     }
 
     private static double roundDouble(String test) {

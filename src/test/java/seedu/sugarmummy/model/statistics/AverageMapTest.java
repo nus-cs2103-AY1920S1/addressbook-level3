@@ -28,8 +28,8 @@ public class AverageMapTest {
     ));
 
     private final ObservableList<Record> bmiRecordList = FXCollections.observableArrayList(Arrays.asList(
-            new Bmi(new Height("200.0"), new Weight("80.0"), new DateTime("2019-01-01 00:00")),
-            new Bmi(new Height("200.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
+            new Bmi(new Height("2.0"), new Weight("80.0"), new DateTime("2019-01-01 00:00")),
+            new Bmi(new Height("2.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
     ));
 
     private AverageMap averageMap = new AverageMap();

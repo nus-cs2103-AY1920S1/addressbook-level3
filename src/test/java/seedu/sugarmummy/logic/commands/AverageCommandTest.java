@@ -427,8 +427,8 @@ public class AverageCommandTest {
         private final ObservableList<Record> recordList = FXCollections.observableArrayList(Arrays.asList(
                 new BloodSugar(new Concentration("4.0"), new DateTime("2019-01-01 00:00")),
                 new BloodSugar(new Concentration("5.0"), new DateTime("2019-01-08 00:00")),
-                new Bmi(new Height("200.0"), new Weight("80.0"), new DateTime("2019-01-01 00:00")),
-                new Bmi(new Height("200.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
+                new Bmi(new Height("2.0"), new Weight("80.0"), new DateTime("2019-01-01 00:00")),
+                new Bmi(new Height("2.0"), new Weight("64.0"), new DateTime("2019-01-08 00:00"))
         ));
 
         private final FilteredList<Record> filteredRecordList = new FilteredList<>(recordList);
