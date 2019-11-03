@@ -562,7 +562,7 @@ This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving 
 * `*annotate-delete* 2 p/s1` +
 This deletes the general note from phantom paragraph `S1` in the offline copy of bookmark 2.
 
-* `*annotate-delete* 1` +
+* `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
 
 [[annotate-edit]]
