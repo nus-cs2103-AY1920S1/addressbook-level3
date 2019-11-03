@@ -9,9 +9,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import seedu.address.ui.StatusBarFooter;
 import seedu.flashcard.commons.core.GuiSettings;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.logic.Logic;
@@ -56,6 +59,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statisticsDisplayPlaceholder;
 
+    @FXML
+    private StackPane statusbarPlaceholder;
+
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -66,7 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
+
 
         helpWindow = new HelpWindow();
         statsDisplay = new StatsDisplay(logic.getStatistics());
@@ -125,6 +132,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        seedu.address.ui.StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFlashcardListFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     /**
