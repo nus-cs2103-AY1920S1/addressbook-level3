@@ -9,9 +9,7 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.schedule.Event;
 
 /**
@@ -23,21 +21,16 @@ public class DeleteEventCommandSuggester extends Suggester {
             CliSyntax.PREFIX_EVENTNAME
     );
 
-    protected static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
-        final Optional<String> personNameInput = arguments.getFirstValueOfPrefix(CliSyntax.PREFIX_NAME);
-        if (personNameInput.isEmpty()) {
-            return Optional.empty();
+    static Optional<Person> getSelectedPerson(final Model model, final ArgumentList arguments) {
+        final Optional<CommandArgument> commandArgument = arguments.getFirstOfPrefix(CliSyntax.PREFIX_NAME);
+        if (commandArgument.isEmpty()) {
+            // user did not type a "n/" prefix, so it's implied the current User object is intended
+            return Optional.of(model.getUser());
         }
 
-        final Name personName = new Name(personNameInput.get());
-        Person person = null;
-        try {
-            person = model.findPerson(personName);
-        } catch (PersonNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return Optional.ofNullable(person);
+        return commandArgument.flatMap(arg -> {
+            return Suggester.getSelectedPerson(model, arg);
+        });
     }
 
     @Override
@@ -49,18 +42,21 @@ public class DeleteEventCommandSuggester extends Suggester {
         if (prefix.equals(CliSyntax.PREFIX_NAME)) {
             return model.personSuggester(value);
         } else if (prefix.equals(CliSyntax.PREFIX_EVENTNAME)) {
-            final Optional<Person> optionalSelectedPerson = getSelectedPerson(model, arguments);
-            if (optionalSelectedPerson.isEmpty()) {
+            final Optional<Person> person = getSelectedPerson(model, arguments);
+            if (person.isEmpty()) {
                 return null;
             }
 
-            final Person person = optionalSelectedPerson.get();
+            final String searchTerm = commandArgument.getValue();
 
-            return person
+            return person.get()
                     .getSchedule()
                     .getEvents()
                     .stream()
                     .map(Event::getEventName)
+                    .filter(eventName -> {
+                        return eventName.startsWith(searchTerm);
+                    })
                     .collect(Collectors.toUnmodifiableList());
         }
 

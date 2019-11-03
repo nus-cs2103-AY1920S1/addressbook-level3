@@ -18,6 +18,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
@@ -38,6 +39,7 @@ import seedu.address.testutil.personutil.TypicalPersonDescriptor;
  * Abstract class used to test classes that extend from the {@link Suggester} class.
  */
 abstract class SuggesterImplTester {
+    protected static final String EMPTY_STRING = "";
     protected static final List<String> NO_SUGGESTIONS = List.of();
     protected static final Prefix UNRELATED_PREFIX = new Prefix("test/");
     protected static final CommandArgument UNRELATED_COMMAND_ARGUMENT = new CommandArgument(
@@ -83,7 +85,12 @@ abstract class SuggesterImplTester {
     }
 
     void assertNoSuggestions(final ArgumentList arguments, final CommandArgument commandArgument) {
-        assertEquals(NO_SUGGESTIONS, getSuggestions(arguments, commandArgument));
+        assertSuggestionsEquals(arguments, commandArgument, NO_SUGGESTIONS);
+    }
+
+    void assertSuggestionsEquals(final ArgumentList arguments, final CommandArgument commandArgument,
+                                 final List<String> expectedSuggestions) {
+        assertEquals(expectedSuggestions, getSuggestions(arguments, commandArgument));
     }
 
     /**
@@ -122,7 +129,7 @@ abstract class SuggesterImplTester {
 
     @Test
     final void getSuggestions_unrelatedPrefix_noSuggestions() {
-        assertEquals(List.of(), getSuggestions(UNRELATED_ARGUMENT_LIST, UNRELATED_COMMAND_ARGUMENT));
+        assertNoSuggestions(UNRELATED_ARGUMENT_LIST, UNRELATED_COMMAND_ARGUMENT);
     }
 
     @Test
@@ -130,7 +137,7 @@ abstract class SuggesterImplTester {
         Assumptions.assumeTrue(autoTestPrefixes.contains(CliSyntax.PREFIX_NAME));
         final int inconsequentialValue = 0;
         final String presentPersonName = TypicalPersonDescriptor.ALICE.getName().toString();
-        final String searchKeyword = presentPersonName.replaceAll(" .*$", "");
+        final String searchKeyword = StringUtil.substringBefore(presentPersonName, " ");
         assert !searchKeyword.equals(presentPersonName);
 
         final ArgumentList argumentList = singularArgumentListOfCommandArgument(
