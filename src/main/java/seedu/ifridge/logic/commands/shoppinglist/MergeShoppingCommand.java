@@ -38,7 +38,7 @@ public class MergeShoppingCommand extends Command {
     private GroceryItem createUpdatedGroceryItem(GroceryItem boughtItem, GroceryItem groceryItem) {
         Name name = boughtItem.getName();
         ExpiryDate expiryDate = boughtItem.getExpiryDate();
-        Amount updatedAmount = boughtItem.getAmount().increaseBy(groceryItem.getAmount());
+        Amount updatedAmount = groceryItem.getAmount().increaseBy(boughtItem.getAmount());
         Set<Tag> tags = groceryItem.getTags();
         return new GroceryItem(name, updatedAmount, expiryDate, tags);
     }
