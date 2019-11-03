@@ -162,21 +162,23 @@ public class ModelManager implements Model {
         requireNonNull(patientNric);
         return addressBook.getPatient(patientNric);
     }
-  
+
     @Override
     public Donor getDonor(Nric donorNric) throws PersonNotFoundException {
         requireNonNull(donorNric);
         return addressBook.getDonor(donorNric);
     }
 
-    //=========== Displayed Person List ======================================================================
-
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
 
+    //=========== Displayed Person List ======================================================================
+
+    @Override
     public ObservableList<Person> getDisplayedPersonList() {
         return displayedPersons;
     }
@@ -184,7 +186,6 @@ public class ModelManager implements Model {
     @Override
     public void setDisplayedPersonList(List<Person> personList) {
         displayedPersons = FXCollections.observableList(personList);
-
     }
 
     //=========== Filtered Person List Accessors =============================================================
