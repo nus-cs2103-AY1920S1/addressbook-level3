@@ -328,7 +328,7 @@ Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResu
 
 The followingg sequence diagram shows how ApproveCommand works:
 
-image::ApproveCommandSequenceDiagram.png[]
+image::ResolveCommandSequenceDiagram.png[]
 
 
 Below shows how the ResolveCommand mechanism behaves at each step when resolving multiple appeals.
@@ -375,7 +375,7 @@ Step 5.  After resolving all the appeal IDs in the valid Appeal list, `MassAppro
  and a list of appeal IDs with time table clash detected.
 
 
-image::MassApproveSequenceDiagram.png[]
+image::MassResolveSequenceDiagram.png[]
 
 ===== Aspect: How to deal with different user inputs for different checking
 
