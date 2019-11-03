@@ -15,8 +15,6 @@ public class Page {
     private final Title title;
     private final PageDescription description;
     private final PageType pageType;
-
-    // Optional fields
     private final Image image;
 
     /**

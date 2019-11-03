@@ -15,10 +15,14 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_GENDER;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_HEIGHT;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_DESCRIPTION;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TYPE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY1;
@@ -130,10 +134,21 @@ public class CommandTestUtil {
     public static final Integer VALID_REPS_SIXTY = 60;
     public static final Integer VALID_SETS_FIVE = 5;
 
+    // Valid Inputs for Pages
+    public static final String VALID_DIARY_NAME = "Alice Pauline";
+    public static final String VALID_SUSHI_TITLE = "Sushi";
+    public static final String VALID_SUSHI_DESCRIPTION = "This is a valid description";
+    public static final String VALID_SUSHI_TYPE = "food";
+    public static final String VALID_SUSHI_IMAGE = "/images/sushi.jpg";
+
+    public static final String VALID_PHO_TITLE = "PHO";
+    public static final String VALID_PHO_DESCRIPTION = "This is another valid description";
+    public static final String VALID_PHO_TYPE = "food";
+    public static final String VALID_PHO_IMAGE = "/images/pho.jpg";
+
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String NAME_DESC_AMY_DIARY = " " + PREFIX_DIARY_NAME + VALID_NAME_AMY_DIARY;
-    public static final String NAME_DESC_BOB_DIARY = " " + PREFIX_DIARY_NAME + VALID_NAME_BOB_DIARY;
     public static final String BLOODTYPE_DESC = " " + PREFIX_BLOODTYPE + VALID_BLOODTYPE;
     public static final String GENDER_DESC = " " + PREFIX_GENDER + VALID_GENDER;
     public static final String DOB_DESC = " " + PREFIX_DOB + VALID_DOB;
@@ -209,6 +224,29 @@ public class CommandTestUtil {
     public static final String INVALID_FATS_DESC = " " + PREFIX_FATS + "1a"; // 'a' not allowed in fats
     public static final String INVALID_PROTEIN_DESC = " " + PREFIX_PROTEIN + "1a"; // 'a' not allowed in protein
     public static final String INVALID_TAG_DESC = " " + PREFIX_MEDICALHISTORY + "hubby*"; // '*' not allowed in tags
+
+    // Valid Inputs for Pages, with Prefix
+    public static final String DIARY_NAME_INPUT = " " + PREFIX_DIARY_NAME + VALID_DIARY_NAME;
+    public static final String TITLE_PHO = " " + PREFIX_PAGE_TITLE + VALID_PHO_TITLE;
+    public static final String TITLE_SUSHI = " " + PREFIX_PAGE_TITLE + VALID_SUSHI_TITLE;
+
+    public static final String PAGE_TYPE_PHO = " " + PREFIX_PAGE_TYPE + VALID_PHO_TYPE;
+    public static final String PAGE_TYPE_SUSHI = " " + PREFIX_PAGE_TYPE + VALID_SUSHI_TYPE;
+
+    public static final String PAGE_DESCRIPTION_PHO = " " + PREFIX_PAGE_DESCRIPTION + VALID_PHO_DESCRIPTION;
+    public static final String PAGE_DESCRIPTION_SUSHI = " " + PREFIX_PAGE_DESCRIPTION + VALID_SUSHI_DESCRIPTION;
+
+    public static final String PAGE_IMAGE_PHO = " " + PREFIX_IMAGE + VALID_PHO_IMAGE;
+    public static final String PAGE_IMAGE_SUSHI = " " + PREFIX_IMAGE + VALID_SUSHI_IMAGE;
+
+    // Invalid Inputs for Pages, with Prefix
+    public static final String INVALID_DIARY_NAME = " " + PREFIX_DIARY_NAME + "@Hello"; // '@' not allowed in names
+    public static final String INVALID_PAGE_TITLE = " " + PREFIX_PAGE_TITLE + "&Hello"; // '&' not allowed in names
+    public static final String INVALID_PAGE_TYPE = " " + PREFIX_PAGE_TYPE
+            + "whatever"; // only health, exercise, food allowed
+    public static final String INVALID_PAGE_DESCRIPTION = " " + PREFIX_PAGE_DESCRIPTION + ""; // should not be empty
+    public static final String INVALID_PAGE_IMAGE = " " + PREFIX_IMAGE + "blahblah.txt";
+
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
