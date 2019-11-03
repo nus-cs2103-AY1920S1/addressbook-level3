@@ -13,7 +13,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSu
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_INSTALLMENT;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -45,8 +44,8 @@ public class EditInstallmentCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         model.addInstallment(new InstallmentBuilder().build());
         model.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         model.addInstallment(new InstallmentBuilder().build());
@@ -79,7 +78,7 @@ public class EditInstallmentCommandTest {
         String expectedMessage = String.format(EditInstallmentCommand.MESSAGE_EDIT_INSTALLMENT_SUCCESS,
                 editedInstallment);
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
@@ -113,7 +112,7 @@ public class EditInstallmentCommandTest {
                 editedInstallment);
 
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
         expectedModel.addInstallment(new InstallmentBuilder().build());
@@ -133,7 +132,7 @@ public class EditInstallmentCommandTest {
                 editedInstallment);
 
         Model expectedModel = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
 
         expectedModel.addInstallment(new InstallmentBuilder().build());
         expectedModel.addInstallment(new InstallmentBuilder().withDescription("Headphones").build());
@@ -192,7 +191,7 @@ public class EditInstallmentCommandTest {
         String expectedMessage = String.format(EditInstallmentCommand.MESSAGE_EDIT_INSTALLMENT_SUCCESS,
                 editedInstallment);
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getFinanceTracker(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
         expectedModel.setInstallment(originalInstallment, editedInstallment);
 

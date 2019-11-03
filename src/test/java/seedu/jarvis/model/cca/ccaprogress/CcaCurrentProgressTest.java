@@ -6,7 +6,7 @@ import static seedu.jarvis.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAtMinException;
 
 public class CcaCurrentProgressTest {
 
@@ -25,7 +25,6 @@ public class CcaCurrentProgressTest {
 
     @Test
     public void setCcaCurrentProgress_invalidInput_setCorrectly() {
-        assertThrows(IllegalArgumentException.class, () -> ccaCurrentProgress.setCurrentProgress(0));
         assertThrows(IllegalArgumentException.class, () -> ccaCurrentProgress.setCurrentProgress(-1));
     }
 
@@ -45,7 +44,7 @@ public class CcaCurrentProgressTest {
 
     @Test
     public void decreaseCurrentProgress_invalidInput_throwsCcaProgressAtZeroException() {
-        ccaCurrentProgress.setCurrentProgress(1);
-        assertThrows(CcaProgressAtZeroException.class, () -> ccaCurrentProgress.decreaseProgress());
+        ccaCurrentProgress.setCurrentProgress(0);
+        assertThrows(CcaProgressAtMinException.class, () -> ccaCurrentProgress.decreaseProgress());
     }
 }

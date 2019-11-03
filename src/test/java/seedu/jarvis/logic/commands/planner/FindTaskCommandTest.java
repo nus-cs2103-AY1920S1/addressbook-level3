@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -50,10 +49,9 @@ class FindTaskCommandTest {
     @Test
     void execute_zeroKeywords_noTaskFound() {
         Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
 
         String expected = String.format(FindTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         TaskDesContainsKeywordsPredicate predicate = preparePredicate(" ");
@@ -66,10 +64,9 @@ class FindTaskCommandTest {
     @Test
     void execute_multipleKeywords_multiplePersonsFound() {
         Model model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                getTypicalAddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+                new UserPrefs(), new Planner(), new CoursePlanner());
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
 
         String expectedMessage = String.format(FindTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskDesContainsKeywordsPredicate predicate = preparePredicate("book");
