@@ -460,11 +460,19 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Calculates remaining available amount by user.
+     * Calculates the remaining amount that is available by user.
      */
     @Override
     public double calculateRemainingAmount() {
         return financeTracker.calculateRemainingAmount();
+    }
+
+    /**
+     * Calculates the remaining amount that is available by user to be rendered onto Ui.
+     */
+    @Override
+    public String getRemainingAmount() {
+        return df2.format(calculateRemainingAmount());
     }
 
     @Override

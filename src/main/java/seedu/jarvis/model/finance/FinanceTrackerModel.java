@@ -185,5 +185,8 @@ public interface FinanceTrackerModel {
      */
     double calculateRemainingAmount();
 
-
+    /**
+     * Calculates the remaining amount that is available by user to be rendered onto Ui.
+     */
+    String getRemainingAmount();
 }

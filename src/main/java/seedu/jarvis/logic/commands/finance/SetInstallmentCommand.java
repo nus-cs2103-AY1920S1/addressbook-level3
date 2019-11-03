@@ -107,10 +107,11 @@ public class SetInstallmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_INSTALLMENT);
         }
 
+        boolean doesSimilarInstallmentExist = model.hasSimilarInstallment(toAdd);
         model.addInstallment(toAdd);
         model.setViewStatus(ViewType.LIST_FINANCE);
 
-        if (model.hasSimilarInstallment(toAdd)) {
+        if (doesSimilarInstallmentExist) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_WITH_WARNING, toAdd), true);
         }
 

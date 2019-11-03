@@ -27,7 +27,7 @@ public class SetMonthlyLimitCommand extends Command {
             + "the finance tracker. "
             + "Existing monthly limit will be overwritten by new input value.\n"
             + "Parameters: "
-            + "[" + PREFIX_MONEY + "AMOUNT]" + "\n"
+            + PREFIX_MONEY + "AMOUNT" + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MONEY + "500.0";
 
