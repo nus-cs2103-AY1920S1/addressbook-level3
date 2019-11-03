@@ -31,7 +31,7 @@ public class RegisterCommandTest {
 
         CommandResult commandResult = new RegisterCommand(validBorrower).execute(modelManager);
 
-        assertEquals(String.format(RegisterCommand.MESSAGE_SUCCESS, validBorrower.toFullString()),
+        assertEquals(String.format(RegisterCommand.MESSAGE_SUCCESS, validBorrower),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validBorrower), modelManager.getBorrowerRecords().getBorrowerList());
     }

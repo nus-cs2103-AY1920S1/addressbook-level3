@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ReturnCommand;
 import seedu.address.logic.commands.ServeCommand;
 import seedu.address.logic.commands.SetCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UnregisterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -84,6 +85,9 @@ public class CatalogParser {
 
         case RegisterCommand.COMMAND_WORD:
             return new RegisterCommandParser().parse(arguments);
+
+        case UnregisterCommand.COMMAND_WORD:
+            return new UnregisterCommandParser().parse(arguments);
 
         case ServeCommand.COMMAND_WORD:
             return new ServeCommandParser().parse(arguments);
