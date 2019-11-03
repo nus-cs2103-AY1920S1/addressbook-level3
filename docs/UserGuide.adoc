@@ -313,7 +313,7 @@ Displays the overview of the time spent and usage count of all decks of cards. A
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
 
-==== Exit FlashCard Pro: `exit`
+=== Exit FlashCard Pro: `exit`
 
 Exits the FlashCard Pro. +
 
