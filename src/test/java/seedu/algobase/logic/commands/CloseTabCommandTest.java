@@ -143,7 +143,7 @@ class CloseTabCommandTest {
     }
 
     /**
-     * A Model stub that has a problem list with sample data and a GuiState with 2 tabs in its tab manager.
+     * A Model stub that has a problem list with sample data and a GuiState with 5 tabs in its tab manager.
      */
     private class FiveTabsModelStub extends DefaultModelStub {
 
