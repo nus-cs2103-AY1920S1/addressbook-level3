@@ -18,7 +18,6 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
  */
 public class FinanceParserUtil {
 
-    public static final String MONEY_MESSAGE_CONSTRAINTS = "Money spent cannot be equal to or less than 0.";
     public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: dd/mm/yyyy.";
 
     /**
@@ -78,9 +77,6 @@ public class FinanceParserUtil {
     public static MonthlyLimit parseMonthlyLimit(String limit) throws ParseException {
         requireNonNull(limit);
         String trimmedLimit = limit.trim();
-        if (Double.parseDouble(limit) < 0) {
-            throw new ParseException(MONEY_MESSAGE_CONSTRAINTS);
-        }
         return new MonthlyLimit(trimmedLimit);
     }
 

@@ -3,16 +3,16 @@ package seedu.jarvis.model.cca.ccaprogress;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
-import seedu.jarvis.model.cca.exceptions.CcaProgressAtZeroException;
+import seedu.jarvis.model.cca.exceptions.CcaProgressAtMinException;
 
 /**
  * A wrapper class containing the progress of the current cca.
  */
 public class CcaCurrentProgress {
 
-    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be smaller than 1.";
+    private static final String MESSAGE_CONSTRAINTS = "Current progress cannot be smaller than 0.";
 
-    private int currentProgress = 1;
+    private int currentProgress = 0;
 
     /**
      * Default constructor used.
@@ -42,7 +42,7 @@ public class CcaCurrentProgress {
      */
     public void decreaseProgress() {
         if (progressAtMin()) {
-            throw new CcaProgressAtZeroException();
+            throw new CcaProgressAtMinException();
         }
         currentProgress--;
     }
@@ -54,7 +54,7 @@ public class CcaCurrentProgress {
      * Returns true of the progress is at 1.
      */
     public boolean progressAtMin() {
-        return currentProgress == 1;
+        return currentProgress == 0;
     }
 
     /**
@@ -62,7 +62,7 @@ public class CcaCurrentProgress {
      */
     public boolean numberIsLargerThanZero(int num) {
         requireNonNull(num);
-        return num > 0;
+        return num >= 0;
     }
 
     @Override

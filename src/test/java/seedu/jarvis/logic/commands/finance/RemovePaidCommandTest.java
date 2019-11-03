@@ -5,7 +5,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSu
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.model.finance.FinanceTrackerModel.PREDICATE_SHOW_ALL_PURCHASES;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PURCHASE;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
 
@@ -34,10 +33,8 @@ public class RemovePaidCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         model.addPurchase(new PurchaseStub());
     }
 
@@ -59,8 +56,7 @@ public class RemovePaidCommandTest {
                 purchaseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.deletePurchase(INDEX_FIRST_PURCHASE.getOneBased());
 
         assertCommandSuccess(removePaidCommand, model, expectedMessage, expectedModel);
@@ -79,7 +75,7 @@ public class RemovePaidCommandTest {
      * execution, that the deleted purchase was added back to the finance tracker.
      */
     @Test
-    public void executeInverse_success() {
+    public void executeInverse_success() throws Exception {
         Purchase purchaseToDelete = model
                 .getFilteredPurchaseList()
                 .get(INDEX_FIRST_PURCHASE.getZeroBased());
@@ -88,8 +84,7 @@ public class RemovePaidCommandTest {
         String expectedMessage = String.format(RemovePaidCommand.MESSAGE_DELETE_PURCHASE_SUCCESS,
                 purchaseToDelete);
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.deletePurchase(purchaseToDelete);
         assertCommandSuccess(removePaidCommand, model, expectedMessage, expectedModel);
 
@@ -99,6 +94,7 @@ public class RemovePaidCommandTest {
 
         expectedModel.addPurchase(INDEX_FIRST_PURCHASE.getZeroBased(), purchaseToDelete);
         expectedModel.updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);
+
         assertCommandInverseSuccess(removePaidCommand, model, inverseExpectedMessage, expectedModel);
     }
 
