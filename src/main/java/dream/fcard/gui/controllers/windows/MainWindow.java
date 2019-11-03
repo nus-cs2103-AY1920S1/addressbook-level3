@@ -10,12 +10,13 @@ import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
 import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
+
 import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -242,12 +243,12 @@ public class MainWindow extends VBox {
      * Quits from the entire program. Saves the decks to a file first.
      */
     public void quit() {
-        // end the current session
-        UserStats.endCurrentSession();
+        // end the current session todo: figure out how to pass UserStats
+        // UserStats.endCurrentSession();
 
         // save all files only on exit
         StorageManager.saveAll(State.getState().getDecks());
-        StatsStorageManager.saveLoginSessions();
+        StorageManager.saveStats();
         System.exit(0);
     }
 
@@ -278,7 +279,7 @@ public class MainWindow extends VBox {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new StatisticsWindow());
+        Scene scene = new Scene(new StatisticsWindow(new UserStats())); // todo: get UserStats
         stage.setScene(scene);
         stage.setTitle("My Statistics");
         stage.show();

@@ -8,6 +8,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public abstract class Stats {
+    /**
+     * Represents the user's statistics.
+     */
 
     /** List of Sessions the user has engaged in. */
     SessionList sessionList;

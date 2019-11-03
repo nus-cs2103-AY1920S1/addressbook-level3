@@ -140,6 +140,7 @@ Format: `create'
         Where correctIndex indicates which choice is correct.
 
         For JavaScript Cards:
+        Format: 'front/FRONT_OF_CARD testCase/assert(TESTCASE) [testCase/assert(TESTCASE) ...]'
 
 === Start test with flashcards : `test`
 

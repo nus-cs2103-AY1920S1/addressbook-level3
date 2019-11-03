@@ -3,8 +3,8 @@ package dream.fcard;
 import java.io.IOException;
 
 import dream.fcard.core.Main;
+
 import dream.fcard.logic.stats.UserStats;
-import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.State;
 import javafx.application.Application;
@@ -23,9 +23,9 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
             // load login sessions from file
-            StatsStorageManager.loadLoginSessions();
+            UserStats userStats = new UserStats(); // todo: link up UserStats
+            StorageManager.loadStats();
 
-            StorageManager.provideRoot("./");
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Windows/MainWindow.fxml"));
             VBox vbox = fxmlLoader.load();
             Scene scene = new Scene(vbox);
@@ -35,12 +35,12 @@ public class MainApp extends Application {
             stage.show();
             // when the 'X' button is clicked.
             stage.setOnCloseRequest(e -> {
-                UserStats.endCurrentSession();
+                userStats.endCurrentSession();
                 StorageManager.saveAll(State.getState().getDecks());
-                StatsStorageManager.saveLoginSessions();
+                StorageManager.saveStats();
             });
             // start a session
-            UserStats.startCurrentSession();
+            userStats.startCurrentSession();
         } catch (IOException e) {
             // TODO: Our yet-to-be-reinstated-logger will replace this rudimentary error printing
             System.err.println("Failed to load app");
