@@ -27,20 +27,6 @@ public class QuizDeleteQuestionCommandTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
-        QuizDeleteQuestionCommand deleteCommand = new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
-                QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
-
-        String expectedMessage = "Removed question: " + QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX
-                + " from quiz: " + QuizBuilder.DEFAULT_QUIZ_ID;
-
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.setSavedQuizzes(getTypicalSavedQuizzes());
-
-        assertCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage), expectedModel);
-    }
-
-    @Test
     public void equals() {
         QuizDeleteQuestionCommand deleteFirstCommand =
                 new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
