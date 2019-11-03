@@ -18,7 +18,7 @@ public abstract class SetCommand extends Command {
      * @return true if it is out of range, false if not.
      */
     protected boolean outOfRange(double amount) {
-        if ((amount < -10000000) || (amount > 10000000)) {
+        if (amount > 10000000) {
             return true;
         } else {
             return false;
