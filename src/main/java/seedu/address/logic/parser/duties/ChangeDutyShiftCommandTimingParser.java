@@ -3,6 +3,9 @@ package seedu.address.logic.parser.duties;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_STAFFLIST;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
@@ -10,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
@@ -49,10 +51,12 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_START, PREFIX_END);
 
         if (!model.isListingAppointmentsOfSingleStaff()) {
-            throw new ParseException(Messages.MESSAGE_NOT_STAFFLIST);
+            throw new ParseException(String.format(MESSAGE_NOT_STAFFLIST,
+                    ChangeDutyShiftCommand.COMMAND_WORD));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START, PREFIX_END)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeDutyShiftCommand.MESSAGE_USAGE));
         }
@@ -62,7 +66,7 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
             int idx = index.getZeroBased();
 
             if (idx >= lastShownList.size()) {
-                throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
+                throw new ParseException(MESSAGE_INVALID_INDEX);
             }
             String startString = argMultimap.getValue(PREFIX_START).get();
             Timing timing;

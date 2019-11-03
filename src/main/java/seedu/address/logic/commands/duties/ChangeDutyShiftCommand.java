@@ -26,9 +26,10 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_ENTRY + "INDEX (must be a positive integer) "
             + PREFIX_START + "PREFIX_START "
             + PREFIX_END + "PREFIX_END\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_START + "01/11/19 1800 "
-            + PREFIX_END + "01/11/19 1900";
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_ENTRY + "1 "
+            + PREFIX_START + "02/12/19 0900 "
+            + PREFIX_END + "02/12/19 2100";
 
     public static final String MESSAGE_SUCCESS = "Duty shift changed to %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the duty roster";
