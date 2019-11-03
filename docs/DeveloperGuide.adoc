@@ -314,6 +314,7 @@ To increase the usability of food recommendations, it is suggested to have more 
 The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
 // end::recmf[]
 
+//tag::datalogDG[]
 === [Proposed] Data log feature
 ==== Proposed Implementation
 The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
@@ -355,7 +356,7 @@ Step 5. After command has executed in `LogicManager`, we attempt to write the re
 * **Alternative 2:** Use separate lists to store different record types.
 ** Pros: Do not need to perform type checks when retrieving from list. 
 ** Cons: Listing all records together becomes difficult, must build a new list from all separate lists. Each class must reference a different kind of list.
-
+//end::datalogDG[]
 
 === Logging
 
@@ -773,6 +774,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::productScope[]
 [appendix]
 == Product Scope
 
@@ -794,6 +796,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: convenient all-in-one app for effectively managing diabetes that is faster than a typical mouse/GUI driven app
+//end::productScope[]
 
 [appendix]
 == User Stories
@@ -888,7 +891,7 @@ that is always easily accessible |instantly calculate all my medical costs when 
 
 |`*` |medical consultant |export my patient's health data  |save my time
 |=======================================================================
-
+//tag::useCases[]
 [appendix]
 == Use Cases
 
@@ -1017,7 +1020,9 @@ Use case resumes at step 2.
 ** 3b1. System shows an error message.
 +
 Use case resumes at step 2.
+//end::useCases[]
 
+//tag::nfr[]
 [appendix]
 == Non Functional Requirements
 
@@ -1029,6 +1034,7 @@ Use case resumes at step 2.
 .  The software should not depend on your own remote server
 
 [appendix]
+//end::nfr[]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
