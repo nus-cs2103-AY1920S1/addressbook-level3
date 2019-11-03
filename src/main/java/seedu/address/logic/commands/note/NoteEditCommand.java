@@ -103,8 +103,7 @@ public class NoteEditCommand extends NoteCommand {
 
         // state check
         NoteEditCommand e = (NoteEditCommand) other;
-        return index.equals(e.index)
-                && editNoteDescriptor.equals(e.editNoteDescriptor);
+        return index.equals(e.index) && editNoteDescriptor.equals(e.editNoteDescriptor);
     }
 
     /**
@@ -179,7 +178,7 @@ public class NoteEditCommand extends NoteCommand {
 
             return getNote().equals(e.getNote())
                     && getDescription().equals(e.getDescription())
-                    && getPriority().equals(e.getDescription());
+                    && getPriority().equals(e.getPriority());
         }
     }
 }

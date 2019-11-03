@@ -1,11 +1,11 @@
 package seedu.address.logic.parser.statistics;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.statistics.StatisticsAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -39,24 +39,25 @@ public class StatisticsCommandParserTest {
     @Test
     public void parseCommand_invalidSyntax_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE), () ->
                 parser.parse(INVALID_COMMAND));
     }
 
     @Test
     public void parseCommand_addInvalidFilePath_throwsException() {
-        assertThrows(ParseException.class, EXCEL_FILE_TYPE_ISSUE, () -> parser.parse(INVALID_FILE_PATH_COMMAND));
+        assertThrows(ParseException.class, Messages.EXCEL_FILE_TYPE_ISSUE, () ->
+            parser.parse(INVALID_FILE_PATH_COMMAND));
     }
 
     @Test
     public void parseCommand_addInvalidFileName_throwsException() {
-        assertThrows(ParseException.class, MESSAGE_SAVE_STATS_FILE_ERROR, () ->
+        assertThrows(ParseException.class, Messages.MESSAGE_SAVE_STATS_FILE_ERROR, () ->
             parser.parse(INVALID_FILE_NAME_COMMAND));
     }
 
     @Test
     public void parseCommand_addEmptyFileName_throwsException() {
-        assertThrows(ParseException.class, MESSAGE_SAVE_STATS_FILE_ERROR, () ->
+        assertThrows(ParseException.class, Messages.MESSAGE_SAVE_STATS_FILE_ERROR, () ->
             parser.parse(EMPTY_FILE_NAME_COMMAND));
     }
 

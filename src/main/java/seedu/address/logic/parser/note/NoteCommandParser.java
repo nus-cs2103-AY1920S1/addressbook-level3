@@ -63,16 +63,14 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), pe);
         }
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
         Optional<String> note = argMultimap.getValue(CliSyntax.PREFIX_NOTE);
         Optional<String> desc = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION);
         if ((note.isPresent() && note.get().isEmpty())
                 || (desc.isPresent() && desc.get().isEmpty())) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE));
         }
         editNoteDescriptor.setNote(note);
         editNoteDescriptor.setDescription(desc);
