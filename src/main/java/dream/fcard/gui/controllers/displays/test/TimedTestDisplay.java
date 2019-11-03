@@ -14,7 +14,6 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
-import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;

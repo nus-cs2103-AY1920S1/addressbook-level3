@@ -92,7 +92,6 @@ public class DeckDisplay extends AnchorPane {
             TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
         }
-        
     }
 
     /**

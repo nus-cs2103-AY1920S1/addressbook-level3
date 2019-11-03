@@ -189,7 +189,7 @@ public class TestDisplay extends AnchorPane {
             } catch (NullPointerException e2) {
                 Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE,
                         "Exam has already ended! Either review your previous questions or exit :)");
-            }                     
+            }
         }
     }
     //sample renderer for Shawn
