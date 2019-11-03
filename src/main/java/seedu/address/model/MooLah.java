@@ -208,6 +208,14 @@ public class MooLah implements ReadOnlyMooLah {
         return budgets.getPrimaryBudget();
     }
 
+    public String getPrimaryBudgetName() {
+        return getPrimaryBudget().getDescription().fullDescription;
+    }
+
+    public void setPrimaryBudget(String name) {
+        budgets.setPrimaryBudget(name);
+    }
+
     /**
      * Switches the primary budget to the budget with the specified name.
      *

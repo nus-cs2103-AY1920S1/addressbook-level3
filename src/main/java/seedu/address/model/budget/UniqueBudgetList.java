@@ -106,6 +106,15 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
     }
 
+    public void setPrimaryBudget(String s) {
+        Description name = new Description(s);
+        if (!hasBudgetWithName(name)) {
+            throw new BudgetNotFoundException();
+        }
+
+        setPrimary(getBudgetWithName(name));
+    }
+
     public Budget getPrimaryBudget() {
         Budget primaryBudget = null;
         for (int i = 0; i < internalList.size(); i++) {

@@ -35,7 +35,6 @@ class JsonAdaptedBudget {
     private final String startDate;
     private final String endDate;
     private final String period;
-    private final boolean isPrimary;
     private List<String> expenseIds = new ArrayList<>();
 
     /**
@@ -47,8 +46,7 @@ class JsonAdaptedBudget {
                              @JsonProperty("startDate") String startDate,
                              @JsonProperty("endDate") String endDate,
                              @JsonProperty("period") String period,
-                             @JsonProperty("expenses") List<String> expenseIds,
-                             @JsonProperty("isPrimary") boolean isPrimary) {
+                             @JsonProperty("expenses") List<String> expenseIds) {
         this.description = description;
         this.amount = amount;
         this.startDate = startDate;
@@ -57,7 +55,6 @@ class JsonAdaptedBudget {
         if (expenseIds != null) {
             this.expenseIds.addAll(expenseIds);
         }
-        this.isPrimary = isPrimary;
     }
 
     /**
@@ -73,7 +70,6 @@ class JsonAdaptedBudget {
         expenseIds.addAll(source.getExpenses().stream()
                 .map(e -> e.getUniqueIdentifier().value)
                 .collect(Collectors.toList()));
-        isPrimary = source.isPrimary();
     }
 
     /**
@@ -143,20 +139,8 @@ class JsonAdaptedBudget {
         }
         final BudgetPeriod modelPeriod = ParserUtil.parsePeriod(period);
 
-        /*
-        if (proportionUsed == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Percentage.class.getSimpleName()));
-        }
-        int proportionValue = ParserUtil.parsePercentage(proportionUsed);
-        if (!Percentage.isValidPercentage(proportionValue)) {
-            throw new IllegalValueException(Percentage.MESSAGE_CONSTRAINTS);
-        }
-        final Percentage modelProportionUsed = ParserUtil.parsePercentage(proportionUsed);
-        */
-
         Budget budget = new Budget(modelDescription, modelAmount, modelStartDate,
-                modelPeriod, expenseList, isPrimary);
+                modelPeriod, expenseList, false);
 
         return budget;
     }

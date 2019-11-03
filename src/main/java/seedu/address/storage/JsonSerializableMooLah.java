@@ -33,16 +33,21 @@ class JsonSerializableMooLah {
 
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
+    private final String primaryBudgetName;
+
+
     /**
      * Constructs a {@code JsonSerializableMooLah} with the given expenses.
      */
     @JsonCreator
     public JsonSerializableMooLah(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
                                   @JsonProperty("events") List<JsonAdaptedEvent> events,
-                                  @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
+                                  @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
+                                  @JsonProperty("primaryBudget") String primaryBudgetName) {
         this.expenses.addAll(expenses);
         this.events.addAll(events);
         this.budgets.addAll(budgets);
+        this.primaryBudgetName = primaryBudgetName;
     }
 
     /**
@@ -54,6 +59,7 @@ class JsonSerializableMooLah {
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         events.addAll(source.getEventList().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
         budgets.addAll(source.getBudgetList().stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
+        primaryBudgetName = source.getPrimaryBudgetName();
     }
 
     /**
@@ -86,6 +92,9 @@ class JsonSerializableMooLah {
             }
             mooLah.addEvent(event);
         }
+
+        mooLah.setPrimaryBudget(primaryBudgetName);
+
         return mooLah;
     }
 
