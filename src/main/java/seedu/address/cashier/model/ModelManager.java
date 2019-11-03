@@ -390,7 +390,7 @@ public class ModelManager implements Model {
             if (description.length() >= 3
                     && ((itemDescription.contains(description))
                     || description.contains(itemDescription))) {
-                recommendedItems.add(item.getDescription());  // return exact description
+                recommendedItems.add(item.getDescription()); // return exact description
                 continue;
             }
 
