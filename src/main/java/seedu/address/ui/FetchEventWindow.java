@@ -82,36 +82,30 @@ public class FetchEventWindow extends UiPart<Stage> {
         }
         updateCards();
 
-        EventHandler<MouseEvent> handleAllocate = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                try {
-                    logic.execute(AutoAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex);
-                    updateCards();
-                } catch (CommandException | ParseException ex) {
-                    if (errorWindow != null) {
-                        errorWindow.hide();
-                    }
-                    errorWindow = new ErrorWindow(ex.getMessage());
-                    errorWindow.show();
+        EventHandler<MouseEvent> handleAllocate = e -> {
+            try {
+                logic.execute(AutoAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex);
+                updateCards();
+            } catch (CommandException | ParseException ex) {
+                if (errorWindow != null) {
+                    errorWindow.hide();
                 }
+                errorWindow = new ErrorWindow(ex.getMessage());
+                errorWindow.show();
             }
         };
 
-        EventHandler<MouseEvent> handleFree = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                int oneBasedIndex = index + 1;
-                try {
-                    logic.execute(DeallocateCommand.COMMAND_WORD + " " + oneBasedIndex);
-                    updateCards();
-                } catch (CommandException | ParseException ex) {
-                    if (errorWindow != null) {
-                        errorWindow.hide();
-                    }
-                    errorWindow = new ErrorWindow(ex.getMessage());
-                    errorWindow.show();
+        EventHandler<MouseEvent> handleFree = e -> {
+            int oneBasedIndex = index + 1;
+            try {
+                logic.execute(DeallocateCommand.COMMAND_WORD + " " + oneBasedIndex);
+                updateCards();
+            } catch (CommandException | ParseException ex) {
+                if (errorWindow != null) {
+                    errorWindow.hide();
                 }
+                errorWindow = new ErrorWindow(ex.getMessage());
+                errorWindow.show();
             }
         };
         allocateButton.addEventFilter(MouseEvent.MOUSE_CLICKED, handleAllocate);
@@ -197,7 +191,7 @@ public class FetchEventWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
+                setGraphic(new FetchEventEmployeeCard(employee, getIndex() + 1, logic,
                         eventOneBasedIndex, fetchWindow, true).getRoot());
             }
         }
@@ -220,7 +214,7 @@ public class FetchEventWindow extends UiPart<Stage> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard(employee, getIndex() + 1, logic, event,
+                setGraphic(new FetchEventEmployeeCard(employee, getIndex() + 1, logic,
                         eventOneBasedIndex, fetchWindow, false).getRoot());
             }
         }

@@ -5,18 +5,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents the Event Starting Date.
+ * Represents the Employee Join Date.
  */
 public class EmployeeJoinDate {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final String MESSAGE_CONSTRAINTS =
+
             "Join Date should be an in the following format dd/mm/yyyy";
+
 
     public final LocalDate joinDate;
 
     /**
-     * Constructs a {@code EventStartDate}.
+     * Constructs a {@code EmployeeJoinDate}.
      *
      * @param joinDate A valid start date.
      */

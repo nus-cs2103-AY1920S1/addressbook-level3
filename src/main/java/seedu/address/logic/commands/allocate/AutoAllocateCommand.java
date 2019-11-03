@@ -63,9 +63,7 @@ public class AutoAllocateCommand extends Command {
 
         assert (eventIndex.getOneBased() > 0);
 
-        if (manpowerCountToAdd != null) {
-            assert manpowerCountToAdd > 0;
-        }
+        assert manpowerCountToAdd == null || manpowerCountToAdd > 0;
 
         this.manpowerCountToAdd = manpowerCountToAdd;
         this.eventIndex = eventIndex;
@@ -81,12 +79,11 @@ public class AutoAllocateCommand extends Command {
     private List<Employee> createAvailableEmployeeListForEvent(Model model, Event eventToAllocate) {
         List<Employee> employeeList = model.getFullListEmployees();
         List<Event> eventList = model.getFullListEvents();
-        List<Employee> availableEmployeeList = employeeList.stream()
+
+        return employeeList.stream()
                 .filter(employee -> eventToAllocate.isAvailableForEvent(employee, eventList))
                 .filter(employee -> employee.getTags().containsAll(tagList))
                 .collect(Collectors.toList());
-
-        return availableEmployeeList;
     }
 
     /**
@@ -103,6 +100,8 @@ public class AutoAllocateCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Event> lastShownEventList;
+
+        //Checks the current tab index and retrieves the relevant list from model
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownEventList = model.getFilteredEventList();
         } else {

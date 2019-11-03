@@ -268,12 +268,13 @@ Returns the 2rd employee from the employee list.
 //tag::calvin[]
 === Event-Specific Management
 
+[NOTE]
+Some event-specific commands have GUI features enabled to improve user experience. However, such features are
+implemented as a *best-effort service* and should not be heavily relied on.
+
 ==== Fetch Full Details of an Event: `fetch_ev`
 
 Fetches an event by displaying a pop-up window with full details of the event.
-
-[%hardbreaks]
-For GUI features, kindly refer to <<GUI Guide for Event Fetch and Allocation Commands>>.
 
 Format: `fetch_ev EVENT_INDEX`
 
@@ -286,6 +287,18 @@ Examples:
 
 * `fetch_ev 2` +
 Returns the 2rd event from the event list.
+
+Alternatively, the `fetch_ev` command can be executed from the GUI in just 2 simple steps.
+
+*Step 1*. *double-click the event* in the list as shown in the figure below:
+
+._Instruction for user to execute fetch event command_
+image::beforefetch.png[width="600"]
+
+*Step 2*: After successfully fetching the event, the following *Fetch Event Window* should show:
+
+._Fetch Event Window_
+image::afterfetch.png[width="600"]
 
 ==== Automated allocation of Employees to Events: `allocate`
 
@@ -309,9 +322,15 @@ Random selection of employee to allocate if supply exceeds demand of event.
 Examples:
 
 * `allocate 1` +
-Allocates available employees to the 1st event.
+Allocates available employees to the 1st event shown in the event list.
 * `allocate 2 n/3 t/female` +
-Allocates 3 employees who are tagged as 'female' to the 2nd event.
+Allocates 3 employees who are tagged as 'female' to the 2nd event shown in the event list.
+
+Alternatively, the `allocate` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `allocate` command without number/filter specification, click the *allocate* button
+as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
 
 ==== Manually allocation of Employees to Events: `allocatem`
 
@@ -330,6 +349,17 @@ Examples:
 
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
+
+Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
+
+*Step 1*:
+double-click the employee card on the left list. Notice the employee to allocate
+
+._Instruction for user to execute `allocatem` command_
+image::afterfree.png[width="600"]
+
+._Result after `allocatem` command_
+image::afterallocatem.png[width="600"]
 
 ==== De-allocation of Employees from Event: `free`
 
@@ -350,6 +380,16 @@ Examples:
 Frees all employees allocated to the 1st event on the event list.
 * `free 1 id/001` +
 Frees an employee with id: "001" allocated to the 1st event on the event list.
+
+Alternatively, the `free` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `free` command without id specification, click the *free* button
+as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
+[NOTE]
+To *free* a particular employee to an event, double-click the employee card on the right list
+as shown in the 2nd figure in <<Manually allocation of Employees to Events: `allocatem`>>
+
 //end::calvin[]
 
 
@@ -405,7 +445,7 @@ Deletes the mapping on 18th October from the 2nd Event on the Event list.
 ==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
 
 Clears all date-time mappings for a specific event.
-As a side effect, all manpower allocated to the event will be deallocated.
+As a side effect, all manpower allocated to the event will be de-allocated.
 
 Format: `clear_ev_dt EVENT_INDEX `
 
@@ -420,45 +460,11 @@ Example:
 Clears all the date-time mapping from the 2nd Event on the Event list.
 //end::DeXun2[]
 
-//tag::calvin2[]
 
-==== GUI Guide for Event Fetch and Allocation Commands
 
-*For this guide, the relevant picture is shown after the instruction.*
 
-*Step 1*. For `fetch_ev`, simply *double-click the event* in the list as shown in the figure below:
 
-image::beforefetch.png[width="600"]
 
-*Step 2*: After successfully fetching the event, the following *Fetch Window* should show:
-
-image::afterfetch.png[width="600"]
-
-*Step 3*: To perform a `allocate` command without number/filter specification, click the *allocate* button
-as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
-
-image::afterallocate.png[width="600"]
-
-*Step 4*: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
-The two lists will be updated as shown in the following figure. Now, if you are interested to allocate a particular
-employee to an event, continue to step 5.
-
-image::afterfree.png[width="600"]
-
-*Step 5*: To *allocate* a particular employee to an event or perform an `allocatem` command, double-click the employee card on
-the left list. Notice the employee to allocate
-has moved to the list on the right as shown in the figure below:
-
-[NOTE]
-To *free* a particular employee to an event, double-click the employee card on the right
-as shown in the figure below:
-
-image::afterallocatem.png[width="600"]
-
-[NOTE]
-If the GUI features are not working as intended, kindly use the command line interface to execute the command instead.
-
-//end::calvin2[]
 
 === Finance Management
 

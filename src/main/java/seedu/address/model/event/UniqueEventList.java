@@ -23,7 +23,7 @@ public class UniqueEventList {
     }
 
     /**
-     * Returns true if the list contains an equivalent employee as the given argument.
+     * Returns true if the list contains an equivalent event as the given argument.
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
@@ -31,8 +31,8 @@ public class UniqueEventList {
     }
 
     /**
-     * Adds a employee to the list.
-     * The employee must not already exist in the list.
+     * Adds an event to the list.
+     * The event must not already exist in the list.
      */
     public void add(Event toAdd) {
         requireNonNull(toAdd);
@@ -43,9 +43,9 @@ public class UniqueEventList {
     }
 
     /**
-     * Replaces the employee {@code target} in the list with {@code editedPerson}.
+     * Replaces the event {@code target} in the list with {@code editedEvent}.
      * {@code target} must exist in the list.
-     * The employee identity of {@code editedPerson} must not be the same as another existing employee in the list.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the list.
      */
     public void setEvent(Event target, Event editedEvent) {
         requireAllNonNull(target, editedEvent);
@@ -63,10 +63,10 @@ public class UniqueEventList {
     }
 
     /**
-     * Removes the equivalent employee from the list.
-     * The employee must exist in the list.
+     * Removes the equivalent event from the list.
+     * The event must exist in the list.
      *
-     * @param toRemove
+     * @param toRemove the event to remove from list.
      */
     public void remove(Event toRemove) {
         requireNonNull(toRemove);
@@ -75,14 +75,14 @@ public class UniqueEventList {
         }
     }
 
-    public void setPersons(UniqueEventList replacement) {
+    public void setEvents(UniqueEventList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code events}.
+     * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         requireAllNonNull(events);
@@ -106,7 +106,7 @@ public class UniqueEventList {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique events.
+     * Returns true if {@code events} contains only unique events.
      */
     private boolean eventsAreUnique(List<Event> events) {
         for (int i = 0; i < events.size() - 1; i++) {

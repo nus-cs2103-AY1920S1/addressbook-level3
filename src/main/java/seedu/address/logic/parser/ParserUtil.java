@@ -146,13 +146,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code EmployeePhone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code EmployeeId} is invalid.
      */
-    public static EmployeeId parseEmployeeId() {
-        return new EmployeeId();
+    public static EmployeeId parseEmployeeId() throws ParseException {
+        EmployeeId employeeId = new EmployeeId();
+        if (Integer.parseInt(employeeId.id) >= 1000) {
+            throw new ParseException(EmployeeId.MESSAGE_CONSTRAINTS);
+        }
+        return employeeId;
     }
 
     /**

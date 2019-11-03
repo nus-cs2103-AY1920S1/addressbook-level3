@@ -30,7 +30,7 @@ public class EventBook implements ReadOnlyEventBook {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an EventBook using the Events in the {@code toBeCopied}
      */
     public EventBook(ReadOnlyEventBook toBeCopied) {
         this();
@@ -42,21 +42,21 @@ public class EventBook implements ReadOnlyEventBook {
 
     /**
      * Replaces the contents of the event list with {@code events}.
-     * {@code persons} must not contain duplicate events.
+     * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code EventBook} with {@code newData}.
      */
     public void resetData(ReadOnlyEventBook newData) {
         requireNonNull(newData);
         setEvents(newData.getEventList());
     }
 
-    //// employee-level operations
+    //// event-level operations
 
     /**
      * Returns true if a event with the same identity as {@code event} exists in the event book.
