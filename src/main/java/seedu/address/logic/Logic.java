@@ -1,8 +1,9 @@
 package seedu.address.logic;
 
 import seedu.address.achievements.logic.AchievementsLogic;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.address.logic.AddressBookLogic;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.storage.Storage;
 
 /**
@@ -16,6 +17,8 @@ public interface Logic {
     public AddressBookLogic getAddressBookLogic();
 
     public AchievementsLogic getAchievementsLogic();
+
+    public DiaryBookLogic getDiaryLogic();
 
     /**
      * Returns the user prefs' GUI settings.

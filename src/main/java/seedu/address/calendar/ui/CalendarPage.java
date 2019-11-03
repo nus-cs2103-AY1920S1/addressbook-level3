@@ -3,8 +3,9 @@ package seedu.address.calendar.ui;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.calendar.logic.CalendarLogic;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
@@ -18,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.address.logic.AddressBookLogic;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.ResultDisplay;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -36,6 +38,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
     private ResultDisplay resultDisplay;
     private CalendarLogic calendarLogic;
     private ReadOnlyDoubleProperty monthViewWidth;
+    private ListWindow listWindow;
 
     @FXML
     StackPane commandBoxPlaceholder;
@@ -69,6 +72,7 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthViewWidth = weekHeader.widthProperty();
 
         fillInnerParts();
+        listWindow = new ListWindow();
     }
 
     public Scene getScene() {
@@ -128,8 +132,17 @@ public class CalendarPage extends UiPart<Scene> implements Page {
         monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
     }
 
+    @FXML
     private void handleExit() {
         PageManager.closeWindows();
+    }
+
+    private void handleShowList(String feedback) {
+        if (!listWindow.isShowing()) {
+            listWindow.show(feedback);
+        } else {
+            listWindow.requestFocus();
+        }
     }
 
     /**
@@ -152,10 +165,16 @@ public class CalendarPage extends UiPart<Scene> implements Page {
                 handleExit();
             }
 
-            resultDisplay.setDisplayText(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowList()) {
+                handleShowList(commandResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser("");
+            }
+
             return commandResult;
         } catch (ParseException | CommandException e) {
-            resultDisplay.setDisplayText(e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);

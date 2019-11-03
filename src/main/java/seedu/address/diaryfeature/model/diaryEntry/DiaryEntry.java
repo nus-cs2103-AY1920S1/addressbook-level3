@@ -17,6 +17,7 @@ public class DiaryEntry {
     private final Date date;
     private final Place place;
     private final Memory memory;
+    private boolean isPrivate = false;
 
 
     /**
@@ -29,6 +30,7 @@ public class DiaryEntry {
         this.date = date;
         this.place = place;
         this.memory = memory;
+        isPrivate = memory.getPrivacy();
     }
 
     public Title getTitle() {
@@ -53,6 +55,29 @@ public class DiaryEntry {
 
     public Memory getMemory() {
         return memory;
+    }
+
+    public void setPrivacy(Boolean input) {
+        isPrivate = input;
+        if(input) {
+            setPrivate();
+        } else {
+            unPrivate();
+        }
+    }
+
+    public void setPrivate() {
+        isPrivate = true;
+        this.memory.setPrivate();
+    }
+
+    public void unPrivate() {
+        isPrivate = false;
+        this.memory.unPrivate();
+    }
+
+    public boolean getPrivacy() {
+        return isPrivate;
     }
 
     /**
@@ -102,7 +127,7 @@ public class DiaryEntry {
                 .append("Place: ")
                 .append(getPlace() + "\n")
                 .append("Memory: ")
-                .append(getMemory() + "\n");
+                .append(getMemory().toString() + "\n");
         return builder.toString();
     }
 

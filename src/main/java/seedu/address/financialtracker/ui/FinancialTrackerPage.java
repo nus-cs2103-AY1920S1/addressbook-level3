@@ -19,7 +19,9 @@ import seedu.address.financialtracker.storage.JsonFinancialTrackerStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -31,16 +33,18 @@ import seedu.address.ui.UiPart;
  */
 public class FinancialTrackerPage extends UiPart<VBox> implements Page {
 
-    private final static PageType pageType = PageType.FINANCIAL_TRACKER;
+    private static final PageType pageType = PageType.FINANCIAL_TRACKER;
     private static final String FXML = "FinancialTrackerWindow.fxml";
 
     // Independent Ui parts residing in this Ui container
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerHelpWindow helpWindow;
     private ResultDisplay resultDisplay;
     private ExpensePanel expensePanel;
-    private final Logger logger = LogsCenter.getLogger(getClass());
     private FinancialTrackerLogic financialTrackerLogic;
     private CountriesDropdown countriesDropdown;
+    private CodeWindow codeWindow;
+    private HelpWindow helpMenuWindow;
 
     @FXML
     private Scene financialTrackerScene;
@@ -62,6 +66,8 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
 
     public FinancialTrackerPage() {
         super(FXML);
+        this.helpMenuWindow = new HelpWindow();
+        this.codeWindow = new CodeWindow();
         Model model = new Model();
         FinancialTrackerStorage financialTrackerStorage =
                 new JsonFinancialTrackerStorage(Paths.get("data", "financialtracker.json"));
@@ -128,6 +134,30 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
             helpWindow.show();
         } else {
             helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleMenuHelp() {
+        if (!helpMenuWindow.isShowing()) {
+            helpMenuWindow.show();
+        } else {
+            helpMenuWindow.focus();
         }
     }
 

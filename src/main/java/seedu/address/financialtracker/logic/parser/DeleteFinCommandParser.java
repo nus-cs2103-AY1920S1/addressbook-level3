@@ -1,10 +1,10 @@
 package seedu.address.financialtracker.logic.parser;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new DeleteFinCommand object

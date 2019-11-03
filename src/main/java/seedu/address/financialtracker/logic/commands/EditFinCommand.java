@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.financialtracker.logic.parser.CliSyntax;
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Date;
@@ -15,7 +15,6 @@ import seedu.address.financialtracker.model.expense.Description;
 import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.financialtracker.model.expense.Time;
 import seedu.address.financialtracker.model.expense.Type;
-import seedu.address.financialtracker.logic.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 /**
  * Edits the details of an existing expense in the itinerary.
  */
-@SuppressWarnings("MalformedFormatString")
 public class EditFinCommand extends Command<Model> {
     public static final String COMMAND_WORD = "edit";
 
@@ -65,7 +63,7 @@ public class EditFinCommand extends Command<Model> {
         List<Expense> lastShownList = model.getExpenseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException("The expense index provided doesn't exist!");
         }
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
@@ -92,7 +90,7 @@ public class EditFinCommand extends Command<Model> {
         Description updatedDescription = editExpenseDescriptor.getDescription().orElse(expenseToEdit.getDescription());
         Type updatedType = editExpenseDescriptor.getType().orElse(expenseToEdit.getType());
 
-        Expense expense = new Expense(updatedDate, updatedTime,  updatedAmount, updatedDescription, updatedType);
+        Expense expense = new Expense(updatedDate, updatedTime, updatedAmount, updatedDescription, updatedType);
 
         return expense;
     }

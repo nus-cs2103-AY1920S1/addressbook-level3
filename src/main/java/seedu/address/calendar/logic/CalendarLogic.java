@@ -1,7 +1,6 @@
 package seedu.address.calendar.logic;
 
 import seedu.address.calendar.commands.AlternativeCommand;
-import seedu.address.calendar.commands.AlternativeCommandUtil;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.event.exceptions.ClashException;
@@ -15,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 public class CalendarLogic {
     private CalendarStorage calendarStorage;
@@ -40,7 +39,7 @@ public class CalendarLogic {
             CommandResult commandResult = command.execute(calendar);
             calendarStorage.saveCalendar(calendar.getCalendar());
             return commandResult;
-        } catch (ClashException e) {
+        } catch (ClashException | NoSuchElementException e) {
             Command<Calendar> suggestedCommand = new AlternativeCalendarParser().parseCommand(commandText);
             suggestionManager.add(suggestedCommand);
             throw new CommandException(e.getMessage());
@@ -49,8 +48,8 @@ public class CalendarLogic {
 
     private CommandResult executeAlternativeCommand(String commandText) throws CommandException, IOException{
         Option option = new AlternativeCalendarParser().parseOptionCommand(commandText);
-        List<AlternativeCommand> commands = suggestionManager.getCommands();
-        CommandResult commandResult = AlternativeCommandUtil.execute(calendar, option, commands);
+        AlternativeCommand command = suggestionManager.getCommand();
+        CommandResult commandResult = command.execute(calendar, option);
         calendarStorage.saveCalendar(calendar.getCalendar());
         return commandResult;
     }

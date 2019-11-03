@@ -9,13 +9,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
-import seedu.address.diaryfeature.model.exceptions.TitleException;
 
-import java.text.ParseException;
 
 public class JsonDiaryBookStorage implements DiaryBookStorage {
     private static final Logger logger = LogsCenter.getLogger(seedu.address.diaryfeature.storage.JsonDiaryBookStorage.class);
@@ -54,7 +52,6 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
@@ -73,15 +70,10 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
             logger.info("using written book");
             return Optional.of(jsonDiaryBook.get().toModelType());
 
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        } catch(ParseException parseError) {
-            logger.info("Parse Exception in date format");
-        } catch (TitleException titEr) {
-            logger.info("something went wrong with the title");
+        } catch (DiaryEntryParseException error) {
+            logger.info("Illegal values found in " + filePath + ": " + error);
+            throw new DataConversionException(error);
         }
-        return null;
     }
 
 

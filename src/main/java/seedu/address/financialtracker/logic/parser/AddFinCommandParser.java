@@ -30,7 +30,6 @@ public class AddFinCommandParser implements Parser<AddFinCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
      * AddFinCommand and returns an AddFinCommand object for execution.
-     * 
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddFinCommand parse(String args) throws ParseException {

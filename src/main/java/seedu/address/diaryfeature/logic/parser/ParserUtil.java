@@ -1,16 +1,19 @@
 package seedu.address.diaryfeature.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
+import seedu.address.diaryfeature.logic.parser.exceptions.MemoryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.PlaceParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.TitleParseException;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
-import seedu.address.diaryfeature.model.exceptions.TitleException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -19,7 +22,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer. " +
+            "Has to be 1 or more.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -39,11 +43,48 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Title parseTitle(String title) throws TitleException {
-        requireNonNull(title);
-        String trimmedTitle = title.trim();
-        Title formed = new Title(trimmedTitle);
-        return formed;
+    public static Title parseTitle(String title) throws TitleParseException {
+        if(Validators.isNotNull(title)) {
+            String trimmed = title.trim();
+            if (Validators.isValidTitle(title)) {
+                return new Title(trimmed);
+            }
+        }
+        //So if the input is null or if it's not valid, then throw the title error
+        throw new TitleParseException();
+        }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     */
+    public static Date parseDate(String date) throws DateParseException {
+        if (Validators.isNotNull(date)) {
+            String trimmedDate = date.trim();
+            if (Validators.isNotEmpty(date)) {
+                if (Validators.isCorrectDateFormat(date)) {
+                    return DateFormatter.convertToDate(trimmedDate);
+                }
+            }
+        }
+    throw new DateParseException();
+    }
+
+        /**
+         * Parses a {@code String name} into a {@code Name}.
+         * Leading and trailing whitespaces will be trimmed.
+         *
+         */
+    public static Place parsePlace(String place) throws PlaceParseException  {
+        if(Validators.isNotNull(place)) {
+            String trimmed = place.trim();
+            if (Validators.isNotEmpty(trimmed)) {
+                return new Place(trimmed);
+            }
+        }
+        //So if the input is null or if it's not valid, then throw the title error
+        throw new PlaceParseException();
     }
 
     /**
@@ -51,40 +92,27 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      */
-    public static Date parseDate(String date) throws java.text.ParseException {
-        requireNonNull(date);
-        String trimmedDate = date.trim();
-        Date requiredDate = DateFormatter.convertToDate(trimmedDate);
-        return requiredDate;
+    public static Memory parseMemory(String memory) throws MemoryParseException {
+        if(Validators.isNotNull(memory)) {
+            String trimmed = memory.trim();
+            if (Validators.isNotEmpty(trimmed)) {
+                return new Memory(trimmed);
+            }
+        }
+        //So if the input is null or if it's not valid, then throw the memory error
+        throw new MemoryParseException();
     }
 
-    /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     */
-    public static Place parsePlace(String place)  {
-        requireNonNull(place);
-        String trimmedPlace = place.trim();
-        return new Place(trimmedPlace);
+    public static String parseArgs(String input,String parserName) throws EmptyArgumentException {
+        if(Validators.isNotNull(input)) {
+            String trimmed = input.trim();
+            if (Validators.isNotEmpty(trimmed)) {
+                return trimmed;
+            }
+        }
+        //So if the input is null or if it's not valid, then throw the memory error
+        throw new EmptyArgumentException(parserName);
     }
-
-    /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     */
-    public static Memory parseMemory(String memory)  {
-        requireNonNull(memory);
-        String trimmedMemory = memory.trim();
-        return new Memory(trimmedMemory);
-    }
-
-
-
-
-
-
 
 
 }

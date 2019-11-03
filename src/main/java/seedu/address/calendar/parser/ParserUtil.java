@@ -25,7 +25,6 @@ class ParserUtil {
 
     static boolean hasCharInValue(String userInput) {
         Matcher matcher = EXTRA_ARG_FORMAT.matcher(userInput);
-        System.out.println("INPUT: " + userInput + "hi");
         return matcher.matches();
     }
 }

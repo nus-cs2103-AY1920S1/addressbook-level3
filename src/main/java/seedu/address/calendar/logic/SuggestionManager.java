@@ -4,41 +4,25 @@ import seedu.address.calendar.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 public class SuggestionManager {
-    private List<AlternativeCommand> suggestedCommands = new ArrayList<>();
+    private Optional<AlternativeCommand> suggestedCommand = Optional.empty();
 
     void add(Command<Calendar> latestSuggestedCommand) {
         assert latestSuggestedCommand instanceof AlternativeCommand : "Only alternative commands can be added here";
-        suggestedCommands.clear();
-        suggestedCommands.add((AlternativeCommand) latestSuggestedCommand);
+        suggestedCommand = Optional.of((AlternativeCommand) latestSuggestedCommand);
     }
 
-    void add(Command<Calendar>... latestSuggestedCommands) {
-        for (Command<Calendar> latestSuggestedCommand : latestSuggestedCommands) {
-            assert latestSuggestedCommand instanceof AlternativeCommand : "Only alternative commands can be added here";
-        }
-        suggestedCommands.clear();
-
-        for (Command<Calendar> latestSuggestCommand : latestSuggestedCommands) {
-            suggestedCommands.add((AlternativeCommand) latestSuggestCommand);
-        }
-    }
-
-    List<AlternativeCommand> getCommands() {
-        assert !suggestedCommands.isEmpty() : "A suggested command must be added before retrieving it";
-        List<AlternativeCommand> commands = List.copyOf(suggestedCommands);
-        suggestedCommands.clear();
-        return commands;
+    AlternativeCommand getCommand() {
+        return suggestedCommand.orElseThrow();
     }
 
     void forgetSuggestion() {
-        suggestedCommands.clear();
+        suggestedCommand = Optional.empty();
     }
 
     boolean hasSuggestedCommand() {
-        return !suggestedCommands.isEmpty();
+        return !suggestedCommand.isEmpty();
     }
 }
