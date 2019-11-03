@@ -100,6 +100,11 @@ public class EditScheduleCommand extends UndoableCommand {
             // do nothing
         }
 
+        // additional check for invalid order (order is scheduled but optional is null)
+        if (orderToReschedule.getSchedule().isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
+        }
+
         Schedule scheduleToEdit = orderToReschedule.getSchedule().get();
         Schedule editedSchedule = createEditedSchedule(scheduleToEdit, editScheduleDescriptor);
 

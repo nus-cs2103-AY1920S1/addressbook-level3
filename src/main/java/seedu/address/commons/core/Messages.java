@@ -17,6 +17,8 @@ public class Messages {
     public static final String MESSAGE_ORDERS_LISTED_OVERVIEW = "%1$d orders listed!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_ORDER_SCHEDULED = "This order is already scheduled in SML.";
+    public static final String MESSAGE_ORDER_SCHEDULED_INVALID = "ERROR: Order status is SCHEDULED but schedule "
+            + "cannot be found.";
     public static final String MESSAGE_ORDER_CANCELLED = "This order is already cancelled in SML.";
     public static final String MESSAGE_ORDER_COMPLETED = "This order is already completed in SML.";
     public static final String MESSAGE_ORDER_UNSCHEDULED = "This order is unscheduled in SML.";

@@ -44,10 +44,12 @@ public class DeleteScheduleCommand extends UndoableCommand {
 
         List<Order> lastShownList = model.getFilteredOrderList();
 
+        // check if the order index is valid
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
+        // Check if the order status is valid - only SCHEDULED is valid
         Order orderToUnschedule = lastShownList.get(targetIndex.getZeroBased());
         switch (orderToUnschedule.getStatus()) {
         case UNSCHEDULED:
@@ -58,6 +60,11 @@ public class DeleteScheduleCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_ORDER_CANCELLED);
         default:
             // do nothing
+        }
+
+        // additional check for invalid order (order is scheduled but optional is null)
+        if (orderToUnschedule.getSchedule().isEmpty()) {
+            throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
         }
 
         Schedule toDelete = orderToUnschedule.getSchedule().get();

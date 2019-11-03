@@ -489,18 +489,14 @@ public class ModelManager implements Model {
         // defensive filter for orderless schedule - in 0 orders
         // extra filter for same schedule
         schedules.stream()
-                .filter(x -> 0 != orderBook.getList().stream()
+                .filter(x -> orderBook.getList().stream()
                         .filter(y -> y.getSchedule().isPresent())
-                        .filter(y -> y.getSchedule().get().isSameAs(x))
-                        .count())
+                        .anyMatch(y -> y.getSchedule().get().isSameAs(x)))
                 .filter(x -> !x.isSameAs(schedule))
                 .filter(x -> x.getCalendar().after(earliestUnconflictedStartTime))
                 .filter(x -> x.getCalendar().before(latestUnconflictedStartTime))
                 .sorted(Comparator.comparing(Schedule::getCalendar))
                 .forEach(conflicts::add);
-
-        // dummy use - Collections to import (so it is not unused)
-        Collections.sort(conflicts, Comparator.comparing(Schedule::getCalendar));
 
         return conflicts;
     }
