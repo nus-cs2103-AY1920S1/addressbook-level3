@@ -43,12 +43,26 @@ public class CommandTestUtil {
     public static final String VALID_DESCRIPTION_LOGISTICS = "Logistics";
     public static final String VALID_DESCRIPTION_SHIRTSALES = "Shirt sales";
     public static final String VALID_DESCRIPTION_FUNDRAISING = "Annual fundraising";
+    public static final String VALID_DESCRIPTION_TEST1 = "Test1";
+    public static final String VALID_DESCRIPTION_TEST2 = "Test2";
+    public static final String VALID_DESCRIPTION_TEST3 = "Test3";
+    public static final String VALID_DESCRIPTION_TEST4 = "Test4";
+    public static final String VALID_DESCRIPTION_TEST5 = "Test5";
     public static final String VALID_AMOUNT_LOGISTICS = "152.82";
     public static final String VALID_AMOUNT_SHIRTSALES = "100.10";
     public static final String VALID_AMOUNT_FUNDRAISING = "10000";
+    public static final String VALID_AMOUNT_SCHOOLCLAIMS = "45.10";
+    public static final String VALID_AMOUNT_LOGISTICCLAIMS = "9999.99";
+    public static final String VALID_AMOUNT_CORPORATECLAIMS = "321.10";
+    public static final String VALID_AMOUNT_PROJECTCLAIMS = "500";
     public static final String VALID_DATE_LOGISTICS = "15-12-2019";
     public static final String VALID_DATE_SHIRTSALES = "11-11-2019";
     public static final String VALID_DATE_FUNDRAISING = "01-01-2019";
+    public static final String VALID_DATE_BEFOREMONTH = "15-12-2000";
+    public static final String VALID_DATE_DURINGMONTH = "11-11-2019";
+    public static final String VALID_DATE_DURINGMONTH2 = "23-11-2019";
+    public static final String VALID_DATE_FIRSTDAYOFMONTH = "01-11-2019";
+    public static final String VALID_DATE_AFTERMONTH = "11-11-2099";
 
 
 
