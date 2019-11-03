@@ -57,7 +57,7 @@ public class CommandBox extends UiPart<Region> {
                 // filter
                 String stringToCompare = result.getStringToCompare();
                 List<String> filteredEntries = commandTextField.getEntries().stream()
-                        .filter(e -> e.toLowerCase().contains(stringToCompare.toLowerCase()))
+                        .filter(e -> e.contains(stringToCompare))
                         .sorted((e1, e2) -> commandTextField.compareEntries(e1, e2, stringToCompare))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty() && !filteredEntries.contains(stringToCompare)) {

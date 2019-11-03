@@ -208,6 +208,10 @@ This can be done in any Tab Panel.
 Contact numbers should be 8-digits long.
 [TIP]
 A customer can have any number of tags, including 0.
+[TIP]
+Customers can share the same name.
+[TIP]
+Customers cannot share the same contact number or email.
 
 [underline]#Examples#:
 * Adds a single customer
@@ -473,6 +477,14 @@ Switches to Order Tab Panel.
 ==== Add an order : `add-o`
 Adds an order to the list of orders. +
 Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
+
+****
+* Negative prices will be rejected.
+* $0 is accepted to accommodate for free transactions.
+* Prices above 1.7*10^308 will not be rejected. However, they will
+*corrupt* the data. There is no practical reason
+for a price to be that high.
+****
 
 ==== Find an order : `find-o`
 Returns all the information pertaining to the order. +
