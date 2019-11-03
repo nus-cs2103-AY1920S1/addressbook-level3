@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Adds an income to the bank account.
@@ -48,11 +49,13 @@ public class InCommand extends Command {
         requireNonNull(model);
 
         if (model.has(transaction)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
+            return new CommandResult(
+                String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.TRANSACTION);
         } else {
             model.add(transaction);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+            return new CommandResult(
+                String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
         }
     }
 

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Adds an income to the bank account.
@@ -31,6 +32,7 @@ public class OutCommand extends Command {
         + PREFIX_CATEGORY + "foodAndBeverage";
 
     public static final String MESSAGE_SUCCESS = "Out transaction added: %1$s";
+    public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
@@ -46,9 +48,19 @@ public class OutCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.add(transaction);
+        // model.add(transaction);
+        //
+        // return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+        if (model.has(transaction)) {
+            return new CommandResult(
+                String.format(MESSAGE_DUPLICATE, transaction), false, false, Tab.TRANSACTION);
+        } else {
+            model.add(transaction);
+            model.commitUserState();
+            return new CommandResult(
+                String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
+        }
     }
 
     @Override
