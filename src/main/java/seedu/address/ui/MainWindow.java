@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
     private boolean unknownEntry;
+    private boolean toClear;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -73,6 +74,8 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
 
         unknownEntry = false;
+
+        toClear = false;
     }
 
     public Stage getPrimaryStage() {
@@ -97,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    //@@author{lawncegoh}
     /**
      * Fills up all the placeholders of this window.
      */
@@ -111,6 +115,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    //@@author{lawncegoh}
     /**
      * Fills up window with claims
      */
@@ -124,6 +129,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    //@@author{lawncegoh}
     /**
      * Fills up window with incomes
      */
@@ -137,6 +143,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    //@@author{lawncegoh}
     /**
      * Updates list panel with claims.
      */
@@ -148,6 +155,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser("All Claims Listed");
     }
 
+    //@@author{lawncegoh}
     /**
      * Updates list panel with contacts.
      */
@@ -159,6 +167,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay.setFeedbackToUser("All Contacts Listed");
     }
 
+    //@@author{lawncegoh}
     /**
      * Updates list panel with incomes.
      */
@@ -217,6 +226,19 @@ public class MainWindow extends UiPart<Stage> {
         this.unknownEntry = !this.unknownEntry;
     }
 
+    //@@author{lawncegoh}
+    /**
+     * Sets the clear boolean to true;
+     */
+    private void changeToClear() {
+        this.toClear = !this.toClear;
+    }
+
+    //@@author{lawncegoh}
+    /**
+     * Gets the personlistpanel;
+     * @return PersonListPanel
+     */
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -229,7 +251,15 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException,
             IOException, URISyntaxException {
         try {
-            if (unknownEntry) {
+            if (toClear) {
+                //@@author{lawncegoh}
+                CommandResult commandResult = logic.executeClear(commandText);
+                if (!commandResult.isToClear()) {
+                    changeToClear();
+                }
+                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+                return commandResult;
+            } else if (unknownEntry) {
                 CommandResult commandResult = logic.executeUnknownInput(commandText);
                 if (!commandResult.isCreateShortCut()) {
                     handleUnknownEntry();
@@ -250,11 +280,17 @@ public class MainWindow extends UiPart<Stage> {
                     handleExit();
                 }
 
+                if (commandResult.isToClear()) {
+                    changeToClear();
+                }
+
+                //@@author{lawncegoh}
                 if (commandResult.isClaim()) {
                     Claim claim = commandResult.giveClaim();
                     Model.handleClaim(claim);
                 }
 
+                //@@author{lawncegoh}
                 if (commandResult.isContact()) {
                     Contact contact = commandResult.giveContact();
                     Model.handleContact(contact);

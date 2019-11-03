@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.View;
+import seedu.address.commons.core.View;
 
 /**
  * A utility class containing a list of {@code View} objects to be used in tests.

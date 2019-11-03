@@ -20,10 +20,13 @@ public class PhoneTest {
     }
 
     @Test
-    public void isValidPhone() {
+    public void nullPhone() {
         // null phone number
         assertThrows(NullPointerException.class, () -> Phone.isValidPhone(null));
+    }
 
+    @Test
+    public void invalidPhone() {
         // invalid phone numbers
         assertFalse(Phone.isValidPhone("")); // empty string
         assertFalse(Phone.isValidPhone(" ")); // spaces only
@@ -33,7 +36,10 @@ public class PhoneTest {
         assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
         assertFalse(Phone.isValidPhone("911")); // 3 digits
         assertFalse(Phone.isValidPhone("11111111")); // does not start with 8 or 9
+    }
 
+    @Test
+    public void validPhone() {
         // valid phone numbers
         assertTrue(Phone.isValidPhone("91234567")); // starts with 9
         assertTrue(Phone.isValidPhone("81234567")); // starts with 8

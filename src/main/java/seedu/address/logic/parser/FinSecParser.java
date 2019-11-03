@@ -120,6 +120,7 @@ public class FinSecParser {
         FinSecParser.commandList.put(RejectClaimCommand.COMMAND_WORD, RejectClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteShortcutCommand.COMMAND_WORD, DeleteShortcutCommand.COMMAND_WORD);
     }
+
     /**
      * Parses user input into command for execution.
      *
