@@ -36,6 +36,7 @@ For example, teachers may define basic coding problems which their students can 
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `flashcardpro.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -134,7 +135,7 @@ Displays all the cards in the deck of cards, `science_deck`
 
 Creates an empty deck in FlashCard Pro library.
 
-Format: `create deck/DECK_NAME`
+Format: `create deck/DECK_NAME.
 
 Note :
 
@@ -153,14 +154,14 @@ Creates a new empty deck named `german`.
 
 === Add new Front Back card or Multiple Choice Card to deck: `add`
 
-Adds an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
+Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
 
-Format: `add deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
+Format: `create deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
 
 ****
 * The `DECK_NAME` must be a name of an existing deck in FlashCard Pro.
 
-** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be added.
+** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be created.
 
 * When entering the `PRIORITY_LEVEL`, there are only 2 valid choices `HIGH` and `LOW`. Refer to the table below to know how to use the `PRIORITY_LEVEL`:
 
@@ -175,23 +176,23 @@ Format: `add deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK
 
 ** If no `priority/` parameter is entered, then the default priority level is `LOW`.
 
-** If you enter any input other than `HIGH` or `LOW`, there will be an error message and the card will not be added.
+** If you enter any input other than `HIGH` or `LOW`, there will be an error message and the card will not be created.
 
 * `FRONT_TEXT` is the question that you wish to see in the flashcard.
 
-* To add a Front Back card,
+* To create a Front Back card,
 
 ** `BACK_TEXT` is the answer of the Front Back flashcard.
 
 ** No choice should be entered under `choice/`.
 
-* To add a Multiple Choice card,
+* To create a Multiple Choice card,
 
 ** the `BACK_TEXT` parameter should correspond to choice entered by the user, using the order of choice entered and should be a integer value from 1, 2, ...., Number of choices entered.
 
-** To add a Multiple Choice card, there should be at least 2 `choice/` parameters entered.
+** To create a Multiple Choice card, there should be at least 2 `choice/` parameters entered.
 
-** If there are only 1 `choice/` parameters entered, there will be an error message and the card will not be added.
+** If there are only 1 `choice/` parameters entered, there will be an error message and the card will not be created.
 
 ****
 
@@ -209,7 +210,6 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 === Add new Javascript card or Java Card
 
 (TBC)
-
 
 === Editing the card of an existing deck of flashcards : `edit`
 
@@ -274,7 +274,9 @@ Deletes the first card of the deck `german`.
 
 Starts a test with a deck of flashcards, with the choice of an untimed test (timed mode will be added in `v1.4`)
 
-Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]`
+(TBC)
+
+Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]` (to be implemented in `v1.4`)
 
 Examples:
 
@@ -286,8 +288,6 @@ Starts a untimed test with the deck of cards, `science_deck`
 
 Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
-==== Commands to control `test`
-(TBC)
 
 ==== Quit test: `stop`
 
@@ -312,60 +312,24 @@ Displays the overview of the time spent and usage count of all decks of cards. A
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
 
-=== Exit FlashCard Pro: `exit`
-
-Exits the FlashCard Pro. +
-
-Format: `exit`
-
-Example:
-
-* `exit` +
-
-Exits the FlashCard Pro application.
-
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Download the FlashCard Pro app on another computer. Copy the desired deck's JSON file into a folder and import. Refer to <<Importing flashcards from disk : `import`>> for more information.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *help* `help` +
-e.g. `help`
-
 * *help* `help [command/COMMAND_NAME]` +
 e.g. `help command/view`
-
-* *import* : `import filepath/FILE_NAME` +
-e.g. `import filepath/C:\Users\user\Desktop\flashcardpro\german.json`
-
-* *export* : `export deck/DECK_NAME` +
-e.g. `export deck/german`
-
-* *stats* : `stats` +
-e.g. `stats`
-
+* *import* : `import filepath/FILE_NAME`
+* *export* : `export deck/DECK_NAME FILE_NAME`
 * *stats* : `stats [deck/DECK_NAME]` +
 e.g. `stats deck/science_deck`
-
-* *view* : `view` +
-e.g. `view`
-
 * *view* : `view [deck/DECK_NAME]` +
 e.g. `view deck/science_deck`
-
-* *create* : `create deck/DECK_NAME` +
-e.g. `create deck/german`
-
-* *add* : `add deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]…` +
-e.g. `add deck/german front/hello back/1 choice/hello choice/bye choice/zzz`
-
-* *edit* : `edit deck/DECK_NAME index/INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]` +
-e.g. `edit deck/science_deck index/1 front/what is a cell back/a cell is a building block`
-
+* *create* : `create deck/DECK_NAME`
 * *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
 e.g. `test deck/science_deck`
-
-* *stop* : `stop`
+* *exit* : `exit`
+* *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
+e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
