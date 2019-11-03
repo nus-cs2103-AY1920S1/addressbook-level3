@@ -7,6 +7,7 @@ import static seedu.address.overview.ui.OverviewMessages.INVENTORY_PIE_CHART_TIT
 import static seedu.address.overview.ui.OverviewMessages.INVENTORY_SUMMARY_TEXT;
 import static seedu.address.overview.ui.OverviewMessages.SALES_SUMMARY_TEXT;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import seedu.address.overview.logic.Logic;
  */
 public class Overview extends UiPart<Region> {
 
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private static final String FXML = "Overview.fxml";
 
     @FXML
@@ -80,13 +82,17 @@ public class Overview extends UiPart<Region> {
      * Initialises the Labels in the Overview tab.
      */
     void initialiseLabels() {
-        totalExpenseValue.setText(String.format(EXPENSE_SUMMARY_TEXT, overviewLogic.getTotalExpenses(),
-                overviewLogic.getExpenseTarget()));
-        totalInventoryValue.setText(String.format(INVENTORY_SUMMARY_TEXT, overviewLogic.getTotalInventory()));
-        totalSalesValue.setText(String.format(SALES_SUMMARY_TEXT, overviewLogic.getTotalSales(),
-                overviewLogic.getSalesTarget()));
-        totalAmountRemaining.setText(String.format(BUDGET_SUMMARY_TEXT, overviewLogic.getRemainingBudget(),
-                overviewLogic.getBudgetTarget()));
+        totalExpenseValue.setText(String.format(EXPENSE_SUMMARY_TEXT,
+                DECIMAL_FORMAT.format(overviewLogic.getTotalExpenses()),
+                DECIMAL_FORMAT.format(overviewLogic.getExpenseTarget())));
+        totalInventoryValue.setText(String.format(INVENTORY_SUMMARY_TEXT,
+                DECIMAL_FORMAT.format(overviewLogic.getTotalInventory())));
+        totalSalesValue.setText(String.format(SALES_SUMMARY_TEXT,
+                DECIMAL_FORMAT.format(overviewLogic.getTotalSales()),
+                DECIMAL_FORMAT.format(overviewLogic.getSalesTarget())));
+        totalAmountRemaining.setText(String.format(BUDGET_SUMMARY_TEXT,
+                DECIMAL_FORMAT.format(overviewLogic.getRemainingBudget()),
+                DECIMAL_FORMAT.format(overviewLogic.getBudgetTarget())));
     }
 
     /**
@@ -153,6 +159,16 @@ public class Overview extends UiPart<Region> {
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
                 overviewLogic.getSalesTotalByMonth(currentDate)));
 
+        /*XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(
+                        overviewLogic.getSalesTotalByMonth(currentDate.minusMonths(2))))));
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(
+                        overviewLogic.getSalesTotalByMonth(currentDate.minusMonths(1))))));
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getSalesTotalByMonth(currentDate)))));*/
+
         salesBarChart.getData().add(dataSeries);
         salesBarChart.setLegendVisible(false);
 
@@ -171,6 +187,16 @@ public class Overview extends UiPart<Region> {
                 overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))));
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
                 overviewLogic.getBudgetLeftByMonth(currentDate)));
+
+        /*XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(
+                        overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(2))))));
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(
+                     overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))))));
+        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
+                Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getBudgetLeftByMonth(currentDate)))));*/
 
         budgetBarChart.getData().add(dataSeries);
         budgetBarChart.setLegendVisible(false);

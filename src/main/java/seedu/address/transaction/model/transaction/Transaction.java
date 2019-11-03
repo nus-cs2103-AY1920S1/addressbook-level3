@@ -12,8 +12,8 @@ import seedu.address.person.model.person.Person;
 public class Transaction {
 
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     public static final double TO_REMOVE_NEGATIVE_SIGN = -1.0;
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private LocalDate date;
     private String description;
     private String category;
@@ -132,7 +132,7 @@ public class Transaction {
     public String toString() {
         String msg = "Date: " + this.date.format(DATE_TIME_FORMATTER) + "\nDescription: " + this.description
                 + "\nCategory: "
-                + this.category + "\nAmount: $" + getAmountWithoutNegativeSign()
+                + this.category + "\nAmount: $" + DECIMAL_FORMAT.format(getAmountWithoutNegativeSign())
                 + "\nPaid by: " + this.person.getName();
         return msg;
     }

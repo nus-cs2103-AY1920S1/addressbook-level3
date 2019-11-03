@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.cashier.ui.CashierMessages.CLEARED_SUCCESSFULLY;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_NO_COMMAND;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -117,7 +118,7 @@ public class LogicManagerTest {
     @Test
     public void getAmount_successful() {
         double amount = model.getTotalAmount();
-        assertEquals(String.valueOf(amount), logic.getAmount());
+        assertEquals(String.valueOf(DECIMAL_FORMAT.format(amount)), logic.getAmount());
     }
 
     @Test

@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,7 +38,7 @@ public class Home extends UiPart<Region> {
     @FXML
     private TableColumn<Transaction, String> categoryCol;
     @FXML
-    private TableColumn<Transaction, Double> amountCol;
+    private TableColumn<Transaction, String> amountCol;
     @FXML
     private TableColumn<Transaction, String> personCol;
 
@@ -50,7 +53,11 @@ public class Home extends UiPart<Region> {
         dateCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("date"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("description"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("category"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("amount"));
+        amountCol.setCellValueFactory(transaction -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(transaction.getValue().getAmount()));
+            return property;
+        });
         personCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("name"));
     }
 
