@@ -16,6 +16,7 @@ import seedu.address.storage.ReportGenerator;
 public class ReportGeneratorTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private ReportGenerator reportGenerator = new ReportGenerator();
 
     @Test
     public void isSameReportGenerator() {
@@ -26,24 +27,24 @@ public class ReportGeneratorTest {
 
     @Test
     public void generate_success() {
-        assertTrue(ReportGenerator.generate(ALICE));
-        assertFalse(ReportGenerator.generate(null));
+        assertTrue(reportGenerator.generate(ALICE, "Manager A"));
+        assertFalse(reportGenerator.generate(null, "Manager A"));
     }
 
     @Test
     public void generateAll_success() {
-        assertFalse(ReportGenerator.generateAll(model.getFilteredBodyList()));
+        assertFalse(reportGenerator.generateAll(model.getFilteredBodyList(), "Manager A"));
         model.addEntity(ALICE);
-        assertTrue(ReportGenerator.generateAll(model.getFilteredBodyList()));
-        assertFalse(ReportGenerator.generateAll(null));
+        assertTrue(reportGenerator.generateAll(model.getFilteredBodyList(), "Manager A"));
+        assertFalse(reportGenerator.generateAll(null, "Manager A"));
     }
 
     @Test
     public void generateSummary_success() {
-        assertFalse(ReportGenerator.generateSummary(model.getFilteredBodyList()));
+        assertFalse(reportGenerator.generateSummary(model.getFilteredBodyList(), "Manager A"));
         model.addEntity(ALICE);
-        assertTrue(ReportGenerator.generateSummary(model.getFilteredBodyList()));
-        assertFalse(ReportGenerator.generateSummary(null));
+        assertTrue(reportGenerator.generateSummary(model.getFilteredBodyList(), "Manager A"));
+        assertFalse(reportGenerator.generateSummary(null, "Manager A"));
     }
 
 }
