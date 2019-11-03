@@ -37,6 +37,12 @@ public class UrgentShoppingCommand extends Command {
     public static final String MESSAGE_URGENT_SHOPPING_ITEM_FAILURE =
             "Shopping item cannot me marked as urgent since it is already completely bought.";
 
+    private final Index targetIndex;
+
+    public UrgentShoppingCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
     /**
      * Indicates if a shopping item is bought in its entirety.
      * @param shoppingItem to check if completely bought
@@ -61,11 +67,6 @@ public class UrgentShoppingCommand extends Command {
         return getValue(boughtAmount) >= getValue(shoppingAmount);
     }
 
-    private final Index targetIndex;
-
-    public UrgentShoppingCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -102,6 +103,5 @@ public class UrgentShoppingCommand extends Command {
                 || (other instanceof UrgentShoppingCommand // instanceof handles nulls
                 && targetIndex.equals(((UrgentShoppingCommand) other).targetIndex)); // state check
     }
-
 
 }

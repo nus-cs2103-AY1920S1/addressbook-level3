@@ -1,5 +1,7 @@
 package seedu.ifridge.ui;
 
+import static seedu.ifridge.model.food.Amount.getValue;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,8 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
-
-import static seedu.ifridge.model.food.Amount.getValue;
 
 /**
  * An UI component that displays information of a {@code Person}.
