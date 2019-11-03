@@ -37,7 +37,7 @@ public class EndDateTimeTest {
     @Test
     public void isValidEndDateTime() {
         assertTrue(() -> EndDateTime.isValidEndDateTime(VALID_INPUT_1200, VALID_INPUT_1300));
-        assertFalse(() -> EndDateTime.isValidEndDateTime(VALID_INPUT_1300, VALID_INPUT_1300));
+        assertTrue(() -> EndDateTime.isValidEndDateTime(VALID_INPUT_1300, VALID_INPUT_1300));
         assertFalse(() -> EndDateTime.isValidEndDateTime(VALID_INPUT_1300, VALID_INPUT_1200));
         assertFalse(() -> EndDateTime.isValidEndDateTime(INVALID_INPUT, VALID_INPUT_1200));
         assertFalse(() -> EndDateTime.isValidEndDateTime(INVALID_INPUT, INVALID_INPUT));

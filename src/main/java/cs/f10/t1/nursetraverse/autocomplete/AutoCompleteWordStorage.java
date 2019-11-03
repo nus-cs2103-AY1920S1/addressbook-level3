@@ -156,6 +156,9 @@ public class AutoCompleteWordStorage {
         oListAllPrefixWord.add(new PrefixWord(VISIT_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(UpdateOngoingVisitCommand.COMMAND_WORD)
                 .get(1), CliSyntax.PREFIX_VISIT_REMARKS.getPrefix()));
+        oListAllPrefixWord.add(new PrefixWord(VISIT_OBJECT_WORD, UserinputParserUtil
+                .parseFirstSegment(UpdateOngoingVisitCommand.COMMAND_WORD)
+                .get(1), CliSyntax.PREFIX_VISIT_TASK_FINISH.getPrefix()));
         // App prefixes
         oListAllPrefixWord.add(new PrefixWord(APP_OBJECT_WORD, UserinputParserUtil
                 .parseFirstSegment(ExportCommand.COMMAND_WORD)
