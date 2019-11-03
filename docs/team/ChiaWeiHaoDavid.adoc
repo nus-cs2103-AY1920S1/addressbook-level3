@@ -31,6 +31,8 @@ developer guides in relation to these enhancements.
 
 Note the following formatting used in this document:
 
+[NOTE]
+This symbol indicates important information.
 
 `archive` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
@@ -40,14 +42,13 @@ Note the following formatting used in this document:
 == Summary of contributions
 This section summarises my coding, documentation, and other helpful contributions to the team project.
 
-* *Major enhancement*: I added *the feature of archiving expenses*
-** What it does: allows the user to archive old expenses. Multiple archives can be created, and the user will be able to revert/"unarchive" an expense should they choose.
-** Justification: This feature improves the product significantly as it helps achieve one of its goals of enabling students to better organise expenses. Archiving fulfills this
-as it declutters the user's list of current expenses and also allows the user to separate expenses into different expense lists.
+* *Major enhancement*: I added all archive related functions.
+** What it does: allows the user to archive expenses. Multiple archives can be created, and the user will be able to revert/"unarchive" an expense should they choose.
+** Justification: This feature improves the application significantly as it enables students to better organise their expenses, which is one of the application's goals.
+Archiving fulfills this as it de-clutters the user's list of current expenses and also allows the user to group expenses into different expense lists.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
