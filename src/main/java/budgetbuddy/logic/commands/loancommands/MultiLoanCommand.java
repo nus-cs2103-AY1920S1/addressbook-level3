@@ -32,6 +32,7 @@ public abstract class MultiLoanCommand extends Command {
 
     protected List<Index> hitLoanIndices;
     protected List<Index> missingLoanIndices;
+    protected List<Person> missingPersons;
 
     private List<Index> loanIndices;
     private List<Person> persons;
@@ -49,6 +50,7 @@ public abstract class MultiLoanCommand extends Command {
         this.persons = new ArrayList<Person>();
         this.hitLoanIndices = new ArrayList<Index>();
         this.missingLoanIndices = new ArrayList<Index>();
+        this.missingPersons = new ArrayList<Person>();
 
         checkTargetLists(loanIndices, persons);
         this.loanIndices.addAll(loanIndices);
@@ -80,11 +82,16 @@ public abstract class MultiLoanCommand extends Command {
         List<Index> targetLoanIndices = new ArrayList<Index>(loanIndices);
 
         for (Person person : persons) {
+            boolean isInLoanList = false;
             for (int i = 0; i < loansManager.getLoansCount(); i++) {
                 Index index = Index.fromZeroBased(i);
                 if (loansManager.getLoan(index).getPerson().isSamePerson(person)) {
                     targetLoanIndices.add(index);
+                    isInLoanList = true;
                 }
+            }
+            if (!isInLoanList) {
+                missingPersons.add(person);
             }
         }
 
@@ -114,13 +121,12 @@ public abstract class MultiLoanCommand extends Command {
      */
     protected String constructMultiLoanResult(String successMessage) {
 
-        successMessage = String.format(
-                successMessage,
+        successMessage = String.format(successMessage,
                 hitLoanIndices.stream()
                         .map(index -> String.format("%d", index.getOneBased()))
                         .collect(Collectors.joining(", ")));
 
-        if (missingLoanIndices.isEmpty()) {
+        if (missingLoanIndices.isEmpty() && missingPersons.isEmpty()) {
             return successMessage;
         }
 
@@ -128,17 +134,21 @@ public abstract class MultiLoanCommand extends Command {
             return MESSAGE_NO_TARGETS_HIT;
         }
 
-        StringBuilder resultMessage = new StringBuilder();
-        resultMessage.append(successMessage).append("\n").append("However, the following loans were not found: ");
-
-        for (Index missingIndex : missingLoanIndices) {
-            resultMessage
-                    .append(String.format("%d", missingIndex.getOneBased()))
-                    .append(", ");
+        if (!missingLoanIndices.isEmpty()) {
+            successMessage += String.format("\nThe following loans were not found: %s.",
+                    missingLoanIndices.stream()
+                            .map(index -> String.format("%d", index.getOneBased()))
+                            .collect(Collectors.joining(", ")));
         }
 
-        resultMessage.delete(resultMessage.length() - 2, resultMessage.length() - 1); // remove ", " at end
-        return resultMessage.toString();
+        if (!missingPersons.isEmpty()) {
+            successMessage += String.format("\nThe following persons were not found: %s.",
+                    missingPersons.stream()
+                            .map(person -> person.getName().toString())
+                            .collect(Collectors.joining(", ")));
+        }
+
+        return successMessage;
     }
 
     @Override
