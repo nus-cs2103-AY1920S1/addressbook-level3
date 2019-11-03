@@ -16,7 +16,6 @@ import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
-import seedu.address.ui.OmniPanel;
 
 /**
  * API of the Logic component
