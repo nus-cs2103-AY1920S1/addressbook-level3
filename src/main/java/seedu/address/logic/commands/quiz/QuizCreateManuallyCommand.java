@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -55,6 +57,7 @@ public class QuizCreateManuallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         if (model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }

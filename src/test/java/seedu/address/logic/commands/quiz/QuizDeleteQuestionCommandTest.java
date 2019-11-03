@@ -1,65 +1,56 @@
-package seedu.address.logic.commands.note;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
-import static seedu.address.testutil.note.TypicalNotes.getTypicalNotesRecord;
+package seedu.address.logic.commands.quiz;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.note.Note;
+import seedu.address.testutil.quiz.QuizBuilder;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.quiz.TypicalSavedQuizzes.getTypicalSavedQuizzes;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and {@code NoteDeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and {@code QuizDeleteQuestionCommand}.
  */
-public class NoteDeleteCommandTest {
+public class QuizDeleteQuestionCommandTest {
 
     private Model model = new ModelManager();
 
-    public NoteDeleteCommandTest() {
-        model.setNotesRecord(getTypicalNotesRecord());
+    public QuizDeleteQuestionCommandTest() {
+        model.setSavedQuizzes(getTypicalSavedQuizzes());
     }
 
     @Test
     public void execute_validIndex_success() {
-        Note noteToDelete = model.getFilteredNotesList().get(INDEX_ONE.getZeroBased());
-        NoteDeleteCommand deleteCommand = new NoteDeleteCommand(INDEX_ONE);
+        QuizDeleteQuestionCommand deleteCommand = new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
+                QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
 
-        String expectedMessage = String.format(NoteDeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
+        String expectedMessage = "Removed question: " + QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX +
+                " from quiz: " + QuizBuilder.DEFAULT_QUIZ_ID;
 
         ModelManager expectedModel = new ModelManager();
-        expectedModel.setNotesRecord(getTypicalNotesRecord());
+        expectedModel.setSavedQuizzes(getTypicalSavedQuizzes());
 
         assertCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage), expectedModel);
     }
 
     @Test
-    public void execute_invalidIndex_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNotesList().size() + 1);
-        NoteDeleteCommand deleteCommand = new NoteDeleteCommand(outOfBoundIndex);
-
-        assertThrows(CommandException.class, () -> deleteCommand.execute(model), MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
-    }
-
-    @Test
     public void equals() {
-        NoteDeleteCommand deleteFirstCommand = new NoteDeleteCommand(INDEX_ONE);
-        NoteDeleteCommand deleteSecondCommand = new NoteDeleteCommand(INDEX_TWO);
+        QuizDeleteQuestionCommand deleteFirstCommand =
+                new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
+                        QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
+        QuizDeleteQuestionCommand deleteSecondCommand =
+                new QuizDeleteQuestionCommand("Quiz2",
+                        QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        NoteDeleteCommand deleteFirstCommandCopy = new NoteDeleteCommand(INDEX_ONE);
+        QuizDeleteQuestionCommand deleteFirstCommandCopy =
+                new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
+                QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -68,7 +59,7 @@ public class NoteDeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different quiz -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }

@@ -10,11 +10,11 @@ import seedu.address.testutil.quiz.QuizBuilder;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.quiz.TypicalSavedQuizzes.getTypicalSavedQuizzes;
 
-public class QuizShowAnswersCommandTest {
+public class QuizShowQuestionsCommandTest {
 
     private Model model = new ModelManager();
 
-    public QuizShowAnswersCommandTest() {
+    public QuizShowQuestionsCommandTest() {
         model.setSavedQuizzes(getTypicalSavedQuizzes());
     }
 
@@ -24,10 +24,10 @@ public class QuizShowAnswersCommandTest {
         expectedModel.setSavedQuizzes(getTypicalSavedQuizzes());
 
         assertCommandSuccess(
-                new QuizShowAnswersCommand(QuizBuilder.DEFAULT_QUIZ_ID),
+                new QuizShowQuestionsCommand(QuizBuilder.DEFAULT_QUIZ_ID),
                 model,
-                new CommandResult("Showing answers for " + QuizBuilder.DEFAULT_QUIZ_ID + ".",
-                        CommandResultType.SHOW_QUIZ_ANSWERS),
+                new CommandResult("Showing questions for " + QuizBuilder.DEFAULT_QUIZ_ID + ".",
+                        CommandResultType.SHOW_QUIZ_QUESTIONS),
                 expectedModel);
     }
 }

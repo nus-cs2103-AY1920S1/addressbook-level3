@@ -1,107 +1,60 @@
-package seedu.address.testutil.question;
+package seedu.address.testutil.quiz;
 
 import seedu.address.model.question.McqQuestion;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
+import seedu.address.model.quiz.QuestionList;
+import seedu.address.model.quiz.Quiz;
 
 /**
- * A utility class to help with building Question objects.
+ * A utility class to help with building Quiz objects.
  * Example usage: <br>
- *     {@code QuestionBuilder qb = new QuestionBuilder().withQuestion("What is 1+1?").build();}
+ *     {@code QuizBuilder qb = new QuizBuilder().withQuiz("What is 1+1?").build();}
  */
-public class QuestionBuilder {
+public class QuizBuilder {
 
-    public static final String DEFAULT_QUESTION = "How awesome is Njoy?";
-    public static final String DEFAULT_ANSWER = "Awesome";
-    public static final String DEFAULT_TYPE = "open";
-    public static final String DEFAULT_OPTIONA = "Very Awesome";
-    public static final String DEFAULT_OPTIONB = "Awesome";
-    public static final String DEFAULT_OPTIONC = "OK";
-    public static final String DEFAULT_OPTIOND = "No Comment";
+    public static final Question DEFAULT_OPEN_ENDED_QUESTION = new OpenEndedQuestion("How awesome is Njoy?",
+            "Awesome!");
+    public static final Question DEFAULT_MCQ_QUESTION = new McqQuestion("How awesome is Njoy?",
+            "Awesome!", "Awesome", "Very awesome", "Ok", "No comment");
+    public static final String DEFAULT_QUIZ_ID = "CS2103T";
+    public static final QuestionList DEFAULT_QUESTION_LIST = new QuestionList();
+    public static final int DEFAULT_QUESTION_INDEX = 1;
+    public static final int DEFAULT_QUIZ_QUESTION_INDEX = 1;
 
-    private String question;
-    private String answer;
-    private String type;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
+    private String quizId;
+    private QuestionList questionList;
 
-    public QuestionBuilder() {
-        question = DEFAULT_QUESTION;
-        answer = DEFAULT_ANSWER;
-        type = DEFAULT_TYPE;
-        optionA = DEFAULT_OPTIONA;
-        optionB = DEFAULT_OPTIONB;
-        optionC = DEFAULT_OPTIONC;
-        optionD = DEFAULT_OPTIOND;
+    public QuizBuilder() {
+        quizId = DEFAULT_QUIZ_ID;
+        questionList = DEFAULT_QUESTION_LIST;
+        questionList.addQuestion(DEFAULT_MCQ_QUESTION);
+        questionList.addQuestion(DEFAULT_OPEN_ENDED_QUESTION);
     }
 
     /**
-     * Sets the {@code Question} of the {@code Question} that we are building.
+     * Sets the {@code Quiz} of the {@code Quiz} that we are building.
      */
-    public QuestionBuilder withQuestion(String question) {
-        this.question = question;
+    public QuizBuilder withQuizId(String quizId) {
+        this.quizId = quizId;
         return this;
     }
 
     /**
-     * Sets the {@code Answer} of the {@code Question} that we are building.
+     * Sets the {@code QuestionList} of the {@code Quiz} that we are building.
      */
-    public QuestionBuilder withAnswer(String answer) {
-        this.answer = answer;
+    public QuizBuilder withQuestionList(QuestionList questionList) {
+        this.questionList = questionList;
         return this;
     }
 
     /**
-     * Sets the {@code Type} of the {@code Question} that we are building.
+     * Builds the quiz with the specified fields.
+     * @return Quiz object.
      */
-    public QuestionBuilder withType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Sets the {@code OptionA} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withOptionA(String optionA) {
-        this.optionA = optionA;
-        return this;
-    }
-
-    /**
-     * Sets the {@code OptionB} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withOptionB(String optionB) {
-        this.optionB = optionB;
-        return this;
-    }
-
-    /**
-     * Sets the {@code OptionC} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withOptionC(String optionC) {
-        this.optionC = optionC;
-        return this;
-    }
-
-    /**
-     * Sets the {@code OptionD} of the {@code Question} that we are building.
-     */
-    public QuestionBuilder withOptionD(String optionD) {
-        this.optionD = optionD;
-        return this;
-    }
-
-    /**
-     * Builds the question with the specified fields.
-     * @return Question object.
-     */
-    public Question build() {
-        if (type.equals("mcq")) {
-            return new McqQuestion(question, answer, optionA, optionB, optionC, optionD);
-        } else { // Default to open ended
-            return new OpenEndedQuestion(question, answer);
-        }
+    public Quiz build() {
+        Quiz quiz = new Quiz(quizId);
+        quiz.setQuestionList(questionList);
+        return quiz;
     }
 }

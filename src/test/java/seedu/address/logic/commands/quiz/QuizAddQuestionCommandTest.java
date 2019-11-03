@@ -1,115 +1,98 @@
-package seedu.address.logic.commands.note;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_NOTE;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package seedu.address.logic.commands.quiz;
 
 import org.junit.jupiter.api.Test;
-
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.note.Note;
-import seedu.address.model.note.NotesRecord;
-import seedu.address.model.note.ReadOnlyNotesRecord;
+import seedu.address.model.quiz.Quiz;
 import seedu.address.testutil.model.ModelStub;
-import seedu.address.testutil.note.NoteBuilder;
+import seedu.address.testutil.quiz.QuizBuilder;
 
-public class NoteAddCommandTest {
+import java.util.ArrayList;
+
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class QuizAddQuestionCommandTest {
 
     @Test
-    public void constructor_nullNote_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new NoteAddCommand(null));
+    public void constructor_nullQuiz_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new QuizAddQuestionCommand(null,
+                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX));
     }
 
     @Test
-    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
-        Note validNote = new NoteBuilder().build();
+    public void execute_quizAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingQuizAdded modelStub = new ModelStubAcceptingQuizAdded();
+        String validQuizId = QuizBuilder.DEFAULT_QUIZ_ID;
+        int validQuestionNumber = QuizBuilder.DEFAULT_QUESTION_INDEX;
+        int validQuizQuestionNumber = QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX;
 
-        CommandResult commandResult = new NoteAddCommand(validNote).execute(modelStub);
+        CommandResult commandResult = new QuizAddQuestionCommand(validQuizId, validQuestionNumber,
+                validQuizQuestionNumber).execute(modelStub);
 
-        assertEquals(String.format(NoteAddCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
-    }
-
-    @Test
-    public void execute_duplicateNote_throwsCommandException() {
-        Note validNote = new NoteBuilder().build();
-        NoteAddCommand addCommand = new NoteAddCommand(validNote);
-        ModelStub modelStub = new ModelStubWithNote(validNote);
-        assertThrows(CommandException.class, () -> addCommand.execute(modelStub), MESSAGE_DUPLICATE_NOTE);
+        assertEquals(validQuizId, modelStub.getSavedQuizzes().getSavedQuizzes().get(0).getQuizId());
     }
 
     @Test
     public void equals() {
-        Note note = new NoteBuilder().withNote("Note").build();
-        Note otherNote = new NoteBuilder().withNote("Other Note").build();
-        NoteAddCommand addNoteCommand = new NoteAddCommand(note);
-        NoteAddCommand addOtherNoteCommand = new NoteAddCommand(otherNote);
+        String quizId = QuizBuilder.DEFAULT_QUIZ_ID;
+        String otherQuizId = "Other Quiz";
+        QuizAddQuestionCommand addQuestionCommand = new QuizAddQuestionCommand(quizId,
+                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
+        QuizAddQuestionCommand otherAddQuestionCommand = new QuizAddQuestionCommand(otherQuizId,
+                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
 
         // same object -> returns true
-        assertTrue(addNoteCommand.equals(addNoteCommand));
+        assertTrue(addQuestionCommand.equals(addQuestionCommand));
 
         // same values -> returns true
-        NoteAddCommand addNoteCommandCopy = new NoteAddCommand(note);
-        assertTrue(addNoteCommand.equals(addNoteCommandCopy));
+        QuizAddQuestionCommand addQuestionCommandCopy = new QuizAddQuestionCommand(quizId,
+                QuizBuilder.DEFAULT_QUESTION_INDEX, QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
+        assertTrue(addQuestionCommand.equals(addQuestionCommandCopy));
 
         // different types -> returns false
-        assertFalse(addNoteCommand.equals(1));
+        assertFalse(addQuestionCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addNoteCommand.equals(null));
+        assertFalse(addQuestionCommand.equals(null));
 
-        // different note -> returns false
-        assertFalse(addNoteCommand.equals(addOtherNoteCommand));
+        // different quiz -> returns false
+        assertFalse(addQuestionCommand.equals(otherAddQuestionCommand));
     }
 
     /**
-     * A Model stub that contains a single note.
+     * A Model stub that contains a single quiz.
      */
-    private class ModelStubWithNote extends ModelStub {
-        private final Note note;
+    private class ModelStubWithQuiz extends ModelStub {
+        private final String quizId;
+        private final Quiz quiz;
 
-        ModelStubWithNote(Note note) {
-            requireNonNull(note);
-            this.note = note;
+        ModelStubWithQuiz(String quizId) {
+            requireNonNull(quizId);
+            Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
+            this.quizId = quizId;
+            this.quiz = quiz;
         }
 
         @Override
-        public boolean hasNote(Note note) {
-            requireNonNull(note);
-            return this.note.isSameNote(note);
+        public boolean checkQuizExists(String quizId) {
+            requireNonNull(quizId);
+            return this.quizId.equals(quizId);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the quiz being added.
      */
-    private class ModelStubAcceptingNoteAdded extends ModelStub {
-        final ArrayList<Note> notesAdded = new ArrayList<>();
+    private class ModelStubAcceptingQuizAdded extends ModelStub {
+        final ArrayList<Quiz> quizzesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasNote(Note note) {
-            requireNonNull(note);
-            return notesAdded.stream().anyMatch(note::isSameNote);
+        public boolean addQuizQuestion(String quizId, int questionNumber, int quizQuestionNumber) {
+            requireNonNull(quizId);
+            Quiz quiz = new QuizBuilder().withQuizId(quizId).build();
+            return quizzesAdded.add(quiz);
         }
 
-        @Override
-        public void addNote(Note note) {
-            requireNonNull(note);
-            notesAdded.add(note);
-        }
-
-        @Override
-        public ReadOnlyNotesRecord getNotesRecord() {
-            return new NotesRecord();
-        }
     }
 
 }
