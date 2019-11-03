@@ -5,19 +5,21 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-content-window" stylesheets="@../defaultStyles.css" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="windowTitle" styleClass="window-title" text="Statistics for deck" />
-      <Label fx:id="numCards" text="Number of cards in deck:" />
-      <Label fx:id="totalSessions" text="Test sessions for this deck:" />
-      <Label fx:id="totalDuration" text="Total duration of test sessions:" />
-      <Label styleClass="window-subtitle" text="My Sessions" />
-      <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" VBox.vgrow="ALWAYS">
-         <content>
-            <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
-               <placeholder><Label text="There are no recorded sessions yet!"/></placeholder>
-            </TableView>
-         </content>
-      </ScrollPane>
-   </children>
+<fx:root fitToHeight="true" fitToWidth="true" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox prefHeight="400.0" prefWidth="600.0" styleClass="main-content-window">
+         <Label fx:id="windowTitle" styleClass="window-title" text="Statistics for deck" />
+         <Label fx:id="numCards" text="Number of cards in deck: 0 cards" />
+         <Label fx:id="totalSessions" text="Test sessions for this deck: 0 sessions" />
+         <Label fx:id="totalDuration" text="Total duration of test sessions: 0 hours 0 minutes 0 seconds" />
+         <Label styleClass="window-subtitle" text="My Sessions" />
+         <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="60.0" prefHeight="200.0">
+            <content>
+               <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
+                  <placeholder><Label text="There are no recorded sessions yet!"/></placeholder>
+               </TableView>
+            </content>
+         </ScrollPane>
+      </VBox>
+   </content>
 </fx:root>

@@ -4,19 +4,18 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.VBox;
 
 import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import dream.fcard.util.StatsDisplayUtil;
 
 /**
  * Window to display statistics for a given Deck.
  */
-public class DeckStatisticsWindow extends VBox {
+public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label windowTitle;
     @FXML
