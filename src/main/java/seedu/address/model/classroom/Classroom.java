@@ -19,7 +19,7 @@ import seedu.address.model.student.UniqueStudentList;
  */
 public class Classroom implements ReadOnlyClassroom {
 
-    private String classroomName = "default";
+    private String classroomName = "My First Classroom";
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
     //private final UniqueLessonList lessons;

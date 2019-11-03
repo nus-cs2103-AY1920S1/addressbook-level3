@@ -23,12 +23,6 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_UNDO_FAILURE);
         }
         ReadOnlyNotebook previousNotebook = model.undo();
-        System.out.println("start tracking previous notebook: ");
-        previousNotebook.getLessonWeekList().get(0).asUnmodifiableObservableList()
-                .forEach(lesson -> System.out.println(lesson));
-        System.out.println("start tracking current notebook: ");
-        model.getFilteredLessonWeekList().get(0).asUnmodifiableObservableList()
-                .forEach(lesson -> System.out.println(lesson));
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         model.updateFilteredLessonWeekList(PREDICATE_SHOW_ALL_LESSONLISTS);

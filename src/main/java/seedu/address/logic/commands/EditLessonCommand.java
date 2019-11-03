@@ -29,7 +29,7 @@ public class EditLessonCommand extends Command {
             + "by the index number used in the displayed lesson list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: LESSON_INDEX (must be a positive integer) "
-            + PREFIX_DAY + "DAY_OF_THE_WEEK (Monday: 1, Tuesday: 2 etc)"
+            + PREFIX_DAY + "DAY_OF_THE_WEEK (Monday: 1, Tuesday: 2 etc) "
             + "[" + PREFIX_LESSONNAME + "LESSON_NAME] "
             + "[" + PREFIX_STARTTIME + "START TIME] "
             + "[" + PREFIX_ENDTIME + "END TIME] "

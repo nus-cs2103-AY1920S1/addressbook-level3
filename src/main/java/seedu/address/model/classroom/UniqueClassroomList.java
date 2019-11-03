@@ -122,14 +122,23 @@ public class UniqueClassroomList implements Iterable<Classroom> {
      */
     public void setClassrooms(List<Classroom> classrooms) {
         requireAllNonNull(classrooms);
+        /*
         if (!classroomsAreUnique(classrooms)) {
             throw new DuplicateClassroomException();
         }
+
+         */
         List<Classroom> listToAdd = new ArrayList<>();
         for (Classroom classroom : classrooms) {
             Classroom classroomToAdd = new Classroom();
             classroomToAdd.resetData(classroom);
             listToAdd.add(classroomToAdd);
+        }
+        for (Classroom classroom : listToAdd) {
+            System.out.println(classroom.getClassroomName());
+        }
+        if (!classroomsAreUnique(listToAdd)) {
+            throw new DuplicateClassroomException();
         }
         internalList.setAll(listToAdd);
     }

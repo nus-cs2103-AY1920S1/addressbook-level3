@@ -77,6 +77,7 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
+        System.out.println("PLSCHECK: " + newData.getClassroomList());
         setClassrooms(newData.getClassroomList());
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
@@ -129,6 +130,7 @@ public class Notebook implements ReadOnlyNotebook {
         this.currentClassroom().resetData(classroom);
     }
 
+
     /**
      * Returns true if the notebook has the given classroom.
      * @param classroom check whether this classroom is in the notebook.
@@ -137,6 +139,21 @@ public class Notebook implements ReadOnlyNotebook {
     public boolean hasClassroom(Classroom classroom) {
         requireNonNull(classroom);
         return classrooms.contains(classroom);
+    }
+
+    /**
+     * Returns true if the notebook has the given classroom name.
+     * @param classroomName check whether this classroomName is in the notebook.
+     * @return true if the notebook has the given classroomName.
+     */
+    public boolean hasClassroom(String classroomName) {
+        requireNonNull(classroomName);
+        for (Classroom classroom : classrooms) {
+            if (classroom.getClassroomName().equals(classroom)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -157,6 +174,16 @@ public class Notebook implements ReadOnlyNotebook {
         for (Classroom classroom : classroomList) {
             if (classroom.getClassroomName().equals(currentClassroom.getClassroomName())) {
                 return classroom;
+            }
+        }
+        return null;
+    }
+
+    public Classroom getClassroom(Classroom classroom) {
+        List<Classroom> classroomList = getClassroomList();
+        for (Classroom toCheck : classroomList) {
+            if (toCheck.getClassroomName().equals(classroom.getClassroomName())) {
+                return toCheck;
             }
         }
         return null;

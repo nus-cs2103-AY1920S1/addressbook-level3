@@ -63,6 +63,8 @@ public interface Model {
     /** Returns the Classroom */
     ReadOnlyClassroom getCurrentClassroom();
 
+    Classroom getClassroom(Classroom classroom);
+
     /**
      * Replaces notebook data with the data in {@code notebook}.
      */
@@ -176,6 +178,8 @@ public interface Model {
 
 
     void addClassroom(Classroom classroom);
+
     void setCurrentClassroom(Classroom classroom);
+
     ObservableList<Classroom> getClassroomList();
 }

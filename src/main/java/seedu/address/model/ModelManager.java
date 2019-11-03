@@ -102,6 +102,11 @@ public class ModelManager implements Model {
         return notebook.getCurrentClassroom();
     }
 
+    @Override
+    public Classroom getClassroom(Classroom classroom) {
+        return notebook.getClassroom(classroom);
+    }
+
     //=========== Notebook ================================================================================
 
     @Override
@@ -128,7 +133,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentClassroom(Classroom classroom) {
-        notebook.setClassroom(classroom);
+        notebook.setCurrentClassroom(classroom);
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
     }
