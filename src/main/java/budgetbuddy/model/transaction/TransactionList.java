@@ -17,7 +17,6 @@ import javafx.collections.ObservableList;
 public class TransactionList implements Iterable<Transaction> {
 
     public static final String MESSAGE_CONSTRAINTS = "TransactionList can not be null";
-    public final Amount balance = new Amount(0);
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -84,13 +83,6 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Returns the total balance of the transactionList
-     */
-    public Amount getBalance() {
-        return balance;
-    }
-
-    /**
      * Returns the current number of transactions in the list.
      */
     public int getTransactionsCount() {
@@ -141,4 +133,6 @@ public class TransactionList implements Iterable<Transaction> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+
 }

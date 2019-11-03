@@ -21,7 +21,7 @@ public class Account {
     private Description description;
     private final TransactionList transactionList;
     private boolean isActive = false;
-    private final long balance;
+    private long balance;
 
     /**
      * Every field must be present and not null.
@@ -31,7 +31,7 @@ public class Account {
         this.name = name;
         this.description = description;
         this.transactionList = transactionList;
-        this.balance = transactionList.balance.toLong();
+        this.balance = balance;
     }
 
     public Name getName() {
@@ -52,6 +52,11 @@ public class Account {
 
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
+        if (toAdd.getDirection().toString().equals("IN")) {
+            balance = balance + toAdd.getAmount().toLong();
+        } else {
+            balance = balance - toAdd.getAmount().toLong();
+        }
     }
 
     public void updateTransaction(Index txnIndex, Transaction editedTxn) {
@@ -60,6 +65,11 @@ public class Account {
 
     public void deleteTransaction(Transaction toDelete) {
         this.transactionList.remove(toDelete);
+        if (toDelete.getDirection().toString().equals("IN")) {
+            balance = balance - toDelete.getAmount().toLong();
+        } else {
+            balance = balance - toDelete.getAmount().toLong();
+        }
     }
 
     public boolean isActive() {
@@ -103,5 +113,7 @@ public class Account {
     public String toString() {
         return getName().toString() + " (" + getDescription().toString() + ")";
     }
+
+
 }
 
