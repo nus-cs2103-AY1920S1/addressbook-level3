@@ -2,6 +2,7 @@
 package seedu.address.logic.parser.duties;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_STAFFLIST;
 
 import java.util.List;
 
@@ -40,8 +41,7 @@ public class CancelDutyShiftCommandParser implements Parser<ReversibleActionPair
         Index index;
 
         if (!model.isListingAppointmentsOfSingleStaff()) {
-            throw new ParseException(String.format(Messages.MESSAGE_NOT_STAFFLIST,
-                    CancelDutyShiftCommand.COMMAND_WORD));
+            throw new ParseException(MESSAGE_NOT_STAFFLIST);
         }
 
         try {

@@ -13,7 +13,7 @@ public class Messages {
     public static final String MESSAGE_PERSON_NOT_FOUND = "The person '%1$s' is not registered";
     public static final String MESSAGE_INVALID_ROOM = "the room does not exist";
     public static final String MESSAGE_INVAILD_REFERENCE_ID =
-            "The referenceId '%1$s' does not belong to any registered person!";
+            "The reference ID '%1$s' does not belong to any registered person!";
     public static final String MESSAGE_INVALID_APPOINTMENT_DATE_TIME = "The appointment dateTime provided is invalid!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_ALL_EVENTS_LISTED_OVERVIEW = "%1$d appointments listed!";

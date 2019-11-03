@@ -81,7 +81,7 @@ If no search keyword is provided, all registered patients will be displayed. +
 
 Format: `patient [<SEARCH_KEYWORD>]`
 
-==== Registers a new patient: `register` ====
+==== Registers a new patient: `newpatient` ====
 
 Registers a new patient. Only patient's reference id and name are compulsory fields +
 
@@ -92,7 +92,7 @@ IMPORTANT: As a design decision, undoing the registration of a patient is allowe
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
 Hence, the user *should not have administrative privilege to unregister any patient already in the system.*
 
-==== Updates patients’ profiles: `edit` ====
+==== Updates patients’ profiles: `editpatient` ====
 
 Updates the particulars of a patients +
 
@@ -124,7 +124,7 @@ IMPORTANT: As a design decision, undoing the registration of a staff doctor is a
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
 Hence, the user *should not have administrative privilege to unregister any staff doctor already in the system.*
 
-==== Updates a doctor's profile: `updatedoctor` ====
+==== Updates a doctor's profile: `editdoctor` ====
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 
@@ -190,7 +190,7 @@ Displays a sorted list of upcoming appointments for the patient that is associat
 If no keyword is given, all upcoming appointments will be displayed. +
 Format: `appointments [<REFERENCE_ID>]`
 
-==== Schedules an appointment: `addappt` ====
+==== Schedules an appointment: `newappt` ====
 
 Schedules a new appointments for a patient. +
 NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
@@ -217,7 +217,7 @@ NOTE: To avoid accidental cancellation of another patient's appointments, the us
 
 Format: `cancelappt <ENTRY_ID>`
 
-==== Changes the appointment date: `changeappt` ====
+==== Changes the appointment date: `editappt` ====
 
 Changes the timing for an existing appointment. +
 If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
@@ -237,14 +237,14 @@ NOTE: An appointment is considered missed if the appointment was not acknowledge
 
 Format: `missappt`
 
-==== Sets missed appointments as settled/notified: `settle` ====
+==== Sets missed appointments as settled/notified: `settleappt` ====
 
 Settles and removes the missed appointment based on the given index. +
 Settling refers to the user following up on contacting the patient who has missed his/her appointment. +
 
 NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
 
-Format: `settle <ENTRY_ID>`
+Format: `settleappt <ENTRY_ID>`
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
@@ -261,7 +261,7 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `shifts [<REFERENCE_ID>]`
 
-==== Adds a duty shift for a doctor: `addshift` ====
+==== Adds a duty shift for a doctor: `newshift` ====
 
 Adds a new duty shift for a doctor. +
 If both -rec <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
@@ -279,7 +279,7 @@ NOTE: The operation is rejected if it results in there being more appointments t
 
 Format: `cancelshift <ENTRY_ID>`
 
-==== Changes the duty shift for a doctor: `changeshift` ====
+==== Changes the duty shift for a doctor: `editshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
 

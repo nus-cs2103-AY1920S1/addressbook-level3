@@ -53,7 +53,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_START, PREFIX_END);
 
         if (!model.isListingAppointmentsOfSinglePatient()) {
-            throw new ParseException(String.format(MESSAGE_NOT_PATIENTLIST, ChangeAppCommand.COMMAND_WORD));
+            throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
