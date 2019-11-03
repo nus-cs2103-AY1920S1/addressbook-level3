@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import thrift.commons.core.LogsCenter;
 import thrift.model.transaction.Expense;
@@ -25,6 +26,17 @@ public class TransactionListPanel extends UiPart<Region> {
         super(FXML);
         transactionListView.setItems(transactionList);
         transactionListView.setCellFactory(listView -> new TransactionListViewCell());
+
+        //Solution below adapted from
+        //https://github.com/AY1920S1-CS2103T-T09-3/main/blob/master/src/main/java/seedu/address/ui/PersonListPanel.java
+        transactionListView.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.DOWN)) {
+                int itemPosition = transactionListView.getSelectionModel().getSelectedIndex();
+                if (itemPosition == transactionList.size() - 1) {
+                    transactionListView.scrollTo(itemPosition);
+                }
+            }
+        });
     }
 
     /**

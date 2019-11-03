@@ -98,6 +98,7 @@
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
+
 }
 
 .list-cell:filled:even {
@@ -125,13 +126,13 @@
 .list-cell #expenseValue {
     -fx-text-fill: #ff6c4f;
     -fx-font-size: 22px;
-    -fx-label-padding: 25px 20px 0 0;
+    -fx-label-padding: 0px 20px 0 0;
 }
 
 .list-cell #incomeValue {
     -fx-text-fill: #4CAF50;
     -fx-font-size: 22px;
-    -fx-label-padding: 25px 20px 0 0;
+    -fx-label-padding: 0px 20px 0 0;
 }
 
 .cell_big_label {

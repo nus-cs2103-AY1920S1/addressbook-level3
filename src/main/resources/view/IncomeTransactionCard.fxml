@@ -39,9 +39,6 @@
                 </VBox>
                 <Pane minWidth="50" HBox.hgrow="ALWAYS" />
                 <Label fx:id="incomeValue" styleClass="cell_small_label" text="\$value">
-                <HBox.margin>
-                    <Insets top="-20.0" />
-                </HBox.margin>
                 </Label>
             </HBox>
         </VBox>

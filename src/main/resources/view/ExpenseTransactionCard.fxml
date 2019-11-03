@@ -38,9 +38,6 @@
         </VBox>
         <Pane HBox.hgrow="ALWAYS"></Pane>
         <Label fx:id="expenseValue" styleClass="cell_small_label" text="\$value" >
-        <HBox.margin>
-          <Insets top="-20.0" />
-        </HBox.margin>
         </Label>
       </HBox>
     </VBox>

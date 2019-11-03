@@ -560,6 +560,10 @@ If you are especially conscious about having your data spied on, this function w
 
 *A*: Runs the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous THRIFT application.
 
+*Q*: How do I maximise the size of application's window?
+
+*A*: No, you cannot modify the size of the application's window. It is intended to be fixed.
+
 == Command summary
 * <<BudgetTag, *Budget*>>: `budget v/VALUE d/MONTH/YEAR` +
 Example: `budget v/1000 d/10/2019`
