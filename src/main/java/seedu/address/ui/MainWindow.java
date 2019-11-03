@@ -437,7 +437,11 @@ public class MainWindow extends UiPart<Stage> {
         configureGenericCommands(panelName);
 
         if (panelName.equals(StatsPanel.PANEL_NAME)) {
-            populateStatisticsPanel();
+            try {
+                populateStatisticsPanel();
+            } catch (NullPointerException e) {
+                singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
+            }
         }
         singlePanelView.viewPanel(panelName);
     }
