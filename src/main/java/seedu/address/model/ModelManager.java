@@ -774,6 +774,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteVEvent(Index index) {
+        eventRecord.deleteVEvent(index);
+    }
+
+    @Override
     public void addVEvent(VEvent vEvent) {
         eventRecord.addVEvent(vEvent);
     }

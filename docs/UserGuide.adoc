@@ -88,6 +88,48 @@ _If you are not able to run the application using the method above, use the foll
 . Type cd [PATH TO DIRECTORY CONTAINING .JAR FILE]
 . Type `java -jar njoy.jar` to run the application.
 
+== Sample Data
+
+[TIP]
+The NJoy Assistant starts with some data as examples. Upon the first startup, the *students*, *questions*,
+*events* and *notes* storage are loaded with sample data. The user should clear these if they are not of importance,
+as they merely serve as examples.
+
+The following steps provide an example of how to clear the sample user data for questions. The same steps can
+be applied to clear the storage for students, events and notes albeit slight <<Differences, `differences`>>.
+
+*Step 1.* To see the list of questions, type in the following command: `question list`. The sample question is
+circled in purple. +
+
+image::QuestionListSample.jpg[]
+
+{nbsp} +
+*Step 2.* To delete the sample question, type in the following command: `question delete 1`. This deletes the
+first question in the question list, which in this case is the sample question! +
+{nbsp} +
+After which, you should see the message circled in red indicating the success of the deletion. +
+
+image::QuestionDeleteSample.jpg[]
+
+{nbsp} +
+*Step 3.* You're already done! To confirm that the question has been deleted, once again type in the following
+command: `question list`. You should see that there are no more sample questions! +
+
+image::QuestionListBlank.jpg[]
+
+{nbsp} +
+
+[[Differences]]
+=== Differences in Sample Data Deletion
+
+. *Students*: The steps for deletion are the same as for the sample question. +
+
+. *Notes*: The steps for deletion are the same as for the sample question, except that the notes are displayed
+on the right hand side of the User Interface. +
+
+. *Events*: The steps for deletion are the same as for the sample question, except that to view the event, a
+different command: `event view` has to be keyed into the command line.
+
 == Commands
 
 *Command Format*
@@ -469,11 +511,14 @@ it be? And also, is it an mcq or open-ended question? The image below gives an o
 image::CreateQuestion.jpg[]
 _`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates a sample mcq question._
 
+{nbsp} +
 *Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
 how one can view the question list: +
 
 image::QuestionList.jpg[]
 _`question list` - displays the question list._
+
+{nbsp} +
 
 ==== Creating a Quiz manually: `manual`
 
@@ -599,14 +644,18 @@ navigate to their current directory. An exports folder as shown in the image bel
 
 image::QuizExportsFolder.jpg[]
 
+{nbsp} +
 *Step 2.* Open the folder and double click the html file labelled with the file name CS2103T.
 
 image::QuizHtml.PNG[]
 
+{nbsp} +
 *Step 3.* Now you can send the custom quiz file to your students!
 The quiz should be in a similar format as displayed below.
 
 image::QuizExported.PNG[]
+
+{nbsp} +
 
 ==== Listing a Quiz: `list`
 

@@ -241,13 +241,15 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     }
 
     /**
-     * Gets most similar VEvent to that of desiredEventName
-     *
-     * @return List a pair representing the most similar VEvent and its Index
-     *
-     * Will default to first VEvent in list if cannot be found
+     * Finds the most similar event to the event name specified
+     * @param desiredEventName desiredEventName to be found
+     * @return a vEvent object that is closest to the event name specified
+     * @throws VEventNotFoundException if there are no VEvents at all.
      */
-    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
+    public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) throws VEventNotFoundException {
+        if (vEvents.isEmpty()) {
+            throw new VEventNotFoundException();
+        }
         VEvent mostSimilarVEvent = vEvents.get(0);
         Integer mostSimilarIndex = 0;
         double highestSimilarityPercentage =
