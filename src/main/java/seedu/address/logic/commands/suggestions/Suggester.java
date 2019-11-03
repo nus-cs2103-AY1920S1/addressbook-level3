@@ -175,7 +175,7 @@ public abstract class Suggester {
         CollectionUtil.requireAllNonNull(model, commandArgument);
 
         final Prefix prefix = commandArgument.getPrefix();
-        assert prefix.equals(CliSyntax.PREFIX_LOCATIONS);
+        assert prefix.equals(CliSyntax.PREFIX_LOCATIONS) || prefix.equals((CliSyntax.PREFIX_TIMING));
 
         final String locationInput = commandArgument.getValue();
         return model.validLocationSuggester(locationInput);
