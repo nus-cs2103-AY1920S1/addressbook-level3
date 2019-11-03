@@ -233,6 +233,11 @@ public class MainApp extends Application {
         }
     }
 
+    /**
+     * Initialises the overview model. Throws an appropriate error and returns default values if the file is corrupt.
+     * @param storage The storage manager for overview.
+     * @return A double array of the 6 values stored in overview.
+     */
     private double[] initOverviewModelManager(seedu.address.overview.storage.Storage storage) {
         try {
             return storage.readFromFile();
