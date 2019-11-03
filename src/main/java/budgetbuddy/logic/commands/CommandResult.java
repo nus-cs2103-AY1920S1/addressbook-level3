@@ -25,8 +25,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser,
                          CommandCategory commandCategory, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        // todo: add requireNonNull on commandCategory after every command has set their category
-        this.commandCategory = commandCategory;
+        this.commandCategory = requireNonNull(commandCategory);
         this.showHelp = showHelp;
         this.exit = exit;
     }

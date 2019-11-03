@@ -6,6 +6,7 @@ package budgetbuddy.logic.commands;
 
 public enum CommandCategory {
     RULE, ACCOUNT, TRANSACTION, LOAN, SCRIPT,
+    MISC,
     LOAN_SPLIT;
 
     public boolean isSecondaryCategory() {
