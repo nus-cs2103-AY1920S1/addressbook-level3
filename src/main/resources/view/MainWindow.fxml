@@ -47,7 +47,7 @@
                     </padding>
                 </HBox>
 
-                <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.8" VBox.vgrow="ALWAYS">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
@@ -59,7 +59,7 @@
                             <StackPane fx:id="mainDisplayPanePlaceholder" VBox.vgrow="ALWAYS" />
                         </VBox>
 
-                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300" styleClass="pane-with-border" VBox.vgrow="SOMETIMES" />
+                        <StackPane fx:id="reminderListPlaceholder" minWidth="200" prefHeight="300" prefWidth="200" VBox.vgrow="ALWAYS"/>
                     </items>
                 </SplitPane>
 

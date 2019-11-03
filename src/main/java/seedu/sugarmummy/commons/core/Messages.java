@@ -66,4 +66,7 @@ public class Messages {
     public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
             + "the \'achvm\' command to view your updated list of achievements.";
 
+    //--Calendar--
+    public static final String MESSAGE_INVALID_EVENT_ENDING_TIME = "Oops! The ending date time of an event should come"
+            + " after starting date time.";
 }
