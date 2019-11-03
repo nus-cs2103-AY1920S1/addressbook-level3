@@ -159,14 +159,15 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
         assert this.tabsData.contains(tabData);
         checkIfContains(tabData);
         Index tabIndex = getDetailsTabIndex(tabData);
+        int detailsTabPaneIndexValue = detailsTabPaneIndex.intValue();
         this.tabsData.remove(tabData);
 
         // If there are no tab data
         if (this.tabsData.size() == 0) {
             // Do nothing
-        } else if (detailsTabPaneIndex.get() >= tabIndex.getZeroBased()) {
+        } else if (detailsTabPaneIndexValue >= tabIndex.getZeroBased()) {
             // decrement the details tab pane index
-            detailsTabPaneIndex.setValue(detailsTabPaneIndex.get() - 1);
+            detailsTabPaneIndex.setValue(detailsTabPaneIndexValue - 1);
         }
 
         return TabCommandType.CLOSE_DETAILS;
@@ -175,14 +176,15 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
     @Override
     public TabCommandType closeDetailsTab(Index index) throws IndexOutOfBoundsException {
         isValidDetailsTabPaneIndex(index);
+        int detailsTabPaneIndexValue = detailsTabPaneIndex.intValue();
         this.tabsData.remove(tabsData.asUnmodifiableObservableList().get(index.getZeroBased()));
 
         // If there are no tab data
         if (this.tabsData.size() == 0) {
             // Do nothing
-        } else if (detailsTabPaneIndex.get() >= index.getZeroBased()) {
+        } else if (detailsTabPaneIndexValue >= index.getZeroBased()) {
             // decrement the details tab pane index
-            detailsTabPaneIndex.setValue(detailsTabPaneIndex.get() - 1);
+            detailsTabPaneIndex.setValue(detailsTabPaneIndexValue - 1);
         }
 
         return TabCommandType.CLOSE_DETAILS;
