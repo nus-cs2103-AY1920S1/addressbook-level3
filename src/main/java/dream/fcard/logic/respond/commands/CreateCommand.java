@@ -1,12 +1,9 @@
 package dream.fcard.logic.respond.commands;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 
 /**
@@ -27,53 +24,54 @@ public class CreateCommand extends Command {
      */
     public boolean funcCall() throws DeckAlreadyExistsException {
         String deckName = input.split("deck/")[1].strip();
-        if (deckAlreadyExists(deckName)) {
-            throw new DeckAlreadyExistsException(deckName);
-        } else {
-            Deck newDeck = new Deck(deckName);
-            Scanner sc = new Scanner(System.in);
+        //if (deckAlreadyExists(deckName)) {
+        //    throw new DeckAlreadyExistsException(deckName);
+        //} else {
+        //    Deck newDeck = new Deck(deckName);
+        //    Scanner sc = new Scanner(System.in);
+        //
+        //
+        //    if (!progState.isCreateMode()) {
+        //        progState.toggleCreateMode();
+        //    }
 
-
-            if (!progState.isCreateMode()) {
-                progState.toggleCreateMode();
-            }
-
-            //GUI.printCreateMode("Let’s begin creating the deck ‘" + deckName
-            // + "’. When done, simply type ‘quit’!");
-            System.out.println("Let’s begin creating the deck ‘" + deckName
-                    + "’. When done, simply type ‘quit’!");
-            while (sc.hasNextLine()) {
-                // GUI.printCreateMode("Type the front of card #" + (newDeck.getNumCards() + 1));
-                System.out.println("Type the front of card #" + (newDeck.getNumCards() + 1));
-                String frontOfCard;
-                String backOfCard;
-                if (sc.nextLine().matches("(?i)^(quit)?.")) {
-                    //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
-                    //        + newDeck.getNumCards() + " cards!\n");
-                    System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
-                            + newDeck.getNumCards() + " cards!\n");
-                    break;
-                } else {
-                    frontOfCard = sc.nextLine();
-                }
-
-                // GUI.printCreateMode("Type the back of card #" + (newDeck.getNumCards() + 1));
-                System.out.println("Type the back of card #" + (newDeck.getNumCards() + 1));
-                if (sc.nextLine().matches("(?i)^(quit)?.")) {
-                    //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
-                    //        + newDeck.getNumCards() + " cards!\n");
-                    System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
-                            + newDeck.getNumCards() + " cards!\n");
-                    break;
-                } else {
-                    backOfCard = sc.nextLine();
-                    FlashCard newCard = new FrontBackCard(frontOfCard, backOfCard);
-                    newDeck.addNewCard(newCard);
-                }
-            }
-            progState.toggleCreateMode();
-            return true;
-        }
+        //    //GUI.printCreateMode("Let’s begin creating the deck ‘" + deckName
+        //    // + "’. When done, simply type ‘quit’!");
+        //    System.out.println("Let’s begin creating the deck ‘" + deckName
+        //            + "’. When done, simply type ‘quit’!");
+        //    while (sc.hasNextLine()) {
+        //        // GUI.printCreateMode("Type the front of card #" + (newDeck.getNumCards() + 1));
+        //        System.out.println("Type the front of card #" + (newDeck.getNumCards() + 1));
+        //        String frontOfCard;
+        //        String backOfCard;
+        //        if (sc.nextLine().matches("(?i)^(quit)?.")) {
+        //            //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
+        //            //        + newDeck.getNumCards() + " cards!\n");
+        //            System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
+        //                    + newDeck.getNumCards() + " cards!\n");
+        //            break;
+        //        } else {
+        //            frontOfCard = sc.nextLine();
+        //        }
+        //
+        //        // GUI.printCreateMode("Type the back of card #" + (newDeck.getNumCards() + 1));
+        //        System.out.println("Type the back of card #" + (newDeck.getNumCards() + 1));
+        //        if (sc.nextLine().matches("(?i)^(quit)?.")) {
+        //            //GUI.printCreateMode("You have created the deck ‘" + deckName + "’ with a total of "
+        //            //        + newDeck.getNumCards() + " cards!\n");
+        //            System.out.println("You have created the deck ‘" + deckName + "’ with a total of "
+        //                    + newDeck.getNumCards() + " cards!\n");
+        //            break;
+        //        } else {
+        //            backOfCard = sc.nextLine();
+        //            FlashCard newCard = new FrontBackCard(frontOfCard, backOfCard);
+        //            newDeck.addNewCard(newCard);
+        //        }
+        //    }
+        //    progState.toggleCreateMode();
+        //    return true;
+        //}
+        return false;
     }
 
     /**

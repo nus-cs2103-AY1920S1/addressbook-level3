@@ -1,0 +1,8 @@
+.main-content-window {
+    -fx-padding: 20px;
+    -fx-spacing: 10px;
+}
+
+.window-title {
+    -fx-font-size: 24px;
+}

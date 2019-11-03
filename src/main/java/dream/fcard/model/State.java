@@ -1,24 +1,22 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.function.Consumer;
 
+import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
+
+
 
 /**
  * Running state of the program.
  */
 public class State {
-
+    private static State state;
     private ArrayList<Deck> decks;
-    private boolean isEditMode;
-    private boolean isCreateMode;
-
-    /**
-     * Constructor to create a State object with no Deck objects.
-     */
-    public State() {
-        decks = new ArrayList<>();
-    }
+    private HashMap<String, Consumer> consumerHashMap;
+    private StateEnum currState;
 
     /**
      * Constructor to create a State object with existing Deck objects.
@@ -28,6 +26,43 @@ public class State {
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
+    // todo: unused constructor - remove?
+
+    /**
+     * Constructor to create a State object with no Deck objects.
+     */
+    public State() {
+        decks = StorageManager.loadDecks();
+        consumerHashMap = new HashMap<>();
+        currState = StateEnum.DEFAULT;
+    }
+
+    /**
+     * State is a singleton to avoid passing the state object through too many layers of objects.
+     *
+     * @return the singleton state object
+     */
+    public static State getState() {
+        if (state == null) {
+            state = new State();
+        }
+        return state;
+    }
+
+    /**
+     * Returns false if decks is non-empty, true if decks is empty.
+     */
+    public boolean isEmpty() {
+        return decks.size() == 0;
+    }
+
+    /**
+     * Returns the list of decks.
+     */
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
 
     /**
      * Adds a new empty Deck object to decks list.
@@ -37,29 +72,12 @@ public class State {
     }
 
     /**
-     * Adds a given Deck object to the decks list.
+     * Adds a deck object to decks list.
      *
-     * @param deck Deck object to be added.
-     * */
+     * @param deck deck object
+     */
     public void addDeck(Deck deck) {
         decks.add(deck);
-    }
-
-
-    public boolean isEditMode() {
-        return this.isEditMode;
-    }
-
-    public boolean isCreateMode() {
-        return this.isCreateMode;
-    }
-
-    public void toggleEditMode() {
-        isEditMode = !isEditMode;
-    }
-
-    public void toggleCreateMode() {
-        isCreateMode = !isCreateMode;
     }
 
     /**
@@ -98,8 +116,9 @@ public class State {
     }
 
     /**
-     * Replace all decks with a new set of decks. Used by `root` command.
-     * @param newDecks  new decks
+     * Load decks from StorageManager.
+     *
+     * @param newDecks the array list of all decks in Storage.
      */
     public void reloadAllDecks(ArrayList<Deck> newDecks) {
         decks = newDecks;
@@ -108,6 +127,9 @@ public class State {
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
      * Else, return -1 if no deck with matching name is found.
+     * <p>
+     * Note: this method is only used internally for State processing.
+     * Should not be confused with user seen indexes, since this is 0-based index.
      *
      * @return index
      */
@@ -121,5 +143,39 @@ public class State {
             }
         }
         return -1;
+    }
+
+    public void addConsumer(String identifier, Consumer c) {
+        consumerHashMap.putIfAbsent(identifier, c);
+    }
+
+    /**
+     * This method of getting consumers generifies the type of input which leads to compiler warnings.
+     * As such, the suppress warning annotations used whenever this method is called
+     * are due to the unchecked generic Consumer types.
+     *
+     * @param identifier name of the Consumer as recorded in ConsumerSchema
+     * @return the Consumer
+     */
+    public Consumer getConsumer(String identifier) {
+        return consumerHashMap.get(identifier);
+    }
+
+    /**
+     * Sets the current state at a specified StateEnum.
+     *
+     * @param currState the StateEnum that state should be at at this time.
+     */
+    public void setCurrState(StateEnum currState) {
+        this.currState = currState;
+    }
+
+    /**
+     * Getter for the current StateEnum.
+     *
+     * @return the StateEnum that the state is in at this time.
+     */
+    public StateEnum getCurrState() {
+        return this.currState;
     }
 }

@@ -2,20 +2,18 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
-import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Card that evaluates input as javascript code whose output has to match back of card.
  */
 public class JavascriptCard extends FlashCard {
 
-    protected String front;
+    protected String front; //question
     protected String back;
-    protected Statistics stats;
+    protected String attempt;
 
 
     /**
@@ -27,8 +25,6 @@ public class JavascriptCard extends FlashCard {
         front = frontString;
         back = outputString;
         priority = LOW_PRIORITY;
-        stats = new Statistics();
-
     }
 
     /**
@@ -59,24 +55,11 @@ public class JavascriptCard extends FlashCard {
         return new JsonValue(obj);
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
-    public Node renderFront() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
+    public FlashCard duplicate() {
+        String frontText = front;
+        String backText = back;
+        return new JavascriptCard(frontText, backText);
     }
 
     /**
@@ -119,5 +102,30 @@ public class JavascriptCard extends FlashCard {
      */
     public String getBack() {
         return back;
+    }
+
+    /**
+     * Return the user's attempted code.
+     * @return code attempt
+     */
+    public String getAttempt() {
+        return attempt;
+    }
+
+    /**
+     * Store the user's attempted code.
+     * @param attempt code attempt
+     */
+    public void setAttempt(String attempt) {
+        this.attempt = attempt;
+    }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 }

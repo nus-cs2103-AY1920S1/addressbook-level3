@@ -27,10 +27,6 @@ public class EditCommand extends Command {
         String action = input.split("action/")[1].split(" ")[0].toLowerCase();
         Deck currDeck = progState.getDeck(deckName);
 
-        if (!progState.isEditMode()) {
-            progState.toggleEditMode();
-        }
-
         switch(action) {
         case "add":
             String front = input.split("front/")[1].split(" ")[0];
@@ -68,7 +64,6 @@ public class EditCommand extends Command {
             throw new InvalidInputException("The input given does not match any possible command!");
         }
 
-        progState.toggleEditMode();
         return true;
     }
 

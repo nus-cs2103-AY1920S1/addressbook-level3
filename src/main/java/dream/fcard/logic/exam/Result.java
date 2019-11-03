@@ -14,7 +14,7 @@ public class Result {
     }
 
     public String getScore() {
-        return "Final Score:" + finalScore + "/" + maxScore;
+        return finalScore + "/" + maxScore;
     }
 
     /**

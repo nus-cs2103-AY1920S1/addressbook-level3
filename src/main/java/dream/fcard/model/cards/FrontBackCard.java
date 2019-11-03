@@ -2,12 +2,10 @@ package dream.fcard.model.cards;
 
 import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 
-import dream.fcard.logic.stats.Statistics;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
-import javafx.scene.Node;
 
 /**
  * Card that evaluates input to match back of card.
@@ -15,7 +13,8 @@ import javafx.scene.Node;
 public class FrontBackCard extends FlashCard {
     protected String back;
     protected String front;
-    protected Statistics stats;
+    protected int cardResult;
+
     /**
      * Constructor to create a FrontBackCard.
      * Takes in 2 String, front text and back text.
@@ -28,20 +27,25 @@ public class FrontBackCard extends FlashCard {
         front = frontString;
         // Default priority is 1
         priority = LOW_PRIORITY;
-    }
-
-    public FrontBackCard(String frontString, String backString, int priorityLevel) {
-        back = backString;
-        front = frontString;
-
-        priority = priorityLevel;
-        stats = new Statistics();
+        this.cardResult = -1;
     }
 
     /**
+     * Constructor to create a FrontBackCard with front and back string, and integer priority levle.
      *
+     * @param frontString   String of front text.
+     * @param backString    String of back text.
+     * @param priorityLevel Integer of priority level.
+     */
+    public FrontBackCard(String frontString, String backString, int priorityLevel) {
+        back = backString;
+        front = frontString;
+    }
+
+    /**
+     * Returns JsonValue of flashcard.
      *
-     * @return
+     * @return JsonValue of flashcard.
      */
     @Override
     public JsonValue toJson() {
@@ -52,30 +56,14 @@ public class FrontBackCard extends FlashCard {
         return new JsonValue(obj);
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
-    public Node renderFront() {
-        // temporary
-        return null;
+    public FlashCard duplicate() {
+        return new FrontBackCard(front, back, 0);
     }
 
     /**
-     *
-     * @return
-     */
-    @Override
-    public Node renderBack() {
-        // temporary
-        return null;
-    }
-
-    /**
-     *
-     * @param in input
-     * @return
+     * @param in String input by user.
+     * @return Boolean value, if correct return true, else return false.
      * @throws IndexNotFoundException
      */
     public Boolean evaluate(String in) throws IndexNotFoundException {
@@ -83,35 +71,47 @@ public class FrontBackCard extends FlashCard {
     }
 
     /**
+     * Edits the front text of card.
      *
-     * @param newText
+     * @param newText String of front text to replace the front.
      */
     public void editFront(String newText) {
         front = newText;
     }
 
     /**
+     * Edits the back text of card.
      *
-     *
-     * @param newText
+     * @param newText String of new text to replace the back text.
      */
     public void editBack(String newText) {
         back = newText;
     }
 
     /**
+     * Returns front string of card.
      *
-     * @return
+     * @return String of front text.
      */
     public String getFront() {
         return front;
     }
 
     /**
+     * Returns back string of card.
      *
-     * @return
+     * @return String of back text.
      */
     public String getBack() {
         return back;
+    }
+
+    @Override
+    public void updateScore(Boolean isCorrect) {
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 }
