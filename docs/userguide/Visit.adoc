@@ -14,10 +14,10 @@ You can begin a visit by using `visit-start`. When you visit a patient and you w
 
 `visit-start` uses the patient's Visit Todos to populate a checklist of Visit Tasks for you to use (these Visit Tasks are simply referred to as "tasks"). Visit Todos are described in further detail under <<VisitHowTo>>.
 
-Format: `visit-start INDEX`
+Format: `visit-start PATIENT_INDEX`
 
 ****
-* Begins a visit for the patient specified at `INDEX`.
+* Begins a visit for the patient specified at `PATIENT_INDEX`.
 * The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * There can only be one ongoing visit at any point in time; if there is already an ongoing visit this command does nothing.
@@ -33,12 +33,12 @@ Starts a visit for the 1st patient in the patient list.
 Once you have begun a visit using `visit-start`, the application will note that you have an ongoing visit. You can then update the details of this ongoing visit using `visit-now-update`.
 
 
-Format: `visit-now-update [t/TASK_INDEX DETAIL]… [f/TASK_INDEX]… [uf/TASK_INDEX]… [r/REMARK]`
+Format: `visit-now-update [d/TASK_INDEX DETAIL]… [f/TASK_INDEX]… [uf/TASK_INDEX]… [r/REMARK]`
 
 ****
-Each argument (e.g. `t/`, `f/`, `uf/`, `r/`) triggers their own change to the visit:
+Each argument (e.g. `d/`, `f/`, `uf/`, `r/`) triggers their own change to the visit:
 
-* `d/` Represents "detail". Each task in the visit checklist can be assigned some information if it is useful for you. For example, if task of index 1 is "Check Body Temp", you can use `t/1 37.0degc` to record that detail to that task (`TASK_INDEX` followed by a space followed by the details you want to store).
+* `d/` Represents "detail". Each task in the visit checklist can be assigned some information if it is useful for you. For example, if task of index 1 is "Check Body Temp", you can use `d/1 37.0degc` to record that detail to that task (`TASK_INDEX` followed by a space followed by the details you want to store).
 * `f/` Represents "finish". Each task begins as unfinished and to mark a task as finished, you can use this prefix. For example, to mark task of index 1 as finished, you can use `f/1` (`TASK_INDEX of the task you want to mark as finished).
 * `uf/` Represents "un-finish". If you have marked a task as finished prior using `f/` and you want to undo that, you can use `uf/` (e.g. for task index 1 use `uf/1`).
 * `r/` Represents "remark". You can use this to update the remarks section of the visit.

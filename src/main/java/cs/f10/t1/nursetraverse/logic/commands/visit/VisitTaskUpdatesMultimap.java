@@ -82,6 +82,7 @@ class VisitTaskUpdatesMultimap {
             VisitTaskUpdatesMultimapKeys isMarkFinish) throws CommandException {
         CollectionUtil.requireAllNonNull(taskList, indexList, isMarkFinish);
         for (Index targetIndex : indexList) {
+            //Throw an exception if the index is larger than the size
             if (indexToInt(targetIndex) >= taskList.size()) {
                 throw new CommandException(String.format(
                         UpdateOngoingVisitCommand.MESSAGE_INVALID_VISIT_TASK_INDEX,
@@ -99,6 +100,7 @@ class VisitTaskUpdatesMultimap {
             List<Pair<Index, String>> indexDetailPairList) throws CommandException {
         CollectionUtil.requireAllNonNull(taskList, indexDetailPairList);
         for (Pair<Index, String> indexStringPair : indexDetailPairList) {
+            //Throw an exception if the index is larger than the size
             if (indexToInt(indexStringPair.getKey()) >= taskList.size()) {
                 throw new CommandException(String.format(
                         UpdateOngoingVisitCommand.MESSAGE_INVALID_VISIT_TASK_INDEX,
