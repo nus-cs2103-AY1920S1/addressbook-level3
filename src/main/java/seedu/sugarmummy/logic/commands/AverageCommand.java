@@ -28,6 +28,8 @@ public class AverageCommand extends Command {
 
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
+    public static final String MESSAGE_INVALID_RECORD_TYPE = "rt/RECORD_TYPE";
+
     public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 
     private final AverageType averageType;
