@@ -1,11 +1,15 @@
 package seedu.planner.logic.commands.util;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.Model;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
+import seedu.planner.model.activity.Duration;
 import seedu.planner.model.contact.Contact;
 
 /**
@@ -46,5 +50,14 @@ public class CommandUtil {
             throw new AssertionError("Contact should have been added.");
         }
         return indexOfContact.get();
+    }
+
+    /**
+     * Calculates and returns the endDateTime of an activity.
+     */
+    public static LocalDateTime calculateEndDateTime(LocalDate startDate,
+                                                     Index dayIndex, LocalTime startTime, Duration duration) {
+        return LocalDateTime.of(startDate.plusDays(dayIndex.getZeroBased()), startTime)
+                .plusMinutes(duration.value);
     }
 }

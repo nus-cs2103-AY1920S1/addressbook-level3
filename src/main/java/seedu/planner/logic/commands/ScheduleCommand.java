@@ -7,6 +7,7 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
+import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
@@ -42,8 +44,7 @@ public class ScheduleCommand extends UndoableCommand {
             + PREFIX_DAY + "2 ");
 
     public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activity scheduled to day %d";
-    public static final String MESSAGE_END_TIME_EXCEEDS_2359 = "Not enough time left in the"
-            + " day to perform this command.";
+    public static final String MESSAGE_END_TIME_EXCEEDS_LAST_DAY = "Activity will end after the end of the itinerary.";
 
     private final Index activityIndex;
     private final LocalTime startTime;
@@ -75,6 +76,7 @@ public class ScheduleCommand extends UndoableCommand {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -90,11 +92,15 @@ public class ScheduleCommand extends UndoableCommand {
 
         Day dayToEdit = lastShownDays.get(dayIndex.getZeroBased());
         Activity activityToSchedule = lastShownActivities.get(activityIndex.getZeroBased());
-        LocalTime endTime = startTime.plusMinutes(activityToSchedule.getDuration().value);
-        if (activityToSchedule.getDuration().value >= 1440 || endTime.isBefore(startTime)) {
-            throw new CommandException(MESSAGE_END_TIME_EXCEEDS_2359);
+        LocalDateTime lastDateTimeOfItinerary = model.getLastDateTime();
+        LocalDateTime endDateTimeOfActivity = CommandUtil.calculateEndDateTime(model.getStartDate(),
+                dayIndex, startTime, activityToSchedule.getDuration());
+        if (endDateTimeOfActivity.isAfter(lastDateTimeOfItinerary)) {
+            throw new CommandException(MESSAGE_END_TIME_EXCEEDS_LAST_DAY);
         }
-        ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule, startTime);
+
+        ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule,
+                startTime.atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())));
 
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
 

@@ -5,6 +5,7 @@ import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -271,7 +272,7 @@ public class ModelManager implements Model {
                 for (Integer i : indexOfOldActs) {
                     ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
                     listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
-                            oldActivityWithTime.getStartTime()));
+                            oldActivityWithTime.getStartDateTime()));
                 }
                 Day newDay = new Day(listOfActivityWithTime);
                 setDay(day, newDay);
@@ -357,7 +358,7 @@ public class ModelManager implements Model {
                                     indexOfOldItem,
                                     new ActivityWithTime(
                                         newActivity,
-                                        oldActivityWithTime.getStartTime()
+                                        oldActivityWithTime.getStartDateTime()
                                     )
                             );
                         }
@@ -643,8 +644,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public LocalDateTime getLastDateTime() {
+        return this.itinerary.getStartDate().plusDays(getNumberOfDays() - 1).atTime(23, 59);
+    }
+
+    @Override
     public void setItineraryStartDate(LocalDate date) {
         this.itinerary.setStartDate(date);
+    }
+
+    @Override
+    public void shiftDatesInItineraryByDay(long days) {
+        this.itinerary.shiftDatesInItineraryByDay(days);
     }
 
     @Override

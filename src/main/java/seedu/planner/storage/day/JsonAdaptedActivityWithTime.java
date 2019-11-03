@@ -1,6 +1,8 @@
 package seedu.planner.storage.day;
 
-import java.time.LocalTime;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,7 +19,7 @@ import seedu.planner.storage.activity.JsonAdaptedActivity;
 public class JsonAdaptedActivityWithTime {
 
     private final JsonAdaptedActivity activity;
-    private final String startTime;
+    private final String startDateTime;
     private final String endTime;
 
     /**
@@ -27,7 +29,7 @@ public class JsonAdaptedActivityWithTime {
     public JsonAdaptedActivityWithTime(@JsonProperty("activity") JsonAdaptedActivity activity,
                           @JsonProperty("startTime") String startTime, @JsonProperty("endTime") String endTime) {
         this.activity = activity;
-        this.startTime = startTime;
+        this.startDateTime = startTime;
         this.endTime = endTime;
     }
 
@@ -36,8 +38,8 @@ public class JsonAdaptedActivityWithTime {
      */
     public JsonAdaptedActivityWithTime(ActivityWithTime source) {
         activity = new JsonAdaptedActivity(source.getActivity());
-        startTime = source.getStartTime().toString();
-        endTime = source.getEndTime().toString();
+        startDateTime = source.getStartDateTime().toString();
+        endTime = source.getEndDateTime().toString();
     }
 
     /**
@@ -45,11 +47,8 @@ public class JsonAdaptedActivityWithTime {
      */
     public ActivityWithTime toModelType() throws IllegalValueException {
         final Activity modelActivity = activity.toModelType();
-        String[] stArray = startTime.split(":");
-        int startHour = Integer.parseInt(stArray[0]);
-        int startMin = Integer.parseInt(stArray[1]);
-        LocalTime activityStartTime = LocalTime.of(startHour, startMin);
-        return new ActivityWithTime(modelActivity, activityStartTime);
+        LocalDateTime parsedDateTime = LocalDateTime.parse(startDateTime, ISO_LOCAL_DATE_TIME);
+        return new ActivityWithTime(modelActivity, parsedDateTime);
     }
 
 }

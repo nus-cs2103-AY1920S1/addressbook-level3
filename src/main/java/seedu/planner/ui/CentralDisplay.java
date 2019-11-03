@@ -1,7 +1,6 @@
 package seedu.planner.ui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -299,8 +298,8 @@ public class CentralDisplay extends UiPart<Region> {
             String textToDisplay = createSummaryOfAppointment(activityWithTime.getActivity());
             agenda.appointments().add(
                 new Agenda.AppointmentImplLocal()
-                    .withStartLocalDateTime(LocalDateTime.of(currDate, activityWithTime.getStartTime()))
-                    .withEndLocalDateTime(LocalDateTime.of(currDate, activityWithTime.getEndTime()))
+                    .withStartLocalDateTime(activityWithTime.getStartDateTime())
+                    .withEndLocalDateTime(activityWithTime.getEndDateTime())
                     .withSummary(textToDisplay)
             );
         }

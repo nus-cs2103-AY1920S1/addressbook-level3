@@ -7,6 +7,7 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.planner.model.Model.PREDICATE_SHOW_ALL_DAYS;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -162,7 +163,8 @@ public class AutoScheduleCommand extends UndoableCommand {
                             break;
                         }
                         isScheduled = true;
-                        activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i), duration,
+                        activitiesForTheDay.add(activityToSchedule(
+                                timeSchedule.get(i).atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
                                 activityWithCount.getActivity()));
                         break;
                     }
@@ -178,8 +180,12 @@ public class AutoScheduleCommand extends UndoableCommand {
                     // No timing is given by user for the entire autoschedule command
                     if (nextTimingIndex == -1) {
                         isScheduled = true;
-                        activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i), duration,
-                                activityWithCount.getActivity()));
+                        activitiesForTheDay.add(
+                                activityToSchedule(
+                                    timeSchedule.get(i).atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
+                                    activityWithCount.getActivity()
+                            )
+                        );
                         timeSchedule.set(i + 1, currentTiming.plusMinutes(duration));
                         break;
                         //check next timing does not overlap
@@ -188,8 +194,13 @@ public class AutoScheduleCommand extends UndoableCommand {
 
                         if (startTimeOfNextActivity.compareTo(currentActivityEndTime) >= 0) {
                             isScheduled = true;
-                            activitiesForTheDay.add(activityToSchedule(timeSchedule.get(i),
-                                    duration, activityWithCount.getActivity()));
+                            activitiesForTheDay.add(
+                                    activityToSchedule(
+                                        timeSchedule.get(i)
+                                                .atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
+                                        activityWithCount.getActivity()
+                                    )
+                            );
                             //the next activity will be given a start time,
                             // if the timing is not the next in line
                             //Eg. 1000 null 1300 -> becomes 1000 1000+30min  1300
@@ -218,8 +229,8 @@ public class AutoScheduleCommand extends UndoableCommand {
      *
      * @param activity activity to be scheduled
      */
-    private ActivityWithTime activityToSchedule(LocalTime currentTime, int duration, Activity activity) {
-        return new ActivityWithTime(activity, currentTime);
+    private ActivityWithTime activityToSchedule(LocalDateTime currentDateTime, Activity activity) {
+        return new ActivityWithTime(activity, currentDateTime);
     }
 
     /**

@@ -125,6 +125,34 @@ public class DayList implements Iterable<Day> {
     }
 
     /**
+     * Shifts the dates of activities in every day.
+     * @param days the amount of days to shift by
+     */
+    public void shiftDatesInItineraryByDay(long days) {
+        for (Day day : internalList) {
+            Day editedDay = shiftDatesOfAllActivitiesInDay(day, days);
+            setDay(day, editedDay);
+        }
+    }
+
+    /**
+     * Shifts the dates of activities in a day.
+     * @param day the day of activities to shift
+     * @param numberOfDays the amount of days to shift by
+     * @return an edited day where the dates have shifted
+     */
+    private Day shiftDatesOfAllActivitiesInDay(Day day, long numberOfDays) {
+        List<ActivityWithTime> activitiesInADay = day.getListOfActivityWithTime();
+        List<ActivityWithTime> editedActivitiesInADay = new ArrayList<>();
+        for (ActivityWithTime a : activitiesInADay) {
+            ActivityWithTime editedActivityWithTime = new ActivityWithTime(a.getActivity(),
+                    a.getStartDateTime().plusDays(numberOfDays));
+            editedActivitiesInADay.add(editedActivityWithTime);
+        }
+        return new Day(editedActivitiesInADay);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Day> asUnmodifiableObservableList() {

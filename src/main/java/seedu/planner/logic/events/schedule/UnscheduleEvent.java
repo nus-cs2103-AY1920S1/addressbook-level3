@@ -51,7 +51,7 @@ public class UnscheduleEvent implements Event {
             throw new EventException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
         ActivityWithTime activityToUnschedule = activitiesInDay.get(activityIndex.getZeroBased());
-        return activityToUnschedule.getStartTime();
+        return activityToUnschedule.getStartDateTime().toLocalTime();
     }
 
 }

@@ -1,6 +1,6 @@
 package seedu.planner.model.util;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -59,7 +59,7 @@ public class SampleDataUtil {
         return new Activity[]{
             new Activity(new Name("Visit Gardens by The Bay"), new Address("18 Marina Gardens Dr"),
                     null, new Cost("23.00"), getTagSet("indoor", "refreshing"),
-                    new Duration(90), new Priority(1)),
+                    new Duration(120), new Priority(1)),
             new Activity(new Name("Universal Studio Singapore"), new Address("Resort World Sentosa"),
                     null, new Cost("75.00"), getTagSet("unique", "themepark"),
                     new Duration(210), new Priority(2)),
@@ -115,18 +115,21 @@ public class SampleDataUtil {
 
     // Need to add more samples
     public static Day[] getSampleDays() {
-        Activity [] activities = getSampleActivities();
+        Activity[] activities = getSampleActivities();
 
         ArrayList<ActivityWithTime> sampleActivities1 = new ArrayList<>();
-        sampleActivities1.add(new ActivityWithTime(activities[0], LocalTime.of(10, 30)));
-        sampleActivities1.add(new ActivityWithTime(activities[1], LocalTime.of(14, 00)));
+        sampleActivities1.add(new ActivityWithTime(activities[0], LocalDateTime.now().withHour(10).withMinute(30)));
+        sampleActivities1.add(new ActivityWithTime(activities[1], LocalDateTime.now().withHour(14).withMinute(00)));
 
         ArrayList<ActivityWithTime> sampleActivities2 = new ArrayList<>();
-        sampleActivities2.add(new ActivityWithTime(activities[3], LocalTime.of(10, 00)));
+        sampleActivities2.add(new ActivityWithTime(activities[3],
+                LocalDateTime.now().plusDays(1).withHour(10).withMinute(0)));
 
         ArrayList<ActivityWithTime> sampleActivities3 = new ArrayList<>();
-        sampleActivities3.add(new ActivityWithTime(activities[2], LocalTime.of(18, 30)));
-        sampleActivities3.add(new ActivityWithTime(activities[4], LocalTime.of(12, 30)));
+        sampleActivities3.add(new ActivityWithTime(activities[2],
+                LocalDateTime.now().plusDays(2).withHour(18).withMinute(30)));
+        sampleActivities3.add(new ActivityWithTime(activities[4],
+                LocalDateTime.now().plusDays(2).withHour(12).withMinute(30)));
 
         return new Day[]{
             new Day(sampleActivities1), new Day(sampleActivities2), new Day(sampleActivities3)

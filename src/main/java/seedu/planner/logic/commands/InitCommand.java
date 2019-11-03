@@ -6,6 +6,7 @@ import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -51,7 +52,10 @@ public class InitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.setItineraryName(this.name);
+        LocalDate oldStartDate = model.getStartDate();
+        long differenceInDaysBetweenOldAndNew = ChronoUnit.DAYS.between(oldStartDate, startDate);
         model.setItineraryStartDate(this.startDate);
+        model.shiftDatesInItineraryByDay(differenceInDaysBetweenOldAndNew);
         String dateInString = this.startDate.format(ParserUtil.DATE_FORMATTER_1);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, name, dateInString),

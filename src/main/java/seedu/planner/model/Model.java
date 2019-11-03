@@ -2,6 +2,7 @@ package seedu.planner.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -303,10 +304,22 @@ public interface Model {
     LocalDate getStartDate();
 
     /**
+     * Retrieves the last date time of the Itinerary
+     * @return last date time of Itinerary
+     */
+    LocalDateTime getLastDateTime();
+
+    /**
      * Sets a new StartDate for the Itinerary
      * @param date new start date to be set
      */
     void setItineraryStartDate(LocalDate date);
+
+    /**
+     * Shifts the entire itinerary by {@code days} amount of days.
+     * @param days the amount of days to shift by
+     */
+    void shiftDatesInItineraryByDay(long days);
 
     /**
      * Replaces current Itinerary data with the data in {@code itinerary}.

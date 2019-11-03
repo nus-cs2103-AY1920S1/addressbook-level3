@@ -68,7 +68,7 @@ public class Timetable {
      */
     public List<ActivityWithTime> findAllOverlap(ActivityWithTime activity) {
         return timetable.stream().filter(x -> x.isOverlapping(activity)
-                && activity.getStartTime().compareTo(x.getStartTime()) <= 0).collect(Collectors.toList());
+                && activity.getStartDateTime().compareTo(x.getStartDateTime()) <= 0).collect(Collectors.toList());
     }
 
     @Override
