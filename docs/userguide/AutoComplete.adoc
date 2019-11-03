@@ -26,7 +26,7 @@ Eg: Select all prefixes "pat-add n/ p/ e/ a/ t/" before adding sub-details "pat-
 
 === Selecting a suggested words
 `*UP*`, `*DOWN*` key +
-You can use the `*UP*` and `*DOWN*` key in your keyboard to move from one selected word to another. Description of the suggested words will be shown as you select them to guide you in choosing.
+You can use the `*UP*` and `*DOWN*` keys in your keyboard to move from one selected word to another. Descriptions of the suggested words will be shown as you select them to guide you in choosing.
 
 `*RIGHT*` key +
 Confirm your selection by pressing the `*RIGHT*` key in your keyboard. This will auto-fill the selected word to your current words in the command box text field. Doing this will also perform a auto correction of your input in order to fit the correct sequence of commands. +
