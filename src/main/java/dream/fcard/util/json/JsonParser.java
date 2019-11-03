@@ -405,6 +405,6 @@ public class JsonParser {
      * @return      formatted string
      */
     public static String formatStringForJson(String str) {
-        return "\"" + str.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\\n") + "\"";
+        return "\"" + str.replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") + "\"";
     }
 }
