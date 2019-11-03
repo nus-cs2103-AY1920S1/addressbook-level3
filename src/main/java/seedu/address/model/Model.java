@@ -146,6 +146,8 @@ public interface Model {
 
     FlashCard getCurrentTestFlashCard();
 
+    void endFlashCardTest();
+
     /**
      * Replaces the given flashCard {@code target} with {@code editedFlashCard}.
      * {@code target} must exist in the address book.

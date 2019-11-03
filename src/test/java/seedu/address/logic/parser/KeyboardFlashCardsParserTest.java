@@ -149,7 +149,8 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_startAlreadyInTestMode_throwsParseException() {
         parser.startTestMode();
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_TEST_COMMAND, () -> parser.parseCommand("start"));
+        assertThrows(ParseException.class,
+                String.format(MESSAGE_UNKNOWN_TEST_COMMAND, ""), () -> parser.parseCommand("start"));
     }
 
     @Test
