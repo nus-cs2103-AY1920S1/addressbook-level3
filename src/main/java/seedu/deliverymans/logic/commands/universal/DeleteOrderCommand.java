@@ -20,7 +20,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  */
 public class DeleteOrderCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete_order";
+    public static final String COMMAND_WORD = "-delete_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the order identified by the index number used in the displayed order list.\n"

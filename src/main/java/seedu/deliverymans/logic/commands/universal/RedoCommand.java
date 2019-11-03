@@ -13,7 +13,7 @@ import seedu.deliverymans.model.Model;
  */
 public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "redo";
+    public static final String COMMAND_WORD = "-redo";
 
     public static final String MESSAGE_SUCCESS = "Successfully redid: %1$s";
     public static final String MESSAGE_NOTHING_TO_REDO = "There is nothing to redo";

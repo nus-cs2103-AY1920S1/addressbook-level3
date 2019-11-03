@@ -26,7 +26,7 @@ import seedu.deliverymans.model.order.Order;
  * Edits the details of an existing order.
  */
 public class EditOrderCommand extends Command {
-    public static final String COMMAND_WORD = "edit_order";
+    public static final String COMMAND_WORD = "-edit_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edit an order already present in the manager. "
