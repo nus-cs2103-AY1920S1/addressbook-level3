@@ -123,9 +123,9 @@ public class Budget {
         if (otherBudget == this) {
             return true;
         }
-
         return otherBudget != null
             && otherBudget.getBudget().equals(getBudget())
+            && otherBudget.getCategories().equals(getCategories())
             && otherBudget.getDeadline().equals(getDeadline());
     }
 
@@ -137,6 +137,7 @@ public class Budget {
             Budget inObj = (Budget) obj;
             return amount.equals(inObj.amount)
                 && deadline.equals(inObj.deadline)
+                && categories.equals(inObj.categories)
                 && valid == inObj.valid;
         } else {
             return false;
