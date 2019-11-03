@@ -26,6 +26,7 @@ import seedu.scheduler.model.ModelManager;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.IntervieweeNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Interviewer;
+import seedu.scheduler.model.person.InterviewerNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Name;
 
 /**
@@ -166,6 +167,19 @@ public class CommandTestUtil {
             Interviewee i = model.getInterviewee(name.fullName);
             final String[] splitName = i.getName().fullName.split("\\s+");
             model.updateFilteredIntervieweeList(new IntervieweeNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Name should exist in the model beforehand!");
+        }
+    }
+
+    /**
+     * Updates {@code model}'s filtered interviewee list to show only the interviewer with {@code name}.
+     */
+    public static void showInterviewerWithName(Model model, Name name) {
+        try {
+            Interviewer i = model.getInterviewer(name.fullName);
+            final String[] splitName = i.getName().fullName.split("\\s+");
+            model.updateFilteredInterviewerList(new InterviewerNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
         } catch (NoSuchElementException e) {
             throw new AssertionError("Name should exist in the model beforehand!");
         }
