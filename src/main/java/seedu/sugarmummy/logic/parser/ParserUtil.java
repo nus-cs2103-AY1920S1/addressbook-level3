@@ -457,14 +457,7 @@ public class ParserUtil {
         if (!TimeDuration.isValidTimeDuration(trimmedTimeDuration)) {
             throw new ParseException(TimeDuration.MESSAGE_CONSTRAINTS);
         }
-        try {
-            String[] hm = trimmedTimeDuration.split(":");
-            int hours = Integer.parseInt(hm[0]);
-            int minutes = Integer.parseInt(hm[1]);
-            return new TimeDuration(hours, minutes);
-        } catch (NumberFormatException e) {
-            throw new ParseException(e.getMessage());
-        }
+        return new TimeDuration(trimmedTimeDuration);
     }
 
     /**

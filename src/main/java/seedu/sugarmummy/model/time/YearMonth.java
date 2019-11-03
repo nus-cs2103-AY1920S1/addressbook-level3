@@ -2,13 +2,14 @@ package seedu.sugarmummy.model.time;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents a year and a month.
  */
 public class YearMonth {
+    public static final String VALIDATION_REGEX = "^[0-9]{4}-(0[1-9]|1[0-2])$";
     public static final String MESSAGE_CONSTRAINTS = "The format of year month should be yyyy-mm and "
             + "the number should be valid.";
     public static final String VALIDATION_PATTERN_STRING = "yyyy-MM";
@@ -31,18 +32,21 @@ public class YearMonth {
         this.yearMonth = java.time.YearMonth.of(year, month);
     }
 
-    public static YearMonth getCurrent() {
-        return new YearMonth(java.time.YearMonth.now());
-    }
-
     /**
      * Returns true if a given string is a valid year and month.
      */
     public static boolean isValidYearMonth(String test) {
+        requireNonNull(test);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        String[] dayMonthYear = test.split("-");
         try {
-            java.time.YearMonth.parse(test, DATE_TIME_FORMATTER);
+            java.time.YearMonth.of(Integer.parseInt(dayMonthYear[0]),
+                    Integer.parseInt(dayMonthYear[1]));
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (NumberFormatException | DateTimeException e) {
             return false;
         }
     }
