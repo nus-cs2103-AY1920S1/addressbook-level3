@@ -28,9 +28,9 @@ public class SetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New budget successfully set: %1$s";
     public static final String MESSAGE_DUPLICATE = "This budget already exists: %1$s";
-    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
-    public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
-    public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
+    public static final String MESSAGE_AMOUNT_OVERFLOW = "Budget amount cannot exceed 1 million (i.e. 1000000)";
+    public static final String MESSAGE_AMOUNT_NEGATIVE = "Budget amount cannot be negative";
+    public static final String MESSAGE_AMOUNT_ZERO = "Budget amount cannot be zero";
 
     private Budget budget;
 
@@ -51,6 +51,5 @@ public class SetCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
         }
     }
-
 
 }
