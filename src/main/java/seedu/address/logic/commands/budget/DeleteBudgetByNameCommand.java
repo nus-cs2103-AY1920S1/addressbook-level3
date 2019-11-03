@@ -7,6 +7,7 @@ import static seedu.address.model.budget.Budget.DEFAULT_BUDGET_DESCRIPTION;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,7 +19,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  */
 public class DeleteBudgetByNameCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "delete" + CommandGroup.BUDGET;
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "Delete budget with name %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the name.\n"

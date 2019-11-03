@@ -11,7 +11,9 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
@@ -27,7 +29,7 @@ import seedu.address.ui.budget.BudgetPanel;
  * Dummy.
  */
 public class EditExpenseFromBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "editfrombudget";
+    public static final String COMMAND_WORD = GenericCommandWord.EDIT + "from" + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "Edit expense with index %1$d from budget";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
             + "by the index number used in the displayed expense list of this budget. "
