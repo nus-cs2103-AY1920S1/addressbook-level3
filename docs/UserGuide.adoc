@@ -68,9 +68,12 @@ Format: `help [command/COMMAND_NAME]`
 
 Examples:
 
-* `help`
+* `help` +
+
 Displays the commands available for use in FlashCard Pro.
-* `help command/view`
+
+* `help command/view` +
+
 Displays the syntax to use command `view`.
 
 === Importing flashcards from disk : `import`
