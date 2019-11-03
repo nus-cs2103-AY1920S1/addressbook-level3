@@ -40,13 +40,23 @@ public class Mcq extends Answerable {
     }
 
     /**
+     * Returns true if both {@code Mcq)s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Mcq)s.
+     */
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion())
+                && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList());
+    }
+
+    /**
      * Returns an entire text string of the answerable (question with all possible answers,
      * difficulty level and categories)
      * @return answerable string
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: MCQ, ")
+        builder.append("Type: MCQ\n")
                 .append("Question: ")
                 .append(getQuestion() + "\n")
                 .append("Answers:")

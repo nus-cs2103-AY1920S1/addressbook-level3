@@ -41,25 +41,23 @@ public class TrueFalse extends Answerable {
         return false;
     }
 
+    /**
+     * Returns true if both TrueFalse questions have the same question only.
+     * This defines a weaker notion of equality between two TrueFalse questions.
+     */
     @Override
-    public boolean isCorrect(Answer selectedAnswer) {
-        Answer caseInsensitiveAnswer = new Answer(selectedAnswer.toString().toLowerCase());
-        if (correctAnswerList.contains(caseInsensitiveAnswer)) {
-            logger.info("correct answer selected");
-            return true;
-        }
-        logger.info("Wrong answer selected");
-        return false;
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: T/F ")
+        builder.append("Type: T/F\n")
                 .append("Question: ")
                 .append(getQuestion() + "\n")
-                .append("Answers:")
-                .append(" Correct Answer: " + getCorrectAnswerList() + "\n")
+                .append("Correct Answer: " + getCorrectAnswerList() + "\n")
                 .append("Difficulty: ")
                 .append(getDifficulty() + "\n")
                 .append("Categories: ");
