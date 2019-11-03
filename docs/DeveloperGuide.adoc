@@ -351,8 +351,8 @@ To set the display information of the `Schedule` object, we will find its `Order
 
 Schedule supports a few basic commands:
 
-* Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS]`
-* Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS]`
+* Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
+* Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
 * Delete -- delete an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
 * Schedule -- switches the week on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
@@ -378,9 +378,6 @@ Here is a sample of what happens when a schedule command is entered by the user:
 image::ScheduleCommandSequenceDiagram.png[]
 
 Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
-
-Adding on, we will be adding an additional feature to check for clashing schedules.
-In the case of a clash, users will be given a choice to allow clashing schedules, or to just change to timing to avoid the clashes.
 
 ===== Design Considerations / Alternative designs considered
 

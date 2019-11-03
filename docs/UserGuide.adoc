@@ -478,7 +478,7 @@ Format: `find-o KEYWORD [KEYWORD]...`
 
 ==== Complete an order : `complete`
 Completes the order, order status changed to `COMPLETED`. +
-Format: `complete-o INDEX`
+Format: `complete INDEX`
 
 ==== Cancel an order : `cancel`
 Cancels the order at the specified index. +
@@ -518,6 +518,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 ==== Copy order field : `copy-o`
 Copies an order field to clipboard. +
 Format: `copy-o <field>`
+
 
 === Schedule Commands
 Commands that work on schedules you have.
@@ -568,8 +569,8 @@ Deletes a schedule. +
 
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules, or change the time. +
-*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
+*Note*: You can add multiple schedules at the same time slot but it will affect the *visibility of the order index and schedule venue* on the calendar. +
 
 [underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
 ****
