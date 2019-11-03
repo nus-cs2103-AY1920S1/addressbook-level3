@@ -37,7 +37,9 @@ public class UntimedExam implements Exam {
 
     @Override
     public void upIndex() {
-        this.index++;
+        if (index < testDeck.size()) {
+            this.index++;
+        }
     }
 
     @Override

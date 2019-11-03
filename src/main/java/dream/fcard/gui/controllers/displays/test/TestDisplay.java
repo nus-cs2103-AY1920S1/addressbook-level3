@@ -70,8 +70,10 @@ public class TestDisplay extends AnchorPane {
      * For Shawn
      */
     private Consumer<Boolean> getScore = score -> {
-        updateStatDeckWithScore(score);
-        renderCurrentScore();
+        if (ExamRunner.isExamOngoing()) {
+            updateStatDeckWithScore(score);
+            renderCurrentScore();
+        }
     };
 
     private Consumer<Integer> updateMcqUserAttempt = input -> {
@@ -79,7 +81,7 @@ public class TestDisplay extends AnchorPane {
         card.setUserAttempt(input);
     };
 
-    private Consumer<String> updateJsUserAttempt = input -> {
+    private Consumer<String> updateStringUserAttempt = input -> {
         JavascriptCard card = (JavascriptCard) exam.getCurrentCard();
         card.setAttempt(input);
     };
@@ -96,6 +98,11 @@ public class TestDisplay extends AnchorPane {
      */
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> nextCard = onNext -> {
+        onShowNext();
+    };
 
     public TestDisplay(Exam exam) {
         try {
@@ -134,11 +141,11 @@ public class TestDisplay extends AnchorPane {
             cardDisplay.getChildren().add(mcqCard);
         } else if (typeOfCard.equals("JavascriptCard")) {
             cardDisplay.getChildren().clear();
-            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateJsUserAttempt, getScore);
+            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateStringUserAttempt, getScore);
             cardDisplay.getChildren().add(jsCard);
         } else if (typeOfCard.equals("JavaCard")) {
             cardDisplay.getChildren().clear();
-            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateJsUserAttempt, getScore);
+            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateStringUserAttempt, getScore);
             cardDisplay.getChildren().add(javaFront);
         }
 
@@ -153,7 +160,7 @@ public class TestDisplay extends AnchorPane {
         String typeOfCard = card.getClass().getSimpleName();
         if (typeOfCard.equals("FrontBackCard")) {
             String back = cardOnDisplay.getBack();
-            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore);
+            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore, nextCard);
             cardDisplay.getChildren().add(backOfCard);
         } else if (typeOfCard.equals("MultipleChoiceCard")) {
             McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
@@ -183,8 +190,13 @@ public class TestDisplay extends AnchorPane {
             seeFront();
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
-            displayMessage.accept("You've ran out of cards in this test!");
-            ExamRunner.terminateExam();
+            displayMessage.accept("You've ran out of cards in this test! Feel free to review your previous cards!");
+            exam.downIndex();
+            try {
+                ExamRunner.terminateExam();
+            } catch (NullPointerException e2) {
+                displayMessage.accept("Exam has already ended! Either review your previous questions or exit :)");
+            }
         }
     }
     //sample renderer for Shawn

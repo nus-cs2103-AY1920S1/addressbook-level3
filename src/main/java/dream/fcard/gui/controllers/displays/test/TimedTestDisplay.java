@@ -81,8 +81,10 @@ public class TimedTestDisplay extends AnchorPane {
      * For Shawn
      */
     private Consumer<Boolean> getScore = score -> {
-        updateStatDeckWithScore(score);
-        renderCurrentScore();
+        if (ExamRunner.isExamOngoing()) {
+            updateStatDeckWithScore(score);
+            renderCurrentScore();
+        }
     };
 
     private Consumer<Integer> updateMcqUserAttempt = input -> {
@@ -107,6 +109,11 @@ public class TimedTestDisplay extends AnchorPane {
      */
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
+
+    @SuppressWarnings("unchecked")
+    private Consumer<Boolean> nextCard = onNext -> {
+        onShowNext();
+    };
 
     private Integer durationInSeconds;
     private IntegerProperty timeSeconds;
@@ -173,7 +180,7 @@ public class TimedTestDisplay extends AnchorPane {
         String typeOfCard = card.getClass().getSimpleName();
         if (typeOfCard.equals("FrontBackCard")) {
             String back = cardOnDisplay.getBack();
-            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore);
+            SimpleCardBack backOfCard = new SimpleCardBack(back, seeFrontOfCurrentCard, getScore, nextCard);
             cardDisplay.getChildren().add(backOfCard);
         } else if (typeOfCard.equals("MultipleChoiceCard")) {
             McqCardBack backCard = new McqCardBack((MultipleChoiceCard) cardOnDisplay,
@@ -203,8 +210,14 @@ public class TimedTestDisplay extends AnchorPane {
             seeFront();
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
+            timeline.stop();
             displayMessage.accept("You've ran out of cards in this test!");
-            ExamRunner.terminateExam();
+            exam.downIndex();
+            try {
+                ExamRunner.terminateExam();
+            } catch (NullPointerException e2) {
+                displayMessage.accept("Exam has already ended! Either review your previous questions or exit :)");
+            }
         }
     }
     //sample renderer for Shawn

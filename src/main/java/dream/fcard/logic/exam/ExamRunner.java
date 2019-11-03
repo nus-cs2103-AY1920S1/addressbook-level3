@@ -32,7 +32,7 @@ public class ExamRunner {
         exam = null;
     }
 
-    public boolean isExamOngoing() {
+    public static boolean isExamOngoing() {
         return examOngoing;
     }
 }
