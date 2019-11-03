@@ -40,7 +40,7 @@ public class ProcessingMarkDoneCommandParser implements Parser<ProcessingMarkDon
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
             }
             return new ProcessingMarkDoneCommand(firstNric, secondNric, taskNumber);
-        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }

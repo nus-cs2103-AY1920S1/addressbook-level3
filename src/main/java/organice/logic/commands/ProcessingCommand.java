@@ -28,9 +28,6 @@ public class ProcessingCommand extends Command {
 
     protected TaskList taskList;
 
-    private String firstNricString;
-    private String secondNricString;
-
     private Nric firstNric;
     private Nric secondNric;
 
@@ -47,11 +44,16 @@ public class ProcessingCommand extends Command {
     }
 
     /**
-     * To check if the Nrics given contains a patient and a donor from the database
-     * @param firstNric
-     * @param secondNric
+     * Method to check if the two Nrics given are valid.
+     * It needs to contain one patient and one donor.
+     * Both of them must be matched and the patient should be only paired with this donor uniquely.
+     * The method will first convert the Nrics given in String to an actual Nric type,
+     * then it will create the donor and patient with the respective Nric in ORAGANice.
+     * boolean canBePaired will determine if the patient have another donor other than the given donor.
+     * @param firstNric the first Nric given by the user in String.
+     * @param secondNric the second Nric given by the user in String.
      * @param model
-     * @return boolean, to see whether the given Nrics are valid
+     * @return a boolean true false stating whether the inputs are valid.
      */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
 
@@ -88,9 +90,18 @@ public class ProcessingCommand extends Command {
         } else {
             return false;
         }
-
     }
 
+    /**
+     * Process the pair of donor and patient. It will first determine if the donor and patient pair have
+     * been processed before or not by checking if the donor have a non-empty tasklist.
+     * If the donor already have a tasklist, ORGANice will load that tasklist up.
+     * If the donor have an empty tasklist, a default tasklist will be generated for the donor with the
+     * patient tagged to it.
+     * Both the patient and the donor will have their status changed to processing.
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult object.
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -119,7 +130,7 @@ public class ProcessingCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ProcessingCommand // instanceof handles nulls
-                && (firstNricString.equals(((ProcessingCommand) other).firstNricString))
+                && (firstNric.equals(((ProcessingCommand) other).firstNric))
                 || (secondNric.equals(((ProcessingCommand) other).secondNric))); // state check
     }
 }
