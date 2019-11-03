@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Mode;
 import seedu.address.model.Model;
 
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
+
 /**
  * Terminates the program.
  */
@@ -23,6 +26,8 @@ public class GoToCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
+        model.updateFilteredNoteList(PREDICATE_SHOW_ALL_NOTES);
         return CommandResult.builder(String.format(MESSAGE_GOTO_ACKNOWLEDGEMENT, mode))
                 .isGoTo()
                 .setMode(mode)
