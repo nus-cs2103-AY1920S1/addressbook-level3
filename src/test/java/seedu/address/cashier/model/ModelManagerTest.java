@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -279,7 +280,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getTotalAmount_successful() {
+    public void getTotalAmount_successful() throws AmountExceededException {
         setInventoryList();
         Item chips = new ItemBuilder()
                 .withDescription(CHIPS.getDescription())
@@ -293,11 +294,29 @@ public class ModelManagerTest {
                 .build();
         modelManager.addItem(chips);
         modelManager.addItem(storybook);
-        System.out.println(modelManager.getTotalAmount());
         assertEquals(chips.getSubtotal() + storybook.getSubtotal(),
                 Double.parseDouble(DECIMAL_FORMAT.format(modelManager.getTotalAmount())));
         modelManager.clearSalesList();
 
+    }
+
+    @Test
+    public void getTotalAmount_throwsAmountExceededException() {
+        setInventoryList();
+        Item chips = new ItemBuilder()
+                .withDescription(CHIPS.getDescription())
+                .withQuantity(9513)
+                .withPrice(CHIPS.getPrice())
+                .build();
+        Item storybook = new ItemBuilder()
+                .withDescription(STORYBOOK.getDescription())
+                .withQuantity(9141)
+                .withPrice(STORYBOOK.getPrice())
+                .build();
+        modelManager.addItem(chips);
+        modelManager.addItem(storybook);
+        assertThrows(AmountExceededException.class, () -> modelManager.getTotalAmount());
+        modelManager.clearSalesList();
     }
 
     @Test
@@ -401,7 +420,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void checkoutAsTransaction_successful() throws NoItemToCheckoutException {
+    public void checkoutAsTransaction_successful() throws NoItemToCheckoutException, AmountExceededException {
         setInventoryList();
         Person p = new PersonBuilder().build();
         modelManager.setCashier(p);
@@ -429,7 +448,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void checkoutAsTransaction_emptyCart_throwsNoItemToCheckoutException() {
+    public void checkoutAsTransaction_emptyCart_throwsNoItemToCheckoutException() throws AmountExceededException {
         setInventoryList();
         Person p = new PersonBuilder().build();
         modelManager.setCashier(p);
@@ -439,7 +458,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCheckoutTransaction_successful() throws NoItemToCheckoutException {
+    public void getCheckoutTransaction_successful() throws NoItemToCheckoutException, AmountExceededException {
         setInventoryList();
         Person p = new PersonBuilder().build();
         modelManager.setCashier(p);

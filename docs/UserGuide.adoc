@@ -745,11 +745,9 @@ This command adds a sales item into the table.
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
 The quantity of the item must not be greater than the stock available in the Inventory Tab.
-Else, Leo will display a message prompting input of a smaller quantity or another item.
-
+Else, Leo will display a message prompting input of a smaller quantity or another item. +
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory Tab or simply key in the category without any other fields. +
-Leo will display all the items in the
+the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
