@@ -3,12 +3,16 @@ package mams.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_CREDIT_INSUFFICIENT;
 import static mams.commons.core.Messages.MESSAGE_STUDENT_COMPLETED_MODULE;
+import static mams.logic.commands.ClashCommand.MESSAGE_CLASH_IN_STUDENT;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import mams.commons.core.Messages;
 import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
@@ -115,6 +119,7 @@ public class AddModCommand extends ModCommand {
         checkQuotaLimit(moduleToEdit);
         checkStudentWorkloadLimit(studentToEdit);
         checkIfStudentCompletedModule(studentToEdit, moduleToEdit.getModuleCode());
+        checkIfModuleClash(studentToEdit, model.getFullModuleList(), moduleToEdit.getModuleCode());
 
         //add module to student
         Set<Tag> studentAllTags = studentToEdit.getTags();
@@ -203,6 +208,19 @@ public class AddModCommand extends ModCommand {
     }
 
     /**
+     * Checks if the student has already taken the module before.
+     * @param studentToEdit student being checked
+     * @param moduleCode module being added
+     * @throws CommandException if the student has previously completed the module
+     */
+    void checkIfStudentCompletedModule(Student studentToEdit, String moduleCode) throws CommandException {
+        String prevMods = studentToEdit.getPrevMods().toString();
+        if (prevMods.contains(moduleCode)) {
+            throw new CommandException(MESSAGE_STUDENT_COMPLETED_MODULE);
+        }
+    }
+
+    /**
      * Checks if the module has reached max quota.
      * @param moduleToEdit module being checked
      * @throws CommandException if the quota is reached. (and the student should not be added)
@@ -228,17 +246,86 @@ public class AddModCommand extends ModCommand {
     }
 
     /**
-     * Checks if the student has already taken the module before.
-     * @param studentToEdit student being checked
-     * @param moduleCode module being added
-     * @throws CommandException if the student has previously completed the module
+     * Checks if module being added clashes with current module
+     * @param studentToEdit student to be checked
+     * @param fullModuleList all modules in list
+     * @param moduleCode module to be added
+     * @throws CommandException if there are clashes detected
      */
-    void checkIfStudentCompletedModule(Student studentToEdit, String moduleCode) throws CommandException {
-        String prevMods = studentToEdit.getPrevMods().toString();
-        if (prevMods.contains(moduleCode)) {
-            throw new CommandException(MESSAGE_STUDENT_COMPLETED_MODULE);
+    //@@author chensu2436 and AaronLuk
+    private void checkIfModuleClash(Student studentToEdit, ObservableList<Module> fullModuleList,
+                                    String moduleCode) throws CommandException {
+
+        //get module object
+        List<Module> moduleToCheckList = fullModuleList.stream()
+                .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode)).collect(Collectors.toList());
+        Module moduleToEdit = moduleToCheckList.get(0);
+
+        //Get all the modules object student has and add them into an arraylist of modules for checking
+        Set<Tag> studentModules = studentToEdit.getCurrentModules();
+        ArrayList<Module> currentModules = new ArrayList<>();
+        for (Tag currentModule : studentModules) {
+            String modCode = currentModule.getTagName();
+            List<Module> filteredModulesList = fullModuleList
+                    .stream()
+                    .filter(m -> m.getModuleCode().equalsIgnoreCase(modCode))
+                    .collect(Collectors.toList());
+            Module filteredModule = filteredModulesList.get(0);
+            currentModules.add(filteredModule);
         }
+        ArrayList<ClashCommand.ClashCase> clashCases = new ArrayList<>();
+        //Checks if current modules clashes with requested module
+        for (Module currentModule : currentModules) {
+            if (getClashCase(currentModule, moduleToEdit).isPresent()) {
+                clashCases.add(getClashCase(currentModule, moduleToEdit).get());
+            }
+        }
+
+        //If there exists clashes notify admin via feedback message
+        if (clashCases.size() != 0) {
+            throw new CommandException(MESSAGE_CLASH_IN_STUDENT
+                    + studentToEdit.getMatricId()
+                    + ":\n"
+                    + getClashDetails(clashCases)
+                    + "Unable to add module due to clashes. ");
+        }
+
     }
+
+    private Optional<ClashCommand.ClashCase> getClashCase(Module moduleA, Module moduleB) {
+        int[] timeTableA = moduleA.getTimeSlotToIntArray();
+        int[] timeTableB = moduleB.getTimeSlotToIntArray();
+        ArrayList<Integer> slots = new ArrayList<>();
+        for (int i : timeTableA) {
+            for (int j : timeTableB) {
+                if (i == j) {
+                    slots.add(i);
+                }
+            }
+        }
+        if (!slots.isEmpty()) {
+            ClashCommand.ClashCase c = new ClashCommand.ClashCase();
+            c.setModuleA(moduleA);
+            c.setModuleB(moduleB);
+            c.setClashingSlots(slots);
+            return Optional.of(c);
+        }
+        return Optional.empty();
+    }
+
+    private String getClashDetails(ArrayList<ClashCommand.ClashCase> clashCases) {
+        StringBuilder s = new StringBuilder();
+        for (ClashCommand.ClashCase c : clashCases) {
+            s.append(c.getModuleCodeA());
+            s.append("  ");
+            s.append(c.getModuleCodeB());
+            s.append("\n");
+            s.append(c.getClashingSlots());
+            s.append("\n");
+        }
+        return s.toString();
+    }
+    //@@author
 
     @Override
     public boolean equals(Object other) {

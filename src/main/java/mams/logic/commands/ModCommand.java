@@ -21,18 +21,21 @@ public abstract class ModCommand extends Command {
     public static final String MESSAGE_USAGE_ADD_MOD = COMMAND_WORD_ADD_MOD
             + ": Adds a module to a student in MAMS. \n"
             + "Example: "
-            + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list)"
-            + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list)";
+            + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list) "
+            + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list) ";
+    public static final String MESSAGE_UNKNOWN_ARGUMENT_ADDMOD = "Unknown Argument given. \n"
+            + MESSAGE_USAGE_ADD_MOD;
+    public static final String MESSAGE_UNKNOWN_ARGUMENT_REMOVEMOD = "Unknown Argument given. \n"
+            + MESSAGE_USAGE_ADD_MOD;
 
     public static final String MESSAGE_USAGE_REMOVE_MOD = COMMAND_WORD_REMOVE_MOD
             + ": Remove a module from a student in MAMS. \n"
-            + "their matric id. \n"
             + "Example: "
             + PREFIX_STUDENT + "MATRIC_ID or INDEX(Student list)"
             + PREFIX_MODULE + "MODULE_CODE or INDEX(Module list)";
 
     public static final String MESSAGE_MISSING_MATRICID_OR_INDEX = "Please enter a valid Matric ID or Index. ";
-    public static final String MESSAGE_INVALID_MODULE = "Please enter 1 valid Module Code. ";
+    public static final String MESSAGE_INVALID_MODULE = "Invalid Module Code. ";
     public static final String MESSAGE_MORE_THAN_ONE_MODULE = "Please specify only 1 Module Code";
     public static final String MESSAGE_MORE_THAN_ONE_IDENTIFIER = "Please specify only 1 index or Matric ID";
     public static final String MESSAGE_DUPLICATE_MODULE = "Student is already registered for this module.";

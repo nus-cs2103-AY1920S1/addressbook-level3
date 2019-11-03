@@ -5,8 +5,6 @@ import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
-import java.util.List;
-
 import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ModCommand;
 import mams.logic.parser.exceptions.ParseException;
@@ -28,8 +26,6 @@ public class AddModCommandParser implements Parser<AddModCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT, PREFIX_MODULE);
         String studentIdentifier;
         String moduleIdentifier;
-        String indexForStudent;
-        String indexForModule;
 
         if (argMultimap.getValue(PREFIX_MODULE).isEmpty()) {
             throw new ParseException(ModCommand.MESSAGE_USAGE_ADD_MOD);
@@ -50,29 +46,30 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         studentIdentifier = argMultimap.getAllValues(PREFIX_STUDENT).get(0);
         moduleIdentifier = argMultimap.getAllValues(PREFIX_MODULE).get(0);
 
-        if(!isMatricId(studentIdentifier)) {
+        if (containUnknownArguments(studentIdentifier, moduleIdentifier)) {
+            throw new ParseException(ModCommand.MESSAGE_UNKNOWN_ARGUMENT_ADDMOD);
+        }
+
+        if (!isMatricId(studentIdentifier)) {
             ParserUtil.parseIndex(studentIdentifier);
         }
         if (!isModuleCode(moduleIdentifier)) {
             ParserUtil.parseIndex(moduleIdentifier);
         }
 
-        return new AddModCommand.AddModCommandBuilder(studentIdentifier,
-                moduleIdentifier).build();
+        return new AddModCommand.AddModCommandBuilder(moduleIdentifier,
+                studentIdentifier).build();
     }
 
-    //@@author: adapted from chensu2436
-    /**
-     * Returns true if PREFIX_MODULE comes with module codes, not indices.
-     * @param moduleIdentifier List of inputs after PREFIX_MODULE
-     * @return true if PREFIX_MODULE comes with module codes, not indices
-     */
-    private boolean isModuleCode(String moduleIdentifier) {
-        return moduleIdentifier.toLowerCase().contains("cs");
+    private boolean isModuleCode (String moduleIdentifier) {
+        return moduleIdentifier.substring(0, 1).toLowerCase().contains("c");
     }
-    //@@author
 
-    private boolean isMatricId(String studentIdentifier) {
-        return studentIdentifier.toLowerCase().contains("a");
+    private boolean isMatricId (String studentIdentifier) {
+        return studentIdentifier.substring(0, 1).toLowerCase().contains("a");
+    }
+
+    private boolean containUnknownArguments(String studentIdentifier, String moduleIdentifier) {
+        return (studentIdentifier.contains("/") || moduleIdentifier.contains("/"));
     }
 }
