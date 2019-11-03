@@ -3846,3 +3846,57 @@ Nov 03, 2019 10:12:35 PM com.dukeacademy.testexecutor.environment.StandardCompil
 INFO: User program successfully written to file: C:\Users\alxko\AppData\Local\Temp\junit8791035501950173643\test\CompileError.java
 Nov 03, 2019 10:12:35 PM com.dukeacademy.testexecutor.compiler.StandardCompiler compileJavaFile
 INFO: Compiling java file : C:\Users\alxko\AppData\Local\Temp\junit8791035501950173643\test\CompileError.java
+Nov 03, 2019 10:25:56 PM com.dukeacademy.MainApp initConfig
+INFO: Using config file : config.json
+Nov 03, 2019 10:25:57 PM com.dukeacademy.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp init
+INFO: =============================[ Initializing DukeAcademy ]===========================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initAppPaths
+INFO: Test output folder not found at : DukeAcademy\tests
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initAppPaths
+INFO: Creating test output folder at : DukeAcademy\tests
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initAppPaths
+INFO: Data folder not found at : DukeAcademy\data
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initAppPaths
+INFO: Creating data folder at : DukeAcademy\tests
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp createQuestionBankFile
+INFO: Creating new question bank.
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp createQuestionBankFile
+INFO: Copying default questions into the new question bank
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initApplicationState
+INFO: ============================ [ Initializing application state ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initQuestionsLogic
+INFO: ============================ [ Initializing question logic ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.storage.question.JsonQuestionBankStorage <init>
+INFO: file path becomes:DukeAcademy\data\QuestionBank.json
+Nov 03, 2019 10:25:57 PM com.dukeacademy.logic.question.QuestionsLogicManager loadQuestionsFromStorage
+INFO: storage instance built. trying to load questions / samples
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initProgramSubmissionLogic
+INFO: ============================ [ Initializing program submission logic ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment createDirectory
+INFO: Created new folder at : DukeAcademy\tests\temp
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initCommandLogic
+INFO: ============================ [ Initializing command logic ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp initUi
+INFO: ============================ [ Initializing UI ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp start
+INFO: ============================ [ Starting application ] =============================
+Nov 03, 2019 10:25:57 PM com.dukeacademy.MainApp start
+INFO: Starting QuestionBank V1.3.1ea
+Nov 03, 2019 10:25:57 PM com.dukeacademy.ui.UiManager start
+INFO: Starting UI...
+Nov 03, 2019 10:26:01 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager setUserProgramSubmissionChannel
+INFO: UserProgramChannel set : com.dukeacademy.ui.Workspace$$Lambda$449/0x0000000800425040@1f836ab2
+Nov 03, 2019 10:26:07 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager getUserProgramFromSubmissionChannel
+INFO: Returning user program from registered channel : com.dukeacademy.ui.Workspace$$Lambda$449/0x0000000800425040@1f836ab2
+Nov 03, 2019 10:26:07 PM com.dukeacademy.logic.commands.exit.ExitCommand execute
+INFO: No question attempt found. Skipping program save.
+Nov 03, 2019 10:26:07 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Exiting application...
+Nov 03, 2019 10:26:07 PM com.dukeacademy.MainApp stop
+INFO: ============================ [ Stopping DukeAcademy ] =============================
+Nov 03, 2019 10:26:07 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Clearing files and folder at : DukeAcademy\tests\temp
+Nov 03, 2019 10:26:07 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Environment successfully closed : DukeAcademy\tests\temp
