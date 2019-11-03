@@ -572,7 +572,7 @@ public class ModelManager implements Model {
     @Override
     public void sortShoppingItems() {
         ObservableList<ShoppingItem> internalShoppingList = shoppingList.getShoppingList();
-        SortedList<ShoppingItem> sortedList = internalShoppingList.sorted(new UrgentComparator());
+        SortedList<ShoppingItem> sortedList = internalShoppingList.sorted(new ShoppingComparator(this));
         shoppingList.setShoppingItems(sortedList);
     }
 
