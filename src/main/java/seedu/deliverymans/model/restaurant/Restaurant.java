@@ -52,15 +52,13 @@ public class Restaurant {
         this.menu.addAll(menu);
     }
 
-    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu,
-                      ObservableList<Order> orders) {
+    public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu) {
         requireAllNonNull(name, location, rating, tags);
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
         this.menu.addAll(menu);
-        this.orders.addAll(orders);
     }
 
     public Name getName() {
@@ -143,14 +141,13 @@ public class Restaurant {
                 && otherRestaurant.getLocation().equals(getLocation())
                 && otherRestaurant.getRating().equals(getRating())
                 && otherRestaurant.getTags().equals(getTags())
-                && otherRestaurant.getOrders().equals(getOrders())
                 && otherRestaurant.getMenu().equals(getMenu());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, rating, tags, orders, menu);
+        return Objects.hash(name, location, rating, tags, menu);
     }
 
     @Override

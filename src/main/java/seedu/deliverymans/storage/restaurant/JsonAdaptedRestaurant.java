@@ -33,7 +33,6 @@ public class JsonAdaptedRestaurant {
     private final JsonAdaptedRating rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedFood> menu = new ArrayList<>();
-    private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -42,8 +41,7 @@ public class JsonAdaptedRestaurant {
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
                              @JsonProperty("rating") JsonAdaptedRating rating,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("menu") List<JsonAdaptedFood> menu,
-                             @JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+                             @JsonProperty("menu") List<JsonAdaptedFood> menu) {
         this.name = name;
         this.location = location;
         this.rating = rating;
@@ -52,9 +50,6 @@ public class JsonAdaptedRestaurant {
         }
         if (menu != null) {
             this.menu.addAll(menu);
-        }
-        if (orders != null) {
-            this.orders.addAll(orders);
         }
     }
 
@@ -71,9 +66,6 @@ public class JsonAdaptedRestaurant {
         menu.addAll(source.getMenu().stream()
                 .map(JsonAdaptedFood::new)
                 .collect(Collectors.toList()));
-        orders.addAll(source.getOrders().stream()
-                .map(JsonAdaptedOrder::new)
-                .collect(Collectors.toList()));
     }
 
     /**
@@ -84,7 +76,6 @@ public class JsonAdaptedRestaurant {
     public Restaurant toModelType() throws IllegalValueException {
         final List<Tag> restaurantTags = new ArrayList<>();
         final List<Food> restaurantMenu = new ArrayList<>();
-        final List<Order> restaurantOrders = new ArrayList<>();
 
         for (JsonAdaptedTag tag : tagged) {
             restaurantTags.add(tag.toModelType());
@@ -92,10 +83,6 @@ public class JsonAdaptedRestaurant {
 
         for (JsonAdaptedFood food : menu) {
             restaurantMenu.add(food.toModelType());
-        }
-
-        for (JsonAdaptedOrder order : orders) {
-            restaurantOrders.add(order.toModelType());
         }
 
         if (name == null) {
@@ -124,8 +111,6 @@ public class JsonAdaptedRestaurant {
         final Set<Tag> modelTags = new HashSet<>(restaurantTags);
         final ObservableList<Food> modelMenu = FXCollections.observableArrayList();
         modelMenu.addAll(restaurantMenu);
-        final ObservableList<Order> modelOrders = FXCollections.observableArrayList();
-        modelOrders.addAll(restaurantOrders);
-        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu, modelOrders);
+        return new Restaurant(modelName, modelLocation, modelRating, modelTags, modelMenu);
     }
 }

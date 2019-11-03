@@ -91,9 +91,8 @@ public class EditDetailsCommand extends Command {
         Rating originalRating = restaurantToEdit.getRating();
         Set<Tag> updatedTags = editRestaurantDescriptor.getTags().orElse(restaurantToEdit.getTags());
         ObservableList<Food> originalMenu = restaurantToEdit.getMenu();
-        ObservableList<Order> originalOrders = restaurantToEdit.getOrders();
 
-        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu, originalOrders);
+        return new Restaurant(updatedName, updatedLocation, originalRating, updatedTags, originalMenu);
     }
 
     /**
