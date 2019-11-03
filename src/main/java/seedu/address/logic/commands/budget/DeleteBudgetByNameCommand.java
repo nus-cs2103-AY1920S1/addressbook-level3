@@ -2,7 +2,9 @@ package seedu.address.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET_DESCRIPTION;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.UndoableCommand;
@@ -25,7 +27,7 @@ public class DeleteBudgetByNameCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Holiday";
 
-    public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget: %1$s";
+    public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget:\n %1$s";
     public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in MooLah";
 
     private final Description description;
@@ -49,6 +51,10 @@ public class DeleteBudgetByNameCommand extends UndoableCommand {
 
         if (!model.hasBudgetWithName(description)) {
             throw new CommandException(MESSAGE_BUDGET_NOT_FOUND);
+        }
+
+        if (description.equals(DEFAULT_BUDGET_DESCRIPTION)) {
+            throw new CommandException(Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
         }
     }
 

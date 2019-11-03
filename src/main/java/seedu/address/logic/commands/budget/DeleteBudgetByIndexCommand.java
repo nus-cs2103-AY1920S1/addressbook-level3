@@ -26,7 +26,7 @@ public class DeleteBudgetByIndexCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget: %1$s";
+    public static final String MESSAGE_DELETE_BUDGET_SUCCESS = "Deleted Budget:\n %1$s";
 
     private final Index targetIndex;
 
@@ -49,6 +49,11 @@ public class DeleteBudgetByIndexCommand extends UndoableCommand {
         }
 
         if (lastShownList.size() == 1) {
+            throw new CommandException(Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
+        }
+
+        Budget budgetToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (budgetToDelete.isDefaultBudget()) {
             throw new CommandException(Messages.MESSAGE_CANNOT_DELETE_DEFAULT_BUDGET);
         }
     }
