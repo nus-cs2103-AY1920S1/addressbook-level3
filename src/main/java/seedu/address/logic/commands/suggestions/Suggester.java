@@ -157,6 +157,24 @@ public abstract class Suggester {
         final String groupNameInput = commandArgument.getValue();
         return model.groupSuggester(groupNameInput);
     }
+    /**
+     * Gets a list of valid locations contained within the {@link Model} that match {@link CommandArgument#getValue()}.
+     * Requires the {@code commandArgument} to be of type {@link CliSyntax#PREFIX_GROUPNAME}.
+     *
+     * @param model           The {@link Model} containing the {@link seedu.address.model.group.Group}s to look through.
+     * @param commandArgument The {@link CommandArgument} of type {@link CliSyntax#PREFIX_GROUPNAME} containing the name
+     *                        to search for.
+     * @return A list of group names that match the search string (from {@link CommandArgument#getValue()}).
+     */
+    static List<String> getValidLocationSuggestions(final Model model, final CommandArgument commandArgument) {
+        CollectionUtil.requireAllNonNull(model, commandArgument);
+
+        final Prefix prefix = commandArgument.getPrefix();
+        assert prefix.equals(CliSyntax.PREFIX_LOCATIONS);
+
+        final String locationInput = commandArgument.getValue();
+        return model.validLocationSuggester(locationInput);
+    }
 
     /**
      * Gets suggestions for a specific {@link CommandArgument} within the {@link ArgumentList}.

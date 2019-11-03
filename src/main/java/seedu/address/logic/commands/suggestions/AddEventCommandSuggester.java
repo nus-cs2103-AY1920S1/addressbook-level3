@@ -27,6 +27,15 @@ public class AddEventCommandSuggester extends Suggester {
             return getPersonNameSuggestions(model, commandArgument);
         }
 
+        if (prefix.equals(CliSyntax.PREFIX_TIMING)) {
+            String argument = commandArgument.getValue();
+            String[] tokens = argument.split("-");
+            if (tokens.length == 4) {
+                return getValidLocationSuggestions(model, new CommandArgument(CliSyntax.PREFIX_TIMING, 0,
+                        tokens[3].trim()));
+            }
+        }
+
         return null;
     }
 }

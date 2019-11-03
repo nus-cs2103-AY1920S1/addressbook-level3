@@ -344,6 +344,11 @@ public interface Model {
      */
     ArrayList<String> groupSuggester(String prefix);
 
+    /**
+     * Returns a list of valid locations that starts with prefix.
+     */
+    ArrayList<String> validLocationSuggester(String prefix);
+
     //=========== NusModsData ================================================================================
 
     NusModsData getNusModsData();

@@ -35,4 +35,11 @@ class GmapsModelManagerTest {
                 + "224(meters)\n";
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void validLocationSuggester() {
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList("LT12", "LT11", "LT14", "LT10", "LT13", "LT17",
+                "LT16", "LT19", "LT18", "LT15", "LT1"));
+        assertEquals(gmapsModelManager.validLocationSuggester("LT1"), expected);
+    }
 }
