@@ -35,7 +35,7 @@ public class AddEventCommand extends UndoableCommand {
             + PREFIX_CATEGORY + "Food "
             + PREFIX_TIMESTAMP + "25-12";
 
-    public static final String MESSAGE_SUCCESS = "New event added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New event added:\n %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the tracker";
 
     private final Event toAdd;

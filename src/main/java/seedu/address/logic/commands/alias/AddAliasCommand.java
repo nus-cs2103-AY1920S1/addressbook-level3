@@ -27,7 +27,7 @@ public class AddAliasCommand extends UndoableCommand {
             + " findAnimal " + PREFIX_ALIAS_ALIAS_INPUT
             + " find rat rats mouse mice cow cows ox oxen tiger tigers";
 
-    public static final String MESSAGE_SUCCESS = "Alias created: %1$s";
+    public static final String MESSAGE_SUCCESS = "Alias created:\n %1$s";
 
     public static final String MESSAGE_RESERVED_NAME =
             "%1$s is a reserved command name and cannot be used for an alias name";

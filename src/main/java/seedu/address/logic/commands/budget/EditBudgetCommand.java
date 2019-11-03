@@ -44,7 +44,7 @@ public class EditBudgetCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "400 ";
 
-    public static final String MESSAGE_EDIT_BUDGET_SUCCESS = "Edited Budget: %1$s";
+    public static final String MESSAGE_EDIT_BUDGET_SUCCESS = "Edited Budget:\n %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DEFAULT_BUDGET_UNEDITABLE = "The default budget cannot be edited.";
     public static final String MESSAGE_DUPLICATE_BUDGET = "This budget already exists in the MooLah.";

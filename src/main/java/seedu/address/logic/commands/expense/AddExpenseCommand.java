@@ -36,7 +36,7 @@ public class AddExpenseCommand extends UndoableCommand {
             + PREFIX_CATEGORY + "Food "
             + PREFIX_TIMESTAMP + "10-10";
 
-    public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";
 
     private final Expense toAdd;

@@ -21,7 +21,7 @@ public class DeleteAliasCommand extends UndoableCommand {
             + "Parameters: <alias name>\n"
             + "Example: deletealias findCat";
 
-    public static final String MESSAGE_SUCCESS = "Alias deleted: %1$s";
+    public static final String MESSAGE_SUCCESS = "Alias deleted:\n %1$s";
 
     public static final String MESSAGE_FAILURE = "There is no Alias with the following name: \"%s\"";
 

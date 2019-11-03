@@ -24,7 +24,7 @@ public class SwitchBudgetCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Outside School";
 
-    public static final String MESSAGE_SUCCESS = "Primary budget switched to: %1$s";
+    public static final String MESSAGE_SUCCESS = "Primary budget switched to:\n %1$s";
     public static final String MESSAGE_BUDGET_NOT_FOUND = "This budget does not exist in MooLah";
     public static final String MESSAGE_BUDGET_ALREADY_PRIMARY = "This budget is already the primary budget";
 
