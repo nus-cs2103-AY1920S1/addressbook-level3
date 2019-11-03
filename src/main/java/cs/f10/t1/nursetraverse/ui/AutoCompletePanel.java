@@ -102,9 +102,9 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
         autoCompleteWordListView.setCellFactory(listView -> new AutoCompleteListViewCell());
     }
 
-    // handle up and down key separately
     @Override
     public void update(KeyCode keyCode) {
+        // handle up and down key separately
         if (keyCode == KeyCode.UP) {
             setSelected(selectedIndex - 1);
         } else if (keyCode == KeyCode.DOWN) {
@@ -112,9 +112,9 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
         }
     }
 
-    // Do not handle up down button pressed
     @Override
     public void update(KeyCode keyCode, String resultString) {
+        // Do not handle up down button pressed
         if (keyCode != KeyCode.UP && keyCode != KeyCode.DOWN) {
             updateListView(resultString);
         }
