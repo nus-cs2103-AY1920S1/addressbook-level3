@@ -11,6 +11,7 @@ import dream.fcard.gui.controllers.cards.frontview.JsCard;
 import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
+import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
@@ -109,7 +110,7 @@ public class TestDisplay extends AnchorPane {
             this.cardOnDisplay = exam.getCurrentCard();
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
-            endSessionButton.setOnAction(e -> displayDecks.accept(true));
+            endSessionButton.setOnAction(e -> onEndSession());
             nextButton.setOnAction(e -> onShowNext());
         } catch (IOException | IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -183,9 +184,7 @@ public class TestDisplay extends AnchorPane {
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
             displayMessage.accept("You've ran out of cards in this test!");
-            EndOfTestAlert.display("Results", "Final Score" + exam.getResult());
-            displayDecks.accept(true);
-            clearMessage.accept(true);
+            ExamRunner.terminateExam();
         }
     }
     //sample renderer for Shawn
@@ -206,5 +205,9 @@ public class TestDisplay extends AnchorPane {
         } catch (IndexNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void onEndSession() {
+        ExamRunner.terminateExam();
     }
 }

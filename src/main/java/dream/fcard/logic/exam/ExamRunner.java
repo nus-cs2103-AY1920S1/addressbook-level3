@@ -24,7 +24,8 @@ public class ExamRunner {
     }
 
     public static void terminateExam() {
+        String result = exam.getResult();
+        EndOfTestAlert.display("Results", "Final Score: " + result);
         exam = null;
-        EndOfTestAlert.display("Test End", "Test End");
     }
 }
