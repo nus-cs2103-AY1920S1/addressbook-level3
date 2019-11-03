@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,6 +48,7 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         if (model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }

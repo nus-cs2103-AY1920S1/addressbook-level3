@@ -1,5 +1,7 @@
 package seedu.address.model.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -20,6 +22,7 @@ public class Quiz {
      * @param quizId The identifier of the quiz, in String representation.
      */
     public Quiz(String quizId) {
+        requireNonNull(quizId);
         this.quizId = quizId;
         this.questionList = new QuestionList();
     }
@@ -207,5 +210,19 @@ public class Quiz {
      */
     private boolean isMcqQuestion(Question question) {
         return (question instanceof McqQuestion);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Quiz)) {
+            return false;
+        }
+
+        Quiz otherQuiz = (Quiz) other;
+        return otherQuiz.getQuizId().equals(this.getQuizId());
     }
 }

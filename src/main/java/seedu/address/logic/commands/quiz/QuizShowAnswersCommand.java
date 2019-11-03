@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,6 +25,7 @@ public class QuizShowAnswersCommand extends QuizCommand {
      * @param quizId The identifier of the quiz.
      */
     public QuizShowAnswersCommand(String quizId) {
+        requireNonNull(quizId);
         this.quizId = quizId;
     }
 
@@ -34,6 +37,7 @@ public class QuizShowAnswersCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         if (!model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }

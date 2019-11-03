@@ -17,6 +17,9 @@ public class HtmlExporter extends Exporter {
      * @throws IOException The exception to be thrown.
      */
     public static boolean export(String fileId, String formattedString) throws IOException {
+        File dir = new File(EXPORT_DIRECTORY_PATH);
+        dir.mkdir();
+
         String fileName = fileId + ".html";
         String filePath = EXPORT_DIRECTORY_PATH + fileName;
 
@@ -25,7 +28,8 @@ public class HtmlExporter extends Exporter {
             return false;
         }
 
-        FileOutputStream fos = new FileOutputStream(new File(filePath));
+
+        FileOutputStream fos = new FileOutputStream(file);
         fos.write(formattedString.getBytes());
         fos.flush();
         fos.close();
