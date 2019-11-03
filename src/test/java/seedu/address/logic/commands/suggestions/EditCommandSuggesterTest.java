@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.ArgumentList;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.testutil.grouputil.TypicalGroups;
@@ -29,7 +30,7 @@ abstract class EditCommandSuggesterTest extends SuggesterImplTester {
 
         final int inconsequentialValue = 0;
         final String presentPersonName = TypicalPersonDescriptor.ALICE.getName().toString();
-        final String searchKeyword = presentPersonName.replaceAll(" .*$", "");
+        final String searchKeyword = StringUtil.substringBefore(presentPersonName, " ");
         assert !searchKeyword.equals(presentPersonName);
 
         final ArgumentList argumentList = singularArgumentListOfCommandArgument(

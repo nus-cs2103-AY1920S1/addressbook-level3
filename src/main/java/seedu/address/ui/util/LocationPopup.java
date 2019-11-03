@@ -3,9 +3,9 @@ package seedu.address.ui.util;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,9 +19,10 @@ public class LocationPopup {
     public LocationPopup(Node details) {
         this.popupDetails = details;
         this.popupStage = new Stage();
-        StackPane popupContainer = new StackPane();
-        popupContainer.getChildren().add(details);
+        ScrollPane popupContainer = new ScrollPane();
+        popupContainer.setContent(details);
         Scene layout = new Scene(popupContainer);
+        popupContainer.setStyle("-fx-background: #222831;");
         layout.getStylesheets().add("/view/DarkTheme.css");
         layout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {

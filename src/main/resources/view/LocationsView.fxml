@@ -8,34 +8,15 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
-<StackPane xmlns="http://javafx.com/javafx"
+<GridPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           prefHeight="400.0" prefWidth="550.0" fx:id="locationsViewContainer">
-    <GridPane>
-        <columnConstraints>
-            <ColumnConstraints percentWidth="73"/>
-            <ColumnConstraints percentWidth="27"/>
-        </columnConstraints>
-        <StackPane fx:id="locationMapPlaceholder" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <VBox fx:id="textContainer" GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="5">
-            <padding>
-                <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-            <VBox>
-                <Label text="First choice:" styleClass="cell_big_label"/>
-                <Label fx:id="firstLocationLabel" styleClass="cell_small_label"/>
-                <Label fx:id="firstAvg" styleClass="cell_small_label"/>
-            </VBox>
-            <VBox>
-                <Label text="Second choice:" styleClass="cell_big_label"/>
-                <Label fx:id="secondLocationLabel" styleClass="cell_small_label"/>
-                <Label fx:id="secondAvg" styleClass="cell_small_label"/>
-            </VBox>
-            <VBox>
-                <Label text="Third choice:" styleClass="cell_big_label"/>
-                <Label fx:id="thirdLocationLabel" styleClass="cell_small_label"/>
-                <Label fx:id="thirdAvg" styleClass="cell_small_label"/>
-            </VBox>
-        </VBox>
-    </GridPane>
-</StackPane>
+           fx:id="locationsViewContainer" vgap="25" hgap="25">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    <StackPane fx:id="locationOverviewCard" GridPane.rowIndex="0" GridPane.columnIndex="0"
+               GridPane.columnSpan="3" GridPane.halignment="CENTER"/>
+    <StackPane fx:id="firstLocationCard" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <StackPane fx:id="secondLocationCard" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <StackPane fx:id="thirdLocationCard" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+</GridPane>

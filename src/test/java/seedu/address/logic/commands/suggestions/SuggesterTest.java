@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.CommandArgument;
 import seedu.address.model.ModelManager;
@@ -30,7 +31,7 @@ class SuggesterTest {
     void getPersonNameSuggestions_partialPresentPersonName_oneFullPersonName() {
         final int inconsequentialValue = 0;
         final String presentPersonName = TypicalPersonDescriptor.ALICE.getName().toString();
-        final String searchKeyword = presentPersonName.replaceAll(" .*$", "");
+        final String searchKeyword = StringUtil.substringBefore(presentPersonName, " ");
         assert !searchKeyword.equals(presentPersonName);
 
         final CommandArgument commandArgument = new CommandArgument(
