@@ -102,7 +102,6 @@ public class MainWindow extends UiPart<Stage> {
         setFontColour(logic.getGuiSettings());
         setBackground(logic.getGuiSettings());
         styleManager.setFontFamily("Futura");
-
     }
 
     /**
@@ -161,13 +160,11 @@ public class MainWindow extends UiPart<Stage> {
     private String getMessageForInvalidReferencesInMap(Map<String, String> fieldsContainingInvalidReferences) {
         StringBuilder sb = new StringBuilder();
         for (String fieldLabels : fieldsContainingInvalidReferences.keySet()) {
-            String field = fieldLabels;
-            String invalidReference = fieldsContainingInvalidReferences.get(field);
-            sb.append("- ").append(invalidReference).append(" of field ").append(field).append("\n");
+            String invalidReference = fieldsContainingInvalidReferences.get(fieldLabels);
+            sb.append("- ").append(invalidReference).append(" of field ").append(fieldLabels).append("\n");
         }
         return sb.toString();
     }
-
 
     /**
      * Displays invalid references to the user if any. Clears the list of invalid references after displaying to the
@@ -266,7 +263,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the font colour based on {@code guiSettings}.
      *
-     * @param guiSettings
+     * @param guiSettings GuiSettings to retrieve and store font colour in.
      */
     private void setFontColour(GuiSettings guiSettings) {
         styleManager.setFontColour(guiSettings.getFontColour());
@@ -275,7 +272,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the background based on {@code guiSettings}.
      *
-     * @param guiSettings
+     * @param guiSettings GuiSettings to retrieve and store background in.
      */
     private void setBackground(GuiSettings guiSettings) {
         Background background = guiSettings.getBackground();
@@ -301,7 +298,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @param displayPaneType DisplayPaneType indicating whether the GUI is to be modified.
      * @param guiIsModified   Boolean indicating whether the GUI has been modified.
-     * @return
+     * @return Pane to be displayed.
      */
     private DisplayPaneType getPaneToDisplay(DisplayPaneType displayPaneType, boolean guiIsModified) {
         if (guiIsModified && mainDisplayPane.getCurrPaneType() == DisplayPaneType.BIO) {
@@ -326,6 +323,10 @@ public class MainWindow extends UiPart<Stage> {
         } else if (displayPaneType == DisplayPaneType.BACKGROUND) {
             setBackground(logic.getGuiSettings());
             return true;
+        } else if (displayPaneType == DisplayPaneType.COLOUR_AND_BACKGROUND) {
+            setFontColour(logic.getGuiSettings());
+            setBackground(logic.getGuiSettings());
+            return true;
         } else {
             return false;
         }
@@ -334,7 +335,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the specified UI part.
      */
-    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
+    private void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
         if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
             //throw new NullPointerException();
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
@@ -355,9 +356,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the main display pane to the calendar pane.
      */
-    public void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
-                                        YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay,
-                                        boolean isShowingWeek) {
+    private void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
+                                         YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay,
+                                         boolean isShowingWeek) {
         if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
             throw new NullPointerException();
         } else if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
@@ -365,7 +366,6 @@ public class MainWindow extends UiPart<Stage> {
             if (paneToDisplay == null) {
                 return;
             }
-            newPaneIsToBeCreated = newPaneIsToBeCreated;
             mainDisplayPanePlaceholder.setStyle(null);
             mainDisplayPanePlaceholder.getChildren().clear();
             mainDisplayPanePlaceholder.getChildren()

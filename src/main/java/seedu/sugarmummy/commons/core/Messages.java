@@ -35,14 +35,24 @@ public class Messages {
             + "Your biography could be crucial information especially in times of an emergency. "
             + "Please enter the " + BioCommand.COMMAND_WORD + " command as soon as possible to set your biography, "
             + "alright?";
+    public static final String MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL = "Please ensure there is at most one prefix "
+            + "each for the following prefixes that you keyed in: ";
+    public static final String MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR = "Please ensure there is at most one prefix "
+            + "for this prefix that you keyed in: ";
 
     //---Aesthetics---
+
     public static final String MESSAGE_UNABLE_TO_LOAD_IMAGE = "Oops! Unfortunately, I'm unable to load or access "
             + "the image via the specified path. Please check if the file at the given destination is correct.";
     public static final String MESSAGE_UNABLE_TO_LOAD_REFERENCES = "I'm unable to load the following references and "
             + "as such have removed them so they will not cause any errors in the program:\n";
+
+    public static final String MESSAGE_USE_ONLY_ONE_FONT_COLOUR_PREFIX = "Oops! You have used more than one "
+            + "fontcolour prefix or types of fontcolour prefixes (eg. fontcolor). Please use at most one.";
+    public static final String MESSAGE_USE_ONLY_ONE_BACKGROUND_PREFIX = "Oops! You have used more than one "
+            + "background prefix. Please use at most one.";
     public static final String MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT = "Oops! For the background command, "
-            + "arguments are only allowed for background images and not background colours. "
+            + "background arguments are only allowed for background images and not background colours. "
             + "Scroll to view details on usage.\n%1$s";
     public static final String MESSAGE_INVALID_BACKGROUND_SIZE = "Oops! The background size settings you entered "
             + "does not appear to match any known settings. Scroll to view usage details. \n%1$s";
@@ -56,4 +66,7 @@ public class Messages {
     public static final String MESSAGE_ACHIEVEMENTS_LOST = "Oh no, you have lost one / some achievement(s) :( Key in "
             + "the \'achvm\' command to view your updated list of achievements.";
 
+    //--Calendar--
+    public static final String MESSAGE_INVALID_EVENT_ENDING_TIME = "Oops! The ending date time of an event should come"
+            + " after starting date time.";
 }

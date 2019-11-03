@@ -66,10 +66,12 @@ public class MainDisplayPane {
                     ? previousAchievementsPane.getAchievementsMap()
                     : null;
             if (!achievementsMap.isEmpty() && previousMap != null && logic.currAchievementsMapIsSameAs(previousMap)) {
-                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap),
+                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap,
+                                logic.getFilteredUserList()),
                         false);
             } else {
-                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap),
+                return getMappedPane(displayPaneType, () -> new AchievementsPane(achievementsMap,
+                                logic.getFilteredUserList()),
                         newPaneIsToBeCreated);
             }
         case RECM_FOOD:

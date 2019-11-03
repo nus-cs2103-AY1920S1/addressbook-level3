@@ -11,7 +11,7 @@ public abstract class NutritionValue {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
-    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{1,4}$";
+    public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{0,4}$";
 
     public final String value;
 

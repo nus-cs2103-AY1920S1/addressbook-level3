@@ -31,6 +31,7 @@ import seedu.sugarmummy.logic.parser.bio.EditBioCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
+import seedu.sugarmummy.recmfood.commands.ResetFoodDataCommand;
 import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
 import seedu.sugarmummy.recmfood.parser.AddFoodCommandParser;
 import seedu.sugarmummy.recmfood.parser.RecmFoodCommandParser;
@@ -90,6 +91,9 @@ public class SugarMummyParser {
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);
 
+        case ResetFoodDataCommand.COMMAND_WORD:
+            return new ResetFoodDataCommand();
+
         //=========== Calendar ===========================================================
 
         case EventCommand.COMMAND_WORD:
@@ -125,6 +129,7 @@ public class SugarMummyParser {
 
         //=========== Aesthetics =============================================================
 
+        case FontColourCommand.ALTERNATIVE_COMMAND_WORD:
         case FontColourCommand.COMMAND_WORD:
             return new FontColourCommandParser().parse(arguments);
 

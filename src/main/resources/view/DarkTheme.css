@@ -69,6 +69,16 @@
     -fx-border-insets: 0 10 1 0;
 }
 
+.myGridStyle {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
+}
+
+.myGridStyle Line {
+    -fx-stroke: red;
+}
+
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
@@ -79,6 +89,15 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -441,6 +460,10 @@
     -fx-font-size: 11;
 }
 
+#reminderListPanel > .viewport {
+    -fx-background-color: transparent;
+}
+
 #calendarMonthScrollPane > .viewport {
     -fx-background-color: transparent;
 }
@@ -451,8 +474,6 @@
 
 #entryNumber {
     -fx-font-size: 10px;
-    -fx-border-radius: 5;
-    -fx-padding: 0 3 0 0;
 }
 
 #yearMonth {

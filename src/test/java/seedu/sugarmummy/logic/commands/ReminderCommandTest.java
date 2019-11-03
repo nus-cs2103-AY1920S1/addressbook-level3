@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.sugarmummy.logic.commands.calendar.ReminderCommand.MESSAGE_DUPLICATE_REMINDER;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -20,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.sugarmummy.commons.core.GuiSettings;
 import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
+import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.ReadOnlyCalendar;
 import seedu.sugarmummy.model.ReadOnlyUserList;
@@ -52,18 +55,16 @@ class ReminderCommandTest {
         CommandResult commandResult = new ReminderCommand(validReminder).execute(modelStub);
 
         assertEquals(String.format(ReminderCommand.MESSAGE_SUCCESS, validReminder), commandResult.getFeedbackToUser());
-        //assertEquals(Arrays.asList(validReminder), modelStub.remindersAdded);
+        assertEquals(Arrays.asList(validReminder), modelStub.remindersAdded);
     }
 
     @Test
-    public void execute_duplicateReminder_throwsCommandException() {
+    public void execute_duplicateReminder_throwsCommandException() throws Exception {
         Reminder validReminder = new ReminderBuilder().build();
         ReminderCommand reminderCommand = new ReminderCommand(validReminder);
         ModelStub modelStub = new ModelStubWithReminder(validReminder);
-        /*
-        assertThrows(CommandException.class, ReminderCommand.MESSAGE_DUPLICATE_REMINDER,
-                () -> reminderCommand.execute(modelStub));
-         */
+
+        assertThrows(CommandException.class, () -> reminderCommand.execute(modelStub), MESSAGE_DUPLICATE_REMINDER);
     }
 
     @Test
