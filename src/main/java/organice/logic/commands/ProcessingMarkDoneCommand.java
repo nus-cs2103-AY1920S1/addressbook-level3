@@ -1,8 +1,10 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.commands.MatchCommand.match;
 
+import organice.logic.parser.exceptions.ParseException;
 import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
@@ -42,11 +44,16 @@ public class ProcessingMarkDoneCommand extends Command {
 
     private TaskList processingList;
 
-    public ProcessingMarkDoneCommand(String firstNricString, String secondNricString, String taskNumberString) {
+    public ProcessingMarkDoneCommand(String firstNricString, String secondNricString, String taskNumberString) throws ParseException {
         requireNonNull(firstNricString, secondNricString);
-        firstNric = new Nric(firstNricString);
-        secondNric = new Nric(secondNricString);
-        taskNumber = Integer.parseInt(taskNumberString);
+        try {
+            firstNric = new Nric(firstNricString);
+            secondNric = new Nric(secondNricString);
+            taskNumber = Integer.parseInt(taskNumberString);
+        } catch (NumberFormatException e) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+        }
     }
 
     /**

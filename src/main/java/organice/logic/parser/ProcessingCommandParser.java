@@ -27,14 +27,19 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
         String secondNric;
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)) {
-            firstNric = nameKeywords[0].replaceFirst(prefixNricString, "");
-            secondNric = nameKeywords[1].replaceFirst(prefixNricString, "");
-        } else {
+        try {
+            if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)) {
+                firstNric = nameKeywords[0].replaceFirst(prefixNricString, "");
+                secondNric = nameKeywords[1].replaceFirst(prefixNricString, "");
+            } else {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+            }
+            return new ProcessingCommand(firstNric, secondNric);
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }
-        return new ProcessingCommand(firstNric, secondNric);
     }
 
 }
