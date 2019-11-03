@@ -380,4 +380,61 @@ public class ParserUtil {
         }
         return trimmedEventName;
     }
+
+    /**
+     * Parses a String into an integer representing a week.
+     *
+     * @param weekString to be parsed
+     * @return int
+     * @throws ParseException
+     */
+    public static int parseWeek(String weekString) throws ParseException {
+        try {
+            int week = Integer.parseInt(weekString.trim());
+            if (week < 1 || week > 4) {
+                throw new ParseException("A week has to be an integer from 1 to 4.");
+            }
+            return week - 1;
+        } catch (NumberFormatException nfe) {
+            throw new ParseException("A week has to be an integer from 1 to 4.");
+        }
+    }
+
+    /**
+     * Parses a String into an integer representing a day.
+     *
+     * @param dayString
+     * @return int
+     * @throws ParseException
+     */
+    public static int parseDay(String dayString) throws ParseException {
+        try {
+            int day = Integer.parseInt(dayString.trim());
+            if (day < 1 || day > 7) {
+                throw new ParseException("A day has to be an integer between 1 and 7");
+            }
+            return day;
+        } catch (NumberFormatException nfe) {
+            throw new ParseException("A day has to be an integer between 1 and 7");
+        }
+    }
+
+    /**
+     * Parses a String into an integer representing an ID.
+     *
+     * @param idString to be parsed
+     * @return int
+     * @throws ParseException
+     */
+    public static int parseId(String idString) throws ParseException {
+        try {
+            int id = Integer.parseInt(idString.trim());
+            return id;
+        } catch (NumberFormatException nfe) {
+            throw new ParseException("An id has to be an integer");
+        }
+    }
+
 }
+
+
