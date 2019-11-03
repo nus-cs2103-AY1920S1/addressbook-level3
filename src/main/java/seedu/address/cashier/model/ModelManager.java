@@ -372,6 +372,8 @@ public class ModelManager implements Model {
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
+            String itemDescription = item.getDescription().toLowerCase();
+            description = description.toLowerCase();
 
             // if the item is not for sale, skip
             if (!item.isSellable()) {
@@ -379,16 +381,16 @@ public class ModelManager implements Model {
             }
 
             // if both description start with same letters, add
-            if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
-                recommendedItems.add(item.getDescription());
+            if (itemDescription.startsWith(description)) {
+                recommendedItems.add(item.getDescription()); // return exact description
                 continue;
             }
 
             // if length of input is greater than 3 and either description contains the other
             if (description.length() >= 3
-                    && ((item.getDescription().toLowerCase().contains(description.toLowerCase()))
-                    || description.toLowerCase().contains(item.getDescription().toLowerCase()))) {
-                recommendedItems.add(item.getDescription());
+                    && ((itemDescription.contains(description))
+                    || description.contains(itemDescription))) {
+                recommendedItems.add(item.getDescription());  // return exact description
                 continue;
             }
 
@@ -399,8 +401,8 @@ public class ModelManager implements Model {
                 char[] arr = description.toCharArray();
                 ArrayList<String> combinations = getCombination(arr, arr.length);
                 for (int j = 0; j < combinations.size(); j++) {
-                    if (combinations.get(j).toLowerCase().contains(item.getDescription().toLowerCase())
-                            || item.getDescription().toLowerCase().contains(combinations.get(j))) {
+                    if (combinations.get(j).contains(itemDescription)
+                            || itemDescription.contains(combinations.get(j))) {
                         recommendedItems.add(item.getDescription());
                         continue;
                     }
