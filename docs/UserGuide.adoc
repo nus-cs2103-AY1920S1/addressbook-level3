@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`help`* : a list of commands available on Plan^2^Travel
-* **`add act`**`n/Visit Gundam Museum a/Tokyo du/120 p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with a duration of 120 minutes and contact number `65543221` to the activity list.
+* **`add activity`**`n/Visit Gundam Museum a/Tokyo du/120 p/65543221` : adds an activity named `Visit Gundam Museum` at location `Tokyo` with a duration of 120 minutes and contact number `65543221` to the activity list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -53,6 +53,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Any two items enclosed within with `()` and has a `||` lying between them indicates that either one of the items has to be present.
 e.g. `(t/Dining || n/DisneyLand)` can be used as `t/Dining` or `n/DisneyLand`.
 ====
+
+Callouts are rectangular boxes with an icon and words to explain certain information. Below are 3 callouts that are used for this user guide:
+
+[NOTE]
+This represents a *note*. A note represents additional information. Do take a look as they might be relevant to you!
+
+[TIP]
+This represents a *tip*. A tip means something that is handy, and may aid you in getting through the application. Tips are usually less crucial, and you may decide to omit them.
+
+[WARNING]
+This represents a *warning*. A warning denotes something of great significance, and you should pay close attention to the statement.
 
 === Help : `help`
 
@@ -319,7 +330,7 @@ Generates a list of activities for the specified days based on the `highest prio
 appears on the timetable.` +
 
 If the end time of the activity chosen overlaps with the next activity's start time, the
-next activity with the `next highest priority` and `least number of count in the timetable` are chose.
+next activity with the `next highest priority` and `least number of count in the timetable` are chosen.
 
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
 
@@ -329,7 +340,16 @@ next activity with the `next highest priority` and `least number of count in the
 
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 
-Format: `autoschedule (t/TAG || n/ACTIVITY_NAME)... [a/LOCATION_OF_ACTIVITIES] d/[DAY_INDEX]...`
+[WARNING]
+Ensure that activity with the specified name or tag is present in the activity list.
+
+[TIP]
+You may use `n/` to denote a specific activity name and specify the start time if you have confirmed to do an activity at a specific time.
+
+[TIP]
+You may wish to input the location of the activities so that we schedule activities that are in the same location together for the specified day to reduce your travelling time.
+
+Format: `autoschedule (t/TAG [START_TIME]|| n/ACTIVITY_NAME [START_TIME])... [a/LOCATION_OF_ACTIVITIES] [d/DAY_INDEX...]`
 
 Examples:
 

@@ -13,7 +13,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
@@ -21,61 +26,52 @@ import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.activity.Activity;
-import seedu.planner.model.activity.NameWithTime;
+import seedu.planner.model.activity.ActivityWithCount;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Address;
-import seedu.planner.model.tag.TagWithTime;
+import seedu.planner.model.field.NameOrTagWithTime;
 
 /**
  * Generates a schedule for specified day(s).
- *
- * @@author oscarsu97
  */
 public class AutoScheduleCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "autoschedule";
-
-    public static final String TIME_FORMAT = "HHmm";
     public static final String MESSAGE_INVALID_SCHEDULE = "Unable to generate a schedule"
-            + " with no overlapping activitiies";
-    public static final String MESSAGE_SCHEDULE_ACTIVITY_SUCCESS = "Activities successfully scheduled.";
-    public static final String MESSAGE_ACTIVITY_TAG_NOT_FOUND = "Activity with the this tag %s not found";
-    public static final String MESSAGE_ACTIVITY_NAME_NOT_FOUND = "Activity with the this name %s not found";
-    public static final String MESSAGE_ADDRESS_NOT_FOUND = "Activities of this address %s not found";
-
+            + " with no overlapping";
+    public static final String MESSAGE_SUCCESS = "Schedule for the day(s) generated!";
+    public static final String TIME_FORMAT = "HHmm";
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
+    public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
-            "Generates a list of activities for a specified day based on location, "
+            "Generates a list of activities for specified days based on location, "
                     + " tags and names order given by user.",
-            COMMAND_WORD + " ([" + PREFIX_TAG + "TAG START_TIME] || "
-                    + PREFIX_NAME + "ACTIVITY_NAME START_TIME])... "
-                    + PREFIX_ADDRESS + "LOCATION_OF_ACTIVITIES "
-                    + PREFIX_DAY + "[DAY_INDEX]...",
+            COMMAND_WORD + " (" + PREFIX_TAG + "TAG [START_TIME] || "
+                    + PREFIX_NAME + "ACTIVITY_NAME [START_TIME])... "
+                    + "[" + PREFIX_ADDRESS + "LOCATION_OF_ACTIVITIES] "
+                    + "[" + PREFIX_DAY + "DAY_INDEX...]",
             COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
                     + PREFIX_NAME + "Disneyland 1400 " + PREFIX_TAG + "Dining "
                     + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
     );
-
-    public static final String MESSAGE_SUCCESS = "Schedule for the day(s) generated!";
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
-    public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
-
-    private List<Object> draftSchedule;
-    private Address address;
+    private List<NameOrTagWithTime> draftSchedule;
+    private Optional<Address> address;
     private List<Index> days;
 
-    public AutoScheduleCommand(List<Object> draftSchedule, Address address, List<Index> days) {
+    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days) {
+        requireNonNull(draftSchedule);
         this.draftSchedule = draftSchedule;
         this.address = address;
         this.days = days;
     }
 
-    public List<Object> getDraftSchedule() {
+    public List<NameOrTagWithTime> getDraftSchedule() {
         return draftSchedule;
     }
 
-    public Address getAddress() {
+    public Optional<Address> getAddress() {
         return address;
     }
 
@@ -91,253 +87,195 @@ public class AutoScheduleCommand extends UndoableCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Day> lastShownDays = model.getFilteredItinerary();
+        List<Day> editDays = new ArrayList<>(model.getFilteredItinerary());
+        List<Activity> activityListByLocation = new ArrayList<>(filterByLocation(model.getFilteredActivityList()));
+        List<Optional<LocalTime>> timeSchedule = fillTimeSchedule(draftSchedule);
+        Collections.sort(activityListByLocation);
 
-        //If user did not indicate which day(s) to auto schedule, it is assumed to schedule for all days
-        if (days.size() == 0) {
-            days = daysToSchedule(lastShownDays.size());
+        if (editDays.size() == 0) {
+            throw new CommandException(Messages.MESSAGE_NO_DAYS_AVAILABLE);
         }
+        if (days.size() == 0) {
+            days = daysToSchedule(editDays.size());
+        }
+        //Generate schedule for specified day(s)
         for (Index dayIndex : days) {
-            List<Activity> lastShownActivities = model.getFilteredActivityList();
-            List<Activity> filteredActivitiesByLocation = lastShownActivities;
-            List<LocalTime> timeSchedule = fillTimeSchedule(draftSchedule);
             List<ActivityWithTime> activitiesForTheDay = new ArrayList<>();
-            // Gets the list of activities that has the location specified by user
-            if (address != null) {
-                filteredActivitiesByLocation = filterActivitiesByLocation(lastShownActivities, address.toString());
-                if (filteredActivitiesByLocation.size() == 0) {
-                    throw new CommandException(String.format(MESSAGE_ADDRESS_NOT_FOUND, address));
-                }
+            if (dayIndex.getZeroBased() >= editDays.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
             }
-            // sort activities by priority
-            List<Activity> newActivityListByLocation = new ArrayList<>(filteredActivitiesByLocation);
-            Collections.sort(newActivityListByLocation);
-
-            //draftSchedule contains TagWithTime and NameWithTime in the same order given by user
-            //Eg. t/Activity 1000  n/DisneyLand 1200  t/Activity   t/Dining 1800
             for (int i = 0; i < draftSchedule.size(); i++) {
-                List<Activity> similarActivities = new ArrayList<>();
-                boolean isScheduled = false;
-
-                //Gets all activities that has the same tag
-                if (draftSchedule.get(i) instanceof TagWithTime) {
-                    TagWithTime tagWithTime = (TagWithTime) draftSchedule.get(i);
-                    similarActivities =
-                            getActivitiesWithSameTag(newActivityListByLocation, tagWithTime);
-                    if (similarActivities.size() == 0) {
-                        throw new CommandException(String.format(MESSAGE_ACTIVITY_TAG_NOT_FOUND,
-                                tagWithTime.getTag()));
-                    }
+                List<Activity> similarActivities = getSimilarActivities(activityListByLocation, draftSchedule.get(i));
+                List<ActivityWithCount> activitiesWithCount = updateCount(similarActivities, editDays,
+                        activitiesForTheDay, dayIndex);
+                for (ActivityWithCount activity : activitiesWithCount) {
+                    System.out.println(activity.getActivity().getName() + " " + activity.getCount());
                 }
-                //Gets all activities that has the same name
-                if (draftSchedule.get(i) instanceof NameWithTime) {
-                    NameWithTime nameWithTime = (NameWithTime) draftSchedule.get(i);
-                    similarActivities =
-                            getActivitiesWithSameName(newActivityListByLocation, nameWithTime);
-                    if (similarActivities.size() == 0) {
-                        throw new CommandException(String.format(MESSAGE_ACTIVITY_NAME_NOT_FOUND,
-                                nameWithTime.getName()));
-                    }
-                }
-                //ActivityCount represents an activity and the number of times it appears in the timetable
-                //Eg. Ski -> 1, Gundam Museum -> 1, Shop At daiso -> 2
-                List<ActivityWithCount> activitiesWithCount =
-                        updateActivitiesCount(similarActivities, lastShownDays, activitiesForTheDay, dayIndex);
+                System.out.println(" =========================================================");
+                int nextIndex = i + 1;
+                OptionalInt nextTimingIndex = getNextTimingIndex(i, timeSchedule);
+                LocalTime currentTime = timeSchedule.get(i).get();
 
-                //Activities with the lowest count are the first to be added
-                //For those with same count, if the activity has a priority that is higher, it will be added first.
-                Collections.sort(activitiesWithCount);
-
-                //Main entry of execution
-                //Checks if duration exceed the next timing if any
-                for (ActivityWithCount activityWithCount : activitiesWithCount) {
-                    int duration = activityWithCount.getActivity().getDuration().value;
-                    LocalTime currentTiming = timeSchedule.get(i);
-                    LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
-                    int currentTime = currentTiming.getHour() * 1000 + currentTiming.getMinute();
-                    int nextTime = currentActivityEndTime.getHour() * 1000 + currentActivityEndTime.getMinute();
-
-                    //The last activity do not have to worry about overlap with another activity
-                    if (i == draftSchedule.size() - 1) {
-                        if (nextTime - currentTime < 0) {
-                            break;
-                        }
-                        isScheduled = true;
-                        activitiesForTheDay.add(activityToSchedule(
-                                timeSchedule.get(i).atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
-                                activityWithCount.getActivity()));
-                        break;
-                    }
-                    //find the next timing if any given by user
-                    int nextTimingIndex = -1;
-
-                    for (int k = i + 1; k < timeSchedule.size(); k++) {
-                        if (timeSchedule.get(k) != null) {
-                            nextTimingIndex = k;
-                            break;
-                        }
-                    }
-                    // No timing is given by user for the entire autoschedule command
-                    if (nextTimingIndex == -1) {
-                        isScheduled = true;
-                        activitiesForTheDay.add(
-                                activityToSchedule(
-                                    timeSchedule.get(i).atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
-                                    activityWithCount.getActivity()
-                            )
-                        );
-                        timeSchedule.set(i + 1, currentTiming.plusMinutes(duration));
-                        break;
-                        //check next timing does not overlap
-                    } else {
-                        LocalTime startTimeOfNextActivity = timeSchedule.get(nextTimingIndex);
-
-                        if (startTimeOfNextActivity.compareTo(currentActivityEndTime) >= 0) {
-                            isScheduled = true;
-                            activitiesForTheDay.add(
-                                    activityToSchedule(
-                                        timeSchedule.get(i)
-                                                .atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())),
-                                        activityWithCount.getActivity()
-                                    )
-                            );
-                            //the next activity will be given a start time,
-                            // if the timing is not the next in line
-                            //Eg. 1000 null 1300 -> becomes 1000 1000+30min  1300
-                            if (nextTimingIndex != i + 1) {
-                                timeSchedule.set(i + 1, currentActivityEndTime);
-                            }
-                            break;
-                        }
-                    }
-                }
-                if (!isScheduled) {
+                //Check if there exists an activity that fits the schedule
+                Optional<Activity> activity = getSuitableActivity(activitiesWithCount, i, timeSchedule);
+                if (activity.isPresent()) {
+                    activitiesForTheDay.add(toSchedule(timeSchedule.get(i).get()
+                            .atDate(model.getStartDate().plusDays(dayIndex.getZeroBased())), activity.get()));
+                } else {
                     throw new CommandException(MESSAGE_INVALID_SCHEDULE);
+                }
+
+                //Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
+                int duration = activity.get().getDuration().value;
+                if ((nextTimingIndex.isEmpty() || (nextTimingIndex.getAsInt() != nextIndex
+                        && nextTimingIndex.getAsInt() != draftSchedule.size()))) {
+                    timeSchedule.set(nextIndex, Optional.ofNullable(currentTime.plusMinutes(duration)));
                 }
             }
             Day editedDay = new Day(activitiesForTheDay);
-            List<Day> editedDays = new ArrayList<>(lastShownDays);
-            editedDays.set(dayIndex.getZeroBased(), editedDay);
-            model.setDays(editedDays);
+            editDays.set(dayIndex.getZeroBased(), editedDay);
+            model.setDays(editDays);
             model.updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
         }
-        return new CommandResult(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
+        return new CommandResult(Messages.MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
+    }
+
+    private Optional<Activity> getSuitableActivity(List<ActivityWithCount> activitiesWithCount, int currentIndex,
+                                                   List<Optional<LocalTime>> timeSchedule) throws CommandException {
+        for (ActivityWithCount activityWithCount : activitiesWithCount) {
+            int duration = activityWithCount.getActivity().getDuration().value;
+            LocalTime currentTiming = timeSchedule.get(currentIndex).get();
+            LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
+
+            //Check if it is the last activity in the draftSchedule to schedule
+            if (currentIndex == draftSchedule.size() - 1) {
+                if (currentActivityEndTime.isBefore(currentTiming)) {
+                    throw new CommandException(MESSAGE_INVALID_SCHEDULE);
+                }
+                return Optional.of(activityWithCount.getActivity());
+            }
+
+            //check if activity chosen overlap next timing in timeSchedule
+            OptionalInt nextTimingIndex = getNextTimingIndex(currentIndex, timeSchedule);
+            if (nextTimingIndex.isEmpty()) {
+                return Optional.of(activityWithCount.getActivity());
+            } else {
+                LocalTime startTimeOfNextActivity = timeSchedule.get(nextTimingIndex.getAsInt()).get();
+                if (startTimeOfNextActivity.compareTo(currentActivityEndTime) >= 0) {
+                    return Optional.of(activityWithCount.getActivity());
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Gets the index of the next timing in the schedule if any.
+     */
+    private OptionalInt getNextTimingIndex(int currentIndex, List<Optional<LocalTime>> timeSchedule) {
+        if (currentIndex + 1 == timeSchedule.size()) {
+            return OptionalInt.of(timeSchedule.size());
+        }
+        return IntStream.range(currentIndex + 1, timeSchedule.size())
+                .filter(k -> timeSchedule.get(k).isPresent())
+                .findFirst();
     }
 
     /**
      * Creates an ActivityWithTime to be scheduled.
-     *
-     * @param activity activity to be scheduled
      */
-    private ActivityWithTime activityToSchedule(LocalDateTime currentDateTime, Activity activity) {
+    private ActivityWithTime toSchedule(LocalDateTime currentDateTime, Activity activity) {
         return new ActivityWithTime(activity, currentDateTime);
     }
 
     /**
-     * Generates a list containing all activities with counts representing the number of the same activity that exist
-     * in the itinerary.
+     * Generates a list that track the number of time each activity appears in the timetable.
      *
      * @param activitiesForTheDay list of activities that are generated by auto-scheduling
      */
-    private List<ActivityWithCount> updateActivitiesCount(List<Activity> similarActivities, List<Day> lastShownDays,
-                                                          List<ActivityWithTime> activitiesForTheDay, Index dayToEdit) {
+    private List<ActivityWithCount> updateCount(List<Activity> similarActivities, List<Day> lastShownDays,
+                                                List<ActivityWithTime> activitiesForTheDay, Index dayToEdit) {
         List<ActivityWithCount> activityCounts = new ArrayList<>();
         for (Activity similarActivity : similarActivities) {
-            int count = 0;
-            //number of times the activities appear in other days
+            long count = 0;
             for (int i = 0; i < lastShownDays.size(); i++) {
-                if (i == dayToEdit.getZeroBased()) {
-                    continue;
-                }
-                List<ActivityWithTime> activities = lastShownDays.get(i).getListOfActivityWithTime();
-                for (ActivityWithTime activityWithTime : activities) {
-                    if (activityWithTime.getActivity().equals(similarActivity)) {
-                        count += 1;
-                    }
+                if (i != dayToEdit.getZeroBased()) {
+                    count += lastShownDays.get(i).getListOfActivityWithTime()
+                            .stream()
+                            .filter(activityWithTime -> activityWithTime.getActivity().equals(similarActivity))
+                            .count();
                 }
             }
-            //number of times the activity appear in our current list of activities to schedule
-            for (ActivityWithTime activityWithTime : activitiesForTheDay) {
-                if (activityWithTime.getActivity().equals(similarActivity)) {
-                    count += 1;
-                }
-            }
-            activityCounts.add(new ActivityWithCount(similarActivity, count));
+            count += (int) activitiesForTheDay
+                    .stream()
+                    .filter(activityWithTime -> activityWithTime.getActivity().equals(similarActivity))
+                    .count();
+            activityCounts.add(new ActivityWithCount(similarActivity, (int) count));
         }
+        Collections.sort(activityCounts);
         return activityCounts;
     }
 
     /**
      * Creates a list to track the time of each activity to be carried out.
-     *
-     * @param draftSchedule The order in with the type of activity to be carried out
      */
-    private List<LocalTime> fillTimeSchedule(List<Object> draftSchedule) {
-        List<LocalTime> timeSchedule = new ArrayList<>();
-        for (int i = 0; i < draftSchedule.size(); i++) {
-            LocalTime time = null;
-            if (draftSchedule.get(i) instanceof TagWithTime) {
-                time = ((TagWithTime) draftSchedule.get(i)).getTime();
-            }
-            if (draftSchedule.get(i) instanceof NameWithTime) {
-                time = ((NameWithTime) draftSchedule.get(i)).getTime();
-            }
-            if (time == null && i == 0) {
-                timeSchedule.add(DEFAULT_START_TIME);
-            } else {
-                timeSchedule.add(time);
-            }
+    private List<Optional<LocalTime>> fillTimeSchedule(List<NameOrTagWithTime> draftSchedule) {
+        List<Optional<LocalTime>> timeSchedule = new ArrayList<>();
+        for (NameOrTagWithTime nameAndTagWithTime : draftSchedule) {
+            timeSchedule.add(nameAndTagWithTime.getTime());
+        }
+        if (timeSchedule.get(0).isEmpty()) {
+            timeSchedule.set(0, Optional.of(DEFAULT_START_TIME));
         }
         return timeSchedule;
     }
 
-    /**
-     * @return List of activities that has the same name specified
-     */
-    private List<Activity> getActivitiesWithSameName(List<Activity> filteredActivitiesByLocation, NameWithTime name) {
-        List<Activity> similarActivities = new ArrayList<>();
-        for (Activity activity : filteredActivitiesByLocation) {
-            if (activity.getName().equals(name.getName())) {
-                similarActivities.add(activity);
+    private List<Activity> getSimilarActivities(List<Activity> filteredActivitiesByLocation,
+                                                NameOrTagWithTime nameAndTagWithTime) throws CommandException {
+        List<Activity> filteredList = filteredActivitiesByLocation
+                .stream()
+                .filter(activity -> (nameAndTagWithTime.getTag().isPresent()
+                        && activity.getTags().contains(nameAndTagWithTime.getTag().get()))
+                        ||
+                        nameAndTagWithTime.getName().isPresent()
+                                && activity.getName().equals(nameAndTagWithTime.getName().get()))
+                .collect(Collectors.toList());
+        if (filteredList.isEmpty()) {
+            if (nameAndTagWithTime.getName().isPresent()) {
+                throw new CommandException(String.format(Messages.MESSAGE_ACTIVITY_NAME_NOT_FOUND,
+                        nameAndTagWithTime.getName().get()));
+            } else {
+                throw new CommandException(String.format(Messages.MESSAGE_ACTIVITY_TAG_NOT_FOUND,
+                        nameAndTagWithTime.getTag().get()));
             }
         }
-        return similarActivities;
+        return filteredList;
     }
 
     /**
-     * @return list of activities that has the same tag specified.
-     */
-    private List<Activity> getActivitiesWithSameTag(List<Activity> filteredActivitiesByLocation, TagWithTime tag) {
-        List<Activity> similarActivities = new ArrayList<>();
-        for (Activity activity : filteredActivitiesByLocation) {
-            if (activity.getTags().contains(tag.getTag())) {
-                similarActivities.add(activity);
-            }
-        }
-        return similarActivities;
-    }
-
-    /**
-     * @return list of all days to genaerate a schedule for
+     * Returns a list of containing all the days
      */
     private List<Index> daysToSchedule(int size) {
-        List<Index> dayIndexes = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
-            dayIndexes.add(Index.fromOneBased(i));
-        }
-        return dayIndexes;
+        return IntStream.rangeClosed(1, size)
+                .mapToObj(x -> Index.fromOneBased(x))
+                .collect(Collectors.toList());
     }
 
     /**
      * @return list of activities that has the same location specified.
      */
-    private List<Activity> filterActivitiesByLocation(List<Activity> lastShownActivities, String address) {
-        List<Activity> filteredList = new ArrayList<>();
-        for (Activity activity : lastShownActivities) {
-            if (activity.getAddress().toString().contains(address)) {
-                filteredList.add(activity);
+    private List<Activity> filterByLocation(List<Activity> lastShownActivities) throws CommandException {
+        List<Activity> filteredList = lastShownActivities;
+        if (address.isPresent()) {
+            filteredList = lastShownActivities
+                    .stream()
+                    .filter(activity -> activity.getAddress().equals(address.get()))
+                    .collect(Collectors.toList());
+            if (filteredList.size() == 0) {
+                throw new CommandException(String.format(Messages.MESSAGE_ADDRESS_NOT_FOUND, address.get()));
             }
         }
+
         return filteredList;
     }
 
@@ -349,31 +287,4 @@ public class AutoScheduleCommand extends UndoableCommand {
                 && address.equals(((AutoScheduleCommand) other).address)
                 && days.equals((((AutoScheduleCommand) other).days));
     }
-
-    /**
-     * Represents the number of times the Activity appears in the Timetable.
-     */
-    private static class ActivityWithCount implements Comparable<ActivityWithCount> {
-        private Activity activity;
-        private int count;
-
-        ActivityWithCount(Activity activity, int count) {
-            this.activity = activity;
-            this.count = count;
-        }
-
-        public Activity getActivity() {
-            return activity;
-        }
-
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public int compareTo(ActivityWithCount o) {
-            return count - o.count;
-        }
-    }
-
 }

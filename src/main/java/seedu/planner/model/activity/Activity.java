@@ -88,7 +88,7 @@ public class Activity implements Comparable<Activity> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, address, contact, tags, duration, priority);
+        return Objects.hash(name, address, contact, tags, duration, priority, cost);
     }
 
     /**
