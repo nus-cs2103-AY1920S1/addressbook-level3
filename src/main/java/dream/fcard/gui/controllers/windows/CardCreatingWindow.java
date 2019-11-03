@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import dream.fcard.gui.controllers.displays.createandeditdeck.javacard.JavaTestCaseInputBox;
 import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
 import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import javafx.fxml.FXML;
@@ -36,13 +39,21 @@ public class CardCreatingWindow extends VBox {
     @FXML
     private Label addAnswerLabel;
 
+    /**
+     * Strings used to represent card types.
+     */
     private final String frontBack = "Front-back";
     private final String mcq = "MCQ";
     private final String js = "JavaScript";
+    private final String java = "Java";
 
+    /**
+     * Controllers for the card inputs
+     */
     private TextArea frontBackTextArea;
     private McqOptionsSetter mcqOptionsSetter;
     private JsTestCaseInputTextArea jsTestCaseInputTextArea;
+    private JavaTestCaseInputBox javaTestCaseInputBox;
 
     private String cardType = "";
     private Deck tempDeck = new Deck();
@@ -58,7 +69,7 @@ public class CardCreatingWindow extends VBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            cardTypeSelector.getItems().addAll(frontBack, mcq, js);
+            cardTypeSelector.getItems().addAll(frontBack, mcq, js, java);
             cardTypeSelector.setOnAction(e -> {
                 String currentlySelected = cardTypeSelector.getValue();
                 if (!cardType.equals(currentlySelected)) {
@@ -93,6 +104,10 @@ public class CardCreatingWindow extends VBox {
             jsTestCaseInputTextArea = new JsTestCaseInputTextArea();
             answerContainer.getChildren().add(jsTestCaseInputTextArea);
             addAnswerLabel.setText("Add your asserts");
+        } else if (cardType.equals(java)) {
+            javaTestCaseInputBox = new JavaTestCaseInputBox();
+            answerContainer.getChildren().add(javaTestCaseInputBox);
+            addAnswerLabel.setText("Add your test cases");
         }
     }
 
@@ -157,6 +172,20 @@ public class CardCreatingWindow extends VBox {
             JavascriptCard card = new JavascriptCard(front, testCases);
             tempDeck.addNewCard(card);
 
+        } else if (cardType.equals(java)) {
+            if (questionField.getText().isBlank()) {
+                displayMessage.accept("You need to enter a question!");
+                return;
+            }
+            if (!javaTestCaseInputBox.hasAtLeastOneTestCase()) {
+                displayMessage.accept("You need to enter a test case!");
+                return;
+            }
+
+            String front = questionField.getText();
+            ArrayList<TestCase> testCases = javaTestCaseInputBox.getTestCases();
+            JavaCard card = new JavaCard(front, testCases);
+            tempDeck.addNewCard(card);
         }
         incrementCounterInParent.accept(1);
         clearFields();
@@ -180,11 +209,11 @@ public class CardCreatingWindow extends VBox {
             answerContainer.getChildren().clear();
             answerContainer.getChildren().add(jsTestCaseInputTextArea);
         }
-        //if (testCaseUploader != null) {
-        //    testCaseUploader = new TestCaseUploader();
-        //    answerContainer.getChildren().clear();
-        //    answerContainer.getChildren().add(testCaseUploader);
-        //}
+        if (javaTestCaseInputBox != null) {
+            javaTestCaseInputBox = new JavaTestCaseInputBox();
+            answerContainer.getChildren().clear();
+            answerContainer.getChildren().add(javaTestCaseInputBox);
+        }
     }
 
     /**
