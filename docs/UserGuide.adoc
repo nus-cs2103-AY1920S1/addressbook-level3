@@ -52,6 +52,40 @@ image::quickstart/4_excel.png[width="500", align="left"]
 
 image::quickstart/5_excel.png[width="500", align="left"]
 
+
+== User Preferences
+Scheduler is initialised with default user preferences.
+
+If you wish to make changes to the user preferences, do the following steps: +
+
+* Step 1: Run scheduler.jar at least once. You should notice new files added to the folder containing the application.
+* Step 2: Open preferences.json using any word editor, eg. notepad.
+* Step 3: Edit the relevant user preference fields.
+
+The details of each user preference field is explained further in the following sections.
+
+=== Working Hours
+Each time slot, that an interviewer or interviewee indicates, must be within the `startTime` and `endTime` of the pre-defined
+working hours for it to be displayed in the schedules.
+
+*Format:* +
+`startTime` and `endTime` are defined as strings. It has to follow the string format "HH:mm".
+
+*Default values:* +
+`startTime`: "10:00" +
+`endTime`: "21:00"
+
+=== Duration of Time slot
+Each time slot, that an interviewer or interviewee indicates, must be strictly of this pre-defined duration for it to be
+ displayed in the schedules. It is represented by `duration` in the user preference file.
+
+*Format:* +
+`duration` is defined as a positive integer representing the number of minutes of each time slot.
+
+*Default values:* +
+`duration`: 30
+
+
 [[Features]]
 == Features
 
@@ -78,7 +112,8 @@ After you have imported the data, you will need to type `clear` to clear the imp
 availability or interviewees details .csv file.
 
 [NOTE]
-* The duration of each timeslot is set as 30mins long in the UserPrefs. Will allow user to edit UserPrefs in v1.4.
+* Data in .csv file must follow the settings defined in the user preference file. View <<User Prefences, User Prefences>> if you wish to change the
+default settings.
 * Data to be imported should only be in english and should strictly follow the format of the templates given above.
 
 ==== Importing interviewers’ availability
@@ -104,7 +139,8 @@ Example:
 ==== Importing interviewees’ availability
 Imports interviewees’ availability from a comma separated values (CSV) file.
 
-* Each timeslot should be in the format `HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
+* Emails: Adding more than 1 personal or work email is allowed. Use whitespaces to separate each email.
+* Timeslots: Each timeslot should be in the format `HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 
 Format: `import interviewee PATH_TO_FILE` +
     - PATH_TO_FILE is the absolute path to the file. +
@@ -132,7 +168,7 @@ Format: add `r/interviewee` `n/NAME` `p/PHONE` `[t/TAG]...` `f/FACULTY` `ep/PERS
 
 Example:
 
- add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-19:00
+ add r/interviewee n/John Doe p/88888888 t/CAP5 t/dogLover f/School of Computing ep/JohnDoe@gmail.com ew/JohnDoe@u.nus.edu y/2018 d/Marketing s/20/09/2019 18:00-18:30
 
 * An interviewee can have multiple `s/SLOT`, `d/DEPARTMENT` and `t/TAG` arguments
 * Slots should be given in the format: `DD/MM/YYYY HH:MM-HH:MM`
@@ -146,7 +182,7 @@ Format: add `r/interviewer` `n/NAME` `p/PHONE` `[t/TAG]...` `d/DEPARTMENT` `ew/N
 
 Example:
 
- add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-19:00
+ add r/interviewer n/Mary Jane p/99999999 ew/MaryJane@u.nus.edu d/Marketing s/20/09/2019 18:00-18:30
 
 === Edit interviewees/interviewers `edit` `[Coming in v2.0]`
 Manually edit an entity in the database.

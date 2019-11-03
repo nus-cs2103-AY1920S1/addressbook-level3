@@ -11,7 +11,6 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.person.DefaultValues;
 import seedu.scheduler.model.person.Department;
 import seedu.scheduler.model.person.Email;
-import seedu.scheduler.model.person.EmailType;
 import seedu.scheduler.model.person.Emails;
 import seedu.scheduler.model.person.Faculty;
 import seedu.scheduler.model.person.Interviewee;
@@ -69,6 +68,7 @@ public class CsvReader {
                     }
                 } else if (firstRow) {
                     date = rowData[0];
+                    assert date != null;
                     if (i == 0) { //if this is the first table(day) being read
                         interviewers = getInterviewersFromHeader(rowData);
                     }
@@ -90,44 +90,63 @@ public class CsvReader {
     public ArrayList<Interviewee> readInterviewees() throws IOException {
         BufferedReader csvReader = new BufferedReader(new FileReader(filePath));
         ArrayList<Interviewee> interviewees = new ArrayList<>();
-        csvReader.readLine(); //discard first line
+        csvReader.readLine(); //discard the first line
         String row;
         while ((row = csvReader.readLine()) != null) {
             String[] rowData = row.split(",");
             Name name = new Name(rowData[0]);
-            HashMap<EmailType, List<Email>> emails = new HashMap<>();
-            ArrayList<Email> nusEmails = new ArrayList<>();
-            ArrayList<Email> personalEmails = new ArrayList<>();
-            nusEmails.add(new Email(rowData[1]));
-            emails.put(EmailType.NUS, nusEmails);
-            personalEmails.add(new Email(rowData[2]));
-            emails.put(EmailType.PERSONAL, personalEmails);
-            Emails allEmails = new Emails(emails);
+            Emails emails = new Emails(new HashMap<>());
+            ArrayList<Email> nusEmails = getAllEmails(rowData[1]);
+            ArrayList<Email> personalEmails = getAllEmails(rowData[2]);
+            emails.addAll(nusEmails, personalEmails);
             Phone phone = new Phone(rowData[3]);
             Faculty faculty = new Faculty(rowData[4]);
             Integer yearOfStudy = Integer.valueOf(rowData[5]);
             ArrayList<Department> choiceOfDepartments = new ArrayList<>();
             choiceOfDepartments.add(new Department(rowData[6]));
-            List<Slot> availableTimeSlots = new ArrayList<>();
-            for (int i = 7; i < rowData.length; i++) {
-                String trimmedData = rowData[i].trim().replaceAll("\"", "");
-                if (!trimmedData.equals("")) {
-                    Slot slot = Slot.fromString(trimmedData);
-                    availableTimeSlots.add(slot);
-                }
-            }
-            Interviewee.IntervieweeBuilder builder =
-                    new Interviewee.IntervieweeBuilder(name, phone, DefaultValues.DEFAULT_TAGS);
-            builder.availableTimeslots(availableTimeSlots);
-            builder.departmentChoices(choiceOfDepartments);
-            builder.emails(allEmails);
-            builder.yearOfStudy(yearOfStudy);
-            builder.faculty(faculty);
-
-            interviewees.add(builder.build());
+            List<Slot> availableTimeSlots = getAllSlots(rowData);
+            Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, DefaultValues.DEFAULT_TAGS)
+                    .availableTimeslots(availableTimeSlots)
+                    .departmentChoices(choiceOfDepartments)
+                    .emails(emails)
+                    .yearOfStudy(yearOfStudy)
+                    .faculty(faculty)
+                    .build();
+            interviewees.add(interviewee);
         }
         return interviewees;
 
+    }
+
+    /**
+     * Extracts all indicated timeslots from the given row data.
+     * @param rowData row data of csv file.
+     * @return List of all indicated timeslots.
+     */
+    private static List<Slot> getAllSlots(String[] rowData) {
+        List<Slot> timeSlots = new ArrayList<>();
+        for (int i = 7; i < rowData.length; i++) {
+            String trimmedData = rowData[i].trim().replaceAll("\"", "");
+            if (!trimmedData.equals("")) {
+                Slot slot = Slot.fromString(trimmedData);
+                timeSlots.add(slot);
+            }
+        }
+        return timeSlots;
+    }
+
+    /**
+     * Extracts emails from text and returns a list of the extracted emails.
+     * @param text String of emails, each separated by a whitespace.
+     * @return list of emails.
+     */
+    private static ArrayList<Email> getAllEmails(String text) {
+        ArrayList<Email> emails = new ArrayList<>();
+        String[] strings = text.split(" ");
+        for (String emailString: strings) {
+            emails.add(new Email(emailString));
+        }
+        return emails;
     }
 
     /**

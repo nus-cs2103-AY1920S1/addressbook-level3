@@ -50,6 +50,20 @@ public class Emails {
     }
 
     /**
+     * Adds all emails from the given lists.
+     * @param nusEmail list of nus emails.
+     * @param personalEmail list of personal emails.
+     */
+    public void addAll(ArrayList<Email> nusEmail, ArrayList<Email> personalEmail) {
+        for (Email email: nusEmail) {
+            this.addNusEmail(email);
+        }
+        for (Email email: personalEmail) {
+            this.addPersonalEmail(email);
+        }
+    }
+
+    /**
      * Gets a list of emails of specified type.
      *
      * @param type the type of emails to getEntity.
