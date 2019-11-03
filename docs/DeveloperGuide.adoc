@@ -377,23 +377,9 @@ Step 5.  After resolving all the appeal IDs in the valid Appeal list, `MassAppro
 
 image::MassResolveSequenceDiagram.png[]
 
-===== Aspect: How to deal with different user inputs for different checking
+To implement design considerations......
 
-* **Alternative 1 (current choice):** Create three different sub-classes extending `ClashCommand` class. `ClashCommand` will deal with differentiating cases for checking and create Command object accordingly.
-** Pros: Easy to implement.
-** Cons: some of the code are different to be abstracted. (repeted codes in part of the two sub-classes to keep low coupling) May need to find a way to improve it in the future.
-* **Alternative 2:** Only 1 `ClashCommand` class. The cases of checking are determined inside `ClashCommand`.
-** Pros:
-** Cons: Violates Single Responsibility Principle. `ClashCommand` is doing part of the parsing work.
-
-===== Aspect: String representation of clashig time slots
-
-* **Alternative 1 (current choice):** Use a list to store time slot index and use them to create a temporary `Module` object.
-** Pros: Can reuse `getTimeSlotToString()` to obtain the string representation
-** Cons: Redundant objects are created. More memory space used.
-// end::resolve[]
-
-
+//end::resolve[]
 
 // tag::history[]
 === Command History
