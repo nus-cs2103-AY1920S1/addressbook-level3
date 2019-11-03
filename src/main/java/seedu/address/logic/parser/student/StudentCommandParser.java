@@ -39,6 +39,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public StudentCommand parse(String args) throws ParseException {
+        String arguments = args;
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer
@@ -62,14 +63,18 @@ public class StudentCommandParser implements Parser<StudentCommand> {
 
         if (argMultimap.getValue(PREFIX_LIST).isPresent()) { // List command
             return new StudentListCommand();
-        } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
+        }
+        if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
-        } else if (isEdit) { // Edit command
-            return editCommand(index, argMultimap);
-        } else { // Create command
+        }
+        if (!isEdit) { // Create command
             return addCommand(argMultimap);
         }
+        if (isEdit) { // Edit command
+            return editCommand(index, argMultimap);
+        }
 
+        return addCommand(null);
     }
 
     /**

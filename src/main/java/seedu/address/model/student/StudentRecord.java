@@ -89,6 +89,15 @@ public class StudentRecord implements ReadOnlyStudentRecord {
         students.remove(key);
     }
 
+    /**
+     * Returns student with specific index number
+     * @param index Index number of student
+     * @return Student with index number.
+     */
+    public Student getStudent(int index) {
+        return students.getStudent(index);
+    }
+
     //// util methods
 
     @Override

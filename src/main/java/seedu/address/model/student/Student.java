@@ -21,12 +21,22 @@ public class Student {
     private Boolean isMarked = false;
 
     /**
-     * Every field must be present and not null.
+     * Creates student with name, tags.
      */
     public Student(Name name, Set<Tag> tags) {
         requireAllNonNull(name);
         this.name = name;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Creates a student with name, tags and isMarked field.
+     */
+    public Student(Name name, Set<Tag> tags, boolean isMarked) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.tags.addAll(tags);
+        this.isMarked = isMarked;
     }
 
     public Name getName() {

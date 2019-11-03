@@ -201,6 +201,11 @@ public interface Model {
     void setStudent(Student target, Student editedStudent);
 
     /**
+     * Returns student with specific index number.
+     */
+    Student getStudent(int index);
+
+    /**
      * Gets the filtered student list.
      */
     ObservableList<Student> getFilteredStudentList();
@@ -247,9 +252,22 @@ public interface Model {
     boolean checkGroupExists(String groupId);
 
     /**
+     * Check if student exists in group.
+     * @param groupId Id of group.
+     * @param student Student to check.
+     * @return True if student exists in group.
+     */
+    boolean checkStudentExistInGroup(String groupId, Student student);
+
+    /**
      * Exports group to word document
      */
     void exportGroup(String groupId);
+
+    /**
+     * Gets group size
+     */
+    int getGroupSize(String groupId);
     //endregion
 
     //region Questions

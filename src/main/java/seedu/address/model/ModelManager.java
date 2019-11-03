@@ -264,6 +264,16 @@ public class ModelManager implements Model {
     //region Students
 
     /**
+     * Gets student with specific index number.
+     *
+     * @param indexNumber Index number of student.
+     * @return Student with index number specified.
+     */
+    public Student getStudent(int indexNumber) {
+        return studentRecord.getStudent(indexNumber);
+    }
+
+    /**
      * Checks if the student list has a particular student.
      *
      * @param student Student to be checked.
@@ -379,6 +389,22 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Gets the size of the group
+     *
+     * @param groupId Id of the group
+     * @return size of the group queried.
+     */
+    public int getGroupSize(String groupId) {
+        int groupSize = 0;
+        int groupIndex = groupList.getGroupIndex(groupId);
+        if (groupIndex != -1) {
+            Group group = groupList.getGroup(groupIndex);
+            groupSize = group.getObservableListStudents().size();
+        }
+        return groupSize;
+    }
+
+    /**
      * Returns a students from a group in list view.
      */
     public String getStudentsFromGroup(String groupId) {
@@ -423,6 +449,26 @@ public class ModelManager implements Model {
         }
         return groupExists;
     }
+
+    /**
+     * Check if student already exists in group.
+     *
+     * @param groupId Group id of the group.
+     * @param student Student to check.
+     * @return True if student exists in thr group.
+     */
+    public boolean checkStudentExistInGroup(String groupId, Student student) {
+        ArrayList<Group> groupArrayList = groupList.getGroupList();
+        Group queriedGroup = null;
+        for (Group group : groupArrayList) {
+            if (group.getGroupId().equals(groupId)) {
+                queriedGroup = group;
+                break;
+            }
+        }
+        return queriedGroup.checkStudentExist(student);
+    }
+
 
     /**
      * Exports group to word document
