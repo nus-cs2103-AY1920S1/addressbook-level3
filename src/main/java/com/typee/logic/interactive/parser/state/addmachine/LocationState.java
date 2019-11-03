@@ -5,12 +5,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
-
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.parser.Prefix;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.model.engagement.Location;
 
 public class LocationState extends State {

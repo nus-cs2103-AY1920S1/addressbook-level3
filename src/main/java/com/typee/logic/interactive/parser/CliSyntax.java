@@ -1,7 +1,5 @@
 package com.typee.logic.interactive.parser;
 
-import com.typee.logic.parser.Prefix;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

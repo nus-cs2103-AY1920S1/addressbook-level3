@@ -8,7 +8,7 @@ import java.util.Optional;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.parser.Prefix;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.model.engagement.AttendeeList;
 
 public class AttendeesState extends State {

@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import com.typee.logic.parser.Prefix;
-
 /**
  * Stores mapping of prefixes to their respective arguments.
  * Each key may be associated with multiple argument values.

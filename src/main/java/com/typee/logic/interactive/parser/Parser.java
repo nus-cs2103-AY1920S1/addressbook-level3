@@ -14,7 +14,6 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
-import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
 public class Parser implements InteractiveParser {

@@ -1,34 +1,15 @@
 package com.typee.logic.interactive.parser.state.addmachine;
 
 import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
-import static com.typee.logic.parser.CliSyntax.PREFIX_ATTENDEES;
-import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static com.typee.logic.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
-import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
-import com.typee.logic.commands.AddCommand;
-import com.typee.logic.commands.Command;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
-import com.typee.logic.parser.CliSyntax;
-import com.typee.logic.parser.Prefix;
-import com.typee.logic.parser.exceptions.ParseException;
-import com.typee.model.engagement.AttendeeList;
-import com.typee.model.engagement.Engagement;
-import com.typee.model.engagement.EngagementType;
-import com.typee.model.engagement.Location;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.model.engagement.Priority;
-import com.typee.model.engagement.TimeSlot;
-import com.typee.model.engagement.exceptions.InvalidTimeException;
 
 public class PriorityState extends State {
 

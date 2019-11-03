@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.PdfCommand;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.person.Person;
 

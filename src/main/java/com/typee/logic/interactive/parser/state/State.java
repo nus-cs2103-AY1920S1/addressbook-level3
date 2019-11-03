@@ -2,12 +2,10 @@ package com.typee.logic.interactive.parser.state;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.parser.Prefix;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.Prefix;
 
 public abstract class State {
 
