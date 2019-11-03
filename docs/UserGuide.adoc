@@ -309,26 +309,38 @@ Format: `export` +
 Note: This command requires the interview schedule to be generated first!
 
 === Sending of email `email`
-==== Sending of interview time slot to interviewee [Coming soon in v1.4]
-Sends an email containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer, time, date and location.
+==== Sending of interview time slot to interviewee
+Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.
 
-Format: `email timeslot NAME`
+Format: `email ct/timeslot n/INTERVIEWEE NAME`
 
-**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+**Note:** The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
 
-==== Sending of interview time slot to all interviewees [Coming soon in v1.4]
-Sends an email containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer, time, date and location.
+==== Sending of interview time slot to all interviewees
+Opens an email dialog containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer and location. A summary report is then generated at the end of the command execution.
 
-Format: `email timeslots`
+Format: `email ct/alltimeslot`
 
-**Note:** The email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+**Note:** The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
 
-==== Sending of interview results to interviewees `[Coming in v2.0]`
-Sends an email containing the interviewee’s result/interview outcome and other details that you might want to include.
+==== Checking status of emails sent
+Provides a summary report of the number of interviewees with emails sent and the total number of interviewees stored in the database.
 
-Format: `email results`
+Format: `email ct/status`
 
-**Note:** This email will only be sent if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+==== Sending of interview results to an interviewee `[Coming in v2.0]`
+Opens an email dialog containing the interviewee’s result/interview outcome and other details that you might want to include.
+
+Format: `email ct/results n/INTERVIEWEE NAME`
+
+**Note:** The email dialog will only appear if the interviewee's email is present in the database and the interview results has been updated.
+
+==== Sending of interview results to all interviewees `[Coming in v2.0]`
+Opens an email dialog containing the interviewee's result/interview outcome and other details that you might want to include for all interviewees.
+
+Format: `email ct/allresults`
+
+**Note:** The email dialog will only appear if the interviewee's email is present in the database and the interview results has been updated.
 
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance
@@ -389,10 +401,10 @@ Format: `record rank`
 |Export
 |`export` +
 
-|Email blast
-|`email timeslots` +
- `email results` +
- `email status` +
+|Email interviewee
+|`email ct/timeslot n/INTERVIEWEE NAME` +
+ `email ct/alltimeslot` +
+ `email ct/status` +
 
 |Record
 |`record attendance` +

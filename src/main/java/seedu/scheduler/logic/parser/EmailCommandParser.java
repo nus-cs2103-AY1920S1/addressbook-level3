@@ -1,8 +1,12 @@
 package seedu.scheduler.logic.parser;
 
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.scheduler.logic.commands.EmailCommand.ALL_TIMESLOTS_COMMAND_WORD;
 import static seedu.scheduler.logic.commands.EmailCommand.MESSAGE_USAGE;
+import static seedu.scheduler.logic.commands.EmailCommand.STATUS_COMMAND_WORD;
 import static seedu.scheduler.logic.commands.EmailCommand.TIMESLOT_COMMAND_WORD;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_COMMAND_TYPE;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.scheduler.logic.commands.EmailCommand;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
@@ -19,21 +23,22 @@ public class EmailCommandParser implements Parser<EmailCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EmailCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        String[] splitArgs = trimmedArgs.split("\\s+");
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COMMAND_TYPE);
 
-        if (trimmedArgs.isEmpty() || splitArgs.length < 2) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+        if (!argumentMultimap.getValue(PREFIX_COMMAND_TYPE).isPresent() || !argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        boolean isTimeslotCommand = splitArgs[0].equals(TIMESLOT_COMMAND_WORD);
+        String commandType = argumentMultimap.getValue(PREFIX_COMMAND_TYPE).get();
 
-        if (isTimeslotCommand) {
-            return parseTimeslotCommand(trimmedArgs);
+        if (commandType.equals(TIMESLOT_COMMAND_WORD)) {
+            return this.parseTimeslotCommand(argumentMultimap);
+        } else if (commandType.equals(ALL_TIMESLOTS_COMMAND_WORD)) {
+            return new EmailCommand(ALL_TIMESLOTS_COMMAND_WORD);
+        } else if (commandType.equals(STATUS_COMMAND_WORD)) {
+            return new EmailCommand(STATUS_COMMAND_WORD);
         } else {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
     }
 
@@ -43,23 +48,14 @@ public class EmailCommandParser implements Parser<EmailCommand> {
      * @param args The arguments of the command provided by the user
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EmailCommand parseTimeslotCommand(String args) throws ParseException {
-        String nameArg = args.substring(9).trim();
-        Name name;
-
-        if (nameArg.length() == 0) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+    public EmailCommand parseTimeslotCommand(ArgumentMultimap args) throws ParseException {
+        if (!args.getValue(PREFIX_NAME).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
-        try {
-            name = ParserUtil.parseName(nameArg);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
-        }
+        Name name = ParserUtil.parseName(args.getValue(PREFIX_NAME).get());
 
-        return new EmailCommand(name);
+        return new EmailCommand(TIMESLOT_COMMAND_WORD, name);
     }
 
 }
