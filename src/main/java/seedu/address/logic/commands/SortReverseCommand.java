@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.SortCommand.MESSAGE_FAILURE_FILTER_STATUS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -33,6 +34,9 @@ public class SortReverseCommand extends Command {
 
     private static final String MESSAGE_SUCCESS_CLAIMS_DATE =
             "Claims list sorted from Newest Entry to Oldest in Reverse Order";
+
+    private static final String MESSAGE_SUCCESS_CLAIMS_STATUS =
+            "Claims list sorted from Rejected to Approved to Pending";
 
     private static final String MESSAGE_SUCCESS_INCOMES_DATE =
             "Incomes list sorted from Newest Entry to Oldest in Reverse Order";
@@ -93,6 +97,16 @@ public class SortReverseCommand extends Command {
                         false, false, false, false);
             } else {
                 throw new CommandException(MESSAGE_FAILURE_FILTER_DATE);
+            }
+
+        case 3: //case of sorting claims by status
+
+            if (UiManager.getState().equals("claims")) {
+                model.sortReverseFilteredClaimListByStatus();
+                return new CommandResult(MESSAGE_SUCCESS_CLAIMS_STATUS, false, false,
+                        false, false, false);
+            } else {
+                throw new CommandException(MESSAGE_FAILURE_FILTER_STATUS);
             }
 
         default :

@@ -719,10 +719,10 @@ image::SortActivityDiagram.png[width="800"]
 4) To elaborate, once the sort command is called, `UiManager::getState` method is called to determine the current view
 the application is on then implements the correct type of sort on the list.
 
-5) The sort methods will be explained in detail below with some examples:
+5) The comparators shown below are examples of the various lists are sorted.
 
 * `sortFilteredClaimListByName` is implemented with the help of a comparator that compares the descriptions of each claim
-with `claim.getDescription()` method. Below is a code snippet that illustrates the comparator.
+with `claim.getDescription()` method. The code snippet below illustrates the comparator.
 
 [source, java]
 class ClaimNameComparator implements Comparator<Claim> {
@@ -734,7 +734,7 @@ class ClaimNameComparator implements Comparator<Claim> {
 }
 
 * `sortFilteredIncomeListByDate` is implemented with the help of a comparator that compares the dates of each income
-with `income.getDate().getLocalDate()` method. Below is a code snippet that illustrates the comparator.
+with `income.getDate().getLocalDate()` method. The code snippet below illustrates the comparator.
 
 [source, java]
 class IncomeDateComparator implements Comparator<Income> {
@@ -742,6 +742,38 @@ class IncomeDateComparator implements Comparator<Income> {
     public int compare(Income income1, Income income2) {
         return income1.getDate().getLocalDate()
                 .compareTo(income2.getDate().getLocalDate());
+    }
+}
+
+* `sortFilteredClaimListByStatus` is implemented with the help of a comparator that compares the statuses of each claim.
+The order is as such: Pending, Approved, Rejected. There are 9 cases of comparison between 2 claims.
+The code snippet below illustrates the comparator.
+
+[source, java]
+class ClaimStatusComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
 

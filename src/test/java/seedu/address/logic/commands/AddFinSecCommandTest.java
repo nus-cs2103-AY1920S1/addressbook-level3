@@ -404,12 +404,22 @@ public class AddFinSecCommandTest {
         }
 
         @Override
+        public void sortFilteredClaimListByStatus() {
+
+        }
+
+        @Override
         public void sortReverseFilteredClaimListByName() {
 
         }
 
         @Override
         public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByStatus() {
 
         }
 
@@ -473,12 +483,22 @@ public class AddFinSecCommandTest {
         }
 
         @Override
+        public void sortFilteredClaimListByStatus() {
+
+        }
+
+        @Override
         public void sortReverseFilteredClaimListByName() {
 
         }
 
         @Override
         public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByStatus() {
 
         }
 

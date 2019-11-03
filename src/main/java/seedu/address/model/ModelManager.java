@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
+import seedu.address.model.claim.Status;
 import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
@@ -211,6 +212,14 @@ public class ModelManager implements Model {
         UiManager.startWithClaims();
     }
 
+    @Override
+    public void sortFilteredClaimListByStatus() {
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList()
+                .sorted(new ClaimStatusComparator()));
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
+    }
+
     //=========== Sorts reverse way of claims list ==============
 
     @Override
@@ -225,6 +234,14 @@ public class ModelManager implements Model {
     public void sortReverseFilteredClaimListByName() {
         filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList().sorted(
                 new ClaimNameComparator().reversed()));
+        updateFilteredClaimList(p -> true);
+        UiManager.startWithClaims();
+    }
+
+    @Override
+    public void sortReverseFilteredClaimListByStatus() {
+        filteredClaims = new FilteredList<Claim>(this.finSec.getClaimList()
+                .sorted(new ClaimStatusReverseComparator()));
         updateFilteredClaimList(p -> true);
         UiManager.startWithClaims();
     }
@@ -456,17 +473,6 @@ class ContactNameComparator implements Comparator<Contact> {
 }
 
 /**
- * Compares 2 claims' names
- */
-class ClaimNameComparator implements Comparator<Claim> {
-    @Override
-    public int compare(Claim claim1, Claim claim2) {
-        return claim1.getDescription().toString().toUpperCase()
-                .compareTo(claim2.getDescription().toString().toUpperCase());
-    }
-}
-
-/**
  * Compares 2 incomes' names
  */
 class IncomeNameComparator implements Comparator<Income> {
@@ -490,6 +496,17 @@ class IncomeDateComparator implements Comparator<Income> {
 }
 
 /**
+ * Compares 2 claims' names
+ */
+class ClaimNameComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        return claim1.getDescription().toString().toUpperCase()
+                .compareTo(claim2.getDescription().toString().toUpperCase());
+    }
+}
+
+/**
  * Compares 2 claims' dates
  */
 class ClaimDateComparator implements Comparator<Claim> {
@@ -498,5 +515,67 @@ class ClaimDateComparator implements Comparator<Claim> {
     public int compare(Claim claim1, Claim claim2) {
         return claim1.getDate().getLocalDate()
                 .compareTo(claim2.getDate().getLocalDate());
+    }
+}
+
+/**
+ * Compares 2 claims' statuses in natural ordering
+ */
+class ClaimStatusComparator implements Comparator<Claim> {
+
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+/**
+ * Compares 2 claims' statuses in reverse ordering
+ */
+class ClaimStatusReverseComparator implements Comparator<Claim> {
+
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }

@@ -246,11 +246,17 @@ public interface Model {
     /** Sorts Claims list by Date*/
     void sortFilteredClaimListByDate();
 
+    /** Sorts Claims list by Status*/
+    void sortFilteredClaimListByStatus();
+
     /** Sorts claims in reverse order */
     void sortReverseFilteredClaimListByName();
 
     /** Sorts claims in reverse order By Date */
     void sortReverseFilteredClaimListByDate();
+
+    /** Sorts claims in reverse order by Status */
+    void sortReverseFilteredClaimListByStatus();
 
     /**
      * Updates the filter of the filtered claim list to filter by the given {@code predicate}.

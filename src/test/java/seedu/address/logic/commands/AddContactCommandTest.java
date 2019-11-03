@@ -287,12 +287,22 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void sortFilteredClaimListByStatus() {
+
+        }
+
+        @Override
         public void sortReverseFilteredClaimListByName() {
 
         }
 
         @Override
         public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByStatus() {
 
         }
 
