@@ -112,6 +112,7 @@ public class AutoCompleter {
      * @return AutoComplete itself
      */
     public AutoCompleter update(String currentQuery) {
+        currentQuery = currentQuery.stripLeading();
         if (HAS_FLAG.matcher(currentQuery).matches()) {
             try {
                 Set<String> result = SUPPORTED_ARGUMENTS.get(currentQuery.substring(0, currentQuery.indexOf(' ')));

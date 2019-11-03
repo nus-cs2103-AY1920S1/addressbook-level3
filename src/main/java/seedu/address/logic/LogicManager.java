@@ -89,13 +89,16 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
-
         //Avoid evaluating the same command
         if (lastEagerCommandWord.equals(commandText)) {
             return;
         }
         //@@author CarbonGrid
-        String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
+        int endIndex = commandText.indexOf(' ');
+        if (endIndex < 0) {
+            endIndex = commandText.length();
+        }
+        String currCommandWord = commandText.substring(0, endIndex);
         //Avoid restoring when same command word
         if (!lastEagerCommandWord.equals(currCommandWord)) {
             try {
