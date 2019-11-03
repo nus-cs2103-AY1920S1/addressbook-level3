@@ -18,7 +18,9 @@ public class CreateCommand extends WordBankCommand {
             + "Eg: " + COMMAND_WORD + " "
             + "vocabulary";
 
-    public static final String MESSAGE_SUCCESS = "New word bank added: %1$s";
+    private static final String MESSAGE_SUCCESS = "Created word bank: %1$s\n"
+            + "Select a bank\n"
+            + "Eg. select mybank";
 
     private final String wordBankName;
 

@@ -88,7 +88,8 @@ public class LogicManagerTest {
         CommandResult homeResult = logic.execute(homeCommand);
         assertEquals(SwitchToHomeCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, homeResult.getFeedbackToUser());
         CommandResult openResult = logic.execute(openCommand);
-        assertEquals(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT, openResult.getFeedbackToUser());
+        assertEquals(String.format(SwitchToOpenCommand.MESSAGE_HOME_ACKNOWLEDGEMENT,
+                model.getCurrentWordBank()), openResult.getFeedbackToUser());
         assertEquals(model, model);
     }
 

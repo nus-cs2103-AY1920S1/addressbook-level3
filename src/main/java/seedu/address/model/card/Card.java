@@ -126,9 +126,9 @@ public class Card {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getWord())
-                .append(" Meaning: ")
+                .append("\nMeaning: ")
                 .append(getMeaning())
-                .append(" Tags: ");
+                .append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

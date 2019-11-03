@@ -30,8 +30,10 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String FIRST_MESSAGE_SELECT_BANK = "Welcome to Dukemon!\n"
-            + "Start by selecting a bank:\n"
+            + "Start by creating or selecting a bank:\n"
+            + "Eg. create mybank\n"
             + "Eg. select sample";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
