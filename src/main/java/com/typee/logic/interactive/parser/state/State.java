@@ -3,6 +3,7 @@ package com.typee.logic.interactive.parser.state;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.parser.Prefix;
@@ -26,12 +27,23 @@ public abstract class State {
 
     public abstract boolean isEndState();
 
-    private abstract isValid(String argument);
+    protected void requireKeywordPresence(Optional<String> keywordArgument, String errorMessage)
+            throws StateTransitionException {
+        if (keywordArgument.isEmpty()) {
+            throw new StateTransitionException(errorMessage);
+        }
+    }
 
     protected void disallowDuplicatePrefix(ArgumentMultimap newArgs) throws StateTransitionException {
         if (!soFar.isDisjointWith(newArgs)) {
             throw new StateTransitionException(MESSAGE_DUPLICATE_PREFIX);
         }
+    }
+
+    protected void collateArguments(State state, ArgumentMultimap newArgs, Prefix prefix) {
+        String value = newArgs.getValue(prefix).get();
+        state.soFar.put(prefix, value);
+        newArgs.clearValues(prefix);
     }
 
 }

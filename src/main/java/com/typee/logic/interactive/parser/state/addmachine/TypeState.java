@@ -25,10 +25,8 @@ public class TypeState extends State {
         requireNonNull(newArgs);
 
         Optional<String> typeValue = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE);
-
         performGuardChecks(newArgs, typeValue);
-
-        collateArguments(newArgs);
+        collateArguments(this, newArgs, PREFIX_ENGAGEMENT_TYPE);
 
         return new StartDateState(soFar);
     }
@@ -36,11 +34,11 @@ public class TypeState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> typeValue)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
+        requireKeywordPresence(typeValue, MESSAGE_MISSING_KEYWORD);
+        enforceValidity(typeValue);
+    }
 
-        if (typeValue.isEmpty()) {
-            throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
-        }
-
+    private void enforceValidity(Optional<String> typeValue) throws StateTransitionException {
         if (!isValid(typeValue.get())) {
             throw new StateTransitionException(MESSAGE_CONSTRAINTS);
         }
@@ -62,9 +60,11 @@ public class TypeState extends State {
                 || commandText.equalsIgnoreCase("Appointment");
     }
 
+    /*
     private void collateArguments(ArgumentMultimap newArgs) {
         String engagementType = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE).get();
         soFar.put(PREFIX_ENGAGEMENT_TYPE, engagementType);
         newArgs.clearValues(PREFIX_ENGAGEMENT_TYPE);
     }
+     */
 }

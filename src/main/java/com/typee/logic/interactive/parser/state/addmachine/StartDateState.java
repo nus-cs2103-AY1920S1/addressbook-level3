@@ -6,17 +6,18 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class StartDateState implements State {
+public class StartDateState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "The start time must conform to the dd/mm/yyyy/hhmm format.";
+    private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid date and time after the prefix"
+            + " \"s/\". Please conform to the dd/mm/yyyy/hhmm format.";
 
-    private ArgumentMultimap soFar;
-
-    public StartDateState(ArgumentMultimap soFar) {
-        this.soFar = soFar;
+    protected StartDateState(ArgumentMultimap soFar) {
+        super(soFar);
     }
 
     @Override
@@ -24,10 +25,27 @@ public class StartDateState implements State {
         requireNonNull(newArgs);
 
         Optional<String> startDate = newArgs.getValue(PREFIX_START_TIME);
+        performGuardChecks(newArgs, startDate);
+        collateArguments(this, newArgs, PREFIX_START_TIME);
 
-        if (startDate.isEmpty()) {
-            throw new StateTransitionException()
+        return new EndDateState(soFar);
+    }
+
+    private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> startDate)
+            throws StateTransitionException {
+        disallowDuplicatePrefix(newArgs);
+        requireKeywordPresence(startDate, MESSAGE_MISSING_KEYWORD);
+        enforceValidity(startDate);
+    }
+
+    private void enforceValidity(Optional<String> startDate) throws StateTransitionException {
+        if (!isValid(startDate.get())) {
+            throw new StateTransitionException(MESSAGE_CONSTRAINTS);
         }
+    }
+
+    private boolean isValid(String startTime) {
+        return InteractiveParserUtil.isValidDateTime(startTime);
     }
 
     @Override
