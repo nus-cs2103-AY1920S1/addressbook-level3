@@ -88,7 +88,7 @@ The following sections will show how StudyBuddy Pro is being constructed in deta
 [[Design-Architecture]]
 === Architecture
 
-The _figure 1_ below displays the high-level design of our StudyBuddy Pro.
+The _figure_ below displays the high-level design of our StudyBuddy Pro.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -139,7 +139,7 @@ In each mode, the users will interact with only the modes' commands, unless it i
 - `switch cs` - switches to cheatsheet mode
 - `switch notes` - switches to notes mode
 
-The following _figure 3_ is an activity diagram that describes the execution of the `switch` command.
+The following _figure_ is an activity diagram that describes the execution of the `switch` command.
 
 .Activity Diagram of `Switch` command execution
 image::jasmineDiagrams/SwitchActivityDiagram.png[]
@@ -149,7 +149,7 @@ From the activity diagram above, it shows the logic flow of the actions taken wh
 [discrete]
 ==== How the architecture components interact with each other
 
-The _figure 4_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _figure_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 [IMPORTANT]
 ====
@@ -165,7 +165,7 @@ The above sequence diagram illustrates the relationships between each components
 === User Interface (UI) component
 
 This section describes the behaviour of the `UI` component in details.
-The _figure 5_ below portrays the internal structures of the `UI` components and their interactions.
+The _figure_ below portrays the internal structures of the `UI` components and their interactions.
 
 .Class diagram of the structure of the `UI` Component
 image::UiClassDiagram.png[]
@@ -188,7 +188,7 @@ The `UI` component,
 === Logic component
 
 This section describes the behaviour of the `logic` component in details.
-The _figure 6_ below portrays the internal structures of the `logic` components and their interactions.
+The _figure_ below portrays the internal structures of the `logic` components and their interactions.
 
 [[fig-LogicClassDiagram]]
 .Class diagram of the structure of the `logic` Component
@@ -206,7 +206,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-The _figure 7_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The _figure_ below is the sequence diagram for the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 [IMPORTANT]
 ====
@@ -239,7 +239,7 @@ The `Model`,
 === Storage component
 
 This section describes the behaviour of the `storage` component in details.
-The _figure 8_ below portrays the internal structures of the `storage` components and their interactions.
+The _figure_ below portrays the internal structures of the `storage` components and their interactions.
 
 .Class diagram of the structure of the `Storage` Component
 image::StorageClassDiagram.png[]
@@ -353,6 +353,7 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 ** Supporting statistics for Tags
 *** Display a list of all Tags, with each Tag displaying the amount of Flashcards, Notes, CheatSheets there are.
 
+tag::cheatsheetAutomation[]
 === Customizable Auto-generated Cheatsheet Feature
 
 [IMPORTANT]
@@ -376,12 +377,12 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 9_ shows a high-level view of how the auto-generation operation works.
+The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
 image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
 
-Through the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure 10_ below further explains the details within the sequence diagram.
+From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
 .Detailed sequence diagram for retrieval of tagged contents
 image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
@@ -399,9 +400,7 @@ Different _cheatsheet_ objects are created to ensure that the _cheatsheet_ objec
 
 ===== Step 2: Customizing contents
 
-The customization is based on the contents that the user wants to remove.
-
-The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
+The customization is based on the contents that the user wants to remove. The customization feature is used in the `EditCheatSheetCommand` during the editing of the cheatsheet. After the customization, the cheatsheet is then stored in the `studyBuddyBook`.
 
 It is involved in the following operations:
 
@@ -411,7 +410,7 @@ It is involved in the following operations:
 
 The first operation is exposed in the `Model` interface as `Model#setCheatSheet()`.
 
-The following _figure 11_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
+The following _figure_ shows the activity flow how the customization feature works using an example command called `edit 1 c/1 c/3 c/7`.
 
 [IMPORTANT]
 ====
@@ -419,13 +418,11 @@ The index provided after `c/` indicates the content to be _removed_, not to be _
 ====
 
 .Activity diagram of the `edit` command for the removal of contents
-image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[]
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[pdfwidth=50%,scaledwidth=50%]
 
 The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
 
-Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ of _tags_ and _contents_.
-
-.Example of tags and contents in the cheatsheet
+.Example of tags and contents in a cheatsheet titled "An Example"
 
 |===
 |Tag | Content
@@ -440,7 +437,7 @@ Example cheatsheet of _title_, "An Example Title" with corresponding _table 2_ o
 |content3
 |===
 
-According to the above table, if the order of removal is not followed, the system will be able to remove _tag2_ first before _content2_. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
+According to the above table, the system will be able to remove _tag2_ first before _content2_ if the order of removal is not followed. This may result in *potential errors* in the system as _content2_ may not be found or the position of it is being replaced with another content.
 
 ==== Design Considerations
 ===== Aspect: How auto-generation is implemented
@@ -460,6 +457,8 @@ According to the above table, if the order of removal is not followed, the syste
 * **Alternative 2:** Reformat the way the `edit` function works and abstract it such that it will be generalized.
 ** Pros: Codes may be cleaner and easier to understand.
 ** Cons: Harder to implement. More abstraction and modifications have to be done.
+
+end::cheatsheetAutomation[]
 
 ==== [Proposed] Future improvements
 

@@ -521,7 +521,15 @@ Edits a note's title, content, or tags. The note will be referred to by their or
         Content: Pipelining is a process where a processor executes multiple processes simultaneously.
         Tags: [cs2100finals]
 
+
 == CheatSheet Feature:
+
+[IMPORTANT]
+====
+All the operations in this section assume that the user is in the _cheatsheet_ mode.
+====
+
+tag::cheatsheetAdd[]
 
 === Creating a cheatSheet: `add`
 
@@ -531,33 +539,62 @@ cheatsheet.
 
     Format: add t/TITLE [tag/TAG]...
 
-    Example usage: add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+Example usage:
 
-    Expected output: New cheatsheet added:
+    add t/CS2100 Midterm CheatSheet tag/cs2100midterm
+
+[IMPORTANT]
+====
+Assuming that there is a flashcard object with the tag "cs2100midterm"
+====
+
+Expected output:
+
+    New cheatsheet added:
     Title: CS2100 Midterm CheatSheet
     Tags: [cs2100midterm]
-    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-        [ 2. 110 in Binary is 6 in Decimal ]
+    1 content(s) have been successfully generated from the other modes.
+
+end::cheatsheetAdd[]
+tag::cheatsheetEdit[]
 
 === Editing a cheatSheet: `edit`
 
-* In EDITING (`edit`):
-** All optional fields provided, except `tag/TAG`, will overwrite their relevant fields.
-** `tag/TAG` optional field, will be added to the flashcard, if they do not already exist.
-
-Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>.
-
-* The user can specify one of the optional fields to edit.
+Edits cheatSheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
 
     Format: edit (index) [t/TITLE] [tag/TAG]...
 
-    Example usage: edit 8 t/cs2100 final cheatsheet tag/cs2100finals
+[IMPORTANT]
+====
+** Only `t/TITLE` optional field will overwrite its field.
+** All other optional fields will remove its corresponding existing content(s).
+** Any invalid `c/CONTENT_INDEX` or `tag/TAG` will be *ignored*.
+====
 
-    Expected output: Edited Cheatsheet:
-        Title: cs2100 final cheatsheet
-        Tags: [cs2100finals]
-        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-            [ 2. 110 in Binary is 6 is Decimal ]
+Example CheatSheet of index 8:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+Example usage:
+
+    edit 8 t/cs2100 final cheatsheet tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The content displayed below is just for illustration purposes. The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Edited Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+end::cheatsheetEdit[]
 
 === Deleting a cheatSheet: `delete`
 
@@ -613,7 +650,60 @@ Upon hitting enter, then the specified cheatsheet will be deleted.
             Content: [ 1. dy/dx is a process where mathematicians..]
                 [ 2. Question: what is dy/dx?; Answer: find gradient]
 
+tag::cheatsheetUpdate[]
 
+=== Updating a cheatSheet: `update` (Coming in v2.0)
+
+Updates cheatSheet's contents by a specified <CHEATSHEET_INDEX>. Tags specified are added into the list of tags for the cheatsheet if it not already exist.
+
+[WARNING]
+====
+This command may overwrite any customization of contents done prior to it as the cheatsheet's contents will be regenerated.
+====
+
+    Format: update (index) [tag/TAG]...
+
+Example CheatSheet of index 8:
+
+    Title: cs2100 cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+
+Example usage 1:
+
+    update 8
+
+Expected output:
+
+[NOTE]
+====
+The content displayed below is just for illustration purposes. The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Edited Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. Binary is in bits of 1 and 0.]
+
+Example usage 2:
+
+    update 8 tag/formula
+
+Expected output:
+
+[NOTE]
+====
+The content displayed below is just for illustration purposes. The actual implementation does not show the contents in the feedback box. Please do use `view` command to view them!
+====
+
+    Edited Cheatsheet:
+    Title: cs2100 final cheatsheet
+    Tags: [cs2100finals][formula]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+              [ 2. 10 + 10 = 20]
+
+end::cheatsheetUpdate[]
 
 == FAQ
 
