@@ -1044,12 +1044,13 @@ Sorting is based on `Note` `Priority` attribute. `Priority` has value in descend
 The following is a detailed explanation of the operations `NoteSortCommand` performs. +
 
 *Step 1*. The `NoteSortCommand#execute(Model model)` method is executed.
-It sorts the notes list in `Model` by executing `Model#sortNotesRecord(Comparator<Note> noteComparator)`. The sorting is passed to
-the `NotesRecord` which uses the comparator implemented by `Note` to sort and update its internal list.
+It sorts the notes list in `Model` by executing `Model#sortNotesRecord(Comparator<Note> noteComparator)`.
 
-*Step 2*. The `NoteSortCommand#execute(Model model)` returns a success message for the sorting task.
+*Step 2*. The sorting is passed to the `NotesRecord` which uses the comparator implemented by `Note` to sort and update its internal list.
 
-*Step 3*. The filtered list in `NotesRecord` and updates the User Interface of the newly sorted notes list.
+*Step 3*. The `NoteSortCommand#execute(Model model)` returns a success message for the sorting task.
+
+*Step 4*. The filtered list in `NotesRecord` has been updated and the User Interface shows the newly sorted notes list.
 
 ==== Design Considerations
 
