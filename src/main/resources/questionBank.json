@@ -7,13 +7,13 @@
     "topics" : [ "OTHERS" ],
     "testCases" : [ {
       "input" : "1 2",
-      "expectedResult" : "3\r\n"
+      "expectedResult" : "3\n"
     }, {
       "input" : "100 2",
-      "expectedResult" : "102\r\n"
+      "expectedResult" : "102\n"
     }, {
       "input" : "0 0",
-      "expectedResult" : "0\r\n"
+      "expectedResult" : "0\n"
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
@@ -28,10 +28,10 @@
     "topics" : [ "DYNAMIC_PROGRAMMING", "OTHERS", "ARRAY" ],
     "testCases" : [ {
       "input" : "13 5 3 8 1 22 2 77 17",
-      "expectedResult" : "0 2\r\n"
+      "expectedResult" : "0 2\n"
     }, {
       "input" : "-1 -22 0 -1 3 11",
-      "expectedResult" : "1 2\r\n"
+      "expectedResult" : "1 2\n"
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
@@ -46,10 +46,10 @@
     "topics" : [ "OTHERS", "RECURSION" ],
     "testCases" : [ {
       "input" : "12321",
-      "expectedResult" : "true\r\n"
+      "expectedResult" : "true\n"
     }, {
       "input" : "10111",
-      "expectedResult" : "false\r\n"
+      "expectedResult" : "false\n"
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
@@ -64,10 +64,10 @@
     "topics" : [ "DYNAMIC_PROGRAMMING", "GRAPH" ],
     "testCases" : [ {
       "input" : "5 12 33 23",
-      "expectedResult" : "4132\r\n"
+      "expectedResult" : "4132\n"
     }, {
       "input" : "2 31 01",
-      "expectedResult" : "1232\r\n"
+      "expectedResult" : "1232\n"
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
@@ -82,10 +82,10 @@
     "topics" : [ "LINKED_LIST", "SORTING" ],
     "testCases" : [ {
       "input" : "3 5 3 4 1 99 0 21 34 123 3 21 3 1",
-      "expectedResult" : "0 1 3 4 21 34 99 123\r\n"
+      "expectedResult" : "0 1 3 4 21 34 99 123\n"
     }, {
       "input" : "1 4 1 2 3 4",
-      "expectedResult" : "1 2 3 4\r\n"
+      "expectedResult" : "1 2 3 4\n"
     } ],
     "userProgram" : {
       "canonicalName" : "Main",
