@@ -4,10 +4,16 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.exceptions.CopyError;
 import cs.f10.t1.nursetraverse.commons.exceptions.IllegalValueException;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.appointment.UniqueAppointmentList;
+import cs.f10.t1.nursetraverse.model.datetime.DateTime;
+import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.storage.JsonSerializableAppointmentBook;
 import javafx.collections.ObservableList;
 
@@ -104,6 +110,26 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     public void removeAppointment(Appointment key) {
         requireNonNull(key);
         appointments.remove(key);
+
+        if (key.getFrequency().isRecurringFrequency()) {
+            addRecurringAppointment(key);
+        }
+    }
+
+    public void addRecurringAppointment(Appointment key) {
+        RecurringDateTime frequency = key.getFrequency();
+        StartDateTime nextStartDateTime = new StartDateTime(frequency
+                                                            .getNextAppointmentDateTime(key.getStartDateTime()));
+        EndDateTime nextEndDateTime = new EndDateTime(frequency
+                                                      .getNextAppointmentDateTime(key.getEndDateTime()));
+        Index patientIndex = key.getPatientIndex();
+        Patient patient = key.getPatient();
+        String description = key.getDescription();
+
+        Appointment nextAppointment = new Appointment(nextStartDateTime, nextEndDateTime, frequency, patientIndex,
+                                                      description);
+        nextAppointment.setPatient(patient);
+        addAppointment(nextAppointment);
     }
 
     //// util methods

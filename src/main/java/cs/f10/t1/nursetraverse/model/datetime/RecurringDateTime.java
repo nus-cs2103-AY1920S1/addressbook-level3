@@ -1,6 +1,10 @@
 package cs.f10.t1.nursetraverse.model.datetime;
 
+import static cs.f10.t1.nursetraverse.model.datetime.DateTime.DATE_DISPLAY_FORMATTER;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -126,8 +130,8 @@ public class RecurringDateTime {
     /**
      * Gets recurring appointment's next date and time based on current one
      */
-    public DateTime getNextAppointmentDateTime(StartDateTime currentAppointmentDateTime) {
-        LocalDateTime nextAppointmentDateTime =
+    public String getNextAppointmentDateTime(DateTime currentAppointmentDateTime) {
+        LocalDateTime nextAppointmentLocalDateTime =
             currentAppointmentDateTime.dateTime
                     .plusYears(years)
                     .plusMonths(months)
@@ -136,6 +140,6 @@ public class RecurringDateTime {
                     .plusHours(hours)
                     .plusMinutes(minutes);
 
-        return new DateTime(nextAppointmentDateTime.toString());
+        return nextAppointmentLocalDateTime.format(DATE_DISPLAY_FORMATTER);
     }
 }
