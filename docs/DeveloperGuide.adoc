@@ -198,6 +198,15 @@ An unfortunate side effect to matching the longest matching macro increases the 
 ==== Implementation
 The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
 
+.Appointment Class Diagram
+image::DGApptAppointmentClassDiagram.png[]
+
+.AppointmentList Class Diagram
+image::DGApptAppointmentListClassDiagram.png[]
+
+.AppointmentTable Class Diagram
+image::DGApptAppointmentTableClassDiagram.png[]
+
 The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
 
 It implements the following operations:
@@ -213,9 +222,15 @@ It implements the following operations:
 
 These operations are exposed in the `Model` interface.
 
-The following sequence diagram shows how adding a follow-up or reminder works:
+The following sequence diagram shows how adding an appointment works, using reminders as an example:
 
-image::AddAppointmentSequenceDiagram.png[]
+.Adding an Appointment Sequence Diagram
+image::DGApptAddAppointmentSequenceDiagram.png[]
+
+The following activity diagram shows how adding an appointment works, using follow-ups as an example:
+
+.Adding an Appointment Activity Diagram
+image::DGApptFollowUpActivityDiagram.png[]
 // end::appointments[]
 
 [[profileImplementation]]
