@@ -5,13 +5,13 @@ package seedu.address.model.person;
  * Guarantees: immutable; is always valid
  */
 public class Remark {
-    public final String value;
 
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Remarks should only contain alphanumeric characters and spaces, and it should not be blank";
 
+    public final String value;
 
     /**
      * Constructs an {@code Remark}.

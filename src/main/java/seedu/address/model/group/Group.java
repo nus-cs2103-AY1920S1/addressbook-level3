@@ -11,12 +11,10 @@ public class Group {
 
     private GroupName groupName;
     private GroupDescription groupDescription;
-    private GroupRemark groupRemark;
     private Role userRole;
 
     public Group(GroupDescriptor groupDescriptor) {
         this.groupName = groupDescriptor.getGroupName();
-        this.groupRemark = groupDescriptor.getGroupRemark();
         this.groupDescription = groupDescriptor.getGroupDescription();
         this.userRole = groupDescriptor.getUserRole();
         this.groupId = new GroupId(counter);
@@ -26,13 +24,11 @@ public class Group {
     public Group(GroupId groupId,
                  GroupName groupName,
                  GroupDescription groupDescription,
-                 GroupRemark groupRemark,
                  Role userRole) {
 
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupDescription = groupDescription;
-        this.groupRemark = groupRemark;
         this.userRole = userRole;
     }
 
@@ -66,17 +62,7 @@ public class Group {
      */
     public String details() {
         String output = "";
-        String notAvailable = "NOT AVAILABLE";
         output += this.toString() + "\n";
-
-        output += "Description: ";
-        if (groupRemark == null) {
-            output += notAvailable + "\n";
-        } else {
-            output += groupRemark.toString() + "\n";
-        }
-        output += "\n";
-
         return output;
     }
 
@@ -88,8 +74,6 @@ public class Group {
      */
     public boolean isSameGroup(Group other) {
         if (other == null) {
-            return false;
-        } else if (!other.getGroupRemark().equals(this.groupRemark)) {
             return false;
         } else if (!other.getGroupName().equals(this.groupName)) {
             return false;
@@ -116,14 +100,6 @@ public class Group {
         } else {
             return true;
         }
-    }
-
-    public GroupRemark getGroupRemark() {
-        return groupRemark;
-    }
-
-    public void setGroupRemark(GroupRemark groupRemark) {
-        this.groupRemark = groupRemark;
     }
 
     public GroupName getGroupName() {

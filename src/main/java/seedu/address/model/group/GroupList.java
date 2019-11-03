@@ -84,10 +84,6 @@ public class GroupList {
             toEdit.setGroupName(groupDescriptor.getGroupName());
         }
 
-        if (!groupDescriptor.getGroupRemark().equals(GroupRemark.emptyRemark())) {
-            toEdit.setGroupRemark(groupDescriptor.getGroupRemark());
-        }
-
         if (!groupDescriptor.getGroupDescription().equals(GroupDescription.emptyDescription())) {
             toEdit.setGroupDescription(groupDescriptor.getGroupDescription());
         }

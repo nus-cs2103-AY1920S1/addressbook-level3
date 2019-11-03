@@ -4,12 +4,13 @@ package seedu.address.model.mapping;
  * Represents the Role of the person to the group.
  */
 public class Role {
-    private String role;
 
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Roles should only contain alphanumeric characters and spaces, and it should not be blank";
+
+    private String role;
 
     public Role(String role) {
         this.role = role;

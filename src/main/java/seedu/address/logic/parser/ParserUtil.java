@@ -24,7 +24,6 @@ import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupName;
-import seedu.address.model.group.GroupRemark;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.LessonNo;
@@ -51,8 +50,11 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     //private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy:HHmm");
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuu").withResolverStyle(ResolverStyle.STRICT);
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("ddMMuuuu").withResolverStyle(ResolverStyle.STRICT);
+
+    private static final DateTimeFormatter TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("HHmm");
 
 
     /**
@@ -91,7 +93,7 @@ public class ParserUtil {
     public static GroupName parseGroupName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if(!GroupName.isValid(trimmedName)) {
+        if (!GroupName.isValid(trimmedName)) {
             throw new ParseException(GroupName.MESSAGE_CONSTRAINTS);
         }
         return new GroupName(trimmedName);
@@ -245,7 +247,7 @@ public class ParserUtil {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
 
-        if(!Remark.isValid(trimmedRemark)) {
+        if (!Remark.isValid(trimmedRemark)) {
             throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
 
@@ -263,25 +265,11 @@ public class ParserUtil {
         requireNonNull(role);
         String trimmedRole = role.trim();
 
-        if(!Role.isValid(trimmedRole)) {
+        if (!Role.isValid(trimmedRole)) {
             throw new ParseException(Role.MESSAGE_CONSTRAINTS);
         }
 
         return new Role(trimmedRole);
-    }
-
-    /**
-     * Parse a String remark, and trims the String.
-     *
-     * @param remark String to be trimmed
-     * @return Trimmed String
-     * @throws ParseException null
-     */
-    public static GroupRemark parseGroupRemark(String remark) throws ParseException {
-        requireNonNull(remark);
-        String trimmedRemark = remark.trim();
-
-        return new GroupRemark(trimmedRemark);
     }
 
     /**
@@ -294,7 +282,7 @@ public class ParserUtil {
     public static GroupDescription parseGroupDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if(!GroupDescription.isValid(trimmedDescription)) {
+        if (!GroupDescription.isValid(trimmedDescription)) {
             throw new ParseException(GroupDescription.MESSAGE_CONSTRAINTS);
         }
         return new GroupDescription(trimmedDescription);
@@ -374,13 +362,20 @@ public class ParserUtil {
         return locations;
     }
 
+    /**
+     * Parses a String into an eventName.
+     *
+     * @param eventName to be parsed
+     * @return String
+     * @throws ParseException
+     */
     public static String parserEventName(String eventName) throws ParseException {
         String regex = "[\\p{Alnum}][\\p{Alnum} ]*";
         String msg =
                 "An event name should only contain alphanumeric characters and spaces, and it should not be blank";
 
         String trimmedEventName = eventName.trim();
-        if(!trimmedEventName.matches(regex)) {
+        if (!trimmedEventName.matches(regex)) {
             throw new ParseException(msg);
         }
         return trimmedEventName;
