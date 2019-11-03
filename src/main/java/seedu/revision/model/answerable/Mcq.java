@@ -13,7 +13,8 @@ import seedu.revision.model.category.Category;
  */
 public class Mcq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total";
+    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total"
+            + " with no duplicate answers.";
 
     /**
      * Every field must be present and not null.
@@ -31,6 +32,9 @@ public class Mcq extends Answerable {
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
         if (mcq.getCorrectAnswerList().isEmpty() || mcq.getCorrectAnswerList().size() > 1) {
+            return false;
+        }
+        if(mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
             return false;
         }
         if (mcq.getWrongAnswerList().size() != 3) {
@@ -59,8 +63,7 @@ public class Mcq extends Answerable {
         builder.append("Type: MCQ\n")
                 .append("Question: ")
                 .append(getQuestion() + "\n")
-                .append("Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
+                .append("Correct Answer: " + getCorrectAnswerList() + "\n")
                 .append("Wrong Answers: " + getWrongAnswerList() + "\n")
                 .append("Difficulty: ")
                 .append(getDifficulty() + "\n")

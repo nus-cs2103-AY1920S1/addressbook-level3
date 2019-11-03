@@ -52,6 +52,9 @@ public class ParserUtil {
         final ArrayList<Answer> answerList = new ArrayList<>();
         for (String answer : answers) {
             Answer newAnswer = parseAnswer(answer);
+            if (answerList.contains(newAnswer)) {
+                throw new ParseException(Answer.MESSAGE_CONSTRAINTS);
+            }
             answerList.add(newAnswer);
         }
         return answerList;
