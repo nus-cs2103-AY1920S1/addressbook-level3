@@ -115,8 +115,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         String note = argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse("").trim();
         String description = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse("").trim();
         if (note.isEmpty() || description.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
         Optional<Priority> priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).isPresent()
                 ? Optional.of(Priority.getPriority(argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).get()))

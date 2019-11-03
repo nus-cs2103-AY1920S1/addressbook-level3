@@ -206,9 +206,14 @@ public class Statistics {
             calcWeightedScore();
         }
 
+        /**
+         * Calculates the weighted score for the particular student. All subjects carry equal weight.
+         */
         public void calcWeightedScore() {
             int noSubjects = subjectScoreMap.size();
             double total = subjectScoreMap.values().stream().mapToDouble(score -> Double.valueOf(score)).sum();
+
+            assert noSubjects != 0;
             weightedScore = total / noSubjects;
         }
 

@@ -401,11 +401,6 @@ public interface Model {
     Path getNotesRecordFilePath();
 
     /**
-     * Sets the user prefs' notes record file path.
-     */
-    void setNotesRecordFilePath(Path notesRecordFilePath);
-
-    /**
      * Replaces notes record data with the data in {@code notesRecord}.
      */
     void setNotesRecord(ReadOnlyNotesRecord notesRecord);
