@@ -1,16 +1,10 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.function.Consumer;
-
-import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.exceptions.DeckNotFoundException;
-
-
 
 /**
- * Running state of the program.
+ * State stores data representing the state of the running program
+ * It should not execute logic or parsing, simply a data store object.
  */
 public class State {
     private static State state;
@@ -126,21 +120,7 @@ public class State {
     }
 
 
-    /**
-     * Sets the current state at a specified StateEnum.
-     *
-     * @param currState the StateEnum that state should be at at this time.
-     */
-    public void setCurrState(StateEnum currState) {
-        this.currState = currState;
-    }
-
-    /**
-     * Getter for the current StateEnum.
-     *
-     * @return the StateEnum that the state is in at this time.
-     */
-    public StateEnum getCurrState() {
-        return this.currState;
+    public State(ArrayList<Deck> initialDecks) {
+        decks = initialDecks;
     }
 }

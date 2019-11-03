@@ -21,6 +21,19 @@ public class Dispatcher {
     }
 
     @SuppressWarnings("unchecked")
+    public static Boolean accept(String key, Object x) {
+        Consumer c = consumers.get(key);
+        if (c == null) {
+            return false;
+        }
+        c.accept(x);
+        return true;
+    }
+
+    /**
+     * @param input
+     */
+    @SuppressWarnings("unchecked")
     public static void doTask(String identifier, Object obj) {
         Consumer c = consumers.get(identifier);
         if (c != null) {
