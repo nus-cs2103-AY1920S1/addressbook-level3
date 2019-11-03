@@ -29,6 +29,8 @@ public class ExpenseCard extends UiPart<Region> {
     private static final Category ENTERTAINMENT = new Category("ENTERTAINMENT");
     private static final Category EDUCATION = new Category("EDUCATION");
 
+
+    // icons (except other.png) made by Freepik from Flaticon.com
     private static final String FXML = "ExpenseListCard.fxml";
     private static final String FOOD_ICON = "/images/category/food.png";
     private static final String SHOPPING_ICON = "/images/category/shopping.png";
