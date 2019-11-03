@@ -25,11 +25,18 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePhone;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
-
-
 
 /**
  * Edits the details of an existing employee in the employeeAddress book.

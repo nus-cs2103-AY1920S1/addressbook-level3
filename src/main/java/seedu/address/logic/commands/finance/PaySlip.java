@@ -11,7 +11,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
-import seedu.address.model.event.Event;
 
 /**
  * Command to find out how much an Employee has earnt over the past.
@@ -34,7 +33,7 @@ public class PaySlip extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException{
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Employee> shownEmployeelist = model.getFilteredEmployeeList();
         if (index.getZeroBased() >= shownEmployeelist.size()) {
@@ -52,6 +51,6 @@ public class PaySlip extends Command {
 //        String first = "employeeList.get(0).getEmployeeSalaryPaid().value";
 //        String output = first;
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()),"Finance");
+                String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()), "Finance");
     }
 }

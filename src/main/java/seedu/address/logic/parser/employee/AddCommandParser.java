@@ -20,7 +20,15 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.employee.*;
+import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeAddress;
+import seedu.address.model.employee.EmployeeEmail;
+import seedu.address.model.employee.EmployeeGender;
+import seedu.address.model.employee.EmployeeId;
+import seedu.address.model.employee.EmployeeJoinDate;
+import seedu.address.model.employee.EmployeeName;
+import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.tag.Tag;
 
 /**

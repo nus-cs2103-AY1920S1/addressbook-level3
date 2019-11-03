@@ -72,13 +72,13 @@ public class ParserUtil {
      */
     public static EmployeeSalaryPaid parseSalaryPaid(String salaryPaid) throws ParseException {
         requireNonNull(salaryPaid);
-        String trimmedSalaryPaid = salaryPaid.trim();
+        String trimmed = salaryPaid.trim();
 
-        try {
-            return new EmployeeSalaryPaid(parseMoney(trimmedSalaryPaid));
-        } catch (IllegalArgumentException e) {
+        if (!EmployeeSalaryPaid.isValidSalaryPaid(trimmed)) {
             throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
         }
+
+        return new EmployeeSalaryPaid(trimmed);
     }
 
     /**
