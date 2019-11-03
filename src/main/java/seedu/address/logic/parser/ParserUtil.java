@@ -7,11 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
 
+import seedu.address.commons.core.View;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.SortFilter;
-import seedu.address.model.View;
 import seedu.address.model.claim.Amount;
 import seedu.address.model.claim.Description;
 import seedu.address.model.commanditem.CommandItem;
@@ -30,23 +30,34 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    //@@author {lawncegoh}
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    //@@author {lawncegoh}
     public static final String MESSAGE_INVALID_VIEW = "View is not recognised.";
 
+    //@@author {lawncegoh}
     public static final String MESSAGE_INVALID_FILTER = "Filter is not recognised";
 
+    //@@author {lawncegoh}
     public static final String MESSAGE_INVALID_SHORTCUT = "Shortcut is not recognised.";
 
+    //@@author {lawncegoh}
     private static int viewIndex;
 
+    //@@author {lawncegoh}
     private static int filterIndex;
     /**
      * Checks if the parsed argument is a valid view
      * @param view
      * @return
      */
+    //@@author {lawncegoh}
     public static boolean checkView(String view) {
+
+        if (view == null) {
+            throw new NullPointerException();
+        }
 
         if (view.equals("contacts")) {
             viewIndex = 1;
@@ -67,6 +78,7 @@ public class ParserUtil {
      * @param filter
      * @return
      */
+    //@@author {lawncegoh}
     public static boolean checkFilter(String filter) {
 
         if (filter.equals("name")) {
@@ -89,6 +101,7 @@ public class ParserUtil {
      * @return Trimmed view command
      * @throws ParseException If the command cannot be parsed.
      */
+    //@@author {lawncegoh}
     public static View parseView(String view) throws ParseException {
         String trimmedView = view.trim();
         if (checkView(trimmedView)) {
@@ -101,6 +114,7 @@ public class ParserUtil {
     /**
      * Parses a Filter
      */
+    //@@author {lawncegoh}
     public static SortFilter parseFilter(String input) throws ParseException {
         String trimmedFilter = input.trim();
         if (checkFilter(trimmedFilter)) {

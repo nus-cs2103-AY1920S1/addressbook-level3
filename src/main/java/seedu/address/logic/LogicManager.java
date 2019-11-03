@@ -11,10 +11,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.NoClearCommand;
 import seedu.address.logic.commands.NoShortCutCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.FinSecParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.FinSec;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
@@ -30,6 +32,7 @@ import seedu.address.storage.SuggestionsStorage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String MESSAGE_FINSEC_CLEARED = "FinSec is cleared";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -88,6 +91,24 @@ public class LogicManager implements Logic {
     }
 
     /**
+     * Executes this during a "clear" input by user
+     */
+    public CommandResult executeClear(String commandText) throws CommandException {
+
+        CommandResult commandResult;
+
+        if (commandText.equals("N")) {
+            commandResult = new NoClearCommand().execute(model);
+        } else if (commandText.equals("Y")) {
+            model.setFinSec(new FinSec());
+            return new CommandResult(MESSAGE_FINSEC_CLEARED);
+        } else {
+            throw new CommandException("Input is not valid");
+        }
+        return commandResult;
+    }
+
+    /**
      * Returns the model tagged to this logic
      * @return a model
      */
@@ -105,11 +126,12 @@ public class LogicManager implements Logic {
         return model.getFilteredContactList();
     }
 
+    //@@author{lawncegoh}
     @Override
     public ObservableList<Claim> getFilteredClaimList() {
         return model.getFilteredClaimList();
     }
-
+    //@@author{lawncegoh}
     @Override
     public ObservableList<Income> getFilteredIncomeList() {
         return model.getFilteredIncomeList();
