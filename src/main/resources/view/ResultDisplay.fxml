@@ -3,7 +3,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 
-<Label fx:id="resultDisplay" maxHeight="150.0" minHeight="150.0" minWidth="-Infinity" prefHeight="150.0" styleClass="result-display" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Label fx:id="resultDisplay"
+       styleClass="result-display"
+       maxHeight="150.0" minHeight="150.0" minWidth="-Infinity" prefHeight="150.0"
+       xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets left="10.0" />
    </padding>
