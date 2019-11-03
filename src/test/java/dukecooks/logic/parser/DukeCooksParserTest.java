@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.ExitCommand;
 import dukecooks.logic.commands.HelpCommand;
+import dukecooks.logic.commands.diary.FindDiaryCommand;
+import dukecooks.logic.commands.diary.ListDiaryCommand;
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
@@ -26,6 +28,7 @@ import dukecooks.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.diary.components.DiaryNameContainsKeywordsPredicate;
 import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.recipe.components.RecipeNameContainsKeywordsPredicate;
@@ -109,6 +112,15 @@ public class DukeCooksParserTest {
     }
 
     @Test
+    public void parseCommand_findDiary() throws Exception {
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        FindDiaryCommand command = (FindDiaryCommand) parser.parseCommand(
+                FindDiaryCommand.COMMAND_WORD + " " + FindDiaryCommand.VARIANT_WORD
+                        + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new FindDiaryCommand(new DiaryNameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -128,6 +140,14 @@ public class DukeCooksParserTest {
                 + " " + ListRecipeCommand.VARIANT_WORD) instanceof ListRecipeCommand);
         assertTrue(parser.parseCommand(ListRecipeCommand.COMMAND_WORD
                 + " " + ListRecipeCommand.VARIANT_WORD + " 3") instanceof ListRecipeCommand);
+    }
+
+    @Test
+    public void parseCommand_listDiary() throws Exception {
+        assertTrue(parser.parseCommand(ListDiaryCommand.COMMAND_WORD
+                + " " + ListDiaryCommand.VARIANT_WORD) instanceof ListDiaryCommand);
+        assertTrue(parser.parseCommand(ListDiaryCommand.COMMAND_WORD
+                + " " + ListDiaryCommand.VARIANT_WORD + " 3") instanceof ListDiaryCommand);
     }
 
     @Test

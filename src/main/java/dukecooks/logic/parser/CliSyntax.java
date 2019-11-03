@@ -64,6 +64,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DIARY_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PAGE_DESCRIPTION = new Prefix("desc/");
     public static final Prefix PREFIX_PAGE_TITLE = new Prefix("t/");
+    public static final Prefix PREFIX_PAGE_TYPE = new Prefix("tp/");
 
     /* Common */
     public static final Prefix PREFIX_IMAGE = new Prefix("i/");

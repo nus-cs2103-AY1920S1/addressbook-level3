@@ -2,14 +2,23 @@ package dukecooks.model.diary;
 
 import static dukecooks.testutil.diary.TypicalDiaries.ALL_MEAT;
 import static dukecooks.testutil.diary.TypicalDiaries.BOB_DIARY;
+import static dukecooks.testutil.diary.TypicalPages.PHO_PAGE;
+import static dukecooks.testutil.diary.TypicalPages.SUSHI_PAGE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.diary.components.Diary;
+import dukecooks.model.diary.components.DiaryName;
+import dukecooks.model.diary.components.Page;
 import dukecooks.testutil.diary.DiaryBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DiaryTest {
 
@@ -47,5 +56,29 @@ public class DiaryTest {
         // different name -> returns false
         Diary editedAllMeat = new DiaryBuilder(ALL_MEAT).withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(ALL_MEAT.equals(editedAllMeat));
+    }
+
+    @Test
+    public void testDiaryHashCode() {
+        DiaryName name = new DiaryName("hello");
+        DiaryName otherName = new DiaryName("hello");
+        Diary firstDiary = new Diary(name);
+        Diary secondDiary = new Diary(otherName);
+        assertEquals(firstDiary.hashCode(), secondDiary.hashCode());
+    }
+
+    @Test
+    public void hasPage() {
+        ArrayList<Page> pages = new ArrayList<>();
+        pages.add(PHO_PAGE);
+        ObservableList<Page> pageList = FXCollections.observableArrayList(pages);
+
+        Diary diaryWithPhoPage = new Diary(ALL_MEAT.getDiaryName(), pageList);
+
+        // Contains PHO_PAGE -> return true
+        assertTrue(diaryWithPhoPage.hasPage(PHO_PAGE));
+
+        // Contains SUSHI_PAGE -> return false
+        assertFalse(diaryWithPhoPage.hasPage(SUSHI_PAGE));
     }
 }
