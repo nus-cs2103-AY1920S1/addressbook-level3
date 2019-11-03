@@ -60,17 +60,18 @@ Shows the help page and guides you through the available commands for FlashCard 
 Format: `help [command/COMMAND_NAME]`
 
 ****
-* Shows all the available commands and syntax in the application if user supplied no parameters except command.
-* Shows the specific command syntax if the command is specified in the optional parameters.
-* All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
+* If user does not supply parameter for command: shows all the available commands and syntax in FlashCard Pro
+* If user supply a parameter in command: shows the specific command syntax.
+** All commands that are available, except for help, can be queried. 
+** Other non-valid commands will give a “command not found” message.
 ****
 
 Examples:
 
 * `help`
-Displays the commands available for FlashCard Pro
+Displays the commands available for use in FlashCard Pro.
 * `help command/view`
-Displays the syntax to use command `view`
+Displays the syntax to use command `view`.
 
 === Importing flashcards from disk : `import`
 
