@@ -18,7 +18,6 @@ public class MissAppCommand extends NonActionableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment "
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD \n"
             + "Example: " + COMMAND_WORD;
 
     public MissAppCommand() {

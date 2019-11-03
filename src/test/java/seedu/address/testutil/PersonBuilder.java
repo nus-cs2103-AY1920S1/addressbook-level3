@@ -59,7 +59,7 @@ public class PersonBuilder {
      */
     public PersonBuilder withPatientId(String id) {
         try {
-            this.id = PersonReferenceId.parsePatientReferenceId(id);
+            this.id = PersonReferenceId.issuePatientReferenceId(id);
             return this;
         } catch (ParseException ex) {
             throw new AssertionError("Execution of command should not fail. " + ex.getMessage());
@@ -71,7 +71,7 @@ public class PersonBuilder {
      */
     public PersonBuilder withStaffId(String id) {
         try {
-            this.id = PersonReferenceId.parseStaffReferenceId(id);
+            this.id = PersonReferenceId.issueStaffReferenceId(id);
             return this;
         } catch (ParseException ex) {
             throw new AssertionError("Execution of command should not fail. " + ex.getMessage());

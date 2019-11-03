@@ -17,13 +17,13 @@ public class ResumeCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "resume";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Doctor is back from his/her break\n"
+            + ": Doctor is back from his/her break. Allows patients to be directed to the doctor.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Doctor %s resumes his/her duty";
-    public static final String MESSAGE_DUPLICATE_ROOM = "This room already exists in the list.";
-    public static final String MESSAGE_ALREADY_BACK_FROM_BREAK = "Doctor is already back from his/her break";
+    public static final String MESSAGE_DUPLICATE_DOCTOR = "This doctor already exists in the list.";
+    public static final String MESSAGE_NOT_ON_BREAK = "Doctor is not on break";
 
     private final Room roomToEdit;
     private final Room editedRoom;
@@ -38,12 +38,12 @@ public class ResumeCommand extends ReversibleCommand {
         requireNonNull(model);
 
         if (roomToEdit.isReadyToServe()) {
-            throw new CommandException(MESSAGE_ALREADY_BACK_FROM_BREAK);
+            throw new CommandException(MESSAGE_NOT_ON_BREAK);
         }
         model.removeRoom(roomToEdit);
 
         if (model.hasRoom(editedRoom)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ROOM);
+            throw new CommandException(MESSAGE_DUPLICATE_DOCTOR);
         }
 
         model.addRoom(editedRoom);

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -53,8 +54,9 @@ public class AddressBookParserTest {
         Person editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(personToEdit)
                 .withName(VALID_NAME_BOB).build();
-        Command command = parser.parseCommand(EditPatientDetailsCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor),
+        Command command = parser.parseCommand(EditPatientDetailsCommand.COMMAND_WORD
+                + " " + PREFIX_ENTRY.toString() + INDEX_FIRST_PERSON.getOneBased()
+                + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor),
                 model);
 
         assertEquals(new ReversibleActionPairCommand(
