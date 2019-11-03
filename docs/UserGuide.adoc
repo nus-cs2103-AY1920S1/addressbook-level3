@@ -131,10 +131,7 @@ Displays all the decks of cards in the library
 
 Displays all the cards in the deck of cards, `science_deck`
 
-=== Creating new flashcards/decks : `create`
-
-
-==== Create new empty deck
+=== Create new empty deck: `create`
 
 Creates an empty deck in FlashCard Pro library.
 
@@ -155,7 +152,7 @@ Examples:
 Creates a new empty deck named `german`.
 
 
-==== Create new Front Back card or Multiple Choice Card
+=== Add new Front Back card or Multiple Choice Card to deck: `add`
 
 Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
 
@@ -166,42 +163,99 @@ Format: `create deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/B
 
 ** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be created.
 
-* The `PRIORITY_LEVEL` should be of the following format:
+* When entering the `PRIORITY_LEVEL`, there are only 2 valid choices `HIGH` and `LOW`. Refer to the table below to know how to use the `PRIORITY_LEVEL`:
 
-| Priority Level | Description | User Input
-| High | You find the card important and want it to be tested more often | HIGH
+[width="59%",options="header",]
+|=======================================================================
+| Priority | Value | Input for PRIORITY_LEVEL 
+
+| High | You find the card important and want it to be tested more often | `HIGH`
+
+| Low | You find the card less important and want it to be tested less often | `LOW`
+|=======================================================================
+
+** If no `priority/` parameter is entered, then the default priority level is `LOW`.
+
+** If you enter any input other than `HIGH` or `LOW`, there will be an error message and the card will not be created.
+
+* `FRONT_TEXT` is the question that you wish to see in the flashcard.
+
+* To create a Front Back card, 
+
+** `BACK_TEXT` is the answer of the Front Back flashcard.
+
+** No choice should be entered under `choice/`. 
+
+* To create a Multiple Choice card, 
+
+** the `BACK_TEXT` parameter should correspond to choice entered by the user, using the order of choice entered and should be a integer value from 1, 2, ...., Number of choices entered.
+
+** To create a Multiple Choice card, there should be at least 2 `choice/` parameters entered.
+
+** If there are only 1 `choice/` parameters entered, there will be an error message and the card will not be created.
 
 ****
-
-==== Create new Javascript card or Java Card
-
-=== Editing the cards of an existing deck of flashcards : `edit`
-
-The edit command allows the user to change, add or remove the flashcards in any existing deck.
-
-****
-* You can select the following options depending on your choice of action for `action`: `add`, `change`, `remove`
-
-* For options `remove`, you must furnish the options `index`, which corresponds to the index of the flashcard, and any input to `front` and `back` will be ignored
-
-* For options `edit`, you must furnish the options `index` (compulsory), as well as `front` and/or `back` depending on the change, and any command that lacks any of the three options will be regarded as an error and no flashcard wil be added
-
-* The `index` option must be a positive integer e.g. 1, 2, 3, … and must be less than or equal to the total number of cards in the specified deck
-
-* Any command with no input to `front`, `back` and `index` will be regarded as an error and no action will be taken
-****
-
-Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
 
 Examples:
 
-* `edit deck/science_deck` +
+* `add deck/german  front/hello back/moin moin` +
 
-Returns error as no input is added
+Creates a new Front Back card in deck `german`.
 
-* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block` +
+* `add deck/german  front/hello back/1 choice/hello choice/bye choice/zzz` +
+
+Creates a new Multiple Choice card in deck `german`, with the answer as the first `choice/` parameter, hello.
+
+
+=== Add new Javascript card or Java Card
+
+(TBC)
+
+=== Editing the cards of an existing deck of flashcards : `edit`
+
+The edit command allows the user to edit flashcards in any existing deck.
+
+Format: `edit deck/DECK_NAME index/INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
+
+Note:
+
+****
+
+* The `DECK_NAME` must be an existing deck in the FlashCard Pro library. 
+
+** If no deck with `DECK_NAME` exist in the FlashCard Pro library, there will be an error message and no card will be edited.
+
+* The `INDEX` refers to the index of a card in the deck.
+
+** `INDEX` must be a valid integer from 1, 2, ..., Number of cards in deck.
+
+** If the `INDEX` is invalid, there will be an error message and no card will be edited.
+
+* If you want to edit the front of the card, `FRONT_TEXT` should be supplied.
+
+* If you want to edit the back of the card, `BACK_TEXT` should be supplied.
+
+* If you want to edit a choice of an Multiple Choice card, `CHOICE_INDEX` and `CHOICE_TEXT` should be supplied.
+
+** If the `CHOICE_TEXT` entered by the user exists as one of the choices in the Multiple Choice card, an error message will be shown and the edit will not be made.
+
+[TIP]
+If you edit `CHOICE_TEXT`, do remember that the back of the Multiple Choice card will still remain as it is. +
+
+FlashCard Pro will not be responsible if the editing of an answer choice lead to the choice to be incorrect.
+
+****
+
+Examples:
+
+* `edit deck/science_deck index/1 front/what is a cell back/a cell is a building block` +
 
 Edits the first flashcard of the deck `science_deck`
+
+* `edit deck/science_deck index/1 choiceIndex/3 choice/Hello` +
+
+Edits the first Multiple Choice flashcard of the deck `science_deck`, edit 3rd choice to hello.
+
 
 === Start test with flashcards : `test`
 
