@@ -560,7 +560,7 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.LIST,
                     Collections.emptyList(),
                     Collections.emptyList());
-        } else if (panelName.equals(PanelName.STATISTICS_PANEL)) {
+        } else if (panelName.equals(StatsPanel.PANEL_NAME)) {
             // does not use generic commands
         }
     }
@@ -660,7 +660,7 @@ public class MainWindow extends UiPart<Stage> {
             return CommandGroup.EVENT;
         } else if (AliasPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.ALIAS;
-        } else if (PanelName.STATISTICS_PANEL.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (StatsPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.STATISTIC;
         }
         return CommandGroup.GENERAL;
