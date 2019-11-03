@@ -110,6 +110,7 @@ public class TimedTestDisplay extends AnchorPane {
 
     private Integer durationInSeconds;
     private IntegerProperty timeSeconds;
+    private Timeline timeline;
 
     public TimedTestDisplay(Exam exam) {
         try {
@@ -124,9 +125,10 @@ public class TimedTestDisplay extends AnchorPane {
             this.durationInSeconds = exam.getDuration();
             this.cardOnDisplay = exam.getCurrentCard();
             this.timeSeconds = new SimpleIntegerProperty(durationInSeconds);
+            this.timeline = new Timeline();
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
-            endSessionButton.setOnAction(e -> displayDecks.accept(true));
+            endSessionButton.setOnAction(e -> onEndSession());
             nextButton.setOnAction(e -> onShowNext());
             timerLabel.textProperty().bind(timeSeconds.asString());
             setTimer();
@@ -202,7 +204,7 @@ public class TimedTestDisplay extends AnchorPane {
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
             displayMessage.accept("You've ran out of cards in this test!");
-            EndOfTestAlert.display("Results", "Final Score" + exam.getResult());
+            ExamRunner.terminateExam();
         }
     }
     //sample renderer for Shawn
@@ -227,9 +229,14 @@ public class TimedTestDisplay extends AnchorPane {
 
     private void setTimer() {
         timeSeconds.set(durationInSeconds);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1), new KeyValue(timeSeconds, 0)));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1), new KeyValue(timeSeconds, 0)));
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(durationInSeconds + 1), event -> ExamRunner.terminateExam()));
         timeline.play();
+    }
+
+    private void onEndSession() {
+        timeline.stop();
+        ExamRunner.terminateExam();
     }
 
 }
