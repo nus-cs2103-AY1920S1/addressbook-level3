@@ -307,7 +307,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Deliveryman getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
+    public Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
         return deliverymenDatabase.getAvailableDeliveryman();
     }
 

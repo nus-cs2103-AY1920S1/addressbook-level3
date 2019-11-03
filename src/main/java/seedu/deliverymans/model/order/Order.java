@@ -3,16 +3,13 @@ package seedu.deliverymans.model.order;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.food.Food;
-import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Represents an Order in the application.
@@ -22,12 +19,12 @@ public class Order {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
 
     // Identity fields
-    private final Customer customer;
-    private final Restaurant restaurant;
-    private final Deliveryman deliveryman;
+    private final Name customer;
+    private final Name restaurant;
+    private final Name deliveryman;
 
     // Data fields
-    private final ObservableMap<Food, Integer> foodList = FXCollections.observableHashMap();
+    private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
     private boolean isCompleted;
 
     /**
@@ -36,24 +33,11 @@ public class Order {
      * @param customer    The customer who made the order.
      * @param restaurant  The restaurant to order from.
      * @param deliveryman The deliveryman delivering the order.
-     */
-    public Order(Customer customer, Restaurant restaurant, Deliveryman deliveryman) {
-        requireAllNonNull(customer, restaurant, deliveryman);
-        this.customer = customer;
-        this.restaurant = restaurant;
-        this.deliveryman = deliveryman;
-    }
-
-    /**
-     * Constructs a {@code Order}
-     *
-     * @param customer    The customer who made the order.
-     * @param restaurant  The restaurant to order from.
-     * @param deliveryman The deliveryman delivering the order.
      * @param foodList    The list of food ordered with their respective quantities;
+     * @param isCompleted The completion status of the order.
      */
-    public Order(Customer customer, Restaurant restaurant, Deliveryman deliveryman,
-                 ObservableMap<Food, Integer> foodList) {
+    private Order(Name customer, Name restaurant, Name deliveryman,
+                  Map<Name, Integer> foodList, boolean isCompleted) {
         requireAllNonNull(customer, restaurant, deliveryman, foodList);
         this.customer = customer;
         this.restaurant = restaurant;
@@ -61,40 +45,28 @@ public class Order {
         this.foodList.putAll(foodList);
     }
 
-    public void addFood(Map<Food, Integer> foods) {
-        this.foodList.putAll(foods);
-    }
-
     public Name getCustomer() {
-        return customer.getName();
+        return customer;
     }
 
     public Name getDeliveryman() {
-        return deliveryman.getName();
-    }
-
-    public Order setDeliveryman(Deliveryman deliveryman) {
-        return new Order(customer, restaurant, deliveryman, foodList);
+        return deliveryman;
     }
 
     /**
      * Returns an immutable food map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Map<Food, Integer> getFoodList() {
+    public Map<Name, Integer> getFoodList() {
         return Collections.unmodifiableMap(foodList);
     }
 
     public Name getRestaurant() {
-        return restaurant.getName();
+        return restaurant;
     }
 
     public boolean isCompleted() {
         return isCompleted;
-    }
-
-    public void completeOrder() {
-        isCompleted = true;
     }
 
     /**
@@ -152,8 +124,45 @@ public class Order {
                 .append(getDeliveryman())
                 .append(" Food: ");
 
-        getFoodList().forEach((key, value) -> builder.append(String.format("%s x%d", key.getName(), value)));
+        getFoodList().forEach((key, value) -> builder.append(String.format("%s x%d", key, value)));
         builder.append(" Delivery status: ").append(isCompleted());
         return builder.toString();
+    }
+
+    public static class OrderBuilder {
+        private Name customer;
+        private Name restaurant;
+        private Name deliveryman = new Name("Unassigned");
+        private boolean isCompleted = false;
+        private final Map<Name, Integer> foodList = new HashMap<>();
+
+        public OrderBuilder setCustomer(Name customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public OrderBuilder setRestaurant(Name restaurant) {
+            this.restaurant = restaurant;
+            return this;
+        }
+
+        public OrderBuilder setDeliveryman(Name deliveryman) {
+            this.deliveryman = deliveryman;
+            return this;
+        }
+
+        public OrderBuilder setFood(Map<Name, Integer> foodList) {
+            this.foodList.putAll(foodList);
+            return this;
+        }
+
+        public OrderBuilder setCompleted(boolean isCompleted) {
+            this.isCompleted = isCompleted;
+            return this;
+        }
+
+        public Order completeOrder() {
+            return new Order(customer, restaurant, deliveryman, foodList, isCompleted);
+        }
     }
 }

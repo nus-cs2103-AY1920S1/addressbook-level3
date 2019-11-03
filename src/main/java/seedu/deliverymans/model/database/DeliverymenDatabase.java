@@ -170,8 +170,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Retrieves the name of an available deliveryman for OrderManager for the purpose of delivering an order.
      */
-    public Deliveryman getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
-        return statusManager.getAvailableDeliveryman();
+    public Name getAvailableDeliveryman() throws NoMoreAvailableDeliverymanException {
+        return statusManager.getAvailableDeliveryman().getName();
     }
 
     /**
