@@ -11,7 +11,9 @@ import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
+import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Deletes an order identified using its displayed index from the address book.
@@ -44,6 +46,8 @@ public class DeleteOrderCommand extends Command {
 
         Order orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteOrder(orderToDelete);
+        AddOrderCommand.fsfsfs(model, orderToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
     }
 
