@@ -3,6 +3,7 @@ package dream.fcard.logic.stats;
 
 import dream.fcard.logic.exam.Result;
 
+/** A DeckSession represents a review session involving a particular deck. */
 public class DeckSession extends Session {
     /** The Result of this particular session. */
     private Result result; // call getScore() to get score

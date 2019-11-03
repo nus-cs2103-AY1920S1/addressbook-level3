@@ -1,17 +1,16 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
 
 import java.util.ArrayList;
 
+/** Abstract class for statistics objects, like UserStats and DeckStats. */
 public abstract class Stats {
-    /**
-     * Represents the user's statistics.
-     */
 
     /** List of Sessions the user has engaged in. */
-    SessionList sessionList;
+    protected SessionList sessionList;
 
     /** The current Session the user is engaging in. */
-    Session currentSession;
+    protected Session currentSession;
 
     public Stats() {
         this.sessionList = new SessionList();

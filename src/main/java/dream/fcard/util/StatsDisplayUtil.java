@@ -1,17 +1,20 @@
+//@@author nattanyz
 package dream.fcard.util;
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+/** Utilities related to displaying statistics in the GUI. */
 public class StatsDisplayUtil {
 
     /** Creates the TableView object from the given list of sessions. */

@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.Stats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;

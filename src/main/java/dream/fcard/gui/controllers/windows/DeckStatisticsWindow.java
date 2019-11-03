@@ -1,16 +1,17 @@
 package dream.fcard.gui.controllers.windows;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 
 import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.model.Deck;
 import dream.fcard.util.StatsDisplayUtil;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableView;
 
 /**
  * Window to display statistics for a given Deck.
