@@ -17,10 +17,14 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
+    @FXML
+    private Label balance;
 
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        // TODO STUB
+        balance.setText("$88888.88");
     }
 
 }

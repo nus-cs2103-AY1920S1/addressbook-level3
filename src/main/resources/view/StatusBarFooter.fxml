@@ -5,8 +5,9 @@
 <?import javafx.scene.layout.GridPane?>
 
 <GridPane styleClass="status-bar" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" />
-  </columnConstraints>
-  <Label fx:id="saveLocationStatus" />
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10"/>
+    </columnConstraints>
+    <Label fx:id="saveLocationStatus" text="hello"/>
+    <Label fx:id="balance" text="world" GridPane.halignment="RIGHT"/>
 </GridPane>
