@@ -33,8 +33,10 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String DATE_INVALID_TOO_FAR = "Date is 5 years too far from now.";
+    public static final String DEADLINE_INVALID_FAR_BEHIND = "Deadline is 1 year behind from now";
     public static final String DEADLINE_INVALID_TOO_FAR = "Deadline must be within 5 years from now.";
     public static final int DATE_TOO_FAR_RANGE = 5;
+    public static final int DATE_FAR_BEHIND_RANGE = 1;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
