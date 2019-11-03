@@ -119,7 +119,8 @@ public class AddOrderCommand extends Command {
         } else {
             for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
                 if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
-                    if (!deliveryman.getStatus().getDescription().equals("UNAVAILABLE")) {
+                    final String desc = deliveryman.getStatus().getDescription();
+                    if (desc.equals("AVAILABLE")) {
                         deliverymanToAdd = deliveryman.getName();
                         // Set deliveryman status here
                     } else {
@@ -161,12 +162,13 @@ public class AddOrderCommand extends Command {
         if (isAddOrder) { // Add order
             model.addOrder(order);
         } else { // Edit order
-            removeOrderFromDatabases(model, orderToDelete);
+            // removeOrderFromDatabases(model, orderToDelete);
             model.setOrder(orderToDelete, order);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
     }
 
+    /*
     private void removeOrderFromDatabases(Model model, Order orderToDelete) {
         for (Customer customer: model.getFilteredCustomerList()) {
             if (customer.getName().equals(orderToDelete.getCustomer())) {
@@ -182,6 +184,7 @@ public class AddOrderCommand extends Command {
         }
         // repeat for deliveryman if relevant
     }
+     */
 
     @Override
     public boolean equals(Object other) {

@@ -46,7 +46,6 @@ public class DeleteOrderCommand extends Command {
 
         Order orderToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteOrder(orderToDelete);
-        AddOrderCommand.fsfsfs(model, orderToDelete);
 
         return new CommandResult(String.format(MESSAGE_DELETE_ORDER_SUCCESS, orderToDelete));
     }
