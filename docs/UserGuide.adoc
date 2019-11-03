@@ -281,7 +281,7 @@ If viewing an activity with title 'Family trip', assigns the activities with IDs
 
 === Update an activity as resolved: `close` (*v2.0 only*)
 
-Marks an activity as resolved, clearing (removing) the debts within from each contact and the aggregated debt on the main screen.
+Marks an activity as resolved, clearing (removing) the debts within from each contact.
 
 Multiple activities can be resolved at once.
 
