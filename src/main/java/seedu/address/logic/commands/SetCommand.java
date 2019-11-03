@@ -44,10 +44,10 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasBudget(budget)) {
+        if (model.has(budget)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
         } else {
-            model.addOperation(budget);
+            model.add(budget);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
         }

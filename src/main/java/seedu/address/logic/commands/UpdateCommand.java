@@ -146,8 +146,8 @@ public class UpdateCommand extends Command {
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.
      */
-    private static Budget createUpdatedBudget(
-        Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+    private static Budget createUpdatedBudget(Budget budgetToEdit,
+                                              UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert budgetToEdit != null;
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
@@ -163,7 +163,6 @@ public class UpdateCommand extends Command {
      * corresponding field value of the transaction.
      */
     public static class UpdateTransactionDescriptor {
-        // TODO: Add name object
         private Description description;
         private Amount amount;
         private Date date;

@@ -47,10 +47,10 @@ public class InCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasTransaction(transaction)) {
+        if (model.has(transaction)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
         } else {
-            model.addOperation(transaction);
+            model.add(transaction);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
         }

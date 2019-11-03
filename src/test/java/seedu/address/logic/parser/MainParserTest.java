@@ -28,9 +28,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 
 // TODO: ADD ALL THE COMMANDS
-public class BankAccountParserTest {
+public class MainParserTest {
 
-    private final BankAccountParser parser = new BankAccountParser();
+    private final MainParser parser = new MainParser();
 
     @Test
     public void parseCommand_filter() throws Exception {

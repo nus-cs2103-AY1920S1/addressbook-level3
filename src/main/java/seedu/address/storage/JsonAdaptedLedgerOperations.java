@@ -29,12 +29,16 @@ public class JsonAdaptedLedgerOperations {
     public JsonAdaptedLedgerOperations(@JsonProperty("date") String date,
                                        @JsonProperty("amount") String amount,
                                        @JsonProperty("description") String description,
-                                       @JsonProperty("people") List<JsonAdaptedPerson> people) {
+                                       @JsonProperty("people") List<JsonAdaptedPerson> people,
+                                       @JsonProperty("people") List<String> shares) {
         this.date = date;
         this.amount = amount;
         this.description = description;
         if (people != null) {
             this.people.addAll(people);
+        }
+        if (shares != null) {
+            this.shares.addAll(shares);
         }
     }
 

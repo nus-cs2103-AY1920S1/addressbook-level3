@@ -99,14 +99,21 @@ public interface Model {
      *
      * @param transaction
      */
-    boolean hasTransaction(BankAccountOperation transaction);
+    boolean has(BankAccountOperation transaction);
 
     /**
      * Returns true if a budget with the same identity as {@code budget} exists in the bank account.
      *
      * @param budget
      */
-    boolean hasBudget(Budget budget);
+    boolean has(Budget budget);
+
+    /**
+     * Returns true if a ledgerOperation with the same identity as {@code ledgerOperation} exists in the ledger.
+     *
+     * @param ledgerOperation
+     */
+    boolean has(LedgerOperation ledgerOperation);
 
     /**
      * Deletes the given transaction.
@@ -138,19 +145,19 @@ public interface Model {
      *
      * @param operation
      */
-    void addOperation(BankAccountOperation operation);
+    void add(BankAccountOperation operation);
 
     /**
      * Adds the given ledgerOperation.
      * {@code ledgerOperation} must not already exist in the bank account.
      */
-    void addOperation(LedgerOperation operation);
+    void add(LedgerOperation operation);
 
     /**
      * Adds the given budget.
      * {@code budget} must not already exist in the bank account.
      */
-    void addOperation(Budget budget);
+    void add(Budget budget);
 
     /**
      * Returns an unmodifiable view of the filtered transaction list
