@@ -469,5 +469,45 @@
     "output" : "Approved C000003\nAdded CS1020 to : A0180003",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1572687485848
+  }, {
+    "input" : "view a/1",
+    "output" : "Displayed items with ID: C000000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784237042
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784242979
+  }, {
+    "input" : "view a/3",
+    "output" : "Displayed items with ID: C000002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784246329
+  }, {
+    "input" : "view",
+    "output" : "Invalid command format! \nTip: If you're trying to retrieve items by ID, use the Find command!\nview: Displays expanded view of items based on their indexes on the displayed lists. Specify up to three items (one from each type) in a single view command.\nParameters: KEYWORD  [a/INDEX]  [m/INDEX]  [s/INDEX]\nExample: view a/1 m/11 s/10",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572784257097
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784260634
+  }, {
+    "input" : "view a/4",
+    "output" : "Displayed items with ID: C000003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784263763
+  }, {
+    "input" : "view a/18",
+    "output" : "Displayed items with ID: C000017",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572784337105
+  }, {
+    "input" : "approve mass/ C",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572789403550
   } ]
 }
