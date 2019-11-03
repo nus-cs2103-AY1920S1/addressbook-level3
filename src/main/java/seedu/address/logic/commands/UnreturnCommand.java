@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -55,6 +57,12 @@ public class UnreturnCommand extends Command {
 
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeUnreturned, unreturnedLoan);
+
+        try {
+            LoanSlipUtil.mountLoan(unreturnedLoan, unreturnedBook, model.getServingBorrower());
+        } catch (LoanSlipException e) {
+            e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, unreturnedBook, model.getServingBorrower()));
     }
