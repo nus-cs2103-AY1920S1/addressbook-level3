@@ -1,10 +1,10 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.util.Date;
-
 import java.util.List;
 import java.util.Optional;
+
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.util.Date;
 
 /**
  * Interface for operations on Ledger

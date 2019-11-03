@@ -196,6 +196,11 @@ public class InCommandTest {
         }
 
         @Override
+        public boolean has(LedgerOperation ledgerOperation) {
+            throw new AssertionError("This method should not be calld.");
+        }
+
+        @Override
         public void deleteTransaction(BankAccountOperation target) {
             throw new AssertionError("This method should not be called.");
         }

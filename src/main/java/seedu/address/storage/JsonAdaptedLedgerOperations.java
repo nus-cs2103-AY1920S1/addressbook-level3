@@ -9,7 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.transaction.*;
+
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
+import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.LendMoney;
+import seedu.address.model.transaction.ReceiveMoney;
+import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
 /**
@@ -79,7 +85,8 @@ public class JsonAdaptedLedgerOperations {
         final Amount modelAmount = new Amount(Double.parseDouble(amount));
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
@@ -87,7 +94,8 @@ public class JsonAdaptedLedgerOperations {
         final Description modelDescription = new Description(description);
 
         if (people == null || people.size() == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UniquePersonList.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                UniquePersonList.class.getSimpleName()));
         }
 
         final UniquePersonList peopleInvolved = new UniquePersonList();
@@ -110,8 +118,8 @@ public class JsonAdaptedLedgerOperations {
         }
 
         if (peopleInvolved.size() == 1) {
-            return modelAmount.isNegative() ?
-                new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
+            return modelAmount.isNegative()
+                ? new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
                 : new LendMoney(people.get(0).toModelType(), modelAmount.makeNegative(), modelDate, modelDescription);
         } else {
             return new Split(modelAmount, modelDate, modelDescription, modelShares, peopleInvolved);

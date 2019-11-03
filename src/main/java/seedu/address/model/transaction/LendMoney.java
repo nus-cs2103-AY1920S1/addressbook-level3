@@ -1,11 +1,11 @@
 package seedu.address.model.transaction;
 
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * Payment concrete class from bankAccount to a Person
