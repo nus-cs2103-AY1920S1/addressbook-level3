@@ -67,7 +67,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
         if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
             return deleteCommand(index, argMultimap);
         }
-        if (!isEdit)    { // Create command
+        if (!isEdit) { // Create command
             return addCommand(argMultimap);
         }
         if (isEdit) { // Edit command

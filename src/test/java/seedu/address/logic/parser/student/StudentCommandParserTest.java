@@ -3,7 +3,6 @@ package seedu.address.logic.parser.student;
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.student.StudentEditCommand;
-import seedu.address.logic.commands.student.StudentListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
