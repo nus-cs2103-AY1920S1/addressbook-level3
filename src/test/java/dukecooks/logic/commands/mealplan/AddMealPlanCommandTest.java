@@ -1,14 +1,18 @@
 package dukecooks.logic.commands.mealplan;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
+import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.model.ModelStub;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
@@ -16,12 +20,27 @@ import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
 import dukecooks.testutil.mealplan.MealPlanBuilder;
+import dukecooks.testutil.recipe.RecipeBuilder;
 
 public class AddMealPlanCommandTest {
 
     @Test
     public void constructor_nullMealPlan_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new AddMealPlanCommand(null));
+    }
+
+    @Test
+    public void execute_mealPlanAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingMealPlanAdded modelStub = new ModelStubAcceptingMealPlanAdded();
+        MealPlan validMealPlan = new MealPlanBuilder().build();
+        Recipe validRecipe = new RecipeBuilder().build();
+
+        CommandResult recipeCommandResult = new AddRecipeCommand(validRecipe).execute(modelStub);
+        CommandResult commandResult = new AddMealPlanCommand(validMealPlan).execute(modelStub);
+
+        assertEquals(String.format(AddMealPlanCommand.MESSAGE_SUCCESS, validMealPlan),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validMealPlan), modelStub.mealPlansAdded);
     }
 
     @Test
@@ -104,6 +123,12 @@ public class AddMealPlanCommandTest {
         public boolean hasRecipe(Recipe recipe) {
             requireNonNull(recipe);
             return recipesAdded.stream().anyMatch(recipe::isSameRecipe);
+        }
+
+        @Override
+        public void addRecipe(Recipe Recipe) {
+            requireNonNull(Recipe);
+            recipesAdded.add(Recipe);
         }
     }
 

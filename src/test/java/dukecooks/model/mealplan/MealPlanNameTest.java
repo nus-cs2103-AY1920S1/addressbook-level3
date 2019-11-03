@@ -1,5 +1,6 @@
 package dukecooks.model.mealplan;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,5 +39,12 @@ public class MealPlanNameTest {
         assertTrue(MealPlanName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(MealPlanName.isValidName("Capital Tan")); // with capital letters
         assertTrue(MealPlanName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void testMealPlanNameHashCode() {
+        MealPlanName name1 = new MealPlanName("A");
+        MealPlanName name2 = new MealPlanName("A");
+        assertEquals(name1.hashCode(), name2.hashCode());
     }
 }
