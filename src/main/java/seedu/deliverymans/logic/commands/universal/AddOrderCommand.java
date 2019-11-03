@@ -6,18 +6,21 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import javafx.collections.ObservableList;
 import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.order.OrderBuilder;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
@@ -41,63 +44,115 @@ public class AddOrderCommand extends Command {
             + PREFIX_FOOD + "Chicken Nuggets "
             + PREFIX_QUANTITY + "20";
 
-    public static final String MESSAGE_SUCCESS = "New order added: %1$s";
+    public static final String MESSAGE_SUCCESS_ADD = "New order added: %1$s";
+    public static final String MESSAGE_SUCCESS_EDIT = "Edited order: %1$s";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
+    public static final String MESSAGE_DELIVERYMAN_UNAVAILABLE = "The deliveryman is unavailable!";
     public static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
+    public static final String MESSAGE_INVALID_DELIVERYMAN = "The deliveryman does not exist!";
     public static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
     public static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
 
-    private final Order toAdd;
+    private final OrderBuilder toAdd;
+    private final Order orderToRemove;
+    private final boolean isAddOrder; // true -> new add order, false -> edit order
 
-    public AddOrderCommand(Order toAdd) {
+    public AddOrderCommand(OrderBuilder toAdd, boolean isAddOrder) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
+        this.orderToRemove = null;
+        this.isAddOrder = isAddOrder;
+    }
+
+    public AddOrderCommand(OrderBuilder toAdd, Order orderToRemove, boolean isAddOrder) {
+        requireNonNull(toAdd);
+        this.toAdd = toAdd;
+        this.orderToRemove = orderToRemove;
+        this.isAddOrder = isAddOrder;
     }
 
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
-        Customer customerToAdd = new Customer(toAdd.getCustomer());
-        Name customerName = toAdd.getCustomer();
-        Name restaurantName = toAdd.getRestaurant();
-        Map<Name, Integer> foodList = toAdd.getFood();
-        boolean customerFound = false;
-        boolean restaurantFound = false;
+        Customer customerToAdd = null;
+        Restaurant restaurantToAdd = null;
+        Deliveryman deliverymanToAdd = null;
+
+        // Customer validity check
         for (Customer customer : model.getFilteredCustomerList()) {
-            if (customer.isSameCustomer(customerToAdd)) {
-                customerFound = true;
-                customer.addOrder(toAdd);
+            if (customer.getName().equals(toAdd.getCustomer())) {
+                customerToAdd = customer;
                 break;
             }
         }
-        if (!customerFound) {
+        if (customerToAdd == null) {
             throw new CommandException(MESSAGE_INVALID_CUSTOMER);
         }
-        /*
-        if (!model.getFilteredCustomerList().contains(customerName)
-                || !model.getFilteredRestaurantList().contains(restaurantName)) {
-            throw new CommandException(MESSAGE_INVALID_ORDER);
-        }*/
+
+        // Restaurant validity check
         for (Restaurant restaurant : model.getFilteredRestaurantList()) {
-            if (restaurant.equals(restaurantName)) {
-                restaurantFound = true;
-                ObservableList<Food> menu = restaurant.getMenu();
-                for (Name food : foodList.keySet()) {
-                    if (!menu.contains(food)) {
-                        throw new CommandException(MESSAGE_INVALID_FOOD);
-                    }
-                }
+            if (restaurant.getName().equals(toAdd.getRestaurant())) {
+                restaurantToAdd = restaurant;
                 break;
             }
         }
-        if (!restaurantFound) {
+        if (restaurantToAdd == null) {
             throw new CommandException(MESSAGE_INVALID_RESTAURANT);
         }
 
-        if (model.hasOrder(toAdd)) {
+        // Deliveryman validity check
+        if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+            if (deliverymanToAdd == null) {
+                deliverymanToAdd = new Deliveryman(toAdd.getDeliveryman(), new Phone("000"), null);
+            }
+        } else {
+            for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
+                if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
+                    if (!deliveryman.getStatus().getDescription().equals("UNAVAILABLE")) {
+                        deliverymanToAdd = deliveryman;
+                    } else {
+                        throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
+                    }
+                    break;
+                }
+            }
+            if (deliverymanToAdd == null) {
+                throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
+            }
+        }
+
+        // Food validity check
+        Map<Food, Integer> foodList = new HashMap<>();
+        Map<Name, Integer> foodNameList = toAdd.getFoodList();
+        for (Name foodName : foodNameList.keySet()) {
+            boolean validFood = false;
+            for (Food food : restaurantToAdd.getMenu()) {
+                if (food.getName().equals(foodName)) {
+                    validFood = true;
+                    foodList.put(food, foodNameList.get(foodName));
+                    break;
+                }
+            }
+            if (!validFood) {
+                throw new CommandException(MESSAGE_INVALID_FOOD);
+            }
+        }
+
+        Order order = new Order(customerToAdd, restaurantToAdd, deliverymanToAdd);
+        order.addFood(foodList);
+
+        if (model.hasOrder(order)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
-        model.addOrder(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+        // Adding of order into the model and printing of success message depending on adding/editing order
+        if (isAddOrder) {
+            model.addOrder(order);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
+        } else {
+            model.setOrder(orderToRemove, order);
+            return new CommandResult(String.format(MESSAGE_SUCCESS_EDIT, order));
+        }
     }
 
     @Override

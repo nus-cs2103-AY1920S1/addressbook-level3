@@ -56,7 +56,7 @@ public class JsonAdaptedOrder {
         restaurant = source.getRestaurant().fullName;
         deliveryman = source.getDeliveryman().fullName;
         isCompleted = String.valueOf(source.isCompleted());
-        foodList.addAll(source.getFood().entrySet().stream()
+        foodList.addAll(source.getFoodList().entrySet().stream()
                 .map(JsonAdaptedFoodOrder::new)
                 .collect(Collectors.toList()));
         // foodList.addAll(source.getFood().keySet().stream().map(x-> x.fullName)
