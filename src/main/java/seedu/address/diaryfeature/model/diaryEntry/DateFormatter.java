@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DateParseException;
 
 /**
  * TimeFormatter class takes in an input string of a date and outputs it in the proper.
