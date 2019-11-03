@@ -42,14 +42,14 @@ public class FindIncidentsCommand extends Command {
 
     private Predicate<Incident> predicate;
     private boolean isSelfSearch = false;
-    private List<Predicate> predicateArr = new ArrayList<>();
+    private List<Predicate<Incident>> predicateArr = new ArrayList<>();
 
-    public FindIncidentsCommand(List<Predicate> predicateArr) {
+    public FindIncidentsCommand(List<Predicate<Incident>> predicateArr) {
         this.predicateArr = predicateArr;
         combinePredicates();
     }
 
-    public FindIncidentsCommand(List<Predicate> predicateArr, Prefix prefix) {
+    public FindIncidentsCommand(List<Predicate<Incident>> predicateArr, Prefix prefix) {
         this.predicateArr = predicateArr;
         combinePredicates();
         if (prefix == SEARCH_PREFIX_SELF) {

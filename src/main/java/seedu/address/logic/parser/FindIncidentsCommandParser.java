@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
 import seedu.address.model.incident.IdKeywordsPredicate;
+import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentId;
 import seedu.address.model.incident.NameKeywordsPredicate;
 import seedu.address.model.person.Name;
@@ -31,7 +32,7 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindIncidentsCommand parse(String args) throws ParseException {
-        List<Predicate> predicateArr = new ArrayList<>();
+        List<Predicate<Incident>> predicateArr = new ArrayList<>();
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION,
                 SEARCH_PREFIX_ID, SEARCH_PREFIX_OPERATOR, SEARCH_PREFIX_SELF);

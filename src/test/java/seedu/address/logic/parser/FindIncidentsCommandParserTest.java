@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FindIncidentsCommand;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.DescriptionKeywordsPredicate;
+import seedu.address.model.incident.Incident;
 
 public class FindIncidentsCommandParserTest {
 
@@ -27,7 +28,7 @@ public class FindIncidentsCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        List<Predicate> predicateArr = new ArrayList<>();
+        List<Predicate<Incident>> predicateArr = new ArrayList<>();
         predicateArr.add(new DescriptionKeywordsPredicate(new Description("test")));
 
         // no leading and trailing whitespaces
