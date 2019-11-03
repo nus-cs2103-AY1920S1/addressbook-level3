@@ -2,20 +2,19 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
-import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithNoApprovedClaims;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithApprovedClaims;
-
-import org.junit.jupiter.api.Test;
+import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithNoApprovedClaims;
 
 import java.util.List;
 
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import org.junit.jupiter.api.Test;
+
 import seedu.address.model.budget.Budget;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.income.Income;
-
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 public class BudgetCommandTest {
 
@@ -39,7 +38,7 @@ public class BudgetCommandTest {
     }
 
     @Test
-    public void execute_execute_noClaims_budgetSuccess() {
+    public void execute_noClaims_budgetSuccess() {
         Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
         CommandResult commandResult = new BudgetCommand().execute(model);
@@ -50,7 +49,7 @@ public class BudgetCommandTest {
     }
 
     @Test
-    public void execute_execute_nonApprovedClaims_budgetSuccess() {
+    public void execute_nonApprovedClaims_budgetSuccess() {
         Budget budget = new Budget(claimList2, incomeList2);
         budget.calculateBudget();
         CommandResult commandResult = new BudgetCommand().execute(model2);
@@ -61,15 +60,15 @@ public class BudgetCommandTest {
     }
 
     @Test
-    public void execute_execute_approvedClaims_budgetSuccess() {
+    public void execute_approvedClaims_budgetSuccess() {
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
         CommandResult commandResult = new BudgetCommand().execute(model3);
-        String ApprovedClaimData = "Projected income: $10,100.10\n"
+        String approvedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $10,911.29\n"
                 + "Projected Budget: -$811.19\n"
                 + "Warning, you will be over budget!";
-        assertEquals(ApprovedClaimData, commandResult.getFeedbackToUser());
+        assertEquals(approvedClaimData, commandResult.getFeedbackToUser());
     }
 
 }

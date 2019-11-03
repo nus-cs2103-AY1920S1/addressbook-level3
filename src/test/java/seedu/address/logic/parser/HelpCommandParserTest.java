@@ -1,16 +1,17 @@
 package seedu.address.logic.parser;
 
 import org.junit.jupiter.api.Test;
+
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.HelpCommand.getHelpMessage;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.help.SecondaryCommand;
 import seedu.address.model.help.Type;
-
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.getHelpMessage;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 public class HelpCommandParserTest {
 

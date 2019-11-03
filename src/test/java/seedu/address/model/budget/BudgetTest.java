@@ -4,19 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
-import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithNoApprovedClaims;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithApprovedClaims;
-
-import org.junit.jupiter.api.Test;
+import static seedu.address.testutil.TypicalObjects.getTypicalFinSecWithNoApprovedClaims;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.claim.Claim;
-import seedu.address.model.income.Income;
-
 
 public class BudgetTest {
 
@@ -62,7 +61,7 @@ public class BudgetTest {
     }
 
     @Test
-    public void execute_ApprovedClaims_allMethodsSuccess() {
+    public void execute_approvedClaims_allMethodsSuccess() {
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
 
