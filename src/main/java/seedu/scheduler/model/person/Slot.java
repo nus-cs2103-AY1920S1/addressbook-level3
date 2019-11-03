@@ -25,7 +25,6 @@ public class Slot implements Comparable<Slot> {
     public static final String MESSAGE_CONSTRAINTS =
             "A slot should follow this format: " + String.format(STRING_FORMAT, "dd/mm/yyyy", "hh:mm", "hh:mm");
     public static final String DATETIME_PARSE_PATTERN = "dd/MM/yyyy HH:mm";
-    public static final String TIME_PARSE_PATTERN = "HH:mm";
     private static final Pattern SEPARATION_REGEX =
             Pattern.compile("(?<date>\\d{2}/\\d{2}/\\d{4}) (?<slot1>\\d{2}:\\d{2})-(?<slot2>\\d{2}:\\d{2})");
     private static final DateTimeFormatter parseFormatter =
@@ -63,7 +62,6 @@ public class Slot implements Comparable<Slot> {
         if (!matcher.matches()) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
-
         return new Slot(matcher.group("date"), matcher.group("slot1"), matcher.group("slot2"));
     }
 

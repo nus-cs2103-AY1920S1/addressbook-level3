@@ -52,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_NUS_WORK_EMAIL);
 
         // common prefixes - present across interviewers and interviewees
-        if (!arePrefixesPresent(argMultimap, PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE, PREFIX_DEPARTMENT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ROLE, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -61,21 +61,27 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        List<Department> departmentChoices = ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
-        List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
 
         // may not be present, depending on role type being added.
         Optional<String> facultyString = argMultimap.getValue(PREFIX_FACULTY);
         Optional<String> yearOfStudyString = argMultimap.getValue(PREFIX_YEAR_OF_STUDY);
         Optional<String> personalEmailString = argMultimap.getValue(PREFIX_PERSONAL_EMAIL);
         Optional<String> nusWorkEmailString = argMultimap.getValue(PREFIX_NUS_WORK_EMAIL);
+        List<String> availableTimeslotsString = argMultimap.getAllValues(PREFIX_SLOT);
 
         if (role.getRole() == RoleType.INTERVIEWEE) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_FACULTY,
+                    PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL, PREFIX_NUS_WORK_EMAIL)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
             Faculty faculty = ParserUtil.parseFaculty(facultyString.get());
             Integer yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudyString.get());
+            List<Slot> availableTimeslots = ParserUtil.parseSlots(availableTimeslotsString);
             Email personalEmail = ParserUtil.parseEmail(personalEmailString.get());
             Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
             Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
+            List<Department> departmentChoices =
+                    ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
             Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagList)
                     .faculty(faculty)
                     .yearOfStudy(yearOfStudy)
@@ -85,8 +91,13 @@ public class AddCommandParser implements Parser<AddCommand> {
                     .build();
             return new AddIntervieweeCommand(interviewee);
         } else if (role.getRole() == RoleType.INTERVIEWER) {
-            Department department = departmentChoices.get(0); // interviewer has one department
+            if (!arePrefixesPresent(argMultimap, PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL, PREFIX_SLOT)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+            // get the last department
+            Department department = ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get());
             Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
+            List<Slot> availableTimeslots = ParserUtil.parseSlots(availableTimeslotsString);
             Interviewer interviewer = new Interviewer.InterviewerBuilder(name, phone, tagList)
                     .department(department)
                     .email(nusWorkEmail)
