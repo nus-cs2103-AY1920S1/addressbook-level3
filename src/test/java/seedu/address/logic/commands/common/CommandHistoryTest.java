@@ -96,6 +96,7 @@ class CommandHistoryTest {
         assertTrue(history.canUndo());
         assertFalse(history.canRedo());
 
+        // exception thrown on undo request
         assertThrows(CommandException.class,
                 CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
 
@@ -116,17 +117,16 @@ class CommandHistoryTest {
         assertTrue(performUndoResult.equals(new CommandResult("cmd 1")));
         assertTrue(history.canRedo());
 
-        // True: able to redo the cmd 1. undo stack should not be empty.
-        performUndoResult = assertDoesNotThrow(() -> history.performUndo(model));
-        assertTrue(performUndoResult.equals(new CommandResult("cmd 1")));
-        assertTrue(history.canUndo());
-        assertTrue(history.canRedo());
+        // exception thrown on undo request
+        assertThrows(CommandException.class,
+                CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
 
         // False: Able to add action pair to the stack. Cmd 1 added to the undo stack, but redo stack is cleared.
         history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 1"));
         assertTrue(history.canUndo());
         assertFalse(history.canRedo());
 
+        // exception thrown on redo request
         assertThrows(CommandException.class,
                 CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
 

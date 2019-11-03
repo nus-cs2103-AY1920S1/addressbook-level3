@@ -17,6 +17,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 import seedu.address.model.events.parameters.DateTime;
 import seedu.address.model.events.parameters.Timing;
+import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -72,8 +73,10 @@ public class ParserUtil {
             throws ParseException {
         try {
             return PersonReferenceId.lookupStaffReferenceId(staffRefId);
-        } catch (ParseException ex) {
+        } catch (ReferenceIdIncorrectGroupClassificationException ex) {
             throw new ParseException(String.format("%1$s\n%2$s", ex.getMessage(), errorMessageOnClassificationError));
+        } catch (ParseException ex) {
+            throw ex;
         }
     }
 
@@ -88,8 +91,10 @@ public class ParserUtil {
             throws ParseException {
         try {
             return PersonReferenceId.lookupPatientReferenceId(patientRefId);
-        } catch (ParseException ex) {
+        } catch (ReferenceIdIncorrectGroupClassificationException ex) {
             throw new ParseException(String.format("%1$s\n%2$s", ex.getMessage(), errorMessageOnClassificationError));
+        } catch (ParseException ex) {
+            throw ex;
         }
     }
 
