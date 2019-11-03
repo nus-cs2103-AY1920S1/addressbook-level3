@@ -22,7 +22,7 @@ quizzes, managing classes and viewing grades reports.
 
 Shown below is the GUI of Njoy Teaching Assistant:
 
-image::Ui.png[]
+image::Ui.PNG[]
 
 This documentation serves as an introduction to the architecture and implementation of Njoy,
 and is made for developers who wish to maintain, modify or understand the software development
@@ -527,6 +527,12 @@ When the user inputs the `quiz export` command in the command line, the followin
 7. Finally, this delegates the actual operations to `QuizManager#exportQuiz()`.
 
 8. The `Quiz` object is exported to a HTML file in the user's directory for further use.
+
+.Activity Diagram for `quiz export` command
+image::QuizExportActivity.png[align="center"]
+
+.Follow up Rake Reference Activity Diagram for `quiz export` command
+image::CreateQuizHtml.png[align="center"]
 
 [[Feature-Quiz-List]]
 ==== Listing Questions and Answers of a Quiz
