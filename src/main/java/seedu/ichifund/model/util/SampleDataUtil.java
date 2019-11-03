@@ -73,7 +73,7 @@ public class SampleDataUtil {
                     new Year("2019"), new Category("Food")),
             new Budget(new Description("Grab less spend less"), new Amount("200"), null, null,
                     new Category("Transportation")),
-            new Budget(new Description("Play hard spend hard"), new Amount("50"), new Month("11"),
+            new Budget(new Description("Play hard pay hard"), new Amount("50"), new Month("11"),
                     new Year("2019"), new Category("Entertainment"))
         };
     }
