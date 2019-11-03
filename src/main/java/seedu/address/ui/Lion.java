@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -33,5 +34,6 @@ public class Lion extends UiPart<Region> {
         label.getStyleClass().add("label-bright");
 
         responseWindow.getChildren().addAll(label);
+        responseWindow.getChildren().addAll(new Separator());
     }
 }
