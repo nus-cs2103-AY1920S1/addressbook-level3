@@ -41,6 +41,12 @@
     -fx-border-width: 0 0 2 0;
 }
 
+.text-area-profile {
+    -fx-font-family: "Gill Sans MT";
+    -fx-text-inner-colour: #ffffff;
+    -fx-control-inner-background: #121924;
+}
+
 #helpMessage, #userGuideUrl, #quickGuide {
     -fx-font-size: 12pt;
     -fx-font-family: "Gill Sans MT";

@@ -120,27 +120,26 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 ==== Locating patient by name : `find`
 
-Finds patients whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds patients whose names contain the queried KEYWORD. +
+Format: `find KEYWORD`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Patients matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Partial words will be matched as well. e.g. `Han` will match `Hans`
+* All Patients matching the keyword will be returned.
 ****
 
 *Examples*:
 
 * `find John` +
 Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any patient having names `Betsy`, `Tim`, or `John`
+* `find ans` +
+Returns `Hans` and `Aziz Ansari`
 
 ==== Viewing a Patient's Full Profile : `profile`
 
-Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing `q` to quit, or `p` to generate a text file of the profile. +
+Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing kbd:[q] or kbd:[esc] to quit, or kbd:[p] to generate a text file of the profile. +
 Format: `profile INDEX`
 
 [NOTE]
@@ -150,7 +149,9 @@ Generated text version of profiles are saved under the `generated_profiles` fold
 * Shows full profile for the patient at the specified INDEX.
 * The index refers to the index number shown in the displayed patient list.
 * The index must be a positive integer 1, 2, 3, …
-* The generated text file will overwrite the older text file if it exists.
+* The generated text file will be the following format:
+- `NAME_PHONE_dd-MM-yyyy hh-mm-ss`
+- e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58`
 ****
 
 *Examples*:
