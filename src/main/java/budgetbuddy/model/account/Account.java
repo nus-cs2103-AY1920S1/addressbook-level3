@@ -50,6 +50,10 @@ public class Account {
         return this.transactionList.getTransaction(toGet);
     }
 
+    /**
+     * Add a transaction to the transactionList.
+     * @param toAdd
+     */
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
         if (toAdd.getDirection().toString().equals("IN")) {
@@ -59,10 +63,19 @@ public class Account {
         }
     }
 
+    /**
+     * Update the transaction.
+     * @param txnIndex
+     * @param editedTxn
+     */
     public void updateTransaction(Index txnIndex, Transaction editedTxn) {
         this.transactionList.setTransaction(txnIndex, editedTxn);
     }
 
+    /**
+     * Deletes a transaction from the transactionList.
+     * @param toDelete
+     */
     public void deleteTransaction(Transaction toDelete) {
         this.transactionList.remove(toDelete);
         if (toDelete.getDirection().toString().equals("IN")) {

@@ -109,7 +109,7 @@ public class JsonAdaptedAccount {
      */
     private long checkBalance() throws NumberFormatException {
         try {
-             return Long.parseLong(balance);
+            return Long.parseLong(balance);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("It is not a valid balance");
         }
