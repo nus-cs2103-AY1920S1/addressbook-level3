@@ -120,6 +120,8 @@ public class EditEventFieldCommand extends Command {
             endDate = Optional.empty();
             destination = Optional.empty();
             totalBudget = Optional.empty();
+            inventory = Optional.empty();
+            booking = Optional.empty();
 
         }
 
