@@ -33,7 +33,11 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New Spending added: %1$s";
+    public static final String NO_DUPLICATE_MESSAGE_SUCCESS = "New Spending added: %1$s";
+
+    public static final String MESSAGE_DUPLICATE_FOUND = "The spending with the same attributes found";
+
+    public static final String DUPLICATE_MESSAGE_SUCCESS = "Duplicate spending added: %1$s";
 
     private final Spending toAdd;
 
@@ -48,8 +52,14 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        String feedbackToUser;
+        if (model.hasSpending(toAdd)) {
+            feedbackToUser = MESSAGE_DUPLICATE_FOUND + "\n" + String.format(DUPLICATE_MESSAGE_SUCCESS, toAdd);
+        } else {
+            feedbackToUser = String.format(NO_DUPLICATE_MESSAGE_SUCCESS, toAdd);
+        }
         model.addSpending(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(feedbackToUser);
     }
 
     @Override

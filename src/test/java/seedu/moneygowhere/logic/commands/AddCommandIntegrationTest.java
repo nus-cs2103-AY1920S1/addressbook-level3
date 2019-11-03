@@ -32,6 +32,6 @@ public class AddCommandIntegrationTest {
         expectedModel.addSpending(validSpending);
 
         assertCommandSuccess(new AddCommand(validSpending), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validSpending), expectedModel);
+                String.format(AddCommand.NO_DUPLICATE_MESSAGE_SUCCESS, validSpending), expectedModel);
     }
 }
