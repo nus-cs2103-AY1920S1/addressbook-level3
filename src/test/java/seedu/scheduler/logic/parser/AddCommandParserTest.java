@@ -116,20 +116,20 @@ public class AddCommandParserTest {
                 new AddIntervieweeCommand(expectedInterviewee));
 
         // multiple work emails - last work email accepted
-        assertParseSuccess(parser,ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
                         + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                         + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB
                         + EMAIL_NUS_WORK_DESC_AMY + EMAIL_NUS_WORK_DESC_BOB,
                 new AddIntervieweeCommand(expectedInterviewee));
 
         // multiple faculties - last faculty accepted
-        assertParseSuccess(parser,ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
                         + TAG_DESC_FRIEND + FACULTY_DESC_AMY + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_BOB
                         + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
                 new AddIntervieweeCommand(expectedInterviewee));
 
         // multiple years of study - last year of study accepted
-        assertParseSuccess(parser,ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseSuccess(parser, ROLE_DESC_BOB_INTVE + NAME_DESC_BOB + PHONE_DESC_BOB
                         + TAG_DESC_FRIEND + FACULTY_DESC_BOB + YEAR_OF_STUDY_DESC_AMY + YEAR_OF_STUDY_DESC_BOB
                         + DEPARTMENT_DESC_BOB + SLOT_DESC_BOB + EMAIL_PERSONAL_DESC_BOB + EMAIL_NUS_WORK_DESC_BOB,
                 new AddIntervieweeCommand(expectedInterviewee));
@@ -166,7 +166,7 @@ public class AddCommandParserTest {
                 new AddInterviewerCommand(expectedInterviewer));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser,  ROLE_DESC_AMY_INTVR + NAME_DESC_BOB + NAME_DESC_AMY
+        assertParseSuccess(parser, ROLE_DESC_AMY_INTVR + NAME_DESC_BOB + NAME_DESC_AMY
                         + PHONE_DESC_AMY + TAG_DESC_FRIEND + EMAIL_NUS_WORK_DESC_AMY + DEPARTMENT_DESC_AMY
                         + SLOT_DESC_AMY,
                 new AddInterviewerCommand(expectedInterviewer));
