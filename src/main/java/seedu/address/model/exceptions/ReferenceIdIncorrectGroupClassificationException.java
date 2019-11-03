@@ -11,7 +11,7 @@ public class ReferenceIdIncorrectGroupClassificationException extends ParseExcep
 
     public ReferenceIdIncorrectGroupClassificationException(
             String id, String alreadyClassifiedAs) {
-        super(String.format("%1$s was assigned as a %2$s.", id, alreadyClassifiedAs));
+        super(String.format("'%1$s' was assigned as a %2$s.", id, alreadyClassifiedAs));
         this.id = id;
     }
 

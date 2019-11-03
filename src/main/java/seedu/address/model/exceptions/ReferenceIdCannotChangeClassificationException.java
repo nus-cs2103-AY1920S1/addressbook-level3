@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ReferenceIdCannotChangeClassificationException extends ParseException {
     public ReferenceIdCannotChangeClassificationException(
             String id, String alreadyClassifiedAs, String currentClassification) {
-        super(String.format("%1$s was already assigned as a %2$s and cannot be re-assigned as a %3$s.",
+        super(String.format("'%1$s' was already assigned as a %2$s and cannot be re-assigned as a %3$s.",
                 id, alreadyClassifiedAs, currentClassification));
     }
 
