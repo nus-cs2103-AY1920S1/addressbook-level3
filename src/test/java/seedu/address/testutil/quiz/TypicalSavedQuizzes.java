@@ -1,11 +1,11 @@
 package seedu.address.testutil.quiz;
 
-import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.SavedQuizzes;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.SavedQuizzes;
 
 /**
  * A utility class containing a list of {@code Quiz} objects to be used in tests.

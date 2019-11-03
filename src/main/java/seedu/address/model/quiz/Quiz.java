@@ -211,4 +211,18 @@ public class Quiz {
     private boolean isMcqQuestion(Question question) {
         return (question instanceof McqQuestion);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Quiz)) {
+            return false;
+        }
+
+        Quiz otherQuiz = (Quiz) other;
+        return otherQuiz.getQuizId().equals(this.getQuizId());
+    }
 }
