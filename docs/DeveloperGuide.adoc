@@ -328,7 +328,7 @@ Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResu
 
 The followingg sequence diagram shows how ApproveCommand works:
 
-image::ResolveCommandSequenceDiagram.png[]
+image::ResolveSequenceDiagram.png[]
 
 
 Below shows how the ResolveCommand mechanism behaves at each step when resolving multiple appeals.
