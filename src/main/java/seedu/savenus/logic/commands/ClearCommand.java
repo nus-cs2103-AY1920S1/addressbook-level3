@@ -3,6 +3,7 @@ package seedu.savenus.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.savenus.model.Model;
+import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.menu.Menu;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.savings.SavingsAccount;
@@ -15,7 +16,7 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Your menu, purchase history, savings account, wallet, "
-            + "likes and dislikes have been cleared!";
+            + "likes, dislikes and aliases have been cleared!";
 
     @Override
     public CommandResult execute(Model model) {
@@ -23,6 +24,7 @@ public class ClearCommand extends Command {
         model.setMenu(new Menu());
         model.setPurchaseHistory(new PurchaseHistory());
         model.setSavingsAccount(new SavingsAccount());
+        model.setAliasList(new AliasList());
         model.setWallet(new Wallet());
         model.clearLikes();
         model.clearDislikes();
