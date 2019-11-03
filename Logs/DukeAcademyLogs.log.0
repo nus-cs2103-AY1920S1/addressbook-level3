@@ -52,3 +52,301 @@ Nov 01, 2019 9:41:55 PM com.dukeacademy.testexecutor.environment.StandardCompile
 INFO: Clearing files and folder at : DukeAcademy/test/temp
 Nov 01, 2019 9:41:55 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
 INFO: Environment successfully closed : DukeAcademy/test/temp
+Nov 03, 2019 9:11:12 PM com.dukeacademy.MainApp initConfig
+INFO: Using config file : config.json
+Nov 03, 2019 9:11:13 PM com.dukeacademy.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp init
+INFO: =============================[ Initializing DukeAcademy ]===========================
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp initAppPaths
+INFO: Test output folder not found at : DukeAcademy\tests
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp initAppPaths
+INFO: Creating test output folder at : DukeAcademy\tests
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp initApplicationState
+INFO: ============================ [ Initializing application state ] =============================
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp initQuestionsLogic
+INFO: ============================ [ Initializing question logic ] =============================
+Nov 03, 2019 9:11:13 PM com.dukeacademy.storage.question.JsonQuestionBankStorage <init>
+INFO: file path becomes:DukeAcademy\data\QuestionBank.json
+Nov 03, 2019 9:11:13 PM com.dukeacademy.logic.question.QuestionsLogicManager loadQuestionsFromStorage
+INFO: storage instance built. trying to load questions / samples
+Nov 03, 2019 9:11:13 PM com.dukeacademy.MainApp initProgramSubmissionLogic
+INFO: ============================ [ Initializing program submission logic ] =============================
+Nov 03, 2019 9:11:14 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment createDirectory
+INFO: Created new folder at : DukeAcademy\tests\temp
+Nov 03, 2019 9:11:14 PM com.dukeacademy.MainApp initCommandLogic
+INFO: ============================ [ Initializing command logic ] =============================
+Nov 03, 2019 9:11:14 PM com.dukeacademy.MainApp initUi
+INFO: ============================ [ Initializing UI ] =============================
+Nov 03, 2019 9:11:14 PM com.dukeacademy.MainApp start
+INFO: ============================ [ Starting application ] =============================
+Nov 03, 2019 9:11:14 PM com.dukeacademy.MainApp start
+INFO: Starting QuestionBank V1.3.1ea
+Nov 03, 2019 9:11:14 PM com.dukeacademy.ui.UiManager start
+INFO: Starting UI...
+Nov 03, 2019 9:11:17 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager setUserProgramSubmissionChannel
+INFO: UserProgramChannel set : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@669c2a54
+Nov 03, 2019 9:11:23 PM com.dukeacademy.MainApp stop
+INFO: ============================ [ Stopping DukeAcademy ] =============================
+Nov 03, 2019 9:11:23 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Clearing files and folder at : DukeAcademy\tests\temp
+Nov 03, 2019 9:11:23 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Environment successfully closed : DukeAcademy\tests\temp
+Nov 03, 2019 9:11:43 PM com.dukeacademy.MainApp initConfig
+INFO: Using config file : config.json
+Nov 03, 2019 9:11:44 PM com.dukeacademy.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Nov 03, 2019 9:11:44 PM com.dukeacademy.MainApp init
+INFO: =============================[ Initializing DukeAcademy ]===========================
+Nov 03, 2019 9:11:44 PM com.dukeacademy.MainApp initApplicationState
+INFO: ============================ [ Initializing application state ] =============================
+Nov 03, 2019 9:11:44 PM com.dukeacademy.MainApp initQuestionsLogic
+INFO: ============================ [ Initializing question logic ] =============================
+Nov 03, 2019 9:11:44 PM com.dukeacademy.storage.question.JsonQuestionBankStorage <init>
+INFO: file path becomes:DukeAcademy\data\QuestionBank.json
+Nov 03, 2019 9:11:44 PM com.dukeacademy.logic.question.QuestionsLogicManager loadQuestionsFromStorage
+INFO: storage instance built. trying to load questions / samples
+Nov 03, 2019 9:11:45 PM com.dukeacademy.MainApp initProgramSubmissionLogic
+INFO: ============================ [ Initializing program submission logic ] =============================
+Nov 03, 2019 9:11:45 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment createDirectory
+INFO: Created new folder at : DukeAcademy\tests\temp
+Nov 03, 2019 9:11:45 PM com.dukeacademy.MainApp initCommandLogic
+INFO: ============================ [ Initializing command logic ] =============================
+Nov 03, 2019 9:11:45 PM com.dukeacademy.MainApp initUi
+INFO: ============================ [ Initializing UI ] =============================
+Nov 03, 2019 9:11:45 PM com.dukeacademy.MainApp start
+INFO: ============================ [ Starting application ] =============================
+Nov 03, 2019 9:11:45 PM com.dukeacademy.MainApp start
+INFO: Starting QuestionBank V1.3.1ea
+Nov 03, 2019 9:11:45 PM com.dukeacademy.ui.UiManager start
+INFO: Starting UI...
+Nov 03, 2019 9:11:49 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager setUserProgramSubmissionChannel
+INFO: UserProgramChannel set : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@5b9ca23
+Nov 03, 2019 9:11:56 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Toggling tab to : QUESTION
+Nov 03, 2019 9:12:03 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:12:03 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:12:27 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark -1
+Nov 03, 2019 9:12:33 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : bookmarkn
+Nov 03, 2019 9:12:33 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmarkn
+Nov 03, 2019 9:12:36 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:12:36 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:12:38 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : bookmark0
+Nov 03, 2019 9:12:38 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark0
+Nov 03, 2019 9:12:40 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 0
+Nov 03, 2019 9:12:42 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:12:42 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:12:45 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 0
+Nov 03, 2019 9:13:51 PM com.dukeacademy.logic.commands.bookmark.BookmarkCommand execute
+INFO: Bookmarked question at index 0 : Two Number Adder Status: NEW Difficulty: EASY Topics: trueOTHERS
+Nov 03, 2019 9:13:51 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Bookmarked question 1 : Two Number Adder
+Nov 03, 2019 9:14:02 PM com.dukeacademy.logic.commands.find.FindCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:14:02 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords.
+Nov 03, 2019 9:14:09 PM com.dukeacademy.logic.commands.find.FindCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:14:09 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords.
+Nov 03, 2019 9:14:13 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:14:13 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:14:15 PM com.dukeacademy.logic.commands.browse.BrowseCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:14:15 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords as long as they appear in title, topics, description, status or difficulty.
+Nov 03, 2019 9:14:29 PM com.dukeacademy.logic.commands.bookmark.BookmarkCommand execute
+INFO: Bookmarked question at index 2 : Palindrome Number Status: NEW Difficulty: EASY Topics: trueOTHERSRECURSION
+Nov 03, 2019 9:14:29 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Bookmarked question 3 : Palindrome Number
+Nov 03, 2019 9:14:30 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command is not a valid word : 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command is not a valid word : 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command is not a valid word : 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command is not a valid word : 
+Nov 03, 2019 9:14:30 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: 
+Nov 03, 2019 9:14:34 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager getUserProgramFromSubmissionChannel
+INFO: Returning user program from registered channel : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@5b9ca23
+Nov 03, 2019 9:14:34 PM com.dukeacademy.logic.commands.home.HomeCommand execute
+INFO: No question attempt found. Skipping program save.
+Nov 03, 2019 9:14:34 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Returning to home page...
+Nov 03, 2019 9:14:40 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Toggling tab to : QUESTION
+Nov 03, 2019 9:14:42 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:14:42 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:14:47 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:14:47 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 
+Nov 03, 2019 9:14:50 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 9
+Nov 03, 2019 9:14:57 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : show
+Nov 03, 2019 9:14:57 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: show all
+Nov 03, 2019 9:14:59 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:14:59 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:15:01 PM com.dukeacademy.logic.commands.bookmark.BookmarkCommand execute
+INFO: Bookmarked question at index 4 : Merge k Sorted Lists Status: NEW Difficulty: HARD Topics: trueLINKED_LISTSORTING
+Nov 03, 2019 9:15:01 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Bookmarked question 5 : Merge k Sorted Lists
+Nov 03, 2019 9:15:08 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 0
+Nov 03, 2019 9:15:10 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : bookmark0
+Nov 03, 2019 9:15:10 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark0
+Nov 03, 2019 9:15:12 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 0
+Nov 03, 2019 9:15:13 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:15:13 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:15:16 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:15:16 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark   
+Nov 03, 2019 9:15:17 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:15:17 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark   
+Nov 03, 2019 9:15:17 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:15:17 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark   
+Nov 03, 2019 9:15:22 PM com.dukeacademy.logic.commands.bookmark.BookmarkCommand execute
+INFO: Bookmarked question at index 1 : Matching Sums Status: NEW Difficulty: MEDIUM Topics: trueOTHERSDYNAMIC_PROGRAMMINGARRAY
+Nov 03, 2019 9:15:22 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Bookmarked question 2 : Matching Sums
+Nov 03, 2019 9:15:31 PM com.dukeacademy.logic.commands.bookmark.BookmarkCommand execute
+INFO: Bookmarked question at index 3 : Swap Nodes in Pairs Status: NEW Difficulty: MEDIUM Topics: trueGRAPHDYNAMIC_PROGRAMMING
+Nov 03, 2019 9:15:31 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Bookmarked question 4 : Swap Nodes in Pairs
+Nov 03, 2019 9:15:34 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Question 4 : Swap Nodes in Pairs - is already bookmarked.
+Nov 03, 2019 9:15:42 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:15:42 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command:    bookmark
+Nov 03, 2019 9:15:46 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Question 1 : Two Number Adder - is already bookmarked.
+Nov 03, 2019 9:15:51 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : _1
+Nov 03, 2019 9:15:51 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark _1
+Nov 03, 2019 9:15:56 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 1_
+Nov 03, 2019 9:15:56 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark 1_
+Nov 03, 2019 9:18:13 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:18:13 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:18:18 PM com.dukeacademy.logic.commands.browse.BrowseCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:18:18 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords as long as they appear in title, topics, description, status or difficulty.
+Nov 03, 2019 9:18:34 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:18:34 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:18:38 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : brose
+Nov 03, 2019 9:18:38 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: brose sortiing
+Nov 03, 2019 9:18:41 PM com.dukeacademy.logic.commands.browse.BrowseCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:18:41 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords as long as they appear in title, topics, description, status or difficulty.
+Nov 03, 2019 9:18:45 PM com.dukeacademy.logic.commands.browse.BrowseCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:18:45 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords as long as they appear in title, topics, description, status or difficulty.
+Nov 03, 2019 9:18:50 PM com.dukeacademy.logic.commands.browse.BrowseCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:18:50 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords as long as they appear in title, topics, description, status or difficulty.
+Nov 03, 2019 9:18:55 PM com.dukeacademy.logic.commands.bookmark.DeleteBookmarkCommand execute
+INFO: Deleted bookmark for question at index 0 : Merge k Sorted Lists Status: NEW Difficulty: HARD Topics: falseLINKED_LISTSORTING
+Nov 03, 2019 9:18:55 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Deleted bookmark for question 1 : Merge k Sorted Lists
+Nov 03, 2019 9:19:01 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager getUserProgramFromSubmissionChannel
+INFO: Returning user program from registered channel : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@5b9ca23
+Nov 03, 2019 9:19:01 PM com.dukeacademy.logic.commands.home.HomeCommand execute
+INFO: No question attempt found. Skipping program save.
+Nov 03, 2019 9:19:01 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Returning to home page...
+Nov 03, 2019 9:19:32 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:19:32 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:19:47 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Question 4 : Swap Nodes in Pairs - is already bookmarked.
+Nov 03, 2019 9:19:52 PM com.dukeacademy.logic.commands.find.FindCommand execute
+INFO: Listing questions that contains keywords specified.
+Nov 03, 2019 9:19:52 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions that contains the corresponding keywords.
+Nov 03, 2019 9:19:59 PM com.dukeacademy.logic.commands.bookmark.DeleteBookmarkCommand execute
+INFO: Deleted bookmark for question at index 0 : Swap Nodes in Pairs Status: NEW Difficulty: MEDIUM Topics: falseGRAPHDYNAMIC_PROGRAMMING
+Nov 03, 2019 9:19:59 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Deleted bookmark for question 1 : Swap Nodes in Pairs
+Nov 03, 2019 9:20:08 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Command word not recognized : homer
+Nov 03, 2019 9:20:08 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: homer
+Nov 03, 2019 9:20:09 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager getUserProgramFromSubmissionChannel
+INFO: Returning user program from registered channel : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@5b9ca23
+Nov 03, 2019 9:20:09 PM com.dukeacademy.logic.commands.home.HomeCommand execute
+INFO: No question attempt found. Skipping program save.
+Nov 03, 2019 9:20:09 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Returning to home page...
+Nov 03, 2019 9:20:33 PM com.dukeacademy.logic.program.ProgramSubmissionLogicManager getUserProgramFromSubmissionChannel
+INFO: Returning user program from registered channel : com.dukeacademy.ui.Workspace$$Lambda$448/0x0000000800428c40@5b9ca23
+Nov 03, 2019 9:20:33 PM com.dukeacademy.logic.commands.home.HomeCommand execute
+INFO: No question attempt found. Skipping program save.
+Nov 03, 2019 9:20:33 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: Returning to home page...
+Nov 03, 2019 9:20:38 PM com.dukeacademy.logic.commands.list.ListCommand execute
+INFO: Listing all questions...
+Nov 03, 2019 9:20:38 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Result: List all questions...
+Nov 03, 2019 9:42:17 PM com.dukeacademy.logic.commands.CommandParser parseCommandText
+WARNING: Invalid command arguments : 
+Nov 03, 2019 9:42:17 PM com.dukeacademy.ui.MainWindow executeCommand
+INFO: Invalid command: bookmark
+Nov 03, 2019 9:42:22 PM com.dukeacademy.MainApp stop
+INFO: ============================ [ Stopping DukeAcademy ] =============================
+Nov 03, 2019 9:42:22 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Clearing files and folder at : DukeAcademy\tests\temp
+Nov 03, 2019 9:42:22 PM com.dukeacademy.testexecutor.environment.StandardCompilerEnvironment close
+INFO: Environment successfully closed : DukeAcademy\tests\temp

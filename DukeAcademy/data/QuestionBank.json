@@ -3,7 +3,7 @@
     "title" : "Two Number Adder",
     "status" : "NEW",
     "difficulty" : "EASY",
-    "isBookmarked" : false,
+    "isBookmarked" : true,
     "topics" : [ "OTHERS" ],
     "testCases" : [ {
       "input" : "1 2",
@@ -24,8 +24,8 @@
     "title" : "Matching Sums",
     "status" : "NEW",
     "difficulty" : "MEDIUM",
-    "isBookmarked" : false,
-    "topics" : [ "DYNAMIC_PROGRAMMING", "OTHERS", "ARRAY" ],
+    "isBookmarked" : true,
+    "topics" : [ "OTHERS", "DYNAMIC_PROGRAMMING", "ARRAY" ],
     "testCases" : [ {
       "input" : "13 5 3 8 1 22 2 77 17",
       "expectedResult" : "0 2\r\n"
@@ -42,7 +42,7 @@
     "title" : "Palindrome Number",
     "status" : "NEW",
     "difficulty" : "EASY",
-    "isBookmarked" : false,
+    "isBookmarked" : true,
     "topics" : [ "OTHERS", "RECURSION" ],
     "testCases" : [ {
       "input" : "12321",
@@ -61,7 +61,7 @@
     "status" : "NEW",
     "difficulty" : "MEDIUM",
     "isBookmarked" : false,
-    "topics" : [ "DYNAMIC_PROGRAMMING", "GRAPH" ],
+    "topics" : [ "GRAPH", "DYNAMIC_PROGRAMMING" ],
     "testCases" : [ {
       "input" : "5 12 33 23",
       "expectedResult" : "4132\r\n"

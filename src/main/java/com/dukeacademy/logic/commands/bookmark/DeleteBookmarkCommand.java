@@ -39,12 +39,15 @@ public class DeleteBookmarkCommand implements Command {
      */
     @Override
     public CommandResult execute() throws CommandException {
+
         try {
+            // The question selected by user, to delete the bookmark
             Question userSelection = this.questionsLogic.getQuestion(index);
             boolean userSelectionIsBookmarked = userSelection.isBookmarked();
 
+            // If question selected is indeed bookmarked
             if (userSelectionIsBookmarked) {
-                // Update isBookmarked of question to false
+                // Replace question selected with a non-bookmarked version
                 Question bookmarkedQuestion = userSelection.withNewIsBookmarked(false);
                 this.questionsLogic.setQuestion(index, bookmarkedQuestion);
                 logger.info("Deleted bookmark for question at index " + index + " : " + bookmarkedQuestion);
@@ -52,14 +55,12 @@ public class DeleteBookmarkCommand implements Command {
                 // Notify user of successful bookmark action
                 String feedback = "Deleted bookmark for question " + (index + 1) + " : "
                         + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false, false);
             } else {
                 // Simply notify user that question is not bookmarked
                 String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
                         + " - is not bookmarked.";
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false, false);
             }
 
         } catch (IndexOutOfBoundsException e) {
