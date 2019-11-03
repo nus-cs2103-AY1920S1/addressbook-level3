@@ -1,7 +1,6 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.commands.MatchCommand.match;
 
@@ -10,7 +9,6 @@ import organice.model.Model;
 import organice.model.person.Donor;
 import organice.model.person.Nric;
 import organice.model.person.Patient;
-import organice.model.person.TaskList;
 import organice.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -47,7 +45,7 @@ public class ProcessingMarkDoneCommand extends Command {
             firstNric = new Nric(firstNricString);
             secondNric = new Nric(secondNricString);
             taskNumber = Integer.parseInt(taskNumberString);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException nfe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }
