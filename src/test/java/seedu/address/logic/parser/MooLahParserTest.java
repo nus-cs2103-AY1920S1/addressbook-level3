@@ -11,9 +11,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FIRST_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECOND_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -26,17 +28,26 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandTestUtil;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
 import seedu.address.logic.commands.alias.ListAliasesCommand;
+import seedu.address.logic.commands.budget.AddBudgetCommand;
+import seedu.address.logic.commands.budget.ClearBudgetsCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByIndexCommand;
+import seedu.address.logic.commands.budget.DeleteBudgetByNameCommand;
 import seedu.address.logic.commands.budget.DeleteExpenseFromBudgetCommand;
+import seedu.address.logic.commands.budget.EditBudgetCommand;
 import seedu.address.logic.commands.budget.EditExpenseFromBudgetCommand;
+import seedu.address.logic.commands.budget.ListBudgetsCommand;
+import seedu.address.logic.commands.budget.SwitchBudgetCommand;
+import seedu.address.logic.commands.budget.SwitchPeriodCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand.EditEventDescriptor;
@@ -60,7 +71,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.statistics.Mode;
 import seedu.address.testutil.AliasTestUtil;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -264,6 +274,18 @@ public class MooLahParserTest {
     // ---------- event commands --------
 
     @Test
+    public void parseCommand_addEvent() throws Exception {
+        Command command = parser.parseCommand(
+                AddEventCommand.COMMAND_WORD + " "
+                        + PREFIX_DESCRIPTION + "d "
+                        + PREFIX_CATEGORY + "food "
+                        + PREFIX_PRICE + "123 "
+                        + PREFIX_TIMESTAMP + "tomorrow",
+                CommandGroup.EVENT, readOnlyUserPrefs);
+        assertTrue(command instanceof AddEventCommand);
+    }
+
+    @Test
     public void parseCommand_deleteEvent() throws Exception {
         DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
                 DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased(),
@@ -315,6 +337,64 @@ public class MooLahParserTest {
 
     // ------ budget commands ----------
 
+    @Test
+    public void parseCommand_addBudget() throws Exception {
+        assertTrue(parser.parseCommand(
+                AddBudgetCommand.COMMAND_WORD + " "
+                + PREFIX_DESCRIPTION + "abc "
+                + PREFIX_START_DATE + "today "
+                + PREFIX_PERIOD + "month "
+                + PREFIX_PRICE + "100", CommandGroup.BUDGET, readOnlyUserPrefs) instanceof AddBudgetCommand);
+    }
+
+    @Test
+    public void parseCommand_switchBudget() throws Exception {
+        assertTrue(parser.parseCommand(
+                SwitchBudgetCommand.COMMAND_WORD + " " + PREFIX_DESCRIPTION + "abc ",
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof SwitchBudgetCommand);
+    }
+
+    @Test
+    public void parseCommand_editBudget() throws Exception {
+        assertTrue(parser.parseCommand(
+                EditBudgetCommand.COMMAND_WORD + " 1 " + PREFIX_DESCRIPTION + "abc ",
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof EditBudgetCommand);
+    }
+
+    @Test
+    public void parseCommand_listBudgets() throws Exception {
+        assertTrue(parser.parseCommand(
+                ListBudgetsCommand.COMMAND_WORD,
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof ListBudgetsCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteBudgetByIndex() throws Exception {
+        assertTrue(parser.parseCommand(
+                DeleteBudgetByIndexCommand.COMMAND_WORD + " 1",
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof DeleteBudgetByIndexCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteBudgetByName() throws Exception {
+        assertTrue(parser.parseCommand(
+                DeleteBudgetByNameCommand.COMMAND_WORD + " " + PREFIX_DESCRIPTION + "some name",
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof DeleteBudgetByNameCommand);
+    }
+
+    @Test
+    public void parseCommand_switchPeriod() throws Exception {
+        assertTrue(parser.parseCommand(
+                SwitchPeriodCommand.COMMAND_WORD + " " + PREFIX_TIMESTAMP + "tomorrow",
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof SwitchPeriodCommand);
+    }
+
+    @Test
+    public void parseCommand_clearBudget() throws Exception {
+        assertTrue(parser.parseCommand(
+                ClearBudgetsCommand.COMMAND_WORD,
+                CommandGroup.BUDGET, readOnlyUserPrefs) instanceof ClearBudgetsCommand);
+    }
 
 
     // ------ stats command --------
@@ -369,6 +449,32 @@ public class MooLahParserTest {
 
     }
 
+    // ----- generic command ------
+
+    @Test
+    public void parseCommand_commandIsGeneric() throws Exception {
+        assertTrue(
+                parser.parseCommand(
+                        GenericCommandWord.LIST,
+                        CommandGroup.ALIAS,
+                        readOnlyUserPrefs) instanceof ListAliasesCommand);
+        assertTrue(
+                parser.parseCommand(
+                        GenericCommandWord.LIST,
+                        CommandGroup.BUDGET,
+                        readOnlyUserPrefs) instanceof ListBudgetsCommand);
+        assertTrue(
+                parser.parseCommand(
+                        GenericCommandWord.LIST,
+                        CommandGroup.EVENT,
+                        readOnlyUserPrefs) instanceof ListEventsCommand);
+        assertTrue(
+                parser.parseCommand(
+                        GenericCommandWord.LIST,
+                        CommandGroup.EXPENSE,
+                        readOnlyUserPrefs) instanceof ListExpensesCommand);
+    }
+
     // ----- other tests ------
 
     @Test
@@ -389,9 +495,6 @@ public class MooLahParserTest {
                     -> parser.parseCommand("unknownCommand", "", readOnlyUserPrefs));
         });
     }
-
-
-
 
 
 }
