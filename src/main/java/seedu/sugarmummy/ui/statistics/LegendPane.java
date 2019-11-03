@@ -58,19 +58,29 @@ public class LegendPane extends UiPart<Region> {
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                lineChartLegendFlowPane.getChildren().clear();
-                updateLegendPane(averageMap, recordType);
+                refreshLegendFlowPane(averageMap, recordType);
             }
         });
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                lineChartLegendFlowPane.getChildren().clear();
-                updateLegendPane(averageMap, recordType);
+                refreshLegendFlowPane(averageMap, recordType);
             }
         });
 
+        updateLegendPane(averageMap, recordType);
+    }
+
+    /**
+     * A convenience function to update lineChartLegendFlowPane with new symbols and description whenever averageMap
+     * or recordType changes.
+     *
+     * @param averageMap the newly updated averageMap containing the average values.
+     * @param recordType the newly updated type of record.
+     */
+    private void refreshLegendFlowPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
+        lineChartLegendFlowPane.getChildren().clear();
         updateLegendPane(averageMap, recordType);
     }
 
