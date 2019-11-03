@@ -1,5 +1,8 @@
 package seedu.address.model.group;
 
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,9 @@ public class ListOfGroups {
      * @param group The group to be added to the list of groups.
      */
     public void addGroup(Group group) {
+        if (groups.contains(group)) {
+            throw new DuplicateGroupException();
+        }
         groups.add(group);
     }
 
@@ -49,10 +55,16 @@ public class ListOfGroups {
      * @param groupId The group to be removed from the list of groups.
      */
     public void removeGroup(String groupId) {
+        boolean removed = false;
         for (Group q : groups) {
             if (q.getGroupId().equals(groupId)) {
                 groups.remove(q);
+                removed = true;
+                break;
             }
+        }
+        if (!removed) {
+            throw new GroupNotFoundException();
         }
     }
 
@@ -69,7 +81,7 @@ public class ListOfGroups {
                 return i;
             }
         }
-        return -1;
+        throw new GroupNotFoundException();
     }
 
     /**
@@ -104,19 +116,51 @@ public class ListOfGroups {
      */
     public void exportGroup(String groupId) {
         Group queriedGroup = null;
+        boolean queriedGroupFound = false;
         for (Group group : groups) {
             if (groupId.equals(group.getGroupId())) {
                 queriedGroup = group;
+                queriedGroupFound = true;
                 break;
             }
         }
-        queriedGroup.export();
+        if (queriedGroupFound) {
+            queriedGroup.export();
+        } else {
+            throw new GroupNotFoundException();
+        }
     }
 
     /**
      * Set all groups in the List Of Groups
      */
     public void setGroups(List<Group> groupList) {
+        if (!groupsAreUnique(groupList)) {
+            throw new DuplicateGroupException();
+        }
+        this.groups.clear();
         this.groups.addAll(groupList);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                // short circuit if same object
+                || (other instanceof ListOfGroups // instanceof handles nulls
+                && groups.equals(((ListOfGroups) other).groups));
+    }
+
+    /**
+     * Returns true if {@code Group} contains only unique groups.
+     */
+    private boolean groupsAreUnique(List<Group> groups) {
+        for (int i = 0; i < groups.size() - 1; i++) {
+            for (int j = i + 1; j < groups.size(); j++) {
+                if (groups.get(i).equals(groups.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
