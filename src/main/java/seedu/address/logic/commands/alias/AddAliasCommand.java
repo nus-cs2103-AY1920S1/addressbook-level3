@@ -20,13 +20,20 @@ import seedu.address.ui.alias.AliasPanel;
  */
 public class AddAliasCommand extends UndoableCommand {
 
+
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.ALIAS;
     public static final String COMMAND_DESCRIPTION = "Create alias %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Create a shortcut for commonly used Commands.\n"
-            + "Parameters: " + PREFIX_ALIAS_ALIAS_NAME
-            + " <alias name>  " + PREFIX_ALIAS_ALIAS_INPUT + " <input string> \n"
-            + "Example: addalias " + PREFIX_ALIAS_ALIAS_NAME
-            + " findAnimal " + PREFIX_ALIAS_ALIAS_INPUT
+            + "Parameters: \n"
+            + PREFIX_ALIAS_ALIAS_NAME + "<" + PREFIX_ALIAS_ALIAS_NAME.getDescriptionOfArgument() + ">" + "\n"
+            + PREFIX_ALIAS_ALIAS_INPUT + "<" + PREFIX_ALIAS_ALIAS_INPUT.getDescriptionOfArgument() + ">" + "\n"
+            + "Format: \n"
+            + COMMAND_WORD + " "
+            + PREFIX_ALIAS_ALIAS_NAME + "<" + PREFIX_ALIAS_ALIAS_NAME.getDescriptionOfArgument() + ">" + " "
+            + PREFIX_ALIAS_ALIAS_INPUT + "<" + PREFIX_ALIAS_ALIAS_INPUT.getDescriptionOfArgument() + ">" + "\n"
+            + "Example: \n"
+            + COMMAND_WORD + " " + PREFIX_ALIAS_ALIAS_NAME + " "
+            + "findAnimal " + PREFIX_ALIAS_ALIAS_INPUT + " "
             + " find rat rats mouse mice cow cows ox oxen tiger tigers";
 
     public static final String MESSAGE_SUCCESS = "Alias created:\n %1$s";

@@ -258,32 +258,26 @@ public class MainWindow extends UiPart<Stage> {
                 AddExpenseCommand.COMMAND_WORD,
                 AddExpenseCommandParser.REQUIRED_PREFIXES,
                 AddExpenseCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteExpenseCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteExpenseFromBudgetCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditExpenseCommand.COMMAND_WORD,
                 EditCommandParser.REQUIRED_PREFIXES,
                 EditCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditExpenseFromBudgetCommand.COMMAND_WORD,
                 EditCommandParser.REQUIRED_PREFIXES,
                 EditCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 FindExpenseCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ListExpensesCommand.COMMAND_WORD,
                 Collections.emptyList(),
@@ -294,17 +288,14 @@ public class MainWindow extends UiPart<Stage> {
                 AddEventCommand.COMMAND_WORD,
                 AddEventCommandParser.REQUIRED_PREFIXES,
                 AddEventCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditEventCommand.COMMAND_WORD,
                 EditEventCommandParser.REQUIRED_PREFIXES,
                 EditEventCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteEventCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ListEventsCommand.COMMAND_WORD,
                 Collections.emptyList(),
@@ -315,37 +306,30 @@ public class MainWindow extends UiPart<Stage> {
                 AddBudgetCommand.COMMAND_WORD,
                 AddBudgetCommandParser.REQUIRED_PREFIXES,
                 AddBudgetCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 SwitchBudgetCommand.COMMAND_WORD,
                 SwitchBudgetCommandParser.REQUIRED_PREFIXES,
                 SwitchBudgetCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ListBudgetsCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteBudgetByIndexCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 DeleteBudgetByNameCommand.COMMAND_WORD,
                 DeleteBudgetByNameCommandParser.REQUIRED_PREFIXES,
                 DeleteBudgetByNameCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 EditBudgetCommand.COMMAND_WORD,
                 EditBudgetCommandParser.REQUIRED_PREFIXES,
                 EditBudgetCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 SwitchPeriodCommand.COMMAND_WORD,
                 SwitchPeriodCommandParser.REQUIRED_PREFIXES,
                 SwitchPeriodCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ClearBudgetsCommand.COMMAND_WORD,
                 Collections.emptyList(),
@@ -370,12 +354,10 @@ public class MainWindow extends UiPart<Stage> {
                 StatsCommand.COMMAND_WORD,
                 StatsCommandParser.REQUIRED_PREFIXES,
                 StatsCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 StatsCompareCommand.COMMAND_WORD,
                 StatsCompareCommandParser.REQUIRED_PREFIXES,
                 StatsCompareCommandParser.OPTIONAL_PREFIXES);
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 StatsTrendCommand.COMMAND_WORD,
                 StatsTrendCommandParser.REQUIRED_PREFIXES,
@@ -386,27 +368,22 @@ public class MainWindow extends UiPart<Stage> {
                 UndoCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 RedoCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 HelpCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ExitCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ViewPanelCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 ClearCommand.COMMAND_WORD,
                 Collections.emptyList(),
@@ -490,20 +467,23 @@ public class MainWindow extends UiPart<Stage> {
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.DELETE);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.LIST);
         commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.EDIT);
-        commandBox.disableSuggestionsAndSyntaxHighlightingFor(GenericCommandWord.CLEAR);
+
+        // primary budget command
         if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
                     AddExpenseCommandParser.REQUIRED_PREFIXES,
                     AddExpenseCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                    GenericCommandWord.EDIT,
+                    GenericCommandWord.DELETE,
                     EditExpenseFromBudgetCommandParser.REQUIRED_PREFIXES,
                     EditExpenseFromBudgetCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                    GenericCommandWord.DELETE,
+                    GenericCommandWord.EDIT,
                     DeleteExpenseFromBudgetCommandParser.REQUIRED_PREFIXES,
                     DeleteExpenseFromBudgetCommandParser.OPTIONAL_PREFIXES);
+
+        //expense list command
         } else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -511,16 +491,14 @@ public class MainWindow extends UiPart<Stage> {
                     AddExpenseCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.LIST,
-                    AddExpenseCommandParser.REQUIRED_PREFIXES,
-                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+                    Collections.emptyList(),
+                    Collections.emptyList());
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.DELETE,
-                    AddExpenseCommandParser.REQUIRED_PREFIXES,
-                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
-            commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                    GenericCommandWord.EDIT,
-                    AddExpenseCommandParser.REQUIRED_PREFIXES,
-                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+                    Collections.emptyList(),
+                    Collections.emptyList());
+
+        //event list command
         } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -528,25 +506,28 @@ public class MainWindow extends UiPart<Stage> {
                     AddEventCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.LIST,
-                    AddEventCommandParser.REQUIRED_PREFIXES,
-                    AddEventCommandParser.OPTIONAL_PREFIXES);
+                    Collections.emptyList(),
+                    Collections.emptyList());
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.DELETE,
-                    AddEventCommandParser.REQUIRED_PREFIXES,
-                    AddEventCommandParser.OPTIONAL_PREFIXES);
+                    Collections.emptyList(),
+                    Collections.emptyList());
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.EDIT,
-                    AddExpenseCommandParser.REQUIRED_PREFIXES,
-                    AddExpenseCommandParser.OPTIONAL_PREFIXES);
+                    EditEventCommandParser.REQUIRED_PREFIXES,
+                    EditEventCommandParser.OPTIONAL_PREFIXES);
+
+        // budget list command
         } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
                     AddBudgetCommandParser.REQUIRED_PREFIXES,
                     AddBudgetCommandParser.OPTIONAL_PREFIXES);
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
-                    GenericCommandWord.CLEAR,
+                    GenericCommandWord.LIST,
                     Collections.emptyList(),
                     Collections.emptyList());
+
         } else if (panelName.equals(AliasPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
@@ -560,6 +541,7 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.LIST,
                     Collections.emptyList(),
                     Collections.emptyList());
+
         } else if (panelName.equals(StatsPanel.PANEL_NAME)) {
             // does not use generic commands
         }
@@ -653,7 +635,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private String decideCommandGroup() {
         if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
-            return CommandGroup.EXPENSE;
+            return CommandGroup.PRIMARY_BUDGET;
         } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;
         } else if (EventListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {

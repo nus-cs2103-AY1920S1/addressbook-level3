@@ -14,7 +14,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  */
 public class ClearBudgetsCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = GenericCommandWord.CLEAR + CommandGroup.BUDGET + "s";
+    public static final String COMMAND_WORD = GenericCommandWord.CLEAR + CommandGroup.BUDGET;
     public static final String COMMAND_DESCRIPTION = "Clear all budgets";
     public static final String MESSAGE_SUCCESS = "All budgets (except Default Budget) in MooLah have been cleared!";
 

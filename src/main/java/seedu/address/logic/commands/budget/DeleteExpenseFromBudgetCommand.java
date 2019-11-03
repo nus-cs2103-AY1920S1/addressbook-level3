@@ -19,7 +19,7 @@ import seedu.address.ui.budget.BudgetPanel;
  * Dummy.
  */
 public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = GenericCommandWord.DELETE + "from" + CommandGroup.BUDGET;
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.PRIMARY_BUDGET;
     public static final String COMMAND_DESCRIPTION = "Delete expense with index %1$d from budget";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense identified by the index number used in the "
@@ -27,7 +27,7 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense From Budget:\n %1$s";
+    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense: %1$s";
 
     private final Index targetIndex;
 

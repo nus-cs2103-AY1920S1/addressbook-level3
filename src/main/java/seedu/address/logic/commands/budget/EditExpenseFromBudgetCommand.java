@@ -29,7 +29,7 @@ import seedu.address.ui.budget.BudgetPanel;
  * Dummy.
  */
 public class EditExpenseFromBudgetCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = GenericCommandWord.EDIT + "from" + CommandGroup.BUDGET;
+    public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.PRIMARY_BUDGET;
     public static final String COMMAND_DESCRIPTION = "Edit expense with index %1$d from budget";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
             + "by the index number used in the displayed expense list of this budget. "
@@ -42,7 +42,7 @@ public class EditExpenseFromBudgetCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PRICE + "3512.123 ";
 
-    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense from Budget:\n %1$s";
+    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah.";
 

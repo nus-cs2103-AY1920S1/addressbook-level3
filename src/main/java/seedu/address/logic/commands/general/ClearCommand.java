@@ -15,7 +15,7 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class ClearCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = GenericCommandWord.CLEAR + "all";
+    public static final String COMMAND_WORD = GenericCommandWord.CLEAR + "moolah";
     public static final String COMMAND_DESCRIPTION = "Clear MooLah";
     public static final String MESSAGE_SUCCESS = "MooLah has been reset!";
 

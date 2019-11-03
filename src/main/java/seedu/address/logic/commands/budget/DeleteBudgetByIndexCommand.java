@@ -19,7 +19,7 @@ import seedu.address.ui.budget.BudgetListPanel;
  * Deletes a budget identified using it's displayed index from the MooLah.
  */
 public class DeleteBudgetByIndexCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET + "id";
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.BUDGET + "-id";
     public static final String COMMAND_DESCRIPTION = "Delete budget on index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the budget identified by the index number used in the displayed budget list.\n"
