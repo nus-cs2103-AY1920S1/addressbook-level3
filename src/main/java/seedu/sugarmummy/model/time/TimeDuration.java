@@ -1,5 +1,7 @@
 package seedu.sugarmummy.model.time;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -19,10 +21,19 @@ public class TimeDuration {
         this.minutes = minutes;
     }
 
+    public TimeDuration(String timeDuration) {
+        assert isValidTimeDuration(timeDuration);
+
+        String[] hm = timeDuration.split(":");
+        this.hours = Integer.parseInt(hm[0]);
+        this.minutes = Integer.parseInt(hm[1]);
+    }
+
     /**
      * Returns true if a given string is a valid time duration;
      */
     public static boolean isValidTimeDuration(String test) {
+        requireNonNull(test);
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -44,7 +55,7 @@ public class TimeDuration {
         return other == this // short circuit if same object
                 || (other instanceof TimeDuration) // instanceof handles nulls
                 && this.hours == ((TimeDuration) other).hours
-                && this.minutes == ((TimeDuration) other).hours;
+                && this.minutes == ((TimeDuration) other).minutes;
     }
 
     @Override

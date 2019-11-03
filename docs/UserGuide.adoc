@@ -82,8 +82,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
 Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 
-BMI must receive atleast 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
-BLOODSUGAR must receive atleast 1 valid parameter for concentration: `con/VALUE`
+BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+
+Height input (in meters) will be rounded to 2 decimal places.
+This rounded value must be less than 3 to be recorded successfully.
+
+Weight input (in kilograms) will be rounded to 2 decimal places.
+This rounded value must be less than 500 to be recorded successfully.
+
+BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
+Concentration (mmol/L) will be rounded to 2 decimal places.
+This rounded value must be less than 33 to be recorded successfully.
 
 If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
 
@@ -808,6 +817,27 @@ throughout his or her use of the application, and have different personal respon
 motivational quotes personalise the experience of each user by making it truly unique for them. i.e. the quotes received
 by one user is guaranteed to differ by random chance, and even for the same quotes, they are likely speak differently to
 one user compared to another.
+
+==== Saves the user's preferred themes: `[coming in v2.0]`
+
+Allows users to save current fontcolours and background colours as themes that they can name and retrieve after.
+
+* Upon entering commands, users can list, add, edit, delete or apply current themes to set colours and backgrounds to
+the ones that they have previously saved.
+
+==== Shows a cartoon avatar that represents the user: `[coming in v2.0]`
+
+Displays a cartoon that represents the user by observing the user's data such as BMI.
+
+* As the user's records such as BMI changes, the users' avatar automatically changes accordingly (eg. size, width,
+height of avatar)
+
+==== Follow up on user's goals: `[coming in v2.0]`
+
+Allows users to save goals in a certain format such the program will be able to follow-up on the user's goals. eg.
+Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they
+have worked towards their goal(s)). Users may also set reminders to remind them of their goal and receive timely
+feedback.
 
 === DATA ANALYSIS
 

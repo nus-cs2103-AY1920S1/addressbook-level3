@@ -33,7 +33,11 @@ public class WeightTest {
         // valid weight
         assertTrue(Weight.isValidWeight("0.12")); // ≤1 double
         assertTrue(Weight.isValidWeight("12.34")); // ≥1 double
-        assertTrue(Weight.isValidWeight("10000")); // positive
-        assertTrue(Weight.isValidWeight("0"));
+        assertTrue(Weight.isValidWeight("499.99")); // ≥1 double
+        assertTrue(Weight.isValidWeight("499.994")); // ≥1 double
+        assertFalse(Weight.isValidWeight("499.995")); // ≥1 double
+        assertFalse(Weight.isValidWeight("500")); // ≥1 double
+        assertFalse(Weight.isValidWeight("10000")); // positive
+        assertFalse(Weight.isValidWeight("0"));
     }
 }
