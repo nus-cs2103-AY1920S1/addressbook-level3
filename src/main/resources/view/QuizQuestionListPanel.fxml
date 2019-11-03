@@ -3,6 +3,13 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Text fill="fff" text="Quiz">
+        <font>
+            <Font size="18"/>
+        </font>
+    </Text>
     <ListView fx:id="quizQuestionListView" VBox.vgrow="ALWAYS"/>
 </VBox>
