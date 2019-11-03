@@ -75,7 +75,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
-
+//tag::datalog[]
 === DATA LOG
 
 ==== Add a data entry to the diabetes tracker app: `add`
@@ -115,6 +115,7 @@ Index must be a positive integer.
 The index refers to the index number shown in the displayed entries list
 
 ==== Edits a specified data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
+//end::datalog[]
 
 === CALENDAR AND REMINDER
 
