@@ -1,16 +1,14 @@
 package seedu.address.commons.core.index;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class IndexTest {
-
+class IndexTest {
     @Test
-    public void createOneBasedIndex() {
+    void createOneBasedIndex() {
         // invalid index
         assertThrows(IndexOutOfBoundsException.class, () -> Index.fromOneBased(0));
 
@@ -24,7 +22,7 @@ public class IndexTest {
     }
 
     @Test
-    public void createZeroBasedIndex() {
+    void createZeroBasedIndex() {
         // invalid index
         assertThrows(IndexOutOfBoundsException.class, () -> Index.fromZeroBased(-1));
 
@@ -38,23 +36,23 @@ public class IndexTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         final Index fifthNoteIndex = Index.fromOneBased(5);
 
         // same values -> returns true
-        assertTrue(fifthNoteIndex.equals(Index.fromOneBased(5)));
-        assertTrue(fifthNoteIndex.equals(Index.fromZeroBased(4)));
+        assertEquals(fifthNoteIndex, Index.fromOneBased(5));
+        assertEquals(fifthNoteIndex, Index.fromZeroBased(4));
 
         // same object -> returns true
-        assertTrue(fifthNoteIndex.equals(fifthNoteIndex));
+        assertEquals(fifthNoteIndex, fifthNoteIndex);
 
         // null -> returns false
-        assertFalse(fifthNoteIndex.equals(null));
+        assertNotEquals(null, fifthNoteIndex);
 
         // different types -> returns false
-        assertFalse(fifthNoteIndex.equals(5.0f));
+        assertNotEquals(5.0, fifthNoteIndex);
 
         // different index -> returns false
-        assertFalse(fifthNoteIndex.equals(Index.fromOneBased(1)));
+        assertNotEquals(fifthNoteIndex, Index.fromOneBased(1));
     }
 }

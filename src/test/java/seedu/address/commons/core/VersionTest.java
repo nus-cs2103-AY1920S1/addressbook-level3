@@ -6,32 +6,31 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class VersionTest {
-
+class VersionTest {
     @Test
-    public void versionParsing_acceptableVersionString_parsedVersionCorrectly() {
+    void versionParsing_acceptableVersionString_parsedVersionCorrectly() {
         verifyVersionParsedCorrectly("V0.0.0ea", 0, 0, 0, true);
         verifyVersionParsedCorrectly("V3.10.2", 3, 10, 2, false);
         verifyVersionParsedCorrectly("V100.100.100ea", 100, 100, 100, true);
     }
 
     @Test
-    public void versionParsing_wrongVersionString_throwIllegalArgumentException() {
+    void versionParsing_wrongVersionString_throwIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> Version.fromString("This is not a version string"));
     }
 
     @Test
-    public void versionConstructor_correctParameter_valueAsExpected() {
+    void versionConstructor_correctParameter_valueAsExpected() {
         Version version = new Version(19, 10, 20, true);
 
         assertEquals(19, version.getMajor());
         assertEquals(10, version.getMinor());
         assertEquals(20, version.getPatch());
-        assertEquals(true, version.isEarlyAccess());
+        assertTrue(version.isEarlyAccess());
     }
 
     @Test
-    public void versionToString_validVersion_correctStringRepresentation() {
+    void versionToString_validVersion_correctStringRepresentation() {
         // boundary at 0
         Version version = new Version(0, 0, 0, true);
         assertEquals("V0.0.0ea", version.toString());
@@ -46,18 +45,18 @@ public class VersionTest {
     }
 
     @Test
-    public void versionComparable_validVersion_compareToIsCorrect() {
+    void versionComparable_validVersion_compareToIsCorrect() {
         Version one;
         Version another;
 
         // Tests equality
         one = new Version(0, 0, 0, true);
         another = new Version(0, 0, 0, true);
-        assertTrue(one.compareTo(another) == 0);
+        assertEquals(0, one.compareTo(another));
 
         one = new Version(11, 12, 13, false);
         another = new Version(11, 12, 13, false);
-        assertTrue(one.compareTo(another) == 0);
+        assertEquals(0, one.compareTo(another));
 
         // Tests different patch
         one = new Version(0, 0, 5, false);
@@ -106,7 +105,7 @@ public class VersionTest {
     }
 
     @Test
-    public void versionComparable_validVersion_hashCodeIsCorrect() {
+    void versionComparable_validVersion_hashCodeIsCorrect() {
         Version version = new Version(100, 100, 100, true);
         assertEquals(100100100, version.hashCode());
 
@@ -115,17 +114,17 @@ public class VersionTest {
     }
 
     @Test
-    public void versionComparable_validVersion_equalIsCorrect() {
+    void versionComparable_validVersion_equalIsCorrect() {
         Version one;
         Version another;
 
         one = new Version(0, 0, 0, false);
         another = new Version(0, 0, 0, false);
-        assertTrue(one.equals(another));
+        assertEquals(one, another);
 
         one = new Version(100, 191, 275, true);
         another = new Version(100, 191, 275, true);
-        assertTrue(one.equals(another));
+        assertEquals(one, another);
     }
 
     private void verifyVersionParsedCorrectly(String versionString,

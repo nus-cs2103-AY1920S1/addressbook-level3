@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.questioncommands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALGEBRA;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CONCEPT;
@@ -32,7 +33,7 @@ class EditQuestionCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    void execute_allFieldsSpecifiedUnfilteredList_success() {
         Question editedQuestion = new QuestionBuilder().build();
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder(editedQuestion).build();
         EditQuestionCommand editQuestionCommand = new EditQuestionCommand(INDEX_FIRST, descriptor);
@@ -46,7 +47,7 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastQuestion = Index.fromOneBased(model.getFilteredQuestionList().size());
         Question lastQuestion = model.getFilteredQuestionList().get(indexLastQuestion.getZeroBased());
 
@@ -67,7 +68,7 @@ class EditQuestionCommandTest {
 
     // NO FIELD?
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    void execute_noFieldSpecifiedUnfilteredList_success() {
         EditQuestionCommand editQuestionCommand = new EditQuestionCommand(INDEX_FIRST,
                 new EditQuestionCommand.EditQuestionDescriptor());
         Question editedQuestion = model.getFilteredQuestionList().get(INDEX_FIRST.getZeroBased());
@@ -80,7 +81,7 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    void execute_filteredList_success() {
         showQuestionAtIndex(model, INDEX_FIRST);
 
         Question questionInFilteredList = model.getFilteredQuestionList().get(INDEX_FIRST.getZeroBased());
@@ -99,7 +100,7 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void execute_duplicateQuestionUnfilteredList_failure() {
+    void execute_duplicateQuestionUnfilteredList_failure() {
         Question firstQuestion = model.getFilteredQuestionList().get(INDEX_FIRST.getZeroBased());
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder(firstQuestion).build();
         EditQuestionCommand editQuestionCommand = new EditQuestionCommand(INDEX_SECOND, descriptor);
@@ -108,7 +109,7 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void execute_duplicateQuestionFilteredList_failure() {
+    void execute_duplicateQuestionFilteredList_failure() {
         showQuestionAtIndex(model, INDEX_FIRST);
 
         // edit question in filtered list into a duplicate in questions
@@ -120,7 +121,7 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void execute_invalidQuestionIndexUnfilteredList_failure() {
+    void execute_invalidQuestionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredQuestionList().size() + 1);
         EditQuestionDescriptor descriptor = new EditQuestionDescriptorBuilder()
                 .withQuestionBody(VALID_QUESTION_BODY_CONCEPT).build();
@@ -134,7 +135,7 @@ class EditQuestionCommandTest {
      * but smaller than number of questions
      */
     @Test
-    public void execute_invalidQuestionIndexFilteredList_failure() {
+    void execute_invalidQuestionIndexFilteredList_failure() {
         showQuestionAtIndex(model, INDEX_FIRST);
         Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of lecture question list
@@ -147,27 +148,27 @@ class EditQuestionCommandTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         final EditQuestionCommand standardCommand = new EditQuestionCommand(INDEX_FIRST, DESC_ALGEBRA);
 
         // same values -> returns true
         EditQuestionDescriptor copyDescriptor = new EditQuestionCommand.EditQuestionDescriptor(DESC_ALGEBRA);
         EditQuestionCommand commandWithSameValues = new EditQuestionCommand(INDEX_FIRST, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ListQuestionCommand()));
+        assertNotEquals(standardCommand, new ListQuestionCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditQuestionCommand(INDEX_SECOND, DESC_ALGEBRA)));
+        assertNotEquals(standardCommand, new EditQuestionCommand(INDEX_SECOND, DESC_ALGEBRA));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditQuestionCommand(INDEX_FIRST, DESC_CONCEPT)));
+        assertNotEquals(standardCommand, new EditQuestionCommand(INDEX_FIRST, DESC_CONCEPT));
     }
 }
