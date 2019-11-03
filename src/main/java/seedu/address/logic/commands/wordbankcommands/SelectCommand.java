@@ -21,9 +21,10 @@ public class SelectCommand extends Command {
             + " WORDBANK \n"
             + "Eg: " + COMMAND_WORD + " sample";
 
-    private static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Selected a word bank.\n"
-            + "Type start to start the game\n"
-            + "Or type open to edit word bank.";
+    private static final String MESSAGE_LIST_ACKNOWLEDGEMENT = "Selected word bank: %1$s.\n"
+            + "Edit word bank or start the word bank\n"
+            + "Eg. open\n"
+            + "Eg. start";
 
     private String name;
 
@@ -48,6 +49,6 @@ public class SelectCommand extends Command {
             model.setWordBankStatistics(wbStats);
         }
 
-        return new CommandResult(MESSAGE_LIST_ACKNOWLEDGEMENT, false, false);
+        return new CommandResult(String.format(MESSAGE_LIST_ACKNOWLEDGEMENT, name), false, false);
     }
 }
