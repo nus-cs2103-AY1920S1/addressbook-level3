@@ -428,7 +428,7 @@ The following steps attempt to illustrate how one can set up the questions for a
 it be? And also, is it an mcq or open-ended question? The image below gives an overview of how to create a question: +
 
 image::CreateQuestion.jpg[]
-_`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates an mcq question._
+_`question question/How many sheeps? answer/5 type/mcq a/1 b/2 c/4 d/5` - creates a sample mcq question._
 
 *Step 2.* The user can create as many questions as he wishes. If the user wishes to view the question indexes at any point of time - the image below gives a reminder of
 how one can view the question list: +
@@ -559,13 +559,14 @@ navigate to their current directory. An exports folder as shown in the image bel
 
 image::QuizExportsFolder.jpg[]
 
-*Step 2.* Open the folder and double click the html file.
+*Step 2.* Open the folder and double click the html file labelled with the file name CS2103T.
 
-image::QuizHtml.png[]
+image::QuizHtml.PNG[]
 
-*Step 3.* The quiz should be in the format displayed below:
+*Step 3.* Now you can send the custom quiz file to your students!
+The quiz should be in a similar format as displayed below.
 
-image::QuizExported.png[]
+image::QuizExported.PNG[]
 
 ==== Listing a Quiz: `list`
 
