@@ -43,6 +43,10 @@ public class Room implements Identical<Room> {
         return patientCurrentlyBeingServed;
     }
 
+    public boolean hasPatientBeingServed() {
+        return patientCurrentlyBeingServed.isPresent();
+    }
+
     /**
      * Returns true if both rooms are occupied by the same staff.
      * This defines a weaker notion of equality between two consultation rooms.

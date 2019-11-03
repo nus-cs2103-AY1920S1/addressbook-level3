@@ -22,7 +22,7 @@ import seedu.address.model.events.predicates.EventContainsKeywordPredicate;
  */
 public class DutyShiftCommand extends NonActionableCommand {
 
-    public static final String COMMAND_WORD = "shift";
+    public static final String COMMAND_WORD = "shifts";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events whose reference Id contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

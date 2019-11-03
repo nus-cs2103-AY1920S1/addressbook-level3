@@ -59,8 +59,8 @@ class JsonAdaptedEvent {
                     ReferenceId.class.getSimpleName()));
         }
         final ReferenceId modelReferenceId = isStaff
-                ? ParserUtil.parseStaffReferenceId(id)
-                : ParserUtil.parsePatientReferenceId(id);
+                ? ParserUtil.issueStaffReferenceId(id)
+                : ParserUtil.issuePatientReferenceId(id);
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Start Date"));
