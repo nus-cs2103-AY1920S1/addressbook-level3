@@ -1,6 +1,7 @@
 package seedu.address.model.group;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model that represents a list of groups.
@@ -82,6 +83,13 @@ public class ListOfGroups {
     }
 
     /**
+     * Checks if group exists in the list of groups
+     */
+    public boolean contains(Group group) {
+        return groups.contains(group);
+    }
+
+    /**
      * Returns array list of groups.
      *
      * @return array list of groups.
@@ -103,5 +111,12 @@ public class ListOfGroups {
             }
         }
         queriedGroup.export();
+    }
+
+    /**
+     * Set all groups in the List Of Groups
+     */
+    public void setGroups(List<Group> groupList) {
+        this.groups.addAll(groupList);
     }
 }

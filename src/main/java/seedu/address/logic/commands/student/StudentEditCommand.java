@@ -24,8 +24,8 @@ import seedu.address.model.tag.Tag;
 public class StudentEditCommand extends StudentCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing student\n"
-            + "Full example : student 1 name/newname --> changes student in index 1 to new student with newname\n\n";
-    public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "%1$s has been changed to %1$s";
+            + "Full example : student 1 name/newname --> changes student in index 1 to new student with newname\n\n"
+            + "Note: index has to be more than 0";
     public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the student storage.";
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;
@@ -62,6 +62,10 @@ public class StudentEditCommand extends StudentCommand {
         Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         if (!editedStudent.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+        }
+
+        if (model.hasStudent(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
 

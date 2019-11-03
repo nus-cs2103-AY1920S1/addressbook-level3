@@ -2,10 +2,12 @@ package seedu.address.logic.commands.group;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.student.Student;
 
 /**
  * Represents an group create command (manual).
@@ -53,6 +55,23 @@ public class GroupCreateManuallyCommand extends GroupCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (groupId.isEmpty() || groupId.equals("")) {
+            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+        }
+        if (model.checkGroupExists(groupId)) {
+            return new CommandResult(String.format(GROUP_ALREADY_EXISTS, groupId));
+        }
+        List<Student> lastShownList = model.getFilteredStudentList();
+        boolean outOfBounds = false;
+        for (Integer i : studentNumbers) {
+            if (i < 1 || i > lastShownList.size()) {
+                outOfBounds = true;
+                break;
+            }
+        }
+        if (outOfBounds) {
+            return new CommandResult("One or more of the student index numbers input are out of bounds");
+        }
         model.createGroupManually(groupId, studentNumbers);
         return new CommandResult(generateSuccessMessage());
     }

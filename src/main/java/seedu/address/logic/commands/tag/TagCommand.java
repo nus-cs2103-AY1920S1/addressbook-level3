@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.CliSyntax;
+
 import seedu.address.model.Model;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
@@ -27,11 +29,12 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Tags the student identified "
             + "by the index number used in the displayed student list, to show you which subjects student"
             + " is weak at\n"
-            + "Parameters: " + CliSyntax.PREFIX_INDEX + "[INDEX]"
-            + CliSyntax.PREFIX_TAG + "[TAG_NAME]\n"
+            + "Parameters: " + PREFIX_INDEX + "[INDEX]"
+            + PREFIX_TAG + "[TAG_NAME]\n"
             + "Example: " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_INDEX + "1 "
-            + CliSyntax.PREFIX_TAG + "Chemistry";
+            + PREFIX_INDEX + "1 "
+            + PREFIX_TAG + "Chemistry"
+            + "NOTE: Index has to be > 0 and within the max index number of the current student list";
 
     public static final String MESSAGE_TAG_STUDENT_SUCCESS = "Updated student: %1$s";
     public static final String MESSAGE_TAG_EXISTED = "\nTag(s) %1$s already exist and will be ignored.";
