@@ -198,9 +198,9 @@ public class TestDisplay extends AnchorPane {
      */
     private void updateStatDeckWithScore(Boolean isCorrect) {
         try {
-            Boolean successfulScore = exam.parseUserInputAndGrade(isCorrect);
+            exam.gradeQuestion(isCorrect);
             FlashCard currCard = exam.getCurrentCard();
-            currCard.updateScore(successfulScore);
+            currCard.updateScore(isCorrect);
             //checkif this method works for MCQ and JS card
         } catch (IndexNotFoundException e) {
             e.printStackTrace();

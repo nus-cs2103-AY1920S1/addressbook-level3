@@ -29,12 +29,9 @@ public class UntimedExam implements Exam {
     }
 
     @Override
-    public boolean parseUserInputAndGrade(Boolean isCorrect) throws IndexNotFoundException {
+    public void gradeQuestion(Boolean isCorrect) throws IndexNotFoundException {
         if (isCorrect) {
             result.mark(true);
-            return true;
-        } else {
-            return false;
         }
     }
 

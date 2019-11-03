@@ -19,6 +19,8 @@ public class SimpleCardBack extends AnchorPane {
     @FXML
     private Button correctButton;
     @FXML
+    private Button wrongButton;
+    @FXML
     private Label answerLabel;
 
     public SimpleCardBack(String backOfCard, Consumer<Boolean> wantToSeeFront, Consumer<Boolean> updateScore) {
@@ -31,6 +33,7 @@ public class SimpleCardBack extends AnchorPane {
             answerLabel.setText(backOfCard);
             seeFrontButton.setOnAction(e -> wantToSeeFront.accept(true));
             correctButton.setOnAction(e -> updateScore.accept(true));
+            wrongButton.setOnAction((e -> updateScore.accept(false)));
         } catch (IOException e) {
             e.printStackTrace();
         }

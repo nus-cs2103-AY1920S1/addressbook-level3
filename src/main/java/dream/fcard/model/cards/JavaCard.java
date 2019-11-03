@@ -87,7 +87,11 @@ public class JavaCard extends FlashCard {
 
     @Override
     public void updateScore(Boolean isCorrect) {
-
+        if (isCorrect) {
+            this.cardResult = 1;
+        } else {
+            this.cardResult = 0;
+        }
     }
 
     public ArrayList<TestCase> getTestCases() {
