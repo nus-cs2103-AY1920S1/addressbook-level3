@@ -80,7 +80,8 @@ public class EditIncidentCommand extends Command {
         if (!incidentToEdit.getStatus().equals(Status.SUBMITTED_REPORT)) {
             throw new CommandException(MESSAGE_EDIT_DRAFT);
         }
-        if ((!incidentToEdit.getOperator().equals(model.getLoggedInPerson())) && Person.isNotAdmin(model.getLoggedInPerson())) {
+        if ((!incidentToEdit.getOperator().equals(model.getLoggedInPerson()))
+                && Person.isNotAdmin(model.getLoggedInPerson())) {
             throw new CommandException(MESSAGE_UNAUTHORIZED_EDIT);
         }
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {

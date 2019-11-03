@@ -41,7 +41,7 @@ public class ListIncidentsCommand extends Command {
             resultMessage = handleDraftIncidents(model, filteredIncidentsList);
         } else if (this.predicate.equals(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS)) {
             resultMessage = handleCompleteIncidents(model, filteredIncidentsList);
-        }  else if(this.predicate.equals(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS)) {
+        } else if (this.predicate.equals(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS)) {
             resultMessage = handleSubmittedIncidents(model, filteredIncidentsList);
         } else {
             resultMessage = Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -95,6 +95,12 @@ public class ListIncidentsCommand extends Command {
         }
     }
 
+    /**
+     * Handles the case for listing all submitted incidents.
+     * @param model current model operated on by command
+     * @param incidents list of incidents to update
+     * @return string representing command result
+     */
     private String handleSubmittedIncidents(Model model, FilteredList<Incident> incidents) {
         model.updateFilteredIncidentList(predicate);
         if (incidents.isEmpty()) {

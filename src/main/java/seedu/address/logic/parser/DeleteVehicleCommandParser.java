@@ -22,7 +22,8 @@ public class DeleteVehicleCommandParser implements Parser<DeleteVehicleCommand> 
             return new DeleteVehicleCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteVehicleCommand.MESSAGE_USAGE), pe);
+                    String.format(pe.getErrorMessage()
+                            + MESSAGE_INVALID_COMMAND_FORMAT, DeleteVehicleCommand.MESSAGE_USAGE), pe);
         }
     }
 }

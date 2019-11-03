@@ -132,7 +132,7 @@ public class IncidentManagerParser {
             return new AddVehicleCommandParser().parse(arguments);
 
         case EditIncidentCommand.COMMAND_WORD:
-            if(arguments.isEmpty()) {
+            if (arguments.isEmpty()) {
                 return new ListIncidentsCommand(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS);
             } else {
                 return new EditIncidentCommandParser().parse(arguments);

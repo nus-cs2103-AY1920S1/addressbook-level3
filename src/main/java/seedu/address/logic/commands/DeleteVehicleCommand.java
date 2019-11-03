@@ -36,7 +36,7 @@ public class DeleteVehicleCommand extends Command {
 
         List<Vehicle> listOfVehicles = model.getFilteredVehicleList();
 
-        if(Person.isNotAdmin(model.getLoggedInPerson())) {
+        if (Person.isNotAdmin(model.getLoggedInPerson())) {
             throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
         }
 
