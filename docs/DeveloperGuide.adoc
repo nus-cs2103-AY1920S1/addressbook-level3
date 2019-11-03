@@ -378,19 +378,19 @@ way the application retrieves any online information from the database.
 * `getTvShowByName` : The method will return a list of tv shows in the database based on the name of the tv show given
 * `isConnected` : Checks if the application is connected online to the database
 
-`ApiMain` is an implementation of `ApiInterface` and is done by using a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
+`ApiManager` is an implementation of `ApiInterface` and is done by using a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
 Allowing us to retrieve information in the java code.
 
 Given below is an example of how the application might want to retrieve movie information through `ApiInterface`.
 
-Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called. When `ApiMain` is instantiated the class api
+Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called. When `ApiManager` is instantiated the class api
 key's is used to create a call to the TMDB API. All information retrieved must go through the class's api call.
 
 Step 2. The method getMovieByName("Name Of Movie") is called and the api call searches the for the movie in the database with the name given.
 A list of wrapped movies is given back, which is then read and used to create new instances of our application's `Show` model with information wrapped in classes such as
 `Name`, `Description`, and `Actor`.
 
-Step 3. To retrieve an image from the database, a image url is downloaded to the computer. The class `ImageRetrieval` does this. An
+Step 3. To retrieve an image from the database, an image url is downloaded to the computer. The class `ImageRetrieval` does this. An
 `ImageRetrieval` instance is created by the method for each image, and is downloaded to a root folder determined by `ImageRetrieval#defaultDirectory()`.
 
 Step 4. A poster class is then created with the image path, to be used to load images in the application.
@@ -413,8 +413,11 @@ image:ApiClassDiagram.png[]
 - The application wouldn't have to seek access to the database on their own. The interface should provide all the functionality needed.
 - Follows the Single Responsibility Principle (SRP) that a module in the program should be encapsulated and have one repsponsibility.
 
-===== Aspect: Image retrieval implementation
+==== Aspect: Image retrieval implementation
+Images are retrieved through the `ImageRetrieval` class. Which downloads the image into the computer,
+wrapping a `Poster` class with the local path of the image, for the application to access images.
 
+===== Design Considerations
 * ** Alternative 1 (current choice):** Download the image into the computer then access it locally on the computer.
 ** Pros:
 *** Easier to keep track of images.
@@ -429,6 +432,38 @@ amount of memory used.
 *** Everytime the image is viewed, the application has to retrieve it from online making it more intensive on the network.
 *** If the internet connection fails, the image can no longer be viewed.
 //end::ImageRetrieval[]
+
+==== Aspect: Recommendations
+Recommendations are generated through the `RecommendationEngine` class in the API package. Currently,
+recommendations are retrieved through the `ApiInterface` implemented in the API package.
+
+===== Implementation
+Given below is a _sequence diagram_ of how the current Statistics page's retrieves recommendations from the class.
+
+.Sequence Diagram of getMovieRecommendations
+image:getMovieRecommendationsSequenceDiagram.png[]
+
+
+Step 1. First an instance of `RecommendationEngine` is created by passing in the list of movies the user has and the amount of recommendations to be given back.
+
+Step 2. The method getMovieRecommendations is called in the object and the object will:
+
+* Check if the list is valid to generate.
+* Parse the list to get the same online entry in the database.
+* Retrieve recommendations for each entry in the list.
+
+Step 3. The recommendations are then sorted based on the amount of occurrences in appears in the recommendations.
+
+Step 4. The top entries limited by the amount of recommendations requested is passed back in a sorted list.
+
+Step 5. With the list of movies returned, the application can then display the movie recommendations back to the user.
+
+[NOTE]
+If no recommendations can be generated, a `NoRecommendationsExceptions` is thrown. Moreover, an
+`OnlineConnectionException` is still thrown when not connected to the internet.
+
+
+
 
 [[Implementation-Configuration]]
 === Configuration

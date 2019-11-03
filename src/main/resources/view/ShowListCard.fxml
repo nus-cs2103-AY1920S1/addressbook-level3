@@ -34,7 +34,7 @@
                <HBox prefWidth="20.0" />
                <HBox fx:id="genres" alignment="CENTER_LEFT" spacing="7.0" styleClass="genre-tag" />
                </HBox>
-               <FlowPane />
+               <FlowPane maxWidth="500.0" />
                <Label fx:id="type" styleClass="cell_small_label" text="\$type" />
             <VBox>
                <children>
@@ -42,7 +42,7 @@
                </children>
             </VBox>
                <Label fx:id="dateOfRelease" styleClass="cell_small_label" text="\$date of release" />
-               <Label fx:id="description" styleClass="cell_small_label" text="\$description" wrapText="true" VBox.vgrow="ALWAYS" />
+               <Label fx:id="description" maxHeight="50.0" maxWidth="550.0" styleClass="cell_small_label" text="\$description" wrapText="true" VBox.vgrow="ALWAYS" />
                <Label fx:id="runningTime" styleClass="cell_small_label" text="\$running time" />
            </VBox>
       </children></HBox>

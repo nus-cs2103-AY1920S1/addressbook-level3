@@ -18,7 +18,17 @@ By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-EzWatchList is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, EzWatchList is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EzWatchList can get your watchlist faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
+`EzWatchList` is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+
+.  If you can type fast, `EzWatchList` works faster than traditional GUI apps.
+.  Keep track of movies and tv shows that you plan to watch or have watched.
+.  Access quick information about your favourite shows through our online database.
+.  Discover your personal movie habits, with our statistics page.
+.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `Ezwatchlist` usage.
+
+====
+Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
+====
 
 == Quick Start
 
@@ -29,7 +39,7 @@ EzWatchList is for those who *prefer to use a desktop app for managing movies an
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Interact with `Ezwatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
@@ -64,6 +74,7 @@ The user can navigate to this list by clicking the “Watched” tab on the side
 
 image::Ui.png[width="790"]
 
+
 ==== Watched List
 
 The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
@@ -71,10 +82,21 @@ The user has the option to view the list of shows that have been marked as watch
 ==== Search Page
 
 The user can navigate to the search page to find a specific movie or television by searching for its name. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `3`.
+[NOTE]
+The search function may require some time to load the data from the API.
 
 image::search_page.png[width="790"]
 
+
 ==== Statistics Page
+
+The user can navigate to the statistics page to find a summary of his watching habits,
+preferences and history according to what is present in his lists.
+Examples include: movies he added but might have forgotten to watch,
+up to 3 most favourite genres of the user and recommendations etc.
+
+[NOTE]
+The statistics function may require some time to load the data from the API.
 
 The user can navigate to the statistics page to find a summary of his watching habits, preferences and history according to what is present in his lists. Examples include: Ten most recent movies he watched, ten favourite movies of the user etc. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `4`.
 
@@ -82,7 +104,7 @@ image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page.
+Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Alternatively, the user can also make use of keyboard shortcut `ctrl + tab` to scroll through the different pages. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
 
 ==== Details Page (Coming in v2.0)
 
@@ -136,6 +158,7 @@ Examples:
 
 ==== Clear the WatchList: `clear`
 
+
 Clear the WatchList +
 Format: `clear`
 
@@ -185,6 +208,9 @@ Edits the name and actor name of the 1st show in the list to be `Titanic` and `J
 Clears all existing actors of the 2nd show in the list.
 
 ==== Search for a show by name: `search`
+====
+Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
+====
 
 Finds shows whose names contain any of the given keywords from the watchlist, watched list and online. +
 Format:

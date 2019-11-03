@@ -77,7 +77,7 @@ public class ShowCard extends UiPart<Region> {
         this.poster.setImage(image);
 
         actors.getChildren().add(new Label("Actors: "));
-        show.getActors().stream()
+        show.getActors().stream().limit(4)
                 .sorted(Comparator.comparing(actor -> actor.actorName))
                 .forEach(actor -> actors.getChildren().add(new Label(actor.actorName)));
         actors.getChildren().stream().forEach(node -> node.getStyleClass().add("cell_small_label"));
