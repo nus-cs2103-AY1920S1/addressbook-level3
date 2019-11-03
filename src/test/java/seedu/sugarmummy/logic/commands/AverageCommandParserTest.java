@@ -29,10 +29,10 @@ public class AverageCommandParserTest {
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser, " a/DAILY rt/BLOODSUGAR n/8",
                 new AverageCommand(bloodSugarPredicate, AverageType.DAILY, RecordType.BLOODSUGAR, 8));
-        assertParseSuccess(parser, " a/weekly rt/BMI n/3",
-                new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 3));
-        assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR n/1",
-                new AverageCommand(bloodSugarPredicate, AverageType.MONTHLY, RecordType.BLOODSUGAR, 1));
+        assertParseSuccess(parser, " a/weekly rt/BMI n/1",
+                new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 1));
+        assertParseSuccess(parser, " a/MONTHLY rt/BLOODSUGAR n/12",
+                new AverageCommand(bloodSugarPredicate, AverageType.MONTHLY, RecordType.BLOODSUGAR, 12));
     }
 
     @Test
@@ -74,6 +74,12 @@ public class AverageCommandParserTest {
 
         // invalid count type
         assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/five",
+                String.format(MESSAGE_INVALID_PARAMETER, MESSAGE_INVALID_COUNT, MESSAGE_POSSIBLE_COUNT));
+        assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/13",
+                String.format(MESSAGE_INVALID_PARAMETER, MESSAGE_INVALID_COUNT, MESSAGE_POSSIBLE_COUNT));
+        assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/0",
+                String.format(MESSAGE_INVALID_PARAMETER, MESSAGE_INVALID_COUNT, MESSAGE_POSSIBLE_COUNT));
+        assertParseFailure(parser, " a/WEEKLY rt/BLOODSUGAR n/-1",
                 String.format(MESSAGE_INVALID_PARAMETER, MESSAGE_INVALID_COUNT, MESSAGE_POSSIBLE_COUNT));
     }
 }
