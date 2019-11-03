@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -45,8 +46,9 @@ public class Home extends UiPart<Region> {
      * Populates the table to show the transactions in transaction list in the transaction model.
      */
     public Home (Logic logic) {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseTransactionList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("date"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("description"));
@@ -75,4 +77,7 @@ public class Home extends UiPart<Region> {
         ObservableList<Transaction> obvList = FXCollections.observableList(list);
         return obvList;
     }
+
+
+
 }
