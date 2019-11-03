@@ -103,7 +103,7 @@ public class RecurringDateTime {
                 numZeros++;
             }
         }
-        return (numZeros == EXPECTED_FREQUENCY_ARRAY_LENGTH);
+        return (numZeros != EXPECTED_FREQUENCY_ARRAY_LENGTH);
     }
 
     /**
