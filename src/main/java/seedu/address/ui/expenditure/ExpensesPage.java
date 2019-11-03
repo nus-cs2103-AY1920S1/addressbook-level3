@@ -61,7 +61,6 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
     public ExpensesPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
         expenses = model.getPageStatus().getTrip().getExpenditureList().internalUnmodifiableList;
-        generateSummary();
         fillPage();
         fillList();
     }
@@ -70,10 +69,10 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
      * Fills up all the placeholders of this window.
      */
     public void fillPage() {
+        generateSummary();
         totalBudgetLabel.setText("Your budget for the trip: " + totalBudget);
         totalExpenditureLabel.setText("Your total expenses: " + totalExpenditure);
         budgetLeftLabel.setText("Your budget left: " + (budgetLeft));
-        viewOptionButton.setText("Show Days");
         switchCurrency.setText("Edit Currency");
     }
 
@@ -87,6 +86,14 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
         case SHOWLIST:
             fillList();
             break;
+        case DELETE:
+            fillPage();
+            if (!viewOptionButton.isSelected()) {
+                fillList();
+            } else {
+                fillDays();
+            }
+            break;
         default:
             throw new AssertionError("Unknown command");
         }
@@ -96,6 +103,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
      * Fills up all the placeholders of the days view of expenses.
      */
     public void fillDays() {
+        viewOptionButton.setText("Show List");
         getNumberOfDay();
         viewOptionButton.setSelected(true);
         VBox dailyExpendituresPanelContainer = new VBox();
@@ -107,6 +115,7 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
      * Fills up all the placeholders of the list view of expenses.
      */
     public void fillList() {
+        viewOptionButton.setText("Show Days");
         viewOptionButton.setSelected(false);
         VBox expenditureCardsContainer = new VBox();
         List<Node> expenditureCards = IntStream.range(0, expenses.size())
