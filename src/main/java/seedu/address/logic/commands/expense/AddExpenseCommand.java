@@ -24,7 +24,7 @@ public class AddExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_DESCRIPTION = "Add expense %1$s (%2$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an expense to MooLah. \n"
+            + ": Adds an expense to MooLah and the primary budget. \n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "

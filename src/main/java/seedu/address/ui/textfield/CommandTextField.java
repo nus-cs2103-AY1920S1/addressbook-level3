@@ -97,6 +97,14 @@ public class CommandTextField extends Region {
         autofillMenu = new AutofillSuggestionMenu(textField, currentCommand);
         textField.setContextMenu(autofillMenu);
 
+        textField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
+                enableSyntaxHighlighting();
+            } else {
+                syntaxHighlightSubscription.unsubscribe();
+            }
+        });
+
         //------------ prevent entering to remain single line ---------------
 
         textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
