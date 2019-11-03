@@ -30,6 +30,7 @@ Visualisation comes in the form of bar chart, pie chart, or line chart.
 The OOP solution is illustrated in the link:../DeveloperGuide.adoc[developer’s guide].
 *** `display` also required mastery of JavaFX.
 
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=larrylawl&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP Code Dashboard]]
 * *Functional Code contributed*:
 ** *Model*: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[Model Manager]]
 *** `getPolicyPopularityBreakdown()`, `getAgeGroupBreakdown()`, `getGenderBreakdown()`
