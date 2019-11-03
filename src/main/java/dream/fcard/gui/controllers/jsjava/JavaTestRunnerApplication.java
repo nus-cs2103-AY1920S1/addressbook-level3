@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import dream.fcard.core.Main;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.JavaCard;
+import dream.fcard.util.datastructures.Pair;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,10 +20,10 @@ import javafx.stage.Stage;
  */
 public class JavaTestRunnerApplication extends Application {
 
-    private Consumer<ArrayList<TestCase>> sendResult;
+    private Consumer<Pair<String, ArrayList<TestCase>>> sendResult;
     private JavaCard card;
 
-    public JavaTestRunnerApplication(Consumer<ArrayList<TestCase>> sendResult, JavaCard c) {
+    public JavaTestRunnerApplication(Consumer<Pair<String, ArrayList<TestCase>>> sendResult, JavaCard c) {
         super();
         this.sendResult = sendResult;
         this.card = c;
