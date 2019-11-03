@@ -90,35 +90,4 @@ public abstract class Stats {
     public String getTotalDurationOfSessionsAsString() {
         return this.sessionList.getTotalDurationAsString();
     }
-
-    /** Creates the TableView object from the list of login sessions. */
-    public TableView<Session> getSessionsTableView() {
-        ArrayList<Session> sessionsList = this.getSessionsAsArrayList();
-        TableView<Session> sessionsTableView = new TableView<>();
-
-        // temporary debug
-        //for (Session session : sessionsList) {
-        //    System.out.println("Start: " + session.getSessionStartString());
-        //    System.out.println("End: " + session.getSessionEndString());
-        //    System.out.println("Duration: " + session.getDurationString());
-        //}
-
-        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsList));
-        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
-
-        TableColumn<Session, String> startColumn = new TableColumn<>("Start");
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
-
-        TableColumn<Session, String> endColumn = new TableColumn<>("End");
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("sessionEndString"));
-
-        TableColumn<Session, String> durationColumn = new TableColumn<>("Duration");
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
-
-        sessionsTableView.getColumns().add(startColumn);
-        sessionsTableView.getColumns().add(endColumn);
-        sessionsTableView.getColumns().add(durationColumn);
-
-        return sessionsTableView;
-    }
 }

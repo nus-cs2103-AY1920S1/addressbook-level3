@@ -9,6 +9,10 @@ package dream.fcard.logic.stats;
 public class DeckStats extends Stats {
     // todo: should implement JsonInterface. need help with toJson().
 
+    // todo: does it make sense to store deck in DeckStats??? of course not
+    private String deckName;
+    private int numCards;
+
     public DeckStats() {
         super();
         System.out.println("New DeckStats object created.");
@@ -24,5 +28,10 @@ public class DeckStats extends Stats {
     //    }
     //    // to replace with creating new JsonObject and object.put?
     //    return new JsonValue(statsJson);
+    //}
+
+    // todo: abstraction problem. average score should be contained in deck
+    //public Double getAverageScore() {
+    //    for
     //}
 }

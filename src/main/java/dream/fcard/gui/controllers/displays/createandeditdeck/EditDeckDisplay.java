@@ -63,7 +63,7 @@ public class EditDeckDisplay extends VBox {
             editingWindow = new CardCreatingWindow(incrementNumCards);
             cardCreatingPane.getChildren().add((editingWindow));
             clearMessage.accept(true);
-            deckNameInput.setText(deck.getName());
+            deckNameInput.setText(deck.getDeckName());
             numCards = deck.getCards().size();
             deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
             onSaveDeck.setOnAction(e -> onSaveDeck());

@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+import dream.fcard.logic.stats.UserStats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
-
-
 
 /**
  * Running state of the program.
  */
 public class State {
     private static State state;
-    private ArrayList<Deck> decks;
+    public ArrayList<Deck> decks;
     private HashMap<String, Consumer> consumerHashMap;
     private StateEnum currState;
+    private static UserStats userStats;
 
     /**
      * Constructor to create a State object with existing Deck objects.
@@ -35,6 +35,7 @@ public class State {
         decks = StorageManager.loadDecks();
         consumerHashMap = new HashMap<>();
         currState = StateEnum.DEFAULT;
+        userStats = new UserStats();
     }
 
     /**
@@ -63,6 +64,15 @@ public class State {
         return decks;
     }
 
+    /** Gets the UserStats object. */
+    public static UserStats getUserStats() {
+        return userStats;
+    }
+
+    /** Sets the UserStats object. */
+    public static void setUserStats(UserStats stats) {
+        userStats = stats;
+    }
 
     /**
      * Adds a new empty Deck object to decks list.
@@ -136,7 +146,7 @@ public class State {
     private int getDeckIndex(String name) {
         for (int i = 0; i < decks.size(); i++) {
             Deck currentDeck = decks.get(i);
-            boolean isUserInputMatchDeckName = currentDeck.getName().equals(name);
+            boolean isUserInputMatchDeckName = currentDeck.getDeckName().equals(name);
 
             if (isUserInputMatchDeckName) {
                 return i;

@@ -83,7 +83,7 @@ public class CreateCommand extends Command {
     private boolean deckAlreadyExists(String deckName) {
         ArrayList<Deck> allDecks = progState.getAllDecks();
         for (Deck curr : allDecks) {
-            if (curr.getName().equals(deckName)) {
+            if (curr.getDeckName().equals(deckName)) {
                 return true;
             }
         }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -31,6 +32,9 @@ public class Deck implements JsonInterface {
 
     /** List of FlashCards with Low priority levels. */
     private ArrayList<FlashCard> lowPriorityList;
+
+    /** Statistics pertaining to this deck. */
+    private DeckStats deckStats;
 
     /**
      * Constructor to create a Deck with no name and cards.
@@ -173,7 +177,7 @@ public class Deck implements JsonInterface {
 
     @Override
     public String toString() {
-        return getName();
+        return getDeckName();
     }
 
     /**
@@ -208,7 +212,7 @@ public class Deck implements JsonInterface {
      *
      * @return String name of deck.
      */
-    public String getName() {
+    public String getDeckName() {
         return deckName;
     }
 
@@ -303,4 +307,21 @@ public class Deck implements JsonInterface {
     public Deck duplicateMyself() {
         return new Deck(DeepCopy.duplicateCards(cards), deckName);
     }
+
+    //@@author nattanyz
+    /** Get DeckStats pertaining to this deck. */
+    public DeckStats getDeckStats() {
+        return this.deckStats;
+    }
+
+    /** Set DeckStats pertaining to this deck. */
+    public void setDeckStats(DeckStats stats) {
+        this.deckStats = stats;
+    }
+
+    /** Get number of cards in this deck.*/
+    public Integer getNumberOfCards() {
+        return this.cards.size();
+    }
+    //@@author
 }

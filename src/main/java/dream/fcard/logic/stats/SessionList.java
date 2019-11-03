@@ -17,7 +17,6 @@ import dream.fcard.util.json.jsontypes.JsonValue;
  * A list of Session objects.
  */
 
-
 public class SessionList implements JsonInterface {
 
     private ArrayList<Session> sessionArrayList;

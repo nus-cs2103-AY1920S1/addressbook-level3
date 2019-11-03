@@ -9,14 +9,16 @@ import javafx.scene.layout.VBox;
 
 import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.UserStats;
+import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.util.StatsDisplayUtil;
 
 /**
- * Window to display user's statistics.
+ * Window to display statistics for a given Deck.
  */
-public class StatisticsWindow extends VBox {
+public class DeckStatisticsWindow extends VBox {
+    @FXML
+    private Label numCards;
     @FXML
     private Label totalSessions;
     @FXML
@@ -28,13 +30,14 @@ public class StatisticsWindow extends VBox {
     @FXML
     private TableView<DeckStats> deckStatsTableView;
 
-    private UserStats userStats;
+    private Deck deck;
+    private DeckStats deckStats;
 
-    /** Creates a new instance of StatisticsWindow. */
-    public StatisticsWindow(UserStats userStats) {
+    /** Creates a new instance of DeckStatisticsWindow. */
+    public DeckStatisticsWindow(Deck deck) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
-                .getResource("/view/Windows/StatisticsWindow.fxml"));
+                .getResource("/view/Windows/DeckStatisticsWindow.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -43,23 +46,28 @@ public class StatisticsWindow extends VBox {
             e.printStackTrace();
         }
 
-        this.userStats = userStats;
+        this.deck = deck;
+        this.deckStats = deck.getDeckStats();
         //ArrayList<Deck> decks = State.getDecks();
 
         displaySummaryStats();
-        sessionsTableView = StatsDisplayUtil.getSessionsTableView(userStats.getSessionList());
+        sessionsTableView = StatsDisplayUtil.getSessionsTableView(deckStats.getSessionList());
         deckStatsTableView = StatsDisplayUtil.getDeckStatsTableView(State.getState());
         displayDeckStatsTableView();
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        int numSessions = userStats.getNumberOfSessions();
+        int numberOfCards = deck.getNumberOfCards();
+        numCards.setText("Number of cards in deck: " + numberOfCards
+            + (numberOfCards == 1 ? "card" : "cards"));
+
+        int numSessions = deckStats.getNumberOfSessions();
         totalSessions.setText("Total login sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
 
 
-        String duration = userStats.getTotalDurationOfSessionsAsString();
+        String duration = deckStats.getTotalDurationOfSessionsAsString();
         totalDuration.setText("Total login duration: " + duration);
     }
 

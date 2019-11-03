@@ -116,7 +116,7 @@ public class StorageManager {
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
-        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
+        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getDeckName() + ".json");
         FileReadWrite.write(path, deck.toJson().toString());
     }
 
@@ -245,7 +245,7 @@ public class StorageManager {
      */
     public static void saveStats() {
         resolveRoot();
-        FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
+        //FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
     }
 
     /**
@@ -253,7 +253,7 @@ public class StorageManager {
      */
     public static void loadStats() {
         resolveRoot();
-        Stats.getUserStats();
+        //Stats.getUserStats();
         try {
             ArrayList<Session> arr = new ArrayList<>();
             JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
@@ -262,10 +262,11 @@ public class StorageManager {
                 Session session = new Session(
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
                         DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
-                session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
+                //session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
+                // todo: only need setScore for SessionLists containing DeckSession objects. @AHaliq
                 arr.add(session);
             }
-            Stats.setSessionList(new SessionList(arr));
+            //Stats.setSessionList(new SessionList(arr));
             // load login session
         } catch (FileNotFoundException e) {
             System.out.println("STATS FILE DOES NOT EXIST");
