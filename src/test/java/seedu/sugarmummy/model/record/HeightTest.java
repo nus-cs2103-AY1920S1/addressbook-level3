@@ -32,8 +32,9 @@ public class HeightTest {
 
         // valid height
         assertTrue(Height.isValidHeight("0.12")); // ≤1 double
-        assertTrue(Height.isValidHeight("12.34")); // ≥1 double
-        assertTrue(Height.isValidHeight("10000")); // positive
-        assertTrue(Height.isValidHeight("0"));
+        assertTrue(Height.isValidHeight("2.99")); // ≥1 double
+        assertFalse(Height.isValidHeight("2.9999999")); // ≥1 double
+        assertFalse(Height.isValidHeight("10000")); // positive
+        assertFalse(Height.isValidHeight("0"));
     }
 }
