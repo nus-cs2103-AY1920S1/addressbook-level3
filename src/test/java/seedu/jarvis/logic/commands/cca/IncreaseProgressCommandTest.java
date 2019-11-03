@@ -13,7 +13,6 @@ import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.cca.ccaprogress.CcaMilestone;
@@ -38,11 +37,11 @@ public class IncreaseProgressCommandTest {
     public void setUp() {
         model = new ModelManager(
                 new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                new AddressBook(), new UserPrefs(), new Planner(), new CoursePlanner()
+                new UserPrefs(), new Planner(), new CoursePlanner()
         );
         expectedModel = new ModelManager(
                 new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-                new AddressBook(), new UserPrefs(), new Planner(), new CoursePlanner()
+                new UserPrefs(), new Planner(), new CoursePlanner()
         );
     }
 
