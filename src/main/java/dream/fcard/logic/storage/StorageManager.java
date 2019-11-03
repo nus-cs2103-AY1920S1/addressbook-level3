@@ -13,6 +13,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import dream.fcard.logic.stats.Session;
+import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.Stats;
 import dream.fcard.model.Deck;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
@@ -20,6 +23,7 @@ import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.util.DateTimeUtil;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.json.JsonParser;
 import dream.fcard.util.json.exceptions.JsonFormatException;
@@ -36,10 +40,17 @@ public class StorageManager {
 
     private static String root;
     private static String decksSubDir = "./decks";
+    private static String statsSubDir = "./stats";
+    private static String statsFileName = "stats.json";
+    private static String statsFileFullPath;
+    private static String codeSubDir = "./code";
 
     /**
-     * Determine root directory of the application, main for project, directory containing jar
-     * for jar files.
+     * Determine root directory of the application:
+     *  main for intellij project,
+     *  jar directory when running as jar,
+     *  current executed directory for default
+     * following resolution root is resolved to `root/data/`
      */
     public static void resolveRoot() {
         if (isRootResolved) {
@@ -57,7 +68,6 @@ public class StorageManager {
                 System.out.println("error");
                 System.exit(-1);
             }
-            //root = FileReadWrite.resolve(thisClassUrl.getPath(), "../../../../../../../../../");
             break;
         case "jar":
             try {
@@ -72,9 +82,8 @@ public class StorageManager {
         default:
             root = System.getProperty("user.dir");
         }
-        System.out.println("RESOLVE TO : " + root);
         root = FileReadWrite.resolve(root, "./data");
-        System.out.println("AFTER APPEND : " + root);
+        resolveStatsPath();
         isRootResolved = true;
     }
 
@@ -84,8 +93,8 @@ public class StorageManager {
      * @param path path to new directory for storage
      */
     public static void provideRoot(String path) {
-        System.out.println("SET ROOT TO : " + path);
         root = path;
+        resolveStatsPath();
         isRootResolved = true;
     }
 
@@ -98,6 +107,8 @@ public class StorageManager {
         return root;
     }
 
+    // ROOT CODE --------------------------------------------------------------
+
     /**
      * Write a deck into decks storage.
      *
@@ -105,9 +116,7 @@ public class StorageManager {
      */
     public static void writeDeck(Deck deck) {
         resolveRoot();
-        System.out.println("ORIGINAL ROOT : " + root);
         String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
-        System.out.println("WRITING FILE TO : " + path);
         FileReadWrite.write(path, deck.toJson().toString());
     }
 
@@ -217,13 +226,78 @@ public class StorageManager {
      */
     public static void saveAll(ArrayList<Deck> decks) {
         resolveRoot();
-        /*String path = FileReadWrite.resolve(root, decksSubDir);
-        File dir = new File(path);
-        for (File f : dir.listFiles()) {
-            f.delete();
-        }*/
         for (Deck d : decks) {
             writeDeck(d);
         }
     }
+
+    // DECK CODE --------------------------------------------------------------
+
+    /**
+     * Resolve path to stats file.
+     */
+    public static void resolveStatsPath() {
+        statsFileFullPath = FileReadWrite.resolve(root, statsSubDir + "/" + statsFileName);
+    }
+
+    /**
+     * Save stats data.
+     */
+    public static void saveStats() {
+        resolveRoot();
+        FileReadWrite.write(statsFileFullPath, Stats.getLoginSessions().toJson().toString());
+    }
+
+    /**
+     * Initialize and load stats data if any.
+     */
+    public static void loadStats() {
+        resolveRoot();
+        Stats.getUserStats();
+        try {
+            ArrayList<Session> arr = new ArrayList<>();
+            JsonValue statsJson = JsonParser.parseJsonInput(FileReadWrite.read(statsFileFullPath));
+            for (JsonValue sessionJson : statsJson.getArray()) {
+                JsonObject sessionJsonObj = sessionJson.getObject();
+                Session session = new Session(
+                        DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_START).getObject()),
+                        DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
+                session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getInt());
+                arr.add(session);
+            }
+            Stats.setSessionList(new SessionList(arr));
+            // load login session
+        } catch (FileNotFoundException e) {
+            System.out.println("STATS FILE DOES NOT EXIST");
+        } catch (JsonFormatException e) {
+            System.out.println("STATS JSON IS ILL FORMED\n" + e.getMessage());
+        } catch (JsonWrongValueException e) {
+            System.out.println("UNEXPECTED JSON FORMAT FOR STATS\n" + e.getMessage());
+        }
+    }
+
+    // STATS CODE -------------------------------------------------------------
+
+    /**
+     * Write a code file to the code sub directory in root.
+     * @param fileName  name of file with extensions
+     * @param code      string content to be written
+     */
+    public static void writeCode(String fileName, String code) {
+        resolveRoot();
+        String path = FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
+        FileReadWrite.write(path, code);
+    }
+
+    /**
+     * Get the path to the code file assuming its in root code subdirectory.
+     * @param fileName  name of file
+     * @return          full path to file
+     */
+    public static String getCodePath(String fileName) {
+        resolveRoot();
+        return FileReadWrite.resolve(root, codeSubDir + "/" + fileName);
+    }
+
+    // CODE EXECUTION CODE ----------------------------------------------------
 }

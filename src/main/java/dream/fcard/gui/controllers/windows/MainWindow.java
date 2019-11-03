@@ -11,11 +11,11 @@ import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.logic.stats.Stats;
-import dream.fcard.logic.storage.StatsStorageManager;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -70,7 +70,8 @@ public class MainWindow extends VBox {
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
     private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
-    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(
+            State.getState().getDecks().get(i - 1));
     private Consumer<Boolean> exitCreate = b -> exitCreate();
     private Consumer<String> processInputCreate = s -> processInputCreate(s);
 
@@ -158,6 +159,7 @@ public class MainWindow extends VBox {
         this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
         displayContainer.getChildren().add(tempCreateDeckDisplay);
         State.getState().setCurrState(StateEnum.CREATE);
+        // CHANGE STATE SHOULD BE DONE IN RESPONSES
     }
 
     /**
@@ -247,7 +249,7 @@ public class MainWindow extends VBox {
 
         // save all files only on exit
         StorageManager.saveAll(State.getState().getDecks());
-        StatsStorageManager.saveLoginSessions();
+        StorageManager.saveStats();
         System.exit(0);
     }
 
@@ -257,6 +259,7 @@ public class MainWindow extends VBox {
     public void exitCreate() {
         tempCreateDeckDisplay.onSaveDeck();
         State.getState().setCurrState(StateEnum.DEFAULT);
+        // State changes should be done in responses
     }
 
     /**
