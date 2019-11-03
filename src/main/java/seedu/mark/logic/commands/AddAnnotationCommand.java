@@ -36,11 +36,12 @@ public class AddAnnotationCommand extends AnnotationCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PARAGRAPH + "p3 "
             + PREFIX_NOTE + "a note tagged to paragraph 3 highlighted orange "
-            + PREFIX_HIGHLIGHT + "orange";
+            + PREFIX_HIGHLIGHT + "orange"
+            + "\nTo add a general note, use p/NULL instead, e.g.\n"
+            + "annotate 1 p/NULL n/i can add a general note this way!\n";
 
-    public static final String MESSAGE_CANNOT_CHOOSE_PHANTOM_TO_ANNOTATE = "You cannot annotate phantom paragraphs "
-            + "this way. If you want to add a general note, use p/NULL instead, e.g.\n"
-            + "annotate 1 p/NULL n/i can add a general note this way!";
+    public static final String MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE = "You cannot annotate phantom paragraphs "
+            + "with no note content.";
     //TODO: change msg to more informative one (what content, to which paragraph, which colour, which bkmark version
     public static final String MESSAGE_SUCCESS = "Annotation successfully added to paragraph %1$s:\n%2$s";
     private static final String MESSAGE_HIGHLIGHT_ADDED = "%s highlight";
@@ -97,8 +98,9 @@ public class AddAnnotationCommand extends AnnotationCommand {
         if (isAddGeneralNote) {
             doc.addPhantom(an);
         } else {
-            if (getPid().isStray()) {
-                throw new CommandException(MESSAGE_CANNOT_CHOOSE_PHANTOM_TO_ANNOTATE);
+
+            if (getPid().isStray() && note == null) {
+                throw new CommandException(MESSAGE_CANNOT_ANNOTATE_PHANTOM_NO_NOTE);
             }
 
             try {
@@ -110,6 +112,7 @@ public class AddAnnotationCommand extends AnnotationCommand {
         }
 
         model.updateDocument(doc);
+        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
 
         Bookmark newBkmark = oldBkmark.copy();
         newBkmark.updateCachedCopy(doc);

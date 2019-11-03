@@ -3,6 +3,7 @@ package seedu.mark.logic;
 import java.nio.file.Path;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.logic.commands.exceptions.CommandException;
@@ -88,6 +89,10 @@ public interface Logic {
      * @see seedu.mark.model.Model#updateDocument(OfflineDocument)
      */
     void updateDocument(OfflineDocument doc);
+
+    ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
+
+    void setOfflineDocNameCurrentlyShowing(String name);
 
     ObservableList<Reminder> getReminderList();
 

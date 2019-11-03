@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.beans.value.ObservableValue;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -128,6 +129,11 @@ public class MarkTest {
 
         @Override
         public ObservableList<Paragraph> getAnnotatedDocument() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableValue<String> getOfflineDocCurrentlyShowing() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -39,7 +39,8 @@ public class PhantomParagraph extends Paragraph {
 
     @Override
     public void addAnnotation(Annotation an) {
-        assert false : "This method should not be called for phantom paragraphs.";
+        assert an.hasNote() : "You cannot add a noteless annotation to a Phantom paragraph.";
+        this.note = an;
     }
 
     @Override

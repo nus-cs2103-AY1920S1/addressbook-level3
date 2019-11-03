@@ -70,7 +70,6 @@ public class EditAnnotationCommand extends AnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        //TODO: refactor to prevent repetition
         OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
         OfflineDocument doc = docOriginal.copy();
 
@@ -109,6 +108,8 @@ public class EditAnnotationCommand extends AnnotationCommand {
                 oldBkmark.getTags(), oldBkmark.getCachedCopies());
 
         newBkmark.updateCachedCopy(doc);
+        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
+
         model.setBookmark(oldBkmark, newBkmark);
 
         String returnMsg = newAnnotation.toString();

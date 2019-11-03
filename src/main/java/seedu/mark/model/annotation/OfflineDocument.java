@@ -30,7 +30,7 @@ public class OfflineDocument {
 
     public static final String MESSAGE_INVALID_PID = "invalid paragraph index provided. "
             + "Unable to annotate nonexistent paragraph.";
-    public static final String MESSAGE_ASSERT_NOT_PHANTOM = "Cannot add annotation to phantom paragraphs.";
+    public static final String MESSAGE_ASSERT_NOT_PHANTOM = "Cannot add empty note to phantom paragraphs.";
     public static final String MESSAGE_ASSERT_PHANTOM_HAS_NOTE = "Annotation given does not have a note; "
             + "phantom paragraphs must have a note to exist";
     public static final String MESSAGE_ASSERT_IS_PHANTOM = "Cannot delete a non phantom paragraph";
@@ -73,6 +73,10 @@ public class OfflineDocument {
         Elements paragraphs = doc.select("p"); //select every element use *
         int idx = 0;
         for (Element p : paragraphs) {
+            if (p.text().isBlank()) {
+                continue; //blank paragraphs (images only is considered blank) are not added into document
+            }
+
             idx++;
             Paragraph para = new TrueParagraph(Index.fromOneBased(idx), new ParagraphContent(p.text()));
             this.paragraphs.put(para.getId(), para);
@@ -135,7 +139,7 @@ public class OfflineDocument {
      * @throws IllegalValueException if {@code pid} is invalid.
      */
     public void addAnnotation(ParagraphIdentifier pid, Annotation an) throws IllegalValueException {
-        assert (!pid.isStray()) : MESSAGE_ASSERT_NOT_PHANTOM;
+        assert (!pid.isStray() || an.hasNote()) : MESSAGE_ASSERT_NOT_PHANTOM;
         if (!hasParagraph(pid)) {
             throw new IllegalValueException(MESSAGE_INVALID_PID);
         }

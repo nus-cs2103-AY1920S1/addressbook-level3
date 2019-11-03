@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
@@ -105,6 +106,16 @@ public class LogicManager implements Logic {
     @Override
     public void updateDocument(OfflineDocument doc) {
         model.updateDocument(doc);
+    }
+
+    @Override
+    public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+        return model.getObservableOfflineDocNameCurrentlyShowing();
+    }
+
+    @Override
+    public void setOfflineDocNameCurrentlyShowing(String name) {
+        model.setOfflineDocNameCurrentlyShowing(name);
     }
 
     @Override

@@ -467,8 +467,8 @@ Deletes the offline copy of the second bookmark.
 This adds a new annotation on the offline copy of the given bookmarked
 website. When you give this command, the UI will switch to the offline tab showing the results of your command.
 With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
-note to said paragraph. (Notes can be added to justify the highlight or as
-content-relevant notes for future reference to bookmark).
+note to said paragraph. (You can add notes to justify the highlight or as
+content-relevant notes to refer to in future).
 You can also add a general note not pertaining to any specific paragraph to the bottom of the document,
 hereby known as the _General notes section_.
 
@@ -476,7 +476,9 @@ NOTE: A general note is known to attach to a <<phantom-paragraph,_phantom paragr
 copy, phantom paragraphs do not have any content displayed; they do not belong to the original web page.
 The phantom paragraphs altogether make up the _General notes section_.
 
-Overwriting an existing note that is not a general note is possible with this command.
+You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
+a phantom paragraph, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
+
 
 NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `S`. You can refer to the
 numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
@@ -493,8 +495,8 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
  * `NOTES` is the content of notes to add.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
 the highlight colour to mark out paragraphs. If no colour is specified,
-yellow is the default colour.
-If colour provided is invalid, a warning message will be displayed.
+the colour is set to yellow by default.
+If the colour provided is invalid, a warning message will be displayed.
 ****
 
 Examples:
@@ -505,18 +507,18 @@ in the offline copy of bookmark 1.
 //TODO: add screenshots
 
 * `*annotate* 1 p/p2 h/pink` +
-This overwrites any existing highlight and highlights paragraph 2 with pink
+This overwrites any existing highlight of paragraph 2 with pink
 in the offline copy of bookmark 1. Any notes attached remain attached.
 
 * `*annotate* 1 p/p2 n/change or add note content` +
-This changes the note attached to paragraph 2 to a note with content “change or add note content”
-in the offline copy of bookmark 1 if paragraph 2 had pre-existing note, and highlight
+This overwrites any note attached to paragraph 2 to a note with content “change or add note content”
+in the offline copy of bookmark 1. Highlight
 colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
 a new note with content "change or add note content" will be added to the paragraph.
 
-//TODO: * `*annotate* 1 n/adding a general note` +
-//This adds a note with content "adding a general note" to the _General notes section_ in the
-// offline copy of bookmark 1.
+* `*annotate* 1 n/adding a general note` +
+This adds a note with content "adding a general note" to the _General notes section_ in the
+offline copy of bookmark 1.
 
 
 === Deleting annotations on an offline copy: *`annotate-delete`*
@@ -563,7 +565,7 @@ This deletes the general note from phantom paragraph `S1` in the offline copy of
 * `*annotate-delete* 1` +
 This removes all annotations of the offline copy of bookmark 1.
 
-
+[[annotate-edit]]
 === Modifying annotations on an offline copy: *`annotate-edit`*
 
 This modifies existing annotations on the offline copy of the given bookmarked
@@ -571,6 +573,9 @@ website. When you give this command, the UI will switch to the offline tab showi
 With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, change the highlight or
 choose to move notes from a paragraph to another paragraph. This command also supports moving notes of a
 <<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
+
+NOTE: While both `*annotate-edit*` and `*annotate*` can be used to change current annotation highlight and notes, `*annotate-edit*`
+allows you to shift your annotations from one paragraph to another in a single step.
 
 //TODO lift this restriction in future version
 At v1.3, moving of notes to the  <<stray-notes, _General notes section_>> is not supported.

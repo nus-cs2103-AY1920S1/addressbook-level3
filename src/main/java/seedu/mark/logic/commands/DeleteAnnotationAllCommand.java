@@ -70,6 +70,7 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
         }
 
         model.updateDocument(doc);
+        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
 
         Bookmark newBkmark = oldBkmark.copy();
 

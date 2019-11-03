@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -262,6 +263,16 @@ public class ModelManager implements Model {
     @Override
     public void updateDocument(OfflineDocument doc) {
         versionedMark.setAnnotatedDocument(FXCollections.observableArrayList(doc.getCollection()));
+    }
+
+    @Override
+    public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+        return versionedMark.getOfflineDocCurrentlyShowing();
+    }
+
+    @Override
+    public void setOfflineDocNameCurrentlyShowing(String name) {
+        versionedMark.setOfflineDocCurrentlyShowing(name);
     }
 
 
