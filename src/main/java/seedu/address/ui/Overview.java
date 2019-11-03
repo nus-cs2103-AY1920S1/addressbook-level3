@@ -156,6 +156,7 @@ public class Overview extends UiPart<Region> {
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
                 Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getSalesTotalByMonth(currentDate)))));
 
+//        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
 //        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
 //                overviewLogic.getSalesTotalByMonth(currentDate.minusMonths(2))));
 //        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
@@ -181,6 +182,14 @@ public class Overview extends UiPart<Region> {
                 Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))))));
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
                 Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getBudgetLeftByMonth(currentDate)))));
+
+//        XYChart.Series<String, Double> dataSeries = new XYChart.Series<>();
+//        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(2).getMonth().toString(),
+//                overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(2))));
+//        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
+//                overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))));
+//        dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
+//                overviewLogic.getBudgetLeftByMonth(currentDate)));
 
         budgetBarChart.getData().add(dataSeries);
         budgetBarChart.setLegendVisible(false);
