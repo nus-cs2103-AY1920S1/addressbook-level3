@@ -78,7 +78,7 @@ public class EventIndexCommand extends EventCommand {
     private String formatIndexVEventPair(Pair<Index, VEvent> indexVEventPair) {
         Index vEventIndex = indexVEventPair.getKey();
         VEvent vEvent = indexVEventPair.getValue();
-        return String.format("Index: %d | event name: %s | start datetime: %s | end datetime: %s\n",
+        return String.format("Index: %d || event name: %s || start datetime: %s || end datetime: %s\n",
                 vEventIndex.getOneBased(), vEvent.getSummary().getValue(),
                 vEvent.getDateTimeStart().getValue().toString(),
                 vEvent.getDateTimeEnd().getValue().toString());
