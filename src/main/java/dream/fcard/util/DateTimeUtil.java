@@ -62,5 +62,5 @@ public class DateTimeUtil {
         return localDateTime.format(formatter);
     }
 
-    // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
+    // todo: generate cut-off date for "past week", "past month" etc to pass to UserStats class
 }

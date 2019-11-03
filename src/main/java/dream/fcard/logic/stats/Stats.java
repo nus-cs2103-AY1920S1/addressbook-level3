@@ -1,67 +1,41 @@
-//@@author nattanyz
 package dream.fcard.logic.stats;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- * Represents the user's statistics.
- */
-public class Stats implements Serializable {
-    /** The one and only instance of Stats allowed to exist. */
-    private static Stats userStats;
+public abstract class Stats {
 
-    /** List of Sessions the user has engaged in to date. */
-    private static SessionList loginSessions;
+    /** List of Sessions the user has engaged in. */
+    SessionList sessionList;
 
-    /** Current Session the user is engaging in, if the application is open. */
-    private static Session currentSession;
+    /** The current Session the user is engaging in. */
+    Session currentSession;
 
-    /** Constructs a new instance of Stats with no stored data. */
     public Stats() {
-        System.out.println("New Stats object created");
-        loginSessions = new SessionList();
-        System.out.println("New loginSessions created");
+
     }
 
-    /** Returns the Stats object pertaining to this user. */
-    public static Stats getUserStats() {
-        if (userStats == null) {
-            System.out.println("Creating a new Stats object...");
-            userStats = new Stats();
-        }
-        return userStats;
+    /** Sets the sessionList of the current Stats object to the given newSessionList. */
+    public void setSessionList(SessionList newSessionList) {
+        this.sessionList = newSessionList;
     }
 
-    /** Sets userStats to the pre-defined Stats object. */
-    public static void setUserStats(Stats stats) {
-        userStats = stats;
+    /** Returns the number of sessions in the sessionList contained inside this Stats object. */
+    public int getNumberOfSessions() {
+        return this.sessionList.numberOfSessions();
     }
 
-    /**
-     * Creates a new Stats object from a String read from a file.
-     * @param fileText String containing info about the Stats object, read from a file.
-     * @return The new Stats object created.
-     */
-    public static Stats parseStats(String fileText) {
-        // todo: should parse Stats from file every time app is initialised. now, just create new
-        return new Stats();
+    /** Adds the given Session to the sessionList contained inside this Stats object. */
+    public void addSession(Session session) {
+        this.sessionList.addSession(session);
     }
-
-    public static void setSessionList(SessionList sessionList) {
-        loginSessions = sessionList;
-    }
-
-    /** Returns the number of login sessions. */
-    public static int getNumberOfLoginSessions() {
-        return loginSessions.numberOfSessions();
-    }
-
-    // todo: calculate number of sessions in past week, past month etc. should this generate a list?
-    // todo: possibly compare past week to previous week etc.
 
     /** Starts a new Session, representing the current Session the user is engaging in. */
-    public static void startCurrentSession() {
+    public void startCurrentSession() {
         if (currentSession != null) {
             endCurrentSession(); // should not occur, but should terminate just in case
             System.out.println("Existing current session detected. Terminating it first...");
@@ -74,17 +48,17 @@ public class Stats implements Serializable {
     }
 
     /** Ends the current Session the user is engaging in and saves it to the list of Sessions. */
-    public static void endCurrentSession() {
+    public void endCurrentSession() {
         // assert current session is not null?
         try {
-            // ensure that new Stats() is called
-            getUserStats(); // temporary
+            // ensure that new UserStats() is called
+            //getUserStats(); // temporary
 
-            currentSession.endSession();
-            loginSessions.addSession(currentSession);
+            this.currentSession.endSession();
+            this.sessionList.addSession(currentSession);
 
             // reset currentSession to null since this is terminated
-            currentSession = null;
+            this.currentSession = null;
 
             // debug (change to Logger when implemented)
             System.out.println("Ending the current session...");
@@ -94,23 +68,54 @@ public class Stats implements Serializable {
         }
     }
 
-    /** Gets the list of login sessions. */
-    public static SessionList getLoginSessions() {
-        return loginSessions;
+    /** Gets the list of sessions. */
+    public SessionList getSessionList() {
+        return this.sessionList;
     }
 
-    /** Gets the list of login sessions, as the underlying ArrayList, to display in the GUI. */
-    public static ArrayList<Session> getLoginSessionsAsArrayList() {
-        return getLoginSessions().getSessionArrayList();
+    /** Gets the list of sessions, as the underlying ArrayList, to display in the GUI. */
+    public ArrayList<Session> getSessionsAsArrayList() {
+        return this.sessionList.getSessionArrayList();
     }
 
     /** Gets the current session. */
-    public static Session getCurrentSession() {
-        return currentSession;
+    public Session getCurrentSession() {
+        return this.currentSession;
     }
 
     /** Gets the total length of time spent in sessions, as a String. */
-    public static String getTotalDurationOfSessionsAsString() {
-        return loginSessions.getTotalDurationAsString();
+    public String getTotalDurationOfSessionsAsString() {
+        return this.sessionList.getTotalDurationAsString();
+    }
+
+    /** Creates the TableView object from the list of login sessions. */
+    public TableView<Session> getSessionsTableView() {
+        ArrayList<Session> sessionsList = this.getSessionsAsArrayList();
+        TableView<Session> sessionsTableView = new TableView<>();
+
+        // temporary debug
+        //for (Session session : sessionsList) {
+        //    System.out.println("Start: " + session.getSessionStartString());
+        //    System.out.println("End: " + session.getSessionEndString());
+        //    System.out.println("Duration: " + session.getDurationString());
+        //}
+
+        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsList));
+        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
+
+        TableColumn<Session, String> startColumn = new TableColumn<>("Start");
+        startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
+
+        TableColumn<Session, String> endColumn = new TableColumn<>("End");
+        endColumn.setCellValueFactory(new PropertyValueFactory<>("sessionEndString"));
+
+        TableColumn<Session, String> durationColumn = new TableColumn<>("Duration");
+        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
+
+        sessionsTableView.getColumns().add(startColumn);
+        sessionsTableView.getColumns().add(endColumn);
+        sessionsTableView.getColumns().add(durationColumn);
+
+        return sessionsTableView;
     }
 }

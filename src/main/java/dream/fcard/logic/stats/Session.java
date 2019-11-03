@@ -1,3 +1,4 @@
+//@@author nattanyz
 package dream.fcard.logic.stats;
 
 import java.io.Serializable;
@@ -5,7 +6,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import dream.fcard.util.DateTimeUtil;
-
 
 /**
  * A Session object represents a length of time the user spends doing a task, e.g. using the app
@@ -31,8 +31,6 @@ public class Session implements Serializable {
 
     /** The duration of the session, as a String for rendering in the GUI. */
     private String durationString;
-
-    private int score = -1; // optional, default is -1
 
     /**
      * Constructs a new instance of Session and sets the session's start time to the present.
@@ -94,23 +92,5 @@ public class Session implements Serializable {
     /** Gets the duration of this session, as a String. */
     public String getDurationString() {
         return this.durationString;
-    }
-
-    /** Sets the score of this session. */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /** Gets the score of this session.*/
-    public int getScore() {
-        if (this.score == -1) {
-            return 0; // todo: is this a good idea???
-        }
-        return this.score;
-    }
-
-    /** Returns true if this session has an associated score, false otherwise. */
-    public boolean hasScore() {
-        return this.score != -1;
     }
 }

@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
-import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.stats.UserStats;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,8 +31,10 @@ public class StatisticsWindow extends VBox {
     @FXML
     private TableView<DeckStats> deckStatsTableView;
 
+    private UserStats userStats;
+
     /** Creates a new instance of StatisticsWindow. */
-    public StatisticsWindow() {
+    public StatisticsWindow(UserStats userStats) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                 .getResource("/view/Windows/StatisticsWindow.fxml"));
@@ -43,47 +46,21 @@ public class StatisticsWindow extends VBox {
             e.printStackTrace();
         }
 
+        this.userStats = userStats;
         displayStats();
-        displaySessionsTableView();
+        sessionsTableView = userStats.getSessionsTableView();
         displayDeckStatsTableView();
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displayStats() {
-        int numSessions = Stats.getNumberOfLoginSessions();
+        int numSessions = userStats.getNumberOfSessions();
         totalSessions.setText("Total sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
 
 
-        String duration = Stats.getTotalDurationOfSessionsAsString();
+        String duration = userStats.getTotalDurationOfSessionsAsString();
         totalDuration.setText("Total duration: " + duration);
-    }
-
-    /** Creates the TableView object from the list of login sessions. */
-    private void displaySessionsTableView() {
-        ArrayList<Session> sessionsList = Stats.getLoginSessionsAsArrayList();
-        // temporary debug
-        for (Session session : sessionsList) {
-            System.out.println("Start: " + session.getSessionStartString());
-            System.out.println("End: " + session.getSessionEndString());
-            System.out.println("Duration: " + session.getDurationString());
-        }
-
-        sessionsTableView.setItems(FXCollections.observableArrayList(sessionsList));
-        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
-
-        TableColumn<Session, String> startColumn = new TableColumn<>("Start");
-        startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
-
-        TableColumn<Session, String> endColumn = new TableColumn<>("End");
-        endColumn.setCellValueFactory(new PropertyValueFactory<>("sessionEndString"));
-
-        TableColumn<Session, String> durationColumn = new TableColumn<>("Duration");
-        durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
-
-        sessionsTableView.getColumns().add(startColumn);
-        sessionsTableView.getColumns().add(endColumn);
-        sessionsTableView.getColumns().add(durationColumn);
     }
 
     /** Creates the TableView object showing DeckStats for each Deck. */

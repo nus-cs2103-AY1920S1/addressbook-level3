@@ -9,10 +9,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.Stats;
+import dream.fcard.logic.stats.UserStats;
 
 /**
- * Class to handle storage of Stats objects.
+ * Class to handle storage of UserStats objects.
  */
 public class StatsStorageManager {
 
@@ -50,21 +50,21 @@ public class StatsStorageManager {
     }
 
     /**
-     * Load the stored Stats object. Else, create a new one.
-     * @return Stats object representing user's overall statistics
+     * Load the stored UserStats object. Else, create a new one.
+     * @return UserStats object representing user's overall statistics
      */
-    //public static Stats getStats() {
-    //    // todo: this method is unused as of now, to be used when storage for Stats is implemented.
+    //public static UserStats getStats() {
+    //    // todo: this method is unused as of now, to be used when storage for UserStats is implemented.
     //    resolveRoot();
     //    String path = FileReadWrite.resolve(root, statsPath);
     //
     //    if (!FileReadWrite.fileExists(path)) {
-    //        return new Stats();
+    //        return new UserStats();
     //    }
     //
     //    try {
     //        String fileText = FileReadWrite.read(path);
-    //        return Stats.parseStats(fileText);
+    //        return UserStats.parseStats(fileText);
     //    } catch (FileNotFoundException e) {
     //        System.out.println("FILE DOES NOT EXIST");
     //    }
@@ -84,7 +84,7 @@ public class StatsStorageManager {
             FileOutputStream fos = new FileOutputStream(statsPath);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            oos.writeObject(Stats.getLoginSessions());
+            oos.writeObject(UserStats.getLoginSessions());
 
             oos.close();
             fos.close();
@@ -98,7 +98,7 @@ public class StatsStorageManager {
 
     /** Load loginSessions from disk. */
     public static void loadLoginSessions() {
-        Stats.getUserStats(); // create new Stats object
+        UserStats.getUserStats(); // create new UserStats object
 
         // if directory does not exist, or file does not exist, no need to load from file
         if (!hasDirectory() || !hasFile()) {
@@ -116,7 +116,7 @@ public class StatsStorageManager {
             fis.close();
 
             System.out.println("Statistics imported from: " + statsPath);
-            Stats.setSessionList(sessionList);
+            UserStats.setSessionList(sessionList);
         } catch (Exception e) {
             // temporary haxx
             e.printStackTrace();
