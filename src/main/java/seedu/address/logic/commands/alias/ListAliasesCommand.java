@@ -32,4 +32,9 @@ public class ListAliasesCommand extends Command {
                 String.format(MESSAGE_SUCCESS, model.getAliasMappings().getAliases().size()),
                 AliasPanel.PANEL_NAME);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ListAliasesCommand;
+    }
 }

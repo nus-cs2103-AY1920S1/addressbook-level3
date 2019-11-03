@@ -29,7 +29,7 @@ public class AddExpenseCommand extends UndoableCommand {
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_PRICE + "PRICE "
             + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_TIMESTAMP + "TIMESTAMP\n"
+            + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Chicken Rice "
             + PREFIX_PRICE + "3.50 "
