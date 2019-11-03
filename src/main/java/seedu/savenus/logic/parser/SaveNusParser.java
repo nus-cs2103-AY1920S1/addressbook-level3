@@ -114,7 +114,6 @@ public class SaveNusParser {
         case DefaultCommand.COMMAND_WORD:
             return new DefaultCommand();
 
-        case HistoryCommand.COMMAND_ALIAS:
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
