@@ -9,10 +9,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import mams.commons.core.time.TimeStamp;
 import mams.commons.util.ListPointer;
-import mams.logic.InputOutput;
 import mams.logic.Logic;
 import mams.logic.commands.CommandResult;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.InputOutput;
 import mams.logic.parser.exceptions.ParseException;
 
 /**

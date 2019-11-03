@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import mams.commons.exceptions.DataConversionException;
-import mams.logic.CommandHistory;
-import mams.logic.ReadOnlyCommandHistory;
+import mams.logic.history.CommandHistory;
+import mams.logic.history.ReadOnlyCommandHistory;
 
 public class JsonCommandHistoryStorageTest {
     private static final Path TEST_DATA_FOLDER =

@@ -1,6 +1,5 @@
-package mams.ui;
+package mams.ui.history;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,25 +10,29 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mams.commons.core.LogsCenter;
-import mams.logic.InputOutput;
+import mams.logic.history.InputOutput;
+import mams.ui.ResultDisplay;
+import mams.ui.UiPart;
 
 /**
  * Controller for a page displaying command history.
  */
 public class HistoryWindow extends UiPart<Stage> {
 
-    public static final String COMMAND_PROMPT_PREFIX = ">> ";
-    public static final String DOUBLE_NEWLINE = "\n\n";
-
     private static final Logger logger = LogsCenter.getLogger(HistoryWindow.class);
     private static final String FXML = "HistoryWindow.fxml";
+
+    private static final String MESSAGE_COPY_FEEDBACK = "Copied the following command to system clipboard:\n%1$s";
 
     private boolean hideOutputHistory;
 
     private HistoryListPanel historyListPanel;
+    private ResultDisplay historyWindowFeedback;
 
     @FXML
     private StackPane historyDisplayPanelPlaceholder;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
     /**
      * Creates a new HistoryWindow.
@@ -41,6 +44,8 @@ public class HistoryWindow extends UiPart<Stage> {
         this.hideOutputHistory = hideOutputHistory;
         this.historyListPanel = new HistoryListPanel(commandHistory);
         historyDisplayPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+        this.historyWindowFeedback = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(historyWindowFeedback.getRoot());
 
         // Global event filter: whenever ESC key is pressed, exit HistoryWindow regardless of focus.
         root.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
@@ -63,27 +68,6 @@ public class HistoryWindow extends UiPart<Stage> {
         logger.fine("Feedback display in history window has been set to " + Boolean.toString(isOutputHidden));
         this.hideOutputHistory = isOutputHidden;
         historyListPanel.hideOutput(isOutputHidden);
-    }
-
-    /**
-     * Formats the given {@code commandHistory} into a {@code String} formatted for displaying
-     * in {@code HistoryWindow}
-     * @param commandHistory
-     * @return formatted text
-     */
-    private String formatCommandHistoryToString(List<InputOutput> commandHistory) {
-        StringBuilder sb = new StringBuilder();
-
-        for (InputOutput inputOutput : commandHistory) {
-            sb.append(COMMAND_PROMPT_PREFIX);
-            sb.append(inputOutput.getInput());
-            if (!hideOutputHistory) {
-                sb.append(DOUBLE_NEWLINE);
-                sb.append(inputOutput.getOutput());
-            }
-            sb.append(DOUBLE_NEWLINE);
-        }
-        return sb.toString().trim();
     }
 
     /**
@@ -123,6 +107,7 @@ public class HistoryWindow extends UiPart<Stage> {
      */
     public void hide() {
         getRoot().hide();
+        historyWindowFeedback.clearDisplay();
     }
 
     /**
@@ -149,6 +134,7 @@ public class HistoryWindow extends UiPart<Stage> {
         InputOutput selected = historyListPanel.getCurrentlySelectedInputOutput();
         copiedText.putString(selected.getInput());
         clipboard.setContent(copiedText);
+        historyWindowFeedback.setFeedbackToUser(String.format(MESSAGE_COPY_FEEDBACK, selected.getInput()));
     }
 
     /**

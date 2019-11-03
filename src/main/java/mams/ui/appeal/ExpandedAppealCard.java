@@ -1,13 +1,14 @@
-package mams.ui;
+package mams.ui.appeal;
 
-import static mams.ui.AppealCard.setApprovalStatusDisplay;
-import static mams.ui.AppealCard.setResolvedStatusDisplay;
+import static mams.ui.appeal.AppealCard.setApprovalStatusDisplay;
+import static mams.ui.appeal.AppealCard.setResolvedStatusDisplay;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import mams.model.appeal.Appeal;
+import mams.ui.UiPart;
 
 /**
  * A UI component that displays the full expanded information of an {@code Appeal}.

@@ -1,0 +1,473 @@
+{
+  "inputOutputs" : [ {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587467114
+  }, {
+    "input" : "view a/3",
+    "output" : "Displayed items with ID: C000002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587597611
+  }, {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587602488
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572587634075
+  }, {
+    "input" : "view a/4",
+    "output" : "Displayed items with ID: C000003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614760741
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614763417
+  }, {
+    "input" : "view s/4",
+    "output" : "Displayed items with ID: A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614767451
+  }, {
+    "input" : "view m/5",
+    "output" : "Displayed items with ID: CS2040",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614776520
+  }, {
+    "input" : "approve mass/    C000003   C000002",
+    "output" : "Successfully approved: [C000003, C000002]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614793015
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614827190
+  }, {
+    "input" : "view s/5",
+    "output" : "Displayed items with ID: A0180004",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614924863
+  }, {
+    "input" : "view m/3",
+    "output" : "Displayed items with ID: CS1231",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614928719
+  }, {
+    "input" : "approve mass/  C000002  C000003",
+    "output" : "Successfully approved: [C000002, C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614940773
+  }, {
+    "input" : "view s/4",
+    "output" : "Displayed items with ID: A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614955351
+  }, {
+    "input" : "approve a/6",
+    "output" : "Approved C000005\nAdded module to : A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572614968018
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nStudent max credits updated to : 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572616942632
+  }, {
+    "input" : "approve mass/ c000000  c000001   c000004 c000006",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [c000000, c000001, c000004, c000006]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617116591
+  }, {
+    "input" : "approve mass/ c000000  c000001   c000004 C000006",
+    "output" : "Successfully approved: [C000006]\nInvalid appeal IDs: [c000000, c000001, c000004]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617130738
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617133049
+  }, {
+    "input" : "approve mass/ C000001",
+    "output" : "Successfully approved: [C000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617225423
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617228067
+  }, {
+    "input" : "approve mass/ c000001",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [c000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617231065
+  }, {
+    "input" : "reject mass/ c000001   c000004  c000003",
+    "output" : "Successfully rejected: [C000001, C000004]\nAlready approved: [C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617650208
+  }, {
+    "input" : "approve mass/ c000006",
+    "output" : "Successfully approved: [C000006]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617688854
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617692524
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617693936
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617695261
+  }, {
+    "input" : "redo",
+    "output" : "Redo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572617697184
+  }, {
+    "input" : "view s/2",
+    "output" : "Displayed items with ID: A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620498311
+  }, {
+    "input" : "view m/2",
+    "output" : "Displayed items with ID: CS1020",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620503852
+  }, {
+    "input" : "approve mass/ c000000   c000002   c000003  c00dfsd00f   c000045  cc  C000002    C000004",
+    "output" : "Successfully approved: [C000000, C000002, C000003, C000004]\nInvalid appeal IDs: [C00DFSD00F, CC]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620542492
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620563878
+  }, {
+    "input" : "view m/3",
+    "output" : "Displayed items with ID: CS1231",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620675247
+  }, {
+    "input" : "view s/4",
+    "output" : "Displayed items with ID: A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620688454
+  }, {
+    "input" : "approve a/1 r/as",
+    "output" : "Approved C000000\nStudent max credits updated to : 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620712648
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620721369
+  }, {
+    "input" : "view a/2",
+    "output" : "Displayed items with ID: C000001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620840525
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000001\nRemoved module from : A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620970632
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620977744
+  }, {
+    "input" : "view a/3 a/4",
+    "output" : "Displayed items with ID: C000003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620993776
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572620998722
+  }, {
+    "input" : "approve a/11",
+    "output" : "Approved C000010\nStudent max credits updated to : 30",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572621886385
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572621901332
+  }, {
+    "input" : "view a/8",
+    "output" : "Displayed items with ID: C000007",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622006838
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622017249
+  }, {
+    "input" : "view a/6",
+    "output" : "Displayed items with ID: C000005",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622020139
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622023086
+  }, {
+    "input" : "view a/8",
+    "output" : "Displayed items with ID: C000007",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622026224
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622029002
+  }, {
+    "input" : "view a/9",
+    "output" : "Displayed items with ID: C000008",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622031859
+  }, {
+    "input" : "approve a/11",
+    "output" : "Approved C000010\nStudent max credits updated to : 30",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622100135
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622105797
+  }, {
+    "input" : "approve a/12",
+    "output" : "Approved C000011\nAdded module to : A0180011",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622109662
+  }, {
+    "input" : "view a/12",
+    "output" : "Displayed items with ID: C000011",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622116772
+  }, {
+    "input" : "view s/12",
+    "output" : "Displayed items with ID: A0180011",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622127224
+  }, {
+    "input" : "view m/4",
+    "output" : "Displayed items with ID: CS2030",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622137859
+  }, {
+    "input" : "list",
+    "output" : "Listed all appeals\nListed all modules\nListed all students",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622153956
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622155965
+  }, {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622618432
+  }, {
+    "input" : "view a/1",
+    "output" : "Displayed items with ID: C000000",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572622903981
+  }, {
+    "input" : "clash m/1 m/2",
+    "output" : "There is no timetable clash.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683274646
+  }, {
+    "input" : "clash m/1 m/3",
+    "output" : "Timetable clash detected: \nCS1010  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683277116
+  }, {
+    "input" : "clash m/4 m/3",
+    "output" : "Timetable clash detected: \nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683287728
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected: \nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683452516
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected: \n for A0180011CS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683552421
+  }, {
+    "input" : "approve a/11",
+    "output" : "Approved C000010\nStudent max credits updated to : 30",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683752663
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683755498
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected for A0180011 CS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\n\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683763396
+  }, {
+    "input" : "approve a/12",
+    "output" : "Timetable clash detected for A0180011:\nCS2030  CS1231\nMonday 08:00 to 10:00, Thursday 10:00 to 13:00\nUnable to approve this appeal",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572683893624
+  }, {
+    "input" : "approve mass/  C000000   C000001 c000003     c000011",
+    "output" : "Successfully approved: [C000000, C000001, C000003]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685071937
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685096567
+  }, {
+    "input" : "approve mass/ C000011",
+    "output" : "Successfully approved: [C000011]\nInvalid appeal IDs: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685298030
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685305558
+  }, {
+    "input" : "approve mass/ C000011",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685317929
+  }, {
+    "input" : "approve mass/ c000011",
+    "output" : "No appeals were approved\nAppeals with module clash: [C000011]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572685531694
+  }, {
+    "input" : "view s/2",
+    "output" : "Displayed items with ID: A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686612819
+  }, {
+    "input" : "approve a/16",
+    "output" : "Approved C000015\nStudent max credits updated to : 26",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686625387
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686633648
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nA0180000 max credits updated to: 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572686992309
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687000087
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved module from : A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687003371
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687011246
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved module from : CS2105",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687245274
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687252174
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from : CS2105",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687359723
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687404495
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687457764
+  }, {
+    "input" : "",
+    "output" : "Invalid command format! \nhelp: Shows program usage instructions.\nExample: help",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572687458233
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687461396
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2105 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687463515
+  }, {
+    "input" : "approve a/3",
+    "output" : "Approved C000002\nRemoved CS2040 from A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687474073
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687479401
+  }, {
+    "input" : "approvea/4",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1572687483445
+  }, {
+    "input" : "approve a/4",
+    "output" : "Approved C000003\nAdded CS1020 to : A0180003",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1572687485848
+  } ]
+}

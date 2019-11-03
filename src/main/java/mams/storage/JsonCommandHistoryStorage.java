@@ -12,7 +12,7 @@ import mams.commons.exceptions.DataConversionException;
 import mams.commons.exceptions.IllegalValueException;
 import mams.commons.util.FileUtil;
 import mams.commons.util.JsonUtil;
-import mams.logic.ReadOnlyCommandHistory;
+import mams.logic.history.ReadOnlyCommandHistory;
 
 /**
  * A class to access CommandHistory data stored as a json file on the hard disk.

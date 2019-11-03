@@ -1,8 +1,7 @@
-package mams.logic;
+package mams.logic.history;
 
 import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_1;
 import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_2;
-import static mams.testutil.TypicalCommandHistory.SUCCESSFUL_IO_4;
 import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_1;
 import static mams.testutil.TypicalCommandHistory.UNSUCCESSFUL_IO_2;
 import static mams.testutil.TypicalTimeStamps.TIME_STAMP_3;
@@ -21,7 +20,7 @@ public class InputOutputTest {
     @Test
     public void hashCodeTest() {
         InputOutput sameIo = new InputOutput(SUCCESSFUL_IO_1.getInput(), SUCCESSFUL_IO_1.getOutput(),
-                SUCCESSFUL_IO_1.checkSuccessful(), SUCCESSFUL_IO_4.getTimeStamp());
+                SUCCESSFUL_IO_1.checkSuccessful(), SUCCESSFUL_IO_1.getTimeStamp());
 
         // same object -> same hashcode
         assertEquals(SUCCESSFUL_IO_1.hashCode(), SUCCESSFUL_IO_1.hashCode());

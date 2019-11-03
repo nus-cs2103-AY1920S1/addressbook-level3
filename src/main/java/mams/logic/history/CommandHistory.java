@@ -1,4 +1,6 @@
-package mams.logic;
+package mams.logic.history;
+
+import static java.util.Objects.requireNonNull;
 
 import static mams.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -21,6 +23,7 @@ public class CommandHistory implements ReadOnlyCommandHistory {
      * @param inputOutputs
      */
     public CommandHistory(List<InputOutput> inputOutputs) {
+        requireNonNull(inputOutputs);
         this.inputOutputHistory.addAll(inputOutputs);
     }
 
@@ -36,7 +39,7 @@ public class CommandHistory implements ReadOnlyCommandHistory {
      * Adds the entered input text from the user and the resulting command feedback into a list.
      */
     public void add(String input, String output, boolean wasExecutionSuccessful, TimeStamp timeStamp) {
-        requireAllNonNull(input, output);
+        requireAllNonNull(input, output, timeStamp);
         inputOutputHistory.add(new InputOutput(input, output, wasExecutionSuccessful, timeStamp));
     }
 

@@ -604,6 +604,7 @@ particulars
 resolve appeal cases
 * has *neither the authority nor need* to add/remove students, appeals,
 and modules to/from the current database (out of job purview)
+* needs to keep a permanent log of all actions taken when resolving appeals.
 
 *Value proposition*: View, manage, and resolve appeals as fast as or
 faster than a typical mouse/GUI driven app.
@@ -732,8 +733,8 @@ Pre-condition: System has only just been opened, and is showing a list
 of appeals by default.
 
 1.  Admin views the details of the first appeal.
-2.  Admin displays the expanded information of the module.
-3.  Admin displays the expanded information of the student-of-interest.
+2.  Admin displays the full information of the module-of-interest.
+3.  Admin displays the full information of the student-of-interest.
 4.  Admin removes the pre-allocated module from student.
 5.  Admin marks the appeal as approved, with an approval message to be
 displayed to the student.
@@ -839,7 +840,38 @@ student with student’s existing modules.
 *Use case ends.*
 
 [discrete]
-=== (Coming in 2.0) UC05: Encrypt and Archive this semester’s appeal cases
+=== UC05: Viewing Command History
+
+*MSS*
+
+1.  Admin instructs MAMS to bring up command history
+2.  MAMS opens a view of the command history.
+3.  After viewing, admin closes the view.
++
+*Use case ends.*
+
+*Extensions*
+
+[none]
+* 2a. Admin uses hot-keys to navigate entries in command history view.
++
+*Use case resumes at step 3.*
+
+* 2b. Admin wants to copy a particular command in the history.
++
+[none]
+** 2b1. Admin navigates to history entry of interest (using extension 2a or otherwise).
+** 2b1. Admin copies contents of command to clipboard (hotkey or otherwise)
++
+*Use case resumes at step 3.*
+
+[none]
+* 2c. Admin uses hot-keys to exit command history view.
++
+*Use case ends.*
+
+[discrete]
+=== (Coming in 2.0) UC06: Encrypt and Archive this semester’s appeal cases
 
 *MSS*
 
