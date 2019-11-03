@@ -302,7 +302,8 @@ public class MainWindow extends UiPart<Stage> {
     private boolean usesRightPane(CommandResult commandResult) {
         return commandResult.isDisplay()
             || commandResult.isExpandPerson()
-            || commandResult.isExpandPolicy();
+            || commandResult.isExpandPolicy()
+            || commandResult.isListHistory();
     }
 
     private void setLogo() {
