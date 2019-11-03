@@ -27,9 +27,22 @@ public class ClearCourseCommand extends Command {
 
     private List<Course> deleted;
 
+    public ClearCourseCommand(List<Course> courses) {
+        deleted = new ArrayList<>();
+        deleted.addAll(courses);
+    }
+
+    public ClearCourseCommand() {
+        this(null);
+    }
+
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
+    }
+
+    public List<Course> getClearedCourses() {
+        return deleted;
     }
 
     @Override
