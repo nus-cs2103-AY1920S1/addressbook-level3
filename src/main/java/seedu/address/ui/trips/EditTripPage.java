@@ -96,7 +96,7 @@ public class EditTripPage extends Page<AnchorPane> {
                     + " " + PREFIX_DATE_END
                     + ParserDateUtil.getStringFromDate(endDate.atTime(23, 59)));
         });
-        tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget -> {
+        tripTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
             mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
                     + " " + PREFIX_BUDGET + totalBudget);
         });

@@ -7,8 +7,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Generic abstraction of budget.
  */
 public class Symbol {
-    public static final String MESSAGE_CONSTRAINTS = "Symbol can take any integer between 1 to 7"
-            + " alternatively, it can contain a non-numerical string with no more than 3 characters";
+    public static final String MESSAGE_CONSTRAINTS = "Symbol can take any integer between 1 to 7."
+            + " Alternatively, it can contain a non-numerical string with no more than 3 characters";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

@@ -8,6 +8,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.event.exceptions.ClashingEventException;
 import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
@@ -36,6 +37,29 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
     public boolean isValidEvent(Event event) {
         return (event.getStartDate().compareTo(startOfDay) >= 0)
                 && (event.getEndDate().compareTo(endOfDay) <= 0);
+    }
+
+    /**
+     * Updates expenditure of an event.
+     * When an expenditure associated with an event is edited, find the event in the event list and replace
+     * the expenditure field.
+     *
+     * @param expenditure the new expenditure to be used.
+     * @throws EventNotFoundException exception is thrown when the matching event is not found.
+     */
+    public void updateExpenditure(Expenditure expenditure) throws EventNotFoundException {
+        boolean updated = false;
+        for (int i = 0; i < internalList.size(); i++) {
+            Event event = internalList.get(i);
+            if (event.getName().equals(expenditure.getName())) {
+                set(event, new Event(event.getName(),
+                        event.getStartDate(), event.getEndDate(), expenditure, event.getDestination()));
+                updated = true;
+            }
+        }
+        if (!updated) {
+            throw new EventNotFoundException();
+        }
     }
 
     @Override
@@ -69,7 +93,6 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
         if (index == -1) {
             throw new EventNotFoundException();
         }
-
         internalList.set(index, edited);
     }
 
@@ -80,7 +103,6 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new ClashingEventException();
         }
         internalList.setAll(occurrences);
-
     }
 
     @Override
