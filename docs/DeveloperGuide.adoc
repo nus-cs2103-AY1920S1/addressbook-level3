@@ -252,7 +252,7 @@ image::FindSequenceDiagram.png[]
 ==== Implementation
 
 The resolve feature is facilitated by an abstract `ResolveCommand` class which extends abstract `Command` class and
-2 sub-classes which extends `ResolveCommand' for different types of appeal resolultion. 
+2 sub-classes which extends `ResolveCommand' for different types of appeal resolultion.
 
 The 2 type of appeal resolution are:
 
@@ -296,7 +296,7 @@ Step 4. `ApproveCommand.execute()` is called.
 * Step 1. It will check the type of appeal of the appeal index specified by the user, it will check through `model.getFilteredAppealList()` and get the index of the appeal that matches that of the given one.
 * Step 2. Checks weather the appeal has already been resolved with `Appeal.isResolved()`
 * Step 3. If is not yet resolved, nature of appeal will be retrieved with `Appeal.getAppealType()`.  There are 3 types of appeal cases - add module, drop module and increase workload
-** Add module 
+** Add module
 ***  Check if relevant module and student exists by getting `model.getFullModuleList()` and `model.getFullStudentList()`
 ***  Check for clashes between module requested and the modules the student is current taking (refer to 3.1 for implementation for `ClashCommand`)
 ***  If no clashes are detected add student to module class list and module to the student's list of modules
@@ -321,9 +321,12 @@ Hence, `Student` who submits the appeal is retrieved from `model.getFilteredStud
 and `Module` requested is retrieved from `model.getFilteredModuleList()` by matching module codes.
 
 
-Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResult` object which contains the message of the action performed.  Each appeal type will give a different feedback message
+Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResult` object which contains the message of the action performed.  Each appeal type will give a different feedback message.
+
  * Add module will inform user if approval is not allowed due to clashes in time table, else it will feedback the specified module has been added to the student by their IDs
+
  * Drop module will inform user if approval is not allowed due to the student not having the module to be dropped in the first place, else if will feedback the specified module was removed from the student by their IDs
+
  * Increase workload will inform user of the increase inthe student's Modular Credits limit
 
 The followingg sequence diagram shows how ApproveCommand works:
@@ -347,15 +350,15 @@ Step 4. `MassApprove.execute()` is called.
 
 [NOTE]
 Mass resolve commands `execute()` methods works the same as individual Resolve commands except it will loop through the list of valid Appeal IDs to resolve each one.
-Successful resolution of each appeal in the valid appeal list will add the ID to successful list. 
-Simiarly, appeal IDs from valid Appeal IDs that were not approved/rejected will be added to the unsuccessful list.
+Successful resolution of each appeal in the valid appeal list will add the ID to successful list.
+Similarly, appeal IDs from valid Appeal IDs that were not approved/rejected will be added to the unsuccessful list.
 Also, because Mass resolve commands operates on appeal IDs, `model.getFullAppealList()` will be used instead of `model.getFilteredAppealList()`.
 
 
 * Step 1. It will check the type of appeal of the appeal index specified by the user, it will check through `model.getFullAppealList()` and get the index of the appeal that matches that of the given one.
 * Step 2. Checks weather the appeal has already been resolved with `Appeal.isResolved()`
 * Step 3. If is not yet resolved, nature of appeal will be retrieved with `Appeal.getAppealType()`.  There are 3 types of appeal cases - add module, drop module and increase workload
-** Add module 
+** Add module
 ***  Check if relevant module and the student exists by getting `model.getFullModuleList()` and `model.getFullStudentList()`
 ***  Check for clashes between module requested and the modules the student is current taking (refer to 3.1 for implementation for `ClashCommand`)
 ***  If no clashes are detected add the student to module class list and module to the student's list of modules
@@ -371,8 +374,8 @@ The following activity diagram shows how `MassApprove.execute()` works
 image::MassApproveActivityDiagram.png[]
 
 Step 5.  After resolving all the appeal IDs in the valid Appeal list, `MassApprove` will return a `CommandResult` object which contains the feedback message.  Feedback message will show a list of successfully approved appeal IDs,
- a list of unresolved modules which include the list of invalid appeal IDs entered by user and appeal IDs 
- and a list of appeal IDs with time table clash detected.
+a list of unresolved modules which include the list of invalid appeal IDs entered by user and appeal IDs
+and a list of appeal IDs with time table clash detected.
 
 
 image::MassResolveSequenceDiagram.png[]
