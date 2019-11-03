@@ -491,6 +491,8 @@ public interface Model {
 
     void deleteVEvent(VEvent vEvent);
 
+    void deleteVEvent(Index index);
+
     void addVEvent(VEvent vEvent);
 
     void setVEvent(VEvent target, VEvent editedVEvent);
