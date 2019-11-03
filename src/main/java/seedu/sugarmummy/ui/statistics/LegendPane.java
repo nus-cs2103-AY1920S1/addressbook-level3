@@ -104,6 +104,7 @@ public class LegendPane extends UiPart<Region> {
             }
             break;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }

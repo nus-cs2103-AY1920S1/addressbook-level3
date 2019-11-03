@@ -122,6 +122,7 @@ public class AverageMap {
                             .map(record -> record.getBmi())
                             .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
+            assert false : "Record type is not found and should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }

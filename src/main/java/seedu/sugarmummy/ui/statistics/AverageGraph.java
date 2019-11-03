@@ -153,6 +153,7 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
@@ -167,6 +168,7 @@ public class AverageGraph {
         case BLOODSUGAR:
             return BLOODSUGAR + BLOODSUGAR_UNIT;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
@@ -191,6 +193,7 @@ public class AverageGraph {
             customLineChart.addHorizontalRangeMarker(AFTER_MEALS, COLOR_BLUE);
             break;
         default:
+            assert false : "Record type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
         }
     }
@@ -207,6 +210,7 @@ public class AverageGraph {
         case MONTHLY:
             return MONTH;
         default:
+            assert false : "Average type is not found and it should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_AVERAGE_TYPE);
         }
     }
