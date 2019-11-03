@@ -1,7 +1,9 @@
 package calofit.model.dish;
 
+import static java.util.Objects.requireNonNull;
+
 import calofit.commons.util.AppUtil;
-import calofit.commons.util.StringUtil;
+//import calofit.commons.util.StringUtil;
 
 /**
  * Represents a Dish's calorie value in the dish database.
@@ -20,7 +22,7 @@ public class Calorie {
      * @param calorieValue a valid calorie value.
      */
     public Calorie(int calorieValue) {
-        AppUtil.checkArgument(calorieValue > 0, MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(calorieValue >= 0, MESSAGE_CONSTRAINTS);
         calories = calorieValue;
     }
 
@@ -38,7 +40,15 @@ public class Calorie {
      * @return true if calorie value is valid
      */
     public static boolean isValidCalorie(String test) {
-        return StringUtil.isNonZeroUnsignedInteger(test);
+        requireNonNull(test);
+
+        try {
+            int value = Integer.parseInt(test);
+            return value >= 0 && !test.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        //return StringUtil.isNonZeroUnsignedInteger(test);
         //return test.matches(VALIDATION_REGEX);
     }
 

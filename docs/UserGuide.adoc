@@ -39,7 +39,7 @@ Refer to <<Features>> for details of each command.
 === Adding a meal: `add`
 
 Adds a meal that the user ate to be tracked by CaloFit. +
-There are 2 formats that can be used +
+There are 2 formats that can be used: +
 
 Format 1: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]` +
 Inputting calories of the meal is optional. +
@@ -83,7 +83,7 @@ Examples:
 
 Suggest possible meals based on user calorie intake budget. +
 The available meals will be shown under the "Suggested Meals" section of the application. +
-Format: `sugggest`
+Format: `suggest`
 
 === Setting calorie intake budget: `set`
 
@@ -126,5 +126,9 @@ e.g. `edit 1 n/duck noodle c/250`
 e.g. `delete 3`
 * *Set* : `set CALORIES` +
 e.g. `set 2600`
-* *Report* : `report`
-* *Help* : `help`
+* *Suggest* : `suggest` +
+e.g. `suggest`
+* *Report* : `report` +
+e.g. `report`
+* *Help* : `help` +
+e.g. `help`
