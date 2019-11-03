@@ -57,7 +57,6 @@ public class MainWindow extends VBox {
     @FXML
     private TextField commandLine;
 
-    // Consumers
     private Consumer<Boolean> displayDecks = b -> render();
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
@@ -68,6 +67,7 @@ public class MainWindow extends VBox {
     };
     private Consumer<Boolean> clearMessage = b -> messageLabel.setText("");
 
+    //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
     private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
     private Consumer<Integer> seeDeck = i -> displaySpecificDeck(StateHolder.getState().getDecks().get(i - 1));
@@ -76,9 +76,7 @@ public class MainWindow extends VBox {
 
     private Consumer<Boolean> quitProgram = b -> quit();
 
-    // Attributes
     private CreateDeckDisplay tempCreateDeckDisplay;
-    private State currState;
 
     /**
      * Binds the vertical height of the scroll panes to the size of the Nodes inside them so that the scrollbar
@@ -258,6 +256,7 @@ public class MainWindow extends VBox {
      */
     public void processInputCreate(String input) {
         tempCreateDeckDisplay.processInput(input);
+
     }
     /**
      * Quits from the entire program. Saves the decks to a file first.

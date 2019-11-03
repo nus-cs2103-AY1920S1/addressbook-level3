@@ -2,15 +2,9 @@ package dream.fcard.logic.respond.commands;
 
 import java.util.ArrayList;
 
-import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
-import dream.fcard.model.cards.FlashCard;
-import dream.fcard.model.cards.FrontBackCard;
-import dream.fcard.model.cards.MultipleChoiceCard;
-import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
 
 /**
  * Represents a command that creates a new deck or card (?).
@@ -28,7 +22,6 @@ public class CreateCommand extends Command {
     /**
      * Performs execution of create command.
      */
-    /*
     public boolean funcCall() throws DeckAlreadyExistsException {
         String deckName = input.split("deck/")[1].strip();
         //if (deckAlreadyExists(deckName)) {
@@ -79,16 +72,15 @@ public class CreateCommand extends Command {
         //    return true;
         //}
         return false;
-    }*/
+    }
 
-    /*
     /**
      * Checks if there is already a deck with the same name as the user input.
      *
      * @param deckName A String representing the name of the deck to be created.
      * @return A boolean of whether a deck with the same name already exists
      */
-   /*private boolean deckAlreadyExists(String deckName) {
+    private boolean deckAlreadyExists(String deckName) {
         ArrayList<Deck> allDecks = progState.getAllDecks();
         for (Deck curr : allDecks) {
             if (curr.getName().equals(deckName)) {
@@ -96,75 +88,6 @@ public class CreateCommand extends Command {
             }
         }
         return false;
-    }*/
-
-
-   public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command) throws DuplicateInChoicesException {
-       // Checks if deckName matches any deck in the State.
-       boolean deckExistsInState = false;
-       Deck currDeck = null;
-       for (Deck curr : s.decks) {
-           if (curr.getName().equals(command.get(0))) {
-               deckExistsInState = true;
-               currDeck = curr;
-               break;
-           }
-       }
-
-       if (!deckExistsInState) {
-           return false;
-       }
-
-       // Checks if priority level matches high or low
-       if (!command.get(1).get(0).equalsIgnoreCase("high")
-               && !command.get(1).get(0).equalsIgnoreCase("low")) {
-           return false;
-       }
-
-       // Checks if the card is an MCQ or FrontBack card
-       boolean isMcq = (command.get(4).size() > 0);
-
-       // Checks if the MCQ has more than two choices
-       if (isMcq && command.get(4).size() < 2) {
-           return false;
-       }
-
-       // Creates the card and adds to the State
-       if(isMcq) {
-           currDeck.addNewCard(CreateCommand.createMcq(command));
-           return true;
-       } else {
-           currDeck.addNewCard(CreateCommand.createFrontBack(command));
-           return true;
-       }
-       // Will only reach this stage if creation of FBCard or MCQCard failed.
-       return false;
-
-   }
-
-    private static FlashCard createMcq(ArrayList<ArrayList<String>> command) throws DuplicateInChoicesException {
-        // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
-        String front = command.get(2).get(0);
-        String correctIndex = command.get(3).get(0);
-        int priority = getPriorityLevel(command.get(1).get(0));
-
-        return new MultipleChoiceCard(front, correctIndex, command.get(4), priority);
-    }
-
-    private static FlashCard createFrontBack(ArrayList<ArrayList<String>> command) {
-        // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
-        String front = command.get(2).get(0);
-        String back = command.get(3).get(0);
-        int priority = getPriorityLevel(command.get(1).get(0));
-
-        return new FrontBackCard(front, back, priority);
-    }
-
-    private static int getPriorityLevel(String input) {
-        if (input.equalsIgnoreCase("high")) {
-            return Priority.HIGH_PRIORITY;
-        }
-        return Priority.LOW_PRIORITY;
     }
 }
 

@@ -19,11 +19,9 @@ public class RegexUtil {
      * @return ArrayList of each argument's ArrayList of values
      */
     public static ArrayList<ArrayList<String>> parseCommandFormat(String command, String[] args, String input) {
-
-        ArrayList<String> inp = new ArrayList<>(Arrays.asList(
-                command.length() == 0
-                        ? input
-                        : input.split("^"+ ignoreCase(command) + "\\s*")[1]));
+        ArrayList<String> inp = new ArrayList<>(Arrays
+                .asList(command.length() == 0 ? input
+                        : input.split("^" + ignoreCase(command) + "\\s*")[1]));
         ArrayList<Integer> ain = new ArrayList<>(Arrays.asList(-1));
         ArrayList<ArrayList<String>> res = new ArrayList<>();
 
