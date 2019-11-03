@@ -58,6 +58,7 @@ public class MainWindow extends VBox {
     private TextField commandLine;
 
     private Consumer<Boolean> displayDecks = b -> render();
+    private Consumer<Boolean> renderList = b -> renderDecks();
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
@@ -87,8 +88,6 @@ public class MainWindow extends VBox {
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
-        StateHolder.makeState();
-        //StateHolder.getState().setCurrState(StateEnum.DECK_VIEWING);
         displayMessage.accept("Welcome to FlashCard Pro!");
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
@@ -124,6 +123,7 @@ public class MainWindow extends VBox {
         deckList.setItems(FXCollections.observableArrayList(decks));
         deckList.getSelectionModel().selectFirst();
     }
+
 
     /**
      * Creates the display pane telling the user there are no decks, with a button to start creating one.
@@ -180,6 +180,7 @@ public class MainWindow extends VBox {
      * Changes the deck on display in the display pane to the selected one.
      */
     private void displaySpecificDeck(Deck d) {
+        deckList.getSelectionModel().select(d);
         DeckDisplay deckDisplay = new DeckDisplay(d);
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(deckDisplay);
@@ -202,6 +203,7 @@ public class MainWindow extends VBox {
     private void registerConsumers() {
         Consumers.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
         Consumers.addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
+        Consumers.addConsumer(ConsumerSchema.RENDER_LIST, renderList);
         Consumers.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
         Consumers.addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);

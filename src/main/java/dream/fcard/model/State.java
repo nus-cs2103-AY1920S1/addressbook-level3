@@ -33,17 +33,6 @@ public class State {
         return currentDeck;
     }
 
-    /**
-     * State is a singleton to avoid passing the state object through too many layers of objects.
-     *
-     * @return the singleton state object
-     */
-    public static State getState() {
-        if (state == null) {
-            state = new State();
-        }
-        return state;
-    }
 
     /**
      * Returns false if decks is non-empty, true if decks is empty.
