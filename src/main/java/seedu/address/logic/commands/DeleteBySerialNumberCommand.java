@@ -24,7 +24,6 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
 
     private final SerialNumber targetSerialNumber;
 
-
     public DeleteBySerialNumberCommand(SerialNumber targetSerialNumber) {
         this.targetSerialNumber = targetSerialNumber;
     }
@@ -32,6 +31,7 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         // delete by serial number
         if (!modelContainsBook(model, targetSerialNumber)) {
             throw new CommandException(Messages.MESSAGE_NO_SUCH_BOOK);
@@ -41,8 +41,14 @@ public class DeleteBySerialNumberCommand extends DeleteCommand {
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete);
         }
+
+        undoCommand = new AddCommand(bookToDelete);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
+
         model.deleteBook(bookToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
+
+        return commandResult;
     }
 
     /**

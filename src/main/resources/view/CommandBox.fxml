@@ -6,5 +6,5 @@
 
 <TextField fx:id="commandTextField" maxHeight="35.0" maxWidth="Infinity" minHeight="35.0" minWidth="0.0"
            onAction="#handleCommandEntered" prefHeight="35.0" prefWidth="600.0" promptText="Enter command here..."
-           AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5" xmlns="http://javafx.com/javafx/11.0.0"
+           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="5" xmlns="http://javafx.com/javafx/11.0.0"
            xmlns:fx="http://javafx.com/fxml/1" />

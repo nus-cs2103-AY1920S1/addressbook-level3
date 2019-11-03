@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_NO_SUCH_BORROWER_ID;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
+import static seedu.address.testutil.TypicalBorrowers.ALICE;
 import static seedu.address.testutil.TypicalBorrowers.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,19 @@ public class ServeCommandTest {
         ServeCommand serveCommand = new ServeCommand(invalidId);
 
         Assert.assertThrows(CommandException.class, MESSAGE_NO_SUCH_BORROWER_ID, () ->
+                serveCommand.execute(modelManager));
+    }
+
+    @Test
+    public void execute_alreadyInServeMode_throwsCommandException() throws CommandException {
+        Model modelManager = new ModelManager();
+        new RegisterCommand(BOB).execute(modelManager);
+        new RegisterCommand(ALICE).execute(modelManager);
+
+        new ServeCommand(ALICE.getBorrowerId()).execute(modelManager);
+        ServeCommand serveCommand = new ServeCommand(BOB.getBorrowerId());
+
+        Assert.assertThrows(CommandException.class, ServeCommand.MESSAGE_ALREADY_IN_SERVE_MODE, () ->
                 serveCommand.execute(modelManager));
     }
 }

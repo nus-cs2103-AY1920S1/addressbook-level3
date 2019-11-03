@@ -51,7 +51,7 @@ public class TypicalBorrowers {
 
     // Manually added
     public static final Borrower HOON = new BorrowerBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").build();
+            .withEmail("stefan@example.com").withBorrowerId("K0008").build();
     public static final Borrower IDA = new BorrowerBuilder().withName("Ida Mueller").withPhone("8482131")
             .withEmail("hans@example.com").withBorrowerId("K0009").withCurrentLoan(LOAN_7).build();
     public static final Borrower JANNA = new BorrowerBuilder().withName("Janna Windforce").withPhone("3838438")

@@ -22,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Renews a Book with the given Index.
  */
-public class RenewCommand extends Command {
+public class RenewCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "renew";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renews a book borrowed by a borrower.\n"
@@ -99,8 +99,12 @@ public class RenewCommand extends Command {
         // update Loan in LoanRecords with extended due date
         model.updateLoan(loanToBeRenewed, renewedLoan);
 
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, renewedBook, servingBorrower, extendedDueDate));
+        undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, renewedBook,
+                servingBorrower, DateUtil.formatDate(extendedDueDate)));
+
+        return commandResult;
     }
 
     @Override

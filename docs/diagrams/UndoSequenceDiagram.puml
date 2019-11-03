@@ -9,7 +9,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedCatalog" as VersionedCatalog MODEL_COLOR
+participant ":CommandHistory" as CommandHistory MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
@@ -30,14 +30,14 @@ deactivate CatalogParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoCatalog()
+UndoCommand -> Model : undoCommand()
 activate Model
 
-Model -> VersionedCatalog : undo()
-activate VersionedCatalog
+Model -> CommandHistory : undo()
+activate CommandHistory
 
-VersionedCatalog --> Model :
-deactivate VersionedCatalog
+CommandHistory --> Model :
+deactivate CommandHistory
 
 Model --> UndoCommand
 deactivate Model

@@ -12,6 +12,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.FineUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -21,7 +22,7 @@ import seedu.address.model.loan.Loan;
 /**
  * Returns a Book with the given Index.
  */
-public class ReturnCommand extends Command {
+public class ReturnCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "return";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Returns a book borrowed by a borrower.\n"
@@ -91,8 +92,15 @@ public class ReturnCommand extends Command {
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeReturned, returnedLoan);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
+        // unmount this book in LoanSlipUtil if it is mounted
+        LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToBeReturned);
+
+        undoCommand = new UnreturnCommand(returnedBook, bookToBeReturned, returnedLoan, loanToBeReturned);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, returnedBook, servingBorrower,
                 FineUtil.centsToDollarString(fineAmount)));
+
+        return commandResult;
     }
 
     @Override

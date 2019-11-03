@@ -28,7 +28,6 @@ import seedu.address.testutil.BookBuilder;
 public class SerialNumberTest {
 
     private AddCommandParser parser = new AddCommandParser();
-    private Model model = new ModelManager();
 
     @Test
     public void constructor_null_throwsNullPointerException() {

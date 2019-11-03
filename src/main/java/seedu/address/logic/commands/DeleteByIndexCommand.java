@@ -15,7 +15,6 @@ import seedu.address.model.book.Book;
  */
 public class DeleteByIndexCommand extends DeleteCommand {
 
-
     private final Index targetIndex;
 
     public DeleteByIndexCommand(Index targetIndex) {
@@ -36,14 +35,20 @@ public class DeleteByIndexCommand extends DeleteCommand {
             // mark book as returned
             super.markBookAsReturned(model, bookToDelete);
         }
+
         model.deleteBook(bookToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
+
+        undoCommand = new AddCommand(bookToDelete);
+        redoCommand = new DeleteBySerialNumberCommand(bookToDelete.getSerialNumber());
+        commandResult = new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
+
+        return commandResult;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof DeleteByIndexCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); // state
+                && targetIndex.equals(((DeleteByIndexCommand) other).targetIndex)); //state
     }
 }

@@ -109,6 +109,16 @@ public class Borrower {
     }
 
     /**
+     * Removes a returned Loan object to a new copy of the returnedLoanList.
+     *
+     * @param returnedLoan {@code Loan} object to be removed to returnedLoanList.
+     * @return A new copy of currentLoanList with returned Loan object removed it.
+     */
+    public LoanList getRemovedReturnedLoanList(Loan returnedLoan) {
+        return returnedLoanList.removeFromNewCopy(returnedLoan);
+    }
+
+    /**
      * Returns true if Borrower currently loans a Book represented by the given Loan object.
      */
     public boolean hasCurrentLoan(Loan loan) {
@@ -171,8 +181,12 @@ public class Borrower {
         return Objects.hash(name, phone, email, borrowerId, currentLoanList, returnedLoanList);
     }
 
-    @Override
-    public String toString() {
+    /**
+     * Method to return the full string representation of the borrower, if required.
+     *
+     * @return Full string representation of borrower.
+     */
+    public String toFullString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(", Phone: ")
@@ -181,6 +195,19 @@ public class Borrower {
                 .append(getEmail())
                 .append(", Borrower ID: ")
                 .append(getBorrowerId());
+        return builder.toString();
+    }
+
+    /**
+     * Returns display string of Borrower.
+     *
+     * @return display string of borrower.
+     */
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("[" + getBorrowerId() + "] ")
+                .append(getName());
         return builder.toString();
     }
 

@@ -22,7 +22,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 /**
  * Loans a Book with the given Serial Number to a Borrower.
  */
-public class LoanCommand extends Command {
+public class LoanCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "loan";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loans a book to a borrower.\n"
@@ -80,13 +80,17 @@ public class LoanCommand extends Command {
         model.addLoan(loan); // add Loan object to LoanRecords in model
         model.servingBorrowerNewLoan(loan); // add Loan object to Borrower's currentLoanList
 
+        undoCommand = new UnloanCommand(updatedLoanedOutBook, bookToBeLoaned, loan);
+        redoCommand = this;
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
+
         try {
             LoanSlipUtil.mountLoan(loan, updatedLoanedOutBook, servingBorrower);
         } catch (LoanSlipException e) {
             e.printStackTrace(); // Unable to generate loan slip, does not affect loan functionality
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLoanedOutBook, servingBorrower));
+        return commandResult;
     }
 
     @Override
@@ -100,6 +104,7 @@ public class LoanCommand extends Command {
         }
 
         LoanCommand otherLoanCommand = (LoanCommand) o;
+
         return this.toLoan.equals(otherLoanCommand.toLoan);
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -67,7 +68,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             mode.setText(NORMAL_MODE);
         }
-        resultDisplayPlaceholder.setStyle("-fx-background-color: #2b2b2b#2b2b2b");
     }
 
     public Stage getPrimaryStage() {
@@ -95,12 +95,25 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.isDefault()) {
+            primaryStage.setHeight(getDefaultHeight());
+            primaryStage.setWidth(getDefaultWidth());
+        } else {
+            primaryStage.setHeight(guiSettings.getWindowHeight());
+            primaryStage.setWidth(guiSettings.getWindowWidth());
+        }
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    private double getDefaultWidth() {
+        return Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private double getDefaultHeight() {
+        return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
     /**
@@ -185,6 +198,7 @@ public class MainWindow extends UiPart<Stage> {
             if (logic.isServeMode() && !commandResult.isDone()) {
                 updateBorrowerPanel();
             }
+
 
             return commandResult;
         } catch (CommandException | ParseException e) {
