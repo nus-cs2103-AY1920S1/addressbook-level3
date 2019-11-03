@@ -1,12 +1,11 @@
 package seedu.algobase.ui.details;
 
-import java.util.function.Consumer;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Region;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.ui.UiPart;
 
@@ -18,6 +17,7 @@ public class DetailsTab extends UiPart<Region> {
     private static final String FXML = "DetailsTab.fxml";
 
     private final Id modelId;
+    private final ModelType modelType;
 
     @FXML
     private Tab tabContentPlaceholder;
@@ -26,6 +26,7 @@ public class DetailsTab extends UiPart<Region> {
         super(FXML);
         tabContentPlaceholder = new Tab(name);
         this.modelId = Id.generateId();
+        this.modelType = ModelType.PROBLEM;
     }
 
     public DetailsTab(
@@ -38,8 +39,9 @@ public class DetailsTab extends UiPart<Region> {
         super(FXML);
         tabContentPlaceholder = new Tab(name, uiPart.getRoot());
         this.modelId = modelId;
+        this.modelType = modelType;
 
-        addOnCloseRequestListener(writeOnlyTabManager.removeDetailsTabConsumer(modelType));
+        addOnCloseRequestListener(writeOnlyTabManager);
     }
 
     public Tab getTab() {
@@ -49,9 +51,9 @@ public class DetailsTab extends UiPart<Region> {
     /**
      * Adds an listener that registers when the tab closes.
      */
-    private void addOnCloseRequestListener(Consumer<Id> removeDetailsTabConsumer) {
+    private void addOnCloseRequestListener(WriteOnlyTabManager writeOnlyTabManager) {
         tabContentPlaceholder.setOnCloseRequest(e -> {
-            removeDetailsTabConsumer.accept(modelId);
+            writeOnlyTabManager.closeDetailsTab(new TabData(modelType, modelId));
             e.consume();
         });
     }

@@ -17,11 +17,13 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.GuiState;
+import seedu.algobase.model.gui.TabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
+import seedu.algobase.storage.SaveStorageRunnable;
 import seedu.algobase.storage.Storage;
 
 /**
@@ -55,13 +57,29 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        try {
-            storage.saveAlgoBase(model.getAlgoBase());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        if (!getSaveAlgoBaseStorageRunnable().save()) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE);
         }
 
+        TabManager tabManager = getGuiState().getTabManager();
+        tabManager.refreshTabManager();
+
         return commandResult;
+    }
+
+    @Override
+    public SaveStorageRunnable getSaveAlgoBaseStorageRunnable() {
+        return new SaveStorageRunnable() {
+            @Override
+            public boolean save() {
+                try {
+                    storage.saveAlgoBase(model.getAlgoBase());
+                    return true;
+                } catch (IOException ioe) {
+                    return false;
+                }
+            }
+        };
     }
 
     @Override

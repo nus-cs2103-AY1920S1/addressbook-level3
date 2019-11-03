@@ -38,6 +38,7 @@ public class ProblemDetails extends UiPart<Region> {
         author.setText(problem.getAuthor().value);
         weblink.setText(problem.getWebLink().value);
         description.setText(problem.getDescription().value);
+        difficulty.setText(problem.getDifficulty().toString());
         remark.setText(problem.getRemark().value);
         source.setText(problem.getSource().value);
     }

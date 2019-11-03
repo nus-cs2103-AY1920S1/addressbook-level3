@@ -23,7 +23,7 @@ public class ListTagCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredTagList(PREDICATE_SHOW_ALL_TAGS);
-        model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.TAG.getDisplayTabPaneIndex());
+        model.getGuiState().getTabManager().switchDisplayTab(ModelType.TAG.getDisplayTabPaneIndex());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -1,13 +1,15 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.gui;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_INDEX;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
-import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 
 /**
  * Closes a tab in the GUI.
@@ -37,19 +39,9 @@ public class CloseTabCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            TabManager tabManager = model.getGuiState().getTabManager();
-            tabManager.removeDetailsTabData(index);
-            int currentDetailsTabPaneIndexValue = tabManager.getDetailsTabPaneIndex().intValue();
-
-            if (index.getZeroBased() <= currentDetailsTabPaneIndexValue) {
-                if (currentDetailsTabPaneIndexValue > 0) {
-                    tabManager.setDetailsTabPaneIndex(Index.fromZeroBased(currentDetailsTabPaneIndexValue - 1));
-                }
-            }
-
-            return new CommandResult(
-                String.format(MESSAGE_SUCCESS, index.getOneBased())
-            );
+            WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
+            tabManager.closeDetailsTab(index);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, index.getOneBased()));
         } catch (IndexOutOfBoundsException exception) {
             throw new CommandException(String.format(MESSAGE_INVALID_TAB_INDEX, index.getOneBased()));
         }
