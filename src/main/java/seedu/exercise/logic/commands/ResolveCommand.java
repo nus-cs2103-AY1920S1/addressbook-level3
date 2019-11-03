@@ -36,7 +36,13 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
     public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Resolves a scheduling conflict. \nParameters: \n"
+            + ": Resolves a scheduling conflict. \n"
+            + "USAGE 1: Take one regime completely:\n"
+            + "Parameters: \n"
+            + PREFIX_NAME + "SCHEDULED_OR_CONFLICTING\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "n/scheduled\nUSAGE 2: Take some exercise from both schedule.\n"
+            + "Parameters: \n"
             + PREFIX_NAME + "NEW_REGIME_NAME "
             + "[" + PREFIX_INDEX + "INDEX_OF_SCHEDULED_EXERCISES" + "]"
             + "[" + PREFIX_CONFLICT_INDEX + "INDEX_OF_CONFLICTING_EXERCISES" + "]"
@@ -47,23 +53,27 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
             + PREFIX_CONFLICT_INDEX + "1 "
             + PREFIX_CONFLICT_INDEX + "4 ";
 
+    public static final String TAKE_FROM_SCHEDULED = "scheduled";
+    public static final String TAKE_FROM_CONFLICTING = "conflicting";
     public static final String MESSAGE_SUCCESS = "Successfully resolved conflict between regime %1$s and regime %2$s";
     public static final String MESSAGE_DUPLICATE_NAME = "Regime name %1$s already exists. Try another name";
-    public static final String MESSAGE_INVALID_NAME = "Regime name is neither the scheduled regime"
-            + " or the conflicting regime";
+    public static final String MESSAGE_INVALID_NAME = "Name provided is neither " + TAKE_FROM_SCHEDULED
+            + " nor is it " + TAKE_FROM_CONFLICTING + ". Please input " + PREFIX_NAME + TAKE_FROM_SCHEDULED
+            + " or " + PREFIX_NAME + TAKE_FROM_CONFLICTING + ".";
     public static final String MESSAGE_DUPLICATE_EXERCISE_SELECTED =
             "You have selected some exercises that are the same from both schedules.\n"
             + "You only have to select one of them.";
 
-    private Name regimeName;
+    private Name scheduledOrConflicting;
     private Conflict conflict;
     private List<Index> indexToTakeFromSchedule;
     private List<Index> indexToTakeFromConflict;
     private EventPayload<Object> eventPayload;
 
-    public ResolveCommand(Name regimeName, List<Index> indexToTakeFromSchedule, List<Index> indexToTakeFromConflict) {
-        requireAllNonNull(regimeName, indexToTakeFromConflict, indexToTakeFromSchedule);
-        this.regimeName = regimeName;
+    public ResolveCommand(Name scheduledOrConflicting, List<Index> indexToTakeFromSchedule,
+                          List<Index> indexToTakeFromConflict) {
+        requireAllNonNull(scheduledOrConflicting, indexToTakeFromConflict, indexToTakeFromSchedule);
+        this.scheduledOrConflicting = scheduledOrConflicting;
         this.indexToTakeFromSchedule = indexToTakeFromSchedule;
         this.indexToTakeFromConflict = indexToTakeFromConflict;
         this.eventPayload = new EventPayload<>();
@@ -80,11 +90,10 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
         checkValidIndexes();
         if (!areListsEmpty(indexToTakeFromSchedule, indexToTakeFromConflict)) {
             checkNonDuplicateRegimeNameFromModel(model);
+            checkSelectedIndexesDoNotHaveDuplicatesFromModel(model);
         } else {
-            checkNameIsFromConflictingSchedules();
+            checkNameIsScheduledOrConflicting();
         }
-
-        checkSelectedIndexesDoNotHaveDuplicatesFromModel(model);
 
         Schedule resolvedSchedule = resolveConflict(model);
         eventPayload.put(KEY_RESOLVED_SCHEDULE, resolvedSchedule);
@@ -118,7 +127,7 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
         }
 
         ResolveCommand otherCommand = (ResolveCommand) other;
-        return regimeName.equals(otherCommand.regimeName)
+        return scheduledOrConflicting.equals(otherCommand.scheduledOrConflicting)
                 && indexToTakeFromConflict.equals(otherCommand.indexToTakeFromConflict)
                 && indexToTakeFromSchedule.equals(otherCommand.indexToTakeFromSchedule);
     }
@@ -128,7 +137,7 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
      */
     private Schedule resolveConflict(Model model) {
         requireNonNull(model);
-        Schedule resolvedSchedule = model.resolveConflict(regimeName,
+        Schedule resolvedSchedule = model.resolveConflict(scheduledOrConflicting,
                 indexToTakeFromSchedule, indexToTakeFromConflict);
         MainApp.setState(State.NORMAL);
         return resolvedSchedule;
@@ -167,18 +176,17 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
      */
     private void checkNonDuplicateRegimeNameFromModel(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasRegime(new Regime(regimeName, new UniqueResourceList<>()))) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, regimeName.toString()));
+        if (model.hasRegime(new Regime(scheduledOrConflicting, new UniqueResourceList<>()))) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, scheduledOrConflicting.toString()));
         }
     }
 
     /**
-     * Checks if the name passed in is one of the conflicting schedule's names.
-     * Method is to be called only if there are no indexes provided to the Regime Command.
+     * Checks if the name passed in is either {@code conflicting} or {@code scheduled}.
      */
-    private void checkNameIsFromConflictingSchedules() throws CommandException {
-        String name = regimeName.toString();
-        if (!name.equals(conflict.getConflictedName()) && !name.equals(conflict.getScheduledName())) {
+    private void checkNameIsScheduledOrConflicting() throws CommandException {
+        String name = scheduledOrConflicting.toString();
+        if (!name.equals(TAKE_FROM_SCHEDULED) && !name.equals(TAKE_FROM_CONFLICTING)) {
             throw new CommandException(MESSAGE_INVALID_NAME);
         }
     }

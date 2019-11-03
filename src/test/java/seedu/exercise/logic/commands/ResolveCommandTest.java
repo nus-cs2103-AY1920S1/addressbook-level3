@@ -27,6 +27,7 @@ import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
+import seedu.exercise.testutil.TestUtil;
 import seedu.exercise.testutil.typicalutil.TypicalConflict;
 import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
@@ -40,8 +41,12 @@ import seedu.exercise.ui.ListResourceType;
  */
 public class ResolveCommandTest {
 
-    private final ResolveCommand validResolveCommandWithEmptyIndexes = new ResolveCommand(
-        new Name(TypicalRegime.VALID_REGIME_NAME_CARDIO),
+    private final ResolveCommand validResolveCommandTakeFromScheduledWithEmptyIndexes = new ResolveCommand(
+        new Name(ResolveCommand.TAKE_FROM_SCHEDULED),
+        new ArrayList<>(),
+        new ArrayList<>());
+    private final ResolveCommand validResolveCommandTakeFromConflictWithEmptyIndexes = new ResolveCommand(
+        new Name(ResolveCommand.TAKE_FROM_CONFLICTING),
         new ArrayList<>(),
         new ArrayList<>());
     private final ResolveCommand validResolveCommandWithImpossibleRegimeName = new ResolveCommand(
@@ -81,13 +86,14 @@ public class ResolveCommandTest {
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> validResolveCommandWithEmptyIndexes.execute(null));
+        assertThrows(NullPointerException.class, () -> validResolveCommandTakeFromScheduledWithEmptyIndexes
+                .execute(null));
     }
 
     @Test
     public void execute_invalidMainAppState_throwsCommandException() {
         MainApp.setState(State.NORMAL);
-        assertThrows(CommandException.class, () -> validResolveCommandWithEmptyIndexes
+        assertThrows(CommandException.class, () -> validResolveCommandTakeFromScheduledWithEmptyIndexes
             .execute(new ModelStubForTakingOneSchedule()));
     }
 
@@ -112,29 +118,30 @@ public class ResolveCommandTest {
     @Test
     public void execute_validCommand_mainAppStateChange() {
         try {
-            validResolveCommandWithEmptyIndexes.execute(new ModelStubForTakingOneSchedule());
+            validResolveCommandTakeFromScheduledWithEmptyIndexes.execute(new ModelStubForTakingOneSchedule());
             assertEquals(State.NORMAL, MainApp.getState());
         } catch (CommandException e) {
             //Will never reach this block
         }
     }
 
+    @Test
+    public void equals_variousScenarios_success() {
+        TestUtil.assertCommonEqualsTest(validResolveCommandTakeFromScheduledWithEmptyIndexes);
+    }
+
     //===================INTEGRATION TESTS==================================================
     @Test
-    public void execute_validCommandWithExerciseFromOneSchedule_success() {
-        Conflict conflict = model.getConflict();
-        String expectedMessage = String.format(ResolveCommand.MESSAGE_SUCCESS,
-            conflict.getScheduledName(), conflict.getConflictedName());
+    public void execute_validCommandWithExerciseFromScheduled_success() {
+        assertResolveCommandTakeFromOneSchedule(ResolveCommand.TAKE_FROM_SCHEDULED);
 
-        Model expectedModel = deepCopyModel();
-        expectedModel.removeSchedule(conflict.getScheduled());
-        expectedModel.addSchedule(conflict.getScheduled());
-
-        CommandResult expectedResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
-        assertCommandSuccess(validResolveCommandWithEmptyIndexes,
-            model, expectedResult, expectedModel);
-        assertStateNormal();
     }
+
+    @Test
+    public void execute_validCommandWithExerciseFromConflicting_success() {
+        assertResolveCommandTakeFromOneSchedule(ResolveCommand.TAKE_FROM_CONFLICTING);
+    }
+
 
     @Test
     public void execute_validCommandWithExerciseFromBothSchedule_success() {
@@ -190,6 +197,29 @@ public class ResolveCommandTest {
         resolvedExercises.setAll(Arrays.asList(TypicalExercises.WALK));
         return new Regime(new Name(TypicalRegime.VALID_REGIME_NAME_CHEST), resolvedExercises);
     }
+
+    @Test
+    private void assertResolveCommandTakeFromOneSchedule(String scheduledOrConflicting) {
+        Conflict conflict = model.getConflict();
+        String expectedMessage = String.format(ResolveCommand.MESSAGE_SUCCESS,
+                conflict.getScheduledName(), conflict.getConflictedName());
+        CommandResult expectedResult = new CommandResult(expectedMessage, ListResourceType.SCHEDULE);
+
+        Model expectedModel = deepCopyModel();
+        expectedModel.removeSchedule(conflict.getScheduled());
+
+        if (scheduledOrConflicting.equals(ResolveCommand.TAKE_FROM_SCHEDULED)) {
+            expectedModel.addSchedule(conflict.getScheduled());
+            assertCommandSuccess(validResolveCommandTakeFromScheduledWithEmptyIndexes,
+                    model, expectedResult, expectedModel);
+        } else {
+            expectedModel.addSchedule(conflict.getConflicted());
+            assertCommandSuccess(validResolveCommandTakeFromConflictWithEmptyIndexes,
+                    model, expectedResult, expectedModel);
+        }
+        assertStateNormal();
+    }
+
 
     /**
      * Stub that has a default conflict to resolve.

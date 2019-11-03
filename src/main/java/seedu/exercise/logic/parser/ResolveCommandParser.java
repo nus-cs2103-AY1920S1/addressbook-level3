@@ -39,10 +39,10 @@ public class ResolveCommandParser implements Parser<ResolveCommand> {
      * The list of indexes are empty if no indexes are provided by the user.
      */
     private ResolveCommand parseResolveCommand(ArgumentMultimap multimap) throws ParseException {
-        Name regimeName = ParserUtil.parseName(multimap.getValue(PREFIX_NAME).get());
+        Name scheduledOrConflicting = ParserUtil.parseName(multimap.getValue(PREFIX_NAME).get());
         List<Index> scheduledIndex = ParserUtil.parseIndexes(multimap.getAllValues(PREFIX_INDEX));
         List<Index> conflictingIndex = ParserUtil.parseIndexes(multimap.getAllValues(PREFIX_CONFLICT_INDEX));
 
-        return new ResolveCommand(regimeName, scheduledIndex, conflictingIndex);
+        return new ResolveCommand(scheduledOrConflicting, scheduledIndex, conflictingIndex);
     }
 }

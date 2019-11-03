@@ -11,6 +11,8 @@ import seedu.exercise.model.resource.Regime;
 public class LeftRightPanel extends UiPart<Region> {
 
     private static final String FXML = "LeftRightPanel.fxml";
+    private static final String LEFT_PANEL_TITLE_TEXT = "Scheduled Regime: %1$s";
+    private static final String RIGHT_PANEL_TITLE_TEXT = "Conflicting Regime: %1$s";
 
     private ExerciseListPanel leftPanel;
     private ExerciseListPanel rightPanel;
@@ -27,13 +29,15 @@ public class LeftRightPanel extends UiPart<Region> {
 
     public void setLeftPanel(Regime scheduleRegime) {
         leftPanel = new ExerciseListPanel(scheduleRegime.getRegimeExercises().asUnmodifiableObservableList());
-        leftPanel.setPanelTitleText(scheduleRegime.getRegimeName().toString());
+        leftPanel.setPanelTitleText(String.format(LEFT_PANEL_TITLE_TEXT,
+                scheduleRegime.getRegimeName().toString()));
         leftPanelPlaceholder.getChildren().add(leftPanel.getRoot());
     }
 
     public void setRightPanel(Regime conflictingRegime) {
         rightPanel = new ExerciseListPanel(conflictingRegime.getRegimeExercises().asUnmodifiableObservableList());
-        rightPanel.setPanelTitleText(conflictingRegime.getRegimeName().toString());
+        rightPanel.setPanelTitleText(String.format(RIGHT_PANEL_TITLE_TEXT,
+                conflictingRegime.getRegimeName().toString()));
         rightPanelPlaceholder.getChildren().add(rightPanel.getRoot());
     }
 

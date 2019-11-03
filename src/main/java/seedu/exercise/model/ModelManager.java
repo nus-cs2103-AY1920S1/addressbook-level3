@@ -22,6 +22,7 @@ import seedu.exercise.commons.core.GuiSettings;
 import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.commons.core.State;
 import seedu.exercise.commons.core.index.Index;
+import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.commands.statistic.Statistic;
 import seedu.exercise.logic.commands.statistic.StatsFactory;
@@ -241,20 +242,23 @@ public class ModelManager implements Model {
     //===================Conflicts===============================================================
 
     @Override
-    public Schedule resolveConflict(Name regimeName, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
-        requireAllNonNull(regimeName, indexFromSchedule, indexFromConflict);
+    public Schedule resolveConflict(Name name, List<Index> indexFromSchedule, List<Index> indexFromConflict) {
+        requireAllNonNull(name, indexFromSchedule, indexFromConflict);
         requireMainAppState(State.IN_CONFLICT);
 
         removeOldSchedule();
         Schedule resolvedSchedule;
         if (areListsEmpty(indexFromConflict, indexFromSchedule)) {
-            Regime regime = new Regime(regimeName, new UniqueResourceList<>());
-            resolvedSchedule = conflict.getScheduleByRegime(regime);
+            if (name.toString().equals(ResolveCommand.TAKE_FROM_SCHEDULED)) {
+                resolvedSchedule = conflict.getScheduled();
+            } else {
+                resolvedSchedule = conflict.getConflicted();
+            }
             addResolvedSchedule(resolvedSchedule);
         } else {
             UniqueResourceList<Exercise> resolvedExercises =
                 getResolvedExerciseList(indexFromSchedule, indexFromConflict);
-            resolvedSchedule = getResolvedSchedule(regimeName, resolvedExercises);
+            resolvedSchedule = getResolvedSchedule(name, resolvedExercises);
             addCombinedRegime(resolvedSchedule.getRegime());
             addResolvedSchedule(resolvedSchedule);
         }

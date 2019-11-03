@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="800" minWidth="1400" onCloseRequest="#handleExit" title="ExerHealth App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/logo_eH.png" />
     </icons>
@@ -24,9 +24,10 @@
             </stylesheets>
 
             <VBox>
-                <BorderPane prefHeight="58.0" prefWidth="410.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <BorderPane minWidth="800" prefHeight="58.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                     <left>
-                        <TabPane fx:id="resourceListPanelPlaceholder" styleClass="resourceListPanelBox" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="-Infinity" tabMaxWidth="-Infinity">
+                        <TabPane minWidth="200" fx:id="resourceListPanelPlaceholder"
+                                 styleClass="resourceListPanelBox" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="-Infinity" tabMaxWidth="-Infinity">
                             <tabs>
                                 <Tab fx:id="exerciseListTabPlaceholder" styleClass="tab-pane">
                                 </Tab>
@@ -39,18 +40,19 @@
                             </tabs>
                         </TabPane>
                     </left>
+
                     <center>
-                        <StackPane fx:id="infoDisplayPanelPlaceholder" BorderPane.alignment="CENTER" />
+                        <StackPane minWidth="300" fx:id="infoDisplayPanelPlaceholder" BorderPane.alignment="CENTER" />
                     </center>
 
                     <right>
-                        <BorderPane styleClass="pane-with-border">
+                        <BorderPane minWidth="300" styleClass="pane-with-border">
                             <center>
-                                <StackPane fx:id="chartPlaceholder" BorderPane.alignment="CENTER" styleClass="chartBox"/>
+                                <StackPane minWidth="300" fx:id="chartPlaceholder" BorderPane.alignment="CENTER" styleClass="chartBox"/>
                             </center>
 
                             <bottom>
-                                <StackPane fx:id="statsPlaceholder" />
+                                <StackPane minWidth="300" fx:id="statsPlaceholder" />
                             </bottom>
                         </BorderPane>
                     </right>
