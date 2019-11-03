@@ -1,5 +1,6 @@
 package seedu.address.ui.trips;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
@@ -34,6 +35,8 @@ import seedu.address.ui.template.Page;
 public class EditTripPage extends Page<AnchorPane> {
 
     private static final String FXML = "trips/EditTripPage.fxml";
+
+    private static final String FORM_ITEM_STYLESHEET = "/view/trips/trips.css";
 
     /** Format string for executing commands from the user interface form. */
     private static final String EXECUTE_COMMAND_FORMAT = EditTripFieldCommand.COMMAND_WORD + " %1$s%2$s";
@@ -83,7 +86,45 @@ public class EditTripPage extends Page<AnchorPane> {
      * Initialises and fills up all the placeholders of this window.
      */
     private void initFormWithModel() {
-        //Initialise with new display data
+        initFormItems();
+        initFormItemStyles();
+
+        formItemsPlaceholder.getChildren().addAll(
+                tripNameFormItem.getRoot(),
+                tripStartDateFormItem.getRoot(),
+                tripEndDateFormItem.getRoot(),
+                tripTotalBudgetFormItem.getRoot(),
+                tripDestinationFormItem.getRoot(),
+                tripPhotoFormItem.getRoot());
+    }
+
+    /**
+     * Overrides the default style sheets used by the form items.
+     * Checks that the form items are not null before doing so.
+     */
+    private void initFormItemStyles() {
+        requireAllNonNull(tripNameFormItem, tripStartDateFormItem, tripEndDateFormItem, tripTotalBudgetFormItem,
+                tripDestinationFormItem, tripPhotoFormItem);
+
+        tripNameFormItem.getRoot().getStylesheets().clear();
+        tripStartDateFormItem.getRoot().getStylesheets().clear();
+        tripEndDateFormItem.getRoot().getStylesheets().clear();
+        tripTotalBudgetFormItem.getRoot().getStylesheets().clear();
+        tripDestinationFormItem.getRoot().getStylesheets().clear();
+        tripPhotoFormItem.getRoot().getStylesheets().clear();
+
+        tripNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripStartDateFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripEndDateFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripPhotoFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+    }
+
+    /**
+     * Initialises the form items used by the edit trip page.
+     */
+    private void initFormItems() {
         tripNameFormItem = new TextFormItem("Name of trip : ", nameFormValue ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_NAME, nameFormValue)));
 
@@ -107,14 +148,6 @@ public class EditTripPage extends Page<AnchorPane> {
                         photo.getImageFilePath())), () ->
                 mainWindow.executeGuiCommand(EditTripCommand.EDIT + " "
                         + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH));
-
-        formItemsPlaceholder.getChildren().addAll(
-                tripNameFormItem.getRoot(),
-                tripStartDateFormItem.getRoot(),
-                tripEndDateFormItem.getRoot(),
-                tripTotalBudgetFormItem.getRoot(),
-                tripDestinationFormItem.getRoot(),
-                tripPhotoFormItem.getRoot());
     }
 
     @FXML

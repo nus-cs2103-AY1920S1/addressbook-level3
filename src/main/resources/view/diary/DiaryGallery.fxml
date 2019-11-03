@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox style="-fx-background-color: #040F0F; -fx-border-color: #020A0A; -fx-border-image-width: 2;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox style="-fx-background-color: #040F0F; -fx-border-color: #020A0A; -fx-border-image-width: 2;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="photosPlaceholder" stylesheets="@diaryGalleryListView.css" VBox.vgrow="ALWAYS" />
    </children>

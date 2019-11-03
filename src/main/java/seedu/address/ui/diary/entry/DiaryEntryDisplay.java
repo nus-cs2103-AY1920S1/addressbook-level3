@@ -59,12 +59,12 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
             DiaryLine diaryLine;
             if (empty || item == null) {
-                diaryLine = new DiaryLine("");
+                diaryLine = new DiaryLine("", getIndex() + 1);
             } else {
                 Matcher m = IMAGE_SEPARATOR_PATTERN.matcher(item);
 
                 if (!m.matches()) {
-                    diaryLine = new DiaryLine(item.toString());
+                    diaryLine = new DiaryLine(item.toString(), getIndex() + 1);
                 } else {
                     String preText = m.group("pretext");
                     String postText = m.group("posttext");
@@ -73,14 +73,15 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
                     ArrayList<Photo> photos = parseImageSeparator(numbers);
                     if (preText.trim().isEmpty() && postText.trim().isEmpty()) {
-                        diaryLine = new DiaryLine(photos);
+                        diaryLine = new DiaryLine(photos, getIndex() + 1);
                     } else if (photos.size() == 0) {
-                        diaryLine = new DiaryLine(preText.stripTrailing() + postText);
+                        diaryLine = new DiaryLine(preText.stripTrailing() + postText, getIndex() + 1);
                     } else {
                         diaryLine = new DiaryLine(
                                 preText.stripTrailing() + postText,
                                 photos.get(0),
-                                position.equalsIgnoreCase(IMAGE_POSITION_LEFT_PATTERN));
+                                position.equalsIgnoreCase(IMAGE_POSITION_LEFT_PATTERN),
+                                getIndex() + 1);
                     }
                 }
             }

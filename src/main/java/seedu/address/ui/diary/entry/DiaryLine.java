@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 import seedu.address.model.diary.photo.Photo;
 import seedu.address.ui.UiPart;
@@ -41,14 +42,18 @@ class DiaryLine extends UiPart<GridPane> {
     @FXML
     private HBox photoCardsDisplay;
 
+    @FXML
+    private Text lineIndexText;
+
     /**
      * Constructs a {@code DiaryLine} of only text, specified by the collection {@code text}.
      *
      * @param text The {@link String} text to display.
      */
-    DiaryLine(String text) {
+    DiaryLine(String text, int index) {
         super(FXML);
 
+        lineIndexText.setText(String.valueOf(index));
         lineTextLabel.setText(text);
         getRoot().getChildren().remove(photoCardsDisplay);
     }
@@ -58,9 +63,10 @@ class DiaryLine extends UiPart<GridPane> {
      *
      * @param photos The {@link Collection} of {@link Photo}s to display.
      */
-    DiaryLine(Collection<Photo> photos) {
+    DiaryLine(Collection<Photo> photos, int index) {
         super(FXML);
 
+        lineIndexText.setText(String.valueOf(index));
         getRoot().getChildren().remove(lineTextLabel);
         setGraphicOnlyConstraints();
         photoCardsDisplay.getChildren().addAll(
@@ -78,10 +84,11 @@ class DiaryLine extends UiPart<GridPane> {
      * @param placeOnLeft True if the image should be positioned on the left. Otherwise, it is positioned on
      *                    the right.
      */
-    DiaryLine(String text, Photo photo, boolean placeOnLeft) {
+    DiaryLine(String text, Photo photo, boolean placeOnLeft, int index) {
         super(FXML);
         requireNonNull(photo);
 
+        lineIndexText.setText(String.valueOf(index));
         lineTextLabel.setText(text);
         int lineTextLabelIndex = placeOnLeft ? DEFAULT_RIGHT_GRID_INDEX : DEFAULT_LEFT_GRID_INDEX;
         int photoCardIndex = placeOnLeft ? DEFAULT_LEFT_GRID_INDEX : DEFAULT_RIGHT_GRID_INDEX;

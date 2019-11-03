@@ -50,7 +50,7 @@ public class EditTripFieldCommand extends Command {
             + PREFIX_BUDGET + "3000";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
-    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form: %1$s";
 
     private final EditTripDescriptor editTripDescriptor;
 
