@@ -182,32 +182,26 @@ public class ViewCommand extends Command {
         int moduleListSize = lastShownModuleList.size();
         int studentListSize = lastShownStudentList.size();
 
-        if (params.getAppealIndex().isPresent()) {
-            if (appealListSize == 0 || appealListSize == 1) {
-                errorMessage.append((appealListSize == 0)
-                        ? MESSAGE_NO_APPEALS_TO_EXPAND
-                        : MESSAGE_APPEAL_ALREADY_EXPANDED);
-                errorMessage.append("\n");
-                isNotExpandable = true;
-            }
+        if (params.getAppealIndex().isPresent() && (appealListSize == 0 || appealListSize == 1)) {
+            errorMessage.append((appealListSize == 0)
+                    ? MESSAGE_NO_APPEALS_TO_EXPAND
+                    : MESSAGE_APPEAL_ALREADY_EXPANDED);
+            errorMessage.append("\n");
+            isNotExpandable = true;
         }
-        if (params.getModuleIndex().isPresent()) {
-            if (moduleListSize == 0 || moduleListSize == 1) {
-                errorMessage.append((moduleListSize == 0)
-                        ? MESSAGE_NO_MODULES_TO_EXPAND
-                        : MESSAGE_MODULE_ALREADY_EXPANDED);
-                errorMessage.append("\n");
-                isNotExpandable = true;
-            }
+        if (params.getModuleIndex().isPresent() && (moduleListSize == 0 || moduleListSize == 1)) {
+            errorMessage.append((moduleListSize == 0)
+                    ? MESSAGE_NO_MODULES_TO_EXPAND
+                    : MESSAGE_MODULE_ALREADY_EXPANDED);
+            errorMessage.append("\n");
+            isNotExpandable = true;
         }
-        if (params.getStudentIndex().isPresent()) {
-            if (studentListSize == 0 || studentListSize == 1) {
-                errorMessage.append((studentListSize == 0)
-                        ? MESSAGE_NO_STUDENTS_TO_EXPAND
-                        : MESSAGE_STUDENT_ALREADY_EXPANDED);
-                errorMessage.append("\n");
-                isNotExpandable = true;
-            }
+        if (params.getStudentIndex().isPresent() && (studentListSize == 0 || studentListSize == 1)) {
+            errorMessage.append((studentListSize == 0)
+                    ? MESSAGE_NO_STUDENTS_TO_EXPAND
+                    : MESSAGE_STUDENT_ALREADY_EXPANDED);
+            errorMessage.append("\n");
+            isNotExpandable = true;
         }
 
         if (isNotExpandable) {
