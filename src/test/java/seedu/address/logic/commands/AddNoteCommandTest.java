@@ -73,7 +73,7 @@ public class AddNoteCommandTest {
     /**
      * A Model stub that contains a single note.
      */
-    private class ModelStubWithNote extends ModelStub {
+    private static class ModelStubWithNote extends ModelStub {
         private final Note note;
 
         ModelStubWithNote(Note note) {

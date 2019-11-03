@@ -136,9 +136,7 @@ public class QuizResultList implements Iterable<QuizResult> {
                 throw new FilterTypeNotFoundException();
             }
         }
-        ObservableList<QuizResult> quizResults = FXCollections.observableArrayList(filteredQuizResults);
-
-        return quizResults;
+        return FXCollections.observableArrayList(filteredQuizResults);
     }
 
     /**
@@ -154,8 +152,7 @@ public class QuizResultList implements Iterable<QuizResult> {
                     && quizResult.getDifficulty().equals(qns.getDifficulty())
                     && quizResult.getSubject().equals(qns.getSubject()))
                 .collect(Collectors.toList());
-        ObservableList<QuizResult> quizResults = FXCollections.observableArrayList(qnsReport);
-        return quizResults;
+        return FXCollections.observableArrayList(qnsReport);
     }
 
     @Override

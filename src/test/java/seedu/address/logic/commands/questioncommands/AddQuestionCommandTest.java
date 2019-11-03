@@ -43,7 +43,7 @@ class AddQuestionCommandTest {
     public void execute_duplicateQuestion_throwsCommandException() {
         Question validQuestion = new QuestionBuilder().build();
         AddQuestionCommand addQuestionCommand = new AddQuestionCommand(validQuestion);
-        ModelStub modelStub = new AddQuestionCommandTest.ModelStubWithQuestion(validQuestion);
+        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
                 AddQuestionCommand.MESSAGE_DUPLICATE_QUESTION, () -> addQuestionCommand.execute(modelStub));
@@ -76,7 +76,7 @@ class AddQuestionCommandTest {
     /**
      * A Model stub that contains a single question.
      */
-    private class ModelStubWithQuestion extends ModelStub {
+    private static class ModelStubWithQuestion extends ModelStub {
         private final Question question;
 
         ModelStubWithQuestion(Question question) {
@@ -94,7 +94,7 @@ class AddQuestionCommandTest {
     /**
      * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingQuestionAdded extends ModelStub {
+    private static class ModelStubAcceptingQuestionAdded extends ModelStub {
         final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override
