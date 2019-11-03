@@ -41,8 +41,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     public MultipleChoiceCard(String frontString, String backString, ArrayList<String> choicesArg) {
         super(frontString, backString);
 
-        // Checks if choices contain duplicate TODO: handle this problem in the GUI
-        boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
+        // Checks if choices contain duplicate
+        //boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
 
         choices = choicesArg;
 
@@ -56,7 +56,7 @@ public class MultipleChoiceCard extends FrontBackCard {
 
         priority = LOW_PRIORITY;
 
-        boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
+        //boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
     }
     //@author
 
@@ -89,6 +89,12 @@ public class MultipleChoiceCard extends FrontBackCard {
         }
 
         priority = priorityLevel;
+
+        boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
+        if(isNotValidAnswerIndex) {
+            throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
+        }
+
     }
     //@author
 
@@ -137,6 +143,7 @@ public class MultipleChoiceCard extends FrontBackCard {
         shuffleChoices();
         return this.displayChoices;
     }
+    //@author
 
     /**
      * Evaluates if user input answer is correct.
