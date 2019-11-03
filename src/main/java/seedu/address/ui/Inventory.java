@@ -52,9 +52,9 @@ public class Inventory extends UiPart<Region> {
             return property;
         });
         totalCostCol.setCellValueFactory(item -> {
-                    SimpleStringProperty property = new SimpleStringProperty();
-                    property.setValue(DECIMAL_FORMAT.format(item.getValue().getTotalCost()));
-                    return property;
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getTotalCost()));
+            return property;
         });
         priceCol.setCellValueFactory(item -> {
             SimpleStringProperty property = new SimpleStringProperty();

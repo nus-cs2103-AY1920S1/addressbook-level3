@@ -73,23 +73,23 @@ public class TypicalReimbursements {
     public void resetReimbursements() {
         aliceTransaction10 = new TransactionBuilder(TypicalPersons.ALICE)
                 .withId(10)
-                .withAmount(-20.0)
+                .withAmount(-20.00)
                 .withDate("14-Feb-2019")
                 .build();
         elleTransaction11 = new TransactionBuilder(TypicalPersons.ELLE)
                 .withId(11)
-                .withAmount(-100)
+                .withAmount(-100.00)
                 .withDescription("food")
                 .withDate("12-Jun-2019")
                 .build();
         aliceTransaction12 = new TransactionBuilder(TypicalPersons.ALICE)
                 .withId(12)
-                .withAmount(-30.0)
+                .withAmount(-30.00)
                 .withDate("14-Oct-2019")
                 .build();
         bobTransaction13 = new TransactionBuilder(TypicalPersons.BOB)
                 .withId(13)
-                .withAmount(-50.0)
+                .withAmount(-50.00)
                 .withDate("26-Oct-2019")
                 .build();
 

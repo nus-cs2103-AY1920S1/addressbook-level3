@@ -188,7 +188,8 @@ public class Reimbursement {
      * @return string the reimbursement is converted to.
      */
     public String toStringNoDeadline() {
-        return person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount) + System.lineSeparator() + description.toString();
+        return person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount)
+                + System.lineSeparator() + description.toString();
     }
 
     /**

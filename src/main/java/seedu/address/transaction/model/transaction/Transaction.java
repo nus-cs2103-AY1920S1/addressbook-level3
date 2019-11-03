@@ -115,7 +115,8 @@ public class Transaction {
     public String toString() {
         String msg = "Date: " + this.date.format(DATE_TIME_FORMATTER) + "\nDescription: " + this.description
                 + "\nCategory: "
-                + this.category + "\nAmount: $" + DECIMAL_FORMAT.format(this.amount) + "\nPaid by: " + this.person.getName();
+                + this.category + "\nAmount: $" + DECIMAL_FORMAT.format(this.amount)
+                + "\nPaid by: " + this.person.getName();
         return msg;
     }
 
