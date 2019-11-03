@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all entries which match the input word
  * Keyword matching is case insensitive.
  */
 
@@ -18,18 +18,21 @@ public class FindCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "find";
     public static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
-
     private final FindPredicate predicate;
 
+    /**
+     * Generate a find command with the specified predicate to find the relevant entries
+     * @param predicate checks each entry for the specified word
+     */
     public FindCommand(FindPredicate predicate) {
         this.predicate = predicate;
     }
 
+    /**
+     * Execute the find command and change the list view to only show the filtered entries
+     * @param diaryModel model upon which to execute the command
+     * @return {@code CommandResult} with the number of entries that match the predicate
+     */
     @Override
     public CommandResult execute(DiaryModel diaryModel) {
         requireNonNull(diaryModel);
@@ -39,6 +42,12 @@ public class FindCommand extends Command<DiaryModel> {
                         diaryModel.getFilteredDiaryEntryList().size()));
     }
 
+    /**
+     /**
+     * Checks if the 2 Find commands are equal
+     * @param other another object to check
+     * @return true if the object is the same as this command
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
