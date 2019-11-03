@@ -208,6 +208,10 @@ This can be done in any Tab Panel.
 Contact numbers should be 8-digits long.
 [TIP]
 A customer can have any number of tags, including 0.
+[TIP]
+Customers can share the same name.
+[TIP]
+Customers cannot share the same contact number or email.
 
 [underline]#Examples#:
 * Adds a single customer
