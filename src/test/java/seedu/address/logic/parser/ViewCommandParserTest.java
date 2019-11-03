@@ -19,6 +19,13 @@ public class ViewCommandParserTest {
     }
 
     @Test
+    public void parse_invalidArgs_throwsParseException() {
+        // invalid
+        assertParseFailure(parser, "invalid",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_validArgs_returnsViewCommand() {
         ViewCommand viewTransaction = new ViewCommand(Tab.TRANSACTION);
         ViewCommand viewBudget = new ViewCommand(Tab.BUDGET);
