@@ -141,8 +141,8 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
 
     @Override
     public TabCommandType switchDetailsTab(TabData tabData) throws NoSuchElementException {
-        assert this.tabsData.contains(tabData);
         Index tabIndex = getDetailsTabIndex(tabData);
+        assert this.tabsData.contains(tabData);
         setDetailsTabPaneIndex(tabIndex);
         return TabCommandType.SWITCH_DETAILS;
     }
@@ -156,8 +156,8 @@ public class TabManager implements ReadOnlyTabManager, WriteOnlyTabManager {
 
     @Override
     public TabCommandType closeDetailsTab(TabData tabData) throws NoSuchElementException {
-        assert this.tabsData.contains(tabData);
         checkIfContains(tabData);
+        assert this.tabsData.contains(tabData);
         Index tabIndex = getDetailsTabIndex(tabData);
         int detailsTabPaneIndexValue = detailsTabPaneIndex.intValue();
         this.tabsData.remove(tabData);

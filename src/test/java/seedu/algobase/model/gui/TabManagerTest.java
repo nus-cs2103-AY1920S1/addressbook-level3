@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.DefaultModelStub;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.util.SampleDataUtil;
@@ -154,7 +156,7 @@ public class TabManagerTest {
     }
 
     @Test
-    public void closeDisplayTabByIndex_selectedIndexBeforeClosedIndexUnchanged_success() {
+    public void closeDisplayTabByIndex_selectedIndexBeforeClosedIndex_success() {
         FiveTabsModelStub fiveTabsModelStub = new FiveTabsModelStub();
         TabManager tabManager = fiveTabsModelStub.getGuiState().getTabManager();
         tabManager.switchDetailsTab(Index.fromZeroBased(1));
@@ -206,6 +208,155 @@ public class TabManagerTest {
         assertEquals(
             tabManager.getDetailsTabPaneIndex().intValue(),
             1
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByIndex_closeTabForEmptyTabList_throwsIndexOutOfBoundsException() {
+        NoTabsModelStub noTabsModelStub = new NoTabsModelStub();
+        TabManager tabManager = noTabsModelStub.getGuiState().getTabManager();
+        assertThrows(
+            IndexOutOfBoundsException.class, () -> tabManager.closeDetailsTab(Index.fromZeroBased(0))
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByIndex_closeTabIndexOutOfRange_throwsIndexOutOfBoundsException() {
+        FiveTabsModelStub fiveTabsModelStub = new FiveTabsModelStub();
+        TabManager tabManager = fiveTabsModelStub.getGuiState().getTabManager();
+        assertThrows(
+            IndexOutOfBoundsException.class, () -> tabManager.closeDetailsTab(Index.fromZeroBased(5))
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByTabData_lastTabDataRemovedByTabManager_success() {
+        FiveTabsModelStub fiveTabsModelStub = new FiveTabsModelStub();
+        TabManager tabManager = fiveTabsModelStub.getGuiState().getTabManager();
+
+        TabData firstTabDataToBeClosed = tabManager.getTabsDataList().get(4);
+        TabData secondTabDataToBeClosed = tabManager.getTabsDataList().get(3);
+
+        tabManager.closeDetailsTab(firstTabDataToBeClosed); // Close last tab
+
+        // Check that first tab data is removed
+        assertEquals(
+            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
+            true
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().size(),
+            4
+        );
+
+        assertEquals(
+            tabManager.getDetailsTabPaneIndex().intValue(),
+            3
+        );
+
+        tabManager.closeDetailsTab(secondTabDataToBeClosed); // Close second last tab
+
+        // Check that second tab data is removed
+        assertEquals(
+            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().size(),
+            3
+        );
+
+        assertEquals(
+            tabManager.getDetailsTabPaneIndex().intValue(),
+            2
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByTabData_selectedIndexBeforeClosedIndex_success() {
+        FiveTabsModelStub fiveTabsModelStub = new FiveTabsModelStub();
+        TabManager tabManager = fiveTabsModelStub.getGuiState().getTabManager();
+        tabManager.switchDetailsTab(Index.fromZeroBased(1));
+
+        TabData firstTabDataToBeClosed = tabManager.getTabsDataList().get(4);
+        TabData secondTabDataToBeClosed = tabManager.getTabsDataList().get(3);
+
+        tabManager.closeDetailsTab(firstTabDataToBeClosed); // Close last tab
+
+        // Check that first tab data is removed
+        assertEquals(
+            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
+            true
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().size(),
+            4
+        );
+
+        assertEquals(
+            tabManager.getDetailsTabPaneIndex().intValue(),
+            1
+        );
+
+        tabManager.closeDetailsTab(secondTabDataToBeClosed); // Close second last tab
+
+        // Check that second tab data is removed
+        assertEquals(
+            tabManager.getTabsDataList().contains(firstTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().contains(secondTabDataToBeClosed),
+            false
+        );
+
+        assertEquals(
+            tabManager.getTabsDataList().size(),
+            3
+        );
+
+        assertEquals(
+            tabManager.getDetailsTabPaneIndex().intValue(),
+            1
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByTabData_closeTabForEmptyTabList_throwsNoSuchElementException() {
+        NoTabsModelStub noTabsModelStub = new NoTabsModelStub();
+        TabManager tabManager = noTabsModelStub.getGuiState().getTabManager();
+        assertThrows(
+            NoSuchElementException.class, () ->
+                tabManager.closeDetailsTab(new TabData(ModelType.PROBLEM, Id.generateId()))
+        );
+    }
+
+    @Test
+    public void closeDisplayTabByTabData_closeTabForNonEmptyTabList_throwsNoSuchElementException() {
+        FiveTabsModelStub fiveTabsModelStub = new FiveTabsModelStub();
+        TabManager tabManager = fiveTabsModelStub.getGuiState().getTabManager();
+        assertThrows(
+            NoSuchElementException.class, () ->
+                tabManager.closeDetailsTab(new TabData(ModelType.PROBLEM, Id.generateId()))
         );
     }
 
