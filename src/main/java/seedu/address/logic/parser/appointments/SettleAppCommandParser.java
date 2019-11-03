@@ -52,7 +52,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
         try {
             if (lastShownList.size() == 0) {
                 throw new ParseException(Messages.MESSAGE_NOTHING_SETTLE + "\n"
-                        + "No need: " + "settleappt " + args);
+                        + "No need: " + "settleappt" + args);
             }
 
             Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
