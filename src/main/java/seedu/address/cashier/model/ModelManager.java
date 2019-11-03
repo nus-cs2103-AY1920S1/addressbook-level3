@@ -279,7 +279,7 @@ public class ModelManager implements Model {
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
         }
-        return Double.parseDouble(DECIMAL_FORMAT.format(total));
+        return total;
     }
 
     /**
