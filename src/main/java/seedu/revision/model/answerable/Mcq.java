@@ -13,7 +13,8 @@ import seedu.revision.model.category.Category;
  */
 public class Mcq extends Answerable {
 
-    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total";
+    public static final String MESSAGE_CONSTRAINTS = "MCQs should only have 1 correct answer and 4 options in total"
+            + " with no duplicate answers.";
 
     /**
      * Every field must be present and not null.
@@ -30,7 +31,10 @@ public class Mcq extends Answerable {
      */
     public static boolean isValidMcq(Mcq mcq) {
         requireNonNull(mcq);
-        if (mcq.getCorrectAnswerList().isEmpty() || mcq.getCorrectAnswerList().size() > 1) {
+        if (mcq.getCorrectAnswerList().size() != 1) {
+            return false;
+        }
+        if (mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
             return false;
         }
         if (mcq.getWrongAnswerList().size() != 3) {
@@ -40,17 +44,26 @@ public class Mcq extends Answerable {
     }
 
     /**
+     * Returns true if both {@code Mcq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Mcq}s.
+     */
+    public boolean isSameAnswerable(Answerable otherAnswerable) {
+        boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
+        return generalAnswerableCheck && otherAnswerable.getQuestion().equals(getQuestion())
+                && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList());
+    }
+
+    /**
      * Returns an entire text string of the answerable (question with all possible answers,
      * difficulty level and categories)
      * @return answerable string
      */
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Type: MCQ, ")
+        builder.append("Type: MCQ\n")
                 .append("Question: ")
                 .append(getQuestion() + "\n")
-                .append("Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
+                .append("Correct Answer: " + getCorrectAnswerList() + "\n")
                 .append("Wrong Answers: " + getWrongAnswerList() + "\n")
                 .append("Difficulty: ")
                 .append(getDifficulty() + "\n")

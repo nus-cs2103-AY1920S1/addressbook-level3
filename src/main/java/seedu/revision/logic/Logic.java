@@ -26,6 +26,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered and sorted list of answerables */
     ObservableList<Answerable> getFilteredSortedAnswerableList();
 
+    /** Removes the filters from answerable list and restores the list to its original size. **/
+    void removeFiltersFromAnswerableList();
+
     /**
      * Returns the user prefs' revision tool file path.
      */

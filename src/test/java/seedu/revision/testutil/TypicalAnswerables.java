@@ -19,15 +19,20 @@ import seedu.revision.model.answerable.Answerable;
  * A utility class containing a list of {@code Answerable} objects to be used in tests.
  */
 public class TypicalAnswerables {
-    public static final Answer MCQ_CORRECT_ANSWER = new Answer("Brownfield");
+    public static final Answer MCQ_CORRECT_ANSWER_A = new Answer("Brownfield");
+    public static final Answer MCQ_CORRECT_ANSWER_B = new Answer("Greyfield");
     public static final Answer MCQ_WRONG_ANSWER_A = new Answer("Greenfield");
     public static final Answer MCQ_WRONG_ANSWER_B = new Answer("Blackfield");
     public static final Answer MCQ_WRONG_ANSWER_C = new Answer("Whitefield");
 
     public static final ArrayList<Answer> MCQ_VALID_CORRECT_ANSWER_LIST = new ArrayList<>(
-            Arrays.asList(MCQ_CORRECT_ANSWER));
+            Arrays.asList(MCQ_CORRECT_ANSWER_A));
+    public static final ArrayList<Answer> MCQ_INVALID_CORRECT_ANSWER_LIST = new ArrayList<>(
+            Arrays.asList(MCQ_CORRECT_ANSWER_A, MCQ_CORRECT_ANSWER_B));
     public static final ArrayList<Answer> MCQ_VALID_WRONG_ANSWER_LIST = new ArrayList<>(
             Arrays.asList(MCQ_WRONG_ANSWER_A, MCQ_WRONG_ANSWER_B, MCQ_WRONG_ANSWER_C));
+    public static final ArrayList<Answer> MCQ_INVALID_WRONG_ANSWER_LIST = new ArrayList<>(
+            Arrays.asList(MCQ_WRONG_ANSWER_A, MCQ_WRONG_ANSWER_B));
 
     public static final Answerable MCQ_STUB = new McqBuilder().withQuestion("What type of project is AB3?")
             .withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST).withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST)
@@ -54,10 +59,10 @@ public class TypicalAnswerables {
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST).build();
 
     // Manually added - Answerable's details found in {@code CommandTestUtil}
-    public static final Answerable ALPHA = new McqBuilder().withQuestion(VALID_QUESTION_ALPHA)
+    public static final Answerable MCQ_A = new McqBuilder().withQuestion(VALID_QUESTION_ALPHA)
             .withDifficulty(VALID_DIFFICULTY_ALPHA).withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST).withCategories(VALID_CATEGORY_UML).build();
-    public static final Answerable BETA = new McqBuilder().withQuestion(VALID_QUESTION_BETA)
+    public static final Answerable MCQ_B = new McqBuilder().withQuestion(VALID_QUESTION_BETA)
             .withDifficulty(VALID_DIFFICULTY_BETA).withCorrectAnswerList(MCQ_VALID_CORRECT_ANSWER_LIST)
             .withWrongAnswerList(MCQ_VALID_WRONG_ANSWER_LIST)
             .withCategories(VALID_CATEGORY_GREENFIELD, VALID_CATEGORY_UML).build();
