@@ -23,18 +23,19 @@ public class SplitCommand extends Command {
         + "[" + PREFIX_NAME + "NAME]...\n"
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
-        + PREFIX_AMOUNT + "600"
+        + PREFIX_AMOUNT + "600 "
         + PREFIX_NAME + "John Doe "
-        + PREFIX_NAME + "John Soe"
+        + PREFIX_NAME + "John Soe "
         + PREFIX_NAME + "John Moe "
-        + PREFIX_SHARE + "1"
-        + PREFIX_SHARE + "2"
-        + PREFIX_SHARE + "3"
+        + PREFIX_SHARE + "1 "
+        + PREFIX_SHARE + "2 "
+        + PREFIX_SHARE + "3\n"
         + "If number of shares is one more than number of names listed, "
-        + "first share is taken to be user's share of the expenditure";
+        + "first share is taken to be user's share of the expenditure\n";
     public static final String SHARES_FORMAT = "If number of shares is equal to number of names given,"
         + "user is assumed to be excluded from the expenditure.\n"
         + "Else, first share is taken to be the user's share.";
+    public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
 
     private final Split transaction;
 
@@ -47,9 +48,15 @@ public class SplitCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addOperation(transaction);
+        model.add(transaction);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+        if (model.has(transaction)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
+        } else {
+            model.add(transaction);
+            model.commitUserState();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, transaction));
+        }
     }
 
 }

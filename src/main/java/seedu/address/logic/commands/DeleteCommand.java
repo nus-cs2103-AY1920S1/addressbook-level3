@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the transaction identified by the index number used in the displayed transaction list.\n"
         + "Parameters: INDEX (must be a positive integer) Transaction entries preceded by 't', "
-        + "Budget entries preced by 'b' \n"
+        + "Budget entries preceded by 'b' \n"
         + "Example: " + COMMAND_WORD + " t1\n"
         + COMMAND_WORD + " b1";
 

@@ -27,4 +27,6 @@ public interface ReadOnlyLedger {
     ObservableList<Person> getPeople();
 
     Amount getBalance();
+
+    boolean has(LedgerOperation ledgerOperation);
 }
