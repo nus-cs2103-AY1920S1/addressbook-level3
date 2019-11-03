@@ -2,12 +2,14 @@ package seedu.address.overview.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_NUMBER_FORMAT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_NOTIFY_BUDGET_SUCCESS;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_BUDGET_SUCCESS;
 import static seedu.address.testutil.TypicalOverview.OVERVIEW_MODEL_WITH_DATA;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 
 public class LogicManagerTest {
+
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
 
     private LogicManager logicManager;
 
@@ -47,7 +51,8 @@ public class LogicManagerTest {
     public void executeSetCommandTest_correctInput_success() {
         try {
             CommandResult cr = logicManager.execute("set b/500");
-            assertEquals(cr.getFeedbackToUser(), String.format(MESSAGE_SET_BUDGET_SUCCESS, 500.0));
+            assertEquals(cr.getFeedbackToUser(), String.format(MESSAGE_SET_BUDGET_SUCCESS,
+                    DECIMAL_FORMAT.format(500.0)));
         } catch (Exception e) {
             throw new AssertionError("Error: " + e.getMessage());
         }
@@ -77,7 +82,8 @@ public class LogicManagerTest {
     public void executeNotifyCommandTest_correctInput_success() {
         try {
             CommandResult cr = logicManager.execute("notify b/80");
-            assertEquals(cr.getFeedbackToUser(), String.format(MESSAGE_NOTIFY_BUDGET_SUCCESS, 80.0));
+            assertEquals(cr.getFeedbackToUser(), String.format(MESSAGE_NOTIFY_BUDGET_SUCCESS,
+                    DECIMAL_FORMAT.format(80.00)));
         } catch (Exception e) {
             throw new AssertionError("Error: " + e.getMessage());
         }
@@ -159,7 +165,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getInventoryTotalByCategory_success() {
-        assertEquals(517770.0, logicManager.getInventoryTotalByCategory("food"));
+        assertEquals(4707.0, logicManager.getInventoryTotalByCategory("food"));
     }
 
     @Test

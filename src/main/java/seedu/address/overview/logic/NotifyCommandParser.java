@@ -38,11 +38,11 @@ public class NotifyCommandParser {
 
         try {
             if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
-                return new NotifyBudgetCommand(Integer.parseInt(argMultimap.getValue(PREFIX_BUDGET).get()));
+                return new NotifyBudgetCommand(Long.parseLong(argMultimap.getValue(PREFIX_BUDGET).get()));
             } else if (argMultimap.getValue(PREFIX_EXPENSE).isPresent()) {
-                return new NotifyExpenseCommand(Integer.parseInt(argMultimap.getValue(PREFIX_EXPENSE).get()));
+                return new NotifyExpenseCommand(Long.parseLong(argMultimap.getValue(PREFIX_EXPENSE).get()));
             } else if (argMultimap.getValue(PREFIX_SALES).isPresent()) {
-                return new NotifySalesCommand(Integer.parseInt(argMultimap.getValue(PREFIX_SALES).get()));
+                return new NotifySalesCommand(Long.parseLong(argMultimap.getValue(PREFIX_SALES).get()));
             } else {
                 throw new ParseException(OverviewMessages.MESSAGE_INVALID_COMMAND_FORMAT);
             }

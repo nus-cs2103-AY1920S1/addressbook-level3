@@ -37,7 +37,7 @@ The GUI should appear in a few seconds.
 image::Ui.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`go /members`* and pressing kbd:[Enter] will take you to the Members tab.
+e.g. typing *`go members`* and pressing kbd:[Enter] will take you to the Members tab.
 
 . Refer to <<Features>> for details of commands for each tab.
 
@@ -72,8 +72,9 @@ Command: `go TAB`
 This command allows you to navigate between tabs.
 
 * `go home`
+* `go members`
 * `go inventory`
-* `go reimbursement`
+* `go reimbursements`
 * `go cashier`
 * `go overview`
 
@@ -109,9 +110,8 @@ it adds money to the club's funds).
 from the club's funds).
 
 [WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
-of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
-You are advised to key in a number smaller than 10000 due to size limitation.
+Due to size limitations, a large number may be truncated when shown in the table. +
+To avoid this, you are advised to key in a number smaller than 10,000.
 ====
 
 ==== Add a Transaction
@@ -423,11 +423,10 @@ and sort the reimbursements.
 
 * All reimbursements shown in the Reimbursement Tab are outstanding and have not been paid. Completed reimbursements will not be displayed.
 
-[WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
-of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
-You are advised to key in a number smaller than 10000 due to size limitation.
 
+[WARNING]
+Due to size limitations, a large number may be truncated when shown in the table. +
+To avoid this, you are advised to key in a number smaller than 10,000.
 ====
 
 [NOTE]
@@ -608,10 +607,10 @@ This section will contain details on all commands in the Inventory Tab.
 * Leo will also give replies to guide you when there is a wrong input.
 * You may also sort the list of items by ascending quantity or by descending alphabetical order.
 
+
 [WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range of an integer.
-If it exceeds this number, please key in a smaller quantity or checkout items separately.
-You are advised to key in a number smaller than 10000 due to size limitation.
+Due to size limitations, a large number may be truncated when shown in the table. +
+To avoid this, you are advised to key in a number smaller than 10,000.
 ====
 
 ==== Add an Item:
@@ -733,9 +732,8 @@ under the category "Sales" and person being the cashier-in-charge. The Home tab 
 Items with zero price are not available for sale. Such items cannot be added into the table.
 
 [WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
-of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
-You are advised to key in a number smaller than 10000 due to size limitation.
+Due to size limitation, you will not be allowed to add any items into the cart if the total amount exceeds $9999. You
+are advised to reduce the quantity of items or checkout separately in another cart.
 
 ====
 
@@ -746,11 +744,9 @@ This command adds a sales item into the table.
 `add [c/CATEGORY] d/DESCRIPTION q/QUANTITY`
 
 The quantity of the item must not be greater than the stock available in the Inventory Tab.
-Else, Leo will display a message prompting input of a smaller quantity or another item.
-
+Else, Leo will display a message prompting input of a smaller quantity or another item. +
 The category field is optional. If you are unsure about the description of the desired item, you can refer to
-the Inventory Tab or simply key in the category without any other fields. +
-Leo will display all the items in the
+the Inventory Tab or simply key in the category without any other fields. Leo will display all the items in the
 specified category that are available for sale.
 
 Additionally, if the description is misspelled or does not match any of the items in the inventory, Leo will recommend
@@ -981,6 +977,9 @@ will be reset.
 ** Remaining budget
 * The user may also set financial goals and set up percentage thresholds to receive notifications.
 * Leo will notify the user any time their financial goals have been reached.
+
+[WARNING]
+The maximum amount you may set for a goal is 10,000,000 (10 million).
 ====
 
 ==== Set a Financial Goal
@@ -1067,6 +1066,12 @@ Data in treasurerPro is saved automatically after executing any command. There i
 
 *Q*: Can I resize the app window? +
 *A*: No, you may not resize the app window.
+
+*Q*: What is `Cashier Mode`? How can I switch it off? +
+*A*: `Cashier Mode` is a feature implemented for security reasons. It is considered turned on when there are sales items
+in the cart on the `Cashier Tab`. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
+items. +
+To switch it off, please enter `clear` on the Command Line Interface (CLI) of the `Cashier Tab`.
 
 == Command Summary
 
