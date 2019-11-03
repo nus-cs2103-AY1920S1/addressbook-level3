@@ -59,7 +59,8 @@ public class ArgumentMultimap {
     }
 
     public boolean isDisjointWith(ArgumentMultimap argumentMultimap) {
-        Set<Prefix> keys = argMultimap.keySet();
+        HashMap<Prefix, List<String>> copy = new HashMap<>(argMultimap);
+        Set<Prefix> keys = copy.keySet();
         Set<Prefix> newKeys = argumentMultimap.argMultimap.keySet();
         keys.retainAll(newKeys);
         return keys.isEmpty();

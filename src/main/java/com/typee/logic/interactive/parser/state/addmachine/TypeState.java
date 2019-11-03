@@ -8,11 +8,13 @@ import java.util.Optional;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.parser.Prefix;
+import com.typee.model.engagement.EngagementType;
 
 public class TypeState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "The engagement should be an appointment,"
-            + " meeting or interview.";
+    private static final String MESSAGE_CONSTRAINTS = "Add Command initiated. Please enter a valid engagement type"
+            + " after the prefix \"t/\".";
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
             + " \"t/\".";
 
@@ -39,8 +41,8 @@ public class TypeState extends State {
     }
 
     private void enforceValidity(Optional<String> typeValue) throws StateTransitionException {
-        if (!isValid(typeValue.get())) {
-            throw new StateTransitionException(MESSAGE_CONSTRAINTS);
+        if (!EngagementType.isValid((typeValue.get()))) {
+            throw new StateTransitionException(EngagementType.getMessageConstraints());
         }
     }
 
@@ -54,10 +56,9 @@ public class TypeState extends State {
         return false;
     }
 
-    private boolean isValid(String commandText) {
-        return commandText.equalsIgnoreCase("Meeting")
-                || commandText.equalsIgnoreCase("Interview")
-                || commandText.equalsIgnoreCase("Appointment");
+    @Override
+    public Prefix getPrefix() {
+        return PREFIX_ENGAGEMENT_TYPE;
     }
 
     /*

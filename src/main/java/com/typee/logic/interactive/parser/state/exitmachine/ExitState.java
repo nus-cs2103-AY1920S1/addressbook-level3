@@ -7,6 +7,7 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.parser.Prefix;
 
 public class ExitState extends EndState {
 
@@ -35,5 +36,10 @@ public class ExitState extends EndState {
     @Override
     public boolean isEndState() {
         return true;
+    }
+
+    @Override
+    public Prefix getPrefix() {
+        return new Prefix("");
     }
 }

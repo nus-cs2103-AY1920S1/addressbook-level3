@@ -9,10 +9,12 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
+import com.typee.logic.parser.Prefix;
 
 public class StartDateState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "The start time must conform to the dd/mm/yyyy/hhmm format.";
+    private static final String MESSAGE_CONSTRAINTS = "Please enter a start date and time prefixed by \"s/\"."
+            + " The start time must conform to the dd/mm/yyyy/hhmm format.";
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid date and time after the prefix"
             + " \"s/\". Please conform to the dd/mm/yyyy/hhmm format.";
 
@@ -56,5 +58,10 @@ public class StartDateState extends State {
     @Override
     public boolean isEndState() {
         return false;
+    }
+
+    @Override
+    public Prefix getPrefix() {
+        return PREFIX_START_TIME;
     }
 }

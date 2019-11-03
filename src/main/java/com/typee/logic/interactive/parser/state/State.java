@@ -27,6 +27,8 @@ public abstract class State {
 
     public abstract boolean isEndState();
 
+    public abstract Prefix getPrefix();
+
     protected void requireKeywordPresence(Optional<String> keywordArgument, String errorMessage)
             throws StateTransitionException {
         if (keywordArgument.isEmpty()) {

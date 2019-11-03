@@ -22,6 +22,8 @@ public class Parser implements InteractiveParser {
     private static final String BUFFER_TEXT = " ";
     private static final String MESSAGE_CLEAR_ALL = "// clear";
     private static final String MESSAGE_INVALID_COMMAND = "No such command exists!";
+    private static final String MESSAGE_MISSING_PREFIX = "Please input only the prefix %s and its argument."
+            + " You may enter additional prefixes and arguments as long as they follow the specified ordering.";
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
 
@@ -91,7 +93,9 @@ public class Parser implements InteractiveParser {
     public Command makeCommand() {
         assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
         EndState endState = (EndState) currentState;
-        return endState.buildCommand();
+        Command command = endState.buildCommand();
+        resetParser();
+        return command;
     }
 
     private void resetParser() {
@@ -122,7 +126,7 @@ public class Parser implements InteractiveParser {
             argumentMultimap.clearValues(new Prefix(""));
         }
         if (!argumentMultimap.getPreamble().isBlank()) {
-            throw new ParseException("Please input only the prefix(es) and their argument(s).");
+            throw new ParseException(String.format(MESSAGE_MISSING_PREFIX, currentState.getPrefix()));
         } else {
             argumentMultimap.clearValues(new Prefix(""));
         }
