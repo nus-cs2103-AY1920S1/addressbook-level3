@@ -34,7 +34,7 @@ public class TaskList {
     public void remove(int index) {
         listOfTask.remove(index);
     }
-  
+
     public Patient getPatient() {
         return patient;
     }
@@ -42,7 +42,7 @@ public class TaskList {
     public void setPatient(Patient newPatient) {
         this.patient = newPatient;
     }
-  
+
     /**
      * Generate a default list with all the default tasks necessary for the cross-matching to occur
      * @return TaskList of the default list

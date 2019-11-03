@@ -54,8 +54,9 @@ public class ProcessingCommand extends Command {
      * @return boolean, to see whether the given Nrics are valid
      */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
+
         boolean canBePaired;
-      
+
         if (model.hasDonor(firstNric)) {
             donorNric = firstNric;
             donor = model.getDonor(donorNric);

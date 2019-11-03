@@ -45,7 +45,8 @@ public class ProcessingMarkDoneCommand extends Command {
 
     private TaskList processingList;
 
-    public ProcessingMarkDoneCommand(String firstNricString, String secondNricString, String taskNumberString) throws ParseException {
+    public ProcessingMarkDoneCommand(
+            String firstNricString, String secondNricString, String taskNumberString) throws ParseException {
         requireNonNull(firstNricString, secondNricString);
         try {
             firstNric = new Nric(firstNricString);
