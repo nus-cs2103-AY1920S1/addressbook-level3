@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
 
@@ -36,7 +37,7 @@ public interface Logic {
 
     void readInUpdatedList() throws Exception;
 
-    String getAmount();
+    String getAmount() throws AmountExceededException;
 
     String getCashier() throws NoCashierFoundException;
 

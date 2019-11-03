@@ -159,7 +159,7 @@ public class LogicManagerTest {
 
     @Test
     public void correctValue_getInventoryTotalByCategory_success() {
-        assertEquals(517770.0, logicManager.getInventoryTotalByCategory("food"));
+        assertEquals(4707.0, logicManager.getInventoryTotalByCategory("food"));
     }
 
     @Test

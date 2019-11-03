@@ -1,6 +1,7 @@
 package seedu.address.cashier.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
 import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -274,10 +276,13 @@ public class ModelManager implements Model {
      * @return the total amount of all the items in the Sales List
      */
     @Override
-    public double getTotalAmount() {
+    public double getTotalAmount() throws AmountExceededException {
         double total = 0;
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
+        }
+        if (total > 9999) {
+            throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
         }
         return total;
     }
