@@ -136,7 +136,7 @@ public class Item {
     }
 
     /**
-     * Returns true if both items of the same description and category.
+     * Returns true if both items of the same description.
      * This defines a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item otherItem) {
@@ -145,8 +145,7 @@ public class Item {
         }
 
         return otherItem != null
-                && otherItem.getDescription().equalsIgnoreCase(getDescription())
-                && otherItem.getCategory().equalsIgnoreCase(getCategory());
+                && otherItem.getDescription().equalsIgnoreCase(getDescription());
     }
 
     /**

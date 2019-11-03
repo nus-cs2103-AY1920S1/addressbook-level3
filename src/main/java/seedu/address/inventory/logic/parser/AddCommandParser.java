@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
@@ -30,7 +31,7 @@ public class AddCommandParser {
      * Parses the input and returns an AddCommand.
      */
     public static AddCommand parse(String args, InventoryList inventoryList) throws ParseException,
-            NumberFormatException, NotANumberException, NoSuchItemException, OnCashierModeException {
+            NumberFormatException, NotANumberException, NoSuchItemException, OnCashierModeException, InvalidNumberException {
         int index = inventoryList.size() + 1;
         if (args.contains(" p/")) {
             ArgumentMultimap argMultimap =
@@ -49,13 +50,18 @@ public class AddCommandParser {
             String priceString = argMultimap.getValue(PREFIX_PRICE).get();
 
             if (!isValidNumeric(quantityString) || !isValidNumeric(costString) || !isValidNumeric(priceString)) {
-                throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
             int quantity = Integer.parseInt(quantityString);
             double cost = Double.parseDouble(costString);
             double price = Double.parseDouble(priceString);
             Item item = new Item(description, category, quantity, cost, price, index);
+
+            if (item.getSubtotal() > 9999 || item.getTotalCost() > 9999 || item.getCost() > 9999
+                    || item.getPrice() > 9999 || item.getQuantity() > 9999) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+            }
 
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
@@ -87,12 +93,17 @@ public class AddCommandParser {
             String costString = argMultimap.getValue(PREFIX_COST).get();
 
             if (!isValidNumeric(quantityString) || !isValidNumeric(costString)) {
-                throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
             int quantity = Integer.parseInt(quantityString);
             double cost = Double.parseDouble(costString);
             Item item = new Item(description, category, quantity, cost, index);
+
+            if (item.getTotalCost() > 9999 || item.getCost() > 9999 || item.getQuantity() > 9999) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+            }
+
             AddCommand addCommand = null;
             if (inventoryList.containsItem(item)) {
                 if (ModelManager.onCashierMode()) {
