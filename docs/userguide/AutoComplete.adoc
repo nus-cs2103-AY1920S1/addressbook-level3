@@ -35,4 +35,4 @@ Confirm your selection by pressing the `*RIGHT*` key in your keyboard. This will
 Selecting the "now-update" in the autocomplete panel will concatenate with "now-update" with "visit-", the current text in your command box.
 
 *Note:* +
-When pressing `*UP*`, `*DOWN*`, `*RIGHT*` key, make sure that the command box is selected.
+When pressing `*UP*`, `*DOWN*`, or `*RIGHT*` keys, make sure that the command box is selected.
