@@ -1,6 +1,8 @@
 //@@author CarbonGrid
 package seedu.address;
 
+import java.nio.file.Files;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -111,7 +113,7 @@ public class MainAppTest extends ApplicationTest {
         var queueListView = robot.lookup("#queueListView").queryListView();
 
         robot.clickOn("#commandTextField")
-                .write("register -id 001A -name John Doe -phone 98765432"
+                .write("newpatient -id 001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
                 .type(KeyCode.ENTER)
                 .write("enqueue 001A")

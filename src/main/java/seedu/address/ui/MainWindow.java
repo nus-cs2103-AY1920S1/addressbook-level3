@@ -2,6 +2,7 @@
 package seedu.address.ui;
 
 import static java.awt.Desktop.getDesktop;
+import static seedu.address.commons.core.OmniPanelTab.UNINITIALISED;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -27,8 +28,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
+import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.autocomplete.AutoCompleter;
 import seedu.address.ui.commandboxhistory.CommandBoxHistory;
@@ -104,6 +109,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.logic = logic;
         this.autoCompleter = new AutoCompleter();
         this.commandBoxHistory = new CommandBoxHistory();
+        this.currentOmniPanelTab = UNINITIALISED;
 
         this.deferredDropSelectors = new HashSet<>();
         // Configure the UI
@@ -331,8 +337,13 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+        if (currentOmniPanelTab.equals(omniPanelTab)) {
+            return;
+        }
+
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        resultDisplay.setFeedbackToUser("");
         Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
@@ -350,8 +361,29 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         default:
             return;
         }
-        Region finalRegion = region;
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
+    }
+
+    @Override
+    public void refreshOmniPanelTab(OmniPanelTab omniPanelTab) {
+        setOmniPanelTab(omniPanelTab);
+        switch (omniPanelTab) {
+        case PATIENTS_TAB:
+            executeCommand(ListPatientCommand.COMMAND_WORD);
+            break;
+        case APPOINTMENTS_TAB:
+            executeCommand(AppointmentsCommand.COMMAND_WORD);
+            break;
+        case DOCTORS_TAB:
+            executeCommand(ListStaffCommand.COMMAND_WORD);
+            break;
+        case DUTY_SHIFT_TAB:
+            executeCommand(DutyShiftCommand.COMMAND_WORD);
+            break;
+        default:
+            return;
+        }
+
     }
 
     @Override
