@@ -15,6 +15,7 @@ import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -130,7 +131,7 @@ public class DeckDisplay extends AnchorPane {
     }
 
     private void deleteDeck() throws DeckNotFoundException {
-        State state = State.getState();
+        State state = StateHolder.getState();
         state.removeDeck(deck.getName());
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
