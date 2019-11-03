@@ -154,8 +154,7 @@ public class Interviewee extends Person {
         }
 
         return interviewee != null
-                && interviewee.getName().equals(getName())
-                && interviewee.getPhone().equals(getPhone());
+                && interviewee.getName().equals(getName());
     }
 
     /**
