@@ -83,7 +83,7 @@ Examples:
 
 Suggest possible meals based on user calorie intake budget. +
 The available meals will be shown under the "Suggested Meals" section of the application. +
-Format: `sugggest`
+Format: `suggest`
 
 === Setting calorie intake budget: `set`
 
@@ -126,5 +126,9 @@ e.g. `edit 1 n/duck noodle c/250`
 e.g. `delete 3`
 * *Set* : `set CALORIES` +
 e.g. `set 2600`
-* *Report* : `report`
-* *Help* : `help`
+* *Suggest* : `suggest` +
+e.g. `suggest`
+* *Report* : `report` +
+e.g. `report`
+* *Help* : `help` +
+e.g. `help`
