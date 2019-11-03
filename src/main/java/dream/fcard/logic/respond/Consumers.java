@@ -34,7 +34,7 @@ public class Consumers {
     }
 
     /**
-     * @param input
+     * @param
      */
     @SuppressWarnings("unchecked")
     public static void doTask(String identifier, Object obj) {

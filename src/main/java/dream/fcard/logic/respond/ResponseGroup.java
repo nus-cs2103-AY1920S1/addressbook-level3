@@ -9,6 +9,7 @@ import dream.fcard.model.StateHolder;
  * belongs to the group.
  */
 public enum ResponseGroup {
+    TEST(i -> StateHolder.getState().getCurrState() == StateEnum.TEST),
     DEFAULT(i -> StateHolder.getState().getCurrState() == StateEnum.DEFAULT),
     MATCH_ALL(i -> true);
 

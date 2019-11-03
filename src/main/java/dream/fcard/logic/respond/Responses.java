@@ -58,15 +58,8 @@ public enum Responses {
                     return true;
                 }
     ),
-    ADD_NEW_ROW_MCQ(
-            "^((?i)add)\\s+((?i)option).*$",
-            new ResponseGroup[]{ResponseGroup.DEFAULT},
-                i -> {
-                    //TODO not implemented
-                    return true;
-                }
-    ),
-    // DEFAULT GROUP ----------------------------------------------------------
+
+
     EXIT_CREATE(
             "^((?i)exit)\\s*$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -94,7 +87,8 @@ public enum Responses {
                     return true;
                 }
     ),
-    // CREATE GROUP -----------------------------------------------------------
+    // DEFAULT GROUP ----------------------------------------------------------
+
     QUIT(
             "^((?i)quit)\\s*$",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
