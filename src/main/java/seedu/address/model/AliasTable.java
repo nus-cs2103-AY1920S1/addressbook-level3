@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -35,8 +36,10 @@ public class AliasTable {
 
         // match for the longest alias
         for (String key: aliasTable.keySet()) {
-            if (key.length() > maxLength && commandText.matches(Pattern.quote(key) + "($|\\s).*")) {
-                aliasedCommand = commandText.replaceFirst(key, aliasTable.get(key));
+            Pattern pattern = Pattern.compile(Pattern.quote(key) + "($|\\s).*", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(commandText);
+            if (key.length() > maxLength && matcher.matches()) {
+                aliasedCommand = matcher.replaceFirst(aliasTable.get(key));
                 maxLength = key.length();
             }
         }
