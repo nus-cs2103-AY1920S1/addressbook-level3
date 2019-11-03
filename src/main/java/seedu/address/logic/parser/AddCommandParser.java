@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_AUTHOR_NAME_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
+import static seedu.address.commons.core.Messages.MESSAGE_GENRE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_GENRES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
@@ -29,6 +30,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     private static final int MAX_TITLE_LENGTH = 50;
     private static final int MAX_AUTHOR_LENGTH = 50;
+    private static final int MAX_GENRE_LENGTH = 20;
     private static final int MAX_GENRE_COUNT = 5;
     private static final Loan NULL_LOAN = null;
 
@@ -60,8 +62,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
+        boolean genreTooLong = false;
+        for (Genre g : genreList) {
+            if (g.toString().length() > MAX_GENRE_LENGTH) {
+                genreTooLong = true;
+            }
+        }
         if (genreList.size() > MAX_GENRE_COUNT) {
             throw new ParseException(String.format(MESSAGE_TOO_MANY_GENRES, MAX_GENRE_COUNT));
+        }
+        if (genreTooLong) {
+            throw new ParseException(String.format(MESSAGE_GENRE_TOO_LONG, MAX_GENRE_LENGTH));
         }
 
         boolean haveSerialNumber = argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent();

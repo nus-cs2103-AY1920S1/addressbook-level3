@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a loan's ID in LoanRecords.
  * Guarantees: immutable, is valid as declared in {@Link #isValidLoanId(String)}
  */
-public class LoanId {
+public class LoanId implements Comparable<LoanId> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Loan ID should start with prefix \"L\", followed by 6 digits. They should be unique.";
@@ -39,6 +39,12 @@ public class LoanId {
     @Override
     public String toString() {
         return value;
+    }
+
+    @Override
+    public int compareTo(LoanId other) {
+        return Integer.compare(
+                Integer.parseInt(this.toString().substring(1)), Integer.parseInt(other.toString().substring(1)));
     }
 
     @Override
