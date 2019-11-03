@@ -228,4 +228,16 @@ public class EventUtil {
     public static boolean validateStartEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return startDateTime.compareTo(endDateTime) < 0;
     }
+
+    /**
+     * Formats a vEvent to be printed
+     * @param vEvent to convert into string format
+     * @return a string representation of the vEvent
+     */
+    public static String vEventToString(VEvent vEvent) {
+        return String.format("event name: %s || start datetime: %s || end datetime: %s\n",
+                vEvent.getSummary().getValue(),
+                vEvent.getDateTimeStart().getValue().toString(),
+                vEvent.getDateTimeEnd().getValue().toString());
+    }
 }

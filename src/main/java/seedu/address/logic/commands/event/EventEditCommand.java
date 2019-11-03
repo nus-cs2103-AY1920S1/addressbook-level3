@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static seedu.address.commons.util.EventUtil.convertNumberToColorCategoryList;
+import static seedu.address.commons.util.EventUtil.vEventToString;
 import static seedu.address.commons.util.EventUtil.validateStartEndDateTime;
 
 import java.time.LocalDateTime;
@@ -39,8 +40,8 @@ public class EventEditCommand extends EventCommand {
             + "Please follow the format: yyyy-MM-ddTHH:mm, "
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
-    private static final String INVALID_EVENT_RANGE = "Invalid date range between start and end dateTime";
     private static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
+
     private final Index index;
     private final String eventName;
     private final String startDateTimeString;
@@ -112,7 +113,7 @@ public class EventEditCommand extends EventCommand {
         }
         //validate start and end date time
         if (!validateStartEndDateTime(startDateTime, endDateTime)) {
-            throw new CommandException(INVALID_EVENT_RANGE);
+            throw new CommandException(START_DATE_LATER_END_DATE);
         }
         //set start and end date time
         vEventObject.setDateTimeEnd(endDateTime);
@@ -150,7 +151,7 @@ public class EventEditCommand extends EventCommand {
      * @param vEvent that has been editted.
      */
     private String generateSuccessMessage(VEvent vEvent) {
-        return "Edited event: " + vEvent.getSummary().getValue();
+        return "Edited event: \n" + vEventToString(vEvent);
     }
 
     @Override
