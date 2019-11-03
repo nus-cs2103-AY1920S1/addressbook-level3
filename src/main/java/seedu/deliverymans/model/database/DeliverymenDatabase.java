@@ -14,7 +14,6 @@ import seedu.deliverymans.model.deliveryman.deliverymanstatistics.RecordIndex;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsManager;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
-import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
  * Wraps all Deliverymen data at the deliverymen-database level

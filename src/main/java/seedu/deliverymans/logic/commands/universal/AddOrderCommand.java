@@ -17,8 +17,6 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
-import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
-
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -115,28 +113,28 @@ public class AddOrderCommand extends Command {
 
         // Deliveryman validity check
 
-            if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
-                deliverymanToAdd = model.getOneAvailableDeliveryman();
-                if (deliverymanToAdd == null) {
-                    deliverymanToAdd = toAdd.getDeliveryman();
-                }
-            } else {
-                for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
-                    if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
-                        final String desc = deliveryman.getStatus().getDescription();
-                        if (desc.equals("AVAILABLE")) {
-                            deliverymanToAdd = deliveryman.getName();
-                            // Set deliveryman status here
-                        } else {
-                            throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
-                        }
-                        break;
+        if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+            if (deliverymanToAdd == null) {
+                deliverymanToAdd = toAdd.getDeliveryman();
+            }
+        } else {
+            for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
+                if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
+                    final String desc = deliveryman.getStatus().getDescription();
+                    if (desc.equals("AVAILABLE")) {
+                        deliverymanToAdd = deliveryman.getName();
+                        // Set deliveryman status here
+                    } else {
+                        throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
                     }
-                }
-                if (deliverymanToAdd == null) {
-                    throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
+                    break;
                 }
             }
+            if (deliverymanToAdd == null) {
+                throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
+            }
+        }
 
         /*
         try {
