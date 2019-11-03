@@ -23,7 +23,7 @@ public class RegexUtil {
         ArrayList<String> inp = new ArrayList<>(Arrays.asList(
                 command.length() == 0
                         ? input
-                        : input.split("^"+ ignoreCase(command) + "\\s*")[1]));
+                        : input.split("^" + ignoreCase(command) + "\\s*")[1]));
         ArrayList<Integer> ain = new ArrayList<>(Arrays.asList(-1));
         ArrayList<ArrayList<String>> res = new ArrayList<>();
 

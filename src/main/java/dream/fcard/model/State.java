@@ -142,7 +142,7 @@ public class State {
         return currState;
     }
 
-    public State(State oldState) {
-        decks = oldState.decks;
-    }
+    //public State(State oldState) {
+    //    decks = oldState.decks;
+    //}
 }

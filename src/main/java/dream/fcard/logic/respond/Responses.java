@@ -2,12 +2,10 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
-import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FrontBackCard;
-import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 
 /**
@@ -50,25 +48,20 @@ public enum Responses {
     ADD_CARD(
             "^((?i)(add)(\\s)+(deck/(.*))\\s+(priority/(.*))?\\s+(front/(.*))\\s+(back/(.*))+\\s+(choice/(.*))?\\s*",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            i -> {
-                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("",
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("",
                         new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
                         i);
-                try {
-                    return CreateCommand.createMcqFrontBack(res);
-                } catch (DuplicateInChoicesException dicExc) {
-                    Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"There are duplicated choices!");
                     return true;
                 }
-            }
     ),
     ADD_CARD_ERROR(
             "^((?i)(add)",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            (i,s) -> {
-                Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
-                return true;
-            }
+                i -> {
+                    //Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
+                    return true;
+                }
     ),
     SEE_SPECIFIC_DECK(
             "^((?i)view)\\s+[0-9]+$",

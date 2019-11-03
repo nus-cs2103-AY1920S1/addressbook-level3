@@ -5,7 +5,6 @@ import java.io.IOException;
 import dream.fcard.core.Main;
 import dream.fcard.logic.stats.Stats;
 import dream.fcard.logic.storage.StorageManager;
-import dream.fcard.model.State;
 import dream.fcard.model.StateHolder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

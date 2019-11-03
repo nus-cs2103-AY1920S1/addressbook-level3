@@ -79,7 +79,6 @@ public class MainWindow extends VBox {
 
     // Attributes
     private CreateDeckDisplay tempCreateDeckDisplay;
-    private State currState;
 
     /**
      * Binds the vertical height of the scroll panes to the size of the Nodes inside them so that the scrollbar
