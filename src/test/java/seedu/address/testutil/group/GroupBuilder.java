@@ -1,10 +1,10 @@
 package seedu.address.testutil.group;
 
+import java.util.List;
+
 import seedu.address.model.group.Group;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
-
-import java.util.List;
 
 /**
  * A utility class to help build Groups.

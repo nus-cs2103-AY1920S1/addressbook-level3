@@ -1,25 +1,27 @@
 package seedu.address.model.student;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
-import seedu.address.model.student.exceptions.DuplicateStudentException;
-import seedu.address.testutil.student.StudentBuilder;
-import seedu.address.testutil.student.TypicalStudents;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
+import org.junit.jupiter.api.Test;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
+import seedu.address.testutil.student.StudentBuilder;
+import seedu.address.testutil.student.TypicalStudents;
 
 public class StudentRecordTest {
     private final StudentRecord studentRecord = new StudentRecord();
-    private final Student student = TypicalStudents.StudentOne;
+    private final Student student = TypicalStudents.STUDENT_ONE;
 
     @Test
     public void constructor() {

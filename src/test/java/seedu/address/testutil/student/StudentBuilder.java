@@ -1,11 +1,11 @@
 package seedu.address.testutil.student;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A utility class to help build students.
