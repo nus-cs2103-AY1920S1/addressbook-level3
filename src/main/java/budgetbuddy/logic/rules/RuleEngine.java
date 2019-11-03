@@ -90,7 +90,7 @@ public class RuleEngine {
     private RuleEngine() {}
 
     /**
-     * Runs all rules against a given transaction.
+     * Runs all rules against a transaction, given a valid index and account.
      */
     public static void executeRules(Model model, ScriptEngine scriptEngine, Index txnIndex, Account account) {
         requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txnIndex, account);

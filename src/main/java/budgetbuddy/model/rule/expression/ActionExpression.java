@@ -90,6 +90,10 @@ public class ActionExpression extends RuleAction {
 
     @Override
     public String toString() {
-        return String.format("%s %s", operator, value);
+        if (value.toString().isEmpty()) {
+            return operator.toString();
+        } else {
+            return String.format("%s \"%s\"", operator, value);
+        }
     }
 }
