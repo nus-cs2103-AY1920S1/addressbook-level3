@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import dream.fcard.gui.controllers.cards.backview.McqCardBack;
 import dream.fcard.gui.controllers.cards.backview.SimpleCardBack;
 import dream.fcard.gui.controllers.cards.frontview.BasicFrontBackCard;
+import dream.fcard.gui.controllers.cards.frontview.JavaFront;
 import dream.fcard.gui.controllers.cards.frontview.JsCard;
 import dream.fcard.gui.controllers.cards.frontview.McqCard;
 import dream.fcard.gui.controllers.windows.MainWindow;
@@ -13,6 +14,7 @@ import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -133,6 +135,10 @@ public class TestDisplay extends AnchorPane {
             cardDisplay.getChildren().clear();
             JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateJsUserAttempt, getScore);
             cardDisplay.getChildren().add(jsCard);
+        } else if (typeOfCard.equals("JavaCard")) {
+            cardDisplay.getChildren().clear();
+            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateJsUserAttempt, getScore);
+            cardDisplay.getChildren().add(javaFront);
         }
 
     }

@@ -10,7 +10,7 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> {
     protected String front;
     protected String back;
-    protected Integer priority;
+    protected Integer priority = Priority.LOW_PRIORITY;
     protected int cardResult;
 
 

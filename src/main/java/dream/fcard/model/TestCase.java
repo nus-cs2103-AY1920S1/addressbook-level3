@@ -12,6 +12,7 @@ import dream.fcard.util.json.jsontypes.JsonValue;
 public class TestCase implements JsonInterface {
     private String input;
     private String expectedOutput;
+    private String actualOutput;
 
     public TestCase(String input, String expectedOutput) {
         this.input = input;
@@ -24,6 +25,8 @@ public class TestCase implements JsonInterface {
      * @return a boolean specifying pass/fail, and the actual and expected output for comparison.
      */
     public Pair<Boolean, Pair<String, String>> checkDiff(String output) {
+        expectedOutput = expectedOutput.strip();
+        output = output.strip();
         Pair<String, String> outputs = new Pair<>(expectedOutput, output);
         Pair<Boolean, Pair<String, String>> obj;
         if (!expectedOutput.equals(output)) {
@@ -48,6 +51,14 @@ public class TestCase implements JsonInterface {
 
     public String getExpectedOutput() {
         return expectedOutput;
+    }
+
+    public void setActualOutput(String actualOutput) {
+        this.actualOutput = actualOutput;
+    }
+
+    public String getActualOutput() {
+        return actualOutput;
     }
 
     /**

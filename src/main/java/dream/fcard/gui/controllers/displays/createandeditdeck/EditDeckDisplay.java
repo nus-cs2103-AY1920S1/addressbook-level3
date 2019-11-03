@@ -61,7 +61,7 @@ public class EditDeckDisplay extends VBox {
             fxmlLoader.load();
             this.deck = deck;
             editingWindow = new CardCreatingWindow(incrementNumCards);
-            cardCreatingPane.getChildren().add((editingWindow));
+            cardCreatingPane.getChildren().add(editingWindow);
             clearMessage.accept(true);
             deckNameInput.setText(deck.getName());
             numCards = deck.getCards().size();
