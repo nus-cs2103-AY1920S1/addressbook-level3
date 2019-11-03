@@ -306,6 +306,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 * **Alternative 2:** Implement a `Rational` class for rational numbers.
 ** Pros: Guranteed precision.
 ** Cons: Seems overkill and needlessly over-engineered.
+// end::algorithm[]
 
 === List feature
 
