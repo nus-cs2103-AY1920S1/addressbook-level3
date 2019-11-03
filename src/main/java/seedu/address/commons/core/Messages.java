@@ -21,16 +21,15 @@ public class Messages {
     public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missing appointmennts need to settle!";
     public static final String MESSAGE_INVALID_ROOM_INDEX = "Invalid room index provided!";
     public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
-    public static final String MESSAGE_NOT_PATIENTLIST = "appointment(s) displayed do not belong to the same patient\n";
-    public static final String MESSAGE_NOT_STAFFLIST = "This command only works when duty shift(s) displayed "
-                    + "belong to the same doctor.\n"
-                    + "Please first display the doctor's shift listing by using shift <ENTRY_ID>, "
-                    + "before using <%1$s> command.";
 
-    public static final String MESSAGE_NOT_MISSEDLIST =
-            "Only missed appointments can be settled.\n"
-                    + "Plsease first display the missed appointment listing, "
-                    + "using missappt, before using settleappt command.";
+    public static final String MESSAGE_NOT_PATIENTLIST = "This command only works when appointments "
+            + "displayed belong to the same patient.\n"
+            + "Please first display the patient's appointment listing by using <appointmetnts> <ENTRY_ID> "
+            + "before using " + "%1$s command.";
+
+    public static final String MESSAGE_NOT_STAFFLIST =
+            "Duty shift(s) displayed do not belong to the same staff doctor\n";
+
 
     public static final String MESSAGE_NOTHING_SETTLE = "No missed appointment needs to settle";
     public static final String MESSAGE_EVENT_NOT_FOUND = "The appointment '%1$s' is not registered";

@@ -24,7 +24,10 @@ import seedu.address.model.events.parameters.Status;
  * Parses input arguments and creates a new SettleAppCommand object
  */
 public class SettleAppCommandParser implements Parser<ReversibleActionPairCommand> {
-
+    public static final String MESSAGE_NOT_MISSEDLIST =
+            "Only missed appointments can be settled.\n"
+                    + "Please first display the missing appointment listing "
+                    + "by using <missappt>, before using <settleappt> command.";
 
     private Model model;
     private List<Event> lastShownList;
@@ -46,7 +49,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         if (!model.isMissedList()) {
-            throw new ParseException(Messages.MESSAGE_NOT_MISSEDLIST);
+            throw new ParseException(MESSAGE_NOT_MISSEDLIST);
         }
 
         try {
