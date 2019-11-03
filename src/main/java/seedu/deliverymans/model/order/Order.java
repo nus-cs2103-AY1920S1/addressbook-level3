@@ -21,7 +21,7 @@ public class Order {
     // Identity fields
     private final Name customer;
     private final Name restaurant;
-    private Name deliveryman;
+    private final Name deliveryman;
 
     // Data fields
     private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
@@ -53,9 +53,6 @@ public class Order {
         return deliveryman;
     }
 
-    public void setDeliveryman(Name deliveryman) {
-        this.deliveryman = deliveryman;
-    }
     /**
      * Returns an immutable food map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
