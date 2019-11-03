@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.GenericCommandWord;
@@ -48,16 +50,11 @@ public class AddAliasCommand extends UndoableCommand {
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
-
-        // if command_word is reserved
-        String aliasName = toAdd.getAliasName();
-        if (model.getUserPrefs().aliasNameIsReserved(toAdd)) {
-            throw new CommandException(String.format(MESSAGE_RESERVED_NAME, aliasName));
-        }
-
-        // if recursive
-        String commandWord = toAdd.getCommandWord();
-        if (commandWord.equalsIgnoreCase(aliasName) || model.getUserPrefs().aliasCommandWordIsAlias(toAdd)) {
+        try {
+            model.getAliasMappings().addAlias(toAdd).validate();
+        } catch (IllegalValueException e) {
+            throw new CommandException(String.format(MESSAGE_RESERVED_NAME, toAdd.getAliasName()));
+        } catch (RecursiveAliasException e) {
             throw new CommandException(MESSAGE_RECURSIVE_WARNING);
         }
     }

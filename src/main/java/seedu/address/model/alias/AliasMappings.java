@@ -11,9 +11,12 @@ import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.RecursiveAliasException;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.alias.DeleteAliasCommand;
+import seedu.address.logic.commands.alias.ListAliasesCommand;
 import seedu.address.logic.commands.budget.AddBudgetCommand;
 import seedu.address.logic.commands.budget.SwitchBudgetCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
@@ -45,20 +48,37 @@ public class AliasMappings implements Serializable {
     private static final String INVALID_ALIAS = "Alias mappings contains an invalid Alias.";
 
     private static final List<String> RESERVED_COMMAND_WORDS = List.of(
+            // generic commands
+            GenericCommandWord.ADD,
+            GenericCommandWord.DELETE,
+            GenericCommandWord.LIST,
+            GenericCommandWord.CLEAR,
+            GenericCommandWord.EDIT,
             // event
-            AddEventCommand.COMMAND_WORD, ListEventsCommand.COMMAND_WORD,
-            DeleteEventCommand.COMMAND_WORD, EditEventCommand.COMMAND_WORD,
+            AddEventCommand.COMMAND_WORD,
+            ListEventsCommand.COMMAND_WORD,
+            DeleteEventCommand.COMMAND_WORD,
+            EditEventCommand.COMMAND_WORD,
             //expense
-            AddExpenseCommand.COMMAND_WORD, DeleteExpenseCommand.COMMAND_WORD,
-            ListExpensesCommand.COMMAND_WORD, FindExpenseCommand.COMMAND_WORD,
-            EditExpenseCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+            AddExpenseCommand.COMMAND_WORD,
+            DeleteExpenseCommand.COMMAND_WORD,
+            ListExpensesCommand.COMMAND_WORD,
+            FindExpenseCommand.COMMAND_WORD,
+            EditExpenseCommand.COMMAND_WORD,
             // budget
-            AddBudgetCommand.COMMAND_WORD, SwitchBudgetCommand.COMMAND_WORD,
+            AddBudgetCommand.COMMAND_WORD,
+            SwitchBudgetCommand.COMMAND_WORD,
             // alias
             AddAliasCommand.COMMAND_WORD,
+            ListAliasesCommand.COMMAND_WORD,
+            DeleteAliasCommand.COMMAND_WORD,
             // general
-            HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-            UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
+            HelpCommand.COMMAND_WORD,
+            ExitCommand.COMMAND_WORD,
+            UndoCommand.COMMAND_WORD,
+            RedoCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_WORD,
+            // ui command
             ViewPanelCommand.COMMAND_WORD
     );
 

@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 public class PanelName {
     public static final PanelName CURRENT = new PanelName("Current Page");
 
-    public static final PanelName STATISTICS_PANEL = new PanelName("Statistics");
-
     public static final String MESSAGE_NAME_FORMAT = "\"%s\" is not a valid panel name. \n"
             + "Panel names can only have alphanumeric characters with whitespaces in between.";
 
