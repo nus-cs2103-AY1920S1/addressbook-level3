@@ -31,7 +31,7 @@ public class SampleDataUtil {
             new Budget(new Description("Outside School"), new Price("50"),
                     Timestamp.createTimestampIfValid("28-10").get(), BudgetPeriod.WEEK),
             new Budget(new Description("NUS Canteens"), new Price("300"),
-                Timestamp.createTimestampIfValid("03-10").get(), BudgetPeriod.MONTH)
+                Timestamp.createTimestampIfValid("06-10").get(), BudgetPeriod.MONTH)
         };
     }
 

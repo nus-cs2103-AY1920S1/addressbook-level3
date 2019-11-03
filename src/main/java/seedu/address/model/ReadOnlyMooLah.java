@@ -19,4 +19,6 @@ public interface ReadOnlyMooLah {
     ObservableList<Budget> getBudgetList();
 
     ObservableList<Event> getEventList();
+
+    String getPrimaryBudgetName();
 }

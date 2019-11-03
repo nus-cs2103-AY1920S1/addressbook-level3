@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Timekeeper;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.alias.AliasMappings;
+import seedu.address.model.budget.exceptions.BudgetNotFoundException;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonMooLahStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -90,6 +91,9 @@ public class MainApp extends Application {
             initialData = mooLahOptional.orElseGet(SampleDataUtil::getSampleMooLah);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty MooLah");
+            initialData = new MooLah();
+        } catch (BudgetNotFoundException e) {
+            logger.warning("Primary budget in the file is not found in MooLah. Will be starting with an empty MooLah");
             initialData = new MooLah();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty MooLah");
