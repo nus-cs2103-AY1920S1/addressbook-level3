@@ -20,6 +20,7 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
@@ -27,6 +28,10 @@ import budgetbuddy.model.transaction.Amount;
  * Parses input arguments and creates a new LoanSplitCommand object.
  */
 public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
+
+    public final String MESSAGE_DUPLICATE_PERSONS = "Duplicate persons found in the list of persons. "
+            + "Takes note that the list is case insensitive.";
+
     @Override
     public String name() {
         return LoanSplitCommand.COMMAND_WORD;
@@ -72,8 +77,16 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
         List<Person> persons = new ArrayList<Person>();
         List<Amount> amounts = new ArrayList<Amount>();
 
-        for (String personName : argMultiMap.getAllValues(PREFIX_PERSON)) {
-            persons.add(new Person(CommandParserUtil.parseName(personName)));
+        List<String> personNames = argMultiMap.getAllValues(PREFIX_PERSON);
+        for (int i = 0; i < personNames.size(); i++) {
+            String currPersonName = personNames.get(i);
+            // check for persons with the same name (case-insensitive)
+            for (int j = i + 1; j < personNames.size(); j++) {
+                if (currPersonName.equalsIgnoreCase(personNames.get(j))) {
+                    throw new ParseException(MESSAGE_DUPLICATE_PERSONS);
+                }
+            }
+            persons.add(new Person(CommandParserUtil.parseName(currPersonName)));
         }
 
         for (String amountStr : argMultiMap.getAllValues(PREFIX_AMOUNT)) {
