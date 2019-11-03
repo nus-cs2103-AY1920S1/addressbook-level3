@@ -6,8 +6,11 @@ import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new FindSpecificCommand object
+ */
 public class PrivateCommandParser {
-    public static final String PRIVATE_USAGE = "In particular, input your private command like this: \n" +
+    private static final String PRIVATE_USAGE = "In particular, input your private command like this: \n" +
             "private target Eg: private 1. \n Note that the input has to be more than or equal to 1";
 
     /**

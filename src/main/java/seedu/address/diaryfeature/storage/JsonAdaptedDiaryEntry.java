@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.diaryfeature.logic.parser.Encryptor;
 import seedu.address.diaryfeature.logic.parser.ParserUtil;
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;

@@ -1,7 +1,7 @@
 package seedu.address.diaryfeature.model.util;
 
 
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;

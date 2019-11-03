@@ -17,21 +17,19 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 
 
 /**
- * Parses input arguments and creates a new AddCommand object
-*/
-
+ * Parses input arguments and creates a new FindSpecificCommand object
+ */
 public class FindSpecificCommandParser {
-    public static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
+    private static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
             "findSpecific prefix/target Eg: findSpecific t/birthday. \n Note that the input cant be empty, and has " +
             "to be at least 1 character";
     ArgumentMultimap argMultimap;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     *
+     * Parses the given {@code String} of arguments in the context of the FindSpecificCommand
+     * and returns an FindSpecificCommand object for execution.
+     * @throws EmptyArgumentException if the user input does not conform the expected format
      */
-
     public Command parse(String args) throws EmptyArgumentException {
         try {
             String trimmed = ParserUtil.parseStringArgs(args, FindSpecificCommand.COMMAND_WORD);
@@ -42,13 +40,15 @@ public class FindSpecificCommandParser {
         }
     }
 
-
+    /**
+     * Get the value (from the prefixes) which is present
+     * @return a String[] of the component and the corresponding value
+     */
     private String[] getPresentValue() {
         Optional<String> title = argMultimap.getValue(PREFIX_TITLE);
         Optional<String> date = argMultimap.getValue(PREFIX_DATE);
         Optional<String> place = argMultimap.getValue(PREFIX_PLACE);
         Optional<String> memory = argMultimap.getValue(PREFIX_MEMORY);
-
         String[] myAnswer = new String[2];
         if (title.isPresent()) {
             myAnswer[0] = "title";
@@ -66,7 +66,11 @@ public class FindSpecificCommandParser {
         return myAnswer;
     }
 
-
+    /**
+     * Set the corresponding value of the component
+     * @param input String[] to add values
+     * @param myValue Optional value to check
+     */
     private void setValues(String[] input, Optional<String> myValue) {
         input[1] = myValue.get();
     }

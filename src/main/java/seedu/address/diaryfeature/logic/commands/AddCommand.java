@@ -13,7 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 public class AddCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_SUCCESS = "New entry added:";
+    private static final String MESSAGE_SUCCESS = "New entry added:";
     private final DiaryEntry toAdd;
 
     /**

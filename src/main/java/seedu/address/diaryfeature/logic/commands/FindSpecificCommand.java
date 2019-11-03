@@ -17,7 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 public class FindSpecificCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "findSpecific";
-    public static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed";
+    private static String MESSAGE_ENTRIES_LISTED_OVERVIEW = "%1$d entries listed";
     private final FindSpecificPredicate predicate;
 
     /**

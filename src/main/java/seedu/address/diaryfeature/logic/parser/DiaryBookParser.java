@@ -26,25 +26,17 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import java.util.logging.Logger;
 
 /**
- * Parses user input.
+ * Overall user input parser.
  */
 public class DiaryBookParser {
-
-
-    /**
-     * Used for initial separation of command word and args.
-     */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Diary does not have such a command :(";
-
+    private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
     /**
      * Parses user input into command for execution.
      *
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    private static final Logger logger = LogsCenter.getLogger(JsonUtil.class);
-
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
@@ -52,7 +44,6 @@ public class DiaryBookParser {
             logger.info(matcher.toString());
             return new ErrorCommand(new ParseException(matcher.toString()));
         }
-
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         try {

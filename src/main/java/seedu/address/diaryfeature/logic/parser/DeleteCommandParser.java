@@ -11,10 +11,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser {
-    public static final String DELETE_USAGE = "In particular, input your delete command like this: \n" +
+    private static final String DELETE_USAGE = "In particular, input your delete command like this: \n" +
             "delete target Eg: delete 1. \n Note that the input has to be more than or equal to 1";
-
-
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.

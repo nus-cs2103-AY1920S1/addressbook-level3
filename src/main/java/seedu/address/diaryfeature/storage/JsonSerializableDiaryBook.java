@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
