@@ -446,6 +446,7 @@ image:CalendarSequenceDiagram.png[]
 ** Pros: More flexible scheduling without concerning date and less scheduled tasks.
 ** Cons: May cause overhead due to frequently updating.
 
+//tag::personalisedUserExperience[]
 === Personalised User Experience Feature
 
 To personalise the diabetic user’s the experience in using the SugarMummy app, several sub-features are used,
@@ -760,6 +761,8 @@ check how close users are to the goal as well as encourage them to set more real
 instance, the program may display a new alert-box like window via the `UI` indicating to user 'good job' for perhaps
 being 'halfway there' in attaining set goals. This feature may also implement some methods from the `Reminder`feature so
 a goal can be automatically be reminded about at specific time intervals as desired by the user.
+//end::personalisedUserExperience[]
+
 
 == Documentation
 
@@ -797,6 +800,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: convenient all-in-one app for effectively managing diabetes that is faster than a typical mouse/GUI driven app
 //end::productScope[]
 
+//tag::userStories[]
 [appendix]
 == User Stories
 
@@ -890,6 +894,9 @@ that is always easily accessible |instantly calculate all my medical costs when 
 
 |`*` |medical consultant |export my patient's health data  |save my time
 |=======================================================================
+//end::userStories[]
+
+
 //tag::useCases[]
 [appendix]
 == Use Cases

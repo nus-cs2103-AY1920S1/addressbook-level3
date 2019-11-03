@@ -1,0 +1,76 @@
+= Neo Weihong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy - Level 3
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
+and it has a GUI created with JavaFx. It is written in Java and has about 17 kLOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for the application to provide a more personalised user experience for the
+user through a user biography and achievements.*
+** What it does:
+*** Allows the user to view, add, edit and clear his / her biography of important personal information.
+*** Allows the user to attain different levels of achievements upon meeting predefined requirements for BMI and BloodSugar
+levels respectively.
+** Justification: These features improve the product significantly because a user would want to
+*** Add a user profile with useful information for cases of emergency.
+*** Have different milestones to work towards and acquire a sense of achievement in the struggle against diabetes.
+** Highlights:This enhancement benefits commands to be added in future since new fields in a user's biography as well as
+achievement could be easily defined in further developments of the program. The achievements sub-feature in particular
+required an in-depth analysis of design alternatives. The implementation too was challenging as it required careful
+interaction with other features such as the `average` feature and `record` instances and maintaining balance between
+abstraction and minimising coupling.
+
+* *Minor enhancement*:
+** Added the ability for users to font and background to any hexadecimal-value colour or image from the user's device
+for background, with support to set predefined sizes and repeat patterns for background images.
+** Added a list of over 600+ motivational quotes to be selected at random and shown to the user for each session of the
+running of the program.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=whneo97[View RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Refined release of `v1.3.2` and `v1.3.3` on GitHub
+** Enhancements to existing features:
+*** Implemented seamless switching of panes from one feature to another with caching abilities for optimised performance
+through a helper class with Suppliers.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/62[#62])
+*** Abstracted code in MainApp to reduce code redundancies.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/88/commits/07279dd4494f1cd3916b4ee083de1b6fca2d1d1a[#88])
+*** Modified user feedback display to wrap text and scroll vertically for increased ease of viewing feedback.
+(Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/71[#71], https://github.com/AY1920S1-CS2103-T16-1/main/pull/151[#151])
+*** Implemented `StyleSheetManager` to support other features (https://github.com/AY1920S1-CS2103-T16-1/main/pull/92[#92], https://github.com/AY1920S1-CS2103-T16-1/main/pull/94[#94]).
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Documentation:
+*** Updated Contact Us page and User Stories in Developer Guide: (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/16[#16], https://github.com/AY1920S1-CS2103-T16-1/main/pull/17[#17])
+*** Update Readme and application screenshots (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22], https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=personalisedUserExperience]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperience]
+
+include::../DeveloperGuide.adoc[tag=userStories]

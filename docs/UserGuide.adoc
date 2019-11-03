@@ -170,6 +170,7 @@ Search for all entries by providing keyword, time interval, type, venue or peopl
 
 Delete an event that you do not want to keep track anymore.
 
+//tag::personalisedUserExperience[]
 === PERSONALISED USER EXPERIENCE
 
 ==== Show a list of all achievements the user has attained: `achvm`
@@ -839,6 +840,7 @@ Allows users to save goals in a certain format such the program will be able to 
 Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they
 have worked towards their goal(s)). Users may also set reminders to remind them of their goal and receive timely
 feedback.
+//end::personalisedUserExperience[]
 
 === DATA ANALYSIS
 
