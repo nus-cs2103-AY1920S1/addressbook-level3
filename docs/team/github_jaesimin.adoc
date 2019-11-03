@@ -1,32 +1,53 @@
-== Project Portfolio for StudyBuddy Pro
+== Project Portfolio for StudyBuddyPro
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:warning-caption: :warning:
+endif::[]
 
-=== Done By: Jasmine Yeo Jia Min
+==== Done By: Jasmine Yeo Jia Min
 ---
 
-This portfolio is meant to be a well-documented data point of my Software Engineering (SE) experience with regards to the project. It showcases my contributions to the project and my documentation skills.
+This portfolio is meant to be a well-documented data point of my Software Engineering experience on the project. It showcases my contributions to the project and my documentation skills.
 
 ---
 
 === Overview
 
-StudyBuddy Pro is a desktop Command Line Interface (CLI) application intended for Computing School students of National University of Singapore (NUS). It aims to lessen target users' revision time consumption without compromising the quality of studies with a centralized platform.
+StudyBuddyPro is a desktop Command Line Interface (CLI) application intended for Computing School students of National University of Singapore (NUS). It aims to lessen target users' revision time consumption without compromising the quality of studies with a centralized platform.
 
-StudyBuddy Pro provides three main features: Flashcard, Notes and Cheatsheet. These features are used to revise using flashcards, take notes and generate cheatsheets respectively. Additionally, StudyBuddy Pro is equipped with a Graphic User Interface (GUI).
+StudyBuddyPro provides three main features: Flashcard, Notes and Cheatsheet. These features are used to revise using flashcards, take notes and generate cheatsheets respectively. Additionally, StudyBuddyPro is equipped with a Graphic User Interface (GUI).
 
 === Syntax
 
-The below syntax notations are used throughout the document. Hence, it is good to take note of them.
+Please do take a look at the syntax notations below as they are used throughout the document.
 
-- `syntax 1`
+`syntax 1` -- For commands or class objects
 
-    For commands or class objects
+_syntax 2_ -- For figures, tables, functionality or variables
 
-- _syntax 2_
+=== Callouts Signs
 
-    For figures, tables, functionalities or variables
+Please do refer to the signs below as they are used throughout the document.
+
+[WARNING]
+====
+Indicates information that are to be adhere as potential problems may be encountered if you are not careful.
+====
+
+[IMPORTANT]
+====
+Indicates information that are crucial to understand so that you will be able to follow the flow of the document.
+====
+
+[NOTE]
+====
+Indicates information that are note-worthy. Do read them for more information and better understandings.
+====
 
 === Summary of contributions
 
@@ -36,60 +57,51 @@ The sections below are a summary of my contributions to the project. It highligh
 
 This enhancement allows users to automatically generate cheatsheets according to the _tags_ that they specify. From this, it improves the product significantly as users can sift out information to be included in a specific cheatsheet. Thus, it reduces the users' time taken in collating cheatsheets.
 
-This enhancement's implementation makes use of the other features in the StudyBuddy Pro to create the contents in the cheatsheets. As such, users can make full use of this auto-generation enhancement by using _tagging_ functionality in those features.
+This enhancement's implementation makes use of the other features in the StudyBuddyPro to create the contents in the cheatsheets. As such, users can make full use of this auto-generation enhancement by using _tagging_ functionality in those features.
 
 ==== Major Enhancement 2: Customization of Generated Cheatsheets
 
 This enhancement allows users to remove contents in the generated cheatsheets by specifying its content indexes or tags. From this, it improves the cheatsheets' usability as users can determine which contents to be included or excluded in the cheatsheets.
 
-This enhancement ensures that all contents included are categorized under the _tags_ specified even after users' personalization. Hence, users can be assured that no irrelevant contents will appear in the cheatsheets.
+This enhancement ensures all contents are placed under the _tags_ specified even after users' personalization. Hence, users can be assured that the cheatsheets contain no irrelevant contents.
 
 ==== Minor Enhancement 1: Switching between the Features
 
-This enhancement allows users to toggle amongst the features in the StudyBuddy Pro. Also, it allows _global_ commands, like `exit` or `filterall` to be used in any features.
+This enhancement allows users to toggle amongst the features in the StudyBuddyPro. Also, it allows _global_ commands, like `exit` or `filterall` to be used in any features.
 
 ==== Minor Enhancement 2: Clearing Specific Features's Data
 
-This enhancement allows users to clear specific feature's data in the StudyBuddy Pro. As such, users do not need to clear the entire data if desired.
+This enhancement allows users to clear specific feature's data in the StudyBuddyPro. As such, users do not need to clear the entire data if desired.
 
 ==== Code Contribution (TO BE ADDED)
 
-Please do refer to the links below for my functional and test codes respectively.
+Please do refer to the link https://github.com[here] my functional codes and https://github.com[here] for my test codes.
 
-- https://github.com[Functional Codes]
-- https://github.com[Test Codes]
-
-==== Other Contributions: GUI
+==== Other Contributions:
 
 * Designed the GUI for `view` in the Cheatsheet feature
-
-==== Other Contributions: Documentation
-
 * Did cosmetic tweaks to the existing contents of the Developer Guide (DG)
-* Added relevant content summaries and descriptions for the DG
-* Described the user stories for the DG
-* Included the relevant contents for cheatsheets in the User Guide (UG)
-
-==== Other Contributions: Community
-
 * PRs reviewed (with non-trivial review comments)
 * Reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide (UG)
 
-The sections below are my contributions to the UG of StudyBuddy Pro. They showcase my ability to write documentation that targets the end-users.
+The sections below are my contributions to the UG of StudyBuddyPro. They showcase my ability to write documentation that targets the end-users.
 
 [IMPORTANT]
 ====
-All the operations in these sections of the UG assume that the user is in the _cheatsheet_ mode.
+All commands in the sections assume that the user is in the _cheatsheet_ mode.
 ====
 
 include::../UserGuide.adoc[tag=cheatsheetAdd]
 include::../UserGuide.adoc[tag=cheatsheetEdit]
+include::../UserGuide.adoc[tag=cheatsheetView]
+include::../UserGuide.adoc[tag=cheatsheetViewSpecific]
+include::../UserGuide.adoc[tag=cheatsheetList]
 include::../UserGuide.adoc[tag=cheatsheetUpdate]
 
 == Contributions to the Developer Guide (DG)
 
-The sections below are my contributions to the DG of StudyBuddy Pro. They showcase my ability to write technical documentation. Also, it portrays my technical depth of my contributions to StudyBuddy Pro.
+The sections below are my contributions to the DG of StudyBuddyPro. They showcase my ability to write technical documentation. Also, it portrays my technical depth of my contributions to StudyBuddyPro.
 
 include::../DeveloperGuide.adoc[tag=cheatsheetAutomation]
