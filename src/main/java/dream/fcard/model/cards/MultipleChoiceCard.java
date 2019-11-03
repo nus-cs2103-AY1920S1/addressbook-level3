@@ -5,7 +5,9 @@ import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -53,10 +55,11 @@ public class MultipleChoiceCard extends FrontBackCard {
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
-
         priority = LOW_PRIORITY;
 
         //boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
+
+        LogsCenter.getLogger(MultipleChoiceCard.class).info("Multiple Choice Card created.");
     }
     //@author
 
@@ -77,6 +80,8 @@ public class MultipleChoiceCard extends FrontBackCard {
         boolean hasDuplicateInChoice = hasChoiceContainDuplicate(choicesArg);
 
         if (hasDuplicateInChoice) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - duplicates in choices.");
             throw new DuplicateInChoicesException("Duplicates found in choices provided.");
         }
 
@@ -85,13 +90,17 @@ public class MultipleChoiceCard extends FrontBackCard {
         try {
             answerIndex = Integer.parseInt(back);
         } catch (NumberFormatException f) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice provided is invalid - " + answerIndex);
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
         priority = priorityLevel;
 
         boolean isNotValidAnswerIndex = isNotValidChoice(answerIndex);
-        if(isNotValidAnswerIndex) {
+        if (isNotValidAnswerIndex) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice provided is invalid - " + answerIndex);
             throw new NumberFormatException("Choice provided is invalid - " + answerIndex);
         }
 
@@ -164,11 +173,15 @@ public class MultipleChoiceCard extends FrontBackCard {
             userAnswer = Integer.parseInt(in);
 
         } catch (NumberFormatException n) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice provided is invalid - " + answerIndex);
             throw new NumberFormatException("Choice provided is invalid - " + in);
         }
 
         // Assume options must be a non-negative integer
         if (isNotValidChoice(userAnswer)) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice provided is invalid - " + answerIndex);
             throw new IndexNotFoundException("Choice provided is invalid - " + in);
         }
 
@@ -234,6 +247,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author huiminlim
     public void editChoice(int indexProvided, String newChoice) throws IndexNotFoundException {
         if (isNotValidChoice(indexProvided)) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice index provided is invalid - " + indexProvided);
             throw new IndexNotFoundException("Choice index provided is invalid - " + indexProvided);
         }
 
@@ -310,6 +325,8 @@ public class MultipleChoiceCard extends FrontBackCard {
     //@author huiminlim
     public String getChoice(int indexProvided) throws IndexNotFoundException {
         if (isNotValidChoice(indexProvided)) {
+            LogsCenter.getLogger(MultipleChoiceCard.class).info(
+                    "Multiple Choice Card creation failed - Choice index provided is invalid - " + indexProvided);
             throw new IndexNotFoundException("Choice index provided is invalid - " + indexProvided);
         }
 
