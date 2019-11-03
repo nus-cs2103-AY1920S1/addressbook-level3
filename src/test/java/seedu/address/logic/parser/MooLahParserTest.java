@@ -347,7 +347,7 @@ public class MooLahParserTest {
                 AddBudgetCommand.COMMAND_WORD + " "
                 + PREFIX_DESCRIPTION + "abc "
                 + PREFIX_START_DATE + "today "
-                + PREFIX_PERIOD + "month "
+                + PREFIX_PERIOD + "day "
                 + PREFIX_PRICE + "100", CommandGroup.BUDGET, readOnlyUserPrefs) instanceof AddBudgetCommand);
     }
 

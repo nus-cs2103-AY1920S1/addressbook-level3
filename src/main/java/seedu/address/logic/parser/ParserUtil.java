@@ -133,10 +133,6 @@ public class ParserUtil {
         return new Mode(trimmedMode);
     }
 
-
-
-
-
     /**
      * Dummy.
      * @param percentage
