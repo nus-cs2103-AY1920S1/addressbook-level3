@@ -12,6 +12,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -114,6 +115,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
+
+        // Press TAB to switch tabs
         getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 event.consume();
@@ -125,6 +128,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
         });
+
     }
 
     /**
@@ -144,9 +148,15 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Press "Enter" to auto-focus to CommandBox
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                commandBox.addEnterHandler();
+            }
+        });
 
         // filling individual tabs
         CoursePlannerWindow cpw = new CoursePlannerWindow(this, logic, model);
