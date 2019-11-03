@@ -39,13 +39,13 @@ class EditTaskCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
                 .setVariableArguments(IndexVariableArguments.newBuilder(ARGUMENT_INDEXES, o -> this.indexes = o));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
                 OPTION_DESCRIPTION, ArgumentList.optional()
                         .addArgument(StringArgument.newBuilder(ARGUMENT_DESCRIPTION, o -> this.description = o)),
@@ -77,7 +77,7 @@ class EditTaskCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new EditTaskCommand(this);
     }
 }

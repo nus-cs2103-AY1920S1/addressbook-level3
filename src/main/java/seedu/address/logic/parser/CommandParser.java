@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_PARSER;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,11 +42,21 @@ public class CommandParser implements Parser<Command> {
             return state3;
         });
         state3.addPattern("\\s+", matches -> state4);
-        state4.addPattern("\"(.*?)\"", matches -> {
+        // ASCII quotation marks
+        state4.addPattern("\"(.*?)\"(?=\\s|$)", matches -> {
             this.commandBuilder.acceptSentence(matches.get(1));
             return state3;
         });
-        state4.addPattern("'(.*?)'", matches -> {
+        state4.addPattern("'(.*?)'(?=\\s|$)", matches -> {
+            this.commandBuilder.acceptSentence(matches.get(1));
+            return state3;
+        });
+        // Unicode: English quotation marks
+        state4.addPattern("“(.*?)”(?=\\s|$)", matches -> {
+            this.commandBuilder.acceptSentence(matches.get(1));
+            return state3;
+        });
+        state4.addPattern("‘(.*?)’(?=\\s|$)", matches -> {
             this.commandBuilder.acceptSentence(matches.get(1));
             return state3;
         });
@@ -71,8 +82,6 @@ public class CommandParser implements Parser<Command> {
             }
 
             StateResult result = state.apply(userInput);
-
-            assert (result != null);
             state = result.next;
             userInput = userInput.substring(result.matchLength);
         }
@@ -133,7 +142,7 @@ public class CommandParser implements Parser<Command> {
             }
 
             // Should not reach this. If reached, the state machine is configured wrongly.
-            return null;
+            throw new ParseException(MESSAGE_INVALID_COMMAND_PARSER);
         }
     }
 

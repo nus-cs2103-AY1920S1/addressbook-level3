@@ -24,13 +24,13 @@ class MonthViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
                 .addArgument(MonthYearArgument.newBuilder(ARGUMENT_MONTH, o -> this.start = o));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return null;
     }
 
@@ -43,7 +43,7 @@ class MonthViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new MonthViewCommand(this);
     }
 }

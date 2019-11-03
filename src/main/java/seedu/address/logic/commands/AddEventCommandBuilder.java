@@ -40,14 +40,14 @@ class AddEventCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
             .addArgument(StringArgument.newBuilder(ARGUMENT_DESCRIPTION, v -> this.description = v))
             .addArgument(DateTimeArgument.newBuilder(ARGUMENT_START_DATE_TIME, v -> this.start = v));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
             OPTION_END_DATE_TIME, ArgumentList.optional()
                 .addArgument(DateTimeArgument.newBuilder(ARGUMENT_END_DATE_TIME, v -> this.end = v)),
@@ -83,7 +83,7 @@ class AddEventCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new AddEventCommand(this);
     }
 }

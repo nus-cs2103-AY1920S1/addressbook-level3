@@ -35,13 +35,13 @@ class AddTaskCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
             .addArgument(StringArgument.newBuilder(ARGUMENT_DESCRIPTION, v -> this.description = v));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
             OPTION_TAGS, ArgumentList.optional()
                 .setVariableArguments(StringVariableArguments.newBuilder(ARGUMENT_TAGS, v -> this.tags = v)),
@@ -67,7 +67,7 @@ class AddTaskCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new AddTaskCommand(this);
     }
 }

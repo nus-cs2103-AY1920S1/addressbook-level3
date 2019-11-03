@@ -26,13 +26,13 @@ class CalendarViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return null;
     }
 
     // TODO: Currently has a bug when typing "calendar" only. Either add new command or fix this.
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return Map.of(
                 OPTION_CALENDAR_SCREEN_DATE, ArgumentList.optional()
                         .addArgument(MonthYearArgument.newBuilder(
@@ -49,7 +49,7 @@ class CalendarViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new CalendarViewCommand(this);
     }
 }

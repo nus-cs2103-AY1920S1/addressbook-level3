@@ -42,17 +42,17 @@ public class ExitCommand extends Command {
 class ExitCommandBuilder extends CommandBuilder {
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return null;
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return null;
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new ExitCommand();
     }
 }

@@ -24,13 +24,13 @@ class DayViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    RequiredArgumentList defineCommandArguments() {
+    protected RequiredArgumentList defineCommandArguments() {
         return ArgumentList.required()
             .addArgument(DayMonthYearArgument.newBuilder(ARGUMENT_START_DATE_TIME, o -> this.start = o));
     }
 
     @Override
-    Map<String, OptionalArgumentList> defineCommandOptions() {
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
         return null;
     }
 
@@ -43,7 +43,7 @@ class DayViewCommandBuilder extends CommandBuilder {
     }
 
     @Override
-    Command commandBuild() {
+    protected Command commandBuild() {
         return new DayViewCommand(this);
     }
 }

@@ -7,6 +7,8 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command!";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
+    public static final String MESSAGE_INVALID_COMMAND_PARSER = "CommandParser Error: You should not see this!"
+        + " Please open a bug report.";
     public static final String MESSAGE_REQUIRED_COMMAND_ARGUMENT = "Argument '%s' is required!";
 
     public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date time! Please enter in '%s' format.";
