@@ -58,7 +58,8 @@ class TransactionTest {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
         String msg = "Date: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
                 + "\nCategory: "
-                + transaction.getCategory() + "\nAmount: $" + DECIMAL_FORMAT.format(transaction.getAmount()) + "\nPaid by: "
+                + transaction.getCategory() + "\nAmount: $" + DECIMAL_FORMAT.format(transaction.getAmount())
+                + "\nPaid by: "
                 + transaction.getPerson().getName().toString();
         assertEquals(msg, transaction.toString());
     }

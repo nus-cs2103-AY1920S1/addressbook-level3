@@ -194,7 +194,7 @@ public class Overview extends UiPart<Region> {
                         overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(2))))));
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.minusMonths(1).getMonth().toString(),
                 Double.parseDouble(DECIMAL_FORMAT.format(
-                        overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))))));
+                     overviewLogic.getBudgetLeftByMonth(currentDate.minusMonths(1))))));
         dataSeries.getData().add(new XYChart.Data<String, Double>(currentDate.getMonth().toString(),
                 Double.parseDouble(DECIMAL_FORMAT.format(overviewLogic.getBudgetLeftByMonth(currentDate)))));*/
 
