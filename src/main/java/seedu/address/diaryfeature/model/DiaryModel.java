@@ -2,6 +2,7 @@ package seedu.address.diaryfeature.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -9,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -54,6 +56,10 @@ public class DiaryModel {
     public void setDiaryEntryUnPrivate(int index) {
         diaryBook.setDiaryEntryUnPrivate(index);
     }
+
+    public void setDetails(Details attempt) throws UnknownUserException {
+        diaryBook.setDetails(attempt);
+    }
     public String getEntriesAsString() {
         return diaryBook.getEntriesAsString();
     }
@@ -69,6 +75,10 @@ public class DiaryModel {
         return diaryBook.addDiaryEntry(diaryEntry);
     }
 
+    public Optional<Details> getDetails() {
+        return diaryBook.getDetails();
+    }
+
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -82,6 +92,10 @@ public class DiaryModel {
     public void updateFilteredDiaryList(Predicate<DiaryEntry> predicate) {
         requireNonNull(predicate);
         filteredDiaryBook.setPredicate(predicate);
+    }
+
+    public void setinnerDetails(Optional<Details> input) {
+       diaryBook.setinnerDetails(input);
     }
 
     public DiaryBook getDiaryBook() {

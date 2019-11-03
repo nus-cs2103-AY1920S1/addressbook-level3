@@ -1,7 +1,10 @@
 package seedu.address.diaryfeature.model;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
 
 /**
@@ -11,23 +14,36 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 public class DiaryBook {
 
     private final DiaryEntryList entries;
+    private Optional<Details> details;
 
 
     public DiaryBook() {
         entries = new DiaryEntryList();
-       // if (entries.isEmpty()) {
-        //    entries.loadSampleData();
-      //  }
-        //This is a current, temp version
-        //to ensure that my diary list has something
-        //when we start
+        details = Optional.empty();
     }
 
     public DiaryBook loadData(DiaryEntry[] myEntries) {
-        for(DiaryEntry curr: myEntries) {
+        for (DiaryEntry curr : myEntries) {
             entries.addDiaryEntry(curr);
         }
         return this;
+    }
+
+    public void setDetails(Details attempt) throws UnknownUserException {
+        if (details.isPresent()) {
+            throw new UnknownUserException(attempt);
+    } else {
+        details = Optional.of(attempt);
+    }
+
+}
+
+    public void setinnerDetails(Optional<Details> input) {
+        if(input.isEmpty()) {
+            details = Optional.empty();
+        } else {
+            details = input;
+        }
     }
 
     /**
@@ -37,6 +53,9 @@ public class DiaryBook {
     public DiaryEntry addDiaryEntry(DiaryEntry p) {
 
         return entries.addDiaryEntry(p);
+    }
+    public Optional<Details> getDetails() {
+        return details;
     }
 
 
