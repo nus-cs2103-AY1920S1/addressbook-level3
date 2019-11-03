@@ -38,7 +38,7 @@ public class BookListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BookCard(book, getIndex() + 1).getRoot());
+                setGraphic(BookCard.BookCardWithIndex(book, getIndex() + 1).getRoot());
             }
         }
     }

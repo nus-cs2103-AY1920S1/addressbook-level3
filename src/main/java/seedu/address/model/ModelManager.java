@@ -294,6 +294,20 @@ public class ModelManager implements Model {
         return catalog.getOverdueBooks();
     }
 
+    @Override
+    public String getLoanHistoryOfBookAsString(Book target) {
+        ArrayList<Loan> loanStream = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Borrowed by:\n");
+        target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+        loanStream.stream()
+                .map(loan -> loan.getBorrowerId())
+                .map(id -> getBorrowerFromId(id))
+                .map(borrower -> borrower.getName())
+                .forEach(name -> sb.append(name + "\n"));
+        return sb.toString();
+    }
+
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}

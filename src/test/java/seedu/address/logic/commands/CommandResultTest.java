@@ -14,7 +14,6 @@ public class CommandResultTest {
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,16 +28,19 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false)));
+        assertFalse(commandResult.equals(CommandResult.CommandResultHelp("feedback")));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false)));
+        assertFalse(commandResult.equals(CommandResult.CommandResultExit("feedback")));
 
         // different serve value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true, false)));
+        assertFalse(commandResult.equals(CommandResult.CommandResultServe("feedback")));
 
         // different done value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, true)));
+        assertFalse(commandResult.equals(CommandResult.CommandResultDone("feedback")));
+
+        // different info value -> returns false
+        assertFalse(commandResult.equals(CommandResult.CommandResultInfo("feedback")));
     }
 
     @Test
@@ -51,21 +53,25 @@ public class CommandResultTest {
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
+        // different done value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                CommandResult.CommandResultDone("feedback").hashCode());
+
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", true, false, false, false).hashCode());
+                CommandResult.CommandResultHelp("feedback").hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, true, false, false).hashCode());
+                CommandResult.CommandResultExit("feedback").hashCode());
 
         // different serve value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, true, false).hashCode());
+                CommandResult.CommandResultServe("feedback").hashCode());
 
-        // different done value -> returns different hashcode
+        // different info value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, false, true).hashCode());
+                CommandResult.CommandResultInfo("feedback").hashCode());
     }
 
     @Test
@@ -73,7 +79,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isShowHelp());
 
-        CommandResult commandResult2 = new CommandResult("feedback", true, false, false, false);
+        CommandResult commandResult2 = CommandResult.CommandResultHelp("feedback");
         assertTrue(commandResult2.isShowHelp());
     }
 
@@ -82,7 +88,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isExit());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, true, false, false);
+        CommandResult commandResult2 = CommandResult.CommandResultExit("feedback");
         assertTrue(commandResult2.isExit());
     }
 
@@ -91,7 +97,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isServe());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, false, true, false);
+        CommandResult commandResult2 = CommandResult.CommandResultServe("feedback");
         assertTrue(commandResult2.isServe());
     }
 
@@ -100,7 +106,7 @@ public class CommandResultTest {
         CommandResult commandResult1 = new CommandResult("feedback");
         assertFalse(commandResult1.isDone());
 
-        CommandResult commandResult2 = new CommandResult("feedback", false, false, false, true);
+        CommandResult commandResult2 = CommandResult.CommandResultDone("feedback");
         assertTrue(commandResult2.isDone());
     }
 }

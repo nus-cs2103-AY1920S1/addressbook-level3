@@ -29,8 +29,23 @@ public class RedoCommand extends Command {
         CommandResult commandResult = model.redoCommand();
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
 
-        return new CommandResult(msgSuccess, commandResult.isShowHelp(), commandResult.isExit(),
-                commandResult.isServe(), commandResult.isDone());
+        if (commandResult.isDone()) {
+            return CommandResult.CommandResultDone(msgSuccess);
+        }
+
+        if (commandResult.isShowHelp()) {
+            return CommandResult.CommandResultHelp(msgSuccess);
+        }
+
+        if (commandResult.isExit()) {
+            return CommandResult.CommandResultExit(msgSuccess);
+        }
+
+        if (commandResult.isServe()) {
+            return CommandResult.CommandResultServe(msgSuccess);
+        }
+
+        return new CommandResult(msgSuccess);
     }
 
     @Override

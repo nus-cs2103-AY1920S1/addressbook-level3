@@ -27,11 +27,9 @@ public class InfoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     private final Index index;
-    private final BookPredicate predicate;
 
     public InfoCommand(Index index) {
         this.index = index;
-        predicate = new BookPredicate();
     }
 
     @Override
@@ -42,29 +40,10 @@ public class InfoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
         Book target = lastShownList.get(index.getZeroBased());
-        String loanHistory = getLoanHistoryOfBookAsString(target, model); // display string once ui is completed
-        predicate.setSerialNumber(getSerialNumberAsString(target));
-        model.updateFilteredBookList(predicate);
-        return new CommandResult(
-                String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)));
+        return CommandResult.CommandResultInfo(
+                String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)), target);
     }
 
-    private String getLoanHistoryOfBookAsString(Book target, Model model) {
-        ArrayList<Loan> loanStream = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Borrowed by:\n");
-        target.getLoanHistory().forEach(loan -> loanStream.add(loan));
-        loanStream.stream()
-                .map(loan -> loan.getBorrowerId())
-                .map(id -> model.getBorrowerFromId(id))
-                .map(borrower -> borrower.getName())
-                .forEach(name -> sb.append(name + "\n"));
-        return sb.toString();
-    }
-
-    private String getSerialNumberAsString(Book target) {
-        return target.getSerialNumber().toString();
-    }
 
     private String getTitleFromBook(Book target) {
         return target.getTitle().toString();

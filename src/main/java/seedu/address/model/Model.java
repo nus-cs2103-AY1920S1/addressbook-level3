@@ -102,6 +102,8 @@ public interface Model {
 
     ObservableList<Book> getOverdueBooks();
 
+    String getLoanHistoryOfBookAsString(Book target);
+
     // ================================================================ LoanRecords
 
     Path getLoanRecordsFilePath();

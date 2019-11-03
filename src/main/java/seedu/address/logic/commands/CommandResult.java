@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
+
+import seedu.address.model.book.Book;
 
 /**
  * Represents the result of a command execution.
@@ -21,15 +24,19 @@ public class CommandResult {
 
     private final boolean done;
 
+    private final Optional<Book> info;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean serve, boolean done) {
+    private CommandResult(String feedbackToUser,
+                         boolean showHelp, boolean exit, boolean serve, boolean done, Optional<Book> info) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.serve = serve;
         this.done = done;
+        this.info = info;
     }
 
     /**
@@ -37,7 +44,27 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, Optional.empty());
+    }
+
+    public static CommandResult CommandResultHelp(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, true, false, false, false, Optional.empty());
+    }
+
+    public static CommandResult CommandResultExit(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, true, false, false, Optional.empty());
+    }
+
+    public static CommandResult CommandResultServe(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, true, false, Optional.empty());
+    }
+
+    public static CommandResult CommandResultDone(String feedbackToUser) {
+        return new CommandResult(feedbackToUser, false, false, false, true, Optional.empty());
+    }
+
+    public static CommandResult CommandResultInfo(String feedbackToUser, Book book) {
+        return new CommandResult(feedbackToUser, false, false, false, false, Optional.of(book));
     }
 
     public String getFeedbackToUser() {
@@ -56,8 +83,17 @@ public class CommandResult {
         return serve;
     }
 
+    public boolean isInfo() {
+        return info.isPresent();
+    }
+
     public boolean isDone() {
         return done;
+    }
+
+    public Book getBook() {
+        assert info.isPresent() : "No boo info present";
+        return info.get();
     }
 
     @Override
@@ -76,12 +112,13 @@ public class CommandResult {
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
                 && serve == otherCommandResult.serve
-                && done == otherCommandResult.done;
+                && done == otherCommandResult.done
+                && info == otherCommandResult.info;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, serve, done);
+        return Objects.hash(feedbackToUser, showHelp, exit, serve, done, info);
     }
 
 }

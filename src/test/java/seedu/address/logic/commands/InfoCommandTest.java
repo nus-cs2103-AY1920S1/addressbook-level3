@@ -28,21 +28,6 @@ class InfoCommandTest {
     }
 
     @Test
-    public void execute_validArguments_success() {
-        model = new ModelManager(getTypicalCatalog(), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
-        InfoCommand infoCommand = new InfoCommand(INDEX_FIRST_BOOK);
-        Book target = model.getFilteredBookList().get(0);
-        String expectedMessage = String.format(InfoCommand.MESSAGE_BOOK_INFO, target.getTitle());
-
-        Model expectedModel = new ModelManager(
-                new Catalog(model.getCatalog()), new LoanRecords(), new BorrowerRecords(), new UserPrefs());
-        BookPredicate predicate = new BookPredicate().setTitle(target.getTitle().toString());
-        expectedModel.updateFilteredBookList(predicate);
-
-        assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_invalidIndex_failure() {
         InfoCommand infoCommand = new InfoCommand(Index.fromOneBased(10));
         assertCommandFailure(infoCommand, model, MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
