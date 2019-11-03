@@ -10,18 +10,17 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0" prefWidth="205.0" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+    <VBox alignment="CENTER_LEFT" minHeight="80" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox alignment="CENTER_LEFT" spacing="5">
+      <HBox alignment="CENTER_LEFT" spacing="5.0">
         <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -29,20 +28,35 @@
           </minWidth>
         </Label>
         <Label fx:id="title" styleClass="cell_big_label" text="\$first" />
+          <Pane HBox.hgrow="ALWAYS" />
+          <Label fx:id="serialNumber" alignment="CENTER_RIGHT" styleClass="cell_big_label" text="\$serialNumber">
+              <minWidth>
+                  <!-- Ensures that the label text is never truncated -->
+                  <Region fx:constant="USE_PREF_SIZE" />
+              </minWidth>
+              <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
       </HBox>
-      <FlowPane fx:id="genres" />
-      <Label fx:id="serialNumber" styleClass="cell_small_label" text="\$serialNumber" />
-      <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
+        <Label fx:id="author" styleClass="cell_small_label" text="\$author">
+            <VBox.margin>
+               <Insets bottom="1.0" />
+            </VBox.margin></Label>
+      <FlowPane fx:id="genres">
+            <VBox.margin>
+               <Insets bottom="2.0" top="2.0" />
+            </VBox.margin></FlowPane>
     </VBox>
       <rowConstraints>
          <RowConstraints />
       </rowConstraints>
   </GridPane>
-   <Pane maxWidth="100.0" minHeight="105.0" minWidth="120.0" prefHeight="105.0" prefWidth="120.0">
-      <children>
-          <Label fx:id="loanStatus" layoutY="41.0" text="" />
-          <Label fx:id="dueDate" layoutY="62.0" text="" styleClass="cell_small_label" />
-          <Label fx:id="renewCount" layoutY="78.0" text="" styleClass="cell_small_label" />
-      </children>
-   </Pane>
+    <VBox minHeight="70.0" minWidth="120.0" prefHeight="70.0" prefWidth="150.0">
+        <Pane VBox.vgrow="ALWAYS" />
+        <Label fx:id="loanStatus" text="" />
+        <Label fx:id="dueDate" styleClass="cell_small_label" text="" />
+        <Label fx:id="renewCount" styleClass="cell_small_label" text="" />
+        <Pane VBox.vgrow="ALWAYS" />
+    </VBox>
 </HBox>
