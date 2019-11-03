@@ -140,6 +140,16 @@ public class Event {
                 && this.getEndDate().compareTo(other.getEndDate()) <= 0);
     }
 
+    /**
+     * Checks whether this event is has the same name with another.
+     *
+     * @param other The other event to check.
+     * @return Boolean of whether the events has the same name.
+     */
+    public boolean hasSameName(Event other) {
+        return this.getName().equals(other.getName());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

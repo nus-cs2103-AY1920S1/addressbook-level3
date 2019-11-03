@@ -55,13 +55,13 @@ public class ExpenditureListTest {
     }
 
     @Test
-    void contains_expenditureWithSameIdentityFieldsInList_returnsFalse() {
+    void contains_expenditureWithSameIdentityFieldsInList_returnsTrue() {
         ExpenditureList expenditureList = new ExpenditureList();
         assertDoesNotThrow(() -> {
             expenditureList.add(EXPENDITURE_A);
             Expenditure editedExpenditureA = ExpenditureBuilder.of(EXPENDITURE_A).setBudget(new Budget(10))
                     .build();
-            assertFalse(expenditureList.contains(editedExpenditureA));
+            assertTrue(expenditureList.contains(editedExpenditureA));
         });
     }
 
