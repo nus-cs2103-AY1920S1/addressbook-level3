@@ -405,17 +405,6 @@ Usage:
  help
 +
 {nbsp} +
-. _Help list of a specific command: help_ +
-Shows the description and instructions on how to use the specified command. +
-{nbsp} +
-Usage:
-
- help [COMMAND]
-+
-Example: +
-`help archive` +
-Shows the help message for the archive commands. +
-{nbsp} +
 
 === Exporting data: `[Coming in v2.0]`
 
