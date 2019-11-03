@@ -28,7 +28,9 @@ What is a flashcard? Flashcards are containers for information. Each card has a 
 
 After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, FlashCard Pro can be configured to show the “front” of the card, prompting the user to enter their guess for what is on the “back” of the card. The user’s attempt is gauged “correct” if it matches the definition of the card.
 
-As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming.
+
+For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
 
 == Quick Start
 
@@ -38,15 +40,6 @@ As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, us
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
@@ -69,17 +62,21 @@ Shows the help page and guides you through the available commands for FlashCard 
 Format: `help [command/COMMAND_NAME]`
 
 ****
-* Shows all the available commands and syntax in the application if user supplied no parameters except command.
-* Shows the specific command syntax if the command is specified in the optional parameters.
-* All commands that are available, except for help, can be queried, and other non-valid commands will give a “command not found” message.
+* If user does not supply parameter for command: shows all the available commands and syntax in FlashCard Pro
+* If user supply a parameter in command: shows the specific command syntax.
+** All commands that are available, except for help, can be queried.
+** Other non-valid commands will give a `command not found` message.
 ****
 
 Examples:
 
-* `help`
-Displays the commands available for FlashCard Pro
-* `help command/view`
-Displays the syntax to use command `view`
+* `help` +
+
+Displays the commands available for use in FlashCard Pro.
+
+* `help command/view` +
+
+Displays the syntax to use command `view`.
 
 === Importing flashcards from disk : `import`
 
@@ -87,31 +84,36 @@ Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
 
 Format: `import filepath/FILE_NAME`
 
+[TIP]
+You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. +
+
+FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
+
+Examples:
+
+* `import filepath/C:\Users\user\Desktop\flashcardpro\german.json` +
+
+Importing the JSON file `german.json` file from a Windows OS file path.
+
 === Exporting flashcards to disk: `export`
 
 Saves the deck of flashcards to a JSON file in the specified file path
 
-Format: `export deck/DECK_NAME FILE_NAME`
+Format: `export deck/DECK_NAME`
+
+Examples:
+
+* `export deck/german` +
+
+Exports a deck named `german` in FlashCard Pro library to a JSON file named `german.json`
 
 [TIP]
-You can share the deck of cards in the JSON file saved to another user to use in FlashCard Pro via the `import` function.
+You can share the deck of cards in the JSON file saved to another user to use in FlashCard Pro via the `import` function.+
+Refer to <<Importing flashcards from disk : `import`>> for steps.
 
-Examples:
-
-* example
-
-=== Viewing user statistics : `stats`
-
-Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc)
-
-Format: `stats [deck/DECK_NAME]`
-
-Examples:
-
-* `stats`
-Displays the overview of the time spent and usage count of all decks of cards. Also shows the statistics of the current program State.
-* `stats deck/science_deck`
-Display the overview of time spend and usage count of the deck of cards, `science_deck`.
+[TIP]
+You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. +
+FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 
 === Viewing flashcards in library: `view`
 
@@ -121,86 +123,193 @@ Format: `view [deck/DECK_NAME]`
 
 Examples:
 
-* `view`
+* `view` +
+
 Displays all the decks of cards in the library
-* `view deck/science_deck`
+
+* `view deck/science_deck` +
+
 Displays all the cards in the deck of cards, `science_deck`
 
-=== Creating new flashcards : `create`
+=== Create new empty deck: `create`
 
-Enters 'Create' mode. Allows the sequential creation of different cards based on input (FrontBack, MCQ and JavaScript cards).
+Creates an empty deck in FlashCard Pro library.
 
-Format: `create'
+Format: `create deck/DECK_NAME.
 
-        For FrontBack Cards:
-        Format: 'front/FRONT_OF_CARD back/BACK_OF_CARD'
+Note :
 
-        For MCQ Cards:
-        Format: 'front/FRONT_OF_CARD choice/CHOICE1 choice/CHOICE2 [choice/CHOICE3...] correctIndex/INTEGER'
-        Where correctIndex indicates which choice is correct.
+****
+* The `DECK_NAME` must be unique and no deck that exist in FlashCard Pro library should have the same name of `DECK_NAME`.
 
-        For JavaScript Cards:
-        Format: 'front/FRONT_OF_CARD testCase/assert(TESTCASE) [testCase/assert(TESTCASE) ...]'
+* If there is another deck with the same name `DECK_NAME`, there will be an error message and the empty deck will not be created.
+****
+
+Examples:
+
+* `create deck/german` +
+
+Creates a new empty deck named `german`.
+
+
+=== Add new Front Back card or Multiple Choice Card to deck: `add`
+
+Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
+
+Format: `create deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
+
+****
+* The `DECK_NAME` must be a name of an existing deck in FlashCard Pro.
+
+** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be created.
+
+* When entering the `PRIORITY_LEVEL`, there are only 2 valid choices `HIGH` and `LOW`. Refer to the table below to know how to use the `PRIORITY_LEVEL`:
+
+[width="59%",options="header",]
+|=======================================================================
+| Priority | Value | Input for PRIORITY_LEVEL
+
+| High | You find the card important and want it to be tested more often | `HIGH`
+
+| Low | You find the card less important and want it to be tested less often | `LOW`
+|=======================================================================
+
+** If no `priority/` parameter is entered, then the default priority level is `LOW`.
+
+** If you enter any input other than `HIGH` or `LOW`, there will be an error message and the card will not be created.
+
+* `FRONT_TEXT` is the question that you wish to see in the flashcard.
+
+* To create a Front Back card,
+
+** `BACK_TEXT` is the answer of the Front Back flashcard.
+
+** No choice should be entered under `choice/`.
+
+* To create a Multiple Choice card,
+
+** the `BACK_TEXT` parameter should correspond to choice entered by the user, using the order of choice entered and should be a integer value from 1, 2, ...., Number of choices entered.
+
+** To create a Multiple Choice card, there should be at least 2 `choice/` parameters entered.
+
+** If there are only 1 `choice/` parameters entered, there will be an error message and the card will not be created.
+
+****
+
+Examples:
+
+* `add deck/german  front/hello back/moin moin` +
+
+Creates a new Front Back card in deck `german`.
+
+* `add deck/german  front/hello back/1 choice/hello choice/bye choice/zzz` +
+
+Creates a new Multiple Choice card in deck `german`, with the answer as the first `choice/` parameter, hello.
+
+
+=== Add new Javascript card or Java Card
+
+(TBC)
+
+=== Editing the card of an existing deck of flashcards : `edit`
+
+The edit command allows the user to edit flashcards in any existing deck.
+
+Format: `edit deck/DECK_NAME index/INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
+
+Note:
+
+****
+
+* The `DECK_NAME` must be an existing deck in the FlashCard Pro library.
+
+** If no deck with `DECK_NAME` exist in the FlashCard Pro library, there will be an error message and no card will be edited.
+
+* The `INDEX` refers to the index of a card in the deck.
+
+** `INDEX` must be a valid integer from 1, 2, ..., Number of cards in deck.
+
+** If the `INDEX` is invalid, there will be an error message and no card will be edited.
+
+* If you want to edit the front of the card, `FRONT_TEXT` should be supplied.
+
+* If you want to edit the back of the card, `BACK_TEXT` should be supplied.
+
+* If you want to edit a choice of an Multiple Choice card, `CHOICE_INDEX` and `CHOICE_TEXT` should be supplied.
+
+** If the `CHOICE_TEXT` entered by the user exists as one of the choices in the Multiple Choice card, an error message will be shown and the edit will not be made.
+
+[TIP]
+If you edit `CHOICE_TEXT`, do remember that the back of the Multiple Choice card will still determine the correct choice of the Multiple Choice card.
+FlashCard Pro will not be responsible if the editing of an answer choice lead to the choice to be incorrect.
+
+****
+
+Examples:
+
+* `edit deck/science_deck index/1 front/what is a cell back/a cell is a building block` +
+
+Edits the first flashcard of the deck `science_deck`
+
+* `edit deck/science_deck index/1 choiceIndex/3 choice/Hello` +
+
+Edits the first Multiple Choice flashcard of the deck `science_deck`, edit 3rd choice to hello.
+
+
+
+=== Delete the card of an existing deck of flashcards : `delete`
+
+Deletes a card from an existing deck in FlashCard Pro.
+
+Format: `delete deck/DECK_NAME index/INDEX`
+
+Example:
+
+* `delete deck/german index/1` +
+
+Deletes the first card of the deck `german`.
+
 
 === Start test with flashcards : `test`
 
 Starts a test with a deck of flashcards, with the choice of an untimed test (timed mode will be added in `v1.4`)
-****
-* Press `Start Review` within a deck display screen to initiate a new untimed test.
 
-* There are 3 types of possible cards:
+(TBC)
 
-** Basic Front-Back Cards: Users will be shown the front of the card and should think of the answer to that card. They can then click on the `Show Back` button to view the back of the card. If they are correct, they should click on `I got it right!` to count their score.
-
-** MCQ Card: Users will be given a multiple choice card and can select the option which they think is correct. Clicking `Show Back` will then show them the correct answer.
-
-** Javascript Card: Users will be given a problem that can be solved in Javascript. Click on the `Go To FlashCoder` to begin coding in our in-built compiler. Running your program will tell you if you passed or not.
-
-****
-
-Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` (to be implemented in `v1.4`)
+Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]` (to be implemented in `v1.4`)
 
 Examples:
 
-* `test deck/science_deck`
+* `test deck/science_deck` +
+
 Starts a untimed test with the deck of cards, `science_deck`
-* `test duration/50 deck/science_deck`
+
+* `test duration/50 deck/science_deck` +
+
 Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
-=== Quit test or flashcard creation : `exit`
 
-Exits the test or flashcard creation process.
+==== Quit test: `stop`
 
-There is also an `End Session` button that can be used to terminate the exam prematurely.
+Exits the test process when the user is in test mode. +
 
 Exams will also terminate automatically upon running out of cards in the test deck. This will trigger a popup with the results of the test.
 
-Format: `exit` (to be done up in `v1.4`)
+=== Viewing user statistics : `stats`
 
-=== Editing the cards of an existing deck of flashcards : `edit`
+Shows your usage statistics, such as time spent and usage count in general of for a deck of cards.
 
-The edit command allows the user to change, add or remove the flashcards in any existing deck.
-
-****
-* You can select the following options depending on your choice of action for `action`: `add`, `change`, `remove`
-
-* For options `remove`, you must furnish the options `index`, which corresponds to the index of the flashcard, and any input to `front` and `back` will be ignored
-
-* For options `edit`, you must furnish the options `index` (compulsory), as well as `front` and/or `back` depending on the change, and any command that lacks any of the three options will be regarded as an error and no flashcard wil be added
-
-* The `index` option must be a positive integer e.g. 1, 2, 3, … and must be less than or equal to the total number of cards in the specified deck
-
-* Any command with no input to `front`, `back` and `index` will be regarded as an error and no action will be taken
-****
-
-Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]`
+Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
-* `edit deck/science_deck`
-Returns error as no input is added
-* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
-Edits the first flashcard of the deck `science_deck`
+* `stats` +
+
+Displays the overview of the time spent and usage count of all decks of cards. Also shows the statistics of the current program State.
+
+* `stats deck/science_deck` +
+
+Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
 
 == FAQ

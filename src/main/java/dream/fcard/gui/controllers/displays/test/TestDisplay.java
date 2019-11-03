@@ -13,7 +13,7 @@ import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.model.State;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
@@ -86,18 +86,6 @@ public class TestDisplay extends AnchorPane {
         card.setAttempt(input);
     };
 
-    @SuppressWarnings("unchecked")
-    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-    /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to re-render DeckDisplay
-     */
-    @SuppressWarnings("unchecked")
-    private Consumer<Boolean> displayDecks = State.getState().getConsumer(ConsumerSchema.DISPLAY_DECKS);
-    /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to clear the message bar.
-     */
-    @SuppressWarnings("unchecked")
-    private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
 
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> nextCard = onNext -> {
@@ -106,7 +94,7 @@ public class TestDisplay extends AnchorPane {
 
     public TestDisplay(Exam exam) {
         try {
-            clearMessage.accept(true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays"
                     + "/TestDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -190,13 +178,13 @@ public class TestDisplay extends AnchorPane {
             seeFront();
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
-            displayMessage.accept("You've ran out of cards in this test! Feel free to review your previous cards!");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You've ran out of cards in this test!");
             exam.downIndex();
             try {
                 ExamRunner.terminateExam();
             } catch (NullPointerException e2) {
                 displayMessage.accept("Exam has already ended! Either review your previous questions or exit :)");
-            }
+            }                     
         }
     }
     //sample renderer for Shawn
