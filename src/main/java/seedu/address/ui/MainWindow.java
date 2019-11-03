@@ -297,6 +297,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Finance")) {
                 selectionModel.select(2);
+                finance.updateCards();
             }
 
             if (!commandResult.getType().equals("Finance")) {

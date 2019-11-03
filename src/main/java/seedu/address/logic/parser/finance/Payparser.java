@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SalaryPaid;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARYPAID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.finance.Pay;
@@ -25,20 +25,19 @@ public class Payparser implements Parser<Pay> {
     public Pay parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SalaryPaid);
+                ArgumentTokenizer.tokenize(args, PREFIX_SALARYPAID);
 
         Index index;
         double salaryToPay;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            salaryToPay = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SalaryPaid).get());
+            salaryToPay = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALARYPAID).get());
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(("Pay: Do payment" +
-                    " identified by the index number used in the displayed employee list.\n" +
-                    "Parameters: INDEX (must be a positive integer)" +
-                    " p/PAY" + "Example: pay 1 s/100")));
+            throw new ParseException(String.format(("Pay: Do payment"
+                    + " identified by the index number used in the displayed employee list.\n"
+                    + "Parameters: INDEX (must be a positive integer)" + " p/PAY" + "Example: pay 1 s/100")));
         }
 
         return new Pay(index, salaryToPay);

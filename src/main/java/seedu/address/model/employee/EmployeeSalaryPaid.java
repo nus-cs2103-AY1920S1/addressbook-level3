@@ -1,6 +1,5 @@
 package seedu.address.model.employee;
 
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -49,7 +48,7 @@ public class EmployeeSalaryPaid {
     public static boolean isValidSalaryPaid(String test) {
         try {
             return Double.parseDouble(test) < 100000;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }

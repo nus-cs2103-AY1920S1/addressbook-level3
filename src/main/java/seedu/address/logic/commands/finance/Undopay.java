@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SalaryPaid;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARYPAID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -26,10 +26,10 @@ public class Undopay extends Command {
             + "by the index number used in the displayed employee list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_SalaryPaid + "PAY] "
+            + "[" + PREFIX_SALARYPAID + "PAY] "
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_SalaryPaid + "100 ";
-    public static final String MESSAGE_SUCCESS = "%s has been paid %s";
+            + PREFIX_SALARYPAID + "100 ";
+    public static final String MESSAGE_SUCCESS = "Undo the payment for %s. Amount : $ %s";
     public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: unpay 1 p/100";
 
     private final Index index;
@@ -56,7 +56,7 @@ public class Undopay extends Command {
         }
 
         Employee employeeToPay = lastShownList.get(index.getZeroBased());
-        employeeToPay.UndoSalaryPaid(salaryToPay);
+        employeeToPay.undoSalaryPaid(salaryToPay);
 
 
 //        String end = editedEmployee.getEmployeeSalaryPaid().value;

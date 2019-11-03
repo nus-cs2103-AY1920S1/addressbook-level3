@@ -10,7 +10,7 @@ public class EmployeePay {
     public static final String MESSAGE_CONSTRAINTS =
             "EmployeePay should only contain numbers, and it should be at least 1 digits long";
     public static final String VALIDATION_REGEX = "\\d{1,}";
-    public String value;
+    private String value;
     //private final int value; <--Should be using this instead!
 
 

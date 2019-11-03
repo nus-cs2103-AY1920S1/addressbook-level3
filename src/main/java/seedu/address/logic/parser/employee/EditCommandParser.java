@@ -55,7 +55,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editEmployeeDescriptor.setEmployeeGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
         if (argMultimap.getValue(PREFIX_PAY).isPresent()) {
-            editEmployeeDescriptor.setEmployeeSalaryPaid(ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_PAY).get()));
+            editEmployeeDescriptor.setEmployeeSalaryPaid(
+                    ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_PAY).get()));
         }
         if (argMultimap.getValue(PREFIX_JOIN_DATE).isPresent()) {
             editEmployeeDescriptor.setEmployeeJoinDate(ParserUtil.parseJoinDate(

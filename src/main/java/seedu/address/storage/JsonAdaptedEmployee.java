@@ -76,7 +76,7 @@ class JsonAdaptedEmployee {
         email = source.getEmployeeEmail().value;
         address = source.getEmployeeAddress().value;
         id = source.getEmployeeId().id;
-        pay = source.getEmployeePay().value;
+        pay = source.getEmployeePay().toString();
         salaryPaid = source.getEmployeeSalaryPaid().toString();
         gender = source.getEmployeeGender().gender;
         joindate = source.getEmployeeJoinDate().toString();

@@ -35,7 +35,6 @@ import seedu.address.model.employee.EmployeeName;
 import seedu.address.model.employee.EmployeePay;
 import seedu.address.model.employee.EmployeePhone;
 import seedu.address.model.employee.EmployeeSalaryPaid;
-import seedu.address.model.employee.EmployeeSalaryPaid;
 import seedu.address.model.tag.Tag;
 
 /**

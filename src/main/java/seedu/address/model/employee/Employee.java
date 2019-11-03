@@ -113,7 +113,7 @@ public class Employee {
         employeeSalaryPaid.add(salaryPaid);
     }
 
-    public void UndoSalaryPaid(double salaryPaid) {
+    public void undoSalaryPaid(double salaryPaid) {
         employeeSalaryPaid.min(salaryPaid);
     }
 

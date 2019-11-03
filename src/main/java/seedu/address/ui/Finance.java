@@ -22,11 +22,16 @@ public class Finance extends Tabs<AnchorPane> {
 
     public Finance(ObservableList<Employee> employeeObservableList, Logic logic, MainWindow mainWindow) {
         super(FXML, mainWindow, logic);
-        eventScheduleListView.setItems(employeeObservableList);
-        eventScheduleListView.setCellFactory(listView -> new EmployeeListViewCell());
-
+            eventScheduleListView.setItems(employeeObservableList);
+            eventScheduleListView.setCellFactory(listView -> new EmployeeListViewCell());
     }
 
+    /**
+     * Updates the DistinctDate Cards.
+     */
+    public void updateCards() {
+        eventScheduleListView.setCellFactory(listView -> new EmployeeListViewCell());
+    }
 
 
     /**
