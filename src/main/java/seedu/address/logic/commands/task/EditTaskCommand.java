@@ -84,7 +84,6 @@ public class EditTaskCommand extends Command {
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(Model.PREDICATE_SHOW_ALL_TASKS);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
     }
 
@@ -107,7 +106,7 @@ public class EditTaskCommand extends Command {
 
         LocalDate updatedDate = editTaskDescriptor.getDate().orElse(taskToEdit.getDate());
         LocalTime updatedTime = editTaskDescriptor.getTime().orElse(taskToEdit.getTime());
-        boolean isDone = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
+        boolean isDone = taskToEdit.getStatus();
         return new Task(updatedHeading, updatedDate, updatedTime, isDone);
     }
 
