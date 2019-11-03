@@ -13,9 +13,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.currency.EnterCreateCurrencyCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
@@ -218,10 +218,5 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
     @FXML
     private void handleAddExpenditure() {
         mainWindow.executeGuiCommand(EnterCreateExpenditureCommand.COMMAND_WORD);
-    }
-
-    @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
     }
 }
