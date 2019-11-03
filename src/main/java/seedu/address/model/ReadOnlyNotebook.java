@@ -18,5 +18,5 @@ public interface ReadOnlyNotebook {
      * Returns an unmodifiable view of the lessons list.
      * This list will not contain any duplicate lessons.
      */
-    ObservableList<UniqueLessonList> getLessonWeekList();
+    //ObservableList<UniqueLessonList> getLessonWeekList();
 }
