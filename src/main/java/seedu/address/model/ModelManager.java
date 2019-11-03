@@ -809,6 +809,7 @@ public class ModelManager implements Model {
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     }
+
     //endregion
 
     @Override
