@@ -26,6 +26,7 @@ import seedu.scheduler.model.ModelManager;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.IntervieweeNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Interviewer;
+import seedu.scheduler.model.person.InterviewerNameHasKeywordsPredicate;
 import seedu.scheduler.model.person.Name;
 
 /**
@@ -33,19 +34,19 @@ import seedu.scheduler.model.person.Name;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_ROLE_AMY = "interviewee";
-    public static final String VALID_ROLE_BOB = "interviewee";
+    public static final String VALID_ROLE_AMY_INTVR = "interviewer";
+    public static final String VALID_ROLE_BOB_INTVE = "interviewee";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_FACULTY_AMY = "School of Computing";
+    public static final String VALID_FACULTY_AMY = "School of Engineering";
     public static final String VALID_FACULTY_BOB = "School of Computing";
-    public static final String VALID_YEAR_OF_STUDY_AMY = "2019";
+    public static final String VALID_YEAR_OF_STUDY_AMY = "2018";
     public static final String VALID_YEAR_OF_STUDY_BOB = "2019";
-    public static final String VALID_DEPARTMENT_AMY = "Marketing";
+    public static final String VALID_DEPARTMENT_AMY = "Logistics";
     public static final String VALID_DEPARTMENT_BOB = "Marketing";
     public static final String VALID_SLOT_AMY = "17/10/2019 12:30-13:30";
     public static final String VALID_SLOT_BOB = "17/10/2019 12:30-13:30";
@@ -54,8 +55,8 @@ public class CommandTestUtil {
     public static final String VALID_PERSONAL_EMAIL_BOB = "bob_cat@gmail.com";
     public static final String VALID_NUS_WORK_EMAIL_BOB = "bob_cat@u.nus.edu";
 
-    public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
-    public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
+    public static final String ROLE_DESC_AMY_INTVR = " " + PREFIX_ROLE + VALID_ROLE_AMY_INTVR;
+    public static final String ROLE_DESC_BOB_INTVE = " " + PREFIX_ROLE + VALID_ROLE_BOB_INTVE;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -166,6 +167,19 @@ public class CommandTestUtil {
             Interviewee i = model.getInterviewee(name.fullName);
             final String[] splitName = i.getName().fullName.split("\\s+");
             model.updateFilteredIntervieweeList(new IntervieweeNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
+        } catch (NoSuchElementException e) {
+            throw new AssertionError("Name should exist in the model beforehand!");
+        }
+    }
+
+    /**
+     * Updates {@code model}'s filtered interviewee list to show only the interviewer with {@code name}.
+     */
+    public static void showInterviewerWithName(Model model, Name name) {
+        try {
+            Interviewer i = model.getInterviewer(name.fullName);
+            final String[] splitName = i.getName().fullName.split("\\s+");
+            model.updateFilteredInterviewerList(new InterviewerNameHasKeywordsPredicate(Arrays.asList(splitName[0])));
         } catch (NoSuchElementException e) {
             throw new AssertionError("Name should exist in the model beforehand!");
         }

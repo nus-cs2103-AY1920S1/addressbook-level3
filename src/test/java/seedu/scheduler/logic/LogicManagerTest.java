@@ -5,16 +5,13 @@ import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DEPARTMENT_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EMAIL_NUS_WORK_DESC_AMY;
-import static seedu.scheduler.logic.commands.CommandTestUtil.EMAIL_PERSONAL_DESC_AMY;
-import static seedu.scheduler.logic.commands.CommandTestUtil.FACULTY_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.scheduler.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
+import static seedu.scheduler.logic.commands.CommandTestUtil.ROLE_DESC_AMY_INTVR;
 import static seedu.scheduler.logic.commands.CommandTestUtil.SLOT_DESC_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.scheduler.logic.commands.CommandTestUtil.YEAR_OF_STUDY_DESC_AMY;
 import static seedu.scheduler.testutil.Assert.assertThrows;
-import static seedu.scheduler.testutil.TypicalPersons.AMY_INTERVIEWEE_MANUAL;
+import static seedu.scheduler.testutil.TypicalPersons.AMY_INTERVIEWER_MANUAL;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -93,11 +90,10 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + ROLE_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY
-                + TAG_DESC_FRIEND + FACULTY_DESC_AMY + YEAR_OF_STUDY_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY
-                + EMAIL_PERSONAL_DESC_AMY + EMAIL_NUS_WORK_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + ROLE_DESC_AMY_INTVR + NAME_DESC_AMY + PHONE_DESC_AMY
+                + TAG_DESC_FRIEND + EMAIL_NUS_WORK_DESC_AMY + DEPARTMENT_DESC_AMY + SLOT_DESC_AMY;
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addInterviewee(AMY_INTERVIEWEE_MANUAL);
+        expectedModel.addInterviewer(AMY_INTERVIEWER_MANUAL);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

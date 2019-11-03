@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.util.StringUtil;
 import seedu.scheduler.logic.parser.exceptions.ParseException;
@@ -153,11 +154,13 @@ public class ParserUtil {
         String trimmedYearOfStudy = yearOfStudy.trim();
         Integer value;
         try {
-            value = Integer.valueOf(trimmedYearOfStudy);
+            value = Integer.parseUnsignedInt(trimmedYearOfStudy);
+            if (value < 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(Messages.MESSAGE_INVALID_YEAR_OF_STUDY);
         }
-        // TODO: This could lead to some unexcepted error messages. maybe make a class for year of study?
         return value;
     }
 

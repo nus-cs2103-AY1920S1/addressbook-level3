@@ -38,7 +38,7 @@ public class Interviewer extends Person {
 
         // Optional parameters - initialised to default values
         private Department department = DefaultValues.DEFAULT_DEPARTMENT;
-        private Email email = DefaultValues.DEFAULT_PERSONAL_EMAIL;
+        private Email email = DefaultValues.DEFAULT_NUS_WORK_EMAIL;
         private List<Slot> availabilities = DefaultValues.DEFAULT_TIMESLOTS;
 
         public InterviewerBuilder(Name name, Phone phone, Set<Tag> tags) {
@@ -121,8 +121,7 @@ public class Interviewer extends Person {
         }
 
         return interviewer != null
-                && interviewer.getName().equals(getName())
-                && interviewer.getPhone().equals(getPhone());
+                && interviewer.getName().equals(getName());
     }
 
     /**

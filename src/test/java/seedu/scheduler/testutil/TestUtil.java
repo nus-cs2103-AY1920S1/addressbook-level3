@@ -69,6 +69,7 @@ public class TestUtil {
         EditInterviewerDescriptor e = new EditInterviewerDescriptor();
         e.setName(i.getName());
         e.setPhone(i.getPhone());
+        e.setTags(i.getTags());
         e.setDepartment(i.getDepartment());
         e.setAvailabilities(i.getAvailabilities());
         e.setEmail(i.getEmail());

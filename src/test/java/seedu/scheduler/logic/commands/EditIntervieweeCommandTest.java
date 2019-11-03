@@ -30,7 +30,7 @@ import seedu.scheduler.testutil.IntervieweeBuilder;
 import seedu.scheduler.testutil.TestUtil;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests.
+ * Contains integration tests (interaction with the Model) and unit tests.
  */
 class EditIntervieweeCommandTest {
 
@@ -138,11 +138,6 @@ class EditIntervieweeCommandTest {
                 new UserPrefs(), new LinkedList<>());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_filteredList_success() {
-
     }
 
     /**

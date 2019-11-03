@@ -2,13 +2,11 @@ package seedu.scheduler.testutil;
 
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DEPARTMENT_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DEPARTMENT_BOB;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FACULTY_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FACULTY_BOB;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_NUS_WORK_EMAIL_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_NUS_WORK_EMAIL_BOB;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_PERSONAL_EMAIL_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_PERSONAL_EMAIL_BOB;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -16,7 +14,6 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_SLOT_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_SLOT_BOB;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_YEAR_OF_STUDY_AMY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_YEAR_OF_STUDY_BOB;
 
 import java.util.ArrayList;
@@ -88,10 +85,9 @@ public class TypicalPersons {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY_PERSON_MANUAL = new PersonBuilder().withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Interviewee AMY_INTERVIEWEE_MANUAL = new IntervieweeBuilder(AMY_PERSON_MANUAL)
-            .withFaculty(VALID_FACULTY_AMY).withYearOfStudy(VALID_YEAR_OF_STUDY_AMY)
-            .withDepartmentChoices(VALID_DEPARTMENT_AMY).withTimeslots(VALID_SLOT_AMY)
-            .withPersonalEmail(VALID_PERSONAL_EMAIL_AMY).withNusWorkEmail(VALID_NUS_WORK_EMAIL_AMY).build();
+    public static final Interviewer AMY_INTERVIEWER_MANUAL = new InterviewerBuilder(AMY_PERSON_MANUAL)
+            .withDepartment(VALID_DEPARTMENT_AMY).withAvailabilities(VALID_SLOT_AMY)
+            .withEmail(VALID_NUS_WORK_EMAIL_AMY).build();
     public static final Person BOB_PERSON_MANUAL = new PersonBuilder().withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     public static final Interviewee BOB_INTERVIEWEE_MANUAL = new IntervieweeBuilder(BOB_PERSON_MANUAL)
