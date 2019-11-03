@@ -6,6 +6,12 @@ package seedu.address.model.group;
 public class GroupDescription {
     public final String description;
 
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Group Descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
+
+
     public GroupDescription(String description) {
         this.description = description;
     }
@@ -21,6 +27,10 @@ public class GroupDescription {
     @Override
     public String toString() {
         return description;
+    }
+
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

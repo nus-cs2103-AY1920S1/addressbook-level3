@@ -7,10 +7,14 @@ package seedu.address.model.person;
 public class Remark {
     public final String value;
 
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remarks should only contain alphanumeric characters and spaces, and it should not be blank";
+
+
     /**
      * Constructs an {@code Remark}.
-     *
-     * @param remark Any text.
      */
     public Remark(String remark) {
         value = remark;
@@ -25,6 +29,10 @@ public class Remark {
      */
     public static Remark emptyRemark() {
         return new Remark();
+    }
+
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

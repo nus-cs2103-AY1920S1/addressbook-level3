@@ -34,7 +34,8 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_FAILURE = "Unable to add event: %s";
 
     public static final String MESSAGE_WRONG_TIMINGS = "Invalid timing arguments\n"
-            + "Time format: ddMMyyyy:HHmm";
+            + "Format: DATE - START_TIME - END_TIME - [LOCATION]"
+            + "\n" + "Date format: ddMMyyyy     Time format: HHmm";
     public static final String MESSAGE_UNABLE_TO_FIND_PERSON = "Unable to find person";
     public static final String MESSAGE_CLASH_IN_EVENTS = "Clash in events";
     public static final String MESSAGE_DUPLICATE_EVENT = "Event already exists";

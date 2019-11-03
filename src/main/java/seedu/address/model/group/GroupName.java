@@ -6,6 +6,11 @@ package seedu.address.model.group;
 public class GroupName {
     private String groupName;
 
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Group Names should only contain alphanumeric characters and spaces, and it should not be blank";
+
     public GroupName(String groupName) {
         this.groupName = groupName;
     }
@@ -20,6 +25,10 @@ public class GroupName {
 
     public static GroupName emptyGroupName() {
         return new GroupName();
+    }
+
+    public static boolean isValid(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

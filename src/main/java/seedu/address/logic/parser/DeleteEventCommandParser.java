@@ -40,7 +40,7 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
             name = new Name(argMultimap.getValue(PREFIX_NAME).get());
         }
 
-        String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
+        String eventName = ParserUtil.parserEventName(argMultimap.getValue(PREFIX_EVENTNAME).get());
 
         return new DeleteEventCommand(name, eventName);
     }

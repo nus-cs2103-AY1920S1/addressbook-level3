@@ -19,6 +19,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddNusModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.GroupDescription;
@@ -87,9 +88,12 @@ public class ParserUtil {
      * Parses a {@code String name} into a {@code GroupName}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static GroupName parseGroupName(String name) {
+    public static GroupName parseGroupName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
+        if(!GroupName.isValid(trimmedName)) {
+            throw new ParseException(GroupName.MESSAGE_CONSTRAINTS);
+        }
         return new GroupName(trimmedName);
     }
 
@@ -241,6 +245,10 @@ public class ParserUtil {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
 
+        if(!Remark.isValid(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
+
         return new Remark(trimmedRemark);
     }
 
@@ -254,6 +262,10 @@ public class ParserUtil {
     public static Role parseRole(String role) throws ParseException {
         requireNonNull(role);
         String trimmedRole = role.trim();
+
+        if(!Role.isValid(trimmedRole)) {
+            throw new ParseException(Role.MESSAGE_CONSTRAINTS);
+        }
 
         return new Role(trimmedRole);
     }
@@ -282,7 +294,9 @@ public class ParserUtil {
     public static GroupDescription parseGroupDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-
+        if(!GroupDescription.isValid(trimmedDescription)) {
+            throw new ParseException(GroupDescription.MESSAGE_CONSTRAINTS);
+        }
         return new GroupDescription(trimmedDescription);
     }
 
@@ -319,12 +333,12 @@ public class ParserUtil {
      * @param timeslot to be parsed
      * @return Timeslot object
      */
-    public static Timeslot parseTimeslot(String timeslot) {
+    public static Timeslot parseTimeslot(String timeslot) throws ParseException {
         try {
             String[] tokens = timeslot.split("-");
 
             if (tokens.length != 3 && tokens.length != 4) {
-                return null;
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
             }
 
             LocalDate date = LocalDate.parse(tokens[0].trim(), DATE_FORMATTER);
@@ -332,7 +346,7 @@ public class ParserUtil {
             LocalTime endTime = LocalTime.parse(tokens[2].trim(), TIME_FORMATTER);
 
             if (endTime.isBefore(startTime) || endTime.compareTo(startTime) == 0) {
-                return null;
+                throw new ParseException("End time cannot be before start time.");
             }
 
             Venue venue;
@@ -344,7 +358,7 @@ public class ParserUtil {
 
             return new Timeslot(LocalDateTime.of(date, startTime), LocalDateTime.of(date, endTime), venue);
         } catch (DateTimeParseException e) {
-            return null;
+            throw new ParseException(AddEventCommand.MESSAGE_WRONG_TIMINGS);
         }
     }
 
@@ -358,5 +372,17 @@ public class ParserUtil {
         String[] locationsArr = locationsString.split(" ");
         ArrayList<String> locations = new ArrayList<>(Arrays.asList(locationsArr));
         return locations;
+    }
+
+    public static String parserEventName(String eventName) throws ParseException {
+        String regex = "[\\p{Alnum}][\\p{Alnum} ]*";
+        String msg =
+                "An event name should only contain alphanumeric characters and spaces, and it should not be blank";
+
+        String trimmedEventName = eventName.trim();
+        if(!trimmedEventName.matches(regex)) {
+            throw new ParseException(msg);
+        }
+        return trimmedEventName;
     }
 }
