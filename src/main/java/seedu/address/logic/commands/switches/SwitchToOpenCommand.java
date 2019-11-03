@@ -16,7 +16,7 @@ public class SwitchToOpenCommand extends SwitchCommand {
     public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Opened bank: %1$s\n"
             + "Here you can edit the bank's content.\n"
             + "Try adding cards.\n"
-            + "Eg. add w/My first card m/Yay";
+            + "Eg. add w/My first word m/My first meaning";
 
     @Override
     public CommandResult execute(Model model) {
