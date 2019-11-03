@@ -19,7 +19,7 @@ import mams.model.student.Student;
 public class SetCredits extends StudentCommand {
 
     public static final String MESSAGE_CREDIT_CHANGE_SUCCESS = "Student max credits updated to : %d";
-
+    public static final String MESSAGE_STUDENT_CREDIT_CHANGE = "%s max credits updated to: %d";
     private final String matricId;
     private final String newCredits;
     private final Index index;
@@ -74,7 +74,7 @@ public class SetCredits extends StudentCommand {
 
         // check if credit value is valid
         if (!Credits.isValidCredits(newCredits)) {
-            throw new CommandException(Messages.MESSAGE_INVALD_CREDIT_VALUE);
+            throw new CommandException(Messages.MESSAGE_INVALID_CREDIT_VALUE);
         }
 
         //check if current mods satisfy new credits

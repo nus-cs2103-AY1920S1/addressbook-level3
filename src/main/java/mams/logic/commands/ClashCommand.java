@@ -40,6 +40,7 @@ public class ClashCommand extends Command {
 
 
     public static final String MESSAGE_CLASH_DETECTED = "Timetable clash detected: \n";
+    public static final String MESSAGE_CLASH_IN_STUDENT = "Timetable clash detected for ";
     public static final String MESSAGE_CLASH_NOT_DETECTED = "There is no timetable clash.";
     public static final String MESSAGE_INVALID_MODULE = "Module not found ";
     public static final String MESSAGE_INVALID_STUDENT = "Student not found ";

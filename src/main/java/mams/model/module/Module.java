@@ -36,6 +36,9 @@ public class Module {
     public static final String MESSAGE_CONSTRAINTS_QUOTA =
             "Quota must be more than 0";
 
+    public static final String MESSAGE_CONSTRAINTS_QUOTA_REACHED =
+            "Module has reached max quota, unable to accept any more students. ";
+
     /*
      * Only CS modules are allowed for adding. The first 2 characters should be
      * "CS" followed by strictly 4 digits.

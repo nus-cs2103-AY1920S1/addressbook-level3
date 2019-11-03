@@ -5,13 +5,11 @@ package mams.logic.parser;
  */
 public class CliSyntax {
 
-    public static final Prefix PREFIX_INDEX = new Prefix("i/");
     /* Prefix definitions for Student class */
     public static final Prefix PREFIX_STUDENT = new Prefix("s/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_CREDITS = new Prefix("c/");
     public static final Prefix PREFIX_PREVMODS = new Prefix("p/");
-    //public static final Prefix PREFIX_MATRICID = new Prefix("m/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     /* Prefix definitions for Module class */
