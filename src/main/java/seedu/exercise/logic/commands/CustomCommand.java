@@ -9,7 +9,7 @@ import static seedu.exercise.logic.commands.CustomRemoveCommand.MESSAGE_USAGE_CU
 public abstract class CustomCommand extends Command {
     public static final String COMMAND_WORD = "custom";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add or remove a custom property for exercises\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add or remove custom property for exercises\n"
         + "ADD: " + MESSAGE_USAGE_CUSTOM_ADD
         + "\nREMOVE: " + MESSAGE_USAGE_CUSTOM_REMOVE;
 

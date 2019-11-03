@@ -365,40 +365,79 @@ image::ScheduleActivityDiagram.png[]
 
 // end::resolvefeature[]
 
+//tag::customfeature[]
 === Custom feature
+
+==== Rationale
+A quick conversation with a few of our friends revealed that there are many properties which they intend to keep track
+for exercises. However, it is unlikely that we can implement all of these properties for the exercises as there may
+be too much overhead and we can never be certain that we have met all of the users' needs. As such, we decide to allow
+users to define their own properties should they require them. These custom properties can then be applied to all of the
+exercises, providing more flexibility in terms of tracking the exercises' properties.
+
+Furthermore, as noted by one of our user stories, there are users that love customisations too. This can also come in handy
+when they want to define their own properties for the exercises.
+
+==== Overview
 This feature is facilitated by both `PropertyBook` and `CustomProperty`. Whenever a user
 adds a newly defined custom property, a `CustomProperty` object will be created which is stored in
 `PropertyBook`. Its corresponding prefix and full name will be tracked by `PropertyBook` to avoid
 clashes in their uses.
 
 ==== Current Implementation
+`CustomProperty` encapsulates a single custom property that the user defines. It contains
+information such as name, prefix and parameter type of the custom property. The parameter type is supported by
+an enumeration class ``ParameterType`` and is restricted to one of the following 3 types: ``Number``, ``Text``, ``Date``.
+
+`PropertyBook` serves as a singleton class that helps to manage all of the custom properties that have been
+defined by the user. This class acts as an access point for any information relating to the creation or deletion
+of custom properties.
+
 To keep track of the custom properties and its relevant information, the following are used:
 
-1. `CUSTOM_PROPERTIES`: A list containing all of the `CustomProperty` objects that
+1. `customProperties`: A set containing all of the `CustomProperty` objects that
 have been created.
 
-2. `prefixes`: A set containing all of the `Prefix` objects associated with existing exercise's
+2. `customPrefixes`: A set containing all of the `Prefix` objects associated with existing custom
 properties.
 
-3. `fullNames`: A set containing the full names of the existing exercise's properties.
+3. `customFullNames`: A set containing the full names of the existing custom properties.
 
-The following methods are also implemented in `PropertyBook` to aid in the addition of a new custom property:
+4. `defaultPrefixes`: A set containing all of the `Prefix` objects associated with default properties and parameter
+types.
 
-1. `PropertyBook#isPrefixUsed(Prefix)`: Checks if the given prefix has been used by a property.
+5. `defaultFullNames`: A set containing all of the full names of default properties.
 
-2. `PropertyBook#isFullNameUsed(String)`: Checks if the given name has been used by a property.
+Custom names and prefixes are separated from its default counterparts to ensure that the default names and prefixes
+will always be present when the `PropertyBook` is first initialised.
 
-3. `PropertyBook#addCustomProperty(CustomProperty)`: Adds the new custom property. Each time a custom property is
-added, the prefix set in `Prefix` is also updated.
+To help facilitate `PropertyBook` in its custom properties management, the following main methods are implemented:
 
-The first three methods are exposed in the `Model` interface as `Model#isPrefixUsed(Prefix)`,
-`Model#isFullNameUsed(String)` and `Model#addCustomProperty(CustomProperty)` respectively.
-These associations are illustrated in a class diagram (Figure 16).
+1. `PropertyBook#isPrefixUsed(Prefix)`: Checks if the given prefix has been used by a default or custom property.
 
-.Class diagram of the associations of `PropertyBook`
+2. `PropertyBook#isFullNameUsed(String)`: Checks if the given name has been used by a default or custom property.
+
+3. `PropertyBook#isFullNameUsedByCustomProperty(String)`: Checks if the given name has been used by a custom property
+
+4. `PropertyBook#addCustomProperty(CustomProperty)`: Adds the new custom property. Each time a custom property is
+added, the prefix set in `CliSyntax` is also updated.
+
+5. `PropertyBook#removeCustomProperty(CustomProperty)`: Removes a pre-defined custom property. Its associated prefix
+is also removed from the prefix set in `CliSyntax`.
+
+Method 3 is implemented to ensure that the name of a default property is not removed by mistake if the user chooses to
+remove a predefined custom property.
+
+All of the crucial associations mentioned above are summarised in the next class diagram (Figure 16).
+
+.Class diagram of the associations of `PropertyBook` and `CustomProperty`
 image::CustomClassDiagram.png[]
 
-The following sequence diagram (Figure 17) illustrates how the custom operation works when a custom
+===== Adding Custom Properties
+To add a new custom property for the exercises, the user can do it through the command `custom s/PREFIX_NAME f/FULL_NAME
+p/PARAMETER_TYPE`. Examples include `custom s/r f/Rating p/Number` and `custom s/ed f/Ending Date p/Date`.
+
+The following sequence diagram (Figure 17) will illustrate how the custom operation works when a custom
 property is *successfully added*.
 
 .Sequence diagram of a successful addition of a custom property
@@ -408,57 +447,86 @@ However, not all additions of a custom property will be successful. The next act
 (Figure 18) shows the workflow when a new custom property is defined.
 
 .Activity diagram of the workflow when a new custom property is added
-image::CustomActivityDiagram.png[]
+image::CustomAddActivityDiagram.png[]
 
+Once a custom property is successfully added into `PropertyBook`, the user can use the prefix of the custom property in
+`add` or `edit` command.
+
+===== Removing Custom Properties
+Should a user wish to remove a custom property from all of the exercises, he/she can simply make use of the command
+`custom rm/FULL_NAME`. Alternatively, if the user wishes to remove a custom property just from a single exercise, he/she
+can choose to enter `custom rm/FULL_NAME i/INDEX` instead.
+
+The following sequence diagram (Figure 19) illustrates how a custom property is removed from all of the exercises
+when a user wishes to remove, say, the `Rating` property from the `PropertyBook`.
+
+.Sequence diagram of a successful removal of a custom property from all exercises
+image::EditedCustomRemoveSequenceDiagram.png[]
+
+Similar to the addition of custom properties, the removal of a custom property involves a sequence of checks to
+ensure that the correct custom property is removed from the correct exercise(s). These checks are summarised in the
+next activity diagram (Figure 20).
+
+.Activity diagram of the workflow when a custom property is to be removed
+image::CustomRemoveActivityDiagram.png[]
+
+A custom property that has been removed from the ``PropertyBook`` can be re-added back if the user chooses to.
+
+===== Viewing Custom Properties
+To allow user to view the custom properties which they have defined, they can enter ``viewcustom`` which will produce
+a table that lists out the name, prefix and parameter type of each custom property they have defined.
 
 ==== Design Considerations
 
-===== Aspect: Tracking custom properties
-* **Choice 1 (Current choice)**: Store the custom properties in a list and store their full
-names and prefixes in a set.
-** Pros: Storing the full names and prefixes separately provides an efficient way to check if a
-full name or a prefix has been used.
-** Cons: It may incur additional memory usage since the full name and prefix of each `CustomProperty`
-object are stored multiple times.
-* **Choice 2**: Store only a list of custom properties
-** Pros: Less memory used as no duplicates in terms of prefix and full names are stored.
-** Cons: It may require more time to check if a full name or a prefix has been used as one has to
-iterate through the whole list.
+===== Aspect: `PropertyBook` design
+* **Choice 1 (Current choice)**: Represent `PropertyBook` as a singleton class that will
+act as the only access point for the addition and removal of custom properties.
+** Pros: This prevents situations where there could be 2 instances of `PropertyBook` objects and the addition
+of a custom property is only carried out to one instance and not in the other. Furthermore, having a singleton
+like this helps to provide more utility for methods that rely on the `CustomProperty` objects that have been
+created.
+** Cons: It makes testing much difficult as the results from the previous test cases are carried over. Furthermore,
+it increases coupling across the code base.
 
-Ultimately, choice 1 is chosen as it provides a faster way of checking if a full name or a prefix has
-been used. Also, keeping track of the prefixes separately allows us to simply pass them in when adding or
-editing an exercise.
+* **Choice 2**: Represent `PropertyBook` as a usual Java object that can be instantiated many times.
+** Pros: This reduces coupling and makes testing easier as a new `PropertyBook` object independent of the other tests
+can be created for different tests.
+** Cons: There could be situations where 2 instances of `PropertyBook` objects are created and the addition of a
+custom property is done to only one instance and not in the other.
 
-===== Aspect: Representing the custom properties
-* **Choice 1 (Current choice)**: Represent the custom property as an object that contains
-3 information - its prefix, its name and its parameter type.
-** Pros: This allows us to distinguish custom properties from default properties. Furthermore, these
-objects can be stored in a data structure which can be passed around when adding or editing an exercise.
-** Cons: Each exercise has to store the value of each custom property separately from the custom property
-itself.
+Choice 2 seems like an ideal selection at the start as coupling is reduced and it reduces the likelihood
+of untestable code. However, certain issues arise:
 
-* **Choice 2**: Create a `Property` class which will contain the following information: name, constraint
-message, value and prefix. The default properties will be stored separately in a Java class and will be initialised
-every time the app starts.
-** Pros: This ensures that there is a consistency in terms of how an exercise property is represented
-and it also allows the property value to be stored together.
-** Cons: Methods have to be introduced to identify custom properties from the default ones.
+1. `AddCommandParser` and `EditCommandParser` have to gain access to the `CustomProperty` in order to ensure that the values entered
+for the custom properties in the add/edit commands are valid. However, as the `ExerciseBookParser` in the original https://xxx[code] base only takes in a
+`String` as a parameter, there has to be another way of retrieving the custom properties. While we can change the
+`ExerciseBookParser` to take in a data structure containing `CustomProperty` objects, this does not seem good as its responsibility
+is just to ensure that a predefined command is entered and is passed to the correct command parser.
+Thus, it does not require knowledge of any custom properties. So, a slightly better choice in this case
+is to make the data structure holding the `CustomProperty` objects a static variable and parsers that require it can access
+it directly.
 
-Ultimately, choice 1 is selected as we believe it is more important to distinguish the custom properties
-from the default ones. This separation ensures that methods meant to operate on custom properties are unable
-to operate on default properties.
+2. If the data structure holding the `CustomProperty` object is to be made static, it means that this information is
+shared among all of the `PropertyBook` instances if Choice 2 was implemented instead. Thus, `PropertyBook`
+is acting similarly to a singleton since the information carried by any instance of `PropertyBook` is the same.
+
+As such, after much consideration, Choice 1 was implemented. To ensure that testing can be carried out better,
+the data inside `PropertyBook` is cleared before each test.
+//end::customfeature[]
 
 === Suggest
 ==== Implementation
 The suggest feature is used to recommend exercises to both beginners and experienced users.
 The user is allowed to specify what type of suggestions to see.
 
-The following activity diagram summarizes what happens when a user enters a suggest command:
+The following activity diagram (Figure 21) summarizes what happens when a user enters a suggest command:
 
+.Activity diagram showing the workflow of a suggest command
 image::SuggestActivityDiagram.png[]
 
-The following sequence diagram shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
+The following sequence diagram (Figure 22) shows the sequence flow from the when a user enters a valid `SuggestPossibleCommand`:
 
+.Sequence diagram of a suggest possible command
 image::SuggestSequenceDiagram.png[]
 
 From the sequence diagram:
@@ -480,8 +548,9 @@ to parse the user input to create an `ExercisePredicate` object (named `p` in th
 
 8. `SuggestPossibleCommand` creates a new `CommandResult` to be returned.
 
-In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper.
+In step 3, the process in which the `ExercisePredicate` object is created can be explored deeper (Figure 23).
 
+.Sequence diagram of how an `ExercisePredicate` is created
 image::SuggestSequencePredicateDiagram.png[]
 
 From the sequence diagram above:
@@ -513,12 +582,12 @@ all in one place as it stores the tags, and creates the predicate and filters th
 ==== Implementation
 Statistics of exercises will be displayed in charts. Supported chart types are Pie Chart, Line Chart and Bar Chart.
 StatsFactory will create Statistic using given parameters.
-The figure (Figure 19) below shows the class diagram of statistics:
+The figure (Figure 24) below shows the class diagram of statistics:
 
 .Class diagram of the classes behind the statistics feature
 image::StatisticClassDiagram.png[]
 
-The next figure (Figure 20) shows the activity diagram when user enter a `stats` command:
+The next figure (Figure 25) shows the activity diagram when user enter a `stats` command:
 
 .Workflow when a user enters a `stats` command
 image::StatisticActivityDiagram.png[]
@@ -541,7 +610,7 @@ Step 7: `StatsCommand` then calls `Model#setStatistic` to set the `Statistic` in
 
 Step 8: `StatsCommand` creates a new `CommandResult` and return to `LogicManager`.
 
-Shown below is the sequence diagram (Figure 21) when user enters a valid `stats` command:
+Shown below is the sequence diagram (Figure 26) when user enters a valid `stats` command:
 
 .Sequence diagram of a `stats` command
 image::StatisticSequenceDiagram.png[]

@@ -19,7 +19,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_SUGGEST_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 
-import seedu.exercise.logic.commands.EditCommand;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 
@@ -93,17 +93,17 @@ public class CommonTestData {
 
     //=======================For invalid conflict index=============================
     public static final String INVALID_PREFIX_CONFLICT_INDEX_ZERO = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ZERO;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ZERO;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_NEGATIVE = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NEGATIVE;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NEGATIVE;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_ALPHABETS = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ALPHABETS;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_ALPHABETS;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_SYMBOLS = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_SYMBOLS;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_SYMBOLS;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_NOT_ENGLISH = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NOT_ENGLISH;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_NOT_ENGLISH;
     public static final String INVALID_PREFIX_CONFLICT_INDEX_EMPTY = " "
-            + PREFIX_CONFLICT_INDEX + INVALID_INDEX_EMPTY;
+        + PREFIX_CONFLICT_INDEX + INVALID_INDEX_EMPTY;
 
     //=======================For commonly used file names=============================
     public static final String EXERCISE_BOOK_FILE_NAME = "exerciseBook.json";
@@ -162,28 +162,28 @@ public class CommonTestData {
     public static final String INVALID_MUSCLE_DESC = " " + PREFIX_MUSCLE + "Chest*"; // '*' not allowed in muscle
 
     //=======================For valid exercise editors=============================
-    public static final EditCommand.EditExerciseDescriptor DESC_AEROBICS = new EditExerciseDescriptorBuilder()
-            .withName(CommonTestData.VALID_NAME_AEROBICS)
-            .withDate(CommonTestData.VALID_DATE_AEROBICS)
-            .withCalories(CommonTestData.VALID_CALORIES_AEROBICS)
-            .withQuantity(CommonTestData.VALID_QUANTITY_AEROBICS)
-            .withMuscles(CommonTestData.VALID_MUSCLE_AEROBICS)
-            .build();
+    public static final EditExerciseBuilder DESC_AEROBICS = new EditExerciseDescriptorBuilder()
+        .withName(CommonTestData.VALID_NAME_AEROBICS)
+        .withDate(CommonTestData.VALID_DATE_AEROBICS)
+        .withCalories(CommonTestData.VALID_CALORIES_AEROBICS)
+        .withQuantity(CommonTestData.VALID_QUANTITY_AEROBICS)
+        .withMuscles(CommonTestData.VALID_MUSCLE_AEROBICS)
+        .build();
 
-    public static final EditCommand.EditExerciseDescriptor DESC_BASKETBALL = new EditExerciseDescriptorBuilder()
-            .withName(CommonTestData.VALID_NAME_BASKETBALL)
-            .withDate(CommonTestData.VALID_DATE_BASKETBALL)
-            .withCalories(CommonTestData.VALID_CALORIES_BASKETBALL)
-            .withQuantity(CommonTestData.VALID_QUANTITY_BASKETBALL)
-            .withMuscles(CommonTestData.VALID_MUSCLE_AEROBICS, CommonTestData.VALID_MUSCLE_BASKETBALL)
-            .build();
+    public static final EditExerciseBuilder DESC_BASKETBALL = new EditExerciseDescriptorBuilder()
+        .withName(CommonTestData.VALID_NAME_BASKETBALL)
+        .withDate(CommonTestData.VALID_DATE_BASKETBALL)
+        .withCalories(CommonTestData.VALID_CALORIES_BASKETBALL)
+        .withQuantity(CommonTestData.VALID_QUANTITY_BASKETBALL)
+        .withMuscles(CommonTestData.VALID_MUSCLE_AEROBICS, CommonTestData.VALID_MUSCLE_BASKETBALL)
+        .build();
 
     //=======================For valid custom properties=============================
     public static final String VALID_PREFIX_NAME_RATING = "r";
     public static final String PREFIX_NAME_DESC_RATING = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_RATING;
     public static final String VALID_PREFIX_NAME_REMARK = "b";
     public static final String PREFIX_NAME_DESC_REMARK = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_REMARK;
-    public static final String VALID_PREFIX_NAME_END_DATE = "c";
+    public static final String VALID_PREFIX_NAME_END_DATE = "ed";
     public static final String PREFIX_NAME_DESC_END_DATE = " " + PREFIX_CUSTOM_NAME + VALID_PREFIX_NAME_END_DATE;
     public static final String VALID_FULL_NAME_RATING = "Rating";
     public static final String FULL_NAME_DESC_RATING = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_RATING;
@@ -193,31 +193,31 @@ public class CommonTestData {
     public static final String FULL_NAME_DESC_END_DATE = " " + PREFIX_FULL_NAME + VALID_FULL_NAME_END_DATE;
     public static final String VALID_PARAMETER_TYPE_RATING = "Number";
     public static final String PARAMETER_TYPE_DESC_RATING = " "
-            + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_RATING;
+        + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_RATING;
     public static final String VALID_PARAMETER_TYPE_REMARK = "Text";
     public static final String PARAMETER_TYPE_DESC_REMARK = " "
-            + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_REMARK;
+        + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_REMARK;
     public static final String VALID_PARAMETER_TYPE_END_DATE = "Date";
     public static final String PARAMETER_TYPE_DESC_END_DATE = " "
-            + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_END_DATE;
+        + PREFIX_PARAMETER_TYPE + VALID_PARAMETER_TYPE_END_DATE;
     public static final String VALID_VALUE_RATING = "1";
     public static final String DESC_PREFIX_WITH_VALUE_RATING = " " + VALID_PREFIX_NAME_RATING + '/'
-            + VALID_VALUE_RATING;
+        + VALID_VALUE_RATING;
     public static final String VALID_VALUE_REMARK = "hi";
     public static final String DESC_PREFIX_WITH_VALUE_REMARK = " " + VALID_PREFIX_NAME_REMARK + '/'
-            + VALID_VALUE_REMARK;
+        + VALID_VALUE_REMARK;
     public static final String VALID_VALUE_END_DATE = "24/12/2019";
     public static final String DESC_PREFIX_WITH_VALUE_END_DATE = " " + VALID_PREFIX_NAME_END_DATE + '/'
-            + VALID_VALUE_END_DATE;
+        + VALID_VALUE_END_DATE;
     public static final String VALID_PREFIX_REMOVE_CUSTOM_PROPERTY = " " + PREFIX_REMOVE_CUSTOM;
 
     //=======================For invalid custom properties=============================
     public static final String INVALID_PREFIX_NAME_DESC = " "
-            + PREFIX_CUSTOM_NAME + "r r"; // whitespace not allowed in short name
+        + PREFIX_CUSTOM_NAME + "r r"; // whitespace not allowed in short name
     public static final String INVALID_FULL_NAME_DESC = " "
-            + PREFIX_FULL_NAME + "R3mark"; //'3' not allowed in full name
+        + PREFIX_FULL_NAME + "R3mark"; //'3' not allowed in full name
     public static final String INVALID_PARAMETER_TYPE_DESC = " "
-            + PREFIX_PARAMETER_TYPE + "integer"; //integer not allowed in parameter type
+        + PREFIX_PARAMETER_TYPE + "integer"; //integer not allowed in parameter type
 
     //=======================For valid suggestions=============================
     public static final String VALID_SUGGEST_TYPE_BASIC = "basic";
@@ -241,34 +241,34 @@ public class CommonTestData {
 
     //=======================For valid exercise toString============================
     public static final String VALID_BASKETBALL_STRING_WITH_CUSTOM_PROPERTY =
-            VALID_NAME_BASKETBALL
-                    + " Date: "
-                    + VALID_DATE_BASKETBALL
-                    + " Calories: "
-                    + VALID_CALORIES_BASKETBALL
-                    + " Quantity: "
-                    + VALID_QUANTITY_BASKETBALL
-                    + " Unit: "
-                    + VALID_UNIT_BASKETBALL
-                    + " Muscle(s): "
-                    +
-                    "["
-                    + VALID_MUSCLE_AEROBICS
-                    + "]"
-                    + "["
-                    + VALID_MUSCLE_BASKETBALL
-                    + "] "
-                    + VALID_FULL_NAME_REMARK
-                    + ": "
-                    + VALID_PREFIX_NAME_REMARK;
+        VALID_NAME_BASKETBALL
+            + " Date: "
+            + VALID_DATE_BASKETBALL
+            + " Calories: "
+            + VALID_CALORIES_BASKETBALL
+            + " Quantity: "
+            + VALID_QUANTITY_BASKETBALL
+            + " Unit: "
+            + VALID_UNIT_BASKETBALL
+            + " Muscle(s): "
+            +
+            "["
+            + VALID_MUSCLE_AEROBICS
+            + "]"
+            + "["
+            + VALID_MUSCLE_BASKETBALL
+            + "] "
+            + VALID_FULL_NAME_REMARK
+            + ": "
+            + VALID_PREFIX_NAME_REMARK;
 
     //=======================For valid regime toString============================
     public static final String VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO = "Exercise 1: Walking\n"
-            + "Exercise 2: Swimming\n"
-            + "Exercise 3: Dancing\n"
-            + "Exercise 4: Bench Press\n"
-            + "Exercise 5: Skipping\n"
-            + "Exercise 6: Sprinting\nExercise 7: Snapping\n";
+        + "Exercise 2: Swimming\n"
+        + "Exercise 3: Dancing\n"
+        + "Exercise 4: Bench Press\n"
+        + "Exercise 5: Skipping\n"
+        + "Exercise 6: Sprinting\nExercise 7: Snapping\n";
     //====================For valid statistic=============================================
     public static final String VALID_LINE_CHART = "linechart";
     public static final String VALID_BAR_CHART = "barchart";
@@ -293,7 +293,7 @@ public class CommonTestData {
     public static final String INVALID_STATISTIC_CATEGORY_DESC = " " + PREFIX_CATEGORY + INVALID_STATISTIC_CATEGORY;
     public static final String INVALID_END_DATE_DESC = " " + PREFIX_END_DATE + INVALID_END_DATE;
     public static final String INVALID_END_DATE_TOO_FAR_APART_DESC = " " + PREFIX_END_DATE
-            + INVALID_END_DATE_TOO_FAR_APART;
+        + INVALID_END_DATE_TOO_FAR_APART;
 
     //======================For valid list type=========================================================
     public static final String VALID_LIST_TYPE_EXERCISE = "exercise";

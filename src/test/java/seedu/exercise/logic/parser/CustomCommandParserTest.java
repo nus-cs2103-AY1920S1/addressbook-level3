@@ -26,6 +26,8 @@ import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_PREFIX_REMOVE_CUSTOM_PROPERTY;
 import static seedu.exercise.testutil.typicalutil.TypicalCustomProperties.RATING;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.exercise.logic.commands.CustomAddCommand;
@@ -64,7 +66,7 @@ class CustomCommandParserTest {
 
         //prefix for remove custom property
         assertParseSuccess(parser, VALID_PREFIX_REMOVE_CUSTOM_PROPERTY + VALID_FULL_NAME_RATING,
-            new CustomRemoveCommand(VALID_FULL_NAME_RATING));
+            new CustomRemoveCommand(VALID_FULL_NAME_RATING, Optional.empty()));
     }
 
     @Test

@@ -1,7 +1,5 @@
 package seedu.exercise.logic.parser;
 
-import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 import seedu.exercise.model.property.CustomProperty;
+import seedu.exercise.model.property.PropertyBook;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -66,7 +65,7 @@ public class ArgumentMultimap {
      * Modifying the returned map will not affect the underlying data structure of the ArgumentMultimap.
      */
     public Map<String, String> getAllCustomProperties() {
-        Set<CustomProperty> currentCustomProperties = getCustomProperties();
+        Set<CustomProperty> currentCustomProperties = PropertyBook.getInstance().getCustomProperties();
         Map<String, String> customPropertiesMap = new TreeMap<>();
         for (CustomProperty property : currentCustomProperties) {
             Prefix currentPrefix = property.getPrefix();

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_FIRST;
 import static seedu.exercise.testutil.typicalutil.TypicalIndexes.INDEX_ONE_BASED_SECOND;
@@ -27,7 +26,7 @@ import seedu.exercise.ui.ListResourceType;
 public class DeleteExerciseCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
 
 
     @Test
@@ -38,8 +37,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
@@ -62,7 +60,7 @@ public class DeleteExerciseCommandTest {
         String expectedMessage = String.format(DeleteExerciseCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
         Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);

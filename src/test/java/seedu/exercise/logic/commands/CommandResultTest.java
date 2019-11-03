@@ -12,12 +12,13 @@ import seedu.exercise.ui.ListResourceType;
 public class CommandResultTest {
     @Test
     public void execute_accessors_success() {
-        CommandResult commandResult = new CommandResult("feedback", true, true, true);
+        CommandResult commandResult = new CommandResult("feedback", true, true, true, true);
 
         //boolean field accessors
         assertTrue(commandResult.isShowHelp() == true);
         assertTrue(commandResult.isExit() == true);
         assertTrue(commandResult.isShowResolve() == true);
+        assertTrue(commandResult.isShowCustomProperties() == true);
 
         //listResourceType accessor
         assertTrue(commandResult.getShowListResourceType().equals(ListResourceType.NULL));
@@ -44,26 +45,30 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false, false)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false, false)));
 
         // different resolve value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, true, false)));
+
+        // different showCustomProperties value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false, true)));
 
         //undefined list resource type -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback", ListResourceType.NULL)));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false, ListResourceType.NULL)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false,
+            false, ListResourceType.NULL)));
 
         assertFalse(commandResult.equals(
-                new CommandResult("feedback", false, false, false, ListResourceType.EXERCISE)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.EXERCISE)));
         assertFalse(commandResult.equals(
-                new CommandResult("feedback", false, false, false, ListResourceType.REGIME)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.REGIME)));
         assertFalse(commandResult.equals(
-                new CommandResult("feedback", false, false, false, ListResourceType.SCHEDULE)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.SCHEDULE)));
         assertFalse(commandResult.equals(
-                new CommandResult("feedback", false, false, false, ListResourceType.SUGGEST)));
+            new CommandResult("feedback", false, false, false, false, ListResourceType.SUGGEST)));
 
         //different list resource type -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", ListResourceType.EXERCISE)));
@@ -83,10 +88,16 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, false, false).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false, false).hashCode());
+
+        // different showResolve value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, true, false).hashCode());
+
+        // different showCustomProperties value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, false, true).hashCode());
 
         //different list resource type -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", ListResourceType.NULL));
@@ -97,7 +108,7 @@ public class CommandResultTest {
 
         //multiple different field values -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
-                new CommandResult("feedback", false, false, true, ListResourceType.SCHEDULE).hashCode());
+            new CommandResult("feedback", false, false, true, true, ListResourceType.SCHEDULE).hashCode());
 
     }
 }

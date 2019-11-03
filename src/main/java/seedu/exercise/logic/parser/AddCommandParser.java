@@ -9,7 +9,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
-import static seedu.exercise.logic.parser.CliSyntax.getPropertyPrefixesSet;
+import static seedu.exercise.logic.parser.CliSyntax.getPropertyPrefixesArray;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -113,7 +113,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_CALORIES, PREFIX_QUANTITY, PREFIX_UNIT, PREFIX_MUSCLE));
 
         // Includes any custom properties that have been added
-        prefixes.addAll(Arrays.asList(getPropertyPrefixesSet()));
+        prefixes.addAll(Arrays.asList(getPropertyPrefixesArray()));
         return prefixes.toArray(new Prefix[prefixes.size()]);
     }
 

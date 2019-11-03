@@ -50,11 +50,10 @@ public class CliSyntax {
     }
 
     /**
-     * Returns an array that contains the prefixes in {@code PREFIXES_SET} and {@code otherPrefixes}.
+     * Returns an array that contains the prefixes in {@code PREFIXES_SET}.
      * This prefix array can be used for {@link ArgumentTokenizer#tokenize}.
      */
-    public static Prefix[] getPropertyPrefixesSet() {
-        Prefix[] prefixArray = PROPERTY_PREFIXES_SET.toArray(new Prefix[PROPERTY_PREFIXES_SET.size()]);
-        return prefixArray;
+    public static Prefix[] getPropertyPrefixesArray() {
+        return PROPERTY_PREFIXES_SET.toArray(new Prefix[0]);
     }
 }

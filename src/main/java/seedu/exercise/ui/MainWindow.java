@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ResolveWindow resolveWindow;
+    private CustomPropertiesWindow customPropertiesWindow;
     private ExerciseListPanel exerciseListPanel;
     private RegimeListPanel regimeListPanel;
     private ScheduleListPanel scheduleListPanel;
@@ -105,6 +106,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         resolveWindow = new ResolveWindow(logic, resultDisplay);
+
+        customPropertiesWindow = new CustomPropertiesWindow();
 
         exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
 
@@ -244,6 +247,10 @@ public class MainWindow extends UiPart<Stage> {
         if (commandResult.isShowResolve()) {
             handleResolve();
         }
+
+        if (commandResult.isShowCustomProperties()) {
+            handleViewCustom();
+        }
     }
 
     private void shouldExitAppBasedOnCommandResult(CommandResult commandResult) {
@@ -274,6 +281,19 @@ public class MainWindow extends UiPart<Stage> {
             resolveWindow.focus();
         } else {
             resolveWindow.show();
+        }
+    }
+
+    /**
+     * Opens the custom properties window or focuses on it if it's already opened.
+     */
+    @FXML
+    private void handleViewCustom() {
+        customPropertiesWindow.initialiseTable();
+        if (!customPropertiesWindow.isShowing()) {
+            customPropertiesWindow.show();
+        } else {
+            customPropertiesWindow.focus();
         }
     }
 

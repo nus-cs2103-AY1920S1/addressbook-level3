@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -132,8 +133,8 @@ public class CollectionUtilTest {
     @Test
     public void areListsEmpty_listsEmpty_returnsTrue() {
         assertTrue(CollectionUtil.areListsEmpty(
-                new ArrayList<>(),
-                new ArrayList<>()
+            new ArrayList<>(),
+            new ArrayList<>()
         ));
     }
 
@@ -142,18 +143,21 @@ public class CollectionUtilTest {
         List<String> nonEmpty = new ArrayList<>();
         nonEmpty.add("a");
         assertFalse(CollectionUtil.areListsEmpty(
-                new ArrayList<>(),
-                nonEmpty
+            new ArrayList<>(),
+            nonEmpty
         ));
     }
 
     @Test
-    public void append_nullArguments_throwsNullPointerExceptino() {
+    public void append_nullArguments_throwsNullPointerException() {
         //Both null
         assertThrows(NullPointerException.class, () -> CollectionUtil.append(null, null));
 
         //One null
         assertThrows(NullPointerException.class, () -> CollectionUtil.append(null, new ArrayList<>()));
+
+        //One null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.append(new ArrayList<>(), null));
     }
 
     @Test
@@ -163,6 +167,21 @@ public class CollectionUtilTest {
 
         //One null
         assertThrows(NullPointerException.class, () -> CollectionUtil.areListsEmpty(null, new ArrayList<>()));
+
+        //One null
+        assertThrows(NullPointerException.class, () -> CollectionUtil.areListsEmpty(new ArrayList<>(), null));
+    }
+
+    @Test
+    public void mapToStringList_nullArgument_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> CollectionUtil.mapToStringList(null));
+    }
+
+    @Test
+    public void mapToStringList_validArgument_success() {
+        Map<String, String> toConvert = Map.of("a", "b");
+        List<String> expectedResult = List.of("a: b");
+        assertEquals(expectedResult, CollectionUtil.mapToStringList(toConvert));
     }
 
     /**

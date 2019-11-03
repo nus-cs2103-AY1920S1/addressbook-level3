@@ -4,9 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CUSTOM_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_FULL_NAME;
+import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_PARAMETER_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_REMOVE_CUSTOM;
 
+import java.util.Optional;
+
+import seedu.exercise.commons.core.index.Index;
 import seedu.exercise.logic.commands.CustomAddCommand;
 import seedu.exercise.logic.commands.CustomCommand;
 import seedu.exercise.logic.commands.CustomRemoveCommand;
@@ -30,7 +34,7 @@ public class CustomCommandParser implements Parser<CustomCommand> {
     public CustomCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CUSTOM_NAME, PREFIX_FULL_NAME,
-            PREFIX_PARAMETER_TYPE, PREFIX_REMOVE_CUSTOM);
+            PREFIX_PARAMETER_TYPE, PREFIX_REMOVE_CUSTOM, PREFIX_INDEX);
 
         if (areValidPrefixesForAddCustom(argMultimap)) {
             return parseCustomAdd(argMultimap);
@@ -65,7 +69,7 @@ public class CustomCommandParser implements Parser<CustomCommand> {
 
     /**
      * Returns true if the only prefix present for the custom command is the prefix required for removing a
-     * custom property
+     * custom property.
      */
     private boolean isValidPrefixForRemoveCustom(ArgumentMultimap argMultimap) {
         return isRemovePrefixPresent(argMultimap)
@@ -91,6 +95,10 @@ public class CustomCommandParser implements Parser<CustomCommand> {
      */
     private CustomRemoveCommand parseCustomRemove(ArgumentMultimap argMultimap) throws ParseException {
         String fullName = ParserUtil.parseFullName(argMultimap.getValue(PREFIX_REMOVE_CUSTOM).get());
-        return new CustomRemoveCommand(fullName);
+        Optional<Index> index = Optional.empty();
+        if (argMultimap.arePrefixesPresent(PREFIX_INDEX)) {
+            index = Optional.of(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get()));
+        }
+        return new CustomRemoveCommand(fullName, index);
     }
 }

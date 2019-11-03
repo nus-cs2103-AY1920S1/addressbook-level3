@@ -1,0 +1,28 @@
+@startuml
+start
+
+:User states the name of the custom property to be removed;
+
+:User provides an index if necessary;
+
+:Check if the given name is used by a custom property;
+
+if () then ([given name is used])
+    :Check if index is given;
+        if () then([index is given])
+        :Check if index is valid;
+            if () then([index is valid])
+                :Remove custom property from exercise at given index;
+            else ([else])
+                :Inform user that index is invalid;
+            endif
+        else ([else])
+            :Remove custom property of given name from PropertyBook;
+            :Update custom properties of exercises;
+        endif
+else ([else])
+    :Inform user that name is not used by custom property;
+endif
+
+stop
+@enduml

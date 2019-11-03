@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.stage.Stage?>
+
+<fx:root title="Custom Properties Window" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/logo_eH.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+                <children>
+                    <TableView fx:id="customPropertiesTable" prefHeight="371.0" prefWidth="371.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <columns>
+                            <TableColumn fx:id="nameColumn" editable="false" minWidth="50.0" prefWidth="-1.0" text="Full Name" />
+                            <TableColumn fx:id="prefixColumn" editable="false" minWidth="50.0" prefWidth="-1.0" text="Prefix" />
+                            <TableColumn fx:id="parameterColumn" editable="false" minWidth="30.0" prefWidth="-1.0" text="Parameter Type" />
+                        </columns>
+                  <columnResizePolicy>
+                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                  </columnResizePolicy>
+                    </TableView>
+                </children>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</fx:root>

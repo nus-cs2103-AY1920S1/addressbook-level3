@@ -1,16 +1,21 @@
 package seedu.exercise.model.property;
 
-import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.exercise.logic.parser.CliSyntax.setPropertyPrefixesSet;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultFullNames;
 import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPrefixes;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.parser.Prefix;
 
 /**
@@ -18,7 +23,10 @@ import seedu.exercise.logic.parser.Prefix;
  * It also helps to keep track of all the existing custom properties that have been defined by the user.
  */
 public class PropertyBook {
-    private static final Set<CustomProperty> CUSTOM_PROPERTIES = new HashSet<>();
+    public static final String MESSAGE_DUPLICATE_NAME_OR_PREFIX = "The full name or the prefix of the custom"
+        + " clashes with another property/parameter";
+    private static final Logger logger = LogsCenter.getLogger(PropertyBook.class);
+    private static PropertyBook propertyBook;
 
     // Helps to ensure that the prefixes used in add/edit command and full names of default
     // properties are always present.
@@ -27,17 +35,18 @@ public class PropertyBook {
 
     private final Set<Prefix> customPrefixes = new HashSet<>();
     private final Set<String> customFullNames = new HashSet<>();
+    private final Set<CustomProperty> customProperties = new HashSet<>();
 
-    /**
-     * Initialises an instance of {@code PropertyBook} object. If any full name/prefix are present in the custom
-     * property but not in the prefixes
-     *
-     * @param customProperties the set of custom properties to be added to the {@code PropertyBook}
-     */
-    public PropertyBook(Set<CustomProperty> customProperties) {
-        requireAllNonNull(customProperties);
-        addCustomProperties(customProperties);
-        setPrefixesAndFullNames(customProperties);
+    private PropertyBook() {
+
+    }
+
+    public static PropertyBook getInstance() {
+        if (propertyBook == null) {
+            logger.info("PropertyBook first initialised");
+            propertyBook = new PropertyBook();
+        }
+        return propertyBook;
     }
 
     /**
@@ -47,7 +56,7 @@ public class PropertyBook {
      * @param customProperties the custom properties to be added
      */
     public void addCustomProperties(Set<CustomProperty> customProperties) {
-        CUSTOM_PROPERTIES.addAll(customProperties);
+        this.customProperties.addAll(customProperties);
         setPrefixesAndFullNames(customProperties);
     }
 
@@ -55,17 +64,39 @@ public class PropertyBook {
      * Clears all of the custom properties in PropertyBook.
      */
     public void clearCustomProperties() {
-        CUSTOM_PROPERTIES.clear();
+        customProperties.clear();
         customPrefixes.clear();
         customFullNames.clear();
+    }
+
+    /**
+     * Returns a new {@code Map<String, String>} containing valid custom properties that are present in the
+     * PropertyBook. This ensures that if the user did not define a custom property in the storage and yet
+     * edits the exercises' custom properties in the storage, the undefined custom properties will not show up.
+     */
+    public Map<String, String> removeInvalidCustomProperties(Map<String, String> customPropertiesMap) {
+        Map<String, String> newMap = new TreeMap<>();
+        for (String validProperty : customFullNames) {
+            if (customPropertiesMap.containsKey(validProperty)) {
+                newMap.put(validProperty, customPropertiesMap.get(validProperty));
+            }
+        }
+        return newMap;
     }
 
     /**
      * Returns an immutable custom properties set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public static Set<CustomProperty> getCustomProperties() {
-        return Collections.unmodifiableSet(CUSTOM_PROPERTIES);
+    public Set<CustomProperty> getCustomProperties() {
+        return Collections.unmodifiableSet(customProperties);
+    }
+
+    /**
+     * Returns an observable list of custom properties for display.
+     */
+    public ObservableList<CustomProperty> getObservableCustomProperties() {
+        return FXCollections.observableList(new ArrayList<>(customProperties));
     }
 
     /**
@@ -76,7 +107,7 @@ public class PropertyBook {
         String newFullName = customProperty.getFullName();
         addPrefix(newPrefix);
         addFullName(newFullName);
-        CUSTOM_PROPERTIES.add(customProperty);
+        customProperties.add(customProperty);
         updatePropertyPrefixes();
     }
 
@@ -100,20 +131,9 @@ public class PropertyBook {
         String fullNameToRemove = toRemove.getFullName();
         removePrefix(prefixToRemove);
         removeFullName(fullNameToRemove);
-        CUSTOM_PROPERTIES.remove(toRemove);
+        customProperties.remove(toRemove);
         updatePropertyPrefixes();
     }
-
-    /**
-     * Updates the property prefixes in {@code CliSyntax} class for use in add/edit command.
-     */
-    public void updatePropertyPrefixes() {
-        Set<Prefix> combinedSet = new HashSet<>();
-        combinedSet.addAll(defaultPrefixes);
-        combinedSet.addAll(customPrefixes);
-        setPropertyPrefixesSet(Collections.unmodifiableSet(combinedSet));
-    }
-
 
     /**
      * Checks if the prefix has already been used by a property.
@@ -136,27 +156,18 @@ public class PropertyBook {
         return customFullNames.contains(fullName);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof PropertyBook)) {
-            return false;
-        }
-
-        PropertyBook anotherManager = (PropertyBook) other;
-        return customPrefixes.equals(anotherManager.customPrefixes)
-            && customFullNames.equals(anotherManager.customFullNames);
+    /**
+     * Returns true if the given custom property is using any default/used custom names and prefixes.
+     */
+    public boolean hasClashingPrefixOrName(CustomProperty customProperty) {
+        return isPrefixUsed(customProperty.getPrefix())
+            || isFullNameUsed(customProperty.getFullName());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(customPrefixes, customFullNames);
-    }
-
-
+    /**
+     * Adds the prefix and full name of each of the custom property in {@code customProperties} into
+     * the sets.
+     */
     private void setPrefixesAndFullNames(Set<CustomProperty> customProperties) {
         for (CustomProperty property : customProperties) {
             this.addPrefix(property.getPrefix());
@@ -193,11 +204,21 @@ public class PropertyBook {
     }
 
     /**
+     * Updates the property prefixes in {@code CliSyntax} class for use in add/edit command.
+     */
+    private void updatePropertyPrefixes() {
+        Set<Prefix> combinedSet = new HashSet<>();
+        combinedSet.addAll(defaultPrefixes);
+        combinedSet.addAll(customPrefixes);
+        setPropertyPrefixesSet(Collections.unmodifiableSet(combinedSet));
+    }
+
+    /**
      * Retrieves the custom property with the given {@code fullName}.
      */
     private Optional<CustomProperty> retrieveCustomProperty(String fullName) {
         Optional<CustomProperty> retrieved = Optional.empty();
-        for (CustomProperty customProperty : CUSTOM_PROPERTIES) {
+        for (CustomProperty customProperty : customProperties) {
             if (customProperty.getFullName().equals(fullName)) {
                 retrieved = Optional.of(customProperty);
                 break;

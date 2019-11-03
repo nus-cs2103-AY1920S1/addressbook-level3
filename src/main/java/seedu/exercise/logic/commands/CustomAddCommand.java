@@ -5,10 +5,14 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CUSTOM_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_FULL_NAME;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_PARAMETER_TYPE;
 
+import java.util.logging.Logger;
+
+import seedu.exercise.commons.core.LogsCenter;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.logic.parser.Prefix;
 import seedu.exercise.model.Model;
 import seedu.exercise.model.property.CustomProperty;
+import seedu.exercise.model.property.PropertyBook;
 
 /**
  * Adds a custom property for the exercises.
@@ -30,6 +34,7 @@ public class CustomAddCommand extends CustomCommand {
     public static final String MESSAGE_DUPLICATE_PREFIX_NAME = "This prefix name has been used for an "
         + "existing parameter in add/edit command";
 
+    private static final Logger logger = LogsCenter.getLogger(CustomAddCommand.class);
     private final CustomProperty toAdd;
 
     /**
@@ -45,16 +50,20 @@ public class CustomAddCommand extends CustomCommand {
         requireNonNull(model);
 
         String fullName = toAdd.getFullName();
-        if (model.isFullNameUsed(fullName)) {
+        PropertyBook propertyBook = PropertyBook.getInstance();
+        if (propertyBook.isFullNameUsed(fullName)) {
+            logger.warning("Full name has been used by a property/parameter");
             throw new CommandException(MESSAGE_DUPLICATE_FULL_NAME);
         }
 
         Prefix prefix = toAdd.getPrefix();
-        if (model.isPrefixUsed(prefix)) {
+        if (propertyBook.isPrefixUsed(prefix)) {
+            logger.warning("Prefix has been used by a property/parameter");
             throw new CommandException(MESSAGE_DUPLICATE_PREFIX_NAME);
         }
 
-        model.addCustomProperty(toAdd);
+        logger.info("Custom property added to model: " + fullName);
+        propertyBook.addCustomProperty(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

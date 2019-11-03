@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.exercise.logic.commands.EditCommand;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.model.property.Calories;
 import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
@@ -14,25 +14,25 @@ import seedu.exercise.model.property.Unit;
 import seedu.exercise.model.resource.Exercise;
 
 /**
- * A utility class to help with building EditExerciseDescriptor objects.
+ * A utility class to help with building EditExerciseBuilder objects.
  */
 public class EditExerciseDescriptorBuilder {
 
-    private EditCommand.EditExerciseDescriptor descriptor;
+    private EditExerciseBuilder descriptor;
 
     public EditExerciseDescriptorBuilder() {
-        descriptor = new EditCommand.EditExerciseDescriptor();
+        descriptor = new EditExerciseBuilder();
     }
 
-    public EditExerciseDescriptorBuilder(EditCommand.EditExerciseDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditExerciseDescriptor(descriptor);
+    public EditExerciseDescriptorBuilder(EditExerciseBuilder descriptor) {
+        this.descriptor = new EditExerciseBuilder(descriptor);
     }
 
     /**
-     * Returns an {@code EditExerciseDescriptor} with fields containing {@code exercise}'s details
+     * Returns an {@code EditExerciseBuilder} with fields containing {@code exercise}'s details
      */
     public EditExerciseDescriptorBuilder(Exercise exercise) {
-        descriptor = new EditCommand.EditExerciseDescriptor();
+        descriptor = new EditExerciseBuilder();
         descriptor.setName(exercise.getName());
         descriptor.setCalories(exercise.getCalories());
         descriptor.setDate(exercise.getDate());
@@ -41,7 +41,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditExerciseDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditExerciseBuilder} that we are building.
      */
     public EditExerciseDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -49,7 +49,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Calories} of the {@code EditExerciseDescriptor} that we are building.
+     * Sets the {@code Calories} of the {@code EditExerciseBuilder} that we are building.
      */
     public EditExerciseDescriptorBuilder withCalories(String calories) {
         descriptor.setCalories(new Calories(calories));
@@ -57,7 +57,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code EditExerciseDescriptor} that we are building.
+     * Sets the {@code Date} of the {@code EditExerciseBuilder} that we are building.
      */
     public EditExerciseDescriptorBuilder withDate(String date) {
         descriptor.setDate(new Date(date));
@@ -65,7 +65,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Quantity} of the {@code EditExerciseDescriptor} that we are building.
+     * Sets the {@code Quantity} of the {@code EditExerciseBuilder} that we are building.
      */
     public EditExerciseDescriptorBuilder withQuantity(String quantity) {
         descriptor.setQuantity(new Quantity(quantity));
@@ -73,7 +73,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Unit} of the {@code EditExerciseDescriptor} that we are building.
+     * Sets the {@code Unit} of the {@code EditExerciseBuilder} that we are building.
      */
     public EditExerciseDescriptorBuilder withUnit(String unit) {
         descriptor.setUnit(new Unit(unit));
@@ -81,7 +81,7 @@ public class EditExerciseDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code muscles} into a {@code Set<Muscle>} and set it to the {@code EditExerciseDescriptor}
+     * Parses the {@code muscles} into a {@code Set<Muscle>} and set it to the {@code EditExerciseBuilder}
      * that we are building.
      */
     public EditExerciseDescriptorBuilder withMuscles(String... muscles) {
@@ -90,7 +90,7 @@ public class EditExerciseDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditExerciseDescriptor build() {
+    public EditExerciseBuilder build() {
         return descriptor;
     }
 }

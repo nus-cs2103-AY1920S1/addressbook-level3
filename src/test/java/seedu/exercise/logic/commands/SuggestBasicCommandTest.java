@@ -3,7 +3,6 @@ package seedu.exercise.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.model.util.SampleDataUtil.getBasicExercises;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
@@ -26,11 +25,11 @@ public class SuggestBasicCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                new UserPrefs(), getDefaultPropertyBook());
+            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+            new UserPrefs());
         expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-                getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-                new UserPrefs(), getDefaultPropertyBook());
+            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
+            new UserPrefs());
         expectedModel.setSuggestions(Arrays.asList(getBasicExercises()));
     }
 

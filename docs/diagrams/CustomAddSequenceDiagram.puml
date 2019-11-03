@@ -6,13 +6,13 @@ box "Logic" LOGIC_COLOR_T1
     participant ":LogicManager" as LogicManager LOGIC_COLOR
     participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
     participant ":CustomCommandParser" as CustomCommandParser LOGIC_COLOR
-    participant ":CustomProperty" as CustomProperty LOGIC_COLOR
-    participant ":CustomCommand" as CustomCommand LOGIC_COLOR
+    participant ":CustomAddCommand" as CustomAddCommand LOGIC_COLOR
     participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box "Model" MODEL_COLOR_T1
-    participant ":Model" as Model MODEL_COLOR_T1
+    participant "toAdd:CustomProperty" as CustomProperty MODEL_COLOR_T1
+    participant ":PropertyBook" as PropertyBook MODEL_COLOR_T1
 end box
 
 -> LogicManager: execute("custom s/r f/Rating p/Number")
@@ -38,12 +38,12 @@ activate CustomProperty
 CustomProperty --> CustomCommandParser: toAdd
 deactivate CustomProperty
 
-create CustomCommand
-CustomCommandParser -> CustomCommand: new CustomCommand(toAdd)
-activate CustomCommand
+create CustomAddCommand
+CustomCommandParser -> CustomAddCommand: new CustomAddCommand(toAdd)
+activate CustomAddCommand
 
-CustomCommand --> CustomCommandParser: cc
-deactivate CustomCommand
+CustomAddCommand --> CustomCommandParser: cc
+deactivate CustomAddCommand
 
 CustomCommandParser --> ExerciseBookParser: cc
 deactivate CustomCommandParser
@@ -53,24 +53,24 @@ destroy CustomCommandParser
 ExerciseBookParser --> LogicManager: cc
 deactivate ExerciseBookParser
 
-LogicManager -> CustomCommand: execute()
-activate CustomCommand
+LogicManager -> CustomAddCommand: execute(model)
+activate CustomAddCommand
 
-CustomCommand -> Model: addCustomProperty(toAdd)
-activate Model
+CustomAddCommand -> PropertyBook: addCustomProperty(toAdd)
+activate PropertyBook
 
-Model --> CustomCommand
-deactivate Model
+PropertyBook --> CustomAddCommand
+deactivate PropertyBook
 
 create CommandResult
-CustomCommand -> CommandResult
+CustomAddCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> CustomCommand: result
+CommandResult --> CustomAddCommand: result
 deactivate CommandResult
 
-CustomCommand --> LogicManager: result
-deactivate CustomCommand
+CustomAddCommand --> LogicManager: result
+deactivate CustomAddCommand
 
 <-- LogicManager :result
 deactivate LogicManager

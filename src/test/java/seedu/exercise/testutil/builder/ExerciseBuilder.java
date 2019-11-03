@@ -1,6 +1,8 @@
 package seedu.exercise.testutil.builder;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.exercise.model.property.Calories;
@@ -29,6 +31,7 @@ public class ExerciseBuilder {
     private Quantity quantity;
     private Unit unit;
     private Set<Muscle> muscles;
+    private Map<String, String> customProperties;
 
     public ExerciseBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -37,6 +40,7 @@ public class ExerciseBuilder {
         quantity = new Quantity(DEFAULT_QUANTITY);
         unit = new Unit(DEFAULT_UNIT);
         muscles = new HashSet<>();
+        customProperties = new HashMap<>();
     }
 
     /**
@@ -49,6 +53,7 @@ public class ExerciseBuilder {
         quantity = exerciseToCopy.getQuantity();
         unit = exerciseToCopy.getUnit();
         muscles = new HashSet<>(exerciseToCopy.getMuscles());
+        customProperties = new HashMap<>(exerciseToCopy.getCustomPropertiesMap());
     }
 
     /**
@@ -99,8 +104,16 @@ public class ExerciseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code customProperties} of the {@code Exercise} that we are building.
+     */
+    public ExerciseBuilder withCustomProperties(Map<String, String> customProperties) {
+        this.customProperties = customProperties;
+        return this;
+    }
+
     public Exercise build() {
-        return new Exercise(name, date, calories, quantity, unit, muscles);
+        return new Exercise(name, date, calories, quantity, unit, muscles, customProperties);
     }
 
 }

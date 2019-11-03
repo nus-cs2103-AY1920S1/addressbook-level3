@@ -201,6 +201,4 @@ public class Exercise extends Resource {
             getCustomPropertiesMap().forEach((x, y) -> builder.append(x + ": " + y + " "));
         }
     }
-
-
 }

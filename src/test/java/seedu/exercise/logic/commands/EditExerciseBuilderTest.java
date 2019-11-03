@@ -12,15 +12,16 @@ import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.testutil.builder.EditExerciseDescriptorBuilder;
 
-public class EditExerciseDescriptorTest {
+public class EditExerciseBuilderTest {
 
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditExerciseDescriptor descriptorWithSameValues =
-            new EditCommand.EditExerciseDescriptor(DESC_AEROBICS);
+        EditExerciseBuilder descriptorWithSameValues =
+            new EditExerciseBuilder(DESC_AEROBICS);
         assertTrue(DESC_AEROBICS.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -36,7 +37,7 @@ public class EditExerciseDescriptorTest {
         assertFalse(DESC_AEROBICS.equals(DESC_BASKETBALL));
 
         // different name -> returns false
-        EditCommand.EditExerciseDescriptor editedAerobics =
+        EditExerciseBuilder editedAerobics =
             new EditExerciseDescriptorBuilder(DESC_AEROBICS).withName(VALID_NAME_BASKETBALL).build();
         assertFalse(DESC_AEROBICS.equals(editedAerobics));
 

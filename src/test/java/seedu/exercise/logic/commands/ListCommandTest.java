@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,19 +23,17 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
     }
 
     @Test
     public void execute_exerciseListNotFiltered_showsAllExercises() {
         ListResourceType listResourceType = ListResourceType.EXERCISE;
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
-                listResourceType);
+            String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+            listResourceType);
         assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 
@@ -44,8 +41,8 @@ public class ListCommandTest {
     public void execute_exerciseListFiltered_showsFilteredExercises() {
         ListResourceType listResourceType = ListResourceType.EXERCISE;
         CommandResult expectedCommandResult = new CommandResult(
-                String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
-                listResourceType);
+            String.format(ListCommand.MESSAGE_SUCCESS, listResourceType.toString().toLowerCase()),
+            listResourceType);
         assertCommandSuccess(new ListCommand(listResourceType), model, expectedCommandResult, expectedModel);
     }
 }

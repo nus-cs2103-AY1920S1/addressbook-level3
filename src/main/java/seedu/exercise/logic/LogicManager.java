@@ -136,7 +136,7 @@ public class LogicManager implements Logic {
         storage.saveExerciseDatabase(model.getExerciseDatabaseData());
         storage.saveScheduleBook(model.getAllScheduleData());
         storage.saveRegimeBook(model.getAllRegimeData());
-        storage.savePropertyBook(model.getPropertyBook());
+        storage.savePropertyBook();
     }
 
     private boolean isCommandExecutedInCorrectState(Command command) {

@@ -19,21 +19,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.exercise.logic.parser.Prefix;
-import seedu.exercise.model.property.CustomProperty;
-import seedu.exercise.model.property.PropertyBook;
 
 /**
  * Contains utility methods for initialising a default {@code PropertyBook}.
  */
 public class DefaultPropertyBookUtil {
-
-    /**
-     * Creates a new {@code PropertyBook} that contains the default prefixes, default full names and
-     * an empty list of default custom properties.
-     */
-    public static PropertyBook getDefaultPropertyBook() {
-        return new PropertyBook(getDefaultCustomProperties());
-    }
 
     /**
      * Creates a new {@code Set<Prefix>} that contains all the prefixes of the default exercise properties.
@@ -63,12 +53,5 @@ public class DefaultPropertyBookUtil {
         defaultFullNames.add(PROPERTY_MUSCLE);
         defaultFullNames.add(PROPERTY_UNIT);
         return defaultFullNames;
-    }
-
-    /**
-     * Creates a new empty {@code Set<CustomProperty>}
-     */
-    public static Set<CustomProperty> getDefaultCustomProperties() {
-        return new HashSet<>();
     }
 }

@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T09-2/main/tree/master
 
-By: `Team ExerHealth`      Since: `Sep 2016`      Licence: `MIT`
+By: `Team ExerHealth`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -89,8 +89,8 @@ Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/
 
 ****
 * Dates that are entered have to be of the form `dd/MM/yyyy`.
-* The day of each date must be between 1 and 31 inclusive.
-* The month of each date must be between 1 and 12 inclusive.
+* The day of each date must be between 01 and 31 inclusive.
+* The month of each date must be between 01 and 12 inclusive.
 * If the day of the month entered is within the above range but exceeds the number of days present
 in that particular month, the date will be treated as the last day of that particular month e.g. if
 `31/02/2019` is entered, it will be treated as `28/02/2019`.
@@ -99,8 +99,10 @@ in that particular month, the date will be treated as the last day of that parti
 Examples:
 
 * `add t/exercise n/Run d/19/09/2019 c/500 q/2.4 u/km`
-* `add t/exercise n/Swimming d/19/09/2019 c/2000 q/20 u/laps`
-* `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
+
+Expected result:
+
+image::AddRunResult.png[]
 
 ==== Adding exercises to scheduling regime +
 
@@ -131,13 +133,27 @@ Format: `list t/CAT_NAME`
 Example:
 
 * `list t/exercise`
+
+Expected result:
+
+image::ListExerciseResult.png[]
+
 * `list t/regime`
+
+Expected result:
+
+image::ListRegimeResult.png[]
+
 * `list t/schedule`
+
+Expected result:
+
+image::ListScheduleResult.png[]
 
 === Edit exercise information: `edit`
 
-Edits the relevant exercise information into ExerHealth.
-You can edit all the possible information for exercises except for custom properties.
+Edits the relevant exercise information in ExerHealth.
+You can edit all the possible information for exercises including custom properties.
 
 ****
 * The date entered for this command must follow the same requirements as that of `add` command.
@@ -146,7 +162,7 @@ You can edit all the possible information for exercises except for custom proper
 * Existing values will be updated to the input values.
 ****
 
-Format: `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
 
 Example:
 
@@ -223,6 +239,7 @@ Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [e/END_DATE]`
 * Exercise will appear as `NAME (UNIT)` in the charts. E.g `Running (km)`. If it is too long (more than 18 characters), it will be formatted to first 10 characters plus last 8 characters.
 ** For example, exercise `Strength Training (counts)` is more than 18 characters, it will be formatted to `Strength T...(counts)`.
 * It also includes total and average `CATEGORY` per day of exercises in the date range.
+****
 
 Figure below shows an example of pie chart. +
 
@@ -265,10 +282,11 @@ If there is no command has been undone after the latest undoable command, redo c
 
 Format: `redo`
 
+// tag::custom[]
 [[customproperty]]
-=== Custom properties: `custom`
+=== Custom properties
 
-==== Adding custom properties
+==== Adding custom properties: `custom`
 
 Adds in a custom property which you can define for the exercises.
 
@@ -317,20 +335,44 @@ Adds an exercise with the name `Run`, date `01/10/2019` and ratings `5` into the
 
 Edits the ratings of the 4th exercise in the list to `3`.
 
-==== Removing custom properties
+==== Removing custom properties: `custom`
 
-Removes a custom property which you have previously defined.
-This removes the custom property from all exercises.
+Removes a custom property which you have previously defined either from a single exercise
+or from Exerhealth.
 
-[TIP]
-`FULL_NAME` denotes the name of the previously defined custom property.
+In the second case, you will still be able to add back the deleted custom property if you
+wish to.
 
-Format: `custom rm/FULL_NAME`
+****
+* `FULL_NAME` denotes the name of the previously defined custom property.
+* The index, if provided, must be a positive integer 1, 2, 3, …​
+****
+
+Format: `custom rm/FULL_NAME [i/INDEX]`
 
 Example:
 
 * `custom rm/Ratings`
-* `custom rm/Remark`
+
+Removes the custom property `Ratings` from all of the exercises and from ExerHealth.
+
+* `custom rm/Ratings i/1`
+
+Removes the custom property `Ratings` from the 1st exercise in the list.
+
+==== Viewing custom properties: `viewcustom`
+
+Opens up a window for you to view the custom properties you have defined.
+The name, prefix and parameter type of all existing custom properties will be shown.
+
+Format: `viewcustom`
+
+Example:
+
+* `viewcustom`
+
+Opens up a window containing information of all existing custom properties.
+// end::custom[]
 
 // tag::scheduleresolve[]
 
@@ -484,12 +526,12 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* : `add t/exercise n/EXERCISE_NAME d/DATE [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...` +
+* *Add* : `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...` +
 e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
-* *List* : `list [t/CAT_NAME] [s/START_DATE] [e/END_DATE]`
-e.g. `list t/exercise s/12/12/2019 e/17/12/2019`
-* *Edit* : `edit t/exercise i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
-e.g. `edit t/exercise i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
+* *List* : `list t/CAT_NAME`
+e.g. `list t/exercise`
+* *Edit* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
+e.g. `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 * *Delete* : `delete t/exercise i/INDEX`
 e.g. `delete t/exercise i/2`
 * *Clear* : `clear`
@@ -498,7 +540,7 @@ e.g. `stats t/exercise h/barchart s/20/09/2019 e/27/09/2019`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Schedule* : `schedule n/REGIME_NAME d/DATE`
-e.g. `schedule n/cardio d/19/9/2019`
+e.g. `schedule n/cardio d/19/09/2019`
 * *Resolve* : `resolve n/REGIME_TO_TAKE`
 e.g. `resolve n/cardio`
 * *Suggest basic* : `suggest s/basic`
@@ -506,6 +548,8 @@ e.g. `resolve n/cardio`
 e.g. `suggest s/possible m/Chest`, `suggest s/possible o/and m/Chest m/Leg`
 * *Suggest intensity* : `suggest s/intensity i/INDEX`
 eg. `suggest s/intensity 1`
-* *Custom* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
+* *Add custom property* : `custom s/PREFIX_NAME f/FULL_NAME p/PARAMETER_TYPE`
 e.g. `custom s/c f/End Date p/Date`
+* *Remove custom property* : `custom rm/FULL_NAME [i/INDEX]`
+* *View custom property* : `viewcustom`
 * *Exit* : `exit`

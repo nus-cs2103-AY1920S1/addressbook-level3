@@ -56,7 +56,7 @@ public class ScheduleRegimeCommand extends ScheduleCommand implements PayloadCar
         Schedule toSchedule = getScheduleFromModel(model);
 
         if (toSchedule == null) {
-            return new CommandResult(MESSAGE_CONFLICT, false, false, true);
+            return new CommandResult(MESSAGE_CONFLICT, false, false, true, false);
         }
 
         schedule(model, toSchedule);

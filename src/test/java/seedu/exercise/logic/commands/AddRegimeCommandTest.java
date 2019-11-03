@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.DUPLICATE_REGIME_INDEXES;
@@ -53,7 +52,7 @@ public class AddRegimeCommandTest {
     @Test
     public void execute_duplicateIndex_throwsCommandException() {
         Model model = new ModelManager(new ReadOnlyResourceBook<>(), getTypicalRegimeBook(),
-                new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(), getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         Name name = new Name(VALID_REGIME_NAME_CARDIO);
         DeleteRegimeCommand deleteRegimeCommand = new DeleteRegimeCommand(name, DUPLICATE_REGIME_INDEXES);
 
@@ -81,7 +80,7 @@ public class AddRegimeCommandTest {
         AddRegimeCommand addRegimeCommand = new AddRegimeCommand(VALID_REGIME_INDEXES, existingName);
 
         assertThrows(CommandException.class,
-                AddRegimeCommand.MESSAGE_DUPLICATE_EXERCISE_IN_REGIME, () -> addRegimeCommand.execute(modelStub));
+            AddRegimeCommand.MESSAGE_DUPLICATE_EXERCISE_IN_REGIME, () -> addRegimeCommand.execute(modelStub));
     }
 
     @Test
@@ -108,10 +107,10 @@ public class AddRegimeCommandTest {
     public void execute_invalidIndexes_throwsCommandException() {
         ModelStub modelStub = new ModelStubWithRegime();
         AddRegimeCommand addRegimeCommand =
-                new AddRegimeCommand(LARGE_REGIME_INDEX, new Name(VALID_REGIME_NAME_CARDIO));
+            new AddRegimeCommand(LARGE_REGIME_INDEX, new Name(VALID_REGIME_NAME_CARDIO));
 
         assertThrows(CommandException.class,
-                Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX, () -> addRegimeCommand.execute(modelStub));
+            Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX, () -> addRegimeCommand.execute(modelStub));
     }
 
     @Test
@@ -160,7 +159,8 @@ public class AddRegimeCommandTest {
         }
 
         @Override
-        public void setRegime(Regime regime, Regime targetedRegime) {}
+        public void setRegime(Regime regime, Regime targetedRegime) {
+        }
 
         @Override
         public ObservableList<Exercise> getFilteredExerciseList() {
@@ -208,7 +208,7 @@ public class AddRegimeCommandTest {
             ReadOnlyResourceBook<Exercise> exercises = getExerciseBookData();
             Statistic outdatedStatistic = getStatistic();
             StatsFactory statsFactory = new StatsFactory(exercises, outdatedStatistic.getChart(),
-                    outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
+                outdatedStatistic.getCategory(), outdatedStatistic.getStartDate(), outdatedStatistic.getEndDate());
             Statistic statistic = statsFactory.generateStatistic();
             this.statistic.resetData(statistic);
         }

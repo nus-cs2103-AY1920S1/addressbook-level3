@@ -5,7 +5,6 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_MUSCLE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_OPERATION_TYPE;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_SUGGEST_TYPE;
 import static seedu.exercise.logic.parser.ParserUtil.parsePredicate;
-import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -20,6 +19,7 @@ import seedu.exercise.logic.commands.SuggestPossibleCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Muscle;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 
 /**
@@ -62,7 +62,8 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
         prefixes.add(PREFIX_OPERATION_TYPE);
         prefixes.add(PREFIX_SUGGEST_TYPE);
         prefixes.add(PREFIX_MUSCLE);
-        for (CustomProperty cp : getCustomProperties()) {
+        Set<CustomProperty> customProperties = PropertyBook.getInstance().getCustomProperties();
+        for (CustomProperty cp : customProperties) {
             prefixes.add(cp.getPrefix());
         }
         return prefixes.toArray(new Prefix[prefixes.size() - 1]);

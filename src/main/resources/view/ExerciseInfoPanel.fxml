@@ -17,7 +17,7 @@
          <children>
             <Label fx:id="name" prefHeight="74.0" prefWidth="302.0" styleClass="infoPanel_name" text="$name">
                <padding>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
             </Label>
             <HBox prefHeight="50.0" prefWidth="190.0">
@@ -27,10 +27,10 @@
                         <Image url="@/images/calendar.png" />
                      </image>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="date" styleClass="infoPanel_properties" text="$date" >
+                  <Label fx:id="date" styleClass="infoPanel_properties" text="$date">
                      <padding>
                         <Insets left="5.0" top="15.0" />
                      </padding>
@@ -47,7 +47,7 @@
                         <Image url="@/images/calories.png" />
                      </image>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="calories" styleClass="infoPanel_properties" text="$calories">
@@ -67,7 +67,7 @@
                         <Image url="@/images/stretching-exercises.png" />
                      </image>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="quantityAndUnit" styleClass="infoPanel_properties" text="$quantityAndUnit">
@@ -87,7 +87,7 @@
                         <Image url="@/images/muscles.png" />
                      </image>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
                   <FlowPane fx:id="muscles" prefHeight="75.0" prefWidth="303.0">
@@ -101,11 +101,11 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <VBox layoutY="391.0" prefHeight="253.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="391.0">
+      <VBox layoutY="425.0" prefHeight="219.0" prefWidth="481.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="425.0">
          <children>
-            <Label text="Other properties:" styleClass="infoPanel_customProperties_label">
+            <Label styleClass="infoPanel_customProperties_label" text="Other properties:">
                <padding>
-                  <Insets bottom="5.0" left="5.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
             <StackPane fx:id="customProperties" prefHeight="193.0" prefWidth="478.0" styleClass="infoPanel_customProperties_listView" />

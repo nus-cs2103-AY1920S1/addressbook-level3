@@ -60,6 +60,7 @@ public class CollectionUtil {
      * Converts a hash map into a list of strings containing information in the format "key: value".
      */
     public static <K, V> List<String> mapToStringList(Map<K, V> toConvert) {
+        requireNonNull(toConvert);
         List<String> result = new ArrayList<>();
         List<K> keyList = new ArrayList<>(toConvert.keySet());
         for (K key : keyList) {
@@ -68,4 +69,5 @@ public class CollectionUtil {
         }
         return result;
     }
+
 }

@@ -29,6 +29,11 @@ public class CommandResult {
     private boolean showResolve;
 
     /**
+     * Show the custom properties window
+     */
+    private boolean showCustomProperties;
+
+    /**
      * The type of resource to be shown in the GUI.
      */
     private ListResourceType showListResourceType;
@@ -37,19 +42,22 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp,
-                         boolean isExit, boolean showResolve, ListResourceType listResourceType) {
+                         boolean isExit, boolean showResolve, boolean showCustomProperties,
+                         ListResourceType listResourceType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = isExit;
         this.showResolve = showResolve;
+        this.showCustomProperties = showCustomProperties;
         this.showListResourceType = listResourceType;
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showResolve) {
-        this(feedbackToUser, showHelp, exit, showResolve, ListResourceType.NULL);
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showResolve,
+                         boolean showCustomProperties) {
+        this(feedbackToUser, showHelp, exit, showResolve, showCustomProperties, ListResourceType.NULL);
     }
 
     public CommandResult(String feedbackToUser, ListResourceType listResourceType) {
@@ -62,10 +70,9 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, ListResourceType.NULL);
+        this(feedbackToUser, false, false, false, false,
+            ListResourceType.NULL);
     }
-
-
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -81,6 +88,10 @@ public class CommandResult {
 
     public boolean isShowResolve() {
         return showResolve;
+    }
+
+    public boolean isShowCustomProperties() {
+        return showCustomProperties;
     }
 
     public ListResourceType getShowListResourceType() {
@@ -103,12 +114,14 @@ public class CommandResult {
             && showHelp == otherCommandResult.showHelp
             && exit == otherCommandResult.exit
             && showResolve == otherCommandResult.showResolve
+            && showCustomProperties == otherCommandResult.showCustomProperties
             && showListResourceType.equals(otherCommandResult.showListResourceType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showResolve, showListResourceType);
+        return Objects.hash(feedbackToUser, showHelp, exit, showResolve,
+            showCustomProperties, showListResourceType);
     }
 
 }

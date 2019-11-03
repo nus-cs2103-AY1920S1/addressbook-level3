@@ -1,7 +1,6 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.Test;
@@ -20,22 +19,20 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
 
         CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
-                ListResourceType.SUGGEST);
+            ListResourceType.SUGGEST);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs(),
-            getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
         expectedModel.setExerciseBook(new ReadOnlyResourceBook<>());
 
         CommandResult expectedCommandResult = new CommandResult(ClearCommand.MESSAGE_SUCCESS,
-                ListResourceType.SUGGEST);
+            ListResourceType.SUGGEST);
         assertCommandSuccess(new ClearCommand(), model, expectedCommandResult, expectedModel);
     }
 

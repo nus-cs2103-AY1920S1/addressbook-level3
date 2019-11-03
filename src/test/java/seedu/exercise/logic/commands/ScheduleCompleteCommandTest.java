@@ -11,7 +11,6 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.testutil.typicalutil.TypicalExercises;
 import seedu.exercise.testutil.typicalutil.TypicalIndexes;
 import seedu.exercise.testutil.typicalutil.TypicalSchedule;
@@ -23,9 +22,9 @@ import seedu.exercise.ui.ListResourceType;
 public class ScheduleCompleteCommandTest {
 
     private final ScheduleCommand scheduleCompleteCommandWithOutOfBoundsIndex =
-            new ScheduleCompleteCommand(TypicalIndexes.INDEX_VERY_LARGE_NUMBER);
+        new ScheduleCompleteCommand(TypicalIndexes.INDEX_VERY_LARGE_NUMBER);
     private final ScheduleCommand scheduleCompleteCommandWithValidIndex =
-            new ScheduleCompleteCommand(TypicalIndexes.INDEX_ONE_BASED_FIRST);
+        new ScheduleCompleteCommand(TypicalIndexes.INDEX_ONE_BASED_FIRST);
 
     private Model model;
 
@@ -33,7 +32,7 @@ public class ScheduleCompleteCommandTest {
     public void setUp() {
         model = new ModelManager(TypicalExercises.getTypicalExerciseBook(),
             new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(),
-            new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
+            new UserPrefs());
     }
 
     @Test
@@ -45,17 +44,17 @@ public class ScheduleCompleteCommandTest {
     @Test
     public void execute_validCommand_success() {
         String expectedMessage = String.format(ScheduleCompleteCommand.MESSAGE_SUCCESS,
-                Integer.toString(TypicalIndexes.INDEX_ONE_BASED_FIRST.getOneBased()));
+            Integer.toString(TypicalIndexes.INDEX_ONE_BASED_FIRST.getOneBased()));
 
         Schedule toComplete = model.getFilteredScheduleList().get(0);
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
-                new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), model.getAllScheduleData(),
-                new UserPrefs(), DefaultPropertyBookUtil.getDefaultPropertyBook());
+            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), model.getAllScheduleData(),
+            new UserPrefs());
         expectedModel.completeSchedule(toComplete);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.EXERCISE);
         CommandTestUtil.assertCommandSuccess(scheduleCompleteCommandWithValidIndex,
-                model, expectedCommandResult, expectedModel);
+            model, expectedCommandResult, expectedModel);
 
     }
 

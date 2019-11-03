@@ -10,7 +10,6 @@ import seedu.exercise.commons.exceptions.DataConversionException;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
-import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
@@ -183,25 +182,25 @@ public class StorageBook implements Storage {
     }
 
     @Override
-    public Optional<PropertyBook> readPropertyBook() throws DataConversionException, IOException {
-        return readPropertyBook(propertyBookStorage.getPropertyBookFilePath());
+    public void readPropertyBook() throws DataConversionException, IOException {
+        readPropertyBook(propertyBookStorage.getPropertyBookFilePath());
     }
 
     @Override
-    public Optional<PropertyBook> readPropertyBook(Path filePath) throws DataConversionException, IOException {
+    public void readPropertyBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return propertyBookStorage.readPropertyBook(filePath);
+        propertyBookStorage.readPropertyBook(filePath);
     }
 
     @Override
-    public void savePropertyBook(PropertyBook propertyBook) throws IOException {
-        savePropertyBook(propertyBook, propertyBookStorage.getPropertyBookFilePath());
+    public void savePropertyBook() throws IOException {
+        savePropertyBook(propertyBookStorage.getPropertyBookFilePath());
     }
 
     @Override
-    public void savePropertyBook(PropertyBook propertyBook, Path filePath) throws IOException {
+    public void savePropertyBook(Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        propertyBookStorage.savePropertyBook(propertyBook, filePath);
+        propertyBookStorage.savePropertyBook(filePath);
     }
 
 }

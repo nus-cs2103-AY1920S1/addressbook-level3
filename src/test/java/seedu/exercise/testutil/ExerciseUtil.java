@@ -11,7 +11,7 @@ import static seedu.exercise.logic.parser.CliSyntax.PREFIX_UNIT;
 import java.util.Set;
 
 import seedu.exercise.logic.commands.AddExerciseCommand;
-import seedu.exercise.logic.commands.EditCommand;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.resource.Exercise;
 
@@ -45,9 +45,9 @@ public class ExerciseUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditExerciseDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditExerciseBuilder}'s details.
      */
-    public static String getEditExerciseDescriptorDetails(EditCommand.EditExerciseDescriptor descriptor) {
+    public static String getEditExerciseDescriptorDetails(EditExerciseBuilder descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.toString()).append(" "));

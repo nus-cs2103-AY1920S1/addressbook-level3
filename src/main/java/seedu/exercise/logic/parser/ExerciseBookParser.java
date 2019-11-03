@@ -20,6 +20,7 @@ import seedu.exercise.logic.commands.ResolveCommand;
 import seedu.exercise.logic.commands.ScheduleCommand;
 import seedu.exercise.logic.commands.SuggestCommand;
 import seedu.exercise.logic.commands.UndoCommand;
+import seedu.exercise.logic.commands.ViewCustomCommand;
 import seedu.exercise.logic.commands.statistic.StatsCommand;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 
@@ -82,6 +83,9 @@ public class ExerciseBookParser {
 
         case CustomCommand.COMMAND_WORD:
             return new CustomCommandParser().parse(arguments);
+
+        case ViewCustomCommand.COMMAND_WORD:
+            return new ViewCustomCommand();
 
         case SuggestCommand.COMMAND_WORD:
             return new SuggestCommandParser().parse(arguments);

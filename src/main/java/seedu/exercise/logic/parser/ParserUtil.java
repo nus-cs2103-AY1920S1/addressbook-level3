@@ -14,7 +14,6 @@ import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_BASI
 import static seedu.exercise.logic.parser.SuggestCommandParser.SUGGEST_TYPE_POSSIBLE;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.OPERATION_TYPE_AND;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.OPERATION_TYPE_OR;
-import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,6 +39,7 @@ import seedu.exercise.model.property.Date;
 import seedu.exercise.model.property.Muscle;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.property.ParameterType;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.property.Quantity;
 import seedu.exercise.model.property.Unit;
 import seedu.exercise.model.resource.Exercise;
@@ -235,10 +235,10 @@ public class ParserUtil {
 
         default:
             throw new ParseException("Category can only be \'"
-                    + LIST_TYPE_EXERCISE + "\'" + " or \'"
-                    + LIST_TYPE_REGIME + "\'" + " or \'"
-                    + LIST_TYPE_SCHEDULE + "\'" + " or \'"
-                    + LIST_TYPE_SUGGEST + "\'");
+                + LIST_TYPE_EXERCISE + "\'" + " or \'"
+                + LIST_TYPE_REGIME + "\'" + " or \'"
+                + LIST_TYPE_SCHEDULE + "\'" + " or \'"
+                + LIST_TYPE_SUGGEST + "\'");
         }
 
     }
@@ -251,7 +251,7 @@ public class ParserUtil {
     static Map<String, String> parseCustomProperties(Map<String, String> customProperties)
         throws ParseException {
         requireNonNull(customProperties);
-        Set<CustomProperty> allCustomProperties = getCustomProperties();
+        Set<CustomProperty> allCustomProperties = PropertyBook.getInstance().getCustomProperties();
         final Map<String, String> customPropertiesMap = new TreeMap<>();
         for (CustomProperty property : allCustomProperties) {
             String propertyName = property.getFullName();

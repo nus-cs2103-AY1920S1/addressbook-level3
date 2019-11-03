@@ -1,7 +1,6 @@
 package seedu.exercise;
 
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,11 +23,9 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.ReadOnlyUserPrefs;
 import seedu.exercise.model.UserPrefs;
-import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.model.resource.Regime;
 import seedu.exercise.model.resource.Schedule;
-import seedu.exercise.model.util.DefaultPropertyBookUtil;
 import seedu.exercise.model.util.SampleDataUtil;
 import seedu.exercise.storage.JsonPropertyBookStorage;
 import seedu.exercise.storage.JsonUserPrefsStorage;
@@ -44,8 +41,9 @@ import seedu.exercise.ui.UiManager;
 
 /**
  * Runs the application.
- *
+ * <p>
  * Additionally, the MainApp wil keep track of the state of the program.
+ * </p>
  */
 public class MainApp extends Application {
 
@@ -99,15 +97,15 @@ public class MainApp extends Application {
      * or an empty exercise book will be used instead if errors occur when reading {@code storage}'s exercise book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        PropertyBook initialPropertyBook = getInitialPropertyBook(storage);
         ReadOnlyResourceBook<Exercise> initialData = readExerciseData(storage, storage.getExerciseBookFilePath());
         ReadOnlyResourceBook<Regime> initialRegimeData = readRegimeData(storage, storage.getRegimeBookFilePath());
         ReadOnlyResourceBook<Exercise> initialDatabase =
             readExerciseData(storage, storage.getExerciseDatabaseFilePath());
         ReadOnlyResourceBook<Schedule> initialScheduleData = readScheduleData(storage);
+        initialisePropertyBook(storage);
 
         return new ModelManager(initialData, initialRegimeData,
-            initialDatabase, initialScheduleData, userPrefs, initialPropertyBook);
+            initialDatabase, initialScheduleData, userPrefs);
     }
 
     /**
@@ -162,7 +160,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code PropertyBook} from {@code storage}.
+     * Returns a {@code ReadOnlyResourceBook<Schedule>} from {@code storage}.
      */
     private ReadOnlyResourceBook<Schedule> readScheduleData(Storage storage) {
         Optional<ReadOnlyResourceBook<Schedule>> scheduleBookOptional;
@@ -185,28 +183,20 @@ public class MainApp extends Application {
         return initialScheduleData;
     }
 
-    private PropertyBook getInitialPropertyBook(Storage storage) {
-        Optional<PropertyBook> propertyBookOptional;
-        PropertyBook initialPropertyBook;
-
+    /**
+     * Initialises the PropertyBook in {@code storage}.
+     */
+    private void initialisePropertyBook(Storage storage) {
         try {
-            propertyBookOptional = storage.readPropertyBook();
-            if (propertyBookOptional.isEmpty()) {
-                logger.info("Data for PropertyBook not found. Will be starting with a"
-                    + " default PropertyBook");
-            }
-            initialPropertyBook =
-                propertyBookOptional.orElseGet(DefaultPropertyBookUtil::getDefaultPropertyBook);
+            storage.readPropertyBook();
+            logger.info("PropertyBook successfully loaded");
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with "
                 + " a default PropertyBook");
-            initialPropertyBook = getDefaultPropertyBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with "
                 + "a default PropertyBook");
-            initialPropertyBook = getDefaultPropertyBook();
         }
-        return initialPropertyBook;
     }
 
     private void initLogging(Config config) {
@@ -304,8 +294,9 @@ public class MainApp extends Application {
 
     /**
      * Sets the current state of the program.
-     *
+     * <p>
      * Only subclasses of {@code Command} can and should call this method.
+     * </p>
      */
     public static void setState(State newState) {
         requireAllNonNull(newState);

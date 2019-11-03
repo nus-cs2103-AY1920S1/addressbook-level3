@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExerciseWithCustomProperty;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
-import static seedu.exercise.model.util.DefaultPropertyBookUtil.getDefaultPropertyBook;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
@@ -33,6 +32,7 @@ import seedu.exercise.model.ReadOnlyResourceBook;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.model.property.CustomProperty;
 import seedu.exercise.model.property.Muscle;
+import seedu.exercise.model.property.PropertyBook;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 import seedu.exercise.ui.ListResourceType;
@@ -48,10 +48,10 @@ public class SuggestPossibleCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
             getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyBook());
+            new UserPrefs());
         expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
             getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new UserPrefs(), getDefaultPropertyBook());
+            new UserPrefs());
 
         targetMuscles = new HashSet<>();
         targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));
@@ -61,13 +61,11 @@ public class SuggestPossibleCommandTest {
         targetCustomProperties.put(VALID_FULL_NAME_RATING, VALID_VALUE_RATING);
         targetCustomProperties.put(VALID_FULL_NAME_REMARK, VALID_VALUE_REMARK);
         CustomProperty rating = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_RATING)
-                .withFullName(VALID_FULL_NAME_RATING).withParameterType(VALID_PARAMETER_TYPE_RATING).build();
+            .withFullName(VALID_FULL_NAME_RATING).withParameterType(VALID_PARAMETER_TYPE_RATING).build();
         CustomProperty remark = new CustomPropertyBuilder().withPrefix(VALID_PREFIX_NAME_REMARK)
-                .withFullName(VALID_FULL_NAME_REMARK).withParameterType(VALID_PARAMETER_TYPE_REMARK).build();
-        model.getPropertyBook().addCustomProperty(rating);
-        model.getPropertyBook().addCustomProperty(remark);
-        expectedModel.getPropertyBook().addCustomProperty(rating);
-        expectedModel.getPropertyBook().addCustomProperty(remark);
+            .withFullName(VALID_FULL_NAME_REMARK).withParameterType(VALID_PARAMETER_TYPE_REMARK).build();
+        PropertyBook.getInstance().addCustomProperty(rating);
+        PropertyBook.getInstance().addCustomProperty(remark);
     }
 
     @Test
@@ -87,7 +85,7 @@ public class SuggestPossibleCommandTest {
     public void execute_suggestPossibleCustomProperty_success() {
         boolean isStrict = true;
         Predicate<Exercise> predicateCustomPropertyAnd =
-                predicateShowExerciseWithCustomProperty(targetCustomProperties, isStrict);
+            predicateShowExerciseWithCustomProperty(targetCustomProperties, isStrict);
 
         expectedModel.updateSuggestedExerciseList(predicateCustomPropertyAnd);
         String expectedMessage = SuggestPossibleCommand.MESSAGE_SUCCESS;

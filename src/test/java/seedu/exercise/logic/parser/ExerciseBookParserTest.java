@@ -18,12 +18,12 @@ import seedu.exercise.logic.commands.AddExerciseCommand;
 import seedu.exercise.logic.commands.ClearCommand;
 import seedu.exercise.logic.commands.DeleteExerciseCommand;
 import seedu.exercise.logic.commands.EditCommand;
-import seedu.exercise.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.exercise.logic.commands.ExitCommand;
 import seedu.exercise.logic.commands.HelpCommand;
 import seedu.exercise.logic.commands.ListCommand;
 import seedu.exercise.logic.commands.RedoCommand;
 import seedu.exercise.logic.commands.UndoCommand;
+import seedu.exercise.logic.commands.builder.EditExerciseBuilder;
 import seedu.exercise.logic.parser.exceptions.ParseException;
 import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.ExerciseUtil;
@@ -58,7 +58,7 @@ public class ExerciseBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Exercise build = new ExerciseBuilder().build();
-        EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(build).build();
+        EditExerciseBuilder descriptor = new EditExerciseDescriptorBuilder(build).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD
             + VALID_PREFIX_INDEX + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_ONE_BASED_FIRST, descriptor), command);
@@ -79,11 +79,11 @@ public class ExerciseBookParserTest {
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser
-                .parseCommand(ListCommand.COMMAND_WORD
-                        + VALID_PREFIX_LIST_TYPE_EXERCISE) instanceof ListCommand);
+            .parseCommand(ListCommand.COMMAND_WORD
+                + VALID_PREFIX_LIST_TYPE_EXERCISE) instanceof ListCommand);
         assertTrue(parser
-                .parseCommand(ListCommand.COMMAND_WORD
-                        + VALID_PREFIX_LIST_TYPE_SUGGEST) instanceof ListCommand);
+            .parseCommand(ListCommand.COMMAND_WORD
+                + VALID_PREFIX_LIST_TYPE_SUGGEST) instanceof ListCommand);
     }
 
     @Test

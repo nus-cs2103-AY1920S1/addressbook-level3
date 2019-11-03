@@ -1,9 +1,8 @@
 package seedu.exercise.storage;
 
-import static seedu.exercise.model.property.PropertyBook.getCustomProperties;
+import static seedu.exercise.model.property.PropertyBook.MESSAGE_DUPLICATE_NAME_OR_PREFIX;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,36 +38,30 @@ public class JsonSerializablePropertyBook {
 
     /**
      * Converts a given {@code PropertyBook} object into this class for Jackson use.
-     *
-     * @param source the {@code PropertyBook} object that is intended to be converted
      */
-    public JsonSerializablePropertyBook(PropertyBook source) {
-        Set<CustomProperty> sourceCustomProperties = getCustomProperties();
+    public JsonSerializablePropertyBook() {
+        Set<CustomProperty> sourceCustomProperties = PropertyBook.getInstance().getCustomProperties();
         customProperties.addAll(sourceCustomProperties.stream()
             .map(JsonAdaptedCustomProperty::new)
             .collect(Collectors.toList()));
     }
 
     /**
-     * Returns a {@code Set<CustomProperty>} object meant for a {@code PropertyBook}.
-     *
-     * @throws IllegalValueException if there were any data constraints violated
-     */
-    private Set<CustomProperty> toModelCustomProperties() throws IllegalValueException {
-        Set<CustomProperty> modelCustomProperties = new HashSet<>();
-        for (JsonAdaptedCustomProperty property : customProperties) {
-            modelCustomProperties.add(property.toModelType());
-        }
-        return modelCustomProperties;
-    }
-
-    /**
      * Converts this Jackson-friendly PropertyBook into the model's {@code PropertyBook} object.
+     * If any clashes in property name or prefix are found, a default PropertyBook will be loaded instead.
      *
      * @throws IllegalValueException if there were any data constraints violated
      */
-    public PropertyBook toModelManager() throws IllegalValueException {
-        Set<CustomProperty> modelCustomProperties = toModelCustomProperties();
-        return new PropertyBook(modelCustomProperties);
+    public PropertyBook toModelBook() throws IllegalValueException {
+        PropertyBook propertyBook = PropertyBook.getInstance();
+        for (JsonAdaptedCustomProperty jsonCustomProperty : customProperties) {
+            CustomProperty modelProperty = jsonCustomProperty.toModelType();
+            if (propertyBook.hasClashingPrefixOrName(modelProperty)) {
+                propertyBook.clearCustomProperties();
+                throw new IllegalValueException(MESSAGE_DUPLICATE_NAME_OR_PREFIX);
+            }
+            propertyBook.addCustomProperty(modelProperty);
+        }
+        return propertyBook;
     }
 }

@@ -1,34 +1,41 @@
 @startuml
-hide Model fields
-hide ModelManager members
-hide Prefix members
-hide CustomProperty members
+
+hide CustomProperty methods
+hide CliSyntax members
+hide ParameterType methods
 skinparam classAttributeIconSize 0
 
-interface Model <<Interface>> {
-    isPrefixUsed(Prefix)
-    isFullNameUsed(String)
-    addCustomProperty(CustomProperty)
-}
-
-class ModelManager {
+class CustomProperty {
+    - String fullName
+    - Prefix prefix
+    - ParameterType parameterType
 }
 
 class PropertyBook {
-    - {static} List<CustomProperty> CUSTOM_PROPERTIES
-    - Set<Prefix> prefixes
-    - Set<String> fullNames
+    - {static} PropertyBook instance
+    - Set<CustomProperty> customProperties
+    - Set<Prefix> defaultPrefixes
+    - Set<String> defaultFullNames
+    - Set<Prefix> customPrefixes
+    - Set<String> customFullNames
+    + {static} getInstance()
     + isPrefixUsed(Prefix)
     + isFullNameUsed(String)
+    + isFullNameUsedByCustomProperty(String)
     + addCustomProperty(CustomProperty)
+    + removeCustomProperty(String)
 }
 
-Model <|.. ModelManager
-
-ModelManager --> "1" PropertyBook: holds >
+enum ParameterType <<enumeration>> {
+    NUMBER
+    TEXT
+    DATE
+}
 
 PropertyBook o-Left-> "*" CustomProperty: tracks >
 
-PropertyBook <.Left. Prefix: updates >
+PropertyBook <.Left. CliSyntax: updates prefixes >
+
+CustomProperty -Down-> "1" ParameterType
 
 @enduml

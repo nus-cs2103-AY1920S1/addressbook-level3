@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+hide footbox
+
+box "Logic" LOGIC_COLOR_T1
+    participant ":LogicManager" as LogicManager LOGIC_COLOR
+    participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+    participant ":CustomCommandParser" as CustomCommandParser LOGIC_COLOR
+    participant ":CustomRemoveCommand" as CustomRemoveCommand LOGIC_COLOR
+    participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box "Model" MODEL_COLOR_T1
+    participant ":PropertyBook" as PropertyBook MODEL_COLOR_T1
+    participant "Rating:CustomProperty" as CustomProperty MODEL_COLOR_T1
+    participant "model:Model" as Model MODEL_COLOR_T1
+end box
+
+-> LogicManager: execute("custom rm/Rating")
+activate LogicManager
+
+LogicManager -> ExerciseBookParser: parseCommand("custom rm/Rating")
+activate ExerciseBookParser
+
+create CustomCommandParser
+ExerciseBookParser -> CustomCommandParser
+activate CustomCommandParser
+
+CustomCommandParser --> ExerciseBookParser
+deactivate CustomCommandParser
+
+ExerciseBookParser -> CustomCommandParser: parse(" rm/Rating")
+activate CustomCommandParser
+
+create CustomRemoveCommand
+CustomCommandParser -> CustomRemoveCommand: new CustomRemoveCommand("Rating")
+activate CustomRemoveCommand
+
+CustomRemoveCommand --> CustomCommandParser: cc
+deactivate CustomRemoveCommand
+
+CustomCommandParser --> ExerciseBookParser: cc
+deactivate CustomCommandParser
+CustomCommandParser -[hidden]-> ExerciseBookParser
+destroy CustomCommandParser
+
+ExerciseBookParser --> LogicManager: cc
+deactivate ExerciseBookParser
+
+LogicManager -> CustomRemoveCommand: execute(model)
+activate CustomRemoveCommand
+
+CustomRemoveCommand -> PropertyBook: removeCustomProperty("Rating")
+activate PropertyBook
+
+PropertyBook -> CustomProperty
+activate CustomProperty
+
+CustomProperty --> PropertyBook
+deactivate CustomProperty
+CustomCommandParser -[hidden]-> PropertyBook
+destroy CustomProperty
+
+PropertyBook --> CustomRemoveCommand
+deactivate PropertyBook
+
+CustomRemoveCommand -> Model: updateCustomPropertiesOfAllExercises(model)
+activate Model
+
+Model --> CustomRemoveCommand
+deactivate Model
+
+create CommandResult
+CustomRemoveCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CustomRemoveCommand: result
+deactivate CommandResult
+
+CustomRemoveCommand --> LogicManager: result
+deactivate CustomRemoveCommand
+
+<-- LogicManager :result
+deactivate LogicManager
+@enduml

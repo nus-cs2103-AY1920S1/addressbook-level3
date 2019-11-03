@@ -31,8 +31,8 @@ public class JsonPropertyBookStorage implements PropertyBookStorage {
     }
 
     @Override
-    public Optional<PropertyBook> readPropertyBook() throws DataConversionException {
-        return readPropertyBook(filePath);
+    public void readPropertyBook() throws DataConversionException {
+        readPropertyBook(filePath);
     }
 
     /**
@@ -41,36 +41,38 @@ public class JsonPropertyBookStorage implements PropertyBookStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format
      */
-    public Optional<PropertyBook> readPropertyBook(Path filePath) throws DataConversionException {
+    public void readPropertyBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializablePropertyBook> jsonPropertyBook =
             JsonUtil.readJsonFile(filePath, JsonSerializablePropertyBook.class);
+
         if (jsonPropertyBook.isEmpty()) {
-            return Optional.empty();
+            PropertyBook.getInstance();
+            return;
         }
+
         try {
-            return Optional.of(jsonPropertyBook.get().toModelManager());
+            jsonPropertyBook.get().toModelBook();
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }
 
-    public void savePropertyBook(PropertyBook propertyBook) throws IOException {
-        savePropertyBook(propertyBook, filePath);
+    public void savePropertyBook() throws IOException {
+        savePropertyBook(filePath);
     }
 
     /**
-     * Similar to {@link #savePropertyBook(PropertyBook)}
+     * Similar to {@link #savePropertyBook()}
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void savePropertyBook(PropertyBook propertyBook, Path filePath) throws IOException {
-        requireNonNull(propertyBook);
+    public void savePropertyBook(Path filePath) throws IOException {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializablePropertyBook(propertyBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializablePropertyBook(), filePath);
     }
 }
