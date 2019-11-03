@@ -414,6 +414,9 @@ Returns any incidents whereby the description contains 'fire'
 Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
+[NOTE]
+Use `edit-i` to list all submitted reports
+
 ** Only admins can edit all reports, other users are only allowed to edit the reports they created.
 ** Number of fields provided for update is optional and can vary.
 [NOTE]
@@ -531,6 +534,7 @@ Deletes a vehicle in the list as identified by the index.
 
 Format: `delete-v [INDEX]`
 
+** Only an admin account can delete vehicles.
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
@@ -539,6 +543,7 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
+image::deleteVehicleNonAdmin.png[]
 
 // tag::common[]
 //=== Clearing all entries : `clear`

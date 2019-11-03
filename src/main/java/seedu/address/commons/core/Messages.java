@@ -50,6 +50,9 @@ public class Messages {
     public static final String MESSAGE_ALL_COMPLETE_INCIDENTS_LISTED = "Listed all incident reports ready for"
             + " submission";
     public static final String MESSAGE_NO_INCIDENT_TO_SUBMIT = "No reports ready for submission present in the system";
+    public static final String MESSAGE_NO_INCIDENT_TO_EDIT = "There are no submitted reports that can be edited";
+    public static final String MESSAGE_ALL_SUBMITTED_INCIDENTS_LISTED = "Listed all submitted incident reports "
+            + "that can be edited.";
 
     public static final String MESSAGE_ACCESS_ADMIN = "You must be an admin to perform this operation. "
             + "Please see help page for more info.";

@@ -32,7 +32,8 @@ public class EditIncidentCommand extends Command {
     public static final String COMMAND_WORD = "edit-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the incident identified "
-            + "by the index number used in the displayed incidents list. "
+            + "by the index number used in the displayed incidents list. Or use "
+            + COMMAND_WORD + " to list all submitted reports for edit. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "DISTRICT] "
