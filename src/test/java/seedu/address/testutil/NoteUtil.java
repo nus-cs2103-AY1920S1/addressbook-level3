@@ -23,10 +23,7 @@ public class NoteUtil {
      * Returns the part of command string for the given {@code note}'s details.
      */
     public static String getNoteDetails(Note note) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TITLE + note.getTitle().title + " ");
-        sb.append(PREFIX_CONTENT + note.getContent().content + " ");
-        return sb.toString();
+        return PREFIX_TITLE + note.getTitle().title + " " + PREFIX_CONTENT + note.getContent().content;
     }
 
     /**

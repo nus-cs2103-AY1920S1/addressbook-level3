@@ -54,10 +54,6 @@ public class Config {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        return sb.toString();
+        return "Current log level : " + logLevel + "\nPreference file Location : " + userPrefsFilePath;
     }
-
 }
