@@ -83,6 +83,7 @@ public class SuggestionsField extends TextField {
                 public void handle(ActionEvent actionEvent) {
                     resultBox.hide();
                     setText(commandWord);
+                    endOfNextWord();
                 }
             };
 
