@@ -3,8 +3,6 @@ package seedu.ezwatchlist.model;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -27,10 +25,6 @@ public interface Model {
 
     /** {@code Predicate} that evaluates to true when a show is watched */
     Predicate<Show> PREDICATE_WATCHED_SHOWS = show -> show.isWatched().value;
-
-    /** {@code Predicate} that evaluates to true when a show is found in the indicated watchlist */
-    BiFunction<WatchList, WatchList, Predicate<Show>> PREDICATE_INTERNALLY_SEARCHED_SHOWS =
-            (watchList, watchList2) -> show -> watchList.hasShow(show) && watchList2.hasShow(show);
 
     /** {@code Predicate} that always evaluates to false */
     Predicate<Show> PREDICATE_NO_SHOWS = unused -> false;

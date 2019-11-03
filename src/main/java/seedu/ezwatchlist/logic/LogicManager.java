@@ -2,13 +2,9 @@ package seedu.ezwatchlist.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.commons.core.GuiSettings;
@@ -20,7 +16,6 @@ import seedu.ezwatchlist.logic.parser.WatchListParser;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
-import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.storage.Storage;
 
