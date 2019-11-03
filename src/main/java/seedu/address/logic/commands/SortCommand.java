@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.transaction.BankAccountOperation;
 
 /**
- * Lists all persons in the address book to the user.
+ * Sorts all transactions in the bank account to the user.
  */
 public class SortCommand extends Command {
 

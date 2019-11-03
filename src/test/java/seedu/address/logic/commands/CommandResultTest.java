@@ -11,6 +11,67 @@ import seedu.address.ui.tab.Tab;
 
 public class CommandResultTest {
     @Test
+    public void getFeedBackToUser() {
+        CommandResult commandResult = new CommandResult("feedback");
+        String feedback = commandResult.getFeedbackToUser();
+
+        // same values -> returns true
+        assertEquals(feedback, new CommandResult("feedback").getFeedbackToUser());
+
+        // different values -> returns false
+        assertNotEquals(feedback, new CommandResult("false").getFeedbackToUser());
+    }
+
+    @Test
+    public void isShowHelp() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, null);
+        boolean showHelp = commandResult.isShowHelp();
+
+        // same values -> returns true
+        assertEquals(showHelp,
+            new CommandResult("feedback", true, false, null).isShowHelp());
+
+        // different values -> returns false
+        assertNotEquals(showHelp,
+            new CommandResult("feedback", false, false, null).isShowHelp());
+    }
+
+    @Test
+    public void isExit() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, null);
+        boolean exit = commandResult.isExit();
+
+        // same values -> returns true
+        assertEquals(exit,
+            new CommandResult("feedback", true, false, null).isExit());
+
+        // different values -> returns false
+        assertNotEquals(exit,
+            new CommandResult("feedback", false, true, null).isExit());
+    }
+
+    @Test
+    public void isSwitchTab() {
+        CommandResult commandResult =
+            new CommandResult("feedback", true, false, Tab.BUDGET);
+        Tab tab = commandResult.getTab();
+        boolean switchTab = commandResult.isSwitchTab();
+
+        // same values -> returns true
+        assertEquals(tab,
+            new CommandResult("feedback", true, false, Tab.BUDGET).getTab());
+        assertEquals(switchTab,
+            new CommandResult("feedback", true, false, Tab.BUDGET).isSwitchTab());
+
+        // different values -> returns false
+        assertNotEquals(tab,
+            new CommandResult("feedback", false, false, Tab.TRANSACTION).getTab());
+    }
+
+    @Test
+
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
 

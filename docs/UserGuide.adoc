@@ -165,13 +165,11 @@ To set a new budget: +
 // tag::view[]
 === Displaying View : `view`
 
-Shows all possible views +
+Want to switch tabs without using your mouse? You can switch to another tab with the `view` command. +
 Format: `view TAB`
 
 ****
-* `TAB` input only accepts `transaction` and `budget` in v1.3.
-* `view transaction` shows a list of all your transactions.
-* `view budget` shows a list of all your budgets.
+* `TAB` input only accepts `transaction`, `budget` and `ledger` in v1.4.
 ****
 
 Examples:
@@ -223,7 +221,9 @@ Examples:
 // tag::sort[]
 === Sorting Transactions : `sort`
 
-Sorts all transactions with given `PREDICATE` +
+Have you ever wonder which is the most expensive transaction you ever made?
+Or wondered which is the latest transaction you made? Fret not!
+You can now `sort` your transactions according to `date` or `amount`. +
 Format: `sort PREDICATE`
 
 ****
@@ -240,7 +240,7 @@ Examples:
 // tag::filter[]
 === Filtering Transactions : `filter`
 
-Shows all relevant transactions with given `CATEGORY` +
+PalPay gives you the power to filter your transactions with your desired `CATEGORY`. +
 Format: `filter CATEGORY...`
 
 ****

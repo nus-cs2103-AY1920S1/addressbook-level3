@@ -18,18 +18,16 @@ public class ProjectCommandParser implements Parser<ProjectCommand> {
     @Override
     public ProjectCommand parse(String userInput) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_DATE);
+            ArgumentTokenizer.tokenize(userInput, PREFIX_DATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProjectCommand.MESSAGE_USAGE));
         }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
-        System.out.println("checking date");
         if (date.compareTo(Date.now()) <= 0) {
-            System.out.println("check failed");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_USAGE, ProjectCommand.MESSAGE_INVALID_DATE));
         }
 
