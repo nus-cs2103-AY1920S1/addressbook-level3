@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -34,9 +33,6 @@
             <bottom>
                <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" BorderPane.alignment="CENTER" />
             </bottom>
-            <right>
-               <ScrollPane fx:id="flashcardListPanelPlaceholder" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="259.0" BorderPane.alignment="CENTER" />
-            </right>
             <center>
                <VBox fx:id="test" alignment="CENTER" BorderPane.alignment="CENTER">
                   <children>
@@ -45,7 +41,14 @@
                      <StackPane fx:id="statisticsDisplayPlaceholder" styleClass="pane-with-border" VBox.vgrow="ALWAYS" />
                   </children>
                </VBox>
-            </center></BorderPane>
+            </center>
+            <right>
+               <VBox prefWidth="600.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <StackPane fx:id="flashcardListPanelPlaceholder" prefHeight="150.0" VBox.vgrow="ALWAYS" />
+                  </children>
+               </VBox>
+            </right></BorderPane>
          <stylesheets>
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />

@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import seedu.address.ui.StatusBarFooter;
@@ -46,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private ScrollPane flashcardListPanelPlaceholder;
+    private StackPane flashcardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -70,8 +71,6 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
-
 
         helpWindow = new HelpWindow();
         statsDisplay = new StatsDisplay(logic.getStatistics());
@@ -120,7 +119,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         flashcardListPanel = new FlashcardListPanel(logic.getFilteredFlashcardList());
-        flashcardListPanelPlaceholder.setContent(flashcardListPanel.getRoot());
+        flashcardListPanelPlaceholder.getChildren().add(flashcardListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
