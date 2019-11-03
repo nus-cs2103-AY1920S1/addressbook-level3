@@ -36,7 +36,7 @@
 
                </children>
             </HBox>
-            <MenuBar fx:id="commandMenuField" minHeight="-Infinity" prefHeight="30.0" prefWidth="1077.0">
+            <MenuBar fx:id="autoFillBar" minHeight="-Infinity" prefHeight="30.0" prefWidth="1077.0">
               <menus>
               </menus>
             </MenuBar>

@@ -15,6 +15,7 @@ import seedu.address.logic.commands.cardcommands.EditCommand;
 import seedu.address.logic.commands.cardcommands.FindCommand;
 import seedu.address.logic.commands.cardcommands.ListCommand;
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.commands.gamecommands.GameCommand;
 import seedu.address.logic.commands.gamecommands.GuessCommand;
 import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.gamecommands.StopCommand;
@@ -87,13 +88,18 @@ public class ParserManager {
      * and sets currentParser to HomeMode
      */
     public ParserManager() {
-        this.mode = ModeEnum.HOME;
+
         this.gameIsOver = true;
+
         this.switchParser = new SpecificModeParser();
+
         switchParser.add(SwitchToOpenCommand.class, null);
         switchParser.add(SwitchToHomeCommand.class, null);
         switchParser.add(SwitchToStartCommand.class, StartCommandParser.class);
         switchParser.add(SwitchToSettingsCommand.class, null);
+
+        this.mode = ModeEnum.HOME;
+
         this.currentParser = setCurrentParser(this.mode);
     }
 
@@ -115,7 +121,9 @@ public class ParserManager {
     private SpecificModeParser setCurrentParser(ModeEnum mode) {
 
         SpecificModeParser temp = new SpecificModeParser();
+
         switch (this.mode) {
+
         case OPEN:
             temp.add(AddCommand.class, AddCommandParser.class);
             temp.add(EditCommand.class, EditCommandParser.class);
@@ -125,6 +133,7 @@ public class ParserManager {
             temp.add(ListCommand.class, ListCommandParser.class);
             temp.add(SwitchToExitCommand.class, null);
             return temp;
+
         case HOME:
             temp.add(SelectCommand.class, BankCommandParser.class);
             temp.add(ImportCommand.class, ImportCommandParser.class);
@@ -134,6 +143,7 @@ public class ParserManager {
             temp.add(HelpCommand.class, null);
             temp.add(SwitchToExitCommand.class, null);
             return temp;
+
         case SETTINGS:
             temp.add(DifficultyCommand.class, DifficultyCommandParser.class);
             temp.add(HintsCommand.class, HintsCommandParser.class);
@@ -141,15 +151,18 @@ public class ParserManager {
             temp.add(AvatarCommand.class, AvatarCommandParser.class);
             temp.add(SwitchToExitCommand.class, null);
             return temp;
+
         case GAME:
             temp.add(GuessCommand.class, GuessCommandParser.class);
             temp.add(SkipCommand.class, null);
             temp.add(StopCommand.class, null);
             temp.add(SwitchToExitCommand.class, null);
             return temp;
+
         default:
             return null;
         }
+
     }
 
 
@@ -171,16 +184,22 @@ public class ParserManager {
      * @return List of AutoFillActions
      */
     public List<AutoFillAction> getAutoFill(String input) {
-        List<AutoFillAction> temp = new ArrayList<>();
+
+        List<AutoFillAction> result = new ArrayList<>();
+
         if (gameIsOver && bankLoaded) {
             for (AutoFillAction action : switchParser.getAutoFill(input)) {
-                temp.add(action);
+                result.add(action);
             }
         }
-        for (AutoFillAction action : currentParser.getAutoFill(input)) {
-            temp.add(action);
+
+        if (!(gameIsOver && mode == ModeEnum.GAME)) {
+            for (AutoFillAction action : currentParser.getAutoFill(input)) {
+                result.add(action);
+            }
         }
-        return temp;
+
+        return result;
     }
 
 
@@ -192,21 +211,28 @@ public class ParserManager {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException, ModeSwitchException {
-        Command temp = null;
-        if (gameIsOver && bankLoaded) {
-            temp = switchParser.parseCommand(userInput);
+
+        SwitchCommand switchCommand = null;
+        Command currentModeCommand = null;
+
+        if (bankLoaded && gameIsOver) {
+            switchCommand = (SwitchCommand) switchParser.parseCommand(userInput);
         }
-        if (temp != null) {
-            SwitchCommand switchCommand = (SwitchCommand) temp;
+
+        if (!(mode == ModeEnum.GAME && gameIsOver)) {
+            currentModeCommand = currentParser.parseCommand(userInput);
+        }
+
+        if (switchCommand != null) {
             mode = switchCommand.getNewMode(mode);
             currentParser = setCurrentParser(mode);
+            return switchCommand;
+        } else if (currentModeCommand != null) {
+            return currentModeCommand;
         } else {
-            temp = currentParser.parseCommand(userInput);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-        if (temp != null) {
-            return temp;
-        }
-        throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+
     }
 
     /**
@@ -215,13 +241,16 @@ public class ParserManager {
      * @return a list of ModeEnum
      */
     public List<ModeEnum> getModes() {
+
         List<ModeEnum> temp = new ArrayList<>();
+
         if (gameIsOver && bankLoaded) {
             temp.add(ModeEnum.OPEN);
             temp.add(ModeEnum.HOME);
             temp.add(ModeEnum.SETTINGS);
             temp.add(ModeEnum.GAME);
         }
+
         return temp;
     }
 
