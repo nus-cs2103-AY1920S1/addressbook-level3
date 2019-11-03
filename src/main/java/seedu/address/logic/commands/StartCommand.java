@@ -33,14 +33,10 @@ public class StartCommand extends Command {
 
     private final String tagName;
 
-    public StartCommand(KeyboardFlashCardsParser keyboardFlashCardsParser) {
-        this.keyboardFlashCardsParser = keyboardFlashCardsParser;
-        tagName = "";
-    }
-
     public StartCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, String tagName) {
-        this.tagName = tagName;
+        requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
+        this.tagName = tagName;
     }
 
     @Override
@@ -67,6 +63,7 @@ public class StartCommand extends Command {
 
     /** Searches the list of flashcard to fetch the relevant tags. */
     private List<FlashCard> searchTag(Model model) {
+        assert model != null;
         if (tagName.isEmpty()) {
             return new LinkedList<>(model.getFlashCardList());
         }

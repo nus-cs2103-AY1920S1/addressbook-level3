@@ -143,7 +143,7 @@ public class KeyboardFlashCardsParserTest {
     @Test
     public void parseCommand_startNoParameter_success() throws Exception {
         StartCommand command = (StartCommand) parser.parseCommand("start");
-        assertEquals(new StartCommand(parser), command);
+        assertEquals(new StartCommand(parser, ""), command);
     }
 
     @Test

@@ -23,6 +23,8 @@ public class RateQuestionCommand extends Command {
     private final Rating rating;
 
     public RateQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, Rating rating) {
+        requireNonNull(keyboardFlashCardsParser);
+        requireNonNull(rating);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
         this.rating = rating;
     }
@@ -54,7 +56,7 @@ public class RateQuestionCommand extends Command {
 
     /** Updates statistics in the model. */
     private void updateModelStatistics(Model model) {
-        requireNonNull(model);
+        assert model != null;
         String rating = this.rating.toString();
         assert rating.equals("good") || rating.equals("hard") || rating.equals("easy");
         if (rating.equals("good")) {
@@ -68,13 +70,17 @@ public class RateQuestionCommand extends Command {
         }
     }
 
+    /** Updates the rating of a flashcard. */
     private void updateFlashCardRating(Model model) {
+        assert model != null;
         FlashCard flashCardToUpdate = model.getCurrentTestFlashCard();
         assert flashCardToUpdate != null;
         model.setFlashCard(flashCardToUpdate, createUpdatedFlashCard(flashCardToUpdate));
     }
 
+    /** Creates a new immutable flashcard with the updated rating. */
     private FlashCard createUpdatedFlashCard(FlashCard flashCardToUpdate) {
+        assert flashCardToUpdate != null;
         return new FlashCard(flashCardToUpdate.getQuestion(),
                 flashCardToUpdate.getAnswer(),
                 rating, flashCardToUpdate.getCategories());
