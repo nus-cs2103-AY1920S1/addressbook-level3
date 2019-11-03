@@ -80,7 +80,7 @@ public class LoanListCommand extends Command {
             resultMessage += " " + MESSAGE_SORTED;
         }
 
-        model.getLoansManager().updateFilteredList(filters.stream().reduce(Predicate::or).orElse(FILTER_ALL));
+        model.getLoansManager().updateFilteredList(filters.stream().reduce(Predicate::and).orElse(FILTER_ALL));
         if (!filters.isEmpty()) {
             resultMessage += " " + MESSAGE_FILTERED;
         }

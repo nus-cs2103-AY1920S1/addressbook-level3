@@ -219,6 +219,8 @@ Format: `loan list [out|in|unpaid|paid ...] [p/<person> ...] [x/<amount> ...] [w
 ****
 * Filter loans using one or more of the `out`, `in`, `unpaid`, `paid` filters.
 * Filter loans persons, amounts, dates and descriptions by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
+* If more than one filter is used, filters will be joined using logical `AND`.
+For example, `loan list out p/Duke` will result in the filter: `loans out AND loans with Duke`.
 * Sort loans by date, amount, or persons' names using `s/w`, `s/x`, or `s/p` respectively.
 ** Sorting the list using the same method when it is already sorted will reverse the order of sorting (e.g. descending to ascending).
 ****
