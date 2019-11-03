@@ -9,19 +9,31 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
  */
 public class Concentration {
 
+    private static final double CONCENTRATION_CONSTRAINT = 400;
     public static final String MESSAGE_CONSTRAINTS =
-            "Concentration should only contain a positive real number";
+            "Concentration should only contain a positive real number "
+                + "and must be less than " + CONCENTRATION_CONSTRAINT + " after rounding to 2 d.p.";
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
     private final double concentration;
 
     public Concentration(String concentration) {
         requireNonNull(concentration);
         checkArgument(isValidConcentration(concentration), MESSAGE_CONSTRAINTS);
-        this.concentration = Double.parseDouble(concentration);
+
+        this.concentration = roundDouble(concentration);
     }
 
     public static boolean isValidConcentration(String test) {
-        return test.matches(VALIDATION_REGEX);
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
+
+        return roundDouble(test) < CONCENTRATION_CONSTRAINT;
+    }
+
+    private static double roundDouble(String test) {
+        double doubleToRound = Double.parseDouble(test);
+        return Math.round(doubleToRound * 100.0) / 100.0;
     }
 
     public double getConcentration() {

@@ -2,6 +2,8 @@ package seedu.sugarmummy.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BLOODSUGAR_CONCENTRATION;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BMI_HEIGHT;
+import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BMI_WEIGHT;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 
@@ -20,12 +22,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new record to the record list. "
             + "Parameters: "
             + PREFIX_RECORDTYPE + "RECORDTYPE "
-            + PREFIX_DATETIME + "DATETIME "
-            + PREFIX_BLOODSUGAR_CONCENTRATION + "CONCENTRATION\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_RECORDTYPE + "BLOODSUGAR "
-            + PREFIX_DATETIME + "2019-09-09 12:12 "
-            + PREFIX_BLOODSUGAR_CONCENTRATION + "78.9";
+            + PREFIX_DATETIME + "DATETIME. "
+            + "For BLOODSUGAR, additional param is: "
+            + PREFIX_BLOODSUGAR_CONCENTRATION + "CONCENTRATION. "
+            + "For BMI, additional param is: "
+            + PREFIX_BMI_HEIGHT + "HEIGHT "
+            + PREFIX_BMI_WEIGHT + "WEIGHT";
 
     public static final String MESSAGE_SUCCESS = "New record added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECORD = "This record already exists in the record book";

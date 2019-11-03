@@ -82,8 +82,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
 Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 
-BMI must receive atleast 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
-BLOODSUGAR must receive atleast 1 valid parameter for concentration: `con/VALUE`
+BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+
+Height input (in meters) will be rounded to 2 decimal places.
+This rounded value must be less than 3 to be recorded successfully.
+
+Weight input (in kilograms) will be rounded to 2 decimal places.
+This rounded value must be less than 500 to be recorded successfully.
+
+BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
+Concentration (mg/dL) will be rounded to 2 decimal places.
+This rounded value must be less than 400 to be recorded successfully.
 
 If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
 
