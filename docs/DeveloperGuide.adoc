@@ -178,7 +178,8 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 ==== Calendar week change
 ===== Implementation
-
+.Activity diagram on calendar week change
+image::CalendarActivityDiagram.png[]
 Calendar week change is done by removing all tasks from the calendar and adding all the tasks that either have the new
 corresponding week number or is an instance of `ModuleTask`.
 
@@ -195,7 +196,6 @@ corresponding week number or is an instance of `ModuleTask`.
 
 ==== Persistent `ModuleTask`
 ===== Implementation
-
 .Structure of the Model Component for the feature Calendar
 image::CalendarModelClassDiagram.png[]
 
