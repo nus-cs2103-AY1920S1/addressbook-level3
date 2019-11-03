@@ -74,6 +74,9 @@ public class Ledger implements ReadOnlyLedger {
         return pot;
     }
 
+    /**
+     * Resets the existing data of this {@code Ledger} with {@code otherLedger}.
+     */
     public void resetData(ReadOnlyLedger otherLedger) {
         requireNonNull(otherLedger);
         pot = otherLedger.getBalance();
