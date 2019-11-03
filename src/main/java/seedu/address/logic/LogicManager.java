@@ -31,7 +31,6 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
-import seedu.address.ui.OmniPanel;
 
 /**
  * The main LogicManager of the app.
@@ -47,7 +46,6 @@ public class LogicManager implements Logic {
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
     private String lastEagerCommandWord = "";
-    private OmniPanel omniPanel;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -60,9 +58,10 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized CommandResult execute(String commandText)
-        throws CommandException, ParseException {
+            throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        lastEagerCommandWord = "";
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
@@ -89,30 +88,14 @@ public class LogicManager implements Logic {
 
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
+
         //Avoid evaluating the same command
-        commandText = commandText.trim();
-        if (lastEagerCommandWord.equals(commandText)) {
+        String currCommandWord = commandText.trim();
+        if (lastEagerCommandWord.equals(currCommandWord)) {
             return;
         }
-        //@@author CarbonGrid
-        int endIndex = commandText.indexOf(' ');
-        if (endIndex < 0) {
-            endIndex = commandText.length();
-        }
-        String currCommandWord = commandText.substring(0, endIndex);
-        //Avoid restoring when same command word
-        if (!lastEagerCommandWord.equals(currCommandWord)) {
-            try {
-                OmniPanelTab lastTab = omniPanel.getOmniPanelTab();
-                execute(lastEagerCommandWord);
-                displayResult.accept("");
-                omniPanel.setOmniPanelTab(lastTab);
-            } catch (CommandException | ParseException e) {
-                logger.info("This command word has no reset: " + lastEagerCommandWord);
-            }
-            lastEagerCommandWord = currCommandWord;
-        }
-        //@@author SakuraBlossom
+        lastEagerCommandWord = currCommandWord;
+
         // parse command to be eagerly evaluated
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
@@ -133,7 +116,6 @@ public class LogicManager implements Logic {
         assert lastEagerEvaluationThread != null;
         lastEagerEvaluationThread.interrupt();
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
-        String finalCommandText = commandText;
         lastEagerEvaluationThread = new Thread(() -> {
             try {
                 Thread.sleep(200);
@@ -143,13 +125,13 @@ public class LogicManager implements Logic {
                 return;
             }
 
-            logger.info("Starting Eager evaluation execution  - " + finalCommandText);
+            logger.info("Starting Eager evaluation execution  - " + commandText);
             displayResult.accept("searching...");
 
             try {
                 CommandResult result = command.execute(model);
                 if (!result.getFeedbackToUser().isEmpty()) {
-                    logger.info("Result: " + result.getFeedbackToUser() + " - " + finalCommandText);
+                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
                     displayResult.accept(result.getFeedbackToUser());
                 }
             } catch (CommandException ex) {
@@ -212,8 +194,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void bindOmniPanelInterface(OmniPanel omniPanel) {
-        this.omniPanel = omniPanel;
-        model.bindTabListingCommand(omniPanel::setOmniPanelTab);
+    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
+        model.bindTabListingCommand(omniPanelTabConsumer);
     }
 }
