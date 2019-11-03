@@ -64,7 +64,7 @@ public class FinSecTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> finSec.hasContact(new Name(null)));
+        assertThrows(NullPointerException.class, () -> finSec.hasContact((Name) null));
     }
 
     @Test

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FinSec - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W12-1/main
 
 By: `AY1920S1-CS2103T-W12-1`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -325,7 +325,6 @@ During the design of our delete function, we considered between two alternatives
 We have decided to opt for the first option primarily because it reduces the number of potential bugs and the complexities involved when taking into account the different cases and scenarios upon using deletion by income description.
 
 
-
 ==== Editing an Income
 
 This feature allows the user to edit any attribute of the income entries. There are a total of five attributes for each entry, the description of the income, the amount of money received, the date it was received, the name of the person / organisation the user
@@ -480,7 +479,7 @@ With so many claims and incomes, all having differing dates, it can be hard to k
 * We had intended on including separate graphs based on organisation tags so instead of having budget-time graphs, we would have a budget graph for every organisation. The idea was scrapped due to it being too convoluted.
 
 === Goto feature
-This section describes the different Views that Goto can bring a user to. This is also an overview of the goto details and how users can interact
+This section describes the different Views that Goto can bring a user to. It includes an overview of the goto details and how users can interact
 with goto based on commands implemented with the revamp of the original list feature.
 It also provides some design considerations to give users an insight of how the current solutions are worked out.
 
@@ -572,7 +571,10 @@ change automatically to either the contact, claims or incomes page. This gives t
 is successful.
 
 ==== Alternatives Considered
+* We wanted to display 3 lists in the same main page, but that would cause the lists to be too crammed
 
+* We wanted to reload the list on the current page to the various lists, but we believe that such a change in tabs will
+help to tell the user that he is currently working on something different.
 
 === Check feature
 This feature is an extended feature of the goto feature because this feature can only be run when
@@ -682,7 +684,117 @@ The pop-up method seems to be the best way to attract the attention of the user 
 check at that point in time. A pop-up is also easy because it allows the user to return immediately to the lists of claims or contacts and he/she
 can continue to work on his tasks immediately.
 
-==== Alternatives Considered
+==== Alternative Considered
+* We also considered that upon `check index`, it just removes the whole list from view and isolates the desired claim
+or contact needed, but we realised that might not catch the attention of the user
+
+=== Sort Feature
+This section describes the ways that a user can sort the various lists. An overview is also included on how these sorts
+work.
+It also provides some design considerations to give users an insight of how the current solutions are worked out.
+==== Overview
+There are 2 ways that a user can sort the lists by. It gives the user flexibility in how he wants to see the lists. In
+addition, after sorting, the user can then employ the check method once again to see each individual object.
+
+==== Current Implementation
+The sort command takes in a 1 parameter that is the `Filter`. This `Filter` can either be `name` or `date`.
+`name` filter works in all 3 lists. However, in contacts and incomes list, the `name` filter refers to the name of
+the contact and in claims list, `name` refers to the description of the claim.
+`date` filter works in claims and incomes list and not in contacts list because contacts are not created
+with a date.
+
+1) The 2 parameters after the `sort` command in the user input are `name` and `date`
+
+2) This command is then parsed in the same way as the rest of the commands
+
+3) The Activity Diagram below shows the `SortCommand::execute` method +
+
+<<sortActDiagram>> is the activity diagram of the check command
+[[sortActDiagram]]
+[reftext="Figure 2.7.2.1"]
+[caption="Figure 2.7.2.1: "]
+.SortActivityDiagram
+image::SortActivityDiagram.png[width="800"]
+
+4) To elaborate, once the sort command is called, `UiManager::getState` method is called to determine the current view
+the application is on then implements the correct type of sort on the list.
+
+5) The comparators shown below are examples of the various lists are sorted.
+
+* `sortFilteredClaimListByName` is implemented with the help of a comparator that compares the descriptions of each claim
+with `claim.getDescription()` method. The code snippet below illustrates the comparator.
+
+[source, java]
+class ClaimNameComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        return claim1.getDescription().toString().toUpperCase()
+                .compareTo(claim2.getDescription().toString().toUpperCase());
+    }
+}
+
+* `sortFilteredIncomeListByDate` is implemented with the help of a comparator that compares the dates of each income
+with `income.getDate().getLocalDate()` method. The code snippet below illustrates the comparator.
+
+[source, java]
+class IncomeDateComparator implements Comparator<Income> {
+    @Override
+    public int compare(Income income1, Income income2) {
+        return income1.getDate().getLocalDate()
+                .compareTo(income2.getDate().getLocalDate());
+    }
+}
+
+* `sortFilteredClaimListByStatus` is implemented with the help of a comparator that compares the statuses of each claim.
+The order is as such: Pending, Approved, Rejected. There are 9 cases of comparison between 2 claims.
+The code snippet below illustrates the comparator.
+
+[source, java]
+class ClaimStatusComparator implements Comparator<Claim> {
+    @Override
+    public int compare(Claim claim1, Claim claim2) {
+        if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.APPROVED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.PENDING)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.PENDING) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return -1;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.APPROVED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.PENDING)) {
+            return 1;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.REJECTED)) {
+            return 0;
+        } else if (claim1.getStatus().equals(Status.REJECTED) && claim2.getStatus().equals(Status.APPROVED)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+==== Why was it implemented this way?
+The major implementation difference for claims list sorted by `name`, it is sorted based on the description of each
+claim. This was implemented like this because of the check feature. The check feature in the contacts list allows
+the user to see what claims are under the user. When a user is in the claims page, he/she will only need to sort based
+on descriptions to prevent redundant information through different commands.
+
+The 2 different filters allow the user to be able to look through the lists based on what is important to him/her. `date`
+filter is especially important so the user can check what are the latest or oldest claims. `name` filter helps the user
+find the various contacts/claims/incomes. It doubles up as a find or filter function to let the user find the specific
+object he/she is finding.
+
+==== Alternative Considered
+* Sorting of the claims list based on contact's name instead
+
+=== Reverse feature
+This feature is exactly identical in the implementation as compared to the above sort feature. This feature sorts the various
+lists based on the same filters in the reverse of natural ordering. It shows the lists in reverse lexicographical order if
+`name` is used as filter and shows the newest entry at the top and the oldest at the bottom of the list.
 
 [appendix]
 == Product Scope

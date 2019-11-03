@@ -29,9 +29,14 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_FAILURE_FILTER = "Filter does not exist";
 
-    public static final String MESSAGE_FAILURE_FILTER_DATE = "Date filter is not valid for contacts";
+    public static final String MESSAGE_FAILURE_FILTER_DATE = "Date filter is not valid for contacts list";
+
+    public static final String MESSAGE_FAILURE_FILTER_STATUS = "Status filter is only valid in claims list";
 
     private static final String MESSAGE_SUCCESS_CLAIMS_DATE = "Claims list sorted from Oldest Entry to Newest";
+
+    private static final String MESSAGE_SUCCESS_CLAIMS_STATUS =
+            "Claims list sorted from Pending to Approved to Rejected";
 
     private static final String MESSAGE_SUCCESS_INCOMES_DATE = "Incomes list sorted from Oldest Entry to Newest";
 
@@ -40,7 +45,7 @@ public class SortCommand extends Command {
     /**
      * Constructs a sort command
      *
-     * @param sortFilter 2 different types of filters
+     * @param sortFilter 3 different types of filters
      * @return
      * @throws CommandException
      */
@@ -94,6 +99,15 @@ public class SortCommand extends Command {
                 return new CommandResult(MESSAGE_SUCCESS_INCOMES_DATE, false, false, false, false, false);
             } else {
                 throw new CommandException(MESSAGE_FAILURE_FILTER_DATE);
+            }
+
+        case 3: //case of sorting claims by status
+
+            if (UiManager.getState().equals("claims")) {
+                model.sortFilteredClaimListByStatus();
+                return new CommandResult(MESSAGE_SUCCESS_CLAIMS_STATUS, false, false, false, false, false);
+            } else {
+                throw new CommandException(MESSAGE_FAILURE_FILTER_STATUS);
             }
 
         default:
