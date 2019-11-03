@@ -20,6 +20,7 @@ import seedu.sugarmummy.logic.commands.HelpCommand;
 import seedu.sugarmummy.logic.commands.ListCommand;
 import seedu.sugarmummy.logic.commands.achvm.AchvmCommand;
 import seedu.sugarmummy.logic.commands.bio.BioCommand;
+import seedu.sugarmummy.logic.commands.calendar.ReminderCommand;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.model.record.BloodSugar;
 import seedu.sugarmummy.model.record.Concentration;
@@ -77,6 +78,16 @@ public class SugarMummyParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_reminder() throws Exception {
+        assertTrue(parser.parseCommand(
+                ReminderCommand.COMMAND_WORD + " d/test dt/2019-11-30 12:00") instanceof ReminderCommand);
+        assertThrows(ParseException.class, () -> parser.parseCommand(
+                ReminderCommand.COMMAND_WORD + " d/test dt/2019-02-29 12:00"));
+        assertThrows(ParseException.class, () -> parser.parseCommand(
+                ReminderCommand.COMMAND_WORD + "d/ dt/"));
     }
 
     @Test

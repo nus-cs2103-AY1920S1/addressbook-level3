@@ -2,11 +2,13 @@ package seedu.sugarmummy.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 import seedu.sugarmummy.model.calendar.Reminder;
@@ -19,13 +21,15 @@ public class ReminderListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ReminderListPanel.class);
 
     @FXML
+    private VBox reminderListVBox;
+    @FXML
     private ListView<CalendarEntry> reminderListView;
 
     public ReminderListPanel(ObservableList<CalendarEntry> reminders) {
         super(FXML);
-
         reminderListView.setItems(reminders);
         reminderListView.setCellFactory(listView -> new ReminderListViewCell());
+        reminderListView.prefHeightProperty().bind(Bindings.size(reminders).multiply(54));
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.sugarmummy.logic.parser;
 
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_EVENT_ENDING_TIME;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_CALENDAR_DESCRIPTION;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_TIME_DURATION;
@@ -51,7 +52,12 @@ public class EventCommandParser implements Parser<EventCommand> {
 
         if (dateTimes.size() > 1) {
             DateTime endingDateTime = ParserUtil.parseDateTime(dateTimes.get(1));
-            event.setEndingDateTime(endingDateTime);
+            if (endingDateTime.isBeforeDateTime(dateTime)) {
+                throw new ParseException(MESSAGE_INVALID_EVENT_ENDING_TIME);
+            } else if (!endingDateTime.equals(dateTime)) {
+                event.setEndingDateTime(endingDateTime);
+            }
+            //ending date time is omitted if it is equal to the starting date time
         }
 
         if (argMultimap.getValue(PREFIX_TIME_DURATION).isPresent()) {
@@ -70,4 +76,3 @@ public class EventCommandParser implements Parser<EventCommand> {
     }
 
 }
-

@@ -8,8 +8,8 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
 
@@ -24,20 +24,31 @@ public class CalendarMonthDayCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label entryNumber;
+    @FXML
+    private BorderPane dayCard;
 
     public CalendarMonthDayCard(LocalDate date, ObservableList<CalendarEntry> calendarEntries) {
         super(FXML);
         this.date.setWrapText(true);
-        this.date.setTextFill(Color.rgb(255, 0, 0));
+        this.date.setStyle("-fx-text-fill: white");
         this.date.setText(date.getDayOfMonth() + "");
         StringBinding stringBinding = Bindings.size(
                 calendarEntries.filtered(calendarEntry -> calendarEntry.isOnDate(date))).asString();
         entryNumber.textProperty().bind(stringBinding);
+        entryNumber.setStyle("-fx-text-fill: #FAF3DD");
     }
 
     public CalendarMonthDayCard() {
         super(FXML);
         this.date.setText("");
         this.entryNumber.setText("");
+    }
+
+    public CalendarMonthDayCard(LocalDate date) {
+        super(FXML);
+        this.date.setWrapText(true);
+        this.date.setStyle("-fx-text-fill: white; -fx-font-size: 12");
+        this.date.setText(date.getDayOfMonth() + "");
+        this.dayCard.setBottom(null);
     }
 }
