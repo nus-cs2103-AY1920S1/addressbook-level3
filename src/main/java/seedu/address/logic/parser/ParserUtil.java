@@ -490,7 +490,7 @@ public class ParserUtil {
     }
 
     /**
-     * Removes the command word from the lsit of command words.
+     * Removes the command word from the list of command words.
      *
      * @param string Valid command words.
      */

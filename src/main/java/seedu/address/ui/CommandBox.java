@@ -1,8 +1,12 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,6 +33,10 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
+    /* Command history to help during navigation of commands by pressing up/down keys */
+    private final ArrayList<String> history = new ArrayList<>();
+    private int currentOffset = 0;
+
     private String mergeCommand;
     private String doNotMergeCommand;
     private boolean isOnMergeStandby = false;
@@ -53,6 +61,8 @@ public class CommandBox extends UiPart<Region> {
         if (isOnMergeStandby) {
             handleInitialisingMergeCommand(command);
         } else {
+            history.add(command);
+            currentOffset = 0;
             try {
                 commandExecutor.execute(command + " ", false);
                 commandTextField.setText("");
@@ -74,6 +84,29 @@ public class CommandBox extends UiPart<Region> {
                 commandTextField.setText("");
             } catch (CommandException | ParseException e) {
                 setStyleToIndicateCommandFailure();
+            }
+        }
+    }
+
+    /**
+     * Handles key presses other than 'Enter' in CommandBox.
+     * @param event event representing the key which was pressed.
+     */
+    @FXML
+    private void keyListener(KeyEvent event) {
+        if (event.getCode() == KeyCode.UP && currentOffset < history.size()) {
+            currentOffset++;
+            String command = history.get(history.size() - currentOffset);
+            commandTextField.setText(command);
+            commandTextField.positionCaret(command.length());
+        } else if (event.getCode() == KeyCode.DOWN && currentOffset > 0) {
+            currentOffset--;
+            if (currentOffset == 0) {
+                commandTextField.setText("");
+            } else {
+                String command = history.get(history.size() - currentOffset);
+                commandTextField.setText(command);
+                commandTextField.positionCaret(command.length());
             }
         }
     }
