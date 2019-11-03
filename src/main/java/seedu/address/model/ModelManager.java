@@ -428,7 +428,9 @@ public class ModelManager implements Model {
         for (Difficulty d : uniqueDifficultyList) {
             quizResultFilter.setOperation(d);
             ObservableList<QuizResult> results = filterQuizResultAndReturn(quizResultFilter);
-            pieChartData.add(new PieChart.Data(d.difficulty, results.size()));
+            if (results.size() > 0) {
+                pieChartData.add(new PieChart.Data(d.difficulty, results.size()));
+            }
         }
         return pieChartData;
     }
