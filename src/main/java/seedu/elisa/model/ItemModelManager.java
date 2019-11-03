@@ -14,7 +14,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.ObservableList;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.Task;

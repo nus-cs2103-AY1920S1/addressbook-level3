@@ -20,11 +20,11 @@ import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
-import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Edits the details of an existing item in the item list.

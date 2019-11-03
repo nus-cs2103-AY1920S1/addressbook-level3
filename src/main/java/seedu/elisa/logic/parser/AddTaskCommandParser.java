@@ -15,10 +15,10 @@ import seedu.elisa.commons.core.item.ItemDescription;
 import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.Task;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddTaskCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  *  Parses input arguments and creates a new AddCommand object

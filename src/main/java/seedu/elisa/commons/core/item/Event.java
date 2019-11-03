@@ -121,6 +121,10 @@ public class Event {
         return builder.toString();
     }
 
+    /**
+     * Creates a string for UI display.
+     * @return A string containing only the start DateTime of the Event.
+     */
     public String toDisplay() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\nDateTime: ")
