@@ -6,6 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.diaryfeature.logic.parser.Encryptor;
 import seedu.address.diaryfeature.logic.parser.ParserUtil;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
@@ -48,7 +49,7 @@ public class JsonAdaptedDiaryEntry {
             title = source.getTitle().toString();
             date = source.getDateAsStringtoStore();
             place = source.getPlace().toString();
-            memory = source.getMemory().toSave();
+            memory = Encryptor.encrypt(source.getMemory().toSave());
             isPrivate = String.valueOf(source.getPrivacy());
 
         }
@@ -61,7 +62,7 @@ public class JsonAdaptedDiaryEntry {
             final Title modelTitle = ParserUtil.parseTitle(title);
             final Date modelDate = ParserUtil.parseDate(date);
             final Place modelPlace = ParserUtil.parsePlace(place);
-            Memory modelMemory = ParserUtil.parseMemory(memory);
+            Memory modelMemory = ParserUtil.parseMemory(Encryptor.decrypt(memory));
             boolean privacy = Boolean.valueOf(isPrivate);
             if(privacy) {
                 modelMemory.setPrivate();

@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
@@ -79,6 +80,12 @@ public class DiaryModel {
         return diaryBook.getDetails();
     }
 
+    public boolean checkDetails(Details input) {
+        return diaryBook.checkDetails(input);
+    }
+    public boolean hasPassword() {
+        return diaryBook.hasPassword();
+    }
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

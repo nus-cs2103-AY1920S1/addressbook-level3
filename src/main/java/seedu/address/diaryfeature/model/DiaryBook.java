@@ -3,6 +3,7 @@ package seedu.address.diaryfeature.model;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
@@ -31,18 +32,31 @@ public class DiaryBook {
 
     public void setDetails(Details attempt) throws UnknownUserException {
         if (details.isPresent()) {
-            throw new UnknownUserException(attempt);
+            throw new UnknownUserException();
     } else {
         details = Optional.of(attempt);
     }
 
 }
 
+    public boolean hasPassword() {
+        return (details.isPresent());
+    }
+
     public void setinnerDetails(Optional<Details> input) {
         if(input.isEmpty()) {
             details = Optional.empty();
         } else {
             details = input;
+        }
+    }
+
+
+    public boolean checkDetails(Details input) {
+        if(details.isEmpty()) {
+            return false;
+        } else {
+            return details.get().checkDetails(input);
         }
     }
 

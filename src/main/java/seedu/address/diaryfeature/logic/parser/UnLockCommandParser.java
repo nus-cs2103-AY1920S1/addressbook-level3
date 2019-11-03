@@ -7,7 +7,7 @@ import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_USERNAME;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.diaryfeature.logic.commands.UnPrivateCommand;
+import seedu.address.diaryfeature.logic.commands.UnLockCommand;
 import seedu.address.diaryfeature.logic.parser.exceptions.DetailParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.diaryfeature.model.details.Details;
@@ -19,7 +19,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-public class UnPrivateCommandParser {
+public class UnLockCommandParser {
     public static final String UNPRIVATE_USAGE = "In particular, input your unprivate command like this: \n" +
             "unprivate target Eg: unprivate 1. \n Note that the input has to be more than or equal to 1";
     /**
@@ -33,7 +33,7 @@ public class UnPrivateCommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_USERNAME,PREFIX_PASSWORD);
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME,PREFIX_PASSWORD)) {
-            throw new EmptyArgumentException(UnPrivateCommand.COMMAND_WORD,UNPRIVATE_USAGE);
+            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD,UNPRIVATE_USAGE);
         }
         Index index;
         Username username;
@@ -42,17 +42,17 @@ public class UnPrivateCommandParser {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new EmptyArgumentException(UnPrivateCommand.COMMAND_WORD, UNPRIVATE_USAGE);
+            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD, UNPRIVATE_USAGE);
          }
         username = new Username (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),
-                UnPrivateCommand.COMMAND_WORD));
+                UnLockCommand.COMMAND_WORD));
 
         password = new Password (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),
-                UnPrivateCommand.COMMAND_WORD));
+                UnLockCommand.COMMAND_WORD));
 
 
 
-        return new UnPrivateCommand(index, new Details(username,password));
+        return new UnLockCommand(index, new Details(username,password));
     }
 
     /**

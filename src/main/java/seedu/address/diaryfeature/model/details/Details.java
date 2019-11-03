@@ -1,28 +1,28 @@
-package seedu.address.diaryfeature.model;
+package seedu.address.diaryfeature.model.details;
 
 public class Details {
-    private final String password;
-    private final String userName ;
+    private final Username userName ;
+    private final Password password;
 
-    public Details(String user, String pass) {
+    public Details(Username user, Password pass) {
         userName = user;
         password = pass;
     }
 
 
-    public boolean checkDetails(String user, String pass) {
-        if(user.equals(userName) && password.equals(pass)) {
+    public boolean checkDetails(Details input) {
+        if(userName.equalsSpecial(input.getUserName()) && password.equalsSpecial(input.getPassword())) {
             return true;
         } else {
             return false;
         }
     }
 
-    public String getUserName() {
+    public Username getUserName() {
         return userName;
     }
 
-    public String getPassword() {
+    public Password getPassword() {
         return password;
     }
 

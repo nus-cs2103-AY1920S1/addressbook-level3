@@ -1,9 +1,7 @@
 package seedu.address.diaryfeature.storage;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,10 +10,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
-import seedu.address.diaryfeature.model.Details;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
-import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
 @JsonRootName(value = "diaryBook")
 public class JsonSerializableDiaryBook {

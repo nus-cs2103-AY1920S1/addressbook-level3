@@ -2,9 +2,11 @@ package seedu.address.diaryfeature.logic.parser;
 
 import java.util.Objects;
 
+import seedu.address.diaryfeature.model.details.Username;
 import seedu.address.diaryfeature.model.diaryEntry.Title;
 
 public class Validators {
+    public static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
     static final int HOUR_LOWER_RANGE = 00;
     static final int HOUR_UPPER_RANGE = 23;
     static final int MIN_LOWER_RANGE = 00;
@@ -47,6 +49,24 @@ public class Validators {
             answer = true;
         }
         return answer;
+    }
+
+    public static boolean isCorrectDetailsLength(String input,int length) {
+        boolean answer = false;
+        if(input.length() >= length) {
+            answer = true;
+        }
+        return answer;
+    }
+
+    public static boolean matchesAlphaNumeric(String input) {
+        return input.matches(ALPHANUMERIC_STRING_REGEX);
+    }
+
+    public static boolean isValidDetail(String input) {
+        return isCorrectDetailsLength(input, Username.USERNAME_MIN_LENGTH)
+                &&
+                matchesAlphaNumeric(input);
     }
 
     public static boolean isCorrectDateFormat(String input) {

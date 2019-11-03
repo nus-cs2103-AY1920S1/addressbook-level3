@@ -6,10 +6,12 @@ import java.util.Date;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
+import seedu.address.diaryfeature.logic.parser.exceptions.DetailParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
 import seedu.address.diaryfeature.logic.parser.exceptions.MemoryParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.PlaceParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.TitleParseException;
+import seedu.address.diaryfeature.model.details.Username;
 import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
@@ -112,6 +114,15 @@ public class ParserUtil {
         }
         //So if the input is null or if it's not valid, then throw the memory error
         throw new EmptyArgumentException(parserName);
+    }
+
+    public static String parseDetail(String input,String parserName) throws EmptyArgumentException, DetailParseException {
+        String user = parseStringArgs(input,parserName);
+        if(Validators.isValidDetail(user)) {
+            return Encryptor.encrypt(user);
+        } else {
+            throw new DetailParseException();
+        }
     }
 
 

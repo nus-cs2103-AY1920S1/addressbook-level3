@@ -5,7 +5,9 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.diaryfeature.model.Details;
+import seedu.address.diaryfeature.model.details.Details;
+import seedu.address.diaryfeature.model.details.Password;
+import seedu.address.diaryfeature.model.details.Username;
 
 /**
  * Jackson-friendly version of {@link seedu.address.diaryfeature.model.diaryEntry.DiaryEntry}.
@@ -34,8 +36,8 @@ public class JsonAdaptedDetails {
             username = "null";
             password = "null";
         } else {
-            username = source.get().getUserName();
-            password = source.get().getPassword();
+            username = source.get().getUserName().toString();
+            password = source.get().getPassword().toString();
         }
     }
 
@@ -47,7 +49,7 @@ public class JsonAdaptedDetails {
         if (username.equalsIgnoreCase("null") || password.equalsIgnoreCase("null")) {
             return Optional.empty();
         } else {
-            Details curr = new Details(username, password);
+            Details curr = new Details(new Username(username), new Password(password));
             return Optional.of(curr);
         }
     }

@@ -34,6 +34,7 @@ public class AddCommandParser  {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE,PREFIX_PLACE,PREFIX_MEMORY);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new DiaryEntryParseException();

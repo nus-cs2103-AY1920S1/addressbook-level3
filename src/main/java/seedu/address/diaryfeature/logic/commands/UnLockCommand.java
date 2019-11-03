@@ -13,8 +13,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-public class UnPrivateCommand extends Command<DiaryModel> {
-    public static final String COMMAND_WORD = "unprivate";
+public class UnLockCommand extends Command<DiaryModel> {
+    public static final String COMMAND_WORD = "unlock";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the diary entry identified by the index number used in the displayed diary entry list.\n"
@@ -32,7 +32,7 @@ public class UnPrivateCommand extends Command<DiaryModel> {
     private final Index targetIndex;
     private final Details detail;
 
-    public UnPrivateCommand(Index targetIndex, Details detail) {
+    public UnLockCommand(Index targetIndex, Details detail) {
 
         this.targetIndex = targetIndex;
         this.detail = detail;

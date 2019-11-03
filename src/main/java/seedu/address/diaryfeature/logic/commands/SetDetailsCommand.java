@@ -3,7 +3,7 @@ package seedu.address.diaryfeature.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.diaryfeature.model.DiaryModel;
-import seedu.address.diaryfeature.model.Details;
+import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;

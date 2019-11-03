@@ -6,46 +6,44 @@ import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_USERNAME;
 import java.util.stream.Stream;
 
 import seedu.address.diaryfeature.logic.commands.SetDetailsCommand;
+import seedu.address.diaryfeature.logic.parser.exceptions.DetailParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.EmptyArgumentException;
-import seedu.address.diaryfeature.model.Details;
+import seedu.address.diaryfeature.model.details.Details;
+import seedu.address.diaryfeature.model.details.Password;
+import seedu.address.diaryfeature.model.details.Username;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 
 public class SetDetailsCommandParser {
+    private final String SET_DETAILS_USAGE = "In particular, input your setDetails command like this: \n" +
+            "setDetails user/username password/pass Eg: user/myname password/mypassword." +
+            " \n Note that the input has to be something, it can't be empty!";
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      */
-    public Command parse(String args) throws EmptyArgumentException  {
-         final String SETDETAILS_USAGE = "In particular, input your setDetails command like this: \n" +
-                "setDetails user/username password/pass Eg: user/myname password/mypassword." +
-                " \n Note that the input has to be something, it can't be empty!";
-
+    public Command parse(String args) throws EmptyArgumentException, DetailParseException  {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD);
 
         if ((!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD)
                 || (!argMultimap.getPreamble().isEmpty()))) {
-            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SETDETAILS_USAGE);
+            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SET_DETAILS_USAGE);
         }
 
         Details details;
 
         try {
-            String user = ParserUtil.parseStringArgs(argMultimap.getValue(PREFIX_USERNAME).get(),SetDetailsCommand.COMMAND_WORD);
-            String pass = ParserUtil.parseStringArgs(argMultimap.getValue(PREFIX_PASSWORD).get(),SetDetailsCommand.COMMAND_WORD);
-            details = new Details(user, pass);
+            String user = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),SetDetailsCommand.COMMAND_WORD);
+            String pass = ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),SetDetailsCommand.COMMAND_WORD);
+            details = new Details(new Username(user), new Password(pass));
 
 
         } catch (EmptyArgumentException err) {
-
-            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SETDETAILS_USAGE);
-
+            throw new EmptyArgumentException(SetDetailsCommand.COMMAND_WORD,SET_DETAILS_USAGE);
         }
-
-
 
         return new SetDetailsCommand(details);
     }
