@@ -12,7 +12,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -128,7 +127,6 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
         });
-
     }
 
     /**
