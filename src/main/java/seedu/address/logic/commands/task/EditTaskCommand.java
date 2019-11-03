@@ -28,6 +28,9 @@ import seedu.address.model.question.Subject;
 import seedu.address.model.task.Heading;
 import seedu.address.model.task.Task;
 
+/**
+ * Edits the details of an existing revision task.
+ */
 public class EditTaskCommand extends Command {
     public static final String COMMAND_WORD = "redit";
 
