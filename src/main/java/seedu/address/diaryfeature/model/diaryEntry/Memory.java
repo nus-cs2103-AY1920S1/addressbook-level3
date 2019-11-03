@@ -24,6 +24,7 @@ public class Memory {
         showMemory = input;
     }
 
+
     public boolean getPrivacy() {
         return isPrivate;
     }

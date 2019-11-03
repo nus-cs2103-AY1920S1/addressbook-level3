@@ -30,6 +30,7 @@ public class DiaryEntry {
         this.date = date;
         this.place = place;
         this.memory = memory;
+        isPrivate = memory.getPrivacy();
     }
 
     public Title getTitle() {
@@ -54,6 +55,15 @@ public class DiaryEntry {
 
     public Memory getMemory() {
         return memory;
+    }
+
+    public void setPrivacy(Boolean input) {
+        isPrivate = input;
+        if(input) {
+            setPrivate();
+        } else {
+            unPrivate();
+        }
     }
 
     public void setPrivate() {

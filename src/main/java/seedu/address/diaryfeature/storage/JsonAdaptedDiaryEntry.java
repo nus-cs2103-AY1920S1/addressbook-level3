@@ -1,19 +1,13 @@
 package seedu.address.diaryfeature.storage;
 
-import java.text.ParseException;
 import java.util.Date;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.diaryfeature.logic.parser.ParserUtil;
-import seedu.address.diaryfeature.logic.parser.Validators;
-import seedu.address.diaryfeature.logic.parser.exceptions.DateParseException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryParseException;
-import seedu.address.diaryfeature.logic.parser.exceptions.TitleParseException;
-import seedu.address.diaryfeature.model.diaryEntry.DateFormatter;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.diaryfeature.model.diaryEntry.Memory;
 import seedu.address.diaryfeature.model.diaryEntry.Place;
@@ -31,17 +25,20 @@ public class JsonAdaptedDiaryEntry {
         private final String date;
         private final String place;
         private final String memory;
+        private final String isPrivate;
 
         /**
          * Constructs a {@code JsonAdaptedDiaryEntry} with the given person details.
          */
         @JsonCreator
         public JsonAdaptedDiaryEntry(@JsonProperty("title") String title, @JsonProperty("date") String date,
-                                 @JsonProperty("place") String place, @JsonProperty("memory") String memory) {
+                                 @JsonProperty("place") String place, @JsonProperty("memory") String memory,
+                                     @JsonProperty("isPrivate") String isPrivate) {
             this.title = title;
             this.date = date;
             this.place = place;
             this.memory = memory;
+            this.isPrivate = isPrivate;
         }
 
         /**
@@ -52,6 +49,7 @@ public class JsonAdaptedDiaryEntry {
             date = source.getDateAsStringtoStore();
             place = source.getPlace().toString();
             memory = source.getMemory().toSave();
+            isPrivate = String.valueOf(source.getPrivacy());
 
         }
 
@@ -63,8 +61,15 @@ public class JsonAdaptedDiaryEntry {
             final Title modelTitle = ParserUtil.parseTitle(title);
             final Date modelDate = ParserUtil.parseDate(date);
             final Place modelPlace = ParserUtil.parsePlace(place);
-            final Memory modelMemory = ParserUtil.parseMemory(memory);
-            return new DiaryEntry(modelTitle,modelDate,modelPlace,modelMemory);
+            Memory modelMemory = ParserUtil.parseMemory(memory);
+            boolean privacy = Boolean.valueOf(isPrivate);
+            if(privacy) {
+                modelMemory.setPrivate();
+            } else {
+                modelMemory.unPrivate();
+            }
+            DiaryEntry curr =  new DiaryEntry(modelTitle,modelDate,modelPlace,modelMemory);
+            return curr;
         }
 
     }
