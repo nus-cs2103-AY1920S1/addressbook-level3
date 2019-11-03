@@ -23,10 +23,7 @@ public class ClaimBuilder {
     public static final String DEFAULT_AMOUNT = "152.86";
     public static final String DEFAULT_DATE = "15-12-2019";
     public static final String DEFAULT_NAME = "John";
-<<<<<<< HEAD
-=======
     public static final String DEFAULT_PHONE = "91234567";
->>>>>>> dac31915... Test case fixes.
 
     private Description description;
     private Amount amount;
