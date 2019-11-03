@@ -36,4 +36,16 @@ public class PerformableScript implements Performable {
          */
         void run(Index txnIndex, Account account);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof PerformableScript
+                && evaluator.equals(((PerformableScript) other).evaluator));
+    }
+
+    @Override
+    public int hashCode() {
+        return evaluator.hashCode();
+    }
 }

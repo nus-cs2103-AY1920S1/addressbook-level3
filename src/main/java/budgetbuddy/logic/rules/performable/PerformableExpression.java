@@ -23,4 +23,16 @@ public abstract class PerformableExpression implements Performable {
         requireNonNull(value);
         this.value = value;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof PerformableExpression
+                && value.equals(((PerformableExpression) other).value));
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

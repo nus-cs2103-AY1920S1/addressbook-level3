@@ -2,6 +2,7 @@ package budgetbuddy.logic.rules.testable;
 
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import budgetbuddy.commons.core.LogsCenter;
@@ -26,5 +27,18 @@ public abstract class TestableExpression implements Testable {
         requireAllNonNull(attribute, value);
         this.attribute = attribute;
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof TestableExpression
+                && attribute.equals(((TestableExpression) other).attribute))
+                && value.equals(((TestableExpression) other).value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attribute, value);
     }
 }

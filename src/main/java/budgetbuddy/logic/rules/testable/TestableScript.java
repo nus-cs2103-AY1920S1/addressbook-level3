@@ -35,4 +35,16 @@ public class TestableScript implements Testable {
          */
         boolean run(Index txnIndex, Account account);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof TestableScript
+                && evaluator.equals(((TestableScript) other).evaluator));
+    }
+
+    @Override
+    public int hashCode() {
+        return evaluator.hashCode();
+    }
 }
