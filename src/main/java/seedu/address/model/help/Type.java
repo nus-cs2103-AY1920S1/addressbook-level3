@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class Type {
 
     public static final String MESSAGE_CONSTRAINTS = "There are 3 available types of help: brief, api and "
-            + "guide\n Please select one of them";
+            + "guide\nPlease select one of them";
 
     private static ArrayList<String> typeList = new ArrayList<String>(
             Arrays.asList("guide",

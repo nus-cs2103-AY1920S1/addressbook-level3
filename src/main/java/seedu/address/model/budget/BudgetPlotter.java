@@ -27,6 +27,7 @@ public class BudgetPlotter {
         for (int day = 1; day <= 30; day++) {
             currentBudget = incomeSeries.getDataItem(day - 1).getYValue()
                     - claimSeries.getDataItem(day - 1).getYValue();
+            currentBudget = Math.round(currentBudget*100)/100.0;
             budgetSeries.add(day, currentBudget);
         }
         return budgetSeries;
