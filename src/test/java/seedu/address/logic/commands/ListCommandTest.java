@@ -13,7 +13,6 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
  */
-// TODO: delete class?
 public class ListCommandTest {
 
     private Model model;
@@ -29,12 +28,4 @@ public class ListCommandTest {
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
-    /*
-    @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
-        assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-     */
 }
