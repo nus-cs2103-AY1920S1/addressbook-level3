@@ -63,16 +63,14 @@ public class PlotterTest {
         claimSeries = claimPlotter.plotClaims();
         BudgetPlotter budgetPlotter = new BudgetPlotter(incomeSeries, claimSeries);
         budgetSeries = budgetPlotter.plotBudget();
-        for (int i=0; i<=29; i++) {
-            System.out.println(budgetSeries.getDataItem(i).getYValue());
-        }
-
-
         for (int i=0; i<10; i++) {
             assertEquals(9454.90, budgetSeries.getDataItem(i).getYValue());
         }
-        for (int j=11; j<=21; j++) {
-            assertEquals(9233.9, budgetSeries.getDataItem(j).getYValue());
+        for (int j=11; j<21; j++) {
+            assertEquals(9233.90, budgetSeries.getDataItem(j).getYValue());
+        }
+        for (int j=22; j<=29; j++) {
+            assertEquals(9188.80, budgetSeries.getDataItem(j).getYValue());
         }
     }
 
