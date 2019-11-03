@@ -22,6 +22,8 @@ public class ServeCommand extends ReversibleCommand {
             + PREFIX_BORROWER_ID + "K0001 ";
 
     public static final String MESSAGE_SUCCESS = "Currently serving Borrower: %1$s\n";
+    public static final String MESSAGE_ALREADY_IN_SERVE_MODE = "Currently still in serve mode! Please enter "
+            + "\"done\" to exit serve mode before serving another borrower.";
 
     private final BorrowerId borrowerId;
 
@@ -45,6 +47,10 @@ public class ServeCommand extends ReversibleCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.isServeMode()) {
+            throw new CommandException(MESSAGE_ALREADY_IN_SERVE_MODE);
+        }
 
         if (!model.hasBorrowerId(borrowerId)) {
             throw new CommandException(MESSAGE_NO_SUCH_BORROWER_ID);

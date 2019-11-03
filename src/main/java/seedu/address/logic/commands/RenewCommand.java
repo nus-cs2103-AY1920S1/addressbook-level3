@@ -102,7 +102,7 @@ public class RenewCommand extends ReversibleCommand {
         undoCommand = new UnrenewCommand(renewedBook, bookToBeRenewed, renewedLoan, loanToBeRenewed);
         redoCommand = this;
         commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, renewedBook,
-                servingBorrower, extendedDueDate));
+                servingBorrower, DateUtil.formatDate(extendedDueDate)));
 
         return commandResult;
     }
