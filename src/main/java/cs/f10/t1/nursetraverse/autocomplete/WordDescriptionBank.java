@@ -36,6 +36,8 @@ class WordDescriptionBank {
             "Select this command to export data";
     static final String HELP_DESCRIPTION =
             "Select this command to for the link to our user guide";
+    static final String EXIT_DESCRIPTION =
+            "Select this command to exit NurseTraverse";
 
     static final String LIST_DESCRIPTION =
             "Select this command to list all patients";

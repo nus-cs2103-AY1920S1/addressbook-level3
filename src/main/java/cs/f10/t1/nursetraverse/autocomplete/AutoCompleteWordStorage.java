@@ -12,6 +12,7 @@ import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.DELETE_AP
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.DELETE_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.EDIT_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.EDIT_DESCRIPTION;
+import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.EXIT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.EXPORT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.FIND_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.FIND_DESCRIPTION;
@@ -54,6 +55,7 @@ import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
 import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
 import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ExitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
 import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
 import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
@@ -144,6 +146,9 @@ public class AutoCompleteWordStorage {
                 false, true));
         oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD,
                 parseFirstSegment(HelpCommand.COMMAND_WORD).get(1), HELP_DESCRIPTION,
+                false, false));
+        oListAllCommandWord.add(new CommandWord(APP_OBJECT_WORD,
+                parseFirstSegment(ExitCommand.COMMAND_WORD).get(1), EXIT_DESCRIPTION,
                 false, false));
 
         // Patient commands
