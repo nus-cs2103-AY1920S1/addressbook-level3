@@ -15,9 +15,9 @@ public class ProfileVisitCard extends UiPart<Region> {
 
     public final VisitReport report;
     public final String date;
-    public String diagnosis;
-    public String medication;
-    public String remarks;
+    private String diagnosis;
+    private String medication;
+    private String remarks;
 
     @FXML
     private HBox profileVisitCardPane;

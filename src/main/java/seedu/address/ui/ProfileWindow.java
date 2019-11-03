@@ -98,7 +98,12 @@ public class ProfileWindow extends UiPart<Stage> {
         addressField.setText(ProfileUtil.stringifyAddress(person.getAddress()));
     }
 
-
+    /**
+     * Populates the ProfileWindow's ListView with the ProfileVisitListCells representing the VisitReport
+     * instances contained within an ObservableList&lt;VisitReport&gt; instance.
+     * @param visitList ObservableList&lt;VisitReport&gt; instance containing the VisitReports to be
+     *                  visualized.
+     */
     public void populateVisitList(ObservableList<VisitReport> visitList) {
         profileVisitList.setItems(visitList);
         profileVisitList.setCellFactory(listView -> new ProfileVisitListCell());
