@@ -20,7 +20,7 @@ If your "abc" is your input in your commandbox, only words that starts with "abc
 
 - When prefixes are suggested you should select all prefixes that you need then type in respective sub-details +
 Eg: Select all prefixes "pat-add n/ p/ e/ a/ t/" before adding sub-details "pat-add n/John p/98762615 e/john@example.com a/exampleaddress t/exampletag vt/examplevisittodo"
-- If no words appear in the autocomplete panel, this can only mean 2 thing. +
+ - If no words appear in the autocomplete panel, this can only mean 2 things: +
 1) Your full command is finished, there is no more words to be suggested +
 2) Your input is wrong and does not match any of the words to be suggested. (Try to change your input by backspacing)
 
