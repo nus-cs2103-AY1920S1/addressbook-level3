@@ -296,7 +296,7 @@ Splits a joint payment equally among group members, then displays a list of who 
 Format: `loan split p/<person> x/<amount paid> ... [me/<your name> w/<date> d/<description>]`
 ****
 * Each `<person>` corresponds to an `<amount paid>`, representing how much the `person` paid for the group initially. +
-The order of all `person`s should match the order of `amount paid`.
+The order of each `person` should match the order of their `amount paid`.
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
 +
 `<your name>` must match one of the persons among the other `p/<person>` names.
