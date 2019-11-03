@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import javafx.fxml.FXML;
@@ -33,9 +34,6 @@ public class McqCard extends AnchorPane {
 
     private ToggleGroup toggleGroup = new ToggleGroup();
 
-    @SuppressWarnings("unchecked")
-    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-
     public McqCard(MultipleChoiceCard mcqCard, Consumer<Boolean> seeBackOfMcqCard) {
         //if userAttempt in the card is -1, it means that the user has not done this card before in this session.
         try {
@@ -48,7 +46,7 @@ public class McqCard extends AnchorPane {
             populateOptions(mcqCard);
             seeBackButton.setOnAction(e -> {
                 if (toggleGroup.getSelectedToggle() == null) {
-                    displayMessage.accept("You need to select an option!");
+                    Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to select an option!");
                 } else {
                     RadioButton chosen = (RadioButton) toggleGroup.getSelectedToggle();
                     int selectedAnswer = toggleGroup.getToggles().indexOf(chosen) + 1;

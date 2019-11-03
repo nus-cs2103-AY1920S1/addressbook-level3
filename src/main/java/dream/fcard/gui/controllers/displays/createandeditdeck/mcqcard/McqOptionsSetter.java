@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,9 +30,7 @@ public class McqOptionsSetter extends ScrollPane {
             rows.remove(row);
             renderOptions();
         } else {
-            @SuppressWarnings("unchecked")
-            Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-            displayMessage.accept("You need at least 1 option!");
+            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need at least 1 option!");
         }
     };
     private Consumer<Boolean> addNewRow = b -> addNewRow();
@@ -67,9 +66,7 @@ public class McqOptionsSetter extends ScrollPane {
      * Adds an empty McqOptionInputRow to the McqOptionsSetter for the user to enter another option.
      */
     private void addNewRow() {
-        @SuppressWarnings("unchecked")
-        Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
-        clearMessage.accept(true);
+        Dispatcher.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
         rows.add(new McqOptionInputRow(rightAnswer, deleteRow, addNewRow));
         renderOptions();
     }

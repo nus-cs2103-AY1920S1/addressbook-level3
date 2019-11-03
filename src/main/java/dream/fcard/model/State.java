@@ -15,25 +15,13 @@ import dream.fcard.model.exceptions.DeckNotFoundException;
 public class State {
     private static State state;
     private ArrayList<Deck> decks;
-    private HashMap<String, Consumer> consumerHashMap;
     private StateEnum currState;
-
-    /**
-     * Constructor to create a State object with existing Deck objects.
-     *
-     * @param initialDecks ArrayList of Deck objects to include in State object.
-     */
-    public State(ArrayList<Deck> initialDecks) {
-        decks = initialDecks;
-    }
-    // todo: unused constructor - remove?
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
     public State() {
         decks = StorageManager.loadDecks();
-        consumerHashMap = new HashMap<>();
         currState = StateEnum.DEFAULT;
     }
 
@@ -115,14 +103,6 @@ public class State {
         return decks.get(indexOfDeck);
     }
 
-    /**
-     * Load decks from StorageManager.
-     *
-     * @param newDecks the array list of all decks in Storage.
-     */
-    public void reloadAllDecks(ArrayList<Deck> newDecks) {
-        decks = newDecks;
-    }
 
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
@@ -145,21 +125,6 @@ public class State {
         return -1;
     }
 
-    public void addConsumer(String identifier, Consumer c) {
-        consumerHashMap.putIfAbsent(identifier, c);
-    }
-
-    /**
-     * This method of getting consumers generifies the type of input which leads to compiler warnings.
-     * As such, the suppress warning annotations used whenever this method is called
-     * are due to the unchecked generic Consumer types.
-     *
-     * @param identifier name of the Consumer as recorded in ConsumerSchema
-     * @return the Consumer
-     */
-    public Consumer getConsumer(String identifier) {
-        return consumerHashMap.get(identifier);
-    }
 
     /**
      * Sets the current state at a specified StateEnum.

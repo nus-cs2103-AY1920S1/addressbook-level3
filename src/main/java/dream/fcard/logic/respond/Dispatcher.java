@@ -20,55 +20,11 @@ public class Dispatcher {
         consumers.remove(identifier);
     }
 
-    /**
-     * @param input
-     */
     @SuppressWarnings("unchecked")
-    public static void parseAndDispatch(String input, StateEnum currState) {
-        // Will need a parser that takes user input and stringifies it into a standard input, e.g.
-        //see 1 | show deck 1 -> view 1
-
-        switch(currState.toString()) {
-        case "DEFAULT":
-            if (input.startsWith(ConsumerSchema.CREATE_NEW_DECK_W_NAME)) {
-                String deckName = getDeckName(input);
-                consumers.get(ConsumerSchema.CREATE_NEW_DECK_W_NAME).accept(deckName);
-            } else if (input.startsWith(ConsumerSchema.CREATE_NEW_DECK)) {
-                consumers.get(ConsumerSchema.CREATE_NEW_DECK).accept(true);
-            } else if (input.startsWith(ConsumerSchema.SEE_SPECIFIC_DECK)) {
-                //assume command is of the form "see_deck 1"
-                Scanner sc = new Scanner(input);
-                sc.next(); //get rid of the see_deck
-                int num = sc.nextInt(); //might throw exception
-                consumers.get(ConsumerSchema.SEE_SPECIFIC_DECK).accept(num);
-            } else if (input.startsWith(ConsumerSchema.ADD_NEW_ROW_MCQ)) {
-                //assume command is of the form "add row"
-
-                // add schematics for modes - eg card creating mode, test mode, similar to state enum. Then in state,
-                // create a hashset for each mode to remember what components are active in that mode -
-                // eg in edit mode hashset, remember whether mcq or js or front back is activated. Everytime you enter a
-                // mode, clear the hashsets for the other modes. To check whether adding a new row is relevant,
-                //check for the mode and the component in the respective hashset.
-            } else if (input.startsWith(ConsumerSchema.QUIT_PROGRAM)) {
-                consumers.get(ConsumerSchema.QUIT_PROGRAM).accept(true);
-            }
-            break;
-
-
-        case "CREATE":
-            if (input.startsWith(ConsumerSchema.QUIT_PROGRAM)) {
-                consumers.get(ConsumerSchema.QUIT_PROGRAM).accept(true);
-            } else if (input.startsWith(ConsumerSchema.EXIT_CREATE)) {
-                consumers.get(ConsumerSchema.EXIT_CREATE).accept(true);
-            } else if (validInput(input)) {
-                consumers.get(ConsumerSchema.PROCESS_INPUT).accept(input);
-            } else {
-
-            }
-            break;
-
-        default:
-            break;
+    public static void doTask(String identifier, Object obj) {
+        Consumer c = consumers.get(identifier);
+        if (c != null) {
+            c.accept(obj);
         }
     }
 

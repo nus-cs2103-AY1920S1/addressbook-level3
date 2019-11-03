@@ -192,7 +192,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        Dispatcher.parseAndDispatch(input, State.getState().getCurrState());
+        //Dispatcher.parseAndDispatch(input, State.getState().getCurrState());
         commandLine.clear();
     }
 
@@ -200,14 +200,6 @@ public class MainWindow extends VBox {
      * Registers consumers in State for global access.
      */
     private void registerConsumers() {
-        State.getState().addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
-        State.getState().addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
-        State.getState().addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
-        State.getState().addConsumer(ConsumerSchema.CLEAR_MESSAGE, clearMessage);
-        State.getState().addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
-
-
-        //ignore the duplicates for now, if dispatcher carries all the consumers then transfer over from state
         Dispatcher.addConsumer(ConsumerSchema.SWAP_DISPLAYS, swapDisplays);
         Dispatcher.addConsumer(ConsumerSchema.DISPLAY_DECKS, displayDecks);
         Dispatcher.addConsumer(ConsumerSchema.DISPLAY_MESSAGE, displayMessage);
@@ -218,7 +210,6 @@ public class MainWindow extends VBox {
         Dispatcher.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
         Dispatcher.addConsumer(ConsumerSchema.EXIT_CREATE, exitCreate);
         Dispatcher.addConsumer(ConsumerSchema.PROCESS_INPUT, processInputCreate);
-
     }
 
     /**

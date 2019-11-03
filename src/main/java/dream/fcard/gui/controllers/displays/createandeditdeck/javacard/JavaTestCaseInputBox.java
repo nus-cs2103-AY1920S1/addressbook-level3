@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.State;
 import dream.fcard.model.TestCase;
 import javafx.fxml.FXML;
@@ -30,9 +31,7 @@ public class JavaTestCaseInputBox extends ScrollPane {
             testCaseRows.remove(row);
             renderRows();
         } else {
-            @SuppressWarnings("unchecked")
-            Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-            displayMessage.accept("You need at least 1 test case!");
+            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need at least 1 test case!");
         }
     };
 

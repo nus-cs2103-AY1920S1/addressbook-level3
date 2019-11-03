@@ -8,6 +8,7 @@ import dream.fcard.gui.controllers.displays.createandeditdeck.javacard.JavaTestC
 import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
 import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Dispatcher;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.TestCase;
@@ -59,8 +60,7 @@ public class CardCreatingWindow extends VBox {
     private Deck tempDeck = new Deck();
     private String testCases;
     private Consumer<Integer> incrementCounterInParent;
-    @SuppressWarnings("unchecked")
-    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
+
 
     public CardCreatingWindow(Consumer<Integer> incrementCounterInParent) {
         try {
@@ -119,13 +119,13 @@ public class CardCreatingWindow extends VBox {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
-                displayMessage.accept("You need to enter a question!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return;
             } else if (!mcqOptionsSetter.hasAtLeastOneNonEmptyOption()) {
-                displayMessage.accept("You need to enter at least 1 option!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter at least 1 option!");
                 return;
             } else if (!mcqOptionsSetter.hasDesignatedRightAnswer()) {
-                displayMessage.accept("You need to tell me which answer is correct!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to tell me which answer is correct!");
                 return;
             }
 
@@ -146,10 +146,10 @@ public class CardCreatingWindow extends VBox {
         } else if (cardType.equals(frontBack)) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {
-                displayMessage.accept("You need to enter a question!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return;
             } else if (frontBackTextArea.getText().isBlank()) {
-                displayMessage.accept("You need to enter an answer!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter an answer!");
                 return;
             }
 
@@ -159,12 +159,12 @@ public class CardCreatingWindow extends VBox {
             tempDeck.addNewCard(card);
         } else if (cardType.equals(js)) {
             if (questionField.getText().isBlank()) {
-                displayMessage.accept("You need to enter a question!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return;
             }
 
             if (!jsTestCaseInputTextArea.hasTestCase()) {
-                displayMessage.accept("You need to enter a test case!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
                 return;
             }
             String testCases = jsTestCaseInputTextArea.getAssertions();
@@ -174,11 +174,11 @@ public class CardCreatingWindow extends VBox {
 
         } else if (cardType.equals(java)) {
             if (questionField.getText().isBlank()) {
-                displayMessage.accept("You need to enter a question!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return;
             }
             if (!javaTestCaseInputBox.hasAtLeastOneTestCase()) {
-                displayMessage.accept("You need to enter a test case!");
+                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
                 return;
             }
 
