@@ -10,9 +10,14 @@ import seedu.address.commons.util.StringUtil;
  * Represents a Password's password value in the password book.
  */
 public class PasswordValue {
-    public static final String MESSAGE_CONSTRAINTS = "PasswordValue can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Password can contain any strings and "
+            + "adhere to the following constrains: \n"
+            + "1) Should not have spaces at the start or end\n"
+            + "2) Be between 2 characters to 25 characters long\n"
+            + "Password is case-sensitive";
 
-    private static final String VALIDATION_REGEX = "[^\\s].*";
+    private static final String VALIDATION_REGEX = "^(?![ ])([^\\s].{1,24})(?<![ ])$";
 
     public final String value;
 

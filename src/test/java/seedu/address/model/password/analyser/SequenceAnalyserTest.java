@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -22,7 +22,7 @@ class SequenceAnalyserTest {
     @Test
     void analyse_passwordWithForwardNumericalSequence() {
 
-        Password p = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("123pass456word123456"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
@@ -43,7 +43,7 @@ class SequenceAnalyserTest {
     @Test
     void analyse_passwordWithBackwardNumericalSequence() {
 
-        Password p = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("321pass654word654321"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
@@ -63,7 +63,7 @@ class SequenceAnalyserTest {
 
     @Test
     void analyse_passwordWithForwardAlphaSequence() {
-        Password p = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("ABCpassXYZwordABCXYZ"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
 
@@ -83,7 +83,7 @@ class SequenceAnalyserTest {
 
     @Test
     void analyse_passwordWithBackwardAlphaSequence() {
-        Password p = new Password(new Description("Gmail"), new Username("Randomguy"),
+        Password p = new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
                 new PasswordValue("CBApassZYXwordCBAZYX"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         ArrayList<Password> list = new ArrayList<>();

@@ -20,8 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -92,8 +92,8 @@ public class EditPasswordCommand extends Command {
                                                  EditPasswordDescriptor editPasswordDescriptor) {
         assert passwordToEdit != null;
 
-        Description updatedDescription = editPasswordDescriptor
-                .getDescription().orElse(passwordToEdit.getDescription());
+        PasswordDescription updatedPasswordDescription = editPasswordDescriptor
+                .getPasswordDescription().orElse(passwordToEdit.getPasswordDescription());
         Username updatedUsername = editPasswordDescriptor
                 .getUsername().orElse(passwordToEdit.getUsername());
         PasswordValue updatedPasswordValue = editPasswordDescriptor
@@ -109,7 +109,7 @@ public class EditPasswordCommand extends Command {
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
-        return new Password(updatedDescription, updatedUsername, updatedPasswordValue,
+        return new Password(updatedPasswordDescription, updatedUsername, updatedPasswordValue,
                 updatedPasswordModifiedAt, updatedWebsite, updatedTags);
     }
 
@@ -136,7 +136,7 @@ public class EditPasswordCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPasswordDescriptor {
-        private Description description;
+        private PasswordDescription passwordDescription;
         private Username username;
         private PasswordValue passwordValue;
         private Website website;
@@ -149,7 +149,7 @@ public class EditPasswordCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPasswordDescriptor(EditPasswordDescriptor toCopy) {
-            setDescription(toCopy.description);
+            setPasswordDescription(toCopy.passwordDescription);
             setUsername(toCopy.username);
             setPasswordValue(toCopy.passwordValue);
             setWebsite(toCopy.website);
@@ -160,15 +160,15 @@ public class EditPasswordCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, username, passwordValue, tags);
+            return CollectionUtil.isAnyNonNull(passwordDescription, username, passwordValue, website, tags);
         }
 
-        public void setDescription(Description description) {
-            this.description = description;
+        public void setPasswordDescription(PasswordDescription passwordDescription) {
+            this.passwordDescription = passwordDescription;
         }
 
-        public Optional<Description> getDescription() {
-            return Optional.ofNullable(description);
+        public Optional<PasswordDescription> getPasswordDescription() {
+            return Optional.ofNullable(passwordDescription);
         }
 
         public void setUsername(Username username) {
@@ -227,7 +227,7 @@ public class EditPasswordCommand extends Command {
             // state check
             EditPasswordDescriptor e = (EditPasswordDescriptor) other;
 
-            return getDescription().equals(e.getDescription())
+            return getPasswordDescription().equals(e.getPasswordDescription())
                     && getUsername().equals(e.getUsername())
                     && getPasswordValue().equals(e.getPasswordValue())
                     && getTags().equals(e.getTags());

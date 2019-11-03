@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WEBSITE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
     public EditPasswordCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME,
+                ArgumentTokenizer.tokenize(userInput, PREFIX_DESCRIPTION, PREFIX_USERNAME, PREFIX_WEBSITE,
                         PREFIX_PASSWORDVALUE, PREFIX_TAG);
 
         Index index;
@@ -50,7 +51,7 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
 
         EditPasswordDescriptor editPasswordDescriptor = new EditPasswordDescriptor();
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            editPasswordDescriptor.setDescription(
+            editPasswordDescriptor.setPasswordDescription(
                     ParserUtil.parsePasswordDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         if (argMultimap.getValue(PREFIX_USERNAME).isPresent()) {
@@ -61,6 +62,12 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
             editPasswordDescriptor.setPasswordValue(
                     ParserUtil.parsePasswordValue(argMultimap.getValue(PREFIX_PASSWORDVALUE).get()));
         }
+
+        if (argMultimap.getValue(PREFIX_WEBSITE).isPresent()) {
+            editPasswordDescriptor.setWebsite(
+                    ParserUtil.parseWebsite(argMultimap.getValue(PREFIX_WEBSITE).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPasswordDescriptor::setTags);
 
         if (!editPasswordDescriptor.isAnyFieldEdited()) {

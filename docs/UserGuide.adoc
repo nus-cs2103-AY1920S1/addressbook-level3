@@ -104,6 +104,11 @@ Format: `read INDEX`
 Example: `read 1`
 
 ==== Copying a field in a password : `copy`
+
+You can copy the password value, website or username for the specific index.
+
+Format: `copy password INDEX`
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -113,10 +118,6 @@ image::tip.png[width = "20", float = "left"]
 * You can type cp for copy, p for password, u for username and w for website.
 * You can only copy one field at a time
 ====
-
-You can copy the password value, website or username for the specific index.
-
-Format: `copy password INDEX`
 
 Example: `copy password 1`
 
@@ -128,6 +129,10 @@ Example: `cp w 2`
 
 ==== Updating a password : `edit`
 
+Added a wrong password? No worries, you can edit the password.
+
+Format: `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -137,17 +142,18 @@ image::tip.png[width = "20", float = "left"]
 * You do not need not type all the fields of the password again.
 
 * You can just type the fields that you want to change.
+
+* At least one of the optional fields must be provided.
+
+* When editing tags, the existing tags of the password will be removed i.e adding of tags is not cumulative.
+
+* You can remove all the password’s tags by typing t/ without specifying any tags after it.
 ====
 
-Added a wrong password? No worries, you can edit the password.
-
-Format: `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`
 
 Example: `edit 1 u/NewUsername`
 
-Example: `edit 1 p/password123`
-
-Example: `edit 1 u/NewUsername p/password123`
+Example: `edit 1 p/password123 t/`
 
 ==== Deleting a password: `delete`
 
@@ -167,21 +173,21 @@ Format: `delete INDEX`
 Example: `delete 2`
 
 ==== Finding a password: `find`
+
+Too many passwords? You can find the password description as specified by the user.
+
+Format: `find KEYWORD`
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* The search is case insensitive. e.g `gmail` will match `Gmail`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case insensitive. e.g `gmail` will match `GMAIL`
 * Only the description is searched.
 * Incomplete-words will be matched e.g. `Han` will match `Hans`
 ====
-
-Too many passwords? You can find the password description as specified by the user.
-
-Format: `find DESCRIPTION`
 
 Example: `find Gmail`
 

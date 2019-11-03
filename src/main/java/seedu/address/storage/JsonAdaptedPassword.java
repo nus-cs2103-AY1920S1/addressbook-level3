@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
@@ -58,7 +58,7 @@ class JsonAdaptedPassword {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPassword(Password password) {
-        description = password.getDescription().value;
+        description = password.getPasswordDescription().value;
         username = password.getUsername().value;
         passwordValue = password.getPasswordValue().value;
         modifiedAt = DateUtil.formatDate(password.getPasswordModifiedAt().value);
@@ -81,9 +81,9 @@ class JsonAdaptedPassword {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                    PasswordDescription.class.getSimpleName()));
         }
-        final Description modelDescription = new Description(description);
+        final PasswordDescription modelPasswordDescription = new PasswordDescription(description);
 
         if (username == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -115,7 +115,7 @@ class JsonAdaptedPassword {
             throw new IllegalValueException(PasswordModifiedAt.MESSAGE_CONSTRAINTS);
         }
         final Set<Tag> modelTags = new HashSet<>(passwordTags);
-        return new Password(modelDescription, modelUserName, modelPasswordValue, modelPasswordModifiedAt,
+        return new Password(modelPasswordDescription, modelUserName, modelPasswordValue, modelPasswordModifiedAt,
                 modelWebsite, modelTags);
     }
 
