@@ -13,11 +13,11 @@ In the list displayed, each patient will have an *index* number which can then b
 
 Format: `pat-list`
 
-=== Finding patients by name: `find`
+=== Finding patients by name: `pat-find`
 
-You can find patients whose names contain any keyword of your choice using `find`.
+You can find patients whose names contain any keyword of your choice using `pat-find`.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `pat-find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -29,9 +29,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
-* `find John` +
+* `pat-find John` +
 Returns patients `john` and `John Doe`
-* `find Betsy Tim John` +
+* `pat-find Betsy Tim John` +
 Returns any patient(s) having names `Betsy`, `Tim`, or `John`
 
 === Adding a Patient: `pat-add`
@@ -113,3 +113,9 @@ Deletes the patient which had been assigned the index 1.
 Warning:
 If `pat-delete` is successfully executed, the indexes of remaining patients may change. Please verify the index of the patient you are referencing after executing this command.
 // end::patient[]
+
+=== Clear all Patient data: `pat-clear`
+
+You can clear all Patient data in the app using `pat-clear`.
+
+Format: `pat-clear`
