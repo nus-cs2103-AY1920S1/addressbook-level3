@@ -170,7 +170,7 @@ Removes John Doe and Mary from the current activity. If any one of them are invo
 // tag::expense[]
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. +
+Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
@@ -192,6 +192,10 @@ If no activity is currently viewed, an error will occur as there is no descripti
 * `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
 Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
 Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+
+NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
+e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
+This adds an expense of $15 by John Doe called `Cab` where only John himself is involved, thus no one owes anyone anything. This can be used to add an expense simply for recording purposes if you, though it is not an intended use case for SplitWiser since there is no debt to calculate and resolve.
 // end::expense[]
 
 // tag::edit[]
