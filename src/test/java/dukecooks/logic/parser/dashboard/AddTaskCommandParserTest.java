@@ -1,17 +1,12 @@
 package dukecooks.logic.parser.dashboard;
 
-import static dukecooks.testutil.dashboard.TypicalDashboard.TASK1;
-
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
-import dukecooks.logic.commands.dashboard.AddTaskCommand;
 import dukecooks.logic.commands.CommandTestUtil;
+import dukecooks.logic.commands.dashboard.AddTaskCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
-import dukecooks.model.dashboard.components.Dashboard;
-import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
-import dukecooks.testutil.dashboard.DashboardBuilder;
 
 public class AddTaskCommandParserTest {
     private AddTaskCommandParser parser = new AddTaskCommandParser();

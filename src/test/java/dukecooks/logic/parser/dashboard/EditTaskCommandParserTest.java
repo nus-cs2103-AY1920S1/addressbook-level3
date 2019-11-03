@@ -23,7 +23,8 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        CommandParserTestUtil.assertParseFailure(parser, CommandTestUtil.VALID_DASHBOARDNAME_YOGA, MESSAGE_INVALID_FORMAT);
+        CommandParserTestUtil.assertParseFailure(parser,
+            CommandTestUtil.VALID_DASHBOARDNAME_YOGA, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         CommandParserTestUtil.assertParseFailure(parser, "1", EditTaskCommand.MESSAGE_NOT_EDITED);

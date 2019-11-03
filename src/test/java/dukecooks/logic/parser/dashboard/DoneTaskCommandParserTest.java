@@ -1,10 +1,9 @@
 package dukecooks.logic.parser.dashboard;
 
-import dukecooks.logic.commands.dashboard.DoneTaskCommand;
 import org.junit.jupiter.api.Test;
 
 import dukecooks.commons.core.Messages;
-import dukecooks.logic.commands.dashboard.DeleteTaskCommand;
+import dukecooks.logic.commands.dashboard.DoneTaskCommand;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.testutil.TypicalIndexes;
 
