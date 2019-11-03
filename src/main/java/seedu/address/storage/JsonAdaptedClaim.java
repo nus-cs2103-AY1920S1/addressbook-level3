@@ -21,7 +21,6 @@ import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
