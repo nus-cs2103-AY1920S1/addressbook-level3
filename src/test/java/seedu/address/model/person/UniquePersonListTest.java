@@ -223,9 +223,8 @@ public class UniquePersonListTest {
         // true: person is in the list
         assertTrue(uniquePersonList.contains(staffMember));
 
-        // false: id will be found as the reference id of ALICE is classified as a patient
-        // while the reference id of staffMember is classified as a staff
-        assertFalse(uniquePersonList.contains(ALICE));
+        // true: id will be found as the string format matches that the reference id of ALICE
+        assertTrue(uniquePersonList.contains(ALICE));
 
     }
 }

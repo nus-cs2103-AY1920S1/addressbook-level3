@@ -241,8 +241,8 @@ public class ParserUtilTest {
         // True: equal
         assertEquals(expectedId, ParserUtil.issuePatientReferenceId(patientIdWithWhitespace));
 
-        // False: cannot expected id belongs to patient and not a staff
-        assertNotEquals(expectedId, ParserUtil.issueStaffReferenceId(patientIdWithWhitespace));
+        // True: the string form of the id are the same
+        assertEquals(expectedId, ParserUtil.issueStaffReferenceId(patientIdWithWhitespace));
 
         final String staffIdWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
         expectedId = PersonReferenceId.issueStaffReferenceId(VALID_STAFF_ID);
@@ -250,8 +250,8 @@ public class ParserUtilTest {
         // True: equal
         assertEquals(expectedId, ParserUtil.issueStaffReferenceId(staffIdWithWhitespace));
 
-        // False: cannot expected id belongs to staff and not a patient
-        assertNotEquals(expectedId, ParserUtil.issuePatientReferenceId(patientIdWithWhitespace));
+        // True: the string form of the id are the same
+        assertEquals(expectedId, ParserUtil.issuePatientReferenceId(staffIdWithWhitespace));
     }
 
     @Test
