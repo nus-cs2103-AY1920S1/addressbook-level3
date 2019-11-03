@@ -52,8 +52,8 @@ public class EditPasswordCommand extends Command {
     private final EditPasswordDescriptor editPasswordDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPasswordDescriptor details to edit the person with
+     * @param index of the password in the filtered password list to edit
+     * @param editPasswordDescriptor details to edit the password with
      */
     public EditPasswordCommand(Index index, EditPasswordDescriptor editPasswordDescriptor) {
         requireNonNull(index);
