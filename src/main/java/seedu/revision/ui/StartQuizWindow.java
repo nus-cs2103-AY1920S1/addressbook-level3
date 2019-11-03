@@ -131,7 +131,6 @@ public class StartQuizWindow extends Window {
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        timer.resetTimer();
         try {
             CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
@@ -140,6 +139,8 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
+
+            timer.resetTimer();
 
             if (commandResult.isExit()) {
                 handleExit();

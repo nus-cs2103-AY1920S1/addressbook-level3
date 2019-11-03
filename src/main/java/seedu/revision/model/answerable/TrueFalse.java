@@ -12,7 +12,7 @@ import seedu.revision.model.category.Category;
 public class TrueFalse extends Answerable {
     /** Message to be shown if user-added True and False {@code Answerable}is not is in the wrong format**/
     public static final String MESSAGE_CONSTRAINTS = " T/F answer"
-            + " should only be True/False (case insensitive)";
+            + " should only be True/False (case insensitive) and can only have 1 answer.";
     /** Validation Regex for the TrueFalse class used to validate user-added True and False {@code Answerable}. **/
     public static final String VALIDATION_REGEX = "(?i)(true|false)";
 
@@ -32,6 +32,14 @@ public class TrueFalse extends Answerable {
      */
     public static boolean isValidTrueFalse(TrueFalse trueFalse) {
         requireNonNull(trueFalse);
+        if (trueFalse.getCorrectAnswerList().size() != 1) {
+            return false;
+        }
+
+        if (!trueFalse.getWrongAnswerList().isEmpty()) {
+            return false;
+        }
+
         if (trueFalse.getCorrectAnswerList().stream()
                 .anyMatch(a -> a.getAnswer().matches(VALIDATION_REGEX))
                 || trueFalse.getWrongAnswerList().stream()

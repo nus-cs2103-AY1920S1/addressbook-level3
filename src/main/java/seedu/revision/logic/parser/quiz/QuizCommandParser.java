@@ -43,8 +43,6 @@ public class QuizCommandParser {
             switch (commandWord) {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
             default:
                 break;
             }
