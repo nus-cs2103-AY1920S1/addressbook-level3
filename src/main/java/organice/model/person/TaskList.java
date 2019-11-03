@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents the checklist for donor and patient in ORGANice.
  * When a donor and patient is matched, they will be processed and a TaskList will be generated containing all the
- * necessary tasks both patient and donor need to do to prepare for a cross-matching
+ * necessary tasks both patient and donor need to do to prepare for a cross-matching.
  */
 public class TaskList {
 
