@@ -3,7 +3,6 @@ package seedu.deliverymans.logic.commands.customer;
 import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.Command;

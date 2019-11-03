@@ -42,6 +42,16 @@ public class Customer {
     }
 
     /**
+     * Constructor for SampleDataUtil.
+     */
+    public Customer(Name name, Phone phone, Set<Tag> tags) {
+        requireAllNonNull(name, phone, tags);
+        this.name = name;
+        this.phone = phone;
+        this.tags.addAll(tags);
+    }
+
+    /**
      * Constructor for saving to storage
      */
     public Customer(Name name, Phone phone, Set<Tag> tags, ObservableList<Order> orders) {
@@ -84,6 +94,9 @@ public class Customer {
         reviewTags(tags);
     }
 
+    /**
+     * Adds {@code Set<Tag>} tags into totalTags.
+     */
     private void reviewTags(Set<Tag> tags) {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
@@ -98,12 +111,17 @@ public class Customer {
         }
     }
 
+    /**
+     * Changes Customer's tags to new tags depending on the number of occurrence of {@code Tag}.
+     */
     private void changeMainTags() {
         List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
         list.sort(Map.Entry.comparingByValue());
         Set<Tag> newTags = new HashSet<>();
         newTags.add(list.get(list.size() - 1).getKey());
-        newTags.add(list.get(list.size() - 2).getKey());
+        if (list.size() > 1) {
+            newTags.add(list.get(list.size() - 2).getKey());
+        }
         tags.clear();
         tags.addAll(newTags);
     }
