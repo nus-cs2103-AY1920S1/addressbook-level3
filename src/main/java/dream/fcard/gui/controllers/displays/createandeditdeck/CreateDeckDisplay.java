@@ -11,6 +11,7 @@ import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -117,7 +118,7 @@ public class CreateDeckDisplay extends VBox {
                     return;
                 }
                 deck.setDeckName(deckName);
-                State.getState().addDeck(deck);
+                StateHolder.getState().addDeck(deck);
                 Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your new deck has been created!");
             }
             Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
