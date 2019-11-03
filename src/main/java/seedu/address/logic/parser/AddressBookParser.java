@@ -56,6 +56,7 @@ import seedu.address.logic.parser.event.FindEventCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.finance.CalculatePayCommandParser;
 import seedu.address.logic.parser.finance.Payparser;
+import seedu.address.logic.parser.finance.Undopayparser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
 import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 
@@ -86,6 +87,9 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case Undopay.COMMAND_WORD:
+            return new Undopayparser().parse(arguments);
 
         case PaySlip.COMMAND_WORD:
             return new CalculatePayCommandParser().parse(arguments);

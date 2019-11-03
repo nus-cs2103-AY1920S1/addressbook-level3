@@ -85,7 +85,7 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName + " ID: " + employee.getEmployeeId().id); //for debug
         phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
-        address.setText("Total Salary : $" + "Employeecard1");
+        address.setText("Total Salary : $" + "");
         email.setText("Pending to Pay : $" + "Employeecard1");
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
@@ -102,7 +102,7 @@ public class EmployeeCard1 extends UiPart<Region> {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    if (mouseEvent.getClickCount() == 2) {
+                    if (mouseEvent.getClickCount() == 0) {
                         mainWindow.handleEmployeeFetch(index);
                     }
                 }
@@ -119,7 +119,7 @@ public class EmployeeCard1 extends UiPart<Region> {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    if (mouseEvent.getClickCount() == 2) {
+                    if (mouseEvent.getClickCount() == 0) {
                         try {
                             if (isAllocate) {
                                 logic.execute(ManualAllocateCommand.COMMAND_WORD + " " + eventOneBasedIndex

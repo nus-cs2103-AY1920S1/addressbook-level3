@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeeSalaryPaid;
 
 
 /**
@@ -30,7 +31,7 @@ public class Pay extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SalaryPaid + "100 ";
     public static final String MESSAGE_SUCCESS = "%s has been paid %s";
-    public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: undopay 1 p/100";
+    public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: pay 1 s/100";
 
     private final Index index;
     private final double salaryToPay;
@@ -73,9 +74,12 @@ public class Pay extends Command {
 //        double ps = ttDouble - amt;
 //        String oput = (int) ps + "";
 //        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
-        String output = "100";
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
+//        double s = employeeToPay.getEmployeeSalaryPaid().getValue();
+//        String output = s + "";
+//        EmployeeSalaryPaid modelEmployeeSalaryPaid = new EmployeeSalaryPaid(output);
+//        employeeToPay.addSalaryPaid(new EmployeeSalaryPaid(output));
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),

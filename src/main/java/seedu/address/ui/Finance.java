@@ -28,6 +28,7 @@ public class Finance extends Tabs<AnchorPane> {
     }
 
 
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Employee} using a {@code EmployeeCard}.
      */

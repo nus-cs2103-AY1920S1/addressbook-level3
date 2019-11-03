@@ -39,6 +39,10 @@ public class EmployeeSalaryPaid {
         this.value += salaryPaid;
     }
 
+    public void min(double salaryPaid) {
+        this.value -= salaryPaid;
+    }
+
     /**
      * Returns true if a given string is a valid Pay number.
      */

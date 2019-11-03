@@ -113,6 +113,10 @@ public class Employee {
         employeeSalaryPaid.add(salaryPaid);
     }
 
+    public void UndoSalaryPaid(double salaryPaid) {
+        employeeSalaryPaid.min(salaryPaid);
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
