@@ -307,7 +307,7 @@ image::EmailSequenceDiagram.png[]
 
 ===== Example: Interview timeslot
 
-This is for sending the email to the Interviewee of his/her allocated interview timeslot. Details that vary according to the Interviewee include:
+This is for opening the email dialog for sending the email to the Interviewee of his/her allocated interview timeslot. Details that vary according to the Interviewee include:
 
 * Date and time of allocated timeslot
 * Interviewer allocated

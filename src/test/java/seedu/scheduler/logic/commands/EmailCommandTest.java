@@ -14,6 +14,7 @@ public class EmailCommandTest {
 
     @Test
     public void execute_emailInvalidName_invalidPerson() {
-        assertCommandFailure(new EmailCommand(new Name("Alice")), model, Messages.MESSAGE_INVALID_PERSON_NAME);
+        assertCommandFailure(new EmailCommand("timeslot", new Name("Alice")), model,
+                Messages.MESSAGE_INVALID_PERSON_NAME);
     }
 }

@@ -105,12 +105,12 @@ public class AddressBookParserTest {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(EmailCommand.COMMAND_WORD));
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(EmailCommand.COMMAND_WORD + " timeslot"));
+            -> parser.parseCommand(EmailCommand.COMMAND_WORD + " ct/timeslot"));
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EmailCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(EmailCommand.COMMAND_WORD + " invalidcommand"));
+            -> parser.parseCommand(EmailCommand.COMMAND_WORD + " ct/invalidcommand"));
 
         assertTrue(parser.parseCommand(
-                EmailCommand.COMMAND_WORD + " timeslot Alice") instanceof EmailCommand);
+                EmailCommand.COMMAND_WORD + " ct/timeslot n/Alice") instanceof EmailCommand);
     }
 
     @Test

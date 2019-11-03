@@ -14,6 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_YEAR_OF_STUDY = new Prefix("y/");
     public static final Prefix PREFIX_DEPARTMENT = new Prefix("d/");
     public static final Prefix PREFIX_SLOT = new Prefix("s/");
+    public static final Prefix PREFIX_COMMAND_TYPE = new Prefix("ct/");
     // TODO: email prefix
     public static final Prefix PREFIX_PERSONAL_EMAIL = new Prefix("ep/");
     public static final Prefix PREFIX_NUS_WORK_EMAIL = new Prefix("ew/");

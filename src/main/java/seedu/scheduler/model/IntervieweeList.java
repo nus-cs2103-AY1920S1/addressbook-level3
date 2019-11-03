@@ -95,6 +95,7 @@ public class IntervieweeList implements ReadAndWriteList<Interviewee> {
     public void clearAllAllocatedSlots() {
         for (Interviewee interviewee : interviewees) {
             interviewee.clearAllocatedSlot();
+            interviewee.setEmailSent(false);
         }
     }
 

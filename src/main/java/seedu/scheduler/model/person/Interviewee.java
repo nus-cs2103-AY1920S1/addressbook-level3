@@ -18,6 +18,7 @@ public class Interviewee extends Person {
     private final List<Slot> availableTimeslots;
     private final Emails emails; // personal, NUS emails etc
     private InterviewSlot allocatedSlot;
+    private boolean emailSent;
 
     /**
      * Every field must be present and not null.
@@ -32,6 +33,7 @@ public class Interviewee extends Person {
         this.availableTimeslots = availableTimeslots;
         this.allocatedSlot = null;
         this.emails = emails;
+        this.emailSent = false;
     }
 
     /**
@@ -142,6 +144,14 @@ public class Interviewee extends Person {
 
     public void clearAllocatedSlot() {
         this.allocatedSlot = null;
+    }
+
+    public boolean getEmailSent() {
+        return this.emailSent;
+    }
+
+    public void setEmailSent(boolean flag) {
+        this.emailSent = flag;
     }
 
     /**
