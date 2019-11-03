@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ENTITY;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.getTypicalIncidentManager;
 
 import java.util.Arrays;
@@ -18,6 +22,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.TagContainsKeywordsPredicate;
 
+//@@author madanalogy
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListPersonsCommand.
  */
@@ -30,6 +35,24 @@ public class ListPersonsCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
         expectedModel = new ModelManager(model.getIncidentManager(), new UserPrefs());
+    }
+
+    @Test
+    void execute_singleKeyword_multiplePersonsFound() {
+        TagContainsKeywordsPredicate predicate = preparePredicate("employee");
+        ListPersonsCommand command = new ListPersonsCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, ListPersonsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
+    }
+
+    @Test
+    void execute_multipleKeywords_singlePersonFound() {
+        TagContainsKeywordsPredicate predicate = preparePredicate("employee boss");
+        ListPersonsCommand command = new ListPersonsCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, ListPersonsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(Collections.singletonList(BENSON), model.getFilteredPersonList());
     }
 
     @Test

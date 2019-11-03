@@ -227,8 +227,8 @@ Uniqueness of a username is ensured by preventing duplicates during the account 
 To prevent abuse (e.g. adding a dummy account and editing/deleting other accounts), all new accounts are differentiated from `Admin` accounts. This restriction based on access level is implemented via account `Tags`:
 
 * Only a `Person` with an admin `Tag` can access account management features. Such a person will henceforth be referred to as an Admin.
-* Users who are not admins are not allowed to add tags (via both AddCommand and UpdateCommand).
-* Only Admins are allowed to edit or add tags (via both AddCommand and UpdateCommand).
+* Users who are not admins are not allowed to add tags (via both `RegisterCommand` and `UpdateCommand`).
+* Only Admins are allowed to edit or add tags (via both `RegisterCommand` and `UpdateCommand`).
 
 [NOTE]
 Non-admins can still edit their own account details via the `UpdateCommand`. Refer to user guide for more info.
@@ -242,7 +242,7 @@ Additional access restrictions:
 
 The checks described above all function in the command execution stage. The `RegisterCommand`, `UpdateCommand`, and `DeleteCommand` retrieves the logged in `Person` from the `Model` via utilisation of the `Session`.
 
-Sequence Diagram for illustration:
+Simplified Sequence Diagram for illustration:
 
 image::AccessSequenceDiagram.png[]
 
@@ -280,6 +280,7 @@ NOTE: The lifeline for DeleteCommand should end at the destroy marker (X) but du
 ==== Known Issues
 
 A sufficiently advanced user can access the data file directly to manipulate account details. Data file encryption (to be implemented in v2.0) will resolve this issue.
+
 // end::accessControl[]
 
 // tag::accountManagement[]
@@ -329,6 +330,7 @@ In the code base, Persons represent user accounts. See person model for more inf
 * **Alternative:** Utilising find command to search for tags
 ** Pros: Centralise all account search operations in one command, improves system cohesiveness.
 ** Cons: Requires the addition of argument prefixes, decreases user experience.
+
 // end::accountManagement[]
 
 // tag::incidentdraftcreation[]
