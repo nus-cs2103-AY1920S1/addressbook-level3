@@ -8,8 +8,8 @@ import seedu.address.model.Catalog;
  * Serial Number generator when user does not input a preferred serial number.
  */
 public class SerialNumberGenerator {
-    public static final int SERIAL_NUMBER_LENGTH = 5; //excluding prefix 'B'
-    public static final String PREFIX = "B";
+    private static final int SERIAL_NUMBER_LENGTH = 5; //excluding prefix 'B'
+    private static final String PREFIX = "B";
 
     private static int currentSerialNumberIndex = 0;
     private static Catalog catalog;
@@ -31,7 +31,7 @@ public class SerialNumberGenerator {
         currentSerialNumberIndex++;
         String padding = getPadding(currentSerialNumberIndex);
         SerialNumber sn = new SerialNumber(PREFIX + padding + currentSerialNumberIndex);
-        while (catalog.checkIfSerialNumberExists(sn)) {
+        while (catalog.serialNumberExists(sn)) {
             currentSerialNumberIndex++;
             padding = getPadding(currentSerialNumberIndex);
             sn = new SerialNumber(PREFIX + padding + currentSerialNumberIndex);
@@ -46,5 +46,4 @@ public class SerialNumberGenerator {
                 .mapToObj(x -> "0")
                 .reduce("", (a, b) -> a + b);
     }
-
 }

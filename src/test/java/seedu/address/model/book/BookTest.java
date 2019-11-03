@@ -137,4 +137,5 @@ public class BookTest {
 
         assertTrue(book1.toString().equals(stringRep));
     }
+
 }

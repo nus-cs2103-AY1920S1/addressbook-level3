@@ -132,7 +132,7 @@ class LoanCommandTest {
         borrowerRecords.addBorrower(HOON);
         BorrowerId servingBorrowerId = HOON.getBorrowerId();
         Catalog catalog = new Catalog();
-        Book onLoan = new BookBuilder(BOOK_7).withLoan(LOAN_7).build();
+        Book onLoan = new BookBuilder(BOOK_7).build().loanOut(LOAN_7);
         catalog.addBook(onLoan);
 
         Model model = new ModelManager(catalog, new LoanRecords(),
