@@ -59,6 +59,10 @@ public class ShowCommand extends UndoableCommand {
         } catch (Exception e) {
             throw new CommandException("Show command format is incorrect. It should be \"show T\"");
         }
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView));
     }
 
