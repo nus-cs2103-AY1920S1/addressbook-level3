@@ -92,6 +92,7 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
+        budgets.handleDuplicatePrimaryBudgets();
         //resetBudgetExpenseLists();
     }
 
