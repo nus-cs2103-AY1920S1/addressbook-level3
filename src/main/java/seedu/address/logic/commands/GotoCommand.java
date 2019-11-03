@@ -5,10 +5,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLAIMS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCOMES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.address.commons.core.View;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.View;
 
 /**
  * Lists all persons in the address book to the user.

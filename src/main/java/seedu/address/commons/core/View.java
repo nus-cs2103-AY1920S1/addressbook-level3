@@ -1,5 +1,8 @@
-package seedu.address.model;
+package seedu.address.commons.core;
 
+import seedu.address.logic.parser.ParserUtil;
+
+//@@author {lawncegoh}
 /**
  * Gives the specific view that the user inputs
  */
@@ -14,7 +17,10 @@ public class View {
      * @param string
      * @param viewIndex tagged to the string, just tells the app what view the user chose
      */
-    public View(String string, int viewIndex) {
+    public View(String string, int viewIndex) throws IllegalArgumentException {
+        if (!(ParserUtil.checkView(string))) {
+            throw new IllegalArgumentException();
+        }
         togo = string;
         index = viewIndex;
     }
@@ -26,4 +32,5 @@ public class View {
     public int getIndex() {
         return index;
     }
+
 }

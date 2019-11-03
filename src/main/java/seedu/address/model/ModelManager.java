@@ -396,7 +396,11 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return finSec.equals(other.finSec)
                 && userPrefs.equals(other.userPrefs)
-                && filteredContacts.equals(other.filteredContacts);
+                && filteredContacts.equals(other.filteredContacts)
+                && filteredIncomes.equals(other.filteredIncomes)
+                && filteredClaims.equals(other.filteredClaims)
+                && filteredSuggestions.equals(filteredSuggestions)
+                && filteredCommands.equals(filteredCommands);
     }
 
     //=========== Filtered Claims List Accessors =============================================================

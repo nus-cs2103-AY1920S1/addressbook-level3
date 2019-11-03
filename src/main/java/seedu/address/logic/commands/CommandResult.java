@@ -29,6 +29,9 @@ public class CommandResult {
     /** User wants to create a shortcut **/
     private boolean createShortCut;
 
+    /** Check if user wants to clear the FinSec */
+    private boolean toClear;
+
     /** Claim object */
     private Claim claim;
 
@@ -37,7 +40,7 @@ public class CommandResult {
 
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields that includes shortcut
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean createShortCut,
                          boolean showClaim, boolean showContact) {
@@ -49,6 +52,22 @@ public class CommandResult {
         this.showContact = showContact;
     }
 
+    //@@author{lawncegoh}
+    /**
+     * Constructs a (@code CommandResult} with the clear boolean
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean createShortCut,
+                         boolean showClaim, boolean showContact, boolean toClear) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.createShortCut = createShortCut;
+        this.showClaim = showClaim;
+        this.showContact = showContact;
+        this.toClear = toClear;
+    }
+
+    //@@author{lawncegoh}
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -61,8 +80,9 @@ public class CommandResult {
         this.showContact = showContact;
     }
 
+    //@@author{lawncegoh}
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields that includes a specific Claim instance
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim, Claim claim) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -72,8 +92,9 @@ public class CommandResult {
         this.claim = claim;
     }
 
+    //@@author{lawncegoh}
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields that includes a specific Contact instance
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showClaim,
                          boolean showContact, Contact contact) {
@@ -117,6 +138,10 @@ public class CommandResult {
 
     public boolean isCreateShortCut() {
         return createShortCut;
+    }
+
+    public boolean isToClear() {
+        return toClear;
     }
 
     /**

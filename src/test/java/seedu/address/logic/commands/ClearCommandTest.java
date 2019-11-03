@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
 
 import org.junit.jupiter.api.Test;
@@ -17,16 +17,16 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(model, expectedModel);
     }
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
+        Model model = new ModelManager(new FinSec(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalFinSec(), new UserPrefs());
         expectedModel.setFinSec(new FinSec());
 
-        assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(model, expectedModel);
     }
 
 }

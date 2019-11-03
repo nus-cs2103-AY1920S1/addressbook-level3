@@ -1,0 +1,60 @@
+package seedu.address.commons.core;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.SortFilter;
+
+//@@author {lawncegoh}
+public class FilterTest {
+
+    @Test
+    public void filterCheck_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.checkFilter(null));
+    }
+
+    @Test
+    public void constructor_invalidFilter_throwsIllegalArgumentException() {
+        String invalidFilter = "asdasd";
+        assertThrows(IllegalArgumentException.class, () -> new SortFilter(invalidFilter, 1));
+    }
+
+    @Test
+    public void invalidFilter_ifBlank() {
+
+        //blank View
+        assertFalse(ParserUtil.checkFilter(""));
+        assertFalse(ParserUtil.checkFilter("   "));
+    }
+
+    @Test
+    public void invalidValidFilter_withUppercase() {
+        assertFalse(ParserUtil.checkFilter("NAME"));
+        assertFalse(ParserUtil.checkFilter("Name"));
+        assertFalse(ParserUtil.checkFilter("Date"));
+        assertFalse(ParserUtil.checkFilter("DATE"));
+        assertFalse(ParserUtil.checkFilter("STATUS"));
+        assertFalse(ParserUtil.checkFilter("Status"));
+    }
+
+    @Test
+    public void invalidView_withWhiteSpace() {
+        assertFalse(ParserUtil.checkFilter("name        "));
+        assertFalse(ParserUtil.checkFilter("date       "));
+        assertFalse(ParserUtil.checkFilter("status  "));
+        assertFalse(ParserUtil.checkFilter("     name"));
+        assertFalse(ParserUtil.checkFilter("     date"));
+        assertFalse(ParserUtil.checkFilter("      status"));
+    }
+
+    @Test
+    public void validViews() {
+        assertTrue(ParserUtil.checkFilter("name"));
+        assertTrue(ParserUtil.checkFilter("date"));
+        assertTrue(ParserUtil.checkFilter("status"));
+    }
+}

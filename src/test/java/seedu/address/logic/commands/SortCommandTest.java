@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertViewContactFailure;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.Filters.FIRST_FILTER;
 import static seedu.address.testutil.Filters.SECOND_FILTER;
@@ -31,9 +30,14 @@ class SortCommandTest {
 
     @Test
     public void execute_invalidFilter() {
-        SortFilter invalidFilter = new SortFilter("invalid", 4);
-        SortCommand sortCommand = new SortCommand(invalidFilter);
-        assertViewContactFailure(sortCommand, model, "Filter does not exist");
+        SortFilter invalidFilter;
+        try {
+            invalidFilter = new SortFilter("invalid", 4);
+        } catch (IllegalArgumentException e) {
+            invalidFilter = null;
+            SortFilter finalInvalidFilter = invalidFilter;
+            assertThrows(NullPointerException.class, () -> new SortCommand(finalInvalidFilter));
+        }
     }
 
     @Test
