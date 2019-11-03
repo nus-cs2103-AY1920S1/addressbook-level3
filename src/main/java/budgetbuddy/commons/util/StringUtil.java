@@ -66,17 +66,17 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code s} represents a non-negative unsigned long
+     * Returns true if {@code s} represents a positive unsigned long
      * e.g. 1, 2.2, 3, ..., {@code Long.MAX_VALUE} <br>
      * Will return false for any other non-null string input
      * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
      * @throws NullPointerException if {@code s} is null.
      */
-    public static boolean isNonNegativeUnsignedLong(String s) {
+    public static boolean isPositiveUnsignedLong(String s) {
         requireNonNull(s);
         try {
             long value = Long.parseLong(s);
-            return value >= 0 && !s.startsWith("+");
+            return value > 0 && !s.startsWith("+");
         } catch (NumberFormatException nfe) {
             return false;
         }

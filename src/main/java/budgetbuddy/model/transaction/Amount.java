@@ -12,7 +12,7 @@ public class Amount {
     public static final String MAX_AMOUNT = "9999999999999999";
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Amounts should be non-negative numbers, should not be blank, "
+            "Amounts should be positive numbers, should not be blank, "
                     + "and should not exceed " + CURRENCY_SIGN + MAX_AMOUNT + ".";
     public static final String MESSAGE_CENTS_PARSE_ERROR =
             "Cents should be at most two decimal places long.";

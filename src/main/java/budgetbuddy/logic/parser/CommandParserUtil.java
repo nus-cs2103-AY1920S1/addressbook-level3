@@ -95,7 +95,7 @@ public class CommandParserUtil {
         }
 
         Long parsedDollars;
-        if (StringUtil.isNonNegativeUnsignedLong(dollarCentArray[0])) {
+        if (StringUtil.isPositiveUnsignedLong(dollarCentArray[0])) {
             parsedDollars = Long.parseLong(dollarCentArray[0]) * 100L;
         } else {
             throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
@@ -104,7 +104,7 @@ public class CommandParserUtil {
         Long parsedCents = 0L;
         if (dollarCentArray.length == 2) {
             if (dollarCentArray[1].length() <= 2
-                    && StringUtil.isNonNegativeUnsignedLong(dollarCentArray[1])) {
+                    && StringUtil.isPositiveUnsignedLong(dollarCentArray[1])) {
                 parsedCents = dollarCentArray[1].length() == 1
                         ? Long.parseLong(dollarCentArray[1] + "0")
                         : Long.parseLong(dollarCentArray[1]);
