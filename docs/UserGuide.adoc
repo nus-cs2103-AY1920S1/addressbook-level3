@@ -732,9 +732,8 @@ under the category "Sales" and person being the cashier-in-charge. The Home tab 
 Items with zero price are not available for sale. Such items cannot be added into the table.
 
 [WARNING]
-Do not key in a quantity where the total amount in table or subtotal of that row exceeds 2,147,483,647, the range
-of an integer. If it exceeds this number, please key in a smaller quantity or checkout items separately. +
-You are advised to key in a number smaller than 10000 due to size limitation.
+Due to size limitation, you will not be allowed to add any items into the cart if the total amount exceeds $9999. You
+are advised to reduce the quantity of items or checkout separately in another cart.
 
 ====
 
@@ -1067,6 +1066,12 @@ Data in treasurerPro is saved automatically after executing any command. There i
 
 *Q*: Can I resize the app window? +
 *A*: No, you may not resize the app window.
+
+*Q*: What is `Cashier Mode`? How can I switch it off? +
+*A*: `Cashier Mode` is a feature implemented for security reasons. It is considered turned on when there are sales items
+in the cart on the `Cashier Tab`. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
+items. +
+To switch it off, please enter `clear` on the Command Line Interface (CLI) of the `Cashier Tab`.
 
 == Command Summary
 
