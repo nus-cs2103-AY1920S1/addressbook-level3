@@ -13,7 +13,7 @@ import java.util.HashSet;
 public class TissueType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Tissue types are 6 integers from 1 to 12 separated by commas"
+            "Tissue types should only be 6 integers from 1 to 12 separated by commas."
                 + " An example will be 1,2,3,4,5,6";
     public final String value;
 
