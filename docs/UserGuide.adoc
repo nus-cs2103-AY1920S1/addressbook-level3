@@ -195,7 +195,7 @@ Alternatively, if no activity is currently viewed, an activity titled `Drinks` w
 
 NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
 e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
-This adds an expense of $15 by John Doe called `Cab` where only John himself is involved, thus no one owes anyone anything. This can be used to add an expense simply for recording purposes if you, though it is not an intended use case for SplitWiser since there is no debt to calculate and resolve.
+This adds an expense of $15 by John Doe called `Cab` where only John himself is involved, thus no one owes anyone anything. This can be used to add an expense simply for recording purposes if desired, though it is not an intended use case for SplitWiser since there is no debt to calculate and resolve.
 // end::expense[]
 
 // tag::edit[]
