@@ -106,6 +106,11 @@ public class LogicManager implements Logic {
         return model.getFilterFoodList();
     }
 
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return model.getMixedFoodList();
+    }
+
     //=========== Record List =============================================================
 
     @Override

@@ -70,17 +70,17 @@ public interface Model {
     UniqueFoodList getUniqueFoodListObject();
 
     /**
-     * Returns the a list of foods.
-     */
-    ObservableList<Food> getFoodList();
-
-    /**
      * Replaces food list data with the data in {@code newFoodList}.
      */
     void setFoodList(UniqueFoodList newFoodList);
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns the a list of foods.
+     */
+    ObservableList<Food> getFoodList();
+
+    /**
+     * Returns an unmodifiable view of the filtered food list
      */
     ObservableList<Food> getFilterFoodList();
 
@@ -90,6 +90,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
+
+
+    /**
+     * Returns an unmodifiable view of the mix of foods from each food type.
+     */
+    ObservableList<Food> getMixedFoodList();
 
 
     //==================RECORD====================

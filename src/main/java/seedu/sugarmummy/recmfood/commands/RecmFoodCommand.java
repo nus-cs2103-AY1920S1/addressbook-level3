@@ -2,6 +2,7 @@ package seedu.sugarmummy.recmfood.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import seedu.sugarmummy.logic.commands.Command;
@@ -17,7 +18,6 @@ import seedu.sugarmummy.ui.DisplayPaneType;
  */
 public class RecmFoodCommand extends Command {
 
-    public static final char FLAG_SIGNAL = '-';
     public static final String COMMAND_WORD = "recmf";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets a list of food recommendations."
             + "Recommendations can be filtered by keywords and flags:\n"
@@ -28,15 +28,30 @@ public class RecmFoodCommand extends Command {
             + "-s: snack recommendations\n"
             + "-m: meal recommendations\n"
             + "Usage:" + COMMAND_WORD + "[-FLAG]... [fn/FOOD_NAME]";
+
     private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
             + "Try adding more new foods or reducing some filters~";
     private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
+
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
+    private final Comparator<Food> foodComparator;
+    private static final Comparator<Food> defaultFoodTypeComparator = new Comparator<Food>() {
+        @Override
+        public int compare(Food first, Food second) {
+            return first.getFoodType().compareTo(second.getFoodType());
+        }
+    };
 
     public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate) {
+        this(typePredicate, foodNamePredicate, defaultFoodTypeComparator);
+    }
+
+    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate,
+                           Comparator<Food> foodComparator) {
         this.typePredicate = typePredicate;
         this.namePredicate = foodNamePredicate;
+        this.foodComparator = foodComparator;
     }
 
     @Override

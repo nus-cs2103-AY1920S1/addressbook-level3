@@ -34,8 +34,7 @@ public class FoodFlowPanel extends UiPart<Region> {
                 refreshFlowPanel(foodList);
             }
         });
-        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
-                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+        fillFlowPaneContent(foodList);
         mainScrollPanel.setContent(flowPane);
     }
 
@@ -43,12 +42,16 @@ public class FoodFlowPanel extends UiPart<Region> {
         super(FXML);
     }
 
+    private void fillFlowPaneContent(ObservableList<Food> foodList) {
+        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
+                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+    }
+
     /**
      * Updates the food recommendation panel.
      */
     private void refreshFlowPanel(ObservableList<Food> foodList) {
         flowPane.getChildren().clear();
-        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
-                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+        fillFlowPaneContent(foodList);
     }
 }

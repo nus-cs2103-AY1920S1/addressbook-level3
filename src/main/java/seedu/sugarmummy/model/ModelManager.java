@@ -49,14 +49,18 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
     private final FilteredList<User> filteredUserList;
-    private final UniqueFoodList foodList;
     private final UserList userList;
+
+    private final UniqueFoodList foodList;
     private final FilteredList<Food> filteredFoodList;
+
     private final UniqueRecordList recordList;
     private final FilteredList<Record> filteredRecordList;
+
     private final Calendar calendar;
     private final FilteredList<CalendarEntry> filteredCalenderEntryList;
     private final FilteredList<CalendarEntry> pastReminderList;
+
     private final AverageMap averageMap;
     private final List<String> motivationalQuotesList;
     private final Map<RecordType, List<Achievement>> achievementsMap;
@@ -80,7 +84,7 @@ public class ModelManager implements Model {
         this.userList = new UserList(userList);
         this.filteredUserList = new FilteredList<>(this.userList.getUserList());
         this.foodList = foodList;
-        this.filteredFoodList = new FilteredList<>(this.foodList.asUnmodifiableObservableList());
+        this.filteredFoodList = new FilteredList<>(this.foodList.getUnmodifiableObservableList());
         this.recordList = recordList;
         this.filteredRecordList = new FilteredList<>(this.recordList.asUnmodifiableObservableList());
         this.calendar = new Calendar(calendar);
@@ -294,19 +298,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setFoodList(UniqueFoodList uniqueFoodLists) {
+        requireAllNonNull(uniqueFoodLists);
+        foodList.setFoods(uniqueFoodLists);
+    }
+
+    @Override
     public UniqueFoodList getUniqueFoodListObject() {
         return foodList;
     }
 
     @Override
     public ObservableList<Food> getFoodList() {
-        return foodList.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public void setFoodList(UniqueFoodList uniqueFoodLists) {
-        requireAllNonNull(uniqueFoodLists);
-        foodList.setFoods(uniqueFoodLists);
+        return foodList.getUnmodifiableObservableList();
     }
 
     @Override
@@ -318,6 +322,11 @@ public class ModelManager implements Model {
     public void updateFilteredFoodList(Predicate<Food> predicate) {
         requireNonNull(predicate);
         filteredFoodList.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Food> getMixedFoodList() {
+        return foodList.getMixedFoodList();
     }
 
     //=========== Records =============================================================
