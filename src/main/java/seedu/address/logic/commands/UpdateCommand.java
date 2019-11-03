@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -46,7 +45,7 @@ public class UpdateCommand extends Command {
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to update must be provided.";
     public static final String MESSAGE_UPDATE_TRANSACTION_SUCCESS = "Updated: %1$s";
-    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 billion (i.e. 1,000,000)";
+    public static final String MESSAGE_AMOUNT_OVERFLOW = "Transaction amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Transaction amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Transaction amount cannot be zero";
 
@@ -68,7 +67,7 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (this.type.equals("t")) {
-            FilteredList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
+            ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -76,10 +75,10 @@ public class UpdateCommand extends Command {
 
             BankAccountOperation transactionToReplace = lastShownList.get(targetIndex.getZeroBased());
             BankAccountOperation updatedTransaction = createUpdatedTransaction(transactionToReplace,
-                    updateTransactionDescriptor);
+                updateTransactionDescriptor);
 
             model.setTransaction(transactionToReplace, updatedTransaction);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedTransaction));
         } else if (this.type.equals("b")) {
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
@@ -90,10 +89,10 @@ public class UpdateCommand extends Command {
 
             Budget budgetToReplace = lastShownList.get(targetIndex.getZeroBased());
             Budget updatedBudget = createUpdatedBudget(budgetToReplace,
-                    updateTransactionDescriptor);
+                updateTransactionDescriptor);
 
             model.setBudget(budgetToReplace, updatedBudget);
-            model.commitBankAccount();
+            model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_TRANSACTION_SUCCESS, updatedBudget));
 
         } else {
@@ -110,8 +109,8 @@ public class UpdateCommand extends Command {
         assert transactionToEdit != null;
 
         Description updatedDescription = updateTransactionDescriptor
-                .getDescription()
-                .orElse(transactionToEdit.getDescription());
+            .getDescription()
+            .orElse(transactionToEdit.getDescription());
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
         Set<Category> updatedCategories = updateTransactionDescriptor
@@ -140,7 +139,7 @@ public class UpdateCommand extends Command {
         // state check
         UpdateCommand u = (UpdateCommand) other;
         return targetIndex.equals(u.targetIndex)
-                && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
+            && updateTransactionDescriptor.equals(u.updateTransactionDescriptor);
     }
 
     /**
@@ -148,13 +147,13 @@ public class UpdateCommand extends Command {
      * edited with {@code editTransactionDescriptor}.
      */
     private static Budget createUpdatedBudget(
-            Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
+        Budget budgetToEdit, UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert budgetToEdit != null;
 
         Amount updatedAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getBudget());
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
         Set<Category> updatedCategories = updateTransactionDescriptor
-                .getCategories().orElse(budgetToEdit.getCategories());
+            .getCategories().orElse(budgetToEdit.getCategories());
 
         return new Budget(updatedAmount, updatedDate, updatedCategories);
     }
@@ -178,7 +177,7 @@ public class UpdateCommand extends Command {
          * A defensive copy of {@code categories} is used internally.
          */
         public UpdateTransactionDescriptor(UpdateTransactionDescriptor toCopy) {
-            setDescription(description);
+            setDescription(toCopy.description);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
             setCategories(toCopy.categories);
@@ -188,7 +187,7 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(amount, date, categories);
+            return CollectionUtil.isAnyNonNull(description, amount, date, categories);
         }
 
         public void setDescription(Description description) {
@@ -249,7 +248,8 @@ public class UpdateCommand extends Command {
 
             return getAmount().equals(e.getAmount())
                 && getDate().equals(e.getDate())
-                && getCategories().equals(e.getCategories());
+                && getCategories().equals(e.getCategories())
+                && getDescription().equals(e.getDescription());
         }
     }
 

@@ -10,26 +10,26 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.BankAccount;
+import seedu.address.model.UserState;
 import seedu.address.testutil.TypicalTransactions;
 
 public class JsonSerializableBankAccountTest {
 
     private static final Path TEST_DATA_FOLDER = Paths
-        .get("src", "test", "data", "JsonSerializableBankAccountTest");
+        .get("src", "test", "data", "JsonSerializableUserStateTest");
     private static final Path TYPICAL_TRANSACTIONS_FILE = TEST_DATA_FOLDER
-        .resolve("typicalTransactionsBankAccount.json");
+        .resolve("typicalTransactionsUserState.json");
     private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER
-        .resolve("invalidTransactionBankAccount.json");
+        .resolve("invalidTransactionUserState.json");
     private static final Path DUPLICATE_TRANSACTION_FILE = TEST_DATA_FOLDER
-        .resolve("duplicateTransactionBankAccount.json");
+        .resolve("duplicateTransactionUserState.json");
 
     @Test
     public void toModelType_typicalTransactionsFile_success() throws Exception {
         JsonSerializableBankAccount dataFromFile = JsonUtil.readJsonFile(TYPICAL_TRANSACTIONS_FILE,
             JsonSerializableBankAccount.class).get();
-        BankAccount bankAccountFromFile = dataFromFile.toModelType();
-        BankAccount typicalTransactionsBankAccount = TypicalTransactions.getTypicalBankAccount();
+        UserState bankAccountFromFile = dataFromFile.toModelType();
+        UserState typicalTransactionsBankAccount = TypicalTransactions.getTypicalUserState();
         assertEquals(bankAccountFromFile, typicalTransactionsBankAccount);
     }
 

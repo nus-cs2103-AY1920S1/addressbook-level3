@@ -25,7 +25,7 @@ public class SortCommandParserTest {
         SortCommand expectedAmountSortCommand = new SortCommand(new AmountComparator());
         SortCommand expectedDateSortCommand = new SortCommand(new DateComparator());
 
-        // no leading and trailing whitespaces for AmountComparator
+        // no leading and trailing whitespaces
         assertParseSuccess(parser, "amount", expectedAmountSortCommand);
         assertParseSuccess(parser, "date", expectedDateSortCommand);
 

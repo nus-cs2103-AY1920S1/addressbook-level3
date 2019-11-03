@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.BankAccount;
 import seedu.address.model.Model;
+import seedu.address.model.UserState;
 
 /**
  * Clears the address book.
@@ -17,8 +17,8 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setBankAccount(new BankAccount());
-        model.commitBankAccount();
+        model.setUserState(new UserState());
+        model.commitUserState();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

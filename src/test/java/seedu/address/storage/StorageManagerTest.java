@@ -22,9 +22,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonBankAccountStorage bankAccountStorage = new JsonBankAccountStorage(getTempFilePath("ab"));
+        JsonUserStateStorage userStateStorage = new JsonUserStateStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(bankAccountStorage, userPrefsStorage);
+        storageManager = new StorageManager(userStateStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -54,9 +54,9 @@ public class StorageManagerTest {
     @Test
     public void bankAccountReadSave() throws Exception {
 
-        BankAccount original = getTypicalBankAccount();
-        storageManager.saveBankAccount(original);
-        ReadOnlyBankAccount retrieved = storageManager.readBankAccount().get();
+        BankAccount original = getTypicalUserState();
+        storageManager.saveAccount(original);
+        ReadOnlyBankAccount retrieved = storageManager.readAccount().get();
         assertEquals(original, new BankAccount(retrieved));
     }
      */
@@ -64,7 +64,7 @@ public class StorageManagerTest {
 
     @Test
     public void getBankAccountFilePath() {
-        assertNotNull(storageManager.getBankAccountFilePath());
+        assertNotNull(storageManager.getUserStateFilePath());
     }
 
 }

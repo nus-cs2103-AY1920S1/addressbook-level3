@@ -19,7 +19,7 @@ public abstract class Transaction implements UndoableAction {
     protected Person peopleInvolved;
 
     // Data fields
-    private final Set<Category> categories = new HashSet<>();
+    protected final Set<Category> categories = new HashSet<>();
 
     public Transaction(Amount amount, Date date, Description description) {
         this.amount = amount;

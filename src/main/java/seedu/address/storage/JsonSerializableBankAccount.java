@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.BankAccount;
-import seedu.address.model.ReadOnlyBankAccount;
+import seedu.address.model.ReadOnlyUserState;
+import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 
@@ -21,17 +21,20 @@ import seedu.address.model.transaction.Budget;
 class JsonSerializableBankAccount {
 
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
-    public static final String MESSAGE_DUPLICATE_BUDGET = "Transactions list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_LEDGER = "Ledger list contains duplicate Ledger operation(s).";
 
-    private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
+    private final List<JsonAdaptedBankOperations> transactions = new ArrayList<>();
     private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
+    private final List<JsonAdaptedLedgerOperations> ledgers = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBankAccount} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
-                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
+    public JsonSerializableBankAccount(@JsonProperty("transactions") List<JsonAdaptedBankOperations> transactions,
+                                       @JsonProperty("budgets") List<JsonAdaptedBudget> budgets,
+                                       @JsonProperty("ledgers") List<JsonAdaptedLedgerOperations> ledgers) {
         this.transactions.addAll(transactions);
         this.budgets.addAll(budgets);
     }
@@ -41,16 +44,16 @@ class JsonSerializableBankAccount {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableBankAccount}.
      */
-    public JsonSerializableBankAccount(ReadOnlyBankAccount source) {
+    public JsonSerializableBankAccount(ReadOnlyUserState source) {
         budgets
-            .addAll(source.getBudgetHistory()
+            .addAll(source.getBankAccount().getBudgetHistory()
                 .stream()
                 .map(JsonAdaptedBudget::new)
                 .collect(Collectors.toList()));
         transactions
-            .addAll(source.getTransactionHistory()
+            .addAll(source.getBankAccount().getTransactionHistory()
                 .stream()
-                .map(JsonAdaptedTransaction::new)
+                .map(JsonAdaptedBankOperations::new)
                 .collect(Collectors.toList()));
     }
 
@@ -59,24 +62,24 @@ class JsonSerializableBankAccount {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public BankAccount toModelType() throws IllegalValueException {
-        BankAccount bankAccount = new BankAccount();
-        for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
-            BankAccountOperation txn = jsonAdaptedTransaction.toModelType();
-            if (bankAccount.hasTransaction(txn)) {
+    public UserState toModelType() throws IllegalValueException {
+        UserState user = new UserState();
+        for (JsonAdaptedBankOperations jsonAdaptedBankOperations : transactions) {
+            BankAccountOperation txn = jsonAdaptedBankOperations.toModelType();
+            if (user.has(txn)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
             }
-            bankAccount.addTransaction(txn);
+            user.add(txn);
         }
 
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
-            if (bankAccount.hasBudget(budget)) {
+            if (user.has(budget)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BUDGET);
             }
-            bankAccount.addBudget(budget);
+            user.add(budget);
         }
-        return bankAccount;
+        return user;
     }
 
 }

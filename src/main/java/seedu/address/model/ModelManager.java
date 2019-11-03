@@ -23,27 +23,29 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
-    private final VersionedBankAccount versionedBankAccount;
+    private final VersionedUserState versionedUserState;
     private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
+    private final FilteredList<LedgerOperation> filteredLedgerOperations;
 
     /**
      * Initializes a ModelManager with the given bankAccount and userPrefs.
      */
-    public ModelManager(ReadOnlyBankAccount bankAccount, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserState userState, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(bankAccount, userPrefs);
+        requireAllNonNull(userState, userPrefs);
 
-        logger.fine("Initializing with bank account" + bankAccount + " and user prefs " + userPrefs);
+        logger.fine("Initializing with bank account" + userState + " and user prefs " + userPrefs);
 
-        this.versionedBankAccount = new VersionedBankAccount(bankAccount);
+        this.versionedUserState = new VersionedUserState(userState);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.versionedBankAccount.getTransactionHistory());
-        filteredBudgets = new FilteredList<>(this.versionedBankAccount.getBudgetHistory());
+        filteredTransactions = new FilteredList<>(this.versionedUserState.getBankAccount().getTransactionHistory());
+        filteredBudgets = new FilteredList<>(this.versionedUserState.getBankAccount().getBudgetHistory());
+        filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedger().getLedgerHistory());
     }
 
     public ModelManager() {
-        this(new BankAccount(), new UserPrefs());
+        this(new UserState(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -73,80 +75,85 @@ public class ModelManager implements Model {
     //=========== Bank Account =============================================================
 
     @Override
-    public Path getBankAccountFilePath() {
-        return userPrefs.getBankAccountFilePath();
+    public Path getUserStateFilePath() {
+        return userPrefs.getUserStateFilePath();
     }
 
     @Override
-    public void setBankAccountFilePath(Path bankAccountFilePath) {
-        requireNonNull(bankAccountFilePath);
-        userPrefs.setBankAccountFilePath(bankAccountFilePath);
+    public void setUserStateFilePath(Path userStateFilePath) {
+        requireNonNull(userStateFilePath);
+        userPrefs.setUserStateFilePath(userStateFilePath);
     }
 
     @Override
-    public void setBankAccount(ReadOnlyBankAccount bankAccount) {
-        requireNonNull(bankAccount);
-        this.versionedBankAccount.resetData(bankAccount);
+    public void setUserState(ReadOnlyUserState userState) {
+        requireNonNull(userState);
+        this.versionedUserState.resetData(userState);
     }
 
     @Override
     public ReadOnlyBankAccount getBankAccount() {
-        return versionedBankAccount;
+        return versionedUserState.getBankAccount();
+    }
+
+    @Override
+    public ReadOnlyUserState getUserState() {
+        return this.versionedUserState;
     }
 
     @Override
     public boolean hasTransaction(BankAccountOperation transaction) {
         requireNonNull(transaction);
-        return versionedBankAccount.hasTransaction(transaction);
+        return versionedUserState.getBankAccount().has(transaction);
     }
 
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
-        return versionedBankAccount.hasBudget(budget);
+        return versionedUserState.getBankAccount().has(budget);
     }
 
     @Override
     public void deleteTransaction(BankAccountOperation transaction) {
-        versionedBankAccount.removeTransaction(transaction);
+        versionedUserState.remove(transaction);
     }
 
     @Override
     public void deleteBudget(Budget budget) {
-        versionedBankAccount.removeBudget(budget);
+        versionedUserState.remove(budget);
     }
 
     @Override
     public void setTransaction(BankAccountOperation transactionTarget, BankAccountOperation transactionEdit) {
         requireAllNonNull(transactionTarget, transactionEdit);
 
-        versionedBankAccount.setTransaction(transactionTarget, transactionEdit);
+        versionedUserState.set(transactionTarget, transactionEdit);
     }
 
     @Override
     public void setBudget(Budget budgetTarget, Budget budgetEdit) {
         requireAllNonNull(budgetTarget, budgetEdit);
 
-        versionedBankAccount.setBudget(budgetTarget, budgetEdit);
+        versionedUserState.set(budgetTarget, budgetEdit);
     }
 
     @Override
-    public void addTransaction(BankAccountOperation transaction) {
-        versionedBankAccount.addTransaction(transaction);
+    public void addOperation(Budget budget) {
+        versionedUserState.add(budget);
     }
 
     @Override
-    public void addBudget(Budget budget) {
-        versionedBankAccount.addBudget(budget);
+    public void addOperation(BankAccountOperation operation) {
+        versionedUserState.add(operation);
     }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     * @return
-     */
     @Override
-    public FilteredList<BankAccountOperation> getFilteredTransactionList() {
+    public void addOperation(LedgerOperation operation) {
+        versionedUserState.add(operation);
+    }
+
+    @Override
+    public ObservableList<BankAccountOperation> getFilteredTransactionList() {
         return filteredTransactions;
     }
 
@@ -154,50 +161,46 @@ public class ModelManager implements Model {
     public ObservableList<Budget> getFilteredBudgetList() {
         return filteredBudgets;
     }
+
     @Override
-    public boolean canUndoBankAccount() {
-        return versionedBankAccount.canUndo();
+    public ObservableList<LedgerOperation> getFilteredLedgerOperationsList() {
+        return filteredLedgerOperations;
     }
 
     @Override
-    public void undoBankAccount() {
-        versionedBankAccount.undo();
+    public boolean canUndoUserState() {
+        return versionedUserState.canUndo();
     }
 
     @Override
-    public boolean canRedoBankAccount() {
-        return versionedBankAccount.canRedo();
+    public void undoUserState() {
+        versionedUserState.undo();
     }
 
     @Override
-    public void redoBankAccount() {
-        versionedBankAccount.redo();
+    public boolean canRedoUserState() {
+        return versionedUserState.canRedo();
     }
 
     @Override
-    public void commitBankAccount() {
-        versionedBankAccount.commit();
+    public void redoUserState() {
+        versionedUserState.redo();
+    }
+
+    @Override
+    public void commitUserState() {
+        versionedUserState.commit();
     }
 
     @Override
     public void setTransactions(List<BankAccountOperation> transactionHistory) {
-        versionedBankAccount.setTransactions(transactionHistory);
+        versionedUserState.set(transactionHistory);
     }
 
     @Override
     public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
-    }
-
-    @Override
-    public void handleOperation(BankAccountOperation operation) {
-        versionedBankAccount.addTransaction(operation);
-    }
-
-    @Override
-    public void handleOperation(LedgerOperation operation) {
-        versionedBankAccount.addLoan(operation);
     }
 
     @Override
@@ -214,9 +217,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedBankAccount.equals(other.versionedBankAccount)
-                && userPrefs.equals(other.userPrefs)
-                && filteredTransactions.equals(other.filteredTransactions);
+        return versionedUserState.equals(other.versionedUserState)
+            && userPrefs.equals(other.userPrefs)
+            && filteredTransactions.equals(other.filteredTransactions)
+            && filteredBudgets.equals(other.filteredBudgets);
     }
 
 }

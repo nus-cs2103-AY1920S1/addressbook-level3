@@ -139,4 +139,9 @@ public class UniqueTransactionList implements Iterable<BankAccountOperation> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return internalList.toString();
+    }
 }

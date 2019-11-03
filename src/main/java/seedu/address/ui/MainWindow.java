@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.ui.tab.Tab;
 
 /**
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private MainTabPanel mainTabPanel;
     private TransactionListPanel transactionListPanel;
     private BudgetListPanel budgetListPanel;
+    private LedgerListPanel ledgerListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -61,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane ledgerListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -130,19 +135,22 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ObservableList<BankAccountOperation> list = logic.getTransactionList();
-        transactionListPanel = new TransactionListPanel(list);
+        ObservableList<BankAccountOperation> transactionList = logic.getTransactionList();
+        transactionListPanel = new TransactionListPanel(transactionList);
 
         ObservableList<Budget> budgetList = logic.getBudgetList();
         budgetListPanel = new BudgetListPanel(budgetList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel);
+        ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
+        ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getBankAccountFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getUserStateFilePath());
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -203,9 +211,11 @@ public class MainWindow extends UiPart<Stage> {
         case BUDGET:
             showBudgetTab();
             break;
+        case LEDGER:
+            showLedgerTab();
+            break;
         default:
             break;
-
         }
     }
 
@@ -232,8 +242,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSwitchTab() != null) {
-                handleSwitchTab(commandResult.isSwitchTab());
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab(commandResult.getTab());
             }
 
             return commandResult;
@@ -256,6 +266,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showBudgetTab() {
         mainTabPanel.switchToBudgetTab();
+    }
+
+    /**
+     * Switch to ledger tab.
+     */
+    private void showLedgerTab() {
+        mainTabPanel.switchToLedgerTab();
     }
 
 }

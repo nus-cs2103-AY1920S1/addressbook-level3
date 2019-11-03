@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.BankAccount;
+import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
+import seedu.address.model.transaction.Budget;
+import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.
@@ -71,17 +73,41 @@ public class TypicalTransactions {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns a {@code BankAccount} with all the typical persons.
      */
-    public static BankAccount getTypicalBankAccount() {
-        BankAccount ba = new BankAccount();
-        for (BankAccountOperation transaction : getTypicalTransactions()) {
-            ba.addTransaction(transaction);
+    public static UserState getTypicalUserState() {
+        UserState ba = new UserState();
+        for (BankAccountOperation op : getTypicalTransactions()) {
+            ba.add(op);
         }
         return ba;
     }
 
+    /**
+     * Returns a {@code BankAccount} with all the typical persons in unsorted amount order.
+     */
+    public static UserState getTypicalUnsortedUserState() {
+        UserState unsortedBa = new UserState();
+        for (BankAccountOperation op : getTypicalUnsortedTransactions()) {
+            unsortedBa.add(op);
+        }
+        return unsortedBa;
+    }
+
     public static List<BankAccountOperation> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<BankAccountOperation> getTypicalUnsortedTransactions() {
+        return new ArrayList<>(Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
+    }
+
+    //TODO: implement:
+    public static List<LedgerOperation> getTypicalLedgerOperations() {
+        return null;
+    }
+    //TODO: implement:
+    public static List<Budget> getTypicalBudget() {
+        return null;
     }
 }
