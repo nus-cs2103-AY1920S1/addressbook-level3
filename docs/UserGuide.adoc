@@ -302,11 +302,15 @@ image::UGNoRecords.png[width="790"]
 VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up visits or other timed reminders.
 
 There are two kinds of Appointments: Follow-Ups and Reminders.
+
+You can only have one active Appointment of the same title, adding the same Appointment with a different day count will simply update the existing Appointment.
+
+Follow-ups in this version do not update if you change the name of the patient after the follow-up is created.
 ====
 
 ==== Adding a follow-up visit with patient : `followup`
 
-Adds a follow-up visit for a particular patient. The application will keep track of when your next appointment with the patient is on the Appointments window. +
+Adds a follow-up visit for a particular patient. You can add one even if you have never had a visit with the patient in the past. The application will keep track of when your next appointment with the patient is on the Appointments window. +
 Format: `followup INDEX [d/DAYS]`
 
 [TIP]
@@ -316,6 +320,10 @@ The follow-up entry will by default generate the follow-up for 7 days' time if n
 
 * `followup 9 d/10` +
 Creates a follow-up entry on patient with index 9 for 10 days later.
+* `followup 1` +
+Creates a follow-up entry on patient with index 1 for 7 days later.
+
+image::UGApptFollowUps.png[width="790"]
 
 ==== Creating a generic reminder : `reminder`
 
@@ -327,8 +335,12 @@ The reminder entry will by default generate the prompt for 7 days' time if not s
 
 *Examples*:
 
-* `reminder Two Point Hospital closed d/7` +
-Creates a reminder "Two Point Hospital closed" that will display for the next 7 days.
+* `reminder Two Point Hospital closed d/10` +
+Creates a reminder "Two Point Hospital closed" that will display for the next 10 days.
+* `reminder Losartan recall` +
+Creates a reminder "Losartan recall" that will display for the next 7 days.
+
+image::UGApptReminders.png[width="790"]
 
 ==== Removing an Appointment : `removeappt`
 
@@ -340,15 +352,19 @@ Any appointment matching just the description will be removed if the specific da
 
 *Examples*:
 
-* `removeappt Two Point Hospital closed d/7` +
-Removes an appointment which description is "Two Point Hospital Closed" and had 7 days remaining.
+* `removeappt Two Point Hospital closed` +
+Removes any appointment which description is "Two Point Hospital closed".
 * `removeappt Satya Nadella` +
 Removes any appointments with the patient whose name is Satya Nadella.
 
+image::UGApptRemoveAppt.png[width="790"]
+
 ==== Show Appointments "Message of the Day" box : `show`
 
-Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen. +
+Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
 Format: `show`
+
+image::UGApptShow.png[width="790"]
 
 ==== Sort Appointments : `sort`
 
@@ -463,9 +479,9 @@ e.g. `deletevisit 1 d/1`
 * *Adding a follow-up reminder with patient* : `followup INDEX [d/DAYS]` +
 e.g. `followup 9 d/10`
 * *Creating a generic reminder* : `reminder TEXT [d/DAYS]` +
-e.g. `reminder Two Point Hospital closed d/7`
+e.g. `reminder Two Point Hospital closed d/10`
 * *Removing an Appointment* : `removeappt DESCRIPTION [d/DAYS]` +
-e.g. `removeappt Two Point Hospital closed d/7`
+e.g. `removeappt Two Point Hospital closed`
 * *Show Appointments "Message of the Day" box* : `show`
 * *Sort Appointments* : `sort`
 
