@@ -17,7 +17,7 @@ public class Category {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "([A-Za-z]\\w+[ A-Za-z]*)";
+    public static final String VALIDATION_REGEX = "([A-Za-z]\\w+[ A-Za-z]*|^[A-Za-z]+)";
 
     private static int categoryId = -1;
     private static HashMap<String, Category> categories = new HashMap<String, Category>();

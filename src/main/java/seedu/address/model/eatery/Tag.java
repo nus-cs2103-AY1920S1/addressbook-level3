@@ -16,7 +16,7 @@ public class Tag {
      * The first character of the tag must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "(^[A-Za-z]+[A-Za-z_]+[A-Za-z]$)";
+    public static final String VALIDATION_REGEX = "(^[A-Za-z]+[A-Za-z_-]+[A-Za-z]$|^[A-Za-z]+)";
 
     private static int tagId = -1;
     private static HashMap<String, Tag> tags = new HashMap<String, Tag>();
