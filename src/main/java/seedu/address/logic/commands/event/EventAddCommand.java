@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.EventUtil;
 import seedu.address.logic.commands.CommandResult;
@@ -124,9 +125,7 @@ public class EventAddCommand extends EventCommand {
             throw new CommandException(INVALID_RECURRENCE_TYPE);
         }
         try {
-            if (!recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
-                vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
-            }
+            vEvent.setRecurrenceRule(EventUtil.stringToRecurrenceRule(recurTypeString));
         } catch (IllegalValueException ex) {
             throw new CommandException(ex.getMessage(), ex);
         }

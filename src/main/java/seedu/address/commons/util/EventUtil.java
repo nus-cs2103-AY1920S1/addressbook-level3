@@ -20,6 +20,7 @@ import seedu.address.model.event.RecurrenceType;
 public class EventUtil {
     private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
     private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    private static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
     private static final DateTimeFormatter dateOnlyFormatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd[ HH:mm:ss]")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
@@ -41,6 +42,8 @@ public class EventUtil {
             resultVEvent.setRecurrenceRule(DAILY_RECUR_RULE_STRING);
         } else if (eventToMap.getRecurrenceType() == RecurrenceType.WEEKLY) {
             resultVEvent.setRecurrenceRule(WEEKLY_RECUR_RULE_STRING);
+        } else if (eventToMap.getRecurrenceType() == RecurrenceType.NONE) {
+            resultVEvent.setRecurrenceRule(NONE_RECUR_RULE_STRING);
         }
 
         resultVEvent.withCategories(eventToMap.getColorCategory());
@@ -63,12 +66,12 @@ public class EventUtil {
         resultEvent.setEventName(eventName);
 
         RecurrenceRule currentRule = vEventToMap.getRecurrenceRule();
-        if (currentRule == null || currentRule.equals(new RecurrenceRule())) {
-            resultEvent.setRecurrenceType(RecurrenceType.NONE);
-        } else if (currentRule.toString().contains("DAILY")) {
+        if (currentRule.toString().contains("DAILY")) {
             resultEvent.setRecurrenceType(RecurrenceType.DAILY);
         } else if (currentRule.toString().contains("WEEKLY")) {
             resultEvent.setRecurrenceType(RecurrenceType.WEEKLY);
+        } else {
+            resultEvent.setRecurrenceType(RecurrenceType.NONE);
         }
 
         String colorCategory = vEventToMap.getCategories().get(0).getValue().get(0);
@@ -85,10 +88,12 @@ public class EventUtil {
      */
     public static RecurrenceRule stringToRecurrenceRule(String recurrenceString) throws IllegalValueException {
         if (recurrenceString.equalsIgnoreCase("weekly")) {
-            return RecurrenceRule.parse(recurrenceString);
+            return RecurrenceRule.parse(WEEKLY_RECUR_RULE_STRING);
         } else if (recurrenceString.equalsIgnoreCase("daily")) {
-            return RecurrenceRule.parse(recurrenceString);
-        } else {
+            return RecurrenceRule.parse(DAILY_RECUR_RULE_STRING);
+        } else if (recurrenceString.equalsIgnoreCase("none")) {
+            return RecurrenceRule.parse(NONE_RECUR_RULE_STRING);
+        }else {
             throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
         }
     }
