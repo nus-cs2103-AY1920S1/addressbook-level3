@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,28 +34,37 @@ public class Cashier extends UiPart<Region> {
     @FXML
     private TableColumn<Item, String> descriptionCol;
     @FXML
-    private TableColumn<Item, Double> priceCol;
+    private TableColumn<Item, String> priceCol;
     @FXML
     private TableColumn<Item, String> quantityCol;
     @FXML
-    private TableColumn<Item, Double> subtotalCol;
+    private TableColumn<Item, String> subtotalCol;
     @FXML
     private Label totalAmountLabel;
     @FXML
     private Label cashierLabel;
 
     public Cashier (Logic logic) throws Exception {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseTransactionList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
+        priceCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getPrice()));
+            return property;
+        });
         quantityCol.setCellValueFactory(new PropertyValueFactory<Item, String>("quantity"));
-        subtotalCol.setCellValueFactory(new PropertyValueFactory<Item, Double>("subtotal"));
+        subtotalCol.setCellValueFactory(item -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(item.getValue().getSubtotal()));
+            return property;
+        });
 
         // for total amount
         SimpleStringProperty amount = new SimpleStringProperty();
-        String s = String.valueOf(logic.getAmount());
+        String s = logic.getAmount();
         amount.setValue(s);
         amount.addListener(new ChangeListener<String>() {
             @Override

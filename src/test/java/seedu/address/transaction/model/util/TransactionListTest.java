@@ -68,10 +68,10 @@ class TransactionListTest {
 
         unsorted.sortByAmount();
         expected = new TransactionList();
-        expected.add(TypicalTransactions.ALICE_TRANSACTION_1);
-        expected.add(TypicalTransactions.CARL_TRANSACTION_5);
-        expected.add(TypicalTransactions.ALICE_TRANSACTION_3);
         expected.add(TypicalTransactions.BENSON_TRANSACTION_2);
+        expected.add(TypicalTransactions.ALICE_TRANSACTION_3);
+        expected.add(TypicalTransactions.CARL_TRANSACTION_5);
+        expected.add(TypicalTransactions.ALICE_TRANSACTION_1);
         assertEquals(unsorted.getTarrList(), expected.getTarrList());
 
 

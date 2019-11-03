@@ -1,8 +1,9 @@
 package seedu.address.transaction.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NEGATIVE_TRANSACTION_EDITED;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_TRANSACTION_EDITED;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_POSITIVE_TRANSACTION_EDITED;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -56,7 +57,11 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
         }*/
         model.setTransaction(transactionToEdit, editedTransaction);
-        return new CommandResult(String.format(MESSAGE_TRANSACTION_EDITED, editedTransaction));
+        if (editedTransaction.isNegative()) {
+            return new CommandResult(String.format(MESSAGE_NEGATIVE_TRANSACTION_EDITED, editedTransaction));
+        } else {
+            return new CommandResult(String.format(MESSAGE_POSITIVE_TRANSACTION_EDITED, editedTransaction));
+        }
     }
 
     /**

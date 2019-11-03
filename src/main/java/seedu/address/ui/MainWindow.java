@@ -163,6 +163,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() throws Exception {
+        lion = Lion.getInstance();
+        lionPlaceholder.getChildren().add(lion.getRoot());
+
         home = new Home(transactionLogic);
         homePlaceholder.getChildren().add(home.getRoot());
 
@@ -180,9 +183,6 @@ public class MainWindow extends UiPart<Stage> {
 
         overview = new Overview(overviewLogic);
         overviewPlaceholder.getChildren().add(overview.getRoot());
-
-        lion = new Lion();
-        lionPlaceholder.getChildren().add(lion.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());

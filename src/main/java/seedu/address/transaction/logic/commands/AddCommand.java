@@ -1,7 +1,8 @@
 package seedu.address.transaction.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_NEGATIVE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_POSITIVE_TRANSACTION;
 
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -25,7 +26,11 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
         model.resetPredicate();
         model.addTransaction(transaction);
-        return new CommandResult(String.format(MESSAGE_ADD_TRANSACTION, transaction));
+        if (transaction.isNegative()) {
+            return new CommandResult(String.format(MESSAGE_ADD_NEGATIVE_TRANSACTION, transaction));
+        } else {
+            return new CommandResult(String.format(MESSAGE_ADD_POSITIVE_TRANSACTION, transaction));
+        }
     }
 
     @Override
