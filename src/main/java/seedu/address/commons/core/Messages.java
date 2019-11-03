@@ -24,7 +24,7 @@ public class Messages {
 
     public static final String MESSAGE_NOT_PATIENTLIST = "This command only works when appointments "
             + "displayed belong to the same patient.\n"
-            + "Plsease first display the patient's appointment listing by using <appointmetnts> <ENTRY_ID> "
+            + "Please first display the patient's appointment listing by using <appointmetnts> <ENTRY_ID> "
             + "before using " + "%1$s command.";
 
     public static final String MESSAGE_NOT_STAFFLIST =
