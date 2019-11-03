@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DRIVERS;
 
 import seedu.address.model.Model;
 
@@ -21,12 +19,9 @@ public class ListCommand extends Command {
         requireNonNull(model);
 
         //reset any predicate that customer list has
-        model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
         //reset any predicate that driver list has
-        model.updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
         //reset any predicate that assigned and unassigned task list has
-        model.getUnassignedTaskList();
-        model.getAssignedTaskList();
+        model.refreshAllFilteredList();
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

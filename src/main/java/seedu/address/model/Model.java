@@ -29,6 +29,14 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Driver> PREDICATE_SHOW_ALL_DRIVERS = unused -> true;
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to false
+     */
+    Predicate<Task> PREDICATE_SHOW_EMPTY_TASKS = unused -> false;
+    Predicate<Customer> PREDICATE_SHOW_EMPTY_CUSTOMERS = unused -> false;
+    Predicate<Driver> PREDICATE_SHOW_EMPTY_DRIVERS = unused -> false;
 
     /**
      * {@code Predicate} that filters the task to incomplete status
@@ -202,6 +210,10 @@ public interface Model {
      */
     void updateFilteredTaskList(Predicate<Task> predicate, FilteredList<Task> list);
 
+    void refreshFilteredTaskList();
+
+    void refreshAllFilteredList();
+
     /**
      * Returns an unmodifiable view of the filtered customer list.
      */
@@ -215,10 +227,14 @@ public interface Model {
      */
     void updateFilteredCustomerList(Predicate<Customer> predicate);
 
+    void refreshFilteredCustomerList();
+
     /**
      * Returns an unmodifiable view of the filtered driver list.
      */
     ObservableList<Driver> getFilteredDriverList();
+
+    void refreshFilteredDriverList();
 
     int getNextTaskId();
 

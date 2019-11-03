@@ -90,7 +90,7 @@ public class PdfTaskLayout extends PdfLayout {
         if (toggleColor) {
             taskTable.setBackgroundColor(ColorConstants.WHITE);
         } else {
-            Color lightGrey = new DeviceRgb(245, 245, 245);
+            Color lightGrey = new DeviceRgb(240, 240, 240);
             taskTable.setBackgroundColor(lightGrey);
         }
         toggleColor = !toggleColor;

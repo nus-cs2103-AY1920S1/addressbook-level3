@@ -2,6 +2,7 @@
 :site-section: UserGuide
 :toc:
 :toc-title:
+:toclevels: 4
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -12,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-4/main
 
 Group Name: `CS2103-F14-4`
 
@@ -58,108 +59,60 @@ For example, to edit the description of the delivery task (Task ID:3) : `editT 3
 * Order of parameter is can be reordered freely.
 ====
 
-=== Task Management
+=== General Commands
 
 
-=== Viewing help : `help`
+==== Viewing help : `help`
 
-List all available commands
+List all available commands +
 Format: `help`
 
+==== Lists all Task / Driver / Customer : `list`
 
-=== View delivery tasks: `view`
-
-Lists all delivery tasks
-Format: `list delivery`
-
-=== Get delivery details: `read`
-
-Retrieves the details of 3rd task shown in the current list
-Format: `list delivery`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
+Displays all Task / Customer / Driver list in it's original state. +
 Format: `list`
 
-=== Delete delivery tasks: `delete`
-Deletes an existing task shown in the current list +
-Format: `delete delivery INDEX`
+==== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Task Management Commands
+
+==== Add a delivery task: `addT`
+
+Adds a delivery task to the task manager. +
+Format: `addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
 
 ****
-* Deletes the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1,2,3,...
-****
-
-=== Update driver field for a delivery task: `update`
-
-Attach an existing task shown in the current list to Driver: `DriverName` +
-Format: `update delivery INDEX n/DriverName`
-
-****
-* Attaches the task at the specified `INDEX` to Driver: `DriverName`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1,2,3,...
-****
-
-Examples: +
-* `update delivery 3 n/John Doe`
-
-=== View list of drivers: `list`
-
-List all drivers +
-Format: `list drivers`
-
-=== Get driver details: `read`
-
-Retrieves the details of an existing driver shown in current list +
-Format: `read driver INDEX`
-
-****
-* Retrives the details of driver at specified `INDEX`. The index refers to the index number shown in the displayed driver list. The index *must be a positive integer* 1,2,3,...
-****
-
-=== Delete a driver : `delete driver`
-
-Deletes the specified driver from the driver list. +
-Format: `delete driver INDEX`
-
-****
-* Deletes the driver at the specified `INDEX`.
-* The driver cannot be deleted if it's already assigned to a task.
-* The index refers to the index numbers shown in the displayed driver's list.
-* The index *must be a positive integer* 1, 2, 3, ..
+* DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* All fields are compulsory.
 ****
 
 Examples:
 
-* `list` +
-`delete driver 2` +
-Deletes the 2nd driver in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
+* `addT g/1x washing machine c/10 dt/12/1/2020`
 
+==== Edits a delivery task : `editT`
 
-
-=== Editing a driver : `update driver`
-
-Edits an existing driver in the address book. +
-Format: `update driver INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits a existing delivery task in the task manager. +
+Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
 
 ****
-* Edits the driver at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
+* Only indicate fields that you want to change.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
+* `editT 3 g/50 frozen boxes of catfish` +
+Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
+* `editT 5 c/2 dt/10/12/2019` +
+Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
 
 // tag::assign-command[]
-=== Assign a task to a driver: `assign`
+==== Assign a task to a driver: `assign`
 
 Assign an existing task a driver with a proposed time. +
 Format: `assign [force] t/TASK_ID d/DRIVER_ID at/hMM - hMM`
@@ -183,7 +136,7 @@ Schedule task #2 from 4 pm to 5 pm, and assign it to driver #1 regardless the ex
 
 
 // tag::free-command[]
-=== Unschedule a task: `free`
+==== Unschedule a task: `free`
 
 Remove the time slot and driver from a task, and free the driver from this time slot in their schedule. +
 Format: `free t/TASK_ID`
@@ -199,44 +152,7 @@ Remove the assigned driver and time slot from the task, and free the driver's sc
 // end::free-command[]
 
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Add a delivery task: `addT`
-
-Adds a delivery task to the task manager. +
-Format: `addT [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
-
-****
-* DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
-* All fields are compulsory.
-****
-
-Examples:
-
-* `addT g/100 frozon boxes of red grouper c/13 dt/10/12/2019`
-* `addT g/1x washing machine c/10 dt/12/1/2020`
-
-=== Edits a delivery task : `editT`
-
-Edits a existing delivery task in the task manager. +
-Format: `editT [TASK ID] [g/DESCRIPTION OF GOODS] [c/CUSTOMER ID] [dt/DATE OF DELIVERY]`
-
-****
-* Edited DATE OF DELIVERY must be today onwards. Date format: d/M/yyyy.
-* Only indicate fields that you want to change.
-****
-
-Examples:
-
-* `editT 3 g/50 frozen boxes of catfish` +
-Edits the description of the task (Task ID: 3) to be `50 frozen boxes of catfish`.
-* `editT 5 c/2 dt/10/12/2019` +
-Edits the customer and date of delivery of the task (Task ID: 5) to be `Customer (Customer ID: 2)` and `10/12/2019` respectively.
-
-=== Mark a delivery task as completed: `done`
+==== Mark a delivery task as completed: `done`
 
 Mark a delivery task as completed. +
 Format: `done [TASK ID]`
@@ -250,14 +166,26 @@ Examples:
 * `done 2` +
 Marks the delivery task with Task ID 2 as COMPLETED.
 
-=== Deletes a delivery task / driver / customer: `del`
+==== Gets the details of a delivery task / driver / customer: `read`
+
+Gets the details a task / driver / customer. +
+Format: `read [c/CUSTOMER ID]` | `read [t/DRIVER ID]` | `read [t/TASK ID]`
+
+Examples:
+
+* `read t/3` +
+Gets the details of task (Task ID: 3).
+* `read d/2` +
+Gets the details of driver (Driver ID: 2).
+
+==== Deletes a delivery task / driver / customer: `del`
 
 Deletes a task / driver / customer from its respective managers. +
 Format: `del [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
 
 ****
-* Cannot delete a delivery task that is on-going. Remove the driver from the task first before deleting.
-* Cannot delete a driver that is assigned to a on-going task. Remove the driver from the task first before deleting.
+* Cannot delete a *DELIVERY TASK* that is on-going. Remove the driver from the task first before deleting.
+* Cannot delete a *DRIVER* that is assigned to a on-going task. Remove the driver from the task first before deleting.
 ****
 
 Examples:
@@ -267,19 +195,29 @@ Deletes task (Task ID: 1) from the task manager.
 * `del d/2` +
 Deletes driver (Driver ID: 2) from the driver manager.
 
-=== Gets the details of a delivery task / driver / customer: `read`
+==== Saves assigned delivery tasks into PDF document: `savepdf`
+The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date. +
+Format: `savepdf [DATE]`
 
-Gets the details a task / driver / customer. +
-Format: `read [c/CUSTOMER ID]` | `del [t/DRIVER ID]` | `del [t/TASK ID]`
+****
+* `DATE` format is dd/mm/yyy.
+* `DATE` field is OPTIONAL. If date field is not declared, it will take the date of today.
+* PDF document will be saved under `data` folder which is the same directory as where you put the deliveria.jar.
+* Name of the PDF document will be DeliveryTasks (DATE).pdf .
+****
 
 Examples:
 
-* `read t/3` +
-Gets the details of task (Task ID: 3).
-* `read d/2` +
-Gets the details of driver (Driver ID: 2).
+* `savepdf` +
+Saves the assigned delivery tasks in PDF format for today.
+* `savepdf 20/10/2019` +
+Saves the assigned delivery tasks in PDF format for 20/10/2019.
 
-=== Add a Customer `addC`
+
+=== Customer Management Commands
+
+
+==== Add a Customer `addC`
 
 Adds customer to the customer manager. +
 Format: `addC [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
@@ -292,7 +230,11 @@ Examples:
 
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
 
-=== Add a Driver `addD`
+
+=== Driver Management Commands
+
+
+==== Add a Driver `addD`
 
 Adds driver to the driver manager. +
 Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
@@ -313,7 +255,7 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the data file in your previous computer.
 
 *Q*: Where is the saved file at? +
 *A*:  It is located in the same folder where the .jar file is. There will be a folder called `data`.
