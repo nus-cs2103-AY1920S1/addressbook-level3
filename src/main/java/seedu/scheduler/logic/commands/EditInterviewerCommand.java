@@ -53,7 +53,7 @@ public class EditInterviewerCommand extends EditCommand {
         Interviewer interviewerToEdit = model.getInterviewer(toEdit.fullName);
 
         // ensure user only edits what is shown on UI (i.e the filtered list)
-        if (!model.getFilteredInterviewerList().contains(interviewerToEdit)) {
+        if (!lastShownList.contains(interviewerToEdit)) {
             throw new CommandException(MESSAGE_INVALID_PERSON_NAME);
         }
 
@@ -67,7 +67,7 @@ public class EditInterviewerCommand extends EditCommand {
         model.setInterviewer(interviewerToEdit, editedInterviewer);
         model.updateFilteredInterviewerList(PREDICATE_SHOW_ALL_INTERVIEWERS);
 
-        return new CommandResult(MESSAGE_EDIT_PERSON_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedInterviewer));
     }
 
     /**
