@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.suggestions;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.util.Collection;
@@ -19,7 +18,6 @@ import seedu.address.logic.parser.CommandArgument;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.personutil.TypicalPersonDescriptor;
 
 class EditUserCommandSuggesterTest extends SuggesterImplTester {
@@ -51,7 +49,9 @@ class EditUserCommandSuggesterTest extends SuggesterImplTester {
     static Stream<Arguments> knownPersonPrefixesAndValueGenerator() {
         final Collection<String> tags = KNOWN_PERSON.getTags()
                 .stream()
-                .map(Tag::toString)
+                .map(tag -> {
+                    return tag.tagName;
+                })
                 .collect(Collectors.toUnmodifiableList());
 
         return Stream.of(
@@ -67,13 +67,12 @@ class EditUserCommandSuggesterTest extends SuggesterImplTester {
     @ParameterizedTest
     @MethodSource("knownPersonPrefixesAndValueGenerator")
     void getSuggestions_changingPrefixBlankValue_currentPersonPrefixValue(
-            final Prefix prefix, final Collection<String> expectedSuggestions) {
+            final Prefix prefix, final List<String> expectedSuggestions) {
         final ArgumentList argumentList = argumentListOf(
                 new CommandArgument(CliSyntax.PREFIX_EDIT, 0, KNOWN_PERSON.getName().toString()),
-                new CommandArgument(prefix, 1, "")
+                new CommandArgument(prefix, 1, EMPTY_STRING)
         );
 
-        final List<String> actualSuggestions = getSuggestions(argumentList, argumentList.get(1));
-        assertEquals(expectedSuggestions, actualSuggestions);
+        assertSuggestionsEquals(argumentList, argumentList.get(1), expectedSuggestions);
     }
 }
