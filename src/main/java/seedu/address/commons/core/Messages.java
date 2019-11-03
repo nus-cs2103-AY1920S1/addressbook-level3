@@ -24,15 +24,12 @@ public class Messages {
 
     public static final String MESSAGE_NOT_PATIENTLIST = "This command only works when appointments "
             + "displayed belong to the same patient.\n"
-            + "Plsease first display the patient's appointment listing by using appointmetnts <ENTRY_ID> "
+            + "Plsease first display the patient's appointment listing by using <appointmetnts> <ENTRY_ID> "
             + "before using " + "%1$s command.";
 
     public static final String MESSAGE_NOT_STAFFLIST =
             "Duty shift(s) displayed do not belong to the same staff doctor\n";
-    public static final String MESSAGE_NOT_MISSEDLIST =
-            "Only missed appointments can be settled.\n"
-                    + "Plsease first display the missed appointment listing, "
-                    + "using missappt, before using settleappt command.";
+
 
     public static final String MESSAGE_NOTHING_SETTLE = "No missed appointment needs to settle";
     public static final String MESSAGE_EVENT_NOT_FOUND = "The appointment '%1$s' is not registered";
