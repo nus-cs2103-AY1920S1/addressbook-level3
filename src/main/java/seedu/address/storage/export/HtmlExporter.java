@@ -2,7 +2,6 @@ package seedu.address.storage.export;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
