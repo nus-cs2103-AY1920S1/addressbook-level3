@@ -152,4 +152,8 @@ public class State {
     public StateEnum getCurrState() {
         return currState;
     }
+
+    public State(State oldState) {
+        decks = oldState.decks;
+    }
 }
