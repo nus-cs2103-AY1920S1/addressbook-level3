@@ -157,6 +157,7 @@ public class RuleEngine {
      * Returns if a value can be parsed into the specified type.
      */
     public static boolean isValueParsable(String typeName, Value value) {
+        requireAllNonNull(typeName, value);
         switch (typeName) {
         case TYPE_CATEGORY:
             try {
@@ -198,6 +199,7 @@ public class RuleEngine {
      * Returns the value of a transaction's attribute given the transaction.
      */
     public static Object extractAttribute(Attribute attribute, Index txnIndex, Account account) {
+        requireAllNonNull(attribute, txnIndex, account);
         Transaction txn = account.getTransaction(txnIndex);
         switch (attribute) {
         case DESCRIPTION:
