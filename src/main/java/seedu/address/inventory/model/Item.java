@@ -28,10 +28,10 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
-        this.price = price;
-        this.subtotal = quantity * price;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
         this.id = "" + id;
         this.trueId = id;
     }
@@ -43,8 +43,8 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = cost;
-        this.totalCost = quantity * cost;
+        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
         this.price = 0.00;
         this.subtotal = 0.00;
         this.id = "" + i;
@@ -109,11 +109,11 @@ public class Item {
      * Updates the subtotal.
      */
     public void updateSubtotal() {
-        this.subtotal = this.price * this.quantity;
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(this.price * this.quantity));
     }
 
     public void updateTotalCost() {
-        this.totalCost = this.cost * this.quantity;
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.cost * this.quantity));
     }
 
     public String getId() {

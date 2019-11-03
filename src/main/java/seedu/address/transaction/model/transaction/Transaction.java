@@ -36,7 +36,7 @@ public class Transaction {
         this.date = LocalDate.parse(date, DATE_TIME_FORMATTER);
         this.description = description;
         this.category = category;
-        this.amount = amount;
+        this.amount = Double.parseDouble(DECIMAL_FORMAT.format(amount));
         this.person = person;
         this.id = "" + id;
         this.isReimbursed = isReimbursed;
