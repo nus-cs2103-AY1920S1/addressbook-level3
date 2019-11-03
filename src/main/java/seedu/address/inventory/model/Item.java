@@ -29,9 +29,9 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
         this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
-        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
+        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.price));
         this.id = "" + id;
         this.trueId = id;
     }
@@ -44,7 +44,7 @@ public class Item {
         this.category = category;
         this.quantity = quantity;
         this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
+        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * this.cost));
         this.price = 0.00;
         this.subtotal = 0.00;
         this.id = "" + i;
