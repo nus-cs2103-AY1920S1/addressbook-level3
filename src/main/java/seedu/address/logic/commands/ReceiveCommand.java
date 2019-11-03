@@ -39,8 +39,6 @@ public class ReceiveCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.add(transaction);
-
         if (model.has(transaction)) {
             return new CommandResult(String.format(MESSAGE_DUPLICATE, transaction));
         } else {

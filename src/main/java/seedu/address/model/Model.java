@@ -18,6 +18,7 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<BankAccountOperation> PREDICATE_SHOW_ALL_TRANSACTIONS = unused -> true;
+    Predicate<LedgerOperation> PREDICATE_SHOW_ALL_LEDGER_OPERATIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -173,6 +174,7 @@ public interface Model {
      */
     void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate);
 
+    void updateFilteredLedgerList(Predicate<LedgerOperation> predicate);
 
     /**
      * Returns an unmodifiable view of the filtered budget list
