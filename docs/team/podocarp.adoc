@@ -46,10 +46,13 @@ It has >10k LOC.
 *** Reviewed major PR for `InviteCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/103[#103]
 *** Reviewed smaller non-trivial PRs: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/46[#46] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/54[#54] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/72[#72] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/117[#117] 
 ** Enhancements to existing features:
-*** Added tests on other PRs https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e[(dbb83e)]
+*** Added tests on other's pull requests: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e[(dbb83e)]
 
 ** Helping others:
-*** Provided extensive testing and supplied major nontrivial bugs on other's repo: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/211[#211] https://github.com/AY1920S1-CS2103T-T11-3/main/issues/213[#213] https://github.com/AY1920S1-CS2103T-T11-3/main/issues/214[#214]
+*** Provided extensive testing and supplied major nontrivial bugs on other's repo. Some examples:
+**** Program state not saving during shutdown: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/211[#211]
+**** Save file can enter an error state: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/213[#213]
+**** Data invalidation incomplete: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/214[#214]
 
 == Contributions to the User Guide
 
@@ -58,6 +61,7 @@ It has >10k LOC.
 |===
 
 * https://ay1920s1-cs2103t-w11-2.github.io/main/UserGuide.html#powerusers[Extra abilities]
+include::../UserGuide.adoc[tag=powerusers]
 
 == Contributions to the Developer Guide
 
@@ -65,8 +69,6 @@ It has >10k LOC.
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-* https://ay1920s1-cs2103t-w11-2.github.io/main/DeveloperGuide.html#debt-simplification-algorithm[Simplification Algorithm Implementation Details]
+include::../DeveloperGuide.adoc[tag=algorithm]
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
