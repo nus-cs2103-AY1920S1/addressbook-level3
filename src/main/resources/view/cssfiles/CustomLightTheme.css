@@ -293,6 +293,11 @@
     -fx-focus-color: rgba(237, 37, 78, 1);
 }
 
+.text-area {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
