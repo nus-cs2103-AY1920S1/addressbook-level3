@@ -285,7 +285,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasStagedChanges() {
-        return !basePatientBook.equals(stagedPatientBook);
+        return !basePatientBook.equals(stagedPatientBook) || !baseAppointmentBook.equals(stagedAppointmentBook);
     }
 
     @Override
@@ -423,6 +423,7 @@ public class ModelManager implements Model {
         CollectionUtil.requireAllNonNull(target, editedAppointment);
 
         stagedAppointmentBook.setAppointment(target, editedAppointment);
+        refreshStagedAppointments();
     }
 
     private void refreshStagedAppointments() {
@@ -479,7 +480,8 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return stagedPatientBook.equals(other.stagedPatientBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPatients.equals(other.filteredPatients);
+                && filteredPatients.equals(other.filteredPatients)
+                && filteredAppointments.equals(other.filteredAppointments);
     }
 
 }

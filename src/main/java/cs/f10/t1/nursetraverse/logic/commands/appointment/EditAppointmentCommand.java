@@ -85,6 +85,7 @@ public class EditAppointmentCommand extends MutatorCommand {
 
         Appointment appointmentToEdit = lastShownList.get(index.getZeroBased());
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor);
+        editedAppointment.setPatient(model.getPatientByIndex(editedAppointment.getPatientIndex()));
 
         if (!appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
