@@ -10,9 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+            "Names should only contain alphabet characters and spaces, and it should not be blank";
 
     public final String fullName;
 
@@ -30,10 +28,22 @@ public class Name {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidName(String name) {
+        int len = name.trim().length();
+        if (len == 0) {
+            return false;
+        }
+        for (int i = 0; i < len; i++) {
+            // checks whether the character is not a letter
+            // if it is not a letter ,it will return false
+            if ((Character.isLetter(name.charAt(i)) == false)) {
+                if (name.charAt(i) != ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
-
 
     @Override
     public String toString() {

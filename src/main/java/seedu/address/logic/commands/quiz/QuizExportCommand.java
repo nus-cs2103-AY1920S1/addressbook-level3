@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 
 import seedu.address.logic.commands.CommandResult;
@@ -37,6 +39,7 @@ public class QuizExportCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException, IOException {
+        requireNonNull(model);
         if (!model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         }

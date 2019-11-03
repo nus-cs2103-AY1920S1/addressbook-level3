@@ -11,8 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.student.Name;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,29 +42,14 @@ public class ParserUtil {
      * @return a student name representation
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static seedu.address.model.student.Name parseStudentName(String name) throws ParseException {
+    public static Name parseStudentName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        boolean valid = Name.isValidName(trimmedName);
+        if (!valid) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new seedu.address.model.student.Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @return a person name representation
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static seedu.address.model.person.Name parsePersonName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return new seedu.address.model.person.Name(trimmedName);
+        return new Name(trimmedName);
     }
 
     /**

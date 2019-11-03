@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,6 +34,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      * @param quizQuestionNumber The quiz question number to be added to.
      */
     public QuizAddQuestionCommand(String quizId, int questionNumber, int quizQuestionNumber) {
+        requireAllNonNull(quizId, questionNumber, quizQuestionNumber);
         this.quizId = quizId;
         this.questionNumber = questionNumber;
         this.quizQuestionNumber = quizQuestionNumber;
@@ -44,6 +48,7 @@ public class QuizAddQuestionCommand extends QuizCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         if (!model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_DOES_NOT_EXIST, quizId));
         } else {

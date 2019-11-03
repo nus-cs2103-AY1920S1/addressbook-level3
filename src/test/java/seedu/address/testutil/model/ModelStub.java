@@ -453,6 +453,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Student getStudent(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setStudentWithIndex(Index index, Student student) {
         throw new AssertionError("This method should not be called.");
     }
@@ -503,7 +508,17 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean checkStudentExistInGroup(String groupId, Student student) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void exportGroup(String groupId) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int getGroupSize(String groupId) {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.model.group;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
 import seedu.address.model.student.UniqueStudentList;
 import seedu.address.storage.export.WordDocExporter;
@@ -13,13 +14,24 @@ public class Group {
     private UniqueStudentList studentList;
 
     /**
-     * Creates a Group instance with the appropriate attributes.
+     * Creates a Group instance with only the groupId.
      *
      * @param groupId The identifier of the group, in String representation.
      */
     public Group(String groupId) {
         this.groupId = groupId;
         this.studentList = new UniqueStudentList();
+    }
+
+    /**
+     * Creates a group instance with both the groupId and the list of students.
+     *
+     * @param groupId     Identifier of the group.
+     * @param studentList List of students.
+     */
+    public Group(String groupId, UniqueStudentList studentList) {
+        this.groupId = groupId;
+        this.studentList = studentList;
     }
 
     /**
@@ -86,5 +98,44 @@ public class Group {
     public void export() {
         String studentsFormatted = this.getStudentsFormatted();
         WordDocExporter.saveExport(this.groupId, studentsFormatted);
+    }
+
+    /**
+     * Check if student exists in group.
+     *
+     * @param student Student to check
+     * @return True if student exists in the group.
+     */
+    public boolean checkStudentExist(Student student) {
+        Name name = student.getName();
+        for (Student checkStudent : studentList) {
+            if (checkStudent.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the unique list of students from the group.
+     *
+     * @return Unique list of students in the group.
+     */
+    public UniqueStudentList getStudentList() {
+        return this.studentList;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Group)) {
+            return false;
+        }
+
+        Group otherGroup = (Group) other;
+        return otherGroup.getGroupId().equals(this.getGroupId());
     }
 }
