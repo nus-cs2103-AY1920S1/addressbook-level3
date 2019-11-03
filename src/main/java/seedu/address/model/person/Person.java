@@ -4,22 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.ReferenceId;
 import seedu.address.model.common.Identical;
-import seedu.address.model.common.Tag;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
 import seedu.address.model.person.parameters.Phone;
-
+import seedu.address.model.person.parameters.Tag;
 
 /**
  * Represents a Person who can be either a patient or staff doctor.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details present are immutable.
  */
 public class Person implements Identical<Person> {
 
@@ -31,7 +29,7 @@ public class Person implements Identical<Person> {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
 
     /**
      * Every field must be present and not null.
@@ -44,7 +42,7 @@ public class Person implements Identical<Person> {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = tags;
     }
 
     public ReferenceId getReferenceId() {

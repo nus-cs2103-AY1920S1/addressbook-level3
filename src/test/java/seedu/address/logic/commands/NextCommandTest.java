@@ -27,20 +27,21 @@ public class NextCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         model.addPatient(ALICE);
-        model.addPatient(BENSON);
         model.enqueuePatient(ALICE.getReferenceId());
+        model.addStaff(BENSON);
         model.addRoom(new Room(BENSON.getReferenceId()));
         Room roomToEdit = new Room(BENSON.getReferenceId());
         Room editedRoom = new Room(BENSON.getReferenceId(), ALICE.getReferenceId());
         ReferenceId personToServe = model.getQueueList().get(INDEX_FIRST_PERSON.getZeroBased());
         NextCommand nextCommand = new NextCommand(roomToEdit, editedRoom, Index.fromOneBased(1), personToServe);
 
-        String expectedMessage = String.format(NextCommand.MESSAGE_SUCCESS, personToServe);
+        String expectedMessage = String.format(NextCommand.MESSAGE_SUCCESS,
+                model.resolveStaff(editedRoom.getDoctor()).getName());
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(ALICE);
-        expectedModel.addPatient(BENSON);
         expectedModel.addRoom(editedRoom);
+        expectedModel.addStaff(BENSON);
 
         assertCommandSuccess(nextCommand, model, expectedMessage, expectedModel);
     }

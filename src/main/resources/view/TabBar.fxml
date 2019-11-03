@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author CarbonGrid -->
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,6 +23,11 @@
         <ImageView fx:id="doctorsTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../images/doctor.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="dutyShiftTab" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/dutyShift.png"/>
             </image>
         </ImageView>
     </children>

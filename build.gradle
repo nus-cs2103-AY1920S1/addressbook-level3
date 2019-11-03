@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'ClerkPro_v1.2.1.jar'
+    archiveName = 'ClerkPro_v1.3.0.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

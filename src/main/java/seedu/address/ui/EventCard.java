@@ -34,13 +34,17 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label status;
 
-    public EventCard(Event event, int displayedIndex) {
+    public EventCard(Event event, int displayedIndex, boolean displayStatus) {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
         refId.setText(String.format("[%s] ", event.getPersonId().toString()));
         timing.setText(event.getEventTiming().toString());
-        status.setText("Status: " + event.getStatus().getStatusMess());
+        if (displayStatus) {
+            status.setText("Status: " + event.getStatus().getStatusMess());
+        } else {
+            status.setText("No status");
+        }
     }
 
     @Override

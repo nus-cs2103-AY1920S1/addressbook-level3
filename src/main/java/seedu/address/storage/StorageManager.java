@@ -113,7 +113,7 @@ public class StorageManager implements Storage {
     @Override
     public Optional<ReadOnlyAddressBook> readPatientAddressBook()
         throws DataConversionException, IOException {
-        return patientAddressBookStorage.readAddressBook(getPatientAddressBookFilePath());
+        return patientAddressBookStorage.readAddressBook(getPatientAddressBookFilePath(), false);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class StorageManager implements Storage {
     @Override
     public Optional<ReadOnlyAppointmentBook> readPatientAppointmentBook()
         throws DataConversionException, IOException {
-        return patientAppointmentBookStorage.readAppointmentBook(getPatientAppointmentBookFilePath());
+        return patientAppointmentBookStorage.readAppointmentBook(getPatientAppointmentBookFilePath(), false);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAddressBook> readStaffAddressBook() throws DataConversionException, IOException {
-        return staffAddressBookStorage.readAddressBook(getStaffAddressBookFilePath());
+        return staffAddressBookStorage.readAddressBook(getStaffAddressBookFilePath(), true);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyAppointmentBook> readStaffDutyRosterBook() throws DataConversionException, IOException {
-        return staffDutyRosterBookStorage.readAppointmentBook(getStaffDutyRosterBookFilePath());
+        return staffDutyRosterBookStorage.readAppointmentBook(getStaffDutyRosterBookFilePath(), true);
     }
 
     @Override

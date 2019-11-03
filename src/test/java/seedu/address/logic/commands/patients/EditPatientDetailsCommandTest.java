@@ -47,7 +47,7 @@ public class EditPatientDetailsCommandTest {
     public void execute_allFieldsSpecifiedExceptIdUnfilteredList_success() {
         Model model = TestUtil.getTypicalModelManager();
         Person personToEdit = model.getFilteredPatientList().get(0);
-        Person editedPerson = new PersonBuilder(BOB).withId(personToEdit.getReferenceId().toString()).build();
+        Person editedPerson = new PersonBuilder(BOB).withPatientId(personToEdit.getReferenceId().toString()).build();
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
 
@@ -109,7 +109,8 @@ public class EditPatientDetailsCommandTest {
         Model model = TestUtil.getTypicalModelManager();
         Person firstPerson = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person secondPerson = model.getFilteredPatientList().get(INDEX_SECOND_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withId(secondPerson.getReferenceId().toString()).build();
+        Person editedPerson = new PersonBuilder(firstPerson)
+                .withPatientId(secondPerson.getReferenceId().toString()).build();
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(firstPerson, editedPerson);
 
         assertCommandFailure(editPatientDetailsCommand, model, EditPatientDetailsCommand.MESSAGE_DUPLICATE_PERSON);

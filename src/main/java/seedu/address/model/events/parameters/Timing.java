@@ -35,6 +35,18 @@ public class Timing implements Comparable<Timing> {
     }
 
     /**
+     * Constructs a {@code Timing}.
+     *
+     * @param startTiming A valid dateTime describing the start of event.
+     */
+    public Timing(DateTime startTiming) {
+        requireAllNonNull(startTiming);
+        this.startTiming = startTiming;
+        this.endTiming = DateTime.plusHalfHour(startTiming);
+        new Timing(this.startTiming, this.endTiming);
+    }
+
+    /**
      * Returns true if the start dateTime is before the end dateTime.
      */
     public static boolean isValidTiming(DateTime testStart, DateTime testEnd) {
@@ -43,10 +55,10 @@ public class Timing implements Comparable<Timing> {
     }
 
     /**
-     * Returns true if the start dateTime is before the end dateTime.
+     * Returns true if the start dateTime is before current time.
      */
     public static boolean isValidTimingFromCurrentTime(DateTime testStart, DateTime testEnd) {
-        return isValidTiming(testStart, testEnd) && testStart.getTime().isAfter(LocalDateTime.now());
+        return testStart.getTime().isAfter(LocalDateTime.now());
     }
 
     public DateTime getStartTime() {
@@ -73,6 +85,7 @@ public class Timing implements Comparable<Timing> {
                 && getStartTime().before(other.getEndTime())
                 && other.getStartTime().before(getEndTime());
     }
+
     /**
      * gets another Timing object which is one day later from current one.
      *
@@ -84,6 +97,7 @@ public class Timing implements Comparable<Timing> {
         DateTime end = DateTime.plusOneDay(current.getEndTime());
         return new Timing(start, end);
     }
+
     /**
      * gets another Timing object which is one week later from current one.
      *

@@ -1,5 +1,22 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
+import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersons.STAFF_ALICE;
+import static seedu.address.testutil.TypicalPersons.STAFF_BENSON;
+import static seedu.address.testutil.TypicalPersons.STAFF_CARL;
+import static seedu.address.testutil.TypicalPersons.STAFF_DANIEL;
+import static seedu.address.testutil.TypicalPersons.STAFF_ELLE;
+import static seedu.address.testutil.TypicalPersons.STAFF_FIONA;
+import static seedu.address.testutil.TypicalPersons.STAFF_GEORGE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,40 +30,40 @@ import seedu.address.model.events.Event;
 public class TypicalEvents {
 
     public static final Event EVENT_ALICE =
-            new EventBuilder(0, 0, 0, -1, 0).withId("01A").build();
+            new EventBuilder(ALICE, 0, 0, 0, -1, 0).build();
     public static final Event EVENT_BENSON =
-            new EventBuilder(0, 0, 0, 0, -15).withId("02B").build();
+            new EventBuilder(BENSON, 0, 0, 0, 0, -15).build();
     public static final Event EVENT_CARL =
-            new EventBuilder(0, 0, 0, 0, 0).withId("03C").build();
+            new EventBuilder(CARL, 0, 0, 0, 0, 0).build();
     public static final Event EVENT_DANIEL =
-            new EventBuilder(0, 0, 0, 0, 0).withId("04D").build();
+            new EventBuilder(DANIEL, 0, 0, 0, 0, 0).build();
     public static final Event EVENT_ELLE =
-            new EventBuilder(0, 0, 0, 6, 0).withId("05E").build();
+            new EventBuilder(ELLE, 0, 0, 0, 6, 0).build();
     public static final Event EVENT_FIONA =
-            new EventBuilder(0, 0, 1, 0, 0).withId("06F").build();
+            new EventBuilder(FIONA, 0, 0, 1, 0, 0).build();
     public static final Event EVENT_GEORGE =
-            new EventBuilder(0, 0, 2, 0, 0).withId("07G").build();
+            new EventBuilder(GEORGE, 0, 0, 2, 0, 0).build();
 
     public static final Event DUTY_ALICE =
-            new EventBuilder(EVENT_ALICE).withId("S01A").build();
+            new EventBuilder(EVENT_ALICE).withId(STAFF_ALICE).build();
     public static final Event DUTY_BENSON =
-            new EventBuilder(EVENT_BENSON).withId("S02B").build();
+            new EventBuilder(EVENT_BENSON).withId(STAFF_BENSON).build();
     public static final Event DUTY_CARL =
-            new EventBuilder(EVENT_CARL).withId("S03C").build();
+            new EventBuilder(EVENT_CARL).withId(STAFF_CARL).build();
     public static final Event DUTY_DANIEL =
-            new EventBuilder(EVENT_DANIEL).withId("S04D").build();
+            new EventBuilder(EVENT_DANIEL).withId(STAFF_DANIEL).build();
     public static final Event DUTY_ELLE =
-            new EventBuilder(EVENT_ELLE).withId("S05E").build();
+            new EventBuilder(EVENT_ELLE).withId(STAFF_ELLE).build();
     public static final Event DUTY_FIONA =
-            new EventBuilder(EVENT_FIONA).withId("S06F").build();
+            new EventBuilder(EVENT_FIONA).withId(STAFF_FIONA).build();
     public static final Event DUTY_GEORGE =
-            new EventBuilder(EVENT_GEORGE).withId("S07G").build();
+            new EventBuilder(EVENT_GEORGE).withId(STAFF_GEORGE).build();
 
     // Manually added
     public static final Event EVENT_HOON =
-            new EventBuilder(0, 0, 0, 0, 15).withId("08H").build();
+            new EventBuilder(HOON, 0, 0, 0, 0, 15).build();
     public static final Event EVENT_IDA =
-            new EventBuilder(0, 0, 1, 0, 0).withId("09I").build();
+            new EventBuilder(IDA, 0, 0, 1, 0, 0).build();
 
     private TypicalEvents() {
     } // prevents instantiation

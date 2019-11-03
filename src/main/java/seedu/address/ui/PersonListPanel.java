@@ -1,10 +1,11 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import java.util.HashSet;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -20,7 +21,7 @@ import seedu.address.model.person.Person;
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private int lastSelectedIndex;
+    private int lastSelectedIndex = 0;
     @FXML
     private ListView<Person> personListView;
 
@@ -28,41 +29,40 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        this.dropSelector();
-        lastSelectedIndex = 0;
-        personListView.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                int size = personList.size();
-                MultipleSelectionModel<Person> msm = personListView.getSelectionModel();
-                int selectedIndex = msm.getSelectedIndex();
-                switch (event.getCode()) {
-                case DOWN:
-                    if (selectedIndex == size - 1) {
-                        msm.select(0);
-                        personListView.scrollTo(0);
-                        event.consume();
-                    }
-                    break;
-                case UP:
-                    if (selectedIndex == 0) {
-                        msm.select(size - 1);
-                        personListView.scrollTo(size - 1);
-                        event.consume();
-                    }
-                    break;
-                case TAB:
-                case LEFT:
-                    dropSelector();
-                    break;
-                default:
+
+        personListView.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            int size = personList.size();
+            MultipleSelectionModel<Person> msm = personListView.getSelectionModel();
+            switch (keyEvent.getCode()) {
+            case DOWN:
+                if (msm.getSelectedIndex() < size - 1) {
+                    return;
                 }
+                msm.select(0);
+                personListView.scrollTo(0);
+                keyEvent.consume();
+                return;
+            case UP:
+                if (msm.getSelectedIndex() > 0) {
+                    return;
+                }
+                msm.select(size - 1);
+                personListView.scrollTo(size - 1);
+                keyEvent.consume();
+                return;
+            case TAB:
+            case LEFT:
+                dropSelector();
+                return;
+            default:
+                return;
             }
+
         });
         Runnable dropSelectorDeferred = this::dropSelector;
         personListView.setOnMouseExited(e -> deferredUntilMouseClickOuter.add(dropSelectorDeferred));
         personListView.setOnMouseEntered(e -> deferredUntilMouseClickOuter.remove(dropSelectorDeferred));
-        personListView.setOnMouseClicked(e -> this.getRoot().requestFocus());
+        personListView.setOnMouseClicked(e -> personListView.requestFocus());
     }
 
     /**
@@ -85,15 +85,18 @@ public class PersonListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
+
+        public PersonListViewCell() {
+            setFocusTraversable(true);
+        }
+
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
-            this.setFocusTraversable(true);
             if (empty || person == null) {
-                setGraphic(null);
-                setText(null);
+                Platform.runLater(() -> setGraphic(null));
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                Platform.runLater(() -> setGraphic(new PersonCard(person, getIndex() + 1).getRoot()));
             }
         }
     }

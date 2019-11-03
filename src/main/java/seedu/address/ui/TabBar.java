@@ -1,8 +1,8 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -12,7 +12,7 @@ import javafx.scene.layout.TilePane;
 import seedu.address.commons.core.OmniPanelTab;
 
 /**
- * The Ui component for AutoComplete.
+ * The Ui component for TabBar.
  */
 public class TabBar extends UiPart<Region> {
 
@@ -24,42 +24,33 @@ public class TabBar extends UiPart<Region> {
     public TabBar(OmniPanel omniPanel) {
         super("TabBar.fxml");
 
-        ObservableList<Node> ols = tabBar.getChildren();
-
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
 
-        tabBar.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                int size = ols.size();
+        ObservableList<Node> ols = tabBar.getChildren();
 
-                switch (keyEvent.getCode()) {
-                case UP:
-                    selectedIndex = (size + selectedIndex + -1) % size;
-                    keyEvent.consume();
-                    break;
-                case DOWN:
-                    selectedIndex = (size + selectedIndex + 1) % size;
-                    keyEvent.consume();
-                    break;
-                case RIGHT:
-                    omniPanel.regainOmniPanelSelector();
-                    break;
-                default:
-                }
-                selectTabUsingIndex(selectedIndex);
-                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+        tabBar.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            int size = ols.size();
+
+            switch (keyEvent.getCode()) {
+            case DOWN:
+                selectedIndex = (size + selectedIndex + 1) % size;
+                break;
+            case UP:
+                selectedIndex = (size + selectedIndex - 1) % size;
+                break;
+            case RIGHT:
+                omniPanel.regainOmniPanelSelector();
+                return;
+            default:
+                return;
             }
+            keyEvent.consume();
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
         });
 
-        ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                tabBar.requestFocus();
-                selectedIndex = ols.indexOf(event.getTarget());
-                selectTabUsingIndex(selectedIndex);
-                omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
-            }
+        ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
+            tabBar.requestFocus();
         }));
     }
 

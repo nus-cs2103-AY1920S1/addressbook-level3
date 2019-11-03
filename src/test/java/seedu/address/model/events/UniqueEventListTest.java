@@ -99,11 +99,11 @@ class UniqueEventListTest {
 
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_BENSON)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ALICE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
@@ -112,28 +112,28 @@ class UniqueEventListTest {
 
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), Integer.MAX_VALUE));
 
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), Integer.MAX_VALUE));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), Integer.MAX_VALUE));
     }
 
@@ -149,11 +149,11 @@ class UniqueEventListTest {
 
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_BENSON)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 2));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ALICE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 2));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
@@ -162,28 +162,28 @@ class UniqueEventListTest {
 
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 2));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 2));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), 2));
 
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 2));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 2));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), 2));
     }
 
@@ -199,11 +199,11 @@ class UniqueEventListTest {
 
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_BENSON)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 1));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ALICE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 1));
         assertTrue(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
@@ -212,28 +212,28 @@ class UniqueEventListTest {
 
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 1));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 1));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_DANIEL)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), 1));
 
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_ALICE.getPersonId().toString())
+                        .withId(EVENT_ALICE.getPersonId())
                         .build(), 1));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_BENSON.getPersonId().toString())
+                        .withId(EVENT_BENSON.getPersonId())
                         .build(), 1));
         assertFalse(eventList.allowedToSchedule(
                 new EventBuilder(EVENT_ELLE)
-                        .withId(EVENT_CARL.getPersonId().toString())
+                        .withId(EVENT_CARL.getPersonId())
                         .build(), 1));
     }
 }

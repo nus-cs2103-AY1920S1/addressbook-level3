@@ -3,6 +3,7 @@ package seedu.address.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.OmniPanelTab.DOCTORS_TAB;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.function.Predicate;
 
@@ -11,6 +12,7 @@ import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.predicates.ContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -30,6 +32,15 @@ public class ListStaffCommand extends NonActionableCommand {
 
     public ListStaffCommand(Predicate<Person> predicate) {
         this.predicate = predicate;
+    }
+
+    public ListStaffCommand(String keyword) {
+        String trimmedArgs = keyword.trim();
+        if (trimmedArgs.isEmpty()) {
+            this.predicate = PREDICATE_SHOW_ALL_PERSONS;
+        } else {
+            this.predicate = new ContainsKeywordsPredicate(trimmedArgs.toUpperCase());
+        }
     }
 
     @Override

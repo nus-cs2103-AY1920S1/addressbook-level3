@@ -1,21 +1,25 @@
+//@@author CarbonGrid
 package seedu.address.ui;
+
+import static java.awt.Desktop.getDesktop;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.IOException;
+import java.net.URI;
 import java.util.HashSet;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -40,13 +44,13 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private Stage primaryStage;
-    private Logic logic;
-    private AutoCompleter autoCompleter;
-    private CommandBoxHistory commandBoxHistory;
+    private final Stage primaryStage;
+    private final Logic logic;
+    private final AutoCompleter autoCompleter;
+    private final CommandBoxHistory commandBoxHistory;
     private OmniPanelTab currentOmniPanelTab;
 
-    private HashSet<Runnable> deferredDropSelectors;
+    private final HashSet<Runnable> deferredDropSelectors;
 
     // Independent Ui parts residing in this Ui container
     private AutoCompleteOverlay aco;
@@ -57,7 +61,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private EventListPanel appointmentListPanel;
     private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
     private TabBar tabBar;
 
     @FXML
@@ -68,6 +71,12 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem checkForUpdatesMenuItem;
+
+    @FXML
+    private MenuItem aboutUsMenuItem;
 
     @FXML
     private StackPane omniPanelPlaceholder;
@@ -97,31 +106,20 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.commandBoxHistory = new CommandBoxHistory();
 
         this.deferredDropSelectors = new HashSet<>();
-
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
 
-        helpWindow = new HelpWindow();
+        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> deferredDropSelectors.forEach(Runnable::run));
 
-        getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                deferredDropSelectors.forEach(e -> e.run());
-            }
-        });
-
-        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                case TAB:
-                    event.consume();
-                    commandBox.getRoot().requestFocus();
-                    break;
-                default:
-                }
+        upperPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            switch (keyEvent.getCode()) {
+            case TAB:
+                keyEvent.consume();
+                commandBox.getRoot().requestFocus();
+                break;
+            default:
             }
         });
 
@@ -134,6 +132,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(checkForUpdatesMenuItem, KeyCombination.valueOf("F2"));
+        setAccelerator(aboutUsMenuItem, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -143,28 +143,6 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
     }
 
     /**
@@ -174,14 +152,14 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         patientListPanel = new PersonListPanel(logic.getFilteredPatientList(), deferredDropSelectors);
         staffListPanel = new PersonListPanel(logic.getFilteredStaffList(), deferredDropSelectors);
 
-        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList());
-        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList());
+        appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
+        dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
 
         tabBar = new TabBar(this);
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
         queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
-            logic.getQueueList(), logic.getReferenceIdResolver());
+                logic.getQueueList(), logic.getReferenceIdResolver());
         queueListPanelPlaceholder.getChildren().add(queueListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -195,7 +173,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
         anchorPane.getChildren().add(aco.getRoot());
-        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+        AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
 
     /**
@@ -207,7 +185,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight();
 
-        if (screenWidth < guiSettings.getWindowHeight() || screenHeight < guiSettings.getWindowWidth()) {
+        if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
             return;
         }
 
@@ -224,20 +202,44 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
+    void show() {
+        primaryStage.show();
+    }
+
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens URI to User Guide.
      */
     @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
+    private void handleHelp() {
+        try {
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens URI to Releases.
+     */
+    @FXML
+    private void handleCheckForUpdates() {
+        try {
+            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens URI to About Us.
+     */
+    @FXML
+    private void handleAboutUs() {
+        try {
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -246,9 +248,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -257,7 +258,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -270,20 +271,22 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
         }
     }
 
     /**
-     * Called whenever AutoComplete selected command.
+     * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
+        if (!commandText.isBlank()) {
+            logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+        }
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
+        Region acoRoot = aco.getRoot();
+        acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
     }
 
     /**
@@ -320,7 +323,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called whenever AutoComplete has a selection.
      */
     private void autoCompleterSelected(String selectedText) {
-        commandBox.setCommandTextField(selectedText);
+        commandBox.appendCommandTextField(selectedText);
     }
 
     /**
@@ -330,21 +333,25 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
+        Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(patientListPanel.getRoot());
+            region = patientListPanel.getRoot();
             break;
         case APPOINTMENTS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(appointmentListPanel.getRoot());
+            region = appointmentListPanel.getRoot();
             break;
         case DOCTORS_TAB:
-            omniPanelPlaceholder.getChildren().setAll(staffListPanel.getRoot());
+            region = staffListPanel.getRoot();
             break;
         case DUTY_SHIFT_TAB:
-            omniPanelPlaceholder.getChildren().setAll(dutyShiftListPanel.getRoot());
+            region = dutyShiftListPanel.getRoot();
             break;
         default:
+            return;
         }
+        Region finalRegion = region;
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
     }
 
     @Override
@@ -352,6 +359,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         switch (currentOmniPanelTab) {
         case PATIENTS_TAB:
             patientListPanel.regainSelector();
+            break;
+        case DOCTORS_TAB:
+            staffListPanel.regainSelector();
             break;
         default:
         }

@@ -34,7 +34,7 @@ public class ContainsKeywordsPredicateTest {
 
     @Test
     public void test_idContainsKeywords_returnsTrue() {
-        Person testPerson = new PersonBuilder().withId("14598A").withName("Alice").withPhone("12345").build();
+        Person testPerson = new PersonBuilder().withPatientId("14598A").withName("Alice").withPhone("12345").build();
 
         // One keyword
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate("459");
@@ -57,7 +57,7 @@ public class ContainsKeywordsPredicateTest {
 
     @Test
     public void test_idContainsKeywords_returnsFalse() {
-        Person testPerson = new PersonBuilder().withId("14598A").withName("Alice").withPhone("12345").build();
+        Person testPerson = new PersonBuilder().withPatientId("14598A").withName("Alice").withPhone("12345").build();
 
         // Zero keywords
         ContainsKeywordsPredicate predicate = new ContainsKeywordsPredicate("");
@@ -71,7 +71,7 @@ public class ContainsKeywordsPredicateTest {
         assertTrue(predicate.test(testPerson));
 
         // Keywords match email and address, but does not match id, name or phone
-        testPerson = new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        testPerson = new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build();
         predicate = new ContainsKeywordsPredicate("+14598A");
         assertFalse(predicate.test(testPerson));
@@ -126,15 +126,15 @@ public class ContainsKeywordsPredicateTest {
 
         // Keywords match email and address, but does not match id, name or phone
         predicate = new ContainsKeywordsPredicate("1245");
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
 
         predicate = new ContainsKeywordsPredicate("alice@email.com");
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
 
         predicate = new ContainsKeywordsPredicate("Main");
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 
@@ -164,15 +164,16 @@ public class ContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withPhone("12345").build()));
 
         predicate = new ContainsKeywordsPredicate("123");
-        assertTrue(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345").build()));
+        assertTrue(predicate.test(new PersonBuilder().withPatientId("98A")
+                .withName("Alice").withPhone("12345").build()));
 
         // Keywords match email and address, but does not match id, name or phone
         predicate = new ContainsKeywordsPredicate("12-45");
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
 
         predicate = new ContainsKeywordsPredicate("alice@email.com");
-        assertFalse(predicate.test(new PersonBuilder().withId("98A").withName("Alice").withPhone("12345")
+        assertFalse(predicate.test(new PersonBuilder().withPatientId("98A").withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").build()));
     }
 

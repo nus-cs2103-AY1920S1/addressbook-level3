@@ -34,7 +34,7 @@ public class PersonTest {
         assertFalse(ALICE.isSameAs((ReferenceId) null));
 
         // different id -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPatientId(VALID_ID_BOB).build();
         assertFalse(ALICE.isSameAs(editedAlice.getReferenceId()));
 
         // different phone and email -> returns true
@@ -69,7 +69,7 @@ public class PersonTest {
         assertFalse(ALICE.isSameAs((Person) null));
 
         // different id -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPatientId(VALID_ID_BOB).build();
         assertFalse(ALICE.isSameAs(editedAlice));
 
         // different phone and email -> returns true
