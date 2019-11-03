@@ -89,15 +89,15 @@ public class EditTripPage extends Page<AnchorPane> {
 
         tripStartDateFormItem = new DateFormItem("Start date : ", startDate ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATE_START,
-                    ParserDateUtil.getStringFromDate(startDate.atStartOfDay()))));
+                        ParserDateUtil.getStringFromDate(startDate.atStartOfDay()))));
 
         tripEndDateFormItem = new DateFormItem("End date : ", endDate ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATE_END,
-                    ParserDateUtil.getStringFromDate(endDate.atTime(23, 59, 59)))));
+                        ParserDateUtil.getStringFromDate(endDate.atTime(23, 59, 59)))));
 
         tripTotalBudgetFormItem = new DoubleFormItem("Total budget : ", totalBudget ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_BUDGET,
-                    String.format("%.2f", totalBudget))));
+                        String.format("%.2f", totalBudget))));
 
         tripDestinationFormItem = new TextFormItem("Destination : ", destinationValue ->
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_LOCATION, destinationValue)));
@@ -106,7 +106,7 @@ public class EditTripPage extends Page<AnchorPane> {
                 mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATA_FILE_PATH,
                         photo.getImageFilePath())), () ->
                 mainWindow.executeGuiCommand(EditTripCommand.EDIT + " "
-                    + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH));
+                        + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH));
 
         formItemsPlaceholder.getChildren().addAll(
                 tripNameFormItem.getRoot(),
