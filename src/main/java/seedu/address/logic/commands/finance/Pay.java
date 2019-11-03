@@ -58,27 +58,7 @@ public class Pay extends Command {
         Employee employeeToPay = lastShownList.get(index.getZeroBased());
         employeeToPay.addSalaryPaid(salaryToPay);
 
-
-//        String end = editedEmployee.getEmployeeSalaryPaid().value;
-//        Double endDouble = Double.parseDouble(end);
-
-
-//        double amt = startDouble + endDouble;
-//        String output = (int) amt + "";
-
-        //set amt
-//        editedEmployee.addSalaryPaid(new EmployeeSalaryPaid(output));
-//        String tt = editedEmployee.getEmployeeTotalsalary().value;
-//        Double ttDouble = Double.parseDouble(tt);
-//        double ps = ttDouble - amt;
-//        String oput = (int) ps + "";
-//        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
-
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
-//        double s = employeeToPay.getEmployeeSalaryPaid().getValue();
-//        String output = s + "";
-//        EmployeeSalaryPaid modelEmployeeSalaryPaid = new EmployeeSalaryPaid(output);
-//        employeeToPay.addSalaryPaid(new EmployeeSalaryPaid(output));
 
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),

@@ -1,25 +1,15 @@
 package seedu.address.ui;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;
-
 import java.util.Comparator;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.logic.Logic;
-import seedu.address.logic.commands.allocate.DeallocateCommand;
-import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.model.employee.Employee;
-import seedu.address.model.event.Event;
-
 
 /**
  * An UI component that displays information of a {@code Employee}.

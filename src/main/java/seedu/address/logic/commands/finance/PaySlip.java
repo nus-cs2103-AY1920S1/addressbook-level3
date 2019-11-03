@@ -41,15 +41,6 @@ public class PaySlip extends Command {
         }
 
         Employee employeeToFetch = shownEmployeelist.get(index.getZeroBased());
-//        int totalH = 0;
-//        for (Event e : eventlist) {
-//            totalH = totalH + (int) e.getEventDateTimeMap().totalHours();
-//        }
-//        int amount = totalH * 10;
-//        //output = "Total Payment for all events: $" + amount + "\nBreakdown: " + totalH + " hours, $10.0/h";
-//        List<Employee> employeeList = model.getAddressBook().getEmployeeList();
-//        String first = "employeeList.get(0).getEmployeeSalaryPaid().value";
-//        String output = first;
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, employeeToFetch.getEmployeeName()), "Finance");
     }

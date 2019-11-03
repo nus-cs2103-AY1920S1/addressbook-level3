@@ -58,22 +58,6 @@ public class Undopay extends Command {
         Employee employeeToPay = lastShownList.get(index.getZeroBased());
         employeeToPay.undoSalaryPaid(salaryToPay);
 
-
-//        String end = editedEmployee.getEmployeeSalaryPaid().value;
-//        Double endDouble = Double.parseDouble(end);
-
-
-//        double amt = startDouble + endDouble;
-//        String output = (int) amt + "";
-
-        //set amt
-//        editedEmployee.addSalaryPaid(new EmployeeSalaryPaid(output));
-//        String tt = editedEmployee.getEmployeeTotalsalary().value;
-//        Double ttDouble = Double.parseDouble(tt);
-//        double ps = ttDouble - amt;
-//        String oput = (int) ps + "";
-//        editedEmployee.setEmployeePendingPay((new EmployeePendingPay(oput)));
-
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(
