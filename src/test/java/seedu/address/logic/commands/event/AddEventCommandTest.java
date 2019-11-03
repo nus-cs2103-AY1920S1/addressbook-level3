@@ -1,12 +1,10 @@
-package seedu.address.logic.commands.budget;
+package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
-import static seedu.address.testutil.TypicalMooLah.SCHOOL;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -34,69 +32,74 @@ import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
+import seedu.address.testutil.EventBuilder;
 
-
-
-public class AddBudgetCommandTest {
+public class AddEventCommandTest {
 
     @Test
-    public void constructor_nullBudget_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddBudgetCommand(null));
+    public void constructor_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddEventCommand(null));
     }
 
     @Test
-    public void run_budgetAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingBudgetAdded modelStub = new ModelStubAcceptingBudgetAdded();
-        Budget validBudget = SCHOOL;
+    public void run_eventAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new EventBuilder().build();
 
-        List<Budget> expectedBudgetsAdded = Arrays.asList(validBudget);
+        List<Event> expectedEventsAdded = Arrays.asList(validEvent);
         Stack<ModelStub> expectedPastModels = new Stack<>();
-        expectedPastModels.push(new ModelStubAcceptingBudgetAdded(modelStub));
+        expectedPastModels.push(new ModelStubAcceptingEventAdded(modelStub));
 
-        CommandResult commandResult = new AddBudgetCommand(validBudget).run(modelStub);
+        CommandResult commandResult = new AddEventCommand(validEvent).run(modelStub);
 
-        assertEquals(String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), commandResult.getFeedbackToUser());
-        assertEquals(expectedBudgetsAdded, modelStub.budgetsAdded);
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.getFeedbackToUser());
+        assertEquals(expectedEventsAdded, modelStub.eventsAdded);
         assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
-    public void run_duplicateBudget_throwsCommandException() {
-        Budget validBudget = SCHOOL;
-        AddBudgetCommand addBudgetCommand = new AddBudgetCommand(validBudget);
-        ModelStub modelStub = new ModelStubWithBudget(validBudget);
+    public void run_duplicateEvent_throwsCommandException() {
+        Event validEvent = new EventBuilder().build();
+        AddEventCommand addEventCommand = new AddEventCommand(validEvent);
+        ModelStub modelStub = new ModelStubWithEvent(validEvent);
 
-        assertThrows(CommandException.class, AddBudgetCommand.MESSAGE_DUPLICATE_BUDGET, () ->
-                addBudgetCommand.run(modelStub));
+        assertThrows(CommandException.class,
+                AddEventCommand.MESSAGE_DUPLICATE_EVENT, () -> addEventCommand.run(modelStub));
     }
 
     @Test
     public void equals() {
-        AddBudgetCommand addSchoolBudgetCommand = new AddBudgetCommand(SCHOOL);
-        AddBudgetCommand addOutsideSchoolBudgetCommand = new AddBudgetCommand(OUTSIDE_SCHOOL);
+        Event alice = new EventBuilder().withDescription("Alice").build();
+        Event bob = new EventBuilder().withDescription("Bob").build();
+        AddEventCommand addAliceCommand = new AddEventCommand(alice);
+        AddEventCommand addBobCommand = new AddEventCommand(bob);
 
         // same object -> returns true
-        assertTrue(addSchoolBudgetCommand.equals(addSchoolBudgetCommand));
+        assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddBudgetCommand addSchoolBudgetCommandCopy = new AddBudgetCommand(SCHOOL);
-        assertTrue(addSchoolBudgetCommand.equals(addSchoolBudgetCommandCopy));
+        AddEventCommand addAliceCommandCopy = new AddEventCommand(alice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addSchoolBudgetCommand.equals(1));
+        assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addSchoolBudgetCommand.equals(null));
+        assertFalse(addAliceCommand.equals(null));
 
-        // different budget -> returns false
-        assertFalse(addSchoolBudgetCommand.equals(addOutsideSchoolBudgetCommand));
+        // different expense -> returns false
+        assertFalse(addAliceCommand.equals(addBobCommand));
     }
-
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public void calculateStatistics(String command, Timestamp date1, Timestamp date2, boolean isBudget) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setBudget(Budget target, Budget editedBudget) {
@@ -108,6 +111,10 @@ public class AddBudgetCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasPrimaryBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public ObservableList<Budget> getFilteredBudgetList() {
             throw new AssertionError("This method should not be called.");
@@ -130,16 +137,6 @@ public class AddBudgetCommandTest {
 
         @Override
         public void deleteBudgetWithName(Description description) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteBudget(Budget budget) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void notifyAboutTranspiredEvents(List<Event> events) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -259,6 +256,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public void notifyAboutTranspiredEvents(List<Event> events) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addExpense(Expense expense) {
             throw new AssertionError("This method should not be called.");
         }
@@ -309,12 +311,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public boolean hasPrimaryBudget() {
+        public void switchBudgetTo(Description targetDescription) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void switchBudgetTo(Description targetDescription) {
+        public void deleteBudget(Budget budget) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -370,69 +372,61 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void calculateStatistics(String command, Timestamp date1, Timestamp date2,
-                                        boolean isBudgetMode) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Statistics getStatistics() {
             throw new AssertionError("This method should not be called.");
         }
     }
 
-
     /**
-     * A Model stub that contains a single budget.
+     * A Model stub that contains a single expense.
      */
-    private class ModelStubWithBudget extends ModelStub {
-        private final Budget budget;
+    private class ModelStubWithEvent extends ModelStub {
+        private final Event event;
 
-        ModelStubWithBudget(Budget budget) {
-            requireNonNull(budget);
-            this.budget = budget;
+        ModelStubWithEvent(Event event) {
+            requireNonNull(event);
+            this.event = event;
         }
 
         @Override
-        public boolean hasBudget(Budget budget) {
-            requireNonNull(budget);
-            return this.budget.isSameBudget(budget);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return this.event.equals(event);
         }
     }
 
-
     /**
-     * A Model stub that always accept the budget being added.
+     * A Model stub that always accept the expense being added.
      */
-    private class ModelStubAcceptingBudgetAdded extends ModelStub {
-        final ArrayList<Budget> budgetsAdded;
+    private class ModelStubAcceptingEventAdded extends ModelStub {
+        final ArrayList<Event> eventsAdded;
         final Stack<ModelStub> pastModels;
 
-        public ModelStubAcceptingBudgetAdded() {
-            budgetsAdded = new ArrayList<>();
+        public ModelStubAcceptingEventAdded() {
+            eventsAdded = new ArrayList<>();
             pastModels = new Stack<>();
         }
 
-        public ModelStubAcceptingBudgetAdded(ModelStubAcceptingBudgetAdded model) {
-            budgetsAdded = new ArrayList<>(model.budgetsAdded);
+        public ModelStubAcceptingEventAdded(ModelStubAcceptingEventAdded model) {
+            eventsAdded = new ArrayList<>(model.eventsAdded);
             pastModels = (Stack<ModelStub>) model.pastModels.clone();
         }
 
         @Override
-        public boolean hasBudget(Budget budget) {
-            requireNonNull(budget);
-            return budgetsAdded.stream().anyMatch(budget::isSameBudget);
+        public boolean hasEvent(Event event) {
+            requireNonNull(event);
+            return eventsAdded.stream().anyMatch(event::equals);
         }
 
         @Override
-        public void addBudget(Budget budget) {
-            requireNonNull(budget);
-            budgetsAdded.add(budget);
+        public void addEvent(Event event) {
+            requireNonNull(event);
+            eventsAdded.add(event);
         }
 
         @Override
         public void commitModel(String description) {
-            pastModels.push(new ModelStubAcceptingBudgetAdded(this));
+            pastModels.push(new ModelStubAcceptingEventAdded(this));
         }
 
         @Override
@@ -446,14 +440,14 @@ public class AddBudgetCommandTest {
                 return true;
             }
 
-            if (!(obj instanceof ModelStubAcceptingBudgetAdded)) {
+            if (!(obj instanceof ModelStubAcceptingEventAdded)) {
                 return false;
             }
 
-            ModelStubAcceptingBudgetAdded other = (ModelStubAcceptingBudgetAdded) obj;
-            return budgetsAdded.equals(other.budgetsAdded)
+            ModelStubAcceptingEventAdded other = (ModelStubAcceptingEventAdded) obj;
+            return eventsAdded.equals(other.eventsAdded)
                     && pastModels.equals(other.pastModels);
         }
     }
-}
 
+}

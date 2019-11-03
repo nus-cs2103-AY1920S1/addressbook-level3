@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.expense.DeleteExpenseCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -16,18 +16,18 @@ import seedu.address.logic.commands.expense.DeleteExpenseCommand;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class DeleteExpenseCommandParserTest {
+public class DeleteEventCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private DeleteEventCommandParser parser = new DeleteEventCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteExpenseCommand(INDEX_FIRST));
+        assertParseSuccess(parser, "1", new DeleteEventCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteExpenseCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
     }
 }

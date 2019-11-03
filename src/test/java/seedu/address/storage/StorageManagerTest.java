@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
+import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import java.nio.file.Path;
 

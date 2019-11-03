@@ -114,7 +114,7 @@ public class ParserUtil {
         if (potentialTimestamp.isPresent()) {
             return potentialTimestamp.get();
         } else {
-            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
     }
 

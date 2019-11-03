@@ -42,13 +42,13 @@ class StatsCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_WITHOUT_TAG,
+        assertParseFailure(parser, CommandTestUtil.STATS_WITHOUT_CATEGORY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, CommandTestUtil.STATS_PREFIX_WITHOUT_INPUT, Timestamp.MESSAGE_CONSTRAINTS_DATE);
+        assertParseFailure(parser, CommandTestUtil.STATS_PREFIX_WITHOUT_INPUT, Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         assertParseFailure(parser, CommandTestUtil.STATS_INVALID_PREFIX,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         assertParseFailure(parser, CommandTestUtil.STATS_HIGHER_END_DATE, Statistics.MESSAGE_CONSTRAINTS_END_DATE);
-        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_TAG,
+        assertParseFailure(parser, CommandTestUtil.STATS_DUPLICATE_CATEGORY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
     }
 }

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.budget.SwitchBudgetCommand.MESSAGE_BUDGET_ALREADY_PRIMARY;
 import static seedu.address.logic.commands.budget.SwitchBudgetCommand.MESSAGE_BUDGET_NOT_FOUND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL;
+import static seedu.address.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
+import static seedu.address.testutil.TypicalMooLah.SCHOOL;
 
 import org.junit.jupiter.api.Test;
 

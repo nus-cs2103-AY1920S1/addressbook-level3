@@ -21,7 +21,7 @@ import seedu.address.model.expense.exceptions.EventNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Event#isSameEvent(Event)
+ * @see Event#equals(Event)
  */
 public class UniqueEventList implements Iterable<Event> {
 
@@ -34,7 +34,7 @@ public class UniqueEventList implements Iterable<Event> {
      */
     public boolean contains(Event toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameEvent);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -48,27 +48,6 @@ public class UniqueEventList implements Iterable<Event> {
         }
         internalList.add(toAdd);
     }
-
-    /**
-     * Replaces the event {@code target} in the list with {@code editedEvent}.
-     * {@code target} must exist in the list.
-     * The event identity of {@code editedEvent} must not be the same as another existing event in the list.
-     */
-    //    IMPLEMENT AFTER WK 7
-    //    public void setExpense(Expense target, Expense editedExpense) {
-    //        requireAllNonNull(target, editedExpense);
-    //
-    //        int index = internalList.indexOf(target);
-    //        if (index == -1) {
-    //            throw new ExpenseNotFoundException();
-    //        }
-    //
-    //        if (!target.isSameExpense(editedExpense) && contains(editedExpense)) {
-    //            throw new DuplicateExpenseException();
-    //        }
-    //
-    //        internalList.set(index, editedExpense);
-    //    } IMPLEMENT AFTER WK 7
 
     /**
      * Removes the equivalent event from the list.
@@ -112,7 +91,7 @@ public class UniqueEventList implements Iterable<Event> {
             throw new EventNotFoundException();
         }
 
-        if (!target.isSameEvent(editedEvent) && contains(editedEvent)) {
+        if (!target.equals(editedEvent) && contains(editedEvent)) {
             throw new DuplicateEventException();
         }
 
@@ -149,7 +128,7 @@ public class UniqueEventList implements Iterable<Event> {
     private boolean eventsAreUnique(List<Event> events) {
         for (int i = 0; i < events.size() - 1; i++) {
             for (int j = i + 1; j < events.size(); j++) {
-                if (events.get(i).isSameEvent(events.get(j))) {
+                if (events.get(i).equals(events.get(j))) {
                     return false;
                 }
             }

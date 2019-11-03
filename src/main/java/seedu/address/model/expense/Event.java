@@ -24,7 +24,7 @@ public class Event {
      * Every field must be present and not null.
      */
     public Event(Description description, Price price, Category category, Timestamp timestamp) {
-        requireAllNonNull(description, price, timestamp);
+        requireAllNonNull(description, price, category, timestamp);
         this.description = description;
         this.price = price;
         this.category = category;
@@ -34,7 +34,7 @@ public class Event {
 
     public Event(Description description, Price price, Category category,
                  Timestamp timestamp, Description budgetName) {
-        requireAllNonNull(description, price, timestamp);
+        requireAllNonNull(description, price, category, timestamp);
         this.description = description;
         this.price = price;
         this.category = category;
@@ -67,23 +67,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both events of the same description have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two events.
-     */
-    public boolean isSameEvent(Event otherEvent) {
-        if (otherEvent == this) {
-            return true;
-        }
-
-        return otherEvent != null
-                && otherEvent.getDescription().equals(getDescription())
-                && (otherEvent.getPrice().equals(getPrice()))
-                && (otherEvent.getTimestamp().equals(getTimestamp()));
-    }
-
-    /**
      * Returns true if both events have the same identity and data fields.
-     * This defines a stronger notion of equality between two events.
      */
     @Override
     public boolean equals(Object other) {

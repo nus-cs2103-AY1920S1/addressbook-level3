@@ -34,8 +34,8 @@ public class Timestamp implements Comparable<Timestamp> {
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not day/week/month/year";
 
-    public static final String MESSAGE_CONSTRAINTS_DATE =
-            "Timestamps must be in the format dd-MM[-yyyy]";
+    public static final String MESSAGE_CONSTRAINTS_GENERAL =
+            "Input is not recognised!";
 
     public static final Timestamp EARLIEST_TIMESTAMP = new Timestamp(
             LocalDate.of(2000, 1, 1).atStartOfDay());

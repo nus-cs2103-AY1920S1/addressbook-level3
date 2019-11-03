@@ -3,9 +3,9 @@ package seedu.address.logic.commands.expense;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_TAXI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_PRICE_TAXI;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,15 +31,15 @@ public class EditExpenseDescriptorTest {
 
         // different description -> returns false
         EditExpenseDescriptor editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN)
-                .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
+                .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI).build();
         assertFalse(DESC_CHICKEN.equals(editedAmy));
 
         // different price -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withPrice(VALID_PRICE_TRANSPORT).build();
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withPrice(VALID_EXPENSE_PRICE_TAXI).build();
         assertFalse(DESC_CHICKEN.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withCategory(VALID_CATEGORY_FOOD).build();
+        editedAmy = new EditExpenseDescriptorBuilder(DESC_CHICKEN).withCategory(VALID_EXPENSE_CATEGORY_CHICKEN).build();
         assertFalse(DESC_CHICKEN.equals(editedAmy));
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_DESCRIPTION_DESC_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_PRICE_DESC_CHICKEN;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.alias.AddAliasCommand;
@@ -24,7 +24,7 @@ public class AliasTestUtil {
     public static final Alias ALIAS_LIST_SHORTCUT = new Alias("ls", ListExpensesCommand.COMMAND_WORD);
     public static final Alias ALIAS_ADD_WITH_ARGUMENTS = new Alias(
             "addchicken",
-            FindExpenseCommand.COMMAND_WORD + DESCRIPTION_DESC_CHICKEN + PRICE_DESC_CHICKEN);
+            FindExpenseCommand.COMMAND_WORD + EXPENSE_DESCRIPTION_DESC_CHICKEN + EXPENSE_PRICE_DESC_CHICKEN);
     public static final Alias ALIAS_FIND_SHORTCUT_INCOMPLETE = new Alias ("f", FindExpenseCommand.COMMAND_WORD);
     // for recursive
     public static final Alias ALIAS_A_TO_B = new Alias("a", "b");

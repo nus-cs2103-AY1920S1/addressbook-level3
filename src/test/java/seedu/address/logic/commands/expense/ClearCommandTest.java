@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.expense;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
+import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
 

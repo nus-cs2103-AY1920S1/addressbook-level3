@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedBudget.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
+import static seedu.address.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 
 import java.time.Period;
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class JsonAdaptedBudgetTest {
         JsonAdaptedBudget budget =
                 new JsonAdaptedBudget(VALID_DESCRIPTION, VALID_AMOUNT, INVALID_START_DATE, VALID_END_DATE,
                         VALID_PERIOD, VALID_EXPENSE_IDS);
-        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
+        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_GENERAL;
         assertThrows(IllegalValueException.class, expectedMessage, () -> budget.toModelType(VALID_EXPENSES));
     }
 
@@ -100,7 +100,7 @@ public class JsonAdaptedBudgetTest {
         JsonAdaptedBudget budget =
                 new JsonAdaptedBudget(VALID_DESCRIPTION, VALID_AMOUNT, VALID_START_DATE, INVALID_END_DATE,
                         VALID_PERIOD, VALID_EXPENSE_IDS);
-        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
+        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_GENERAL;
         assertThrows(IllegalValueException.class, expectedMessage, () -> budget.toModelType(VALID_EXPENSES));
     }
 

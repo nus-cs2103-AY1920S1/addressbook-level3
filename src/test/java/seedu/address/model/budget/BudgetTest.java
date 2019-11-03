@@ -3,10 +3,10 @@ package seedu.address.model.budget;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalBudgets.OUTSIDE_SCHOOL;
-import static seedu.address.testutil.TypicalBudgets.SCHOOL;
-import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
+import static seedu.address.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.address.testutil.TypicalMooLah.CHICKEN_RICE;
+import static seedu.address.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
+import static seedu.address.testutil.TypicalMooLah.SCHOOL;
 
 import org.junit.jupiter.api.Test;
 
