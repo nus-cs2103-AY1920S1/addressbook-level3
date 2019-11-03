@@ -135,7 +135,7 @@ Displays all the cards in the deck of cards, `science_deck`
 
 Creates an empty deck in FlashCard Pro library.
 
-Format: `create deck/DECK_NAME.
+Format: `create deck/DECK_NAME`
 
 Note :
 
