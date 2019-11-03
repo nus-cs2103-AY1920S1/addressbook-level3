@@ -141,7 +141,7 @@ Example usage (Figure 2): `add task tn/Bake CupCakes td/20/10/2019`
 
 .Adding a task
 [caption="Figure 2: "]
-image::addtask-ug.png[width="600"]
+image::addtask-ug.png[width="610"]
 
 === pass:[<u>Editing a task's details</u>]
 
@@ -160,7 +160,7 @@ Example usage (Figure 3): `edit task 1 tn/Bake cupcakes td/21/10/2019`
 
 .Editing a task
 [caption="Figure 3: "]
-image::edittask-ug.png[width="600"]
+image::edittask-ug.png[width="670"]
 
 === pass:[<u>Removing a task</u>]
 
@@ -193,7 +193,7 @@ Example usage (Figure 5): `done 2`
 
 .Marking a task complete
 [caption="Figure 5: "]
-image::donetask-ug.png[width="600"]
+image::donetask-ug.png[width="625"]
 
 [NOTE]
 ====
@@ -241,33 +241,34 @@ image::DashboardClassDiagram.png[width="500"]
 ==== Implementation
 The functions add/delete/edit/find/list/done task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
-by the user. The tasks are sorted accordingly by earliest date.
+by the user. The tasks are sorted accordingly by earliest date; using a custom sorting algorithm.
 Here, a task is represented by a Dashboard object.
-
-The add/delete/edit/find/list/done mechanism is implemented in `DukeCooks v1.3`. It extends
-`DukeCooks` with a function to add/delete/edit/find tasks.
 
 The operations are as followed:
 
-* `DukeCooks#add()` -- Adds and saves the task into `DukeCooks`.
-* `DukeCooks#delete()` -- Removes the specified task from `DukeCooks`.
-* `DukeCooks#edit()` -- Edits the specified with a new task name and/or date.
-* `DukeCooks#find()` -- Finds a list of task with a given keyword.
-* `DukeCooks#list()` -- Lists all the task in DukeCooks.
+* `DukeCooks#add_task()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks#delete_task()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks#edit_task()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks#done()` -- Marks a task as complete.
+* `DukeCooks#find_task()` -- Finds a list of task with a given keyword.
+* `DukeCooks#list_taskincomlete()` -- Lists all the incomplete tasks.
+* `DukeCooks#list_taskcomlete()` -- Lists all the completed tasks.
+* `DukeCooks#dashboard()` -- Directs user to the dashboard window.
 
 These operations are exposed in the Model interface as `Model#addDashboard()`,
-`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and
-`Model#getDashboardRecords()` respectively.
+`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` , `Model#doneDashboard` and
+`Model#getDashboardRecords().
 
-Given below is an example usage scenario and how the add/delete/edit/find/list
+Given below is an example usage scenario and how the add/delete/edit/find//done/dashboard
 mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. `DukeCooks v1.3` will
-be initialized with the dashboard state, and the `currentStatePointer` pointing to
-that single dashboard state.
+Step 1. The user is currently at a another part of DukeCooks and wants to go to the Dashboard. The
+user executes the `dashboard` command. The `dashboard` command calls `Model#getDashboardRecords()`,
+which returns the `ReadOnlyDashboard` that returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage. The `currentStatePointer` remains at the same location after the step.
 
 Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
-task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
+task into DukeCooks. The `add` command calls `Model#addDashboard()`, causing the task to
 be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 `UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
 stage, the list of task is sorted by date. After which, the `add` command also calls
@@ -275,7 +276,7 @@ stage, the list of task is sorted by date. After which, the `add` command also c
 `UniqueDashboardList`.
 
 Step 3. The user executes `delete task 3` command to delete the 3rd task in the
-dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
+dashboard. The `delete` command calls `Model#deleteDashboard()` causing the specified task
 to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 `UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
 stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
@@ -283,7 +284,7 @@ causing the modified state of the dashboard after the `delete task 3` command ex
 to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
 newly inserted dashboard state.
 
-Step 4. The user executes `edit task...` command to edit a field in a task. The edit
+Step 4. The user executes `edit task...` command to edit a field in a task. The `edit`
 command calls `Model#setDashboard()` causing the edited task to be updated in
 `UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
 which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
@@ -292,20 +293,22 @@ dashboard after the `edit task...` command executes to `UniqueDashboardList`, an
 `currentStatePointer` is shifted to the newly inserted dashboard state.
 
 Step 5. The user executes `find task...` command to find a list of task given a keyword.
-The find command calls `Model#hasDashboard()`, which searches through the
+The `find` command calls `Model#hasDashboard()`, which searches through the
 `UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
 remains at the same location after the step.
 
-Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
-The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
-returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
-homepage. The `currentStatePointer` remains at the same location after the step.
+Step 6. The user executes `done 1` command to mark the first task in the list as complete. The `done`
+command calls `Model#doneDashboard()`, which will cause the task to be marked as complete in the
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#done()`, which adds
+the newly created `Dashboard` object and adds it into the list. After which, `UniqueDashboardList#sortDashboard()`
+is called to sort the list by date and reflect the newly made changes. The `currentStatePointer`
+moves to the newly inserted dashboard state.
 
 The following sequence diagram (Figure 10) shows how the add operation works:
 
-.Add task Sequence Diagram
+.Done task Sequence Diagram
 [caption="Figure 10: "]
-image::AddTaskSequenceDiagram.png[width="500"]
+image::DoneTaskSequenceDiagram.png[width="500"]
 
 ==== Making Decisions
 
