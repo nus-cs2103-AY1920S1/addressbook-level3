@@ -24,7 +24,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Order command
  */
 public class AddOrderCommand extends Command {
-    public static final String COMMAND_WORD = "add_order";
+    public static final String COMMAND_WORD = "-add_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an order to the manager. "
@@ -41,13 +41,13 @@ public class AddOrderCommand extends Command {
             + PREFIX_FOOD + "Chicken Nuggets "
             + PREFIX_QUANTITY + "20";
 
-    public static final String MESSAGE_SUCCESS_ADD = "New order added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
-    public static final String MESSAGE_DELIVERYMAN_UNAVAILABLE = "The deliveryman is unavailable!";
-    public static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
-    public static final String MESSAGE_INVALID_DELIVERYMAN = "The deliveryman does not exist!";
-    public static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
-    public static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
+    private static final String MESSAGE_SUCCESS_ADD = "New order added: %1$s";
+    private static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
+    private static final String MESSAGE_DELIVERYMAN_UNAVAILABLE = "The deliveryman is unavailable!";
+    private static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
+    private static final String MESSAGE_INVALID_DELIVERYMAN = "The deliveryman does not exist!";
+    private static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
+    private static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
 
     private final Order toAdd;
     private final Order orderToDelete;
