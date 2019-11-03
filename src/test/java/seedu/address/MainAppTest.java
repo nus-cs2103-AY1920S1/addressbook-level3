@@ -17,6 +17,9 @@ import seedu.address.ui.autocomplete.AutoCompleter;
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
+    /**
+     * Initialises main class
+     */
     @Init
     public void init() throws Exception {
         try {
