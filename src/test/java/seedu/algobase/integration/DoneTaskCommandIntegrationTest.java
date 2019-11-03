@@ -19,7 +19,7 @@ import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
 
-public class HelpCommandIntegrationTest {
+public class DoneTaskCommandIntegrationTest {
     // --- COPY BELOW FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @TempDir
@@ -42,35 +42,7 @@ public class HelpCommandIntegrationTest {
     // --- COPY ABOVE FOR INTEGRATION TESTS ----------------------------------------------------------------
 
     @Test
-    public void help_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("help\n");
-        logicManager.execute("help add\n");
-        logicManager.execute("help addplan\n");
-        logicManager.execute("help addtag\n");
-        logicManager.execute("help clear\n");
-        logicManager.execute("help delete\n");
-        logicManager.execute("help deleteplan\n");
-        logicManager.execute("help deletetag\n");
-        logicManager.execute("help deletetask\n");
-        logicManager.execute("help donetask\n");
-        logicManager.execute("help edit\n");
-        logicManager.execute("help editplan\n");
-        logicManager.execute("help edittag\n");
-        logicManager.execute("help exit\n");
-        logicManager.execute("help find\n");
-        logicManager.execute("help findplan\n");
-        logicManager.execute("help help\n");
-        logicManager.execute("help list\n");
-        logicManager.execute("help listplan\n");
-        logicManager.execute("help listtag\n");
-        logicManager.execute("help sort\n");
-        logicManager.execute("help switchtab\n");
-        logicManager.execute("help undonetask\n");
-        logicManager.execute("help apply\n");
-        logicManager.execute("help addfindrule\n");
-        logicManager.execute("help deletefindrule\n");
-        logicManager.execute("help opentab\n");
-        logicManager.execute("help closetab\n");
-        logicManager.execute("help donetask\n");
+    public void donetask_allConstraints() throws CommandException, ParseException {
+        logicManager.execute("donetask plan/1 task/1\n");
     }
 }
