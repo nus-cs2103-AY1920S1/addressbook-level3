@@ -184,7 +184,7 @@
     -fx-font-size: 16px;
 }
 
-#eventCardPane #index, #eventCardPane #date, #eventCardPane #budgetName {
+#eventCardPane #index, #eventCardPane #date, #eventCardPane #budgetName, #eventCardPane #categories .label {
     -fx-text-fill: -colour-additional-info;
 }
 

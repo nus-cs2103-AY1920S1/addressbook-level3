@@ -22,14 +22,14 @@ public class EventCard extends UiPart<Region> {
 
     private static final String FXML = "EventListCard.fxml";
 
-    private static final Category FOOD =  new Category("FOOD");
-    private static final Category TRAVEL =  new Category("TRAVEL");
-    private static final Category TRANSPORT =  new Category("TRANSPORT");
-    private static final Category SHOPPING =  new Category("SHOPPING");
-    private static final Category UTILITIES =  new Category("UTILITIES");
-    private static final Category HEALTHCARE =  new Category("HEALTHCARE");
-    private static final Category ENTERTAINMENT =  new Category("ENTERTAINMENT");
-    private static final Category EDUCATION =  new Category("EDUCATION");
+    private static final Category FOOD = new Category("FOOD");
+    private static final Category TRAVEL = new Category("TRAVEL");
+    private static final Category TRANSPORT = new Category("TRANSPORT");
+    private static final Category SHOPPING = new Category("SHOPPING");
+    private static final Category UTILITIES = new Category("UTILITIES");
+    private static final Category HEALTHCARE = new Category("HEALTHCARE");
+    private static final Category ENTERTAINMENT = new Category("ENTERTAINMENT");
+    private static final Category EDUCATION = new Category("EDUCATION");
 
     private static final String FOOD_ICON = "/images/category/food.png";
     private static final String SHOPPING_ICON = "/images/category/shopping.png";
@@ -68,6 +68,8 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label budgetName;
     @FXML
+    private FlowPane categories;
+    @FXML
     private Circle icon;
     @FXML
     private Circle iconBackground;
@@ -78,6 +80,7 @@ public class EventCard extends UiPart<Region> {
         index.setText(Integer.toString(displayedIndex));
         description.setText(event.getDescription().fullDescription);
         price.setText(String.format("%s%,.2f", "$", event.getPrice().getAsDouble()));
+        categories.getChildren().add(new Label(event.getCategory().getCategoryName()));
         date.setText(event.getTimestamp().fullTimestamp.format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         time.setText(null);
         budgetName.setText(event.getBudgetName().fullDescription);

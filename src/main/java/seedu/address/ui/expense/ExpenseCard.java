@@ -20,14 +20,14 @@ import seedu.address.ui.UiPart;
  */
 public class ExpenseCard extends UiPart<Region> {
 
-    private static final Category FOOD =  new Category("FOOD");
-    private static final Category TRAVEL =  new Category("TRAVEL");
-    private static final Category TRANSPORT =  new Category("TRANSPORT");
-    private static final Category SHOPPING =  new Category("SHOPPING");
-    private static final Category UTILITIES =  new Category("UTILITIES");
-    private static final Category HEALTHCARE =  new Category("HEALTHCARE");
-    private static final Category ENTERTAINMENT =  new Category("ENTERTAINMENT");
-    private static final Category EDUCATION =  new Category("EDUCATION");
+    private static final Category FOOD = new Category("FOOD");
+    private static final Category TRAVEL = new Category("TRAVEL");
+    private static final Category TRANSPORT = new Category("TRANSPORT");
+    private static final Category SHOPPING = new Category("SHOPPING");
+    private static final Category UTILITIES = new Category("UTILITIES");
+    private static final Category HEALTHCARE = new Category("HEALTHCARE");
+    private static final Category ENTERTAINMENT = new Category("ENTERTAINMENT");
+    private static final Category EDUCATION = new Category("EDUCATION");
 
     private static final String FXML = "ExpenseListCard.fxml";
     private static final String FOOD_ICON = "/images/category/food.png";
