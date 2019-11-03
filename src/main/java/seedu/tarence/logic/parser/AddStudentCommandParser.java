@@ -72,7 +72,8 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private boolean formatIsUnclear(String args) {
         ArgumentMultimap argMultimap =
                 OptionalArgumentTokenizer.tokenize(args, optionalArgs,
-                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
+                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME,
+                        PREFIX_MATNO, PREFIX_NUSID);
 
         // Tutorial name, module name and index are all present
         if (arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL,
@@ -100,7 +101,7 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private Optional<ArgumentMultimap> validateIndexFormat(String args) {
         ArgumentMultimap argMultimap =
                 OptionalArgumentTokenizer.tokenize(args, optionalArgs,
-                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL);
+                        PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MATNO, PREFIX_NUSID);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_NAME, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -117,7 +118,7 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
     private Optional<ArgumentMultimap> validateFullFormat(String args) {
         ArgumentMultimap argMultimap =
                 OptionalArgumentTokenizer.tokenize(args, optionalArgs,
-                        PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME);
+                        PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME, PREFIX_MATNO, PREFIX_NUSID);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EMAIL, PREFIX_MODULE, PREFIX_TUTORIAL_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {

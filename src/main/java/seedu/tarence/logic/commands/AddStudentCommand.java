@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MATNO;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NUSID;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.ArrayList;
@@ -29,37 +31,53 @@ public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "addStudent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into T.A.rence. \n"
-            + "Full format: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
-            + PREFIX_MODULE + "MODULE_CODE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_TUTORIAL_NAME + "Lab 1 "
-            + PREFIX_MODULE + "CS1010\n"
-            + "Shortcut Format: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_INDEX + "TUTORIAL_INDEX\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_INDEX + "1";
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "addstu", "addstud"};
 
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This person already exists!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student into T.A.rence. \n"
+            + "Parameters:\n"
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_MATNO + "MATRIC NO (OPTIONAL) "
+            + PREFIX_NUSID + "NUSNET ID (OPTIONAL)\n"
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_NAME + "NAME "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_MATNO + "MATRIC NO (OPTIONAL) "
+            + PREFIX_NUSID + "NUSNET ID (OPTIONAL)\n"
+            + "Note:\n"
+            + "Using " + PREFIX_MATNO + " and " + PREFIX_NUSID
+            + " to specify matriculation number and nusnet id is optional,\n"
+            + "however the program will not detect if you have entered an "
+            + "incorrect format for either field if so\n"
+            + "and will simply assume those incorrect fields are not present.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TUTORIAL_NAME + "Lab 1 "
+            + PREFIX_MODULE + "CS1010 "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_MATNO + "A1234567A "
+            + PREFIX_NUSID + "e0123456\n"
+            + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_INDEX + "1 "
+            + "A1234567A "
+            + "e0123456\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
+
+    public static final String MESSAGE_DUPLICATE_STUDENT = "Another person already exists with the "
+        + "same email/nusid/matriculation number!";
     public static final String MESSAGE_INVALID_CLASS = "No such module and/or tutorial class exists.";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS = "The given tutorial index %d is out of bounds.";
 
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "addstu", "addstud", "addstudent"};
-
     private Student toAdd;
     private Index tutIdx;
-
 
     /**
      * Creates an AddCommand to add the specified {@code Person}

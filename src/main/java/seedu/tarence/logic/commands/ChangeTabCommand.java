@@ -13,18 +13,30 @@ import seedu.tarence.storage.Storage;
  */
 public class ChangeTabCommand extends Command {
     public static final String COMMAND_WORD = "cd";
+
     public static final String MESSAGE_SUCCESS = "%1$s has been displayed";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "changetab"};
 
-    private static final String[] modName = {"m", "mod", "mods", "module", "modules"};
+    private static final String[] modNames = {"m", "mod", "mods", "module", "modules"};
     private static final String[] tutNames = {"t", "tut", "tuts", "tutorial", "tutorials"};
     private static final String[] studentNames = {"s", "stu", "students", "student"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays tab information to the user.\n"
-            + "Parameters: tab to display\n"
-            + "Example: " + COMMAND_WORD + " mod\n";
+            + "Parameters: TAB TO DISPLAY\n"
+            + "Synonyms for module tab:\n"
+            + String.join(" ", modNames) + "\n"
+            + "Synonyms for tutorial tab:\n"
+            + String.join(" ", tutNames) + "\n"
+            + "Synonyms for student tab:\n"
+            + String.join(" ", studentNames) + "\n"
+            + "Example:\n"
+            + COMMAND_WORD + " m\n"
+            + COMMAND_WORD + " t\n"
+            + COMMAND_WORD + " s\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private String tabName;
     private TabNames tabToDisplay;
@@ -53,7 +65,7 @@ public class ChangeTabCommand extends Command {
      */
     public TabNames getTabvalue() throws CommandException {
 
-        if (Arrays.stream(modName).anyMatch(name -> name.equals(tabName))) {
+        if (Arrays.stream(modNames).anyMatch(name -> name.equals(tabName))) {
             return TabNames.MODULES;
         }
 

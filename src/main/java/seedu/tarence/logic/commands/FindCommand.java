@@ -15,12 +15,17 @@ import seedu.tarence.storage.Storage;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all students whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Parameters:\n"
+            + "KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example:\n"
+            + COMMAND_WORD + " alice bob charlie\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final NameContainsKeywordsPredicate predicate;
 

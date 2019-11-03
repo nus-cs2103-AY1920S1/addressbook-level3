@@ -3,7 +3,6 @@ package seedu.tarence.logic.commands.assignment;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_SCORE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
@@ -32,25 +31,37 @@ import seedu.tarence.storage.Storage;
 public class SetAssignmentScoreCommand extends AssignmentCommand {
 
     public static final String MESSAGE_SET_SCORE_SUCCESS = "%1$s's score is now %2$s ";
-    public static final String COMMAND_WORD = "setAssignScore";
+    public static final String COMMAND_WORD = "setAssignmentScore";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "sets", "setscore",
-        "setsc", "setassignmentscore"};
+        "setsc", "setassignscore"};
 
-    // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the score for student.\n"
-            + "Parameters: "
-            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + "Parameters:\n"
             + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_INDEX + "ASSIGNMENT INDEX "
             + PREFIX_INDEX + "STUDENT INDEX "
-            + PREFIX_SCORE + "STUDENT SCORE\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_SCORE + "SCORE\n"
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_INDEX + "ASSIGNMENT INDEX "
+            + PREFIX_INDEX + "STUDENT INDEX "
+            + PREFIX_SCORE + "SCORE\n"
+            + "Note:\n"
+            + "Tutorial, assignment and student index have to be entered in the order specified.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
-            + PREFIX_NAME + "Lab01 "
             + PREFIX_INDEX + "1 "
             + PREFIX_INDEX + "1 "
-            + PREFIX_SCORE + "10";
+            + PREFIX_SCORE + "10\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_SCORE + "10\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     public SetAssignmentScoreCommand(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
             Index studentIndex, Integer score) {

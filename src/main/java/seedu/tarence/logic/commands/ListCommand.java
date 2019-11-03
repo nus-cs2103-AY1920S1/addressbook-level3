@@ -21,13 +21,17 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all students";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "liststu", "liststud", "liststudents"};
+        "liststu", "liststud", "liststudents", "ls", "liststuds"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists the person identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1\n"
-            + "To list all students, just type list";
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1\n"
+            + "To list all students, just type list\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final StudentsInTutorialPredicate predicate;
     private final boolean showAllStudents;

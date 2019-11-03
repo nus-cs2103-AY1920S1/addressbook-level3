@@ -22,15 +22,21 @@ import seedu.tarence.storage.Storage;
 public class SetSemStartCommand extends Command {
 
     public static final String MESSAGE_SET_SEM_START_SUCCESS = "Start of semester is: %s";
-    public static final String COMMAND_WORD = "setStart";
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "setsemstart", "setst", "setsem"};
+    public static final String COMMAND_WORD = "setSemStart";
+    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "setstart", "setst", "setsem"};
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets start of semester.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_START_DATE + "SEMESTER START DATE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_START_DATE + "9-11-2001 1200";
+            + "Note:\n"
+            + "Setting the start date of the semester will determine the dates of tutorials\n"
+            + "and will automatically update events in all tutorials.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + PREFIX_START_DATE + "31-12-2001 1200\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Date semStart;
 

@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_INVALID_MODULE_IN_APPLICATION;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,11 @@ public class DeleteModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteModule";
 
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "deletemod", "delmodule", "delmod"};
+
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
+
     public static final String MESSAGE_CONFIRM_DELETE_NONEMPTY_MODULE = "WARNING: Module %1$s "
             + "contains %2$d tutorial(s). Are you sure you want to delete it?\n"
             + "(y/n)";
@@ -33,11 +38,16 @@ public class DeleteModuleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by either the index number used in the displayed module list,\n"
             + "or the specified module code.\n"
-            + "Examples: " + COMMAND_WORD + " 1\n"
-            + COMMAND_WORD + " m/GER1000";
-
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletemod", "delmodule", "delmod", "deletemodule"};
+            + "Parameters:\n"
+            + PREFIX_MODULE + "MODULE CODE\n"
+            + "MODULE INDEX\n"
+            + "Examples:\n"
+            + COMMAND_WORD + " "
+            + "1\n"
+            + COMMAND_WORD + " "
+            + PREFIX_MODULE + "GER1000\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Optional<Index> targetIndex;
     private final Optional<ModCode> targetModCode;
@@ -141,9 +151,9 @@ public class DeleteModuleCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        // TODO: Need to consider case where targetIndex is not specified
         return other == this // short circuit if same object
                 || (other instanceof DeleteModuleCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteModuleCommand) other).targetIndex)); // state check
+                && targetIndex.equals(((DeleteModuleCommand) other).targetIndex)
+                && targetModCode.equals(((DeleteModuleCommand) other).targetModCode)); // state check
     }
 }

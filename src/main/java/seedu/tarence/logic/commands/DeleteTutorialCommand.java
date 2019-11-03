@@ -2,6 +2,8 @@ package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,27 +20,38 @@ import seedu.tarence.storage.Storage;
 
 /**
  * Deletes a tutorial identified using its displayed index from T.A.rence.
- * TODO: disallow deleting non-empty tutorials?
  */
 public class DeleteTutorialCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteTutorial";
 
     public static final String MESSAGE_DELETE_TUTORIAL_SUCCESS = "Deleted Tutorial: %1$s";
+
     public static final String MESSAGE_CONFIRM_DELETE_NONEMPTY_TUTORIAL = "WARNING: Tutorial %1$s "
             + "contains %2$d student(s). Are you sure you want to delete it?\n"
             + "(y/n)";
 
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "deletetut", "deleteclass", "deltutorial", "deltut", "delclass", "deletetutorial"};
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the tutorial identified by the index number used in the displayed tutorial list.\n"
             + "or the specified tutorial name and module code.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1\n"
-            + COMMAND_WORD + " tn/tut1\n"
-            + COMMAND_WORD + " tn/Lab 1 m/PC1431";
-
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletetut", "deleteclass", "deltutorial", "deltut", "delclass", "deletetutorial"};
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME\n"
+            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + "1\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TUTORIAL_NAME + "Lab 1\n"
+            + COMMAND_WORD + " "
+            + PREFIX_TUTORIAL_NAME + "Lab 1 "
+            + PREFIX_MODULE + "PC1431\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Optional<Index> targetIndex;
     private final Optional<ModCode> targetModCode;

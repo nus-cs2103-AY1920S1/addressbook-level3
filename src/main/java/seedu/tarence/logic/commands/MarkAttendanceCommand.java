@@ -2,6 +2,7 @@ package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.core.Messages.MESSAGE_SUGGESTED_CORRECTIONS;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
@@ -40,17 +41,27 @@ public class MarkAttendanceCommand extends Command {
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "mark", "marka", "markatt"};
 
     // TODO: Update message to include index format
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks the attendance of a student in a tutorial.\n"
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles the attendance of a student in a tutorial.\n"
+            + "Parameters:\n"
+            + PREFIX_NAME + "NAME (OPTIONAL) "
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_TUTORIAL_WEEKS + "WEEK\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_TUTORIAL_WEEKS + "WEEK\n"
+            + "Note:\n"
+            + "If name is not specified, the entire tutorial's attendance will be marked one student at a time.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
-            + PREFIX_TUTORIAL_WEEKS + "5\n";
+            + PREFIX_TUTORIAL_WEEKS + "5\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_TUTORIAL_WEEKS + "5\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Optional<ModCode> targetModCode;
     private final Optional<TutName> targetTutName;
@@ -131,12 +142,14 @@ public class MarkAttendanceCommand extends Command {
 
         if (targetStudent == null) {
             return handleSuggestedStudentCommands(
-                    targetModCode.get(), targetTutName.get(), targetStudName.get(), model);
+                    targetTutorial.getModCode(), targetTutorial.getTutName(), targetStudName.get(), model);
         }
 
         targetTutorial.setAttendance(week, targetStudent);
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
+        model.storePendingCommand(
+                        new DisplayAttendanceCommand(targetTutorial.getModCode(), targetTutorial.getTutName()));
         return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(), isPresent));
     }

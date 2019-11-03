@@ -31,10 +31,9 @@ import seedu.tarence.testutil.EditStudentDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
-
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         Student editedStudent = new StudentBuilder().build();
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(editedStudent).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_IN_LIST, descriptor);
@@ -42,13 +41,14 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(getTypicalApplication(), new UserPrefs());
-        expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
+        expectedModel.setStudent(expectedModel.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
         Student lastStudent = model.getFilteredStudentList().get(indexLastStudent.getZeroBased());
 
@@ -71,6 +71,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
         Student lastStudent = model.getFilteredStudentList().get(indexLastStudent.getZeroBased());
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(lastStudent).build();
@@ -83,11 +84,12 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new Application(model.getApplication()), new UserPrefs());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         showStudentAtIndex(model, INDEX_FIRST_IN_LIST);
 
         Student studentInFilteredList = model.getFilteredStudentList().get(INDEX_FIRST_IN_LIST.getZeroBased());
@@ -101,22 +103,24 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(getTypicalApplication(), new UserPrefs());
-        expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
+        expectedModel.setStudent(expectedModel.getFilteredStudentList().get(0), editedStudent);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         Student firstStudent = model.getFilteredStudentList().get(INDEX_FIRST_IN_LIST.getZeroBased());
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(firstStudent).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_IN_LIST, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         showStudentAtIndex(model, INDEX_FIRST_IN_LIST);
 
         // edit student in filtered list into a duplicate in application
@@ -124,11 +128,12 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_IN_LIST,
                 new EditStudentDescriptorBuilder(studentInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -142,6 +147,7 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
+        Model model = new ModelManager(getTypicalApplication(), new UserPrefs());
         showStudentAtIndex(model, INDEX_FIRST_IN_LIST);
         Index outOfBoundIndex = INDEX_SECOND_IN_LIST;
         // ensures that outOfBoundIndex is still in bounds of class list

@@ -34,20 +34,36 @@ public class EditEventCommand extends EventCommand {
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "edev", "editev", "edite"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an event for a tutorial.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_INDEX + "TARGET EVENT INDEX "
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
-            + PREFIX_NAME + "EDITED EVENT NAME(OPTIONAL) "
-            + PREFIX_START_DATE + "EDITED START TIME(OPTIONAL) "
-            + PREFIX_END_DATE + "EDITED END TIME(OPTIONAL)\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "EVENT NAME (OPTIONAL) "
+            + PREFIX_START_DATE + "START TIME (OPTIONAL) "
+            + PREFIX_END_DATE + "END TIME (OPTIONAL)\n"
+            + PREFIX_INDEX + "TARGET TUTORIAL INDEX "
+            + PREFIX_INDEX + "TARGET EVENT INDEX "
+            + PREFIX_NAME + "EVENT NAME (OPTIONAL) "
+            + PREFIX_START_DATE + "START TIME (OPTIONAL) "
+            + PREFIX_END_DATE + "END TIME (OPTIONAL)\n"
+            + "Note:\n"
+            + "Tutorial index and event index must be specified in the order shown above.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_INDEX + "1 "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_NAME + "Lab01 "
             + PREFIX_START_DATE + "09-11-2001 0000 "
-            + PREFIX_END_DATE + "31-10-2019 2359";
+            + PREFIX_END_DATE + "31-10-2019 2359\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_NAME + "Lab01 "
+            + PREFIX_START_DATE + "09-11-2001 0000 "
+            + PREFIX_END_DATE + "31-10-2019 2359\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     public EditEventCommand(ModCode modCode, TutName tutName, Index tutIndex, Index eventIndex,
             String eventName, Date startTime, Date endTime) {

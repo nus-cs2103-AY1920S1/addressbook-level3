@@ -8,6 +8,8 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_DURATION_IN_M
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_START_TIME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_WEEKS;
+import static seedu.tarence.logic.parser.ParserUtil.NORMAL_FORM_DAYS;
+import static seedu.tarence.logic.parser.ParserUtil.SHORT_FORM_DAYS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,30 +29,38 @@ public class AddTutorialCommand extends Command {
 
     public static final String COMMAND_WORD = "addTutorial";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Tutorial to the Application.\n"
-            + "Parameters: "
-            + PREFIX_TUTORIAL_NAME + "NAME "
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addtut", "addlesson"};
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tutorial to the application.\n"
+            + "Parameters:\n"
+            + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
+            + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_TUTORIAL_DAY + "DAY "
-            + PREFIX_TUTORIAL_START_TIME + "START_TIME "
+            + PREFIX_TUTORIAL_START_TIME + "START TIME "
             + PREFIX_TUTORIAL_WEEKS + "WEEKS "
-            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "DURATION_IN_MINUTES\n"
-            + "Examples: " + COMMAND_WORD + " "
+            + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "DURATION IN MINUTES\n"
+            + "Accepted input for DAY:\n"
+            + String.join(" ", NORMAL_FORM_DAYS) + "\n"
+            + String.join(" ", SHORT_FORM_DAYS) + "\n"
+            + "Examples:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 01 "
             + PREFIX_MODULE + "PC1431 "
             + PREFIX_TUTORIAL_DAY + "MONDAY "
             + PREFIX_TUTORIAL_START_TIME + "1200 "
             + PREFIX_TUTORIAL_WEEKS + "7,10,12 "
             + PREFIX_TUTORIAL_DURATION_IN_MINUTES + "120\n"
+            + "Note:\n"
             + "Omit w/WEEKS field for default range (weeks 3-13), or specify in the form of a list (e.g. 1,2,3), a "
-            + "range (4-6), or 'odd' or 'even' for those weeks only.";
+            + "range (4-6), or 'odd' or 'even' for those weeks only.\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
-    public static final String MESSAGE_DUPLICATE_TUTORIAL = "Wow, this tutorial already exists!";
+    public static final String MESSAGE_DUPLICATE_TUTORIAL = "This tutorial already exists!";
     public static final String MESSAGE_INVALID_MODULE = "Error: No such module exists.";
 
     public static final String MESSAGE_SUCCESS = "New tutorial added: %1$s. Day: %2$s. Weeks: %3$s. "
                                                 + "Start Time: %4$s. Duration: %5$s MINS.";
-
-    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addtut", "addtutorial"};
 
     private Tutorial tutorial;
 

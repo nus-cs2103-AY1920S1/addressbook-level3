@@ -18,15 +18,19 @@ public class DeleteStudentCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteStudent";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
+        "deletestu", "deletestud", "delstudent", "delstu", "delstud"};
+
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Student: %1$s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the student identified by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "deletestu", "deletestud", "delstudent", "delstu", "delstud", "deletestudent"};
+            + "Parameters:\n"
+            + "INDEX (must be a positive integer)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Index targetIndex;
 

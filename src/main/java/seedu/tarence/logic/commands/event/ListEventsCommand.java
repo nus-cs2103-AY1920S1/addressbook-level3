@@ -1,6 +1,7 @@
 package seedu.tarence.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
@@ -30,12 +31,18 @@ public class ListEventsCommand extends EventCommand {
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List events in a tutorial.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "TUTORIAL INDEX\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
-            + PREFIX_MODULE + "CS1010 ";
+            + PREFIX_MODULE + "CS1010\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     public ListEventsCommand(ModCode modCode, TutName tutName, Index tutIndex) {
         super(modCode, tutName, tutIndex, null, null, null, null);

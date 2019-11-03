@@ -54,7 +54,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
         } else if (validateTutIndexFormat(argMultimap)) {
             tutIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
-            eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(0));
+            eventIndex = ParserUtil.parseIndex(argMultimap.getAllValues(PREFIX_INDEX).get(1));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditEventCommand.MESSAGE_USAGE));

@@ -217,15 +217,17 @@ public class Tutorial {
      * The person identity of {@code editedStudent} must not be the same as another existing student in the application.
      */
     public void setStudent(Student target, Student editedStudent) {
-        addStudent(editedStudent);
-        for (Week week : getTimeTable().getWeeks()) {
-            setAttendance(week, editedStudent, getAttendance().isPresent(week, target));
+        if (!target.equals(editedStudent)) {
+            addStudent(editedStudent);
+            for (Week week : getTimeTable().getWeeks()) {
+                setAttendance(week, editedStudent, getAttendance().isPresent(week, target));
+            }
+            List<Assignment> assignmentsList = getAssignments();
+            for (Assignment assignment : assignmentsList) {
+                setScore(assignment, editedStudent, getAssignmentScore(assignment, target));
+            }
+            deleteStudent(target);
         }
-        List<Assignment> assignmentsList = getAssignments();
-        for (Assignment assignment : assignmentsList) {
-            setScore(assignment, editedStudent, getAssignmentScore(assignment, target));
-        }
-        deleteStudent(target);
     }
     /**
      * Removes a Student from a Tutorial.
@@ -283,16 +285,18 @@ public class Tutorial {
      * Sets an Assignment in a Tutorial.
      */
     public void setAssignment(Assignment target, Assignment assignment) {
-        addAssignment(assignment);
-        try {
-            for (Student student : students) {
-                setScore(assignment, student, getAssignmentScore(target, student));
+        if (!target.equals(assignment)) {
+            addAssignment(assignment);
+            try {
+                for (Student student : students) {
+                    setScore(assignment, student, getAssignmentScore(target, student));
+                }
+            } catch (InvalidScoreException e) {
+                deleteAssignment(assignment);
+                throw new InvalidScoreException();
             }
-        } catch (InvalidScoreException e) {
-            deleteAssignment(assignment);
-            throw new InvalidScoreException();
+            deleteAssignment(target);
         }
-        deleteAssignment(target);
     }
 
     /**

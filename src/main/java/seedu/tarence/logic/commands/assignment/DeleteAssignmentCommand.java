@@ -2,6 +2,7 @@ package seedu.tarence.logic.commands.assignment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_SCORE;
@@ -29,26 +30,36 @@ import seedu.tarence.storage.Storage;
 public class DeleteAssignmentCommand extends AssignmentCommand {
 
     public static final String MESSAGE_DELETE_ASSIGNMENT_SUCCESS = "%1$s deleted successfully";
-    public static final String COMMAND_WORD = "deleteAssign";
+    public static final String COMMAND_WORD = "deleteAssignment";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "dela", "delassn",
-        "delasm", "deleteassignment"};
+        "delasm", "deleteassign"};
 
-    // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an assignment for a tutorial.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_NAME + "ASSIGNMENT NAME "
             + PREFIX_SCORE + "MAX SCORE "
             + PREFIX_START_DATE + "START DATE "
             + PREFIX_END_DATE + "END DATE\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_INDEX + "ASSIGNMENT INDEX\n"
+            + "Note:\n"
+            + "Tutorial index can be used in place of tutorial name and module code.\n"
+            + "Assignment index can be used in place of assignment details.\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_NAME + "Lab01 "
             + PREFIX_SCORE + "10 "
             + PREFIX_START_DATE + "09-11-2001 0000 "
-            + PREFIX_END_DATE + "31-10-2019 2359";
+            + PREFIX_END_DATE + "31-10-2019 2359\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_INDEX + "1\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     public DeleteAssignmentCommand(ModCode modCode, TutName tutName, Index tutIndex, Index assignIndex,
             String assignName, Integer score, Date startDate, Date endDate) {

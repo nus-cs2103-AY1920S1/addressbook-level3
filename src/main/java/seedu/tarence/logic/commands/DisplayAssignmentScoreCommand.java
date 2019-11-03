@@ -22,23 +22,26 @@ import seedu.tarence.storage.Storage;
  * Displays the selected tutorial assignment
  */
 public class DisplayAssignmentScoreCommand extends Command {
-    public static final String COMMAND_WORD = "displayAssign";
+    public static final String COMMAND_WORD = "displayAssignmentScore";
     public static final String MESSAGE_SUCCESS = "Assignment is displayed!";
     public static final String[] TABLE_SYNONYMS = {"t", "table", "tab"};
     public static final String[] GRAPH_SYNONYMS = {"g", "graph"};
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
-        "displayassignmentscore", "displayscore", "displayassignment", "displayassignment"};
+        "displayscore", "displayassignscore", "displayassign", "displayassignment"};
 
-    // TODO: Update message to include full format
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays the tutorial assignment identified by the tutorial name, module code and assignment name.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_INDEX + "TUTORIAL_INDEX "
             + PREFIX_NAME + "ASSIGNMENT_NAME "
             + PREFIX_FORMAT + "DISPLAY_FORMAT(t for table and g for graph)\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
-            + PREFIX_NAME + "Lab 1 " + PREFIX_FORMAT + "t";
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_NAME + "Lab 1 " + PREFIX_FORMAT + "t\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private Index tutorialIndex;
     private String assignmentName;

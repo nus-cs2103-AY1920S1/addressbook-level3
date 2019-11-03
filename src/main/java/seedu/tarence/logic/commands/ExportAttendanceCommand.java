@@ -1,6 +1,8 @@
 package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
@@ -39,16 +41,25 @@ public class ExportAttendanceCommand extends Command {
 
     private static final String EXPORT_PATH = "./data/%s.csv";
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "export",
-        "exporta", "exportatt", "exportattendance"};
+        "exporta", "exportatt"};
 
-    // TODO: Update the message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the attendance of a tutorial in a csv file.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
-            + PREFIX_MODULE + "MODULE CODE\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_FILE + "FILE NAME (OPTIONAL)\n"
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_FILE + "FILE NAME (OPTIONAL)\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
-            + PREFIX_MODULE + "CS1010 ";
+            + PREFIX_MODULE + "CS1010 "
+            + PREFIX_FILE + "exportedAttendance\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_FILE + "exportedAttendance\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private final Optional<ModCode> targetModCode;
     private final Optional<TutName> targetTutName;

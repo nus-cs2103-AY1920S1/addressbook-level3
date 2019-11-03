@@ -3,6 +3,7 @@ package seedu.tarence.logic.commands.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_START_DATE;
@@ -20,6 +21,7 @@ import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.tutorial.Event;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
+import seedu.tarence.model.tutorial.exceptions.DuplicateEventException;
 import seedu.tarence.storage.Storage;
 
 /**
@@ -34,18 +36,30 @@ public class AddEventCommand extends EventCommand {
 
     // TODO: Update message to include index format
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates an event for a tutorial.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_TUTORIAL_NAME + "TUTORIAL NAME "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_NAME + "EVENT NAME "
             + PREFIX_START_DATE + "START TIME "
             + PREFIX_END_DATE + "END TIME\n"
-            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_INDEX + "TUTORIAL INDEX "
+            + PREFIX_NAME + "EVENT NAME "
+            + PREFIX_START_DATE + "START TIME "
+            + PREFIX_END_DATE + "END TIME\n"
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_TUTORIAL_NAME + "Lab 1 "
             + PREFIX_MODULE + "CS1010 "
             + PREFIX_NAME + "Lab01 "
             + PREFIX_START_DATE + "09-11-2001 0000 "
-            + PREFIX_END_DATE + "31-10-2019 2359";
+            + PREFIX_END_DATE + "31-10-2019 2359\n"
+            + COMMAND_WORD + " "
+            + PREFIX_INDEX + "1 "
+            + PREFIX_NAME + "Lab01 "
+            + PREFIX_START_DATE + "09-11-2001 0000 "
+            + PREFIX_END_DATE + "31-10-2019 2359\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     public AddEventCommand(ModCode modCode, TutName tutName, Index tutIndex,
             String eventName, Date startTime, Date endTime) {
@@ -95,7 +109,7 @@ public class AddEventCommand extends EventCommand {
                 eventName.get(),
                 startTime.get(),
                 endTime.get()));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | DuplicateEventException e) {
             throw new CommandException(e.getMessage());
         }
 

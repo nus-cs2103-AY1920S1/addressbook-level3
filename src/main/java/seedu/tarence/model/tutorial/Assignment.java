@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Assignment implements Comparable<Assignment> {
 
     public static final String MESSAGE_CONSTRAINTS_ASSIGNMENT_NAME =
-            "Assignment name should not be blank nor start/end with whitespace.";
+            "Assignment name should not be blank and should contain only alphanumeric characters.";
     public static final String MESSAGE_CONSTRAINTS_MAX_SCORE =
             "Max score should be a non-negative integer.";
     public static final String MESSAGE_CONSTRAINTS_START_END_DATE =
@@ -26,7 +26,7 @@ public class Assignment implements Comparable<Assignment> {
      * The first character of the assignment name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "^\\S+.*\\S+$";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     private final String assignName;
     private final Integer maxScore;

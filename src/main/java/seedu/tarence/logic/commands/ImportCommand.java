@@ -22,14 +22,18 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "importtutorials",
-        "importmods", "importtutorial"};
+        "importmods", "importtutorial", "importtuts"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports tutorials via an NUSMods shared url.\n"
+            + "Note:\n"
             + "Expect a slow response the first time this command is inputted.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + "NUSMODS URL\n"
-            + "Example: " + COMMAND_WORD + " "
-            + "https://nusmods.com/timetable/sem-1/share?CS1231=TUT:08,SEC:2&IS1103=TUT:19,SEC:1";
+            + "Example:\n"
+            + COMMAND_WORD + " "
+            + "https://nusmods.com/timetable/sem-1/share?CS1231=TUT:08,SEC:2&IS1103=TUT:19,SEC:1\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
 
     private List<Tutorial> importedTutorials;
 

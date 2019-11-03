@@ -13,11 +13,11 @@ import java.util.Objects;
 public class Event implements Comparable<Event> {
 
     public static final String MESSAGE_CONSTRAINTS_EVENT_NAME =
-            "Name should be non-empty and should not start or end with white space.";
+            "Name should not be blank and should contain only alphanumeric characters.";
     public static final String MESSAGE_CONSTRAINTS_START_END_TIME =
             String.format("Time should be of the format %s. "
             + "Start time should be earlier than end time.", Tutorial.DATE_FORMAT);
-    public static final String VALIDATION_REGEX = "^\\S+.*\\S+$";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String eventName;
     public final Date startTime;
@@ -47,6 +47,14 @@ public class Event implements Comparable<Event> {
      */
     public static boolean isValidStartEndTime(Date startTime, Date endTime) {
         return startTime.before(endTime);
+    }
+
+    /**
+     * Returns true two events overlap.
+     */
+    public boolean overlap(Event event) {
+        return !(endTime.compareTo(event.startTime) < 0
+                || startTime.compareTo(event.endTime) > 0);
     }
 
     @Override

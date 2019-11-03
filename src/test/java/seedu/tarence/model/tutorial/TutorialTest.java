@@ -37,7 +37,7 @@ public class TutorialTest {
         assertFalse(CS1020_LAB01.isSameTutorial(diffTimeTable));
 
         // different name
-        Tutorial diffTutName = new TutorialBuilder(CS1020_LAB01).withTutName("CS1020_LAB02").build();
+        Tutorial diffTutName = new TutorialBuilder(CS1020_LAB01).withTutName("CS1020 LAB02").build();
         assertFalse(CS1020_LAB01.isSameTutorial(diffTutName));
 
         // different students
@@ -63,7 +63,7 @@ public class TutorialTest {
         assertFalse(CS1020_LAB01.equals(diffTimeTable));
 
         // different name
-        Tutorial diffTutName = new TutorialBuilder(CS1020_LAB01).withTutName("CS1020_LAB02").build();
+        Tutorial diffTutName = new TutorialBuilder(CS1020_LAB01).withTutName("CS1020 LAB02").build();
         assertFalse(CS1020_LAB01.equals(diffTutName));
 
         // different students

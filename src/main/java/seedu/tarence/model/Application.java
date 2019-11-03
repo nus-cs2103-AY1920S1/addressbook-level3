@@ -209,20 +209,19 @@ public class Application implements ReadOnlyApplication {
      */
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
-
-        Tutorial targetTutorial = null;
-        for (Tutorial tutorial : tutorials) {
-            if (tutorial.getTutName().equals(target.getTutName())) {
-                targetTutorial = tutorial;
-                break;
+        if (!target.equals(editedStudent)) {
+            Tutorial targetTutorial = null;
+            for (Tutorial tutorial : tutorials) {
+                if (tutorial.getTutName().equals(target.getTutName())) {
+                    targetTutorial = tutorial;
+                    break;
+                }
             }
+
+            targetTutorial.setStudent(target, editedStudent);
+            removeStudent(target);
+            addStudent(editedStudent);
         }
-
-        removeTutorial(targetTutorial);
-        targetTutorial.setStudent(target, editedStudent);
-        addTutorial(targetTutorial);
-        addTutorialToModule(targetTutorial);
-
     }
 
     /**
@@ -238,14 +237,6 @@ public class Application implements ReadOnlyApplication {
         for (Tutorial tutorial : tutorials) {
             if (tutorial.getTutName().equals(key.getTutName())) {
                 tutorial.deleteStudent(key);
-            }
-        }
-
-        // Delete students from existing modules
-        for (Module module : modules) {
-            if (module.getModCode().equals(key.getModCode())) {
-                module.deleteStudent(key);
-                break;
             }
         }
     }

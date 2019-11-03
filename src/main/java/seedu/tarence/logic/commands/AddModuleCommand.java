@@ -18,10 +18,13 @@ public class AddModuleCommand extends Command {
     public static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(), "addMod", "addmod", "addmodule"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Module to the Application.\n"
-            + "Parameters: "
+            + "Parameters:\n"
             + PREFIX_MODULE + "MODULE\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS1010S ";
+            + "Example:\n" + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS1010S\n"
+            + "Synonyms:\n"
+            + String.join("\n", COMMAND_SYNONYMS);
+
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists!";
     public static final String MESSAGE_SUCCESS = "New module added: %1$s";
 

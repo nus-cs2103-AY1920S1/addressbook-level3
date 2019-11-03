@@ -29,6 +29,11 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    public static final String[] SHORT_FORM_DAYS = new String[]{"MON", "TUES", "WED", "THURS", "FRI", "SAT", "SUN"};
+
+    public static final String[] NORMAL_FORM_DAYS = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY",
+        "FRIDAY", "SATURDAY", "SUNDAY"};
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -145,13 +150,9 @@ public class ParserUtil {
         requireNonNull(tutorialDay);
         String trimmedTutorialDay = tutorialDay.trim().toUpperCase();
 
-        // Converts short-form days to normal-form.
-        String[] shortFormDays = new String[]{"MON", "TUES", "WED", "THURS", "FRI", "SAT", "SUN"};
-        String[] normalFormDays = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY",
-                                               "FRIDAY", "SATURDAY", "SUNDAY"};
-        for (int i = 0; i < shortFormDays.length; i++) {
-            if (trimmedTutorialDay.equals(shortFormDays[i])) {
-                trimmedTutorialDay = normalFormDays[i];
+        for (int i = 0; i < SHORT_FORM_DAYS.length; i++) {
+            if (trimmedTutorialDay.equals(SHORT_FORM_DAYS[i])) {
+                trimmedTutorialDay = NORMAL_FORM_DAYS[i];
             }
         }
 
