@@ -79,5 +79,4 @@ public class LogicManager implements Logic {
 
         return new CommandResult("Switched to " + param + " tab!");
     }
-
 }

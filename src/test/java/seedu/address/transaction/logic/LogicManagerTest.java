@@ -3,6 +3,7 @@ package seedu.address.transaction.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_BACKED;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_COMMAND;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_TRANSACTION;
 
@@ -56,7 +57,7 @@ class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = BackCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, "", model);
+        assertCommandSuccess(listCommand, MESSAGE_BACKED, model);
     }
 
     @Test

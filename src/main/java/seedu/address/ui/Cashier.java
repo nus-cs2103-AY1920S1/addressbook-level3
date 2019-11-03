@@ -45,8 +45,9 @@ public class Cashier extends UiPart<Region> {
     private Label cashierLabel;
 
     public Cashier (Logic logic) throws Exception {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseTransactionList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
         priceCol.setCellValueFactory(item -> {

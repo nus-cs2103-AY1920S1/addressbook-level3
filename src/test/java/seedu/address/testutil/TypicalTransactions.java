@@ -92,9 +92,9 @@ public class TypicalTransactions {
     }
 
     public static TransactionList getAmountSortedTransactionList() {
-        ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(ALICE_TRANSACTION_1,
-                FIONA_TRANSACTION_8, CARL_TRANSACTION_5, ALICE_TRANSACTION_3, ELLE_TRANSACTION_6,
-                GEORGE_TRANSACTION_7, ALICE_TRANSACTION_4, BENSON_TRANSACTION_2));
+        ArrayList<Transaction> transactionArrayList = new ArrayList<>(Arrays.asList(BENSON_TRANSACTION_2,
+                ALICE_TRANSACTION_4, GEORGE_TRANSACTION_7, ELLE_TRANSACTION_6,
+                ALICE_TRANSACTION_3, CARL_TRANSACTION_5, FIONA_TRANSACTION_8, ALICE_TRANSACTION_1));
         return new TransactionList(transactionArrayList);
     }
 

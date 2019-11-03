@@ -22,8 +22,11 @@ import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAM
 import static seedu.address.transaction.logic.commands.CommandTestUtil.VALID_NAME_BENSEN;
 import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelFailure;
 import static seedu.address.transaction.logic.parser.CommandParserTestUtil.assertCommandParseWithPersonModelSuccess;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_ZERO_ALLOWED;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DATE_FORMAT;
 
@@ -103,6 +106,24 @@ class EditCommandParserTest {
         // invalid amount followed by invalid date
         assertCommandParseWithPersonModelFailure(parser, "1" + INVALID_AMOUNT + INVALID_DATE_1,
                 MESSAGE_WRONG_DATE_FORMAT, personModel);
+    }
+
+    @Test
+    public void parse_valueTooLarge_failure() {
+        assertCommandParseWithPersonModelFailure(parser, "1" + " a/10000000",
+                MESSAGE_AMOUNT_TOO_LARGE, personModel); // invalid amount
+    }
+
+    @Test
+    public void parse_valueTooSmall_failure() {
+        assertCommandParseWithPersonModelFailure(parser, "1" + " a/-10000000",
+                MESSAGE_AMOUNT_TOO_SMALL, personModel); // invalid amount
+    }
+
+    @Test
+    public void parse_valueZero_failure() {
+        assertCommandParseWithPersonModelFailure(parser, "1" + " a/0",
+                MESSAGE_NO_ZERO_ALLOWED, personModel); // invalid amount
     }
 
     @Test

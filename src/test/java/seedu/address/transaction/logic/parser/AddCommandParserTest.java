@@ -88,10 +88,30 @@ class AddCommandParserTest {
 
     @Test
     public void parse_personNotInAddressBook_failure() {
-        //person not found in addressbook
         assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + DESC_BUILDER_AMOUNT
                 + DESC_BUILDER_DESC
                 + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_SUCH_PERSON, personModel);
+    }
+
+    @Test
+    public void parse_amountTooLarge_failure() {
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + " a/10000000000"
+                + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE, personModel);
+    }
+
+    @Test
+    public void parse_amountTooSmall_failure() {
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + " a/-10000000000"
+                + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL, personModel);
+    }
+
+    @Test
+    public void parse_amountZero_failure() {
+        assertCommandParseWithPersonModelFailure(parser, DESC_NAME_AMY + " a/0"
+                + DESC_BUILDER_DESC
+                + DESC_BUILDER_CATEGORY + DESC_BUILDER_DATE, TransactionMessages.MESSAGE_NO_ZERO_ALLOWED, personModel);
     }
 
     @Test

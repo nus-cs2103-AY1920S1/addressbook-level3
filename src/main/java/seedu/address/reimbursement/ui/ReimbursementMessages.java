@@ -5,7 +5,7 @@ package seedu.address.reimbursement.ui;
  */
 public class ReimbursementMessages {
 
-    public static final String BACK_COMMAND = "List all reimbursements.\n";
+    public static final String BACK_COMMAND = "Here are all the reimbursements.";
 
     public static final String SORT_BY_NAME = "The reimbursement list has been sorted by person's name.";
 

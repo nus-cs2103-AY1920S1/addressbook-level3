@@ -40,8 +40,9 @@ public class Reimbursements extends UiPart<Region> {
      * Populates the table to show the transactions in transaction list in the transaction model.
      */
     public Reimbursements(Logic logic) {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseReimbursementList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("idCol"));
         personCol.setCellValueFactory(new PropertyValueFactory<Reimbursement, String>("personCol"));
         amountCol.setCellValueFactory(reimbursement -> {
