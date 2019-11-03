@@ -292,7 +292,7 @@ image::ExportActivityDiagram.png[width=320,height=480]
 ** Pros: Is easier to implement
 ** Cons: Results in user having more commands to remember; new commands must be added to support new file formats
 
-**Alternative 1** was preferred for its ease of extensibility.
+NOTE: **Alternative 1** was preferred for its ease of extensibility.
 
 ===== Aspect: Method of obtaining desired `FlashCards` for exporting
 
@@ -303,14 +303,12 @@ image::ExportActivityDiagram.png[width=320,height=480]
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
-**Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
+NOTE: **Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
 
 ===== Aspect: Parsing of file path from user input
 
-Background: the original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
-(e.g. `c/CATEGORY`). This had the potential to cause problems due to the nature of file paths, which likewise contain slashes. While the existing
-AddressBook parser was able to correctly parse most file paths, there were a few degenerate cases that gave rise to errors (in particular, file paths that
-contained spaces).
+NOTE: The original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
+(e.g. `c/CATEGORY`). This sometimes caused parsing problems due to the nature of file paths, which likewise contain slashes.
 
 * **Alternative 1:** Read file path as-is, using the existing AddressBook parser
 ** Pros: Does not require further code changes
@@ -325,7 +323,7 @@ contained spaces).
 ** Pros: Provides the user with the most power and convenience
 ** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
 
-**Alternative 4** was preferred as it provides users with the greatest overall convenience.
+NOTE: **Alternative 4** was preferred as it provides users with the greatest overall convenience.
 
 // end::flashcardexport[]
 
