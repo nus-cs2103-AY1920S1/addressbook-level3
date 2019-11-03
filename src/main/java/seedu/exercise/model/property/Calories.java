@@ -10,7 +10,8 @@ import static seedu.exercise.commons.util.AppUtil.checkArgument;
  */
 public class Calories {
     public static final String PROPERTY_CALORIES = "Calories";
-    public static final String MESSAGE_CONSTRAINTS = "Calories should only contain numbers";
+    public static final String MESSAGE_CONSTRAINTS = "Calories should only contain numbers and "
+            + "should be less than or equal to 50,000";
     public final String value;
 
     /**
@@ -28,7 +29,7 @@ public class Calories {
      * Returns true if a given string is a valid calories burnt.
      */
     public static boolean isValidCalories(String test) {
-        return test.matches(ONLY_NUMBERS);
+        return test.matches(ONLY_NUMBERS) && Double.parseDouble(test) <= 50000;
     }
 
     @Override

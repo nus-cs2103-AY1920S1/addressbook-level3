@@ -14,20 +14,18 @@ class StatsFactory {
     -Date startDate
     -Date endDate
     +generateStatistics() : Statistic
-    -getTotalExerciseQuantiity()
-    -getTotalCalories()
-    -getFilteredExercise
 }
 
 class Statistic {
     -String category
     -String chart
+    -Date startDate
+    -Date endDate
     -ArrayList<String> properties
     -ArrayList<Double> values
-    +getCategory() : String
-    +getChart() : String
-    +getProperties() : ArrayList<String>
-    +getValues() : ArrayList<Double>
+    -double total
+    -double average
+    +resetData() : void
 }
 
 @enduml

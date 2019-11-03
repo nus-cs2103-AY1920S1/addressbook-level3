@@ -527,11 +527,19 @@ Given below is an example usage scenario of statistics feature.
 
 Step 1: User enters a `stats` command to see statistics of exercises.
 
-Step 2: The `stats` command calls Model#getExerciseBookData to get data of all exercises and pass to `Statistic`.
+Step 2: `ExerciseBookParser` will receive command from `LogicManager` and pass command to `StatsCommandParser`.
 
-Step 3: `Statistic` will process and generate data.
+Step 3: `StatsCommandParse` will parse the command and creates a `StatsCommand`.
 
-Step 4: Data will be passed back to `Ui` and `Ui` will generate and display chart.
+Step 4: `StatsCommand` calls `Model#getExerciseBookData` to get data of all exercises.
+
+Step 5: `StatsCommand` creates a `StatsFactory` and pass exercises data, chart and category to `StatsFactory`.
+
+Step 6: `StatsFactory` will then generate `Statistic` and return to `StatsCommand`.
+
+Step 7: `StatsCommand` then calls `Model#setStatistic` to set the `Statistic` in `Model`.
+
+Step 8: `StatsCommand` creates a new `CommandResult` and return to `LogicManager`.
 
 Shown below is the sequence diagram (Figure 21) when user enters a valid `stats` command:
 

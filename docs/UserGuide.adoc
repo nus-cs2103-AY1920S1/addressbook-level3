@@ -98,8 +98,8 @@ in that particular month, the date will be treated as the last day of that parti
 
 Examples:
 
-* `add t/exercise n/Run d/19/09/2019`
-* `add t/exercise n/Swimming d/19/09/2019 c/2000`
+* `add t/exercise n/Run d/19/09/2019 c/500 q/2.4 u/km`
+* `add t/exercise n/Swimming d/19/09/2019 c/2000 q/20 u/laps`
 * `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 
 ==== Adding exercises to scheduling regime +
@@ -211,7 +211,7 @@ Format: `clear`
 
 Display the statistics of exercises.
 
-Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
+Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [e/END_DATE]`
 
 ****
 * Supported chart types: Pie Chart, Line Chart, Bar Chart
@@ -219,7 +219,15 @@ Format: `stats t/CAT_NAME h/CHART_TYPE [s/START_DATE] [d/END_DATE]`
 * If no `START_DATE` and `END_DATE` are provided, the recent 7 days of history will be used.
 * If any date is provided, both `START_DATE` and `END_DATE` dates must be there.
 * The maximum range between `START_DATE` and `END_DATE` is 31 days.
-****
+* Only exercise with same name and unit will be counted as same exercise.
+* Exercise will appear as `NAME (UNIT)` in the charts. E.g `Running (km)`. If it is too long (more than 18 characters), it will be formatted to first 10 characters plus last 8 characters.
+** For example, exercise `Strength Training (counts)` is more than 18 characters, it will be formatted to `Strength T...(counts)`.
+* It also includes total and average `CATEGORY` per day of exercises in the date range.
+
+Figure below shows an example of pie chart. +
+
+image::PieChart.png[width="790"]
+NOTE: Due to space constraint, some labels may not appear. Labels can be seen when mouse cursor hovers over the pie chart.
 
 Example:
 

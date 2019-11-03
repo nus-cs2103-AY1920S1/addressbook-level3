@@ -37,7 +37,7 @@ public class SampleDataUtil {
             new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),
                 new Quantity("30"), new Unit("counts"),
                 getMuscleSet("Triceps")),
-            new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999999"),
+            new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
                 new Quantity("2.4"), new Unit("km"),
                 getMuscleSet("Legs"))
         };
@@ -54,7 +54,7 @@ public class SampleDataUtil {
 
 
         UniqueResourceList<Exercise> list2 = new UniqueResourceList<>();
-        list2.add(new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999999"),
+        list2.add(new Exercise(new Name("Running"), new Date("12/12/2019"), new Calories("9999"),
             new Quantity("2.4"), new Unit("km"),
             getMuscleSet("Legs")));
         list2.add(new Exercise(new Name("Bench Press"), new Date("12/12/2019"), new Calories("222"),

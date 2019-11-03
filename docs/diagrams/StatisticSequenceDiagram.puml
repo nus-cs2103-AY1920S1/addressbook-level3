@@ -1,33 +1,88 @@
-@startuml Statistic
+@startuml
 !include style.puml
 
-title __Statistic__
-actor User USER_COLOR
-participant "__:Ui__" as Ui UI_COLOR
-participant "__:Logic__" as Logic LOGIC_COLOR
-participant "__:Model__" as Model MODEL_COLOR
-participant "__:Statistic__" as Statistic #ABC
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
+participant "s:StatsCommand" as StatsCommand LOGIC_COLOR
+participant ":StatsFactory" as StatsFactory LOGIC_COLOR
+participant "statistic:Statistic" as Statistic LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
 
-User -[USER_COLOR]> Ui: stats t/exercise h/piechart
-activate Ui UI_COLOR
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
 
-Ui -[UI_COLOR]> Logic: execute("t/exercise h/piechart")
-activate Logic LOGIC_COLOR
+[-> LogicManager : execute("stats t/calories h/linechart")
+activate LogicManager
 
-Logic -[LOGIC_COLOR]> Model: getExerciseBook()
-activate Model MODEL_COLOR
+LogicManager -> ExerciseBookParser : parseCommand("stats t/calories h/linechart")
+activate ExerciseBookParser
 
-Model -[MODEL_COLOR]> Statistic: generateStatistic(exerciseBook)
-activate Statistic #ABC
-return statistic
+create StatsCommandParser
+ExerciseBookParser -> StatsCommandParser
+activate StatsCommandParser
 
-Model -[MODEL_COLOR]> Logic: statistic
+StatsCommandParser --> ExerciseBookParser
+deactivate StatsCommandParser
+
+ExerciseBookParser -> StatsCommandParser : parse("t/calories h/linechart")
+activate StatsCommandParser
+
+create StatsCommand
+StatsCommandParser -> StatsCommand : (calories, linechart)
+activate StatsCommand
+
+StatsCommand --> StatsCommandParser : s
+deactivate StatsCommand
+
+StatsCommandParser --> ExerciseBookParser : s
+deactivate StatsCommandParser
+
+ExerciseBookParser --> LogicManager : s
+deactivate ExerciseBookParser
+
+LogicManager -> StatsCommand : execute()
+activate StatsCommand
+
+StatsCommand -> Model : getExerciseBookData()
+activate Model
+
+Model --> StatsCommand : exercises
 deactivate Model
 
-Logic --[LOGIC_COLOR]> Ui: statistic
-deactivate Logic
+create StatsFactory
+StatsCommand -> StatsFactory : (exercises, linechart, calories)
+activate StatsFactory
 
-Ui --[UI_COLOR]> User
-deactivate Ui
+create Statistic
+StatsFactory -> Statistic : generateStatistic()
+activate Statistic
 
+Statistic --> StatsFactory : statistic
+deactivate Statistic
+
+StatsFactory --> StatsCommand : statistic
+deactivate StatsFactory
+
+StatsCommand -> Model : setStatistic(statistic)
+activate Model
+
+Model --> StatsCommand
+deactivate Model
+
+create CommandResult
+StatsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> StatsCommand : result
+deactivate CommandResult
+
+StatsCommand --> LogicManager : result
+deactivate StatsCommand
+
+[<--LogicManager : result
+deactivate LogicManager
 @enduml

@@ -44,6 +44,19 @@ public class ChartTextUtil {
     }
 
     /**
+     * If the string is too long, it will format string to first 10 character plus last 8 character.
+     */
+    public static String propertyFormatter(String string) {
+        string = changeFirstLetterToUpperCase(string);
+        int length = string.length();
+        if (length > 18) {
+            string = string.substring(0, 10) + "..." + string.substring(length - 8);
+        }
+
+        return string;
+    }
+
+    /**
      * Returns the percentage of property for pie chart.
      */
     public static String percentageFormatter(String property, double percentage) {
@@ -54,10 +67,11 @@ public class ChartTextUtil {
      * Returns the formatted string of total.
      */
     public static String totalFormatter(String category, double total) {
+        String totalString = numberFormatter(total);
         if (category.equals("exercise")) {
-            return String.format("Total: %.2f Exercise(s)", total);
+            return String.format("Total: %s Exercise(s)", totalString);
         } else {
-            return String.format("Total: %.2f kcal", total);
+            return String.format("Total: %s kcal", totalString);
         }
     }
 
@@ -65,10 +79,39 @@ public class ChartTextUtil {
      * Returns the formatted string of average.
      */
     public static String averageFormatter(String category, double average) {
+        String averageString = numberFormatter(average);
         if (category.equals("exercise")) {
-            return String.format("Average: %.2f Exercise(s)", average);
+            return String.format("Average: %s Exercise(s)", averageString);
         } else {
-            return String.format("Average: %.2f kcal", average);
+            return String.format("Average: %s kcal", averageString);
         }
+    }
+
+    /**
+     * Change number to format of million, billion, trillion or quadrillion.
+     */
+    public static String numberFormatter(double number) {
+        long million = 1000000L;
+        long billion = 1000000000L;
+        long trillion = 1000000000000L;
+        long quadrillion = 1000000000000000L;
+
+        if (number > quadrillion) {
+            return String.format("%.2f quadrillion", number / quadrillion);
+        }
+
+        if (number > trillion) {
+            return String.format("%.2f trillion", number / trillion);
+        }
+
+        if (number > billion) {
+            return String.format("%.2f billion", number / billion);
+        }
+
+        if (number > million) {
+            return String.format("%.2f million", number / million);
+        }
+
+        return String.format("%.2f", number);
     }
 }

@@ -5,11 +5,11 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@Chart.css"
+<AnchorPane minHeight="400.0" minWidth="625.0" prefHeight="400.0" prefWidth="625.0" stylesheets="@Chart.css"
             xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <LineChart fx:id="lineChart" maxHeight="1.5" maxWidth="600.0" minHeight="0.0" minWidth="600"
-                   prefHeight="361.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+        <LineChart fx:id="lineChart" maxHeight="400.0" maxWidth="625.0" minHeight="400.0" minWidth="625.0"
+                   prefHeight="400.0" prefWidth="625.0" AnchorPane.bottomAnchor="0.0"
                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <xAxis>
                 <CategoryAxis minHeight="400.0" minWidth="400.0" side="BOTTOM" fx:id="xAxis"/>
