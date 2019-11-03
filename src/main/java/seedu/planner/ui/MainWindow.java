@@ -91,7 +91,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredAccommodationList(),
                 logic.getFilteredActivityList(),
                 logic.getFilteredContactList(),
-                logic.getItinerary().getStartDateProperty()
+                logic.getItinerary().getStartDateProperty(),
+                logic.getItinerary().getNameProperty()
         );
         centralDisplayPlaceholder.getChildren().add(centralDisplay.getRoot());
         centralDisplay.changeFocus(new UiFocus[] { UiFocus.ACTIVITY });

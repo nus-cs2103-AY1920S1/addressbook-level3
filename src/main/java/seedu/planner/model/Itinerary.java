@@ -21,7 +21,7 @@ import seedu.planner.model.field.Name;
  */
 public class Itinerary implements ReadOnlyItinerary {
     private final DayList days;
-    private Name name;
+    private SimpleObjectProperty<Name> nameProperty;
     private SimpleObjectProperty<LocalDate> startDateProperty;
 
     /*
@@ -36,7 +36,7 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     public Itinerary() {
-        this.name = new Name("Untitled");
+        this.nameProperty = new SimpleObjectProperty<>(new Name("Untitled"));
         this.startDateProperty = new SimpleObjectProperty<>(LocalDate.now());
     }
 
@@ -48,21 +48,9 @@ public class Itinerary implements ReadOnlyItinerary {
         resetDataItinerary(toBeCopied);
     }
 
-    public Name getName() {
-        return this.name;
-    }
-
-    public LocalDate getStartDate() {
-        return this.startDateProperty.getValue();
-    }
-
-    public SimpleObjectProperty<LocalDate> getStartDateProperty() {
-        return this.startDateProperty;
-    }
-
     public void setName(Name name) {
         requireNonNull(name);
-        this.name = name;
+        this.nameProperty.setValue(name);
     }
 
     public void setStartDate(LocalDate date) {
@@ -149,6 +137,26 @@ public class Itinerary implements ReadOnlyItinerary {
 
     public int getNumberOfDays() {
         return days.getNumberOfDays();
+    }
+
+    @Override
+    public Name getName() {
+        return this.nameProperty.getValue();
+    }
+
+    @Override
+    public SimpleObjectProperty<Name> getNameProperty() {
+        return this.nameProperty;
+    }
+
+    @Override
+    public LocalDate getStartDate() {
+        return this.startDateProperty.getValue();
+    }
+
+    @Override
+    public SimpleObjectProperty<LocalDate> getStartDateProperty() {
+        return this.startDateProperty;
     }
 
     //// util methods
