@@ -3,6 +3,8 @@ package seedu.address.logic.parser.appointments;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_PATIENTLIST;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
@@ -51,7 +53,7 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_START, PREFIX_END);
 
         if (!model.isListingAppointmentsOfSinglePatient()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+            throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
