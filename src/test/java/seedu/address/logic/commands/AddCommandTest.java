@@ -40,8 +40,9 @@ public class AddCommandTest {
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
+        ArrayList<Person> testList = new ArrayList<>();
+        testList.add(validPerson);
+        CommandResult commandResult = new AddCommand(testList).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -50,7 +51,9 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
+        ArrayList<Person> testList = new ArrayList<>();
+        testList.add(validPerson);
+        AddCommand addCommand = new AddCommand(testList);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
@@ -60,14 +63,17 @@ public class AddCommandTest {
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
-
+        ArrayList<Person> testListAlice = new ArrayList<>();
+        testListAlice.add(alice);
+        ArrayList<Person> testListBob = new ArrayList<>();
+        testListAlice.add(bob);
+        AddCommand addAliceCommand = new AddCommand(testListAlice);
+        AddCommand addBobCommand = new AddCommand(testListBob);
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(testListAlice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -175,6 +181,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void afterAddTask() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -225,6 +241,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setReminder(Reminder reminders, Reminder editedReminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReminder(Reminder reminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -254,10 +280,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void addTask(Task task) {
 
-        }
 
         @Override
         public boolean userHasLoggedIn() {
@@ -305,6 +328,26 @@ public class AddCommandTest {
         @Override
         public void deleteTask(Task target) {
 
+        }
+
+        @Override
+        public void addReminder(Reminder reminder) {
+
+        }
+
+        @Override
+        public boolean hasReminder(Reminder reminders) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReminderList(Predicate<Reminder> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCalendarList() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

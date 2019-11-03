@@ -9,14 +9,14 @@ public class WindowView {
 
     public static final String MESSAGE_CONSTRAINTS =
             "WindowView should only contain the destinations "
-                    + "that are valid (i.e. calendar or student profile), and it should not be blank.";
+                    + "that are valid (i.e. calendar or student_profile), and it should not be blank.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-            "calendar|earnings|student_profile|notepad|reminders";
+            "calendar|earnings|student_profile|notepad|reminders|task";
     private static String tab;
     private static int indexNumber;
 
@@ -53,6 +53,8 @@ public class WindowView {
             index = 4;
         } else if (tab.equals("reminders")) {
             index = 5;
+        } else if (tab.equals("task")) {
+            index = 6;
         }
         new WindowView(tab, index);
     }

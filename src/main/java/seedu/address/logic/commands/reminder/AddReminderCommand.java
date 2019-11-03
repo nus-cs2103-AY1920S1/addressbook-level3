@@ -1,50 +1,47 @@
 package seedu.address.logic.commands.reminder;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKING;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER_TIME;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.task.Task;
+import seedu.address.model.reminder.Reminder;
 
 
 /**
  * command to add reminders.
  */
 public class AddReminderCommand extends Command {
-    public static final String COMMAND_WORD = "Add Reminder";
+    public static final String COMMAND_WORD = "addReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder for a certain task. "
             + "Parameters: "
-            + PREFIX_TASK_DESCRIPTION + "DESCRIPTION "
-            + PREFIX_MARKING + "MARKING_STATUS "
-            + PREFIX_TASK_TIME + "START_TIME, END_TIME\n"
+            + PREFIX_REMINDER_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_REMINDER_TIME + "START_TIME, END_TIME\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TASK_DESCRIPTION + "CS2103T Lecture "
-            + PREFIX_MARKING + "Y "
-            + PREFIX_TASK_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
+            + PREFIX_REMINDER_DESCRIPTION + "CS2103T Lecture "
+            + PREFIX_REMINDER_TIME + "13/10/2019 13:00, 13/10/2019 15:00 ";
 
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New reminder added: %1$s";
 
-    private final Task toAdd;
+    private final Reminder toAdd;
 
     /**
      * Creates an AddTaskCommand to add the specified {@code Task}
      */
-    public AddReminderCommand(Task task) {
-        requireNonNull(task);
-        toAdd = task;
+    public AddReminderCommand(Reminder reminder) {
+        requireNonNull(reminder);
+        toAdd = reminder;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addTask(toAdd);
+        model.addReminder(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

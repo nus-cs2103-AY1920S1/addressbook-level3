@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MARKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TIME;
 
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.calendar.AddTaskCommand;
@@ -35,7 +35,7 @@ public class AddTaskCommandParser {
 
         ClassId classId = ParserUtil.parseClassId(argMultimap.getValue(PREFIX_CLASSID).get());
         Marking marking = ParserUtil.parseMarking(argMultimap.getValue(PREFIX_MARKING).get());
-        Set<TaskTime> taskTimeList = ParserUtil.parseTaskTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
+        TreeSet<TaskTime> taskTimeList = ParserUtil.parseTaskTimes(argMultimap.getAllValues(PREFIX_TASK_TIME));
 
         Task task = new Task(classId, taskTimeList, marking);
 

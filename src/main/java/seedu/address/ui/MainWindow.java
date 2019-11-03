@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.time.YearMonth;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -41,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private ReminderWindow reminderWindow;
     private ReminderBox reminderBox;
+    private FullCalendarView fullCalendarView;
     private NotesListPanel notesListPanel;
 
     @FXML
@@ -61,6 +65,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private Pane calendarPane;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -77,7 +84,6 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow = new HelpWindow();
         this.unknown = false;
         reminderWindow = new ReminderWindow();
-
     }
 
     public Stage getPrimaryStage() {
@@ -201,6 +207,28 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
+    void fillCalendar() throws IOException {
+
+        fullCalendarView = new FullCalendarView(YearMonth.now());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getRoot());
+        personListPanelPlaceholder.getChildren().add(fullCalendarView.getView());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        reminderBox = new ReminderBox();
+        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Fills up all the placeholders of this window.
+     */
     void fillNotes() {
         notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
         personListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
@@ -286,7 +314,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleCalendarTask() throws ParseException, CommandException {
-        String userCommand = "change_tab tab/calendar";
+        String userCommand = "change_tab tab/task";
         executeCommand(userCommand);
     }
 

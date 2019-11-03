@@ -42,6 +42,9 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
+
+            //mainWindow.fillStudents();
+            mainWindow.fillTasks();
             mainWindow.hide();
             mainWindow.showLogin();
             //mainWindow.show();
@@ -102,6 +105,21 @@ public class UiManager implements Ui {
     }
 
     /**
+     * To change tab to reminder tab.
+     */
+    public static void startReminders() {
+        logger.info("Changing to Reminders...");
+
+        try {
+            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.fillReminders();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
      * To change tab to notepad tab/
      */
     public static void startNotes() {
@@ -110,6 +128,21 @@ public class UiManager implements Ui {
         try {
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillNotes();
+        } catch (Throwable e) {
+            logger.severe(StringUtil.getDetails(e));
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
+    }
+
+    /**
+     * To change tab to calendar tab.
+     */
+    public static void startCalendar() {
+        logger.info("Changing to Calendar...");
+
+        try {
+            mainWindow.show();
+            mainWindow.fillCalendar();
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -166,5 +199,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
 }

@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,6 +37,7 @@ class JsonAdaptedTask {
         if (taskTimes != null) {
             this.taskTimes.addAll(taskTimes);
         }
+        Collections.sort(taskTimes);
     }
 
     /**
@@ -53,7 +54,7 @@ class JsonAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task.
      */
     public Task toModelType() throws IllegalValueException {
-        final List<TaskTime> times = new ArrayList<>();
+        final TreeSet<TaskTime> times = new TreeSet<>(TaskTime::compareTo);
         for (JsonAdaptedTaskTime time : taskTimes) {
             times.add(time.toModelType());
         }
@@ -75,7 +76,7 @@ class JsonAdaptedTask {
         }
         final Marking modelMarking = new Marking(marking);
 
-        final Set<TaskTime> modelTimes = new HashSet<>(times);
+        final TreeSet<TaskTime> modelTimes = new TreeSet<>(times);
 
         return new Task(id, modelTimes, modelMarking);
     }

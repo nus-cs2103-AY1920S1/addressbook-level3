@@ -10,5 +10,6 @@
   "earning" : [ ],
   "commands" : [ ],
   "tasks" : [ ],
+  "reminders": [ ],
   "notes" : [ ]
 }

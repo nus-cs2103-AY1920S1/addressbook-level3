@@ -2,6 +2,8 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103T-F14-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-2/main.svg?branch=master[Build Status]]
+https://coveralls.io/github/AY1920S1-CS2103T-F14-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-2/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/352c9330407b4166b0c0501d47f26362["Codacy code quality", link="https://www.codacy.com/manual/AY1920S1-CS2103T-F14-2/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-F14-2/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

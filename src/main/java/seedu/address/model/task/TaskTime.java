@@ -11,7 +11,7 @@ import java.util.Date;
  * Represents a Task's time in the calendar.
  * Guarantees: immutable; is valid as declared in {@link #isValidTaskTime(String)}
  */
-public class TaskTime {
+public class TaskTime implements Comparable<TaskTime> {
     public static final String MESSAGE_CONSTRAINTS =
             "TaskTime should only contain a staring time and an ending time, "
                     + "with format: dd/MM/yyyy HH:mm, dd/MM/yyyy HH:mm, "
@@ -84,5 +84,17 @@ public class TaskTime {
                 || (other instanceof TaskTime // instanceof handles nulls
                 && starting.equals(((TaskTime) other).starting)
                 && ending.equals(((TaskTime) other).ending)); // state check
+    }
+
+    @Override
+    public int compareTo(TaskTime o) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            Date thisStarting = simpleDateFormat.parse(starting);
+            Date otherStarting = simpleDateFormat.parse(o.starting);
+            return thisStarting.compareTo(otherStarting);
+        } catch (ParseException ex) {
+            return 0;
+        }
     }
 }

@@ -39,14 +39,6 @@ public class UniquePersonListTest {
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withPicture(VALID_PICTURE_BOB)
-                .build();
-        assertTrue(uniquePersonList.contains(editedAlice));
-    }
-
-    @Test
     public void add_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
     }
