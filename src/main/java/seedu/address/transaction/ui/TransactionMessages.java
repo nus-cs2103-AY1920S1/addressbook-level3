@@ -70,11 +70,14 @@ public class TransactionMessages {
 
     public static final String MESSAGE_WRONG_AMOUNT_FORMAT = "Sorry! The amount should be a number.";
 
-    public static final String MESSAGE_AMOUNT_TOO_LARGE = "Sorry! The amount entered for the positive transaction "
+    public static final String MESSAGE_AMOUNT_TOO_LARGE = "Sorry! The positive amount entered "
             + "is too large. Try to separate it into a few transactions instead!";
 
-    public static final String MESSAGE_AMOUNT_TOO_SMALL = "Sorry! The amount entered for the negative transaction "
+    public static final String MESSAGE_AMOUNT_TOO_SMALL = "Sorry! The negative amount entered "
             + "is too small. Try to separate it into a few transactions instead!";
 
+    public static final String MESSAGE_BACKED = "Here are all the transactions.";
+
+    public static final String MESSAGE_NO_ZERO_ALLOWED = "Sorry! The amount should not be zero.";
 
 }

@@ -1,6 +1,12 @@
 package seedu.address.transaction.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_SUCH_PERSON;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_ZERO_ALLOWED;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_WRONG_DATE_FORMAT;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
@@ -28,8 +34,9 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements CommandParserWithPersonModel {
-    private static final double MAX_AMOUNT_ACCEPTED = 9999.9;
-    private static final double MIN_AMOUNT_ACCEPTED = -9999.9;
+    private static final double MAX_AMOUNT_ACCEPTED = 9999;
+    private static final double MIN_AMOUNT_ACCEPTED = -9999;
+    private static final double ZERO = 0.0;
     private final Logger logger = LogsCenter.getLogger(getClass());
 
 
@@ -59,9 +66,11 @@ public class AddCommandParser implements CommandParserWithPersonModel {
         try {
             double amount = Double.parseDouble(amountString);
             if (amount > MAX_AMOUNT_ACCEPTED) {
-                throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE);
+                throw new ParseException(MESSAGE_AMOUNT_TOO_LARGE);
             } else if (amount < MIN_AMOUNT_ACCEPTED) {
-                throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL);
+                throw new ParseException(MESSAGE_AMOUNT_TOO_SMALL);
+            } else if (amount == ZERO) {
+                throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);
             }
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             Transaction transaction = new Transaction(datetime, description, category, amount, person,
@@ -70,11 +79,11 @@ public class AddCommandParser implements CommandParserWithPersonModel {
             AddCommand addCommand = new AddCommand(transaction);
             return addCommand;
         } catch (PersonNotFoundException e) {
-            throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
+            throw new NoSuchPersonException(MESSAGE_NO_SUCH_PERSON);
         } catch (DateTimeParseException e) {
-            throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
+            throw new ParseException(MESSAGE_WRONG_DATE_FORMAT);
         } catch (NumberFormatException e) {
-            throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
+            throw new ParseException(MESSAGE_WRONG_AMOUNT_FORMAT);
         }
     }
 

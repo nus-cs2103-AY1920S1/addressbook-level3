@@ -14,5 +14,4 @@ public interface Logic {
      * @throws Exception If an error occurs during command execution.
      */
     CommandResult execute(String commandText) throws Exception;
-
 }

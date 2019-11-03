@@ -8,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
 
@@ -37,8 +38,9 @@ public class Inventory extends UiPart<Region> {
     private TableColumn<Item, Double> expectedRevenueCol;
 
     public Inventory (Logic logic) throws Exception {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseInventoryList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Item, String>("id"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Item, String>("description"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<Item, String>("category"));
