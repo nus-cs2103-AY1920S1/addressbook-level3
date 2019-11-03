@@ -83,6 +83,13 @@ public class ListOfGroups {
     }
 
     /**
+     * Checks if group exists in the list of groups
+     */
+    public boolean contains(Group group) {
+        return groups.contains(group);
+    }
+
+    /**
      * Returns array list of groups.
      *
      * @return array list of groups.

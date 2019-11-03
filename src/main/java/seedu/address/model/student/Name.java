@@ -29,7 +29,10 @@ public class Name {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String name) {
-        int len = name.length();
+        int len = name.trim().length();
+        if (len == 0) {
+            return false;
+        }
         for (int i = 0; i < len; i++) {
             // checks whether the character is not a letter
             // if it is not a letter ,it will return false

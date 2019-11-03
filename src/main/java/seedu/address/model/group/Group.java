@@ -124,4 +124,18 @@ public class Group {
     public UniqueStudentList getStudentList() {
         return this.studentList;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Group)) {
+            return false;
+        }
+
+        Group otherGroup = (Group) other;
+        return otherGroup.getGroupId().equals(this.getGroupId());
+    }
 }
