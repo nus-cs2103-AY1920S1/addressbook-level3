@@ -1,6 +1,7 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static budgetbuddy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -45,9 +46,11 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_PERSON, PREFIX_AMOUNT, PREFIX_DESCRIPTION, PREFIX_DATE);
 
         String directionString = argMultimap.getPreamble().toUpperCase();
-        if (!arePrefixesPresent(argMultimap, PREFIX_PERSON, PREFIX_AMOUNT)
-                || !(directionString.equals(Direction.IN.toString())
-                || directionString.equals(Direction.OUT.toString()))) {
+        if (!(directionString.equals(Direction.IN.toString()) || directionString.equals(Direction.OUT.toString()))) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_PERSON, PREFIX_AMOUNT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
         }
 
@@ -58,10 +61,8 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
         }
 
-        Name name = CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get());
-        Person person = new Person(name);
-
         Direction direction = Direction.valueOf(directionString.toUpperCase());
+        Person person = new Person(CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get()));
         Amount amount = CommandParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
 
         Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
