@@ -116,15 +116,18 @@ Examples:
 
 === Viewing user statistics : `stats`
 
-Shows your usage statistics, such as time spent and usage count in general of for a deck of cards in a graphical format (i.e. pie charts, bar graphs etc)
+Shows your usage statistics, such as time spent and usage count in general of for a deck of cards.
 
 Format: `stats [deck/DECK_NAME]`
 
 Examples:
 
-* `stats`
+* `stats` +
+
 Displays the overview of the time spent and usage count of all decks of cards. Also shows the statistics of the current program State.
-* `stats deck/science_deck`
+
+* `stats deck/science_deck` +
+
 Display the overview of time spend and usage count of the deck of cards, `science_deck`.
 
 === Viewing flashcards in library: `view`
@@ -135,26 +138,35 @@ Format: `view [deck/DECK_NAME]`
 
 Examples:
 
-* `view`
+* `view` +
+
 Displays all the decks of cards in the library
-* `view deck/science_deck`
+
+* `view deck/science_deck` +
+
 Displays all the cards in the deck of cards, `science_deck`
 
-=== Creating new flashcards : `create`
+=== Creating new flashcards/decks : `create`
 
-Enters 'Create' mode. Allows the sequential creation of different cards based on input (FrontBack, MCQ and JavaScript cards).
+Creates an empty deck in FlashCard Pro library.
 
-Format: `create'
+Format: `create deck/DECK_NAME`
 
-        For FrontBack Cards:
-        Format: 'front/FRONT_OF_CARD back/BACK_OF_CARD'
 
-        For MCQ Cards:
-        Format: 'front/FRONT_OF_CARD choice/CHOICE1 choice/CHOICE2 [choice/CHOICE3...] correctIndex/INTEGER'
-        Where correctIndex indicates which choice is correct.
+Examples:
 
-        For JavaScript Cards:
-        Format: 'front/FRONT_OF_CARD testCase/assert(TESTCASE) [testCase/assert(TESTCASE) ...]'
+* `create deck/german` +
+
+Creates a new empty deck named `german`.
+
+
+
+
+==== Create new deck
+
+==== Create new Front Back card or Multiple Choice Card
+
+==== Create new Javascript card or Java Card
 
 === Start test with flashcards : `test`
 
@@ -176,20 +188,19 @@ Format: `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` (to be implemented i
 
 Examples:
 
-* `test deck/science_deck`
+* `test deck/science_deck` +
+
 Starts a untimed test with the deck of cards, `science_deck`
-* `test duration/50 deck/science_deck`
+
+* `test duration/50 deck/science_deck` +
+
 Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
-=== Quit test or flashcard creation : `exit`
+=== Quit test: `stop`
 
-Exits the test or flashcard creation process.
-
-There is also an `End Session` button that can be used to terminate the exam prematurely.
+Exits the test process when the user is in test mode. +
 
 Exams will also terminate automatically upon running out of cards in the test deck. This will trigger a popup with the results of the test.
-
-Format: `exit` (to be done up in `v1.4`)
 
 === Editing the cards of an existing deck of flashcards : `edit`
 
