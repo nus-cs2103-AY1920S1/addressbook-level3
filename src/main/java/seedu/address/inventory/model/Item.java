@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Item {
 
-    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
     private final String category;
     private final String description;
     private Integer quantity;
@@ -28,10 +28,10 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
-        this.price = Double.parseDouble(DECIMAL_FORMAT.format(price));
-        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(quantity * price));
+        this.cost = cost;
+        this.totalCost = quantity * cost;
+        this.price = price;
+        this.subtotal = quantity * price;
         this.id = "" + id;
         this.trueId = id;
     }
@@ -43,10 +43,10 @@ public class Item {
         this.description = description;
         this.category = category;
         this.quantity = quantity;
-        this.cost = Double.parseDouble(DECIMAL_FORMAT.format(cost));
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(quantity * cost));
-        this.price = 0.0;
-        this.subtotal = 0.0;
+        this.cost = cost;
+        this.totalCost = quantity * cost;
+        this.price = 0.00;
+        this.subtotal = 0.00;
         this.id = "" + i;
         this.trueId = i;
     }
@@ -109,11 +109,11 @@ public class Item {
      * Updates the subtotal.
      */
     public void updateSubtotal() {
-        this.subtotal = Double.parseDouble(DECIMAL_FORMAT.format(this.price * this.quantity));
+        this.subtotal = this.price * this.quantity;
     }
 
     public void updateTotalCost() {
-        this.totalCost = Double.parseDouble(DECIMAL_FORMAT.format(this.cost * this.quantity));
+        this.totalCost = this.cost * this.quantity;
     }
 
     public String getId() {
@@ -186,13 +186,13 @@ public class Item {
                 .append(" Quantity: ")
                 .append(getQuantity() + "\n")
                 .append(" Cost: ")
-                .append(getCost() + "\n")
+                .append(DECIMAL_FORMAT.format(getCost()) + "\n")
                 .append(" Total Cost: ")
-                .append(getTotalCost() + "\n")
+                .append(DECIMAL_FORMAT.format(getTotalCost()) + "\n")
                 .append(" Price: ")
-                .append(getPrice() + "\n")
+                .append(DECIMAL_FORMAT.format(getPrice()) + "\n")
                 .append(" Subtotal: ")
-                .append(getSubtotal() + "\n");
+                .append(DECIMAL_FORMAT.format(getSubtotal()) + "\n");
         return builder.toString();
     }
 
