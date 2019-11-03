@@ -32,6 +32,11 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private PieChart statusStatisticsPieChart;
     @FXML
     private TextArea resultDisplay;
+    @FXML
+    private TextArea adviceDisplay;
+
+    // Data fields for analysis
+    private ObservableList<PieChart.Data> pieChartData;
 
     // Data fields
     private int availableListSize;
@@ -39,7 +44,6 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
     private int deliveringListSize;
     private int totalListSize;
 
-    // Data fields for analysis
 
     /**
      * Panel containing the statistics of the statuses of deliverymen.
@@ -52,7 +56,12 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         unavailableListSize = unavailableList.size();
         deliveringListSize = deliveringList.size();
         totalListSize = calculateTotalDeliverymen();
+        pieChartData = FXCollections.observableArrayList(
+                        new PieChart.Data("Available", availableListSize),
+                        new PieChart.Data("Unavailable", unavailableListSize),
+                        new PieChart.Data("Delivering", deliveringListSize));
         initialiseLabels();
+        initialiseTextArea(pieChartData);
     }
 
     /**
@@ -64,15 +73,33 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
         unavailableDeliverymenLabel.setText("UNAVAILABLE :  " + unavailableListSize + "  ");
         deliveringDeliverymenLabel.setText("DELIVERING    :  " + deliveringListSize + "   ");
         fillPieChart();
-        initialiseTextArea();
     }
 
     /**
      * Set up the text area and the inside text.
      */
-    private void initialiseTextArea() {
-        resultDisplay.appendText("Utilisation level: 10000%\n\n");
-        resultDisplay.appendText("(Utilisation level signals the level of \nidle deliverymen.)\n");
+    private void initialiseTextArea(ObservableList<PieChart.Data> pieChartData) {
+        double utilValue = ((double) deliveringListSize / (availableListSize + deliveringListSize)) * 100;
+        resultDisplay.appendText("UTILISATION LEVEL: " + String.format("%.2f", utilValue) + "%\n\n");
+        resultDisplay.appendText("(Utilisation level signals the level of \nidle deliverymen.)\n\n\n");
+
+        double activityValue = ((double) (deliveringListSize + availableListSize) / totalListSize) * 100;
+        resultDisplay.appendText("ACTIVITY LEVEL: " + String.format("%.2f", activityValue) + "%\n\n");
+        resultDisplay.appendText("(Activity level signals the level of \nactive deliverymen.)\n\n\n\n\n");
+
+        resultDisplay.appendText("=================================\n");
+        resultDisplay.appendText("AVAILABLE:  " + String.valueOf(pieChartData.get(0).getPieValue()) + "%\n");
+        resultDisplay.appendText("UNAVAILABLE:  " + String.valueOf(pieChartData.get(1).getPieValue()) + "%\n");
+        resultDisplay.appendText("DELIVERING:  " + String.valueOf(pieChartData.get(2).getPieValue()) + "%\n");
+        resultDisplay.appendText("=================================\n");
+
+        if (utilValue >= 80.0) {
+            adviceDisplay.appendText("Watch out!\nYou are running out of \navailable deliverymen! ");
+        } else if (utilValue <= 20.0) {
+            adviceDisplay.appendText("You have too much manpower\nthat is not utilized!");
+        } else {
+            adviceDisplay.appendText("Your deliverymen are balanced.");
+        }
     }
 
     /**
@@ -87,25 +114,18 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
      */
     @FXML
     private void fillPieChart() {
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Available", availableListSize),
-                        new PieChart.Data("Unavailable", unavailableListSize),
-                        new PieChart.Data("Delivering", deliveringListSize));
         statusStatisticsPieChart.setTitle("CURRENT STATUS PIE CHART");
         statusStatisticsPieChart.setData(pieChartData);
     }
 
     /**
-     * Customise the colors of the pie chart nodes to green, red and yellow to match status colors.
+     *
      */
-    private void applyCustomColorSequence(
-            ObservableList<PieChart.Data> pieChartData,
-            String... pieColors) {
-        int i = 0;
-        for (PieChart.Data data : pieChartData) {
-            data.getNode().setStyle("-fx-pie-color: #ffd700");
-            i++;
+    private double[] calculatePieValues(PieChart.Data data) {
+        double[] pieValues = new double[3];
+        for (int i = 0; i < pieValues.length; i++) {
+            pieValues[i] = data.getPieValue();
         }
+        return pieValues;
     }
 }
