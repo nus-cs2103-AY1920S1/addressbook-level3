@@ -10,9 +10,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class ClearNoteCommandTest {
+class ClearNoteCommandTest {
     @Test
-    public void execute_emptyAppData_success() {
+    void execute_emptyAppData_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -20,7 +20,7 @@ public class ClearNoteCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAppData_success() {
+    void execute_nonEmptyAppData_success() {
         Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAppData(), new UserPrefs());
         expectedModel.clearNotes();

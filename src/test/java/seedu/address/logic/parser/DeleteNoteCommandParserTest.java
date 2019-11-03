@@ -17,17 +17,17 @@ import seedu.address.logic.parser.note.DeleteNoteCommandParser;
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
  */
-public class DeleteNoteCommandParserTest {
+class DeleteNoteCommandParserTest {
 
     private DeleteNoteCommandParser parser = new DeleteNoteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteNoteCommand(INDEX_FIRST));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteNoteCommand.MESSAGE_USAGE));
     }
 }

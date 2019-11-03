@@ -16,24 +16,24 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListNoteCommand.
  */
-public class ListNoteCommandTest {
+class ListNoteCommandTest {
 
     private Model model;
     private Model expectedModel;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         model = new ModelManager(getTypicalAppData(), new UserPrefs());
         expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListNoteCommand(), model, ListNoteCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    void execute_listIsFiltered_showsEverything() {
         showNoteAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListNoteCommand(), model, ListNoteCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -6,21 +6,20 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class ContentTest {
-
+class ContentTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Content(null));
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidAddress = "";
         assertThrows(IllegalArgumentException.class, () -> new Content(invalidAddress));
     }
 
     @Test
-    public void isValidAddress() {
+    void isValidAddress() {
         // null address
         assertThrows(NullPointerException.class, () -> Content.isValidContent(null));
 

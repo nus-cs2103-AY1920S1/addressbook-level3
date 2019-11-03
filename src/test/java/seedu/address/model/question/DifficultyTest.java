@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 class DifficultyTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Difficulty(null));
     }
 
     @Test
-    public void constructor_invalidDifficulty_throwsIllegalArgumentException() {
+    void constructor_invalidDifficulty_throwsIllegalArgumentException() {
         String invalidDifficulty = "";
         assertThrows(IllegalArgumentException.class, () -> new Difficulty(invalidDifficulty));
     }

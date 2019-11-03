@@ -12,11 +12,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-public class GetReportCommandTest {
+class GetReportCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void constructor_nullQuizResultFilter_throwsNullPointerException() {
+    void constructor_nullQuizResultFilter_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null, ""));
     }
 
@@ -29,7 +29,7 @@ public class GetReportCommandTest {
     }*/
 
     @Test
-    public void execute_invalidQnsIndex_failure() {
+    void execute_invalidQnsIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredQuestionList().size() + 1);
         GetReportCommand getReportCommand = new GetReportCommand(outOfBoundIndex);
 

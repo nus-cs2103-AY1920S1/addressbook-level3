@@ -21,12 +21,12 @@ import seedu.address.testutil.NoteBuilder;
 
 public class AddNoteCommandTest {
     @Test
-    public void constructor_nullNote_throwsNullPointerException() {
+    void constructor_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddNoteCommand(null));
     }
 
     @Test
-    public void execute_noteAcceptedByModel_addSuccessful() throws Exception {
+    void execute_noteAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
 
@@ -37,7 +37,7 @@ public class AddNoteCommandTest {
     }
 
     @Test
-    public void execute_duplicateNote_throwsCommandException() {
+    void execute_duplicateNote_throwsCommandException() {
         Note validNote = new NoteBuilder().build();
         AddNoteCommand addNoteCommand = new AddNoteCommand(validNote);
         ModelStub modelStub = new ModelStubWithNote(validNote);
@@ -47,7 +47,7 @@ public class AddNoteCommandTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         Note alice = new NoteBuilder().withTitle("Alice").build();
         Note bob = new NoteBuilder().withTitle("Bob").build();
         AddNoteCommand addAliceCommand = new AddNoteCommand(alice);

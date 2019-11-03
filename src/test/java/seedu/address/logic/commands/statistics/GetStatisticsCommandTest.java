@@ -6,7 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -18,11 +17,10 @@ import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.testutil.QuizResultFilterBuilder;
 
 class GetStatisticsCommandTest {
-
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void constructor_nullQuizResultFilter_throwsNullPointerException() {
+    void constructor_nullQuizResultFilter_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GetStatisticsCommand(null, ""));
     }
 
@@ -41,7 +39,7 @@ class GetStatisticsCommandTest {
     }*/
 
     @Test
-    public void execute_emptyQuizResultList_throwsCommandException() {
+    void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withSubjects(new ArrayList<>(Collections.singletonList("random")))
                 .buildWithSubjects();

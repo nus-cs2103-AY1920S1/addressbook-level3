@@ -22,12 +22,12 @@ class GetOverviewCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void constructor_nullQuizResultFilter_throwsNullPointerException() {
+    void constructor_nullQuizResultFilter_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null, ""));
     }
 
     @Test
-    public void execute_validQuizResultFilter_success() {
+    void execute_validQuizResultFilter_success() {
         QuizResultFilter quizResultFilter = null;
         try {
             quizResultFilter = new QuizResultFilterBuilder()

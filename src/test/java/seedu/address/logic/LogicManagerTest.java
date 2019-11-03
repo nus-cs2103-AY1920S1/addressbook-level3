@@ -30,7 +30,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.NoteBuilder;
 
-public class LogicManagerTest {
+class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
@@ -40,7 +40,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         JsonAppDataStorage appDataStorage = new JsonAppDataStorage(temporaryFolder.resolve("appData.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(appDataStorage, userPrefsStorage);
@@ -48,25 +48,25 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
+    void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
+    void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "deletenote 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
+    void execute_validCommand_success() throws Exception {
         String listCommand = ListNoteCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListNoteCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() {
+    void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAppDataIoExceptionThrowingStub
         JsonAppDataStorage appDataStorage =
                 new JsonAppDataIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAppData.json"));
@@ -85,7 +85,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
+    void getFilteredNoteList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredNoteList().remove(0));
     }
 

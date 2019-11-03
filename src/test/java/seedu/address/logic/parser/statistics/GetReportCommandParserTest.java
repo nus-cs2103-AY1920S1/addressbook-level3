@@ -9,12 +9,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.statistics.GetReportCommand;
 
-public class GetReportCommandParserTest {
+class GetReportCommandParserTest {
 
     private GetReportCommandParser parser = new GetReportCommandParser();
 
     @Test
-    public void parse_invalidCommandFormat_failure() {
+    void parse_invalidCommandFormat_failure() {
         assertParseFailure(parser, " ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 GetReportCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " a", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -22,7 +22,7 @@ public class GetReportCommandParserTest {
     }
 
     @Test
-    public void parse_validIndex_success() {
+    void parse_validIndex_success() {
         GetReportCommand expectedCommand = new GetReportCommand(Index.fromOneBased(1));
         assertParseSuccess(parser, " 1", expectedCommand);
     }

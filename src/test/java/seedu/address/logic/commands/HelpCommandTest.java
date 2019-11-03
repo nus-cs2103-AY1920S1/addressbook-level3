@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class HelpCommandTest {
+class HelpCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_help_success() {
+    void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, 1);
         assertCommandSuccess(new HelpCommand(), model, expectedCommandResult, expectedModel);
     }

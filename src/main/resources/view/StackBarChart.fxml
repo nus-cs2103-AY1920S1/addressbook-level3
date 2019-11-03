@@ -8,22 +8,23 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" styleClass="stats-pane-color" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
-    <content>
-        <AnchorPane styleClass="stats-pane-color">
-            <children>
-            <StackedBarChart fx:id="bc" styleClass="chart-title" title="Questions attempted by Subject" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
-              <xAxis>
-                <CategoryAxis fx:id="categoryAxis" label="Subjects" styleClass="axis-label" side="BOTTOM" tickLabelFill="WHITE" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis label="Number of questions" styleClass="axis-label" side="LEFT" tickLabelFill="WHITE" />
-              </yAxis>
-            </StackedBarChart>
-                <Label fx:id="overview" styleClass="label-bright" text="Label">
-               <padding>
-                  <Insets top="20.0" />
-               </padding></Label>
-            </children></AnchorPane>
-    </content>
+<ScrollPane fitToHeight="true" fitToWidth="true" styleClass="stats-pane-color" xmlns="http://javafx.com/javafx/11.0.0"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane styleClass="stats-pane-color">
+        <StackedBarChart fx:id="bc" styleClass="chart-title" title="Questions attempted by Subject"
+                         AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+            <xAxis>
+                <CategoryAxis fx:id="categoryAxis" label="Subjects" styleClass="axis-label" side="BOTTOM"
+                              tickLabelFill="WHITE"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Number of questions" styleClass="axis-label" side="LEFT" tickLabelFill="WHITE"/>
+            </yAxis>
+        </StackedBarChart>
+        <Label fx:id="overview" styleClass="label-bright" text="Label">
+            <padding>
+                <Insets top="20.0"/>
+            </padding>
+        </Label>
+    </AnchorPane>
 </ScrollPane>
