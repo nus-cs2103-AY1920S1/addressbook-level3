@@ -116,4 +116,5 @@ public class SerialNumberTest {
             assertTrue(true);
         }
     }
+
 }

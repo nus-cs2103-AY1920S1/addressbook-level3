@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -10,8 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.BookPredicate;
-import seedu.address.model.loan.Loan;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -40,7 +37,7 @@ public class InfoCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
         Book target = lastShownList.get(index.getZeroBased());
-        return CommandResult.CommandResultInfo(
+        return CommandResult.commandResultInfo(
                 String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)), target);
     }
 

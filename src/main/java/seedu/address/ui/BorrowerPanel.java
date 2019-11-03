@@ -101,7 +101,7 @@ public class BorrowerPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(BookCard.BookCardWithIndex(book, getIndex() + 1).getRoot());
+                setGraphic(BookCard.bookCardWithIndex(book, getIndex() + 1).getRoot());
             }
         }
     }

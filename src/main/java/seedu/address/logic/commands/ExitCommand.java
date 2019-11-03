@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return CommandResult.CommandResultExit(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return CommandResult.commandResultExit(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
 }

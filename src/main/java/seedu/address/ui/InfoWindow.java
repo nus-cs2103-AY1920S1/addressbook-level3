@@ -26,7 +26,7 @@ public class InfoWindow extends UiPart<Stage> implements Initializable {
 
     private static final String NULL_STRING = "";
 
-    public Book book;
+    private Book book;
 
     @FXML
     private Pane infoPanel;
@@ -84,6 +84,9 @@ public class InfoWindow extends UiPart<Stage> implements Initializable {
         loanHistory.setText(loanHistoryString);
     }
 
+    /**
+     * Clears previous book info in preparation for the next book.
+     */
     private void clearPreviousInfo() {
         this.book = null;
         id.setText(NULL_STRING);
@@ -97,6 +100,11 @@ public class InfoWindow extends UiPart<Stage> implements Initializable {
         loanHistory.setText(NULL_STRING);
     }
 
+    /**
+     * Update the info window with the target book information.
+     *
+     * @param book Book to be displayed.
+     */
     private void updateBook(Book book) {
         this.book = book;
         title.setText(book.getTitle().value);

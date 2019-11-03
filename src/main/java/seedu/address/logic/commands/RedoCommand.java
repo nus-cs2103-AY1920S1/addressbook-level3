@@ -30,19 +30,19 @@ public class RedoCommand extends Command {
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
 
         if (commandResult.isDone()) {
-            return CommandResult.CommandResultDone(msgSuccess);
+            return CommandResult.commandResultDone(msgSuccess);
         }
 
         if (commandResult.isShowHelp()) {
-            return CommandResult.CommandResultHelp(msgSuccess);
+            return CommandResult.commandResultHelp(msgSuccess);
         }
 
         if (commandResult.isExit()) {
-            return CommandResult.CommandResultExit(msgSuccess);
+            return CommandResult.commandResultExit(msgSuccess);
         }
 
         if (commandResult.isServe()) {
-            return CommandResult.CommandResultServe(msgSuccess);
+            return CommandResult.commandResultServe(msgSuccess);
         }
 
         return new CommandResult(msgSuccess);

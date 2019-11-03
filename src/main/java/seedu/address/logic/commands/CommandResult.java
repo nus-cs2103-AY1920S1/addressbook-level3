@@ -47,23 +47,23 @@ public class CommandResult {
         this(feedbackToUser, false, false, false, false, Optional.empty());
     }
 
-    public static CommandResult CommandResultHelp(String feedbackToUser) {
+    public static CommandResult commandResultHelp(String feedbackToUser) {
         return new CommandResult(feedbackToUser, true, false, false, false, Optional.empty());
     }
 
-    public static CommandResult CommandResultExit(String feedbackToUser) {
+    public static CommandResult commandResultExit(String feedbackToUser) {
         return new CommandResult(feedbackToUser, false, true, false, false, Optional.empty());
     }
 
-    public static CommandResult CommandResultServe(String feedbackToUser) {
+    public static CommandResult commandResultServe(String feedbackToUser) {
         return new CommandResult(feedbackToUser, false, false, true, false, Optional.empty());
     }
 
-    public static CommandResult CommandResultDone(String feedbackToUser) {
+    public static CommandResult commandResultDone(String feedbackToUser) {
         return new CommandResult(feedbackToUser, false, false, false, true, Optional.empty());
     }
 
-    public static CommandResult CommandResultInfo(String feedbackToUser, Book book) {
+    public static CommandResult commandResultInfo(String feedbackToUser, Book book) {
         return new CommandResult(feedbackToUser, false, false, false, false, Optional.of(book));
     }
 
@@ -92,7 +92,7 @@ public class CommandResult {
     }
 
     public Book getBook() {
-        assert info.isPresent() : "No boo info present";
+        assert info.isPresent() : "No book info present";
         return info.get();
     }
 
@@ -113,7 +113,9 @@ public class CommandResult {
                 && exit == otherCommandResult.exit
                 && serve == otherCommandResult.serve
                 && done == otherCommandResult.done
-                && info == otherCommandResult.info;
+                && (info.isPresent() && otherCommandResult.info.isPresent()
+                    && info.get().equals(otherCommandResult.info.get())
+                        || !info.isPresent() && !otherCommandResult.info.isPresent());
     }
 
     @Override

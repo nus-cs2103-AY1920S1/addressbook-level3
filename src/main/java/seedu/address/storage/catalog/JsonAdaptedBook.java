@@ -148,13 +148,11 @@ public class JsonAdaptedBook {
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);
 
-        final LoanList modelLoanList= new LoanList();
+        final LoanList modelLoanList = new LoanList();
         final HashMap<LoanId, Loan> loansMap = initialLoanRecords.getLoansMap();
-        if (loanHistory != null) {
-            loanHistory.stream()
-                    .map(loanId -> loansMap.get(new LoanId(loanId)))
-                    .forEach(loan -> modelLoanList.add(loan));
-        }
+        loanHistory.stream()
+                .map(loanId -> loansMap.get(new LoanId(loanId)))
+                .forEach(loan -> modelLoanList.add(loan));
 
         return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres, modelLoanList);
     }

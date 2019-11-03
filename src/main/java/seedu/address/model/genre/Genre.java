@@ -11,7 +11,9 @@ public class Genre {
 
     public static final String MESSAGE_CONSTRAINTS = "Genre names should be alphanumeric "
             + "& hyphenated if needed";
+    public static final String MESSAGE_LENGTH_CONSTRAINTS = "Genre names should be at most 30 characters long";
     public static final String VALIDATION_REGEX = "[[A-Z]\\d][\\-[A-Z]\\d]*";
+    public static final int MAX_GENRE_LENGTH = 30;
 
     public final String genreName;
 
@@ -24,6 +26,7 @@ public class Genre {
         requireNonNull(genreName);
         String uppercaseGenreName = genreName.toUpperCase();
         checkArgument(isValidGenreName(uppercaseGenreName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidGenreLength(uppercaseGenreName), MESSAGE_LENGTH_CONSTRAINTS);
         this.genreName = uppercaseGenreName;
     }
 
@@ -32,6 +35,10 @@ public class Genre {
      */
     public static boolean isValidGenreName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public static boolean isValidGenreLength(String test) {
+        return test.length() <= MAX_GENRE_LENGTH;
     }
 
     @Override

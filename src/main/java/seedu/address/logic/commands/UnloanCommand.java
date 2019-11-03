@@ -51,12 +51,14 @@ public class UnloanCommand extends Command {
         assert(model.hasBook(bookToBeUnloaned));
         assert(bookToBeUnloaned.isCurrentlyLoanedOut());
 
+        Book updatedBookToBeUnloaned = bookToBeUnloaned.deleteFromLoanHistory(loanToBeRemoved);
         // replace the previous Book object with a new Book object that does not have the loan
-        model.setBook(bookToBeUnloaned, unloanedBook);
+        model.setBook(updatedBookToBeUnloaned, unloanedBook);
         model.removeLoan(loanToBeRemoved); // remove Loan object from LoanRecords in model
         model.servingBorrowerRemoveLoan(loanToBeRemoved); // remove Loan object from Borrower's currentLoanList
 
-        LoanSlipUtil.unmountSpecificLoan(loanToBeRemoved, bookToBeUnloaned);
+        LoanSlipUtil.unmountSpecificLoan(loanToBeRemoved, updatedBookToBeUnloaned);
+
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, unloanedBook, model.getServingBorrower()));
     }

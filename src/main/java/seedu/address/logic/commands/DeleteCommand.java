@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import java.time.LocalDate;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
@@ -24,20 +23,17 @@ public abstract class DeleteCommand extends ReversibleCommand {
 
     public static final String MESSAGE_DELETE_BOOK_SUCCESS = "Deleted Book: %1$s";
 
-    private static final int FINE_AMOUNT_ZERO = 0;
+    protected static final int FINE_AMOUNT_ZERO = 0;
 
     public abstract CommandResult execute(Model model) throws CommandException;
 
     /** Helper method to assist in marking a book as returned before deletion */
-    protected void markBookAsReturned(Model model, Book target) {
-        Loan loanToBeReturned = target.getLoan().get();
-        LocalDate returnDate = DateUtil.getTodayDate();
-        Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
-
-        Book returnedBook = target.returnBook();
+    protected void markBookAsReturned(Model model, Book bookToBeReturned, Book returnedBook,
+                                      Loan loanToBeReturned, Loan returnedLoan) {
+        requireAllNonNull(model, bookToBeReturned, returnedBook, loanToBeReturned, returnedBook);
 
         // update Book in model to have Loan removed
-        model.setBook(target, returnedBook);
+        model.setBook(bookToBeReturned, returnedBook);
 
         // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
         model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
@@ -45,5 +41,6 @@ public abstract class DeleteCommand extends ReversibleCommand {
         // update Loan in LoanRecords with returnDate and remainingFineAmount
         model.updateLoan(loanToBeReturned, returnedLoan);
     }
+
 
 }

@@ -308,6 +308,13 @@ public class ModelManager implements Model {
         return sb.toString();
     }
 
+    /**
+     * Helper method to generate a loan history as a string.
+     *
+     * @param loan loan history to be generated.
+     * @param isCurrent if this loan is currently the loan associated with the book at the moment.
+     * @return String representation of loan history.
+     */
     private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
         String dateString = DateUtil.formatDate(loan.getStartDate());
         String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();

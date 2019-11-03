@@ -134,12 +134,12 @@ public class Book implements Comparable<Book> {
     }
 
     /**
-     * Updates the loan history of a book.
+     * Adds to the loan history of a book.
      *
      * @param loan {@code Loan} to be added into the history.
      * @return a new {@code Book} with the added loan history.
      */
-    public Book updateLoanHistory(Loan loan) {
+    public Book addToLoanHistory(Loan loan) {
         LoanList newHistory = new LoanList();
         newHistory.add(loan);
         this.getLoanHistory().forEach(currentLoan -> newHistory.add(currentLoan));
@@ -151,6 +151,30 @@ public class Book implements Comparable<Book> {
                 this.getGenres(),
                 newHistory);
     }
+
+    /**
+     * Deletes from the loan history of a book.
+     *
+     * @param loan {@code Loan} to be added into the history.
+     * @return a new {@code Book} with the added loan history.
+     */
+    public Book deleteFromLoanHistory(Loan loan) {
+        LoanList newHistory = new LoanList();
+        assert newHistory.contains(loan);
+        this.getLoanHistory().forEach(currentLoan -> {
+            if (!currentLoan.equals(loan)) {
+                newHistory.add(currentLoan);
+            }
+        });
+        return new Book(
+                this.getTitle(),
+                this.getSerialNumber(),
+                this.getAuthor(),
+                this.getLoan().orElse(NULL_LOAN),
+                this.getGenres(),
+                newHistory);
+    }
+
 
     public int compareTo(Book b) {
         return this.getSerialNumber().compareTo(b.getSerialNumber());

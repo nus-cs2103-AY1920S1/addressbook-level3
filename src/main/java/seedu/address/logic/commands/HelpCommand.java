@@ -28,9 +28,9 @@ public class HelpCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         if (unusedArguments != null) {
-            return CommandResult.CommandResultHelp(String.format(SHOWING_HELP_MESSAGE
+            return CommandResult.commandResultHelp(String.format(SHOWING_HELP_MESSAGE
                     + MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD));
         }
-        return CommandResult.CommandResultHelp(SHOWING_HELP_MESSAGE);
+        return CommandResult.commandResultHelp(SHOWING_HELP_MESSAGE);
     }
 }

@@ -101,6 +101,8 @@ class LoanSlipUtilTest {
         assertFalse(file.exists());
         assertDoesNotThrow(() -> LoanSlipUtil.createLoanSlipInDirectory());
         assertTrue(file.exists());
+        //assertDoesNotThrow(() -> LoanSlipUtil.openGeneratedLoanSlip());
+
         file.delete();
         assertFalse(file.exists());
     }

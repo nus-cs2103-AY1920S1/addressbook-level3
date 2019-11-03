@@ -67,7 +67,7 @@ public class BookCard extends UiPart<Region> {
 
     }
 
-    public static BookCard BookCardWithIndex(Book book, int displayedIndex) {
+    public static BookCard bookCardWithIndex(Book book, int displayedIndex) {
         return new BookCard(book, displayedIndex + ". ");
     }
 

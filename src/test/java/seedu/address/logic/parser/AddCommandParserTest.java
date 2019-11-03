@@ -37,8 +37,9 @@ import seedu.address.testutil.BookBuilder;
 
 public class AddCommandParserTest {
     private static final String EXTRA_CHAR = "a";
-    private static final String LONG_TITLE_BOOK = "qwertyuiopasdfghjklzxcvbnmqwer"; // 30 char long
-    private static final String LONG_TITLE_DESC_BOOK = " t/qwertyuiopasdfghjklzxcvbnmqwer"; // 30 char long with prefix
+    private static final String NAME_60_CHARACTER_LENGTH =
+            "1234567890" + "1234567890" + "1234567890" + "1234567890" + "1234567890" + "1234567890";
+    private static final String LONG_TITLE_DESC_BOOK = " t/" + NAME_60_CHARACTER_LENGTH; // 60 char long with prefix
 
     private AddCommandParser parser = new AddCommandParser();
 
@@ -118,7 +119,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_titleCorrectLength_success() {
         Book toAdd = new BookBuilder()
-                .withTitle(LONG_TITLE_BOOK)
+                .withTitle(NAME_60_CHARACTER_LENGTH)
                 .withSerialNumber(VALID_SERIAL_NUMBER_BOOK_1)
                 .withAuthor(VALID_AUTHOR_BOOK_2)
                 .build();
