@@ -42,25 +42,31 @@ public class Parser implements InteractiveParser {
             return;
         }
 
+        if (isExitCommand(commandText)) {
+            initializeExit();
+            return;
+        }
+
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
-        parse(commandText, arrayOfPrefixes);
+        initializeAndParse(commandText, arrayOfPrefixes);
     }
 
     private boolean isClearCommand(String commandText) {
         return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ALL);
     }
 
-    private void parse(String commandText, Prefix... prefixes) throws ParseException {
-        if (isExitCommand(commandText)) {
-            initializeExit();
-            return;
-        }
+    private void initializeAndParse(String commandText, Prefix... prefixes) throws ParseException {
+        boolean wasActivatedNow = activateIfInactive(commandText);
+        parse(commandText, wasActivatedNow, prefixes);
+    }
+
+    private boolean activateIfInactive(String commandText) throws ParseException {
         boolean activatedNow = false;
         if (!isActive()) {
-            parseInactive(commandText);
+            instantiateStateMachine(commandText);
             activatedNow = true;
         }
-        parseActive(commandText, activatedNow, prefixes);
+        return activatedNow;
     }
 
     @Override
@@ -109,14 +115,14 @@ public class Parser implements InteractiveParser {
         return prefixes;
     }
 
-    private void parseActive(String commandText, boolean activatedNow, Prefix... prefixes)
+    private void parse(String commandText, boolean wasActivatedNow, Prefix... prefixes)
             throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
-        if (activatedNow) {
+        if (wasActivatedNow) {
             argumentMultimap.clearValues(new Prefix(""));
         }
         if (!argumentMultimap.getPreamble().isBlank()) {
-            throw new ParseException("Please input prefixes followed by arguments.");
+            throw new ParseException("Please input only the prefix(es) and their argument(s).");
         } else {
             argumentMultimap.clearValues(new Prefix(""));
         }
@@ -131,7 +137,7 @@ public class Parser implements InteractiveParser {
         }
     }
 
-    private void parseInactive(String commandText) throws ParseException {
+    private void instantiateStateMachine(String commandText) throws ParseException {
         String commandWord = getCommandWord(commandText);
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
