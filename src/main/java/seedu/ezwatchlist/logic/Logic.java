@@ -56,9 +56,6 @@ public interface Logic {
     /** Updates the filter of the filtered show list by the given {@code predicate}. */
     void updateFilteredShowList(Predicate<Show> predicate);
 
-    /** Sets the filtered show list to be the given {@code shows}. */
-    void setFilteredShowsTo(ObservableList<Show> shows);
-
     /** Returns an unmodifiable view of the search results of shows */
     ObservableList<Show> getSearchResultList();
 

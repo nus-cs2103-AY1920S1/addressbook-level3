@@ -180,11 +180,6 @@ public class ModelManager implements Model {
         filteredShows.setPredicate(predicate);
     }
 
-    @Override
-    public void setFilteredShowsTo(ObservableList<Show> shows) {
-        filteredShows = new FilteredList<Show>(shows);
-    }
-
     /**
      * Returns an unmodifiable view of the watched list of {@code Show} backed by the internal list of
      * {@code versionedWatchList}

@@ -293,9 +293,6 @@ public class MainWindow extends UiPart<Stage> {
     public CommandResult executeCommand(String commandText)
             throws CommandException, ParseException, OnlineConnectionException {
         try {
-            if (commandText.toLowerCase().contains("search") && !currentTab.equals(SEARCH_TAB)) {
-                goToSearch();
-            }
             switch (currentTab) {
             case (MAIN_TAB):
                 logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
@@ -304,7 +301,7 @@ public class MainWindow extends UiPart<Stage> {
                 logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
                 break;
             case (SEARCH_TAB):
-                logic.updateFilteredShowList(Model.PREDICATE_ALL_SHOWS);
+                logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
                 break;
             case (STATISTICS_TAB):
                 logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
@@ -327,7 +324,7 @@ public class MainWindow extends UiPart<Stage> {
 
             return commandResult;
             //catch ParseException here to implement spellcheck
-        } catch (CommandException | ParseException | OnlineConnectionException |ShowNotFoundException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -341,7 +338,6 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatchlist() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(showListPanel.getRoot());
-        logic.setFilteredShowsTo(logic.getWatchList().getShowList());
         logic.updateFilteredShowList(Model.PREDICATE_UNWATCHED_SHOWS);
         currentTab = MAIN_TAB;
         move(currentButton, watchlistButton);
@@ -355,7 +351,6 @@ public class MainWindow extends UiPart<Stage> {
     public void goToWatched() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(watchedPanel.getRoot());
-        logic.setFilteredShowsTo(logic.getWatchList().getShowList());
         logic.updateFilteredShowList(Model.PREDICATE_WATCHED_SHOWS);
         currentTab = WATCHED_TAB;
         move(currentButton, watchedButton);
@@ -369,7 +364,6 @@ public class MainWindow extends UiPart<Stage> {
     public void goToSearch() {
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(searchPanel.getRoot());
-        logic.setFilteredShowsTo(logic.getSearchResultList());
         currentTab = SEARCH_TAB;
         move(currentButton, searchButton);
         currentButton = searchButton;
@@ -384,7 +378,6 @@ public class MainWindow extends UiPart<Stage> {
                 statistics.getMovieRecommendations(), statistics.getTvShowRecommendations());
         contentPanelPlaceholder.getChildren().clear();
         contentPanelPlaceholder.getChildren().add(statisticsPanel.getRoot());
-        logic.updateFilteredShowList(Model.PREDICATE_NO_SHOWS);
         currentTab = STATISTICS_TAB;
         move(currentButton, statisticsButton);
         currentButton = statisticsButton;

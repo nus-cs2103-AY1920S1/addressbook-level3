@@ -90,11 +90,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setFilteredShowsTo(ObservableList<Show> shows) {
-        model.setFilteredShowsTo(shows);
-    }
-
-    @Override
     public ObservableList<Show> getSearchResultList() {
         return model.getSearchResultList();
     }
