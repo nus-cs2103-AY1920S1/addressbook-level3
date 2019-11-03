@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 
 public class CalendarCommandParserTest {
 
@@ -65,14 +66,14 @@ public class CalendarCommandParserTest {
     public void parse_invalidOpenDisplayArgs_throwsParseException() {
         String invalidArgs = "abcde";
         CommandParserTestUtil.assertParseFailure(parser, "opendisplay " + invalidArgs,
-                ParserUtil.MESSAGE_INVALID_DATE_STRING);
+                InteractiveParserUtil.MESSAGE_INVALID_DATE_STRING);
     }
 
     @Test
     public void parse_invalidOpenDisplayDateArgs_throwsParseException() {
         String invalidDate = "29/02/2019";
         CommandParserTestUtil.assertParseFailure(parser, "opendisplay " + invalidDate,
-                String.format(ParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
+                String.format(InteractiveParserUtil.MESSAGE_INVALID_DATE_FORMAT, invalidDate));
     }
 
 }

@@ -3,6 +3,7 @@ package com.typee.logic.interactive.parser.state;
 import com.typee.logic.commands.Command;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.parser.exceptions.ParseException;
 
 public abstract class EndState extends State {
 
@@ -10,5 +11,5 @@ public abstract class EndState extends State {
         super(soFar);
     }
 
-    public abstract Command buildCommand();
+    public abstract Command buildCommand() throws ParseException;
 }

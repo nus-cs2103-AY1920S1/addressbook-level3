@@ -90,7 +90,7 @@ public class Parser implements InteractiveParser {
     }
 
     @Override
-    public Command makeCommand() {
+    public Command makeCommand() throws ParseException {
         assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
         EndState endState = (EndState) currentState;
         Command command = endState.buildCommand();
@@ -131,7 +131,7 @@ public class Parser implements InteractiveParser {
             argumentMultimap.clearValues(new Prefix(""));
         }
         try {
-            while (!argumentMultimap.isEmpty()) {
+            while (!argumentMultimap.isEmpty() && !currentState.isEndState()) {
                 currentState = currentState.transition(argumentMultimap);
             }
         } catch (EndStateException e) {

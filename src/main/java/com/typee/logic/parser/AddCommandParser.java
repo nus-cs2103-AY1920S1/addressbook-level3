@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
@@ -39,13 +40,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        EngagementType engagementType = ParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
-        LocalDateTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
-        LocalDateTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
-        AttendeeList attendees = ParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
-        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
-        String description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        EngagementType engagementType = InteractiveParserUtil.parseType(argMultimap.getValue(PREFIX_ENGAGEMENT_TYPE).get());
+        LocalDateTime startTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_START_TIME).get());
+        LocalDateTime endTime = InteractiveParserUtil.parseTime(argMultimap.getValue(PREFIX_END_TIME).get());
+        AttendeeList attendees = InteractiveParserUtil.parseAttendees(argMultimap.getValue(PREFIX_ATTENDEES).get());
+        Location location = InteractiveParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        String description = InteractiveParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        Priority priority = InteractiveParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
 
         return makeAddCommand(engagementType, startTime, endTime, attendees, location, description, priority);
     }

@@ -11,6 +11,6 @@ public interface InteractiveParser {
 
     boolean hasParsedCommand();
 
-    Command makeCommand();
+    Command makeCommand() throws ParseException;
 
 }

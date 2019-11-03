@@ -12,7 +12,8 @@ import com.typee.model.person.Person;
  */
 public class AttendeeList {
 
-    public static final String MESSAGE_CONSTRAINTS = "AttendeeList should be a list of persons.";
+    public static final String MESSAGE_CONSTRAINTS = "The List of attendees should be a list of persons separated"
+            + " by commas.";
 
     private final List<Person> attendees;
 
@@ -44,7 +45,7 @@ public class AttendeeList {
      * @param stringWithoutBrackets {@code String} representing a list of people.
      * @return true if all the names are valid.
      */
-    private static boolean validateNames(String stringWithoutBrackets) {
+    public static boolean validateNames(String stringWithoutBrackets) {
         return Arrays.stream(stringWithoutBrackets.split(","))
                 .map(person -> person.trim())
                 .allMatch(name -> Name.isValidName(name));

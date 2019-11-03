@@ -1,4 +1,4 @@
-package com.typee.logic.parser;
+package com.typee.logic.interactive.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,6 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ import com.typee.model.util.EngagementComparator;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
-public class ParserUtil {
+public class InteractiveParserUtil {
 
     public static final String MESSAGE_INVALID_DATE_STRING = "Please stick to the DD/MM/YYYY format.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "%s is not a valid date "
@@ -35,6 +36,7 @@ public class ParserUtil {
             + "in the DD/MM/YYYY/HHMM format.";
     public static final String MESSAGE_INVALID_DESCRIPTION = "The description cannot be empty.";
     public static final String MESSAGE_INVALID_ATTENDEES = "There can't be no attendees.";
+    private static final String FORMAT_DATE_TIME = "dd/MM/yyyy/HHmm";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -250,10 +252,30 @@ public class ParserUtil {
         }
         List<Person> attendeesList = Arrays.stream(attendees.split(","))
                 .map(name -> name.trim())
-                .map(name -> new Person(ParserUtil.parseNameDeterministic(name)))
+                .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
                 .filter(name -> name != null)
                 .collect(Collectors.toList());
         return new AttendeeList(attendeesList);
     }
 
+    public static boolean isValidDateTime(String dateTime) {
+        try {
+            makeDateTimeFromPattern(dateTime);
+            return true;
+        } catch (DateTimeException e) {
+            return false;
+        }
+    }
+
+    private static LocalDateTime makeDateTimeFromPattern(String dateTime) throws DateTimeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        return localDateTime;
+    }
+
+    public static boolean isValidTimeSlot(String startDate, String endDate) {
+        LocalDateTime start = makeDateTimeFromPattern(startDate);
+        LocalDateTime end = makeDateTimeFromPattern(endDate);
+        return start.isBefore(end);
+    }
 }

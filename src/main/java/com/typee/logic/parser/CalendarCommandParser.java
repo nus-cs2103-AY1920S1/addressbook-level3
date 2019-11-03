@@ -7,6 +7,7 @@ import com.typee.logic.commands.CalendarCommand;
 import com.typee.logic.commands.CalendarDateDisplayEngagementsCommand;
 import com.typee.logic.commands.CalendarNextMonthCommand;
 import com.typee.logic.commands.CalendarPreviousMonthCommand;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,7 +54,7 @@ public class CalendarCommandParser implements Parser<CalendarCommand> {
         if (individualArgs.length != 2) {
             throw new ParseException(CalendarDateDisplayEngagementsCommand.INVALID_COMMAND_FORMAT);
         }
-        LocalDate date = ParserUtil.parseDate(individualArgs[1]);
+        LocalDate date = InteractiveParserUtil.parseDate(individualArgs[1]);
         return new CalendarDateDisplayEngagementsCommand(date);
     }
 

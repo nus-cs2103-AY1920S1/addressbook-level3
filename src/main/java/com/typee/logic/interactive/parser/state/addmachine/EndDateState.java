@@ -6,11 +6,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import com.typee.logic.commands.Command;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParser;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
-import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.parser.Prefix;
