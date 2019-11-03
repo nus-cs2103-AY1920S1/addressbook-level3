@@ -36,9 +36,25 @@ public class UrgentShoppingCommand extends Command {
 
     public static final String MESSAGE_URGENT_SHOPPING_ITEM_FAILURE =
             "Shopping item cannot me marked as urgent since it is already completely bought.";
-    private static boolean isShoppingItemCompletelyBought(ShoppingItem shoppingItem, GroceryItem boughtItem) {
+
+    /**
+     * Indicates if a shopping item is bought in its entirety.
+     * @param shoppingItem to check if completely bought
+     * @param internalBoughtList boughtList
+     * @return true if shopping item completely bought, else false
+     */
+    private static boolean isShoppingItemCompletelyBought(ShoppingItem shoppingItem,
+                                                          ObservableList<GroceryItem> internalBoughtList) {
+        GroceryItem correspondingBoughtItem = new GroceryItem(new Name("dummy"), new Amount("3L"),
+                new ExpiryDate("08/03/2000"), new HashSet<>());
+        for (GroceryItem boughtItem : internalBoughtList) {
+            if (boughtItem.isSameName(shoppingItem)) {
+                correspondingBoughtItem = boughtItem;
+                break;
+            }
+        }
         Amount shoppingAmount = shoppingItem.getAmount();
-        Amount boughtAmount = boughtItem.getAmount();
+        Amount boughtAmount = correspondingBoughtItem.getAmount();
         if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
             shoppingAmount = boughtAmount.convertAmount(shoppingAmount);
         }
@@ -63,20 +79,7 @@ public class UrgentShoppingCommand extends Command {
         ShoppingItem shoppingItemToMarkAsUrgent = lastShownList.get(targetIndex.getZeroBased());
         ObservableList<GroceryItem> internalBoughtList = model.getBoughtList().getGroceryList();
         if (shoppingItemToMarkAsUrgent.isBought()) {
-            GroceryItem correspondingBoughtItem = new GroceryItem(new Name("dummy"), new Amount("3L"),
-                    new ExpiryDate("08/03/2000"), new HashSet<>());
-            for (GroceryItem boughtItem : internalBoughtList) {
-                if (boughtItem.isSameName(shoppingItemToMarkAsUrgent)) {
-                    correspondingBoughtItem = boughtItem;
-                    break;
-                }
-            }
-            Amount shoppingAmount = shoppingItemToMarkAsUrgent.getAmount();
-            Amount boughtAmount = correspondingBoughtItem.getAmount();
-            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
-                shoppingAmount = boughtAmount.convertAmount(shoppingAmount);
-            }
-            if (getValue(boughtAmount) >= getValue(shoppingAmount)) {
+            if (isShoppingItemCompletelyBought(shoppingItemToMarkAsUrgent, internalBoughtList)) {
                 CommandResult commandResult =
                         new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_FAILURE));
                 return commandResult;
