@@ -595,6 +595,21 @@ The generated list will be empty and not display anything if there is no event i
 
 //end::Schedule[]
 
+==== Display Schedule between two specific dates: `display_schedule_between`
+
+Allows you to see all the events between 2 specific dates!
+
+Format: `display_schedule_between start/dd/MM/yyyy end/dd/MM/yyyy`
+
+Examples:
+`display_schedule_between start/02/12/2019 end/31/12/2019`
+
+****
+* start/ represents the date in dd/MM/yyyy that the user wants to start the range to display from.
+* end/ represents the date in dd/MM/yyyy that the user wants to end the range to display from.
+* Note that specified start date must be before the specified end date, else an error will be displayed.
+****
+
 === Miscellaneous
 
 ==== Generate Statistics: `stats_g [coming in v2.0]`
