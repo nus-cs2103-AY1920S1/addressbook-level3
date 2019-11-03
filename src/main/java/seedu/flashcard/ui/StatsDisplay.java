@@ -11,8 +11,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.flashcard.commons.core.LogsCenter;
 import seedu.flashcard.model.Statistics;
