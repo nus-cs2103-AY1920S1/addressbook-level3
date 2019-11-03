@@ -3,6 +3,7 @@ package seedu.address.storage.catalog;
 import static seedu.address.commons.core.Messages.MESSAGE_LOAN_ID_DOES_NOT_EXISTS;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import seedu.address.model.book.Title;
 import seedu.address.model.genre.Genre;
 import seedu.address.model.loan.Loan;
 import seedu.address.model.loan.LoanId;
+import seedu.address.model.loan.LoanList;
 
 /**
  * Jackson-friendly version of {@link Book}.
@@ -34,6 +36,7 @@ public class JsonAdaptedBook {
     private final String author;
     private final String loan;
     private final List<JsonAdaptedGenre> genres = new ArrayList<>();
+    private final List<String> loanHistory = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBook} with the given person details.
@@ -43,7 +46,8 @@ public class JsonAdaptedBook {
                            @JsonProperty("serialNumber") String serialNumber,
                            @JsonProperty("author") String author,
                            @JsonProperty("loan") String loan,
-                           @JsonProperty("genres") List<JsonAdaptedGenre> genres) {
+                           @JsonProperty("genres") List<JsonAdaptedGenre> genres,
+                           @JsonProperty("loanHistory") List<String> loanHistory) {
         this.title = title;
         this.serialNumber = serialNumber;
         this.author = author;
@@ -51,6 +55,9 @@ public class JsonAdaptedBook {
             this.genres.addAll(genres);
         }
         this.loan = loan;
+        if (loanHistory != null) {
+            this.loanHistory.addAll(loanHistory);
+        }
     }
 
     /**
@@ -70,6 +77,16 @@ public class JsonAdaptedBook {
         genres.addAll(source.getGenres().stream()
                 .map(JsonAdaptedGenre::new)
                 .collect(Collectors.toList()));
+
+        if (source.getLoanHistory() != null) {
+            LoanList loanHistoryToBeRead = source.getLoanHistory();
+            for (Loan loan : loanHistoryToBeRead) {
+                LoanId id = loan.getLoanId();
+                String str = id.toString();
+                loanHistory.add(str);
+            }
+            //source.getLoanHistory().forEach(loan -> loanHistory.add(loan.getLoanId().toString()));
+        }
     }
 
     /**
@@ -130,7 +147,16 @@ public class JsonAdaptedBook {
         }
 
         final Set<Genre> modelGenres = new HashSet<>(personGenres);
-        return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres);
+
+        final LoanList modelLoanList= new LoanList();
+        final HashMap<LoanId, Loan> loansMap = initialLoanRecords.getLoansMap();
+        if (loanHistory != null) {
+            loanHistory.stream()
+                    .map(loanId -> loansMap.get(new LoanId(loanId)))
+                    .forEach(loan -> modelLoanList.add(loan));
+        }
+
+        return new Book(modelTitle, modelSerialNumber, modelAuthor, modelLoan, modelGenres, modelLoanList);
     }
 
 }

@@ -33,7 +33,7 @@ public class LoanSlipDocument {
 
     private static final int HEADER_FONT_SIZE = 32;
     private static final int MID_HEADER_FONT_SIZE = 28;
-    private static final int PARAGRAPH_FONT_SIZE = 20;
+    private static final int PARAGRAPH_FONT_SIZE = 15;
     private static final double SCALE_RATIO = 0.1;
 
     private static final String FONT = "/font/Lato-Black.ttf";

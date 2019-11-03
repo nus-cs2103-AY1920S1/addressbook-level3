@@ -24,6 +24,8 @@ public class InfoWindow extends UiPart<Stage> implements Initializable {
     private static final Logger logger = LogsCenter.getLogger(InfoWindow.class);
     private static final String FXML = "InfoWindow.fxml";
 
+    private static final String NULL_STRING = "";
+
     public Book book;
 
     @FXML
@@ -77,13 +79,26 @@ public class InfoWindow extends UiPart<Stage> implements Initializable {
      * Updates the info window with the book of choice.
      */
     public void updateData(Book book, String loanHistoryString) {
+        clearPreviousInfo();
         updateBook(book);
         loanHistory.setText(loanHistoryString);
     }
 
+    private void clearPreviousInfo() {
+        this.book = null;
+        id.setText(NULL_STRING);
+        title.setText(NULL_STRING);
+        serialNumber.setText(NULL_STRING);
+        author.setText(NULL_STRING);
+        genres.getChildren().clear();
+        loanStatus.setText(NULL_STRING);
+        dueDate.setText(NULL_STRING);
+        renewCount.setText(NULL_STRING);
+        loanHistory.setText(NULL_STRING);
+    }
+
     private void updateBook(Book book) {
         this.book = book;
-        id.setText("");
         title.setText(book.getTitle().value);
         serialNumber.setText(book.getSerialNumber().value);
         author.setText(book.getAuthor().value);

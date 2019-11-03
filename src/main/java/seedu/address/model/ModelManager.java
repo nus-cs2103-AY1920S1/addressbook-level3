@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -298,14 +299,24 @@ public class ModelManager implements Model {
     public String getLoanHistoryOfBookAsString(Book target) {
         ArrayList<Loan> loanStream = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        sb.append("Borrowed by:\n");
+        sb.append("Loan History:\n");
         target.getLoanHistory().forEach(loan -> loanStream.add(loan));
         loanStream.stream()
-                .map(loan -> loan.getBorrowerId())
-                .map(id -> getBorrowerFromId(id))
-                .map(borrower -> borrower.getName())
-                .forEach(name -> sb.append(name + "\n"));
+                .map(loan -> singleLoanHistoryString(
+                        loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))
+                .forEach(history -> sb.append(history + "\n"));
         return sb.toString();
+    }
+
+    private String singleLoanHistoryString(Loan loan, boolean isCurrent) {
+        String dateString = DateUtil.formatDate(loan.getStartDate());
+        String nameString = getBorrowerFromId(loan.getBorrowerId()).getName().toString();
+        String borrowerIdString = "[" + loan.getBorrowerId().toString() + "]";
+        if (isCurrent) {
+            return dateString + ": " + borrowerIdString + " " + nameString + " (Current loan)";
+        } else {
+            return dateString + ": " + borrowerIdString + " " + nameString;
+        }
     }
 
     /**

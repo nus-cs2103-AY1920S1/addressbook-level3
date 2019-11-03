@@ -72,7 +72,6 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             mode.setText(NORMAL_MODE);
         }
-        resultDisplayPlaceholder.setStyle("-fx-background-color: #2b2b2b#2b2b2b");
     }
 
     public Stage getPrimaryStage() {
@@ -163,6 +162,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        infoWindow.hide();
         primaryStage.hide();
     }
 
