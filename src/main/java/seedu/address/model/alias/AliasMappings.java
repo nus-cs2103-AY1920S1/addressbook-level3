@@ -165,16 +165,16 @@ public class AliasMappings implements Serializable {
         for (Map.Entry<String, Alias> entry : aliasNameToAliasMap.entrySet()) {
             Alias a = entry.getValue();
             String aliasName = entry.getKey();
+            // valid alias
             try {
                 ParserUtil.parseAlias(a.getAliasName(), a.getInput());
             } catch (ParseException e) {
                 throw new IllegalValueException(INVALID_ALIAS);
             }
-
+            // non null key
             if (aliasName == null) {
                 throw new IllegalValueException(NULL_VALUE);
             }
-
             // alias' key is not alias name
             if (!aliasName.equals(a.getAliasName())) {
                 throw new IllegalValueException(NON_MATCHING_KEY);

@@ -1,11 +1,14 @@
 package seedu.address.logic.commands.alias;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.alias.AddAliasCommand.MESSAGE_RECURSIVE_WARNING;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_B_TO_C;
+import static seedu.address.testutil.AliasTestUtil.ALIAS_C_TO_A;
 import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
@@ -54,7 +57,16 @@ public class AddAliasCommandTest {
         assertThrows(CommandException.class, () -> command.run(model));
     }
 
-    // removed test, alias mapping to alias creation does not result in unwanted behaviour
+    @Test
+    public void run_aliasIsRecursive_throwsRecursiveAliasException() {
+        AddAliasCommand allowedAliasCommand1 = new AddAliasCommand(ALIAS_A_TO_B);
+        AddAliasCommand allowedAliasCommand2 = new AddAliasCommand(ALIAS_B_TO_C);
+        AddAliasCommand disallowedAliasCommand = new AddAliasCommand(ALIAS_C_TO_A);
+        assertDoesNotThrow(() -> allowedAliasCommand1.run(model));
+        assertDoesNotThrow(() -> allowedAliasCommand2.run(model));
+        String message = new CommandException(MESSAGE_RECURSIVE_WARNING).getMessage();
+        assertThrows(CommandException.class, () -> disallowedAliasCommand.run(model), message);
+    }
 
     @Test
     public void run_aliasCommandIsValid_success() {
