@@ -68,7 +68,7 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
-        boolean dataBaseIsCorrupt = false;
+        boolean dataBaseIsCorrupt = true;
         ReadOnlyAddressBook initialStaffAddressData = null;
         ReadOnlyAddressBook initialPatientAddressData = null;
         ReadOnlyAppointmentBook initialAppointmentData = null;
@@ -81,33 +81,28 @@ public class MainApp extends Application {
             Optional<ReadOnlyAppointmentBook> staffDutyRosterBookOptional = storage.readStaffDutyRosterBook();
 
             if (!staffAddressBookOptional.isPresent()) {
-                dataBaseIsCorrupt = true;
                 logger.info("Staff Data file not found.");
 
             } else if (!patientAddressBookOptional.isPresent()) {
-                dataBaseIsCorrupt = true;
-                logger.info("patient Data file not found.");
+                logger.info("Patient Data file not found.");
 
             } else if (!appointmentBookOptional.isPresent()) {
-                dataBaseIsCorrupt = true;
-                logger.info("appointment Data file not found.");
+                logger.info("Appointment Data file not found.");
 
             } else if (!staffDutyRosterBookOptional.isPresent()) {
-                dataBaseIsCorrupt = true;
-                logger.info("shift Data file not found.");
+                logger.info("Shift Data file not found.");
 
             } else {
                 initialStaffAddressData = staffAddressBookOptional.get();
                 initialPatientAddressData = patientAddressBookOptional.get();
                 initialAppointmentData = appointmentBookOptional.get();
                 initialDutyRosterData = staffDutyRosterBookOptional.get();
+                dataBaseIsCorrupt = false;
             }
 
         } catch (DataConversionException e) {
-            dataBaseIsCorrupt = true;
             logger.warning("Data file(s) not in the correct format.");
         } catch (IOException e) {
-            dataBaseIsCorrupt = true;
             logger.warning("Problem while reading from the file.");
         }
 
@@ -121,8 +116,8 @@ public class MainApp extends Application {
             initialDutyRosterData = SampleAppointmentDataUtil.getSampleDutyRosterBook();
         }
 
-        assert initialPatientAddressData != null;
         assert initialStaffAddressData != null;
+        assert initialPatientAddressData != null;
         assert initialAppointmentData != null;
         assert initialDutyRosterData != null;
 
