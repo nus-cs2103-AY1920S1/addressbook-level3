@@ -30,7 +30,7 @@ public class JsonAdaptedLedgerOperations {
                                        @JsonProperty("amount") String amount,
                                        @JsonProperty("description") String description,
                                        @JsonProperty("people") List<JsonAdaptedPerson> people,
-                                       @JsonProperty("people") List<String> shares) {
+                                       @JsonProperty("shares") List<String> shares) {
         this.date = date;
         this.amount = amount;
         this.description = description;
@@ -47,9 +47,9 @@ public class JsonAdaptedLedgerOperations {
         amount = source.getAmount().toString();
         description = source.getDescription().toString();
         people.addAll(source.getPeopleInvolved().asUnmodifiableObservableList()
-                .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+            .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         shares.addAll(source.getShares().orElse(new ArrayList<>()).stream()
-                .map(i -> i.toString()).collect(Collectors.toList()));
+            .map(i -> i.toString()).collect(Collectors.toList()));
     }
 
     /**
@@ -111,8 +111,8 @@ public class JsonAdaptedLedgerOperations {
 
         if (peopleInvolved.size() == 1) {
             return modelAmount.isNegative() ?
-                    new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
-                    : new LendMoney(people.get(0).toModelType(), modelAmount.makeNegative(), modelDate, modelDescription);
+                new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
+                : new LendMoney(people.get(0).toModelType(), modelAmount.makeNegative(), modelDate, modelDescription);
         } else {
             return new Split(modelAmount, modelDate, modelDescription, modelShares, peopleInvolved);
         }
