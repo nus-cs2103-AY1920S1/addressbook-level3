@@ -81,7 +81,7 @@ public class Budget {
      * @return
      */
     public Budget updateBudget(Amount amount) {
-        Amount newBudget = this.amount.subtractAmount(amount);
+        Amount newBudget = this.amount.addAmount(amount);
         this.amount = newBudget;
         return this;
     }
