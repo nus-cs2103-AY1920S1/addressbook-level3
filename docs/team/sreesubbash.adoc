@@ -1,14 +1,22 @@
 = Sree Subbash - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:stylesDir: ../stylesheets
+:stylesDir: ../stylesheets/sreesubbash
+:stylesheet: subbash.css
 
 == PROJECT: Dukemon
 ---
 
 == Overview
 
+
 Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+While it was targeted at regular CLI users, after preliminary user tests among the target audience, we noted that even experienced users require documentation to get familiar with commands. Also, they found it inconvenient to refer to the User Guide too often. 
+
+It was our priority to improve their learning experience. So I took initiative to go the extra mile to improve their command line experience. 
+
+Under the hood, it required major restructuring of input processing. In that process, I took care that code was well abstracted for co-developers and future developers. 
 
 == Summary of contributions
 
@@ -25,8 +33,13 @@ Dukemon is a desktop flashcard application used to reinforce memory techniques. 
 *** Coordinated devlopment and master branch workflow for rapid prototyping in early weeks.
 *** Suggested username-number-reason branching workflow period closer to deployment for stability and accountability in changes without too much restriction.
 *** Managed product release https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/[v1.3.5] on GitHub
+
+*** Actively participated in weekly team meetings that focused on restructuring of code base and to get everyone on the same page.
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+
 
 == Contributions to the User Guide
 
@@ -52,6 +65,7 @@ include::../UserGuide.adoc[tag=quickstartsubbash]
 include::../DeveloperGuide.adoc[tag=subbashdg2]
 
 include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
+
 
 
 == Other Projects
