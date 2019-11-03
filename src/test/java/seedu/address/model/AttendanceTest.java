@@ -6,10 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.testutil.TypicalAthletickDates.FIRST_DATE;
-import static seedu.address.testutil.TypicalAthletickDates.FOURTH_DATE;
 import static seedu.address.testutil.TypicalAthletickDates.SECOND_DATE;
 import static seedu.address.testutil.TypicalAthletickDates.THIRD_DATE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
@@ -24,6 +28,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 class AttendanceTest {
@@ -136,15 +141,18 @@ class AttendanceTest {
     }
 
     @Test
-    void getTrainingOnDate() {
+    void getTrainingAttendanceListOnDate() {
         Attendance attendance = new Attendance();
         attendance.addTraining(FIRST_TRAINING);
-        attendance.addTraining(SECOND_TRAINING);
-        attendance.addTraining(THIRD_TRAINING);
-        attendance.addTraining(FOURTH_TRAINING);
-        assertEquals(attendance.getTrainingOnDate(FIRST_DATE), FIRST_TRAINING);
-        assertEquals(attendance.getTrainingOnDate(SECOND_DATE), SECOND_TRAINING);
-        assertEquals(attendance.getTrainingOnDate(THIRD_DATE), THIRD_TRAINING);
-        assertEquals(attendance.getTrainingOnDate(FOURTH_DATE), FOURTH_TRAINING);
+        List<AttendanceEntry> firstAttendanceEntries = attendance.getTrainingAttendanceListOnDate(FIRST_DATE);
+        List<AttendanceEntry> attendanceEntries = new ArrayList<>();
+        attendanceEntries.add(new AttendanceEntry(ALICE, true));
+        attendanceEntries.add(new AttendanceEntry(BENSON, true));
+        attendanceEntries.add(new AttendanceEntry(CARL, false));
+        attendanceEntries.add(new AttendanceEntry(DANIEL, false));
+        attendanceEntries.add(new AttendanceEntry(ELLE, true));
+        attendanceEntries.add(new AttendanceEntry(FIONA, false));
+        attendanceEntries.add(new AttendanceEntry(GEORGE, false));
+        assertTrue(firstAttendanceEntries.containsAll(attendanceEntries));
     }
 }

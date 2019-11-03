@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.date.AthletickDate;
@@ -114,26 +113,6 @@ public class Attendance {
             double result = ((double) attended / total);
             return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
         }
-    }
-
-    public Training getTrainingOnDate(AthletickDate date) {
-        assert (this.hasTraining(date));
-        for (Training training : trainings) {
-            if (date.equals(training.getDate())) {
-                return training;
-            }
-        }
-        return null; // With assertion, code should not reach here.
-    }
-
-    public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
-        assert (this.hasTraining(date));
-        for (Training training : trainings) {
-            if (date.equals(training.getDate())) {
-                return training.getTrainingAttendance();
-            }
-        }
-        return null; // With assertion, code should not reach here.
     }
 
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {

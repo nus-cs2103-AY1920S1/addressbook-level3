@@ -22,4 +22,16 @@ public class AttendanceEntry {
     public Boolean getIsPresent() {
         return isPresent;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other instanceof AttendanceEntry) {
+            AttendanceEntry casted = (AttendanceEntry) other;
+            return this.person.equals(casted.getPerson()) && this.isPresent.equals(casted.getIsPresent());
+        }
+        return false;
+    }
 }
