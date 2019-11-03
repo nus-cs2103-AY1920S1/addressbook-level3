@@ -287,6 +287,8 @@ extension. We currently support exporting to JSON (.json) and document (.docx) f
 
 NOTE: Only the questions and answers of FlashCards will be exported. 
 
+WARNING: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following: TODO //TODO
+
 TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
 self-learning.
 
