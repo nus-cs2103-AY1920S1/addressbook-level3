@@ -1,0 +1,239 @@
+= Neo Weihong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
+and it has a GUI created with JavaFx. It is written in Java and has about 24 kLOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for the application to provide a personalised user experience for the
+user through a user biography and achievements.*
+** What it does: Allows the user to view, add, edit and clear his / her biography of important personal information, as well as attain different levels of achievements upon meeting predefined requirements.
+** Justification: These features improve the product significantly because a user would want to add a user profile with useful information especially in times of emergency and acquire a sense of achievement at different milestones.
+** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography as well as achievement could be easily defined in further developments. Implementation of the `Achievements` sub-feature in
+particular was challenging as it required careful interaction with other features such as the `average` feature and
+`record` instances, and maintaining balance between abstraction and minimising coupling.
+
+* *Minor enhancements*:
+** Added the ability for users to change font and background to any hexadecimal-value colour or image for background,
+with support to set predefined background image sizes and repeat patterns.
+** Added over 600+ motivational quotes to be selected at random and shown to the user for each session of the
+running of the program.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=whneo97[View RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Refined release of `v1.3.2` and `v1.3.3` on GitHub.
+** Enhancements to existing features:
+*** Abstracted code in MainApp to reduce code redundancies.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/88/commits/07279dd4494f1cd3916b4ee083de1b6fca2d1d1a[#88])
+*** Modified user feedback display to wrap text and scroll vertically for increased ease of viewing feedback.
+(Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/71[#71],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/151[#151])
+** Documentation:
+*** Updated `Contact Us` page and User Stories in `Developer Guide`. (Pull requests
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/16[#16], https://github.com/AY1920S1-CS2103-T16-1/main/pull/17[#17])
+*** Updated `Readme` and application screenshots. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163])
+** Community:
+*** Implemented seamless switching of panes from one feature to another with caching abilities for optimised performance
+through a helper class with `Supplier` methods for other features' use as well.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/62[#62])
+*** Implemented `StyleSheetManager` to add universal aesthetic support for all features. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/94[#94])
+
+== Contributions to the User Guide
+|===
+|_Given below are *samples* of sections I contributed to the User Guide. They showcase my ability to write documentation
+targeting end-users. The full section of personalised features in the user guide may be accessed
+https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#personalised-user-experience[here]._
+|===
+
+//Achievements
+include::../UserGuide.adoc[tag=personalisedUserExperienceAchvmPppPart1]
+
+...
+
+//Bio
+include::../UserGuide.adoc[tag=personalisedUserExperienceBioPppPart1]
+
+...
+
+//AddBio
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart1]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart2]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart4]
+
+//EditBio
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart1]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart2]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart3]
+
+
+//ClearBio
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceClearBioPppPart1]
+
+//FontColour
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart1]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart2]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart3]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart6]
+
+...
+
+//Background
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart1]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart2]
+
+...
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart4]
+
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart5]
+
+...
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are *samples* of sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project. The full section of personalised features in
+the developer guide may be accessed https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#personalised-user-experience-feature[here]
+while that for user stories may be accessed https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#user-stories[here]._
+|===
+
+//Title
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgPppPart0]
+
+//Overview
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgOverviewPppPart1]
+
+...
+
+//Bio
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart1]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart2]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart3]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart4]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart5]
+
+...
+
+//Aesthetics
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart1]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart2]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart3]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart4]
+
+...
+
+//Achievement
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart1]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart2]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart3]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart4]
+
+...
+
+//Motivation
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgMotivationPppPart1]
+
+...
+
+//Design Considerations
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart1]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart2]
+
+...
+
+//Future Developments
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart1]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart2]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart3]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart4]
+
+...
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart5]
+
+...
+
+//UserStories
+include::../DeveloperGuide.adoc[tag=userStoriesSample0]
+include::../DeveloperGuide.adoc[tag=userStoriesSample1]
+include::../DeveloperGuide.adoc[tag=userStoriesSample2]
+|=======================================================================
+
+...
