@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 
 class AssociableWordTest {
     private AssociableWord testAssociableWord =
-            new CommandWord("abc", "hello", false, false);
+            new CommandWord("abc", "hello",
+                    "this commmand word is for testing", false, false);
 
     @Test
     public void getAssociatedWordList() {

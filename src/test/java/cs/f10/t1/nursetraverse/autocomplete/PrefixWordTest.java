@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 class PrefixWordTest {
 
     private PrefixWord testPrefixWord = new PrefixWord(
-            "test1", "test2", "test3");
+            "test1", "test2", "test3", "test description 1");
 
     @Test
     public void getSuggestedWord() {
@@ -24,5 +24,11 @@ class PrefixWordTest {
     @Test
     public void getConnectorChar() {
         assertEquals(" ", testPrefixWord.getConnectorChar());
+    }
+
+
+    @Test
+    public void getDescription() {
+        assertEquals("test description 1", testPrefixWord.getDescription());
     }
 }
