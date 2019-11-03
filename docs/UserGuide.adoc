@@ -60,12 +60,16 @@ Format: `help`
 === Change tab : `tab`
 
 Change tab to any of the available ones. +
-Format: `tab TAB_DESTINATION`
+Format: `change_tab tab/DESTINATION`
 
-Examples:
+Examples (All available destinations listed):
 
-* `tab calendar`
-* `tab student profile`
+* `change_tab tab/earnings`
+* `change_tab tab/calendar`
+* `change_tab tab/student_profile`
+* `change_tab tab/reminders`
+* `change_tab tab/notepad`
+* `change_tab tab/task`
 
 === Calender
 
