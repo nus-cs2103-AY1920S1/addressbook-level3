@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.gui.OpenTabCommand;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.GuiState;
@@ -139,8 +140,8 @@ class OpenTabCommandTest {
             guiState = new GuiState();
             TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId());
             TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId());
-            guiState.getTabManager().addDetailsTabData(tabData1);
-            guiState.getTabManager().addDetailsTabData(tabData2);
+            guiState.getTabManager().openDetailsTab(tabData1);
+            guiState.getTabManager().openDetailsTab(tabData2);
             Problem[] problems = SampleDataUtil.getSampleProblems();
             internalList = FXCollections.observableList(Arrays.asList(problems));
         }

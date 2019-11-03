@@ -24,7 +24,7 @@ public class ListPlanCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPlanList(PREDICATE_SHOW_ALL_PLANS);
-        model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.PLAN.getDisplayTabPaneIndex());
+        model.getGuiState().getTabManager().switchDisplayTab(ModelType.PLAN.getDisplayTabPaneIndex());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

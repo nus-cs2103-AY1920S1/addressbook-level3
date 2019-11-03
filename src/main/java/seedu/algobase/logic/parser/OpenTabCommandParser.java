@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_TYPE;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.OpenTabCommand;
+import seedu.algobase.logic.commands.gui.OpenTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
 

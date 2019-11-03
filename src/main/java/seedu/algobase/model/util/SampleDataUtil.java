@@ -311,7 +311,7 @@ public class SampleDataUtil {
 
         sampleAb.getGuiState()
             .getTabManager()
-            .addDetailsTabData(
+            .openDetailsTab(
                 new TabData(ModelType.PROBLEM, sampleAb.getProblemList().get(0).getId())
             );
 

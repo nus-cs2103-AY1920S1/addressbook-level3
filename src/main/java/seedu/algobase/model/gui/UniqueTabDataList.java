@@ -3,6 +3,7 @@ package seedu.algobase.model.gui;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -112,6 +113,15 @@ public class UniqueTabDataList implements Iterable<TabData> {
         }
 
         internalList.set(index, editedTabData);
+    }
+
+    /**
+     * Refreshes the {@code UniqueTabDataList}
+     */
+    public void refresh() {
+        List<TabData> temp = new ArrayList<>(internalList);
+        internalList.clear();
+        internalList.setAll(temp);
     }
 
     public void setTabsData(UniqueTabDataList replacement) {

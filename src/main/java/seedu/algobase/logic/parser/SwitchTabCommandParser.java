@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_TYPE;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.SwitchTabCommand;
+import seedu.algobase.logic.commands.gui.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.gui.TabType;
 

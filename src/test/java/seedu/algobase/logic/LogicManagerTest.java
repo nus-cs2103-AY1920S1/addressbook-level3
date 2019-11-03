@@ -87,7 +87,7 @@ public class LogicManagerTest {
         Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addProblem(expectedProblem);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 

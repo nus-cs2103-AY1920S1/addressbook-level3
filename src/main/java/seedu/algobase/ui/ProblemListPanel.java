@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
+import seedu.algobase.storage.SaveStorageRunnable;
 
 /**
  * Panel containing the list of problems.
@@ -19,15 +20,21 @@ public class ProblemListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ProblemListPanel.class);
 
     private final WriteOnlyTabManager writeOnlyTabManager;
+    private final SaveStorageRunnable saveStorageRunnable;
 
     @FXML
     private ListView<Problem> problemListView;
 
-    public ProblemListPanel(ObservableList<Problem> problemList, WriteOnlyTabManager writeOnlyTabManager) {
+    public ProblemListPanel(
+        ObservableList<Problem> problemList,
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         super(FXML);
         problemListView.setItems(problemList);
         problemListView.setCellFactory(listView -> new ProblemListViewCell());
         this.writeOnlyTabManager = writeOnlyTabManager;
+        this.saveStorageRunnable = saveStorageRunnable;
     }
 
     /**
@@ -42,7 +49,12 @@ public class ProblemListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ProblemCard(problem, getIndex() + 1, writeOnlyTabManager).getRoot());
+                setGraphic(new ProblemCard(
+                    problem,
+                    getIndex() + 1,
+                    writeOnlyTabManager,
+                    saveStorageRunnable
+                ).getRoot());
             }
         }
     }

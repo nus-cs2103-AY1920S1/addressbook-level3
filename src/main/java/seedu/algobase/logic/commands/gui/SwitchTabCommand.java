@@ -1,4 +1,4 @@
-package seedu.algobase.logic.commands;
+package seedu.algobase.logic.commands.gui;
 
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_INDEX;
@@ -6,9 +6,12 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_TYPE;
 
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.CommandHistory;
+import seedu.algobase.logic.commands.Command;
+import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.gui.TabType;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
 
 /**
  * Switch tabs in the GUI.
@@ -43,14 +46,15 @@ public class SwitchTabCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
+            WriteOnlyTabManager tabManager = model.getGuiState().getTabManager();
             switch (tabType) {
             case DISPLAY:
-                model.getGuiState().getTabManager().setDisplayTabPaneIndex(index);
+                tabManager.switchDisplayTab(index);
                 return new CommandResult(
                     String.format(MESSAGE_SUCCESS, tabType.DISPLAY.getName(), index.getOneBased())
                 );
             case DETAILS:
-                model.getGuiState().getTabManager().setDetailsTabPaneIndex(index);
+                tabManager.switchDetailsTab(index);
                 return new CommandResult(
                     String.format(MESSAGE_SUCCESS, tabType.DETAILS.getName(), index.getOneBased())
                 );

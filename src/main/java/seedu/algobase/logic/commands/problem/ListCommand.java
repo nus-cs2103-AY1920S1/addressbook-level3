@@ -25,7 +25,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredProblemList(PREDICATE_SHOW_ALL_PROBLEMS);
-        model.getGuiState().getTabManager().setDisplayTabPaneIndex(ModelType.PROBLEM.getDisplayTabPaneIndex());
+        model.getGuiState().getTabManager().switchDisplayTab(ModelType.PROBLEM.getDisplayTabPaneIndex());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

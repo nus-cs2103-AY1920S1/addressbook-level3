@@ -16,6 +16,7 @@ import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
+import seedu.algobase.storage.SaveStorageRunnable;
 
 /**
  * API of the Logic component
@@ -29,6 +30,13 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
+
+    /**
+     * Returns a runnable that saves the AlgoBase.
+     *
+     * @see seedu.algobase.model.Model#getAlgoBase()
+     */
+    SaveStorageRunnable getSaveAlgoBaseStorageRunnable();
 
     /**
      * Returns the AlgoBase.
