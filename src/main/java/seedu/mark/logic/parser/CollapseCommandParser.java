@@ -19,7 +19,7 @@ public class CollapseCommandParser implements Parser<CollapseCommand> {
                 return new CollapseCommand(1);
             }
             if (!StringUtil.isNonZeroUnsignedInteger(trimmedArgs)) {
-                throw new ParseException("LEVELS is not a non-zero unsigned integer.");
+                throw new ParseException("LEVEL is not a non-zero unsigned integer.");
             }
             int levels = Integer.parseInt(trimmedArgs);
             return new CollapseCommand(levels);

@@ -20,7 +20,7 @@ public class ExpandCommand extends Command {
             + "Parameters: [LEVEL] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT = "Expanding folders by %1$d level(s)";
+    public static final String MESSAGE_EXPAND_FOLDER_ACKNOWLEDGEMENT = "Expanding folders by %1$d level(s)";
 
     private final int levelsToExpand;
 
@@ -33,7 +33,7 @@ public class ExpandCommand extends Command {
         requireAllNonNull(model, storage);
 
         return new ExpandCommandResult(
-                String.format(MESSAGE_GOTO_BOOKMARK_ACKNOWLEDGEMENT, levelsToExpand), levelsToExpand);
+                String.format(MESSAGE_EXPAND_FOLDER_ACKNOWLEDGEMENT, levelsToExpand), levelsToExpand);
     }
 
     @Override

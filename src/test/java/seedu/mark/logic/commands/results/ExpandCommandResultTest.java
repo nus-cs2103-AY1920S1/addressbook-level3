@@ -11,8 +11,8 @@ public class ExpandCommandResultTest {
     @Test
     public void isExpand() {
         int levelsToExpand = 1;
-        ExpandCommandResult result =
-                new ExpandCommandResult("feedback", levelsToExpand);
+        ExpandCommandResult result = new ExpandCommandResult("feedback", levelsToExpand);
+
         assertEquals(result.getLevelsToExpand(), levelsToExpand);
         assertFalse(result.isExit());
         assertFalse(result.isShowHelp());

@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.TabCommand;
 
-public class TabCommandResultTest {
+public class OfflineCommandResultTest {
 
     @Test
     public void getTab() {
-        TabCommandResult commandResult = new TabCommandResult("feedback", TabCommand.Tab.DASHBOARD);
+        OfflineCommandResult commandResult = new OfflineCommandResult("feedback");
 
-        assertEquals(TabCommand.Tab.DASHBOARD, commandResult.getTab());
+        assertEquals(TabCommand.Tab.OFFLINE, commandResult.getTab());
         assertFalse(commandResult.isShowHelp());
         assertFalse(commandResult.isExit());
         assertEquals(commandResult.getLevelsToExpand(), 0);

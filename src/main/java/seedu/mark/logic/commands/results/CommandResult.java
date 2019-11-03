@@ -56,7 +56,8 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && isShowHelp() == otherCommandResult.isShowHelp()
                 && isExit() == otherCommandResult.isExit()
-                && getTab() == otherCommandResult.getTab();
+                && getTab() == otherCommandResult.getTab()
+                && getLevelsToExpand() == otherCommandResult.getLevelsToExpand();
     }
 
     @Override
@@ -64,7 +65,8 @@ public class CommandResult {
         return Objects.hash(feedbackToUser,
                 isShowHelp(),
                 isExit(),
-                getTab());
+                getTab(),
+                getLevelsToExpand());
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.mark.logic.commands.results;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,5 +16,6 @@ public class HelpCommandResultTest {
         assertTrue(commandResult.isShowHelp());
         assertFalse(commandResult.isExit());
         assertNull(commandResult.getTab());
+        assertEquals(commandResult.getLevelsToExpand(), 0);
     }
 }

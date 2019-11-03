@@ -564,21 +564,21 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Our target user*:
+The following characteristics describe our *target user*:
 
-* needs to manage a significant number of bookmarks
-* needs to make notes on webpage content quite frequently
-* needs reminders to submit forms or visit websites
-* prefers desktop apps over other types
-* types fast and prefers typing over mouse input
-* likes using CLI apps
+* Needs to manage a significant number of bookmarks
+* Needs to make notes on webpage content quite frequently
+* Needs reminders to submit forms or visit websites
+* Prefers desktop apps over other types
+* Types quickly and prefers typing over mouse input
 
-*Our value proposition*:
+This is our *value proposition* – how Mark can streamline current
+web browsing-related activities:
 
-* manage bookmarks faster than a typical mouse/ GUI driven app
-* access and annotate webpage content without an Internet connection
-* set reminders to visit websites at specific times
-* minimize the need to manually categorize bookmarks
+* Manage bookmarks faster than a typical mouse/ GUI driven app
+* Allow webpage content to be accessed and annotated without an Internet connection
+* Remind users about websites they need to visit at specific times
+* Eliminate the need for manual categorizing of bookmarks
 
 
 [appendix]
@@ -637,6 +637,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |export and import all the bookmark data |easily migrate to another computer
 
+|`* *` |user |export and import bookmarks |share bookmarks with my friends
+
 |`* *` |user |favorite a bookmark |access it more easily in future
 
 |`* *` |user |mark a bookmark as 'read later' |know which bookmarks I have not read yet
@@ -646,14 +648,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |automatically clean up old or outdated bookmarks |keep my bookmark list up to date without having to look through it regularly
 
 |`* *` |user |sort the bookmarks according to name |locate a specific bookmark
-|=======================================================================
 
-_{More to be added}_
+|`*` |user |export and import autotags |share my custom-made autotags with friends
+|=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Mark` and the *Actor* is the `user`, unless otherwise specified.)
 
 [[UC01]]
 [discrete]
@@ -661,50 +663,57 @@ _{More to be added}_
 
 *MSS*
 
-1.  User requests to list bookmarks
-2.  Mark shows a list of bookmarks
+1.  User requests to list bookmarks.
+2.  Mark shows a list of bookmarks.
 +
 Use case ends.
 
 [[UC02]]
 [discrete]
-=== Use case: UC02 - Add bookmark
+=== Use case: UC02 - Add a bookmark
 
 *MSS*
 
-1.  User requests to add a bookmark
-2.  User provides all the details of the bookmark to add
-3.  Mark deletes the bookmark
+1.  User requests to add a bookmark.
+2.  User provides all the details of the bookmark to be added.
+3.  Mark deletes the bookmark.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The given URL is invalid.
+* 2a. Not all compulsory fields are provided.
 +
 [none]
 ** 2a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
+[none]
+* 2b. The given URL is invalid.
++
+[none]
+** 2b1. Mark shows an error message.
++
+Use case resumes at step 2.
+
 [[UC03]]
 [discrete]
-=== Use case: UC03 - Delete bookmark
+=== Use case: UC03 - Delete a bookmark
 
 *MSS*
 
-1.  User requests to list bookmarks
-2.  Mark shows a list of bookmarks
-3.  User requests to delete a specific bookmark in the list
-4.  Mark deletes the bookmark
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to delete a specific bookmark in the list.
+3.  Mark deletes the bookmark.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The list is empty.
 +
 Use case ends.
 
@@ -721,24 +730,27 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list bookmarks
-2.  Mark shows a list of bookmarks
-3.  User requests to edit a specific bookmark in the list
-4.  Mark edits the bookmark
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to edit a specific bookmark in the list.
+3.  Mark edits the bookmark.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. Mark shows an error message.
+** 2a1. Mark shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 2b. No fields to edit are provided.
++
+[none]
+** 2b1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
@@ -748,24 +760,23 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list bookmarks
-2.  Mark shows a list of bookmarks
-3.  User requests to open a specific bookmark in the list
-4.  Mark opens the bookmark
+1.  User <<UC01, lists bookmarks (UC01)>>.
+2.  User requests to open a specific bookmark in the list.
+3.  Mark opens the bookmark.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. Mark shows an error message.
+** 2a1. Mark shows an error message.
 +
 Use case resumes at step 2.
 
@@ -775,10 +786,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list bookmarks.
-2.  Mark shows a list of bookmarks.
-3.  User requests to export all the bookmarks in this list.
-4.  Mark creates a file containing the bookmarks on the hard disk.
+1.  User <<UC01, [.underline]#lists bookmarks (UC01)#>>.
+2.  User requests to export all the bookmarks in this list.
+3.  Mark creates a file containing the bookmarks on the hard disk.
 +
 Use case ends.
 
@@ -789,7 +799,10 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. User specifies a file name to be written to.
+* 3a. User does not specify a file name to be written to.
++
+[none]
+** 3a1. Mark shows an error message.
 +
 Use case resumes at step 4.
 
@@ -827,7 +840,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to make a bookmark available offline
+1.  User requests to make a bookmark available offline.
 2.  Mark downloads the bookmark and converts it with Readability.
 +
 Use case ends.
@@ -835,7 +848,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. The bookmark's url is not available
+* 2a. The bookmark's URL is not available.
 +
 Mark shows an error message.
 +
@@ -854,9 +867,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to undo the previous undoable command
+1. User requests to undo the previous undoable command.
 2. Marks restores the list to the state before the previous
-undoable command was executed
+undoable command was executed.
 +
 Use case ends.
 
@@ -875,8 +888,8 @@ Use case ends.
 
 *MSS*
 
-1. User requests to redo the previously undone command
-2. Marks reverses the most recent ‘undo’ command
+1. User requests to redo the previously undone command.
+2. Marks reverses the most recent ‘undo’ command.
 +
 Use case ends.
 
@@ -905,7 +918,7 @@ Use case ends.
 [none]
 * 1a. Mark does not have internet access.
 [none]
-** 1a1. Mark tells user that there is no internet access and suggests that user sees cache.
+** 1a1. Mark tells user that there is no internet access and suggests that user view offline copies instead.
 +
 Use case ends.
 
@@ -966,36 +979,35 @@ Use case resumes from step 4.
 
 *MSS*
 
-1. User requests to list bookmarks.
-2. Mark shows a list of bookmarks.
-3. User requests to add a reminder for a specific bookmark in the list.
-4. Mark shows the new reminder in the reminder list.
+1. User <<UC01, lists bookmarks (UC01)>>.
+2. User requests to add a reminder for a specific bookmark in the list.
+3. Mark shows the new reminder in the reminder list.
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 2a. The list is empty.
+* 1a. The list is empty.
 +
 Use case ends.
 [none]
-* 3a. Mark detects invalid index.
+* 2a. Mark detects invalid index.
 [none]
-** 3a1. Mark shows an error message.
+** 2a1. Mark shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 [none]
-* 3b. Mark detects the specified bookmark already has a reminder.
+* 2b. Mark detects the specified bookmark already has a reminder.
 [none]
-** 3b1. Mark shows an error message.
+** 2b1. Mark shows an error message.
 +
-Use case resumes from step 2.
+Use case resumes from step 1.
 [none]
-* 3c. Mark detects the time format is wrong.
+* 2c. Mark detects the time format is wrong.
 [none]
-** 3c1. Mark shows an error message.
+** 2c1. Mark shows an error message.
 +
-Use case resumes from step 2.
+Use case resumes from step 1.
 
 [[UC15]]
 [discrete]
@@ -1057,7 +1069,7 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. Mark shows a list of bookmarks.
+1. User <<UC01, lists bookmarks (UC01)>>.
 2. User requests to sort the list in the specified criterion.
 3. Mark shows the sorted bookmark list.
 +
@@ -1075,9 +1087,6 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-_{More to be added}_
-
-
 [appendix]
 == Non Functional Requirements
 
@@ -1086,8 +1095,6 @@ _{More to be added}_
 .  The product's major features should not depend on Internet access.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The project is expected to adhere to a schedule that delivers features in increments every two weeks.
-
-_{More to be added}_
 
 [appendix]
 == Glossary

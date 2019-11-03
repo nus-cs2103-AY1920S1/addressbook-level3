@@ -44,6 +44,9 @@ public class CommandResultTest {
 
         // different getTab() value -> returns false
         assertFalse(commandResult.equals(new TabCommandResult("feedback", TabCommand.Tab.DASHBOARD)));
+
+        // different getLevelsToExpand() value -> returns false
+        assertFalse(commandResult.equals(new ExpandCommandResult("feedback", 2)));
     }
 
     @Test
@@ -65,5 +68,9 @@ public class CommandResultTest {
         // different getTab() value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(),
                 new TabCommandResult("feedback", TabCommand.Tab.DASHBOARD).hashCode());
+
+        // different getLevelsToExpand() value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(),
+                new ExpandCommandResult("feedback", 2).hashCode());
     }
 }

@@ -1,5 +1,6 @@
 package seedu.mark.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.Assert.assertThrows;
@@ -24,6 +25,18 @@ public class MarkStateRecordTest {
     @Test
     public void constructor_nullRecord_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new MarkStateRecord(null, new Mark()));
+    }
+
+    @Test
+    public void getRecord_success() {
+        MarkStateRecord markStateRecord = new MarkStateRecord("record", markWithAmy);
+        assertEquals("record", markStateRecord.getRecord());
+    }
+
+    @Test
+    public void getState_success() {
+        MarkStateRecord markStateRecord = new MarkStateRecord("record", markWithAmy);
+        assertEquals(markWithAmy, markStateRecord.getState());
     }
 
     @Test
