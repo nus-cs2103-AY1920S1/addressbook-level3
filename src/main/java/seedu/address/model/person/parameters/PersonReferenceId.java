@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.person.parameters;
 
 import static java.util.Objects.requireNonNull;
@@ -6,8 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.HashMap;
 import java.util.Optional;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
+import seedu.address.model.exceptions.ReferenceIdCannotChangeClassificationException;
 import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 
 
@@ -45,9 +48,10 @@ public class PersonReferenceId implements ReferenceId {
      * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered. Otherwise, Optional.empty.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code PersonReferenceId} is invalid.
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
+     * has been grouped under a different classification.
      */
-    public static Optional<ReferenceId> lookUpReferenceId(String refId) throws ParseException {
+    private static Optional<ReferenceId> lookUpReferenceId(String refId, boolean isStaff) throws ParseException {
         requireNonNull(refId);
         String trimmedRefId = refId.trim().toUpperCase();
         if (!isValidId(trimmedRefId)) {
@@ -57,6 +61,8 @@ public class PersonReferenceId implements ReferenceId {
         ReferenceId storedRefId = UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.get(trimmedRefId);
         if (storedRefId == null) {
             return Optional.empty();
+        } else if (storedRefId.isStaffDoctor() != isStaff) {
+            throw new ReferenceIdIncorrectGroupClassificationException(trimmedRefId, storedRefId.isStaffDoctor());
         }
         return Optional.of(storedRefId);
     }
@@ -70,20 +76,45 @@ public class PersonReferenceId implements ReferenceId {
      */
     private static ReferenceId issueReferenceId(String refId, boolean isStaff) throws ParseException {
 
-        Optional<ReferenceId> optionalReferenceId = lookUpReferenceId(refId);
+        Optional<ReferenceId> optionalReferenceId = lookUpReferenceId(refId, isStaff);
 
-        ReferenceId storedRefId;
         if (optionalReferenceId.isEmpty()) {
             String trimmedRefId = refId.trim().toUpperCase();
-            storedRefId = new PersonReferenceId(trimmedRefId, isStaff);
-            UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.put(trimmedRefId, storedRefId);
-        } else if (optionalReferenceId.get().isStaffDoctor() != isStaff) {
-            throw new ReferenceIdIncorrectGroupClassificationException(optionalReferenceId.get());
+            return new PersonReferenceId(trimmedRefId, isStaff);
         } else {
-            storedRefId = optionalReferenceId.get();
-        }
+            ReferenceId referenceId = optionalReferenceId.get();
 
-        return storedRefId;
+            if (referenceId.isStaffDoctor() != isStaff) {
+                throw new ReferenceIdCannotChangeClassificationException(
+                        referenceId.toString(), referenceId.isStaffDoctor());
+            }
+
+            return optionalReferenceId.get();
+        }
+    }
+
+    /**
+     * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
+     * has been grouped under a different classification.
+     */
+    public static ReferenceId lookupStaffReferenceId(String staffRefId) throws ParseException {
+        return lookUpReferenceId(staffRefId, true)
+                .orElseThrow(() -> new ParseException(Messages.MESSAGE_INVAILD_REFERENCE_ID));
+    }
+
+    /**
+     * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
+     * has been grouped under a different classification.
+     */
+    public static ReferenceId lookupPatientReferenceId(String patientRefId) throws ParseException {
+        return lookUpReferenceId(patientRefId, false)
+                .orElseThrow(() -> new ParseException(Messages.MESSAGE_INVAILD_REFERENCE_ID));
     }
 
     /**
@@ -149,5 +180,10 @@ public class PersonReferenceId implements ReferenceId {
     @Override
     public boolean isPatient() {
         return !isStaff;
+    }
+
+    @Override
+    public void registerId() {
+        UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.putIfAbsent(this.toString(), this);
     }
 }

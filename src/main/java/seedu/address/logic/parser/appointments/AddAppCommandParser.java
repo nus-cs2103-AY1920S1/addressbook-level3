@@ -59,7 +59,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                     AddAppCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issuePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupPatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
         if (!model.hasPatient(referenceId)) {
             throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
         }

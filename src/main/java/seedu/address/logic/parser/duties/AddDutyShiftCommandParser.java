@@ -58,7 +58,7 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                     AddDutyShiftCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issueStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
         if (!model.hasStaff(referenceId)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_REFERENCEID, AddDutyShiftCommand.MESSAGE_USAGE));

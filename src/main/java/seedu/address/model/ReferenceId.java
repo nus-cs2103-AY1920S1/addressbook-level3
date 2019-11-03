@@ -16,4 +16,9 @@ public interface ReferenceId extends Identical<ReferenceId> {
      * Checks whether the person is a patient.
      */
     boolean isPatient();
+
+    /**
+     * Registers and blocks the current reference id from being re-assigned to a different category (patient or staff).
+     */
+    void registerId();
 }

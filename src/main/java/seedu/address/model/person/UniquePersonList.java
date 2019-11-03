@@ -63,7 +63,9 @@ public class UniquePersonList extends UniqueElementList<Person> {
     @Override
     public void add(Person toAdd) {
         super.add(toAdd);
-        personHashMap.put(toAdd.getReferenceId(), toAdd);
+        ReferenceId referenceId = toAdd.getReferenceId();
+        referenceId.registerId();
+        personHashMap.put(referenceId, toAdd);
         assert personHashMap.size() == internalList.size();
     }
 

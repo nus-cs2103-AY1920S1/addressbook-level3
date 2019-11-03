@@ -48,23 +48,4 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddConsultationRoomCommand.MESSAGE_USAGE), pe);
         }
     }
-    /*
-        public ReversibleActionPairCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
-
-        if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddConsultationRoomCommand.MESSAGE_USAGE));
-        }
-
-        ReferenceId referenceId = ParserUtil.parseStaffReferenceId(argMultimap.getPreamble());
-        Room room = new Room(referenceId);
-        return new ReversibleActionPairCommand(new AddConsultationRoomCommand(room),
-                new RemoveRoomCommand(room));
-    }
-     */
-
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }
