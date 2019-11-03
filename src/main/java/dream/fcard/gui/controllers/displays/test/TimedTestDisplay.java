@@ -90,7 +90,7 @@ public class TimedTestDisplay extends AnchorPane {
         card.setUserAttempt(input);
     };
 
-    private Consumer<String> updateJsUserAttempt = input -> {
+    private Consumer<String> updateStringUserAttempt = input -> {
         JavascriptCard card = (JavascriptCard) exam.getCurrentCard();
         card.setAttempt(input);
     };
@@ -154,11 +154,11 @@ public class TimedTestDisplay extends AnchorPane {
             cardDisplay.getChildren().add(mcqCard);
         } else if (typeOfCard.equals("JavascriptCard")) {
             cardDisplay.getChildren().clear();
-            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateJsUserAttempt, getScore);
+            JsCard jsCard = new JsCard((JavascriptCard) cardOnDisplay, updateStringUserAttempt, getScore);
             cardDisplay.getChildren().add(jsCard);
         } else if (typeOfCard.equals("JavaCard")) {
             cardDisplay.getChildren().clear();
-            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateJsUserAttempt, getScore);
+            JavaFront javaFront = new JavaFront((JavaCard) cardOnDisplay, updateStringUserAttempt, getScore);
             cardDisplay.getChildren().add(javaFront);
         }
 
@@ -236,7 +236,11 @@ public class TimedTestDisplay extends AnchorPane {
 
     private void onEndSession() {
         timeline.stop();
-        ExamRunner.terminateExam();
+        if (ExamRunner.getCurrentExam() != null) {
+            ExamRunner.terminateExam();
+        }
+        displayDecks.accept(true);
+        clearMessage.accept(true);
     }
 
 }

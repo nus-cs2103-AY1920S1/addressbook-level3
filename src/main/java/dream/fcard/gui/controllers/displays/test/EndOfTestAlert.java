@@ -18,17 +18,6 @@ import java.util.function.Consumer;
 public class EndOfTestAlert {
 
     /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to re-render DeckDisplay
-     */
-    @SuppressWarnings("unchecked")
-    private static Consumer<Boolean> displayDecks = State.getState().getConsumer(ConsumerSchema.DISPLAY_DECKS);
-    /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to clear the message bar.
-     */
-    @SuppressWarnings("unchecked")
-    private static Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
-
-    /**
      * method that can be called by controller to display the alertbox.
      * @param title Title of alert box.
      * @param message Contents of alert box.
@@ -50,12 +39,6 @@ public class EndOfTestAlert {
         //
         Scene scene = new Scene (layout);
         window.setScene(scene);
-        window.setOnHidden( e -> onClose());
         window.show();
-    }
-
-    private static void onClose() {
-        displayDecks.accept(true);
-        clearMessage.accept(true);
     }
 }

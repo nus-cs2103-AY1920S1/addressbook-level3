@@ -11,12 +11,14 @@ import dream.fcard.model.cards.FlashCard;
 public class ExamRunner {
 
     private static Exam exam;
+    private static boolean examOngoing;
 
     private ExamRunner() {
     }
 
     public static void createExam(ArrayList<FlashCard> deck, int duration) {
         exam = new UntimedExam(deck, duration);
+        examOngoing = true;
     }
 
     public static Exam getCurrentExam() {
@@ -26,6 +28,11 @@ public class ExamRunner {
     public static void terminateExam() {
         String result = exam.getResult();
         EndOfTestAlert.display("Results", "Final Score: " + result);
+        examOngoing = false;
         exam = null;
+    }
+
+    public boolean isExamOngoing() {
+        return examOngoing;
     }
 }

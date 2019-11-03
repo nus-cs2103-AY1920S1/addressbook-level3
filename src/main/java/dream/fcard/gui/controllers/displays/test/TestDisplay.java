@@ -208,6 +208,10 @@ public class TestDisplay extends AnchorPane {
     }
 
     private void onEndSession() {
-        ExamRunner.terminateExam();
+        if (ExamRunner.getCurrentExam() != null) {
+            ExamRunner.terminateExam();
+        }
+        displayDecks.accept(true);
+        clearMessage.accept(true);
     }
 }
