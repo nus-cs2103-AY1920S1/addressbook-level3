@@ -127,6 +127,10 @@ This command adds a transaction to the table and saves it into the system.
 The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person should also be someone recorded in the Members Tab
 
+[NOTE]
+If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
+and under the "Sales" category for it to show up in the Overview Tab correctly.
+
 * Steps:
 
 1. Type the command with all parameters filled in, as shown in the screenshot below:
@@ -974,9 +978,9 @@ will be reset.
 
 * The overview tab displays a variety of statistics for the user.
 * These include:
-** Total value of transactions thus far
+** Total expenses made thus far
 ** Total inventory value
-** Total sales
+** Total sales revenue
 ** Remaining budget
 * The user may also set financial goals and set up percentage thresholds to receive notifications.
 * Leo will notify the user any time their financial goals have been reached.
@@ -984,6 +988,14 @@ will be reset.
 [WARNING]
 The maximum amount you may set for a goal is 10,000,000 (10 million).
 ====
+
+==== Statistics Information
+The following describes how the various statistics are calculated:
+
+* Expense Summary: Total spent represents the sum of all negative transactions (cash outflows) made by the club.
+* Inventory Summary: Inventory value represents the total cost of all goods currently in the inventory.
+* Sales Summary: Total sales represents the sum of all positive transactions (cash inflow) from the Sales category.
+* Budget Overview: Amount remaining represents the budget goal + total sales - expenses.
 
 ==== Set a Financial Goal
 
