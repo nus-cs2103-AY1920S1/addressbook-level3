@@ -16,6 +16,7 @@ import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.RecurrenceType;
 
 /**
  * Edits the events details in the events record.
@@ -31,7 +32,8 @@ public class EventEditCommand extends EventCommand {
         + "color/ [0 - 23]\n"
         + "Example: event 6 eventName/cs2100 lecture startDateTime/2019-10-21T14:00 "
         + "endDateTime/2019-10-21T15:00 recur/none color/1";
-
+    private static final String START_DATE_LATER_END_DATE = "start date time provided for the event is later "
+            + "than or equal to end date time provided";
     private final Index index;
     private final String eventName;
     private final String startDateTimeString;
@@ -83,12 +85,20 @@ public class EventEditCommand extends EventCommand {
         RecurrenceRule recurrenceRule;
         if (this.recurTypeString.isBlank()) {
             recurrenceRule = vEventObject.getRecurrenceRule();
+            vEventObject.setRecurrenceRule(recurrenceRule);
         } else {
             try {
-                recurrenceRule = EventUtil.stringToRecurrenceRule(this.recurTypeString);
+                if (!recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
+                    recurrenceRule = EventUtil.stringToRecurrenceRule(this.recurTypeString);
+                    vEventObject.setRecurrenceRule(recurrenceRule);
+                }
             } catch (IllegalValueException ex) {
                 throw new CommandException(ex.toString());
             }
+        }
+
+        if (!EventUtil.validateStartEndDateTime(startDateTime, endDateTime)) {
+            throw new CommandException(START_DATE_LATER_END_DATE);
         }
 
         vEventObject = new VEvent();
@@ -97,7 +107,6 @@ public class EventEditCommand extends EventCommand {
         vEventObject.setDateTimeStart(startDateTime);
         vEventObject.setDateTimeEnd(endDateTime);
         vEventObject.setUniqueIdentifier();
-        vEventObject.setRecurrenceRule(recurrenceRule);
 
         Categories colorCategory = new Categories(colorNumberString);
         ArrayList<Categories> colorCategoryList = new ArrayList<>();

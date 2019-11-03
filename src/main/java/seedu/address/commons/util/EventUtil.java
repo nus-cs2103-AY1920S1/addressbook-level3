@@ -62,11 +62,12 @@ public class EventUtil {
         resultEvent.setUniqueIdentifier(uniqueIdentifier);
         resultEvent.setEventName(eventName);
 
-        if (vEventToMap.getRecurrenceRule() == null) {
+        RecurrenceRule currentRule = vEventToMap.getRecurrenceRule();
+        if (currentRule == null || currentRule.equals(new RecurrenceRule())) {
             resultEvent.setRecurrenceType(RecurrenceType.NONE);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("DAILY")) {
+        } else if (currentRule.toString().contains("DAILY")) {
             resultEvent.setRecurrenceType(RecurrenceType.DAILY);
-        } else if (vEventToMap.getRecurrenceRule().toString().contains("WEEKLY")) {
+        } else if (currentRule.toString().contains("WEEKLY")) {
             resultEvent.setRecurrenceType(RecurrenceType.WEEKLY);
         }
 
@@ -87,8 +88,6 @@ public class EventUtil {
             return RecurrenceRule.parse(recurrenceString);
         } else if (recurrenceString.equalsIgnoreCase("daily")) {
             return RecurrenceRule.parse(recurrenceString);
-        } else if (recurrenceString.equalsIgnoreCase("none")) {
-            return new RecurrenceRule();
         } else {
             throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
         }
@@ -148,17 +147,21 @@ public class EventUtil {
     }
 
     /**
-     * Validates if a color number string is valid
+     * Validates if a color number string is valid, must be a integer from 0 -23.
      * @param colorNumberString numberString to be checked
      * @return true if colorNumberString is valid
      * @throws NumberFormatException when colorNumberString cannot be cast to Integer,
      * representing invalid string format
      */
-    public static boolean validateColorNumberString(String colorNumberString) throws NumberFormatException {
+    public static boolean validateColorNumberString(String colorNumberString) {
         //validate number is in range
-        Integer colorNumberInteger = Integer.parseInt(colorNumberString);
-        boolean result = numberInRange(colorNumberInteger, 0, 23);
-        return result;
+        try {
+            Integer colorNumberInteger = Integer.parseInt(colorNumberString);
+            boolean result = numberInRange(colorNumberInteger, 0, 23);
+            return result;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
     /**
@@ -209,5 +212,15 @@ public class EventUtil {
         ArrayList<Categories> colorCategoryList = new ArrayList<>();
         colorCategoryList.add(colorCategory);
         return colorCategoryList;
+    }
+
+    /**
+     * Validates that startDateTime provided is earlier than endDateTime provided
+     * @param startDateTime LocalDateTime representation of the startDateTime
+     * @param endDateTime LocalDateTime representation of the endDateTime
+     * @return true if startDateTime is earlier than endDateTime
+     */
+    public static boolean validateStartEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return startDateTime.compareTo(endDateTime) < 0;
     }
 }
