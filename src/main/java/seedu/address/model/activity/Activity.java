@@ -307,7 +307,15 @@ public class Activity {
         // We update the balance sheet
         double splitAmount;
         if (expense.isSettlement()) {
-            splitAmount = amount;
+            double debt = getOwed(involved[0], payer);
+            if (debt < 0) {
+                return;
+            } else if (amount > debt || amount == 0) {
+                splitAmount = debt;
+                System.out.println("ASD");
+            } else {
+                splitAmount = amount;
+            }
         } else {
             splitAmount = amount / (involved.length + 1);
         }
