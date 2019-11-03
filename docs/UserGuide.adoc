@@ -21,9 +21,8 @@ By: `Vortex`      Since: `Sep 2019`      Licence: `MIT`
 Ever did group activities where everyone paid different amounts, and it became so troublesome and confusing to figure out how to redistribute costs evenly? Fret no more because with *SplitWiser* is here! *SplitWiser* is a free tool for friends and roommates to track bills and other shared expenses, so that everyone gets paid back, and everyone is happy.
 
 Coming in v2.0:
-+
-image::minified-mockups/main.png[width="251"]
-+
+
+image::./minified-mockups/main.png[width="251"]
 
 == Getting Started
 
@@ -303,6 +302,7 @@ Format: `exit`
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the application on the other computer and overwrite the empty data file it creates with the data file contained in your current SplitWiser folder.
 
+// tag::poweruser[]
 == Powerusers
 
 Certain features are not included intentionally, as some of them may potentially result in undefined behavior.
@@ -338,3 +338,4 @@ Ensure the application is closed, then find the activity in question in the `jso
 After restarting you will see that the person is permanantly removed from the activity.
 
 CAUTION: This operation is very dangerous! The person might be included in expenses or other activities -- in that case, an error will be generated and the application will reset.
+// end::poweruser[]
