@@ -54,10 +54,10 @@ public class Notebook implements ReadOnlyNotebook {
 
         if (classrooms.isEmpty()) {
             Classroom newClassroom = new Classroom();
-            setCurrentClassroom(newClassroom);
+            setClassroom(newClassroom);
         } else {
             Classroom firstClassroom = getClassroomList().get(0);
-            setCurrentClassroom(getFirstClassroom());
+            setClassroom(getFirstClassroom());
         }
     }
 
@@ -113,7 +113,7 @@ public class Notebook implements ReadOnlyNotebook {
     public void addClassroom(Classroom classroom) {
         if (classrooms.isEmpty()) {
             classrooms.add(classroom);
-            setCurrentClassroom(classroom);
+            setClassroom(classroom);
         } else {
             classrooms.add(classroom);
         }

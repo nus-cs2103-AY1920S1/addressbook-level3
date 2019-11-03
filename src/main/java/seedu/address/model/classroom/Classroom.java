@@ -3,6 +3,7 @@ package seedu.address.model.classroom;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
@@ -220,11 +221,12 @@ public class Classroom implements ReadOnlyClassroom {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Classroom // instanceof handles nulls
-                && students.equals(((Classroom) other).students));
+                && students.equals(((Classroom) other).students)
+                && assignments.equals(((Classroom) other).assignments));
     }
 
     @Override
     public int hashCode() {
-        return students.hashCode();
+        return Objects.hash(students, assignments);
     }
 }

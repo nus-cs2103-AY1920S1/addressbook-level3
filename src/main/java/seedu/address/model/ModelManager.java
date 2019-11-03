@@ -126,7 +126,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setCurrentClassroom(Classroom classroom) {
-        notebook.setCurrentClassroom(classroom);
+        notebook.setClassroom(classroom);
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
     }

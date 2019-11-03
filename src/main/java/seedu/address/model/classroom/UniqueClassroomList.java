@@ -3,6 +3,7 @@ package seedu.address.model.classroom;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -124,7 +125,13 @@ public class UniqueClassroomList implements Iterable<Classroom> {
         if (!classroomsAreUnique(classrooms)) {
             throw new DuplicateClassroomException();
         }
-        internalList.setAll(classrooms);
+        List<Classroom> listToAdd = new ArrayList<>();
+        for (Classroom classroom : classrooms) {
+            Classroom classroomToAdd = new Classroom();
+            classroomToAdd.resetData(classroom);
+            listToAdd.add(classroomToAdd);
+        }
+        internalList.setAll(listToAdd);
     }
 
     public boolean isEmpty() {
