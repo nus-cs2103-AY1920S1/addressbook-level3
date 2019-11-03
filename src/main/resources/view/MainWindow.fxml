@@ -116,7 +116,7 @@
                  </children>
                </VBox>
 
-                  <VBox layoutX="74.0" layoutY="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                  <VBox layoutX="74.0" layoutY="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                   <children>
                      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                         <children>
@@ -124,8 +124,12 @@
                            <StackPane fx:id="profilePaneHolder" maxWidth="-Infinity" prefWidth="200.0" HBox.hgrow="NEVER" />
                         </children>
                      </HBox>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="50.0" prefHeight="70.0" styleClass="pane-with-border" />
-                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" styleClass="pane-with-border" />
+                     <VBox styleClass="command-box">
+                        <children>
+                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="50.0" prefHeight="70.0" styleClass="pane-with-border" />
+                          <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" styleClass="pane-with-border" />
+                        </children>
+                     </VBox>
                   </children>
                </VBox>
 

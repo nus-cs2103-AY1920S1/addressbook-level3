@@ -12,11 +12,7 @@
       <Insets bottom="5.0" top="5.0" />
    </padding>
    <children>
-      <Label text="My Profile">
-         <VBox.margin>
-            <Insets bottom="15.0" top="10.0" />
-         </VBox.margin>
-      </Label>
+      <Label text="My Profile" />
       <VBox alignment="TOP_CENTER" prefWidth="100.0">
          <children>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -39,9 +35,9 @@
                </padding>
             </Label>
          </children>
-         <VBox.margin>
-            <Insets bottom="15.0" left="5.0" right="5.0" top="5.0" />
-         </VBox.margin>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </VBox>
       <VBox alignment="CENTER">
          <children>
