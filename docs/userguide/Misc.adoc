@@ -1,7 +1,7 @@
 
 == Miscellaneous
-=== Viewing help : `help`
+=== Viewing help : `app-help`
 
 Directs you to this page.
 
-Format: `help`
+Format: `app-help`

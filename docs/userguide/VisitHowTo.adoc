@@ -12,7 +12,7 @@ When you begin a visit using `visit-start`, the patient's Visit Todos are copied
 
 The ongoing visit can be viewed by clicking on the current visit tab. Note that you will have to change tabs manually and your commands will not affect which tab you are viewing.
 
-image::CurrentVisit.png[width="300"]
+image::CurrentVisit.png[width="500"]
 
 === How to view the visit todos of a patient
 
@@ -22,7 +22,7 @@ You can view the visit todos of a patient using `pat-list` and `pat-find`. Visit
 
 You can view the visits of a patient using `pat-list` and `pat-find`. Visits are displayed under their patient details.
 
-image::VisitTodoAndVisits.png[width="300"]
+image::VisitTodoAndVisits.png[width="500"]
 
 === How to manage a visit (an example)
 
