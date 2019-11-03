@@ -33,9 +33,9 @@ public class BudgetTest {
 
     @Test
     public void execute_noData_allMethodsSuccess() {
-        assertEquals(new Budget(null, null).getTotalExpenses(), "$0.00");
-        assertEquals(new Budget(null, null).getTotalIncome(), "$0.00");
-        assertEquals(new Budget(null, null).getBudgetAmount(), "$0.00");
+        assertEquals("$0.00", new Budget(null, null).getTotalExpenses());
+        assertEquals("$0.00", new Budget(null, null).getTotalIncome());
+        assertEquals("$0.00", new Budget(null, null).getBudgetAmount());
         assertFalse(new Budget(null, null).isOverBudget());
     }
 
@@ -44,9 +44,9 @@ public class BudgetTest {
         Budget budget = new Budget(claimList, incomeList);
         budget.calculateBudget();
 
-        assertEquals(budget.getTotalExpenses(), "$0.00");
-        assertEquals(budget.getTotalIncome(), "$10,100.10");
-        assertEquals(budget.getBudgetAmount(), "$10,100.10");
+        assertEquals("$0.00", budget.getTotalExpenses());
+        assertEquals("$10,100.10", budget.getTotalIncome());
+        assertEquals("$10,100.10", budget.getBudgetAmount());
         assertFalse(budget.isOverBudget());
     }
 
@@ -55,9 +55,9 @@ public class BudgetTest {
         Budget budget = new Budget(claimList2, incomeList2);
         budget.calculateBudget();
 
-        assertEquals(budget.getTotalExpenses(), "$0.00");
-        assertEquals(budget.getTotalIncome(), "$10,100.10");
-        assertEquals(budget.getBudgetAmount(), "$10,100.10");
+        assertEquals("$0.00", budget.getTotalExpenses());
+        assertEquals("$10,100.10", budget.getTotalIncome());
+        assertEquals("$10,100.10", budget.getBudgetAmount());
         assertFalse(budget.isOverBudget());
     }
 
@@ -66,9 +66,9 @@ public class BudgetTest {
         Budget budget = new Budget(claimList3, incomeList3);
         budget.calculateBudget();
 
-        assertEquals(budget.getTotalExpenses(), "$10,911.29");
-        assertEquals(budget.getTotalIncome(), "$10,100.10");
-        assertEquals(budget.getBudgetAmount(), "-$811.19");
+        assertEquals("$10,911.29", budget.getTotalExpenses());
+        assertEquals("$10,100.10", budget.getTotalIncome());
+        assertEquals("-$811.19", budget.getBudgetAmount());
         assertTrue(budget.isOverBudget());
     }
 

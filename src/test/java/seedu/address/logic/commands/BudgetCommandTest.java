@@ -31,7 +31,7 @@ public class BudgetCommandTest {
 
     @Test
     public void execute_noData_budgetSuccess() {
-        CommandResult commandResult = new BudgetCommand().execute(model);
+        CommandResult commandResult = new BudgetCommand().execute(new ModelManager());
         String noBudgetData = "Projected income: $0.00\n"
                 + "Projected claim value: $0.00\n"
                 + "Projected Budget: $0.00";
@@ -67,7 +67,7 @@ public class BudgetCommandTest {
         CommandResult commandResult = new BudgetCommand().execute(model3);
         String ApprovedClaimData = "Projected income: $10,100.10\n"
                 + "Projected claim value: $10,911.29\n"
-                + "Projected Budget: -$811.19"
+                + "Projected Budget: -$811.19\n"
                 + "Warning, you will be over budget!";
         assertEquals(ApprovedClaimData, commandResult.getFeedbackToUser());
     }

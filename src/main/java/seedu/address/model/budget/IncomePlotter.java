@@ -69,7 +69,8 @@ public class IncomePlotter {
     private List<Income> findIncomesInCurrentMonth() {
         List<Income> updatedIncomeList = new ArrayList<>();
         for (Income income : incomeList) {
-            if (currentMonthNumber == income.getDate().date.getMonthValue()) {
+            if (currentMonthNumber == income.getDate().date.getMonthValue()
+                    && currentYearNumber == income.getDate().date.getYear()) {
                 updatedIncomeList.add(income);
             }
         }

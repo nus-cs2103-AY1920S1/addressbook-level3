@@ -73,7 +73,8 @@ public class ClaimPlotter {
         List<Claim> updatedClaimList = new ArrayList<>();
         for (Claim claim : claimList) {
             if ((claim.getStatus() == Status.APPROVED)
-                    && (currentMonthNumber == claim.getDate().date.getMonthValue())) {
+                    && (currentMonthNumber == claim.getDate().date.getMonthValue()
+                    && currentYearNumber == claim.getDate().date.getYear())) {
                 updatedClaimList.add(claim);
             }
         }
