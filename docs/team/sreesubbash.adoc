@@ -2,9 +2,12 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:stylesheet: asciidoctor.css
 :stylesheet: subbash.css
 :stylesheet: gh-pages.css
+
+:stylesheet: asciidoctor.css
+
+
 
 == PROJECT: Dukemon
 ---
@@ -12,18 +15,18 @@
 == Overview
 
 
-Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
 
-While it was targeted at regular CLI users, after preliminary user tests among the target audience, we noted that even experienced users require documentation to get familiar with commands. Also, they found it inconvenient to refer to the User Guide too often.
+While it was targeted at regular CLI users, after preliminary user experience feedback from the target audience, we noted that even experienced users require documentation to get familiar with commands. Also, they found it inconvenient to refer to the User Guide often.
 
 It was our priority to improve their learning experience. So I took initiative to go the extra mile to improve their command line experience.
 
-Under the hood, it required major restructuring of input processing. In that process, I took care that code was well abstracted for co-developers and future developers.
+Under the hood, it required major restructuring of input handling. In that process, I took care that code was well abstracted for co-developers and future developers.
 
 
-== Summary of contributions
+== Contributions
 
-* *Major enhancement*: added *AutoComplete with Dynamic Command Parsers for each Mode*
+* *AutoComplete with Dynamic Command Parsers for each Mode*
 ** What it does: allows user to be visually cued on the commands available that updates as he types.
 ** Justification: It alleviates the drawback of being clueless and disoriented in a new command line interface
 ** Highlights: The parser logic for autocomplete was designed from ground up to cater for the application's unique needs.  After in-depth analysis of alternatives, java reflections was utilised.
@@ -34,7 +37,7 @@ Under the hood, it required major restructuring of input processing. In that pro
 
 ** Project management:
 *** Coordinated devlopment and master branch workflow for rapid prototyping in early weeks.
-*** Suggested username-number-reason branching workflow period closer to deployment for stability and accountability in changes without too much restriction.
+*** Suggested branching workflow (with username, merge count and purpose) during period closer to deployment for stability and accountability in changes.
 *** Managed product release https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/[v1.3.5] on GitHub
 
 *** Actively participated in weekly team meetings that focused on restructuring of code base and to get everyone on the same page.
@@ -48,7 +51,8 @@ Under the hood, it required major restructuring of input processing. In that pro
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Below are extracts I have contributed to the User Guide. It demonstrates how my AutoComplete feature makes a tangible difference by improving userflow
+They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=switchingmodes]
