@@ -4,6 +4,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.util.Date;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * Payment concrete class from bankAccount to a Person
  */
@@ -25,8 +28,12 @@ public class LendMoney extends Payment {
 
     @Override
     public boolean isSameLedgerOperation(LedgerOperation ledgerOperation) {
-        // TODO FIX
-        return false;
+        return this.equals(ledgerOperation);
+    }
+
+    @Override
+    public Optional<List<Integer>> getShares() {
+        return Optional.empty();
     }
 
 
