@@ -65,7 +65,7 @@ public class AverageMap {
         Map<LocalDate, List<Record>> groupByTimeRecords = groupByAverageType(averageType, filteredRecordList);
 
         // Calculate averages for each grouping in groupByTimeRecords
-        Map<LocalDate, Double> averages = getAverage(recordType, groupByTimeRecords);
+        Map<LocalDate, Double> averages = calculateAverageMap(recordType, groupByTimeRecords);
 
         // Sort by descending date
         Map<LocalDate, Double> averageMap = new TreeMap<>(Collections.reverseOrder());
@@ -92,10 +92,10 @@ public class AverageMap {
      * period.
      */
     private Map<LocalDate, List<Record>> groupByAverageType(AverageType averageType,
-                                                            ObservableList<Record> recordList) {
+            ObservableList<Record> recordList) {
         return recordList.stream()
                 .collect(Collectors.groupingBy(record -> record.getDateTime()
-                        .getDate().with(TIMEADJUSTERS.get(averageType))));
+                .getDate().with(TIMEADJUSTERS.get(averageType))));
     }
 
     /**
@@ -107,20 +107,20 @@ public class AverageMap {
      * @return returns a {@code Map} object that maps a time period to the respective average values of records
      * found in that time period.
      */
-    private Map<LocalDate, Double> getAverage(RecordType recordType, Map<LocalDate, List<Record>> recordMap) {
+    private Map<LocalDate, Double> calculateAverageMap(RecordType recordType, Map<LocalDate, List<Record>> recordMap) {
         switch (recordType) {
         case BLOODSUGAR:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                            .stream().map(record -> (BloodSugar) record)
-                            .map(record -> record.getConcentration().getConcentration())
-                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                    .stream().map(record -> (BloodSugar) record)
+                    .map(record -> record.getConcentration().getConcentration())
+                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
         case BMI:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                            .stream().map(record -> (Bmi) record)
-                            .map(record -> record.getBmi())
-                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                    .stream().map(record -> (Bmi) record)
+                    .map(record -> record.getBmi())
+                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
             assert false : "Record type is not found and should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);

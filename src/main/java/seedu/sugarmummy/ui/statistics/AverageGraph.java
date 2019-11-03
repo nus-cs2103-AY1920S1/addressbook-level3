@@ -65,27 +65,21 @@ public class AverageGraph {
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
             public void onChanged(Change<? extends LocalDate, ? extends Double> change) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
         averageType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
         recordType.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                customLineChart.getData().clear();
-                customLineChart.removeAllHorizontalRangeMarker();
-                createChart(averageMap, averageType, recordType);
+                refreshChart(averageMap, averageType, recordType);
             }
         });
 
@@ -99,10 +93,25 @@ public class AverageGraph {
     }
 
     /**
+     * A convenience function to update customLineChart with new data points whenever averageMap, averageType or
+     * recordType changes.
+     *
+     * @param averageMap the newly updated averageMap containing the average values.
+     * @param averageType the newly updated type of average.
+     * @param recordType the newly updated type of record.
+     */
+    private void refreshChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
+            SimpleStringProperty recordType) {
+        customLineChart.getData().clear();
+        customLineChart.removeAllHorizontalRangeMarker();
+        createChart(averageMap, averageType, recordType);
+    }
+
+    /**
      * A convenience function to create a new chart.
      */
     private void createChart(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                             SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
         setTitle(averageType, recordType);
         setAxesLabel(averageType, recordType);
         addHorizontalRangeMarker(recordType);
