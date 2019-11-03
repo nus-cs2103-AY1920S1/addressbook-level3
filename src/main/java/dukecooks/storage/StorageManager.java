@@ -99,14 +99,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveUserProfile(ReadOnlyUserProfile dukeCooks) throws IOException {
-        saveUserProfile(dukeCooks, userProfileStorage.getUserProfileFilePath());
+    public void saveUserProfile(ReadOnlyUserProfile userProfile) throws IOException {
+        saveUserProfile(userProfile, userProfileStorage.getUserProfileFilePath());
     }
 
     @Override
-    public void saveUserProfile(ReadOnlyUserProfile dukeCooks, Path filePath) throws IOException {
+    public void saveUserProfile(ReadOnlyUserProfile userProfile, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        userProfileStorage.saveUserProfile(dukeCooks, filePath);
+        userProfileStorage.saveUserProfile(userProfile, filePath);
     }
 
     // ================ Health Records methods ==============================
