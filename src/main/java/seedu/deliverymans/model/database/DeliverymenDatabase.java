@@ -175,6 +175,13 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     /**
+     * Updates the deliveryman status after he has completed an order.
+     */
+    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
+        statusManager.updateDeliverymanStatusAfterCompletingOrder(deliveryman);
+    }
+
+    /**
      * Switches the deliveryman status from AVAILABLE to UNAVAILABLE, or vice versa.
      */
     public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {

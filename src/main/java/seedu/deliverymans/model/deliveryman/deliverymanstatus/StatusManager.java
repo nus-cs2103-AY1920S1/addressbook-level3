@@ -146,6 +146,13 @@ public class StatusManager {
     }
 
     /**
+     * Resets the status of the deliveryman after he has successfully completed an order.
+     */
+    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
+        updateStatusOf(deliveryman, "AVAILABLE");
+    }
+
+    /**
      * Updates the status of a deliveryman by removing the previous status and assigning the new status.
      */
     public void updateStatusOf(Deliveryman deliveryman, String strStatus) {

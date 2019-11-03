@@ -289,6 +289,8 @@ public interface Model {
      */
     Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException;
 
+    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman);
+
     void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
 
     DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman);

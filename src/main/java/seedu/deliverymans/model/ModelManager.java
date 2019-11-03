@@ -311,6 +311,11 @@ public class ModelManager implements Model {
         return deliverymenDatabase.getAvailableDeliveryman();
     }
 
+    @Override
+    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
+        deliverymenDatabase.updateDeliverymanStatusAfterCompletingOrder(deliveryman);
+    }
+
     //=========== Order Methods =============================================================
     @Override
     public Path getOrderBookFilePath() {

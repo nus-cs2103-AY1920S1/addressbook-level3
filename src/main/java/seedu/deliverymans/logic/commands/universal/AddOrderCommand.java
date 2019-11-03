@@ -126,7 +126,7 @@ public class AddOrderCommand extends Command {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             toAdd.setDeliveryman(deliverymanToAdd);
         } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
+           throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
         }
 
         // Food validity check
