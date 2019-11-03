@@ -8,8 +8,7 @@ import dream.fcard.gui.controllers.displays.createandeditdeck.javacard.JavaTestC
 import dream.fcard.gui.controllers.displays.createandeditdeck.jscard.JsTestCaseInputTextArea;
 import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptionsSetter;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
-import dream.fcard.model.State;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
@@ -74,7 +73,7 @@ public class CardEditingWindow extends VBox {
             questionField.setText(card.getFront());
             cancelButton.setOnAction(e -> onCancel.accept(true));
             saveChangesButton.setOnAction(e -> {
-                Dispatcher.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+                Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
                 FlashCard newCard = getEditedCard();
                 if (newCard == null) {
                     return;
@@ -142,13 +141,13 @@ public class CardEditingWindow extends VBox {
         if (cardType.equals(mcq)) {
             //validation - non-empty question, at least one non-empty option, and a designated right answer
             if (questionField.getText().isBlank()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return null;
             } else if (!mcqOptionsSetter.hasAtLeastOneNonEmptyOption()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter at least 1 option!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter at least 1 option!");
                 return null;
             } else if (!mcqOptionsSetter.hasDesignatedRightAnswer()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to tell me which answer is correct!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to tell me which answer is correct!");
                 return null;
             }
 
@@ -160,10 +159,10 @@ public class CardEditingWindow extends VBox {
         } else if (cardType.equals(frontBack)) {
             // validation - non-empty fields
             if (questionField.getText().isBlank()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return null;
             } else if (frontBackTextArea.getText().isBlank()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter an answer!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter an answer!");
                 return null;
             }
 
@@ -174,10 +173,10 @@ public class CardEditingWindow extends VBox {
         } else if (cardType.equals(js)) {
             // validation
             if (questionField.getText().isBlank()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return null;
             } else if (!jsTestCaseInputTextArea.hasTestCase()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
                 return null;
             }
 
@@ -187,11 +186,11 @@ public class CardEditingWindow extends VBox {
         } else if (cardType.equals(java)) {
             //validation
             if (questionField.getText().isBlank()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a question!");
                 return null;
             }
             if (!javaTestCaseInputBox.hasAtLeastOneTestCase()) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
                 return null;
             }
 

@@ -23,13 +23,6 @@ import javafx.application.Application;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(RegexUtil.commandFormatRegex("create", new String[] {"front/", "back/", "choice/"}));
-        for (ArrayList<String> arg : RegexUtil.parseCommandFormat("", new String[]{"back/", "front/"}, "front/ asd back/ 123 back/ 456")) {
-            for(String s : arg) {
-                System.out.print(s + ", ");
-            }
-            System.out.println("");
-        }
-        //Application.launch(MainApp.class, args);
+        Application.launch(MainApp.class, args);
     }
 }

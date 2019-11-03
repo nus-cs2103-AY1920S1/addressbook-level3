@@ -2,6 +2,10 @@ package dream.fcard.model;
 
 import java.util.ArrayList;
 
+import dream.fcard.core.commons.core.LogsCenter;
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.exceptions.DeckNotFoundException;
+
 /**
  * State stores data representing the state of the running program
  * It should not execute logic or parsing, simply a data store object.
@@ -10,6 +14,15 @@ public class State {
     private static State state;
     private ArrayList<Deck> decks;
     private StateEnum currState;
+    private Deck currentDeck;
+
+    /**
+     * Return the current deck in Create mode.
+     * @return the deck in Create Mode.
+     */
+    public Deck getCurrentDeck() {
+        return currentDeck;
+    }
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -50,7 +63,9 @@ public class State {
      * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
-        decks.add(new Deck(deckName));
+        Deck temp = new Deck(deckName);
+        decks.add(temp);
+        this.currentDeck = temp;
     }
 
     /**
@@ -60,6 +75,7 @@ public class State {
      */
     public void addDeck(Deck deck) {
         decks.add(deck);
+        this.currentDeck = deck;
     }
 
     /**
@@ -119,8 +135,20 @@ public class State {
         return -1;
     }
 
+    /**
+     * Set current state of the app.
+     * @param currState the current state.
+     */
+    public void setCurrState(StateEnum currState) {
+        this.currState = currState;
+        LogsCenter.getLogger(State.class).info("Entering state: + this.currState");
+    }
 
-    public State(ArrayList<Deck> initialDecks) {
-        decks = initialDecks;
+    /**
+     * Get current state of the app.
+     * @return the current state.
+     */
+    public StateEnum getCurrState() {
+        return currState;
     }
 }

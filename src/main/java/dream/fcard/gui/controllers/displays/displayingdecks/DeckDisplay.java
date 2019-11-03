@@ -11,7 +11,7 @@ import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
@@ -84,7 +84,7 @@ public class DeckDisplay extends AnchorPane {
         ExamRunner.createExam(testArrayListOfCards);
         Exam exam = ExamRunner.getCurrentExam();
         TestDisplay testDisplay = new TestDisplay(exam);
-        Dispatcher.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
     }
 
     /**
@@ -111,7 +111,7 @@ public class DeckDisplay extends AnchorPane {
      */
     private void deleteCard(int index) {
         if (deck.getCards().size() == 1) {
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your deck needs at least 1 card!");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your deck needs at least 1 card!");
             return;
         }
         try {
@@ -125,12 +125,12 @@ public class DeckDisplay extends AnchorPane {
     private void deleteDeck() throws DeckNotFoundException {
         State state = State.getState();
         state.removeDeck(deck.getName());
-        Dispatcher.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 
     private void addQuestion() {
         EditDeckDisplay display = new EditDeckDisplay(deck);
-        Dispatcher.doTask(ConsumerSchema.SWAP_DISPLAYS, display);
+        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, display);
     }
 
     /**

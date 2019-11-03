@@ -8,7 +8,7 @@ import dream.fcard.gui.controllers.displays.createandeditdeck.mcqcard.McqOptions
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import javafx.fxml.FXML;
@@ -67,7 +67,7 @@ public class CreateDeckDisplay extends VBox {
      */
     public CreateDeckDisplay() {
         try {
-            Dispatcher.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
                     + "CreateDeckDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -76,7 +76,7 @@ public class CreateDeckDisplay extends VBox {
             editingWindow = new CardCreatingWindow(incrementNumCards);
             cardCreatingPane.getChildren().add(editingWindow);
             onSaveDeck.setOnAction(e -> onSaveDeck());
-            cancelButton.setOnAction(e -> Dispatcher.doTask(ConsumerSchema.EXIT_CREATE, true));
+            cancelButton.setOnAction(e -> Consumers.doTask(ConsumerSchema.EXIT_CREATE, true));
         } catch (IOException e) {
             //TODO: replace or augment with a logger
             e.printStackTrace();
@@ -85,7 +85,7 @@ public class CreateDeckDisplay extends VBox {
 
     public CreateDeckDisplay(String deckNameInput) {
         try {
-            Dispatcher.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
                     + "CreateDeckDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -94,7 +94,7 @@ public class CreateDeckDisplay extends VBox {
             editingWindow = new CardCreatingWindow(incrementNumCards);
             cardCreatingPane.getChildren().add(editingWindow);
             onSaveDeck.setOnAction(e -> onSaveDeck());
-            cancelButton.setOnAction(e -> Dispatcher.doTask(ConsumerSchema.EXIT_CREATE, true));
+            cancelButton.setOnAction(e -> Consumers.doTask(ConsumerSchema.EXIT_CREATE, true));
             this.deckNameInput = new TextField(deckNameInput);
         } catch (IOException e) {
             //TODO: replace or augment with a logger
@@ -110,18 +110,18 @@ public class CreateDeckDisplay extends VBox {
         if (editingWindow != null) {
             Deck deck = editingWindow.getTempDeck();
             if (deck.getCards().size() == 0) {
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No cards made. Exiting deck creation mode.");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No cards made. Exiting deck creation mode.");
             } else {
                 String deckName = deckNameInput.getText();
                 if (deckName.isBlank()) {
-                    Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to give your deck a name!");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to give your deck a name!");
                     return;
                 }
                 deck.setDeckName(deckName);
                 State.getState().addDeck(deck);
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your new deck has been created!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your new deck has been created!");
             }
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+            Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
         }
     }
 
@@ -152,7 +152,7 @@ public class CreateDeckDisplay extends VBox {
         }
 
         if (!success) {
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "CLI card creation failed.");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "CLI card creation failed.");
         }
 
         try {
@@ -194,7 +194,7 @@ public class CreateDeckDisplay extends VBox {
 
             //LogsCenter.getLogger(CreateCommand.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
         } catch (NumberFormatException n) {
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer not valid.");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer not valid.");
         }
     }
 
@@ -229,7 +229,7 @@ public class CreateDeckDisplay extends VBox {
         }
 
         if (choices.size() <= 1) {
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Too few choices provided");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Too few choices provided");
             return false;
         }
 

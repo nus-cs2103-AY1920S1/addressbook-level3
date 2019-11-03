@@ -6,8 +6,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
-import dream.fcard.model.State;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,7 +45,7 @@ public class McqCard extends AnchorPane {
             populateOptions(mcqCard);
             seeBackButton.setOnAction(e -> {
                 if (toggleGroup.getSelectedToggle() == null) {
-                    Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to select an option!");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to select an option!");
                 } else {
                     RadioButton chosen = (RadioButton) toggleGroup.getSelectedToggle();
                     int selectedAnswer = toggleGroup.getToggles().indexOf(chosen) + 1;

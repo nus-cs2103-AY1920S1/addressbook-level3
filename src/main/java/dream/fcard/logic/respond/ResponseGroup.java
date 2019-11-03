@@ -2,6 +2,7 @@ package dream.fcard.logic.respond;
 
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
+import dream.fcard.model.StateHolder;
 
 /**
  * Enum of groups of Responses enum. Their function argument is a lambda
@@ -9,9 +10,9 @@ import dream.fcard.model.StateEnum;
  * belongs to the group.
  */
 public enum ResponseGroup {
-    CREATE((i,s) -> s.getCurrState() == StateEnum.CREATE),
-    DEFAULT((i,s) -> s.getCurrState() == StateEnum.DEFAULT),
-    MATCH_ALL((i,s) -> true);
+    CREATE(i -> StateHolder.getState().getCurrState() == StateEnum.CREATE),
+    DEFAULT(i -> StateHolder.getState().getCurrState() == StateEnum.DEFAULT),
+    MATCH_ALL(i -> true);
 
     private ResponseFunc func;
 
@@ -19,7 +20,7 @@ public enum ResponseGroup {
         func = f;
     }
 
-    public boolean isInGroup(String i, State s) {
-        return func.funcCall(i,s);
+    public boolean isInGroup(String i) {
+        return func.funcCall(i);
     }
 }

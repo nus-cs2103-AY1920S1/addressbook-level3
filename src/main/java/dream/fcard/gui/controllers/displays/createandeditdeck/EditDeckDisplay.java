@@ -6,15 +6,13 @@ import java.util.function.Consumer;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
-import dream.fcard.logic.respond.Dispatcher;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -45,7 +43,7 @@ public class EditDeckDisplay extends VBox {
 
     public EditDeckDisplay(Deck deck) {
         try {
-            Dispatcher.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
                     + "CreateDeckDisplay.fxml")); // same ui component as creating a deck, but different handlers
             fxmlLoader.setController(this);
@@ -58,7 +56,7 @@ public class EditDeckDisplay extends VBox {
             numCards = deck.getCards().size();
             deckSize.setText(numCards + (numCards == 1 ? " card" : " cards"));
             onSaveDeck.setOnAction(e -> onSaveDeck());
-            cancelButton.setOnAction(e -> Dispatcher.doTask(ConsumerSchema.DISPLAY_DECKS, true));
+            cancelButton.setOnAction(e -> Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,12 +72,12 @@ public class EditDeckDisplay extends VBox {
             tempDeck.getCards().forEach(card -> deck.addNewCard(card));
             String deckName = deckNameInput.getText();
             if (deckName.isBlank()) { // in case the user accidentally deletes the deck name
-                Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to give your deck a name!");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to give your deck a name!");
                 return;
             }
             deck.setDeckName(deckName);
-            Dispatcher.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your changes have been saved.");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your changes have been saved.");
         }
-        Dispatcher.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 }

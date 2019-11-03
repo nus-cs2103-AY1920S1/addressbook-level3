@@ -9,7 +9,7 @@ import dream.fcard.model.StateEnum;
 /**
  * Dispatches global consumers for CLI.
  */
-public class Dispatcher {
+public class Consumers {
     private static HashMap<String, Consumer> consumers = new HashMap<>();
 
     public static void addConsumer(String identifier, Consumer c) {
