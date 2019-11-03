@@ -11,7 +11,11 @@ public class Phone implements ListableField {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers should only contain numbers, at least 3 digits long, and it should not be blank.";
+    public static final String MESSAGE_DUPLICATE_INPUTS = "Duplicate inputs have been found. Please check to ensure "
+            + "that there are no duplicates in phone numbers entered.";
+
     public static final String VALIDATION_REGEX = "\\d{3,}";
+
     public final String phoneNumber;
 
     /**

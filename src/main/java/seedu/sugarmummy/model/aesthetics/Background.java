@@ -18,6 +18,7 @@ public class Background {
 
     private String backgroundColour;
     private String backgroundPicPath;
+    private Colour dominantColour;
 
     private String bgSize;
     private String bgRepeat;
@@ -53,14 +54,14 @@ public class Background {
      * Returns true if given string is a valid background size argument.
      */
     public static boolean isValidBackgroundSize(String test) {
-        return test != null && BackgroundImageArgs.BACKGROUND_SIZE_VALUES.contains(test.toLowerCase());
+        return test == null || !BackgroundImageArgs.BACKGROUND_SIZE_VALUES.contains(test.toLowerCase());
     }
 
     /**
      * Returns true if a given string is a valid background repeat argument.
      */
     public static boolean isValidBackgroundRepeat(String test) {
-        return test != null && BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.contains(test.toLowerCase());
+        return test == null || !BackgroundImageArgs.BACKGROUND_REPEAT_VALUES.contains(test.toLowerCase());
     }
 
     /**
@@ -120,6 +121,20 @@ public class Background {
 
     public String getBackgroundPicPath() {
         return backgroundPicPath;
+    }
+
+    /**
+     * Sets the dominant colour of this background.
+     */
+    public void setDominantColour() {
+        String colour = isBackgroundColour
+                ? backgroundColour
+                : ImageTester.getDominantColour(backgroundPicPath);
+        dominantColour = new Colour(colour);
+    }
+
+    public Colour getDominantColour() {
+        return dominantColour;
     }
 
     public boolean isEmpty() {

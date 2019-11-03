@@ -38,7 +38,7 @@ public class BioTable extends UiPart<Region> {
     @FXML
     private TableColumn<String, String> data;
 
-    public BioTable() {
+    public BioTable(String fontColourToString, String bg, String bgSize, String bgRepeat) {
         super(FXML);
         field.setCellValueFactory(new PropertyValueFactory<String, String>("field"));
         //        setFontColourToColumn(field, "yellow");
@@ -48,7 +48,19 @@ public class BioTable extends UiPart<Region> {
         setTextWrapping(data);
         tableView.setSelectionModel(null);
         list = FXCollections.observableArrayList();
-        FIELD_LABELS.forEach(fieldLabel -> list.add(new BioTableFieldDataPair(fieldLabel, "")));
+        FIELD_LABELS.forEach(fieldLabel -> {
+            if (fieldLabel.equals("Font Colour:")) {
+                list.add(new BioTableFieldDataPair(fieldLabel, fontColourToString));
+            } else if (fieldLabel.equals("Background:")) {
+                list.add(new BioTableFieldDataPair(fieldLabel, bg));
+            } else if (fieldLabel.equals("Background Size:")) {
+                list.add(new BioTableFieldDataPair(fieldLabel, bgSize));
+            } else if (fieldLabel.equals("Background Repeat:")) {
+                list.add(new BioTableFieldDataPair(fieldLabel, bgRepeat));
+            } else {
+                list.add(new BioTableFieldDataPair(fieldLabel, ""));
+            }
+        });
         tableView.setItems(list);
     }
 
@@ -58,7 +70,7 @@ public class BioTable extends UiPart<Region> {
     public BioTable(String name, String nric, String gender, String dob, String hp, String emergencyHp,
                     String medicalCondition, String address, String dpPath, String fontColour, String bg,
                     String bgSize, String bgRepeat, String myGoals, String otherBioInfo) {
-        this();
+        this(fontColour, bg, bgSize, bgRepeat);
 
         List<String> data = new ArrayList<>(List.of(name, nric, gender, dob, hp, emergencyHp, medicalCondition, address,
                 dpPath, fontColour, bg, bgSize, bgRepeat, myGoals, otherBioInfo));

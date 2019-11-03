@@ -9,8 +9,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -121,7 +123,7 @@ public class ParserUtil {
      */
     public static ProfileDesc parseProfileDesc(Optional<String> profileDesc) throws ParseException {
         requireNonNull(profileDesc);
-        if (!profileDesc.isEmpty()) {
+        if (profileDesc.isPresent()) {
             String trimmedProfileDesc = profileDesc.get().trim();
             if (!ProfileDesc.isValidProfileDesc(trimmedProfileDesc)) {
                 throw new ParseException(ProfileDesc.MESSAGE_CONSTRAINTS);
@@ -140,7 +142,7 @@ public class ParserUtil {
      */
     public static DisplayPicPath parseDpPath(Optional<String> dpPath) throws ParseException {
         requireNonNull(dpPath);
-        if (!dpPath.isEmpty()) {
+        if (dpPath.isPresent()) {
             String trimmedDisplayPic = dpPath.get().trim();
             if (!DisplayPicPath.isValidDisplayPicPath(trimmedDisplayPic)) {
                 throw new ParseException(DisplayPicPath.MESSAGE_CONSTRAINTS);
@@ -167,7 +169,7 @@ public class ParserUtil {
      */
     public static Nric parseNric(Optional<String> nric) throws ParseException {
         requireNonNull(nric);
-        if (!nric.isEmpty()) {
+        if (nric.isPresent()) {
             String trimmedNric = nric.get().trim();
             if (!Nric.isValidNric(trimmedNric)) {
                 throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
@@ -185,7 +187,7 @@ public class ParserUtil {
      */
     public static Gender parseGender(Optional<String> gender) throws ParseException {
         requireNonNull(gender);
-        if (!gender.isEmpty()) {
+        if (gender.isPresent()) {
             String trimmedGender = gender.get().trim();
             if (!Gender.isValidGender(trimmedGender)) {
                 throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
@@ -204,7 +206,7 @@ public class ParserUtil {
      */
     public static DateOfBirth parseDateOfBirth(Optional<String> dateOfBirth) throws ParseException {
         requireNonNull(dateOfBirth);
-        if (!dateOfBirth.isEmpty()) {
+        if (dateOfBirth.isPresent()) {
             String trimmedDateOfBirth = dateOfBirth.get().trim();
             if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
                 throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
@@ -242,6 +244,12 @@ public class ParserUtil {
         for (String phoneNumber : phones) {
             phoneList.add(parsePhone(phoneNumber));
         }
+
+        Set<Phone> phoneSet = new HashSet<>(phoneList);
+        if (phoneSet.size() != phoneList.size()) {
+            throw new ParseException(Phone.MESSAGE_DUPLICATE_INPUTS);
+        }
+
         return phoneList;
     }
 
@@ -273,6 +281,12 @@ public class ParserUtil {
         for (String medicalConditionName : medicalConditions) {
             medicalConditionList.add(parseMedicalCondition(medicalConditionName));
         }
+
+        Set<MedicalCondition> medicalConditionSet = new HashSet<>(medicalConditionList);
+        if (medicalConditionSet.size() != medicalConditionList.size()) {
+            throw new ParseException(MedicalCondition.MESSAGE_DUPLICATE_INPUTS);
+        }
+
         return medicalConditionList;
     }
 
@@ -283,7 +297,7 @@ public class ParserUtil {
      */
     public static Address parseAddress(Optional<String> address) throws ParseException {
         requireNonNull(address);
-        if (!address.isEmpty()) {
+        if (address.isPresent()) {
             String trimmedAddress = address.get().trim();
             if (!Address.isValidAddress(trimmedAddress)) {
                 throw new ParseException(Address.MESSAGE_CONSTRAINTS);
@@ -317,6 +331,12 @@ public class ParserUtil {
         for (String goalName : goals) {
             goalList.add(parseGoal(goalName));
         }
+
+        Set<Goal> goalSet = new HashSet<>(goalList);
+        if (goalSet.size() != goalList.size()) {
+            throw new ParseException(Goal.MESSAGE_DUPLICATE_INPUTS);
+        }
+
         return goalList;
     }
 
@@ -326,7 +346,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code otherBioInfo} is invalid.
      */
     public static OtherBioInfo parseOtherBioInfo(Optional<String> otherInfo) throws ParseException {
-        if (!otherInfo.isEmpty()) {
+        if (otherInfo.isPresent()) {
             requireNonNull(otherInfo);
             String trimmedOtherInfo = otherInfo.get().trim();
             if (!OtherBioInfo.isValidOtherInfo(trimmedOtherInfo)) {

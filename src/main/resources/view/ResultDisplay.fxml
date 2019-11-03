@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="placeHolder" HBox.hgrow="ALWAYS" maxHeight="Infinity"
-      VBox.vgrow="ALWAYS"
-      alignment="TOP_LEFT" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8">
-    <children>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="false" styleClass="profile-scroll"
-                    minHeight="75" prefHeight="75" maxHeight="Infinity" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <content>
-                <VBox VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label fx:id="resultDisplay" minHeight="70" maxHeight="Infinity" alignment="TOP_LEFT"
-                               styleClass="result-display" textAlignment="LEFT" wrapText="false"/>
-                    </children>
-                    <padding>
-                        <Insets left="10.0"/>
-                    </padding>
-                </VBox>
-            </content>
-        </ScrollPane>
-    </children>
+<?import javafx.scene.control.TextArea?>
+<ScrollPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" HBox.hgrow="ALWAYS" fitToWidth="true" styleClass="profile-scroll">
+    <content>
+        <TextArea fx:id="resultDisplay" editable="false" wrapText="true" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="result-display"/>
+    </content>
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
-</HBox>
+</ScrollPane>
+

@@ -28,7 +28,7 @@ public class SampleUserDataUtil {
         return new User[]{
             new User(new Name("Alex Yeoh"), new DisplayPicPath(""),
                     new ProfileDesc("Sometimes I pretend I'm a carrot."),
-                    new Nric("S1234567A"), new Gender("Male"), new DateOfBirth("21/12/1900"),
+                    new Nric("S1234567A"), new Gender("Male"), new DateOfBirth("1900-12-21"),
                     getContactNumberList("91234567"), getEmergencyContactList("81234567"),
                     getMedicalConditionList("Type II Diabetes"),
                     new Address("Blk 123 #01-123 Example Road S(123456)"), getGoalList("test"),

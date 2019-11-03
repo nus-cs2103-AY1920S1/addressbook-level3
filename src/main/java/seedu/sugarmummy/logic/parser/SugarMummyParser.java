@@ -125,6 +125,7 @@ public class SugarMummyParser {
 
         //=========== Aesthetics =============================================================
 
+        case FontColourCommand.ALTERNATIVE_COMMAND_WORD:
         case FontColourCommand.COMMAND_WORD:
             return new FontColourCommandParser().parse(arguments);
 
