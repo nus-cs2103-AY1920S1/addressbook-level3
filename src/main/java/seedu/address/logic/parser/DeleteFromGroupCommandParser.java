@@ -20,6 +20,10 @@ public class DeleteFromGroupCommandParser implements Parser<DeleteFromGroupComma
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+
     @Override
     public DeleteFromGroupCommand parse(String args) throws ParseException {
 
@@ -27,6 +31,7 @@ public class DeleteFromGroupCommandParser implements Parser<DeleteFromGroupComma
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

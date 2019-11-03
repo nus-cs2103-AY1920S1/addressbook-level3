@@ -13,8 +13,13 @@ import seedu.address.model.person.Name;
  * Parses input arguments and creates a new DeletePersonCommand object.
  */
 public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -23,6 +28,7 @@ public class DeletePersonCommandParser implements Parser<DeletePersonCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE));
         }

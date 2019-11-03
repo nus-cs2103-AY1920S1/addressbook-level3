@@ -18,8 +18,13 @@ import seedu.address.model.group.GroupName;
  * Parses input arguments and creates a new EditGroupCommand object.
  */
 public class EditGroupCommandParser implements Parser<EditGroupCommand> {
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -30,6 +35,8 @@ public class EditGroupCommandParser implements Parser<EditGroupCommand> {
                         PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EDIT)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_EDIT, PREFIX_GROUPNAME,
+                PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditGroupCommand.MESSAGE_USAGE));
         }

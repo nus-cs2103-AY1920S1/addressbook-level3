@@ -20,7 +20,10 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GROUPNAME);
-        if (!hasOnlyOneParam(argMultimap) || !argMultimap.getPreamble().isEmpty()) {
+
+        if (!hasOnlyOneParam(argMultimap)
+                || !argMultimap.getPreamble().isEmpty()
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GROUPNAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
@@ -57,5 +60,9 @@ public class ShowCommandParser implements Parser<ShowCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 }

@@ -18,8 +18,14 @@ import seedu.address.model.person.schedule.Timeslot;
  * Parses input arguments and creates a new AddEventCommand object.
  */
 public class AddEventCommandParser implements Parser<AddEventCommand> {
+
+
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
     }
 
     @Override
@@ -28,6 +34,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_EVENTNAME, PREFIX_TIMING);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_EVENTNAME, PREFIX_TIMING)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EVENTNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
@@ -37,7 +44,11 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             name = ParserUtil.parseName((argMultimap.getValue(PREFIX_NAME).get()));
         }
 
-        String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get();
+        String eventName = argMultimap.getValue(PREFIX_EVENTNAME).get().trim();
+        if(eventName.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
+        }
+
         List<String> timings = argMultimap.getAllValues(PREFIX_TIMING);
 
         int i;

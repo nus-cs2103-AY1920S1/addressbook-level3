@@ -23,15 +23,22 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    private static boolean areMultiplePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getAllValues(prefix).size() > 1);
+    }
+
     @Override
     public AddGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_GROUPNAME, PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUPNAME)
+                || areMultiplePrefixesPresent(argMultimap, PREFIX_GROUPNAME,
+                    PREFIX_REMARK, PREFIX_DESCRIPTION, PREFIX_ROLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE));
         }
+
 
         GroupDescriptor groupDescriptor = new GroupDescriptor();
         groupDescriptor.setGroupName(new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()));
