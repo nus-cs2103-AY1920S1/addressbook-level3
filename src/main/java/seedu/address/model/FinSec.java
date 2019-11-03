@@ -16,7 +16,6 @@ import seedu.address.model.claim.UniqueClaimsList;
 import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.commanditem.UniqueCommandItemsList;
 import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.UniqueContactsList;
 import seedu.address.model.income.Income;

@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.commanditem.CommandItem;
+import seedu.address.model.commonvariables.Name;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 import seedu.address.model.income.Income;
@@ -63,7 +64,7 @@ public class FinSecTest {
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> finSec.hasContact(null));
+        assertThrows(NullPointerException.class, () -> finSec.hasContact((Name) null));
     }
 
     @Test
