@@ -289,7 +289,7 @@ public class OutCommandTest {
 
         @Override
         public void commitUserState() {
-            throw new AssertionError("This method should not be called.");
+            return;
         }
 
         @Override
