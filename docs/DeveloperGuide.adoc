@@ -248,7 +248,7 @@ image::FindSequenceDiagram.png[]
 
 
 //tag::resolve[]
-=== Appeal resolve features
+=== Resolve feature
 ==== Implementation
 
 The resolve feature is facilitated by an abstract `ResolveCommand` class which extends abstract `Command` class and
