@@ -1,11 +1,13 @@
 package seedu.address.cashier.storage;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.logic.Logic;
 import seedu.address.inventory.model.Item;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 
@@ -16,6 +18,7 @@ public class StorageManager implements Storage {
 
     private Logic inventoryLogic;
     private seedu.address.transaction.logic.Logic transactionLogic;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     public StorageManager(Logic inventoryLogic, seedu.address.transaction.logic.Logic transactionLogic) {
         this.inventoryLogic = inventoryLogic;
@@ -33,6 +36,7 @@ public class StorageManager implements Storage {
      * @throws Exception if the input is invalid
      */
     public void writeToInventoryFile(InventoryList inventoryList) throws Exception {
+        logger.info("Writing to inventory file from cashier's storage.");
         ArrayList<Item> list = inventoryList.getiArrayList();
         seedu.address.inventory.util.InventoryList inventoryList1 =
                 new seedu.address.inventory.util.InventoryList(list);
@@ -49,6 +53,7 @@ public class StorageManager implements Storage {
      * @throws Exception if the input is invalid
      */
     public void appendToTransaction(Transaction transaction) throws Exception {
+        logger.info("Appending to transaction file from cashier's storage.");
         transactionLogic.appendToTransactionFile(transaction);
     }
 
