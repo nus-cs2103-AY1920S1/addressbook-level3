@@ -16,13 +16,6 @@ public class State {
     private StateEnum currState;
     private Deck currentDeck;
 
-    /**
-     * Return the current deck in Create mode.
-     * @return the deck in Create Mode.
-     */
-    public Deck getCurrentDeck() {
-        return currentDeck;
-    }
 
     /**
      * Constructor to create a State object with no Deck objects.
@@ -30,6 +23,14 @@ public class State {
     public State() {
         decks = StorageManager.loadDecks();
         currState = StateEnum.DEFAULT;
+    }
+
+    /**
+     * Return the current deck in Create mode.
+     * @return the deck in Create Mode.
+     */
+    public Deck getCurrentDeck() {
+        return currentDeck;
     }
 
     /**

@@ -1,7 +1,10 @@
 package dream.fcard.model;
 
+/**
+ * A class to manage state.
+ */
 public class StateHolder {
-    static State state;
+    private static State state;
 
     public static void makeState() {
         state = new State();

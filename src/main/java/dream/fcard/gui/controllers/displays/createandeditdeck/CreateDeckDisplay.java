@@ -63,11 +63,10 @@ public class CreateDeckDisplay extends VBox {
 
     /**
      * Creates the form required to add questions to a deck.
-     *
      */
     public CreateDeckDisplay() {
         try {
-            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
                     + "CreateDeckDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -85,7 +84,7 @@ public class CreateDeckDisplay extends VBox {
 
     public CreateDeckDisplay(String deckNameInput) {
         try {
-            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE,true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays/"
                     + "CreateDeckDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -280,7 +279,6 @@ public class CreateDeckDisplay extends VBox {
     }
 
     /**
-     *
      * @param input
      * @return
      */
@@ -289,7 +287,6 @@ public class CreateDeckDisplay extends VBox {
     }
 
     /**
-     *
      * @param input
      * @return
      */
@@ -298,7 +295,6 @@ public class CreateDeckDisplay extends VBox {
     }
 
     /**
-     *
      * @param input
      * @return
      */

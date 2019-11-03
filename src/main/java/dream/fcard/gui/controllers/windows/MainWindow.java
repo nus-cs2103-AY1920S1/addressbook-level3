@@ -14,9 +14,7 @@ import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.stats.Stats;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
-import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
-
 import dream.fcard.model.StateHolder;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -148,7 +146,6 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay();
         displayContainer.getChildren().add(tempCreateDeckDisplay);
-        StateHolder.getState().setCurrState(StateEnum.CREATE);
     }
 
     /**
@@ -160,7 +157,6 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
         displayContainer.getChildren().add(tempCreateDeckDisplay);
-        StateHolder.getState().setCurrState(StateEnum.CREATE);
     }
 
     /**

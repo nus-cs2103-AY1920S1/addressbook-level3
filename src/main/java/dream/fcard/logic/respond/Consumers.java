@@ -1,10 +1,7 @@
 package dream.fcard.logic.respond;
 
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.function.Consumer;
-
-import dream.fcard.model.StateEnum;
 
 /**
  * Dispatches global consumers for CLI.
@@ -20,6 +17,12 @@ public class Consumers {
         consumers.remove(identifier);
     }
 
+    /**
+     * Get a consumer and run it.
+     * @param key The identifier for the consumer
+     * @param x the object for the consumer
+     * @return whether the consumer was successfully used.
+     */
     @SuppressWarnings("unchecked")
     public static Boolean accept(String key, Object x) {
         Consumer c = consumers.get(key);

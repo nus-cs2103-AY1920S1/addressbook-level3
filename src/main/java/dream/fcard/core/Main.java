@@ -1,8 +1,6 @@
 package dream.fcard.core;
 
 import dream.fcard.MainApp;
-import dream.fcard.util.RegexUtil;
-import java.util.ArrayList;
 import javafx.application.Application;
 
 /**

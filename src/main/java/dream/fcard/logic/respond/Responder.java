@@ -2,9 +2,6 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
-import dream.fcard.model.State;
-import dream.fcard.model.StateHolder;
-
 
 /**
  * Interface to take in user input and execute program behaviour.

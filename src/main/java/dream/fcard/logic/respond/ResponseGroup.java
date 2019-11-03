@@ -1,6 +1,5 @@
 package dream.fcard.logic.respond;
 
-import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 
@@ -10,7 +9,6 @@ import dream.fcard.model.StateHolder;
  * belongs to the group.
  */
 public enum ResponseGroup {
-    CREATE(i -> StateHolder.getState().getCurrState() == StateEnum.CREATE),
     DEFAULT(i -> StateHolder.getState().getCurrState() == StateEnum.DEFAULT),
     MATCH_ALL(i -> true);
 
