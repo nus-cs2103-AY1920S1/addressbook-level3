@@ -28,4 +28,18 @@ public class ViewCommand extends Command {
         requireNonNull(model);
         return new CommandResult(MESSAGE_SUCCESS, false, false, tab);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof ViewCommand)) {
+            return false;
+        }
+
+        ViewCommand other = (ViewCommand) obj;
+        return tab == other.tab;
+    }
 }
