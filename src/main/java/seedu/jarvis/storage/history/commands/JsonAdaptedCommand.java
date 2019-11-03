@@ -13,6 +13,7 @@ import seedu.jarvis.storage.history.commands.cca.JsonAdaptedDeleteCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedEditCcaCommand;
 import seedu.jarvis.storage.history.commands.cca.JsonAdaptedIncreaseProgressCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedAddCourseCommand;
+import seedu.jarvis.storage.history.commands.course.JsonAdaptedClearCourseCommand;
 import seedu.jarvis.storage.history.commands.course.JsonAdaptedDeleteCourseCommand;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedEditInstallmentCommand;
 import seedu.jarvis.storage.history.commands.finance.JsonAdaptedRemoveInstallmentCommand;
@@ -36,6 +37,7 @@ import seedu.jarvis.storage.history.commands.planner.JsonAdaptedDoneTaskCommand;
         // courseplanner
         @Type(value = JsonAdaptedAddCourseCommand.class, name = "JsonAdaptedAddCourseCommand"),
         @Type(value = JsonAdaptedDeleteCourseCommand.class, name = "JsonAdaptedDeleteCourseCommand"),
+        @Type(value = JsonAdaptedClearCourseCommand.class, name = "JsonAdaptedClearCourseCommand"),
         // financetracker
         @Type(value = JsonAdaptedEditInstallmentCommand.class, name = "JsonAdaptedEditInstallmentCommand"),
         @Type(value = JsonAdaptedSetPaidCommand.class, name = "JsonAdaptedSetPaidCommand"),
