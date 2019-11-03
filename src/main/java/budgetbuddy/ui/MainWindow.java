@@ -19,6 +19,7 @@ import budgetbuddy.ui.tab.TransactionTab;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
@@ -151,7 +152,17 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // activate initial tab
-        // updateView(INITIAL_TAB_HERE);
+        updateView(transactionTab, CommandCategory.TRANSACTION);
+
+        // set focus event handler
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED,
+            event -> {
+                if (event.isShiftDown() && event.isControlDown()) {
+                    Node commandField = commandBox.getRoot().getChildrenUnmodifiable().get(0);
+                    commandField.requestFocus();
+                }
+            });
+
     }
 
     /**
