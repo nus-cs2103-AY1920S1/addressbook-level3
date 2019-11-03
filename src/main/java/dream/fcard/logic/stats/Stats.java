@@ -1,11 +1,6 @@
 package dream.fcard.logic.stats;
 
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public abstract class Stats {
     /**
@@ -19,7 +14,8 @@ public abstract class Stats {
     Session currentSession;
 
     public Stats() {
-
+        this.sessionList = new SessionList();
+        this.currentSession = null;
     }
 
     /** Sets the sessionList of the current Stats object to the given newSessionList. */

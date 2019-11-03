@@ -67,6 +67,7 @@ public class DateTimeUtil {
         return localDateTime.format(formatter);
     }
 
+    //@@author AHaliq
     /**
      * Returns a JsonValue of a LocalDateTime object.
      * @param localDateTime object to convert to json
@@ -94,6 +95,9 @@ public class DateTimeUtil {
                 obj.get(Schema.DATE_TIME_SECOND).getInt(),
                 obj.get(Schema.DATE_TIME_NANO).getInt());
     }
+    //@@author
 
+    //@@author nattanyz
+    //public static Duration getAverageDuration()
     // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
 }

@@ -7,7 +7,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.model.Deck;
@@ -47,27 +46,25 @@ public class StatsDisplayUtil {
     }
 
     /** Creates the TableView object from the given State object, representing the list of decks. */
-    public static TableView<DeckStats> getDeckStatsTableView(State state) {
+    public static TableView<Deck> getDeckTableView(State state) {
         // for each deck in list of decks in state, get the DeckStats object
-        ArrayList<DeckStats> deckStatsArrayList = new ArrayList<>();
-        for (Deck deck : state.decks) {
-            deckStatsArrayList.add(deck.getDeckStats());
-        }
-        TableView<DeckStats> deckStatsTableView = new TableView<>();
-        deckStatsTableView.setItems(FXCollections.observableArrayList(deckStatsArrayList));
-        deckStatsTableView.setPlaceholder(new Label("There are no decks!"));
+        ArrayList<Deck> decks = state.decks;
 
-        TableColumn<DeckStats, String> nameColumn = new TableColumn<>("Deck name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableView<Deck> deckTableView = new TableView<>();
+        deckTableView.setItems(FXCollections.observableArrayList(decks));
+        deckTableView.setPlaceholder(new Label("There are no decks!"));
 
-        TableColumn<DeckStats, Integer> numCardsColumn = new TableColumn<>("No. of cards");
+        TableColumn<Deck, String> nameColumn = new TableColumn<>("Deck name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("deckName"));
+
+        TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("No. of cards");
         numCardsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
-        TableColumn<DeckStats, Integer> numSessionsColumn = new TableColumn<>("No. of sessions");
+        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("No. of sessions");
         numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
-        TableColumn<DeckStats, Double> avgScoreColumn = new TableColumn<>("Average score");
-        avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
+        //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
+        //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
         // todo: currently do not know which cards were tested in each exam
         // todo: on click, show the deck stats for the selected deck
@@ -80,11 +77,11 @@ public class StatsDisplayUtil {
         //TableColumn<DeckStats, String> durationColumn = new TableColumn<>("Duration");
         //durationColumn.setCellValueFactory(new PropertyValueFactory<>("durationString"));
 
-        deckStatsTableView.getColumns().add(nameColumn);
-        deckStatsTableView.getColumns().add(numCardsColumn);
-        deckStatsTableView.getColumns().add(numSessionsColumn);
-        deckStatsTableView.getColumns().add(avgScoreColumn);
+        deckTableView.getColumns().add(nameColumn);
+        deckTableView.getColumns().add(numCardsColumn);
+        deckTableView.getColumns().add(numSessionsColumn);
+        //deckTableView.getColumns().add(avgScoreColumn);
 
-        return deckStatsTableView;
+        return deckTableView;
     }
 }
