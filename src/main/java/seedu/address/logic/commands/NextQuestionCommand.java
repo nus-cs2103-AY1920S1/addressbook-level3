@@ -6,16 +6,16 @@ import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 
 /**
- * Instantiates a NextQuestionCommand to skip questions.
+ * Represents a NextQuestionCommand to skip questions.
  */
-public class NextQuestionCommand extends Command {
+abstract class NextQuestionCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
+    private static final String MESSAGE_SUCCESS_END_OF_TEST = "End of test!";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
     private final String messageSuccess;
 
-    public NextQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, String messageSuccess) {
+    NextQuestionCommand(KeyboardFlashCardsParser keyboardFlashCardsParser, String messageSuccess) {
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
         this.messageSuccess = messageSuccess;
     }
