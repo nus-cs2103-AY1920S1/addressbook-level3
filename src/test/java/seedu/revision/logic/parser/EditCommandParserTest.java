@@ -4,7 +4,6 @@ import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC_BROWNFIELD;
-import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
@@ -34,7 +33,6 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.logic.parser.main.EditCommandParser;
 import seedu.revision.model.answerable.Difficulty;
-import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
@@ -106,7 +104,9 @@ public class EditCommandParserTest {
                 + MCQ_WRONG_ANSWER_DESC + VALID_CATEGORY_ALPHA + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
 
         // editing question type is not allowed
-        assertParseFailure(parser, "1" + QUESTION_TYPE_DESC + QUESTION_DESC_ALPHA, EditCommand.MESSAGE_CANNOT_EDIT_TYPE);
+        assertParseFailure(parser, "1" + QUESTION_TYPE_DESC + QUESTION_DESC_ALPHA,
+                EditCommand.MESSAGE_CANNOT_EDIT_TYPE);
+
     }
 
     @Test

@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.ExitCommand;
-import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;

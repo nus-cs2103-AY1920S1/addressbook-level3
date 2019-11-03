@@ -34,7 +34,7 @@ public class Mcq extends Answerable {
         if (mcq.getCorrectAnswerList().size() != 1) {
             return false;
         }
-        if(mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
+        if (mcq.getWrongAnswerList().contains(mcq.getCorrectAnswerList().get(0))) {
             return false;
         }
         if (mcq.getWrongAnswerList().size() != 3) {
@@ -44,8 +44,8 @@ public class Mcq extends Answerable {
     }
 
     /**
-     * Returns true if both {@code Mcq)s with the same question have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two {@code Mcq)s.
+     * Returns true if both {@code Mcq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Mcq}s.
      */
     public boolean isSameAnswerable(Answerable otherAnswerable) {
         boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);

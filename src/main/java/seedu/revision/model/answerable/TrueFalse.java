@@ -50,8 +50,8 @@ public class TrueFalse extends Answerable {
     }
 
     /**
-     * Returns true if both TrueFalse questions have the same question only.
-     * This defines a weaker notion of equality between two TrueFalse questions.
+     * Returns true if both {@code TrueFalse} questions have the same question only.
+     * This defines a weaker notion of equality between two {@code TrueFalse} questions.
      */
     @Override
     public boolean isSameAnswerable(Answerable otherAnswerable) {

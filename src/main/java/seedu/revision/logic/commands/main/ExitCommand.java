@@ -1,7 +1,6 @@
 package seedu.revision.logic.commands.main;
 
 import seedu.revision.logic.commands.Command;
-import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.model.Model;
 
 /**

@@ -82,8 +82,8 @@ public class MainLogicManagerTest {
         mainLogic = new MainLogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA + CORRECT_ANSWER_DESC_BROWNFIELD
-                + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA
+                + CORRECT_ANSWER_DESC_BROWNFIELD + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
         Answerable expectedAnswerable = new McqBuilder(MCQ_A).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);

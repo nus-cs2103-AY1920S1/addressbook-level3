@@ -37,8 +37,8 @@ public class Saq extends Answerable {
     }
 
     /**
-     * Returns true if both {@code Mcq)s with the same question have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two {@code Mcq)s.
+     * Returns true if both {@code Saq}s with the same question have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two {@code Saq}s.
      */
     public boolean isSameAnswerable(Answerable otherAnswerable) {
         boolean generalAnswerableCheck = super.isSameAnswerable(otherAnswerable);
