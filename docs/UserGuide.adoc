@@ -147,6 +147,8 @@ Examples:
 
 Creates a new empty deck named `german`.
 
+Note :
+
 ****
 * The `DECK_NAME` must be unique and no deck that exist in FlashCard Pro library should have the same name of `DECK_NAME`.
 
