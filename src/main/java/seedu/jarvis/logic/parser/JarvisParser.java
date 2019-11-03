@@ -10,12 +10,6 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.ExitCommand;
 import seedu.jarvis.logic.commands.HelpCommand;
 
-import seedu.jarvis.logic.commands.address.AddAddressCommand;
-import seedu.jarvis.logic.commands.address.ClearAddressCommand;
-import seedu.jarvis.logic.commands.address.DeleteAddressCommand;
-import seedu.jarvis.logic.commands.address.EditAddressCommand;
-import seedu.jarvis.logic.commands.address.FindAddressCommand;
-import seedu.jarvis.logic.commands.address.ListAddressCommand;
 import seedu.jarvis.logic.commands.cca.AddCcaCommand;
 import seedu.jarvis.logic.commands.cca.AddProgressCommand;
 import seedu.jarvis.logic.commands.cca.DeleteCcaCommand;
@@ -25,6 +19,7 @@ import seedu.jarvis.logic.commands.cca.IncreaseProgressCommand;
 import seedu.jarvis.logic.commands.cca.ListCcaCommand;
 import seedu.jarvis.logic.commands.course.AddCourseCommand;
 import seedu.jarvis.logic.commands.course.CheckCommand;
+import seedu.jarvis.logic.commands.course.ClearCourseCommand;
 import seedu.jarvis.logic.commands.course.DeleteCourseCommand;
 import seedu.jarvis.logic.commands.course.ListCourseCommand;
 import seedu.jarvis.logic.commands.course.LookUpCommand;
@@ -44,10 +39,6 @@ import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
 import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
 import seedu.jarvis.logic.commands.planner.FindTaskCommand;
 import seedu.jarvis.logic.commands.planner.ListTaskCommand;
-import seedu.jarvis.logic.parser.address.AddAddressCommandParser;
-import seedu.jarvis.logic.parser.address.DeleteAddressCommandParser;
-import seedu.jarvis.logic.parser.address.EditAddressCommandParser;
-import seedu.jarvis.logic.parser.address.FindAddressCommandParser;
 import seedu.jarvis.logic.parser.cca.AddCcaCommandParser;
 import seedu.jarvis.logic.parser.cca.AddProgressCommandParser;
 import seedu.jarvis.logic.parser.cca.DeleteCcaCommandParser;
@@ -105,20 +96,6 @@ public class JarvisParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        // addressbook commands
-        case AddAddressCommand.COMMAND_WORD:
-            return new AddAddressCommandParser().parse(arguments);
-        case EditAddressCommand.COMMAND_WORD:
-            return new EditAddressCommandParser().parse(arguments);
-        case DeleteAddressCommand.COMMAND_WORD:
-            return new DeleteAddressCommandParser().parse(arguments);
-        case ClearAddressCommand.COMMAND_WORD:
-            return new ClearAddressCommand();
-        case FindAddressCommand.COMMAND_WORD:
-            return new FindAddressCommandParser().parse(arguments);
-        case ListAddressCommand.COMMAND_WORD:
-            return new ListAddressCommand();
-
         // undo/redo commands
         case UndoCommand.COMMAND_WORD:
             return new UndoCommandParser().parse(arguments);
@@ -136,6 +113,8 @@ public class JarvisParser {
             return new CheckCommandParser().parse(arguments);
         case ListCourseCommand.COMMAND_WORD:
             return new ListCourseCommand();
+        case ClearCourseCommand.COMMAND_WORD:
+            return new ClearCourseCommand();
         case ShowCourseHelpCommand.COMMAND_WORD:
             return new ShowCourseHelpCommand();
 

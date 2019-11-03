@@ -51,4 +51,9 @@ public interface CoursePlannerModel {
      * Gets this Model's course planner
      */
     CoursePlanner getCoursePlanner();
+
+    /**
+     * Sets the course planner.
+     */
+    void setCoursePlanner(CoursePlanner cp);
 }

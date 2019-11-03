@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,8 +19,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -31,6 +28,8 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
@@ -40,11 +39,8 @@ public class SetPaidCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
-        model.addPurchase(new PurchaseStub());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
     }
 
     /**
@@ -85,7 +81,7 @@ public class SetPaidCommandTest {
 
     /**
      * Ensures that the {@code CommandResult} with the appropriate message is returned from a successful inverse
-     * execution, that the added installment was deleted from the finance tracker.
+     * execution, that the added purchase was deleted from the finance tracker.
      * */
     @Test
     public void executeInverse_success() {
@@ -96,8 +92,7 @@ public class SetPaidCommandTest {
                 purchaseToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.addPurchase(purchaseToAdd);
 
         assertCommandSuccess(setPaidCommand, model, expectedMessage, expectedModel);
@@ -133,22 +128,11 @@ public class SetPaidCommandTest {
     }
 
     /**
-     * A Model stub that contains a single purchase.
-     */
-    private class ModelStubWithPurchase extends ModelStub {
-        private final Purchase purchase;
-
-        ModelStubWithPurchase(Purchase purchase) {
-            requireNonNull(purchase);
-            this.purchase = purchase;
-        }
-    }
-
-    /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the purchase being added.
      */
     private class ModelStubAcceptingPurchaseAdded extends ModelStub {
         final ArrayList<Purchase> purchasesAdded = new ArrayList<>();
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public void addPurchase(Purchase purchase) {
@@ -163,9 +147,10 @@ public class SetPaidCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
+
     }
 
     private static class PurchaseStub extends Purchase {

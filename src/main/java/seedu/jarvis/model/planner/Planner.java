@@ -19,14 +19,23 @@ public class Planner {
     private TaskList taskList;
     private FilteredList<Task> filteredTaskList;
 
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        this.taskList = new TaskList();
+        filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
+            PlannerModel.PREDICATE_SHOW_ALL_TASKS);
+    }
+
     /**
      * Constructs an empty planner
      */
-    public Planner() {
-        this.taskList = new TaskList();
-        filteredTaskList = new FilteredList<>(FXCollections.observableList(getTasks()),
-                                                PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-    }
+    public Planner() {}
 
     /**
      * Constructs a Planner with reference from another Planner,

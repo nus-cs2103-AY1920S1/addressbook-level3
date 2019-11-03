@@ -9,7 +9,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseFa
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSuccess;
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.testutil.Assert.assertThrows;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,8 +20,6 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -32,6 +29,8 @@ import seedu.jarvis.model.finance.installment.InstallmentMoneyPaid;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.model.viewstatus.ViewStatus;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.testutil.ModelStub;
 import seedu.jarvis.testutil.finance.InstallmentBuilder;
 
@@ -41,11 +40,8 @@ public class SetInstallmentCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
-        model.addInstallment(new InstallmentStub());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
     }
 
     /**
@@ -70,7 +66,7 @@ public class SetInstallmentCommandTest {
 
         CommandResult commandResult = new SetInstallmentCommand(validInstallment).execute(modelStub);
 
-        assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS, validInstallment),
+        assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING, validInstallment),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInstallment), modelStub.installmentsAdded);
     }
@@ -94,11 +90,11 @@ public class SetInstallmentCommandTest {
         Installment installmentToAdd = new InstallmentBuilder().build();
         SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(installmentToAdd);
 
-        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING,
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getFinanceTracker(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
         expectedModel.addInstallment(installmentToAdd);
 
@@ -107,8 +103,8 @@ public class SetInstallmentCommandTest {
         String inverseExpectedMessage = String.format(
                 SetInstallmentCommand.MESSAGE_INVERSE_INSTALLMENT_NOT_FOUND, installmentToAdd);
 
-        model.deleteInstallment(4);
-        expectedModel.deleteInstallment(4);
+        model.deleteInstallment(1);
+        expectedModel.deleteInstallment(1);
         assertCommandInverseFailure(setInstallmentCommand, model, inverseExpectedMessage);
     }
 
@@ -121,12 +117,11 @@ public class SetInstallmentCommandTest {
         Installment installmentToAdd = new InstallmentBuilder().build();
         SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(installmentToAdd);
 
-        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS,
+        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING,
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.addInstallment(installmentToAdd);
 
         assertCommandSuccess(setInstallmentCommand, model, expectedMessage, expectedModel);
@@ -157,26 +152,8 @@ public class SetInstallmentCommandTest {
         // null -> returns false
         assertFalse(addSpotifyCommand.equals(null));
 
-        // different purchase -> returns false
+        // different installment -> returns false
         assertFalse(addSpotifyCommand.equals(addNetflixCommand));
-    }
-
-    /**
-     * A Model stub that contains a single installment.
-     */
-    private class ModelStubWithInstallment extends ModelStub {
-        private final Installment installment;
-
-        ModelStubWithInstallment(Installment installment) {
-            requireNonNull(installment);
-            this.installment = installment;
-        }
-
-        @Override
-        public boolean hasInstallment(Installment installment) {
-            requireNonNull(installment);
-            return this.installment.isSameInstallment(installment);
-        }
     }
 
     /**
@@ -184,11 +161,18 @@ public class SetInstallmentCommandTest {
      */
     private class ModelStubAcceptingInstallmentAdded extends ModelStub {
         final ArrayList<Installment> installmentsAdded = new ArrayList<>();
+        private ViewStatus viewStatus = new ViewStatus(ViewType.HOME_PAGE);
 
         @Override
         public boolean hasInstallment(Installment installment) {
             requireNonNull(installment);
             return installmentsAdded.stream().anyMatch(installment::isSameInstallment);
+        }
+
+        @Override
+        public boolean hasSimilarInstallment(Installment installment) {
+            requireNonNull(installment);
+            return installmentsAdded.stream().anyMatch(installment::isSimilarInstallment);
         }
 
         @Override
@@ -198,8 +182,8 @@ public class SetInstallmentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public void setViewStatus(ViewType viewType) {
+            viewStatus.setViewType(viewType);
         }
     }
 

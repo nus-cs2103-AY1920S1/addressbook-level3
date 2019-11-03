@@ -28,7 +28,8 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Undone %1$d command(s)";
     public static final String MESSAGE_NOTHING_TO_UNDO = "Nothing available to undo.";
-    public static final String MESSAGE_TOO_MANY_UNDO = "There are only %1$d commands available to be undone";
+    public static final String MESSAGE_TOO_MANY_UNDO = "There is a maximum of %d commands that can be undone\n"
+            + "There are only %d command(s) available to be undone";
     public static final String MESSAGE_UNABLE_TO_UNDO =
             "Unable to undo %d command(s), there was a problem with undoing command %d";
     public static final String MESSAGE_NO_INVERSE = COMMAND_WORD + " command cannot be undone";
@@ -95,7 +96,7 @@ public class UndoCommand extends Command {
         }
 
         if (numberOfTimes > model.getAvailableNumberOfExecutedCommands()) {
-            throw new CommandException(String.format(MESSAGE_TOO_MANY_UNDO,
+            throw new CommandException(String.format(MESSAGE_TOO_MANY_UNDO, model.getHistoryRange(),
                     model.getAvailableNumberOfExecutedCommands()));
         }
 

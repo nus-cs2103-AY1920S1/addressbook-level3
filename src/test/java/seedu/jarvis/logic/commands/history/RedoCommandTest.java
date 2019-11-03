@@ -58,7 +58,7 @@ public class RedoCommandTest {
         redoCommand = new RedoCommand(Integer.MAX_VALUE);
         model.rememberExecutedCommand(new CommandStub());
         model.rollback();
-        assertThrows(CommandException.class, String.format(RedoCommand.MESSAGE_TOO_MANY_REDO,
+        assertThrows(CommandException.class, String.format(RedoCommand.MESSAGE_TOO_MANY_REDO, model.getHistoryRange(),
                 model.getAvailableNumberOfInverselyExecutedCommands()), () -> redoCommand.execute(model));
     }
 

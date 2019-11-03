@@ -303,6 +303,17 @@ public class FinanceTracker {
         return installmentList.hasInstallment(installment);
     }
 
+    /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    public boolean hasSimilarInstallment(Installment installment) {
+        requireNonNull(installment);
+
+        return installmentList.hasSimilarInstallment(installment);
+    }
+
     //=========== General Finance Tracker =============================================================
 
     /**
@@ -310,7 +321,7 @@ public class FinanceTracker {
      * @return Optional that contains the monthly limit if it exists
      */
     public Optional<MonthlyLimit> getMonthlyLimit() {
-        return Optional.of(monthlyLimit);
+        return Optional.ofNullable(monthlyLimit);
     }
 
     /**

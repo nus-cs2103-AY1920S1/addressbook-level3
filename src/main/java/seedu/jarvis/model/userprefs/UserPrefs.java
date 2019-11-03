@@ -14,7 +14,6 @@ import seedu.jarvis.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path historyManagerFilePath = Paths.get("data", "historymanager.json");
     private Path ccaTrackerFilePath = Paths.get("data", "ccatracker.json");
     private Path coursePlannerFilePath = Paths.get("data", "courseplanner.json");
@@ -40,7 +39,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setHistoryManagerFilePath(newUserPrefs.getHistoryManagerFilePath());
+        setCcaTrackerFilePath(newUserPrefs.getCcaTrackerFilePath());
+        setCoursePlannerFilePath(newUserPrefs.getCoursePlannerFilePath());
+        setPlannerFilePath(newUserPrefs.getPlannerFilePath());
+        setFinanceTrackerFilePath(newUserPrefs.getFinanceTrackerPath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -52,13 +55,14 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
     @Override
     public Path getHistoryManagerFilePath() {
         return historyManagerFilePath;
+    }
+
+    public void setHistoryManagerFilePath(Path historyManagerFilePath) {
+        requireNonNull(historyManagerFilePath);
+        this.historyManagerFilePath = historyManagerFilePath;
     }
 
     @Override
@@ -66,9 +70,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return ccaTrackerFilePath;
     }
 
+    public void setCcaTrackerFilePath(Path ccaTrackerFilePath) {
+        requireNonNull(ccaTrackerFilePath);
+        this.ccaTrackerFilePath = ccaTrackerFilePath;
+    }
+
     @Override
     public Path getCoursePlannerFilePath() {
         return coursePlannerFilePath;
+    }
+
+    public void setCoursePlannerFilePath(Path coursePlannerFilePath) {
+        requireNonNull(coursePlannerFilePath);
+        this.coursePlannerFilePath = coursePlannerFilePath;
     }
 
     @Override
@@ -76,14 +90,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return plannerFilePath;
     }
 
+    public void setPlannerFilePath(Path plannerFilePath) {
+        requireNonNull(plannerFilePath);
+        this.plannerFilePath = plannerFilePath;
+    }
+
     @Override
     public Path getFinanceTrackerPath() {
         return financeTrackerFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setFinanceTrackerFilePath(Path financeTrackerFilePath) {
+        requireNonNull(financeTrackerFilePath);
+        this.financeTrackerFilePath = financeTrackerFilePath;
     }
 
     @Override
@@ -98,19 +117,22 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && historyManagerFilePath.equals(o.historyManagerFilePath)
+                && ccaTrackerFilePath.equals(o.ccaTrackerFilePath)
+                && coursePlannerFilePath.equals(o.coursePlannerFilePath)
+                && plannerFilePath.equals(o.plannerFilePath)
+                && financeTrackerFilePath.equals(o.financeTrackerFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }
 

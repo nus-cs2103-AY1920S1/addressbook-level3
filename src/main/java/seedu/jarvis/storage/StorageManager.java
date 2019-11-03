@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.jarvis.commons.core.LogsCenter;
 import seedu.jarvis.commons.exceptions.DataConversionException;
-import seedu.jarvis.model.address.ReadOnlyAddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -15,7 +14,6 @@ import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.ReadOnlyUserPrefs;
 import seedu.jarvis.model.userprefs.UserPrefs;
-import seedu.jarvis.storage.address.AddressBookStorage;
 import seedu.jarvis.storage.cca.CcaTrackerStorage;
 import seedu.jarvis.storage.course.CoursePlannerStorage;
 import seedu.jarvis.storage.finance.FinanceTrackerStorage;
@@ -29,7 +27,6 @@ import seedu.jarvis.storage.userprefs.UserPrefsStorage;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
     private HistoryManagerStorage historyManagerStorage;
     private CcaTrackerStorage ccaTrackerStorage;
@@ -38,12 +35,10 @@ public class StorageManager implements Storage {
     private FinanceTrackerStorage financeTrackerStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
-                          HistoryManagerStorage historyManagerStorage, CcaTrackerStorage ccaTrackerStorage,
-                          CoursePlannerStorage coursePlannerStorage, PlannerStorage plannerStorage,
-                          FinanceTrackerStorage financeTrackerStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, HistoryManagerStorage historyManagerStorage,
+                          CcaTrackerStorage ccaTrackerStorage, CoursePlannerStorage coursePlannerStorage,
+                          PlannerStorage plannerStorage, FinanceTrackerStorage financeTrackerStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.historyManagerStorage = historyManagerStorage;
         this.ccaTrackerStorage = ccaTrackerStorage;
@@ -67,36 +62,6 @@ public class StorageManager implements Storage {
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
-    }
-
-
-    // ================ AddressBook methods ==============================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
-    }
-
-    @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
     // ================ HistoryManager methods ===========================

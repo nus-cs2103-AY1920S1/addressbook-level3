@@ -8,6 +8,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.finance.PurchaseNameContainsKeywordsPredicate;
+import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 
@@ -61,9 +62,11 @@ public class FindPurchaseCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPurchaseList(predicate);
+        model.setViewStatus(ViewType.LIST_FINANCE);
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW, model.getFilteredPurchaseList().size()));
+                String.format(Messages.MESSAGE_PURCHASES_LISTED_OVERVIEW, model.getFilteredPurchaseList().size()),
+                true);
 
     }
 
