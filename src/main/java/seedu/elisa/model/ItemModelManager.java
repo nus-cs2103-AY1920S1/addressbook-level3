@@ -73,15 +73,15 @@ public class ItemModelManager implements ItemModel {
         activeReminders = new ActiveRemindersList(new ReminderList());
         futureReminders = new FutureRemindersList();
 
-        updateLists();
+        repopulateLists();
     }
 
 
     /**
-     * repopulate item lists from storage
+     * Repopulate item lists from storage
      * */
 
-    public void updateLists() {
+    public void repopulateLists() {
         for (int i = 0; i < itemStorage.size(); i++) {
             addToSeparateList(itemStorage.get(i));
         }
@@ -100,15 +100,6 @@ public class ItemModelManager implements ItemModel {
         return activeReminders;
     }
 
-    //Function get property's value
-    public final ObservableList<Item> getActiveReminderList() {
-        return activeReminders.get();
-    }
-    //Function to edit property //which should trigger a change event
-    public final void addReminderToActive(Item item) {
-        activeReminders.add(item);
-    }
-
     @Override
     public final FutureRemindersList getFutureRemindersList() {
         return futureReminders;
@@ -119,6 +110,7 @@ public class ItemModelManager implements ItemModel {
         elisaCommandHistory.pushUndo(command);
     }
 
+    //Deals with Storage
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -152,8 +144,6 @@ public class ItemModelManager implements ItemModel {
         userPrefs.setItemStorageFilePath(itemStorageFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
     public void setItemStorage(ItemStorage itemStorage) {
         this.itemStorage = itemStorage;
@@ -163,7 +153,9 @@ public class ItemModelManager implements ItemModel {
     public ItemStorage getItemStorage() {
         return itemStorage;
     }
+    //Above deals with storage
 
+    //Edits state of model
     /**
      * Adds an item to the respective list. All items will be added to the central list.
      * It will also be added to the respective list depending on whether it is a task, event or a reminder.

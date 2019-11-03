@@ -23,7 +23,7 @@ import seedu.elisa.logic.LogicManager;
 import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.EditCommand.EditItemDescriptor;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

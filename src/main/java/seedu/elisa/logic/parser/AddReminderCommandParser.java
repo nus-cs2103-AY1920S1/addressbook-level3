@@ -16,7 +16,7 @@ import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddReminderCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object

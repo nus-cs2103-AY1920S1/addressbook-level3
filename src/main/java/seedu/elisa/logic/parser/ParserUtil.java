@@ -18,7 +18,7 @@ import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.util.StringUtil;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoReschedulePeriod;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

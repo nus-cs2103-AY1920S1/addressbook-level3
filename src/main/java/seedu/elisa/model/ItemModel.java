@@ -97,7 +97,7 @@ public interface ItemModel {
 
     public ItemIndexWrapper getIndices(int index);
 
-    public void updateLists();
+    public void repopulateLists();
 
     public ElisaCommandHistory getElisaCommandHistory();
 

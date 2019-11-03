@@ -24,7 +24,7 @@ import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Edits the details of an existing item in the item list.

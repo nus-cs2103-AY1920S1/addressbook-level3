@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.commons.util.JsonUtil;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 
 /**
  * Represents an Item in Elisa.

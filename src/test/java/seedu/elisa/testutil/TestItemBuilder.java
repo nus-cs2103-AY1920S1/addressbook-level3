@@ -11,7 +11,7 @@ import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.logic.parser.ParserUtil;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-import seedu.elisa.model.tag.Tag;
+import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.model.util.SampleDataUtil;
 
 /**
