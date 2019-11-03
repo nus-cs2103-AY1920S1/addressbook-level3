@@ -2,7 +2,9 @@ package seedu.elisa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.elisa.commons.exceptions.IllegalValueException;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.logic.commands.exceptions.FocusModeException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.item.VisualizeList;
 
@@ -53,10 +55,13 @@ public class ShowCommand extends UndoableCommand {
     @Override
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
+        if (model.isFocusMode()) {
+            throw new FocusModeException();
+        }
         beforeSwitch = model.getVisualList().deepCopy();
         try {
             model.setVisualList(targetList); // should be T/E/R
-        } catch (Exception e) {
+        } catch (IllegalValueException e) {
             throw new CommandException("Show command format is incorrect. It should be \"show T\"");
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetView));
