@@ -215,3 +215,40 @@
 #resultDisplay .content {
     -fx-background-color: -colour-result;
 }
+
+/*Any charts*/
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 20px;
+}
+
+/*Pie Charts*/
+.chart-pie-label {
+    -fx-fill: -text-colour
+}
+
+
+/*Line Charts*/
+
+.axis {
+    -fx-tick-label-fill: -text-colour;
+}
+
+.chart-content {
+    -fx-padding: 30px;
+    -fx-text-fill: -text-colour;
+}
+
+.axis-label {
+  -fx-text-fill: -text-colour;
+}
+
+
+.chart-legend-item-symbol{
+   -fx-background-radius: 0;
+}
+
+.chart-legend-item{
+    -fx-text-fill: -text-colour;
+}
+

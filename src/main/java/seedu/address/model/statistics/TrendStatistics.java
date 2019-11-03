@@ -171,7 +171,6 @@ public class TrendStatistics extends Statistics {
      * @param startDate The start date for the trend line
      * @param windowStartDate The start date for the current winndow
      * @param period The duration of the window
-     * @return
      */
     private Timestamp findClosestWindowStartDate(Timestamp startDate, Timestamp windowStartDate, BudgetPeriod period) {
         Timestamp changedWindowDate = windowStartDate.createBackwardTimestamp(period);

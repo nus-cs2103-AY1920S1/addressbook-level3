@@ -668,9 +668,6 @@ You may cycle through these commands using the arrow keys.
 
 // end::brian[]
 
-=== Saving the data
-Expense tracker data is saved in the hard disk automatically after any command that changes the data.
-There is no need to save manually.
 
 // tag::statsug[]
 
@@ -975,8 +972,8 @@ e.g. `switchperiod t/01-05`
 
 * *Summary statistics* : `stats [start/START_DATE] [end/END_DATE]` +
 e.g. `stats sd/11-11-2018 ed/12-12-2018`
-* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2 pr/PERIOD` +
-e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019 pr/week`
+* *Comparison statistics* : `statscompare sd1/START_DATE_1 sd2/START_DATE_2` +
+e.g. `statscompare sd1/01-01-2019 sd2/01-02-2019`
 * *Growth statistics* : `statstrend [sd/START_DATE] [ed/END_DATE] mode/MODE` +
 e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 

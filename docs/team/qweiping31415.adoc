@@ -74,7 +74,7 @@ They showcase my ability to write technical documentation and the technical dept
 _
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=statsdg]
 
 == PROJECT: MooLah
 
