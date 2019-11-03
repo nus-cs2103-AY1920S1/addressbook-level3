@@ -8,7 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
-import seedu.address.logic.commands.note.RemindFeatureUtil;
+import seedu.address.logic.commands.flashcard.RemindFeatureUtil;
 import seedu.address.model.Model;
 import seedu.address.model.flashcard.Flashcard;
 
@@ -65,6 +65,9 @@ public class ExitCommand extends Command {
 
         if (overdueFlashcards.isEmpty() && dueFlashcards.isEmpty()) {
             return new GlobalCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        } else if (!CommandHistory.getLastCommand().isPresent()) {
+            return new GlobalCommandResult(stringOutputFormatHelper(overdueFlashcards, dueFlashcards),
+                    false, false);
         } else if (CommandHistory.getLastCommand().get() instanceof ExitCommand) {
             return new GlobalCommandResult(MESSAGE_EXIT_DISAPPOINTMENT, false, true);
         } else {
