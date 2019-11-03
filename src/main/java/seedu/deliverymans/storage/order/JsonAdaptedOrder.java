@@ -20,7 +20,7 @@ public class JsonAdaptedOrder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
-    private final String order;
+    // private final String order;
     private final String customer;
     private final String restaurant;
     private final String deliveryman;
@@ -31,13 +31,12 @@ public class JsonAdaptedOrder {
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("order") String order,
-                            @JsonProperty("customer") String customer,
+    public JsonAdaptedOrder(@JsonProperty("customer") String customer,
                             @JsonProperty("restaurant") String restaurant,
                             @JsonProperty("deliveryman") String deliveryman,
                             @JsonProperty("foodList") List<JsonAdaptedFoodOrder> foodList,
                             @JsonProperty("status") String isCompleted) {
-        this.order = order;
+        // this.order = order;
         this.customer = customer;
         this.restaurant = restaurant;
         this.deliveryman = deliveryman;
@@ -51,12 +50,12 @@ public class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
-        order = source.getOrderName().fullName;
+        // order = source.getOrderName().fullName;
         customer = source.getCustomer().fullName;
         restaurant = source.getRestaurant().fullName;
         deliveryman = source.getDeliveryman().fullName;
         isCompleted = String.valueOf(source.isCompleted());
-        foodList.addAll(source.getFood().entrySet().stream()
+        foodList.addAll(source.getFoodList().entrySet().stream()
                 .map(JsonAdaptedFoodOrder::new)
                 .collect(Collectors.toList()));
         // foodList.addAll(source.getFood().keySet().stream().map(x-> x.fullName)
@@ -87,6 +86,7 @@ public class JsonAdaptedOrder {
         //    modelFoodMap.put(new Name(tempFood), Integer.parseInt(tempQuantity));
         //}
 
+        /*
         if (order == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -94,6 +94,8 @@ public class JsonAdaptedOrder {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name orderName = new Name(order);
+         */
+
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -117,13 +119,13 @@ public class JsonAdaptedOrder {
         }
         final Name deliveryName = new Name(deliveryman);
 
-        Order order = new Order(orderName, customerName, restaurantName, modelFoodMap);
-        order.setDeliveryman(deliveryName);
-
-        if (Boolean.parseBoolean(isCompleted)) {
-            order.completeOrder();
+        final Boolean bool = Boolean.valueOf(isCompleted);
+        if (bool == null) {
+            throw new IllegalValueException("Invalid boolean detected for completion status of Order object");
         }
 
+        Order order = new Order.OrderBuilder().setCustomer(customerName).setRestaurant(restaurantName)
+                .setDeliveryman(deliveryName).setFood(modelFoodMap).setCompleted(bool).completeOrder();
         return order;
     }
 }

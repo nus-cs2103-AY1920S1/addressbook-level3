@@ -30,8 +30,8 @@ public class OrderCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
-    @FXML
-    private Label orderName;
+    // @FXML
+    // private Label orderName;
     @FXML
     private Label id;
     @FXML
@@ -51,12 +51,12 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
-        orderName.setText(order.getOrderName().fullName);
+        // orderName.setText(order.getOrderName().fullName);
         customer.setText("Customer: \t" + order.getCustomer().fullName);
         restaurant.setText("Restaurant: \t" + order.getRestaurant().fullName);
         deliveryman.setText("Deliveryman: \t" + order.getDeliveryman().fullName);
         deliveryStatus.setText("Delivery completed: " + order.isCompleted());
-        Map<Name, Integer> foodList = order.getFood();
+        Map<Name, Integer> foodList = order.getFoodList();
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Name, Integer> entry : foodList.entrySet()) {
             sb.append(String.format("Food: %s\tQuantity: %d", entry.getKey().fullName, entry.getValue())).append("\n");
@@ -78,7 +78,6 @@ public class OrderCard extends UiPart<Region> {
 
         // state check
         OrderCard card = (OrderCard) other;
-        return id.getText().equals(card.id.getText())
-                && order.equals(card.orderName);
+        return id.getText().equals(card.id.getText());
     }
 }

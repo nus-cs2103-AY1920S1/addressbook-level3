@@ -19,7 +19,6 @@ import seedu.deliverymans.logic.parser.ParserUtil;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
 import seedu.deliverymans.model.Name;
-
 import seedu.deliverymans.model.order.Order;
 
 /**
@@ -55,8 +54,9 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             lst.put(foodList.get(i), quantityList.get(i));
         }
 
-        Order order = new Order(customerName, restaurantName, lst);
-        return new AddOrderCommand(order);
+        Order orderToAdd = new Order.OrderBuilder().setCustomer(customerName).setRestaurant(restaurantName)
+                .setFood(lst).completeOrder();
+        return new AddOrderCommand(orderToAdd, true);
     }
 
     /**

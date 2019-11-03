@@ -1,12 +1,14 @@
 package seedu.deliverymans.model.order;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
 
 /**
@@ -15,56 +17,32 @@ import seedu.deliverymans.model.Name;
  */
 public class Order {
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-    private static int counter = 1;
 
     // Identity fields
-    private final Name orderName;
     private final Name customer;
     private final Name restaurant;
-    private Name deliveryman = new Name("unassigned");
-    private boolean isCompleted;
+    private final Name deliveryman;
 
     // Data fields
-    private final Map<Name, Integer> foods = new HashMap<>();
+    private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
+    private boolean isCompleted;
 
     /**
      * Constructs a {@code Order}
      *
-     * @param customer   The customer who made the order.
-     * @param restaurant The restaurant.
+     * @param customer    The customer who made the order.
+     * @param restaurant  The restaurant to order from.
+     * @param deliveryman The deliveryman delivering the order.
+     * @param foodList    The list of food ordered with their respective quantities;
+     * @param isCompleted The completion status of the order.
      */
-    public Order(Name customer, Name restaurant, Map<Name, Integer> foodList) {
-        requireNonNull(customer);
-        requireNonNull(restaurant);
-
-        this.orderName = new Name(String.format("Order no %d", counter));
-        ++counter;
+    private Order(Name customer, Name restaurant, Name deliveryman,
+                  Map<Name, Integer> foodList, boolean isCompleted) {
+        requireAllNonNull(customer, restaurant, deliveryman, foodList);
         this.customer = customer;
         this.restaurant = restaurant;
-        this.foods.putAll(foodList);
-    }
-
-    public Order(Name orderName, Name customer, Name restaurant, Map<Name, Integer> foodList) {
-        requireNonNull(customer);
-        requireNonNull(restaurant);
-
-        this.orderName = orderName;
-        this.customer = customer;
-        this.restaurant = restaurant;
-        this.foods.putAll(foodList);
-    }
-
-    public void addFood(Name food, int quantity) {
-        foods.put(food, quantity);
-    }
-
-    public void addFood(Map<Name, Integer> foods) {
-        this.foods.putAll(foods);
-    }
-
-    public Name getOrderName() {
-        return orderName;
+        this.deliveryman = deliveryman;
+        this.foodList.putAll(foodList);
     }
 
     public Name getCustomer() {
@@ -75,16 +53,12 @@ public class Order {
         return deliveryman;
     }
 
-    public void setDeliveryman(Name deliveryman) {
-        this.deliveryman = deliveryman;
-    }
-
     /**
      * Returns an immutable food map, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Map<Name, Integer> getFood() {
-        return Collections.unmodifiableMap(foods);
+    public Map<Name, Integer> getFoodList() {
+        return Collections.unmodifiableMap(foodList);
     }
 
     public Name getRestaurant() {
@@ -93,17 +67,6 @@ public class Order {
 
     public boolean isCompleted() {
         return isCompleted;
-    }
-
-    public void completeOrder() {
-        isCompleted = true;
-    }
-
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidOrderName(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -119,7 +82,7 @@ public class Order {
                 && otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
                 && otherOrder.getRestaurant().equals(getRestaurant())
-                && otherOrder.getFood().equals(getFood());
+                && otherOrder.getFoodList().equals(getFoodList());
     }
 
     /**
@@ -138,24 +101,22 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getOrderName().equals(getOrderName())
-                && otherOrder.getCustomer().equals(getCustomer())
+        return otherOrder.getCustomer().equals(getCustomer())
                 && otherOrder.getDeliveryman().equals(getDeliveryman())
-                && otherOrder.getFood().equals(getFood())
+                && otherOrder.getFoodList().equals(getFoodList())
                 && otherOrder.getRestaurant().equals(getRestaurant())
                 && (otherOrder.isCompleted() == isCompleted());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customer, restaurant, deliveryman, foods);
+        return Objects.hash(customer, restaurant, deliveryman, foodList);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getOrderName())
-                .append(" Customer: ")
+        builder.append(" Customer: ")
                 .append(getCustomer())
                 .append(" Restaurant: ")
                 .append(getRestaurant())
@@ -163,13 +124,50 @@ public class Order {
                 .append(getDeliveryman())
                 .append(" Food: ");
 
-        // for (Map.Entry<Name, Integer> entry : getFood().entrySet()) {
-        //    builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
-        //}
-        getFood().entrySet().forEach(entry -> {
-            builder.append(String.format("%s x%d", entry.getKey().fullName, entry.getValue()));
-        });
+        getFoodList().forEach((key, value) -> builder.append(String.format("%s x%d", key, value)));
         builder.append(" Delivery status: ").append(isCompleted());
         return builder.toString();
+    }
+
+    /**
+     * OrderBuilder used to instantiate an Order.
+     * Contains all relevant information regarding an Order,
+     * and creates a new Order object once its completeOrder() function is called
+     */
+    public static class OrderBuilder {
+        private Name customer;
+        private Name restaurant;
+        private Name deliveryman = new Name("Unassigned");
+        private boolean isCompleted = false;
+        private final Map<Name, Integer> foodList = new HashMap<>();
+
+        public OrderBuilder setCustomer(Name customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public OrderBuilder setRestaurant(Name restaurant) {
+            this.restaurant = restaurant;
+            return this;
+        }
+
+        public OrderBuilder setDeliveryman(Name deliveryman) {
+            this.deliveryman = deliveryman;
+            return this;
+        }
+
+        public OrderBuilder setFood(Map<Name, Integer> foodList) {
+            this.foodList.putAll(foodList);
+            return this;
+        }
+
+        public OrderBuilder setCompleted(boolean isCompleted) {
+            this.isCompleted = isCompleted;
+            return this;
+        }
+
+        public Order completeOrder() {
+            return new Order(customer, restaurant, deliveryman, foodList, isCompleted);
+        }
     }
 }
