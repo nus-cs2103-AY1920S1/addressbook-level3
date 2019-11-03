@@ -17,7 +17,7 @@ public class BudgetCard extends UiPart<Region> {
 
     public final Budget budget;
 
-    @javafx.fxml.FXML
+    @FXML
     private HBox cardPane;
     @FXML
     private Label amount;
@@ -36,7 +36,7 @@ public class BudgetCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         amount.setText(budget.getBudget().toString());
         date.setText(budget.getDeadline().toString());
-        // between.getChildren().add(new Label(budget.getBetween()));
+        categories.getChildren().add(new Label(budget.getBetween()));
         budget.getCategories().stream()
             .sorted(Comparator.comparing(category -> category.categoryName))
             .forEach(category -> categories.getChildren().add(new Label(category.categoryName)));
