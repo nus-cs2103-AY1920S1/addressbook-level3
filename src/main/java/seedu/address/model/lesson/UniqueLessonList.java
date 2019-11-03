@@ -3,6 +3,7 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -92,7 +93,6 @@ public class UniqueLessonList implements Iterable<Lesson> {
         if (!lessonsAreUnique(lessons)) {
             throw new DuplicateLessonException();
         }
-
         internalList.setAll(lessons);
     }
 
@@ -133,4 +133,19 @@ public class UniqueLessonList implements Iterable<Lesson> {
         }
         return true;
     }
+
+    //@@author weikiat97
+    /**
+     * Returns true if both assignments of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two assignments.
+     */
+    public boolean isSameUniqueLesson(UniqueLessonList otherUniqueLessonList) {
+        if (otherUniqueLessonList == this) {
+            return true;
+        }
+
+        return otherUniqueLessonList != null
+                && otherUniqueLessonList.asUnmodifiableObservableList().equals(asUnmodifiableObservableList());
+    }
+
 }

@@ -50,7 +50,7 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook undo() {
         statePointer--;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        resetData(previousCopy);
+        //resetData(previousCopy);
         return previousCopy;
     }
 
@@ -61,7 +61,7 @@ public class Caretaker extends Notebook {
     public ReadOnlyNotebook redo() {
         statePointer++;
         ReadOnlyNotebook previousCopy = mementos.get(statePointer).getState();
-        resetData(previousCopy);
+        //resetData(previousCopy);
         return previousCopy;
     }
 

@@ -78,6 +78,10 @@ public class Notebook implements ReadOnlyNotebook {
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
         setClassrooms(newData.getClassroomList());
+        for (int i = 0; i < 7; i++) {
+            lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
+        }
+        //setAllLessons(newData.getLessonWeekList());
         //setLessons(newData.getLessonList());
         //setCurrentReadOnlyClassroom(newData.getCurrentReadOnlyClassroom());
         //setAssignments(newData.getClassroomList());
@@ -264,6 +268,9 @@ public class Notebook implements ReadOnlyNotebook {
      * The lesson must not already exist in the classroom.
      */
     public void addLesson(Lesson p) {
+        int day = p.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        dayList.add(p);
         lessons.add(p);
     }
 
@@ -272,7 +279,9 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public boolean hasLesson(Lesson lesson) {
         requireNonNull(lesson);
-        return lessons.contains(lesson);
+        int day = lesson.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        return dayList.contains(lesson);
     }
 
     /**
@@ -280,8 +289,9 @@ public class Notebook implements ReadOnlyNotebook {
      * {@code key} must exist in the classroom.
      */
     public void removeLesson(Lesson key) {
-        lessons.remove(key);
-    }
+        int day = key.getDayIndex();
+        UniqueLessonList dayList = lessonLists.getDayList(day);
+        dayList.remove(key);    }
 
 
     /**
@@ -292,7 +302,14 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public void setLesson(Lesson target, Lesson editedLesson) {
         requireNonNull(editedLesson);
-        lessons.setLesson(target, editedLesson);
+        if (target.isSameDay(editedLesson)) {
+            int day = target.getDayIndex();
+            UniqueLessonList dayList = lessonLists.getDayList(day);
+            dayList.setLesson(target, editedLesson);
+        } else {
+            removeLesson(target);
+            addLesson(editedLesson);
+        }
     }
 
 
@@ -300,8 +317,8 @@ public class Notebook implements ReadOnlyNotebook {
      * Replaces the contents of the lesson list with {@code lessons}.
      * {@code lessons} must not contain duplicate lessons.
      */
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons.setLessons(lessons);
+    public void setAllLessons(List<UniqueLessonList> lessons) {
+        this.lessonLists.setLessons(lessons);
     }
 
 

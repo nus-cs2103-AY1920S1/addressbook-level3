@@ -3,11 +3,14 @@ package seedu.address.model.lesson;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.lesson.exceptions.DuplicateLessonException;
 
 /**
  * List of all the lessons sorted by the days of the week.
@@ -30,16 +33,29 @@ public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
         internalList.setAll(replacement.internalList);
     }
 
+    //@@author weikiat97
     /**
      * Replaces the contents of this list with {@code lessons}.
      * {@code lessons} must not contain duplicate lessons.
      */
-    public void setLessons(List<UniqueLessonList> lessonLists) {
-        requireAllNonNull(lessonLists);
+    public void setLessons(List<UniqueLessonList> uniqueLessonLists) {
+        requireAllNonNull(uniqueLessonLists);
+        /*
+        if (!lessonsAreUnique(uniqueLessonLists)) {
+            throw new DuplicateLessonException();
+        }
 
-        internalList.setAll(lessonLists);
+         */
+        List<UniqueLessonList> listToAdd = new ArrayList<>();
+        for (UniqueLessonList uniqueLesson : uniqueLessonLists) {
+            UniqueLessonList uniqueLessonToAdd = new UniqueLessonList();
+            uniqueLessonToAdd.setLessons(uniqueLesson.asUnmodifiableObservableList());
+            listToAdd.add(uniqueLessonToAdd);
+        }
+        internalList.setAll(listToAdd);
     }
 
+    //@@author
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
@@ -64,4 +80,18 @@ public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
         return internalList.hashCode();
     }
 
+    //@@author weikiat97
+    /**
+     * Returns true if {@code assignments} contains only unique assignments.
+     */
+    private boolean lessonsAreUnique(List<UniqueLessonList> uniqueLessons) {
+        for (int i = 0; i < uniqueLessons.size() - 1; i++) {
+            for (int j = i + 1; j < uniqueLessons.size(); j++) {
+                if (uniqueLessons.get(i).isSameUniqueLesson(uniqueLessons.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
