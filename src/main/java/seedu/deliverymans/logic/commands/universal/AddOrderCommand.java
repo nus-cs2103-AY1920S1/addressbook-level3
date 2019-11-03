@@ -161,12 +161,13 @@ public class AddOrderCommand extends Command {
         if (isAddOrder) { // Add order
             model.addOrder(order);
         } else { // Edit order
-            removeOrderFromDatabases(model, orderToDelete);
+            // removeOrderFromDatabases(model, orderToDelete);
             model.setOrder(orderToDelete, order);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
     }
 
+    /*
     private void removeOrderFromDatabases(Model model, Order orderToDelete) {
         for (Customer customer: model.getFilteredCustomerList()) {
             if (customer.getName().equals(orderToDelete.getCustomer())) {
@@ -182,6 +183,7 @@ public class AddOrderCommand extends Command {
         }
         // repeat for deliveryman if relevant
     }
+     */
 
     @Override
     public boolean equals(Object other) {
