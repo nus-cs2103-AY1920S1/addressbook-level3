@@ -1,0 +1,23 @@
+@startuml
+
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class Occurrence {
+    <color:#white>- <u>validFrequencies: String[] = {"daily", "weekly", "monthly", "yearly"}</u>
+    <color:#white>- frequency: String
+    <color:#white>- numOccurrences: int
+
+    <color:#white>+ getFrequency() : String
+    <color:#white>+ getNumOccurrences() : int
+    <color:#white>+ <u>isValidFrequency(inputFrequency: String) : boolean</u>
+    <color:#white>+ getFrequencyCalendarField() : int
+    <color:#white>+ equals(other: Object) : boolean
+    <color:#white>+ hashCode() : int
+}
+
+show members
+@enduml

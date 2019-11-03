@@ -332,42 +332,46 @@ The convert command allows you to convert money from one currency to another.
 Occasionally, you may want to copy a transaction, or create multiple copies of a transaction for recurring incomes or expenses such as a yearly donation or monthly bills. Simply use the `clone` feature to achieve this.
 
 ==== Command syntax:
-`clone i/INDEX [o/OCCURRENCE]`
+`clone i/INDEX [o/FREQUENCY:NUMBER_OF_OCCURRENCES]`
 
 The following is an explanation for the `clone` command:
 
 ****
-* Clones (creates duplicate(s) of) transaction at `INDEX`. Clone(s) produced are added to a new index at the bottom of the list.
+* Clones (creates duplicate(s) of) transaction at `INDEX`. Clones produced are added to new indices at the bottom of the list.
 
 - `INDEX` refers to the index currently shown in the displayed list, and must be a positive integer.
 
-* If you use `clone i/INDEX` without `o/OCCURRENCE` field, one clone is created for the current day.
+* If you use `clone i/INDEX` without the `o/FREQUENCY:NUMBER_OF_OCCURRENCES` field, one clone is created for the current day.
 
-* Optional `OCCURRENCE` field is in the format `FREQUENCY:NUMBER_OF_OCCURRENCES`. You use it to create multiple clones,  with the 1st clone on the current day.
+* You use the optional `FREQUENCY:NUMBER_OF_OCCURRENCES` field to create multiple clones spanning from the original transaction.
 
 - `FREQUENCY` is how often or how far apart the clones occur. Valid values are: `daily`, `weekly`, `monthly` and `yearly`.
 
-- `NUMBER_OF_OCCURRENCES` determines how many clones are produced.
+- `NUMBER_OF_OCCURRENCES` determines how many clones are produced. If `NUMBER_OF_OCCURRENCES` is 0, the result is exactly the same as `clone i/INDEX` without the entire `FREQUENCT:NUMBER_OF_OCCURRENCES` field.
 
 - The maximum `NUMBER_OF_OCCURRENCES` is **5 for `yearly`** and **12 for `daily`, `weekly` and `monthly`**.
 
-* For monthly cloning, clones are created on the same day of the following months, e.g. **clone i/1 o/monthly:3** on 20 November 2019 creates clones on 20 November 2019, 20 December 2019 and 20 January 2020.
+* For monthly cloning, clones are created on the same day as the original transaction's in subsequent months.
 
-- For special cases where following months do not have the day a transaction was cloned on, clones are created on the last day of those months, e.g. **clone i/1 o/monthly:3** on 31 October 2019 creates clones on 31 October 2019, 30 November 2019 and 31 December 2019.
+- For example, **clone i/1 o/monthly:3** on transaction at index 1 dated 20 November 2019 creates clones on 20 December 2019, 20 January 2020 and 20 February 2020.
+
+* For special cases where subsequent months do not have the day corresponding to the original transaction's month, clones are created on the last day of those months.
+
+- For example, **clone i/1 o/monthly:5** on transaction at index 1 dated 31 October 2019 creates clones on 30 November 2019, 31 December 2019, 31 January 2020 and 29 February 2020 (2020 is a leap year).
 ****
 
 ==== Example usage: +
-You receive your fixed salary on the last day of every month. You don't want to tediously add your salary to THRIFT every month, so you add clones of your salary income for the next year at one go.
+You receive your fixed salary on the 30th of every month. You don't want to tediously add your salary to THRIFT every month, so you add clones of your salary income for the next year at one go.
 
-You do the following on 31 October 2019:
+You do the following on 30 November 2019:
 
 NOTE: The following example uses the displayed list of all existing transactions.
 
-. You have the salary income entry you received on 31/10/2019 in the list. It is at index 4.
+. You have the salary income entry you received on 30/11/2019 in the list. It is at index 4.
 +
 image::clone/cloneUG/CloneStep1.png[,550]
 
-. To create clones of the salary entry for 31/10/2019 and the next 11 months up to 30 September 2020, you type **clone i/4 o/monthly:12** and press kbd:[Enter].
+. To create clones of the 30 November 2019 salary income for the next 12 months from 30 December 2019 up to 30 November 2020, you type **clone i/4 o/monthly:12** and press kbd:[Enter].
 +
 image::clone/cloneUG/CloneStep2.png[,550]
 
@@ -575,8 +579,8 @@ Example: `add_income n/Allowance v/1000 r/From my parents t/Monthly`
 Example: `delete i/1`
 * <<UpdateTag, *Update*>>: `update i/INDEX PREFIX_LETTER/UPDATED_DETAILS ...` +
 Example: `update i/1 n/Curry Laksa v/5 t/Lunch t/Dinner`
-* <<CloneTag, *Clone*>>: `clone i/INDEX` +
-Example: `clone i/1`
+* <<CloneTag, *Clone*>>: `clone i/INDEX o/FREQUENCY:NUMBER_OF_OCCURRENCES` +
+Example: `clone i/1 o/monthly:12`
 * <<ListTag, *List*>>: `list [m/MONTH]` +
 Example: `list m/01/2019`
 * <<TagTag,*Tag*>>: `tag i/INDEX t/TAG_NAME` +
