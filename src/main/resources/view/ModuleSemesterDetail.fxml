@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="semesterLabel" styleClass="label-bright" text="\$semester">
          <HBox.margin>
@@ -17,21 +16,21 @@
          <children>
             <HBox fx:id="examDetailBox">
                <children>
-                  <Label styleClass="label-bright" text="Exam Date: " />
-                  <Label fx:id="examDateLabel" styleClass="label-bright" text="\$examDate">
+                  <Label styleClass="text-bright" text="Exam Date: " />
+                  <Label fx:id="examDateLabel" styleClass="text-bright" text="\$examDate">
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <Label styleClass="label-bright" text="Duration: " />
-                  <Label fx:id="examDurationLabel" styleClass="label-bright" text="\$examDuration">
+                  <Label styleClass="text-bright" text="Duration: " />
+                  <Label fx:id="examDurationLabel" styleClass="text-bright" text="\$examDuration">
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="notOfferedLabel" styleClass="label-bright" text="Not offered" StackPane.alignment="TOP_LEFT">
+            <Label fx:id="notOfferedLabel" styleClass="text-bright" text="Not offered" StackPane.alignment="TOP_LEFT">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -39,7 +38,7 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <Label fx:id="noExamLabel" text="No Exams for this semester" StackPane.alignment="TOP_LEFT">
+            <Label fx:id="noExamLabel" styleClass="text-bright" text="No Exams for this semester" StackPane.alignment="TOP_LEFT">
                <padding>
                   <Insets right="10.0" />
                </padding>

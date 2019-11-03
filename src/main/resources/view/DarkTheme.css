@@ -18,8 +18,8 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -78,9 +78,14 @@
 
 .text-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Segoe UI";
     -fx-fill: white;
     -fx-opacity: 1;
+}
+
+.text-command {
+    -fx-background-color: derive(#1d1d1d, 40%);
+    -fx-padding: 4px 4px 4px 4px;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -211,6 +216,47 @@
 }
 
 .menu .left-container {
+    -fx-background-color: black;
+}
+
+/* Accordian */
+.accordian {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.titled-pane {
+    -fx-text-fill: derive(#1d1d1d, 20%);
+}
+
+.titled-pane:focused {
+    -fx-text-fill: black;
+}
+
+.titled-pane > .title {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 5px, 5px, 5px, 5px;
+}
+
+.titled-pane:focused > .title {
+    -fx-color: derive(#1d1d1d, 40%);
+}
+
+
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+    -fx-rotate: -90;
+}
+
+.titled-pane > *.content {
+    -fx-background-color:
+    -fx-box-border,
+    linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+    -fx-background-insets: 0, 0 1 1 1;
+    -fx-padding: 0.167em;
+ }
+
+.titled-pane:focused > .title > .arrow-button .arrow {
     -fx-background-color: black;
 }
 

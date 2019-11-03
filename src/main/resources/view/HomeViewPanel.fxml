@@ -7,21 +7,102 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <HBox id="mainPanel" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+        <VBox alignment="CENTER_LEFT" styleClass="background" GridPane.columnIndex="0">
             <padding>
                 <Insets bottom="5" left="15" right="5" top="5" />
             </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
+         <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="label-header" text="Welcome to ModuleBook" textAlignment="JUSTIFY" />
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
             <children>
-               <Label styleClass="label-bright" text="Home Page" />
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="Summary of commands:" underline="true" />
             </children>
-            </HBox>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="list" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - lists all tracked modules" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="view &lt;MODULE_CODE&gt;" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - views a module" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="back" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - returns from module view" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="add &lt;MODULE_CODE&gt;" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - adds a module to track it" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="delete &lt;MODULE_CODE&gt;" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - deletes a module from the tracked list" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
+         <TextFlow lineSpacing="1.0" styleClass="text-bright">
+            <children>
+               <TextFlow styleClass="text-command">
+                  <children>
+                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text="find [&lt;PREFIX&gt;\ [&lt;keywords&gt;...]...]" />
+                  </children>
+               </TextFlow>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-bright" text=" - searches for a module, see our user guide for more details" />
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+            </padding>
+         </TextFlow>
         </VBox>
       <rowConstraints>
          <RowConstraints />

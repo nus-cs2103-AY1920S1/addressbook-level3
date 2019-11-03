@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -27,10 +27,13 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$moduleCode" />
+                <Label fx:id="moduleCode" minWidth="-Infinity" styleClass="cell_big_label" text="\$moduleCode" />
+               <Label fx:id="title" styleClass="cell_big_label" text="\$title" HBox.hgrow="NEVER" />
             </HBox>
-            <Label fx:id="title" styleClass="cell_small_label" text="\$title" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" textAlignment="JUSTIFY" wrapText="true">
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding></Label>
         </VBox>
       <Pane fx:id="trackedStatus" styleClass="tag-archived" GridPane.columnIndex="1" />
       <rowConstraints>

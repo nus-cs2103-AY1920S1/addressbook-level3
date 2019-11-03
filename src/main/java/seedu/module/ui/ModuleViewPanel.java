@@ -3,9 +3,11 @@ package seedu.module.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -25,6 +27,10 @@ public class ModuleViewPanel extends UiPart<Region> {
     private Label moduleCode;
     @FXML
     private Label title;
+    @FXML
+    private Accordion moduleDetails;
+    @FXML
+    private TitledPane moduleDetailsPane;
     @FXML
     private Text description;
     @FXML
@@ -50,7 +56,11 @@ public class ModuleViewPanel extends UiPart<Region> {
         semesterData.setItems(module.getSemesterDetails().getAsObservableList());
         semesterData.setCellFactory(listView -> new ModuleSemesterDetailCell());
 
+        // Expands the accordion if the module is not yet tracked
+        moduleDetails.setExpandedPane(moduleDetailsPane);
+
         if (module instanceof Trackable) {
+            moduleDetails.setExpandedPane(null);
             Trackable trackedModule = ((Trackable) module);
             deadline.setText(trackedModule.getDeadline());
             trackedModule.getLink().stream().map(link -> new LinkButton(link))
