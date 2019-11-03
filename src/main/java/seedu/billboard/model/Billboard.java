@@ -117,7 +117,7 @@ public class Billboard implements ReadOnlyBillboard {
     //// expense-level operations
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the billboard.
      */
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
@@ -125,8 +125,8 @@ public class Billboard implements ReadOnlyBillboard {
     }
 
     /**
-     * Adds an expense to the address book.
-     * The expense must not already exist in the address book.
+     * Adds an expense to the billboard.
+     * The expense must not already exist in the billboard.
      */
     public void addExpense(Expense p) {
         expenses.add(p);
@@ -134,9 +134,9 @@ public class Billboard implements ReadOnlyBillboard {
 
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the billboard.
      * The expense identity of {@code editedExpense} must not be the same as another
-     * existing expense in the address book.
+     * existing expense in the billboard.
      */
     public void setExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);
@@ -146,7 +146,7 @@ public class Billboard implements ReadOnlyBillboard {
 
     /**
      * Removes {@code key} from this {@code Billboard}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the billboard.
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);

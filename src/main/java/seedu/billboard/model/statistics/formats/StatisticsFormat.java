@@ -13,7 +13,8 @@ import seedu.billboard.logic.parser.Prefix;
  */
 public enum StatisticsFormat {
     TIMELINE("timeline", PREFIX_INTERVAL),
-    BREAKDOWN("breakdown");
+    BREAKDOWN("breakdown"),
+    HEAT_MAP("heatmap");
 
     private static Map<String, StatisticsFormat> nameToFormatMap;
     private final String name;

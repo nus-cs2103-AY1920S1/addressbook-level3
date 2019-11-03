@@ -310,8 +310,6 @@ public class ModelManager implements Model {
         this.archives.setArchives(model.getArchives());
         this.filteredArchives.clear();
         this.filteredArchives.putAll(model.getFilteredArchives());
-        this.statsFormat = model.getStatisticsFormat();
-        this.statsOptions = model.getStatisticsFormatOptions();
     }
 
     /**

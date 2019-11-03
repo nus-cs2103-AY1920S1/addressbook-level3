@@ -11,7 +11,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 
 /**
- * Deletes a expense identified using it's displayed index from the address book.
+ * Deletes a expense identified using it's displayed index from the billboard.
  */
 public class DeleteCommand extends Command {
 
