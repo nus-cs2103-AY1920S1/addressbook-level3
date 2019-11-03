@@ -68,7 +68,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/136[#136], https://github.co
 
 ** Community:
 
-*** Participated in PRs review(with non-trivial review comments):https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/63[#63], https://github.com[#42], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/66[#66] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141])
+*** Participated in PRs review(with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/62[#62], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/63[#63], https://github.com[#42], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/66[#66] , https://github.com/AY1920S1-CS2103T-T09-4/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141])
 
 *** Contributed to forum discussions and shared my solution on enabling GUI tests on Travis CI: https://github.com/nus-cs2103-AY1920S1/forum/issues/141[#141]
 
