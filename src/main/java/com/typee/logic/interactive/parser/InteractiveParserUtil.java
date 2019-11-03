@@ -10,11 +10,22 @@ public class InteractiveParserUtil {
 
     public static boolean isValidDateTime(String dateTime) {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
-            LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+            makeDateTimeFromPattern(dateTime);
             return true;
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    private static LocalDateTime makeDateTimeFromPattern(String dateTime) throws DateTimeException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMAT_DATE_TIME);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, formatter);
+        return localDateTime;
+    }
+
+    public static boolean isValidTimeSlot(String startDate, String endDate) {
+        LocalDateTime start = makeDateTimeFromPattern(startDate);
+        LocalDateTime end = makeDateTimeFromPattern(endDate);
+        return start.isBefore(end);
     }
 }

@@ -1,27 +1,56 @@
 package com.typee.logic.interactive.parser.state.addmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
+import static java.util.Objects.requireNonNull;
+
+import java.util.Optional;
+
 import com.typee.logic.commands.Command;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
+import com.typee.logic.interactive.parser.InteractiveParser;
+import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class EndDateState extends EndState {
+public class EndDateState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "The start time must conform to the dd/mm/yyyy/hhmm format.";
+    private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid date and time after the prefix"
+            + " \"e/\". Please conform to the dd/mm/yyyy/hhmm format.";
 
     protected EndDateState(ArgumentMultimap soFar) {
         super(soFar);
     }
 
     @Override
-    public Command buildCommand() {
-        return null;
+    public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
+        requireNonNull(newArgs);
+
+        Optional<String> endDate = newArgs.getValue(PREFIX_END_TIME);
+        performGuardChecks(newArgs, endDate);
+        collateArguments(this, newArgs, PREFIX_END_TIME);
+
+        return new LocationState(soFar);
     }
 
-    @Override
-    public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
-        throw new StateTransitionException("Cannot transition from an end-state.");
+    private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> endDate)
+            throws StateTransitionException {
+        disallowDuplicatePrefix(newArgs);
+        requireKeywordPresence(endDate, MESSAGE_MISSING_KEYWORD);
+        enforceValidity(endDate);
+    }
+
+    private void enforceValidity(Optional<String> endDate) throws StateTransitionException {
+        if (!isValid(endDate.get())) {
+            throw new StateTransitionException(MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private boolean isValid(String endDate) {
+        return InteractiveParserUtil.isValidDateTime(endDate)
+                && InteractiveParserUtil.isValidTimeSlot(soFar.getValue(PREFIX_START_TIME).get(), endDate);
     }
 
     @Override
@@ -31,6 +60,6 @@ public class EndDateState extends EndState {
 
     @Override
     public boolean isEndState() {
-        return true;
+        return false;
     }
 }
