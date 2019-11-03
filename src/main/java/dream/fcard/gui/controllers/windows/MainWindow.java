@@ -57,6 +57,7 @@ public class MainWindow extends VBox {
     @FXML
     private TextField commandLine;
 
+    private State state;
     private Consumer<Boolean> displayDecks = b -> render();
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
@@ -70,7 +71,7 @@ public class MainWindow extends VBox {
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
     private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
-    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(state.getDecks().get(i - 1));
     private Consumer<Boolean> exitCreate = b -> exitCreate();
     private Consumer<String> processInputCreate = s -> processInputCreate(s);
 
@@ -87,6 +88,7 @@ public class MainWindow extends VBox {
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeck.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
+        state = new State();
         displayMessage.accept("Welcome to FlashCard Pro!");
         deckList.setOnMouseClicked(e -> {
             Deck d = deckList.getSelectionModel().getSelectedItem();
@@ -118,7 +120,7 @@ public class MainWindow extends VBox {
      * Note: can replace with ObservableList if we can figure out the API
      */
     private void renderDecks() {
-        ArrayList<Deck> decks = State.getState().getDecks();
+        ArrayList<Deck> decks = state.getDecks();
         deckList.setItems(FXCollections.observableArrayList(decks));
         deckList.getSelectionModel().selectFirst();
     }
@@ -144,7 +146,7 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay();
         displayContainer.getChildren().add(tempCreateDeckDisplay);
-        State.getState().setCurrState(StateEnum.CREATE);
+        state.setCurrState(StateEnum.CREATE);
     }
 
     /**
@@ -156,7 +158,7 @@ public class MainWindow extends VBox {
         displayContainer.getChildren().clear();
         this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
         displayContainer.getChildren().add(tempCreateDeckDisplay);
-        State.getState().setCurrState(StateEnum.CREATE);
+        state.setCurrState(StateEnum.CREATE);
     }
 
     /**
@@ -166,11 +168,11 @@ public class MainWindow extends VBox {
      * new deck.
      */
     private void renderDisplayPane() {
-        if (State.getState().isEmpty()) {
+        if (state.isEmpty()) {
             inviteUserToCreateDeckInDisplayPane();
         } else {
             //render the details of the first deck
-            DeckDisplay deckDisplay = new DeckDisplay(State.getState().getDecks().get(0));
+            DeckDisplay deckDisplay = new DeckDisplay(state.getDecks().get(0));
             displayContainer.getChildren().clear();
             displayContainer.getChildren().add(deckDisplay);
         }
@@ -192,7 +194,7 @@ public class MainWindow extends VBox {
     @FXML
     private void handleUserInput() {
         String input = commandLine.getText();
-        //Dispatcher.parseAndDispatch(input, State.getState().getCurrState());
+        //Dispatcher.parseAndDispatch(input, state.getCurrState());
         commandLine.clear();
     }
 
@@ -236,7 +238,7 @@ public class MainWindow extends VBox {
         Stats.endCurrentSession();
 
         // save all files only on exit
-        StorageManager.saveAll(State.getState().getDecks());
+        StorageManager.saveAll(state.getDecks());
         StorageManager.saveStats();
         System.exit(0);
     }
@@ -246,7 +248,7 @@ public class MainWindow extends VBox {
      */
     public void exitCreate() {
         tempCreateDeckDisplay.onSaveDeck();
-        State.getState().setCurrState(StateEnum.DEFAULT);
+        state.setCurrState(StateEnum.DEFAULT);
     }
 
     /**
@@ -272,5 +274,9 @@ public class MainWindow extends VBox {
         stage.setScene(scene);
         stage.setTitle("My Statistics");
         stage.show();
+    }
+
+    public State getState() {
+        return this.state;
     }
 }
