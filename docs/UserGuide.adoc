@@ -988,6 +988,7 @@ The maximum amount you may set for a goal is 10,000,000 (10 million).
 ====
 
 ==== Set a Financial Goal
+This command enables you to set a financial goal.
 
 * Command:
 ** To set budget goal: `set b/AMOUNT`
@@ -1049,7 +1050,7 @@ Additionally, if the goal is already reached, it will display the notification i
 
 ==== Viewing Notifications
 
-Notifications in treasurerPro are automatically displayed upon app launch  by Leo as long as the threshold is met. +
+Notifications in treasurerPro are automatically displayed upon app launch by Leo as long as the threshold is met. +
 Notifications show only once per app run, or whenever a target or threshold is modified.
 
 The following screenshot shows an example of the notifications:
@@ -1084,6 +1085,16 @@ To switch it off, please enter `clear` on the Command Line Interface (CLI) of th
 * *Go to tab*: `go [home] [members] [reimbursement] [inventory] [cashier] [overview]`
 
 === Home
+* *Add*: `add dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+* *Delete*: `delete ID` or `delete p/PERSON`
+* *Edits*: `edit ID dt/DATE d/DESCRIPTION c/CATEGORY a/AMOUNT p/PERSON`
+* *Sort By date (from oldest to most recent)*: `sort date`
+* *Sort By name (from alphabetical order of name)*: `sort name`
+* *Sort By amount (from smallest to largest in amount)*: `sort amount`
+* *Undo sort*: `sort reset`
+* *Find*: `find KEYWORDS`
+* *Back to previous view*: `back`
+
 
 === Members
 * *Add*: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
