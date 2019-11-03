@@ -28,7 +28,7 @@ public class StorageManager implements Storage {
             while ((line = bfr.readLine()) != null) {
                 readInFileLine(line);
             }
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             //do nothing and return blank array
         }
         return values;
