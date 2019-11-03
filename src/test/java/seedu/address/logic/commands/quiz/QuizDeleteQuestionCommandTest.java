@@ -31,8 +31,8 @@ public class QuizDeleteQuestionCommandTest {
         QuizDeleteQuestionCommand deleteCommand = new QuizDeleteQuestionCommand(QuizBuilder.DEFAULT_QUIZ_ID,
                 QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX);
 
-        String expectedMessage = "Removed question: " + QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX +
-                " from quiz: " + QuizBuilder.DEFAULT_QUIZ_ID;
+        String expectedMessage = "Removed question: " + QuizBuilder.DEFAULT_QUIZ_QUESTION_INDEX
+                + " from quiz: " + QuizBuilder.DEFAULT_QUIZ_ID;
 
         ModelManager expectedModel = new ModelManager();
         expectedModel.setSavedQuizzes(getTypicalSavedQuizzes());
