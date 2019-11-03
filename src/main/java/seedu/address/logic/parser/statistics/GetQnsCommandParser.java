@@ -39,7 +39,7 @@ public class GetQnsCommandParser implements Parser<GetQnsCommand> {
             subjects.add(ParserUtil.parseSubject(subject));
         }
 
-        if (!(args.contains("-c") ^ args.contains("-i"))) {
+        if (args.contains("-c") == args.contains("-i")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     GetQnsCommand.MESSAGE_USAGE));
         }
