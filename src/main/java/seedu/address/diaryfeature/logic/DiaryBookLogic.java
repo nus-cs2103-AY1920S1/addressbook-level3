@@ -1,14 +1,20 @@
 package seedu.address.diaryfeature.logic;
 
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
+import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.DiaryModel;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.diaryfeature.model.util.SampleDataUtil;
 import seedu.address.diaryfeature.storage.DiaryBookStorage;
+import seedu.address.diaryfeature.storage.JsonDiaryBookStorage;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,8 +32,23 @@ public class DiaryBookLogic {
     private final DiaryBookStorage storage;
     private final DiaryBookParser diaryBookParser;
 
-    public DiaryBookLogic(DiaryModel diaryModel, DiaryBookStorage storage) {
-        this.diaryModel = diaryModel;
+    public DiaryBookLogic() {
+        JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data","diaryBook.json"));
+        Optional<DiaryBook> diaryBookOptional;
+        DiaryBook initialData;
+        try {
+            diaryBookOptional = storage.readDiaryBook();
+            if (!diaryBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample DiaryBook");
+                initialData = SampleDataUtil.getSampleDiaryBook();
+            } else {
+                initialData = diaryBookOptional.get();
+            }
+        }catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new DiaryBook();
+        }
+        this.diaryModel = new DiaryModel(initialData);
         this.storage = storage;
         this.diaryBookParser = new DiaryBookParser();
     }
@@ -46,6 +67,10 @@ public class DiaryBookLogic {
         }
 
         return commandResult;
+    }
+
+    public int getStats() {
+        return getFilteredDiaryEntryList().size();
     }
 
 

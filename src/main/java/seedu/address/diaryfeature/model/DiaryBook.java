@@ -49,6 +49,15 @@ public class DiaryBook {
         return entries.deleteDiaryEntry(x);
     }
 
+    public void setDiaryEntryPrivate(int index) {
+         entries.setDiaryEntryPrivate(index);
+    }
+
+    public void setDiaryEntryUnPrivate(int index) {
+       entries.setDiaryEntryUnPrivate(index);
+    }
+
+
     public String getEntriesAsString() {
         return entries.getEntriesAsString();
     }

@@ -9,12 +9,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="diaryPane" prefHeight="474.0" prefWidth="431.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-    </stylesheets>
-    <MenuBar fx:id="menuBar">
+<VBox fx:id="diaryPane" stylesheets="@Diary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <MenuBar id="menu bar" fx:id="menuBar">
         <Menu mnemonicParsing="false" text="My Travel Diary">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
         </Menu>
@@ -24,28 +20,28 @@
 
 
 
-      <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="311.0" prefWidth="750.0">
+      <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="311.0" prefWidth="821.0">
          <stylesheets>
             <URL value="@DarkTheme.css" />
             <URL value="@Extensions.css" />
          </stylesheets>
       <content>
-          <StackPane fx:id="diaryListPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="750.0" prefHeight="295.0" prefWidth="750.0" />
+          <StackPane id="scroll bar" fx:id="diaryListPanelPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="335.0" prefHeight="309.0" prefWidth="820.0" />
       </content>
       </ScrollPane>
-      <VBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="431.0">
+      <VBox alignment="CENTER_RIGHT" prefHeight="179.0" prefWidth="821.0">
       <children>
-          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="57.0" prefHeight="100.0" prefWidth="431.0" styleClass="pane-with-border">
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="57.0" prefHeight="114.0" prefWidth="821.0" styleClass="pane-with-border">
               <padding>
                   <Insets bottom="5" left="10" right="10" top="5" />
               </padding>
           </StackPane>
       </children>
       </VBox>
-    <VBox prefHeight="100.0" prefWidth="431.0">
+    <VBox prefHeight="84.0" prefWidth="431.0">
         <children>
 
-            <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" prefWidth="431.0" styleClass="pane-with-border">
+            <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="33.0" prefWidth="821.0" styleClass="pane-with-border">
                 <padding>
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>

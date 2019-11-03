@@ -1,0 +1,232 @@
+//Change to a picture of my name
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+= Tishya Khanna - Project Portfolio
+
+
+// add picture of travezy
+
+== Introduction
+
+This project portfolio has been written to elaborate on my
+contributions to a team-based software engineering project in the NUS Computing
+module CS2103T.In this module, my team of five was tasked to create an application, with reference to
+the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
+
+=== Constraints
+We had the the following constraints:
+
+*Target Consumer:*::
+* The product should be targeting users who can type fast and prefer typing over other means of input.
+
+Solution::
+* For this constraint, we ensured that the majority of the user's interactions with the application are through
+the https://www.techopedia.com/definition/3337/command-line-interface-cli[_Command Line Interface (CLI)_], which implies that
+users have to type commands and instructions, instead of using a Graphical User Interface(GUI).
+
+
+*Application requirements:*::
+
+* The product has to be https://www.techopedia.com/definition/24409/brownfield[_Brownfield_].
+
+Solution::
+* This means that we had to
+[.underline]#morph# the existing https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book] into another application.
+However, we were allowed to transform the concept of the application by incrementally changing the code.
+
+
+
+=== Product - TravEzy
+
+Keeping the above constraints in mind, we created *TravEzy*, a desktop-based CLI travel application.
+Our application [.underline]#erases# the logistical nightmare that haunts regular travellers.
+Instead of having to deal with several applications to organise and document
+a single trip, users can now combine critical travel applications such as
+calendars, itinerary planners, diaries and budgeting tools into one convenient
+and intuitive interface.
+
+Our product is targeting NUS students who are avid travellers. Given their
+busy schedules and love for travelling, *TravEzy* is the optimal
+solution for their travel needs.
+
+=== Overview of my contribution
+
+I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
+worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
+Developer guides. I shall elaborate more in the following sections.
+
+
+In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
+
+IMPORTANT: This symbol is to highlight important information
+
+``command``: Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
+can type into the command line in order to interact with TravEzy
+
+_Components_: Text which is italicised refers to technical components in the application
+
+*Highlight* Bold text is mainly for titles
+
+[underline]#attention# Underlined text is used to highlight certain key words and phrases
+
+
+
+
+== Summary of contributions
+
+My contributions, summarised below, have been ordered with respect to the importance and impact on the project.
+
+*Major enhancement:*::
+*Diary Feature*
+* What is this:
+** The Diary Feature represents a real-life diary. In this implementation, every user has a _Diary Book_ which contains a list (in the form of a _Diary List_) of all
+his/her _Diary Entries_.
+* Why is this necessary:
+** As part of our market validation process, we observed that most student travellers enjoy journaling and recording their trips in a text format.
+This feature allows for users to do exactly that, with the some additional features to increase convenience and usability.
+* Highlights:
+** Other than being able to do add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
+entries, sort through entries and encrypt private memories to keep them safe.
+
+
+*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+*Minor enhancement:*::
+*Delay Function*
+* Added a delay function which allows users to see an exit message when leaving the application
+*
+
+
+* *Other contributions*:
+
+** Project management:
+*** Created and managed milestones (V1.1 - V1.3)
+*** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
+*** Enabled Autopublishing of documentation using Travis
+** Documentation:
+*** Personalised the About us, Contact, Product Website
+https://github.com/tishyakhanna97/main/commit/d49c5d2e27baefd2c33f61856c4ee2d6d5899f87[1],
+https://github.com/tishyakhanna97/main/commit/4fd7f51316b6220a2235a7306c2055279b8451d6[2],
+https://github.com/tishyakhanna97/main/commit/2135c8af4518e07c7f45aa8df5d4a8018ac8f062[3],
+https://github.com/tishyakhanna97/main/commit/947fbe848dad7823e7ed05c5a584e056af381223[4],
+https://github.com/tishyakhanna97/main/commit/d56afcb37369b9bd91363b2eb6a8e215acf4870d[5],
+https://github.com/tishyakhanna97/main/commit/bdfe41963fd43d52149406c69c1cecf900e0c37e[6],
+https://github.com/tishyakhanna97/main/commit/acde2a53650e9ef78d6078cb5b96f849e9f4f191[7]
+*** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
+https://github.com/tishyakhanna97/main/commit/f49233f32a3b2c6c841f59755d0c0fa96e8f4590[8],
+https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9]
+
+
+
+== Contributions to the User Guide
+
+
+
+In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
+I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
+
+=== Find a Diary Entry which include a certain word inside: ``find``
+
+"Hey, when did I go to Spain?" It can be hard to remember
+all the details of your trips. That's why, this Diary allows you to *Find*
+
+*Find entries containing a certain text: ``find``*
+
+Finds all entries which contain your input text. There is one parameter, which
+is the text that you want to find.
+
+The _Command Word_ is ``find``.
+
+Format: ``list input``
+
+Example: I want to look at an old entry, it had something to do with "Aruba"...
+
+
+
+The user enters the command ``find Aruba``
+
+image::DiaryFindCommand.png[]
+
+And gets a list of all _Diary Entries_ which match the command:
+
+image::DiaryFindCommandResult.png[]
+
+
+
+=== Find a Diary Entry by narrowing down your search `FindSpecific`
+
+Let's narrow down your search!
+
+
+*Find entries containing a certain text in a specific field : ``findSpecific``*
+
+Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
+is the text that you want to find, with the relevant _PREFIX_.
+
+The _Command Word_ is ``findSpecific``.
+
+Format: ``list input``
+
+Example: I remember that i titled the trip "Temp", but I cant remember where I went on those trips...
+
+The user enters the command ``find Temp``
+
+image::DiaryFindSpecificCommand.png[]
+
+And gets a list of all _Diary Entries_ which match the command:
+
+image::DiaryFindSpecificCommandResult.png[]
+
+IMPORTANT: The ``find`` and `findSpecific` commands can't be used for empty parameters!
+
+== Contributions to the Developer Guide
+
+=== Diary
+
+
+==== Architecture
+
+.Architecture Diagram for Diary Feature
+image::DiaryArchitecture.png[]
+
+The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+
+
+`Diary Model` has multiple classes which form the basis of a Diary.
+This implementation starts at the root object, which is a `DiaryEntry`. These entries
+are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
+
+After receiving user input from `DiaryUi`, `DiaryParser`
+changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
+
+
+
+==== UI component
+
+.Structure of DiaryUi
+image::DiaryUI.png[]
+
+`DiaryUI`, which is represented above, consists of  `DiaryPage`, which encapsulates all the smaller Ui components.
+
+*The main components are the:*
+
+* `CommandBox` -> Captures user input
+
+* `ResultDisplay` -> Returns the output after the user input has passed through the DiaryCommand
+
+* `DiaryListPanel` -> Shows an easily readable version of the current DiaryBook
+
+All of these components inherit from the abstract `UiPart` Class
+
+
+
+
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

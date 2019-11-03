@@ -2,12 +2,7 @@ package seedu.address.diaryfeature.model.diaryEntry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.text.ParseException;
-
 import org.junit.jupiter.api.Test;
-
-import seedu.address.diaryfeature.model.exceptions.TitleException;
-
 
 
 public class DiaryEntryTest {
