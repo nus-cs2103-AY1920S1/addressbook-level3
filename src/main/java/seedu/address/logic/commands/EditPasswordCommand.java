@@ -109,6 +109,7 @@ public class EditPasswordCommand extends Command {
         Set<Tag> updatedTags = editPasswordDescriptor
                 .getTags().orElse(passwordToEdit.getTags());
 
+
         return new Password(updatedPasswordDescription, updatedUsername, updatedPasswordValue,
                 updatedPasswordModifiedAt, updatedWebsite, updatedTags);
     }

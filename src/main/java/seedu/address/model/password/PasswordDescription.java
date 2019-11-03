@@ -10,13 +10,14 @@ public class PasswordDescription {
     public static final String MESSAGE_CONSTRAINTS =
             "Descriptions should only contain alphabets, numbers and spaces"
             + " and adhere to the following constrains: \n"
-            + "1) Be between 2 characters to 30 characters long\n";
+            + "1) Be between 2 characters to 25 characters long\n";
     public static final String ADDITIONAL_INFORMATION = "Description will automatically be changed to UPPER-CASE";
+
     /**
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String VALIDATION_REGEX = "^([a-zA-Z0-9 ]){2,25}$";
+    private static final String VALIDATION_REGEX = "^(?![ ])(?!.*[ ]{2})(([a-zA-Z0-9 ]){2,25})(?<![ ])$";
 
     public final String value;
 
