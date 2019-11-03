@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
-import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
+import seedu.address.model.exceptions.ReferenceIdCannotChangeClassificationException;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
@@ -32,7 +32,7 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_PATIENT_ID = "001A";
+    private static final String VALID_PATIENT_ID = "PATIENT01";
     private static final String VALID_STAFF_ID = "STAFF001A";
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -232,18 +232,53 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePatientReferenceId_validPatientIdWithWhitespace_returnsTrimmedEmail() throws Exception {
+    public void parsePatientReferenceId_validPatientIdWithWhitespace_beforeRegistering() throws Exception {
+
         final String patientIdWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
         ReferenceId expectedId = PersonReferenceId.issuePatientReferenceId(VALID_PATIENT_ID);
+
+        // True: equal
         assertEquals(expectedId, ParserUtil.issuePatientReferenceId(patientIdWithWhitespace));
-        assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
+
+        // True: the string form of the id are the same
+        assertEquals(expectedId, ParserUtil.issueStaffReferenceId(patientIdWithWhitespace));
+
+        final String staffIdWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
+        expectedId = PersonReferenceId.issueStaffReferenceId(VALID_STAFF_ID);
+
+        // True: equal
+        assertEquals(expectedId, ParserUtil.issueStaffReferenceId(staffIdWithWhitespace));
+
+        // True: the string form of the id are the same
+        assertEquals(expectedId, ParserUtil.issuePatientReferenceId(staffIdWithWhitespace));
+    }
+
+    @Test
+    public void parsePatientReferenceId_validPatientIdWithWhitespace_afterRegistering() throws Exception {
+
+        final String patientIdWithWhitespace = WHITESPACE + VALID_PATIENT_ID + WHITESPACE;
+        ReferenceId expectedId = PersonReferenceId.issuePatientReferenceId(VALID_PATIENT_ID);
+
+        expectedId.registerId();
+
+        // True: equal
+        assertEquals(expectedId, ParserUtil.issuePatientReferenceId(patientIdWithWhitespace));
+
+        // Throws error as id has been registered as a patient
+        assertThrows(ReferenceIdCannotChangeClassificationException.class, () -> {
             ParserUtil.issueStaffReferenceId(patientIdWithWhitespace);
         });
 
         final String staffIdWithWhitespace = WHITESPACE + VALID_STAFF_ID + WHITESPACE;
         expectedId = PersonReferenceId.issueStaffReferenceId(VALID_STAFF_ID);
+
+        expectedId.registerId();
+
+        // True: equal
         assertEquals(expectedId, ParserUtil.issueStaffReferenceId(staffIdWithWhitespace));
-        assertThrows(ReferenceIdIncorrectGroupClassificationException.class, () -> {
+
+        // Throws error as id has been registered as a staff
+        assertThrows(ReferenceIdCannotChangeClassificationException.class, () -> {
             ParserUtil.issuePatientReferenceId(staffIdWithWhitespace);
         });
 

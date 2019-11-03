@@ -36,6 +36,8 @@ import seedu.address.model.events.parameters.Timing;
  */
 public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
+    public static final String MESSAGE_REFERENCEID_BELONGS_TO_STAFF =
+            "Appointments should only be scheduled for patients.";
 
     private Model model;
 
@@ -59,7 +61,8 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
                     AddAppCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issuePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupPatientReferenceId(
+                argMultimap.getValue(PREFIX_ID).get(), MESSAGE_REFERENCEID_BELONGS_TO_STAFF);
         if (!model.hasPatient(referenceId)) {
             throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
         }

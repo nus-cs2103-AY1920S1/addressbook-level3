@@ -17,9 +17,17 @@ import seedu.address.ui.autocomplete.AutoCompleter;
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
+    /**
+     * Initialises main class
+     */
     @Init
     public void init() throws Exception {
-        ApplicationTest.launch(MainApp.class);
+        try {
+            ApplicationTest.launch(MainApp.class);
+        } catch (AssertionError e) {
+            System.out.println(e.getStackTrace());
+            throw e;
+        }
     }
 
     @Test
@@ -111,7 +119,7 @@ public class MainAppTest extends ApplicationTest {
         var queueListView = robot.lookup("#queueListView").queryListView();
 
         robot.clickOn("#commandTextField")
-                .write("register -id 001A -name John Doe -phone 98765432"
+                .write("newpatient -id 001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
                 .type(KeyCode.ENTER)
                 .write("enqueue 001A")

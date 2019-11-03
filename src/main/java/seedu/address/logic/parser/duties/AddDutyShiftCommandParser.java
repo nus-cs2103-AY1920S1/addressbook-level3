@@ -35,6 +35,8 @@ import seedu.address.model.events.parameters.Timing;
  */
 public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any doctor";
+    public static final String MESSAGE_REFERENCEID_BELONGS_TO_PATIENT =
+            "Patients cannot be scheduled for duty shifts.";
 
     private Model model;
 
@@ -58,7 +60,9 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
                     AddDutyShiftCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.issueStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.lookupStaffReferenceId(
+                argMultimap.getValue(PREFIX_ID).get(),
+                MESSAGE_REFERENCEID_BELONGS_TO_PATIENT);
         if (!model.hasStaff(referenceId)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_REFERENCEID, AddDutyShiftCommand.MESSAGE_USAGE));
