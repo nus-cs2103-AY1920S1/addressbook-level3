@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="22.0" layoutY="13.0" text="Facing some trouble with our commands? Let us help you out!" textFill="#7d2277" AnchorPane.leftAnchor="22.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextFlow layoutX="22.0" layoutY="46.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="home">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Home tab">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="198.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="browse [keyword]...">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Searches for question by title, topic, description, status or difficulty">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="257.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="attempt [id]">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab where you can code your solution for a specific question">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="167.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="find [keyword]...">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Searches for a question by title">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="75.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="showall">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab and displays all available questions">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="106.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="bookmark [id]">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Bookmarks a specific question">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="137.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="deletebookmark [id]">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Removes the bookmark from a specific question">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="227.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="view [id]">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Displays the problem statement of a specific question">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <TextFlow layoutX="22.0" layoutY="286.0" AnchorPane.leftAnchor="22.0">
+         <children>
+            <Label text="submit">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="10.0" layoutY="10.0" text=" - Submits your solution, which will be compiled and run against test cases">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+         </children>
+      </TextFlow>
+      <Label layoutX="21.0" layoutY="325.0" text="For our detailed User Guide, please refer to" textFill="#7d2277" AnchorPane.leftAnchor="22.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField editable="false" focusTraversable="false" layoutX="22.0" layoutY="358.0" prefHeight="25.0" prefWidth="475.0" text="https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/UserGuide.adoc" AnchorPane.leftAnchor="22.0" />
+   </children>
+</AnchorPane>

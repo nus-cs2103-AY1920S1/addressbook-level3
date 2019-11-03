@@ -23,6 +23,7 @@ import com.dukeacademy.logic.commands.bookmark.DeleteBookmarkCommandFactory;
 import com.dukeacademy.logic.commands.browse.BrowseCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.commands.find.FindCommandFactory;
+import com.dukeacademy.logic.commands.help.HelpCommandFactory;
 import com.dukeacademy.logic.commands.home.HomeCommandFactory;
 import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
@@ -247,6 +248,10 @@ public class MainApp extends Application {
         DeleteBookmarkCommandFactory deleteBookmarkCommandFactory =
                 new DeleteBookmarkCommandFactory(this.questionsLogic);
         commandLogicManager.registerCommand(deleteBookmarkCommandFactory);
+        // Registering help command
+        HelpCommandFactory helpCommandFactory = new HelpCommandFactory(this.questionsLogic,
+                this.programSubmissionLogic, this.applicationState);
+        commandLogicManager.registerCommand(helpCommandFactory);
 
         return commandLogicManager;
     }
