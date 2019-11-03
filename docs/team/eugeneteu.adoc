@@ -21,6 +21,7 @@ Seller Manager Lite is a desktop application used for managing a business operat
 ** Justification: Being business owners, this feature should be very essential for the owners to be able to track their statistics and numbers while running their day to day operations. This allows them to more easily plan and monitor their business while using these numbers.
 ** Highlights: This feature cut across several layers in the entire project e.g logic, UI, model and hence designing it in such a way that it was able to work with the existing Model View Controller architecture was a very important albeit tedious step. It required an in-depth analysis of design alternatives.
 *** The implementation was also challenging as I made very sure no to violate any of the SOLID principles. At the same time, we were also still deciding how to implement the rest of the architecture for the other features.
+*** A total of 4 attempts of refactoring was needed for me to reach the current version of the main feature.
 
 ** Credits: The [apache commons math libraries](https://commons.apache.org/proper/commons-math/) was used in the actual calculation. However, the main difficulty of this feature does not come from the actual calculation but extracting the correct and appropiate data needed for this in the appropiate manner.  
 
