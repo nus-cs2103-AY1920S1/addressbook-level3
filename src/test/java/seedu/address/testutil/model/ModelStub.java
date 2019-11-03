@@ -303,6 +303,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void deleteVEvent(Index index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void addVEvent(VEvent vEvent) {
         throw new AssertionError("This method should not be called.");
     }

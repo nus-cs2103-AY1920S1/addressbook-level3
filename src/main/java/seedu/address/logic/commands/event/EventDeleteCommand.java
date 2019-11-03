@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.EventUtil.vEventToString;
 
 import java.util.List;
 
@@ -40,12 +41,12 @@ public class EventDeleteCommand extends EventCommand {
         }
 
         VEvent vEventToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteVEvent(vEventToDelete);
+        model.deleteVEvent(targetIndex);
         return new CommandResult(generateDeleteSuccessMessage(vEventToDelete), CommandResultType.SHOW_SCHEDULE);
     }
 
     private String generateDeleteSuccessMessage(VEvent vEvent) {
-        return String.format(MESSAGE_DELETE_VEVENT_SUCCESS, vEvent.getSummary().getValue());
+        return String.format(MESSAGE_DELETE_VEVENT_SUCCESS, vEventToString(vEvent));
     }
 
     @Override
