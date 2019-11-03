@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.TRANSPORT;
+import static seedu.address.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.address.testutil.TypicalMooLah.TRANSPORT;
 
 import java.util.Arrays;
 import java.util.Collections;

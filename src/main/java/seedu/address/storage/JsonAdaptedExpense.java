@@ -108,7 +108,7 @@ class JsonAdaptedExpense {
 
         Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampFromStorage(rawTimestamp);
         if (potentialTimestamp.isEmpty()) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 

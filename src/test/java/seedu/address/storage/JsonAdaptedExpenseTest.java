@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedExpense.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.BUSAN_TRIP;
+import static seedu.address.testutil.TypicalMooLah.BUSAN_TRIP;
 
 import org.junit.jupiter.api.Test;
 
@@ -101,7 +101,7 @@ public class JsonAdaptedExpenseTest {
         JsonAdaptedExpense expense =
                 new JsonAdaptedExpense(VALID_DESCRIPTION, VALID_PRICE,
                         VALID_CATEGORY, INVALID_TIMESTAMP, VALID_BUDGET_NAME, VALID_UNIQUE_IDENTIFIER);
-        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_DATE;
+        String expectedMessage = Timestamp.MESSAGE_CONSTRAINTS_GENERAL;
         assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 

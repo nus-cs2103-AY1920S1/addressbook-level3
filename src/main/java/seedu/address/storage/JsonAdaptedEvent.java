@@ -64,7 +64,9 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Category.class.getSimpleName()));
         }
-
+        if (!Category.isValidCategoryName(category)) {
+            throw new IllegalValueException(Category.MESSAGE_CONSTRAINTS);
+        }
         Category modelCategory = new Category(category);
 
         if (description == null) {
@@ -92,7 +94,7 @@ class JsonAdaptedEvent {
 
         Optional<Timestamp> potentialTimestamp = Timestamp.createTimestampFromStorage(rawTimestamp);
         if (potentialTimestamp.isEmpty()) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
         final Timestamp modelTimestamp = potentialTimestamp.get();
 

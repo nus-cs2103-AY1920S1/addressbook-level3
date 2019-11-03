@@ -113,7 +113,7 @@ class JsonAdaptedBudget {
 
         Optional<Timestamp> potentialStartDate = Timestamp.createTimestampFromStorage(startDate);
         if (potentialStartDate.isEmpty()) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
         final Timestamp modelStartDate = potentialStartDate.get();
 
@@ -124,7 +124,7 @@ class JsonAdaptedBudget {
 
         Optional<Timestamp> potentialEndDate = Timestamp.createTimestampFromStorage(endDate);
         if (potentialEndDate.isEmpty()) {
-            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_DATE);
+            throw new IllegalValueException(Timestamp.MESSAGE_CONSTRAINTS_GENERAL);
         }
         final Timestamp modelEndDate = potentialEndDate.get();
 

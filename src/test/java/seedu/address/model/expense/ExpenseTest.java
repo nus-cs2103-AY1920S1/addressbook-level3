@@ -2,16 +2,16 @@ package seedu.address.model.expense;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_TRANSPORT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_UNIQUE_IDENTIFIER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_TAXI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_TAXI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_PRICE_CHICKEN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_PRICE_TAXI;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_UNIQUE_IDENTIFIER;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.TRANSPORT;
+import static seedu.address.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.address.testutil.TypicalMooLah.TRANSPORT;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,29 +44,29 @@ public class ExpenseTest {
 
         // different price -> returns true
         Expense editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withPrice(VALID_PRICE_TRANSPORT).build();
+                .withPrice(VALID_EXPENSE_PRICE_TAXI).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         // different description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withDescription(VALID_DESCRIPTION_TRANSPORT).build();
+                .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         // different category -> return true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withCategory(VALID_CATEGORY_FOOD).build();
+                .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         //different price, category, and description -> returns true
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withPrice(VALID_PRICE_CHICKEN)
-                .withDescription(VALID_DESCRIPTION_CHICKEN)
-                .withCategory(VALID_CATEGORY_TRANSPORT).build();
+                .withPrice(VALID_EXPENSE_PRICE_CHICKEN)
+                .withDescription(VALID_EXPENSE_DESCRIPTION_CHICKEN)
+                .withCategory(VALID_EXPENSE_CATEGORY_TAXI).build();
         assertTrue(ANNIVERSARY.isSameExpense(editedAlice));
 
         // same everything except different unique identifier -> returns false
         editedAlice = new ExpenseBuilder(ANNIVERSARY)
-                .withUniqueIdentifier(VALID_UNIQUE_IDENTIFIER).build();
+                .withUniqueIdentifier(VALID_EXPENSE_UNIQUE_IDENTIFIER).build();
         assertFalse(ANNIVERSARY.isSameExpense(editedAlice));
     }
 
@@ -89,15 +89,15 @@ public class ExpenseTest {
         assertFalse(ANNIVERSARY.equals(TRANSPORT));
 
         // different description -> returns false
-        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withDescription(VALID_DESCRIPTION_TRANSPORT).build();
+        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withDescription(VALID_EXPENSE_DESCRIPTION_TAXI).build();
         assertFalse(ANNIVERSARY.equals(editedAlice));
 
         // different price -> returns false
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withPrice(VALID_PRICE_TRANSPORT).build();
+        editedAlice = new ExpenseBuilder(ANNIVERSARY).withPrice(VALID_EXPENSE_PRICE_TAXI).build();
         assertFalse(ANNIVERSARY.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_CATEGORY_FOOD).build();
+        editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_EXPENSE_CATEGORY_CHICKEN).build();
         assertFalse(ANNIVERSARY.equals(editedAlice));
     }
 }

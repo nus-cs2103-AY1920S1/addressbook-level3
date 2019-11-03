@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_B_TO_C;
-import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
+import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import org.junit.jupiter.api.Test;
 

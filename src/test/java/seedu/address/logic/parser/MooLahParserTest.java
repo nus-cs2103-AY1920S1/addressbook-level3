@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +20,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.alias.AddAliasCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
+import seedu.address.logic.commands.event.EditEventCommand;
+import seedu.address.logic.commands.event.EditEventCommand.EditEventDescriptor;
+import seedu.address.logic.commands.event.ListEventsCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
@@ -33,9 +37,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.expense.Event;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.AliasTestUtil;
+import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
+import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.EventUtil;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ExpenseUtil;
 
@@ -72,26 +80,44 @@ public class MooLahParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
+    public void parseCommand_deleteExpense() throws Exception {
         DeleteExpenseCommand command = (DeleteExpenseCommand) parser.parseCommand(
-                DeleteExpenseCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(),
+                DeleteExpenseCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased(),
                 "", readOnlyUserPrefs);
-        assertEquals(new DeleteExpenseCommand(INDEX_FIRST_EXPENSE), command);
+        assertEquals(new DeleteExpenseCommand(INDEX_FIRST), command);
     }
 
+    @Test
+    public void parseCommand_deleteEvent() throws Exception {
+        DeleteEventCommand command = (DeleteEventCommand) parser.parseCommand(
+                DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased(),
+                "", readOnlyUserPrefs);
+        assertEquals(new DeleteEventCommand(INDEX_FIRST), command);
+    }
 
     @Test
-    public void parseCommand_edit() throws Exception {
+    public void parseCommand_editExpense() throws Exception {
         Expense expense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(expense).build();
         EditExpenseCommand command = (EditExpenseCommand) parser.parseCommand(EditExpenseCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_EXPENSE.getOneBased() + " "
+                        + INDEX_FIRST.getOneBased() + " "
                         + ExpenseUtil.getEditExpenseDescriptorDetails(descriptor),
                 "", readOnlyUserPrefs);
 
-        assertEquals(new EditExpenseCommand(INDEX_FIRST_EXPENSE, descriptor), command);
+        assertEquals(new EditExpenseCommand(INDEX_FIRST, descriptor), command);
     }
 
+    @Test
+    public void parseCommand_editEvent() throws Exception {
+        Event event = new EventBuilder().build();
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder(event).build();
+        EditEventCommand command = (EditEventCommand) parser.parseCommand(EditEventCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST.getOneBased() + " "
+                        + EventUtil.getEditEventDescriptorDetails(descriptor),
+                "", readOnlyUserPrefs);
+
+        assertEquals(new EditEventCommand(INDEX_FIRST, descriptor), command);
+    }
 
     @Test
     public void parseCommand_exit() throws Exception {
@@ -121,12 +147,21 @@ public class MooLahParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
+    public void parseCommand_listExpense() throws Exception {
         assertTrue(parser.parseCommand(
                 ListExpensesCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListExpensesCommand);
         assertTrue(parser.parseCommand(
                 ListExpensesCommand.COMMAND_WORD + " 3", "",
                 readOnlyUserPrefs) instanceof ListExpensesCommand);
+    }
+
+    @Test
+    public void parseCommand_listEvent() throws Exception {
+        assertTrue(parser.parseCommand(
+                ListEventsCommand.COMMAND_WORD, "", readOnlyUserPrefs) instanceof ListEventsCommand);
+        assertTrue(parser.parseCommand(
+                ListEventsCommand.COMMAND_WORD + " 3", "",
+                readOnlyUserPrefs) instanceof ListEventsCommand);
     }
 
     @Test

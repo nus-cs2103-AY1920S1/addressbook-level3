@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.event.EditEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.expense.EditExpenseCommand;
 import seedu.address.model.Model;
@@ -22,6 +24,7 @@ import seedu.address.model.MooLah;
 import seedu.address.model.expense.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
+import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -29,58 +32,106 @@ import seedu.address.testutil.EditExpenseDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_DESCRIPTION_CHICKEN = "Chicken Rice";
-    public static final String VALID_DESCRIPTION_TRANSPORT = "Taxi to work";
-    public static final String VALID_PRICE_CHICKEN = "11111.11";
-    public static final String VALID_PRICE_TRANSPORT = "22222222.";
-    public static final String VALID_CATEGORY_FOOD = "FoOd";
-    public static final String VALID_CATEGORY_TRANSPORT = "transport";
-    public static final String VALID_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
+    public static final String VALID_EXPENSE_DESCRIPTION_CHICKEN = "Chicken Rice";
+    public static final String VALID_EXPENSE_DESCRIPTION_TAXI = "Taxi to work";
+    public static final String VALID_EXPENSE_PRICE_CHICKEN = "11111.11";
+    public static final String VALID_EXPENSE_PRICE_TAXI = "22222222.";
+    public static final String VALID_EXPENSE_CATEGORY_CHICKEN = "FoOd";
+    public static final String VALID_EXPENSE_CATEGORY_TAXI = "transport";
+    public static final String VALID_EXPENSE_TIMESTAMP_CHICKEN = "1 week ago";
+    public static final String VALID_EXPENSE_TIMESTAMP_TAXI = "yesterday";
+    public static final String VALID_EXPENSE_UNIQUE_IDENTIFIER = "Expense@12341234-1234-1234-1234-123412341234";
 
-    public static final String VALID_DESCRIPTION_SCHOOL = "school related expenses";
-    public static final String VALID_AMOUNT_SCHOOL = "300";
-    public static final String VALID_START_DATE_SCHOOL = "01-10-2019";
-    public static final String VALID_PERIOD_SCHOOL = "month";
+    public static final String VALID_EVENT_DESCRIPTION_BUFFET = "Family buffet";
+    public static final String VALID_EVENT_DESCRIPTION_BIRTHDAY = "Brian bday";
+    public static final String VALID_EVENT_PRICE_BUFFET = "300";
+    public static final String VALID_EVENT_PRICE_BIRTHDAY = "25.9";
+    public static final String VALID_EVENT_CATEGORY_BUFFET = "FoOd";
+    public static final String VALID_EVENT_CATEGORY_BIRTHDAY = "shopping";
+    public static final String VALID_EVENT_TIMESTAMP_BUFFET = "1 week later";
+    public static final String VALID_EVENT_TIMESTAMP_BIRTHDAY = "tomorrow";
 
-    public static final String DESCRIPTION_DESC_CHICKEN = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHICKEN;
-    public static final String DESCRIPTION_DESC_TRANSPORT = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TRANSPORT;
-    public static final String PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_PRICE_CHICKEN;
-    public static final String PRICE_DESC_TRANSPORT = " " + PREFIX_PRICE + VALID_PRICE_TRANSPORT;
-    public static final String TAG_DESC_CLAIMABLE = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
-    public static final String TAG_DESC_DISCOUNTED = " " + PREFIX_CATEGORY + VALID_CATEGORY_TRANSPORT;
+    public static final String VALID_BUDGET_DESCRIPTION_SCHOOL = "school related expenses";
+    public static final String VALID_BUDGET_AMOUNT_SCHOOL = "300";
+    public static final String VALID_BUDGET_START_DATE_SCHOOL = "01-10-2019";
+    public static final String VALID_BUDGET_PERIOD_SCHOOL = "month";
 
-    public static final String DESCRIPTION_DESC_SCHOOL = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_SCHOOL;
-    public static final String AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_AMOUNT_SCHOOL;
-    public static final String START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_START_DATE_SCHOOL;
-    public static final String PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_PERIOD_SCHOOL;
+    public static final String EXPENSE_DESCRIPTION_DESC_CHICKEN =
+            " " + PREFIX_DESCRIPTION + VALID_EXPENSE_DESCRIPTION_CHICKEN;
+    public static final String EXPENSE_DESCRIPTION_DESC_TAXI =
+            " " + PREFIX_DESCRIPTION + VALID_EXPENSE_DESCRIPTION_TAXI;
+    public static final String EXPENSE_PRICE_DESC_CHICKEN = " " + PREFIX_PRICE + VALID_EXPENSE_PRICE_CHICKEN;
+    public static final String EXPENSE_PRICE_DESC_TAXI = " " + PREFIX_PRICE + VALID_EXPENSE_PRICE_TAXI;
+    public static final String EXPENSE_TIMESTAMP_DESC_CHICKEN =
+            " " + PREFIX_TIMESTAMP + VALID_EXPENSE_TIMESTAMP_CHICKEN;
+    public static final String EXPENSE_TIMESTAMP_DESC_TAXI = " " + PREFIX_TIMESTAMP + VALID_EXPENSE_TIMESTAMP_TAXI;
+    public static final String EXPENSE_CATEGORY_DESC_CHICKEN = " " + PREFIX_CATEGORY + VALID_EXPENSE_CATEGORY_CHICKEN;
+    public static final String EXPENSE_CATEGORY_DESC_TAXI = " " + PREFIX_CATEGORY + VALID_EXPENSE_CATEGORY_TAXI;
+
+    public static final String EVENT_DESCRIPTION_DESC_BUFFET =
+            " " + PREFIX_DESCRIPTION + VALID_EVENT_DESCRIPTION_BUFFET;
+    public static final String EVENT_DESCRIPTION_DESC_BIRTHDAY =
+            " " + PREFIX_DESCRIPTION + VALID_EVENT_DESCRIPTION_BIRTHDAY;
+    public static final String EVENT_PRICE_DESC_BUFFET = " " + PREFIX_PRICE + VALID_EVENT_PRICE_BUFFET;
+    public static final String EVENT_PRICE_DESC_BIRTHDAY = " " + PREFIX_PRICE + VALID_EVENT_PRICE_BIRTHDAY;
+    public static final String EVENT_TIMESTAMP_DESC_BUFFET = " " + PREFIX_TIMESTAMP + VALID_EVENT_TIMESTAMP_BUFFET;
+    public static final String EVENT_TIMESTAMP_DESC_BIRTHDAY = " " + PREFIX_TIMESTAMP + VALID_EVENT_TIMESTAMP_BIRTHDAY;
+    public static final String EVENT_CATEGORY_DESC_BUFFET = " " + PREFIX_CATEGORY + VALID_EVENT_CATEGORY_BUFFET;
+    public static final String EVENT_CATEGORY_DESC_BIRTHDAY = " " + PREFIX_CATEGORY + VALID_EVENT_CATEGORY_BIRTHDAY;
+
+    public static final String BUDGET_DESCRIPTION_DESC_SCHOOL =
+            " " + PREFIX_DESCRIPTION + VALID_BUDGET_DESCRIPTION_SCHOOL;
+    public static final String BUDGET_AMOUNT_DESC_SCHOOL = " " + PREFIX_PRICE + VALID_BUDGET_AMOUNT_SCHOOL;
+    public static final String BUDGET_START_DATE_DESC_SCHOOL = " " + PREFIX_START_DATE + VALID_BUDGET_START_DATE_SCHOOL;
+    public static final String BUDGET_PERIOD_DESC_SCHOOL = " " + PREFIX_PERIOD + VALID_BUDGET_PERIOD_SCHOOL;
 
     // '&' not allowed in descriptions
-    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
+    public static final String INVALID_EXPENSE_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
     // 'a' not allowed in prices
-    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
+    public static final String INVALID_EXPENSE_PRICE_DESC = " " + PREFIX_PRICE + "911a";
+    // Non Natty-recognised input not allowed in timestamps
+    public static final String INVALID_EXPENSE_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
     // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_CATEGORY + "hubby*";
+    public static final String INVALID_EXPENSE_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
+
+    // '&' not allowed in descriptions
+    public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "James&";
+    // 'a' not allowed in prices
+    public static final String INVALID_EVENT_PRICE_DESC = " " + PREFIX_PRICE + "911a";
+    // Non Natty-recognised input not allowed in timestamps
+    public static final String INVALID_EVENT_TIMESTAMP_DESC = " " + PREFIX_TIMESTAMP + "asdf";
+    // '*' not allowed in tags
+    public static final String INVALID_EVENT_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditExpenseCommand.EditExpenseDescriptor DESC_CHICKEN;
+    public static final EditEventCommand.EditEventDescriptor DESC_BUFFET;
 
-    public static final String STATS_WITHOUT_TAG = " 5";
+    public static final String STATS_WITHOUT_CATEGORY = " 5";
     public static final String STATS_PREFIX_WITHOUT_INPUT = String.format(" %s ", PREFIX_START_DATE);
     public static final String STATS_INVALID_PREFIX = String.format(" %s ", PREFIX_CATEGORY);
     public static final String STATS_HIGHER_END_DATE = String.format(" %s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_END_DATE);
-    public static final String STATS_DUPLICATE_TAG = String.format("%s31-10-2019 %s01-10-2019",
+    public static final String STATS_DUPLICATE_CATEGORY = String.format("%s31-10-2019 %s01-10-2019",
             PREFIX_START_DATE, PREFIX_START_DATE);
 
     public static final Timestamp OCTOBER_FIRST = Timestamp.createTimestampIfValid("01-10-2019").get();
     public static final Timestamp OCTOBER_LAST = Timestamp.createTimestampIfValid("31-10-2019").get();
 
     static {
-        DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_DESCRIPTION_CHICKEN)
-                .withPrice(VALID_PRICE_CHICKEN)
-                .withCategory(VALID_CATEGORY_TRANSPORT).build();
+        DESC_CHICKEN = new EditExpenseDescriptorBuilder().withDescription(VALID_EXPENSE_DESCRIPTION_CHICKEN)
+                .withPrice(VALID_EXPENSE_PRICE_CHICKEN)
+                .withTimestamp(VALID_EXPENSE_TIMESTAMP_CHICKEN)
+                .withCategory(VALID_EXPENSE_CATEGORY_TAXI).build();
+    }
+
+    static {
+        DESC_BUFFET = new EditEventDescriptorBuilder().withDescription(VALID_EVENT_DESCRIPTION_BUFFET)
+                .withPrice(VALID_EVENT_PRICE_BUFFET)
+                .withTimestamp(VALID_EVENT_TIMESTAMP_BUFFET)
+                .withCategory(VALID_EVENT_CATEGORY_BUFFET).build();
     }
 
     /**
@@ -136,5 +187,20 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredExpenseList().size());
     }
+
+    //    /**
+    //     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
+    //     * {@code model}'s MooLah.
+    //     */
+    //    public static void showEventAtIndex(Model model, Index targetIndex) {
+    //        assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
+    //
+    //        Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
+    //        final String[] splitDescription = event.getDescription().fullDescription.split("\\s+");
+    //        model.updateFilteredEventList(
+    //                new DescriptionContainsKeywordsPredicate(Arrays.asList(splitDescription[0])));
+    //
+    //        assertEquals(1, model.getFilteredEventList().size());
+    //    }
 
 }

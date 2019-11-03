@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.CHICKEN_RICE;
-import static seedu.address.testutil.TypicalExpenses.ENTERTAINMENT;
-import static seedu.address.testutil.TypicalExpenses.FASHION;
-import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
+import static seedu.address.testutil.TypicalMooLah.CHICKEN_RICE;
+import static seedu.address.testutil.TypicalMooLah.ENTERTAINMENT;
+import static seedu.address.testutil.TypicalMooLah.FASHION;
+import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import java.util.Arrays;
 import java.util.Collections;

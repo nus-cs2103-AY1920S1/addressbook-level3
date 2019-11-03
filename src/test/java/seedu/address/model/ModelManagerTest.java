@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TestUtil.makeModelStack;
-import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.BUSAN_TRIP;
+import static seedu.address.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.address.testutil.TypicalMooLah.BUSAN_TRIP;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

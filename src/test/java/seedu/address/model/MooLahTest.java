@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_CHICKEN;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalExpenses.ANNIVERSARY;
-import static seedu.address.testutil.TypicalExpenses.getTypicalMooLah;
+import static seedu.address.testutil.TypicalMooLah.ANNIVERSARY;
+import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -47,7 +47,7 @@ public class MooLahTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_CATEGORY_FOOD).build();
+        Expense editedAlice = new ExpenseBuilder(ANNIVERSARY).withCategory(VALID_EXPENSE_CATEGORY_CHICKEN).build();
         List<Expense> newExpenses = Arrays.asList(ANNIVERSARY, editedAlice);
         MooLahStub newData = new MooLahStub(newExpenses);
 
