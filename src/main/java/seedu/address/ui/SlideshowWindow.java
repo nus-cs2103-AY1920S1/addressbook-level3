@@ -119,8 +119,11 @@ public class SlideshowWindow extends UiPart<Stage> {
         currQuestionIndex++;
         updateQuestionNoLabel();
 
-        if (currQuestionIndex >= questionPanels.size()) {
+        if (currQuestionIndex > questionPanels.size()) {
             hide();
+        } else if (currQuestionIndex == questionPanels.size()) {
+            questionPanels.get(currQuestionIndex - 1).setVisible(false);
+            questionNoLabel.setText("End of Slideshow");
         } else {
             questionPanels.get(currQuestionIndex - 1).setVisible(false);
             questionPanels.get(currQuestionIndex).setVisible(true);
@@ -135,8 +138,12 @@ public class SlideshowWindow extends UiPart<Stage> {
             currQuestionIndex--;
             updateQuestionNoLabel();
 
-            questionPanels.get(currQuestionIndex + 1).setVisible(false);
-            questionPanels.get(currQuestionIndex).setVisible(true);
+            if (currQuestionIndex == questionPanels.size() - 1) {
+                questionPanels.get(currQuestionIndex).setVisible(true);
+            } else {
+                questionPanels.get(currQuestionIndex + 1).setVisible(false);
+                questionPanels.get(currQuestionIndex).setVisible(true);
+            }
         }
     }
 
@@ -144,16 +151,20 @@ public class SlideshowWindow extends UiPart<Stage> {
      * Shows or hide the current answer of the question.
      */
     private void showHideAnswer() {
-        QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
-        questionPanel.showHideAnswer();
+        if (currQuestionIndex < questionPanels.size()) {
+            QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
+            questionPanel.showHideAnswer();
+        }
     }
 
     /**
      * Adds the corresponding option pressed to the poll results.
      */
     private void addToPoll(OptionType option) {
-        QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
-        questionPanel.addToPoll(option);
+        if (currQuestionIndex < questionPanels.size()) {
+            QuestionPanel questionPanel = questionPanels.get(currQuestionIndex);
+            questionPanel.addToPoll(option);
+        }
     }
 
     /**

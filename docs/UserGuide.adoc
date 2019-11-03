@@ -24,7 +24,7 @@ right from their keyboard. With just a few commands, you will be able to
 _manage your classes, create questions, generate quizzes and much more!_ Interested?
 Jump to <<Getting Started>> to get started.
 
-== Features
+== Features Summary
 
 . *Manage your classes* easily with just a few strokes of your keyboard.
 .. Attendance taking
@@ -47,6 +47,25 @@ Simply define a type, a topic and an answer and you are all set.
 . *Statistics* provide a comprehensive view of your students' performance.
 .. Understand the academic performance of your class.
 .. View honourable students and identify the struggling students in one look.
+
+
+== Features
+
+=== Questions
+Manage your questions using a single interface. Saving questions is easy, simply enter a topic, a question
+and an answer and you are all set!
+
+=== Slideshow
+Engage your students in the classroom with our Slideshow feature. Easily display existing questions
+without the need to recreate them.
+
+==== Control
+Controlling Slideshow is simple. With just your arrow and space keys, you are in control of the questions.
+
+==== Polling _(MCQ only)_
+Get your students participating in the discussion with the polling feature included in Slideshow. Gather
+responses before revealing the answer to test your students' understanding.
+
 
 == Getting Started
 
@@ -303,6 +322,10 @@ The options supported by this feature includes:
 . `c` - Option C for MCQ.
 . `d` - Option D for MCQ.
 
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
+
 Examples:
 
 * *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
@@ -328,6 +351,10 @@ The options supported by this feature includes:
 . `b` - Option B for MCQ.
 . `c` - Option C for MCQ.
 . `d` - Option D for MCQ.
+
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
 
 Examples:
 
@@ -400,7 +427,7 @@ The following keys are used to control the slideshow:
 . `Esc` - Quit the slideshow.
 . `Space` - Show or hide the answer to the question.
 
-The following keys are used for polling for [.underline]#mcq# type questions:
+The following keys are used for polling for mcq type questions:
 
 . `1` - Plus one to option A.
 . `2` - Plus one to option B.

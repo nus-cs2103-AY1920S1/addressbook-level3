@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_ANSWER = "Answer cannot be left empty.";
     public static final String MESSAGE_MISSING_TYPE = "Type cannot be left empty.";
     public static final String MESSAGE_MISSING_TEXT_SEARCH = "Please provide a text to search.";
-    public static final String MESSAGE_MISSING_EDIT_FIELDS = "At least one field to be edit has to be defined.";
+    public static final String MESSAGE_MISSING_EDIT_FIELDS = "At least one field to edit has to be defined.";
 
     public static final String MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX = "The student index provided is invalid";
 
