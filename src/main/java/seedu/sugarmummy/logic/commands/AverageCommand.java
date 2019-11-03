@@ -9,16 +9,17 @@ import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
+//@@author chen-xi-cx
 /**
- * Shows daily/weekly/monthly average of different record types.
+ * Shows daily/weekly/monthly average of different record types in a line graph.
  */
 public class AverageCommand extends Command {
 
     public static final String COMMAND_WORD = "average";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows daily/weekly/monthly average of different "
-            + "record types.\n"
-            + "Parameters: a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
+            + "record types in a line graph.\n"
+            + "Format: average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]\n"
             + "Example: " + COMMAND_WORD + " a/daily rt/bloodsugar n/5";
 
     public static final String MESSAGE_SUCCESS = "Your %1$s averages for %2$s have been calculated successfully.";
@@ -27,6 +28,7 @@ public class AverageCommand extends Command {
 
     public static final String MESSAGE_INVALID_AVGTYPE = "a/AVERAGE_TYPE";
 
+    public static final String MESSAGE_INVALID_RECORD_TYPE = "rt/RECORD_TYPE";
 
     public static final String MESSAGE_NO_RECORD = "Sorry! You do not have any %1$s record.";
 

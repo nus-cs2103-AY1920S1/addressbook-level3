@@ -147,11 +147,15 @@ public interface Model {
 
     /**
      * Calculates average values of a record type.
+     * @param averageType the average type to calculate.
+     * @param recordType the record type to calculate.
+     * @param count the number of most recent averages to calculate.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
 
     /**
-     * Returns a {@code AverageMap} object that maps time period to the respective average values.
+     * Returns an unmodifiable view of the map of average values with key being the time period and
+     * key being the average value.
      */
     ObservableMap<LocalDate, Double> getAverageMap();
 

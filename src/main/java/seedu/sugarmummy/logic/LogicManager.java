@@ -180,6 +180,7 @@ public class LogicManager implements Logic {
     public ObservableMap<LocalDate, Double> getAverageMap() {
         return model.getAverageMap();
     }
+
     //=========== Aesthetics =============================================================
 
     @Override
