@@ -28,7 +28,9 @@ What is a flashcard? Flashcards are containers for information. Each card has a 
 
 After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, FlashCard Pro can be configured to show the “front” of the card, prompting the user to enter their guess for what is on the “back” of the card. The user’s attempt is gauged “correct” if it matches the definition of the card.
 
-As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. 
+
+For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
 
 == Quick Start
 
@@ -131,6 +133,9 @@ Displays all the cards in the deck of cards, `science_deck`
 
 === Creating new flashcards/decks : `create`
 
+
+==== Create new empty deck
+
 Creates an empty deck in FlashCard Pro library.
 
 Format: `create deck/DECK_NAME`
@@ -142,8 +147,11 @@ Examples:
 
 Creates a new empty deck named `german`.
 
+****
+* The `DECK_NAME` must be unique and no deck that exist in FlashCard Pro library should have the same name of `DECK_NAME`.
 
-==== Create new deck
+* If there is another deck with the same name `DECK_NAME`, there will be an error message and the empty deck will not be created.
+****
 
 ==== Create new Front Back card or Multiple Choice Card
 
@@ -169,9 +177,12 @@ Format: `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW
 
 Examples:
 
-* `edit deck/science_deck`
+* `edit deck/science_deck` +
+
 Returns error as no input is added
-* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+
+* `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block` +
+
 Edits the first flashcard of the deck `science_deck`
 
 === Start test with flashcards : `test`
