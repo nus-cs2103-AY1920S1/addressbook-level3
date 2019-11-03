@@ -52,7 +52,7 @@ public class StatsQnsListCard extends PanelComponent<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.ui.panels.QuestionListCard)) {
+        if (!(other instanceof StatsQnsListCard)) {
             return false;
         }
 

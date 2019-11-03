@@ -30,8 +30,7 @@ public class GetReportCommandParser implements Parser<GetReportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     GetReportCommand.MESSAGE_USAGE), e);
         } catch (IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX,
-                    GetReportCommand.MESSAGE_USAGE), e);
+            throw new ParseException(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX, e);
         }
         return new GetReportCommand(index);
     }

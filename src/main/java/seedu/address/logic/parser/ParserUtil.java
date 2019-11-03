@@ -71,7 +71,7 @@ public class ParserUtil {
      * Parses a {@code String number} into an {@code Integer}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static int parseNumber(String number) throws ParseException {
+    public static int parseNumber(String number) {
         requireNonNull(number);
         return Integer.parseInt(number);
     }
