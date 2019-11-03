@@ -174,15 +174,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Calendar week change
-==== Implementation
+=== Calendar
+
+==== Calendar week change
+===== Implementation
 
 Calendar week change is done by removing all tasks from the calendar and adding all the tasks that either have the new
 corresponding week number or is an instance of `ModuleTask`.
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: How `go WEEK_NUMBER` executes
+====== Aspect: How `go WEEK_NUMBER` executes
 
 * **Alternative 1 (current choice):** Save all data in a single json file.
 ** Pros: No need to switch storage file.
@@ -190,6 +192,43 @@ corresponding week number or is an instance of `ModuleTask`.
 * **Alternative 2:** Read and load for each week from separate json storage file.
 ** Pros: Easy to clear data from a certain week.
 ** Cons: Need to switch storage file each time the user go to the next/previous week.
+
+==== Persistent `ModuleTask`
+===== Implementation
+
+.Structure of the Model Component for the feature Calendar
+image::CalendarModelClassDiagram.png[]
+
+The abstract class `Task` has two subclasses: `ToDoTask` and `ModuleTask`. `ToDoTask` only exists in its corresponding
+week while `ModuleTask` is persistent. When a `ModuleTask` is added to any arbitrary week, it would be automatically
+added to all of the other weeks and when a certain week is cleared using the `clearweek` command, it would not affect
+the `ModuleTask`. Hence, `ModuleTask` can only be deleted by using the command `clear` or deleting each `ModuleTask`
+manually using `delete`.
+
+===== Design consideration
+* **Alternative 1 (current choice): ** Create separate classes for `ToDoTask` and `ModuleTask` that both inherits from
+the abstract class `Task`. User use different command `add` and `addmod` to create the corresponding subclass.
+** Pros: Code looks cleaner. Easier to implement a different UI for each subclass.
+** Cons: More code.
+* **Alternative 2: ** Use a non-abstract class `Task` for both ToDos and Modules and add a boolean field `isPersistent`.
+** Pros: No need to add new classes.
+** Cons: User needs to input an extra field `<persist> [TRUE/FALSE]`. It is more difficult to differentiate the
+type of `Task` when reading the code.
+
+==== Sorting
+===== Implementation
+
+`Task` can be sorted according to `TaskTitle`, `TaskDeadline`, or `TaskTime`. Each type of sorting has its own
+comparator implemented in a method that would return a sorted `FilteredList<Task>`.
+
+===== Design consideration
+* **Alternative 1 (current choice): **Use an external comparator.
+** Pros: Easy to switch between different sort type.
+** Cons: Need to call the sort method each time the calendar is updated.
+* **Alternative 2: **Set the `Task` class to implement the `Comparable` interface.
+** Pros: Need to switch the `compareTo()` method of each `Task` each time `sort` is called.
+** Cons: New/edited task would be automatically placed at the correct order.
+
 
 // tag::undoredo[]
 === Quiz feature
