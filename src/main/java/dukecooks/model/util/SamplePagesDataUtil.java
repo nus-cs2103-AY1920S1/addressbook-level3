@@ -15,8 +15,8 @@ public class SamplePagesDataUtil {
         return new Page[]{
             new Page(new Title("Pho"), new PageType("food"), new PageDescription("Amazing food from Vietnam!"),
                     new Image(SampleImageUtil.PATH_TO_PHO)),
-            new Page(new Title("ChickenRice"), new PageType("food"), new PageDescription("Tasty as always!"),
-                    new Image(SampleImageUtil.PATH_TO_CHICKEN_RICE)),
+            new Page(new Title("Steak"), new PageType("food"), new PageDescription("Tasty as always!"),
+                    new Image(SampleImageUtil.PATH_TO_STEAK)),
             new Page(new Title("Sushi"), new PageType("food"),
                     new PageDescription("Enjoy some freshly sliced sashimi!"),
                         new Image(SampleImageUtil.PATH_TO_SUSHI)),

@@ -19,15 +19,6 @@ public class TypicalPages {
     public static final Page STEAK = new PageBuilder().withTitle("Steak").withPageType("food")
             .withPageDescription("Tender and Juicy!!").withImage("/images/steak.jpg").build();
 
-    // Manually added
-    public static final Page WEIGHTS =
-            new PageBuilder().withTitle("Weights").withPageType("exercise")
-                    .withPageDescription("What a great workout!").withImage("/images/exercise.png").build();
-    public static final Page CHECKUP =
-            new PageBuilder().withTitle("Healthy Living").withPageType("health")
-                    .withPageDescription("Remember to go for your health checkups regularly!!")
-                    .withImage("/images/heart.png").build();
-
     // Manually added - Page's details found in {@code CommandTestUtil}
     public static final Page PHO_PAGE = new PageBuilder().withTitle(CommandTestUtil.VALID_PHO_TITLE)
                     .withPageType(CommandTestUtil.VALID_PHO_TYPE)

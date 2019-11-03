@@ -88,7 +88,9 @@ public class Page {
                 .append(" Page Type: ")
                 .append(getPageType())
                 .append(" Description: ")
-                .append(getDescription().fullPageDescription);
+                .append(getDescription().fullPageDescription)
+                .append(" Image: ")
+                .append(getImage().toString());
         return builder.toString();
     }
 }
