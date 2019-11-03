@@ -1,7 +1,6 @@
 package seedu.jarvis.logic.parser.history;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.jarvis.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -31,7 +30,7 @@ public class RedoCommandParserTest {
      */
     @Test
     public void parse_withValidArguments_success() {
-        IntStream.range(1, 100).forEach(index -> assertParseSuccess(parser, " " + PREFIX_UNDO_REDO + index,
+        IntStream.range(1, 100).forEach(index -> assertParseSuccess(parser, " " + index,
                 new RedoCommand(index)));
     }
 
@@ -41,11 +40,11 @@ public class RedoCommandParserTest {
      */
     @Test
     public void parse_withInvalidArguments_failure() {
-        assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "-5",
+        assertParseFailure(parser, " " + "-5",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, " " + "0", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 RedoCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " " + PREFIX_UNDO_REDO + "Invalid Command Format",
+        assertParseFailure(parser, " " + "Invalid Command Format",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
     }
 }

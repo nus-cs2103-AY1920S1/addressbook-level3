@@ -1,7 +1,5 @@
 package seedu.jarvis.logic.commands.history;
 
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
-
 import java.util.stream.IntStream;
 
 import seedu.jarvis.logic.commands.Command;
@@ -19,11 +17,10 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": undo actions. "
-            + "Parameters: " + PREFIX_UNDO_REDO + "UNDO (Must be a Positive Number or \"all\" [case insensitive], "
+            + "Parameters: " + "UNDO_NUMBER (Must be a Positive Number or \"all\" [case insensitive], "
             + "invalid numbers will set UNDO to default value of 1) "
             + "Example: " + COMMAND_WORD
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "all"
-            + ", " + COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5";
+            + ", " + COMMAND_WORD + " " + "5";
 
 
     public static final String MESSAGE_SUCCESS = "Undone %1$d command(s)";
