@@ -2,10 +2,12 @@ package dream.fcard.logic.respond;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 
 /**
@@ -23,6 +25,7 @@ import dream.fcard.util.RegexUtil;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
+    // DEFAULT GROUP STARTS ----------------------------------
     CREATE_NEW_DECK_WITH_NAME(
             "^((?i)create)\\s+((?i)deck/)\\s*\\S.*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -41,6 +44,32 @@ public enum Responses {
                     return true;
                 }
     ),
+    // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
+    // Only used for MCQ and FrontBack cards
+    // Note that back for MCQ cards will be used for identifying the correct CHOICE
+    ADD_CARD(
+            "^((?i)(add)(\\s)+(deck/(.*))\\s+(priority/(.*))?\\s+(front/(.*))\\s+(back/(.*))+\\s+(choice/(.*))?\\s*",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            i -> {
+                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("",
+                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                        i);
+                try {
+                    return CreateCommand.createMcqFrontBack(res);
+                } catch (DuplicateInChoicesException dicExc) {
+                    Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"There are duplicated choices!");
+                    return true;
+                }
+            }
+    ),
+    ADD_CARD_ERROR(
+            "^((?i)(add)",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            (i,s) -> {
+                Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
+                return true;
+            }
+    ),
     SEE_SPECIFIC_DECK(
             "^((?i)view)\\s+[0-9]+$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -58,6 +87,7 @@ public enum Responses {
                     return true;
                 }
     ),
+
 
     EXIT_CREATE(
             "^((?i)exit)\\s*$",
@@ -87,6 +117,7 @@ public enum Responses {
                 }
     ),
     // DEFAULT GROUP ----------------------------------------------------------
+
     QUIT(
             "^((?i)quit)\\s*$",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
@@ -104,8 +135,8 @@ public enum Responses {
                     return true;
                 }
     );
+    // MATCH ALL GROUP ENDS --------------------------------------------------------
 
-    // MATCH ALL GROUP --------------------------------------------------------
 
     private String regex;
     private ResponseGroup[] group;
