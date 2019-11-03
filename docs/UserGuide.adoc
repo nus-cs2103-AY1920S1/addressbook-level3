@@ -380,7 +380,7 @@ Format: `redo`
 ** Cancel appointment: `cancelappt <ENTRY_ID>`
 ** Acknowledge arrival of patient for appointment: `ackappt <REFERENCE_ID>`
 ** List all missed appointments: `missappt`
-** Mark missed appointment as settled: `settle <ENTRY_ID>`
+** Mark missed appointment as settled: `settleappt <ENTRY_ID>`
 
 * *Duty-shift Management* +
 ** Search for shift: `shifts [<REFERENCE_ID>]`
