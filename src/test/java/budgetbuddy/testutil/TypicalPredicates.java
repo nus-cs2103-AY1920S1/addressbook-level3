@@ -15,7 +15,7 @@ public class TypicalPredicates {
             .withOperator("contains").withValue("daily").build();
     public static final RulePredicate INAMT_LESSTHAN_10 = new PredicateExpressionBuilder().withAttribute("inamt")
             .withOperator("<").withValue("10").build();
-    public static final RulePredicate OUTAMT_MOREEQUAL_10 = new PredicateExpressionBuilder()
+    public static final RulePredicate OUTAMT_MOREEQUAL_100 = new PredicateExpressionBuilder()
             .withAttribute("outamt").withOperator(">=").withValue("100").build();
     public static final RulePredicate INAMT_EQUAL_4090 = new PredicateExpressionBuilder()
             .withAttribute("inamt").withOperator("=").withValue("4090").build();

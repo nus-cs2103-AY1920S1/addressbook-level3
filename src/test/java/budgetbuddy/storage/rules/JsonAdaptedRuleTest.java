@@ -25,8 +25,8 @@ public class JsonAdaptedRuleTest {
 
     @Test
     public void toModelType_validRuleDetails_returnsRule() throws Exception {
-        JsonAdaptedRule rule = new JsonAdaptedRule(TypicalRules.DAILY_DESC_RDAILY);
-        assertEquals(TypicalRules.DAILY_DESC_RDAILY, rule.toModelType());
+        JsonAdaptedRule rule = new JsonAdaptedRule(TypicalRules.DAILY_DESC_REMOVE_DAILY);
+        assertEquals(TypicalRules.DAILY_DESC_REMOVE_DAILY, rule.toModelType());
     }
 
     @Test
