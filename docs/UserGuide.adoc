@@ -89,7 +89,9 @@ FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 
 Examples:
 
-* `import filepath/C:\Users\user\Desktop\flashcardpro`
+* `import filepath/C:\Users\user\Desktop\flashcardpro\german.json` +
+
+Importing the JSON file `german.json` file from a Windows OS file path.
 
 === Exporting flashcards to disk: `export`
 
@@ -100,6 +102,7 @@ Format: `export deck/DECK_NAME`
 Examples:
 
 * `export deck/german` +
+
 Exports a deck named `german` in FlashCard Pro library to a JSON file named `german.json`
 
 [TIP]
