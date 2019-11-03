@@ -1,8 +1,7 @@
 package seedu.address.logic.commands.questioncommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_QUESTIONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAppData.MVC_QUESTION;
@@ -23,12 +22,12 @@ import seedu.address.model.question.BodyContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindQuestionCommand}.
  */
-public class FindQuestionCommandTest {
+class FindQuestionCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void equals() {
+    void equals() {
         BodyContainsKeywordsPredicate firstPredicate =
                 new BodyContainsKeywordsPredicate(Collections.singletonList("first"));
         BodyContainsKeywordsPredicate secondPredicate =
@@ -38,24 +37,24 @@ public class FindQuestionCommandTest {
         FindQuestionCommand findSecondCommand = new FindQuestionCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
         FindQuestionCommand findFirstCommandCopy = new FindQuestionCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertNotEquals(1, findFirstCommand);
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(null, findFirstCommand);
 
         // different question -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertNotEquals(findFirstCommand, findSecondCommand);
     }
 
     @Test
-    public void execute_zeroKeywords_noQuestionFound() {
+    void execute_zeroKeywords_noQuestionFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 0);
         BodyContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindQuestionCommand command = new FindQuestionCommand(predicate);
@@ -65,7 +64,7 @@ public class FindQuestionCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleQuestionsFound() {
+    void execute_multipleKeywords_multipleQuestionsFound() {
         String expectedMessage = String.format(MESSAGE_QUESTIONS_LISTED_OVERVIEW, 3);
         BodyContainsKeywordsPredicate predicate = preparePredicate("MVC TCP UDP");
         FindQuestionCommand command = new FindQuestionCommand(predicate);

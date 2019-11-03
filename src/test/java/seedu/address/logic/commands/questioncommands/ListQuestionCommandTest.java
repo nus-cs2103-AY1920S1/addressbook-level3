@@ -15,24 +15,24 @@ import seedu.address.model.UserPrefs;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListQuestionCommand.
  */
-public class ListQuestionCommandTest {
+class ListQuestionCommandTest {
 
     private Model model;
     private Model expectedModel;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         model = new ModelManager(getTypicalAppData(), new UserPrefs());
         expectedModel = new ModelManager(model.getAppData(), new UserPrefs());
     }
 
     @Test
-    public void execute_listIsNotFiltered_showsSameList() {
+    void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListQuestionCommand(), model, ListQuestionCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
+    void execute_listIsFiltered_showsEverything() {
         showQuestionAtIndex(model, INDEX_FIRST);
         assertCommandSuccess(new ListQuestionCommand(), model, ListQuestionCommand.MESSAGE_SUCCESS, expectedModel);
     }

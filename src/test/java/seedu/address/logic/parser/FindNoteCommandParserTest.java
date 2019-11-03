@@ -12,18 +12,18 @@ import seedu.address.logic.commands.note.FindNoteCommand;
 import seedu.address.logic.parser.note.FindNoteCommandParser;
 import seedu.address.model.note.TitleContainsKeywordsPredicate;
 
-public class FindNoteCommandParserTest {
+class FindNoteCommandParserTest {
 
     private FindNoteCommandParser parser = new FindNoteCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
+    void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FindNoteCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindNoteCommand expectedFindNoteCommand =
                 new FindNoteCommand(new TitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));

@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 class QuestionBodyTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new QuestionBody(null));
     }
 
     @Test
-    public void constructor_invalidQuestionBody_throwsIllegalArgumentException() {
+    void constructor_invalidQuestionBody_throwsIllegalArgumentException() {
         String invalidQuestionBody = "";
         assertThrows(IllegalArgumentException.class, () -> new QuestionBody(invalidQuestionBody));
     }

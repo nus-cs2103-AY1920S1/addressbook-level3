@@ -71,7 +71,7 @@ that we have added as well as remove the old commands that are not relevant to o
 The following is an excerpt from our User Guide,
 showing additions that I have made for the statistics features.
 
----
+'''
 
 include::../UserGuide.adoc[tag=stats]
 
@@ -131,8 +131,8 @@ We have also modified the existing addressBook developer guide to include implem
 our features as well as remove the old documentation of the addressBook features.
 Given below shows my additions to the NUStudy developer guide for the statistics feature.
 
----
+'''
 
 include::../DeveloperGuide.adoc[tag=stats]
 
----
+'''

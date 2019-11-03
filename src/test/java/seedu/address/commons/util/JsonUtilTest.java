@@ -13,12 +13,12 @@ import seedu.address.testutil.TestUtil;
 /**
  * Tests JSON Read and Write
  */
-public class JsonUtilTest {
+class JsonUtilTest {
 
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
 
     @Test
-    public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
+    void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
@@ -28,7 +28,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
+    void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil

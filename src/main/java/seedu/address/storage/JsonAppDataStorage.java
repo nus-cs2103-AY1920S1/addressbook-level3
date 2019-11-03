@@ -47,7 +47,7 @@ public class JsonAppDataStorage implements AppDataStorage {
 
         Optional<JsonSerializableAppData> jsonAppData = JsonUtil.readJsonFile(
                 filePath, JsonSerializableAppData.class);
-        if (!jsonAppData.isPresent()) {
+        if (jsonAppData.isEmpty()) {
             return Optional.empty();
         }
 

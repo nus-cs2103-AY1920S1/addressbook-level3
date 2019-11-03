@@ -18,61 +18,61 @@ import seedu.address.model.note.exceptions.DuplicateTitleException;
 import seedu.address.model.note.exceptions.NoteNotFoundException;
 import seedu.address.testutil.NoteBuilder;
 
-public class UniqueNoteListTest {
+class UniqueNoteListTest {
 
     private final UniqueNoteList uniqueNoteList = new UniqueNoteList();
 
     @Test
-    public void contains_nullNote_throwsNullPointerException() {
+    void contains_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.contains(null));
     }
 
     @Test
-    public void contains_noteNotInList_returnsFalse() {
+    void contains_noteNotInList_returnsFalse() {
         assertFalse(uniqueNoteList.contains(ALICE));
     }
 
     @Test
-    public void contains_noteInList_returnsTrue() {
+    void contains_noteInList_returnsTrue() {
         uniqueNoteList.add(ALICE);
         assertTrue(uniqueNoteList.contains(ALICE));
     }
 
     @Test
-    public void contains_noteWithSameIdentityFieldsInList_returnsTrue() {
+    void contains_noteWithSameIdentityFieldsInList_returnsTrue() {
         uniqueNoteList.add(ALICE);
         Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         assertTrue(uniqueNoteList.contains(editedAlice));
     }
 
     @Test
-    public void add_nullNote_throwsNullPointerException() {
+    void add_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.add(null));
     }
 
     @Test
-    public void add_duplicateNote_throwsDuplicateNoteException() {
+    void add_duplicateNote_throwsDuplicateNoteException() {
         uniqueNoteList.add(ALICE);
         assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.add(ALICE));
     }
 
     @Test
-    public void setNote_nullTargetNote_throwsNullPointerException() {
+    void setNote_nullTargetNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.setNote(null, ALICE));
     }
 
     @Test
-    public void setNote_nullEditedNote_throwsNullPointerException() {
+    void setNote_nullEditedNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.setNote(ALICE, null));
     }
 
     @Test
-    public void setNote_targetNoteNotInList_throwsNoteNotFoundException() {
+    void setNote_targetNoteNotInList_throwsNoteNotFoundException() {
         assertThrows(NoteNotFoundException.class, () -> uniqueNoteList.setNote(ALICE, ALICE));
     }
 
     @Test
-    public void setNote_editedNoteIsSameNote_success() {
+    void setNote_editedNoteIsSameNote_success() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.setNote(ALICE, ALICE);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
@@ -81,7 +81,7 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNote_editedNoteHasSameIdentity_success() {
+    void setNote_editedNoteHasSameIdentity_success() {
         uniqueNoteList.add(ALICE);
         Note editedAlice = new NoteBuilder(ALICE).withContent(VALID_CONTENT_BOB).build();
         uniqueNoteList.setNote(ALICE, editedAlice);
@@ -91,7 +91,7 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNote_editedNoteHasDifferentIdentity_success() {
+    void setNote_editedNoteHasDifferentIdentity_success() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.setNote(ALICE, BOB);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
@@ -100,24 +100,24 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNote_editedNoteHasNonUniqueIdentity_throwsDuplicateNoteException() {
+    void setNote_editedNoteHasNonUniqueIdentity_throwsDuplicateNoteException() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.add(BOB);
         assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.setNote(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullNote_throwsNullPointerException() {
+    void remove_nullNote_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.remove(null));
     }
 
     @Test
-    public void remove_noteDoesNotExist_throwsNoteNotFoundException() {
+    void remove_noteDoesNotExist_throwsNoteNotFoundException() {
         assertThrows(NoteNotFoundException.class, () -> uniqueNoteList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingNote_removesNote() {
+    void remove_existingNote_removesNote() {
         uniqueNoteList.add(ALICE);
         uniqueNoteList.remove(ALICE);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
@@ -125,12 +125,12 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNotes_nullUniqueNoteList_throwsNullPointerException() {
+    void setNotes_nullUniqueNoteList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((UniqueNoteList) null));
     }
 
     @Test
-    public void setNotes_uniqueNoteList_replacesOwnListWithProvidedUniqueNoteList() {
+    void setNotes_uniqueNoteList_replacesOwnListWithProvidedUniqueNoteList() {
         uniqueNoteList.add(ALICE);
         UniqueNoteList expectedUniqueNoteList = new UniqueNoteList();
         expectedUniqueNoteList.add(BOB);
@@ -139,12 +139,12 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNotes_nullList_throwsNullPointerException() {
+    void setNotes_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueNoteList.setNotes((List<Note>) null));
     }
 
     @Test
-    public void setNotes_list_replacesOwnListWithProvidedList() {
+    void setNotes_list_replacesOwnListWithProvidedList() {
         uniqueNoteList.add(ALICE);
         List<Note> noteList = Collections.singletonList(BOB);
         uniqueNoteList.setNotes(noteList);
@@ -154,13 +154,13 @@ public class UniqueNoteListTest {
     }
 
     @Test
-    public void setNotes_listWithDuplicateNotes_throwsDuplicateNoteException() {
+    void setNotes_listWithDuplicateNotes_throwsDuplicateNoteException() {
         List<Note> listWithDuplicateNotes = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicateTitleException.class, () -> uniqueNoteList.setNotes(listWithDuplicateNotes));
     }
 
     @Test
-    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
+    void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueNoteList.asUnmodifiableObservableList().remove(0));
     }

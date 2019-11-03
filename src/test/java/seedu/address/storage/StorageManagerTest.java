@@ -15,7 +15,7 @@ import seedu.address.model.AppData;
 import seedu.address.model.ReadOnlyAppData;
 import seedu.address.model.UserPrefs;
 
-public class StorageManagerTest {
+class StorageManagerTest {
 
     @TempDir
     public Path testFolder;
@@ -23,7 +23,7 @@ public class StorageManagerTest {
     private StorageManager storageManager;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         JsonAppDataStorage appDataStorage = new JsonAppDataStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(appDataStorage, userPrefsStorage);
@@ -34,7 +34,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void prefsReadSave() throws Exception {
+    void prefsReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonUserPrefsStorage} class.
@@ -48,7 +48,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void appDataReadSave() throws Exception {
+    void appDataReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonAppDataStorage} class.
@@ -61,7 +61,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAppDataFilePath() {
+    void getAppDataFilePath() {
         assertNotNull(storageManager.getAppDataFilePath());
     }
 

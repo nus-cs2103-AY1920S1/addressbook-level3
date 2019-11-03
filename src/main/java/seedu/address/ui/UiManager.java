@@ -34,7 +34,7 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.getIcons().add(getImage());
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
@@ -43,16 +43,16 @@ public class UiManager implements Ui {
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown(e);
         }
     }
 
-    private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
+    private Image getImage() {
+        return new Image(MainApp.class.getResourceAsStream(UiManager.ICON_APPLICATION));
     }
 
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    void showAlertDialogAndWait(String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), AlertType.ERROR, title, headerText, contentText);
     }
 
     /**
@@ -75,9 +75,9 @@ public class UiManager implements Ui {
      * Shows an error alert dialog with {@code title} and error message, {@code e},
      * and exits the application after the user has closed the alert dialog.
      */
-    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+    private void showFatalErrorDialogAndShutdown(Throwable e) {
+        logger.severe("Fatal error during initializing " + e.getMessage() + StringUtil.getDetails(e));
+        showAlertDialogAndWait("Fatal error during initializing", e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
     }

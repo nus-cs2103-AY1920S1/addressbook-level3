@@ -24,13 +24,11 @@ public class QuestionUtil {
     /**
      * Returns the part of command string for the given {@code question}'s details.
      */
-    public static String getQuestionDetails(Question question) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_QUESTION + question.getQuestionBody().body + " ");
-        sb.append(PREFIX_ANSWER + question.getAnswer().answer + " ");
-        sb.append(PREFIX_SUBJECT + question.getSubject().subject + " ");
-        sb.append(PREFIX_DIFFICULTY + question.getDifficulty().difficulty + " ");
-        return sb.toString();
+    private static String getQuestionDetails(Question question) {
+        return PREFIX_QUESTION + question.getQuestionBody().body + " "
+                + PREFIX_ANSWER + question.getAnswer().answer + " "
+                + PREFIX_SUBJECT + question.getSubject().subject + " "
+                + PREFIX_DIFFICULTY + question.getDifficulty().difficulty;
     }
 
     /**

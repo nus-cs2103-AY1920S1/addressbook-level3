@@ -19,14 +19,14 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AppData;
 import seedu.address.model.ReadOnlyAppData;
 
-public class JsonAppDataStorageTest {
+class JsonAppDataStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAppDataStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readAppData_nullFilePath_throwsNullPointerException() {
+    void readAppData_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readAppData(null));
     }
 
@@ -41,27 +41,27 @@ public class JsonAppDataStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws Exception {
+    void read_missingFile_emptyResult() throws Exception {
         assertFalse(readAppData("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void read_notJsonFormat_exceptionThrown() {
+    void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readAppData("notJsonFormatAppData.json"));
     }
 
     @Test
-    public void readAppData_invalidAppData_throwDataConversionException() {
+    void readAppData_invalidAppData_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readAppData("invalidAppData.json"));
     }
 
     @Test
-    public void readAppData_invalidAndValidAppData_throwDataConversionException() {
+    void readAppData_invalidAndValidAppData_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readAppData("invalidAndValidAppData.json"));
     }
 
     @Test
-    public void readAndSaveAppData_allInOrder_success() throws Exception {
+    void readAndSaveAppData_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAppData.json");
         AppData original = getTypicalAppData();
         JsonAppDataStorage jsonAppDataStorage = new JsonAppDataStorage(filePath);
@@ -87,7 +87,7 @@ public class JsonAppDataStorageTest {
     }
 
     @Test
-    public void saveAppData_nullAppData_throwsNullPointerException() {
+    void saveAppData_nullAppData_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveAppData(null, "SomeFile.json"));
     }
 
@@ -104,7 +104,7 @@ public class JsonAppDataStorageTest {
     }
 
     @Test
-    public void saveAppData_nullFilePath_throwsNullPointerException() {
+    void saveAppData_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveAppData(new AppData(), null));
     }
 }

@@ -23,12 +23,12 @@ import seedu.address.testutil.QuestionBuilder;
 class AddQuestionCommandTest {
 
     @Test
-    public void constructor_nullQuestion_throwsNullPointerException() {
+    void constructor_nullQuestion_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddQuestionCommand(null));
     }
 
     @Test
-    public void execute_questionAcceptedByModel_addSuccessful() throws Exception {
+    void execute_questionAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingQuestionAdded modelStub = new ModelStubAcceptingQuestionAdded();
         Question validQuestion = new QuestionBuilder().build();
 
@@ -40,17 +40,17 @@ class AddQuestionCommandTest {
     }
 
     @Test
-    public void execute_duplicateQuestion_throwsCommandException() {
+    void execute_duplicateQuestion_throwsCommandException() {
         Question validQuestion = new QuestionBuilder().build();
         AddQuestionCommand addQuestionCommand = new AddQuestionCommand(validQuestion);
-        ModelStub modelStub = new AddQuestionCommandTest.ModelStubWithQuestion(validQuestion);
+        ModelStub modelStub = new ModelStubWithQuestion(validQuestion);
 
         assertThrows(CommandException.class,
                 AddQuestionCommand.MESSAGE_DUPLICATE_QUESTION, () -> addQuestionCommand.execute(modelStub));
     }
 
     @Test
-    public void equals() {
+    void equals() {
         Question algebra = new QuestionBuilder().withQuestionBody("Algebra").build();
         Question concept = new QuestionBuilder().withQuestionBody("Concept").build();
         AddQuestionCommand addAlgebraCommand = new AddQuestionCommand(algebra);
@@ -76,7 +76,7 @@ class AddQuestionCommandTest {
     /**
      * A Model stub that contains a single question.
      */
-    private class ModelStubWithQuestion extends ModelStub {
+    private static class ModelStubWithQuestion extends ModelStub {
         private final Question question;
 
         ModelStubWithQuestion(Question question) {
@@ -94,7 +94,7 @@ class AddQuestionCommandTest {
     /**
      * A Model stub that always accept the question being added.
      */
-    private class ModelStubAcceptingQuestionAdded extends ModelStub {
+    private static class ModelStubAcceptingQuestionAdded extends ModelStub {
         final ArrayList<Question> questionsAdded = new ArrayList<>();
 
         @Override

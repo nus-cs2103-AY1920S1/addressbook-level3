@@ -40,16 +40,9 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private NoteListPanel noteListPanel;
-    private TaskListPanel taskListPanel;
     private QuestionListPanel questionListPanel;
-    private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private StatsPieChart statsPieChart;
-    private StackBarChart stackBarChart;
-    private StatsQns statsQns;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -125,10 +118,10 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         stats.setVisible(false);
 
-        noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
+        NoteListPanel noteListPanel = new NoteListPanel(logic.getFilteredNoteList());
         noteListPanelPlaceholder.getChildren().add(noteListPanel.getRoot());
 
-        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         questionListPanel = new QuestionListPanel(logic.getFilteredQuestionList());
@@ -190,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void showQuiz() {
         questionListPanelPlaceholder.getChildren().clear();
-        quizQuestionListPanel = new QuizQuestionListPanel(logic.getOneQuizQuestionAsList());
+        QuizQuestionListPanel quizQuestionListPanel = new QuizQuestionListPanel(logic.getOneQuizQuestionAsList());
         questionListPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
     }
 
@@ -217,19 +210,21 @@ public class MainWindow extends UiPart<Stage> {
         switch (type) {
         case STATS:
             statsPanelPlaceholder.getChildren().clear();
-            statsPieChart = new StatsPieChart(logic.getStatsPieChartData(), logic.getTotalQuestionsDone());
+            StatsPieChart statsPieChart = new StatsPieChart(logic.getStatsPieChartData(),
+                    logic.getTotalQuestionsDone());
             statsPanelPlaceholder.getChildren().add(statsPieChart.getRoot());
             statsPieChart.setMouseover();
             break;
         case QUESTIONS:
             statsPanelPlaceholder.getChildren().clear();
-            statsQns = new StatsQns(logic.getQuizResultList(), logic.getQnsPieChartData());
+            StatsQns statsQns = new StatsQns(logic.getQuizResultList(), logic.getQnsPieChartData());
             statsPanelPlaceholder.getChildren().add(statsQns.getRoot());
             statsQns.setMouseover();
             break;
         case OVERVIEW:
             statsPanelPlaceholder.getChildren().clear();
-            stackBarChart = new StackBarChart(logic.getStackBarChartData(), logic.getUniqueSubjectList());
+            StackBarChart stackBarChart = new StackBarChart(logic.getStackBarChartData(),
+                    logic.getUniqueSubjectList());
             statsPanelPlaceholder.getChildren().add(stackBarChart.getRoot());
             stackBarChart.setMouseover();
             break;
@@ -255,11 +250,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Executes the command and returns the result.
+     * Executes the command provided by the given text.
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -285,7 +280,6 @@ public class MainWindow extends UiPart<Stage> {
                 hideStatsPanel();
             }
 
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());

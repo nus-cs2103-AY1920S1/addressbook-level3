@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.questioncommands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -23,11 +24,10 @@ import seedu.address.model.question.Question;
  * {@code DeleteQuestionCommand}.
  */
 class DeleteQuestionCommandTest {
-
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
+    void execute_validIndexUnfilteredList_success() {
         Question questionToDelete = model.getFilteredQuestionList().get(INDEX_FIRST.getZeroBased());
         DeleteQuestionCommand deleteQuestionCommand = new DeleteQuestionCommand(INDEX_FIRST);
 
@@ -40,7 +40,7 @@ class DeleteQuestionCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+    void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredQuestionList().size() + 1);
         DeleteQuestionCommand deleteQuestionCommand = new DeleteQuestionCommand(outOfBoundIndex);
 
@@ -48,7 +48,7 @@ class DeleteQuestionCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() {
+    void execute_validIndexFilteredList_success() {
         showQuestionAtIndex(model, INDEX_FIRST);
 
         Question questionToDelete = model.getFilteredQuestionList().get(INDEX_FIRST.getZeroBased());
@@ -64,7 +64,7 @@ class DeleteQuestionCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
+    void execute_invalidIndexFilteredList_throwsCommandException() {
         showQuestionAtIndex(model, INDEX_FIRST);
 
         Index outOfBoundIndex = INDEX_SECOND;
@@ -77,25 +77,25 @@ class DeleteQuestionCommandTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         DeleteQuestionCommand deleteFirstCommand = new DeleteQuestionCommand(INDEX_FIRST);
         DeleteQuestionCommand deleteSecondCommand = new DeleteQuestionCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteQuestionCommand deleteFirstCommandCopy = new DeleteQuestionCommand(INDEX_FIRST);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different question -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 
     /**

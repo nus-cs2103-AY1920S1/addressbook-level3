@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +14,12 @@ import seedu.address.logic.commands.statistics.GetQnsCommand;
 import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.testutil.QuizResultFilterBuilder;
 
-public class GetQnsCommandParserTest {
+class GetQnsCommandParserTest {
 
     private GetQnsCommandParser parser = new GetQnsCommandParser();
 
     @Test
-    public void parse_invalidCommandFormat_failure() {
+    void parse_invalidCommandFormat_failure() {
         assertParseFailure(parser, " ", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 GetQnsCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " -c -i", String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -26,7 +27,7 @@ public class GetQnsCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithoutSubject_success() {
+    void parse_quizResultFilterWithoutSubject_success() {
         // get correct qns
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withIsCorrectQns("true")
@@ -48,11 +49,11 @@ public class GetQnsCommandParserTest {
     }
 
     @Test
-    public void parse_quizResultFilterWithSubject_success() {
+    void parse_quizResultFilterWithSubject_success() {
         // one subject
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withIsCorrectQns("true")
-                .withSubjects(new ArrayList<>(Arrays.asList("CS2103T")))
+                .withSubjects(new ArrayList<>(Collections.singletonList("CS2103T")))
                 .buildWithSubjectsAndResult();
         GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter,
                 "Here are the correct questions for [CS2103T]:");

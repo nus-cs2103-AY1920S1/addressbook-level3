@@ -1,6 +1,8 @@
 package seedu.address.model.note;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -11,10 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.NoteBuilder;
 
-public class TitleContainsKeywordsPredicateTest {
-
+class TitleContainsKeywordsPredicateTest {
     @Test
-    public void equals() {
+    void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
@@ -22,25 +23,25 @@ public class TitleContainsKeywordsPredicateTest {
         TitleContainsKeywordsPredicate secondPredicate = new TitleContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
-        assertTrue(firstPredicate.equals(firstPredicate));
+        assertEquals(firstPredicate, firstPredicate);
 
         // same values -> returns true
         TitleContainsKeywordsPredicate firstPredicateCopy =
                 new TitleContainsKeywordsPredicate(firstPredicateKeywordList);
-        assertTrue(firstPredicate.equals(firstPredicateCopy));
+        assertEquals(firstPredicate, firstPredicateCopy);
 
         // different types -> returns false
-        assertFalse(firstPredicate.equals(1));
+        assertNotEquals(1, firstPredicate);
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertNotEquals(null, firstPredicate);
 
         // different note -> returns false
-        assertFalse(firstPredicate.equals(secondPredicate));
+        assertNotEquals(firstPredicate, secondPredicate);
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         TitleContainsKeywordsPredicate predicate =
                 new TitleContainsKeywordsPredicate(Collections.singletonList("Alice"));
@@ -60,13 +61,13 @@ public class TitleContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         TitleContainsKeywordsPredicate predicate = new TitleContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new NoteBuilder().withTitle("Alice").build()));
 
         // Non-matching keyword
-        predicate = new TitleContainsKeywordsPredicate(Arrays.asList("Carol"));
+        predicate = new TitleContainsKeywordsPredicate(Collections.singletonList("Carol"));
         assertFalse(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name

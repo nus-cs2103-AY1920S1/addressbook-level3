@@ -8,21 +8,21 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class HeadingTest {
+class HeadingTest {
 
     @Test
-    public void constructor_null_throwNullPointerException() {
+    void constructor_null_throwNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Heading(null));
     }
 
     @Test
-    public void constructor_invalidHeading_throwsIllegalArgumentException() {
+    void constructor_invalidHeading_throwsIllegalArgumentException() {
         String invalidHeading = "";
         assertThrows(IllegalArgumentException.class, () -> new Heading(invalidHeading));
     }
 
     @Test
-    public void isValidAddress() {
+    void isValidAddress() {
         // null address
         assertThrows(NullPointerException.class, () -> Heading.isValidHeading(null));
 
@@ -37,7 +37,7 @@ public class HeadingTest {
     }
 
     @Test
-    public void equals() {
+    void equals() {
         Heading firstHeading = new Heading("Heading");
 
         //same object -> return true

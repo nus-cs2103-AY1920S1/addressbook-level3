@@ -12,9 +12,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-public class CollectionUtilTest {
+class CollectionUtilTest {
     @Test
-    public void requireAllNonNullVarargs() {
+    void requireAllNonNullVarargs() {
         // no arguments
         assertNullPointerExceptionNotThrown();
 
@@ -40,14 +40,14 @@ public class CollectionUtilTest {
         assertNullPointerExceptionThrown((Object[]) null);
 
         // confirms nulls inside lists in the argument list are not considered
-        List<Object> containingNull = Arrays.asList((Object) null);
+        List<Object> containingNull = Collections.singletonList(null);
         assertNullPointerExceptionNotThrown(containingNull, new Object());
     }
 
     @Test
-    public void requireAllNonNullCollection() {
+    void requireAllNonNullCollection() {
         // lists containing nulls in the front
-        assertNullPointerExceptionThrown(Arrays.asList((Object) null));
+        assertNullPointerExceptionThrown(Collections.singletonList(null));
         assertNullPointerExceptionThrown(Arrays.asList(null, new Object(), ""));
 
         // lists containing nulls in the middle
@@ -65,16 +65,16 @@ public class CollectionUtilTest {
         assertNullPointerExceptionNotThrown(Collections.emptyList());
 
         // list with all non-null elements
-        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", Integer.valueOf(1)));
-        assertNullPointerExceptionNotThrown(Arrays.asList(new Object()));
+        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", 1));
+        assertNullPointerExceptionNotThrown(Collections.singletonList(new Object()));
 
         // confirms nulls inside nested lists are not considered
-        List<Object> containingNull = Arrays.asList((Object) null);
+        List<Object> containingNull = Collections.singletonList(null);
         assertNullPointerExceptionNotThrown(Arrays.asList(containingNull, new Object()));
     }
 
     @Test
-    public void isAnyNonNull() {
+    void isAnyNonNull() {
         assertFalse(CollectionUtil.isAnyNonNull());
         assertFalse(CollectionUtil.isAnyNonNull((Object) null));
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));

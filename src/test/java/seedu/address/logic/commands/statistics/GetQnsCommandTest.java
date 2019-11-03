@@ -7,7 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,16 +18,15 @@ import seedu.address.model.quiz.QuizResultFilter;
 import seedu.address.testutil.QuizResultFilterBuilder;
 
 class GetQnsCommandTest {
-
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void constructor_nullQuizResultFilter_throwsNullPointerException() {
+    void constructor_nullQuizResultFilter_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new GetOverviewCommand(null, ""));
     }
 
     @Test
-    public void execute_validQuizResultFilter_success() {
+    void execute_validQuizResultFilter_success() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withIsCorrectQns("true")
                 .withSubjects(new ArrayList<>())
@@ -43,10 +42,10 @@ class GetQnsCommandTest {
     }
 
     @Test
-    public void execute_emptyQuizResultList_throwsCommandException() {
+    void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withIsCorrectQns("false")
-                .withSubjects(new ArrayList<>(Arrays.asList("random")))
+                .withSubjects(new ArrayList<>(Collections.singletonList("random")))
                 .buildWithSubjects();
         GetQnsCommand qnsCommand = new GetQnsCommand(quizResultFilter,
                 "Here are the incorrect questions for [random]:");

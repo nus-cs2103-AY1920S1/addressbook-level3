@@ -13,7 +13,7 @@ import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AppData;
 import seedu.address.testutil.TypicalAppData;
 
-public class JsonSerializableAppDataTest {
+class JsonSerializableAppDataTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonSerializableAppDataTest");
@@ -23,7 +23,7 @@ public class JsonSerializableAppDataTest {
     private static final Path DUPLICATE_TASKDATA_FILE = TEST_DATA_FOLDER.resolve("duplicateTaskData.json");
 
     @Test
-    public void toModelType_typicalAppDataFile_success() throws Exception {
+    void toModelType_typicalAppDataFile_success() throws Exception {
         JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(TYPICAL_APPDATA_FILE,
                 JsonSerializableAppData.class).get();
         AppData appDataFromFile = dataFromFile.toModelType();
@@ -32,14 +32,14 @@ public class JsonSerializableAppDataTest {
     }
 
     @Test
-    public void toModelType_invalidAppDataFile_throwsIllegalValueException() throws Exception {
+    void toModelType_invalidAppDataFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(INVALID_APPDATA_FILE,
                 JsonSerializableAppData.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicateAppData_throwsIllegalValueException() throws Exception {
+    void toModelType_duplicateAppData_throwsIllegalValueException() throws Exception {
         JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(DUPLICATE_APPDATA_FILE,
                 JsonSerializableAppData.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAppData.MESSAGE_DUPLICATE_TITLE,
@@ -47,7 +47,7 @@ public class JsonSerializableAppDataTest {
     }
 
     @Test
-    public void toModelType_duplicateTaskData_throwsIllegalValueException() throws Exception {
+    void toModelType_duplicateTaskData_throwsIllegalValueException() throws Exception {
         JsonSerializableAppData dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TASKDATA_FILE,
                 JsonSerializableAppData.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAppData.MESSAGE_DUPLICATE_TASK,

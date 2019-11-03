@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_NOTES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAppData.CARL;
@@ -24,12 +23,12 @@ import seedu.address.model.note.TitleContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindNoteCommand}.
  */
-public class FindNoteCommandTest {
+class FindNoteCommandTest {
     private Model model = new ModelManager(getTypicalAppData(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAppData(), new UserPrefs());
 
     @Test
-    public void equals() {
+    void equals() {
         TitleContainsKeywordsPredicate firstPredicate =
                 new TitleContainsKeywordsPredicate(Collections.singletonList("first"));
         TitleContainsKeywordsPredicate secondPredicate =
@@ -39,24 +38,24 @@ public class FindNoteCommandTest {
         FindNoteCommand findSecondCommand = new FindNoteCommand(secondPredicate);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertEquals(findFirstCommand, findFirstCommand);
 
         // same values -> returns true
         FindNoteCommand findFirstCommandCopy = new FindNoteCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        assertEquals(findFirstCommand, findFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertNotEquals(1, findFirstCommand);
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertNotEquals(null, findFirstCommand);
 
         // different note -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertNotEquals(findFirstCommand, findSecondCommand);
     }
 
     @Test
-    public void execute_zeroKeywords_noNoteFound() {
+    void execute_zeroKeywords_noNoteFound() {
         String expectedMessage = String.format(MESSAGE_NOTES_LISTED_OVERVIEW, 0);
         TitleContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindNoteCommand command = new FindNoteCommand(predicate);
@@ -66,7 +65,7 @@ public class FindNoteCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleNotesFound() {
+    void execute_multipleKeywords_multipleNotesFound() {
         String expectedMessage = String.format(MESSAGE_NOTES_LISTED_OVERVIEW, 3);
         TitleContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindNoteCommand command = new FindNoteCommand(predicate);
