@@ -81,7 +81,7 @@ public class AppDataParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindNoteCommand command = (FindNoteCommand) parser.parseCommand(
-                FindNoteCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                FindNoteCommand.COMMAND_WORD + " " + String.join(" ", keywords));
         assertEquals(new FindNoteCommand(new TitleContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -125,8 +125,7 @@ public class AppDataParserTest {
     public void parseCommand_findq() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindQuestionCommand command = (FindQuestionCommand) parser.parseCommand(
-                FindQuestionCommand.COMMAND_WORD + " " + keywords.stream()
-                        .collect(Collectors.joining(" ")));
+                FindQuestionCommand.COMMAND_WORD + " " + String.join(" ", keywords));
         assertEquals(new FindQuestionCommand(new BodyContainsKeywordsPredicate(keywords)), command);
     }
 

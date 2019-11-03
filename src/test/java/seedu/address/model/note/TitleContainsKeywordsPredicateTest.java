@@ -67,7 +67,7 @@ class TitleContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new NoteBuilder().withTitle("Alice").build()));
 
         // Non-matching keyword
-        predicate = new TitleContainsKeywordsPredicate(Arrays.asList("Carol"));
+        predicate = new TitleContainsKeywordsPredicate(Collections.singletonList("Carol"));
         assertFalse(predicate.test(new NoteBuilder().withTitle("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match name

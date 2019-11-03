@@ -59,10 +59,10 @@ public class AppDataTest {
         LocalDate date = LocalDate.parse("06/07/2019", Task.FORMAT_USER_INPUT_DATE);
         LocalTime time = LocalTime.parse("1500", Task.FORMAT_USER_INPUT_TIME);
         Task task = new TaskForNote(editedAlice, date, time);
-        List<Task> newTasks = Arrays.asList(task);
+        List<Task> newTasks = Collections.singletonList(task);
 
-        List<Question> newQuestions = Arrays.asList(MVC_QUESTION);
-        List<QuizResult> newQuizResults = Arrays.asList(MVC_RESULT);
+        List<Question> newQuestions = Collections.singletonList(MVC_QUESTION);
+        List<QuizResult> newQuizResults = Collections.singletonList(MVC_RESULT);
         AppDataStub newData = new AppDataStub(newNotes, newTasks, newQuestions, newQuizResults);
 
         assertThrows(DuplicateTitleException.class, () -> appData.resetData(newData));

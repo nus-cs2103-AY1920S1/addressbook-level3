@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +53,7 @@ public class GetQnsCommandParserTest {
         // one subject
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
                 .withIsCorrectQns("true")
-                .withSubjects(new ArrayList<>(Arrays.asList("CS2103T")))
+                .withSubjects(new ArrayList<>(Collections.singletonList("CS2103T")))
                 .buildWithSubjectsAndResult();
         GetQnsCommand expectedCommand = new GetQnsCommand(quizResultFilter,
                 "Here are the correct questions for [CS2103T]:");

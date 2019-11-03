@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ public class GetStatisticsCommandParserTest {
     public void parse_quizResultFilterWithSubject_success() {
         // one subject
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
-                .withSubjects(Arrays.asList("CS2103T"))
+                .withSubjects(Collections.singletonList("CS2103T"))
                 .buildWithSubjects();
         GetStatisticsCommand expectedCommand = new GetStatisticsCommand(quizResultFilter, "\n[CS2103T]");
         assertParseSuccess(parser, " s/CS2103T", expectedCommand);

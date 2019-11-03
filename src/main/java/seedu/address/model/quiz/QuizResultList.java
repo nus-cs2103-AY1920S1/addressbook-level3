@@ -145,12 +145,10 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return quizResults The quiz results for the question.
      */
     public ObservableList<QuizResult> getQnsReport(Question qns) {
-        List<QuizResult> qnsReport = internalList;
-        qnsReport = internalList
-                .stream()
+        List<QuizResult> qnsReport = internalList.stream()
                 .filter(quizResult -> quizResult.getQuestionBody().equals(qns.getQuestionBody())
-                    && quizResult.getDifficulty().equals(qns.getDifficulty())
-                    && quizResult.getSubject().equals(qns.getSubject()))
+                        && quizResult.getDifficulty().equals(qns.getDifficulty())
+                        && quizResult.getSubject().equals(qns.getSubject()))
                 .collect(Collectors.toList());
         return FXCollections.observableArrayList(qnsReport);
     }

@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalAppData.getTypicalAppData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class GetStatisticsCommandTest {
     @Test
     public void execute_emptyQuizResultList_throwsCommandException() {
         QuizResultFilter quizResultFilter = new QuizResultFilterBuilder()
-                .withSubjects(new ArrayList<>(Arrays.asList("random")))
+                .withSubjects(new ArrayList<>(Collections.singletonList("random")))
                 .buildWithSubjects();
         GetStatisticsCommand statisticsCommand = new GetStatisticsCommand(quizResultFilter, "\n[random]");
         assertCommandFailure(statisticsCommand, model, MESSAGE_NO_STATISTICS);

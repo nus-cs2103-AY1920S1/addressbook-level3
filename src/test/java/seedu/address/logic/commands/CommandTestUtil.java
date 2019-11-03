@@ -10,6 +10,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -153,7 +154,7 @@ public class CommandTestUtil {
 
         Note note = model.getFilteredNoteList().get(targetIndex.getZeroBased());
         final String[] splitName = note.getTitle().title.split("\\s+");
-        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredNoteList(new TitleContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
 
         assertEquals(1, model.getFilteredNoteList().size());
     }
@@ -167,7 +168,7 @@ public class CommandTestUtil {
 
         Question question = model.getFilteredQuestionList().get(targetIndex.getZeroBased());
         final String[] splitName = question.getQuestionBody().body.split("\\s+");
-        model.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredQuestionList(new BodyContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
 
         assertEquals(1, model.getFilteredQuestionList().size());
     }
