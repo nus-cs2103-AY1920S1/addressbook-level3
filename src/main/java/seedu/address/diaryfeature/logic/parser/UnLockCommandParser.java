@@ -19,21 +19,27 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a UnLockCommand object
+ */
 public class UnLockCommandParser {
-    public static final String UNPRIVATE_USAGE = "In particular, input your unprivate command like this: \n" +
+    public static final String UNLOCK_USAGE = "In particular, input your unlock command like this: \n" +
             "unprivate target Eg: unprivate 1. \n Note that the input has to be more than or equal to 1";
+
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
-     *
-     * @throws ParseException if the user input does not conform the expected format
+     * Parses the given {@code String} of arguments in the context of theUnLockCommand
+     * and returns a UnLockCommand object for execution.    *
+     * @param args is the user input
+     * @return an UnlockCOmmand to execute
+     * @throws EmptyArgumentException if the user input does not conform the expected format
+     * @throws DetailParseException if the Detail is invalid
      */
     public Command parse(String args) throws EmptyArgumentException, DetailParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_USERNAME,PREFIX_PASSWORD);
         if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME,PREFIX_PASSWORD)) {
-            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD,UNPRIVATE_USAGE);
+            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD,UNLOCK_USAGE);
         }
         Index index;
         Username username;
@@ -42,15 +48,13 @@ public class UnLockCommandParser {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD, UNPRIVATE_USAGE);
+            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD, UNLOCK_USAGE);
          }
         username = new Username (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),
                 UnLockCommand.COMMAND_WORD));
 
         password = new Password (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),
                 UnLockCommand.COMMAND_WORD));
-
-
 
         return new UnLockCommand(index, new Details(username,password));
     }

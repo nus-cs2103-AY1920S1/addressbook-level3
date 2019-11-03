@@ -7,17 +7,17 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new FindSpecificCommand object
+ * Parses input arguments and creates a new PrivateCommand object
  */
 public class PrivateCommandParser {
     private static final String PRIVATE_USAGE = "In particular, input your private command like this: \n" +
             "private target Eg: private 1. \n Note that the input has to be more than or equal to 1";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the PrivateCommand
+     * and returns a PrivateCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws EmptyArgumentException if the user input does not conform the expected format
      */
     public Command parse(String args) throws EmptyArgumentException {
         try {

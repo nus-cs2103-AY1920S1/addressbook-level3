@@ -13,7 +13,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
-import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
 
 public class JsonDiaryBookStorage implements DiaryBookStorage {

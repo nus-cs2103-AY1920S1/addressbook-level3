@@ -11,7 +11,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
-import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -58,7 +57,7 @@ public class DiaryModel {
         diaryBook.setDiaryEntryUnPrivate(index);
     }
 
-    public void setDetails(Details attempt) throws UnknownUserException {
+    public void setDetails(Details attempt) {
         diaryBook.setDetails(attempt);
     }
     public String getEntriesAsString() {

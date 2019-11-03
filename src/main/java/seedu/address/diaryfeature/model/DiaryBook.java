@@ -5,8 +5,6 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
-import seedu.address.diaryfeature.model.modelExceptions.UnknownUserException;
-
 
 /**
  * Wraps all data at the address-book level
@@ -30,10 +28,8 @@ public class DiaryBook {
         return this;
     }
 
-    public void setDetails(Details attempt) throws UnknownUserException {
-        if (details.isPresent()) {
-            throw new UnknownUserException();
-    } else {
+    public void setDetails(Details attempt) {
+        if (details.isEmpty()) {
         details = Optional.of(attempt);
     }
 
