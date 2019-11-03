@@ -170,8 +170,11 @@ public class MainWindow extends UiPart<Stage> {
         borrowerPanel.reset();
     }
 
-    public BookListPanel getBookListPanel() {
-        return bookListPanel;
+    /**
+     * Observer method invoked when changes happen.
+     */
+    public void update() {
+        updateBorrowerPanel();
     }
 
     /**

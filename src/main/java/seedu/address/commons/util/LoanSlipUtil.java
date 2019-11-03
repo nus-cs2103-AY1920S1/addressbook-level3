@@ -117,12 +117,10 @@ public class LoanSlipUtil {
             requireNonNull(currentBooks);
             requireNonNull(currentBorrower);
             Document document = createDocument(createFileNameFromLoan());
-            float [] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
+            float[] pointColumnWidths = {FIRST_ROW_WIDTH, SECOND_ROW_WIDTH, THIRD_ROW_WIDTH};
             Table table = new Table(pointColumnWidths);
             LoanSlipDocument doc = new LoanSlipDocument(document, table);
-            logger.info("genrating liberry loan slip...");
             generateLiberryLoanSlip(doc);
-            logger.info("generated liberry loan slip...");
         } catch (IOException e) {
             throw new LoanSlipException(e.getMessage());
         }
@@ -193,6 +191,7 @@ public class LoanSlipUtil {
     private static void writeHeaderToDoc(LoanSlipDocument doc) {
         doc.writeHeader(currentBorrower.getName().toString());
         doc.writeLeftParagraph(currentBorrower.getBorrowerId().toString());
+        doc.writeLeftParagraph(DateUtil.getTodayFormattedDate());
         doc.writeLine();
         doc.writeMidHeader("Books borrowed");
     }
@@ -269,7 +268,7 @@ public class LoanSlipUtil {
         try {
             Desktop.getDesktop().open(currentFile);
         } catch (IOException e) {
-            throw new LoanSlipException("Error in opening loan slip");
+            logger.info("Unable to open");
         }
     }
 }

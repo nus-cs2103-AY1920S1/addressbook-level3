@@ -58,7 +58,7 @@ class LoanCommandTest {
         Loan loan = new Loan(new LoanId("L000001"), toLoan, servingBorrowerId,
                 DateUtil.getTodayDate(), DateUtil.getTodayPlusDays(DEFAULT_LOAN_PERIOD));
         Book loanedOutBook = BOOK_1.loanOut(loan);
-        Book updatedLoanedOutBook = loanedOutBook.updateLoanHistory(loan);
+        Book updatedLoanedOutBook = loanedOutBook.addToLoanHistory(loan);
 
         String actualMessage;
         try {
