@@ -129,6 +129,11 @@ public class Order {
         return builder.toString();
     }
 
+    /**
+     * OrderBuilder used to instantiate an Order.
+     * Contains all relevant information regarding an Order,
+     * and creates a new Order object once its completeOrder() function is called
+     */
     public static class OrderBuilder {
         private Name customer;
         private Name restaurant;
