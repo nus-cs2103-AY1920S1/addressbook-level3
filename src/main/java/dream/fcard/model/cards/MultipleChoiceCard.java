@@ -5,7 +5,6 @@ import static dream.fcard.model.cards.Priority.LOW_PRIORITY;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.Schema;
