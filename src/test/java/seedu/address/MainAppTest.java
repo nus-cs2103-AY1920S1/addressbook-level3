@@ -1,8 +1,6 @@
 //@@author CarbonGrid
 package seedu.address;
 
-import java.nio.file.Files;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
