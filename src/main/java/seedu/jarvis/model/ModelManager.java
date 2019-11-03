@@ -50,7 +50,8 @@ public class ModelManager implements Model {
     private ViewStatus viewStatus;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given ccatracker, historymanager, financetracker, userPrefs, planner and
+     * courseplanner.
      */
     public ModelManager(CcaTracker ccaTracker, HistoryManager historyManager,
                         FinanceTracker financeTracker, ReadOnlyUserPrefs userPrefs, Planner planner,

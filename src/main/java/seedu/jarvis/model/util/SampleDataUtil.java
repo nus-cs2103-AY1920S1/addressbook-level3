@@ -11,7 +11,7 @@ import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.course.CoursePlanner;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CoursePlanner} with sample data.
  */
 public class SampleDataUtil {
     public static Course[] getSampleCourses() {
