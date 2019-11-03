@@ -19,4 +19,8 @@ public class State {
     public State(ArrayList<Deck> initialDecks) {
         decks = initialDecks;
     }
+
+    public State(State oldState) {
+        decks = oldState.decks;
+    }
 }

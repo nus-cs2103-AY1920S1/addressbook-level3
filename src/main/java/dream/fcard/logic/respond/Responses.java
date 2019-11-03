@@ -1,10 +1,12 @@
 package dream.fcard.logic.respond;
 
+import dream.fcard.logic.respond.commands.CreateCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ import java.util.ArrayList;
  *  In no other class should they take the responsibility.
  */
 public enum Responses {
+    // DEFAULT GROUP STARTS ----------------------------------
     CREATE_NEW_DECK_WITH_NAME(
             "^((?i)create)\\s+((?i)deck/)\\s*\\S",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -39,7 +42,33 @@ public enum Responses {
             "^((?i)create)",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
             (i,s) -> {
-                //TODO dispatcher print invalid arguments given
+                Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Create command is invalid!");
+                return true;
+            }
+    ),
+    // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
+    // Only used for MCQ and FrontBack cards
+    // Note that back for MCQ cards will be used for identifying the correct CHOICE
+    ADD_CARD(
+            "^((?i)(add)(\\s)+(deck/(.*))\\s+(priority/(.*))?\\s+(front/(.*))\\s+(back/(.*))+\\s+(choice/(.*))?\\s*",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            (i,s) -> {
+                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("",
+                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                        i);
+                try {
+                    return CreateCommand.createMcqFrontBack(res);
+                } catch (DuplicateInChoicesException dicExc) {
+                    Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"There are duplicated choices!");
+                    return true;
+                }
+            }
+    ),
+    ADD_CARD_ERROR(
+            "^((?i)(add)",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+            (i,s) -> {
+                Dispatcher.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
                 return true;
             }
     ),
@@ -68,7 +97,8 @@ public enum Responses {
                 return true;
             }
     ),
-    // DEFAULT GROUP ----------------------------------------------------------
+    // DEFAULT GROUP ENDS ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // CREATE GROUP STARTS -------------------------------------
     EXIT_CREATE(
             "^((?i)exit)\\s*$",
             new ResponseGroup[]{ResponseGroup.CREATE},
@@ -95,7 +125,8 @@ public enum Responses {
                 return true;
             }
     ),
-    // CREATE GROUP -----------------------------------------------------------
+    // CREATE GROUP ENDS ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // MATCH ALL GROUP STARTS ---------------------------------
     QUIT(
             "^((?i)quit)\\s*$",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
@@ -112,7 +143,7 @@ public enum Responses {
                 return true;
             }
     )
-    // MATCH ALL GROUP --------------------------------------------------------
+    // MATCH ALL GROUP ENDS ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ;
 
     private String regex;
