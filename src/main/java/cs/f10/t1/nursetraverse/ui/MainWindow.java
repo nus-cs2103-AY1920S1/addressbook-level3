@@ -145,7 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         autoCompletePanel = new AutoCompletePanel(logic.getFilteredPatientList(), logic.getFilteredAppointmentList());
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         // Add observers into commandBox observer list
