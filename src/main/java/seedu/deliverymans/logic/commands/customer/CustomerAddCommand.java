@@ -22,12 +22,9 @@ public class CustomerAddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the customer database. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + PREFIX_PHONE + "PHONE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "John Doe ";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
     public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the customer database";

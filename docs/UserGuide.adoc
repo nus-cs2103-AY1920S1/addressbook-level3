@@ -211,11 +211,11 @@ This is a customer and its information.
 
 ==== Adding a customer: `add`
 
-This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer. Tags in customers are optional to include. They are used to specify the customer's favourite cuisine. Multiple tags can be added to one customer.
+This command allows you to add a new customer to the customer list. Name and phone number are necessary to a customer.
 
-Format: `add n/NAME p/PHONE [t/TAG]...`
+Format: `add n/NAME p/PHONE`
 
-Example: `add n/John Doe p/91234567 t/Japanese t/Noodles`
+Example: `add n/John Doe p/91234567`
 
 {nbsp} +
 
@@ -223,9 +223,9 @@ Example: `add n/John Doe p/91234567 t/Japanese t/Noodles`
 
 This command allows you to edit an existing customer in the customer list. The index of a customer needs to be provided while the information to edit are optional. For example, you can edit the customer's name without editing the phone number.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAGS]...`
+Format: `edit INDEX [n/NAME] [p/PHONE]`
 
-Example: `edit 1 n/John Hoe p/97654321 t/Indian`
+Example: `edit 1 n/John Hoe p/97654321`
 
 {nbsp} +
 

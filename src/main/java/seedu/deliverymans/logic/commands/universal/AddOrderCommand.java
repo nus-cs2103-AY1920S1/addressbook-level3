@@ -151,7 +151,7 @@ public class AddOrderCommand extends Command {
                 .setFood(foodNameList).setCompleted(toAdd.isCompleted()).completeOrder();
 
         // Setting orders to customers
-        customerToAdd.addOrder(order);
+        customerToAdd.addOrder(order, restaurantToAdd.getTags());
         restaurantToAdd.addOrder(order);
 
         if (model.hasOrder(order)) {
