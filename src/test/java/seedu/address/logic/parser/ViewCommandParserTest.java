@@ -5,11 +5,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.ui.tab.Tab;
 
 public class ViewCommandParserTest {
-    ViewCommandParser parser = new ViewCommandParser();
+    private ViewCommandParser parser = new ViewCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
