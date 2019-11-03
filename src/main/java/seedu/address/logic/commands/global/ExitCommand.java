@@ -65,6 +65,9 @@ public class ExitCommand extends Command {
 
         if (overdueFlashcards.isEmpty() && dueFlashcards.isEmpty()) {
             return new GlobalCommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        } else if (!CommandHistory.getLastCommand().isPresent()) {
+            return new GlobalCommandResult(stringOutputFormatHelper(overdueFlashcards, dueFlashcards),
+                    false, false);
         } else if (CommandHistory.getLastCommand().get() instanceof ExitCommand) {
             return new GlobalCommandResult(MESSAGE_EXIT_DISAPPOINTMENT, false, true);
         } else {

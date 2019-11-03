@@ -1,4 +1,4 @@
-= StudyBuddyPro Level 3 - Developer Guide
+= StudyBuddyPro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -513,14 +514,33 @@ object.
 ** Allowing users to decide when to move on to the next flashcard
 *** Question will still be shown for a fixed period of time, but a command will be required to move on to the next flashcard instead of just flashing the answer for a set amount of time
 
-=== Remind Flashcard Feature
+=== Remind Feature
+
+[NOTE]
+====
+For this section, a _due flashcard_ refers to a flashcard that is due for revision today.
+In other words, the current date (according to the user's system date) matches the date the
+flashcard was next supposed to be viewed for optimum revision. Similarly, an _overdue flashcard_
+refers to a flashcard whose view date for optimum revision was _before_ the current date. Further
+details on how the optimum revision date is calculated is provided in this section!
+====
+
+This feature aims to help the user stay on track with the user's revision schedule through two
+other sub-features. The first sub-feature is the `remind` command which helps the user
+keep track of which flashcards are due (or overdue) for revision. The second sub-feature is
+integrated with the `exit` command, and automatically asks the user for confirmation if they
+wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
+An activity diagram summarizing how the remind feature works can be found below.
+
+{To be completed soon}
+
+image:: to be added + caption
+
+==== Implementation of `remind` command
 
 [IMPORTANT]
 The following commands assume that the user is in the _flashcard_ mode.
 
-{To be completed soon}
-
-==== Implementation
 The  remind feature is facilitated by ``
 
 image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
@@ -562,6 +582,8 @@ close the application.
 ** More statistics for motivation
 *** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
 deadline.
+
+==== Implementation of `exit` command
 // end::remind[]
 
 === Add Tags Within Notes feature
@@ -1221,6 +1243,8 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
+    {To be edited}
+
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
@@ -1235,5 +1259,234 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Remind feature
 
+[TIP]
+====
+Refer to the note at the start of the
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#46-remind-feature[Remind feature]
+section for an explanation of the terms "due flashcards" and "overdue flashcards" used in
+this section.
+====
+
+Testing this section may require the user to switch their system date. A quick guide on how this
+can be done for the Windows 10 operating system can be found
+https://kb.wisc.edu/helpdesk/79027[here] while one for Mac can be found
+https://www.lifewire.com/manually-change-the-date-and-time-on-mac-2378143[here]. The process
+should be similar for different versions of the operating systems.
+
+. Testing `remind` command
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with Flashcard icon highlighted.
+
+... There are no due or overdue flashcards.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Well done - No due or overdue flashcards!
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in notes or cheatsheet mode with the respective icon highlighted.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Unknown command
+
+* Test case 3
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are due flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to the next day.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]"
+
+* Test case 4
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards. This can be simulated by adding a flashcard with the `add`
+command and then changing the system date to 2 days later.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on YYYY-MM-DD)"
+
+* Test case 5
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are overdue flashcards but no due flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 2 days later. Both flashcards A and B are now overdue. This
+can be verified by using the `remind` command at this stage.
+
+.... View flashcard A using the `view 1` command and then show its answer with the `show` command.
+This means flahscard A is no longer overdue. Now there are no due flashcards today and one
+overdue flashcard (flashcard B).
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how only the overdue flashcard B was shown while no explicit output was provided
+to indicate there were no other flashcards due today. This is an intended behaviour to
+avoid clutter.
+
+* Test case 6
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There are both due and overdue flashcards. This can be simulated by the following
+steps:
+
+.... Add a flashcard (Called flashcard A) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now due. This
+can be verified by using the `remind` command at this stage.
+
+.... Add a flashcard (Called flashcard B) with the `add` command.
+
+.... Switch the system date to 1 day later. Flashcard A is now overdue while flashcard B
+is due.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Note how flashcard B is listed under due today while flashcard A is listed under overdue
+flashcards.
+
+. Testing `exit` command
+
+* Test case 1
+
+.. Prerequisites
+
+... StudyBuddyPro just launched with no mode selected. GUI does not show any icon highlighted.
+
+... There are due flashcards. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 3, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. Pressing kbd:[Enter] exits StudyBuddyPro. This also highlights how the this sub-feature
+of the remind feature works regardless of which mode the user is in since `exit` is a global
+command.
+
+.. Alternatively, the user can switch back to flashcard mode using `switch fc`, view the
+added flashcard and its answer using `view 1` and `show`, before using `exit` again. This time
+StudyBuddyPro exits immediately since now there are no due or overdue flashcards.
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated.
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+    Type 'exit' again to exit the application!
+
+.. Enter another generic command e.g. `switch notes`. Now, entering the test command `exit`
+will prompt the same feedback as shown above in part c. This highlights how entering another
+valid command will refresh the "state" of the exit command which again requires a
+double-confirmation before the user can exit StudyBuddyPro.
+
+. Combination testing: `remind` and `exit` command with `timetrial`
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in flashcard mode with the Flashcard icon highlighted.
+
+... There 1 due and 1 overdue flashcard. Refer to
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc#g3-remind-feature[Remind command
+manual testing], specifically test cases 6, for how this can be simulated. Ensure the flashcard
+due today is tagged with the tag "pop". For example, the flashcard could be added with the command:
+`add q/What is 1+1? a/2 t/Math Question 1 tag/pop`.
+
+.. Test command: `remind`
+
+.. Expected: Feedback box outputs message:
+
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER]
+    Here are your overdue flashcards:
+    1. [FLASHCARD TITLE] - [FLASHCARD ANSWER] (Was due on [YYYY-MM-DD])
+
+.. Start a timetrial with the flashcard that is due today i.e. tagged with "pop" using the
+command  `timetrial pop`
+
+.. Test command: `exit`
+
+.. Expected: Feedback box outputs message:
+
+    Are you sure you want to exit? You still have the following flashcards overdue or left to revise for today:
+    Here are the flashcards due today:
+    1. [FLASHCARD TITLE] - [FLASHCARD QUESTION]
+    Type 'exit' again to exit the application!
+
+.. This highlights how the flashcard that was due today (tagged with "pop") was updated
+when it was viewed during the timetrial and was no longer considered due. Thus, when the user
+tried to exit, only the one overdue flashcard which was still not viewed was flagged.
