@@ -115,39 +115,35 @@ public class AddOrderCommand extends Command {
 
         // Deliveryman validity check
 
-        if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-            if (deliverymanToAdd == null) {
-                deliverymanToAdd = toAdd.getDeliveryman();
-            }
-        } else {
-            for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
-                if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
-                    final String desc = deliveryman.getStatus().getDescription();
-                    if (desc.equals("AVAILABLE")) {
-                        deliverymanToAdd = deliveryman.getName();
-                        // Set deliveryman status here
-                    } else {
-                        throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
+            if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
+                deliverymanToAdd = model.getOneAvailableDeliveryman();
+                if (deliverymanToAdd == null) {
+                    deliverymanToAdd = toAdd.getDeliveryman();
+                }
+            } else {
+                for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
+                    if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
+                        final String desc = deliveryman.getStatus().getDescription();
+                        if (desc.equals("AVAILABLE")) {
+                            deliverymanToAdd = deliveryman.getName();
+                            // Set deliveryman status here
+                        } else {
+                            throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
+                        }
+                        break;
                     }
-                    break;
+                }
+                if (deliverymanToAdd == null) {
+                    throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
                 }
             }
-            if (deliverymanToAdd == null) {
-                throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
-            }
-        }
 
-        // Alternative: Add command wont work if no available deliveryman
         /*
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
-        }
+        } catch (NoMoreAvailableDeliverymanException nmade) {}
          */
-
 
         // Instantiating the order
         Order order = new Order.OrderBuilder().setCustomer(customerToAdd.getName())

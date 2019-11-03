@@ -287,7 +287,7 @@ public interface Model {
      * Returns the Name of an available deliveryman.
      * Method for order assignment by OrderManager.
      */
-    Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException;
+    Name getOneAvailableDeliveryman();
 
     public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman);
 
