@@ -22,4 +22,11 @@ public class Messages {
             + "(either due to schedule overlap or lack of manpower)";
     public static final String MESSAGE_EVENT_FULL_MANPOWER = "Event has full manpower!";
     public static final String MESSAGE_EVENT_INVALID_EMPLOYEE_ID = "Invalid Employee ID!";
+    public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
+            + "allocated to the event!";
+    public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"
+            + " not allocated to event!";
+    public static final String MESSAGE_WRONG_WINDOW = "Command should be executed in the Main Window since it "
+            + "requires references to the Employee list.";
+
 }

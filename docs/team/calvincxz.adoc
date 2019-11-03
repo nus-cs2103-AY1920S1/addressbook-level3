@@ -19,23 +19,23 @@ effectively handle the administrative tasks of the company.
 
 This is what our project looks like:
 
-._The graphical user interface for AddMin+._
-image::beforefetch.png[]
+._The graphical user interface(GUI) for AddMin+._
+image::AddMin+Ui.png[]
 
-My role was to design and write the codes for the association of employees with event, which includes the
+My role was to design and write the code for the association of employees with event, which includes
 event display and the allocation of employee to event. The following sections
-illustrate these enhancements in more detail, as well as the relevant documentation
-I have added to the user and developer guides in relation to these enhancements.
+illustrate these features in more detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these features.
 
 <<<
 
 == Summary of contributions
 
-* *Major enhancement*: added features to allow association of employees with events which includes
+* *Major feature*: enabled the association of employees with events which includes
 *automated/manual allocation of employees to event commands* and a *deallocate command*, as well as the
 viewing of changes the users made via the *fetch event* command. All related commands have *GUI features* implemented.
 
-** What it does: allows the user to check for availability of employees and allocate them to an event with
+** What it does: This feature allows the user to check for availability of employees and allocate them to an event with
 certain filter requirements. The algorithm ensures that employees cannot be allocated to events with
 conflicting time periods.
 
@@ -46,10 +46,11 @@ The GUI features further provide convenience for users.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it
 required the knowledge of both `Event` and `Employee` classes.
 
-* *Minor enhancement*: added command history to allow user to view previous commands using up/down
+* *Minor feature*: added command history to allow user to view previous commands using up/down
 arrow keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=calvin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=calvincxz&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=calvin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=calvincxz&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
@@ -59,7 +60,6 @@ various components (e.g. storage, logic, model).
 (Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/66[#66])
 *** Assisted in refactoring process for person class to employee class and well as fixed test cases and checkstyle errors.
 (Pull request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
-*** Managed releases `v1.3` - `v1.5rc` on GitHub
 ** Enhancements to existing features:
 *** Updated GUI to show both employee and event list
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/78[#78])
@@ -84,27 +84,19 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/138[#138], https://github.co
 == Contributions to the User Guide
 
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 include::../UserGuide.adoc[tag=calvin]
-include::../UserGuide.adoc[tag=calvin2]
 
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
 
 include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=calvin]
 
-
+== Conclusion
 
 == PROJECT: DUKE
+Visit https://calvincxz.github.io/duke/ for more details.
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_

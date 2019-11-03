@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class EmployeeId {
     public static final String MESSAGE_CONSTRAINTS =
-            "Employee IDs is a 3-digit unique number";
+            "Employee IDs is a 3-digit unique number, therefore employees added (cumulative) cannot exceed 1000!";
     private static final String VALIDATION_REGEX = "\\d{3}";
     private static int nextID = 0;
     public final String id;
@@ -32,7 +32,7 @@ public class EmployeeId {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid id.
      */
     public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);

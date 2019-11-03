@@ -1,23 +1,23 @@
 {
   "employees" : [ {
-    "name" : "!@#John11 Doe",
-    "phone" : "98",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "friends" ],
+    "name" : "asd",
+    "phone" : "87",
+    "email" : "alexyeoh@example.com",
+    "address" : "Blk 30 Geylang Street 29, #06-40",
+    "tagged" : [ "male", "friends" ],
     "id" : "000",
-    "position" : "Manager",
-    "gender" : "Male",
-    "joindate" : "12/12/2012"
+    "position" : "aaa",
+    "gender" : "male",
+    "joindate" : "31/10/2019"
   }, {
-    "name" : "John Doea",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "friend" ],
+    "name" : "Bernice Yu",
+    "phone" : "87438807",
+    "email" : "bbb@example.com",
+    "address" : "Blk 30 BBB Street 29, #06-40",
+    "tagged" : [ "female", "friends" ],
     "id" : "001",
     "position" : "Manager",
-    "gender" : "Male",
-    "joindate" : "12/12/2012"
+    "gender" : "female",
+    "joindate" : "31/10/2019"
   } ]
 }

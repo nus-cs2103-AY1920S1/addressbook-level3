@@ -9,7 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 
 /**
- * Lists all employees and events in the address book to the user.
+ * Lists all employees and events to the user.
  */
 public class ListCommand extends Command {
 
@@ -24,6 +24,6 @@ public class ListCommand extends Command {
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.updateFilteredScheduledEventList(PREDICATE_SHOW_ALL_EVENTS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, "List");
     }
 }
