@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.model.budget.Budget.DEFAULT_BUDGET_DESCRIPTION;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,7 +95,11 @@ class JsonSerializableMooLah {
             mooLah.addEvent(event);
         }
 
-        mooLah.setPrimaryBudget(primaryBudgetName);
+        if (primaryBudgetName != null) {
+            mooLah.setPrimaryBudget(primaryBudgetName);
+        } else {
+            mooLah.setPrimaryBudget(DEFAULT_BUDGET_DESCRIPTION.fullDescription);
+        }
 
         return mooLah;
     }
