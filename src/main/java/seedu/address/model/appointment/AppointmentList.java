@@ -34,6 +34,7 @@ public class AppointmentList implements Iterable<Appointment> {
      * Initializes new AppointmentList object.
      */
     public AppointmentList(ObservableList<Appointment> apptList) {
+        requireNonNull(apptList);
         internalList = apptList;
         internalUnmodifiableList = FXCollections.unmodifiableObservableList(internalList);
     }
