@@ -90,6 +90,7 @@ public class LogicManager implements Logic {
     @Override
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
         //Avoid evaluating the same command
+        commandText = commandText.trim();
         if (lastEagerCommandWord.equals(commandText)) {
             return;
         }
@@ -132,6 +133,7 @@ public class LogicManager implements Logic {
         assert lastEagerEvaluationThread != null;
         lastEagerEvaluationThread.interrupt();
         Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
+        String finalCommandText = commandText;
         lastEagerEvaluationThread = new Thread(() -> {
             try {
                 Thread.sleep(200);
@@ -141,13 +143,13 @@ public class LogicManager implements Logic {
                 return;
             }
 
-            logger.info("Starting Eager evaluation execution  - " + commandText);
+            logger.info("Starting Eager evaluation execution  - " + finalCommandText);
             displayResult.accept("searching...");
 
             try {
                 CommandResult result = command.execute(model);
                 if (!result.getFeedbackToUser().isEmpty()) {
-                    logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
+                    logger.info("Result: " + result.getFeedbackToUser() + " - " + finalCommandText);
                     displayResult.accept(result.getFeedbackToUser());
                 }
             } catch (CommandException ex) {
