@@ -31,7 +31,7 @@ public class EditIncidentCommandParser implements Parser<EditIncidentCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(pe.getErrorMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditIncidentCommand.MESSAGE_USAGE), pe);
         }
 

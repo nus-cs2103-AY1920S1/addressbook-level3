@@ -414,14 +414,18 @@ Returns any incidents whereby the description contains 'fire'
 Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
-** If an index is not provided, system will prompt for index. Does not make any edits.
+[NOTE]
+Use `edit-i` to list all submitted reports
 
+** Only admins can edit all reports, other users are only allowed to edit the reports they created.
 ** Number of fields provided for update is optional and can vary.
 [NOTE]
 If no fields are provided, incident will remain unchanged.
 
 ** Existing values will be updated to input values provided.
 ** Edits that result in duplicate incidents are not allowed
+** Can only edit submitted reports. Edit command should not be used on
+reports in draft state, instead, the fill command should be used.
 
 [NOTE]
 Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
@@ -530,6 +534,7 @@ Deletes a vehicle in the list as identified by the index.
 
 Format: `delete-v [INDEX]`
 
+** Only an admin account can delete vehicles.
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
@@ -538,6 +543,7 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
+image::deleteVehicleNonAdmin.png[]
 
 // tag::common[]
 //=== Clearing all entries : `clear`

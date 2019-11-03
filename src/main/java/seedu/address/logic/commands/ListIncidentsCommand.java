@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS;
 
 import java.util.function.Predicate;
 
@@ -40,6 +41,8 @@ public class ListIncidentsCommand extends Command {
             resultMessage = handleDraftIncidents(model, filteredIncidentsList);
         } else if (this.predicate.equals(PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS)) {
             resultMessage = handleCompleteIncidents(model, filteredIncidentsList);
+        } else if (this.predicate.equals(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS)) {
+            resultMessage = handleSubmittedIncidents(model, filteredIncidentsList);
         } else {
             resultMessage = Messages.MESSAGE_INVALID_COMMAND_FORMAT;
         }
@@ -90,5 +93,21 @@ public class ListIncidentsCommand extends Command {
         } else {
             return Messages.MESSAGE_ALL_COMPLETE_INCIDENTS_LISTED;
         }
+    }
+
+    /**
+     * Handles the case for listing all submitted incidents.
+     * @param model current model operated on by command
+     * @param incidents list of incidents to update
+     * @return string representing command result
+     */
+    private String handleSubmittedIncidents(Model model, FilteredList<Incident> incidents) {
+        model.updateFilteredIncidentList(predicate);
+        if (incidents.isEmpty()) {
+            return Messages.MESSAGE_NO_INCIDENT_TO_EDIT;
+        } else {
+            return Messages.MESSAGE_ALL_SUBMITTED_INCIDENTS_LISTED;
+        }
+
     }
 }

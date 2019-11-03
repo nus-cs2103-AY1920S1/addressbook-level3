@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_INCIDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VEHICLES;
 import static seedu.address.model.Model.PREDICATE_SHOW_COMPLETE_INCIDENT_REPORTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_DRAFT_INCIDENT_REPORTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -131,7 +132,11 @@ public class IncidentManagerParser {
             return new AddVehicleCommandParser().parse(arguments);
 
         case EditIncidentCommand.COMMAND_WORD:
-            return new EditIncidentCommandParser().parse(arguments);
+            if (arguments.isEmpty()) {
+                return new ListIncidentsCommand(PREDICATE_SHOW_SUBMITTED_INCIDENT_REPORTS);
+            } else {
+                return new EditIncidentCommandParser().parse(arguments);
+            }
 
         case EditVehicleCommand.COMMAND_WORD:
             return new EditVehicleCommandParser().parse(arguments);

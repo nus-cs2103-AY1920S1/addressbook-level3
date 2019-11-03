@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
 import seedu.address.model.vehicle.Availability;
 import seedu.address.model.vehicle.Vehicle;
 
@@ -34,6 +35,11 @@ public class DeleteVehicleCommand extends Command {
         requireNonNull(model);
 
         List<Vehicle> listOfVehicles = model.getFilteredVehicleList();
+
+        if (Person.isNotAdmin(model.getLoggedInPerson())) {
+            throw new CommandException(Messages.MESSAGE_ACCESS_ADMIN);
+        }
+
         if (index.getZeroBased() >= listOfVehicles.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_VEHICLE_INDEX);
         }

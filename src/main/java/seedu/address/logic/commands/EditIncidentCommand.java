@@ -32,7 +32,8 @@ public class EditIncidentCommand extends Command {
     public static final String COMMAND_WORD = "edit-i";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the incident identified "
-            + "by the index number used in the displayed incidents list. "
+            + "by the index number used in the displayed incidents list. Or use "
+            + COMMAND_WORD + " to list all submitted reports for edit. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DISTRICT + "DISTRICT] "
@@ -45,7 +46,9 @@ public class EditIncidentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_INCIDENT = "This incident already exists in the address book.";
     public static final String MESSAGE_EDIT_INCIDENT_SUCCESS = "Edited Incident: %1$s";
     public static final String MESSAGE_INCIDENT_NOT_EDITED = "No fields were provided, incident is not edited.";
-
+    public static final String MESSAGE_EDIT_DRAFT = "You cannot edit a draft, please use fill command instead.";
+    public static final String MESSAGE_UNAUTHORIZED_EDIT = "Only the admin and the operator who filled this report "
+            + "can edit the report.";
     private final Index index;
     private final EditIncident editIncident;
 
@@ -74,7 +77,13 @@ public class EditIncidentCommand extends Command {
 
         Incident incidentToEdit = listOfIncidents.get(index.getZeroBased());
         Incident editedIncident = createEditedIncident(incidentToEdit, editIncident, model);
-
+        if (!incidentToEdit.getStatus().equals(Status.SUBMITTED_REPORT)) {
+            throw new CommandException(MESSAGE_EDIT_DRAFT);
+        }
+        if ((!incidentToEdit.getOperator().equals(model.getLoggedInPerson()))
+                && Person.isNotAdmin(model.getLoggedInPerson())) {
+            throw new CommandException(MESSAGE_UNAUTHORIZED_EDIT);
+        }
         if (!incidentToEdit.equals(editedIncident) && model.hasIncident(editedIncident)) {
             throw new CommandException(MESSAGE_DUPLICATE_INCIDENT);
         }
