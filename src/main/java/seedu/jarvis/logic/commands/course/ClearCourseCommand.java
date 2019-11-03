@@ -33,7 +33,7 @@ public class ClearCourseCommand extends Command {
     }
 
     public ClearCourseCommand() {
-        this(null);
+        this(new ArrayList<>());
     }
 
     @Override
@@ -85,6 +85,8 @@ public class ClearCourseCommand extends Command {
 
     @Override
     public boolean equals(Object o) {
-        return o == this || (o instanceof ClearCourseCommand);
+        return o == this
+                || (o instanceof ClearCourseCommand
+                && deleted.equals(((ClearCourseCommand) o).deleted));
     }
 }
