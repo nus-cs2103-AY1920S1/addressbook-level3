@@ -63,7 +63,7 @@ Format: `help [command/COMMAND_NAME]`
 * If user does not supply parameter for command: shows all the available commands and syntax in FlashCard Pro
 * If user supply a parameter in command: shows the specific command syntax.
 ** All commands that are available, except for help, can be queried. 
-** Other non-valid commands will give a “command not found” message.
+** Other non-valid commands will give a `command not found` message.
 ****
 
 Examples:
