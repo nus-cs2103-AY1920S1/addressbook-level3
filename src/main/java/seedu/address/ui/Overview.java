@@ -115,7 +115,7 @@ public class Overview extends UiPart<Region> {
         expensePieChart.setLabelLineLength(20);
         expensePieChart.setLabelsVisible(true);
         expensePieChart.setStartAngle(180);
-        //expensePieChart.setLegendVisible(true);
+        expensePieChart.setLegendVisible(false);
         //expensePieChart.setLegendSide(Side.LEFT);
 
     }
@@ -140,7 +140,7 @@ public class Overview extends UiPart<Region> {
         inventoryPieChart.setLabelLineLength(20);
         inventoryPieChart.setLabelsVisible(true);
         inventoryPieChart.setStartAngle(180);
-        //inventoryPieChart.setLegendVisible(true);
+        inventoryPieChart.setLegendVisible(false);
         //inventoryPieChart.setLegendSide(Side.LEFT);
 
     }

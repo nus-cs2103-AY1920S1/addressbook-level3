@@ -51,5 +51,7 @@ public class OverviewMessages {
 
     public static final String ACHIEVED_SALES_TARGET = "You have achieved your sales target of %s%%";
 
+    public static final String MESSAGE_AMOUNT_TOO_LARGE = "The goal you are setting is too large. Please keep it to"
+            + "between -10 million and 10 million.";
 
 }

@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
     public double getTotalInventory() {
         Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
         return itemStream
-                .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
+                .flatMapToDouble(item -> DoubleStream.of(item.getTotalCost()))
                 .sum();
     }
 

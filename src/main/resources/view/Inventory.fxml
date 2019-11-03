@@ -8,9 +8,9 @@
     <children>
        <TableView fx:id="tableView" prefHeight="532.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <columns>
-               <TableColumn fx:id="idCol" prefWidth="36.00000059604645" text="ID" />
-               <TableColumn fx:id="descriptionCol" prefWidth="140.80003356933594" text="Description" />
-               <TableColumn fx:id="categoryCol" prefWidth="100.39996337890625" text="Category" />
+               <TableColumn fx:id="idCol" prefWidth="36.0" text="ID" />
+               <TableColumn fx:id="descriptionCol" prefWidth="140.0" text="Description" />
+               <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
                <TableColumn fx:id="quantityCol" prefWidth="60.0" text="Qty" />
                <TableColumn fx:id="costCol" prefWidth="90.0" text="Cost/Unit" />
                <TableColumn fx:id="totalCostCol" prefWidth="110.0" text="Total&#10;Cost" />
