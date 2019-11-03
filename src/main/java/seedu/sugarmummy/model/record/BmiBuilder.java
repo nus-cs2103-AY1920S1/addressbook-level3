@@ -8,8 +8,8 @@ import seedu.sugarmummy.model.time.DateTime;
 public class BmiBuilder {
 
     public static final String DEFAULT_DATETIME = "2019-01-01 09:09";
-    public static final String DEFAULT_HEIGHT = "34.0";
-    public static final String DEFAULT_WEIGHT = "10.0";
+    public static final String DEFAULT_HEIGHT = "1.8";
+    public static final String DEFAULT_WEIGHT = "70.0";
 
     private DateTime dateTime;
     private Height height;

@@ -20,7 +20,7 @@ import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
 public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
-    private static final String COUNT_VALIDATION_REGEX = "[1-9]";
+    private static final String COUNT_VALIDATION_REGEX = "^([1-9]|1[012])$";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
