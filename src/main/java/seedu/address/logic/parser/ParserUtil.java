@@ -66,8 +66,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code ReferenceId} is invalid.
      */
-    public static ReferenceId parseStaffReferenceId(String staffRefId) throws ParseException {
-        return PersonReferenceId.parseStaffReferenceId(staffRefId);
+    public static ReferenceId issueStaffReferenceId(String staffRefId) throws ParseException {
+        return PersonReferenceId.issueStaffReferenceId(staffRefId);
     }
 
     /**
@@ -76,8 +76,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code ReferenceId} is invalid.
      */
-    public static ReferenceId parsePatientReferenceId(String patientRefId) throws ParseException {
-        return PersonReferenceId.parsePatientReferenceId(patientRefId);
+    public static ReferenceId issuePatientReferenceId(String patientRefId) throws ParseException {
+        return PersonReferenceId.issuePatientReferenceId(patientRefId);
     }
 
     /**
