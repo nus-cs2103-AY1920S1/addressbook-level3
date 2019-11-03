@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.flashcard.commons.core.GuiSettings;
@@ -22,12 +24,13 @@ import seedu.flashcard.model.tag.Tag;
 public class ModelManager implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private final FlashcardList flashcardList;
     private final UserPrefs userPrefs;
     private final FilteredList<Flashcard> filteredFlashcards;
     private Flashcard viewedFlashcard;
     private Statistics desiredStats;
     private Quiz quiz;
+    private VersionedFlashcardList versionedFlashcardList;
+    private final SimpleObjectProperty<Flashcard> selectedFlashcard = new SimpleObjectProperty<>();
 
 
     /**
@@ -43,13 +46,15 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyFlashcardList flashcardList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(flashcardList, userPrefs);
+        this.versionedFlashcardList = new VersionedFlashcardList(flashcardList);
         logger.fine("Initializing with flashcard list: " + flashcardList + " and user prefs " + userPrefs);
-        this.flashcardList = new FlashcardList(flashcardList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredFlashcards = new FilteredList<Flashcard>(this.flashcardList.getFlashcardList());
+        filteredFlashcards = new FilteredList<Flashcard>(versionedFlashcardList.getFlashcardList());
         this.viewedFlashcard = null;
         this.desiredStats = new Statistics();
         this.quiz = new Quiz();
+        filteredFlashcards.addListener(this::ensureSelectedFlashcardIsValid);
+
     }
 
     @Override
@@ -60,7 +65,7 @@ public class ModelManager implements Model {
 
     @Override
     public Set<Tag> getAllSystemTags() {
-        return flashcardList.getAllFlashcardTags();
+        return versionedFlashcardList.getAllFlashcardTags();
     }
 
     @Override
@@ -98,35 +103,35 @@ public class ModelManager implements Model {
 
     @Override
     public void setFlashcardList(ReadOnlyFlashcardList flashcardList) {
-        this.flashcardList.resetData(flashcardList);
+        versionedFlashcardList.resetData(flashcardList);
     }
 
     @Override
     public ReadOnlyFlashcardList getFlashcardList() {
-        return flashcardList;
+        return versionedFlashcardList;
     }
 
     @Override
     public boolean hasFlashcard(Flashcard flashcard) {
         requireNonNull(flashcard);
-        return flashcardList.hasFlashcard(flashcard);
+        return versionedFlashcardList.hasFlashcard(flashcard);
     }
 
     @Override
     public void deleteFlashcard(Flashcard flashcard) {
-        flashcardList.removeFlashcard(flashcard);
+        versionedFlashcardList.removeFlashcard(flashcard);
     }
 
     @Override
     public void addFlashcard(Flashcard flashcard) {
-        flashcardList.addFlashcard(flashcard);
+        versionedFlashcardList.addFlashcard(flashcard);
         updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
     @Override
     public void setFlashcard(Flashcard target, Flashcard editedFlashcard) {
         requireAllNonNull(target, editedFlashcard);
-        flashcardList.setFlashcard(target, editedFlashcard);
+        versionedFlashcardList.setFlashcard(target, editedFlashcard);
     }
 
     @Override
@@ -136,12 +141,12 @@ public class ModelManager implements Model {
 
     @Override
     public boolean systemHasTag(Tag tag) {
-        return flashcardList.flashcardsHasTag(tag);
+        return versionedFlashcardList.flashcardsHasTag(tag);
     }
 
     @Override
     public void systemRemoveTag(Tag tag) {
-        flashcardList.flashcardsRemoveTag(tag);
+        versionedFlashcardList.flashcardsRemoveTag(tag);
         updateFilteredFlashcardList(PREDICATE_SHOW_ALL_FLASHCARDS);
     }
 
@@ -170,7 +175,7 @@ public class ModelManager implements Model {
             return false;
         }
         ModelManager obj = (ModelManager) other;
-        return flashcardList.equals(obj.flashcardList)
+        return versionedFlashcardList.equals(obj.versionedFlashcardList)
                 && userPrefs.equals(obj.userPrefs)
                 && filteredFlashcards.equals(obj.filteredFlashcards);
     }
@@ -194,5 +199,59 @@ public class ModelManager implements Model {
     @Override
     public void setQuiz(List<Flashcard> quizableFlashcards) {
         quiz.setQuizList(quizableFlashcards);
+    }
+
+    @Override
+    public boolean canUndoFlashcardList() {
+        return versionedFlashcardList.canUndo();
+    }
+
+    @Override
+    public boolean canRedoFlashcardList() {
+        return versionedFlashcardList.canRedo();
+    }
+
+    @Override
+    public void undoFlashcardList() {
+        versionedFlashcardList.undo();
+    }
+
+    @Override
+    public void redoFlashcardList() {
+        versionedFlashcardList.redo();
+    }
+
+    @Override
+    public void commitFlashcardList() {
+        versionedFlashcardList.commit();
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     */
+    private void ensureSelectedFlashcardIsValid(ListChangeListener.Change<? extends Flashcard> change) {
+        while (change.next()) {
+            if (selectedFlashcard.getValue() == null) {
+                // null is always a valid selected flashcard, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedFlashcard.getValue());
+            if (wasSelectedPersonReplaced) {
+                // Update selectedFlashcard to its new value.
+                int index = change.getRemoved().indexOf(selectedFlashcard.getValue());
+                selectedFlashcard.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedFlashcard.getValue().isSameFlashcard(removedPerson));
+            if (wasSelectedPersonRemoved) {
+                // Select the flashcard that came before it in the list,
+                // or clear the selection if there is no such flashcard.
+                selectedFlashcard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.logic.parser.FlashcardListParser;
 import seedu.flashcard.model.Model;
@@ -42,7 +43,7 @@ public class QuizTagCommand extends Command {
      * @throws CommandException error encountered during execution of command.
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredFlashcardList(model.getHasTagPredicate(target));
         List<Flashcard> taggedList = new ArrayList<>();

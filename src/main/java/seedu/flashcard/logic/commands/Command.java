@@ -1,5 +1,7 @@
 package seedu.flashcard.logic.commands;
 
+import seedu.flashcard.logic.CommandHistory;
+
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 
@@ -15,5 +17,5 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
 }

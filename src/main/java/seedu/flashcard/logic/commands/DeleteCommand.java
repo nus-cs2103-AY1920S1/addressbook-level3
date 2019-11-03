@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import seedu.flashcard.commons.core.index.Index;
+import seedu.flashcard.logic.CommandHistory;
 import seedu.flashcard.logic.commands.exceptions.CommandException;
 import seedu.flashcard.model.Model;
 import seedu.flashcard.model.flashcard.Flashcard;
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
      * @throws CommandException error encountered during execution of command
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Flashcard> lastShownList = model.getFilteredFlashcardList();
 
@@ -47,6 +48,7 @@ public class DeleteCommand extends Command {
 
         Flashcard cardToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFlashcard(cardToDelete);
+        model.commitFlashcardList();
         return new CommandResult(String.format(MESSAGE_DELETE_FLASHCARD_SUCCESS, cardToDelete));
     }
 

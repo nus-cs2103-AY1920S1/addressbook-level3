@@ -22,8 +22,11 @@ import seedu.flashcard.logic.commands.ListCommand;
 import seedu.flashcard.logic.commands.ListTagCommand;
 import seedu.flashcard.logic.commands.QuizCommand;
 import seedu.flashcard.logic.commands.QuizTagCommand;
+import seedu.flashcard.logic.commands.RedoCommand;
 import seedu.flashcard.logic.commands.StatsCommand;
+import seedu.flashcard.logic.commands.UndoCommand;
 import seedu.flashcard.logic.commands.ViewCommand;
+
 import seedu.flashcard.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,6 +79,12 @@ public class FlashcardListParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

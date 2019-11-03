@@ -146,7 +146,29 @@ public interface Model {
      */
     void setQuiz(List<Flashcard> quizableFlashcards);
 
+    /**
+     * Returns true if the model has previous flashcard list states to restore.
+     */
+    boolean canUndoFlashcardList();
 
+    /**
+     * Returns true if the model has undone flashcard list states to restore.
+     */
+    boolean canRedoFlashcardList();
 
+    /**
+     * Restores the model's flashcard list to its previous state.
+     */
+    void undoFlashcardList();
+
+    /**
+     * Restores the model's flashcard list to its previously undone state.
+     */
+    void redoFlashcardList();
+
+    /**
+     * Saves the current flashcard list state for undo/redo.
+     */
+    void commitFlashcardList();
 
 }
