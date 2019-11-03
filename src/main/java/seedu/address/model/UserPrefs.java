@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.AliasMappings;
 

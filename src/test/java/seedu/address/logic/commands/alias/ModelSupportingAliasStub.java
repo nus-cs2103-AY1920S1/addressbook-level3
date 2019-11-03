@@ -19,11 +19,14 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
 
+/**
+ * Model Stub which supports Alias methods related to Alias feature.
+ */
 public class ModelSupportingAliasStub implements Model {
 
     private AliasMappings aliasMappings;
 
-    public ModelSupportingAliasStub() {
+    ModelSupportingAliasStub() {
         aliasMappings = new AliasMappings();
     }
 

@@ -239,7 +239,9 @@ public class MooLahParserTest {
     @Test
     public void parseCommand_listExpense() throws Exception {
         assertTrue(parser.parseCommand(
-                ListExpensesCommand.COMMAND_WORD, CommandGroup.EXPENSE, readOnlyUserPrefs) instanceof ListExpensesCommand);
+                ListExpensesCommand.COMMAND_WORD,
+                CommandGroup.EXPENSE,
+                readOnlyUserPrefs) instanceof ListExpensesCommand);
         assertTrue(parser.parseCommand(
                 ListExpensesCommand.COMMAND_WORD + " 3", "",
                 readOnlyUserPrefs) instanceof ListExpensesCommand);
@@ -328,9 +330,11 @@ public class MooLahParserTest {
                 CommandGroup.GENERAL,
                 // empty input with empty command group
                 ""
-        ).forEach( commandGroup -> {
-            assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                    -> parser.parseCommand("", commandGroup, readOnlyUserPrefs));
+        ).forEach(commandGroup -> {
+            assertThrows(
+                    ParseException.class,
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), () ->
+                            parser.parseCommand("", commandGroup, readOnlyUserPrefs));
                 }
         );
     }
@@ -400,13 +404,13 @@ public class MooLahParserTest {
     // ------ stats command --------
     @Test
     void parseCommand_stats() throws Exception {
-        Command command =  parser.parseCommand(
+        Command command = parser.parseCommand(
                 String.format("%s %s01-10-2019 %s31-10-2019",
                         StatsCommand.COMMAND_WORD,
                         PREFIX_START_DATE,
                         PREFIX_END_DATE),
                 CommandGroup.STATISTIC, readOnlyUserPrefs);
-        assertTrue(command instanceof  StatsCommand);
+        assertTrue(command instanceof StatsCommand);
         assertEquals(command, new StatsCommand(
                 CommandTestUtil.OCTOBER_FIRST,
                 CommandTestUtil.OCTOBER_LAST));
@@ -490,11 +494,9 @@ public class MooLahParserTest {
                 CommandGroup.GENERAL,
                 // unknown input with empty command group
                 ""
-        ).forEach( commandGroup -> {
-            assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
-                    -> parser.parseCommand("unknownCommand", "", readOnlyUserPrefs));
+        ).forEach(commandGroup -> {
+            assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () ->
+                    parser.parseCommand("unknownCommand", "", readOnlyUserPrefs));
         });
     }
-
-
 }

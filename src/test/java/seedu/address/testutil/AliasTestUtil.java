@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_DESCRIPTION_DESC_CHICKEN;
-import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_PRICE_DESC_CHICKEN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -53,12 +51,12 @@ public class AliasTestUtil {
 
     static {
         AliasMappings tempValidAliasMappings;
-            tempValidAliasMappings = new AliasMappings()
-                        .addAlias(ALIAS_LIST_SHORTCUT)
-                        .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
-                        .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
-                        .addAlias(ALIAS_A_TO_B)
-                        .addAlias(ALIAS_B_TO_C);
+        tempValidAliasMappings = new AliasMappings()
+                    .addAlias(ALIAS_LIST_SHORTCUT)
+                    .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
+                    .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
+                    .addAlias(ALIAS_A_TO_B)
+                    .addAlias(ALIAS_B_TO_C);
 
         VALID_ALIAS_MAPPINGS = tempValidAliasMappings;
     }

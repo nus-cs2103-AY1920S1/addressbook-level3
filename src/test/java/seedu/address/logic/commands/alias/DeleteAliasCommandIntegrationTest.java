@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.alias;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
@@ -49,5 +50,20 @@ class DeleteAliasCommandIntegrationTest {
             DeleteAliasCommand toValidate = new DeleteAliasCommand(toDelete.getAliasName());
             toValidate.validate(model);
         });
+    }
+
+    @Test
+    void run_deleteAliasThatDoesExists_aliasDeleted() {
+        Alias alias = AliasTestUtil.ALIAS_A_TO_B;
+        assertEquals(expectedModel, model);
+        model.addUserAlias(alias);
+        DeleteAliasCommand deleteAliasCommand = new DeleteAliasCommand(alias.getAliasName());
+        try {
+            deleteAliasCommand.run(model);
+            assertEquals(model.getAliasMappings(), expectedModel.getAliasMappings());
+        } catch (Exception e) {
+            throw new AssertionError("Should not throw exception.");
+        }
+
     }
 }

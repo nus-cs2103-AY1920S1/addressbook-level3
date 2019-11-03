@@ -56,5 +56,4 @@ class DeleteAliasCommandParserTest {
             throw new AssertionError("Should not be thrown.");
         }
     }
-
 }

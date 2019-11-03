@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.stream.Stream;
 
@@ -21,7 +22,7 @@ class GenericCommandWordTest {
     void isGeneric_nonGenericCommandWord_true() {
         Stream.of(CommandGroup.EXPENSE, CommandGroup.PRIMARY_BUDGET, CommandGroup.BUDGET,
                 CommandGroup.EVENT, CommandGroup.STATISTIC, CommandGroup.ALIAS)
-                .forEach( x -> {
+                .forEach(x -> {
                     assertFalse(GenericCommandWord.isGeneric(GenericCommandWord.ADD + x));
                     assertFalse(GenericCommandWord.isGeneric(GenericCommandWord.CLEAR + x));
                     assertFalse(GenericCommandWord.isGeneric(GenericCommandWord.DELETE + x));
