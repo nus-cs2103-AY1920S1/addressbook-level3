@@ -179,7 +179,7 @@ public class SampleDataUtil {
                         new Email("lidavid@example.com"), getTagSet("family")),
                   new Phone(new IdentityNumber("352039075644270"),
                         new SerialNumber("2ncs81ma"), new PhoneName("Galaxy S11"), new Brand("Samsung"),
-                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$540"),
+                        Capacity.SIZE_256GB, new Colour("Black"), new Cost("$541"),
                         getTagSet("New")),
                   new Price("$1200"),
                     Status.SCHEDULED,
@@ -202,7 +202,7 @@ public class SampleDataUtil {
                                 Capacity.SIZE_256GB, new Colour("Black"), new Cost("$95"),
                                 getTagSet("New")),
                         new Price("$1200"),
-                        Status.COMPLETED,
+                        Status.CANCELLED,
                         Optional.of(sampleSchedule3()), getTagSet("New"))
 
         };

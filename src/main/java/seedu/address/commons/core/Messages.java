@@ -25,7 +25,7 @@ public class Messages {
 
     public static final String TIME_MESSAGE_CONSTRAINTS = "Time should only contain numbers in the format of HH.MM, "
             + "with valid hour and minute.";
-    public static final String DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT = "Year should not be less than 1970";
+    public static final String DATE_MESSAGE_CONSTRAINTS_LESS_THAN_DEFAULT = "Year should not be less than 1970.";
     public static final String DATE_MESSAGE_CONSTRAINTS_LESS_THAN_0 =
             "Date should only contain numbers in the format of YYYY.MM.DD and be positive";
     public static final String DATE_MESSAGE_CONSTRAINTS =

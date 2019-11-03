@@ -44,7 +44,6 @@
             <Insets top="10" right="20" bottom="0" left="20" />
           </padding>
         </StackPane>
-
         <VBox  styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
         <StackPane VBox.vgrow="ALWAYS" fx:id="tabPanelPlaceholder" styleClass="pane-with-border"
                    minHeight="200"  >
@@ -53,7 +52,6 @@
           </padding>
         </StackPane>
       </VBox>
-
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
