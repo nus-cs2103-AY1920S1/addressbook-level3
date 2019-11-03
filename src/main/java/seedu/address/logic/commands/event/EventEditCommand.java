@@ -10,8 +10,6 @@ import java.util.HashMap;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
-import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
-import jfxtras.icalendarfx.properties.component.recurrence.rrule.RecurrenceRuleValue;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -20,8 +18,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.event.Event;
-import seedu.address.model.event.RecurrenceType;
 
 /**
  * Edits the events details in the events record.
@@ -44,6 +40,7 @@ public class EventEditCommand extends EventCommand {
             + "e.g. 28 October 2019, 2PM should be input as 2019-10-28T14:00";
     private static final String INVALID_RECURRENCE_TYPE = "Invalid Recurrence Type";
     private static final String INVALID_EVENT_RANGE = "Invalid date range between start and end dateTime";
+    private static final String NO_FIELDS_CHANGED = "At least one field to edit must be provided.";
     private final Index index;
     private final String eventName;
     private final String startDateTimeString;
@@ -71,6 +68,10 @@ public class EventEditCommand extends EventCommand {
 
         if (index.getZeroBased() >= model.getVEventList().size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+
+        if (!isAnyFieldEdited()) {
+            throw new CommandException(NO_FIELDS_CHANGED);
         }
 
         //map vEvent to event type for ease of referencing and DRY principle
@@ -129,60 +130,19 @@ public class EventEditCommand extends EventCommand {
                 throw new CommandException(ex.getMessage(), ex);
             }
         }
-//        Event eventObject = EventUtil.vEventToEventMapper(vEventObject);
-//
-//        String eventName = (!this.eventName.isBlank())
-//                ? this.eventName
-//                : eventObject.getEventName();
-//        String colorNumberString = (!this.colorNumberString.isBlank())
-//                ? EventUtil.convertNumberToColorNumber(this.colorNumberString)
-//                : eventObject.getColorCategory();
-//        LocalDateTime startDateTime = (!this.startDateTimeString.isBlank())
-//                ? LocalDateTime.parse(this.startDateTimeString)
-//                : eventObject.getStartDateTime();
-//        LocalDateTime endDateTime = (!this.endDateTimeString.isBlank())
-//                ? LocalDateTime.parse(this.endDateTimeString)
-//                : eventObject.getEndDateTime();
-//        String uniqueIdentifier = (!eventObject.getUniqueIdentifier().isBlank())
-//                ? EventUtil.generateUniqueIdentifier(eventName, startDateTime.toString(), endDateTime.toString())
-//                : eventObject.getUniqueIdentifier();
-//
-//        RecurrenceRule recurrenceRule;
-//        if (this.recurTypeString.isBlank()) {
-//            recurrenceRule = vEventObject.getRecurrenceRule();
-//            vEventObject.setRecurrenceRule(recurrenceRule);
-//        } else {
-//            try {
-//                if (!recurTypeString.equalsIgnoreCase(RecurrenceType.NONE.name())) {
-//                    recurrenceRule = EventUtil.stringToRecurrenceRule(this.recurTypeString);
-//                    vEventObject.setRecurrenceRule(recurrenceRule);
-//                }
-//            } catch (IllegalValueException ex) {
-//                throw new CommandException(ex.toString());
-//            }
-//        }
-//
-//        if (!EventUtil.validateStartEndDateTime(startDateTime, endDateTime)) {
-//            throw new CommandException(START_DATE_LATER_END_DATE);
-//        }
-//
-//        vEventObject = new VEvent();
-//        vEventObject.setUniqueIdentifier(uniqueIdentifier);
-//        vEventObject.setSummary(eventName);
-//        vEventObject.setDateTimeStart(startDateTime);
-//        vEventObject.setDateTimeEnd(endDateTime);
-//        vEventObject.setUniqueIdentifier();
-//
-//        Categories colorCategory = new Categories(colorNumberString);
-//        ArrayList<Categories> colorCategoryList = new ArrayList<>();
-//        colorCategoryList.add(colorCategory);
-//        vEventObject.setCategories(colorCategoryList);
 
         model.setVEvent(index, vEventObject);
 
         return new CommandResult(generateSuccessMessage(vEventObject), CommandResultType.SHOW_SCHEDULE);
     }
 
+    /**
+     * Returns true if at least one field is edited.
+     */
+    private boolean isAnyFieldEdited() {
+        return !eventName.isBlank() || !startDateTimeString.isBlank() || !endDateTimeString.isBlank()
+                || !recurTypeString.isBlank() || !colorNumberString.isBlank();
+    }
 
     /**
      * Generates a command execution success message.
