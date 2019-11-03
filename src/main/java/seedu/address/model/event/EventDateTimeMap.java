@@ -100,7 +100,22 @@ public class EventDateTimeMap {
     }
 
     /**
+     * Gives the total number of hours (double value).
+     *
+     * @return
+     */
+    public double totalHours() {
+        double totalMinutes = 0;
+        for (EventDate date : dateTimeMap.keySet()) {
+            totalMinutes += dateTimeMap.get(date).numMinutes();
+        }
+
+        return totalMinutes / 60.0;
+    }
+
+    /**
      * Deletes a Date from the Date-Time Mapping.
+     *
      * @param date EventDate Object
      */
     public void deleteDateKey(EventDate date) {

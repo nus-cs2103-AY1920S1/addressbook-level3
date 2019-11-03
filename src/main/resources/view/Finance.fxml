@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox HBox.hgrow="ALWAYS">
+            <children>
+                <HBox VBox.vgrow="ALWAYS" />
+                <HBox VBox.vgrow="ALWAYS" />
+                <HBox VBox.vgrow="ALWAYS">
+                    <children>
+                        <ListView fx:id="eventScheduleListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@DarkTheme.css" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</HBox>
