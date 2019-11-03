@@ -122,7 +122,7 @@ public class FinanceTracker {
     //=========== Command Methods =====================================================================
 
     /**
-     * Adds single use payment.
+     * Adds single use purchase.
      *
      * @param purchase to be added to the finance tracker
      */
@@ -135,13 +135,24 @@ public class FinanceTracker {
     /**
      * Adds a purchase to the list at the given index.
      *
-     * @param newPurchase object from newly added single-use payment
+     * @param purchase to be added to the finance tracker
      * @param zeroBasedIndex index where the purchase should be added
      */
-    public void addSinglePurchase(int zeroBasedIndex, Purchase newPurchase) {
-        requireNonNull(newPurchase);
+    public void addSinglePurchase(int zeroBasedIndex, Purchase purchase) {
+        requireNonNull(purchase);
 
-        purchaseList.addSinglePurchase(zeroBasedIndex, newPurchase);
+        purchaseList.addSinglePurchase(zeroBasedIndex, purchase);
+    }
+
+    /**
+     * Adds a purchase to the end of the list for transferring of storage purposes.
+     *
+     * @param purchase to be added to the finance tracker
+     */
+    public void addPurchaseToBack(Purchase purchase) {
+        requireNonNull(purchase);
+
+        purchaseList.addPurchaseToBack(purchase);
     }
 
     /**
