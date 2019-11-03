@@ -32,4 +32,9 @@ public interface ReadOnlyItinerary {
      * Returns the start date property of the planner.
      */
     SimpleObjectProperty<LocalDate> getStartDateProperty();
+
+    /**
+     * Returns the name property of the planner.
+     */
+    SimpleObjectProperty<Name> getNameProperty();
 }

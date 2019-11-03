@@ -51,6 +51,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
+import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 
 /**
@@ -84,14 +85,17 @@ public class CentralDisplay extends UiPart<Region> {
     private ListView<Node> helpList;
 
     private SimpleObjectProperty<LocalDate> startDateProperty;
+    private SimpleObjectProperty<Name> nameProperty;
     private ObservableList<Day> dayList;
 
     public CentralDisplay(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
                           ObservableList<Activity> activityList, ObservableList<Contact> contactList,
-                          SimpleObjectProperty<LocalDate> startDateProperty) {
+                          SimpleObjectProperty<LocalDate> startDateProperty,
+                          SimpleObjectProperty<Name> nameProperty) {
         super(FXML);
         this.startDateProperty = startDateProperty;
         this.dayList = dayList;
+        this.nameProperty = nameProperty;
 
         // initialising agenda
         this.agenda = new Agenda() {
@@ -121,24 +125,46 @@ public class CentralDisplay extends UiPart<Region> {
                 };
             }
         };
+        setupDesign();
+        setupContent(dayList, accommodationList, activityList, contactList);
+        setupListeners();
+    }
 
+    /**
+     * Setup the colour, height, width of parts in the central display.
+     */
+    private void setupDesign() {
+        // allows the tabDisplay to expand according to the width of user display
+        tabDisplay.prefWidthProperty().bind(this.getRoot().prefWidthProperty());
+    }
+
+    /**
+     * Setups the content contained within the central display.
+     */
+    private void setupContent(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
+                              ObservableList<Activity> activityList, ObservableList<Contact> contactList) {
+        accommodationPane.setContent((new AccommodationListPanel(accommodationList)).getRoot());
+        activityPane.setContent((new ActivityListPanel(activityList)).getRoot());
+        contactPane.setContent((new ContactListPanel(contactList)).getRoot());
+        // expands the activity pane
+        sideDisplay.setExpandedPane(activityPane);
+
+        agendaTab.setText(nameProperty.getValue().toString() + " Itinerary");
         agenda.setDisplayedLocalDateTime(startDateProperty.getValue().atStartOfDay());
         updateAgenda(agenda, dayList);
-        sideDisplay.setExpandedPane(activityPane);
         // disables dragging
         agenda.setAllowDragging(false);
         // disables modify start time and end time by dragging
         agenda.setAllowResize(false);
         // disables right click editing
         agenda.setEditAppointmentCallback((appointment) -> null);
-
-        accommodationPane.setContent((new AccommodationListPanel(accommodationList)).getRoot());
-        activityPane.setContent((new ActivityListPanel(activityList)).getRoot());
-        contactPane.setContent((new ContactListPanel(contactList)).getRoot());
         agendaTab.setContent(agenda);
+    }
 
-        tabDisplay.prefWidthProperty().bind(this.getRoot().prefWidthProperty());
-
+    /**
+     * Setup listeners that will update the central display.
+     */
+    private void setupListeners() {
         // set up listeners that will update the agenda
         //dayList.addListener((ListChangeListener<? super Day>) c -> {
         //    updateSkin(agenda);
@@ -147,6 +173,9 @@ public class CentralDisplay extends UiPart<Region> {
         startDateProperty.addListener((observable, oldValue, newValue) -> {
             updateAgenda(agenda, dayList);
             agenda.setDisplayedLocalDateTime(newValue.atStartOfDay());
+        });
+        nameProperty.addListener((observable, oldValue, newValue) -> {
+            agendaTab.setText(newValue.toString() + " Itinerary");
         });
     }
 
