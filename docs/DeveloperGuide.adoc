@@ -1400,7 +1400,7 @@ Transactions include all the expenses spent and sales made.
 
 [[inventory]]
 Inventory::
-Inventory refers to the items that are stored to be sold. It consists of item description and quantity left.
+Inventory refers to the items that are stored to be stored. It consists of item description and quantity left.
 
 [appendix]
 == Product Survey

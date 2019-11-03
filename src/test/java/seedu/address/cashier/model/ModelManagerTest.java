@@ -316,9 +316,6 @@ public class ModelManagerTest {
         modelManager.addItem(chips);
         modelManager.addItem(storybook);
         assertThrows(AmountExceededException.class, () -> modelManager.getTotalAmount());
-//        System.out.println(modelManager.getTotalAmount());
-//        assertEquals(chips.getSubtotal() + storybook.getSubtotal(),
-//                Double.parseDouble(DECIMAL_FORMAT.format(modelManager.getTotalAmount())));
         modelManager.clearSalesList();
     }
 
