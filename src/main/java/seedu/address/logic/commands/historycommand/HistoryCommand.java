@@ -11,9 +11,11 @@ import seedu.address.model.entity.CommandType;
  */
 public class HistoryCommand extends Command {
     public static final String COMMAND_WORD = "history";
-    public static final String MESSAGE_SUCCESS = "Showing the history of your commands: ";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the history of previously-executed commands"
-                                                            + "that are undo-able and redo-able";
+    public static final String MESSAGE_SUCCESS = "Showing the history of your commands.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the history of previously-executed commands "
+                                                            + "that are undo-able and redo-able.\n"
+                                                            + "Format: history\n"
+                                                            + "Note that this command takes no additional parameters.";
 
     /**
      * Executes the command and returns a CommandResult with a message.

@@ -18,7 +18,7 @@ import seedu.address.model.entitylist.TeamList;
  */
 public class AlfredStorageManager implements AlfredStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(AlfredStorageManager.class);
     private ParticipantListStorage pStore;
     private MentorListStorage mStore;
     private TeamListStorage tStore;

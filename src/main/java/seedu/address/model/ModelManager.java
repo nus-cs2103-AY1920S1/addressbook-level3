@@ -951,6 +951,10 @@ public class ModelManager implements Model {
         } else {
             throw new AlfredModelHistoryException("Unable to undo.");
         }
+        //Saves the 3 EntityLists to Storage
+        this.saveList(PrefixType.P);
+        this.saveList(PrefixType.M);
+        this.saveList(PrefixType.T);
     }
 
     /**
@@ -966,6 +970,10 @@ public class ModelManager implements Model {
         } else {
             throw new AlfredModelHistoryException("Unable to redo.");
         }
+        //Saves the 3 EntityLists to Storage
+        this.saveList(PrefixType.P);
+        this.saveList(PrefixType.M);
+        this.saveList(PrefixType.T);
     }
 
     /**
