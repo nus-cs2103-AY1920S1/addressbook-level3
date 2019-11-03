@@ -44,6 +44,9 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        if (trimmedIndex.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -134,6 +137,9 @@ public class ParserUtil {
     public static CallerNumber parseCallerNumber(String caller) throws ParseException {
         requireNonNull(caller);
         String trimmedCaller = caller.trim();
+        if (trimmedCaller.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!CallerNumber.isValidCaller(trimmedCaller)) {
             throw new ParseException(CallerNumber.MESSAGE_CONSTRAINTS);
         }
@@ -240,6 +246,9 @@ public class ParserUtil {
     public static Availability parseAvailability(String avail) throws ParseException {
         requireNonNull(avail);
         String trimmedAvail = avail.trim();
+        if (trimmedAvail.contains("/")) {
+            throw new ParseException(Messages.MESSAGE_IRRELEVANT_PREFIXES);
+        }
         if (!trimmedAvail.equalsIgnoreCase("available") && !trimmedAvail.equalsIgnoreCase("busy")) {
             throw new ParseException(Availability.MESSAGE_CONSTRAINTS);
         }
