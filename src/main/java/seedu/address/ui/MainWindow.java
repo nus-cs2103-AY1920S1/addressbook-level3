@@ -1,13 +1,12 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,10 +15,14 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Context;
+import seedu.address.model.ContextType;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.person.Person;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a status
+ * bar in the footer and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -32,23 +35,35 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ActivityListPanel activityListPanel;
+    private PersonDetailsPanel personDetailsPanel;
+    private ActivityDetailsPanel activityDetailsPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    /*
+     * Root {@code StackPane} element that contains the command input region.
+     */
     @FXML
-    private StackPane commandBoxPlaceholder;
+    private StackPane commandBoxContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the main content.
+     */
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane contentContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the result display label.
+     */
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane resultDisplayContainer;
 
+    /*
+     * Root {@code StackPane} element that contains the status.
+     */
     @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane statusBarContainer;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -60,8 +75,6 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -69,55 +82,24 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
     /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-    }
-
-    /**
-     * Fills up all the placeholders of this window.
+     * Fills up all the containers of this window.
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList());
+
+        // Show contacts by default
+        contentContainer.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        resultDisplayContainer.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarContainer.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        commandBoxContainer.getChildren().add(commandBox.getRoot());
     }
 
     /**
@@ -160,8 +142,49 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Switches the current view in the content container to the view corresponding to the updated
+     * {@code ContextType}.
+     * @param newContext the {@code ContextType} of the updated GUI view
+     */
+    private void contextSwitch(Context newContext) {
+        requireNonNull(newContext);
+
+        contentContainer.getChildren().clear();
+
+        ContextType newContextType = newContext.getType();
+
+        switch (newContextType) {
+        case LIST_ACTIVITY:
+            activityListPanel.refreshView();
+            contentContainer.getChildren().add(activityListPanel.getRoot());
+            break;
+        case LIST_CONTACT:
+            contentContainer.getChildren().add(personListPanel.getRoot());
+            break;
+        case VIEW_CONTACT:
+            Person viewedContact = newContext.getContact().get();
+            List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+            personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
+            contentContainer.getChildren().add(personDetailsPanel.getRoot());
+            break;
+        case VIEW_ACTIVITY:
+            Activity viewedActivity = newContext.getActivity().get();
+            List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+            activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
+            contentContainer.getChildren().add(activityDetailsPanel.getRoot());
+            break;
+        default:
+            // Do nothing (leave content container empty)
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public ActivityListPanel getActivityListPanel() {
+        return activityListPanel;
     }
 
     /**
@@ -181,6 +204,12 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            Optional<Context> newContext = commandResult.getUpdatedContext();
+            if (newContext.isPresent()) {
+                logger.info("Updated context: " + newContext.get().toString());
+                contextSwitch(newContext.get());
             }
 
             return commandResult;

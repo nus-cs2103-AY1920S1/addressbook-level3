@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.Context;
+import seedu.address.testutil.TypicalActivities;
+import seedu.address.testutil.TypicalPersons;
+
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -33,6 +37,21 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        CommandResult contextualResult = new CommandResult("output", new Context(TypicalPersons.ALICE));
+
+        // identity -> returns true
+        assertTrue(contextualResult.equals(new CommandResult("output", new Context(TypicalPersons.ALICE))));
+
+        // empty Context -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output")));
+
+        // different ContextType -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output", Context.newListContactContext())));
+        assertFalse(contextualResult.equals(new CommandResult("output", new Context(TypicalActivities.BREAKFAST))));
+
+        // same ContextType but different value -> returns false
+        assertFalse(contextualResult.equals(new CommandResult("output", new Context(TypicalPersons.BOB))));
     }
 
     @Test
@@ -50,5 +69,21 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        CommandResult contextualResult = new CommandResult("feedback", new Context(TypicalActivities.BREAKFAST));
+        int expectedHash = contextualResult.hashCode();
+
+        // identity -> returns same hashcode
+        assertEquals(expectedHash, new CommandResult("feedback", new Context(TypicalActivities.BREAKFAST)).hashCode());
+
+        // empty Context -> returns false
+        assertNotEquals(expectedHash, new CommandResult("feedback").hashCode());
+
+        // different ContextType -> returns different hashcode
+        assertNotEquals(expectedHash, new CommandResult("feedback", Context.newListActivityContext()).hashCode());
+        assertNotEquals(expectedHash, new CommandResult("feedback", new Context(TypicalPersons.ALICE)).hashCode());
+
+        // same ContextType but different value -> returns false
+        assertNotEquals(expectedHash, new CommandResult("feedback", new Context(TypicalActivities.LUNCH)).hashCode());
     }
 }

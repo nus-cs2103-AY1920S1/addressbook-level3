@@ -24,6 +24,16 @@ public class PersonTest {
     }
 
     @Test
+    public void uniquePrimarykey() {
+        Person person1 = new PersonBuilder().build();
+        Person person2 = new PersonBuilder().build();
+        Person person3 = new PersonBuilder().build();
+        assertFalse(person1.getPrimaryKey() == person2.getPrimaryKey());
+        assertFalse(person2.getPrimaryKey() == person3.getPrimaryKey());
+        assertFalse(person1.getPrimaryKey() == person3.getPrimaryKey());
+    }
+
+    @Test
     public void isSamePerson() {
         // same object -> returns true
         assertTrue(ALICE.isSamePerson(ALICE));

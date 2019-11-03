@@ -27,6 +27,10 @@ public class TypicalPersons {
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
+    public static final Person ANDY = new PersonBuilder().withName("Andy Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("andy@example.com")
+            .withPhone("94351273")
+            .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
@@ -41,6 +45,8 @@ public class TypicalPersons {
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Person GEORGE_FIRSTNAME = new PersonBuilder().withName("George").withPhone("9482443")
+            .withEmail("george@example.com").withAddress("4th street").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -70,7 +76,23 @@ public class TypicalPersons {
         return ab;
     }
 
+    /**
+     * Returns an {@code AddressBook} with two person sharing same last name.
+     */
+    public static AddressBook getSameSurnameAddressBook() {
+        AddressBook ab = new AddressBook();
+        for (Person person : getSameSurnamePersons()) {
+            ab.addPerson(person);
+        }
+        return ab;
+    }
+
+
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getSameSurnamePersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, ANDY, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

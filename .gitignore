@@ -19,3 +19,14 @@ src/test/data/sandbox/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
+
+# Temporary files
+*.swp
+
+# IntelliJ build folders
+/bin
+
+# VSCode local config files
+.classpath
+.project
+.settings

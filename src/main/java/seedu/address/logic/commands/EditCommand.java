@@ -1,24 +1,26 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Context;
+import seedu.address.model.ContextType;
 import seedu.address.model.Model;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,63 +29,86 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing contact in SplitWiser.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person or activity "
+            + "currently in view.\n"
+            + "Existing values will be overwritten by the input values, and irrelevant parameters will be ignored.\n"
+            + "Parameters (editing contact): "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Parameters (editing activity) "
+            + "[" + PREFIX_TITLE + "TITLE] \n"
+            + "Examples: \n" + COMMAND_WORD + " "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "johndoe@example.com\n"
+            + COMMAND_WORD + " " + PREFIX_TITLE + "Fun @ Chalet";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_SUCCESS = "Edited: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_WRONG_CONTEXT = "You can only edit when viewing a contact or activity.";
 
-    private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+    private final EditActivityDescriptor editActivityDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
+     * @param editActivityDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+    public EditCommand(EditPersonDescriptor editPersonDescriptor, EditActivityDescriptor editActivityDescriptor) {
+        requireAllNonNull(editPersonDescriptor, editActivityDescriptor);
 
-        this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editActivityDescriptor = new EditActivityDescriptor(editActivityDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (model.getContext().getType() == ContextType.VIEW_CONTACT) {
+            if (!editPersonDescriptor.isAnyFieldEdited()) {
+                throw new CommandException(MESSAGE_USAGE);
+            }
+
+            Person personToEdit = model.getContext().getContact().get();
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+            boolean isNameDuplicated = editPersonDescriptor.getName().isPresent()
+                    && model.findPersonByName(editPersonDescriptor.getName().get().toString()).isPresent();
+
+            if (isNameDuplicated) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            }
+
+            model.setPerson(personToEdit, editedPerson);
+            Context newContext = new Context(editedPerson);
+            model.setContext(newContext);
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editedPerson), newContext);
+        } else if (model.getContext().getType() == ContextType.VIEW_ACTIVITY) {
+            if (!editActivityDescriptor.isAnyFieldEdited()) {
+                throw new CommandException(MESSAGE_USAGE);
+            }
+
+            Activity activityToEdit = model.getContext().getActivity().get();
+
+            Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+
+            model.setActivity(activityToEdit, editedActivity);
+            Context newContext = new Context(editedActivity);
+            model.setContext(newContext);
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, editedActivity), newContext);
+        } else {
+            throw new CommandException(MESSAGE_WRONG_CONTEXT);
         }
-
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**
@@ -91,7 +116,7 @@ public class EditCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+        requireNonNull(personToEdit);
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
@@ -99,7 +124,20 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(personToEdit.getPrimaryKey(), updatedName, updatedPhone,
+                updatedEmail, updatedAddress, updatedTags);
+    }
+
+    /**
+     * Creates and returns a {@code Activity} with the details of {@code activityToEdit}
+     * edited with {@code editActivityDescriptor}.
+     */
+    private static Activity createEditedActivity(Activity activityToEdit,
+                                                 EditActivityDescriptor editActivityDescriptor) {
+        requireNonNull(activityToEdit);
+
+        Title updatedTitle = editActivityDescriptor.getTitle().orElse(activityToEdit.getTitle());
+        return new Activity(activityToEdit, updatedTitle);
     }
 
     @Override
@@ -116,8 +154,59 @@ public class EditCommand extends Command {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+        return editPersonDescriptor.equals(e.editPersonDescriptor)
+                && editActivityDescriptor.equals(e.editActivityDescriptor);
+    }
+
+    /**
+     * Stores the details to edit the activity with. Each non-empty field value will replace the
+     * corresponding field value of the activity.
+     */
+    public static class EditActivityDescriptor {
+        private Title title;
+
+        public EditActivityDescriptor() {}
+
+        /**
+         * Copy constructor.
+         */
+        public EditActivityDescriptor(EditActivityDescriptor toCopy) {
+            setTitle(toCopy.title);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(title);
+        }
+
+        public void setTitle(Title title) {
+            this.title = title;
+        }
+
+        public Optional<Title> getTitle() {
+            return Optional.ofNullable(title);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditActivityDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditActivityDescriptor e = (EditActivityDescriptor) other;
+
+            return getTitle().equals(e.getTitle());
+        }
+
     }
 
     /**

@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes the contact identified by its display index from SplitWiser.
  */
 public class DeleteCommand extends Command {
 
@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAY_INDEX);
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());

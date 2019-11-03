@@ -21,11 +21,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
+    // private int primaryKey; this is unnecessary until the behavior of
+    // Person.equals is changed.
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private int primaryKey;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -33,6 +36,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        primaryKey = -1;
     }
 
     /**
@@ -44,6 +48,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        primaryKey = personToCopy.getPrimaryKey();
     }
 
     /**
@@ -86,8 +91,14 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds the actual {@code Person} object.
+     * @return the resulting {@code Person} object.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return primaryKey == -1
+                ? new Person(name, phone, email, address, tags)
+                : new Person(primaryKey, name, phone, email, address, tags);
     }
 
 }

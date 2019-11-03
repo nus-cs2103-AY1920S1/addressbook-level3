@@ -7,6 +7,9 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
+import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -22,24 +25,35 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(
+                getTypicalAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
     }
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = new PersonBuilder().withName("Alice Bob").build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(
+                model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         expectedModel.addPerson(validPerson);
 
+        Context newContext = new Context(validPerson);
+        expectedModel.setContext(newContext);
         assertCommandSuccess(new AddCommand(validPerson), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel, newContext);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_NAME);
+    }
+
+    @Test
+    public void execute_duplicateName_throwsCommandException() {
+        Person personInList = model.getAddressBook().getPersonList().get(0);
+        Person duplicateNamePerson = new PersonBuilder().withName(personInList.getName().fullName).build();
+        assertCommandFailure(new AddCommand(duplicateNamePerson), model, AddCommand.MESSAGE_DUPLICATE_NAME);
     }
 
 }

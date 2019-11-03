@@ -1,7 +1,7 @@
 {
   "guiSettings" : {
-    "windowWidth" : 1000.0,
-    "windowHeight" : 500.0,
+    "windowWidth" : 512.0,
+    "windowHeight" : 700.0,
     "extra" : "some value ",
     "windowCoordinates" : {
       "x" : 300,
@@ -9,5 +9,7 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "activityBookFilePath" : "activitybook.json",
+  "addressBookFilePath" : "addressbook.json",
+  "internalStateFilePath" : "internalstate.json"
 }

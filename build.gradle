@@ -2,6 +2,7 @@
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
 
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
@@ -25,6 +26,13 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
+task hooks(type: Copy) {
+    from "./config/hooks/"
+    into "./.git/hooks/"
+    fileMode 0777
+}
+build.dependsOn hooks
+
 checkstyle {
     toolVersion = '8.1'
 }
@@ -39,6 +47,42 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.withType(Test) {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events TestLogEvent.FAILED,
+               TestLogEvent.PASSED,
+               TestLogEvent.SKIPPED,
+               TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events TestLogEvent.STARTED,
+                   TestLogEvent.FAILED,
+                   TestLogEvent.PASSED,
+                   TestLogEvent.SKIPPED,
+                   TestLogEvent.STANDARD_ERROR,
+                   TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
 }
 
 dependencies {
@@ -67,7 +111,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'splitwiser.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +177,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'SplitWiser',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-W11-2/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
@@ -152,4 +196,8 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+defaultTasks 'hooks', 'clean', 'test', 'coverage', 'asciidoctor'
+
+run {
+    enableAssertions = true
+}

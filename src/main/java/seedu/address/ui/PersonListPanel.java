@@ -14,22 +14,23 @@ import seedu.address.model.person.Person;
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "ListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Person> listView;
 
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        logger.info("Created PersonListPanel to list person entries.");
+        listView.setItems(personList);
+        listView.setCellFactory(listView -> new ListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} entry with a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class ListViewCell extends ListCell<Person> {
         @Override
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
@@ -42,5 +43,4 @@ public class PersonListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

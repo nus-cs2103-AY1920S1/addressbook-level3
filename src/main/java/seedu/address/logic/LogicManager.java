@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -48,6 +50,12 @@ public class LogicManager implements Logic {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
+        try {
+            storage.saveActivityBook(model.getActivityBook());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         return commandResult;
     }
 
@@ -62,8 +70,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
+    }
+
+    @Override
+    public List<Person> getAssociatedPersons(Activity activity) {
+        return model.getAssociatedPersons(activity);
+    }
+
+    @Override
+    public List<Activity> getAssociatedActivities(Person person) {
+        return model.getAssociatedActivities(person);
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getActivityBookFilePath() {
+        return model.getActivityBookFilePath();
     }
 
     @Override

@@ -2,9 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.NameContainsAllKeywordsPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -64,6 +68,58 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Finds Person objects with matching keywords, returning all matches in an ArrayList.
+     */
+    public ArrayList<Person> findPerson(NameContainsKeywordsPredicate predicate) {
+        ArrayList<Person> matches = new ArrayList<Person>();
+        for (Person person : persons.asUnmodifiableObservableList()) {
+            if (predicate.test(person)) {
+                matches.add(person);
+            }
+        }
+
+        return matches;
+    }
+
+    /**
+     * Finds Person objects with matching keywords, returning all matches in an ArrayList.
+     */
+    public ArrayList<Person> findPerson(NameContainsAllKeywordsPredicate predicate) {
+        ArrayList<Person> matches = new ArrayList<Person>();
+        for (Person person : persons.asUnmodifiableObservableList()) {
+            if (predicate.test(person)) {
+                matches.add(person);
+            }
+        }
+
+        return matches;
+    }
+
+    /**
+     * Finds Person object by name, using exact match.
+     */
+    public Optional<Person> findPersonByName(String searchTerm) {
+        for (Person person: persons.asUnmodifiableObservableList()) {
+            if (person.getName().fullName.toLowerCase().equals(searchTerm.toLowerCase())) {
+                return Optional.of(person);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Returns true if a person with the same primary key as {@code primaryKey} exists in the address book.
+     */
+    public boolean hasPrimaryKey(int primaryKey) {
+        for (Person person : persons) {
+            if (person.getPrimaryKey() == primaryKey) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

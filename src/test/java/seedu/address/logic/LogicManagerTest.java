@@ -1,12 +1,13 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITY;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.AMY;
 
@@ -22,12 +23,17 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ActivityBook;
+import seedu.address.model.Context;
+import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.storage.JsonActivityBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonInternalStateStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -43,10 +49,16 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonAddressBookStorage addressBookStorage = new
+                JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonActivityBookStorage activityBookStorage = new
+                JsonActivityBookStorage(temporaryFolder.resolve("activityBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new
+                JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        JsonInternalStateStorage internalStateStorage = new
+                JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
+        StorageManager storage = new StorageManager(addressBookStorage,
+                userPrefsStorage, internalStateStorage, activityBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -59,13 +71,14 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAY_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " " + PREFIX_ACTIVITY;
+        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, "activities");
+        assertCommandSuccess(listCommand, expectedMessage, model);
     }
 
     @Test
@@ -75,7 +88,13 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonInternalStateStorage internalStateStorage = new
+            JsonInternalStateStorage(temporaryFolder.resolve("state.json"));
+        // TODO: make internal fail and test it as well.
+        JsonActivityBookStorage activityBookStorage = new
+                JsonActivityBookStorage(temporaryFolder.resolve("activityBook.json"));
+        StorageManager storage = new
+                StorageManager(addressBookStorage, userPrefsStorage, internalStateStorage, activityBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -84,6 +103,7 @@ public class LogicManagerTest {
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
+        expectedModel.setContext(new Context(expectedPerson));
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
@@ -91,6 +111,11 @@ public class LogicManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredActivityList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredActivityList().remove(0));
     }
 
     /**
@@ -129,7 +154,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new
+                ModelManager(model.getAddressBook(), new UserPrefs(), new InternalState(), new ActivityBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

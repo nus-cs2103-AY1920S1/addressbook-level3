@@ -2,156 +2,184 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_ACTIVITY2;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_TITLE2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalActivities.getTypicalActivityBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand.EditActivityDescriptor;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.ActivityBook;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Context;
+import seedu.address.model.InternalState;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Title;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.ActivityBuilder;
+import seedu.address.testutil.EditActivityDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(
+            getTypicalAddressBook(), new UserPrefs(), new InternalState(), getTypicalActivityBook());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+    public void execute_allFieldsSpecifiedContactViewContext_success() {
+        Person editedPerson = new PersonBuilder().withName("a name").build();
+        EditPersonDescriptor pd = new EditPersonDescriptorBuilder(editedPerson).build();
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
+        EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        Person personToEdit = model.getFilteredPersonList().get(0);
+        model.setContext(new Context(personToEdit));
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs(), new InternalState(), getTypicalActivityBook());
+        expectedModel.setPerson(personToEdit, editedPerson);
+        Context newContext = new Context(editedPerson);
+        expectedModel.setContext(newContext);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, newContext);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+    public void execute_someFieldsSpecifiedContactViewContext_success() {
+        int last = model.getFilteredPersonList().size();
+        Person lastPerson = model.getFilteredPersonList().get(last - 1);
+        model.setContext(new Context(lastPerson));
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditPersonDescriptor pd = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
+        EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new UserPrefs(), new InternalState(), getTypicalActivityBook());
+
         expectedModel.setPerson(lastPerson, editedPerson);
+        Context newContext = new Context(editedPerson);
+        expectedModel.setContext(newContext);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, newContext);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_allFieldsSpecifiedActivityViewContext_success() { // currently only 1 field
+        int last = model.getFilteredActivityList().size();
+        Activity lastActivity = model.getFilteredActivityList().get(last - 1);
+        model.setContext(new Context(lastActivity));
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        ActivityBuilder activityInList = new ActivityBuilder(lastActivity);
+        Activity editedActivity = activityInList.withTitle(VALID_ACTIVITY_TITLE2).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        EditActivityDescriptor ad = new EditActivityDescriptorBuilder().withTitle(VALID_ACTIVITY_TITLE2).build();
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        // Also checks that EditPersonDescriptor information is ignored because it is a activity view context
+        EditCommand editCommand = new EditCommand(DESC_AMY, ad);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUCCESS, editedActivity);
+
+        Model expectedModel = new ModelManager(getTypicalAddressBook(),
+                new UserPrefs(), new InternalState(), new ActivityBook(model.getActivityBook()));
+
+        expectedModel.setActivity(lastActivity, editedActivity);
+        Context newContext = new Context(editedActivity);
+        expectedModel.setContext(newContext);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, newContext);
     }
 
     @Test
-    public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_noFieldSpecifiedContactViewContext_failure() {
+        // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
+        EditCommand editCommand = new EditCommand(new EditPersonDescriptor(), DESC_ACTIVITY2);
+        Person editedPerson = model.getFilteredPersonList().get(0);
+        model.setContext(new Context(editedPerson));
 
-        Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_USAGE);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+    public void execute_noFieldSpecifiedActivityViewContext_failure() {
+        // Also checks that EditPersonDescriptor information is ignored because it is an activity view context
+        EditCommand editCommand = new EditCommand(DESC_AMY, new EditActivityDescriptor());
+        Activity editedActivity = model.getFilteredActivityList().get(0);
+        model.setContext(new Context(editedActivity));
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_USAGE);
+    }
+
+    @Test
+    public void execute_wrongContext_failure() {
+        model.setContext(Context.newListActivityContext());
+        EditPersonDescriptor pd = new EditPersonDescriptorBuilder(new PersonBuilder().build()).build();
+        EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_WRONG_CONTEXT);
+    }
+
+    @Test
+    public void execute_duplicatePersonContactViewContext_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(0);
+        model.setContext(new Context(firstPerson));
+        EditPersonDescriptor pd = new EditPersonDescriptorBuilder(firstPerson).build();
+
+        // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
+        EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    public void execute_duplicateNameContactViewContext_failure() {
+        Person firstPerson = model.getAddressBook().getPersonList().get(0);
+        model.setContext(new Context(firstPerson));
+        Person personInList = model.getAddressBook().getPersonList().get(1);
+        EditPersonDescriptor pd = new EditPersonDescriptor();
+        pd.setName(personInList.getName());
 
-        // edit person in filtered list into a duplicate in address book
-        Person personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(personInList).build());
+        // Also checks that EditActivityDescriptor information is ignored because it is a contact view context
+        EditCommand editCommand = new EditCommand(pd, DESC_ACTIVITY2);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }
-
-    @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
-     */
-    @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(DESC_AMY, DESC_ACTIVITY2);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditPersonDescriptor pdCopy = new EditPersonDescriptor(DESC_AMY);
+        EditActivityDescriptor adCopy = new EditActivityDescriptor(DESC_ACTIVITY2);
+        EditCommand commandWithSameValues = new EditCommand(pdCopy, adCopy);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,11 +191,10 @@ public class EditCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
-        // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
-
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(DESC_BOB, DESC_ACTIVITY2)));
+        EditActivityDescriptor ad = new EditActivityDescriptor();
+        ad.setTitle(new Title(DESC_ACTIVITY2.getTitle().get() + "e"));
+        assertFalse(standardCommand.equals(new EditCommand(DESC_BOB, ad)));
     }
-
 }

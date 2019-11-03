@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= SplitWiser Level 3 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Vortex`      Since: `Sept 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -122,7 +122,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores a `Context` object that represents the current application context.
+* stores a JSON serializable `InternalState` object in order to keep track of primary key counters for both `Person` and `Activity`.
+* stores the Address Book and Activity Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -130,6 +132,14 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+
+[NOTE]
+`Activity` and `Expense` keeps track of the people involved by storing IDs instead of objects, hence there is no direct dependency on the `Person` class.
+[]
+
+[NOTE]
+Strictly speaking, `Context` only stores a single `Optional<Object>`, which can only be an `Activity` or `Person`. Hence, it is not actually possible for `Context` to contain both and `Activity` and `Person`, unlike what Figure 7 might suggest.
+[]
 
 [[Design-Storage]]
 === Storage component
@@ -152,6 +162,250 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+// tag::activityclass[]
+=== Activity class
+`Activity` is a class used to store activities and their details. It contains the following information:
+
+* Primary Key
+
+Each `Activity` has a unique primary key used by external classes to identify and access them, without unnecessary dependencies.
+
+* Title
+
+Title of the activity is stored using `Title`, which runs validations to ensure that the title is valid. Currently, the only restriction for the title is that it can't be blank.
+
+* Participants
+
+Participants are saved internally under `participantIds`, which only stores the primary key of `Contact` involved.
+
+* Expenses incurred by this activity
+
+Expenses are stored as `Expense`. Refer to <<Expense>> for more details. (TBD)
+
+* Outstanding balance for each participant
+
+The balance of each participants are stored internally under `participantBalances`.
+
+All `Activity` objects are stored in `ActivityBook`.
+
+The following class diagram describes the implementation of `Activity`.
+
+.Structure of the Activity class
+image::ActivityClassDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Storage of participant
+
+* **Alternative 1 (current choice):** Only storing the primary key of participants
+** *Pros*: Minimizes dependency and potential bugs.
+** *Cons*: More difficult for external classes to retrieve participant objects if necessary.
+** *Reason for choice*: Storing entire object can potentially cause bugs, as there are no mechanisms to ensure the consistency of data between `Person` object in `Activity` and `AddressBook`.
+
+* **Alternative 2:** Storing the entire `Person` object inside the `Activity`.
+** Pros: Easier to implement. Object can be easily retrieved when necessary.
+** Cons: Creates extra dependency between classes. More prone to error.
+
+// tag::createactivity[]
+=== Create activity feature
+Mechanism to create activity is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operation:
+
+* `Activity()` -- Constructor used to create a new `Activity`.
+
+All `Activity` models are stored inside `ActivityBook`.
+
+When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately.
+
+Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
+
+Given below is an example usage scenario and how the create activity mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/Breakfast p/David` command to create an activity named Breakfast in the activity book, with David as a participant.
+
+Step 3. The user executes `activity t/Lunch p/Alex p/David` command to create an activity named Lunch in the activity book. In this case, as there are two contacts with the name "Alex", only David is added into the Lunch activity as a participant.
+
+//TODO: Add sequence diagram and Activity diagram showing how this works
+
+==== Design Considerations
+
+===== Aspect: Finding the correct contact to add
+
+* **Alternative 1 (current choice):** Users can use keywords to specify the contact to be added.
+** *Pros*: Improves usability.
+** *Cons*: Difficult to implement. Necessary to handle multiple edge cases.
+** *Reason for choice*: Forcing users to specify exact full name was deemed to be too tedious.
+
+* **Alternative 2:** Users must type in the exact full name of the contact to be added.
+** Pros: Easy to implement. Low possibility of bugs.
+** Cons: Significantly decreases usability of the application.
+
+// tag::algorithm[]
+=== Debt simplification algorithm
+The algorithm is inspired by https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[this paper].
+
+We can gurantee the removal of all needless payments.
+The amount of money each person has to hand is minimized.
+We are unable to minimize the number of transactions made.
+The paper gives an overview of that problem and why it is NP-complete (subset-sum).
+
+==== Operation details
+The amounts each person owes to another is represented by a graph in an adjacency matrix.
+The algorithm represents the payments to be made as a matrix.
+There are some other data structures to facilitate its operation, but the code is generally well commented and they are not major player so we will skip them.
+Also note that the matrices are necesarrily skew-symmetric: for example if A owes B $10, then B owes A $-10.
+
+To rephrase our gurantee in this context will be: we want to minimize weights.
+We do not care about the number of edges.
+Certainly we do not mean each person repeatedly pays out $1, $1, $1!
+Our idea of "minimum weights" refer to the total amount someone has to handle.
+
+The lower bound for the amount someone has to handle is the balance.
+We create a balance sheeet for the users which is expanded as people enter the activity.
+Each expense added, the algorithm retrieves from it:
+* who is involved,
+* who paid,
+* how much has been paid,
+splits everything correctly, and updates all the data structures appropriately.
+
+Someone's balance is positive if he received more than he owes.
+Then, a negative balance indicates them lending more than they received.
+The algorithm simply finds any two people whose balances have opposing signs.
+It is unimportant what is the magnitude of their balances (we do not need to take them in any order).
+What then happens is then the person with the smallest magnitude of balance neutralizes his balance by paying or being paid by the other party.
+The algorithm terminates when all balances are 0.
+
+==== Proof of optimality
+This is a short proof of optimality since we want it to be called "algorithm", not "heuristic".
+
+In essence what we are constructing is a bipartite graph.
+The algorithm never allows someone who owes to be paid, or someone who is owed to pay even more.
+Hence we can classify all nodes into those with leaving edges (payers) and those with entering edges (payee).
+
+In a bipartite graph the amount each person handles is minimized.
+To see why, we have to keep in mind that the algorithm always neutralizes one of the parties' balance.
+That is to say, we will not be left with the case where someone who could pay off all his debts "overpaying".
+In such a case, someone will then have to pay him back, which means it is no longer bipartite.
+
+==== Time and Space complexity
+We take O(N^2) space and O(N) time.
+Updating of the balance sheet and matrices by the expense command is performed in O(1) time.
+
+==== Design Considerations
+
+===== Aspect: Precision
+
+* **Alternative 1 (current choice):** Just use `double`.
+** *Pros*: Easy, straightforward, good enough.
+** *Cons*: Floating point precision might stack up.
+** *Reason for choice*: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.
+
+* **Alternative 2:** Implement a `Rational` class for rational numbers.
+** Pros: Guranteed precision.
+** Cons: Seems overkill and needlessly over-engineered.
+// end::algorithm[]
+
+=== List feature
+
+The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
+
+`Context` is an immutable utility class that describes the nature of the current view of the app. It stores state information about the `ContextType` as well as an optional `Object` of interest. A `Context` may be instantiated either by
+
+* one of the factory methods `newListActivityContext` or `newListContactContext`
+* invoking the constructor with either an `Activity` or `Contact` of interest
+
+The `Context` class exposes relevant getter methods `Context#getType`, `Context#getActivity` and `Context#getContact`, and thus supports contextual behaviour of other commands.
+
+During execution, the List command creates the intended `Context` and updates the `Model` with it, along with the appropriate `FilteredList`. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
+
+The updated `ContextType` of the `Model` is then returned to the `MainWindow` UI controller via the `CommandResult`, where it is used to switch the content displayed.
+
+Given below is an example usage scenario of a user intending to view the list of activities.
+
+Step 1. The user launches the `SplitWiser` application for the first time, which defaults to displaying the list of contacts.
+
+Step 2. The user executes the command string `list a/` to prompt the app to display the full list of activities.
+
+The following sequence diagram demonstrates the role of the respective components.
+
+image::ViewSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: representing the current context state
+
+* **Alternative 1 (current choice):** Creating an immutable `Context` class as a state container to store the appropriate information.
+** Pros: Lightweight; context state can be easily passed between components that require access, as it is encapsulated entirely within `Context`.
+** Cons: Harder to implement.
+
+* **Alternative 2:** Storing the `Context` state in a designated central component, e.g. the `ModelManager`, and exposing relevant methods to other components.
+** Pros: Trivial to implement.
+** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
+
+// tag::invitedisinvite[]
+=== Invite/Disinvite feature
+==== Implementation
+
+The invite/disinvite mechanism is facilitated by `Activity`.
+It extends `AddressBook` with an `ActivityBook`, stored internally as an `activityList`. Additionally, it implements the following operations:
+
+* `Activity#invite()` -- Invites a person to the activity.
+* `Activity#disinvite()` -- Disinvites a person from the activity.
+
+These operations are exposed in the `Activity` class as `Activity#invite()` and `Activity#disinvite()` respectively.
+
+Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+
+Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast with `David` as the sole participant which is stored in the `activityList`.
+
+Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()`, inviting more participants into the activity. The `activityList` will then be modified with the newly invited participants which is then stored in the `ActivityBook`.
+
+The following sequence diagram shows how the invite operation works:
+
+image::InviteSequenceDiagram.png[]
+
+NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Therefore, it is perfectly fine to remove that person from the activity since he does not owe money to anyone and no one else owes him money.
+Hence the user decides to remove that person by executing the `disinvite` command.
+
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()`, removing participants from the activity. The `activityList` will then be modified due to a change in participants which is then stored in the `ActivityBook`.
+
+NOTE: The sequence diagram for the disinvite operation is omitted as it is similar to the invite operation.
+
+The following activity diagram summarizes what happens when a user executes an invite command:
+
+image::InviteActivityDiagram.png[]
+
+NOTE: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
+
+==== Design Considerations
+
+===== Aspect: How invite & disinvite executes
+
+* **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
+** Pros: More user-friendly. Users do not have to keep specifying which activity to invite the participants to each time an invite command is made.
+** Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.
+
+* **Alternative 2:** Invite/disinvite based on user specifying the activity number.
+** Pros: Easy to implement.
+** Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.
+
+===== Aspect: Data structure to support the invite/disinvite commands
+
+* **Alternative 1 (current choice):** Use a list to store the participants' ID in the activity instead of participants.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Have to find particular participant that matches the ID specified.
+
+* **Alternative 2:** Use list to store participants instead of ID
+** Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
+** Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.
+// end::invitedisinvite[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -279,51 +533,163 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* anyone who engages in group activities that involves spending
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage debts faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="90%",cols="10%,<15%,35%,40%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | user | add contacts| so that I can keep track of my list of contacts.
 
-|`* * *` |user |add a new person |
+|`* * *` | user | set how much each of my contacts owe me| so that I know the amount of money each person owes me.
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | user | set how much I owe one of my contacts| so that I know who I owe money to.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | user | see the details of the balances of each contact| so that I know which activity each transactions were from.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` | user | create a group activity with multiple contacts| so that is easier for us to keep track of the group's expenditure.
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` | user | see how much each person should be paying each other at the end of the activity| so that I can avoid confusion
+
+|`* * *` | user | delete expenses| remove incorrect entries
+
+|`* * *` | user | delete group activities| remove activities that are over
+
+|`* *` | user | specify when a contact borrowed money from me| know how long he has owed me money for.
+
+|`* *` | user | specify when I borrowed money from a contact| know how long I have owed money for.
+
+|`* *` | user | sort my contacts| filter through information.
+
+|`* *` | traveller | add expenses in other currencies | keep track of debts.
+
+|`* *` | traveller | have expenses in other currencies to be converted to a single currency | simplify my life.
+
+|`* *` | user | attach tags to individual expenses and activities | search more conveniently.
+
+|`* *` | user | tag an expense with a picture | keep electronic copies of receipts or invoices as proof.
+
+|`* *` | user | see all my activities in a calendar view | keep track of what has happened.
+
+|`* *` | user | set a recurring reminder for contacts that owes me money | know when to request people to pay back.
+
+|`* *` | user | set a recurring reminder for contacts I loaned from | know when to pay them back
+
+|`* *` | user | add profile picture to a contact | know how they look like.
+
+|`* *` | user | export my data and import it from a different application| can sync my debt through multiple devices.
+
+|`*` | user| set up automated periodic notifications (emails, etc.) to people who owe me money | remind them to pay me back.
+
+|`*` | user| keep track of objects that I lent and borrowed from other people | remember to return them.
+
+|`*` | user| specify conditions on the loans | assure the loaned items are returned in a specified condition.
+
+|`*` | user| export the data to other format (.ics etc.)i | export the data to other applications.
+
+|`*` | traveller| create a common pool of funds to spend for large group activities| simplify tracking of common expenses
+
+|`*` | user| extract information from a picture of a bill| save the trouble of entering expense details myself.
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `SplitWiser` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: List contacts
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to list contacts
+2. SplitWiser shows a list of contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of contacts is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: List activites
+
+*MSS*
+
+1. User requests to list activities
+2. SplitWiser shows a list of activities
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of activities is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: View an activity
+
+*MSS*
+
+1. User requests to view an activity with a specific activity ID
+2. SplitWiser shows details of the specified activity
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. No activity exists with the specified activity ID.
++
+[none]
+** 1a1. SplitWiser shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Create an activity
+
+*MSS*
+
+1. User requests to create an activity with a given title and participant(s)
+2. SplitWiser creates the activity with the supplied title and no expenses
+3. SplitWiser adds the user and the supplied contact(s) to the activity
+4. SplitWiser shows details of the newly created activity
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User specifies one or more participants that are not found in the list of contacts
++
+[none]
+** 1a1. SplitWiser prompts the user to [.underline]#create new contacts# for each of the missing participants
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1.  User requests to list contacts
+2.  SplitWiser shows a list of contacts
+3.  User requests to delete a specific contact in the list
+4.  SplitWiser deletes the person
 +
 Use case ends.
 
@@ -337,29 +703,24 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. SplitWiser shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has `Java 11` or above installed.
+.  Should be able to store up to 1000 contacts and activities without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should run smoothly on reasonably lower spec computers.
 
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Windows, Linux, *nix, OS-X
 
 [appendix]
 == Product Survey
@@ -391,7 +752,9 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Open the terminal.
+.. Navigate to where you saved the jar file.
+.. Execute the file with `java -jar <name of jar>` +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
@@ -399,8 +762,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -413,8 +774,6 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
