@@ -15,9 +15,6 @@ public class PurchaseMoneySpent {
             "Money spent on a purchase must have a maximum of 2 decimal places, be a positive value "
                     + "and it should not be blank.";
 
-    public static final String MONEY_CONSTRAINTS =
-            "Money spent cannot be equal to or less than 0.";
-
     public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1,2})?";
 
     private static DecimalFormat df2 = new DecimalFormat("#.00");

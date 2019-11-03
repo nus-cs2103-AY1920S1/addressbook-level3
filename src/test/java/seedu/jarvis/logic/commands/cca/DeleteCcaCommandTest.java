@@ -6,7 +6,6 @@ import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.showCcaAtIndex;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_CCA;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_SECOND_CCA;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 import static seedu.jarvis.testutil.cca.TypicalCcas.CANOEING;
 
 import org.junit.jupiter.api.Assertions;
@@ -37,8 +36,8 @@ public class DeleteCcaCommandTest {
     public void setUp() {
         CcaTracker ccaTracker = new CcaTracker();
         ccaTracker.addCca(CANOEING);
-        model = new ModelManager(ccaTracker, new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(ccaTracker, new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
     }
 
     @Test
@@ -49,8 +48,7 @@ public class DeleteCcaCommandTest {
         String expectedMessage = String.format(DeleteCcaCommand.MESSAGE_DELETE_CCA_SUCCESS, ccaToDelete);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.removeCca(ccaToDelete);
 
         assertCommandSuccess(deleteCcaCommand, model, expectedMessage, expectedModel);
@@ -58,7 +56,7 @@ public class DeleteCcaCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCcaList().size() + 1);
         DeleteCcaCommand deleteAddressCommand = new DeleteCcaCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteAddressCommand, model, Messages.MESSAGE_INVALID_CCA_DISPLAYED_INDEX);
@@ -74,8 +72,7 @@ public class DeleteCcaCommandTest {
         String expectedMessage = String.format(DeleteCcaCommand.MESSAGE_DELETE_CCA_SUCCESS, ccaToDelete);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.removeCca(ccaToDelete);
 
         assertCommandSuccess(deleteCcaCommand, model, expectedMessage, expectedModel);
@@ -118,7 +115,7 @@ public class DeleteCcaCommandTest {
      * Updates {@code model}'s filtered list to show no cca.
      */
     private void showNoCca(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredCcaList(p -> false);
 
         Assertions.assertTrue(model.getFilteredCcaList().isEmpty());
     }

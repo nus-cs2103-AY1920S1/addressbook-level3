@@ -3,6 +3,8 @@ package seedu.jarvis.model.finance;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
+
 /**
  * Represents the monthly limit set in the finance tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
@@ -10,15 +12,17 @@ import static seedu.jarvis.commons.util.AppUtil.checkArgument;
 public class MonthlyLimit {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Monthly limit set should be taken as doubles, "
-                    + "and it should not be blank";
+            "Monthly limit set must have a maximum of 2 decimal places, be a positive value "
+                    + "and it should not be blank.";
 
     public static final String MONEY_CONSTRAINTS =
             "Money spent cannot be equal to or less than 0.";
 
-    public static final String VALIDATION_REGEX = "[0-9]{1,13}(\\.[0-9]*)?";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1,2})?";
 
-    public final double monthlyLimit;
+    private static DecimalFormat df2 = new DecimalFormat("#.00");
+
+    private final double monthlyLimit;
 
     /**
      * Constructs a {@code MonthlyLimit}.
@@ -42,9 +46,13 @@ public class MonthlyLimit {
         return monthlyLimit;
     }
 
+    public String getLimitValue() {
+        return Double.toString(getMonthlyLimit());
+    }
+
     @Override
     public String toString() {
-        return Double.toString(monthlyLimit);
+        return "$" + df2.format(monthlyLimit);
     }
 
     @Override

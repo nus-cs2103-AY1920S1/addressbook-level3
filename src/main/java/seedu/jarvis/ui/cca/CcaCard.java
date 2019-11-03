@@ -11,6 +11,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Shape;
 import seedu.jarvis.model.cca.Cca;
 import seedu.jarvis.model.cca.Equipment;
+import seedu.jarvis.model.cca.exceptions.CcaProgressNotIncrementedException;
 import seedu.jarvis.ui.UiPart;
 
 /**
@@ -20,6 +21,7 @@ public class CcaCard extends UiPart<Region> {
 
     private static final String FXML = "CcaListCard.fxml";
     private static final String TEXT_CCA_PROGRESS_NOT_SET_YET = "Not set";
+    private static final String TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET = "Not incremented";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -91,9 +93,18 @@ public class CcaCard extends UiPart<Region> {
     private void setProgressName() {
         if (cca.ccaMilestoneListIsEmpty()) {
             progressName.setText(TEXT_CCA_PROGRESS_NOT_SET_YET);
-        } else {
-            progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
+            return;
+        } else if (cca.getCcaCurrentProgressAsInt() == 0) {
+            progressName.setText(TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET);
+            return;
         }
+
+        try {
+            progressName.setText("Current milestone: " + cca.getCurrentCcaMilestone().toString());
+        } catch (CcaProgressNotIncrementedException e) {
+            progressName.setText(TEXT_CCA_PROGRESS_NOT_INCREMENTED_YET);
+        }
+
     }
 
     /**

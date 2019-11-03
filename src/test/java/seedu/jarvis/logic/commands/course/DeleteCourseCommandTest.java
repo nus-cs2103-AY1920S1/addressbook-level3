@@ -17,7 +17,6 @@ import seedu.jarvis.commons.core.Messages;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.Course;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -34,13 +33,12 @@ public class DeleteCourseCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-            new AddressBook(), new UserPrefs(), new Planner(), getTypicalCoursePlanner());
+            new UserPrefs(), new Planner(), getTypicalCoursePlanner());
 
         expectedModel = new ModelManager(
             model.getCcaTracker(),
             model.getHistoryManager(),
             model.getFinanceTracker(),
-            model.getAddressBook(),
             new UserPrefs(),
             model.getPlanner(),
             model.getCoursePlanner()
@@ -120,7 +118,6 @@ public class DeleteCourseCommandTest {
             model.getCcaTracker(),
             model.getHistoryManager(),
             model.getFinanceTracker(),
-            model.getAddressBook(),
             new UserPrefs(),
             model.getPlanner(),
             model.getCoursePlanner()

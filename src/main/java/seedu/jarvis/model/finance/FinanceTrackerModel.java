@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.finance.installment.Installment;
 import seedu.jarvis.model.finance.purchase.Purchase;
 
@@ -25,10 +24,8 @@ public interface FinanceTrackerModel {
 
     /**
      * Retrieves purchase at a particular index as seen on the list of finance tracker.
-     *
-     * @throws CommandException is thrown if purchase does not exist
      */
-    Purchase getPurchase(int paymentIndex) throws CommandException;
+    Purchase getPurchase(int paymentIndex);
 
     /**
      * Updates the filter of the purchase list to be viewed with the new predicate.
@@ -82,10 +79,8 @@ public interface FinanceTrackerModel {
 
     /**
      * Retrieves installment at a particular index as seen on the list of finance tracker.
-     *
-     * @throws CommandException is thrown if installment does not exist
      */
-    Installment getInstallment(int instalIndex) throws CommandException;
+    Installment getInstallment(int instalIndex);
 
     /**
      * Updates the filter of the installment list to be viewed with the new predicate.
@@ -137,6 +132,13 @@ public interface FinanceTrackerModel {
      * @return boolean
      */
     boolean hasInstallment(Installment installment);
+
+    /**
+     * Checks for the existence of an installment with the same description in the finance tracker.
+     *
+     * @param installment to be checked
+     */
+    boolean hasSimilarInstallment(Installment installment);
 
     /**
      * Replaces the installment in the list with {@code editedInstallment}.

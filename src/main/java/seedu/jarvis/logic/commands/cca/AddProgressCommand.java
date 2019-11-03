@@ -31,10 +31,10 @@ public class AddProgressCommand extends Command {
             + "[" + PREFIX_PROGRESS_LEVEL_NAMES + "PROGRESS LEVEL NAME]...\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
-            + PREFIX_PROGRESS_LEVEL_NAMES + "bronze standard "
-            + PREFIX_PROGRESS_LEVEL_NAMES + "silver standard "
-            + PREFIX_PROGRESS_LEVEL_NAMES + "gold standard "
-            + PREFIX_PROGRESS_LEVEL_NAMES + "gold star standard";
+            + PREFIX_PROGRESS_LEVEL_NAMES + "bronze "
+            + PREFIX_PROGRESS_LEVEL_NAMES + "silver "
+            + PREFIX_PROGRESS_LEVEL_NAMES + "gold "
+            + PREFIX_PROGRESS_LEVEL_NAMES + "gold star";
 
     public static final String MESSAGE_SUCCESS = "New progress added to cca at index: %1$s";
     public static final String MESSAGE_CCA_PROGRESS_ALREADY_SET = "A progress already exists in this cca.";

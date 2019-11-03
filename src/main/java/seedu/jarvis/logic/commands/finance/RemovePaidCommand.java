@@ -26,14 +26,15 @@ public class RemovePaidCommand extends Command {
     public static final String COMMAND_WORD = "delete-paid";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the purchase identified by the index number used in the displayed list of purchases.\n"
+            + ": Jarvis will remove the purchase identified by the index number used in the displayed list of "
+            + "purchases.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Deleted purchase: %1$s";
+    public static final String MESSAGE_DELETE_PURCHASE_SUCCESS = "Jarvis has deleted this purchase! \n%1$s";
 
-    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "New purchase added: %1$s";
-    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Purchase already added: %1$s";
+    public static final String MESSAGE_INVERSE_SUCCESS_ADD = "Jarvis has added this purchase back: %1$s";
+    public static final String MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST = "Purchase was already added: %1$s";
 
     public static final boolean HAS_INVERSE = true;
 
@@ -103,7 +104,7 @@ public class RemovePaidCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return {@code CommandResult} of a successful delete.
-     * @throws CommandException If targetIndex is >= the number of persons in address book.
+     * @throws CommandException If targetIndex is >= the number of installments in finance tracker.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -131,6 +132,11 @@ public class RemovePaidCommand extends Command {
     @Override
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasPurchase(deletedPurchase)) {
+            throw new CommandException(String.format(MESSAGE_INVERSE_PURCHASE_TO_ADD_ALREADY_EXIST,
+                    deletedPurchase));
+        }
 
         model.addPurchase(targetIndex.getZeroBased(), deletedPurchase);
 
