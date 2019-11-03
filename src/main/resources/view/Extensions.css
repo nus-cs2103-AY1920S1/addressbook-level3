@@ -23,7 +23,7 @@
     -fx-background-color: #fff;
 }
 
-.divider-colured {
+.divider-coloured {
     -fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);
 }
 
