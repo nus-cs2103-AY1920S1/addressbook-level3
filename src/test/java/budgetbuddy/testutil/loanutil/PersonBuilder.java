@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.loanutil;
 
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;

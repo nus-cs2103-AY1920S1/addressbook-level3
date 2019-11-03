@@ -8,8 +8,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
-import budgetbuddy.testutil.LoanBuilder;
-import budgetbuddy.testutil.TypicalLoans;
+import budgetbuddy.testutil.loanutil.LoanBuilder;
+import budgetbuddy.testutil.loanutil.TypicalLoans;
 
 public class LoanTest {
 

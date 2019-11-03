@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.ruleutil;
 
 import budgetbuddy.model.rule.RulePredicate;
 import budgetbuddy.model.rule.script.PredicateScript;

@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.loanutil;
 
 import java.util.HashMap;
 import java.util.List;

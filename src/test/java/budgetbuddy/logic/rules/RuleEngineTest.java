@@ -36,10 +36,10 @@ import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import budgetbuddy.testutil.TestUtil;
-import budgetbuddy.testutil.TypicalActions;
 import budgetbuddy.testutil.TypicalIndexes;
-import budgetbuddy.testutil.TypicalPredicates;
-import budgetbuddy.testutil.TypicalRules;
+import budgetbuddy.testutil.ruleutil.TypicalActions;
+import budgetbuddy.testutil.ruleutil.TypicalPredicates;
+import budgetbuddy.testutil.ruleutil.TypicalRules;
 
 class RuleEngineTest {
 

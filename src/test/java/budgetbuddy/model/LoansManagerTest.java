@@ -22,10 +22,10 @@ import budgetbuddy.model.loan.predicates.AmountMatchPredicate;
 import budgetbuddy.model.loan.predicates.DateMatchPredicate;
 import budgetbuddy.model.loan.predicates.DescriptionMatchPredicate;
 import budgetbuddy.model.loan.predicates.PersonMatchPredicate;
-import budgetbuddy.testutil.LoanBuilder;
-import budgetbuddy.testutil.TypicalDebtors;
 import budgetbuddy.testutil.TypicalIndexes;
-import budgetbuddy.testutil.TypicalLoans;
+import budgetbuddy.testutil.loanutil.LoanBuilder;
+import budgetbuddy.testutil.loanutil.TypicalDebtors;
+import budgetbuddy.testutil.loanutil.TypicalLoans;
 
 public class LoansManagerTest {
 

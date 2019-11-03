@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.loanutil;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;

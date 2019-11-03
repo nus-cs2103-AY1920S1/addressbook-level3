@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import budgetbuddy.testutil.TypicalLoans;
+import budgetbuddy.testutil.loanutil.TypicalLoans;
 
 public class DateMatchPredicateTest {
     @Test

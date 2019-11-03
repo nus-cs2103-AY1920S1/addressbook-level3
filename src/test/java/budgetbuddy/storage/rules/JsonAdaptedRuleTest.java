@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
-import budgetbuddy.testutil.TypicalRules;
+import budgetbuddy.testutil.ruleutil.TypicalRules;
 
 public class JsonAdaptedRuleTest {
     private static final JsonAdaptedPredicate INVALID_PREDICATE =

@@ -1,10 +1,10 @@
 package budgetbuddy.model;
 
 import static budgetbuddy.testutil.Assert.assertThrows;
-import static budgetbuddy.testutil.TypicalRules.EQUAL4090_INAMT_SCRIPT;
-import static budgetbuddy.testutil.TypicalRules.FOOD_DESC_FOOD;
-import static budgetbuddy.testutil.TypicalRules.LESS10_INAMT_SWITCH;
-import static budgetbuddy.testutil.TypicalRules.RULE_LIST;
+import static budgetbuddy.testutil.ruleutil.TypicalRules.EQUAL4090_INAMT_SCRIPT;
+import static budgetbuddy.testutil.ruleutil.TypicalRules.FOOD_DESC_FOOD;
+import static budgetbuddy.testutil.ruleutil.TypicalRules.LESS10_INAMT_SWITCH;
+import static budgetbuddy.testutil.ruleutil.TypicalRules.RULE_LIST;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.exceptions.RuleNotFoundException;
-import budgetbuddy.testutil.RuleBuilder;
-import budgetbuddy.testutil.TypicalActions;
 import budgetbuddy.testutil.TypicalIndexes;
+import budgetbuddy.testutil.ruleutil.RuleBuilder;
+import budgetbuddy.testutil.ruleutil.TypicalActions;
 
 public class RuleManagerTest {
 

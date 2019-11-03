@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.ruleutil;
 
 import java.util.List;
 

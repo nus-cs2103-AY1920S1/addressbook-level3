@@ -10,7 +10,7 @@ import budgetbuddy.model.rule.expression.ActionExpression;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.rule.script.ActionScript;
-import budgetbuddy.testutil.TypicalActions;
+import budgetbuddy.testutil.ruleutil.TypicalActions;
 
 public class JsonAdaptedActionTest {
     public static final String INVALID_OPERATOR = "clear";

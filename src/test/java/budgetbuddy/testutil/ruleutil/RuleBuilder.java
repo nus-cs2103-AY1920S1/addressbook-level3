@@ -1,4 +1,4 @@
-package budgetbuddy.testutil;
+package budgetbuddy.testutil.ruleutil;
 
 import budgetbuddy.model.rule.Rule;
 import budgetbuddy.model.rule.RuleAction;

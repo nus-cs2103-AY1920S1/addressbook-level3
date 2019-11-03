@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.model.attributes.Direction;
-import budgetbuddy.testutil.TypicalLoans;
+import budgetbuddy.testutil.loanutil.TypicalLoans;
 
 public class LoanFiltersTest {
 

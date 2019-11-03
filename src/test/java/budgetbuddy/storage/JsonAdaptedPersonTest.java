@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.storage.loans.JsonAdaptedPerson;
-import budgetbuddy.testutil.TypicalPersons;
+import budgetbuddy.testutil.loanutil.TypicalPersons;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";

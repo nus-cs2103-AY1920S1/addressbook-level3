@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
-import budgetbuddy.testutil.DebtorBuilder;
-import budgetbuddy.testutil.TypicalDebtors;
+import budgetbuddy.testutil.loanutil.DebtorBuilder;
+import budgetbuddy.testutil.loanutil.TypicalDebtors;
 
 public class DebtorTest {
 

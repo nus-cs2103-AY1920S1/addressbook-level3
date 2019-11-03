@@ -1,14 +1,14 @@
 package budgetbuddy.model.person;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static budgetbuddy.testutil.TypicalPersons.ALICE;
-import static budgetbuddy.testutil.TypicalPersons.BOB;
+import static budgetbuddy.testutil.loanutil.TypicalPersons.ALICE;
+import static budgetbuddy.testutil.loanutil.TypicalPersons.BOB;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import budgetbuddy.testutil.PersonBuilder;
+import budgetbuddy.testutil.loanutil.PersonBuilder;
 
 public class PersonTest {
 

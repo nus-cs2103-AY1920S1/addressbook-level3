@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import budgetbuddy.testutil.TypicalLoans;
+import budgetbuddy.testutil.loanutil.TypicalLoans;
 
 public class LoanSortersTest {
 

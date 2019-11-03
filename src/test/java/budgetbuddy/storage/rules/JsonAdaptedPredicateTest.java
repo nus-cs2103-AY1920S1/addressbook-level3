@@ -11,7 +11,7 @@ import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.rule.script.PredicateScript;
-import budgetbuddy.testutil.TypicalPredicates;
+import budgetbuddy.testutil.ruleutil.TypicalPredicates;
 
 public class JsonAdaptedPredicateTest {
     public static final String INVALID_ATTRIBUTE = "name";
