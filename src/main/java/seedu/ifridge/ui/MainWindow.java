@@ -231,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void displayShoppingListPanel() {
-        shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList());
+        shoppingListPanel = new ShoppingListPanel(logic.getFilteredShoppingList(), logic.getFilteredBoughtList());
         shoppingListPanelPlaceholder.getChildren().add(shoppingListPanel.getRoot());
         tabPane.getSelectionModel().select(shoppingListPage);
     }

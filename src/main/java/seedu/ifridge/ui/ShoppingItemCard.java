@@ -1,5 +1,6 @@
 package seedu.ifridge.ui;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -7,7 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
+
+import static seedu.ifridge.model.food.Amount.getValue;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -36,17 +40,35 @@ public class ShoppingItemCard extends UiPart<Region> {
     private Label id;
     @FXML
     private FlowPane urgentTag;
+    @FXML
+    private FlowPane boughtTag;
 
-    public ShoppingItemCard(ShoppingItem shoppingItem, int displayedIndex) {
+    public ShoppingItemCard(ShoppingItem shoppingItem, int displayedIndex, ObservableList<GroceryItem> boughtList) {
         super(FXML);
         this.shoppingItem = shoppingItem;
         id.setText(displayedIndex + ". ");
         name.setText(shoppingItem.getName().fullName);
         amount.setText(shoppingItem.getAmount().fullAmt);
-        Text text = new Text("urgent!");
-        text.setFill(Color.RED);
+        Text urgentText = new Text("Urgent!");
+        urgentText.setFill(Color.RED);
         if (shoppingItem.isUrgent()) {
-            urgentTag.getChildren().add(text);
+            urgentTag.getChildren().add(urgentText);
+        }
+        Text boughtText = new Text();
+        if (shoppingItem.isBought()) {
+            for (GroceryItem boughtItem : boughtList) {
+                if (boughtItem.isSameName(shoppingItem)) {
+                    if (getValue(boughtItem.getAmount()) >= getValue(shoppingItem.getAmount())) {
+                        boughtText = new Text("Fully Bought!");
+                        boughtText.setFill(Color.GREEN);
+                    } else {
+                        boughtText = new Text("Partially Bought");
+                        boughtText.setFill(Color.DARKORANGE);
+                    }
+                    break;
+                }
+            }
+            boughtTag.getChildren().add(boughtText);
         }
     }
 
