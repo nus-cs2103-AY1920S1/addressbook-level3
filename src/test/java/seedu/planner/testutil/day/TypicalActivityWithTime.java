@@ -11,41 +11,41 @@ import seedu.planner.testutil.activity.TypicalActivity;
  */
 public class TypicalActivityWithTime {
     public static final ActivityWithTime ACTIVITYONE = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYONE).withStartTime(9, 30).withEndTime(13, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYONE).withStartTime(9, 30).build();
 
     public static final ActivityWithTime ACTIVITYTWO = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYTWO).withStartTime(1, 30).withEndTime(3, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYTWO).withStartTime(1, 30).build();
 
     public static final ActivityWithTime ACTIVITYTHREE = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYTHREE).withStartTime(20, 00).withEndTime(00, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYTHREE).withStartTime(20, 00).build();
 
     public static final ActivityWithTime ACTIVITYFOUR = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYFOUR).withStartTime(10, 30).withEndTime(13, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYFOUR).withStartTime(10, 30).build();
 
     public static final ActivityWithTime ACTIVITYFIVE = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYFIVE).withStartTime(6, 30).withEndTime(9, 15).build();
+            .withActivity(TypicalActivity.ACTIVITYFIVE).withStartTime(6, 30).build();
 
     public static final ActivityWithTime ACTIVITYSIX = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYSIX).withStartTime(9, 30).withEndTime(13, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYSIX).withStartTime(9, 30).build();
 
     public static final ActivityWithTime ACTIVITYSEVEN = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYSEVEN).withStartTime(14, 30).withEndTime(15, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYSEVEN).withStartTime(14, 30).build();
 
     //Manually added
     public static final ActivityWithTime ACTIVITYEIGHT = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYEIGHT).withStartTime(17, 30).withEndTime(18, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYEIGHT).withStartTime(17, 30).build();
 
     public static final ActivityWithTime ACTIVITYNINE = new ActivityWithTimeBuilder()
-            .withActivity(TypicalActivity.ACTIVITYNINE).withStartTime(11, 00).withEndTime(23, 30).build();
+            .withActivity(TypicalActivity.ACTIVITYNINE).withStartTime(11, 00).build();
 
     // Manually added - Activity's details found in {@code CommandTestUtil}
     public static final ActivityWithTime ACTIVITY_A = new ActivityWithTimeBuilder()
             .withActivity(TypicalActivity.ACTIVITY_A)
-            .withStartTime(5, 00).withEndTime(10, 00).build();
+            .withStartTime(5, 00).build();
 
     public static final ActivityWithTime ACTIVITY_B = new ActivityWithTimeBuilder()
             .withActivity(TypicalActivity.ACTIVITY_B)
-            .withStartTime(7, 00).withEndTime(10, 00).build();
+            .withStartTime(7, 00).build();
 
     private TypicalActivityWithTime() {
     } // prevents instantiation

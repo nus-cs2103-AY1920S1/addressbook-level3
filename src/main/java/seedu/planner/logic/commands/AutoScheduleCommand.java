@@ -59,7 +59,6 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "Schedule for the day(s) generated!";
     public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
     public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
-    public static final LocalTime DEFAULT_END_TIME = LocalTime.parse("0000", TIME_FORMATTER);
 
     private List<Object> draftSchedule;
     private Address address;
@@ -220,8 +219,7 @@ public class AutoScheduleCommand extends UndoableCommand {
      * @param activity activity to be scheduled
      */
     private ActivityWithTime activityToSchedule(LocalTime currentTime, int duration, Activity activity) {
-        LocalTime endTime = currentTime.plusMinutes(duration);
-        return new ActivityWithTime(activity, currentTime, endTime);
+        return new ActivityWithTime(activity, currentTime);
     }
 
     /**

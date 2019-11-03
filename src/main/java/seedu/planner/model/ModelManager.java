@@ -271,7 +271,7 @@ public class ModelManager implements Model {
                 for (Integer i : indexOfOldActs) {
                     ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
                     listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
-                            oldActivityWithTime.getStartTime(), oldActivityWithTime.getEndTime()));
+                            oldActivityWithTime.getStartTime()));
                 }
                 Day newDay = new Day(listOfActivityWithTime);
                 setDay(day, newDay);
@@ -353,9 +353,13 @@ public class ModelManager implements Model {
                             List<ActivityWithTime> listOfActivityWithTime = y.getListOfActivityWithTime();
                             int indexOfOldItem = listOfActivityWithTime.indexOf(x);
                             ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldItem);
-                            listOfActivityWithTime.set(indexOfOldItem, new ActivityWithTime(newActivity,
-                                    oldActivityWithTime.getStartTime(),
-                                    oldActivityWithTime.getStartTime().plusMinutes(newActivity.getDuration().value)));
+                            listOfActivityWithTime.set(
+                                    indexOfOldItem,
+                                    new ActivityWithTime(
+                                        newActivity,
+                                        oldActivityWithTime.getStartTime()
+                                    )
+                            );
                         }
                     });
                     activityDayMap.put(newActivity, listOfDays);

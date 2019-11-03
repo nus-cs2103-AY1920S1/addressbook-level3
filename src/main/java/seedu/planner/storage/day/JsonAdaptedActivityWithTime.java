@@ -46,14 +46,10 @@ public class JsonAdaptedActivityWithTime {
     public ActivityWithTime toModelType() throws IllegalValueException {
         final Activity modelActivity = activity.toModelType();
         String[] stArray = startTime.split(":");
-        String[] etArray = endTime.split(":");
         int startHour = Integer.parseInt(stArray[0]);
         int startMin = Integer.parseInt(stArray[1]);
-        int endHour = Integer.parseInt(etArray[0]);
-        int endMin = Integer.parseInt(etArray[1]);
         LocalTime activityStartTime = LocalTime.of(startHour, startMin);
-        LocalTime activityEndTime = LocalTime.of(endHour, endMin);
-        return new ActivityWithTime(modelActivity, activityStartTime, activityEndTime);
+        return new ActivityWithTime(modelActivity, activityStartTime);
     }
 
 }

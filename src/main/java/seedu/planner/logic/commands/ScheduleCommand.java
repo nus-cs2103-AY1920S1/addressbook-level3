@@ -94,7 +94,7 @@ public class ScheduleCommand extends UndoableCommand {
         if (activityToSchedule.getDuration().value >= 1440 || endTime.isBefore(startTime)) {
             throw new CommandException(MESSAGE_END_TIME_EXCEEDS_2359);
         }
-        ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule, startTime, endTime);
+        ActivityWithTime activityWithTimeToAdd = new ActivityWithTime(activityToSchedule, startTime);
 
         model.scheduleActivity(dayToEdit, activityWithTimeToAdd);
 

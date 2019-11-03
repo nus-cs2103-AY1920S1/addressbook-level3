@@ -118,15 +118,15 @@ public class SampleDataUtil {
         Activity [] activities = getSampleActivities();
 
         ArrayList<ActivityWithTime> sampleActivities1 = new ArrayList<>();
-        sampleActivities1.add(new ActivityWithTime(activities[0], LocalTime.of(10, 30), LocalTime.of(12, 00)));
-        sampleActivities1.add(new ActivityWithTime(activities[1], LocalTime.of(14, 00), LocalTime.of(17, 30)));
+        sampleActivities1.add(new ActivityWithTime(activities[0], LocalTime.of(10, 30)));
+        sampleActivities1.add(new ActivityWithTime(activities[1], LocalTime.of(14, 00)));
 
         ArrayList<ActivityWithTime> sampleActivities2 = new ArrayList<>();
-        sampleActivities2.add(new ActivityWithTime(activities[3], LocalTime.of(10, 00), LocalTime.of(13, 30)));
+        sampleActivities2.add(new ActivityWithTime(activities[3], LocalTime.of(10, 00)));
 
         ArrayList<ActivityWithTime> sampleActivities3 = new ArrayList<>();
-        sampleActivities3.add(new ActivityWithTime(activities[2], LocalTime.of(18, 30), LocalTime.of(21, 30)));
-        sampleActivities3.add(new ActivityWithTime(activities[4], LocalTime.of(12, 30), LocalTime.of(13, 30)));
+        sampleActivities3.add(new ActivityWithTime(activities[2], LocalTime.of(18, 30)));
+        sampleActivities3.add(new ActivityWithTime(activities[4], LocalTime.of(12, 30)));
 
         return new Day[]{
             new Day(sampleActivities1), new Day(sampleActivities2), new Day(sampleActivities3)
