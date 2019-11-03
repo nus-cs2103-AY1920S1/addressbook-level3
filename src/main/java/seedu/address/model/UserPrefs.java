@@ -78,7 +78,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
      * Add a user defined {@code Alias} to the user prefs' {@code AliasMappings}
      * @param alias
      */
-    public void addUserAlias(Alias alias) throws RecursiveAliasException {
+    public void addUserAlias(Alias alias) {
         requireNonNull(alias);
         this.aliasMappings = aliasMappings.addAlias(alias);
     }

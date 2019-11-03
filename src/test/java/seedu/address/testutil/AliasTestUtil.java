@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_DESCRIPTION_DESC_CHICKEN;
 import static seedu.address.logic.commands.CommandTestUtil.EXPENSE_PRICE_DESC_CHICKEN;
 
-import seedu.address.commons.exceptions.RecursiveAliasException;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.expense.DeleteExpenseCommand;
@@ -47,17 +46,13 @@ public class AliasTestUtil {
 
     static {
         AliasMappings tempValidAliasMappings;
-        try {
             tempValidAliasMappings = new AliasMappings()
                         .addAlias(ALIAS_LIST_SHORTCUT)
                         .addAlias(ALIAS_ADD_WITH_ARGUMENTS)
                         .addAlias(ALIAS_FIND_SHORTCUT_INCOMPLETE)
                         .addAlias(ALIAS_A_TO_B)
                         .addAlias(ALIAS_B_TO_C);
-        } catch (RecursiveAliasException e) {
-            tempValidAliasMappings = null;
-            e.printStackTrace();
-        }
+
         VALID_ALIAS_MAPPINGS = tempValidAliasMappings;
     }
 }

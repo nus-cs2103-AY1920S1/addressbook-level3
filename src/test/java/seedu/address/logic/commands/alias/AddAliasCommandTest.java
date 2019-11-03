@@ -1,32 +1,51 @@
 package seedu.address.logic.commands.alias;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.alias.AddAliasCommand.MESSAGE_RECURSIVE_WARNING;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_A_TO_B;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_B_TO_C;
 import static seedu.address.testutil.AliasTestUtil.ALIAS_C_TO_A;
-import static seedu.address.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelHistory;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.testutil.AliasTestUtil;
+import seedu.address.model.alias.Alias;
+import seedu.address.ui.alias.AliasPanel;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class AddAliasCommandTest {
 
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
-    private Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    private Model model;
+
+    @BeforeEach
+    public void freshModel() {
+        model = new ModelSupportingAliasStub();
+    }
+
+    @Test
+    public void constructor_nullAlias_throwsException() {
+        assertThrows(NullPointerException.class, () -> new AddAliasCommand(null));
+        assertDoesNotThrow((() -> new AddAliasCommand(ALIAS_A_TO_B)));
+    }
+
+    @Test
+    public void validate_nullModel_throwsException() {
+        assertDoesNotThrow(() -> new AddAliasCommand(ALIAS_A_TO_B).validate(model));
+        assertThrows(NullPointerException.class, () -> new AddAliasCommand(ALIAS_C_TO_A).validate(null));
+    }
+
+    @Test
+    public void execute_nullModel_throwsException() {
+        assertDoesNotThrow(() -> new AddAliasCommand(ALIAS_A_TO_B).execute(model));
+        assertThrows(NullPointerException.class, () -> new AddAliasCommand(ALIAS_C_TO_A).execute(null));
+    }
 
     @Test
     public void equals() {
@@ -52,28 +71,40 @@ public class AddAliasCommandTest {
     }
 
     @Test
-    public void run_aliasNameIsReservedCommandWord_throwsCommandException() {
-        AddAliasCommand command = new AddAliasCommand(AliasTestUtil.ALIAS_NAME_ADD);
-        assertThrows(CommandException.class, () -> command.run(model));
+    public void execute_addAlias_modelAliasWithNameExistsBeforeFalseAfterTrue() {
+        Alias toAdd = ALIAS_A_TO_B;
+        assertFalse(model.aliasWithNameExists(toAdd.getAliasName()));
+        AddAliasCommand command = new AddAliasCommand(toAdd);
+        command.execute(model);
+        assertTrue(model.aliasWithNameExists(toAdd.getAliasName()));
     }
 
     @Test
-    public void run_aliasIsRecursive_throwsRecursiveAliasException() {
-        AddAliasCommand allowedAliasCommand1 = new AddAliasCommand(ALIAS_A_TO_B);
-        AddAliasCommand allowedAliasCommand2 = new AddAliasCommand(ALIAS_B_TO_C);
-        AddAliasCommand disallowedAliasCommand = new AddAliasCommand(ALIAS_C_TO_A);
-        assertDoesNotThrow(() -> allowedAliasCommand1.run(model));
-        assertDoesNotThrow(() -> allowedAliasCommand2.run(model));
-        String message = new CommandException(MESSAGE_RECURSIVE_WARNING).getMessage();
-        assertThrows(CommandException.class, () -> disallowedAliasCommand.run(model), message);
+    void getDescription_aliasNameMatchesAliasToAdd_descriptionMatches() {
+        Alias toAdd0 = ALIAS_A_TO_B;
+        String expected0 = String.format(AddAliasCommand.COMMAND_DESCRIPTION, toAdd0.getAliasName());
+        assertEquals(new AddAliasCommand(toAdd0).getDescription(), expected0);
+
+        Alias toAdd1 = ALIAS_B_TO_C;
+        String expected1 = String.format(AddAliasCommand.COMMAND_DESCRIPTION, toAdd1.getAliasName());
+        assertEquals(new AddAliasCommand(toAdd1).getDescription(), expected1);
     }
 
     @Test
-    public void run_aliasCommandIsValid_success() {
-        expectedModel.commitModel("");
-        expectedModel.addUserAlias(ALIAS_A_TO_B);
-        assertCommandSuccess(
-                new AddAliasCommand(ALIAS_A_TO_B), model,
-                String.format(AddAliasCommand.MESSAGE_SUCCESS, ALIAS_A_TO_B.getAliasName()), expectedModel);
+    void getDescription_aliasNameDoesNotMatchesAliasToAdd_descriptionDoesNotMatch() {
+        Alias toAdd0 = ALIAS_A_TO_B;
+        String expected0 = String.format(AddAliasCommand.COMMAND_DESCRIPTION, toAdd0.getAliasName());
+        Alias toAdd1 = ALIAS_B_TO_C;
+        String expected1 = String.format(AddAliasCommand.COMMAND_DESCRIPTION, toAdd1.getAliasName());
+
+        assertNotEquals(new AddAliasCommand(toAdd0).getDescription(), expected1);
+        assertNotEquals(new AddAliasCommand(toAdd1).getDescription(), expected0);
+    }
+
+    @Test
+    void execute_executed_commandResultPanelIsAliasPanel() {
+        assertEquals(
+                new AddAliasCommand(ALIAS_A_TO_B).execute(new ModelSupportingAliasStub()).viewRequest(),
+                AliasPanel.PANEL_NAME);
     }
 }

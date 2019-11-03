@@ -19,7 +19,13 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Timestamp;
 import seedu.address.model.statistics.Statistics;
 
-public class ModelWithAliasSupportingStub implements Model {
+public class ModelSupportingAliasStub implements Model {
+
+    private AliasMappings aliasMappings;
+
+    public ModelSupportingAliasStub() {
+        aliasMappings = new AliasMappings();
+    }
 
     @Override
     public void resetData(Model model) {
@@ -103,27 +109,27 @@ public class ModelWithAliasSupportingStub implements Model {
 
     @Override
     public AliasMappings getAliasMappings() {
-        throw new AssertionError("Method should not be called.");
+        return aliasMappings;
     }
 
     @Override
     public void setAliasMappings(AliasMappings aliasMappings) {
-        throw new AssertionError("Method should not be called.");
+        this.aliasMappings = aliasMappings;
     }
 
     @Override
     public void addUserAlias(Alias alias) {
-        throw new AssertionError("Method should not be called.");
+        aliasMappings = aliasMappings.addAlias(alias);
     }
 
     @Override
     public boolean removeAliasWithName(String aliasName) {
-        throw new AssertionError("Method should not be called.");
+        return aliasMappings.removeAlias(aliasName);
     }
 
     @Override
     public boolean aliasWithNameExists(String aliasName) {
-        throw new AssertionError("Method should not be called.");
+        return aliasMappings.aliasWithNameExists(aliasName);
     }
 
     @Override

@@ -16,7 +16,6 @@ import seedu.address.ui.alias.AliasPanel;
 public class ListAliasesCommand extends Command {
 
     public static final String COMMAND_WORD = GenericCommandWord.LIST + CommandGroup.ALIAS;
-    public static final String COMMAND_DESCRIPTION = "List aliases";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all user defined alises.";
 
     public static final String MESSAGE_SUCCESS = "You have %d aliases.";
@@ -24,13 +23,11 @@ public class ListAliasesCommand extends Command {
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
-        // no validation needed
     }
 
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
-
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, model.getAliasMappings().getAliases().size()),
                 AliasPanel.PANEL_NAME);

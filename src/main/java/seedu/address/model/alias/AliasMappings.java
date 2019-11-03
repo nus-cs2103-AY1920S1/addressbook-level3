@@ -119,11 +119,7 @@ public class AliasMappings implements Serializable {
     /**
      * Returns an {@code AliasMappings} with an added {@code Alias}.
      */
-    public AliasMappings addAlias(Alias alias) throws RecursiveAliasException {
-        if (aliasCommandWordIsAlias(alias)) {
-            throw new RecursiveAliasException(alias);
-        }
-
+    public AliasMappings addAlias(Alias alias) {
         AliasMappings aliasMappings = new AliasMappings(this);
         aliasMappings.aliasNameToAliasMap.put(alias.getAliasName(), alias);
         return aliasMappings;

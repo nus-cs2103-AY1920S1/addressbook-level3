@@ -199,12 +199,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addUserAlias(Alias alias) {
-        try {
-            userPrefs.addUserAlias(alias);
-        } catch (RecursiveAliasException e) {
-            // should should be prevented by validation
-            e.printStackTrace();
-        }
+        userPrefs.addUserAlias(alias);
     }
 
     public boolean aliasWithNameExists(String aliasName) {

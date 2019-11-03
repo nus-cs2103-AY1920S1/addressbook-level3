@@ -22,8 +22,6 @@ import static seedu.address.testutil.AliasTestUtil.ALIAS_NAME_LIST;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.RecursiveAliasException;
-import seedu.address.model.alias.Alias;
-import seedu.address.model.alias.AliasMappings;
 
 
 class AliasMappingsTest {
@@ -31,11 +29,7 @@ class AliasMappingsTest {
     @Test
     void aliasExists() {
         AliasMappings aliasMappings = new AliasMappings();
-        try {
-            aliasMappings.addAlias(ALIAS_A_TO_B);
-        } catch (RecursiveAliasException e) {
-            throw new AssertionError("RecursiveAliasException should not be thrown");
-        }
+        aliasMappings.addAlias(ALIAS_A_TO_B);
         aliasMappings.aliasWithNameExists(ALIAS_A_TO_B.getAliasName());
     }
 
@@ -73,61 +67,41 @@ class AliasMappingsTest {
     @Test
     void aliasCommandWordIsAlias_aliasCommandWordIsAliasNameOfExistingAlias_returnsTrue() {
         // returns true after alias with that name is added, false before
-        try {
-            AliasMappings aliasMappings = new AliasMappings();
-            aliasMappings = aliasMappings.addAlias(ALIAS_A_TO_B);
-            assertTrue(aliasMappings.aliasCommandWordIsAlias(ALIAS_C_TO_A));
-        } catch (RecursiveAliasException e) {
-            throw new AssertionError("RecursiveAliasException should not be thrown");
-        }
-        try {
-            AliasMappings aliasMappings = new AliasMappings();
-            aliasMappings = aliasMappings.addAlias(ALIAS_B_TO_C);
-            assertTrue(aliasMappings.aliasCommandWordIsAlias(ALIAS_A_TO_B));
-        } catch (RecursiveAliasException e) {
-            throw new AssertionError("RecursiveAliasException should not be thrown");
-        }
+
+        AliasMappings aliasMappings = new AliasMappings();
+        aliasMappings = aliasMappings.addAlias(ALIAS_A_TO_B);
+        assertTrue(aliasMappings.aliasCommandWordIsAlias(ALIAS_C_TO_A));
+
+        AliasMappings aliasMappings1 = new AliasMappings();
+        aliasMappings1 = aliasMappings1.addAlias(ALIAS_B_TO_C);
+        assertTrue(aliasMappings1.aliasCommandWordIsAlias(ALIAS_A_TO_B));
+
     }
 
     @Test
-    void addAlias_aliasCommandWordIsAlias_throwRecursiveAliasException() {
-        // right after
-        assertThrows(RecursiveAliasException.class, () -> {
-            new AliasMappings().addAlias(ALIAS_A_TO_B).addAlias(ALIAS_C_TO_A);
-        });
-        assertThrows(RecursiveAliasException.class, () -> {
-            new AliasMappings().addAlias(ALIAS_C_TO_A).addAlias(ALIAS_B_TO_C);
-        });
-        assertThrows(RecursiveAliasException.class, () -> {
-            new AliasMappings().addAlias(ALIAS_B_TO_C).addAlias(ALIAS_A_TO_B);
-        });
-
+    void addAlias_aliasChainsToItself_throwRecursiveAliasException() {
         // with other aliases in between
         assertThrows(RecursiveAliasException.class, () -> {
-            new AliasMappings().addAlias(ALIAS_A_TO_B).addAlias(ALIAS_B_TO_C).addAlias(ALIAS_C_TO_A);
+            new AliasMappings().addAlias(ALIAS_A_TO_B).addAlias(ALIAS_B_TO_C).addAlias(ALIAS_C_TO_A).validate();
         });
     }
 
     @Test
     void testEquals() {
-        try {
-            AliasMappings empty = new AliasMappings();
-            AliasMappings empty2 = new AliasMappings();
-            AliasMappings oneAlias = empty.addAlias(ALIAS_A_TO_B);
-            AliasMappings oneAlias2 = empty2.addAlias(ALIAS_A_TO_B);
-            AliasMappings oneAlias3 = empty.addAlias(new Alias("a", "b"));
-            AliasMappings oneAlias4 = new AliasMappings().addAlias(ALIAS_ADD_WITH_ARGUMENTS);
-            // different empty -> true
-            assertEquals(empty, empty2);
-            // different empty add same -> true
-            assertEquals(oneAlias, oneAlias2);
-            // same empty add similar -> true
-            assertEquals(oneAlias, oneAlias3);
-            // different alias inside -> false
-            assertNotEquals(empty, oneAlias);
-            assertNotEquals(oneAlias, oneAlias4);
-        } catch (RecursiveAliasException e) {
-            throw new AssertionError("RecursiveAliasException should not be thrown");
-        }
+        AliasMappings empty = new AliasMappings();
+        AliasMappings empty2 = new AliasMappings();
+        AliasMappings oneAlias = empty.addAlias(ALIAS_A_TO_B);
+        AliasMappings oneAlias2 = empty2.addAlias(ALIAS_A_TO_B);
+        AliasMappings oneAlias3 = empty.addAlias(new Alias("a", "b"));
+        AliasMappings oneAlias4 = new AliasMappings().addAlias(ALIAS_ADD_WITH_ARGUMENTS);
+        // different empty -> true
+        assertEquals(empty, empty2);
+        // different empty add same -> true
+        assertEquals(oneAlias, oneAlias2);
+        // same empty add similar -> true
+        assertEquals(oneAlias, oneAlias3);
+        // different alias inside -> false
+        assertNotEquals(empty, oneAlias);
+        assertNotEquals(oneAlias, oneAlias4);
     }
 }
