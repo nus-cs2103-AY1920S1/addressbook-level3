@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -512,13 +513,13 @@ public class ModelManager implements Model {
     //region Quizzes
 
     @Override
-    public void createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
-        savedQuizzes.createQuizManually(quizId, questionNumbers, savedQuestions);
+    public boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers) {
+        return savedQuizzes.createQuizManually(quizId, questionNumbers, savedQuestions);
     }
 
     @Override
-    public void createQuizAutomatically(String quizId, int numQuestions, String type) {
-        savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
+    public boolean createQuizAutomatically(String quizId, int numQuestions, String type) {
+        return savedQuizzes.createQuizAutomatically(quizId, numQuestions, type, savedQuestions);
     }
 
     @Override
@@ -596,6 +597,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyNotesRecord getNotesRecord() {
         return notesRecord;
+    }
+
+    @Override
+    public void sortNotesRecord(Comparator<Note> noteComparator) {
+        notesRecord.sortNotes(noteComparator);
     }
     //endregion
 
@@ -757,6 +763,7 @@ public class ModelManager implements Model {
     public Pair<Index, VEvent> findMostSimilarVEvent(String desiredEventName) {
         return eventRecord.findMostSimilarVEvent(desiredEventName);
     }
+
     //endregion
 
     @Override

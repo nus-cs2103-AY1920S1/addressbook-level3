@@ -55,6 +55,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
     public static final Prefix PREFIX_DESCRIPTION = new Prefix("desc/");
     public static final Prefix PREFIX_PRIORITY = new Prefix("priority/");
+    public static final Prefix PREFIX_SORT = new Prefix("sort");
     // END OF NOTE PREFIX
 
     // TAG PREFIX

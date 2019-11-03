@@ -80,4 +80,15 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Checks if the filename is valid for OS.
+     * @param fileName name of the file to check.
+     * @return true if fileName is valid
+     */
+    public static boolean isValidFileName(String fileName) {
+        return !(fileName.contains("\\") || fileName.contains("/") || fileName.contains(":")
+                || fileName.contains("*") || fileName.contains("?") || fileName.contains("\"")
+                || fileName.contains("<") || fileName.contains(">") || fileName.contains("|")
+                || fileName.isEmpty());
+    }
 }

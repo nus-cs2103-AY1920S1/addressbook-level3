@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -309,12 +310,12 @@ public interface Model {
     /**
      * Creates a quiz manually.
      */
-    void createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
+    boolean createQuizManually(String quizId, ArrayList<Integer> questionNumbers);
 
     /**
      * Creates a quiz automatically.
      */
-    void createQuizAutomatically(String quizId, int numQuestions, String type);
+    boolean createQuizAutomatically(String quizId, int numQuestions, String type);
 
     /**
      * Adds a question to a quiz. {@code quizId} Must already exist in the quiz bank. {@code
@@ -395,6 +396,11 @@ public interface Model {
      * Returns the NotesRecord
      */
     ReadOnlyNotesRecord getNotesRecord();
+
+    /**
+     * Sorts the notes list using the {@code noteComparator} provided.
+     */
+    void sortNotesRecord(Comparator<Note> noteComparator);
     //endregion
 
     //region Notes

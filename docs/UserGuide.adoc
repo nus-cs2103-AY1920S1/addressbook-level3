@@ -417,120 +417,131 @@ Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 ==== Creating a Quiz manually: `manual`
 
 Allows a user to create a quiz manually. +
+[NOTE]
 Format: `quiz manual quizID/... questionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Question Numbers` (The question numbers you want to add to the quiz)
+. `Quiz ID` (The label of the quiz)
+. `Question Numbers` (The question numbers you want to add to the quiz)
 
 Examples:
 
 * `quiz manual quizID/CS2103T questionNumber/1 2 3` +
-Adds question numbers 1, 2 and 3 to the quiz named CS2103T.
+Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 
 ==== Creating a Quiz automatically: `auto`
 
 Allows a user to create a quiz automatically. +
+[NOTE]
+The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
+
+[NOTE]
 Format: `quiz auto quizID/... numQuestions/... type/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Number of Questions` (The number of questions you want added to the quiz)
-- `Question Type` (mcq, open, all)
+. `Quiz ID` (The label of the quiz)
+. `Number of Questions` (The number of questions you want added to the quiz)
+. `Question Type` (mcq, open, all)
 
 Examples:
 
 * `quiz auto quizID/CS2103T numQuestions/2 type/mcq` +
-Adds 2 questions of type mcq to the quiz named CS2103T.
+Adds 2 questions of type mcq to the quiz labelled CS2103T.
 
 ==== Adding a Question to a Quiz: `add`
 
 Allows a user to add a question to a quiz. +
+[NOTE]
 Format: `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of your quiz)
-- `Question Number` (The question number you want to add to the quiz)
-- `Quiz Question Number` (The question number in the quiz you want to add the question to)
+. `Quiz ID` (The label of your quiz)
+. `Question Number` (The question number you want to add to the quiz)
+. `Quiz Question Number` (The question number in the quiz you want to add the question to)
 
 Examples:
 
 * `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
-Adds question 2 to the quiz question number 3 for the quiz named CS2103T.
+Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
 
 ==== Deleting a Question from a Quiz: `delete`
 
 Allows a user to delete a question from a quiz. +
+[NOTE]
 Format: `quiz delete quizID/... quizQuestionNumber/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
-- `Quiz Question Number` (The question number of the question in the quiz to be deleted)
+. `Quiz ID` (The label of the quiz)
+. `Quiz Question Number` (The question number of the question in the quiz to be deleted)
 
 Examples:
 
 * `quiz delete quizID/CS2103T quizQuestionNumber/3` +
-Deletes the quiz question number 3 for the quiz named CS2103T.
+Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
 ==== Exporting a Quiz to HTML: `export`
 
-Allows a user to export a quiz to a HTML file. +
+Allows a user to export a quiz to a formatted HTML file. +
+[NOTE]
 Format: `quiz export quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz export quizID/CS2103T` +
-Exports the quiz named CS2103T to a HTML file.
+Exports the quiz labelled CS2103T to a formatted HTML file.
 
 ==== Listing a Quiz: `list`
 
 Allows a user to list a quiz's questions and answers. +
+[NOTE]
 Format: `quiz list quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz list quizID/CS2103T` +
-Lists the questions and answers for the quiz named CS2103T.
+Lists the questions and answers for the quiz labelled CS2103T.
 
 ==== Showing only a Quiz's Questions: `showQuestions`
 
 Allows a user to show only a quiz's questions. +
+[NOTE]
 Format: `quiz showQuestions quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz showQuestions quizID/CS2103T` +
-Shows only the questions for the quiz named CS2103T.
+Shows only the questions for the quiz labelled CS2103T.
 
 ==== Showing only a Quiz's Answers: `showAnswers`
 
 Allows a user to show only a quiz's answers. +
+[NOTE]
 Format: `quiz showAnswers quizID/...`
 
 The format supported by this feature includes:
 
-- `Quiz ID` (The name of the quiz)
+. `Quiz ID` (The label of the quiz)
 
 Examples:
 
 * `quiz showAnswers quizID/CS2103T` +
-Shows only the answers for the quiz named CS2103T.
+Shows only the answers for the quiz labelled CS2103T.
 
 === Events ​-​ `event`
 
@@ -560,8 +571,9 @@ date and time _'21st Oct 2019, 1600'_ and a color grouping of _'1'_.
 [[Feature-Event-Index]]
 ==== Indexing a event
 
-Gets the index a event based on its event name. If the event name is not found, it shows the event which has the most
-similar event name +s
+Gets the index a event based on its event name. If more than one event has the same name, the command will return all of them.
+Else if the event name is not found, it shows the event which has the most similar event name.
+
 Format: `event indexOf/...`
 
 The options supported by this feature includes:
@@ -782,17 +794,23 @@ The data file needs to be specified in the following format to ensure that the s
 [WARNING]
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
 
-* *Data starts at cell A1.*
+* *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
 * *All student names have unique identifiers. (e.g. two students named Jason should be identified as `Jason 1` and `Jason 2`)*
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
+* *There are no gaps between rows and columns.*
+* *All cells within the row and column range have at least one non-whitespace characters.*
+* *All cells outside the row and column range are empty.*
 
 [WARNING]
 Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
 
 * *All scores should be in percentage terms. (0 ~ 100)*
+
+[NOTE]
+The general rule for the file format is to ensure all entries in the file are as compact to the top left as possible; the entries should form a rectangular shape on the top left corner of the excel sheet. The rectangle should have no empty entries while all cells outside the rectangle are empty entries.
 
 The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
 allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.

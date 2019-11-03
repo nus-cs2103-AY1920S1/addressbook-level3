@@ -14,7 +14,7 @@ import seedu.address.model.note.ReadOnlyNotesRecord;
 public class NoteListCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " list";
-    public static final String MESSAGE_SUCCESS = "Listed all notes";
+    public static final String MESSAGE_SUCCESS = "This is the list of notes: " + "\n";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -29,7 +29,6 @@ public class NoteListCommand extends NoteCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage(ReadOnlyNotesRecord notesRecord) {
-        return "This is the list of notes: " + "\n"
-                + notesRecord;
+        return MESSAGE_SUCCESS + notesRecord;
     }
 }

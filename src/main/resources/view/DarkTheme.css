@@ -98,7 +98,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#151515, 20%);
+    -fx-background-color: derive(#151515, 35%);
 }
 
 .list-cell {
@@ -227,6 +227,7 @@
  * Author: Pedro Duque Vieira
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
+
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
@@ -322,6 +323,7 @@
     -fx-padding: 8 1 8 1;
 }
 
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -374,3 +376,4 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+

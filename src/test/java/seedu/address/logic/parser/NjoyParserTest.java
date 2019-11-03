@@ -2,23 +2,24 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_ILLEGAL_INPUT;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.note.NoteCommandParserTest.INVALID_SYNTAX_COMMAND;
+import static seedu.address.logic.parser.note.NoteCommandParserTest.VALID_COMMAND_DEFAULT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.note.NoteCommand;
 import seedu.address.logic.commands.question.QuestionEditCommand;
-import seedu.address.logic.commands.statistics.StatisticsAddCommand;
+import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.statistics.StatisticsCommandParserTest;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
 import seedu.address.testutil.QuestionUtil;
@@ -28,31 +29,31 @@ public class NjoyParserTest {
     private final NjoyParser parser = new NjoyParser();
 
     @Test
-    public void parseCommand_statistics_addValidFile() throws Exception {
-        Command command = parser.parseCommand(
-                "statistics file/src/test/data/SampleStatisticsData/ValidSampleStatistics.xlsx");
-        assertTrue(command instanceof StatisticsAddCommand);
+    public void parseCommand_statistics_success() throws Exception {
+        assertTrue(parser.parseCommand(StatisticsCommand.COMMAND_WORD
+                + StatisticsCommandParserTest.VALID_COMMAND)
+                instanceof StatisticsCommand);
     }
 
     @Test
-    public void parseCommand_statistics_addInvalidFile() throws Exception {
-        assertThrows(ParseException.class, EXCEL_FILE_ILLEGAL_INPUT, () ->
-            parser.parseCommand(
-                "statistics file/src/test/data/SampleStatisticsData/InvalidSampleStatistics.xlsx"));
+    public void parseCommand_invalidStatistics_throwsException() {
+        assertThrows(ParseException.class, () ->
+            parser.parseCommand(StatisticsCommand.COMMAND_WORD
+                + StatisticsCommandParserTest.INVALID_COMMAND));
     }
 
     @Test
-    public void parseCommand_statistics_addEmptyFile() throws Exception {
-        assertThrows(ParseException.class, EXCEL_FILE_NOT_FOUND, () ->
-            parser.parseCommand("statistics file/e"));
+    public void parseCommand_note_success() throws Exception {
+        assertTrue(parser.parseCommand(NoteCommand.COMMAND_WORD + VALID_COMMAND_DEFAULT)
+                instanceof NoteCommand);
     }
 
     @Test
-    public void parseCommand_statistics_invalidSyntax() {
-        assertThrows(ParseException.class, String.format(
-            MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE), () ->
-            parser.parseCommand("statistics"));
+    public void parseCommand_invalidNote_throwsException() {
+        assertThrows(ParseException.class, () ->
+            parser.parseCommand(NoteCommand.COMMAND_WORD + INVALID_SYNTAX_COMMAND));
     }
+
 
     @Test
     public void parseCommand_question_edit() throws Exception {
@@ -63,7 +64,7 @@ public class NjoyParserTest {
         fields.put("type", "mcq");
         QuestionEditCommand command = (QuestionEditCommand) parser
             .parseCommand(QuestionUtil.getEditCommand(question));
-        assertEquals(new QuestionEditCommand(INDEX_FIRST_PERSON, fields), command);
+        assertEquals(new QuestionEditCommand(INDEX_ONE, fields), command);
     }
 
     @Test

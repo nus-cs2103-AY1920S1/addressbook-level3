@@ -49,9 +49,14 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
         if (model.checkQuizExists(quizId)) {
             return new CommandResult(String.format(QUIZ_ALREADY_EXISTS, quizId));
         }
-        QuizBank.setCurrentlyQueriedQuiz(quizId);
-        model.createQuizAutomatically(quizId, numQuestions, type);
-        return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
+
+        boolean isSuccess = model.createQuizAutomatically(quizId, numQuestions, type);
+        if (isSuccess) {
+            QuizBank.setCurrentlyQueriedQuiz(quizId);
+            return new CommandResult(generateSuccessMessage(), CommandResultType.SHOW_QUIZ_ALL);
+        } else {
+            return new CommandResult(generateFailureMessage());
+        }
     }
 
     /**
@@ -64,6 +69,14 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
         } else {
             return "Created Quiz: " + quizId + " with " + numQuestions + " questions.";
         }
+    }
+
+    /**
+     * Generates a command execution failure message.
+     * @return The String representation of a failure message.
+     */
+    private String generateFailureMessage() {
+        return "You do not have enough questions in the storage! Add more questions and try again.";
     }
 
     @Override
