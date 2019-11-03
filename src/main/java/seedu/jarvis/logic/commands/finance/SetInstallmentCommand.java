@@ -41,7 +41,7 @@ public class SetInstallmentCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Jarvis has added your installment! \n%1$s";
     public static final String MESSAGE_SUCCESS_WITH_WARNING = "Jarvis has added this installment, but please note that "
-            + "there already exists a similar installment in the finance tracker!. Installment added: \n%1$s";
+            + "there already exists a similar installment in the finance tracker!\nInstallment added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_INSTALLMENT = "This installment already exists!";
 
     public static final String MESSAGE_INVERSE_SUCCESS_DELETE = "Jarvis has removed this installment: %1$s";
