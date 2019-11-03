@@ -132,7 +132,7 @@ public class MainApp extends Application {
         //For Overview Storage and Model
         overviewStorage = new seedu.address.overview.storage.StorageManager(
                 new File("data/overviewInformation.txt"));
-        overviewModel = new seedu.address.overview.model.ModelManager(overviewStorage.readFromFile());
+        overviewModel = new seedu.address.overview.model.ModelManager(initOverviewModelManager(overviewStorage));
 
         //All logic
 
@@ -230,6 +230,17 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty reimbursement list");
             return new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
+        }
+    }
+
+    private double[] initOverviewModelManager(seedu.address.overview.storage.Storage storage) {
+        try {
+            return storage.readFromFile();
+        } catch (NumberFormatException e) {
+            logger.warning("Data file not in correct format or problem reading from the file. "
+                    + "Will reset all Overview values to 0.");
+        } finally {
+            return new double[6];
         }
     }
 
