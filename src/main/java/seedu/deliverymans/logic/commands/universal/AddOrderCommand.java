@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
@@ -98,7 +99,7 @@ public class AddOrderCommand extends Command {
         }
 
         // Deliveryman validity check
-        /*
+
         if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             if (deliverymanToAdd == null) {
@@ -119,15 +120,12 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
             }
         }
-        */
 
-        // Alternative: Add command wont work if no available deliveryman
+        /*
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-           throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
-        }
+        } catch (NoMoreAvailableDeliverymanException amade) {} */
 
         // Food validity check
         Map<Name, Integer> foodNameList = toAdd.getFoodList();
