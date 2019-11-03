@@ -319,6 +319,7 @@ During the design of our delete function, we considered between two alternatives
                                         *Cons* : User will have to scroll the income list for the income entry and look for its index which can be inconvenient.
 
 | Deletion by Income description     | *Pros* : It may be more intuitive for users to delete an income through the description of the income.
+
                                         *Cons* : Incomes of different entries can have similar description. The user would eventually still have to look through the income list.
 |=======================
 
@@ -383,13 +384,105 @@ Given below is an example usage scenario of how the shortcut feature mechanism b
 *Step 4 :* Since now the boolean value of `MainWindow#unknownEntry` is true, the next input would use a different execute command. Instead of the usual method `LogicManager#execute(String command)`, the next input would be executed by `LogicManager#executeUnknownInput(String command)`. Hence, if the subsequent input by the user is `n`, a `NoShortCutCommand` would be executed
 and it would return a `CommandResult` with a false value of `createShortCut` which would reinstate back the normal state of FinSec.
 
-*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid defaul command is entered, a new `CreateShortCutCommand` object is returned.
+*Step 5 :* If the user enters a value other than `n`, the `LogicManager#executeUnknownInput(String command)` would call `FinSecParser#checkCommand(String currentInput, String prevInput)` to check if the command is existing or not. If the command is existing, it would return another `ShortCutRequestCommand` object with the same input. However, if a valid default command is entered, a new `CreateShortCutCommand` object is returned (go back to *Step 3*).
+
+* The code snippet below shows the `FinSecParser#checkCommand(String currentInput, String prevInput)` method +
+
+[source, java]
+
+XYSeries public Command checkCommand(String currentInput, String prevInput) {
+        if (FinSecParser.commandList.containsValue(currentInput)) {
+            FinSecParser.commandList.put(prevInput, FinSecParser.commandList.get(currentInput));
+            return new CreateShortCutCommand(FinSecParser.commandList.get(currentInput), prevInput);
+        } else {
+            return new ShortCutRequestCommand(currentInput);
+        }
+    }
 
 *Step 6 :* When a `CreateShortCutCommand` object is returned, it is executed in `LogicManager` and `LogicManager` would use `CreateShortCutCommand#execute()` to add the `CommandItem` into the `Model` which is handled by the `ModelManager`.
 
 *Step 7 :* `CreateShortCutCommmand` would then return a `CommandResult` to the `LogicManager` which would then be returned back to the user.
 
 The following activity diagram summarises what happens when a user executes an unknown command:
+
+<<ShortcutDiagram>> is the activity diagram when a user inputs an unkown command
+[[ShortcutDiagram]]
+[reftext="Figure 2.3.2.2"]
+[caption="Figure 2.3.2.2: "]
+.ActivityDiagram
+image::ShortcutActivityDiagram.png[width="800"]
+
+==== Why was it implemented this way?
+
+In order for us to create new Command Words that gives the same functionality of a default command, it was imperative for us to create a CommandItem class that creates an object for every command with the String attributes of `CommandWord` and `CommandTask`. This way, it was possible to
+create more commands as the user uses the application.
+
+Now with creation of new commands being made possible, we have to decide how we were going to store the list of commands for frequent reference to ensure a bug-free implementation of this feature.
+
+We considered between two alternatives.
+
+.Data structure to store commandWord and commandTask alternatives
+[options="header,footer"]
+|=======================
+| Data Structure Consideration | Pros and Cons
+| TreeMap (Current Choice)   | *Pros* : Since each commandWord has 2 attributes, `commandWord` and `commandTask`, this data structure was perfect for storing commands and newly created shortcuts.
+                                        Furthermore, since we have to look up this TreeMap frequently, a TreeMap would improve the performance of the application since the retrieval speed of a TreeMap is extremely fast.
+
+                                        *Cons* : A TreeMap is not as intuitive to implement compared to an ArrayList or List.
+
+| ArrayList     | *Pros* : It may be more intuitive to implement an ArrayList.
+
+*Cons* : Since we have to look up the list of commands frequently, the use of an ArrayList would significantly lower the performance of FinSec. This might negatively affect user experience.
+|=======================
+
+We have decided to opt for the first option primarily because it significantly improves the performance of the application.
+
+
+=== Autocorrect feature
+
+This feature gives the user a dropdown list of suggestions when he is typing his entry.
+
+*Overview*
+
+In order for an easy implementation of this feature, we have created a new class `AutocorrectTextField` that extends `TextField` that would be loaded into the MainWindow when the user starts the application.
+
+The `AutocorrectTextField` has 2 attributes, `suggestionCommands` and `addSuggestions` which are Sets of String values to be displayed to the user upon entering their commands. `suggestionCommands` would give the list of suggestions and `addSuggestions` would give the list of additional suggestions such as `n/John Doe` for ease of use for the users.
+
+The list of commands can be easily retrieved using the method `FinSecParser#getCommandList().keySet()` while the list of additional suggestions can be retrieved from `SuggestionsStorage#getSuggestions()`.
+
+Currently, when the user adds a `Contact`, a new `AutocorrectSuggestion` would be created and added to the `Model` by the `ModelManager`. The `AutocorrectSuggestion` that would be created will be in the `String` "add_claim n/<Contact.fullname()>". This would ease the addition of claims into FinSec since that a user is not able to add a claim if the contact does not exist.
+
+*Example*
+
+Given below is an example usage scenario of how the AutoCorrect feature mechanism behaves at each step.
+
+*Step 1 :* The user starts typing add_contact into FinSec. Since that add_contact is a default command, it would already be in the Set of Strings in `AutocorrectTextField#suggestionCommands` and it would trigger the method `AutocorrectTextField#changed()` and the suggestions would be loaded into the UI in the `MainWindow`.
+
+*Step 2 :* The user adds a contact into FinSec and the method `AddContactCommand#execute()` is executed.
+
+* The code snippet below shows the `AddContactCommand#execute()` method +
+
+[source, java]
+
+XYSeries  public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        if (model.hasContact(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        model.addContact(toAdd);
+        //adding the contact's name into the suggestion list.
+        AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().fullName);
+        model.addAutocorrectSuggestion(addName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+
+*Step 3 :* An `AutocorrectSuggestion` object is created with the parameter "add_claim n/contact.getName().fullName".
+
+*Step 4 :* The newly created `AutocorrectSuggestion` object is added into `Model` and handled by the `ModelManager`.
+
+*Step 5 :* As the `AutocorrectTextField` is refreshed, the newly updated list of suggestions would be loaded and ready to display for the next user input.
+
 
 
 
