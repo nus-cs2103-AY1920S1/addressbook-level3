@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -179,6 +180,16 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
         if (toRemove.isPrimary()) {
             setPrimary(getDefaultBudget());
+        }
+    }
+
+    /**
+     * Handles issue of duplicate primary budgets when undoing "clearbudgets".
+     */
+    public void handleDuplicatePrimaryBudgets() {
+        List<Budget> primaryBudgets = internalList.stream().filter(b -> b.isPrimary()).collect(Collectors.toList());
+        if (primaryBudgets.size() > 1) {
+            getDefaultBudget().setToNotPrimary();
         }
     }
 

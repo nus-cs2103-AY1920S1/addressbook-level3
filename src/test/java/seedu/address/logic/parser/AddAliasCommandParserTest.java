@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.alias.AddAliasCommand;
 import seedu.address.model.alias.Alias;
 
-public class AddAddAliasCommandParserTest {
+public class AddAliasCommandParserTest {
     private AddAliasCommandParser parser = new AddAliasCommandParser();
 
     @Test

@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandGroup;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.GenericCommandWord;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -19,14 +20,14 @@ import seedu.address.ui.expense.ExpenseListPanel;
  */
 public class DeleteExpenseCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "delete" + CommandGroup.EXPENSE;
+    public static final String COMMAND_WORD = GenericCommandWord.DELETE + CommandGroup.EXPENSE;
     public static final String COMMAND_DESCRIPTION = "Delete expense with index %1$d";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the expense identified by the index number used in the displayed expense list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense: %1$s";
+    public static final String MESSAGE_DELETE_EXPENSE_SUCCESS = "Deleted Expense:\n %1$s";
 
     private final Index targetIndex;
 
