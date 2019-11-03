@@ -42,6 +42,7 @@ public class ExpenseCard extends UiPart<Region> {
 
     private static final String DATE_PATTERN = "dd MMM yyyy";
     private static final String TIME_PATTERN = "HH:mm";
+    private static final String CURRENCY_SYMBOL = "$";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -51,7 +52,7 @@ public class ExpenseCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on MooLah level 4</a>
      */
 
-    public final Expense expense;
+    private final Expense expense;
 
     @FXML
     private AnchorPane expenseCardPane;
@@ -74,13 +75,18 @@ public class ExpenseCard extends UiPart<Region> {
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
+
         this.expense = expense;
+
         index.setText(Integer.toString(displayedIndex));
+
         description.setText(expense.getDescription().fullDescription);
-        price.setText("$" + expense.getPrice());
-        categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
+        price.setText(String.format("%s%,.2f", CURRENCY_SYMBOL, expense.getPrice().getAsDouble()));
+
         date.setText(expense.getTimestamp().getFullTimestamp().format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         time.setText(expense.getTimestamp().getFullTimestamp().format(DateTimeFormatter.ofPattern(TIME_PATTERN)));
+
+        categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
         if (FOOD.equals(expense.getCategory())) {
             icon.setFill(new ImagePattern(getImage(FOOD_ICON)));
         } else if (TRAVEL.equals(expense.getCategory())) {

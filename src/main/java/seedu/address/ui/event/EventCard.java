@@ -1,5 +1,7 @@
 package seedu.address.ui.event;
 
+import static seedu.address.commons.util.AppUtil.getImage;
+
 import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
@@ -7,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import seedu.address.model.category.Category;
 import seedu.address.model.expense.Event;
 import seedu.address.ui.UiPart;
 
@@ -16,6 +21,27 @@ import seedu.address.ui.UiPart;
 public class EventCard extends UiPart<Region> {
 
     private static final String FXML = "EventListCard.fxml";
+
+    private static final Category FOOD =  new Category("FOOD");
+    private static final Category TRAVEL =  new Category("TRAVEL");
+    private static final Category TRANSPORT =  new Category("TRANSPORT");
+    private static final Category SHOPPING =  new Category("SHOPPING");
+    private static final Category UTILITIES =  new Category("UTILITIES");
+    private static final Category HEALTHCARE =  new Category("HEALTHCARE");
+    private static final Category ENTERTAINMENT =  new Category("ENTERTAINMENT");
+    private static final Category EDUCATION =  new Category("EDUCATION");
+
+    private static final String FOOD_ICON = "/images/category/food.png";
+    private static final String SHOPPING_ICON = "/images/category/shopping.png";
+    private static final String TRANSPORT_ICON = "/images/category/transport.png";
+    private static final String UTILITIES_ICON = "/images/category/utilities.png";
+    private static final String TRAVEL_ICON = "/images/category/travel.png";
+    private static final String EDUCATION_ICON = "/images/category/education.png";
+    private static final String ENTERTAINMENT_ICON = "/images/category/entertainment.png";
+    private static final String HEALTHCARE_ICON = "/images/category/healthcare.png";
+    private static final String OTHERS_ICON = "/images/category/others.png";
+
+    private static final String DATE_PATTERN = "dd MMM yyyy";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -42,18 +68,40 @@ public class EventCard extends UiPart<Region> {
     @FXML
     private Label budgetName;
     @FXML
-    private FlowPane categories;
+    private Circle icon;
+    @FXML
+    private Circle iconBackground;
 
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
         this.event = event;
         index.setText(Integer.toString(displayedIndex));
         description.setText(event.getDescription().fullDescription);
-        price.setText("$" + event.getPrice());
-        categories.getChildren().add(new Label(event.getCategory().getCategoryName()));
-        date.setText(event.getTimestamp().fullTimestamp.format(DateTimeFormatter.ISO_DATE));
+        price.setText(String.format("%s%,.2f", "$", event.getPrice().getAsDouble()));
+        date.setText(event.getTimestamp().fullTimestamp.format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         time.setText(null);
         budgetName.setText(event.getBudgetName().fullDescription);
+
+        if (FOOD.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(FOOD_ICON)));
+        } else if (TRAVEL.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(TRAVEL_ICON)));
+        } else if (HEALTHCARE.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(HEALTHCARE_ICON)));
+        } else if (EDUCATION.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(EDUCATION_ICON)));
+        } else if (ENTERTAINMENT.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(ENTERTAINMENT_ICON)));
+        } else if (UTILITIES.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(UTILITIES_ICON)));
+        } else if (SHOPPING.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(SHOPPING_ICON)));
+        } else if (TRANSPORT.equals(event.getCategory())) {
+            icon.setFill(new ImagePattern(getImage(TRANSPORT_ICON)));
+        } else {
+            icon.setFill(new ImagePattern(getImage(OTHERS_ICON)));
+        }
+        icon.toFront();
     }
 
     @Override

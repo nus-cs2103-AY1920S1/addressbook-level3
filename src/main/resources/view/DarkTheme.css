@@ -1,10 +1,12 @@
 * {
     -colour-title: #3c3744;
     -colour-bgfill: #746680;
+    -colour-scrollbar-track: #3c3744;
+    -colour-scrollbar-bar: #746680;
     -colour-category1: #ff7e67;
     -colour-category: #dbd18f;
     -colour-price: #8317ad;
-    -colour-index: #aaaaaa;
+    -colour-additional-info: #aaaaaa;
     -colour-result: #554e61;
     /*-status-background-colour: derive(#1d1d1d, 30%);*/
     -status-background-colour: -colour-title;
@@ -105,19 +107,18 @@
     -fx-padding: 10;
 }
 
-/*
- * Metro style Push Button
- * Author: Pedro 5Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
-
 .scroll-bar {
     -fx-max-width: 0;
     -fx-pref-width: 0;
+    -fx-background-color: -colour-scrollbar-track;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -colour-scrollbar-bar;
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    /*-fx-shape: " ";*/
+    -fx-shape: " ";
     -fx-fill: transparent;
 }
 
@@ -150,13 +151,13 @@
     -fx-fill: -colour-category;
 }
 
+#expenseCardPane #date, #expenseCardPane #time, #expenseCardPane #categories .label, #expenseCardPane #index {
+    -fx-text-fill: -colour-additional-info;
+}
+
 #expenseCardPane .label {
     -fx-font-family: -font-mono;
     -fx-font-size: 16px;
-}
-
-#expenseCardPane #index {
-    -fx-text-fill: -colour-index;
 }
 
 #expenseCardPane #price {
@@ -174,7 +175,7 @@
     -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
 }
 
-#eventCardPane #clip {
+#eventCardPane #iconBackground {
     -fx-fill: -colour-category;
 }
 
@@ -183,8 +184,8 @@
     -fx-font-size: 16px;
 }
 
-#eventCardPane #index {
-    -fx-text-fill: -colour-index;
+#eventCardPane #index, #eventCardPane #date, #eventCardPane #budgetName {
+    -fx-text-fill: -colour-additional-info;
 }
 
 #eventCardPane #price {
@@ -213,18 +214,4 @@
 
 #resultDisplay .content {
     -fx-background-color: -colour-result;
-}
-
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
-#tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
 }
