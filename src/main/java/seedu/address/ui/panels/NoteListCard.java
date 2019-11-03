@@ -36,9 +36,8 @@ public class NoteListCard extends PanelComponent<Region> {
         content.setText(note.getContent().content);
         image.setImage(note.getImage());
         nativeImageWidth = note.getImageUrl().equals("none") ? Double.MAX_VALUE : note.getImage().getWidth();
-        cardPane.widthProperty().addListener((obs, oldValue, newValue) -> {
-            image.setFitWidth(Math.min(newValue.doubleValue() - 20, nativeImageWidth));
-        });
+        cardPane.widthProperty().addListener((obs, oldValue, newValue) ->
+                image.setFitWidth(Math.min(newValue.doubleValue() - 20, nativeImageWidth)));
     }
 
     @Override

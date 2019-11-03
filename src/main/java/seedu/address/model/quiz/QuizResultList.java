@@ -3,7 +3,6 @@ package seedu.address.model.quiz;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -66,10 +65,8 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return A unique list of subjects.
      */
     public ObservableList<Subject> getUniqueSubjectList() {
-        List<Subject> subjectsList = internalList.stream()
-                .map(quizResult -> quizResult.getSubject())
-                .collect(Collectors.toList());
-        Set<Subject> uniqueSubjectList = new HashSet<Subject>(subjectsList);
+        Set<Subject> uniqueSubjectList = internalList.stream()
+                .map(QuizResult::getSubject).collect(Collectors.toSet());
         return FXCollections.observableArrayList(new ArrayList<>(uniqueSubjectList));
     }
 
@@ -79,10 +76,8 @@ public class QuizResultList implements Iterable<QuizResult> {
      * @return A unique list of difficulties.
      */
     public ObservableList<Difficulty> getUniqueDifficultyList() {
-        List<Difficulty> difficultyList = internalList.stream()
-                .map(quizResult -> quizResult.getDifficulty())
-                .collect(Collectors.toList());
-        Set<Difficulty> uniqueDifficultyList = new HashSet<Difficulty>(difficultyList);
+        Set<Difficulty> uniqueDifficultyList = internalList.stream()
+                .map(QuizResult::getDifficulty).collect(Collectors.toSet());
         return FXCollections.observableArrayList(new ArrayList<>(uniqueDifficultyList));
     }
 
