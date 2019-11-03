@@ -87,7 +87,9 @@ public class UniquePersonList extends UniqueElementList<Person> {
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
-        personHashMap.remove(toRemove.getReferenceId());
+        ReferenceId referenceId = toRemove.getReferenceId();
+        referenceId.unregisterId();
+        personHashMap.remove(referenceId);
         assert personHashMap.size() == internalList.size();
     }
 

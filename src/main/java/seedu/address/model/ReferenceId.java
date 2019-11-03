@@ -21,4 +21,9 @@ public interface ReferenceId extends Identical<ReferenceId> {
      * Registers and blocks the current reference id from being re-assigned to a different category (patient or staff).
      */
     void registerId();
+
+    /**
+     * Unregisters and frees the current reference id to be re-assigned to a different category (patient or staff).
+     */
+    void unregisterId();
 }

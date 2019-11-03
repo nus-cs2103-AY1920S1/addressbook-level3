@@ -204,4 +204,9 @@ public class PersonReferenceId implements ReferenceId {
     public void registerId() {
         UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.putIfAbsent(this.toString(), this);
     }
+
+    @Override
+    public void unregisterId() {
+        UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.remove(this.toString());
+    }
 }
