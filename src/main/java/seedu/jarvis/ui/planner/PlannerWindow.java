@@ -15,6 +15,7 @@ public class PlannerWindow extends View<AnchorPane> {
     private static final String FXML = "PlannerWindow.fxml";
 
     private TaskListView taskListView;
+    private SortedTasksDisplay sortedTasksDisplay;
 
     @FXML
     private SplitPane taskSplitPane;
@@ -28,8 +29,10 @@ public class PlannerWindow extends View<AnchorPane> {
         while(!taskSplitPane.getItems().isEmpty()) {
             taskSplitPane.getItems().remove(0);
         }
-        taskListView = new TaskListView(logic.getFilteredTaskList());
-        taskSplitPane.getItems().addAll(taskListView.getRoot());
+        taskListView = new TaskListView(logic.getUnfilteredTaskList());
+        sortedTasksDisplay = new SortedTasksDisplay(logic.getFilteredTaskList());
+        taskSplitPane.getItems().addAll(taskListView.getRoot(),
+                                            sortedTasksDisplay.getRoot());
     }
 }
 
