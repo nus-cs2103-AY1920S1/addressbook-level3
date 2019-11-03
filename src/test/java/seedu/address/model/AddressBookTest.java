@@ -3,9 +3,9 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_CHEAP;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEateries.ALICE;
+import static seedu.address.testutil.TypicalEateries.POPEYES;
 import static seedu.address.testutil.TypicalEateries.getTypicalOpenAddressBook;
 
 import java.util.Arrays;
@@ -45,9 +45,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateEateries_throwsDuplicateEateryException() {
         // Two eateries with the same identity fields
-        Eatery editedAlice = new EateryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Eatery editedAlice = new EateryBuilder(POPEYES).withTags(VALID_TAG_NO_PREFIX_CHEAP)
                 .build();
-        List<Eatery> newEateries = Arrays.asList(ALICE, editedAlice);
+        List<Eatery> newEateries = Arrays.asList(POPEYES, editedAlice);
         AddressBookStub newData = new AddressBookStub(newEateries);
 
         assertThrows(DuplicateEateryException.class, () -> addressBook.resetData(newData));
@@ -60,19 +60,19 @@ public class AddressBookTest {
 
     @Test
     public void hasEatery_eateryNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasEatery(ALICE));
+        assertFalse(addressBook.hasEatery(POPEYES));
     }
 
     @Test
     public void hasEatery_eateryInAddressBook_returnsTrue() {
-        addressBook.addEatery(ALICE);
-        assertTrue(addressBook.hasEatery(ALICE));
+        addressBook.addEatery(POPEYES);
+        assertTrue(addressBook.hasEatery(POPEYES));
     }
 
     @Test
     public void hasEatery_eateryWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addEatery(ALICE);
-        Eatery editedAlice = new EateryBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        addressBook.addEatery(POPEYES);
+        Eatery editedAlice = new EateryBuilder(POPEYES).withTags(VALID_TAG_NO_PREFIX_CHEAP)
                 .build();
         assertTrue(addressBook.hasEatery(editedAlice));
     }

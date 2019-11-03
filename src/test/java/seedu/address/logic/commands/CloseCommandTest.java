@@ -30,7 +30,7 @@ public class CloseCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Eatery closedEatery = new EateryBuilder().withTags("friends").withIsOpen(false).build();
+        Eatery closedEatery = new EateryBuilder().withTags("fastfood").withIsOpen(false).build();
         CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
         String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);
@@ -54,7 +54,7 @@ public class CloseCommandTest {
         showEateryAtIndex(model, INDEX_FIRST_EATERY);
 
         model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
-        Eatery closedEatery = new EateryBuilder().withTags("friends").withIsOpen(false).build();
+        Eatery closedEatery = new EateryBuilder().withTags("fastfood").withIsOpen(false).build();
         CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
         String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);

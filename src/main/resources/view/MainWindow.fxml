@@ -5,22 +5,21 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Label?>
+
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="EatMe" minWidth="1200" minHeight="800" onCloseRequest="#handleExit">
+         title="EatMe" minWidth="1000" minHeight="800" onCloseRequest="#handleExit">
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@EatMeTheme.css"/>
+                <URL value="@EatMeDarkTheme.css"/>
                 <URL value="@Extensions.css"/>
             </stylesheets>
 
             <BorderPane>
                 <left>
-                    <VBox minWidth="300" prefWidth="300" styleClass="container">
-                        <StackPane fx:id="commandBoxPlaceholder"/>
+                    <VBox minWidth="300" prefWidth="300" styleClass="container, left">
+                        <VBox fx:id="commandBoxPlaceholder"/>
 
                         <VBox fx:id="eateryList" VBox.vgrow="ALWAYS">
                             <padding>
@@ -33,17 +32,17 @@
                 </left>
 
                 <center>
-                    <StackPane fx:id="resultDisplayPlaceholder" minWidth="600" prefWidth="600" styleClass="container"/>
+                    <VBox fx:id="resultDisplayPlaceholder" minWidth="400" prefWidth="400" styleClass="container"/>
                 </center>
 
                 <right>
-                    <VBox minWidth="300" prefWidth="300" styleClass="container">
+                    <VBox minWidth="300" prefWidth="300" styleClass="container, right">
                         <StackPane fx:id="feedPostListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
                 </right>
 
                 <bottom>
-                    <StackPane styleClass="statusbar" fx:id="statusbarPlaceholder"/>
+                    <VBox fx:id="statusbarPlaceholder" styleClass="container, bottom"/>
                 </bottom>
             </BorderPane>
         </Scene>

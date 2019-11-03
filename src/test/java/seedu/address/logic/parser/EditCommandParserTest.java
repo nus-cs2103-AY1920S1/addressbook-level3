@@ -1,22 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -27,6 +11,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EATERY;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditEateryDescriptor;
 import seedu.address.model.eatery.Address;
@@ -47,7 +32,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, CommandTestUtil.VALID_NAME_NO_PREFIX_KFC, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -59,10 +44,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + CommandTestUtil.VALID_NAME_WITH_PREFIX_MAC, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + CommandTestUtil.VALID_NAME_WITH_PREFIX_MAC, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -73,31 +58,46 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
-        assertParseFailure(parser, "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1"
+            + CommandTestUtil.INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1"
+            + CommandTestUtil.INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1"
+            + CommandTestUtil.INVALID_CATEGORY_DESC, Category.MESSAGE_CONSTRAINTS); // invalid category
+        assertParseFailure(parser, "1"
+            + CommandTestUtil.INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1"
+            + CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP
+            + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1"
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP + TAG_EMPTY
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1"
+            + TAG_EMPTY + CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP
+            + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + VALID_ADDRESS_AMY ,
+        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_NAME_DESC
+                + CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC ,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_EATERY;
-        String userInput = targetIndex.getOneBased() + TAG_DESC_HUSBAND
-                + ADDRESS_DESC_AMY + CATEGORY_DESC + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE
+                + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC
+                + CommandTestUtil.VALID_CATEGORY_WITH_PREFIX
+                + CommandTestUtil.VALID_NAME_WITH_PREFIX_KFC
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE;
 
-        EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withAddress(VALID_ADDRESS_AMY)
-                .withCategory(VALID_CATEGORY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder()
+                .withName(CommandTestUtil.VALID_NAME_NO_PREFIX_KFC)
+                .withAddress(CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC)
+                .withCategory(CommandTestUtil.VALID_CATEGORY_NO_PREFIX)
+                .withTags(CommandTestUtil.VALID_TAG_NO_PREFIX_NICE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -107,26 +107,27 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_EATERY;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_NAME_WITH_PREFIX_KFC;
+        EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder()
+            .withName(CommandTestUtil.VALID_NAME_NO_PREFIX_KFC).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditEateryDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC;
+        descriptor = new EditEateryDescriptorBuilder().withAddress(CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // category
-        userInput = targetIndex.getOneBased() + CATEGORY_DESC;
-        descriptor = new EditEateryDescriptorBuilder().withCategory(VALID_CATEGORY).build();
+        userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_CATEGORY_WITH_PREFIX;
+        descriptor = new EditEateryDescriptorBuilder().withCategory(CommandTestUtil.VALID_CATEGORY_NO_PREFIX).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditEateryDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE;
+        descriptor = new EditEateryDescriptorBuilder().withTags(CommandTestUtil.VALID_TAG_NO_PREFIX_NICE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -134,14 +135,18 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_EATERY;
-        String userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + ADDRESS_DESC_AMY + TAG_DESC_FRIEND
-                + ADDRESS_DESC_BOB + CATEGORY_DESC + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE
+                + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_NICE
+                + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC
+                + CommandTestUtil.VALID_CATEGORY_WITH_PREFIX
+                + CommandTestUtil.VALID_TAG_WITH_PREFIX_CHEAP;
 
         EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder()
-                .withAddress(VALID_ADDRESS_BOB)
-                .withCategory(VALID_CATEGORY)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+                .withAddress(CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC)
+                .withCategory(CommandTestUtil.VALID_CATEGORY_NO_PREFIX)
+                .withTags(CommandTestUtil.VALID_TAG_NO_PREFIX_NICE, CommandTestUtil.VALID_TAG_NO_PREFIX_CHEAP)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -152,9 +157,9 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EATERY;
-        String userInput = targetIndex.getOneBased() + ADDRESS_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.VALID_ADDRESS_WITH_PREFIX_KFC;
         EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder()
-                .withAddress(VALID_ADDRESS_BOB).build();
+                .withAddress(CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -2,5 +2,5 @@
 
 <?import javafx.scene.control.TextField?>
 
-<TextField xmlns:fx="http://javafx.com/fxml/1" fx:id="commandTextField" styleClass="plain-border-box"
+<TextField xmlns:fx="http://javafx.com/fxml/1" fx:id="commandTextField" minWidth="280" prefWidth="280"
            onAction="#handleCommandEntered" promptText="Enter command"/>

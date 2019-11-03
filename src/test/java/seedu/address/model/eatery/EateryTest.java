@@ -2,12 +2,13 @@ package seedu.address.model.eatery;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_NO_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_NO_PREFIX_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_CHEAP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_PREFIX_NICE;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalEateries.ALICE;
-import static seedu.address.testutil.TypicalEateries.BOB;
+import static seedu.address.testutil.TypicalEateries.KENTUCKY;
+import static seedu.address.testutil.TypicalEateries.MCDONALD;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,52 +25,52 @@ public class EateryTest {
     @Test
     public void isSameEatery() {
         // same object -> returns true
-        assertTrue(ALICE.isSameEatery(ALICE));
-        assertTrue(ALICE.isSameEatery(new EateryBuilder(ALICE).build()));
+        assertTrue(MCDONALD.isSameEatery(MCDONALD));
+        assertTrue(MCDONALD.isSameEatery(new EateryBuilder(MCDONALD).build()));
 
         // null -> returns false
-        assertFalse(ALICE.isSameEatery(null));
+        assertFalse(MCDONALD.isSameEatery(null));
 
-        Eatery editedAlice = new EateryBuilder(ALICE).build();
+        Eatery editedAlice = new EateryBuilder(MCDONALD).build();
 
         // different name -> returns false
-        editedAlice = new EateryBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameEatery(editedAlice));
+        editedAlice = new EateryBuilder(MCDONALD).withName(VALID_NAME_NO_PREFIX_KFC).build();
+        assertFalse(MCDONALD.isSameEatery(editedAlice));
 
         // same name, different attributes -> returns false
-        editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.isSameEatery(editedAlice));
+        editedAlice = new EateryBuilder(MCDONALD).withAddress(VALID_ADDRESS_NO_PREFIX_KFC)
+                .withTags(VALID_TAG_NO_PREFIX_CHEAP).build();
+        assertFalse(MCDONALD.isSameEatery(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Eatery aliceCopy = new EateryBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Eatery aliceCopy = new EateryBuilder(MCDONALD).build();
+        assertTrue(MCDONALD.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(MCDONALD.equals(MCDONALD));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(MCDONALD.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(MCDONALD.equals(5));
 
         // different eatery -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(MCDONALD.equals(KENTUCKY));
 
         // different name -> returns false
-        Eatery editedAlice = new EateryBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Eatery editedMac = new EateryBuilder(MCDONALD).withName(VALID_NAME_NO_PREFIX_KFC).build();
+        assertFalse(MCDONALD.equals(editedMac));
 
         // different address -> returns false
-        editedAlice = new EateryBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedMac = new EateryBuilder(MCDONALD).withAddress(VALID_ADDRESS_NO_PREFIX_KFC).build();
+        assertFalse(MCDONALD.equals(editedMac));
 
         // different tags -> returns false
-        editedAlice = new EateryBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedMac = new EateryBuilder(MCDONALD).withTags(VALID_TAG_NO_PREFIX_NICE).build();
+        assertFalse(MCDONALD.equals(editedMac));
     }
 }

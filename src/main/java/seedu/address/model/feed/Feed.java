@@ -34,15 +34,6 @@ public class Feed {
     }
 
     /**
-     * Constructor that takes in initial feed data in addition to the usual fields.
-     */
-    public Feed(String name, String address, Set<FeedPost> posts) {
-        this(name, address);
-        requireAllNonNull(posts);
-        this.setPosts(posts);
-    }
-
-    /**
      * Fetches the most recent 5 posts from this feed.
      *
      * @return List of maximum 5 posts.
