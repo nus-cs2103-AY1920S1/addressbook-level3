@@ -71,7 +71,7 @@ public class AddCommandParser implements Parser {
         int quantity;
         try {
             quantity = Integer.parseInt(quantityString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             logger.info("Quantity inputted is not an integer.");
             throw new NotANumberException(QUANTITY_NOT_A_NUMBER);
         }
@@ -94,7 +94,7 @@ public class AddCommandParser implements Parser {
             int quantityLeft = modelManager.getStockLeft(description);
             throw new InsufficientAmountException(String.format(MESSAGE_INSUFFICIENT_STOCK, quantityLeft, description));
         }
-        if (quantity < 0) {
+        if (quantity <= 0) {
             throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
         if (modelManager.hasItemInInventory(description)

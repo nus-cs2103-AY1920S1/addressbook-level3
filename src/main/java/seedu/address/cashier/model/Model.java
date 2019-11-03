@@ -72,5 +72,4 @@ public interface Model {
 
     Transaction getCheckoutTransaction();
 
-
 }
