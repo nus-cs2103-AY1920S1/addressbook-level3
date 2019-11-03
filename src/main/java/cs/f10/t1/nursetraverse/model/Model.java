@@ -1,6 +1,7 @@
 package cs.f10.t1.nursetraverse.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,6 +11,7 @@ import cs.f10.t1.nursetraverse.commons.core.GuiSettings;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.appointment.AppointmentSortedByDateTime;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import javafx.collections.ObservableList;
@@ -24,6 +26,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Comparator} that returns an instance of an Appointment Comparator that compares by start date and time */
+    Comparator<Appointment> COMPARATOR_APPOINTMENTS_SORTED_BY_DATE_AND_TIME = new AppointmentSortedByDateTime();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

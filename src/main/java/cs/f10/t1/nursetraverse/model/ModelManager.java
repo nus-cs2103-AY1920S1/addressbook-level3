@@ -415,6 +415,7 @@ public class ModelManager implements Model {
     public void addAppointment(Appointment appointment) {
         stagedAppointmentBook.addAppointment(appointment);
         refreshStagedAppointments();
+        sortStagedAppointments();
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
@@ -424,10 +425,15 @@ public class ModelManager implements Model {
 
         stagedAppointmentBook.setAppointment(target, editedAppointment);
         refreshStagedAppointments();
+        sortStagedAppointments();
     }
 
     private void refreshStagedAppointments() {
         stagedAppointments.setAll(stagedAppointmentBook.getAppointmentList());
+    }
+
+    private void sortStagedAppointments() {
+        FXCollections.sort(stagedAppointments, COMPARATOR_APPOINTMENTS_SORTED_BY_DATE_AND_TIME);
     }
 
     /**
