@@ -279,9 +279,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (usesRightPane(commandResult)) {
                 rightPanelCommandText = commandText;
-            }
-
-            if (!usesRightPane(commandResult)) {
+            } else {
                 requireNonNull(rightPanelCommandText);
                 executeCommand(rightPanelCommandText, isSystemInput);
             }
