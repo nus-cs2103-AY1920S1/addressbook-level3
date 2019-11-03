@@ -26,8 +26,15 @@ public class ElisaCommandHistoryManager implements ElisaCommandHistory {
     public void pushUndo(Command command) {
         if (command instanceof UndoableCommand) {
             undoStack.push((UndoableCommand) command);
-            redoStack.clear();
         }
+    }
+
+    /**
+     * empty the redo stack (for use when new command is executed)
+     * */
+    @Override
+    public void clearRedo() {
+        redoStack.clear();
     }
 
     /**
