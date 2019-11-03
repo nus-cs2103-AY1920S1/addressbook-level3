@@ -35,7 +35,7 @@
                <StackPane fx:id="statusbarPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" BorderPane.alignment="CENTER" />
             </bottom>
             <right>
-               <ScrollPane fx:id="flashcardListPanelPlaceholder" pannable="true" prefHeight="259.0" BorderPane.alignment="CENTER" />
+               <ScrollPane fx:id="flashcardListPanelPlaceholder" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="259.0" BorderPane.alignment="CENTER" />
             </right>
             <center>
                <VBox fx:id="test" alignment="CENTER" BorderPane.alignment="CENTER">
