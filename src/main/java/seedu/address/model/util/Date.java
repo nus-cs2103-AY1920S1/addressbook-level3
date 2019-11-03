@@ -5,17 +5,23 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.Month;
+import java.time.temporal.ChronoField;
 
 /**
  * Represents a date within PalPay.
- * Guarantees:  immutable; is valid as declared in {@link #isValidDate(String)}
+ * Guarantees:  immutable; is valid as declared in {@link #isValid(String)}
  */
 public class Date implements Comparable<Date> {
 
-    public static final String MESSAGE_CONSTRAINTS = "Invalid date.\n"
-        + "Date objects must adhere to the format: DDMMYYYY\n";
+    public static final String MESSAGE_FORMAT_CONSTRAINTS = "Invalid date format.\n"
+            + "Date objects must adhere to the format: DDMMYYYY\n";
+    public static final String MESSAGE_DATE_INVALID = "Invalid date.\n"
+            + "%s is not a valid date in the (Gregorian) calendar";
+    public static final String DATE_FORMAT = "\\b\\d{8}\\b";
 
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
 
@@ -25,63 +31,42 @@ public class Date implements Comparable<Date> {
 
     public Date(String value) {
         requireNonNull(value);
-        checkArgument(isValidDate(value), MESSAGE_CONSTRAINTS);
+        checkArgument(isValid(value), MESSAGE_FORMAT_CONSTRAINTS);
+        checkArgument(isValidDate(value), String.format(MESSAGE_DATE_INVALID, value));
         this.date = LocalDate.parse(value, DATE_FORMATTER);
     }
 
     /**
      * Returns true if a given string is a valid date.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValid(String test) {
         try {
             DATE_FORMATTER.parse(test);
-            return checkDate(test);
+            return isValidDate(test);
         } catch (DateTimeParseException e) {
             return false;
         }
     }
 
-    /**
-     * Checks for valid date in the Gregorian calendar.
-     */
-    private static boolean checkDate(String date) {
-        int day = Integer.parseInt(date.substring(0, 2));
-        int month = Integer.parseInt(date.substring(2, 4));
-        int year = Integer.parseInt(date.substring(4));
+    public static boolean isValidDate(String test) {
 
-        if (day < 1) {
-            return false;
-        }
+        int day = Integer.parseInt(test.substring(0, 2));
+        int month = Integer.parseInt(test.substring(2, 4));
+        int year = Integer.parseInt(test.substring(4));
+        boolean isLeapYear = Year.isLeap(year);
 
-        // For months with 30 days.
-        if ((month == 4 || month == 6 || month == 9 || month == 11) && day <= 30) {
-            return true;
-        }
-        // For months with 31 days.
-        if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
-            && day <= 31) {
-            return true;
-        }
-        // For February.
-        if (month == 2) {
-            if (day <= 28) {
-                return true;
-            } else if (day == 29) {
-                if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
-                    return true;
-                }
-            }
-        }
-
-        // Invalid date.
-        return false;
+        return ChronoField.DAY_OF_MONTH.range().isValidIntValue(day) && // Checks if day is potentially valid
+                ChronoField.MONTH_OF_YEAR.range().isValidIntValue(month) && // Checks if month is valid
+                ChronoField.YEAR.range().isValidIntValue(year) && // Checks if year is valid
+                day <= Month.of(month).length(isLeapYear); // Checks if day is valid with relation to year and month
     }
+
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Date // instanceof handles nulls
-            && date.equals(((Date) other).date)); // state check
+                || (other instanceof Date // instanceof handles nulls
+                && date.equals(((Date) other).date)); // state check
     }
 
     @Override
