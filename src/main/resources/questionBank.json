@@ -40,9 +40,9 @@
     "description" : "Given an array of integers, return indices of the two numbers such that they add up to a specific target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nExample:\n\nInput: 26 2 7 11 15\nOutput: 2 3\n\nBecause nums[2] + nums[3] = 11 + 15 = 26\n"
   }, {
     "title" : "Palindrome Number",
-    "status" : "NEW",
+    "status" : "ATTEMPTED",
     "difficulty" : "EASY",
-    "isBookmarked" : true,
+    "isBookmarked" : false,
     "topics" : [ "OTHERS", "RECURSION" ],
     "testCases" : [ {
       "input" : "12321",
@@ -78,7 +78,7 @@
     "title" : "Merge k Sorted Lists",
     "status" : "NEW",
     "difficulty" : "HARD",
-    "isBookmarked" : false,
+    "isBookmarked" : true,
     "topics" : [ "LINKED_LIST", "SORTING" ],
     "testCases" : [ {
       "input" : "3 5 3 4 1 99 0 21 34 123 3 21 3 1",

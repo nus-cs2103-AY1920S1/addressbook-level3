@@ -32,9 +32,9 @@ public class DeleteBookmarkCommandFactory implements CommandFactory {
             int index = Integer.parseInt(commandArguments.strip());
             return new DeleteBookmarkCommand(index, questionsLogic);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentsException("Invalid input. Please call the deletebookmark command " +
-                    "in this format: <deletebookmark [id]> , where id is the positive integer beside the" +
-                    " question title.");
+            throw new InvalidCommandArgumentsException("Invalid input. Please call the deletebookmark command "
+                    + "in this format: <deletebookmark [id]> , where id is the positive integer beside the"
+                    + " question title.");
         }
     }
 }

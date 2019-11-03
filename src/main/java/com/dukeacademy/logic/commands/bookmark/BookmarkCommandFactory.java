@@ -32,8 +32,8 @@ public class BookmarkCommandFactory implements CommandFactory {
             int index = Integer.parseInt(commandArguments.strip());
             return new BookmarkCommand(index, questionsLogic);
         } catch (NumberFormatException e) {
-            throw new InvalidCommandArgumentsException("Invalid input. Please call the bookmark command " +
-                    "in this format: <bookmark [id]> , where id is the positive integer beside the question title.");
+            throw new InvalidCommandArgumentsException("Invalid input. Please call the bookmark command "
+                    + "in this format: <bookmark [id]> , where id is the positive integer beside the question title.");
         }
     }
 }
