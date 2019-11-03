@@ -57,6 +57,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 //The spacing is required
 include::./userguide/Misc.adoc[]
 
+include::./userguide/Tabs.adoc[]
+
 include::./userguide/Patient.adoc[]
 
 include::./userguide/Appointment.adoc[]
