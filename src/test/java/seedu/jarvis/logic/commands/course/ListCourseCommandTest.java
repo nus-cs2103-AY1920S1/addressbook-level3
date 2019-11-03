@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
-import seedu.jarvis.model.address.AddressBook;
 import seedu.jarvis.model.cca.CcaTracker;
 import seedu.jarvis.model.course.CoursePlanner;
 import seedu.jarvis.model.finance.FinanceTracker;
@@ -24,9 +23,9 @@ public class ListCourseCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(),
-            new AddressBook(), new UserPrefs(), new Planner(), new CoursePlanner());
+            new UserPrefs(), new Planner(), new CoursePlanner());
         expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-            model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+            model.getFinanceTracker(), new UserPrefs(),
             model.getPlanner(), model.getCoursePlanner());
     }
 

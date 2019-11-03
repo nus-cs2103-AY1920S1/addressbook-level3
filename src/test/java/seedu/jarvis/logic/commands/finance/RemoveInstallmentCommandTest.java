@@ -6,7 +6,6 @@ import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandInverseSu
 import static seedu.jarvis.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jarvis.model.finance.FinanceTrackerModel.PREDICATE_SHOW_ALL_INSTALLMENTS;
 import static seedu.jarvis.testutil.TypicalIndexes.INDEX_FIRST_INSTALLMENT;
-import static seedu.jarvis.testutil.address.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,8 +33,8 @@ public class RemoveInstallmentCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), getTypicalAddressBook(),
-                new UserPrefs(), new Planner(), new CoursePlanner());
+        model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
+                new Planner(), new CoursePlanner());
         model.addInstallment(new InstallmentBuilder().build());
         model.addInstallment(new InstallmentStub());
         model.addInstallment(new InstallmentStub());
@@ -59,8 +58,7 @@ public class RemoveInstallmentCommandTest {
                 installmentToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.deleteInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
 
         assertCommandSuccess(removeInstallmentCommand, model, expectedMessage, expectedModel);
@@ -89,7 +87,7 @@ public class RemoveInstallmentCommandTest {
                 installmentToDelete);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
+                model.getFinanceTracker(), new UserPrefs(),
                 model.getPlanner(), model.getCoursePlanner());
         expectedModel.deleteInstallment(installmentToDelete);
 
@@ -116,8 +114,7 @@ public class RemoveInstallmentCommandTest {
         String expectedMessage = String.format(RemoveInstallmentCommand.MESSAGE_DELETE_INSTALLMENT_SUCCESS,
                 installmentToDelete);
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
-                model.getFinanceTracker(), model.getAddressBook(), new UserPrefs(),
-                model.getPlanner(), model.getCoursePlanner());
+                model.getFinanceTracker(), new UserPrefs(), model.getPlanner(), model.getCoursePlanner());
         expectedModel.deleteInstallment(installmentToDelete);
         assertCommandSuccess(removeInstallmentCommand, model, expectedMessage, expectedModel);
 
