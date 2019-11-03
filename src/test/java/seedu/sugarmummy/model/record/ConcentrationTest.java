@@ -32,9 +32,9 @@ public class ConcentrationTest {
 
         // valid concentration
         assertTrue(Concentration.isValidConcentration("0.12")); // ≤1 double
-        assertTrue(Concentration.isValidConcentration("399.99")); // ≥1 double
-        assertFalse(Concentration.isValidConcentration("399.99999999")); // ≥1 double
-        assertFalse(Concentration.isValidConcentration("400")); // ≥1 double
+        assertTrue(Concentration.isValidConcentration("32.99")); // ≥1 double
+        assertFalse(Concentration.isValidConcentration("32.99999999")); // ≥1 double
+        assertFalse(Concentration.isValidConcentration("33.00001")); // ≥1 double
         assertFalse(Concentration.isValidConcentration("10000")); // positive
         assertFalse(Concentration.isValidConcentration("0"));
     }

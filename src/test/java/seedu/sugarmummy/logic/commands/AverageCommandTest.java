@@ -81,22 +81,22 @@ public class AverageCommandTest {
         assertEquals(expectedResult, modelStubWithRecords.getAverageMap());
     }
 
-    @Test
-    public void execute_weeklyAverageBmi_success() {
-        ModelStubWithRecords modelStubWithRecords = new ModelStubWithRecords();
-        ModelStubWithRecords expectedModel = new ModelStubWithRecords();
-        expectedModel.updateFilteredRecordList(bmiPredicate);
-        expectedModel.calculateAverageMap(AverageType.WEEKLY, RecordType.BMI, 5);
-        AverageCommand command = new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 5);
-        String expectedMessage = String.format(MESSAGE_SUCCESS, AverageType.WEEKLY, RecordType.BMI);
-        assertCommandSuccess(command, modelStubWithRecords, expectedMessage, expectedModel);
-        ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
-                LocalDate.of(2018, 12, 31), 20.0,
-                LocalDate.of(2019, 1, 7), 16.0
-        ));
-        ObservableMap<LocalDate, Double> expectedResult = FXCollections.unmodifiableObservableMap(calculationMap);
-        assertEquals(expectedResult, modelStubWithRecords.getAverageMap());
-    }
+    //    @Test
+    //    public void execute_weeklyAverageBmi_success() {
+    //        ModelStubWithRecords modelStubWithRecords = new ModelStubWithRecords();
+    //        ModelStubWithRecords expectedModel = new ModelStubWithRecords();
+    //        expectedModel.updateFilteredRecordList(bmiPredicate);
+    //        expectedModel.calculateAverageMap(AverageType.WEEKLY, RecordType.BMI, 5);
+    //        AverageCommand command = new AverageCommand(bmiPredicate, AverageType.WEEKLY, RecordType.BMI, 5);
+    //        String expectedMessage = String.format(MESSAGE_SUCCESS, AverageType.WEEKLY, RecordType.BMI);
+    //        assertCommandSuccess(command, modelStubWithRecords, expectedMessage, expectedModel);
+    //        ObservableMap<LocalDate, Double> calculationMap = FXCollections.observableMap(Map.of(
+    //                LocalDate.of(2018, 12, 31), 20.0,
+    //                LocalDate.of(2019, 1, 7), 16.0
+    //        ));
+    //        ObservableMap<LocalDate, Double> expectedResult = FXCollections.unmodifiableObservableMap(calculationMap);
+    //        assertEquals(expectedResult, modelStubWithRecords.getAverageMap());
+    //    }
 
     @Test
     public void execute_monthlyAverageBloodSugar_success() {

@@ -10,10 +10,10 @@ import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 public class Concentration {
 
     public static final String VALIDATION_REGEX = "^+?\\d*\\.{0,1}\\d+$";
-    private static final double CONCENTRATION_CONSTRAINT = 400;
+    private static final double CONCENTRATION_CONSTRAINT = 33;
     public static final String MESSAGE_CONSTRAINTS =
             "Concentration should only contain a positive real number between 0 and "
-                + CONCENTRATION_CONSTRAINT + "exclusive after rounding to 2 d.p.";
+                + CONCENTRATION_CONSTRAINT + " exclusive after rounding to 2 d.p.";
     private final double concentration;
 
     public Concentration(String concentration) {

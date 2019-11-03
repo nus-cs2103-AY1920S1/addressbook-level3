@@ -91,8 +91,8 @@ Weight input (in kilograms) will be rounded to 2 decimal places.
 This rounded value must be less than 500 to be recorded successfully.
 
 BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
-Concentration (mg/dL) will be rounded to 2 decimal places.
-This rounded value must be less than 400 to be recorded successfully.
+Concentration (mmol/L) will be rounded to 2 decimal places.
+This rounded value must be less than 33 to be recorded successfully.
 
 If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
 
