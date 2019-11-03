@@ -21,7 +21,12 @@ import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -42,7 +47,9 @@ public class TimedTestDisplay extends AnchorPane {
     @FXML
     private Button nextButton;
     @FXML
-    private Label scoreLabel; // for Shawn
+    private Label scoreLabel;
+    @FXML
+    private Label timerLabel;
 
     /**
      * The flashcard that is currently on display in test mode.
@@ -101,6 +108,9 @@ public class TimedTestDisplay extends AnchorPane {
     @SuppressWarnings("unchecked")
     private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
 
+    private Integer durationInSeconds;
+    private IntegerProperty timeSeconds;
+
     public TimedTestDisplay(Exam exam) {
         try {
             clearMessage.accept(true);
@@ -111,11 +121,14 @@ public class TimedTestDisplay extends AnchorPane {
             fxmlLoader.load();
             //show the first card - fails if no cards are present
             this.exam = exam;
+            this.durationInSeconds = exam.getDuration();
             this.cardOnDisplay = exam.getCurrentCard();
+            this.timeSeconds = new SimpleIntegerProperty(durationInSeconds);
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> displayDecks.accept(true));
             nextButton.setOnAction(e -> onShowNext());
+            timerLabel.textProperty().bind(timeSeconds.asString());
             setTimer();
         } catch (IOException | IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -213,7 +226,9 @@ public class TimedTestDisplay extends AnchorPane {
     }
 
     private void setTimer() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(exam.getDuration() * 1000), ae -> ExamRunner.terminateExam()));
+        timeSeconds.set(durationInSeconds);
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1), new KeyValue(timeSeconds, 0)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(durationInSeconds + 1), event -> ExamRunner.terminateExam()));
         timeline.play();
     }
 
