@@ -75,14 +75,25 @@ public class Budget {
     }
 
     /**
-     * Updates the amount of this budget given a new amount.
+     * Updates the amount of this budget given a new amount if the Transaction is of the same category.
      *
      * @param amount
      * @return
      */
-    public Budget updateBudget(Amount amount) {
-        Amount newBudget = this.amount.addAmount(amount);
-        this.amount = newBudget;
+    public Budget updateBudget(Amount amount, Set<Category> categories) {
+        boolean isSameCategory = false;
+
+        for (Category ct : categories) {
+            if (this.categories.contains(ct)) {
+                isSameCategory = true;
+                break;
+            }
+        }
+
+        if (isSameCategory) {
+            Amount newBudget = this.amount.addAmount(amount);
+            this.amount = newBudget;
+        }
         return this;
     }
 
