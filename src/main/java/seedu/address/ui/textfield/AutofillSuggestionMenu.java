@@ -1,10 +1,10 @@
 package seedu.address.ui.textfield;
 
-import static seedu.address.ui.textfield.SyntaxHighlightingSupportedInput.PLACEHOLDER_REGEX;
-
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import org.fxmisc.richtext.StyleClassedTextArea;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -19,7 +19,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -38,31 +38,30 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
     private static final Color MATCHING_TEXT_COLOUR = Color.ORANGE;
     private static final Color COMPLETION_TEXT_COLOUR = Color.WHITE;
-    private static final Color OPTIONAL_LABEL_BACKGROUND_COLOUR = Color.LIGHTGRAY;
+    private static final Color OPTIONAL_LABEL_BACKGROUND_COLOUR = Color.ORANGE;
     private static final Color REQUIRED_LABEL_BACKGROUND_COLOUR = Color.FIREBRICK;
-    private static final Color OPTIONAL_TEXT_COLOUR = Color.BLACK;
-    private static final Color REQUIRED_TEXT_COLOUR = Color.WHITE;
+    private static final Color PREFIX_TEXT_COLOUR = Color.WHITE;
 
     private StringProperty currentCommand;
     private FilteredList<AutofillSupportedCommand> autofillSupportedCommands;
     private FilteredList<String> commandSuggestions;
     private ObservableList<AutofillSupportedCommand> autofillSupportedCommandList;
     private ObservableList<String> supportedCommandWords;
-    private TextInputControl textInputControl;
+    private StyleClassedTextArea textInputControl;
     private SimpleStringProperty currentMatchingText;
 
     /**
      * Constructor for the {@code AutofillSuggestionMenu}.
      *
-     * @param textInputControl                 The textInputControl which this autofill menu is bound to.
-     * @param currentCommandWordStringProperty The 'current matching command word' of the {@code textInputControl}.
+     * @param textArea  The textInputControl which this autofill menu is bound to.
+     * @param currentCommandWord The 'current matching command word' of the {@code textInputControl}.
      */
-    public AutofillSuggestionMenu(TextInputControl textInputControl, StringProperty currentCommandWordStringProperty) {
+    public AutofillSuggestionMenu(StyleClassedTextArea textArea, StringProperty currentCommandWord) {
         super();
-        this.textInputControl = textInputControl;
+        this.textInputControl = textArea;
 
         currentCommand = new SimpleStringProperty("");
-        currentCommandWordStringProperty.addListener((observableValue, s, t1) -> {
+        currentCommandWord.addListener((observableValue, s, t1) -> {
             currentCommand.setValue(t1);
         });
         currentMatchingText = new SimpleStringProperty();
@@ -72,7 +71,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         autofillSupportedCommands = new FilteredList<>(autofillSupportedCommandList);
         commandSuggestions = new FilteredList<>(supportedCommandWords);
 
-        textInputControl.textProperty().addListener((a, b, text) -> {
+        textArea.textProperty().addListener((a, b, text) -> {
             currentMatchingText.setValue(text.trim());
 
             autofillSupportedCommands.setPredicate(supportedInput -> {
@@ -85,7 +84,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
 
             if (currentMatchingText.get().length() > 0) {
                 showSuggestions();
-                textInputControl.requestFocus();
+                textArea.requestFocus();
             } else {
                 hide();
             }
@@ -94,6 +93,10 @@ public class AutofillSuggestionMenu extends ContextMenu {
         addEventFilter(KeyEvent.ANY, keyEvent -> {
             if (keyEvent.getCode().isArrowKey()) {
                 hide();
+            } else if (keyEvent.getCode().equals(KeyCode.ENTER)) {
+                if (!isShowing()) {
+                    keyEvent.consume();
+                }
             }
         });
 
@@ -199,8 +202,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
             for (Prefix p : missing[0]) {
                 TextFlow graphic = requiredPrefixGraphic(p);
                 MenuItem item = new MenuItem();
-                // if ends with space can add prefix
-                if (match.replaceAll(PLACEHOLDER_REGEX, "").stripTrailing().length() < match.length()) {
+                if (match.stripTrailing().length() < match.length()) {
                     item.setId(p.getPrefix());
                     // else add a white space in order for it to be properly parsed as a prefix
                 } else {
@@ -223,7 +225,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
                 TextFlow graphic = optionalPrefixGraphic(p);
                 MenuItem item = new MenuItem();
                 // if ends with space can add prefix
-                if (match.replaceAll(PLACEHOLDER_REGEX, "").stripTrailing().length() < match.length()) {
+                if (match.stripTrailing().length() < match.length()) {
                     item.setId(p.getPrefix());
                     // else add a white space in order for it to be properly parsed as a prefix
                 } else {
@@ -237,7 +239,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
                 String completion = suggestion.replaceFirst(match, "");
                 TextFlow graphic = commandWordGraphic("", match, completion);
                 MenuItem item = new MenuItem();
-                item.setId(completion.replaceAll(PLACEHOLDER_REGEX, ""));
+                item.setId(completion);
                 item.setGraphic(graphic);
                 m.getItems().add(item);
             }
@@ -261,8 +263,7 @@ public class AutofillSuggestionMenu extends ContextMenu {
         matchingText.setFill(MATCHING_TEXT_COLOUR);
         Text completionTextAfterMatch = new Text(after);
         completionTextAfterMatch.setFill(COMPLETION_TEXT_COLOUR);
-        TextFlow graphic = new TextFlow(completionTextBeforeMatch, matchingText, completionTextAfterMatch);
-        return graphic;
+        return new TextFlow(completionTextBeforeMatch, matchingText, completionTextAfterMatch);
     }
 
     /**
@@ -272,14 +273,12 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private TextFlow requiredPrefixGraphic(Prefix p) {
         TextFlow graphic = new TextFlow();
-        graphic.setPadding(Insets.EMPTY);
-        Label req = new Label("Missing:");
-        req.setTextFill(REQUIRED_TEXT_COLOUR);
-        req.setPadding(Insets.EMPTY);
+        Label req = new Label("MISSING");
+        req.setTextFill(PREFIX_TEXT_COLOUR);
         req.setBackground(new Background(
                 new BackgroundFill(REQUIRED_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
         Text prefix = new Text(" " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
-        prefix.setFill(REQUIRED_TEXT_COLOUR);
+        prefix.setFill(PREFIX_TEXT_COLOUR);
         graphic.getChildren().addAll(req, prefix);
         return graphic;
     }
@@ -291,16 +290,13 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private TextFlow requiredPrefixGraphic(List<Prefix> p) {
         TextFlow graphic = new TextFlow();
-        graphic.setPadding(Insets.EMPTY);
         Label req = new Label("ALL MISSING");
-        req.setTextFill(REQUIRED_TEXT_COLOUR);
-        req.setPadding(Insets.EMPTY);
+        req.setTextFill(PREFIX_TEXT_COLOUR);
         req.setBackground(new Background(
                 new BackgroundFill(REQUIRED_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
         graphic.getChildren().addAll(req);
         return graphic;
     }
-
 
     /**
      * Creates graphic for optional prefixes in the drop down menu.
@@ -309,13 +305,11 @@ public class AutofillSuggestionMenu extends ContextMenu {
      */
     private TextFlow optionalPrefixGraphic(Prefix p) {
         TextFlow graphic = new TextFlow();
-        graphic.setPadding(Insets.EMPTY);
-        Label req = new Label("Optional:");
-        req.setPadding(Insets.EMPTY);
+        Label req = new Label("OPTIONAL");
         req.setBackground(new Background(
-                new BackgroundFill(MATCHING_TEXT_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(OPTIONAL_LABEL_BACKGROUND_COLOUR, CornerRadii.EMPTY, Insets.EMPTY)));
         Text prefix = new Text(" " + p.getPrefix() + "<" + p.getDescriptionOfArgument() + ">");
-        prefix.setFill(REQUIRED_TEXT_COLOUR);
+        prefix.setFill(PREFIX_TEXT_COLOUR);
         graphic.getChildren().addAll(req, prefix);
         return graphic;
     }

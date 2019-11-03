@@ -6,8 +6,6 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.logic.commands.CommandResult;
@@ -34,18 +32,13 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField = new CommandTextField();
+        commandTextField = new CommandTextField(this::handleCommandEntered);
         commandTextField
                 .textProperty()
                 .addListener((unused1, unused2, unused3) -> setStyleToDefault());
         commandInputAreaPlaceholder.getChildren().add(commandTextField);
-
-        commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
-            if (keyEvent.getCode().equals(KeyCode.ENTER)) {
-                handleCommandEntered();
-            }
-        });
     }
+
 
     public void importSyntaxStyleSheet(Scene scene) {
         commandTextField.importStyleSheet(scene);
@@ -54,13 +47,8 @@ public class CommandBox extends UiPart<Region> {
     /**
      * Handles the Enter button pressed event.
      */
-    private void handleCommandEntered() {
+    private void handleCommandEntered(String input) {
         try {
-            String input = commandTextField.getText();
-            // do not execute if input is blank
-            if (input.isEmpty()) {
-                return;
-            }
             commandExecutor.execute(input);
             commandTextField.commitAndFlush();
         } catch (CommandException | ParseException | UnmappedPanelException e) {

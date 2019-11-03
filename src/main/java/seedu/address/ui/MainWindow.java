@@ -95,6 +95,7 @@ import seedu.address.ui.budget.BudgetPanel;
 import seedu.address.ui.event.EventListPanel;
 import seedu.address.ui.expense.ExpenseListPanel;
 import seedu.address.ui.panel.PanelName;
+import seedu.address.ui.panel.PlaceholderPanel;
 import seedu.address.ui.panel.SinglePanelView;
 import seedu.address.ui.panel.exceptions.UnmappedPanelException;
 
@@ -231,7 +232,7 @@ public class MainWindow extends UiPart<Stage> {
                 new BudgetListPanel(logic.getFilteredBudgetList()));
         singlePanelView.setPanel(EventListPanel.PANEL_NAME,
                 new EventListPanel(logic.getFilteredEventList(), true));
-        //singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
+        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
 
         // startup panel = expense list panel
         try {
@@ -573,8 +574,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
-        //primaryStage.setFullScreen(true);
-        //primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 
