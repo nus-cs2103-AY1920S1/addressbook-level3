@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
+import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
@@ -81,10 +82,16 @@ public class DeckDisplay extends AnchorPane {
     private void startTest() {
         //display the first card
         ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
-        ExamRunner.createExam(testArrayListOfCards);
+        ExamRunner.createExam(testArrayListOfCards, 10);
         Exam exam = ExamRunner.getCurrentExam();
-        TestDisplay testDisplay = new TestDisplay(exam);
-        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        if (exam.getDuration() == 0) {
+            TestDisplay testDisplay = new TestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        }
+        if (exam.getDuration() > 0) {
+            TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
+        }
     }
 
     /**

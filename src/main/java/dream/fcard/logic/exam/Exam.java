@@ -15,7 +15,7 @@ public interface Exam {
 
     public ArrayList<FlashCard> getDeck();
 
-    public boolean parseUserInputAndGrade(Boolean isCorrect) throws IndexNotFoundException;
+    public void gradeQuestion(Boolean isCorrect) throws IndexNotFoundException;
 
     public void upIndex();
 
@@ -24,5 +24,7 @@ public interface Exam {
     public String getResult();
 
     public int getIndex();
+
+    public int getDuration();
 
 }
