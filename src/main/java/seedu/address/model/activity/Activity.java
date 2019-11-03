@@ -77,14 +77,6 @@ public class Activity {
     }
 
     /**
-     * Gets the list of id of participants in the activity.
-     * @return An ArrayList containing the id participants.
-     */
-    public ArrayList<Integer> getParticipantIds() {
-        return participantIds;
-    }
-
-    /**
      * Gets the list of expenses in the activity.
      * @return An ArrayList of expenses.
      */
@@ -109,6 +101,14 @@ public class Activity {
     }
 
     /**
+     * Returns an ArrayList containing all the IDs of the participants.
+     * @return A {@code List} containing the IDs of all participants.
+     */
+    public ArrayList<Integer> getParticipantIds() {
+        return participantIds;
+    }
+
+    /**
      * Gets the transfer matrix.
      * @return The matrix. Every (i, j) entry reflects how much i receives from
      * j. Negative amounts means i has to give j money.
@@ -117,6 +117,14 @@ public class Activity {
     public ArrayList<ArrayList<Double>> getTransferMatrix() {
         simplifyExpenses();
         return transferMatrix;
+    }
+
+    /**
+     * Gets the amount the first person owes the second.
+     */
+    public double getOwed(int firstId, int secondId) {
+        return getTransferMatrix().get(idDict.get(firstId))
+                .get(idDict.get(secondId));
     }
 
     /**
@@ -277,10 +285,14 @@ public class Activity {
             .map(x -> idDict.get(x))
             .toArray();
 
-        expenses.add(expense);
 
         // We update the balance sheet
-        double splitAmount = amount / (involved.length + 1);
+        double splitAmount;
+        if (expense.isSettlement()) {
+            splitAmount = amount;
+        } else {
+            splitAmount = amount / (involved.length + 1);
+        }
 
         // all this does is to just add splitAmount to the (x, payerpos) entry.
         // This signifies "x owes payerpos" $splitAmount more.
@@ -291,6 +303,8 @@ public class Activity {
         IntStream.of(involved)
             .forEach(x -> participantActive.set(idDict.get(x), true));
         participantActive.set(payerPos, true);
+
+        expenses.add(expense);
     }
 
     /**
