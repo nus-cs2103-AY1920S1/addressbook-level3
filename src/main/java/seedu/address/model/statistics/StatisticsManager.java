@@ -5,18 +5,19 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.Model;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
 import seedu.address.model.person.Date;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
-
 
 /**
  * Handles calculation of statistics.
@@ -25,21 +26,28 @@ public class StatisticsManager implements Statistics {
     private ObservableMap<Integer, ObservableMap<Integer, MonthList>> yearlyRecord;
     private ObservableList<CategoryStatistics> listOfStatsForExpense;
     private ObservableList<CategoryStatistics> listOfStatsForIncome;
+    private ObservableList<DailyStatistics> listOfStatsForDaily;
     private FilteredList<Expense> modelTotalFilteredExpenses;
     private FilteredList<Income> modelTotalFilteredIncomes;
     private CategoryList listOfCategories;
+    private DoubleProperty totalExpenseForPeriod;
+    private DoubleProperty totalIncomeForPeriod;
 
     /**
      * Manages the general Statistics.
      */
-    public StatisticsManager(Model modelManager) {
-        this.modelTotalFilteredExpenses = new FilteredList(modelManager.getFilteredExpenses());
-        this.modelTotalFilteredIncomes = new FilteredList(modelManager.getFilteredIncomes());
-        this.listOfCategories = modelManager.getCategoryList();
+    public StatisticsManager(FilteredList<Expense> listOfFilteredExpenses, FilteredList<Income> listOfFilteredIncomes,
+                             CategoryList listOfCategories) {
+        this.modelTotalFilteredExpenses = new FilteredList(listOfFilteredExpenses);
+        this.modelTotalFilteredIncomes = new FilteredList(listOfFilteredIncomes);
+        this.listOfCategories = listOfCategories;
         int currentYear = LocalDate.now().getYear();
         yearlyRecord = FXCollections.observableHashMap();
         listOfStatsForExpense = FXCollections.observableArrayList();
         listOfStatsForIncome = FXCollections.observableArrayList();
+        listOfStatsForDaily = FXCollections.observableArrayList();
+        totalExpenseForPeriod = new SimpleDoubleProperty(0.00);
+        totalIncomeForPeriod = new SimpleDoubleProperty(0.00);
         initRecords(currentYear);
         initStats();
     }
@@ -75,15 +83,18 @@ public class StatisticsManager implements Statistics {
             @Override
             public void onChanged(Change<? extends Expense> change) {
                 updateListOfStats();
+                updateBarCharts();
             }
         });
         modelTotalFilteredIncomes.addListener(new ListChangeListener<Income>() {
             @Override
             public void onChanged(Change<? extends Income> change) {
                 updateListOfStats();
+                updateBarCharts();
             }
         });
         updateListOfStats();
+        updateBarCharts();
     }
 
     /**
@@ -93,12 +104,15 @@ public class StatisticsManager implements Statistics {
         ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
         ArrayList<MonthList> listOfMonths = new ArrayList<MonthList>();
         listOfMonths.add(yearOfRecord.get(LocalDate.now().getMonth().getValue()));
-        countStats(listOfMonths, listOfStatsForExpense);
-        countStats(listOfMonths, listOfStatsForIncome);
+        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
+        this.totalExpenseForPeriod.setValue(totalExpense);
+        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
+        this.totalIncomeForPeriod.setValue(totalIncome);
     }
 
     /**
-     * Calculates the statistics for the specified month or the range of periods given.
+     * Calculates the statistics for the specified month or the range of periods given. This statistics is to be used
+     * later in the table or piechart.
      *
      * @param listOfPeriods contains the range of periods that was specified by the user.
      */
@@ -107,6 +121,35 @@ public class StatisticsManager implements Statistics {
             calculationsForOneMonth(listOfPeriods.get(0));
         } else {
             calculationsForRangeOfPeriods(listOfPeriods);
+        }
+    }
+
+    /**
+     * Calculates the statistics for the current month. This statistics is to be used later in the barchart.
+     */
+    public void updateBarCharts() {
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
+        MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
+        this.listOfStatsForDaily.clear();
+        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        if (this.listOfStatsForDaily.isEmpty()) {
+            this.listOfStatsForDaily.add(new DailyStatistics(LocalDate.now(), 0.00, 0.00));
+        }
+    }
+
+    /**
+     * Calculates the statistics for the specified month or the range of periods given. This statistics is to be used
+     * later in the barchart.
+     *
+     * @param monthToShow contains the month that was specified by the user.
+     */
+    public void updateBarCharts(Date monthToShow) {
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
+        MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
+        this.listOfStatsForDaily.clear();
+        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        if (this.listOfStatsForDaily.isEmpty()) {
+            this.listOfStatsForDaily.add(new DailyStatistics(monthToShow.getDate(), 0.00, 0.00));
         }
     }
 
@@ -124,8 +167,10 @@ public class StatisticsManager implements Statistics {
         Month month = monthToCalculate.getDate().getMonth();
         MonthList startMonthListToCalculate = yearlyRecord.get(yearToCheck).get(month.getValue());
         listOfMonths.add(startMonthListToCalculate);
-        countStats(listOfMonths, listOfStatsForExpense);
-        countStats(listOfMonths, listOfStatsForIncome);
+        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
+        this.totalExpenseForPeriod.setValue(totalExpense);
+        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
+        this.totalIncomeForPeriod.setValue(totalIncome);
     }
 
     /**
@@ -144,7 +189,7 @@ public class StatisticsManager implements Statistics {
                 initRecords(i);
             }
 
-            if (startYear == endYear) {
+            if (i == endYear) {
                 listOfMonths.addAll(calculateforSpecifiedMonths(startDate.getDate().getMonth().getValue(),
                         endDate.getDate().getMonth().getValue(), startYear));
             } else {
@@ -152,8 +197,10 @@ public class StatisticsManager implements Statistics {
             }
         }
         assert(listOfMonths.size() != 0);
-        countStats(listOfMonths, listOfStatsForExpense);
-        countStats(listOfMonths, listOfStatsForIncome);
+        double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
+        this.totalExpenseForPeriod.setValue(totalExpense);
+        double totalIncome =countStats(listOfMonths, listOfStatsForIncome);
+        this.totalIncomeForPeriod.setValue(totalIncome);
     }
 
     /**
@@ -174,6 +221,11 @@ public class StatisticsManager implements Statistics {
     }
 
     @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return listOfStatsForDaily;
+    }
+
+    @Override
     public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
         return listOfStatsForExpense;
     }
@@ -183,21 +235,34 @@ public class StatisticsManager implements Statistics {
         return listOfStatsForIncome;
     }
 
+    @Override
+    public DoubleProperty getTotalExpenseForPeriod() {
+        return totalExpenseForPeriod;
+    }
+
+    @Override
+    public DoubleProperty getTotalIncomeForPeriod() {
+        return totalIncomeForPeriod;
+    }
+
     /**
      * Recalculates statistics for a specific period of time.
      *
      * @param currentMonthList the lists of months that needs to be recalculated.
      * @param typeOfCategory the list of categories that need to be recalculated whether it be income or expense.
      */
-    private void countStats(ArrayList<MonthList> currentMonthList, ObservableList<CategoryStatistics> typeOfCategory) {
+    private double countStats(ArrayList<MonthList> currentMonthList, ObservableList<CategoryStatistics> typeOfCategory) {
+        double totalAmountCalculated = 0.00;
         for (int i = 0; i < typeOfCategory.size(); i++) {
             Category toVerifyCat = typeOfCategory.get(i).getCategory();
             double totalForCategoryOverMonths = countStatsForMonth(currentMonthList, toVerifyCat);
             CategoryStatistics toCheck = new CategoryStatistics(toVerifyCat, totalForCategoryOverMonths);
+            totalAmountCalculated = toCheck.getAmountCalculated() + totalAmountCalculated;
             if (!typeOfCategory.get(i).equals(toCheck)) {
                 typeOfCategory.set(i, toCheck);
             }
         }
+        return totalAmountCalculated;
     }
 
     /**

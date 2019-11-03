@@ -85,10 +85,6 @@ public class UniqueEntryList implements Iterable<Entry> {
      */
     public void setEntries(List<Entry> entries) {
         requireAllNonNull(entries);
-        if (!entriesAreUnique(entries)) {
-            throw new DuplicateEntryException();
-        }
-
         internalList.setAll(entries);
     }
 

@@ -1,26 +1,29 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.statisticscommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.person.Date;
 
 /**
- * Obtains information about the statistics from Model.
+ * Obtains information about the statistics from model and displays the statistics in form of table.
  */
-public class StatisticsCommand extends Command {
+public class ViewTableCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewStatistics";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guiltTrip(). Use a comma to "
-            + "seperate the two dates. \n"
+    public static final String COMMAND_WORD = "viewTable";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": View Statistics of guiltTrip() in table form. Use a "
+            + "comma to separate the two dates. \n"
             + "Parameters: "
             + PREFIX_PERIOD + "PERIOD "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PERIOD + "9/2019 ";
+            + PREFIX_PERIOD + "9/2019, 10/2019 ";
 
     public static final String MESSAGE_SUCCESS = "Display all statistics by the specified period";
     public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only two "
@@ -28,7 +31,7 @@ public class StatisticsCommand extends Command {
     private List<Date> listOfPeriods;
 
 
-    public StatisticsCommand(List<Date> period) {
+    public ViewTableCommand(List<Date> period) {
         this.listOfPeriods = period;
     }
 
@@ -36,10 +39,10 @@ public class StatisticsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (listOfPeriods == null) {
-            model.getStats().updateListOfStats();
+            model.updateListOfStats();
         } else {
-            model.getStats().updateListOfStats(listOfPeriods);
+            model.updateListOfStats(listOfPeriods);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, new ArrayList<Boolean>(List.of(true, false, false, false)));
     }
 }

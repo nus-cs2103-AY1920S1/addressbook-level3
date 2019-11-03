@@ -48,6 +48,7 @@ public class ParserUtil {
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
+
     /**
      * Parses {@code String indexes} into a {@code List<Index}.
      */
@@ -61,7 +62,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses {@code Collection<String> tags} into a {@code List<Index>}.
      */
     public static List<Index> parseIndexes(Collection<String> indexes) throws ParseException {
@@ -73,12 +73,8 @@ public class ParserUtil {
         return indexList;
     }
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-=======
      * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
->>>>>>> b2ec7d64249172d26ceccb183976364b8bb21fc9
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -111,6 +107,17 @@ public class ParserUtil {
     public static Date parseDate(String date) {
         requireNonNull(date);
         return new Date(date);
+    }
+
+    /**
+     * Parses a date in String to Date.
+     *
+     * @param date the date as a String.
+     * @return the specified date as Date which has been parsed in the month format.
+     */
+    public static Date parseMonth(String date) {
+        requireNonNull(date);
+        return new Date(date, true);
     }
 
     /**

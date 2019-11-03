@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -16,6 +18,7 @@ import seedu.address.model.person.AutoExpense;
 import seedu.address.model.person.Budget;
 import seedu.address.model.person.Category;
 import seedu.address.model.person.CategoryList;
+import seedu.address.model.person.Date;
 import seedu.address.model.person.Entry;
 import seedu.address.model.person.Expense;
 import seedu.address.model.person.Income;
@@ -24,6 +27,8 @@ import seedu.address.model.person.SortType;
 import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
+import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.DailyStatistics;
 import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.model.util.EntryComparator;
 
@@ -73,6 +78,8 @@ public class ModelManager implements Model {
         filteredReminders = new FilteredList<>(versionedAddressBook.getReminderList());
         filteredConditions = new FilteredList<>(versionedAddressBook.getConditionList());
         createExpensesfromAutoExpenses();
+        this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
+                versionedAddressBook.getCategoryList());
     }
 
     public ModelManager() {
@@ -81,16 +88,6 @@ public class ModelManager implements Model {
 
     // =========== UserPrefs
     // ==================================================================================
-    @Override
-    public void setStats(StatisticsManager stats) {
-        this.stats = stats;
-    }
-
-    @Override
-    public StatisticsManager getStats() {
-        return stats;
-    }
-
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -392,6 +389,51 @@ public class ModelManager implements Model {
     public void setBudget(Budget target, Budget editedBudget) {
         requireAllNonNull(target, editedBudget);
         versionedAddressBook.setBudget(target, editedBudget);
+    }
+
+    @Override
+    public void updateListOfStats() {
+        this.stats.updateListOfStats();
+    }
+
+    @Override
+    public void updateListOfStats(List<Date> period) {
+        this.stats.updateListOfStats(period);
+    }
+
+    @Override
+    public void updateBarCharts() {
+        this.stats.updateBarCharts();
+    }
+
+    @Override
+    public void updateBarCharts(Date month) {
+        this.stats.updateBarCharts(month);
+    }
+
+    @Override
+    public DoubleProperty getTotalExpenseForPeriod() {
+        return this.stats.getTotalExpenseForPeriod();
+    }
+
+    @Override
+    public DoubleProperty getTotalIncomeForPeriod() {
+        return this.stats.getTotalIncomeForPeriod();
+    }
+
+    @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return this.stats.getListOfStatsForBarChart();
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
+        return this.stats.getListOfStatsForExpense();
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
+        return this.stats.getListOfStatsForIncome();
     }
 
     @Override

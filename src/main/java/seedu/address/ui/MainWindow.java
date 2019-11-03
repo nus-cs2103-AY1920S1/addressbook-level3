@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -21,7 +22,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.PanelName;
-import seedu.address.ui.stats.StatisticsGraphics;
+import seedu.address.ui.stats.StatisticsBarChart;
+import seedu.address.ui.stats.StatisticsPieChartHolder;
 import seedu.address.ui.stats.StatisticsWindow;
 
 /**
@@ -42,7 +44,8 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsWindow statsListPanel;
-    private StatisticsGraphics statsGraphics;
+    private StatisticsPieChartHolder statsGraphics;
+    private StatisticsBarChart statsBar;
 
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
@@ -108,6 +111,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -140,8 +144,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        statsListPanel = new StatisticsWindow(logic);
-        statsGraphics = new StatisticsGraphics(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome());
+        statsListPanel = new StatisticsWindow(logic.getListOfStatsForExpense(), logic.getListOfStatsForIncome(),
+                logic.getTotalExpenseForPeriod(), logic.getTotalIncomeForPeriod());
+        statsBar = new StatisticsBarChart(logic.getListOfStatsForBarChart());
 
         entryListPanel = new EntryListPanel(logic.getFilteredExpenseAndIncomeList());
         entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
@@ -218,6 +223,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Calls the togglePlaceHolder method with the place holder of the specified panel.
+     *
      * @param panelName name of the specified panel to be toggled.
      */
     private void togglePanel(String panelName) {
@@ -249,6 +255,7 @@ public class MainWindow extends UiPart<Stage> {
         ConditionPanel conditionPanel = new ConditionPanel(logic.getFilteredConditions());
         remindersPlaceHolder.getChildren().add(conditionPanel.getRoot());
     }
+
     /**
      * Replaces the Conditions Panel with the Reminder Panel;
      */
@@ -261,6 +268,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Toggles the isVisible and isManaged properties of the specified place holder.
+     *
      * @param placeHolder specified place holder to be toggled.
      */
     private void togglePlaceHolder(VBox placeHolder) {
@@ -334,17 +342,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills the entryListPanel with either the StatisticsWindow or the EntryListPanel.
-     * entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
-     * @param isStatistics is the truthvalue of whether it is the statistics panel.
+     * Fills the entryListPanel with the type of Panel passed in.
      */
-    private void fillEntryListPanel(boolean isStatistics) {
+    private void fillEntryListPanel(UiPart typeOfPanel) {
         entryListPanelPlaceholder.getChildren().clear();
-        if (isStatistics) {
-            entryListPanelPlaceholder.getChildren().add(statsListPanel.getRoot());
-        } else {
-            entryListPanelPlaceholder.getChildren().add(entryListPanel.getRoot());
-        }
+        entryListPanelPlaceholder.getChildren().add((Node) typeOfPanel.getRoot());
     }
 
     /**
@@ -402,16 +404,25 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isToggleStats()) {
-                isStatsWindow = !isStatsWindow;
-                this.togglePlaceHolderForStats(isStatsWindow);
-                this.fillEntryListPanel(isStatsWindow);
+                this.togglePlaceHolderForStats(true);
+                this.fillEntryListPanel(this.statsListPanel);
+                this.statsListPanel.fillStatsTable();
             }
 
-            if (commandResult.isToggleGraphics()) {
-                isStatsWindow = true;
-                isStatsGraphicsWindow = !isStatsGraphicsWindow;
+            if (commandResult.isTogglePieChart()) {
                 this.togglePlaceHolderForStats(true);
-                this.toggleStatsPanel();
+                this.fillEntryListPanel(this.statsListPanel);
+                this.statsListPanel.fillStatsPie();
+            }
+
+            if (commandResult.isToggleEntryPanel()) {
+                this.toggleAllTrue();
+                this.fillEntryListPanel(this.entryListPanel);
+            }
+
+            if (commandResult.isToggleBarChart()) {
+                this.togglePlaceHolderForStats(true);
+                this.fillEntryListPanel(this.statsBar);
             }
 
             if (commandResult.toShowConditionPanel()) {

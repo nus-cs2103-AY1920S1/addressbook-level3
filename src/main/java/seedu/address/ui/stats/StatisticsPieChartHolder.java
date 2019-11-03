@@ -15,10 +15,10 @@ import seedu.address.ui.UiPart;
 /**
  * Displays the user's statistics in graphics for the more visual User.
  */
-public class StatisticsGraphics extends UiPart<Region> {
+public class StatisticsPieChartHolder extends UiPart<Region> {
 
     private static final String FXML = "statistics/StatisticsChart.fxml";
-    private final Logger logger = LogsCenter.getLogger(StatisticsGraphics.class);
+    private final Logger logger = LogsCenter.getLogger(StatisticsPieChartHolder.class);
     private final StatisticsPieChart expenseChart;
     private final StatisticsPieChart incomeChart;
     private final ObservableList<CategoryStatistics> expenseStats;
@@ -36,8 +36,8 @@ public class StatisticsGraphics extends UiPart<Region> {
     @FXML
     private AnchorPane pieChartPanelHolderRight;
 
-    public StatisticsGraphics(ObservableList<CategoryStatistics> expenseStats,
-                              ObservableList<CategoryStatistics> incomeStats) {
+    public StatisticsPieChartHolder(ObservableList<CategoryStatistics> expenseStats,
+                                    ObservableList<CategoryStatistics> incomeStats) {
         super(FXML);
         expenseChart = new StatisticsPieChart(expenseStats);
         incomeChart = new StatisticsPieChart(incomeStats);

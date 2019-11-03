@@ -35,9 +35,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFontCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.StatisticsCommand;
-import seedu.address.logic.commands.SwitchCommand;
-import seedu.address.logic.commands.SwitchStatisticsCommand;
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.WishListCommand;
@@ -56,6 +53,10 @@ import seedu.address.logic.commands.remindercommands.EditReminderCommand;
 import seedu.address.logic.commands.remindercommands.ListActiveRemindersCommand;
 import seedu.address.logic.commands.remindercommands.ListAllRemindersCommand;
 import seedu.address.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
+import seedu.address.logic.commands.statisticscommands.ViewBarChartCommand;
+import seedu.address.logic.commands.statisticscommands.ViewEntryCommand;
+import seedu.address.logic.commands.statisticscommands.ViewPieChartCommand;
+import seedu.address.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.address.logic.parser.conditioncommandparsers.AddClassConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddDateConditionCommandParser;
 import seedu.address.logic.parser.conditioncommandparsers.AddHasKeyWordConditionCommandParser;
@@ -166,12 +167,6 @@ public class AddressBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
-        case SwitchCommand.COMMAND_WORD:
-            return new SwitchCommandParser().parse(arguments);
-
-        case SwitchStatisticsCommand.COMMAND_WORD:
-            return new SwitchStatisticsCommand();
-
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
@@ -229,8 +224,17 @@ public class AddressBookParser {
         case DeleteAutoExpenseCommand.COMMAND_WORD:
             return new DeleteAutoExpenseCommandParser().parse(arguments);
 
-        case StatisticsCommand.COMMAND_WORD:
-            return new StatisticsCommandParser().parse(arguments);
+        case ViewBarChartCommand.COMMAND_WORD:
+            return new ViewBarChartCommandParser().parse(arguments);
+
+        case ViewTableCommand.COMMAND_WORD:
+            return new ViewTableCommandParser().parse(arguments);
+
+        case ViewPieChartCommand.COMMAND_WORD:
+            return new ViewPieChartCommandParser().parse(arguments);
+
+        case ViewEntryCommand.COMMAND_WORD:
+            return new ViewEntryCommand();
 
         case TogglePanelCommand.COMMAND_WORD:
             return new TogglePanelCommandParser().parse(arguments);

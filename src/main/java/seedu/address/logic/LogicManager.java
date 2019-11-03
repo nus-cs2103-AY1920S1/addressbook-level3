@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -21,7 +22,7 @@ import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
-import seedu.address.model.statistics.Statistics;
+import seedu.address.model.statistics.DailyStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -32,15 +33,13 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Statistics stats;
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
 
-    public LogicManager(Model model, Statistics stats, Storage storage) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.stats = stats;
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
@@ -79,13 +78,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public DoubleProperty getTotalExpenseForPeriod() {
+        return model.getTotalExpenseForPeriod();
+    }
+
+    @Override
+    public DoubleProperty getTotalIncomeForPeriod() {
+        return model.getTotalIncomeForPeriod();
+    }
+
+    @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return model.getListOfStatsForBarChart();
+    }
+
+    @Override
     public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
-        return stats.getListOfStatsForExpense();
+        return model.getListOfStatsForExpense();
     }
 
     @Override
     public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
-        return stats.getListOfStatsForIncome();
+        return model.getListOfStatsForIncome();
     }
 
     @Override

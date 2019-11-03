@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -15,6 +16,7 @@ import seedu.address.model.person.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.DailyStatistics;
 
 /**
  * API of the Logic component
@@ -36,7 +38,13 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    DoubleProperty getTotalExpenseForPeriod();
+
+    DoubleProperty getTotalIncomeForPeriod();
+
     /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
+
     ObservableList<CategoryStatistics> getListOfStatsForExpense();
 
     ObservableList<CategoryStatistics> getListOfStatsForIncome();

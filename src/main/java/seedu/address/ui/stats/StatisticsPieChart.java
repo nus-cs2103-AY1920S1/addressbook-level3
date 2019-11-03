@@ -21,7 +21,6 @@ import seedu.address.ui.UiPart;
 public class StatisticsPieChart extends UiPart<Region> {
 
     private static final String FXML = "statistics/StatisticsPieChart.fxml";
-    private boolean wasChanged;
     private ObservableList<CategoryStatistics> statsMap;
     private ObservableList<PieChart.Data> toAdd;
     private final Logger logger = LogsCenter.getLogger(StatisticsPieChart.class);

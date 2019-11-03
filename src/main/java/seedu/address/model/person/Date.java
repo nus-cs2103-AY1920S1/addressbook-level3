@@ -27,8 +27,8 @@ public class Date {
     public static final String MESSAGE_DATE_INVALID = "Date is not valid as it exceeds the maximum allowed days "
             + "allowed for the month";
 
-    public static final String MESSAGE_MONTH_INVALID = "Date is not valid as it exceeds the maximum allowed months "
-            + " allowed for the year";
+    public static final String MESSAGE_MONTH_INVALID = "Date is not valid as date cannot exceed the maximum allowed "
+            + " months allowed for the year and must only contain in the format [yy-MM] without days";
     /*
      * The first character of the address must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
@@ -59,7 +59,7 @@ public class Date {
             .parseDefaulting(ChronoField.DAY_OF_MONTH, 1).appendOptional(DateTimeFormatter.ofPattern("MM/uuuu"))
             .appendOptional(DateTimeFormatter.ofPattern("MM-uuuu")).appendOptional(DateTimeFormatter.ofPattern("MM/uu"))
             .appendOptional(DateTimeFormatter.ofPattern("M/uuuu")).appendOptional(DateTimeFormatter.ofPattern("M-uuuu"))
-            .appendOptional(DateTimeFormatter.ofPattern("M/uu")).appendOptional(DateTimeFormatter.ofPattern("yy/uu"))
+            .appendOptional(DateTimeFormatter.ofPattern("M/uu")).appendOptional(DateTimeFormatter.ofPattern("uu/mm"))
             .appendOptional(DateTimeFormatter.ofPattern("uuuu/MM"))
             .appendOptional(DateTimeFormatter.ofPattern("uuuu MM"))
             .appendOptional(DateTimeFormatter.ofPattern("uuuu-MM")).toFormatter();
