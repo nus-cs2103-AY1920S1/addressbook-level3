@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNNECESSARY_BUDGET_PARAMETERS;
 import static seedu.address.logic.commands.HelpCommand.MESSAGE_USAGE;
 
 import java.util.ArrayList;
@@ -197,7 +198,13 @@ public class FinSecParser {
                 return new RejectClaimCommandParser().parse(arguments);
 
             case BudgetCommand.COMMAND_WORD:
-                return new BudgetCommand();
+                if (arguments.isEmpty()) {
+                    return new BudgetCommand();
+                }
+                else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            MESSAGE_UNNECESSARY_BUDGET_PARAMETERS));
+                }
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
