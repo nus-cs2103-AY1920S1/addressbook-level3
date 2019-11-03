@@ -379,7 +379,6 @@
 
 .chartBox {
     -fx-border-color: #f9f9f9 #f9f9f9 #f9f9f9 #bababa;
-    -fx-border-style: chartBoxBorder;
 }
 
 .chartBoxBorder {

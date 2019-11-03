@@ -42,7 +42,8 @@ test {
 }
 
 dependencies {
-    String jUnitVersion = '5.4.0'
+    String testFxVersion = '4.0.16-alpha'
+    String jUnitVersion = '5.5.1'
     String javaFxVersion = '11'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
@@ -61,9 +62,15 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
+
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
 }
 
 shadowJar {
