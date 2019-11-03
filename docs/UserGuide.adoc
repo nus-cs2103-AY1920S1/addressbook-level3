@@ -37,7 +37,7 @@ The GUI should appear in a few seconds.
 image::Ui.png[width="790"]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`go /members`* and pressing kbd:[Enter] will take you to the Members tab.
+e.g. typing *`go members`* and pressing kbd:[Enter] will take you to the Members tab.
 
 . Refer to <<Features>> for details of commands for each tab.
 
@@ -72,8 +72,9 @@ Command: `go TAB`
 This command allows you to navigate between tabs.
 
 * `go home`
+* `go members`
 * `go inventory`
-* `go reimbursement`
+* `go reimbursements`
 * `go cashier`
 * `go overview`
 
