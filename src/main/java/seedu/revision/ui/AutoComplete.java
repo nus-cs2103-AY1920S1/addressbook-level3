@@ -27,9 +27,9 @@ import seedu.revision.logic.commands.main.StartQuizCommand;
  * Uses a supplied list of entries (questions from stored answerables).
  */
 public class AutoComplete extends TextField {
-    public static final int MAX_ENTRIES = 10;
+    public static final int MAX_ENTRIES = 5;
     private SortedSet<String> commandKeywords;
-    private ContextMenu keywordMenu;
+    private ContextMenu autocompleteDropdown;
 
     /**
      * Constructs a textfield that can handle autocompletion.
@@ -37,9 +37,9 @@ public class AutoComplete extends TextField {
     public AutoComplete() {
         super();
         generateCommandKeywords();
-        keywordMenu = new ContextMenu();
-        focusedProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
-        textProperty().addListener((unused0, unused1, unused2) -> keywordMenu.hide());
+        autocompleteDropdown = new ContextMenu();
+        focusedProperty().addListener((unused0, unused1, unused2) -> autocompleteDropdown.hide());
+        textProperty().addListener((unused0, unused1, unused2) -> autocompleteDropdown.hide());
     }
 
     /**
@@ -52,6 +52,7 @@ public class AutoComplete extends TextField {
         for (int i = 0; i < noOfEntries; i++) {
             final String result = searchResult.get(i);
             Label entryLabel = new Label(result);
+
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(unused -> {
                 int lastIndex = getText().lastIndexOf(" ");
@@ -64,12 +65,12 @@ public class AutoComplete extends TextField {
                 }
                 setText(finalText);
                 positionCaret(finalText.length());
-                keywordMenu.hide();
+                autocompleteDropdown.hide();
             });
             menuItems.add(item);
         }
-        keywordMenu.getItems().clear();
-        keywordMenu.getItems().addAll(menuItems);
+        autocompleteDropdown.getItems().clear();
+        autocompleteDropdown.getItems().addAll(menuItems);
     }
 
     /**
@@ -77,7 +78,7 @@ public class AutoComplete extends TextField {
      */
     public void handleAutocomplete() {
         if (getText().length() == 0) {
-            keywordMenu.hide();
+            autocompleteDropdown.hide();
         } else {
             String input = getText();
             String[] inputArray = input.split(" ");
@@ -94,23 +95,25 @@ public class AutoComplete extends TextField {
         ArrayList<String> searchResult = new ArrayList<>(keywords.subSet(input,
                 input + Character.MAX_VALUE));
 
-        if (searchResult.size() >= 1) {
+        if (searchResult.size() > 0) {
             populateMenu(searchResult);
-            if (!keywordMenu.isShowing()) {
-                keywordMenu.show(AutoComplete.this, Side.BOTTOM, 20, 0);
-            }
-            keywordMenu.getSkin().getNode().lookup(".menu-item").requestFocus();
+//            if (!autocompleteDropdown.isShowing()) {
+//                autocompleteDropdown.show(AutoComplete.this, Side.BOTTOM, 20, 0);
+//            }
+            autocompleteDropdown.hide();
+            autocompleteDropdown.show(AutoComplete.this, Side.BOTTOM, 20, 0);
+            autocompleteDropdown.getSkin().getNode().lookup(".menu-item").requestFocus();
         } else {
-            keywordMenu.hide();
+            autocompleteDropdown.hide();
         }
     }
 
     /**
      * Checks if menu is open.
-     * @return keywordMenu.
+     * @return autocompleteDropdown.
      */
     public boolean isMenuShowing() {
-        return keywordMenu.isShowing();
+        return autocompleteDropdown.isShowing();
     }
 
     /**

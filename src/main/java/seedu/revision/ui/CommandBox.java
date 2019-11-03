@@ -14,6 +14,8 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -39,12 +41,20 @@ public class CommandBox extends UiPart<Region> {
         autoComplete.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         autoComplete.setId("commandTextField");
 
-        autoComplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+//        autoComplete.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+//            if (keyEvent.getCode() == KeyCode.ENTER) {
+//                handleCommandEntered();
+//            } else if (keyEvent.getCode() == KeyCode.TAB) {
+//                autoComplete.handleAutocomplete();
+//                keyEvent.consume();
+//            }
+//        });
+        autoComplete.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode() == KeyCode.ENTER) {
                 handleCommandEntered();
-            } else if (keyEvent.getCode() == KeyCode.TAB) {
+            } else {
                 autoComplete.handleAutocomplete();
-                keyEvent.consume();
+
             }
         });
         commandBox.getChildren().add(autoComplete);
