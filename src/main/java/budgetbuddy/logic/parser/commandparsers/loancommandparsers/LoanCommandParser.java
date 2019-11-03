@@ -72,12 +72,7 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
         Optional<String> optionalDate = argMultimap.getValue(PREFIX_DATE);
         Date date = new Date();
         if (optionalDate.isPresent()) {
-            try {
-                date = CommandParserUtil.parseDate(optionalDate.get());
-            } catch (ParseException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanCommand.MESSAGE_USAGE));
-            }
+            date = CommandParserUtil.parseDate(optionalDate.get());
         }
 
         Status status = Status.UNPAID;
