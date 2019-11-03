@@ -44,10 +44,12 @@ public class QuestionBank implements Iterable<Question> {
      * @param question to add to the list.
      */
     public void addQuestion(Question question) {
+        /*
         if (!isRepeated(question)) {
             this.questions.add(question);
         }
-        // TODO: Implement check if duplicated question AND answer is entered
+        */
+        this.questions.add(question);
     }
 
     /**
@@ -260,5 +262,12 @@ public class QuestionBank implements Iterable<Question> {
     @Override
     public Iterator<Question> iterator() {
         return questions.iterator();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof QuestionBank // instanceof handles nulls
+            && questions.equals(((QuestionBank) other).questions));
     }
 }

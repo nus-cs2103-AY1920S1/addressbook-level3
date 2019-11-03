@@ -213,7 +213,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
     @Override
     public String toString() {
         return questions.asUnmodifiableObservableList().size() + " Questions";
-        // TODO: refine later
     }
 
     @Override

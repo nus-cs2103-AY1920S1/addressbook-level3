@@ -88,6 +88,6 @@ public abstract class Question {
         }
 
         return otherQuestion != null
-            && otherQuestion.equals(question);
+            && otherQuestion.getQuestion().equals(question);
     }
 }

@@ -26,6 +26,8 @@ public class QuestionEditCommand extends QuestionCommand {
         + "Example: answer/ 2\n"
         + "Example: type/ open";
 
+    public static final String MESSAGE_SUCCESS = "Edited question: %1$s";
+
     private final Index index;
     private final String question;
     private final String answer;
@@ -104,17 +106,8 @@ public class QuestionEditCommand extends QuestionCommand {
         }
 
         model.setQuestion(index, questionObj);
-        return new CommandResult(generateSuccessMessage(questionObj),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, questionObj),
             CommandResultType.SHOW_QUESTION);
-    }
-
-    /**
-     * Generates a command execution success message.
-     *
-     * @param question that has been added.
-     */
-    private String generateSuccessMessage(Question question) {
-        return "Edited question: " + question;
     }
 
     /**

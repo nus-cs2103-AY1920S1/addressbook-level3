@@ -189,8 +189,12 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
         Index indexToDelete;
 
         try {
-            String deletePrefix = argMultimap.getValue(PREFIX_DELETE).orElse("0");
-            if (!areInputIndexesValid(deletePrefix)) {
+            String deletePrefix = argMultimap.getValue(PREFIX_DELETE).orElse("");
+
+            if (deletePrefix.isEmpty()) {
+                throw new ParseException(
+                    String.format(MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX));
+            } else if (!areInputIndexesValid(deletePrefix)) {
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
             }

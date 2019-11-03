@@ -123,7 +123,7 @@ public class SlideshowWindow extends UiPart<Stage> {
             hide();
         } else if (currQuestionIndex == questionPanels.size()) {
             questionPanels.get(currQuestionIndex - 1).setVisible(false);
-            questionNoLabel.setText("End of Slideshow");
+            questionNoLabel.setText("End of slideshow");
         } else {
             questionPanels.get(currQuestionIndex - 1).setVisible(false);
             questionPanels.get(currQuestionIndex).setVisible(true);

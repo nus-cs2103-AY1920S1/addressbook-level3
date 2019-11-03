@@ -8,6 +8,8 @@ import static seedu.address.testutil.question.TypicalQuestions.getTypicalSavedQu
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -24,10 +26,11 @@ import seedu.address.model.student.StudentRecord;
 
 public class QuestionAddCommandIntegrationTest {
 
-    private Model model = new ModelManager(new AddressBook(), new StudentRecord(),
-        getTypicalSavedQuestions(), new SavedQuizzes(), new NotesRecord(), new EventRecord(),
-        new StatisticsRecord(),
-        new UserPrefs());
+    private Model model = new ModelManager();
+
+    public QuestionAddCommandIntegrationTest() {
+        model.setSavedQuestions(getTypicalSavedQuestions());
+    }
 
     @Test
     public void execute_nullParameters_throwsNullPointerException() {
@@ -42,9 +45,10 @@ public class QuestionAddCommandIntegrationTest {
         QuestionAddCommand addOpenCommand = new QuestionAddCommand(question, answer, type);
 
         Question expectedQuestion = new OpenEndedQuestion(question, answer);
-        String expectedMessage = "Added question: " + expectedQuestion;
-        assertCommandSuccess(addOpenCommand, model, expectedMessage, model,
-            CommandResultType.SHOW_QUESTION);
+        String expectedMessage = String
+            .format(QuestionAddCommand.MESSAGE_SUCCESS, expectedQuestion);
+        assertCommandSuccess(addOpenCommand, model,
+            new CommandResult(expectedMessage, CommandResultType.SHOW_QUESTION), model);
     }
 
     @Test
@@ -61,9 +65,10 @@ public class QuestionAddCommandIntegrationTest {
 
         Question expectedQuestion = new McqQuestion(question, answer, optionA, optionB, optionC,
             optionD);
-        String expectedMessage = "Added question: " + expectedQuestion;
-        assertCommandSuccess(addMcqCommand, model, expectedMessage, model,
-            CommandResultType.SHOW_QUESTION);
+        String expectedMessage = String
+            .format(QuestionAddCommand.MESSAGE_SUCCESS, expectedQuestion);
+        assertCommandSuccess(addMcqCommand, model,
+            new CommandResult(expectedMessage, CommandResultType.SHOW_QUESTION), model);
     }
 
     @Test
