@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_STAFFLIST;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
