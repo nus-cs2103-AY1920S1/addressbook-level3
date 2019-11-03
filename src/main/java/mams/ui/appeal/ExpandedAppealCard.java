@@ -61,9 +61,15 @@ public class ExpandedAppealCard extends UiPart<Region> {
         studentId.setText(appeal.getStudentId());
         appealType.setText(appeal.getAppealType());
         academicYear.setText(appeal.getAcademicYear());
-        requestedWorkload.setText(Integer.toString(appeal.getStudentWorkload()));
-        moduleToDrop.setText(appeal.getModuleToDrop());
-        requestedModule.setText(appeal.getModuleToAdd());
+        if (appeal.getStudentWorkload() != 0) {
+            requestedWorkload.setText((Integer.toString(appeal.getStudentWorkload())));
+        }
+        if (!appeal.getModuleToDrop().isBlank()) {
+            moduleToDrop.setText(appeal.getModuleToDrop());
+        }
+        if (!appeal.getModuleToAdd().isBlank()) {
+            requestedModule.setText(appeal.getModuleToAdd());
+        }
         appealDescription.setText(appeal.getAppealDescription());
         adminRemarks.setText(appeal.getRemark());
         setResolvedStatusDisplay(resolvedStatus, appeal.isResolved());

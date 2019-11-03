@@ -113,6 +113,14 @@
     -fx-background-color: #424d5f;
 }
 
+.list-cell:filled:selected #expandedCardPane {
+    -fx-background-color: #333644;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-color: #333644;
+}
+
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #737fff;
     -fx-border-width: 1;
