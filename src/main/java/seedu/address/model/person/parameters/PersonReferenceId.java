@@ -112,6 +112,10 @@ public class PersonReferenceId implements ReferenceId {
         return referenceId;
     }
 
+    public static void ClearAllReferenceId() {
+        UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.clear();
+    }
+
     /**
      * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered as a staff.
      * Leading and trailing whitespaces will be trimmed.

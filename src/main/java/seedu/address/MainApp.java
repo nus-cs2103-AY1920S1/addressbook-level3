@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.person.AddressBook;
+import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
 import seedu.address.model.util.SampleAppointmentDataUtil;
@@ -69,67 +70,63 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
 
-        ReadOnlyAddressBook initialStaffAddressData;
-        try {
-            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readStaffAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample StaffRegistry");
-            }
-            initialStaffAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleStaffAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty StaffRegistry");
-            initialStaffAddressData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty StaffRegistry");
-            initialStaffAddressData = new AddressBook();
-        }
+        boolean dataBaseIsCorrupt = false;
+        ReadOnlyAddressBook initialStaffAddressData = null;
+        ReadOnlyAddressBook initialPatientAddressData = null;
+        ReadOnlyAppointmentBook initialAppointmentData = null;
+        ReadOnlyAppointmentBook initialDutyRosterData = null;
 
-        ReadOnlyAddressBook initialPatientAddressData;
         try {
-            Optional<ReadOnlyAddressBook> addressBookOptional = storage.readPatientAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
-            initialPatientAddressData = addressBookOptional.orElseGet(SamplePersonDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialPatientAddressData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialPatientAddressData = new AddressBook();
-        }
-
-        ReadOnlyAppointmentBook initialAppointmentData;
-        try {
+            Optional<ReadOnlyAddressBook> staffAddressBookOptional = storage.readStaffAddressBook();
+            Optional<ReadOnlyAddressBook> patientAddressBookOptional = storage.readPatientAddressBook();
             Optional<ReadOnlyAppointmentBook> appointmentBookOptional = storage.readPatientAppointmentBook();
-            if (!appointmentBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
+            Optional<ReadOnlyAppointmentBook> staffDutyRosterBookOptional = storage.readStaffDutyRosterBook();
+
+            if (!staffAddressBookOptional.isPresent()) {
+                dataBaseIsCorrupt = true;
+                logger.info("Staff Data file not found.");
+
+            } else if (!patientAddressBookOptional.isPresent()) {
+                dataBaseIsCorrupt = true;
+                logger.info("patient Data file not found.");
+
+            } else if (!appointmentBookOptional.isPresent()) {
+                dataBaseIsCorrupt = true;
+                logger.info("appointment Data file not found.");
+
+            } else if (!staffDutyRosterBookOptional.isPresent()) {
+                dataBaseIsCorrupt = true;
+                logger.info("shift Data file not found.");
+
+            } else {
+                initialStaffAddressData = staffAddressBookOptional.get();
+                initialPatientAddressData = patientAddressBookOptional.get();
+                initialAppointmentData = appointmentBookOptional.get();
+                initialDutyRosterData = staffDutyRosterBookOptional.get();
             }
-            initialAppointmentData = appointmentBookOptional.orElseGet(
-                    SampleAppointmentDataUtil::getSampleAppointmentBook);
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
-            initialAppointmentData = new AppointmentBook();
+            dataBaseIsCorrupt = true;
+            logger.warning("Data file(s) not in the correct format.");
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
-            initialAppointmentData = new AppointmentBook();
+            dataBaseIsCorrupt = true;
+            logger.warning("Problem while reading from the file.");
         }
 
-        ReadOnlyAppointmentBook initialDutyRosterData;
-        try {
-            Optional<ReadOnlyAppointmentBook> staffDutyRosterBookOptional = storage.readStaffDutyRosterBook();
-            if (!staffDutyRosterBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample DutyRosterBook");
-            }
-            initialDutyRosterData = staffDutyRosterBookOptional.orElseGet(
-                    SampleAppointmentDataUtil::getSampleDutyRosterBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty DutyRosterBook");
-            initialDutyRosterData = new AppointmentBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty DutyRosterBook");
-            initialDutyRosterData = new AppointmentBook();
+        // restore sample data base if file corrupt detected
+        if (dataBaseIsCorrupt) {
+            logger.info("Potential corruption deleted. Will revert to last valid state.");
+            PersonReferenceId.ClearAllReferenceId();
+            initialStaffAddressData = SamplePersonDataUtil.getSampleStaffAddressBook();
+            initialPatientAddressData = SamplePersonDataUtil.getSampleAddressBook();
+            initialAppointmentData = SampleAppointmentDataUtil.getSampleAppointmentBook();
+            initialDutyRosterData = SampleAppointmentDataUtil.getSampleDutyRosterBook();
         }
+
+        assert initialPatientAddressData != null;
+        assert initialStaffAddressData != null;
+        assert initialAppointmentData != null;
+        assert initialDutyRosterData != null;
 
         QueueManager queueManager = new QueueManager();
 
