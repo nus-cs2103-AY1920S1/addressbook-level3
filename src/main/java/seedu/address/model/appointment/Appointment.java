@@ -1,5 +1,7 @@
 package seedu.address.model.appointment;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents an Appointment object with its description and days left.
  */
@@ -22,6 +24,8 @@ public class Appointment {
      * @param days How many days the Appointment has remaining.
      */
     public Appointment(String description, int days) {
+        requireNonNull(description);
+        requireNonNull(days);
         this.description = description;
         this.days = days;
     }
