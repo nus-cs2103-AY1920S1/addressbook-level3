@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
 /**
  * Represents a claim's/income's date.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -45,7 +44,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return new SimpleDateFormat("dd-MM-yyyy").format(date);
+        return format.format(date);
     }
 
     public LocalDate getLocalDate() {
