@@ -190,6 +190,9 @@ Saves a problem-finding rule from provided constraints. +
 Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]...` +
 Alias: `afr`
 
+[TIP]
+The feature of storing/applying a problem-finding rule is complementary to the plan and tag feature: both tag and plan requires you to categorize problems one by one manually. If you simply want to "keep a list of problems" that fulfills certain conditions, say "algorithm questions of medium difficulty" or "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. Unlike plans, as you add new questions to AlgoBase, so long as the new questions fulfill the search rule, they will show up if you `apply` that rule.
+
 [NOTE]
 The rules for constraints are the same as those described in `find` command.
 
@@ -208,6 +211,14 @@ Format: `apply INDEX`
 * Applies the find rule at the specified `INDEX`.
 * The index refers to the index number shown in the displayed find rule list.
 * The index *must be a positive integer* 1, 2, 3, ...
+
+[TIP]
+You can find problem-finding rules that you can `apply` with in the "Find Rules" panel by clicking on the "Find Rules" tab.
+
+image::apply_tip_find_rule_tab.png[]
+
+[NOTE]
+`apply` a problem-finding rule is essentially the same as executing a pre-filled `find` command.
 
 Examples:
 
