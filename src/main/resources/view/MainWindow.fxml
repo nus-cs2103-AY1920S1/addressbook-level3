@@ -53,7 +53,7 @@
                             <Tab text="Planner">
                                 <StackPane fx:id="plannerContentPlaceholder" VBox.vgrow="ALWAYS"/>
                             </Tab>
-                            <Tab text="Modules">
+                            <Tab text="Courses">
                                 <StackPane fx:id="moduleContentPlaceholder" VBox.vgrow="ALWAYS"/>
                             </Tab>
                             <Tab text="Ccas">
