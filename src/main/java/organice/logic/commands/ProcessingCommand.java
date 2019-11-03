@@ -82,8 +82,6 @@ public class ProcessingCommand extends Command {
             }
         }
 
-
-
         if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
                 && match(donor, patient) && canBePaired) {
             return true;
@@ -112,6 +110,8 @@ public class ProcessingCommand extends Command {
             return new CommandResult(taskList.display());
         } catch (PersonNotFoundException | NullPointerException npe) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
+        } catch (IllegalArgumentException iae) {
+            return new CommandResult(Nric.MESSAGE_CONSTRAINTS);
         }
     }
 

@@ -5,8 +5,10 @@ import static java.util.Objects.requireNonNull;
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 
+import organice.logic.commands.CommandResult;
 import organice.logic.commands.ProcessingCommand;
 import organice.logic.parser.exceptions.ParseException;
+import organice.model.person.Nric;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -36,7 +38,7 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
             }
             return new ProcessingCommand(firstNric, secondNric);
-        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }
