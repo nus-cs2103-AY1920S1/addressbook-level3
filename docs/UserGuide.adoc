@@ -211,6 +211,7 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 
 (TBC)
 
+
 === Editing the card of an existing deck of flashcards : `edit`
 
 The edit command allows the user to edit flashcards in any existing deck.
@@ -274,9 +275,7 @@ Deletes the first card of the deck `german`.
 
 Starts a test with a deck of flashcards, with the choice of an untimed test (timed mode will be added in `v1.4`)
 
-(TBC)
-
-Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]` (to be implemented in `v1.4`)
+Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]`
 
 Examples:
 
@@ -288,6 +287,8 @@ Starts a untimed test with the deck of cards, `science_deck`
 
 Starts a timed test of 50 seconds with the deck of cards, `science_deck`
 
+==== Commands to control test
+(TBC)
 
 ==== Quit test: `stop`
 
