@@ -48,6 +48,9 @@ It has >10k LOC.
 ** Enhancements to existing features:
 *** Added tests on other PRs https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e[(dbb83e)]
 
+** Helping others:
+*** Provided extensive testing and supplied major nontrivial bugs on other's repo: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/211[#211] https://github.com/AY1920S1-CS2103T-T11-3/main/issues/213[#213] https://github.com/AY1920S1-CS2103T-T11-3/main/issues/214[#214]
+
 == Contributions to the User Guide
 
 |===
