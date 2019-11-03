@@ -29,6 +29,7 @@ import seedu.planner.model.activity.Duration;
 import seedu.planner.model.activity.Priority;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.contact.Phone;
+import seedu.planner.model.day.exceptions.EndOfTimeException;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
@@ -103,7 +104,12 @@ public class EditActivityCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
         }
 
-        model.setActivity(activityToEdit, editedActivity);
+        try {
+            model.setActivity(activityToEdit, editedActivity);
+        } catch (EndOfTimeException e) {
+            throw new CommandException(e.toString());
+        }
+
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
         Index editedActivityIndex = findIndexOfActivity(model, editedActivity);
         return new CommandResult(

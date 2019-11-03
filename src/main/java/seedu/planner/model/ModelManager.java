@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -21,12 +20,14 @@ import javafx.collections.transformation.FilteredList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.index.Index;
+import seedu.planner.logic.commands.util.CommandUtil;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.contact.Phone;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
+import seedu.planner.model.day.exceptions.EndOfTimeException;
 import seedu.planner.model.field.Name;
 
 /**
@@ -257,23 +258,25 @@ public class ModelManager implements Model {
      * Updates the mapping when there is a change to an {@code Activity}.  When the {@code Activity} is changed,
      * the {@code Day} containing it is updated.
      */
-    private void updateDay(Activity oldAct, Activity newAct) {
+    private void updateDay(Activity oldAct, Activity newAct) throws EndOfTimeException {
         List<Day> listOfDays = activityDayMap.get(oldAct);
         List<Day> newListOfDays = new ArrayList<>();
         itinerary.getItinerary().forEach(day -> {
             if (listOfDays.contains(day)) {
                 List<ActivityWithTime> listOfActivityWithTime = day.getListOfActivityWithTime();
-                List<Integer> indexOfOldActs = new LinkedList<>();
-                for (int i = 0; i < listOfActivityWithTime.size(); i++) {
-                    if (listOfActivityWithTime.get(i).getActivity().equals(oldAct)) {
-                        indexOfOldActs.add(i);
+                listOfActivityWithTime = listOfActivityWithTime.stream().map(act -> {
+                    if (act.equals(oldAct)) {
+                        Index dayIndex = Index.fromZeroBased(itinerary.getItinerary().indexOf(day));
+                        LocalDateTime newEndDateTime = CommandUtil.calculateEndDateTime(getStartDate(), dayIndex,
+                                act.getStartDateTime().toLocalTime(), newAct.getDuration());
+                        if (newEndDateTime.isAfter(getLastDateTime())) {
+                            throw new EndOfTimeException();
+                        }
+                        return new ActivityWithTime(newAct, act.getStartDateTime());
+                    } else {
+                        return act;
                     }
-                }
-                for (Integer i : indexOfOldActs) {
-                    ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(i);
-                    listOfActivityWithTime.set(i, new ActivityWithTime(newAct,
-                            oldActivityWithTime.getStartDateTime()));
-                }
+                }).collect(Collectors.toList());
                 Day newDay = new Day(listOfActivityWithTime);
                 setDay(day, newDay);
                 newListOfDays.add(newDay);
@@ -287,7 +290,7 @@ public class ModelManager implements Model {
      * Updates the mapping when there is a change to an {@code Activity}. When the {@code Contact} of the
      * {@code Activity} is changed, the {@code Contact} is also updated.
      */
-    private void updateMapping(Activity oldAct, Activity newAct) {
+    private void updateMapping(Activity oldAct, Activity newAct) throws EndOfTimeException {
         if (oldAct.getContact().isPresent()) {
             Contact oldContact = activityContactMap.remove(oldAct);
             List<Activity> oldList = contactActivityMap.remove(oldContact);
@@ -561,7 +564,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setActivity(Activity target, Activity editedActivity) {
+    public void setActivity(Activity target, Activity editedActivity) throws EndOfTimeException {
         requireAllNonNull(target, editedActivity);
         updateMapping(target, editedActivity);
         activities.setActivity(target, editedActivity);
