@@ -279,6 +279,21 @@ image::ExportActivityDiagram.png[width=320,height=480]
 
 ==== Design Considerations
 
+|===
+|_This section describes some of the design considerations that went into the implementation of this feature._
+|===
+
+===== Aspect: Implementation of exporting functionality for different file formats
+
+* **Alternative 1 (current choice):** Have a single `export` command - leave file formats to be handled by underlying classes
+** Pros: Is easier for user to remember; can easily be extended to support additional file formats
+** Cons: Is harder to implement
+* **Alternative 2:** Have a separate command for exporting to each format (e.g. `exportdoc`, `exportjson`, etc.)
+** Pros: Is easier to implement
+** Cons: Results in user having more commands to remember; new commands must be added to support new file formats
+
+**Alternative 1** was preferred for its ease of extensibility.
+
 ===== Aspect: Method of obtaining desired `FlashCards` for exporting
 
 * **Alternative 1:** Update the `Model` to show all desired `FlashCards`, then export all of said `FlashCards`
@@ -288,24 +303,18 @@ image::ExportActivityDiagram.png[width=320,height=480]
 ** Pros: Will not cause confusion to user - `export` command does exactly what one would expect it to do
 ** Cons: Is harder to implement and might result in duplication of logic
 
-===== Aspect: Export file format
-
-* **Alternative 1 (current choice):** Export to a `.docx` file
-** Pros: Is easy and convenient to print for use as a cheat sheet
-** Cons: Requires an external library due to the nature of the file format
-* **Alternative 2:** Export to a `.txt` file
-** Pros: Is easier to implement; the Java standard libraries already have the ability to write to text files
-** Cons: Might give rise to inconvenience in printing, as most text editors (e.g. Notepad, Vim, Gedit) do not have built-in printing functionality
+**Alternative 2** was preferred as it provides users with an experience closer to what they would expect.
 
 ===== Aspect: Parsing of file path from user input
 
 Background: the original AddressBook application, from which KeyboardFlashCards was morphed, delimited its command arguments using slash-containing flags
 (e.g. `c/CATEGORY`). This had the potential to cause problems due to the nature of file paths, which likewise contain slashes. While the existing
-AddressBook parser was able to correctly parse most file paths, there were a few degenerate cases that gave rise to errors.
+AddressBook parser was able to correctly parse most file paths, there were a few degenerate cases that gave rise to errors (in particular, file paths that
+contained spaces).
 
 * **Alternative 1:** Read file path as-is, using the existing AddressBook parser
 ** Pros: Does not require further code changes
-** Cons: Means that errors are likely to occur given repeated use
+** Cons: Means that errors may occur for certain file paths
 * **Alternative 2:** Disallow user from selecting file path - instead, always export to a specific directory
 ** Pros: Is somewhat easy to implement
 ** Cons: Requires user to navigate to the specified directory to obtain the file; requires a means of finding alternatives if the default directory does not exist
@@ -315,6 +324,9 @@ AddressBook parser was able to correctly parse most file paths, there were a few
 * **Alternative 4 (current choice):** Overhaul the AddressBook parser to use `>` rather than `/` as a delimiter
 ** Pros: Provides the user with the most power and convenience
 ** Cons: Might possibly break existing functional and test code; may require an additional button press from the user (`Shift`) in order to type `>`
+
+**Alternative 4** was preferred as it provides users with the greatest overall convenience.
+
 // end::flashcardexport[]
 
 //@@author keiteo
