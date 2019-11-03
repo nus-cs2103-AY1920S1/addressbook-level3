@@ -19,7 +19,6 @@ import seedu.address.commons.core.OmniPanelTab;
 public class TabBar extends UiPart<Region> {
 
     private int selectedIndex = 0;
-    private boolean lock = false;
 
     @FXML
     private TilePane tabBar;
@@ -62,7 +61,7 @@ public class TabBar extends UiPart<Region> {
     /**
      * Selects the TabBar's tile using index.
      */
-    public synchronized void selectTabUsingIndex(int selectedIndex) {
+    public void selectTabUsingIndex(int selectedIndex) {
         this.selectedIndex = selectedIndex;
         ObservableList<Node> ols = tabBar.getChildren();
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));
