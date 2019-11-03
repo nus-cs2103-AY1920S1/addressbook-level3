@@ -467,12 +467,12 @@ A graph is shown.
 // end::graph[]
 
 === Adding a reminder: `reminder add`
-Adds a reminder to the reminder list when user enters a new reminder. Deadline and reminder message are recorded into storage.
+Adds a reminder to the reminder list when user enters a new reminder. This command records a reminder together with its message and deadline.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
 [NOTE]
-The date of a deadline must be within 5 years from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as empty message, the application will notify with error.
+The date of a deadline must be within 5 years from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
 
 *Examples:*
 
@@ -619,7 +619,7 @@ Clears all entries from the application. +
 *Format:* `clear`
 
 [NOTE]
-This command clears all the stored information which includes reminders and spending , and also reset the application to the initial state with budget set to $1000.
+This command clears all stored reminders and spending from the application, and sets the budget to a default value of $1000.
 
 *Expected Output:*
 
