@@ -108,6 +108,7 @@ public class RemoveModCommand extends ModCommand {
         moduleList = moduleUsingIndex ? model.getFilteredModuleList() : model.getFullModuleList();
         studentList = studentUsingIndex ? model.getFilteredStudentList() : model.getFullStudentList();
 
+        //various checks
         moduleToEdit = returnModuleIfExist(moduleList);
         studentToEdit = returnStudentIfExist(studentList);
         checkIfStudentHasModule(studentToEdit, moduleToEdit.getModuleCode());
