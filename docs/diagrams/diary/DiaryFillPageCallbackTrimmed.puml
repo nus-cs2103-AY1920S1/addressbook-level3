@@ -9,10 +9,9 @@ participant ":DiaryEntryEditBox" as DiaryEntryEditBox UI_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
-participant "p:PageStatus" as PageStatus MODEL_COLOR
-participant "d:DiaryEntry" as DiaryEntry MODEL_COLOR
-participant "e:EditDiaryEntryDescriptor" as EditDiaryEntryDescriptor MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+participant ":DiaryEntry" as DiaryEntry MODEL_COLOR
+participant ":EditDiaryEntryDescriptor" as EditDiaryEntryDescriptor MODEL_COLOR
 end box
 
 [-->DiaryPage

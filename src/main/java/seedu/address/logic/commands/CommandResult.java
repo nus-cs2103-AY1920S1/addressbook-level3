@@ -42,6 +42,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit, boolean doSwitchPage) {
+        this(feedbackToUser, showHelp, shouldExit, doSwitchPage, false, null);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean shouldExit) {
         this(feedbackToUser, showHelp, shouldExit, false, false, null);
     }

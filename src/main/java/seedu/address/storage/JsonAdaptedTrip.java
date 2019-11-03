@@ -177,7 +177,7 @@ class JsonAdaptedTrip {
             modelPhoto = Optional.empty();
         }
 
-        DayList modelDayList = new DayList();
+        DayList modelDayList = new DayList(startDate, endDate);
         modelDayList.set(days);
 
         ExpenditureList modelExpenditureList = new ExpenditureList();

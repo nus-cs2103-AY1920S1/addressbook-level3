@@ -51,7 +51,7 @@ class JsonAdaptedDiaryEntry {
      */
     public JsonAdaptedDiaryEntry(DiaryEntry source) {
         requireNonNull(source);
-        this.dayIndex = source.getDayIndex().getOneBased();
+        this.dayIndex = source.getDayNumber();
         this.diaryText = source.getDiaryText();
         this.photos = FXCollections.observableArrayList();
         for (Photo photo : source.getPhotoList().getObservablePhotoList()) {

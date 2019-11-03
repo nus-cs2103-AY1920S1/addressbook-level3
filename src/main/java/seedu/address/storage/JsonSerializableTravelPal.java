@@ -12,6 +12,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.TravelPal;
 import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.Rate;
+import seedu.address.model.currency.Symbol;
+import seedu.address.model.itinerary.Name;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 
@@ -44,7 +47,7 @@ class JsonSerializableTravelPal {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableTravelPal}.
      */
-    public JsonSerializableTravelPal(ReadOnlyTravelPal source) {
+    JsonSerializableTravelPal(ReadOnlyTravelPal source) {
         trips.addAll(source.getTripList().stream().map(JsonAdaptedTrip::new).collect(Collectors.toList()));
         currencies.addAll(source.getCurrencies().stream().map(JsonAdaptedCurrency::new).collect(Collectors.toList()));
     }
@@ -74,7 +77,8 @@ class JsonSerializableTravelPal {
         for (JsonAdaptedCurrency jsonAdaptedCurrency : currencies) {
             CustomisedCurrency currency = jsonAdaptedCurrency.toModelType();
 
-            if (currency.isSameCustomisedCurrency(new CustomisedCurrency("SGD", "$", 1.00))) {
+            if (currency.isSameCustomisedCurrency(
+                    new CustomisedCurrency(new Name("SGD"), new Symbol("1"), new Rate("1.00")))) {
                 continue;
             }
             if (travelPal.hasCurrency(currency)) {

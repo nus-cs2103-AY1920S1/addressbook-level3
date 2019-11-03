@@ -1,6 +1,9 @@
 package seedu.address.ui.itinerary;
 
+import java.util.Comparator;
+
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.common.EnterPrefsCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.logic.commands.itinerary.events.ShowEventDetailsCommand;
@@ -21,6 +23,7 @@ import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
 import seedu.address.ui.template.UiChangeConsumer;
+
 
 /**
  * {@code Page} for displaying the event details.
@@ -55,7 +58,12 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     public void fillPage() {
         // Filling events
         ObservableList<Event> events = model.getPageStatus().getDay().getEventList().internalUnmodifiableList;
-        eventListView.setItems(events);
+
+        // Sorts trips for display
+        SortedList<Event> eventsSortedList = events.sorted(Comparator.comparing(Event::getStartDate));
+        model.setPageStatus(model.getPageStatus().withNewSortedOccurrencesList(eventsSortedList));
+
+        eventListView.setItems(eventsSortedList);
         eventListView.setCellFactory(listView -> {
             EventListViewCell eventListViewCell = new EventListViewCell();
             return eventListViewCell;
@@ -119,11 +127,6 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     @FXML
     private void handleAddEvent() {
         mainWindow.executeGuiCommand(EnterCreateEventCommand.COMMAND_WORD);
-    }
-
-    @FXML
-    private void handlePreferences() {
-        mainWindow.executeGuiCommand(EnterPrefsCommand.COMMAND_WORD);
     }
 
 }

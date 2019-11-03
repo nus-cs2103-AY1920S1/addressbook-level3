@@ -4,7 +4,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.appstatus.PageType;
 
 /**
  * Enters the itinerary page of travel pal.
@@ -18,10 +17,6 @@ public class EnterDaysViewCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setPageStatus(model.getPageStatus()
-                .withResetExpenditure()
-                .withNewPageType(PageType.EXPENSE_MANAGER_DAYS));
-
-        return new CommandResult(MESSAGE_SUCCESS, true);
+        return new CommandResult(MESSAGE_SUCCESS, true, COMMAND_WORD);
     }
 }

@@ -2,8 +2,8 @@ package seedu.address.logic.commands.itinerary.days;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -36,16 +36,21 @@ public class DeleteDayCommand extends Command {
         requireNonNull(model);
 
         // Assumes enter trip has been called first
-        List<Day> lastShownList = model.getPageStatus().getTrip().getDayList().internalList;
+        ObservableList<Day> lastShownList = model.getPageStatus().getTrip().getDayList().internalList;
 
-        if (indexToDelete.getZeroBased() >= lastShownList.size()) {
+        // Set when the day list is first displayed to the user
+        SortedList currentSortedDayList = model.getPageStatus().getSortedOccurrencesList();
+
+        int rawZeroBasedIndex = currentSortedDayList.getSourceIndex(indexToDelete.getZeroBased());
+
+        if (rawZeroBasedIndex >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_GENERIC_INDEX);
         }
 
         // References preserved by pagestatus
-        Day dayToDelete = lastShownList.get(indexToDelete.getZeroBased());
+        Day dayToDelete = lastShownList.get(rawZeroBasedIndex);
         try {
-            model.getPageStatus().getTrip().getDayList().remove(indexToDelete);
+            model.getPageStatus().getTrip().getDayList().remove(Index.fromZeroBased(rawZeroBasedIndex));
         } catch (Exception ex) {
             return new CommandResult(MESSAGE_DELETE_DAY_FAILURE);
         }

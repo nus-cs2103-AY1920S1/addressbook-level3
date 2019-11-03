@@ -7,7 +7,6 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextInputControl;
@@ -30,9 +29,8 @@ import seedu.address.ui.components.ResultDisplay;
 import seedu.address.ui.components.StatusBarFooter;
 import seedu.address.ui.currency.CurrencyPage;
 import seedu.address.ui.diary.DiaryPage;
-import seedu.address.ui.expenditure.DailyExpenditurePage;
 import seedu.address.ui.expenditure.EditExpenditurePage;
-import seedu.address.ui.expenditure.ExpensesListPage;
+import seedu.address.ui.expenditure.ExpensesPage;
 import seedu.address.ui.inventory.InventoryPage;
 import seedu.address.ui.itinerary.DaysPage;
 import seedu.address.ui.itinerary.EditDayPage;
@@ -43,7 +41,6 @@ import seedu.address.ui.template.Page;
 import seedu.address.ui.template.UiChangeConsumer;
 import seedu.address.ui.trips.EditTripPage;
 import seedu.address.ui.trips.TripsPage;
-import seedu.address.ui.utility.PreferencesPage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -52,6 +49,10 @@ import seedu.address.ui.utility.PreferencesPage;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+
+    private static final double MIN_WINDOW_WIDTH = 800;
+    private static final double MIN_WINDOW_HEIGHT = 600;
+
     private static final int PAGE_TRANSITION_DURATION_MILLIS = 500;
     private static final double PAGE_TRANSITION_INITIAL_OPACITY = 0.2;
     private static final String MESSAGE_PAGE_NOT_IMPLEMENTED = "Sorry! We haven't implemented the %1$s page!";
@@ -87,26 +88,26 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.model = model;
 
-        setStageListeners();
+        setMinWindowSizeListeners();
         fillInnerParts();
         helpWindow = new HelpWindow();
     }
 
-    private void setStageListeners() {
-        ChangeListener<Number> guiChangeListener = (observable, oldValue, newValue) -> {
-            if (model.getUserPrefs().isGuiPrefsLocked()) {
-                setWindowDefaultSize(model.getGuiSettings());
-            } else {
-                GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                        (int) primaryStage.getX(), (int) primaryStage.getY());
-                model.setGuiSettings(guiSettings);
-            }
-        };
+    private void setMinWindowSizeListeners() {
+        primaryStage.setMinWidth(MIN_WINDOW_WIDTH);
+        primaryStage.setMinHeight(MIN_WINDOW_HEIGHT);
 
-        primaryStage.widthProperty().addListener(guiChangeListener);
-        primaryStage.heightProperty().addListener(guiChangeListener);
-        primaryStage.xProperty().addListener(guiChangeListener);
-        primaryStage.yProperty().addListener(guiChangeListener);
+        primaryStage.widthProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() < MIN_WINDOW_WIDTH) {
+                primaryStage.setWidth(MIN_WINDOW_WIDTH);
+            }
+        }));
+
+        primaryStage.heightProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue.doubleValue() < MIN_WINDOW_HEIGHT) {
+                primaryStage.setHeight(MIN_WINDOW_HEIGHT);
+            }
+        }));
     }
 
     /**
@@ -140,7 +141,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    public CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    public CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException, IllegalArgumentException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -165,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
             commandUpdater.executeUpdateCallback();
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
@@ -198,16 +200,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Closes the application.
+     * Closes the application, and saves the current window position and dimensions.
      */
     @FXML
     private void handleExit() {
-        //Save gui size on exit only if gui prefs are not locked.
-        if (!model.getUserPrefs().isGuiPrefsLocked()) {
-            GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                    (int) primaryStage.getX(), (int) primaryStage.getY());
-            model.setGuiSettings(guiSettings);
-        }
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        model.setGuiSettings(guiSettings);
+
         helpWindow.hide();
         primaryStage.hide();
     }
@@ -228,9 +228,6 @@ public class MainWindow extends UiPart<Stage> {
         case ADD_TRIP:
             newPage = new EditTripPage(this, logic, model);
             break;
-        case PREFERENCES:
-            newPage = new PreferencesPage(this, logic, model);
-            break;
         case ADD_EVENT:
             newPage = new EditEventPage(this, logic, model);
             break;
@@ -247,10 +244,7 @@ public class MainWindow extends UiPart<Stage> {
             newPage = new ItineraryPage(this, logic, model);
             break;
         case EXPENSE_MANAGER:
-            newPage = new ExpensesListPage(this, logic, model);
-            break;
-        case EXPENSE_MANAGER_DAYS:
-            newPage = new DailyExpenditurePage(this, logic, model);
+            newPage = new ExpensesPage(this, logic, model);
             break;
         case ADD_EXPENDITURE:
             newPage = new EditExpenditurePage(this, logic, model);
@@ -281,7 +275,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param page The {@code Page} to switch to.
      */
     private void switchContent(Page<? extends Node> page) {
-        setWindowDefaultSize(model.getGuiSettings());
         Node pageNode = page.getRoot();
 
         //transition

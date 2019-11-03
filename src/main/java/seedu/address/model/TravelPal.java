@@ -8,6 +8,9 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.currency.CurrencyList;
 import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.Rate;
+import seedu.address.model.currency.Symbol;
+import seedu.address.model.itinerary.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.trip.Trip;
@@ -41,7 +44,7 @@ public class TravelPal implements ReadOnlyTravelPal {
     }
 
     public TravelPal() {
-        this.addCurrency(new CustomisedCurrency("SGD", "$", 1.00));
+        this.addCurrency(new CustomisedCurrency(new Name("SGD"), new Symbol("1"), new Rate("1.00")));
     }
 
     /**

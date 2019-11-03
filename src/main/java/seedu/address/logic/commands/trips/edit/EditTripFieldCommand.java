@@ -49,7 +49,7 @@ public class EditTripFieldCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 Thailand trip"
             + PREFIX_BUDGET + "3000";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field to must be provided!";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
     private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
 
     private final EditTripDescriptor editTripDescriptor;
@@ -105,8 +105,6 @@ public class EditTripFieldCommand extends Command {
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
         private Optional<Photo> photo;
-        //Diary should not be edited here, only kept.
-        private final Diary diary;
 
         public EditTripDescriptor() {
             name = Optional.empty();
@@ -115,7 +113,6 @@ public class EditTripFieldCommand extends Command {
             destination = Optional.empty();
             totalBudget = Optional.empty();
             photo = Optional.empty();
-            diary = new Diary();
         }
 
         /**
@@ -128,7 +125,6 @@ public class EditTripFieldCommand extends Command {
             endDate = toCopy.getEndDate();
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
-            diary = toCopy.diary;
             photo = toCopy.getPhoto();
         }
 
@@ -143,7 +139,6 @@ public class EditTripFieldCommand extends Command {
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getBudget());
             setPhoto(toCopy.getPhoto());
-            diary = toCopy.getDiary();
         }
 
         /**
@@ -185,9 +180,11 @@ public class EditTripFieldCommand extends Command {
          */
         public Trip buildTrip() {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
-                return new Trip(name.get(), startDate.get(), endDate.get(),
-                        destination.get(), totalBudget.get(), new DayList(),
-                        new ExpenditureList(), diary, new InventoryList(), photo.get());
+                Trip trip = new Trip(name.get(), startDate.get(), endDate.get(),
+                        destination.get(), totalBudget.get(), new DayList(startDate.get(), endDate.get()),
+                        new ExpenditureList(), new Diary(), new InventoryList(), photo);
+                trip.initializeDayList();
+                return trip;
             } else {
                 throw new NullPointerException();
             }
@@ -226,8 +223,11 @@ public class EditTripFieldCommand extends Command {
                 photo = this.photo;
             }
 
-            return new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), diary, trip.getInventoryList(), photo.get());
+            Trip newTrip = new Trip(tripName, startDate, endDate, destination, budget,
+                    trip.getDayList(), trip.getExpenditureList(), trip.getDiary(), trip.getInventoryList(), photo);
+            newTrip.initializeDayList();
+
+            return newTrip;
         }
 
         /**

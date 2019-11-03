@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.trips.edit;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
@@ -12,12 +13,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.io.File;
 
+import seedu.address.commons.util.ImageChooser;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.diary.fileutil.ImageChooser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.trips.TripParserUtil;
 
@@ -53,11 +54,13 @@ public class EditTripFieldParser implements Parser<EditTripFieldCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE_START).isPresent()) {
             editTripDescriptor.setStartDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
+                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_START).get())
+                            .withHour(0).withMinute(0));
         }
         if (argMultimap.getValue(PREFIX_DATE_END).isPresent()) {
             editTripDescriptor.setEndDate(
-                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
+                    ParserDateUtil.getDateFromString(argMultimap.getValue(PREFIX_DATE_END)
+                            .get()).withHour(23).withMinute(59));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editTripDescriptor.setBudget(TripParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));

@@ -1,5 +1,7 @@
 package seedu.address.ui.itinerary;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,9 +22,6 @@ public class DayThumbnail extends UiPart<AnchorPane> {
     private static final String FXML = "itinerary/days/DayThumbnail.fxml";
 
     @FXML
-    private Label nameLabel;
-
-    @FXML
     private Label destinationLabel;
 
     @FXML
@@ -30,6 +29,9 @@ public class DayThumbnail extends UiPart<AnchorPane> {
 
     @FXML
     private Button editButton;
+
+    @FXML
+    private Label dateLabel;
 
     private Day day;
     private Index displayedIndex;
@@ -43,9 +45,13 @@ public class DayThumbnail extends UiPart<AnchorPane> {
         fillDayThumbnailLabels();
     }
 
+    /**
+     * Fills the contents of the thumbnails.
+     */
     private void fillDayThumbnailLabels() {
         indexLabel.setText("DAY " + displayedIndex.getOneBased() + "");
-        nameLabel.setText(day.getName().toString());
+        dateLabel.setText(day.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE));
+        destinationLabel.setWrapText(true);
         destinationLabel.setText(day.getDestination().toString());
     }
 
