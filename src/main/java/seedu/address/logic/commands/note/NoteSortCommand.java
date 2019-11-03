@@ -12,10 +12,9 @@ import seedu.address.model.note.Note;
  */
 public class NoteSortCommand extends NoteCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts the note by Priority from most urgent to least\n"
-            + "Parameters:\n"
-            + "sort\n"
-            + "Example: note sort\n";
+    public static final String MESSAGE_USAGE = "Example: "
+            + COMMAND_WORD + " sort\n"
+            + "The sort command cannot have additional fields.";
 
     public static final String MESSAGE_SUCCESS = "Note sorted by Priority";
 

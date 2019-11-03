@@ -22,13 +22,16 @@ public class NoteEditCommand extends NoteCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing note\n"
             + "Parameters:\n"
-            + "INDEX: (must be a positive integer) "
+            + "INDEX: (must be a positive integer)\n"
             + "note/{Title}\n"
             + "desc/{Description}\n"
+            + "priority/{Priority}\n"
+            + "At least one field must be provided for editing. A field when provided may not be empty.\n"
             + "Example: note 1 note/tuesday and wednesday desc/grade papers\n";
 
-    public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note: %1$s";
+    public static final String MESSAGE_EDIT_NOTE_SUCCESS = "Edited Note:\n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String EDITED_NOTE_UNCHANGED = "Edited note has the same content as the original one";
 
     private final Index index;
     private final EditNoteDescriptor editNoteDescriptor;
@@ -49,13 +52,16 @@ public class NoteEditCommand extends NoteCommand {
         requireNonNull(model);
         List<Note> lastShownList = model.getFilteredNotesList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= lastShownList.size() || index.getZeroBased() < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
 
         Note noteToEdit = lastShownList.get(index.getZeroBased());
         Note editedNote = createEditedNote(noteToEdit, editNoteDescriptor);
 
+        if (noteToEdit.equals(editedNote)) {
+            throw new CommandException(EDITED_NOTE_UNCHANGED);
+        }
         if (!noteToEdit.isSameNote(editedNote) && model.hasNote(editedNote)) {
             throw new CommandException(MESSAGE_DUPLICATE_NOTE);
         }

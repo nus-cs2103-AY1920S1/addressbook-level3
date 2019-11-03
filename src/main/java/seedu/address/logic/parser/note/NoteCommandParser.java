@@ -2,6 +2,8 @@ package seedu.address.logic.parser.note;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_PREAMBLE;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -62,7 +64,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), pe);
         }
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
         Optional<String> note = argMultimap.getValue(CliSyntax.PREFIX_NOTE);
@@ -82,7 +84,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     }
 
     private static NoteListCommand getNoteListCommand(String args) throws ParseException {
-        if (args.trim().endsWith("list")) {
+        if (args.trim().equals("list")) {
             return new NoteListCommand();
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE));
@@ -90,7 +92,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     }
 
     private static NoteSortCommand getNoteSortCommand(String args) throws ParseException {
-        if (args.trim().endsWith("sort")) {
+        if (args.trim().equals("sort")) {
             return new NoteSortCommand();
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE));
@@ -102,13 +104,11 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         try {
             int indexToDelete = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DELETE).orElse("0"));
             if (indexToDelete <= 0) {
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteDeleteCommand.MESSAGE_USAGE));
+                throw new ParseException(MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE);
             }
             index = Index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteDeleteCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE);
         }
         return new NoteDeleteCommand(index);
     }
@@ -116,15 +116,14 @@ public class NoteCommandParser implements Parser<NoteCommand> {
     private static NoteAddCommand getNoteAddCommand(ArgumentMultimap argMultimap) throws ParseException {
         String note = argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse("").trim();
         String description = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse("").trim();
-        String priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).orElse("").trim();
         if (note.isEmpty() || description.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
-        if (!priority.isEmpty()) {
-            return new NoteAddCommand(new Note(note, description, Priority.getPriority(priority)));
-        }
-        return new NoteAddCommand(new Note(note, description, Priority.UNMARKED));
+        Optional<Priority> priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).isPresent()
+                ? Optional.of(Priority.getPriority(argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).get()))
+                : Optional.empty();
+        return new NoteAddCommand(new Note(note, description, priority.orElse(Priority.UNMARKED)));
     }
 
     /**

@@ -1,11 +1,11 @@
 package seedu.address.logic.parser.note;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.note.NoteDeleteCommand;
@@ -54,21 +54,21 @@ public class NoteCommandParserTest {
     @Test
     public void parseCommand_addInvalidCommandPrioritized_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), () ->
                 parser.parse(INVALID_SYNTAX_COMMAND));
     }
 
     @Test
     public void parseCommand_addMissingFieldCommandPrioritized_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), () ->
                 parser.parse(MISSING_FIELD_COMMAND));
     }
 
     @Test
     public void parseCommand_addEmptyCommandPrioritized_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE), () ->
                 parser.parse(EMPTY_FIELD_COMMAND));
     }
 
@@ -81,7 +81,7 @@ public class NoteCommandParserTest {
     @Test
     public void parseCommand_editEmptyCommandPrioritized_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE), () ->
                 parser.parse(EDIT_EMPTY_FIELD_COMMAND));
     }
 
@@ -106,21 +106,21 @@ public class NoteCommandParserTest {
     @Test
     public void parseCommand_invalidList_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE), () ->
                 parser.parse(INVALID_LIST));
     }
 
     @Test
     public void parseCommand_invalidSort_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE), () ->
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE), () ->
                 parser.parse(INVALID_SORT));
     }
 
     @Test
     public void parseCommand_invalidDelete_throwsException() {
         assertThrows(ParseException.class,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteDeleteCommand.MESSAGE_USAGE), () ->
+                Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE, () ->
                 parser.parse(INVALID_DELETE));
     }
 }

@@ -1,9 +1,7 @@
 package seedu.address.logic.parser.statistics;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.EXCEL_FILE_NOT_FOUND;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_SAVE_STATS_FILE_ERROR;
+import static seedu.address.commons.core.Messages.*;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -47,7 +45,7 @@ public class StatisticsCommandParserTest {
 
     @Test
     public void parseCommand_addInvalidFilePath_throwsException() {
-        assertThrows(ParseException.class, EXCEL_FILE_NOT_FOUND, () -> parser.parse(INVALID_FILE_PATH_COMMAND));
+        assertThrows(ParseException.class, EXCEL_FILE_TYPE_ISSUE, () -> parser.parse(INVALID_FILE_PATH_COMMAND));
     }
 
     @Test

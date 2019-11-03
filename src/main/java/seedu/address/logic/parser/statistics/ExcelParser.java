@@ -170,6 +170,9 @@ public class ExcelParser implements DataParser {
      */
     private XSSFSheet getSheet(String filePath) throws ParseException {
         try {
+            if (!filePath.trim().endsWith(".xlsx")) {
+                throw new NotOfficeXmlFileException(filePath);
+            }
             file = new FileInputStream(new File(filePath));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
