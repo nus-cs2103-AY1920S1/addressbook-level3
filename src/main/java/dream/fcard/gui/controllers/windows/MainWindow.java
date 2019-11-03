@@ -70,7 +70,8 @@ public class MainWindow extends VBox {
     //Example code
     private Consumer<Boolean> create = b -> showCreateNewDeckForm();
     private Consumer<String> createWDeckName = s -> showCreateNewDeckForm(s);
-    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(State.getState().getDecks().get(i - 1));
+    private Consumer<Integer> seeDeck = i -> displaySpecificDeck(
+            State.getState().getDecks().get(i - 1));
     private Consumer<Boolean> exitCreate = b -> exitCreate();
     private Consumer<String> processInputCreate = s -> processInputCreate(s);
 
@@ -158,6 +159,7 @@ public class MainWindow extends VBox {
         this.tempCreateDeckDisplay = new CreateDeckDisplay(s);
         displayContainer.getChildren().add(tempCreateDeckDisplay);
         State.getState().setCurrState(StateEnum.CREATE);
+        // CHANGE STATE SHOULD BE DONE IN RESPONSES
     }
 
     /**
@@ -257,6 +259,7 @@ public class MainWindow extends VBox {
     public void exitCreate() {
         tempCreateDeckDisplay.onSaveDeck();
         State.getState().setCurrState(StateEnum.DEFAULT);
+        // State changes should be done in responses
     }
 
     /**

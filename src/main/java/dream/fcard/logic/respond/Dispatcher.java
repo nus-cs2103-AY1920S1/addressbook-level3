@@ -20,6 +20,7 @@ public class Dispatcher {
         consumers.remove(identifier);
     }
 
+    @SuppressWarnings("unchecked")
     public static Boolean accept(String key, Object x) {
         Consumer c = consumers.get(key);
         if (c == null) {

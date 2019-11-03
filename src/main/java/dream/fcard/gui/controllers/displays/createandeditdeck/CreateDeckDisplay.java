@@ -162,7 +162,6 @@ public class CreateDeckDisplay extends VBox {
         }
 
         try {
-            Deck deck = editingWindow.getTempDeck();
 
             if (hasTestCases) {
                 editingWindow.setCardType(js);

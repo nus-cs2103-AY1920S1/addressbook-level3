@@ -1,6 +1,12 @@
 package dream.fcard.logic.respond;
 
+import dream.fcard.logic.storage.StorageManager;
+import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
+import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.util.RegexUtil;
+import java.util.ArrayList;
 
 /**
  * The enums are composed of three properties:
@@ -12,6 +18,9 @@ import dream.fcard.model.State;
  *  are checked first before last, thus last enums should be more generic
  *  and higher should be more specific; thus you can see valid enums
  *  followed by error enums declared in that order often.
+ *
+ *  This class is to be used for all parsing, state mutation logic and dispatcher calls.
+ *  In no other class should they take the responsibility.
  */
 public enum Responses {
     CREATE_NEW_DECK_WITH_NAME(
@@ -19,15 +28,10 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
             (i,s) -> {
                 String deckName = i.split("(?i)deck/\\s*")[1];
+                s.mode = StateEnum.CREATE;
+                s.createModeDeck = new Deck(deckName);
+                s.decks.add(s.createModeDeck);
                 Dispatcher.accept(ConsumerSchema.CREATE_NEW_DECK_W_NAME, deckName);
-                return true;
-            }
-    ),
-    CREATE_NEW_DECK(
-            "^((?i)create)\\s*$",
-            new ResponseGroup[]{ResponseGroup.DEFAULT},
-            (i,s) -> {
-                Dispatcher.accept(ConsumerSchema.CREATE_NEW_DECK, true);
                 return true;
             }
     ),
@@ -69,7 +73,25 @@ public enum Responses {
             "^((?i)exit)\\s*$",
             new ResponseGroup[]{ResponseGroup.CREATE},
             (i,s) -> {
+                s.mode = StateEnum.DEFAULT;
                 Dispatcher.accept(ConsumerSchema.EXIT_CREATE, true);
+                return true;
+            }
+    ),
+    PROCESS_INPUT_FRONT_BACK(
+            RegexUtil.commandFormatRegex("", new String[]{"front/", "back/"}),
+            new ResponseGroup[]{ResponseGroup.CREATE},
+            (i,s) -> {
+                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("", new String[]{"front/", "back/"}, i);
+                if (res.get(0).size() > 0 && res.get(1).size() > 0) {
+                    FrontBackCard card = new FrontBackCard(res.get(0).get(0), res.get(1).get(0));
+                    s.createModeDeck.addNewCard(card);
+                    StorageManager.writeDeck(s.createModeDeck);
+                    // dispatch card to CreateDeckDisplay to be added to tempDeck
+                    // make editing window dispatches
+                } else {
+                    //TODO arguments cannot be blank
+                }
                 return true;
             }
     ),
@@ -82,6 +104,14 @@ public enum Responses {
                 return true;
             }
     ),
+    UNKNOWN(
+            ".*",
+            new ResponseGroup[]{ResponseGroup.MATCH_ALL},
+            (i,s) -> {
+                //TODO dispatcher display unknown input
+                return true;
+            }
+    )
     // MATCH ALL GROUP --------------------------------------------------------
     ;
 
