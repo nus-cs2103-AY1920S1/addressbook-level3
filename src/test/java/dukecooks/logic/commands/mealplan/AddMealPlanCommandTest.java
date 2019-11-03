@@ -126,9 +126,9 @@ public class AddMealPlanCommandTest {
         }
 
         @Override
-        public void addRecipe(Recipe Recipe) {
-            requireNonNull(Recipe);
-            recipesAdded.add(Recipe);
+        public void addRecipe(Recipe recipe) {
+            requireNonNull(recipe);
+            recipesAdded.add(recipe);
         }
     }
 

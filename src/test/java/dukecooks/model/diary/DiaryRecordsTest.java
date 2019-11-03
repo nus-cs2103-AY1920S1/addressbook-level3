@@ -79,6 +79,12 @@ public class DiaryRecordsTest {
         assertThrows(UnsupportedOperationException.class, () -> diaryRecords.getDiaryList().remove(0));
     }
 
+    @Test
+    public void diaryRecordsHashCodeTest() {
+        DiaryRecords secondDiaryRecords = new DiaryRecords();
+        assertEquals(diaryRecords.hashCode(), secondDiaryRecords.hashCode());
+    }
+
     /**
      * A stub ReadOnlyDiary whose diaries list can violate interface constraints.
      */
