@@ -1,9 +1,9 @@
 package calofit.model.dish;
 
-import calofit.commons.util.AppUtil;
-import calofit.commons.util.StringUtil;
-
 import static java.util.Objects.requireNonNull;
+
+import calofit.commons.util.AppUtil;
+//import calofit.commons.util.StringUtil;
 
 /**
  * Represents a Dish's calorie value in the dish database.

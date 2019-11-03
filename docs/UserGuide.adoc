@@ -39,7 +39,7 @@ Refer to <<Features>> for details of each command.
 === Adding a meal: `add`
 
 Adds a meal that the user ate to be tracked by CaloFit. +
-There are 2 formats that can be used +
+There are 2 formats that can be used: +
 
 Format 1: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]` +
 Inputting calories of the meal is optional. +
