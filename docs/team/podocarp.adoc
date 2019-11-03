@@ -60,7 +60,6 @@ It has >10k LOC.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-* https://ay1920s1-cs2103t-w11-2.github.io/main/UserGuide.html#powerusers[Extra abilities]
 include::../UserGuide.adoc[tag=powerusers]
 
 == Contributions to the Developer Guide
