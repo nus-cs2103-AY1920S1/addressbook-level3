@@ -24,3 +24,5 @@ gradlew.bat
 
 # Fork-specific build icon
 README.adoc
+data/commandHistory.json
+data/mamshistory_undo.json
