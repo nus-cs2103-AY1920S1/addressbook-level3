@@ -20,19 +20,19 @@ public class TypicalStudents {
     public static final Tag TAG_FOUR = new Tag("Math");
 
     public static final HashSet<Tag> TAG_SET_ONE = new HashSet<>() {{
-        add(TAG_ONE);
-        add(TAG_TWO);
-    }};
+            add(TAG_ONE);
+            add(TAG_TWO);
+        }};
     public static final HashSet<Tag> TAG_SET_TWO = new HashSet<>() {{
-        add(TAG_THREE);
-    }};
+            add(TAG_THREE);
+        }};
     public static final HashSet<Tag> TAG_SET_THREE = new HashSet<>() {{
-        add(TAG_FOUR);
-    }};
+            add(TAG_FOUR);
+        }};
     public static final HashSet<Tag> TAG_SET_FOUR = new HashSet<>() {{
-        add(TAG_THREE);
-        add(TAG_ONE);
-    }};
+            add(TAG_THREE);
+            add(TAG_ONE);
+        }};
 
     public static final Student STUDENT_ONE = new StudentBuilder().withName(new Name("Jonathan Dee"))
             .withTags(TAG_SET_ONE).withMark(false).build();

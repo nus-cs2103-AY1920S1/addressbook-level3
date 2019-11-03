@@ -23,10 +23,10 @@ public class GroupTest {
 
     @Test
     public void sameName_differentStudents_consideredEquals() {
-        Group editedGROUP_ONE = new GroupBuilder(GROUP_ONE).withGroupId("empty").build();
-        assertTrue(editedGROUP_ONE.equals(EMPTY_GROUP));
-        Group editedGROUP_TWO = new GroupBuilder(GROUP_TWO).withGroupId("empty").build();
-        assertTrue(editedGROUP_TWO.equals(EMPTY_GROUP));
+        Group editedGroupOne = new GroupBuilder(GROUP_ONE).withGroupId("empty").build();
+        assertTrue(editedGroupOne.equals(EMPTY_GROUP));
+        Group editedGroupTwo = new GroupBuilder(GROUP_TWO).withGroupId("empty").build();
+        assertTrue(editedGroupTwo.equals(EMPTY_GROUP));
     }
 
     @Test
@@ -38,7 +38,7 @@ public class GroupTest {
 
     @Test
     public void differentName_sameStudents_consideredUnique() {
-        Group editedNameGROUP_TWO = new GroupBuilder(GROUP_TWO).withGroupId("EditedGroup").build();
-        assertFalse(editedNameGROUP_TWO.equals(GROUP_TWO));
+        Group editedGroup = new GroupBuilder(GROUP_TWO).withGroupId("EditedGroup").build();
+        assertFalse(editedGroup.equals(GROUP_TWO));
     }
 }
