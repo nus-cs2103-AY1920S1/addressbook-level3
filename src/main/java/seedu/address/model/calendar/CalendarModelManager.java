@@ -20,7 +20,7 @@ import seedu.address.logic.calendar.commands.GoCommand;
 import seedu.address.model.calendar.task.Task;
 
 /**
- * Represents the in-memory calendarModel of the address book data.
+ * Represents the in-memory CalendarModel of Modulo data.
  */
 public class CalendarModelManager implements CalendarModel {
     private static final Logger logger = LogsCenter.getLogger(CalendarModelManager.class);
@@ -32,15 +32,15 @@ public class CalendarModelManager implements CalendarModel {
     private String currentSortType;
 
     /**
-     * Initializes a CalendarModelManager with the given calendarAddressBook and userPrefs.
+     * Initializes a CalendarModelManager with the given CalendarAddressBook and UserPrefs.
      */
-    public CalendarModelManager(ReadOnlyCalendarAddressBook addressBook, ReadOnlyCalendarUserPrefs userPrefs) {
+    public CalendarModelManager(ReadOnlyCalendarAddressBook calendarAddressBook, ReadOnlyCalendarUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(calendarAddressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with modulo : " + calendarAddressBook + " and user prefs " + userPrefs);
 
-        this.calendarAddressBook = new CalendarAddressBook(addressBook);
+        this.calendarAddressBook = new CalendarAddressBook(calendarAddressBook);
         this.userPrefs = new CalendarUserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.calendarAddressBook.getPersonList());
         currentSortType = "time";
@@ -223,9 +223,10 @@ public class CalendarModelManager implements CalendarModel {
     }
 
     /**
-     * Update lists
+     * Update lists according to the current sort type
      */
     public void updateLists() {
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
         switch (currentSortType) {
         case "deadline":
             filteredTasks = getFilteredListByDeadline();
@@ -239,7 +240,6 @@ public class CalendarModelManager implements CalendarModel {
             break;
         }
         calendarAddressBook.setTasks(filteredTasks);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
 }
