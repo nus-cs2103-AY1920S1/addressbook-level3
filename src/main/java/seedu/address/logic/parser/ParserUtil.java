@@ -75,6 +75,9 @@ public class ParserUtil {
         } else if (filter.equals("date")) {
             filterIndex = 2;
             return true;
+        } else if (filter.equals("status")) {
+            filterIndex = 3;
+            return true;
         } else {
             return false;
         }

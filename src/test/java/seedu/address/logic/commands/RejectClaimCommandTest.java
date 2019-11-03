@@ -28,7 +28,6 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commanditem.CommandItem;
 import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.ClaimBuilder;
@@ -120,12 +119,22 @@ public class RejectClaimCommandTest {
         }
 
         @Override
+        public void sortFilteredClaimListByStatus() {
+
+        }
+
+        @Override
         public void sortReverseFilteredClaimListByName() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void sortReverseFilteredClaimListByDate() {
+
+        }
+
+        @Override
+        public void sortReverseFilteredClaimListByStatus() {
 
         }
 
@@ -489,12 +498,12 @@ public class RejectClaimCommandTest {
         }
 
         @Override
-        public boolean hasContact(Name name, Phone phone) {
+        public boolean hasContact(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Contact findContactFor(Name name, Phone phone) {
+        public Contact findContactFor(Name name) {
             throw new AssertionError("This method should not be called.");
         }
 
