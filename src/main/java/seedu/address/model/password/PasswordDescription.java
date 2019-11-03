@@ -10,8 +10,8 @@ public class PasswordDescription {
     public static final String MESSAGE_CONSTRAINTS =
             "Descriptions should only contain alphabets, numbers and spaces"
             + " and adhere to the following constrains: \n"
-            + "1) Be between 2 characters to 30 characters long\n"
-            + "Description will automatically be changed to UPPER-CASE";
+            + "1) Be between 2 characters to 30 characters long\n";
+    public static final String ADDITIONAL_INFORMATION = "Description will automatically be changed to UPPER-CASE";
     /**
      * The first character of the description must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -22,7 +22,8 @@ public class PasswordDescription {
 
     public PasswordDescription(String description) {
         requireNonNull(description);
-        checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDescription(description), (
+                MESSAGE_CONSTRAINTS + ADDITIONAL_INFORMATION));
         value = description.toUpperCase();
     }
 

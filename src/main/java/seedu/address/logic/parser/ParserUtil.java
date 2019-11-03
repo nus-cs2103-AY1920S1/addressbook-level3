@@ -298,7 +298,8 @@ public class ParserUtil {
         requireNonNull(description);
         String trimmedDescription = description.trim();
         if (!PasswordDescription.isValidDescription(trimmedDescription)) {
-            throw new ParseException(PasswordDescription.MESSAGE_CONSTRAINTS);
+            throw new ParseException(
+            PasswordDescription.MESSAGE_CONSTRAINTS + PasswordDescription.ADDITIONAL_INFORMATION);
         }
         return new PasswordDescription(trimmedDescription);
     }
