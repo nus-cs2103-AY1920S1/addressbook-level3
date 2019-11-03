@@ -289,7 +289,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see Logic#execute(String)
      */
     public CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException, OnlineConnectionException {
+            throws CommandException, ParseException, OnlineConnectionException, NoRecommendationsException {
         try {
             if (currentTab.equals(WATCHED_TAB)) { // to ensure that the command executed is based off watched list index
                 logic.getModel().updateFilteredShowList(show -> show.isWatched().value);
@@ -308,12 +308,46 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShortCutKey()) {
+                handleShortCutKey(commandResult.getFeedbackToUser());
+            }
+
             return commandResult;
             //catch ParseException here to implement spellcheck
-        } catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException | NoRecommendationsException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * execute short cut key on UI
+     * @param feedbackToUser
+     * @throws NoRecommendationsException
+     * @throws OnlineConnectionException
+     */
+    private void handleShortCutKey(String feedbackToUser) throws NoRecommendationsException, OnlineConnectionException {
+        switch (feedbackToUser) {
+
+        case "Watchlist":
+            goToWatchlist();
+            return;
+
+        case "Watchedlist":
+            goToWatched();
+            return;
+
+        case "Search":
+            goToSearch();
+            return;
+
+        case "Statistics":
+            goToStatistics();
+            return;
+
+        default:
+            return;
         }
     }
 

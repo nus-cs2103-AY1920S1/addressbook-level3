@@ -145,11 +145,16 @@ public interface Model {
      * Updates the filter of the filtered show list to filter by the given {@code searchResult}.
      * @throws NullPointerException if the {@code searchResult} if null.
      */
-    public void updateSearchResultList(List<Show> searchResult);
+    void updateSearchResultList(List<Show> searchResult);
 
     /**
      * Sync a given show.
      * {@code syncMovie} must already been retrieved from IMDB database.
      */
-    public void syncMovie(List<Movie> syncMovie);
+    void syncMovie(List<Movie> syncMovie);
+
+    /**
+     * Returns a string representing the name of the page.
+     */
+    String getPage(String shortCutKey);
 }

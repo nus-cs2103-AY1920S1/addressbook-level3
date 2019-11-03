@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Show> filteredShows;
     private final WatchList searchResult = new WatchList();
+    private final String[] pageResult = {"Watchlist", "Watchedlist", "Search", "Statistics"};
 
     /**
      * Initializes a ModelManager with the given watchList and userPrefs.
@@ -157,6 +158,12 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public String getPage(String shortCutKey) {
+        int pageNumber = Integer.parseInt(shortCutKey) - 1;
+        return pageResult[pageNumber];
+    }
+
     //=========== Filtered Show List Accessors =============================================================
 
     /**
@@ -197,6 +204,8 @@ public class ModelManager implements Model {
     public ObservableList<Show> getSearchResultList() {
         return searchResult.getShowList();
     }
+
+
 
     @Override
     public boolean equals(Object obj) {

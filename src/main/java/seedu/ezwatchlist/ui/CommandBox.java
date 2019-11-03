@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.logic.Logic;
 import seedu.ezwatchlist.logic.commands.CommandResult;
@@ -38,7 +39,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException | OnlineConnectionException e) {
+        } catch (CommandException | ParseException | OnlineConnectionException | NoRecommendationsException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -73,7 +74,8 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException, OnlineConnectionException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, OnlineConnectionException,
+                NoRecommendationsException;
     }
 
 }
