@@ -13,11 +13,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.*;
-import seedu.address.model.employee.EmployeeSalaryPaid;
 
 
 /**
- * Edits the details of an existing employee in the employeeAddress book.
+ * Command to pay out Salary to the Employee and record it
  */
 public class Pay extends Command {
 
@@ -30,20 +29,20 @@ public class Pay extends Command {
             + "[" + PREFIX_SalaryPaid + "PAY] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SalaryPaid + "100 ";
-
+    public static final String MESSAGE_SUCCESS = "%s has been paid %s";
     public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: undopay 1 p/100";
 
     private final Index index;
-    private final EmployeeSalaryPaid salaryPaid;
+    private final double salaryToPay;
 
     /**
-     * @param index      of the employee in the filtered employee list to edit
-     * @param salaryPaid Total Paid Salary to the Employee
+     * @param index       of the employee in the filtered employee list to edit
+     * @param salaryToPay Total Paid Salary to the Employee
      */
-    public Pay(Index index, EmployeeSalaryPaid salaryPaid) {
+    public Pay(Index index, double salaryToPay) {
         requireNonNull(index);
         this.index = index;
-        this.salaryPaid = salaryPaid;
+        this.salaryToPay = salaryToPay;
     }
 
 
@@ -56,8 +55,9 @@ public class Pay extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
         }
 
-        Employee employeeToEdit = lastShownList.get(index.getZeroBased());
-        int salaryPaid = employeeToEdit.getEmployeeSalaryPaid().getValue() + 100;
+        Employee employeeToPay = lastShownList.get(index.getZeroBased());
+        employeeToPay.addSalaryPaid(salaryToPay);
+
 
 //        String end = editedEmployee.getEmployeeSalaryPaid().value;
 //        Double endDouble = Double.parseDouble(end);
@@ -67,7 +67,7 @@ public class Pay extends Command {
 //        String output = (int) amt + "";
 
         //set amt
-//        editedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
+//        editedEmployee.addSalaryPaid(new EmployeeSalaryPaid(output));
 //        String tt = editedEmployee.getEmployeeTotalsalary().value;
 //        Double ttDouble = Double.parseDouble(tt);
 //        double ps = ttDouble - amt;
@@ -77,7 +77,9 @@ public class Pay extends Command {
 
         model.updateFilteredEmployeeList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(output, salaryPaid), "Finance");
+        return new CommandResult(
+                String.format(MESSAGE_SUCCESS, employeeToPay.getEmployeeName(), salaryToPay),
+                "Finance");
     }
 
     @Override
@@ -92,7 +94,7 @@ public class Pay extends Command {
 
         // state check
         Pay e = (Pay) other;
-        return index.equals(e.index) && salaryPaid.equals(e.salaryPaid);
+        return index.equals(e.index) && salaryToPay == e.salaryToPay;
     }
 
 

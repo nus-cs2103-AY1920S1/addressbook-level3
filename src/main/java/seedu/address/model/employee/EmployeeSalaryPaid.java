@@ -2,7 +2,7 @@ package seedu.address.model.employee;
 
 
 /**
- * Represents a Employee's Salary (per hour) in the address book.
+ * Represents a Employee's Total Salary Paid in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPay(String)}
  */
 public class EmployeeSalaryPaid {
@@ -12,14 +12,14 @@ public class EmployeeSalaryPaid {
             "EmployeeSalaryPaid should be a positive integer value";
     public static final String VALIDATION_REGEX = "\\d{1,}";
 
-    private final int value;
+    private double value;
 
     /**
      * Constructs a {@code EmployeeSalaryPaid}.
      *
      * @param value A valid Pay number.
      */
-    public EmployeeSalaryPaid(int value) {
+    public EmployeeSalaryPaid(double value) {
         this.value = value;
     }
 
@@ -27,8 +27,12 @@ public class EmployeeSalaryPaid {
         value = 0;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
+    }
+
+    public void add(double salaryPaid) {
+        this.value += salaryPaid;
     }
 
     /**

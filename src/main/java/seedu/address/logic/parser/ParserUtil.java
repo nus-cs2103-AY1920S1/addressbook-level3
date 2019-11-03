@@ -70,20 +70,32 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static EmployeeSalaryPaid parseSalaryPaid(String pay) throws ParseException {
-        requireNonNull(pay);
-        String trimmedPay = pay.trim();
-        EmployeeSalaryPaid employeeSalaryPaid;
+    public static EmployeeSalaryPaid parseSalaryPaid(String salaryPaid) throws ParseException {
+        requireNonNull(salaryPaid);
+        String trimmedSalaryPaid = salaryPaid.trim();
+
         try {
-            int salaryPaid = Integer.parseInt(pay);
-            if (salaryPaid < 0) {
-                throw new IllegalArgumentException();
-            }
-            employeeSalaryPaid = new EmployeeSalaryPaid(salaryPaid);
+            return new EmployeeSalaryPaid(parseMoney(trimmedSalaryPaid));
         } catch (IllegalArgumentException e) {
             throw new ParseException(EmployeeSalaryPaid.MESSAGE_CONSTRAINTS);
         }
-        return employeeSalaryPaid;
+    }
+
+    /**
+     * Parses a {@code String money} into a double value
+     * Assumed trimmed and non-null.
+     */
+    public static double parseMoney(String moneyString) throws ParseException {
+        double money;
+        try {
+            money = Double.parseDouble(moneyString);
+            if (money < 0) {
+                throw new IllegalArgumentException();
+            }
+            return money;
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("Money must be a valid integer/double, and cannot be negative");
+        }
     }
 
 

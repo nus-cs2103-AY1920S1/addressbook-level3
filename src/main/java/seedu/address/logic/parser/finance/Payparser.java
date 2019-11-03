@@ -30,28 +30,20 @@ public class Payparser implements Parser<Pay> {
                 ArgumentTokenizer.tokenize(args, PREFIX_SalaryPaid);
 
         Index index;
-        EmployeeSalaryPaid employeeSalaryPaid;
+        double salaryToPay;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            salaryToPay = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SalaryPaid).get());
+
         } catch (ParseException pe) {
             throw new ParseException(String.format(("Pay: Undo the wrongly payment" +
                     " identified by the index number used in the displayed employee list.\n" +
                     "Parameters: INDEX (must be a positive integer)" +
                     " p/PAY" + "Example: pay 1 p/100")));
         }
-        Employee e = new Employee();
 
-        if (argMultimap.getValue(PREFIX_SalaryPaid).isPresent()) {
-            employeeSalaryPaid = ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_SalaryPaid).get());
-            e.setEmployeeSalaryPaid(ParserUtil.parseSalaryPaid(argMultimap.getValue(PREFIX_SalaryPaid).get()));
-        }
-        else{
-            employeeSalaryPaid = null;
-        }
-        
-
-        return new Pay(index, employeeSalaryPaid);
+        return new Pay(index, salaryToPay);
     }
 }
 

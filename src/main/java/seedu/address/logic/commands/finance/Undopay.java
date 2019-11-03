@@ -16,9 +16,10 @@ import seedu.address.model.employee.*;
 
 
 /**
- * Edits the details of an existing employee in the employeeAddress book.
+ * Retired Command!
  */
 public class Undopay extends Command {
+
 
     public static final String COMMAND_WORD = "undopay";
 
@@ -59,7 +60,7 @@ public class Undopay extends Command {
 //        double amt = startDouble + endDouble;
 //        String output = (int) amt + "";
 
-        //set amteditedEmployee.setEmployeeSalaryPaid(new EmployeeSalaryPaid(output));
+        //set amteditedEmployee.addSalaryPaid(new EmployeeSalaryPaid(output));
 //        String tt = editedEmployee.getEmployeeTotalsalary().value;
 //        Double ttDouble = Double.parseDouble(tt);
 //        double ps = ttDouble - amt;

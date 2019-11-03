@@ -25,10 +25,11 @@ public class Employee {
     private final Set<Tag> tags = new HashSet<>();
     private final EmployeeJoinDate employeeJoinDate;
     private final EmployeePay employeePay;
-    private EmployeeSalaryPaid employeeSalaryPaid;
+    private final EmployeeSalaryPaid employeeSalaryPaid;
 
     /**
      * Every field must be present and not null.
+     * Called in instantiating an Employee from previously stored object.
      */
     public Employee(EmployeeId employeeId, EmployeeName employeeName, EmployeeGender employeeGender,
                     EmployeePay employeePay, EmployeeSalaryPaid employeeSalaryPaid,
@@ -108,8 +109,8 @@ public class Employee {
         return employeeJoinDate;
     }
 
-    public void setEmployeeSalaryPaid(EmployeeSalaryPaid employeeSalaryPaid) {
-        this.employeeSalaryPaid = employeeSalaryPaid;
+    public void addSalaryPaid(double salaryPaid) {
+        employeeSalaryPaid.add(salaryPaid);
     }
 
     /**
