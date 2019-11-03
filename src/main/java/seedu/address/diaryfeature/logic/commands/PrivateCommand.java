@@ -38,7 +38,7 @@ public class PrivateCommand extends Command<DiaryModel> {
         }
 
         model.setDiaryEntryPrivate(targetIndex.getOneBased());
-        model.updateFilteredDiaryList(model.PREDICATE_SHOW_ALL_EVENTS);
+       // model.updateFilteredDiaryList(model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(MESSAGE_PRIVATE_ENTRY_SUCCESS + targetIndex.getOneBased());
     }
 }

@@ -21,6 +21,9 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 */
 
 public class FindSpecificCommandParser {
+    public static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
+            "findSpecific prefix/target Eg: findSpecific t/birthday. \n Note that the input cant be empty, and has " +
+            "to be at least 1 character";
     ArgumentMultimap argMultimap;
 
     /**
@@ -30,9 +33,13 @@ public class FindSpecificCommandParser {
      */
 
     public Command parse(String args) throws EmptyArgumentException {
-        String trimmed = ParserUtil.parseArgs(args,FindSpecificCommand.COMMAND_WORD);
-        argMultimap = ArgumentTokenizer.tokenize(trimmed, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
-        return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue()));
+        try {
+            String trimmed = ParserUtil.parseStringArgs(args, FindSpecificCommand.COMMAND_WORD);
+            argMultimap = ArgumentTokenizer.tokenize(trimmed, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+            return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue()));
+        } catch (EmptyArgumentException error) {
+            throw new EmptyArgumentException(FindSpecificCommand.COMMAND_WORD, FIND_SPECIFIC_USAGE);
+        }
     }
 
 

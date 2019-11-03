@@ -38,7 +38,7 @@ public class UnPrivateCommand extends Command<DiaryModel> {
         }
 
         model.setDiaryEntryUnPrivate(targetIndex.getOneBased());
-        model.updateFilteredDiaryList(model.PREDICATE_SHOW_ALL_EVENTS);
+       // model.updateFilteredDiaryList(model.PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(MESSAGE_UNPRIVATE_ENTRY_SUCCESS + targetIndex.getOneBased());
     }
 }

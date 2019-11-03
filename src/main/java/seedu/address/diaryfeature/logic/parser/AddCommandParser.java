@@ -34,7 +34,6 @@ public class AddCommandParser  {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE,PREFIX_PLACE,PREFIX_MEMORY);
-System.out.println("here 1");
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new DiaryEntryParseException();
@@ -43,15 +42,12 @@ System.out.println("here 1");
         Date date;
         Place place;
         Memory memory;
-        System.out.println("here 2");
         try {
             title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            System.out.println("here 3");
 
             if (argMultimap.getValue(PREFIX_PLACE).isEmpty()) {
                 place = new Place("Empty Place");
-                System.out.println("here 4");
 
             } else {
                 place = ParserUtil.parsePlace(argMultimap.getValue(PREFIX_PLACE).get());
@@ -59,7 +55,6 @@ System.out.println("here 1");
 
             if (argMultimap.getValue(PREFIX_MEMORY).isEmpty()) {
                 memory = new Memory("Empty Memory");
-                System.out.println("here 5");
 
             } else {
                 memory = ParserUtil.parseMemory(argMultimap.getValue(PREFIX_MEMORY).get());
@@ -71,7 +66,6 @@ System.out.println("here 1");
         }
 
         DiaryEntry entry = new DiaryEntry(title, date, place,memory);
-        System.out.println("here 9");
 
 
         return new AddCommand(entry);

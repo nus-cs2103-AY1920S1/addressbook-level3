@@ -16,6 +16,7 @@ import seedu.address.diaryfeature.logic.commands.HelpCommand;
 import seedu.address.diaryfeature.logic.commands.ListCommand;
 import seedu.address.diaryfeature.logic.commands.PrivateCommand;
 import seedu.address.diaryfeature.logic.commands.UnPrivateCommand;
+import seedu.address.diaryfeature.logic.parser.exceptions.DiaryUnknownException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.GoToParser;
@@ -84,7 +85,7 @@ public class DiaryBookParser {
                 case UnPrivateCommand.COMMAND_WORD:
                     return new UnPrivateCommandParser().parse(arguments);
                 default:
-                    return new ErrorCommand(new Exception(MESSAGE_UNKNOWN_COMMAND));
+                    return new ErrorCommand(new DiaryUnknownException());
             }
         } catch (Exception error) {
             return new ErrorCommand(error);

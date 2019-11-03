@@ -103,7 +103,7 @@ public class ParserUtil {
         throw new MemoryParseException();
     }
 
-    public static String parseArgs(String input,String parserName) throws EmptyArgumentException {
+    public static String parseStringArgs(String input,String parserName) throws EmptyArgumentException {
         if(Validators.isNotNull(input)) {
             String trimmed = input.trim();
             if (Validators.isNotEmpty(trimmed)) {
