@@ -31,7 +31,6 @@ image::ArchitectureDiagram_FlashCardPro.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 
-
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -87,7 +86,7 @@ image::ModelClassDiagram_FlashCardPro.png[]
 
 *API* : link:{repoURL}/src/main/java/dream/fcard/model[`Model`]
 
-.Structure of the Model Component
+// tag::cards[]
 image::cards_class_diagram.png[]
 
 
@@ -126,6 +125,8 @@ image::flashcards_priority cards.png[]
 
 [Note]
 The current implementation has yet to handle the situation where `ExamRunner` creates a test set when there are no cards in Deck. This will be implemented before the next code release.
+
+// end::cards[]
 
 [[Design-Storage]]
 === Storage component
@@ -336,6 +337,8 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+
+// tag::productscope[]
 == Product Scope
 
 *Target user profile*:
@@ -349,8 +352,11 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: allow effective reinforcement learning of textual content by answering using CLI input to a question prompt from a GUI
+// end::productscope[]
 
 [appendix]
+
+// tag::user_stories[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -405,9 +411,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+// end::user_stories[]
+
 _{More to be added}_
 
 [appendix]
+
+// tag::use_case[]
 == Use Cases
 
 (For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
@@ -640,7 +650,7 @@ Use case ends.
 Use case ends.
 
 
-
+// end::use_case[]
 
 
 [appendix]
@@ -659,9 +669,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 
 [appendix]
 == Instructions for Manual Testing
@@ -670,14 +677,4 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-
-
-=== Deleting a person
-
-
-=== Saving data
-
 
