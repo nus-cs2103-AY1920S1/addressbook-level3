@@ -38,13 +38,15 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person or activity "
             + "currently in view.\n"
             + "Existing values will be overwritten by the input values, and irrelevant parameters will be ignored.\n"
-            + "Parameters: [" + PREFIX_TITLE + "TITLE] "
+            + "Parameters (editing contact): "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Examples: " + COMMAND_WORD + " "
+            + "Parameters (editing activity) "
+            + "[" + PREFIX_TITLE + "TITLE] \n"
+            + "Examples: \n" + COMMAND_WORD + " "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com\n"
             + COMMAND_WORD + " " + PREFIX_TITLE + "Fun @ Chalet";
@@ -114,7 +116,7 @@ public class EditCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+        requireNonNull(personToEdit);
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
@@ -132,7 +134,7 @@ public class EditCommand extends Command {
      */
     private static Activity createEditedActivity(Activity activityToEdit,
                                                  EditActivityDescriptor editActivityDescriptor) {
-        assert activityToEdit != null;
+        requireNonNull(activityToEdit);
 
         Title updatedTitle = editActivityDescriptor.getTitle().orElse(activityToEdit.getTitle());
         return new Activity(activityToEdit, updatedTitle);

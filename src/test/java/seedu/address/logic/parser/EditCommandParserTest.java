@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ACTIVITY2;
@@ -50,6 +51,17 @@ public class EditCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private EditCommandParser parser = new EditCommandParser();
+
+    @Test
+    public void parse_preambleTests() {
+        // Non-empty preamble -> failure
+        assertParseFailure(parser, "   hi   " + VALID_EMAIL_AMY,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        // Whitespace preamble -> success
+        assertParseSuccess(parser, "   " + TITLE_DESC_ACTIVITY2,
+                new EditCommand(new EditPersonDescriptor(), DESC_ACTIVITY2));
+    }
 
     @Test
     public void parse_invalidValue_failure() {

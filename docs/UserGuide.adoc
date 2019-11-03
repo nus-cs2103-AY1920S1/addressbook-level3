@@ -203,12 +203,12 @@ This adds an expense of $15 by John Doe called `Cab` where only John himself is 
 
 Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
-Format: `edit [n/NAME] [p/PHONE] [tag/TAG] ...` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
+Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG] ...` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
 ****
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Irrelevant flags will be ignored. For example, `edit p/999 t/new title` when viewing an activity will only update the title to `new title`, and `p/999` will be ignored.
+* Irrelevant parameters will be ignored. For example, `edit p/999 t/new title` when viewing an activity will only update the title to `new title`, and `p/999` will be ignored.
 * Expenses cannot be edited.
 ****
 
