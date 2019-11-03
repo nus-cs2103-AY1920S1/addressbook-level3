@@ -6,7 +6,7 @@ import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_END_DETECTION_
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_START_DETECTION_REGEX;
 import static seedu.address.model.note.NoteFragment.NOTE_FRAGMENT_TAG_DETECTION_REGEX;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -57,7 +57,7 @@ public class Note extends StudyBuddyItem {
     }
 
     public List<NoteFragment> getFilteredNoteFragments(Predicate<? super NoteFragment> predicate) {
-        List<NoteFragment> noteFragmentList = Collections.emptyList();
+        List<NoteFragment> noteFragmentList = new ArrayList<>();
         for (NoteFragment noteFragment : noteFragments) {
             if (predicate.test(noteFragment)) {
                 noteFragmentList.add(noteFragment);
