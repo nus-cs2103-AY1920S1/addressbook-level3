@@ -210,11 +210,26 @@ Usage:
 
 {nbsp} +
 
+// tag::archive[]
 === Archiving past expenses: `archive`
+This feature allows you to archive expenses. An expense is archived when you want remove it from
+the current list of expenses, but still want to keep a record of it and retrieve it again in the future
+for accounting purposes.
+
+Archiving expenses allows you to de-clutter your current list of expenses after a long period of time.
+This feature offers greater flexibility in terms of expense organisation as it allows you to create *multiple archives* with
+the archive name of your choice so that you would be able to group your archived expenses into an appropriate archive.
+
+[NOTE]
+Do note that you would be *unable to edit archived expenses* as they are not considered current and "active" expenses. +
+To edit an archived expense, you would need to *unarchive it first*.
+
+The following are all the archive commands, descriptions of how they work and their usage.
+You could view a list of all supported archive commands by typing `archive` and pressing enter.
 
 . _Adding a record to an archive: archive add_ +
-Transfers the expense at the specified index to your specified archive. +
-If archive you entered does not exist, then the new archive is created before the expense is added. +
+This command allows you to transfer the expense at the specified index to your specified archive. +
+If the archive you entered does not exist, then a new archive is created before the expense is added. +
 {nbsp} +
 Usage:
 
@@ -222,17 +237,17 @@ Usage:
 +
 Options:
 
-* `/arc`: Specifies the name of the archive to add the expense to. (REQUIRED) +
+* `arc/`: Specifies the name of the archive to add the expense to. (REQUIRED) +
 {nbsp} +
 
 +
 Example: +
 `archive add 3 arc/MBS casino winnings` +
-Archives the record at the 3rd index into an archive named “MBS casino winnings” +
+Archives the expense at the 3rd index into an archive named “MBS casino winnings” +
 {nbsp} +
 
 . _Listing out all archives: archive listall_ +
-Displays the list of all archive names. +
+This command informs you of all the existing archives by displaying a list of all existing archive names. +
 {nbsp} +
 Usage:
 
@@ -241,20 +256,25 @@ Usage:
 +
 {nbsp} +
 . _Listing records in a particular archive: archive list_ +
-Displays the list of records in your specified archive +
+This command allows you to view the expense list of a specified archive by
+displaying the list of expenses in your specified archive. +
 {nbsp} +
 Usage:
 
  archive list [NAME]
 +
+[NOTE]
+Do not that you do not need to prepend the archive prefix `arc/` to the archive name as there are no other
+arguments (like index) to be entered for this command.
++
 Example: +
 `archive list 2018 expenses` +
-Lists out all the records in the “2018 expenses” archive +
+Lists out all the expenses in the “2018 expenses” archive +
 {nbsp} +
 
 . _Deleting an archived record: archive delete_ +
-Deletes the record at the specified index from your specified archive. +
-If the archive record deleted was the last record in the archive, the empty archive will be deleted. +
+This command allows you to delete the expense at the specified index from your specified archive. +
+If the archived expense you delete was the last expense in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
@@ -268,12 +288,12 @@ Options:
 +
 Example: +
 `archive delete 5 arc/2018 expenses` +
-Deletes the record at the 5th index in the “2018 expenses” archive +
+Deletes the expense at the 5th index in the “2018 expenses” archive +
 {nbsp} +
 
 . _Revert/unarchive an archived record: archive revert_ +
-Unarchives the record at the specified index from your specified archive, transferring it back to your current list of expenses. +
-If the archive record reverted was the last record in the archive, the empty archive will be deleted. +
+This command allows you to unarchive the expense at the specified index from your specified archive, transferring it back to your current list of expenses. +
+If the archive expense you reverted was the last expense in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
@@ -287,8 +307,9 @@ Options:
 +
 Example: +
 `archive revert 5 arc/2018 expenses` +
-Unarchives the record at the 5th index in the “2018 expenses” archive +
+Unarchives the expense at the 5th index in the “2018 expenses” archive +
 {nbsp} +
+// end::archive[]
 
 === Displaying of statistics: `display-stats`
 

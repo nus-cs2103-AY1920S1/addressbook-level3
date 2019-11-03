@@ -9,32 +9,33 @@
 The purpose of this portfolio is to document my overall contributions to the Software Engineering project, *Billboard*.
 
 === About the project
-My team of 4 software engineering students and I were tasked with enhancing a basic command line
-interface desktop addressbook application for our Software Engineering project. We decided to morph
-it into a personal financial management system called *Billboard*.
+In the Software Engineering Module CS2103T, My team of 5 students were tasked with enhancing an existing addressbook desktop application for our project.
+We decided to transform the base code of the aforementioned addressbook application into a personal financial management system called *Billboard*, targeted at students.
 
-This enhanced application enables students to record their daily expenses;
-better manage and track expenses by tagging and archiving them;
-and visually analyze overall spending by generating graphs from expense data.
+This enhanced application enables students to record their daily expenses and has advanced expense tracking and management features.
+The advanced features for *tracking* expenses are generating graphs from expense data, and expense filter capabilities; while
+the advanced features for *managing* expenses are tagging and archiving expenses.
+
+Since *Billboard* has a Command Line Interface (CLI), meaning that all interactions between user and the application is done through typing only, it is meant for students who
+type fast. Furthermore, *Billboard* also has a fully functioning Graphical User Interface (GUI), making it user friendly.
 
 This is what our project looks like:
 
 .The graphical user interface for *Billboard*
-image::BillboardGUI.png[]
+image::Ui.png[]
 
 The role I played in this project was to design and implement the code for the `archive` feature. Additionally, I was
-tasked with improving the application's aesthetically design by adding cosmetic tweaks to the application's graphical user interface.
+tasked with improving the application's aesthetic design by adding major cosmetic tweaks to the application's GUI.
 The following sections illustrate these enhancements in greater detail, as well as the relevant documentation I have added to the user and
 developer guides in relation to these enhancements.
 
 Note the following formatting used in this document:
 
-|===
-|`archive`|A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-|`ArchiveWrapper`|Blue text with grey highlight indicates a component, class or object in the architecture of the application.
+`archive` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-|===
+`ArchiveWrapper` - Blue text with grey highlight indicates a component, class or object in the architecture of the application.
+
 
 == Summary of contributions
 This section summarises my coding, documentation, and other helpful contributions to the team project.
@@ -77,9 +78,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=archive]
 
 == Contributions to the Developer Guide
 
