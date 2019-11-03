@@ -36,23 +36,11 @@ public class SampleDataUtil {
 
     public static Customer[] getSampleCustomers() {
         return new Customer[]{
-            new Customer(new Name("Alex Yeoh"), new Phone("87438807"), getTagSet("FastFood"),
-                    getOrder(new Order(new Name("Alex Yeoh"), new Name("KFC"),
-                            getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1))))),
-            new Customer(new Name("Bernice Yu"), new Phone("99272758"), getTagSet("Indian"),
-                    getOrder(new Order(new Name("Bernice Yu"), new Name("Prata House"),
-                            getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1))))),
-            new Customer(new Name("Charlotte Oliveiro"), new Phone("93210283"), getTagSet("Bar"),
-                    getOrder(new Order(new Name("Charlotte Oliveiro"), new Name("SkyBar Bar and Restaurant"),
-                            getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5))))),
-            new Customer(new Name("David Li"), new Phone("91031282"), getTagSet("Japanese"),
-                    getOrder(new Order(new Name("David Li"), new Name("IchiNiSan Ramen"),
-                            getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1))))),
-            new Customer(new Name("Ifran Ibrahim"), new Phone("92492021"), getTagSet("Barbeque"),
-                    getOrder(new Order(new Name("Irfan Ibrahim"), new Name("Piggys Self Barbeque"),
-                            getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
-                                    new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
-                                    new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Tail"), 7)))))
+            new Customer(new Name("Alex Yeoh"), new Phone("87438807"), getTagSet("FastFood")),
+            new Customer(new Name("Bernice Yu"), new Phone("99272758"), getTagSet("Indian")),
+            new Customer(new Name("Charlotte Oliveiro"), new Phone("93210283"), getTagSet("Bar")),
+            new Customer(new Name("David Li"), new Phone("91031282"), getTagSet("Japanese")),
+            new Customer(new Name("Ifran Ibrahim"), new Phone("92492021"), getTagSet("Barbeque"))
         };
     }
 
@@ -114,18 +102,28 @@ public class SampleDataUtil {
 
     public static Order[] getSampleOrders() {
         return new Order[]{
-            new Order(new Name("Alex Yeoh"), new Name("KFC"),
-                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1))),
-            new Order(new Name("Bernice Yu"), new Name("Prata House"),
-                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1))),
-            new Order(new Name("Charlotte Oliveiro"), new Name("SkyBar Bar and Restaurant"),
-                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5))),
-            new Order(new Name("David Li"), new Name("IchiNiSan Ramen"),
-                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1))),
-            new Order(new Name("Irfan Ibrahim"), new Name("Piggys Self Barbeque"),
-                        getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
+            new Order.OrderBuilder().setCustomer(new Name("Alex Yeoh"))
+                    .setRestaurant(new Name("KFC"))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("3 Piece Chicken"), 1)))
+                    .completeOrder(),
+            new Order.OrderBuilder().setCustomer(new Name("Bernice Yu"))
+                    .setRestaurant(new Name("Prata House"))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Curry Fountain"), 1)))
+                    .completeOrder(),
+            new Order.OrderBuilder().setCustomer(new Name("Charlotte Oliveiro"))
+                    .setRestaurant(new Name("SkyBar Bar and Restaurant"))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Buffalo Wings"), 5)))
+                    .completeOrder(),
+            new Order.OrderBuilder().setCustomer(new Name("David Li"))
+                    .setRestaurant(new Name("IchiNiSan Ramen"))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1)))
+                    .completeOrder(),
+            new Order.OrderBuilder().setCustomer(new Name("Irfan Ibrahim"))
+                    .setRestaurant(new Name("Piggys Self Barbeque"))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Trotter"), 7),
                                 new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Shank"), 7),
                                 new AbstractMap.SimpleEntry<Name, Integer>(new Name("BBQ Tail"), 7)))
+                    .completeOrder()
         };
     }
 
@@ -152,7 +150,14 @@ public class SampleDataUtil {
 
     public static ReadOnlyCustomerDatabase getSampleCustomerDatabase() {
         CustomerDatabase sampleCd = new CustomerDatabase();
-        for (Customer sampleCustomer : getSampleCustomers()) {
+        Customer[] sampleCustomerArray = getSampleCustomers();
+        Order[] sampleOrderArray = getSampleOrders();
+        sampleCustomerArray[0].addOrder(sampleOrderArray[0]);
+        sampleCustomerArray[1].addOrder(sampleOrderArray[1]);
+        sampleCustomerArray[2].addOrder(sampleOrderArray[2]);
+        sampleCustomerArray[3].addOrder(sampleOrderArray[3]);
+        sampleCustomerArray[4].addOrder(sampleOrderArray[4]);
+        for (Customer sampleCustomer : sampleCustomerArray) {
             sampleCd.addCustomer(sampleCustomer);
         }
         return sampleCd;

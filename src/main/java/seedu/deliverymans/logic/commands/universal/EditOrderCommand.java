@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_DELIVERYMAN;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_RESTAURANT;
-import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,11 +39,9 @@ public class EditOrderCommand extends Command {
             + PREFIX_RESTAURANT + "KFC "
             + PREFIX_DELIVERYMAN + "Deliveryman #1337";
 
-    public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists.";
-    public static final String MESSAGE_INVALID_ORDER = "The customer/restaurant/deliveryman does not exist!";
     public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
+    public static final String MESSAGE_SUCCESS_EDIT = "Successful edition of order: %1$s";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -72,45 +69,27 @@ public class EditOrderCommand extends Command {
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
-        Name deliveryman = editedOrder.getDeliveryman();
 
-
-        if (!model.getFilteredRestaurantList().contains(editedOrder.getRestaurant())
-                || !model.getFilteredCustomerList().contains(editedOrder.getCustomer())
-                || (!deliveryman.equals(null)
-                && !model.getFilteredDeliverymenList().contains(deliveryman))) {
-            throw new CommandException(MESSAGE_INVALID_ORDER);
-        }
-
-        if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
-        }
-
-        model.setOrder(orderToEdit, editedOrder);
-        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedOrder));
+        // model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+        new AddOrderCommand(editedOrder, orderToEdit, false).execute(model, logic);
+        return new CommandResult(String.format(MESSAGE_SUCCESS_EDIT, editedOrder));
     }
 
     /**
-     * Creates and returns a {@code Order} with the details of {@code orderToEdit}
+     * Creates and returns a {@code OrderBuilder} with the details of {@code orderToEdit}
      * edited with {@code editOrderDescriptor}.
      */
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
-
-        Name updatedOrderName = editOrderDescriptor.getOrderName().orElse(orderToEdit.getOrderName());
         Name updatedCustomer = editOrderDescriptor.getCustomer().orElse(orderToEdit.getCustomer());
         Name updatedRestaurant = editOrderDescriptor.getRestaurant().orElse(orderToEdit.getRestaurant());
         Name updatedDeliveryman = editOrderDescriptor.getDeliveryman().orElse(orderToEdit.getDeliveryman());
         boolean updatedIsCompleted = editOrderDescriptor.getCompleted().orElse(orderToEdit.isCompleted());
-        Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFood());
+        Map<Name, Integer> updatedFood = editOrderDescriptor.getFoods().orElse(orderToEdit.getFoodList());
 
-        Order order = new Order(updatedOrderName, updatedCustomer, updatedRestaurant, updatedFood);
-        order.setDeliveryman(updatedDeliveryman);
-        order.addFood(updatedFood);
-        if (updatedIsCompleted) {
-            order.completeOrder();
-        }
+        Order order = new Order.OrderBuilder().setCustomer(updatedCustomer).setRestaurant(updatedRestaurant)
+                .setDeliveryman(updatedDeliveryman).setFood(updatedFood).setCompleted(updatedIsCompleted)
+                .completeOrder();
         return order;
     }
 
@@ -137,7 +116,6 @@ public class EditOrderCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
-        private Name orderName;
         private Name customer;
         private Name restaurant;
         private Name deliveryman;
@@ -152,7 +130,6 @@ public class EditOrderCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
-            setOrderName(toCopy.orderName);
             setCustomer(toCopy.customer);
             setRestaurant(toCopy.restaurant);
             setDeliveryman(toCopy.deliveryman);
@@ -164,15 +141,7 @@ public class EditOrderCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(orderName, customer, restaurant, deliveryman, foods);
-        }
-
-        public void setOrderName(Name name) {
-            this.orderName = name;
-        }
-
-        public Optional<Name> getOrderName() {
-            return Optional.ofNullable(orderName);
+            return CollectionUtil.isAnyNonNull(customer, restaurant, deliveryman, foods);
         }
 
         public void setCustomer(Name customer) {
@@ -239,8 +208,7 @@ public class EditOrderCommand extends Command {
             // state check
             EditOrderDescriptor e = (EditOrderDescriptor) other;
 
-            return getOrderName().equals(e.getOrderName())
-                    && getCustomer().equals(e.getCustomer())
+            return getCustomer().equals(e.getCustomer())
                     && getRestaurant().equals(e.getRestaurant())
                     && getDeliveryman().equals(e.getDeliveryman())
                     && (getCompleted() == e.getCompleted())

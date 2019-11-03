@@ -33,7 +33,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         statisticsManager = new StatisticsManager();
     }
 
-    public DeliverymenDatabase() {}
+    public DeliverymenDatabase() {
+    }
 
     /**
      * Creates a DeliverymenDatabase using the Deliverymen in the {@code toBeCopied}
@@ -81,6 +82,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         man.setRecordId(recordIndex);
         statusManager.addUnavailableMan(man);
     }
+
     /**
      * Replaces the given deliveryman {@code target} in the list with {@code editedDeliveryman}.
      * {@code target} must exist in the deliveryman database.
@@ -140,7 +142,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
      */
     public void resetAvailableList() {
         statusSortedList.clear();
-        for (Deliveryman man: statusManager.listAvailableMen()) {
+        for (Deliveryman man : statusManager.listAvailableMen()) {
             if (contains(man)) {
                 continue;
             }
