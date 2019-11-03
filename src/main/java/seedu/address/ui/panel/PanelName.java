@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 public class PanelName {
     public static final PanelName CURRENT = new PanelName("Current Page");
 
-    // temporary
     public static final PanelName STATISTICS_PANEL = new PanelName("Statistics");
 
     public static final String MESSAGE_NAME_FORMAT = "\"%s\" is not a valid panel name. \n"
