@@ -348,42 +348,24 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         switch (omniPanelTab) {
         case PATIENTS_TAB:
             region = patientListPanel.getRoot();
-            break;
-        case APPOINTMENTS_TAB:
-            region = appointmentListPanel.getRoot();
-            break;
-        case DOCTORS_TAB:
-            region = staffListPanel.getRoot();
-            break;
-        case DUTY_SHIFT_TAB:
-            region = dutyShiftListPanel.getRoot();
-            break;
-        default:
-            return;
-        }
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
-    }
-
-    @Override
-    public void refreshOmniPanelTab(OmniPanelTab omniPanelTab) {
-        setOmniPanelTab(omniPanelTab);
-        switch (omniPanelTab) {
-        case PATIENTS_TAB:
             executeCommand(ListPatientCommand.COMMAND_WORD);
             break;
         case APPOINTMENTS_TAB:
+            region = appointmentListPanel.getRoot();
             executeCommand(AppointmentsCommand.COMMAND_WORD);
             break;
         case DOCTORS_TAB:
+            region = staffListPanel.getRoot();
             executeCommand(ListStaffCommand.COMMAND_WORD);
             break;
         case DUTY_SHIFT_TAB:
+            region = dutyShiftListPanel.getRoot();
             executeCommand(DutyShiftCommand.COMMAND_WORD);
             break;
         default:
             return;
         }
-
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
     }
 
     @Override

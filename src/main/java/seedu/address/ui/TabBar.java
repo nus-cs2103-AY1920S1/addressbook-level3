@@ -45,11 +45,11 @@ public class TabBar extends UiPart<Region> {
                 return;
             }
             keyEvent.consume();
-            omniPanel.refreshOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
         });
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            omniPanel.refreshOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
+            omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
             tabBar.requestFocus();
         }));
     }
