@@ -28,15 +28,15 @@ public class ResultDisplay extends UiPart<Region> implements Observer {
 
     @Override
     public void update(KeyCode keyCode) {
-        // Catch all key pressed except up, down, enter
+        // Respond to all key pressed except up, down, enter
         if (keyCode != KeyCode.UP && keyCode != KeyCode.DOWN && keyCode != KeyCode.ENTER) {
             resultDisplay.setText("");
         }
     }
 
-    //Respond to only up or down key
     @Override
     public void update(KeyCode keyCode, String resultString) {
+        //Respond to only up or down key
         if (keyCode == KeyCode.UP || keyCode == KeyCode.DOWN) {
             resultDisplay.setText(resultString);
         }
