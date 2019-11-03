@@ -138,14 +138,7 @@ Displays all the cards in the deck of cards, `science_deck`
 
 Creates an empty deck in FlashCard Pro library.
 
-Format: `create deck/DECK_NAME`
-
-
-Examples:
-
-* `create deck/german` +
-
-Creates a new empty deck named `german`.
+Format: `create deck/DECK_NAME.
 
 Note :
 
@@ -155,7 +148,30 @@ Note :
 * If there is another deck with the same name `DECK_NAME`, there will be an error message and the empty deck will not be created.
 ****
 
+Examples:
+
+* `create deck/german` +
+
+Creates a new empty deck named `german`.
+
+
 ==== Create new Front Back card or Multiple Choice Card
+
+Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
+
+Format: `create deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
+
+****
+* The `DECK_NAME` must be a name of an existing deck in FlashCard Pro.
+
+** If there is not deck with the name of `DECK_NAME`, there will be an error message and the card will not be created.
+
+* The `PRIORITY_LEVEL` should be of the following format:
+
+| Priority Level | Description | User Input
+| High | You find the card important and want it to be tested more often | HIGH
+
+****
 
 ==== Create new Javascript card or Java Card
 
