@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.achievements.ui.AchievementsPage;
 import seedu.address.address.logic.AddressBookLogic;
@@ -46,7 +47,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CodeWindow codeWindow;
@@ -63,9 +63,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
     @FXML
     private MenuItem helpMenuItem;
 
-    //@FXML
-    //private StackPane personListPanelPlaceholder;
-
     @FXML
     private ImageView imageView;
 
@@ -77,6 +74,9 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     @FXML
     private Scene commonScene;
+
+    @FXML
+    private VBox backgroundPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -101,12 +101,10 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
         mainScene = primaryStage.getScene();
 
-        // todo-this-week: call the PageScene constructor with your page scene instead,
-        // e.g. Pages(primaryScene, diaryScene)
-        // note that one of the PageScene's constructor is a vararg
         PageManager.getInstance(primaryStage, mainScene, calendarPage, itineraryPage,
                 financialTrackerPage, diaryPage, achievementsPage, addressBookPage);
 
+        setBackgroundImage();
     }
 
     public Stage getPrimaryStage() {
@@ -115,6 +113,17 @@ public class MainWindow extends UiPart<Stage> implements Page {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    }
+
+    /**
+     * Sets background image to make it resizable.
+     */
+    private void setBackgroundImage() {
+        ImageView backgroundImage = new ImageView("/images/mainpage.png");
+        backgroundImage.fitHeightProperty().bind(primaryStage.heightProperty().multiply(0.9));
+        backgroundImage.fitWidthProperty().bind(primaryStage.widthProperty().multiply(0.9));
+        backgroundImage.setPreserveRatio(true);
+        backgroundPlaceholder.getChildren().add(backgroundImage);
     }
 
     /**
@@ -152,14 +161,8 @@ public class MainWindow extends UiPart<Stage> implements Page {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getAddressBookLogic().getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookLogic().getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -232,10 +235,6 @@ public class MainWindow extends UiPart<Stage> implements Page {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         exit();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
