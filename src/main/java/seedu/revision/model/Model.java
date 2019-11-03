@@ -87,8 +87,7 @@ public interface Model {
      */
     void updateFilteredAnswerableList(Predicate<Answerable> predicate);
 
-    /** Returns an unmodifiable view of the sorted answerable list */
-    ObservableList<Answerable> getFilteredSortedAnswerableList(
-            Predicate<Answerable> predicate, Comparator<Answerable> comparator);
+    /** Removes the filters from answerable list and restores the list to its original size. **/
+    void removeFiltersFromAnswerableList();
 
 }

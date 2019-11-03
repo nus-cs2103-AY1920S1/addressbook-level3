@@ -2,6 +2,7 @@ package seedu.revision.logic.parser.main;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.logic.commands.main.EditCommand.MESSAGE_CANNOT_EDIT_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CORRECT;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
@@ -44,6 +45,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (argMultimap.getValue(PREFIX_QUESTION_TYPE).isPresent()) {
+            throw new ParseException(MESSAGE_CANNOT_EDIT_TYPE);
         }
 
         EditCommand.EditAnswerableDescriptor editAnswerableDescriptor = new EditCommand.EditAnswerableDescriptor();

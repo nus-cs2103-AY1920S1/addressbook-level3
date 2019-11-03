@@ -107,6 +107,11 @@ public class MainLogicManager implements MainLogic {
     }
 
     @Override
+    public void removeFiltersFromAnswerableList() {
+        model.removeFiltersFromAnswerableList();
+    }
+
+    @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }

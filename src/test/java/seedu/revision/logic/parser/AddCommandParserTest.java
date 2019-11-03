@@ -11,7 +11,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.INVALID_QUESTION_DES
 import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.revision.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
@@ -46,7 +46,7 @@ public class AddCommandParserTest {
                 new AddCommand(expectedAnswerable));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + QUESTION_DESC_BETA
+        assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA + QUESTION_DESC_BETA
                 + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML,
                 new AddCommand(expectedAnswerable));
 

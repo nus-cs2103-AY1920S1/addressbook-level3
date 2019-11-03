@@ -7,7 +7,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalAnswerables.ALPHA;
@@ -82,7 +82,7 @@ public class MainLogicManagerTest {
         mainLogic = new MainLogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA + CORRECT_ANSWER_DESC
                 + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
         Answerable expectedAnswerable = new McqBuilder(ALPHA).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();

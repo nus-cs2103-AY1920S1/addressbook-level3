@@ -10,15 +10,16 @@ import static seedu.revision.logic.commands.CommandTestUtil.INVALID_CATEGORY_DES
 import static seedu.revision.logic.commands.CommandTestUtil.INVALID_DIFFICULTY_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_DESC;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_ALPHA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -61,10 +62,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + QUESTION_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + QUESTION_DESC_ALPHA, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + QUESTION_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + QUESTION_DESC_ALPHA, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -100,15 +101,18 @@ public class EditCommandParserTest {
                 Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + QUESTION_TYPE_MCQ + CORRECT_ANSWER_DESC
+        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + CORRECT_ANSWER_DESC
                 + MCQ_WRONG_ANSWER_DESC + VALID_CATEGORY_ALPHA + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
+
+        // editing question type is not allowed
+        assertParseFailure(parser, "1" + QUESTION_TYPE_DESC + QUESTION_DESC_ALPHA, EditCommand.MESSAGE_CANNOT_EDIT_TYPE);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_ANSWERABLE;
         String userInput = targetIndex.getOneBased() + DIFFICULTY_DESC_BETA + CATEGORY_DESC_GREENFIELD
-                + QUESTION_DESC_AMY + CATEGORY_DESC_UML;
+                + QUESTION_DESC_ALPHA + CATEGORY_DESC_UML;
 
         EditCommand.EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_ALPHA).withDifficulty(VALID_DIFFICULTY_BETA)
@@ -134,7 +138,7 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_ANSWERABLE;
-        String userInput = targetIndex.getOneBased() + QUESTION_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + QUESTION_DESC_ALPHA;
         EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
                 .withQuestion(VALID_QUESTION_ALPHA).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
