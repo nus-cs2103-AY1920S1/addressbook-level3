@@ -17,6 +17,7 @@ import seedu.elisa.commons.core.item.Priority;
 import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.StringUtil;
+import seedu.elisa.logic.parser.exceptions.FastReminderParseException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 import seedu.elisa.model.AutoReschedulePeriod;
 
@@ -27,6 +28,16 @@ import seedu.elisa.model.AutoReschedulePeriod;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INCORRECT_AUTORESCHEDULE_FORMAT = "Auto Reschedule format given is incorrect. "
+            + "Use either hour/day/week or 10.min.later format";
+    public static final String MESSAGE_INCORRECT_DATETIME_FORMAT = "Date Time format given is incorrect. "
+            + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
+            + "or \"-r 25/09/2019 2359\""
+            + "of \"-r 10.min.later\"";
+    public static final String MESSAGE_INCORRECT_PRIORITY_FORMAT = "Priority format given is incorrect. "
+            + "Please follow this format \"-p High\"";
+    public static final String MESSAGE_INVALID_SNOOZE_TIME = "You can't snooze backwards in time you lazy bird.";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -71,19 +82,7 @@ public class ParserUtil {
 
         String trimmedDateTime = dateTime.trim();
         LocalDateTime formattedDateTime;
-
-        try {
-            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
-        } catch (ParseException e) {
-            throw new ParseException(e.getMessage());
-            /*
-            throw new ParseException("Date Time format given is incorrect. "
-                    + "Please follow this format: \"-d 2019-09-25T23:59:50.63\""
-                    + "or \"-d 25/09/2019 2359\""
-                    + "or \"-d 10.min.later\"");
-
-             */
-        }
+        formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
 
         Event newEvent = new Event(formattedDateTime, null);
 
@@ -104,19 +103,7 @@ public class ParserUtil {
 
         String trimmedDateTime = reminder.trim();
         LocalDateTime formattedDateTime;
-
-        try {
-            formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
-        } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
-            /*
-            throw new ParseException("Date Time format given is incorrect. "
-                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
-                    + "or \"-r 25/09/2019 2359\""
-                    + "of \"-r 10.min.later\"");
-
-             */
-        }
+        formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
 
         Reminder newReminder = new Reminder(formattedDateTime);
         return Optional.of(newReminder);
@@ -136,23 +123,11 @@ public class ParserUtil {
 
         String trimmedDateTime = snoozeTillTime.trim();
         LocalDateTime formattedDateTime;
-
-        try {
-            formattedDateTime = getFormattedDateTime(trimmedDateTime);
-        } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
-            /*
-            throw new ParseException("Date Time format given is incorrect. "
-                    + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
-                    + "or \"-r 25/09/2019 2359\""
-                    + "of \"-r 10.min.later\"");
-
-             */
-        }
+        formattedDateTime = getFormattedDateTime(trimmedDateTime);
 
         //Checks if you are snoozing to a dateTime that is before now.
         if (formattedDateTime.isBefore(LocalDateTime.now())) {
-            throw new ParseException("You can't snooze backwards in time you lazy bird.");
+            throw new ParseException(MESSAGE_INVALID_SNOOZE_TIME);
         }
 
         return Optional.of(formattedDateTime);
@@ -180,8 +155,7 @@ public class ParserUtil {
         } else if (trimmedPriority.equalsIgnoreCase("LOW")) {
             processedPriority = Priority.LOW;
         } else {
-            throw new ParseException("Priority format given is incorrect. "
-                    + "Please follow this format \"-p High\"");
+            throw new ParseException(MESSAGE_INCORRECT_PRIORITY_FORMAT);
         }
 
         return Optional.of(processedPriority); //maybe use enum here
@@ -252,8 +226,11 @@ public class ParserUtil {
                 LocalDateTime temp = parser.parseDateTime(processedPeriod);
                 reschedulePeriod = AutoReschedulePeriod.from(temp);
             } catch (Exception e) {
-                throw new ParseException("Auto Reschedule format given is incorrect. "
-                        + "Use either hour/day/week or 10.min.later format");
+                if (e instanceof FastReminderParseException) {
+                    throw new ParseException("Hmmm... There seems to be an issue with your -auto flag... " + e.getMessage());
+                } else {
+                    throw new ParseException(MESSAGE_INCORRECT_AUTORESCHEDULE_FORMAT);
+                }
             }
         }
 
@@ -268,7 +245,7 @@ public class ParserUtil {
      */
     public static LocalDateTime getFormattedDateTime(String stringDateTime) throws ParseException {
         boolean invalidFormat = false;
-        ParseException parseException = new ParseException("dummy"); // just to initialize
+        ParseException parseException = new ParseException(MESSAGE_INCORRECT_DATETIME_FORMAT);
         ArrayList<DateTimeParser> allParsers = new ArrayList<>() {
             {
                 add(new StandardDateTimeParser());
@@ -283,9 +260,11 @@ public class ParserUtil {
                 processedDateTime = parser.parseDateTime(stringDateTime);
                 invalidFormat = false;
                 break;
+            } catch (FastReminderParseException fp) {
+                invalidFormat = true;
+                parseException = fp;
             } catch (ParseException err) {
                 invalidFormat = true;
-                parseException = err;
             }
         }
 

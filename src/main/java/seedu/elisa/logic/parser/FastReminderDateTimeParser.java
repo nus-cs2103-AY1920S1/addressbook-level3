@@ -7,12 +7,16 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.elisa.logic.parser.exceptions.FastReminderParseException;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
 /**
  * Parse stringDateTime in fast reminder format (ie 10.min.later) to a LocalDateTime object.
  */
 public class FastReminderDateTimeParser implements DateTimeParser {
+
+    private static final String MESSAGE_BEYOND_RANGE = "That's a bit too far don't you think? I can't reschedule something that far away! I can only accept integers less than 100. "
+            + "For example: 100.day.later or 2.min.later";
 
     private static final String DAY_INDICATOR = "DAY";
     private static final String HOUR_INDICATOR = "HOUR";
@@ -42,8 +46,7 @@ public class FastReminderDateTimeParser implements DateTimeParser {
 
         System.out.println(quantity);
         if (Long.valueOf(quantity) > 100) {
-            throw new ParseException("No no, I can't reschedule something that far away! I can only accept integers less than 100. "
-                    + "Example: 100.day.later or 2.min.later");
+            throw new FastReminderParseException(MESSAGE_BEYOND_RANGE);
         }
 
         LocalDateTime current = LocalDateTime.now();
