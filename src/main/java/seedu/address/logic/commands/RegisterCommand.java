@@ -56,7 +56,7 @@ public class RegisterCommand extends ReversibleCommand {
 
         undoCommand = new UnregisterCommand(toAdd.getBorrowerId());
         redoCommand = this;
-        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toFullString()));
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 
         return commandResult;
     }

@@ -54,7 +54,7 @@ public class UnregisterCommand extends ReversibleCommand {
 
         undoCommand = new RegisterCommand(toUnregister);
         redoCommand = this;
-        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister.toFullString()));
+        commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, toUnregister));
 
         return commandResult;
     }

@@ -79,7 +79,7 @@ public class EditBorrowerCommand extends ReversibleCommand {
 
         undoCommand = new EditBorrowerCommand(getBorrowerDescriptor(borrowerToEdit));
         redoCommand = this;
-        commandResult = new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower.toFullString()));
+        commandResult = new CommandResult(String.format(MESSAGE_EDIT_BORROWER_SUCCESS, editedBorrower));
 
         return commandResult;
     }
