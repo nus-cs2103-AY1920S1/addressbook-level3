@@ -28,18 +28,9 @@ public class FoodFlowPanel extends UiPart<Region> {
     public FoodFlowPanel(ObservableList<Food> foodList) {
         super(FXML);
 
-        foodList.addListener(new ListChangeListener<Food>() {
-            @Override
-            public void onChanged(Change<? extends Food> c) {
-                refreshFlowPanel(foodList);
-            }
-        });
+        foodList.addListener((ListChangeListener<Food>) listener -> refreshFlowPanel(foodList));
         fillFlowPaneContent(foodList);
         mainScrollPanel.setContent(flowPane);
-    }
-
-    public FoodFlowPanel(Food mix, ObservableList<Food> foodList) {
-        super(FXML);
     }
 
     private void fillFlowPaneContent(ObservableList<Food> foodList) {

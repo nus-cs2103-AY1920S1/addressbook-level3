@@ -31,6 +31,7 @@ import seedu.sugarmummy.logic.parser.bio.EditBioCommandParser;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.sugarmummy.recmfood.commands.RecmFoodCommand;
+import seedu.sugarmummy.recmfood.commands.RecmMixedFoodCommand;
 import seedu.sugarmummy.recmfood.commands.ResetFoodDataCommand;
 import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;
 import seedu.sugarmummy.recmfood.parser.AddFoodCommandParser;
@@ -87,6 +88,9 @@ public class SugarMummyParser {
 
         case RecmFoodCommand.COMMAND_WORD:
             return new RecmFoodCommandParser().parse(arguments);
+
+        case RecmMixedFoodCommand.COMMAND_WORD:
+            return new RecmMixedFoodCommand();
 
         case AddFoodCommand.COMMAND_WORD:
             return new AddFoodCommandParser().parse(arguments);

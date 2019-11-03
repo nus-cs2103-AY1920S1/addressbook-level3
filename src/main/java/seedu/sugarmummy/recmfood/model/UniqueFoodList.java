@@ -6,12 +6,16 @@ import static seedu.sugarmummy.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.sugarmummy.commons.core.LogsCenter;
+import seedu.sugarmummy.logic.LogicManager;
 import seedu.sugarmummy.model.ReadOnlyData;
 import seedu.sugarmummy.recmfood.exception.DuplicateFoodException;
 import seedu.sugarmummy.recmfood.exception.FoodNotFoundException;
@@ -24,6 +28,8 @@ import seedu.sugarmummy.recmfood.exception.FoodNotFoundException;
  * @see Food#isSameFood(Food)
  */
 public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
+
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     protected final ObservableList<Food> internalList = FXCollections.observableArrayList();
     protected final ObservableList<Food> internalUnmodifiableList =
@@ -82,6 +88,11 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
         return internalUnmodifiableList;
     }
 
+    private Food getRandomFood(Food[] foodList) {
+        Random random = new Random();
+        return foodList[(random.nextInt(foodList.length))];
+    }
+
     /**
      * Returns a random mix of one food from each type.
      * A {@code Food} with {@code FoodName} "Summary" that calculates the total nutrition values of foods in this random
@@ -90,16 +101,22 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
      * @return a {@code ObservableList} that contains a mixed combination of foods from each type
      */
     public ObservableList<Food> getMixedFoodList() {
+
         List<Food> mixedFoods = Stream.of(FoodType.values())
-            .map(type -> internalUnmodifiableList.stream().filter(f -> f.getFoodType().equals(type)).findAny().get())
+            .map(type -> internalUnmodifiableList.stream().filter(f -> f.getFoodType().equals(type))
+                    .toArray(Food[]::new))
+            .map(foodArr -> getRandomFood(foodArr))
             .collect(Collectors.toList());
+
         FoodCalculator foodCalculator = new FoodCalculator(mixedFoods);
-        Food summaryFood = new Food(new FoodName("Summary"), foodCalculator.getCalorieSum(), foodCalculator.getGiSum(),
-                foodCalculator.getSugarSum(), foodCalculator.getFatSum(), FoodType.MEAL);
+        Food summaryFood = new Food(new FoodName("Summary"), foodCalculator.getCalorieSum(),
+                foodCalculator.getGiAverage(), foodCalculator.getSugarSum(), foodCalculator.getFatSum(), FoodType.MEAL);
         mixedFoods.add(summaryFood);
 
         ObservableList<Food> mixedFoodList = FXCollections.observableArrayList();
-        mixedFoodList.setAll(mixedFoodList);
+        mixedFoodList.setAll(mixedFoods);
+
+        logger.info("----------------[Mixed Food][" + mixedFoodList + "]");
 
         return mixedFoodList;
     }

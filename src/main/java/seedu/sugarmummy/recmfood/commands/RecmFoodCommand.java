@@ -32,16 +32,15 @@ public class RecmFoodCommand extends Command {
     private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
             + "Try adding more new foods or reducing some filters~";
     private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
-
-    private final FoodTypeIsWantedPredicate typePredicate;
-    private final Predicate<Food> namePredicate;
-    private final Comparator<Food> foodComparator;
     private static final Comparator<Food> defaultFoodTypeComparator = new Comparator<Food>() {
         @Override
         public int compare(Food first, Food second) {
             return first.getFoodType().compareTo(second.getFoodType());
         }
     };
+    private final FoodTypeIsWantedPredicate typePredicate;
+    private final Predicate<Food> namePredicate;
+    private final Comparator<Food> foodComparator;
 
     public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate) {
         this(typePredicate, foodNamePredicate, defaultFoodTypeComparator);
