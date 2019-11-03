@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
+import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
@@ -145,8 +147,11 @@ public class BankAccount implements ReadOnlyBankAccount {
      */
     private void updateBudgets(BankAccountOperation txn) {
         if (txn instanceof OutTransaction) {
+            Amount outAmount = txn.getAmount();
+            Set<Category> outCategories = txn.getCategories();
             for (Budget bd : budgets) {
-                bd.updateBudget(txn.getAmount());
+                Budget newBd = bd.updateBudget(outAmount, outCategories);
+                setBudget(bd, newBd);
             }
         }
     }

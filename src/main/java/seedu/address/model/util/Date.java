@@ -19,6 +19,8 @@ public class Date implements Comparable<Date> {
 
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
 
+    public static final Date TODAY = now();
+
     public final LocalDate date;
 
     public Date(String value) {
@@ -117,5 +119,9 @@ public class Date implements Comparable<Date> {
 
     public static int daysBetween(Date x, Date y) {
         return (int) DAYS.between(x.toLocalDate(), y.toLocalDate());
+    }
+
+    public boolean isPast() {
+        return daysBetween(TODAY, this) < 0;
     }
 }

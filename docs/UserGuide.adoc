@@ -145,10 +145,10 @@ If you attempt to do so, you will receive an error message: `This budget already
 Format: `set $/AMOUNT d/DATE c/CATEGORY`
 
 ****
-* `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative and less than or equal to
-1,000,000.
-* `DATE` input accepts the deadline to be set.
-* `CATEGORY` accepts the CATEGORY for the budget
+* `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
+less than or equal to 1,000,000.
+* `DATE` input accepts the deadline to be set. It cannot be a date in the past.
+* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without any `CATEGORY`.
 ****
 
 Example: Let's say you want to restrict your spending for a certain category until a certain deadline.
