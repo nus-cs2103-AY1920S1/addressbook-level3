@@ -1,13 +1,14 @@
 package seedu.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.alias.DeleteAliasCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 class DeleteAliasCommandParserTest {
 
@@ -29,22 +30,31 @@ class DeleteAliasCommandParserTest {
     @Test
     void parse_nonBlankStringArgument_success() {
         String aliasName1 = "someword";
-        assertParseSuccess(
-                parser,
-                DeleteAliasCommand.COMMAND_WORD + " " + aliasName1,
-                new DeleteAliasCommand(aliasName1));
+        try {
+            assertEquals(
+                    parser.parse(aliasName1),
+                    new DeleteAliasCommand(aliasName1));
+        } catch (ParseException e) {
+            throw new AssertionError("Should not be thrown.");
+        }
         // ignore leading and trailing white spaces
-        assertParseSuccess(
-                parser,
-                DeleteAliasCommand.COMMAND_WORD + "      " + aliasName1 + "      ",
-                new DeleteAliasCommand(aliasName1));
+        try {
+            assertEquals(
+                    parser.parse("      " + aliasName1 + "  "),
+                    new DeleteAliasCommand(aliasName1));
+        } catch (ParseException e) {
+            throw new AssertionError("Should not be thrown.");
+        }
 
         // white spaces inside
         String aliasName2 = "some  word";
-        assertParseSuccess(
-                parser,
-                DeleteAliasCommand.COMMAND_WORD + " " + aliasName2,
-                new DeleteAliasCommand(aliasName2));
+        try {
+            assertEquals(
+                    parser.parse(aliasName2),
+                    new DeleteAliasCommand(aliasName2));
+        } catch (ParseException e) {
+            throw new AssertionError("Should not be thrown.");
+        }
     }
 
 }
