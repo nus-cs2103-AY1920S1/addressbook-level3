@@ -25,4 +25,6 @@ public interface Exam {
 
     public int getIndex();
 
+    public int getDuration();
+
 }

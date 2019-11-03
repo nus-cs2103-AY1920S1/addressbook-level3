@@ -14,11 +14,13 @@ public class UntimedExam implements Exam {
     private Result result;
     private int index = 0;
     private ArrayList<FlashCard> initialDeck;
+    private int durationInSeconds;
 
-    public UntimedExam(ArrayList<FlashCard> deck) {
+    public UntimedExam(ArrayList<FlashCard> deck, int durationInSeconds) {
         this.initialDeck = deck;
         this.testDeck = createTestDeck();
         this.result = new Result(testDeck.size());
+        this.durationInSeconds = durationInSeconds;
     }
 
     @Override
@@ -74,5 +76,10 @@ public class UntimedExam implements Exam {
             testDeckConsumer.add(duplicateCard);
         }
         return testDeckConsumer;
+    }
+
+    @Override
+    public int getDuration() {
+        return this.durationInSeconds;
     }
 }

@@ -2,6 +2,7 @@ package dream.fcard.logic.exam;
 
 import java.util.ArrayList;
 
+import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
 import dream.fcard.model.cards.FlashCard;
 
 /**
@@ -14,8 +15,8 @@ public class ExamRunner {
     private ExamRunner() {
     }
 
-    public static void createExam(ArrayList<FlashCard> deck) {
-        exam = new UntimedExam(deck);
+    public static void createExam(ArrayList<FlashCard> deck, int duration) {
+        exam = new UntimedExam(deck, duration);
     }
 
     public static Exam getCurrentExam() {
@@ -24,5 +25,6 @@ public class ExamRunner {
 
     public static void terminateExam() {
         exam = null;
+        EndOfTestAlert.display("Test End", "Test End");
     }
 }
