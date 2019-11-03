@@ -42,16 +42,16 @@ public class PanelName {
         }
 
         PanelName otherPanelName = (PanelName) obj;
-        return otherPanelName.panelName.equals(panelName);
+        return otherPanelName.panelName.equalsIgnoreCase(panelName);
     }
 
     @Override
     public int hashCode() {
-        return panelName.hashCode();
+        return panelName.toLowerCase().hashCode();
     }
 
     @Override
     public String toString() {
-        return "[Panel: " + panelName + "]";
+        return panelName.toUpperCase() + " panel";
     }
 }
