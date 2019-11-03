@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.ui.UiPart;
 
+//@@author chen-xi-cx
 /**
  * Represents a panel of an average graph and its legend.
  */

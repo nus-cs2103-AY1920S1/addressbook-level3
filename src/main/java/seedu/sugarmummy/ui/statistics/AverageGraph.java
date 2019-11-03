@@ -25,8 +25,9 @@ import javafx.scene.layout.VBox;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 
+//author chen-xi-cx
 /**
- * Represents ui of an average graph with no legend.
+ * Represents ui of an average line graph with no legend.
  */
 public class AverageGraph {
     private static final String TITLE = "%1$s average of %2$s";
@@ -59,7 +60,7 @@ public class AverageGraph {
     private final CustomLineChart<String, Number> customLineChart = new CustomLineChart<>(xAxis, yAxis);
 
     public AverageGraph(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty averageType,
-                        SimpleStringProperty recordType) {
+            SimpleStringProperty recordType) {
 
         averageMap.addListener(new MapChangeListener<LocalDate, Double>() {
             @Override
@@ -128,7 +129,7 @@ public class AverageGraph {
     }
 
     /**
-     * Loads data from averageMap and display in chart.
+     * Loads data from averageMap into line chart.
      */
     private void loadAndShowChart(ObservableMap<LocalDate, Double> averageMap) {
         XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
@@ -171,7 +172,9 @@ public class AverageGraph {
     }
 
     /**
-     * Adds horizontal range marker to denote ranges of values for given record type.
+     * Adds horizontal range markers to label range of y axis values for given record type.
+     * For example, BMI adds horizontal range markers at y1 = 18.5 and y2 = 20 to label
+     * that particular range as healthy BMI level.
      *
      * @param recordType the record type of specified by user.
      */

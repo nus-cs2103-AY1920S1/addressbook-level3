@@ -14,6 +14,7 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
 
+//@@author chen-xi-cx
 /**
  * Parses input arguments and creates a new AverageCommand object
  */
@@ -23,8 +24,8 @@ public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String COUNT_VALIDATION_REGEX = "^([1-9]|1[012])$";
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

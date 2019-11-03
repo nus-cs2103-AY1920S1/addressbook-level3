@@ -31,6 +31,7 @@ import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
 import seedu.sugarmummy.model.time.DateTime;
 
+//@@author chen-xi-cx
 public class AverageCommandTest {
     private final RecordContainsRecordTypePredicate bloodSugarPredicate =
             new RecordContainsRecordTypePredicate(RecordType.BLOODSUGAR);

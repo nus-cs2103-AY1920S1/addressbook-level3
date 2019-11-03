@@ -19,8 +19,9 @@ import javafx.scene.layout.Region;
 import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.ui.UiPart;
 
+//@@author chen-xi-cx
 /**
- * Represents ui of a custom chart legend.
+ * Represents ui of a {@code CustomLineChart} legend.
  */
 public class LegendPane extends UiPart<Region> {
 
@@ -74,7 +75,8 @@ public class LegendPane extends UiPart<Region> {
     }
 
     /**
-     * Updates legend box to suit the record type given.
+     * Calculates the maximum average values and updates lineChartLegendFlowPane with legends
+     * that suit the record type and maximum average values given.
      */
     private void updateLegendPane(ObservableMap<LocalDate, Double> averageMap, SimpleStringProperty recordType) {
         double maxAvg = findMax(averageMap);
