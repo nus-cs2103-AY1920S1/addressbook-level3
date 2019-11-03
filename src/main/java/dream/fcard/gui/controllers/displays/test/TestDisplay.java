@@ -219,6 +219,10 @@ public class TestDisplay extends AnchorPane {
         }
     }
 
+    /**
+     * Event handler for ending session.
+     * Terminates exam if there is an active exam and brings user to deck display.
+     */
     private void onEndSession() {
         if (ExamRunner.getCurrentExam() != null) {
             ExamRunner.terminateExam();

@@ -1,7 +1,6 @@
 package dream.fcard.gui.controllers.displays.test;
 
 import java.io.IOException;
-import java.security.Key;
 import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.cards.backview.McqCardBack;
@@ -25,8 +24,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -242,11 +239,17 @@ public class TimedTestDisplay extends AnchorPane {
 
     private void setTimer() {
         timeSeconds.set(durationInSeconds);
-        timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1), new KeyValue(timeSeconds, 0)));
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(durationInSeconds + 1), event -> ExamRunner.terminateExam()));
+        timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1),
+                new KeyValue(timeSeconds, 0)));
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(durationInSeconds + 1),
+                event -> ExamRunner.terminateExam()));
         timeline.play();
     }
 
+    /**
+     * Event handler for ending session.
+     * Terminates exam if there is an active exam and brings user to deck display.
+     */
     private void onEndSession() {
         timeline.stop();
         if (ExamRunner.getCurrentExam() != null) {

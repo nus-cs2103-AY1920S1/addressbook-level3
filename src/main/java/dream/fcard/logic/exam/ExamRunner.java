@@ -16,6 +16,11 @@ public class ExamRunner {
     private ExamRunner() {
     }
 
+    /**
+     * static method that creates an exam.
+     * @param deck contains cards for the exam.
+     * @param duration contains duration of exam in seconds.
+     */
     public static void createExam(ArrayList<FlashCard> deck, int duration) {
         exam = new UntimedExam(deck, duration);
         examOngoing = true;
@@ -25,6 +30,11 @@ public class ExamRunner {
         return exam;
     }
 
+    /**
+     * method that terminates an exam.
+     * Calls a popup window that displays the result.
+     * Removes the instance of the exam in singleton class.
+     */
     public static void terminateExam() {
         String result = exam.getResult();
         EndOfTestAlert.display("Results", "Final Score: " + result);
