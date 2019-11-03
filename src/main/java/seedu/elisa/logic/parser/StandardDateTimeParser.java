@@ -20,7 +20,8 @@ public class StandardDateTimeParser implements DateTimeParser {
         try {
             return LocalDateTime.parse(stringDateTime);
         } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException("Date Time format given is incorrect."
+                    + " Should be \"25-09-2019T23:00\"");
         }
     }
 }

@@ -40,6 +40,12 @@ public class FastReminderDateTimeParser implements DateTimeParser {
         final String unit = matcher.group("unit");
         final long longQuantity = Long.valueOf(quantity).longValue();
 
+        System.out.println(quantity);
+        if (Long.valueOf(quantity) > 100) {
+            throw new ParseException("No no, I can't reschedule something that far away! I can only accept integers less than 100. "
+                    + "Example: 100.day.later or 2.min.later");
+        }
+
         LocalDateTime current = LocalDateTime.now();
         LocalDateTime processedDateTime = LocalDateTime.now(); // just to initialize
 

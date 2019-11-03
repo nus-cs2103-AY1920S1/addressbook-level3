@@ -75,10 +75,14 @@ public class ParserUtil {
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
         } catch (ParseException e) {
+            throw new ParseException(e.getMessage());
+            /*
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-d 2019-09-25T23:59:50.63\""
                     + "or \"-d 25/09/2019 2359\""
                     + "or \"-d 10.min.later\"");
+
+             */
         }
 
         Event newEvent = new Event(formattedDateTime, null);
@@ -104,10 +108,14 @@ public class ParserUtil {
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime); //LocalDateTime.parse(trimmedDateTime);
         } catch (DateTimeParseException e) {
+            throw new ParseException(e.getMessage());
+            /*
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
                     + "or \"-r 25/09/2019 2359\""
                     + "of \"-r 10.min.later\"");
+
+             */
         }
 
         Reminder newReminder = new Reminder(formattedDateTime);
@@ -132,10 +140,14 @@ public class ParserUtil {
         try {
             formattedDateTime = getFormattedDateTime(trimmedDateTime);
         } catch (DateTimeParseException e) {
+            throw new ParseException(e.getMessage());
+            /*
             throw new ParseException("Date Time format given is incorrect. "
                     + "Please follow this format: \"-r 2019-09-25T23:59:50.63\""
                     + "or \"-r 25/09/2019 2359\""
                     + "of \"-r 10.min.later\"");
+
+             */
         }
 
         //Checks if you are snoozing to a dateTime that is before now.
