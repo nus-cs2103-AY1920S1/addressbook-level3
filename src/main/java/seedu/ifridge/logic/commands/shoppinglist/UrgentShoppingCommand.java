@@ -1,15 +1,23 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.ifridge.model.food.Amount.getValue;
+import static seedu.ifridge.model.food.Amount.hasSameAmountUnit;
 
+import java.util.HashSet;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.ifridge.commons.core.Messages;
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.ExpiryDate;
+import seedu.ifridge.model.food.GroceryItem;
+import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
@@ -25,6 +33,17 @@ public class UrgentShoppingCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS = "ShoppingItem marked as urgent is: %1$s";
+
+    public static final String MESSAGE_URGENT_SHOPPING_ITEM_FAILURE =
+            "Shopping item cannot me marked as urgent since it is already completely bought.";
+    private static boolean isShoppingItemCompletelyBought(ShoppingItem shoppingItem, GroceryItem boughtItem) {
+        Amount shoppingAmount = shoppingItem.getAmount();
+        Amount boughtAmount = boughtItem.getAmount();
+        if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
+            shoppingAmount = boughtAmount.convertAmount(shoppingAmount);
+        }
+        return getValue(boughtAmount) >= getValue(shoppingAmount);
+    }
 
     private final Index targetIndex;
 
@@ -42,6 +61,27 @@ public class UrgentShoppingCommand extends Command {
         }
 
         ShoppingItem shoppingItemToMarkAsUrgent = lastShownList.get(targetIndex.getZeroBased());
+        ObservableList<GroceryItem> internalBoughtList = model.getBoughtList().getGroceryList();
+        if (shoppingItemToMarkAsUrgent.isBought()) {
+            GroceryItem correspondingBoughtItem = new GroceryItem(new Name("dummy"), new Amount("3L"),
+                    new ExpiryDate("08/03/2000"), new HashSet<>());
+            for (GroceryItem boughtItem : internalBoughtList) {
+                if (boughtItem.isSameName(shoppingItemToMarkAsUrgent)) {
+                    correspondingBoughtItem = boughtItem;
+                    break;
+                }
+            }
+            Amount shoppingAmount = shoppingItemToMarkAsUrgent.getAmount();
+            Amount boughtAmount = correspondingBoughtItem.getAmount();
+            if (!hasSameAmountUnit(shoppingAmount, boughtAmount)) {
+                shoppingAmount = boughtAmount.convertAmount(shoppingAmount);
+            }
+            if (getValue(boughtAmount) >= getValue(shoppingAmount)) {
+                CommandResult commandResult =
+                        new CommandResult(String.format(MESSAGE_URGENT_SHOPPING_ITEM_FAILURE));
+                return commandResult;
+            }
+        }
         model.urgentShoppingItem(shoppingItemToMarkAsUrgent);
         ShoppingItem shoppingItemToPrint = shoppingItemToMarkAsUrgent.setUrgent(true);
         model.sortShoppingItems();
