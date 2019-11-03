@@ -34,7 +34,7 @@ public class EnqueueCommandParser implements Parser<ReversibleActionPairCommand>
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnqueueCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getPreamble());
+        ReferenceId referenceId = ParserUtil.issuePatientReferenceId(argMultimap.getPreamble());
         return new ReversibleActionPairCommand(new EnqueueCommand(referenceId), new DequeueCommand(referenceId));
     }
 

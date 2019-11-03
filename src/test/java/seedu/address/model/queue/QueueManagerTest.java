@@ -100,7 +100,7 @@ class QueueManagerTest {
         queueManager = new QueueManager();
         Person patient = new PersonBuilder(AMY).build();
         queueManager.addPatient(patient.getReferenceId());
-        assertEquals(true, queueManager.hasId(patient.getReferenceId()));
+        assertEquals(true, queueManager.hasIdInQueue(patient.getReferenceId()));
     }
 
     @Test

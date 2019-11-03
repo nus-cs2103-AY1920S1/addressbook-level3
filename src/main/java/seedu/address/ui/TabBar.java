@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import javafx.application.Platform;
@@ -11,7 +12,7 @@ import javafx.scene.layout.TilePane;
 import seedu.address.commons.core.OmniPanelTab;
 
 /**
- * The Ui component for AutoComplete.
+ * The Ui component for TabBar.
  */
 public class TabBar extends UiPart<Region> {
 

@@ -27,12 +27,12 @@ import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
  */
 public class AddDutyShiftCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "addshift";
+    public static final String COMMAND_WORD = "newshift";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds duty shifts recursively "
             + " to the duty roster. \n"
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
+            + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_START + "PREFIX_START "
             + PREFIX_END + "PREFIX_END "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
