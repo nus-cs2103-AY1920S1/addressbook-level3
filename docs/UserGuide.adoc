@@ -28,7 +28,7 @@ What is a flashcard? Flashcards are containers for information. Each card has a 
 
 After sets of flashcards (known as “decks”) have been created, the user may interact with the flashcards in various ways. For example, FlashCard Pro can be configured to show the “front” of the card, prompting the user to enter their guess for what is on the “back” of the card. The user’s attempt is gauged “correct” if it matches the definition of the card.
 
-As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming. 
+As with physical flashcards, the flashcards in FlashCard Pro can be shuffled, used in reverse, mixed between decks, etc. Unlike physical flashcards, flashcards in FlashCard Pro are dynamic, offering a range of possibilities from traditional memorisation-type uses to support for learning programming.
 
 For example, teachers may define basic coding problems which their students can attempt to answer. FlashCard Pro will evaluate the output of the student’s solution, allowing students to gauge their own coding knowledge, and teachers to evaluate their students’ progress.
 
