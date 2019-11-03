@@ -2,6 +2,9 @@ package seedu.sugarmummy.logic.parser;
 
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_PARAMETER;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_POSSIBLE_COUNT;
+import static seedu.sugarmummy.logic.commands.AverageCommand.MESSAGE_INVALID_COUNT;
+import static seedu.sugarmummy.logic.commands.AverageCommand.MESSAGE_USAGE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_AVGTYPE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_COUNT;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
@@ -14,17 +17,18 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.model.statistics.RecordContainsRecordTypePredicate;
 
+//@@author chen-xi-cx
 /**
  * Parses input arguments and creates a new AverageCommand object
  */
 public class AverageCommandParser implements Parser<AverageCommand> {
     private static final String DEFAULT_COUNT_STRING = "5";
 
-    private static final String COUNT_VALIDATION_REGEX = "[1-9]";
+    private static final String COUNT_VALIDATION_REGEX = "^([1-9]|1[012])$";
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
@@ -42,7 +46,7 @@ public class AverageCommandParser implements Parser<AverageCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AVGTYPE, PREFIX_RECORDTYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AverageCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 
         AverageType averageType = ParserUtil.parseAverageType(argMultimap.getValue(PREFIX_AVGTYPE).get());
@@ -57,8 +61,8 @@ public class AverageCommandParser implements Parser<AverageCommand> {
         }
 
         if (!strCount.matches(COUNT_VALIDATION_REGEX)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER, AverageCommand.MESSAGE_USAGE,
-                    AverageCommand.MESSAGE_INVALID_COUNT));
+            throw new ParseException(String.format(MESSAGE_INVALID_PARAMETER,
+                    MESSAGE_INVALID_COUNT, MESSAGE_POSSIBLE_COUNT));
         }
 
         int count = Integer.parseInt(strCount);

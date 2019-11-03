@@ -32,6 +32,8 @@ public class SampleRecordDataUtil {
             new BmiBuilder().withDateTime("2019-07-26 09:19").withHeight("1.8").withWeight("69.5").build(),
             new BmiBuilder().withDateTime("2019-08-01 06:09").withHeight("1.8").withWeight("55.4").build(),
             new BmiBuilder().withDateTime("2019-08-09 05:09").withHeight("1.8").withWeight("53.3").build(),
+            new BmiBuilder().withDateTime("2019-08-10 05:09").withHeight("1.8").withWeight("50.3").build(),
+            new BmiBuilder().withDateTime("2019-08-11 05:09").withHeight("1.8").withWeight("50.3").build(),
             new BloodSugarBuilder().build(),
             new BloodSugarBuilder().withDateTime("2019-01-03 09:09").withConcentration("8.6").build(),
             new BloodSugarBuilder().withDateTime("2019-01-03 09:10").withConcentration("8.7").build(),

@@ -144,7 +144,8 @@ public interface Logic {
     SimpleStringProperty getRecordType();
 
     /**
-     * Returns a {@code Map} object that maps time period to the respective average values.
+     * Returns an unmodifiable view of the map of average values with key being the time period and
+     * key being the average value.
      */
     ObservableMap<LocalDate, Double> getAverageMap();
 

@@ -42,7 +42,7 @@ import seedu.sugarmummy.recmfood.model.Food;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
- * Represents the in-memory sugarmummy.recmfood.model of the SugarMummy data.
+ * Represents the in-memory sugarmummy.model of the SugarMummy data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
