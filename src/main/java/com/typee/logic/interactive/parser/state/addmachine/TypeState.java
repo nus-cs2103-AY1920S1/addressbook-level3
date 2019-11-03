@@ -9,24 +9,19 @@ import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class TypeState implements State {
+public class TypeState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "The engagement should be an appointment,"
             + " meeting or interview.";
     private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
             + " \"t/\".";
-    private static final String MESSAGE_DUPLICATE_ARGUMENTS = "The parameter corresponding to the entered argument"
-            + " has already been processed.";
 
-    private final ArgumentMultimap soFar;
-
-    public TypeState(ArgumentMultimap soFar) {
-        this.soFar = soFar;
+    protected TypeState(ArgumentMultimap soFar) {
+        super(soFar);
     }
 
     @Override
     public State transition(ArgumentMultimap newArgs) throws StateTransitionException {
-        requireNonNull(soFar);
         requireNonNull(newArgs);
 
         Optional<String> typeValue = newArgs.getValue(PREFIX_ENGAGEMENT_TYPE);
@@ -35,14 +30,12 @@ public class TypeState implements State {
 
         collateArguments(newArgs);
 
-        return new DateState(soFar);
+        return new StartDateState(soFar);
     }
 
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> typeValue)
             throws StateTransitionException {
-        if (!soFar.isDisjointWith(newArgs)) {
-            throw new StateTransitionException(MESSAGE_DUPLICATE_ARGUMENTS);
-        }
+        disallowDuplicatePrefix(newArgs);
 
         if (typeValue.isEmpty()) {
             throw new StateTransitionException(MESSAGE_MISSING_KEYWORD);
