@@ -19,7 +19,7 @@ import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
@@ -116,7 +116,8 @@ public class SampleDataUtil {
                     .completeOrder(),
             new Order.OrderBuilder().setCustomer(new Name("David Li"))
                     .setRestaurant(new Name("IchiNiSan Ramen"))
-                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1)))
+                    .setFood(getFoodMap(new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen C"), 1),
+                            new AbstractMap.SimpleEntry<Name, Integer>(new Name("Ramen E"), 3)))
                     .completeOrder(),
             new Order.OrderBuilder().setCustomer(new Name("Irfan Ibrahim"))
                     .setRestaurant(new Name("Piggys Self Barbeque"))
@@ -179,7 +180,7 @@ public class SampleDataUtil {
         return sampleRd;
     }
 
-    public static ReadOnlyOrderBook getSampleOrderBook() {
+    public static ReadOnlyOrderDatabase getSampleOrderDatabase() {
         OrderDatabase sampleOb = new OrderDatabase();
         for (Order sampleOrder : getSampleOrders()) {
             sampleOb.addOrder(sampleOrder);

@@ -222,7 +222,7 @@ public class MainWindow extends UiPart<Stage> {
             foodListPanel = new FoodListPanel(editing.getMenu());
             listPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-            orderListPanel = new OrderListPanel(editing.getOrders());
+            orderListPanel = new OrderListPanel(editing.getOrders(logic));
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
 
             break;

@@ -11,7 +11,7 @@ import seedu.deliverymans.model.ReadOnlyUserPrefs;
 import seedu.deliverymans.model.UserPrefs;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.storage.customer.CustomerDatabaseStorage;
 import seedu.deliverymans.storage.deliveryman.DeliverymenDatabaseStorage;
@@ -129,23 +129,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyOrderBook> readOrderBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyOrderDatabase> readOrderBook() throws DataConversionException, IOException {
         return readOrderBook(orderDatabaseStorage.getOrderBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyOrderBook> readOrderBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyOrderDatabase> readOrderBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return orderDatabaseStorage.readOrderBook(filePath);
     }
 
     @Override
-    public void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderDatabase orderBook) throws IOException {
         saveOrderDatabase(orderBook, orderDatabaseStorage.getOrderBookFilePath());
     }
 
     @Override
-    public void saveOrderDatabase(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderDatabase orderBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         orderDatabaseStorage.saveOrderDatabase(orderBook, filePath);
     }

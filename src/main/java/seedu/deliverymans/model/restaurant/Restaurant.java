@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
@@ -30,7 +31,6 @@ public class Restaurant {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final ObservableList<Food> menu = FXCollections.observableArrayList();
-    private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
@@ -77,7 +77,14 @@ public class Restaurant {
         return tags;
     }
 
-    public ObservableList<Order> getOrders() {
+    public ObservableList<Order> getOrders(Logic logic) {
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        ObservableList<Order> allOrders = logic.getFilteredOrderList();
+        for (Order order : allOrders) {
+            if (order.getRestaurant().equals(this.name)) {
+                orders.add(order);
+            }
+        }
         return orders;
     }
 

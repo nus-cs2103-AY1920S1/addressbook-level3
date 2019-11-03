@@ -8,7 +8,7 @@ import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
@@ -128,10 +128,10 @@ public interface Model {
     /**
      * Replaces order book data with the data in {@code OrderBook}.
      */
-    void setOrderDatabase(ReadOnlyOrderBook orderDatabase);
+    void setOrderDatabase(ReadOnlyOrderDatabase orderDatabase);
 
     /** Returns the OrderBook */
-    ReadOnlyOrderBook getOrderDatabase();
+    ReadOnlyOrderDatabase getOrderDatabase();
 
     //=========== Undo/Redo methods =============================================================
 
