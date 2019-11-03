@@ -17,7 +17,7 @@ import seedu.address.model.expense.Timestamp;
  */
 public class BudgetBuilder {
 
-    public static final String DEFAULT_DESCRIPTION = "default budget";
+    public static final String DEFAULT_DESCRIPTION = "Default Budget";
     public static final String DEFAULT_AMOUNT = "9999";
     public static final String DEFAULT_START_DATE = "01-01-2000";
     public static final String DEFAULT_PERIOD = "infinity";

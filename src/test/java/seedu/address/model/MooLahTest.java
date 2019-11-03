@@ -82,6 +82,7 @@ public class MooLahTest {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
+        private final String primaryBudgetName = "Default Budget";
 
         MooLahStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
@@ -97,8 +98,14 @@ public class MooLahTest {
             return budgets;
         }
 
+        @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public String getPrimaryBudgetName() {
+            return primaryBudgetName;
         }
     }
 

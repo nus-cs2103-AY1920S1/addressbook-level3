@@ -86,6 +86,7 @@ public class Budget {
 
     /**
      * Makes a deep copy of a budget.
+     *
      * @param other The budget to be deep copied.
      * @return A deep copy of the budget, with identical attributes.
      */

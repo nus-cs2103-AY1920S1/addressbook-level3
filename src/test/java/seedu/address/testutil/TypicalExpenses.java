@@ -99,6 +99,8 @@ public class TypicalExpenses {
             .withCategory(VALID_CATEGORY_FOOD)
             .withUniqueIdentifier("Expense@00000000-0000-0000-0000-00000000000b").build();
 
+    public static final String primaryBudgetName = "Default Budget";
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalExpenses() {} // prevents instantiation
@@ -111,6 +113,7 @@ public class TypicalExpenses {
         for (Expense expense : getTypicalExpenses()) {
             ab.addExpense(expense);
         }
+        ab.setPrimaryBudget(primaryBudgetName);
         return ab;
     }
 
