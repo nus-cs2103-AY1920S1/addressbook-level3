@@ -11,7 +11,7 @@ import seedu.address.overview.model.Model;
  */
 public class NotifySalesCommand extends NotifyCommand {
 
-    public NotifySalesCommand(int amount) {
+    public NotifySalesCommand(long amount) {
         this.amount = amount;
     }
 

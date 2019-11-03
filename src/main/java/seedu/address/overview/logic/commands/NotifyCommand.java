@@ -10,6 +10,6 @@ public abstract class NotifyCommand extends Command {
     public static final String COMMAND_WORD = "notify";
     protected static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("0.00");
 
-    protected int amount;
+    protected long amount;
 
 }

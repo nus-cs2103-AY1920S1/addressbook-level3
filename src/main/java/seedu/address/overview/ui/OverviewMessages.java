@@ -22,7 +22,7 @@ public class OverviewMessages {
 
     public static final String MESSAGE_INVALID_SET_AMOUNT = "Sorry! That's an invalid amount.";
 
-    public static final String MESSAGE_INVALID_NOTIFY_AMOUNT = "Sorry! That's an invalid percentage.\n Please enter a "
+    public static final String MESSAGE_INVALID_NOTIFY_AMOUNT = "Sorry! That's an invalid percentage.\nPlease enter a "
             + "number between 0 and 100.";
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Sorry! You need to specify an argument with your "
@@ -51,7 +51,7 @@ public class OverviewMessages {
 
     public static final String ACHIEVED_SALES_TARGET = "You have achieved your sales target of %s%%";
 
-    public static final String MESSAGE_AMOUNT_TOO_LARGE = "The goal you are setting is too large.\n Please set an "
+    public static final String MESSAGE_AMOUNT_TOO_LARGE = "The goal you are setting is too large.\nPlease set an "
             + "amount lower than or equal to 10 million.";
 
 }
