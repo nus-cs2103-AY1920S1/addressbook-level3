@@ -293,17 +293,20 @@ public class ModelManager implements Model {
     @Override
     public void deleteAutocorrectSuggestion(AutocorrectSuggestion target) {
         finSec.removeAutocorrectSuggestion(target);
+        SuggestionsStorage.setSuggestionList(this.filteredSuggestions);
     }
 
     @Override
     public void addAutocorrectSuggestion(AutocorrectSuggestion suggestion) {
         finSec.addAutocorrectSuggestion(suggestion);
         updateFilteredAutocorrectSuggestionList(PREDICATE_SHOW_ALL_AUTOCORRECTSUGGESTIONS);
+        SuggestionsStorage.setSuggestionList(this.filteredSuggestions);
     }
 
     @Override
     public void setAutocorrectSuggestion(AutocorrectSuggestion target, AutocorrectSuggestion editedSuggestion) {
         finSec.setAutocorrectSuggestion(target, editedSuggestion);
+        SuggestionsStorage.setSuggestionList(this.filteredSuggestions);
     }
 
     //=========== Commands ===============================================================================

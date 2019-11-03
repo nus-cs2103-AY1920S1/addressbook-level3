@@ -10,7 +10,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.contact.Contact;
-import seedu.address.storage.SuggestionsStorage;
 
 /**
  * Adds a contact to the address book.
@@ -57,7 +56,6 @@ public class AddContactCommand extends Command {
         //adding the contact's name into the suggestion list.
         AutocorrectSuggestion addName = new AutocorrectSuggestion("add_claim n/" + toAdd.getName().fullName);
         model.addAutocorrectSuggestion(addName);
-        SuggestionsStorage.setSuggestionList(model.getFilteredAutocorrectSuggestionList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

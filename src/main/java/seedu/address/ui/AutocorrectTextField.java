@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import seedu.address.logic.parser.FinSecParser;
 import seedu.address.storage.SuggestionsStorage;
 
@@ -37,7 +35,7 @@ public class AutocorrectTextField extends TextField {
     public AutocorrectTextField() {
         super();
         suggestionCommands = FinSecParser.getCommandList().keySet();
-        addSuggestions = new HashSet<>(SuggestionsStorage.getSuggestions());
+        addSuggestions = SuggestionsStorage.getSuggestions();
         suggestionsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
             @Override
