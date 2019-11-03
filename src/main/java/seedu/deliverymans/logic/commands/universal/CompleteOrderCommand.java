@@ -13,6 +13,9 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.order.Order;
 
+/**
+ * Tofill.
+ */
 public class CompleteOrderCommand extends Command {
 
     public static final String COMMAND_WORD = "-complete_order";
@@ -24,8 +27,8 @@ public class CompleteOrderCommand extends Command {
 
     private static final String MESSAGE_COMPLETE_ORDER_SUCCESS = "Order completed: %1$s";
     private static final String MESSAGE_ALREADY_COMPLETED = "The order is already completed!";
-    private static final String MESSAGE_INVALID_DELIVERYMAN = "The order needs " +
-            "an assigned deliveryman before it can be completed!";
+    private static final String MESSAGE_INVALID_DELIVERYMAN = "The order needs "
+            + "an assigned deliveryman before it can be completed!";
     private final Index targetIndex;
 
     public CompleteOrderCommand(Index index) {
