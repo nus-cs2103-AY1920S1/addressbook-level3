@@ -15,7 +15,9 @@ import seedu.address.ui.UiPart;
  */
 public class LocationOverview extends UiPart<Region> {
     private static final String FXML = "LocationOverview.fxml";
-
+    private static final String SOURCE = "Everyone's locations: ";
+    private static final String VALID = "Out of all these locations, the valid locations are: ";
+    private static final String INVALID = "Locations that cannot be found in NUS: ";
     @FXML
     private VBox locationOverviewContainer;
 
@@ -38,11 +40,11 @@ public class LocationOverview extends UiPart<Region> {
                             List<String> validLocations, List<String> invalidLocations) {
         super(FXML);
         firstChoiceLocation.setText(firstChoice);
-        this.sourceLocations.getChildren().add(getLocationCell("Everyone's locations: ", locationsEntered));
+        this.sourceLocations.getChildren().add(getLocationCell(SOURCE, locationsEntered));
         this.validLocations.getChildren().add(
-                getLocationCell("Out of all these locations, the valid locations are: ", validLocations));
+                getLocationCell(VALID, validLocations));
         this.invalidLocations.getChildren().add(
-                getLocationCell("Locations that cannot be found in NUS: ", invalidLocations));
+                getLocationCell(INVALID, invalidLocations));
     }
 
     public HBox getLocationCell(String title, List<String> locationsEntered) {
