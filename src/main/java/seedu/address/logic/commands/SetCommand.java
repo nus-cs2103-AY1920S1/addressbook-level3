@@ -31,6 +31,7 @@ public class SetCommand extends Command {
     public static final String MESSAGE_AMOUNT_OVERFLOW = "Budget amount cannot exceed 1 million (i.e. 1000000)";
     public static final String MESSAGE_AMOUNT_NEGATIVE = "Budget amount cannot be negative";
     public static final String MESSAGE_AMOUNT_ZERO = "Budget amount cannot be zero";
+    public static final String MESSAGE_DATE_PAST = "Budget cannot be set for past dates";
 
     private Budget budget;
 
