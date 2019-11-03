@@ -107,12 +107,12 @@ public class ReimbursementTest {
         Reimbursement reimbursementAlice = typicalReimbursements.getAliceReimbursement20();
         Reimbursement reimbursementElle = typicalReimbursements.getElleReimbursement100();
 
-        String strFromToString = "Alice Pauline $-20.0" + System.lineSeparator()
+        String strFromToString = "Alice Pauline $-20.00" + System.lineSeparator()
                 + "02-Dec-2019" + System.lineSeparator()
                 + "1. poster printing";
         assertEquals(strFromToString, reimbursementAlice.toString());
 
-        String strFromToStringNoDeadline = "Elle Meyer $-100.0" + System.lineSeparator()
+        String strFromToStringNoDeadline = "Elle Meyer $-100.00" + System.lineSeparator()
                 + "1. food";
         assertEquals(strFromToStringNoDeadline, reimbursementElle.toString());
     }

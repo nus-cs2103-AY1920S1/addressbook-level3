@@ -1,6 +1,7 @@
 package seedu.address.reimbursement.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -174,7 +175,7 @@ public class Reimbursement {
         if (deadline == null) {
             msg = toStringNoDeadline();
         } else {
-            msg = person.getName().toString() + " $" + amount + System.lineSeparator()
+            msg = person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount) + System.lineSeparator()
                     + deadline.format(DATE_TIME_FORMATTER) + System.lineSeparator()
                     + description.toString();
         }
@@ -187,7 +188,8 @@ public class Reimbursement {
      * @return string the reimbursement is converted to.
      */
     public String toStringNoDeadline() {
-        return person.getName().toString() + " $" + amount + System.lineSeparator() + description.toString();
+        return person.getName().toString() + " $" + DECIMAL_FORMAT.format(amount)
+                + System.lineSeparator() + description.toString();
     }
 
     /**

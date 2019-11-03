@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.cashier.model.ModelManager.onCashierMode;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 import static seedu.address.testutil.TypicalItem.BURGER_AND_CHIPS;
 import static seedu.address.testutil.TypicalItem.CHIPS;
 import static seedu.address.testutil.TypicalItem.FISH_BURGER;
@@ -293,7 +294,8 @@ public class ModelManagerTest {
         modelManager.addItem(chips);
         modelManager.addItem(storybook);
         System.out.println(modelManager.getTotalAmount());
-        assertEquals(chips.getSubtotal() + storybook.getSubtotal(), modelManager.getTotalAmount());
+        assertEquals(chips.getSubtotal() + storybook.getSubtotal(),
+                Double.parseDouble(DECIMAL_FORMAT.format(modelManager.getTotalAmount())));
         modelManager.clearSalesList();
 
     }
