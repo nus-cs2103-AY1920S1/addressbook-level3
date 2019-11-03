@@ -5,10 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.Month;
 import java.time.temporal.ChronoField;
 
 /**
@@ -22,9 +21,7 @@ public class Date implements Comparable<Date> {
     public static final String MESSAGE_DATE_INVALID = "Invalid date.\n"
             + "%s is not a valid date in the (Gregorian) calendar";
     public static final String DATE_FORMAT = "\\b\\d{8}\\b";
-
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
-
     public static final Date TODAY = now();
 
     public final LocalDate date;
@@ -40,14 +37,17 @@ public class Date implements Comparable<Date> {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValid(String test) {
-        try {
-            DATE_FORMATTER.parse(test);
-            return isValidDate(test);
-        } catch (DateTimeParseException e) {
-            return false;
-        }
+        return isValidFormat(test) && isValidDate(test);
     }
 
+    public static boolean isValidFormat(String test) {
+        return test.matches(DATE_FORMAT);
+    }
+
+    /**
+     * @param test A String representation of a date
+     * @return Whether {@code test} represents a valid date in the Gregorian calendar
+     */
     public static boolean isValidDate(String test) {
 
         int day = Integer.parseInt(test.substring(0, 2));

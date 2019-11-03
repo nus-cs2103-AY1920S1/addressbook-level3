@@ -144,7 +144,9 @@ public class MainWindow extends UiPart<Stage> {
         ObservableList<LedgerOperation> ledgerOperationsList = logic.getLedgerOperationsList();
         ledgerListPanel = new LedgerListPanel(ledgerOperationsList);
 
-        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel);
+        StackPane projectionGraph = new StackPane();
+
+        mainTabPanel = new MainTabPanel(transactionListPanel, budgetListPanel, ledgerListPanel, projectionGraph);
         mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -192,7 +194,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-            (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -204,7 +206,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchTab(Tab tab) {
         switch (tab) {
-
         case TRANSACTION:
             showTransactionTab();
             break;
@@ -213,6 +214,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LEDGER:
             showLedgerTab();
+            break;
+        case PROJECTION:
+            showProjectionTab();
             break;
         default:
             break;
@@ -273,6 +277,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showLedgerTab() {
         mainTabPanel.switchToLedgerTab();
+    }
+
+    private void showProjectionTab() {
+        mainTabPanel.switchToProjectionTab();
     }
 
 }

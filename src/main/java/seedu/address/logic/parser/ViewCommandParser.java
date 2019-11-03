@@ -30,6 +30,8 @@ public class ViewCommandParser implements Parser<ViewCommand> {
             return new ViewCommand(Tab.BUDGET);
         } else if (trimmedArgs.toLowerCase().equals("ledger")) {
             return new ViewCommand(Tab.LEDGER);
+        } else if (trimmedArgs.toLowerCase().equals("projection")) {
+            return new ViewCommand(Tab.PROJECTION);
         } else {
             throw new ParseException(
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
