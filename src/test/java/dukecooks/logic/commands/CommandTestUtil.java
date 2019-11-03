@@ -1,41 +1,6 @@
 package dukecooks.logic.commands;
 
-import static dukecooks.logic.parser.CliSyntax.PREFIX_BLOODTYPE;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_CARBS;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY1;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY2;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY3;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY4;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_DOB;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_FATS;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_GENDER;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_HEIGHT;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_IMAGE;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_INTENSITY;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_MEDICALHISTORY;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_DESCRIPTION;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TITLE;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PAGE_TYPE;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PRIMARY_MUSCLE;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_PROTEIN;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY1;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY2;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY3;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY4;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY5;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY6;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY7;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEINGREDIENT;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_REPETITIONS;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_SETS;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_WEIGHT;
+import static dukecooks.logic.parser.CliSyntax.*;
 import static dukecooks.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -157,6 +122,13 @@ public class CommandTestUtil {
     public static final String HISTORY_DESC_STROKE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_STROKE;
     public static final String HISTORY_DESC_DENGUE = " " + PREFIX_MEDICALHISTORY + VALID_HISTORY_DENGUE;
 
+    public static final String NAME_DESC_YOGA = " " + PREFIX_TASKNAME + VALID_DASHBOARDNAME_YOGA;
+    public static final String NAME_DESC_BAKE = " " + PREFIX_TASKNAME + VALID_DASHBOARDNAME_BAKE;
+
+    public static final String DATE_DESC_TASKDATE1 = " " + PREFIX_TASKNAME + VALID_TASKDATE1;
+    public static final String DATE_DESC_TASKDATE2 = " " + PREFIX_TASKNAME + VALID_TASKDATE2;
+
+
     public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
     public static final String NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_NAME_BURGER;
     public static final String INGREDIENT_DESC_FISH = " " + PREFIX_INGREDIENT + VALID_INGREDIENT_FISH;
@@ -212,6 +184,8 @@ public class CommandTestUtil {
     public static final String SETS_DESC_FIVE = " " + PREFIX_SETS + VALID_SETS_FIVE;
     public static final String REPS_DESC_SIXTY = " " + PREFIX_REPETITIONS + VALID_REPS_SIXTY;
 
+    public static final String INVALID_DASHBOARDNAME_DESC = " " + PREFIX_TASKNAME + "'''''"; // "'" not allowed
+    public static final String INVALID_TASKDATE_DESC = " " + PREFIX_TASKDATE + "29.01.2019"; // "." not allowed
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Pushup&"; // '&' not allowed in names
     public static final String INVALID_SETS_DESC = " " + PREFIX_SETS + "0;;*"; // '*' not allowed in tags
     public static final String INVALID_FOOD_NAME_DESC = " " + PREFIX_NAME + "Fish & Chips"; // '&' not allowed in names
