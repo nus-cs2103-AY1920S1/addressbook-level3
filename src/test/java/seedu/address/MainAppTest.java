@@ -19,7 +19,12 @@ public class MainAppTest extends ApplicationTest {
 
     @Init
     public void init() throws Exception {
-        ApplicationTest.launch(MainApp.class);
+        try {
+            ApplicationTest.launch(MainApp.class);
+        } catch (AssertionError e) {
+            System.out.println(e.getStackTrace());
+            throw e;
+        }
     }
 
     @Test

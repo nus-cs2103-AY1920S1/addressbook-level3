@@ -39,10 +39,6 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
-    testLogging {
-        events "failed"
-        exceptionFormat "verbose"
-    }
 }
 
 dependencies {
