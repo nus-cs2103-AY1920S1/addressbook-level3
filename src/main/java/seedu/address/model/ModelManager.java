@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -224,6 +225,16 @@ public class ModelManager implements Model {
     @Override
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
         return attendance.getTrainingAttendanceListOnDate(date);
+    }
+
+    @Override
+    public List<AttendanceRateEntry> getAttendanceRateOfAll() {
+        List<Person> allPeople = getAddressBook().getPersonList();
+        List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
+        for (Person person: allPeople) {
+            attendanceRateEntries.add(new AttendanceRateEntry(person, attendance.getPersonAttendanceString(person)));
+        }
+        return attendanceRateEntries;
     }
 
 

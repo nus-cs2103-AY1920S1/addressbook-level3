@@ -118,6 +118,11 @@ public interface Model {
     List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date);
 
     /**
+     * Returns a list of AttendanceRateEntry, where each entry indicates the attendance rate of a person.
+     */
+    List<AttendanceRateEntry> getAttendanceRateOfAll();
+
+    /**
      * Returns the Attendance.
      */
     Attendance getAttendance();

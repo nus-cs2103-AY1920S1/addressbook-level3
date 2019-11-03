@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
                     featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
                     break;
                 case "attendance":
-                    AttendancePanel attendance = new AttendancePanel();
+                    AttendancePanel attendance = new AttendancePanel(commandResult.getModel());
                     featureBoxPlaceholder.getChildren().clear();
                     featureBoxPlaceholder.getChildren().add(attendance.getRoot());
                     break;

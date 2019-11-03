@@ -101,6 +101,10 @@ public class Attendance {
         return total;
     }
 
+    public double getPersonAttendanceRate(Person person) {
+        return ((double) getPersonAttendedTrainings(person) / getPersonTotalTrainings(person));
+    }
+
     /**
      * Returns the attendance rate of a given person name
      */
@@ -110,7 +114,7 @@ public class Attendance {
         if (total == 0) { // Has not had the opportunity to go for any trainings yet
             return "No training records";
         } else {
-            double result = ((double) attended / total);
+            double result = getPersonAttendanceRate(person);
             return String.format("%d/%d (%.2f%%)", attended, total, result * 100);
         }
     }
