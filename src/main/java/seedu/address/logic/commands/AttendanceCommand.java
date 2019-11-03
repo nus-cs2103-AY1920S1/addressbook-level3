@@ -23,7 +23,7 @@ public class AttendanceCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
 
-    public static final String MESSAGE_SUCCESS = "Attendance shown";
+    public static final String MESSAGE_SUCCESS = "Attendance shown.";
 
     /**
      * Index of person identified.
@@ -58,25 +58,12 @@ public class AttendanceCommand extends Command {
         Person person = lastShownList.get(index.getZeroBased());
 
         StringBuilder result = new StringBuilder();
-
+        result.append(MESSAGE_SUCCESS);
+        result.append("\n");
         result.append(person.getName().toString());
         result.append(": ");
         result.append(attendance.getPersonAttendanceString(person));
 
-        /* This is used for attendance of all, implement later.
-
-        List<Person> allPeople = model.getAddressBook().getPersonList();
-
-        for(Person person: allPeople) {
-            result.append(person.getName().toString());
-            result.append(" ");
-            result.append(attendance.viewPersonAttendance(person));
-            result.append("\n");
-        }
-
-         */
-
-        // Command Result does not return MESSAGE_SUCCESS at the moment, used to demo.
         return new CommandResult(result.toString());
     }
     /**

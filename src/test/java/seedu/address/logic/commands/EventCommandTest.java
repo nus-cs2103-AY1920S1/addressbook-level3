@@ -30,6 +30,7 @@ import seedu.address.model.performance.CalendarCompatibleRecord;
 import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 public class EventCommandTest {
@@ -221,12 +222,7 @@ public class EventCommandTest {
         }
 
         @Override
-        public Training getTrainingOnDate(AthletickDate date) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
+        public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
 

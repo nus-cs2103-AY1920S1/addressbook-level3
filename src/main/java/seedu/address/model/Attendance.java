@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
@@ -130,6 +131,16 @@ public class Attendance {
         for (Training training : trainings) {
             if (date.equals(training.getDate())) {
                 return training.getTrainingAttendance();
+            }
+        }
+        return null; // With assertion, code should not reach here.
+    }
+
+    public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
+        assert(this.hasTraining(date));
+        for (Training training : trainings) {
+            if (date.equals(training.getDate())) {
+                return training.getTrainingAttendanceList();
             }
         }
         return null; // With assertion, code should not reach here.

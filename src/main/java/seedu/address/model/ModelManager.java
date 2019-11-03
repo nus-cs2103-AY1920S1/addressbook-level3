@@ -23,6 +23,7 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
 /**
@@ -219,15 +220,12 @@ public class ModelManager implements Model {
     }
 
     //=========== Training =================================================================================
-    @Override
-    public Training getTrainingOnDate(AthletickDate date) {
-        return attendance.getTrainingOnDate(date);
-    }
 
     @Override
-    public HashMap<Person, Boolean> getTrainingAttendanceOnDate(AthletickDate date) {
-        return attendance.getTrainingAttendanceOnDate(date);
+    public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
+        return attendance.getTrainingAttendanceListOnDate(date);
     }
+
 
     //=========== Attendance =================================================================================
 
