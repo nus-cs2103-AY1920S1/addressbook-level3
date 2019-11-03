@@ -4,10 +4,10 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 
-import dream.fcard.logic.stats.DeckStats;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.UserStats;
 import dream.fcard.model.Deck;
@@ -17,7 +17,7 @@ import dream.fcard.util.StatsDisplayUtil;
 /**
  * Window to display user's statistics.
  */
-public class StatisticsWindow extends VBox {
+public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label totalSessions;
     @FXML
@@ -45,12 +45,11 @@ public class StatisticsWindow extends VBox {
         }
 
         this.userStats = userStats;
-        //ArrayList<Deck> decks = State.getDecks();
+        //ArrayList<Deck> decks = State.getDecks(); TODO
 
         displaySummaryStats();
         this.sessionsTableView = StatsDisplayUtil.getSessionsTableView(userStats.getSessionList());
         this.deckTableView = StatsDisplayUtil.getDeckTableView(State.getState());
-        displayDeckStatsTableView();
     }
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
@@ -59,13 +58,8 @@ public class StatisticsWindow extends VBox {
         this.totalSessions.setText("Total login sessions: " + numSessions
             + (numSessions == 1 ? " session" : " sessions"));
 
-
         String duration = userStats.getTotalDurationOfSessionsAsString();
         this.totalDuration.setText("Total login duration: " + duration);
     }
 
-    /** Creates the TableView object showing DeckStats for each Deck. */
-    private void displayDeckStatsTableView() {
-        // todo
-    }
 }

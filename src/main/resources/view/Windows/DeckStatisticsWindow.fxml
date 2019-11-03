@@ -14,15 +14,10 @@
       <Label styleClass="window-subtitle" text="My Sessions" />
       <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="200.0" prefHeight="200.0" VBox.vgrow="ALWAYS">
          <content>
-            <TableView fx:id="sessionsTableView" fixedCellSize="24.0" />
+            <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
+               <placeholder><Label text="There are no recorded sessions yet!"/></placeholder>
+            </TableView>
          </content>
       </ScrollPane>
-      <!--<Label styleClass="window-subtitle" text="My Statistics by Deck" />-->
-      <!--<ScrollPane fx:id="deckStatsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="200.0" minHeight="200.0" prefHeight="200.0">-->
-      <!--   <content>-->
-      <!--      <TableView fx:id="deckStatsTableView" fixedCellSize="24.0" />-->
-      <!--   </content>-->
-      <!--</ScrollPane>-->
-      <!--      <Label fx:id="sessionsThisWeek" text="Sessions this week:" />-->
    </children>
 </fx:root>

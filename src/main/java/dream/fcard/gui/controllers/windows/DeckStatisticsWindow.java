@@ -57,7 +57,7 @@ public class DeckStatisticsWindow extends VBox {
 
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
-        int numberOfCards = deckStats.getNumberOfCards();
+        int numberOfCards = deck.getNumberOfCards();
         numCards.setText("Number of cards in deck: " + numberOfCards
             + (numberOfCards == 1 ? "card" : "cards"));
 

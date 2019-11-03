@@ -27,7 +27,6 @@ public class StatsDisplayUtil {
         //}
 
         sessionsTableView.setItems(FXCollections.observableArrayList(sessionArrayList));
-        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
 
         TableColumn<Session, String> startColumn = new TableColumn<>("Start");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("sessionStartString"));
