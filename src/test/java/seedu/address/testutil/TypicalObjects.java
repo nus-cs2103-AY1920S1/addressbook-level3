@@ -9,7 +9,35 @@ import seedu.address.model.claim.Claim;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_CORPORATECLAIMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_LOGISTICCLAIMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_PROJECTCLAIMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_SCHOOLCLAIMS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AFTERMONTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BEFOREMONTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_DURINGMONTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_DURINGMONTH2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_FIRSTDAYOFMONTH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_FUNDRAISING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_LOGISTICS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_SHIRTSALES;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEST1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEST2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEST3;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEST4;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEST5;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 /**
  * A utility class containing a list of {@code FinSec} objects to be used in tests.

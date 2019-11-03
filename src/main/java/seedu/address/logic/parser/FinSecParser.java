@@ -201,8 +201,7 @@ public class FinSecParser {
             case BudgetCommand.COMMAND_WORD:
                 if (arguments.isEmpty()) {
                     return new BudgetCommand();
-                }
-                else {
+                } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_UNNECESSARY_BUDGET_PARAMETERS));
                 }

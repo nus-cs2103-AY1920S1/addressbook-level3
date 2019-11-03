@@ -18,7 +18,7 @@ public class Budget {
     private List<Claim> claimList;
     private List<Income> incomeList;
     private boolean isOverBudget;
-    public double totalIncome = 0;
+    private double totalIncome = 0;
     private double totalExpenses = 0;
     private double budgetAmount;
     private Locale locale = new Locale("en", "US");

@@ -43,7 +43,7 @@ public class ClaimPlotter {
             for (Claim claim : approvedClaimsInCurrentMonthList) {
                 if (claim.getDate().date.getDayOfMonth() == day) {
                     currentExpenses += Double.parseDouble(claim.getAmount().value);
-                    currentExpenses = Math.round(currentExpenses*100)/100.0;
+                    currentExpenses = Math.round(currentExpenses * 100) / 100.0;
                 }
             }
             claimSeries.add(day, currentExpenses);
@@ -61,7 +61,7 @@ public class ClaimPlotter {
             if (claim.getStatus() == Status.APPROVED) {
                 if (claim.getDate().date.isBefore(firstDayOfMonth)) {
                     startingExpenses += Double.parseDouble(claim.getAmount().value);
-                    startingExpenses = Math.round(startingExpenses*100)/100.0;
+                    startingExpenses = Math.round(startingExpenses * 100) / 100.0;
                 }
             }
         }
