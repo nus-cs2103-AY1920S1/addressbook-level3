@@ -17,7 +17,7 @@ import javafx.scene.layout.Region;
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region>{
+public class CommandBox extends UiPart<Region> {
     private static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
 
@@ -94,7 +94,7 @@ public class CommandBox extends UiPart<Region>{
                     String textToPassWhenUpDownKeyPressed = receiveFromSender()[1];
                     notifyObserversToChange(event.getCode(), textToPassWhenUpDownKeyPressed);
                 } catch (NullPointerException e) {
-                    logger.info("There is nothing in the suggested word list, thus cannot receive anything from sender.");
+                    logger.info("Suggested word list is empty, thus cannot receive anything from sender.");
                 }
                 commandTextField.positionCaret(commandTextField.getText().length());
                 break;

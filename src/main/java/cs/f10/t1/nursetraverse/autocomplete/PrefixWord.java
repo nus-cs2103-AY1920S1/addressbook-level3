@@ -10,7 +10,8 @@ public class PrefixWord extends AutoCompleteWord implements AssociableWord {
     private String associatedObjectWord;
     private String associatedCommandWord;
 
-    public PrefixWord(String associatedObjectWord, String associatedCommandWord, String suggestedPrefix, String description) {
+    public PrefixWord(String associatedObjectWord, String associatedCommandWord,
+                      String suggestedPrefix, String description) {
         super(suggestedPrefix, description);
         this.associatedCommandWord = associatedCommandWord;
         this.associatedObjectWord = associatedObjectWord;

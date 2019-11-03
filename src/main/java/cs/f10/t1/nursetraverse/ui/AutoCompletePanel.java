@@ -1,6 +1,5 @@
 package cs.f10.t1.nursetraverse.ui;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListHandler;
@@ -106,13 +105,10 @@ public class AutoCompletePanel extends UiPart<Region> implements Observer, DataS
     // handle up and down key separately
     @Override
     public void update(KeyCode keyCode) {
-        switch (keyCode) {
-        case UP:
+        if (keyCode == KeyCode.UP) {
             setSelected(selectedIndex - 1);
-            break;
-        case DOWN:
+        } else if (keyCode == KeyCode.DOWN) {
             setSelected(selectedIndex + 1);
-            break;
         }
     }
 

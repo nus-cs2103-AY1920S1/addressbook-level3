@@ -1,33 +1,5 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
-import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
-import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
-import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
-import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ImportMergeCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
-import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
-import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
-import cs.f10.t1.nursetraverse.logic.commands.UndoCommand;
-import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
-import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
-import cs.f10.t1.nursetraverse.logic.commands.appointment.EditAppointmentCommand;
-import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
-import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
-import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
-import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
-import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
-import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
-import cs.f10.t1.nursetraverse.model.appointment.Appointment;
-import cs.f10.t1.nursetraverse.model.patient.Patient;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import static cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil.parseFirstSegment;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.ADD_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.ADD_DESCRIPTION;
@@ -77,6 +49,34 @@ import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.REDO_DESC
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.UNDO_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.UPDATE_VISIT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionBank.VISIT_DESCRIPTION;
+
+import cs.f10.t1.nursetraverse.logic.commands.AddCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ClearCommand;
+import cs.f10.t1.nursetraverse.logic.commands.DeleteCommand;
+import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ExportCommand;
+import cs.f10.t1.nursetraverse.logic.commands.FindCommand;
+import cs.f10.t1.nursetraverse.logic.commands.HelpCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ImportMergeCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ImportReplaceCommand;
+import cs.f10.t1.nursetraverse.logic.commands.ListCommand;
+import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
+import cs.f10.t1.nursetraverse.logic.commands.UndoCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.EditAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
+import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
+import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
+import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
+import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Class that initialise and stores all list
@@ -215,7 +215,7 @@ public class AutoCompleteWordStorage {
                 CliSyntax.PREFIX_FILENAME.getPrefix(), PREFIX_FILENAME_DESCRIPTION));
         oListAllPrefixWord.add(new PrefixWord(APP_OBJECT_WORD,
                 parseFirstSegment(ImportMergeCommand.COMMAND_WORD).get(1),
-                CliSyntax.PREFIX_FILENAME.getPrefix(),PREFIX_FILENAME_DESCRIPTION));
+                CliSyntax.PREFIX_FILENAME.getPrefix(), PREFIX_FILENAME_DESCRIPTION));
         // Pat prefixes
         oListAllPrefixWord.add(new PrefixWord(PAT_OBJECTWORD,
                 parseFirstSegment(AddCommand.COMMAND_WORD).get(1),
@@ -260,7 +260,8 @@ public class AutoCompleteWordStorage {
                 CliSyntax.PREFIX_PATIENT_INDEX.getPrefix(), PREFIX_PATIENT_INDEX_DESCRIPTION));
         oListAllPrefixWord.add(new PrefixWord(APPT_OBJECT_WORD,
                 parseFirstSegment(AddAppointmentCommand.COMMAND_WORD).get(1),
-                CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME.getPrefix(), PREFIX_APPT_START_DATE_AND_TIME_DESCRIPTION));
+                CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME.getPrefix(),
+                PREFIX_APPT_START_DATE_AND_TIME_DESCRIPTION));
         oListAllPrefixWord.add(new PrefixWord(APPT_OBJECT_WORD,
                 parseFirstSegment(AddAppointmentCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME.getPrefix(), PREFIX_APPT_END_DATE_AND_TIME_DESCRIPTION));
@@ -291,7 +292,8 @@ public class AutoCompleteWordStorage {
                 CliSyntax.PREFIX_PATIENT_INDEX.getPrefix(), PREFIX_PATIENT_INDEX_DESCRIPTION));
         oListAllPrefixWord.add(new PrefixWord(APPT_OBJECT_WORD,
                 parseFirstSegment(EditAppointmentCommand.COMMAND_WORD).get(1),
-                CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME.getPrefix(), PREFIX_APPT_START_DATE_AND_TIME_DESCRIPTION));
+                CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME.getPrefix(),
+                PREFIX_APPT_START_DATE_AND_TIME_DESCRIPTION));
         oListAllPrefixWord.add(new PrefixWord(APPT_OBJECT_WORD,
                 parseFirstSegment(EditAppointmentCommand.COMMAND_WORD).get(1),
                 CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME.getPrefix(), PREFIX_APPT_END_DATE_AND_TIME_DESCRIPTION));
