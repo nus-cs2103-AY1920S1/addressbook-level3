@@ -11,7 +11,7 @@
         <Scene>
             <AnchorPane fx:id="gamePlay" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0">
                 <children>
-                    <TextField fx:id="playerInput" onKeyPressed="#handleSpaceBar" opacity="0.0" prefHeight="600.0" prefWidth="750.0" />
+                    <TextField fx:id="playerInput" onKeyPressed="#handleClear" opacity="0.0" prefHeight="600.0" prefWidth="750.0" />
                     <Label layoutX="310.0" layoutY="540.0" prefHeight="17.0" prefWidth="400.0" styleClass="whiteText" text="${playerInput.text}" textAlignment="CENTER" textOverrun="CLIP" />
                     <Label layoutX="251.0" layoutY="560.0" styleClass="whiteText" text="Press SPACEBAR to clear" />
                     <Label fx:id="gameOver" alignment="CENTER" layoutX="275.0" layoutY="0.0" text="GAME OVER" textAlignment="CENTER" />

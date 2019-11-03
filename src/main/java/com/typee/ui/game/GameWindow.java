@@ -3,7 +3,9 @@ package com.typee.ui.game;
 import com.typee.game.Player;
 import com.typee.ui.UiPart;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -53,13 +55,18 @@ public class GameWindow extends UiPart<Stage> {
         return gameInstance;
     }
 
+    /**
+     * Creates a new game instance with a new player upon exit.
+     */
     @FXML
     public void handleExit() {
         getRoot().close();
+        player = new Player();
+        gameInstance = new GameWindow(new Stage(), player);
     }
 
     @FXML
-    private void handleSpaceBar(KeyEvent keyEvent) {
+    private void handleClear(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.SPACE) || keyEvent.getCode().equals(KeyCode.ENTER)) {
             playerInput.clear();
         }
@@ -74,8 +81,9 @@ public class GameWindow extends UiPart<Stage> {
     private void initialize(Player player) {
         player.setInputAs(playerInput.textProperty());
         gameOver.visibleProperty().bind(player.getGameOverProperty());
-        gamePlay.getChildren().add(new PlayerInformation(player).getRoot());
-        gamePlay.getChildren().add(new GameBody(player).getRoot());
+        ObservableList<Node> nodes = gamePlay.getChildren();
+        nodes.add(new PlayerInformation(player).getRoot());
+        nodes.add(new GameBody(player).getRoot());
     }
 
     /**

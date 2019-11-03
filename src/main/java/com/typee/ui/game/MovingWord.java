@@ -9,6 +9,8 @@ import com.typee.game.Words;
 import com.typee.ui.UiPart;
 
 import javafx.animation.AnimationTimer;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
@@ -64,11 +66,9 @@ public class MovingWord extends UiPart<Pane> {
             disappear();
             return;
         }
-        getRoot().setLayoutY(getRoot().getLayoutY() + fallingRate);
-        getRoot().getChildren().clear();
-        getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(player.getInputText(), word));
-        getRoot().getChildren().add(TextHighlighter.convertToTextFlowUsing(word));
-        if (getRoot().getLayoutY() > LOWER_BOUND && parent.getChildren().contains(getRoot())) {
+        incrementYCoordinateBy(fallingRate);
+        highlightWords();
+        if (getRoot().getLayoutY() > LOWER_BOUND) {
             stopAnimation();
             player.decrementHealth(DECREMENT_VALUE);
             disappear();
@@ -78,6 +78,24 @@ public class MovingWord extends UiPart<Pane> {
             player.setInputAs("");
             disappear();
         }
+    }
+
+    /**
+     * Converts moving word into text flow with or without CSS highlighting depending on what the player types, before
+     * adding the words to the main pane.
+     */
+    private void highlightWords() {
+        ObservableList<Node> words = getRoot().getChildren();
+        words.clear();
+        Node highlightedNode = TextHighlighter.convertToTextFlowUsing(player.getInputText(), word);
+        Node nodeWithoutHighlight = TextHighlighter.convertToTextFlowUsing(word);
+        words.add(highlightedNode);
+        words.add(nodeWithoutHighlight);
+    }
+
+    private void incrementYCoordinateBy(double fallingRate) {
+        double currentYCoordinate = getRoot().getLayoutY();
+        getRoot().setLayoutY(currentYCoordinate + fallingRate);
     }
 
     /**
