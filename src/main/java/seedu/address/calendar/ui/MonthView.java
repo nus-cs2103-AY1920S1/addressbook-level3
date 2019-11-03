@@ -1,52 +1,82 @@
 package seedu.address.calendar.ui;
 
-import javafx.scene.control.Label;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import seedu.address.calendar.model.Day;
-import seedu.address.calendar.model.Month;
+import seedu.address.calendar.model.date.ViewOnlyDay;
+import seedu.address.calendar.model.date.ViewOnlyMonth;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 class MonthView {
-    private Month month;
+    private static final int NUM_ROWS = 5;
+    private static final int NUM_COLS = 7;
+    private ViewOnlyMonth viewOnlyMonth;
+    private ReadOnlyDoubleProperty monthViewWidth;
+    private static List<DayView> dayViews;
+    private static MonthView monthView;
 
-    MonthView(Month month) {
-        this.month = month;
+    // todo: make constructor private, set monthViewWidth as static and have setMonthViewWidth --> defensive
+    private MonthView(ViewOnlyMonth viewOnlyMonth, ReadOnlyDoubleProperty monthViewWidth) {
+        removeListeners();
+        dayViews = new ArrayList<>();
+        this.viewOnlyMonth = viewOnlyMonth;
+        this.monthViewWidth = monthViewWidth;
     }
 
-    GridPane generateMonthGrid() {
-        Stream<Day> days = month.getDaysInMonth();
-        Day firstDay = month.getFirstDayOfMonth();
+    static GridPane generateMonthGrid(ViewOnlyMonth viewOnlyMonth, ReadOnlyDoubleProperty monthViewWidth) {
+        monthView = new MonthView(viewOnlyMonth, monthViewWidth);
 
-        int height = 100;
+        Stream<ViewOnlyDay> days = viewOnlyMonth.getDaysInMonth();
+        ViewOnlyDay firstDay = viewOnlyMonth.getFirstDayOfMonth();
+
         GridPane monthView = new GridPane();
-        monthView.setGridLinesVisible(true);
-        IntStream.range(0, 5)
+        GridPane.setVgrow(monthView, Priority.ALWAYS);
+        GridPane.setHgrow(monthView, Priority.ALWAYS);
+
+        IntStream.range(0, NUM_ROWS)
                 .forEach(i -> {
                     RowConstraints newRow = new RowConstraints();
-                    newRow.setPrefHeight(height);
+                    newRow.setValignment(VPos.TOP);
+                    newRow.setVgrow(Priority.ALWAYS);
                     monthView.getRowConstraints().add(newRow);
                 });
-        int width = 150;
+
+        IntStream.range(0, NUM_COLS)
+                .forEach(i -> {
+                    ColumnConstraints col = new ColumnConstraints();
+                    col.setHgrow(Priority.ALWAYS);
+                    col.setHalignment(HPos.CENTER);
+                    monthView.getColumnConstraints().add(col);
+                });
 
         days.forEach(day -> {
-            VBox dayView = DayView.generateDayView(day.getDayOfMonth());
-            dayView.setPrefWidth(width);
-            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex();
+            boolean hasCommitment = day.hasCommitment();
+            boolean hasHoliday = day.hasHoliday();
+            boolean hasSchoolBreak = day.hasSchoolBreak();
+            boolean hasTrip = day.hasTrip();
+            DayView dayView = new DayView(day.getDayOfMonth(), monthViewWidth, hasCommitment, hasHoliday, hasSchoolBreak, hasTrip);
+            dayViews.add(dayView);
+            int firstDayOfWeekAsNum = firstDay.getDayOfWeekZeroIndex() - 1;
             int rowIndex = (firstDayOfWeekAsNum + day.getDayOfMonth()) / 7;
             int shiftedRowIndex = rowIndex < 5 ? rowIndex : 0;
-            monthView.add(dayView, day.getDayOfWeekOneBased(), shiftedRowIndex);
+            monthView.add(dayView.getRoot(), day.getDayOfWeekZeroIndex(), shiftedRowIndex);
         });
+
         return monthView;
     }
 
-    Label generateMonthLabel() {
-        String unformattedMonthLabel = month.getMonthOfYear().toString();
-        String formattedMonthLabel = unformattedMonthLabel.charAt(0)
-                + unformattedMonthLabel.substring(1).toLowerCase();
-        return new Label(formattedMonthLabel);
+    public void removeListeners() {
+        if (dayViews == null) {
+            return;
+        }
+        dayViews.forEach(dayView -> dayView.removeListener());
     }
 }

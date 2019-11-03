@@ -1,28 +1,46 @@
 package seedu.address.calendar.commands;
 
 import seedu.address.calendar.model.Calendar;
-import seedu.address.calendar.model.Month;
-import seedu.address.calendar.model.MonthOfYear;
+import seedu.address.calendar.model.date.MonthOfYear;
+import seedu.address.calendar.model.date.Year;
+import seedu.address.calendar.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Command;
+
+import java.util.Optional;
 
 /**
  * Shows user the his/her calendar for the specified month.
  */
-public class ShowCommand extends Command {
+public class ShowCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "show";
-    public static final String SHOWING_REQUESTED_MESSAGE = "Showing month view for %s %d";
+    public static final String MESSAGE_SHOWING_REQUESTED = "Showing month view for %s %s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a month view of the requested month"
+            + "Parameters: "
+            + CliSyntax.PREFIX_MONTH + " MONTH "
+            + "[" + CliSyntax.PREFIX_YEAR + " YEAR]" + "\n"
+            + "Example: " + COMMAND_WORD + " " + CliSyntax.PREFIX_MONTH + " Dec " + CliSyntax.PREFIX_YEAR + " 2019";
 
-    MonthOfYear monthOfYear;
-    int year;
+    private MonthOfYear monthOfYear;
+    private Year year;
 
-    public ShowCommand(MonthOfYear monthOfYear, int year) {
+    public ShowCommand(MonthOfYear monthOfYear, Optional<Year> year) {
+        if (year.isEmpty()) {
+            this.monthOfYear = monthOfYear;
+            // get current year
+            java.util.Calendar currentDate = java.util.Calendar.getInstance();
+            int currentYear = currentDate.get(java.util.Calendar.YEAR);
+            this.year = new Year(currentYear);
+        } else {
+            this.year = year.get();
+        }
+
         this.monthOfYear = monthOfYear;
-        this.year = year;
     }
 
     public CommandResult execute(Calendar calendar) {
-        Month requestedMonth = new Month(monthOfYear, year);
-        calendar.updateMonthShown(requestedMonth);
-        return new CommandResult(SHOWING_REQUESTED_MESSAGE);
+        calendar.updateMonthView(monthOfYear, year);
+        String formattedFeedback = String.format(MESSAGE_SHOWING_REQUESTED, monthOfYear.toString(), year.toString());
+        return new CommandResult(formattedFeedback);
     }
 }

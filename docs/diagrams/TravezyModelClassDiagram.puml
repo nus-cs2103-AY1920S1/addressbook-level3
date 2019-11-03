@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class HiddenOutside #FFFFFF
+
+namespace Model {
+Interface Model <<Interface>>{
+}
+Class ModelManager
+Interface UserPrefsModel <<Interface>>
+Class UserPrefsModelManager
+Class HiddenOutside #FFFFFF
+}
+
+namespace Address {
+namespace Model {
+Interface AddressBookModel <<Interface>>
+}
+}
+
+
+namespace Achievements {
+namespace Model {
+Interface StatisticsModel <<Interface>>
+}
+}
+
+namespace Calendar {
+namespace Model {
+}
+}
+
+namespace diaryFeature {
+namespace diaryModel {
+}
+}
+
+namespace FinancialTracker {
+namespace Model {
+}
+}
+
+namespace Itinerary {
+namespace Model {
+}
+}
+
+Interface ObservableList <<Interface>>
+HiddenOutside ..> Model.Model
+
+''''''''''MODEL''''''''''
+''''''''''Model
+Model.ModelManager .up.|> Model.Model
+''''''''''Model Interface
+Model.Model .down.> Address.Model.AddressBookModel
+Model.Model .down.> Achievements.Model.StatisticsModel
+''''''''''ModelManager Constructor
+''' composition or aggregation?
+Model.ModelManager ..> "1" Address.Model.AddressBookModel :gets >
+Model.ModelManager ..> "1" Model.UserPrefsModel :gets >
+Model.ModelManager --> "1" Achievements.Model.StatisticsModel :supplies >
+
+''''''''''UserPrefsModel Interface
+Model.Model .down.> Model.UserPrefsModel
+''''''''''UserPrefsModelManager
+Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+
+''''''''''
+
+''''''''''LAYOUT''''''''''
+Model.ModelManager -[hidden]down-> Model.UserPrefsModel
+Address -[hidden]right->Calendar
+Address -[hidden]right->diaryFeature
+Address -[hidden]right->FinancialTracker
+Address -[hidden]right->Itinerary
+Model.UserPrefsModelManager -[hidden]down->Address
+Model.UserPrefsModelManager -[hidden]down->Achievements
+Model.UserPrefsModelManager -[hidden]down->Calendar
+Model.UserPrefsModelManager -[hidden]down->diaryFeature
+Model.UserPrefsModelManager -[hidden]down->FinancialTracker
+Model.UserPrefsModelManager -[hidden]down->Itinerary
+Address -down[hidden]-> Achievements
+''''''''''''''''''''''''''
+
+
+@enduml

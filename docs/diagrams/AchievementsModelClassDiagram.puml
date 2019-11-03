@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class HiddenOutside #FFFFFF
+
+namespace Address {
+namespace Model {
+namespace Person {
+Class Person
+}
+}
+}
+
+namespace Achievements {
+namespace Model {
+Interface StatisticsModel <<Interface>>
+Class StatisticsModelManager
+}
+}
+
+
+Interface ObservableList <<Interface>>
+Interface Supplier <<Interface>>
+HiddenOutside ..> Achievements.Model.StatisticsModel :supplies>
+
+
+''''''''''ACHIEVEMENTS''''''''''
+''''''''''StatisticsModel Interface
+Achievements.Model.StatisticsModelManager .up.|> Achievements.Model.StatisticsModel
+''''''''''StatisticsModel Manager
+Achievements.Model.StatisticsModelManager o--> ObservableList
+Achievements.Model.StatisticsModelManager --> "*" Address.Model.Person.Person
+''''''''''''''''''''''''''''''''
+
+@enduml

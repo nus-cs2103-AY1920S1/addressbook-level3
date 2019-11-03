@@ -4,18 +4,101 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+class HiddenOutside #FFFFFF
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+namespace Model {
+Interface Model <<Interface>>{
+}
+Class ModelManager
+Interface UserPrefsModel <<Interface>>
+Class UserPrefsModelManager
+Class ReadOnlyUserPrefs
+Class UserPrefs
+}
 
-Person o-up-> "*" Tag
+namespace Achievements {
+namespace Model {
+Interface StatisticsModel <<Interface>>
+}
+}
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+namespace Address {
+namespace Model {
+Interface AddressBookModel <<Interface>>
+}
+}
+
+namespace Calendar {
+namespace Model {
+}
+}
+
+namespace diaryFeature {
+namespace diaryModel {
+}
+}
+
+namespace FinancialTracker {
+namespace Model {
+}
+}
+
+namespace Itinerary {
+namespace Model {
+}
+}
+
+HiddenOutside ..> Model.Model
+
+Interface ObservableList <<Interface>>
+Interface Supplier <<Interface>>
+''''''''''LAYOUT''''''''''
+Model.UserPrefsModelManager .[hidden]down.|> Achievements
+Model.UserPrefsModelManager .[hidden]down.|> Address
+''''''''''''''''''''''''''
+
+
+''''''''''MODEL''''''''''
+
+
+''''''''''Model
+Model.ModelManager .up.|> Model.Model
+
+''''''''''Model Interface
+Model.Model .down.> Address.Model.AddressBookModel :gets >
+Model.Model .down.> Achievements.Model.StatisticsModel :supplies >
+Model.Model .down.> Model.UserPrefsModel :gets >
+Model.Model .right.>Supplier
+
+''''''''''ModelManager Constructor
+''' composition or aggregation?
+Model.ModelManager o--> "1" Address.Model.AddressBookModel
+Model.ModelManager o--> "1" Model.UserPrefsModel
+Model.ModelManager ..> "1" Achievements.Model.StatisticsModel
+
+
+''''''''''UserPrefsModelManager
+Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+
+''''''''''UserPrefs
+Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
+
+''''''''''''''''''''
+
+''''''''''ADDRESS''''''''''
+Address.Model.AddressBookModel .right.> ObservableList
+
+''''''''''STATISTICS''''''''''
+Achievements.Model.StatisticsModel .right.> ObservableList
+
+''''''''''LAYOUT''''''''''
+Model.ModelManager -[hidden]down-> Model.UserPrefsModel
+Model.UserPrefsModelManager -[hidden]down->Address
+Model.UserPrefsModelManager -[hidden]down->Achievements
+Model.UserPrefsModelManager -[hidden]down->Calendar
+Model.UserPrefsModelManager -[hidden]down->diaryFeature
+Model.UserPrefsModelManager -[hidden]down->FinancialTracker
+Model.UserPrefsModelManager -[hidden]down->Itinerary
+Address -down[hidden]-> Achievements
+''''''''''''''''''''''''''
 @enduml

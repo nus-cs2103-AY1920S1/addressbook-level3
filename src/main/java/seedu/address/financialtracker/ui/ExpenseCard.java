@@ -14,14 +14,6 @@ public class ExpenseCard extends UiPart<Region> {
 
     private static final String FXML = "ExpenseCard.fxml";
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
     public final Expense expense;
 
     @FXML
@@ -29,19 +21,28 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label date;
+    @FXML
+    private Label time;
+    @FXML
     private Label amount;
     @FXML
     private Label desc;
     @FXML
     private Label country;
+    @FXML
+    private Label type;
 
     public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
         this.expense = expense;
         id.setText(displayedIndex + ". ");
-        amount.setText("Amount: " + expense.getAmount().value);
-        desc.setText("Details: " + expense.getDesc().value);
         country.setText(expense.getCountry().value);
+        date.setText("Date: " + expense.getDate().value);
+        time.setText("Time: " + expense.getTime().value);
+        amount.setText("Amount: " + expense.getAmount().value);
+        desc.setText("Details: " + expense.getDescription().value);
+        type.setText("Type of expenditure: " + expense.getType().value);
     }
 
     @Override

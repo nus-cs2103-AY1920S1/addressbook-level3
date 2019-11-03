@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root title="Summary" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <icons>
+    <Image url="@/images/help_icon.png" />
+  </icons>
+  <scene>
+    <Scene>
+         <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0">
+            <children>
+               <HBox alignment="CENTER" prefHeight="0.0" prefWidth="496.0" stylesheets="@FinancialTrackerPage.css">
+                  <opaqueInsets>
+                     <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                  </opaqueInsets>
+                  <padding>
+                     <Insets left="5.0" right="10.0" />
+                  </padding>
+                  <children>
+                     <Label fx:id="title" prefHeight="23.0" prefWidth="164.0" text="Your Financial Summary" textAlignment="CENTER" />
+                  </children>
+               </HBox>
+               <PieChart fx:id="pieChart" prefHeight="220.0" prefWidth="496.0" title="Pie Chart" />
+               <BarChart fx:id="barChart" prefHeight="330.0" prefWidth="496.0" title="Bar Chart">
+                 <xAxis>
+                   <CategoryAxis label="Countries" side="BOTTOM" fx:id="xAxis" />
+                 </xAxis>
+                 <yAxis>
+                   <NumberAxis fx:id="yAxis" label="Amount" side="LEFT" />
+                 </yAxis>
+               </BarChart>
+            </children>
+         </VBox>
+    </Scene>
+  </scene>
+</fx:root>

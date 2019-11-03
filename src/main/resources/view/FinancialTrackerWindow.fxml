@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="financialTrackerPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-    </stylesheets>
+<VBox fx:id="financialTrackerPane" stylesheets="@FinancialTrackerPage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-        <Menu mnemonicParsing="false" text="Financial Tracker">
+        <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
         </Menu>
+      <Menu mnemonicParsing="false" text="Code">
+         <items>
+            <MenuItem fx:id="codeMenuItem" mnemonicParsing="false" onAction="#handleCode" text="Git Code" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Help">
+         <items>
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleMenuHelp" text="Help" />
+         </items>
+      </Menu>
     </MenuBar>
+   <HBox fx:id="header1" prefHeight="10.0" prefWidth="440.0" />
+   <HBox id="header" alignment="CENTER" prefHeight="62.0" prefWidth="460.0">
+      <children>
+         <VBox alignment="CENTER">
+            <children>
+               <Label />
+               <Label id="financialTracker" text="Financial Tracker" textAlignment="CENTER" />
+               <Label id="dottedLine" prefHeight="23.0" prefWidth="90.0" text="-------------" textAlignment="CENTER" />
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+   <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0" VBox.vgrow="NEVER" />
 
     <VBox fx:id="expenseList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
         <padding>
@@ -32,7 +52,7 @@
         </padding>
     </StackPane>
 
-    <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" styleClass="pane-with-border" VBox.vgrow="NEVER">
+    <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="239.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
         <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
         </padding>

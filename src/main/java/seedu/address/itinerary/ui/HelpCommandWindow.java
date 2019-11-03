@@ -1,50 +1,64 @@
 package seedu.address.itinerary.ui;
 
-import com.sun.source.doctree.SummaryTree;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.ui.UiPart;
-
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.UiPart;
+
 /**
  * Controller for a help page
  */
+@SuppressWarnings("unused")
 public class HelpCommandWindow extends UiPart<Stage> {
 
-    public static final String HELP_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "For more information check out our user guide here: \n" + HELP_URL;
-    public static final String GREET_MESSAGE = "greet";
-    public static final String SUMMARY_MESSAGE = "summary";
-    public static final String HELP = "help";
-    public static final String GOTO_MESSAGE = "goto [page]";
-    public static final String EXIT_MESSAGE = "exit";
-    public static final String ADD_MESSAGE = "add title/[title] date/[date] time/[time] l/[location] d/[description]";
-    public static final String DELETE_MESSAGE = "delete [index]";
-    public static final String EDIT_MESSAGE = "edit [index] [type]/[details]";
-    public static final String DONE_MESSAGE = "done [index]";
-    public static final String LIST_MESSAGE = "list";
-    public static final String SORT_MESSAGE = "sort by/[alphabetical | chronological | completion | duration]";
-    public static final String REDO_MESSAGE = "Press the up arrow key to call back previous commands";
-    public static final String UNDO_MESSAGE = "undo";
-    public static final String SEARCH_MESSAGE = "search by/[title | date | time | location] [keyword]";
-    public static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
-    public static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
-    public static final String GITHUB_URL = "https://github.com/ngzhaoming";
-    public static final String WEBSITE_URL = "https://ngzhaoming.github.io/";
+    private static final String HELP_URL = "https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html";
+    private static final String HELP_MESSAGE = "For more information check out our user guide here: \n" + HELP_URL;
+    private static final String GREET_MESSAGE = "greet";
+    private static final String SUMMARY_MESSAGE = "clear";
+    private static final String HELP = "help";
+    private static final String GOTO_MESSAGE = "goto [page]";
+    private static final String EXIT_MESSAGE = "exit";
+    private static final String ADD_MESSAGE = "add title/[title] date/[date] time/[time] l/[location] d/[description]";
+    private static final String DELETE_MESSAGE = "delete [index]";
+    private static final String EDIT_MESSAGE = "edit [index] [type]/[details]";
+    private static final String DONE_MESSAGE = "done [index]";
+    private static final String LIST_MESSAGE = "list";
+    private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion | priority]";
+    private static final String HISTORY_MESSAGE = "history";
+    private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
+    private static final String SEARCH_MESSAGE = "search [title | date | time | location]/[keyword]";
+    //  private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
+    private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
+    private static final String GITHUB_URL = "https://github.com/ngzhaoming";
+    private static final String WEBSITE_URL = "https://ngzhaoming.github.io/";
 
     private static final Logger logger = LogsCenter.getLogger(HelpCommandWindow.class);
     private static final String FXML = "HelpCommandWindow.fxml";
+
+    private Notifications notificationBuilder;
+
+    private Node graphic;
+
+    private String wishSuccess = "Yeah, me too... I wish the developers can release "
+             + "this wish feature sooner （╯°□°）╯︵( .o.)";
 
     @FXML
     private Button copyButton;
@@ -111,7 +125,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public HelpCommandWindow(Stage root) {
+    private HelpCommandWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
     }
@@ -307,7 +321,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void copyRedo() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
-        url.putString(REDO_MESSAGE);
+        url.putString(HISTORY_MESSAGE);
         clipboard.setContent(url);
     }
 
@@ -333,16 +347,49 @@ public class HelpCommandWindow extends UiPart<Stage> {
         clipboard.setContent(url);
     }
 
+    //  /**
+    //   * Copies the wish command template to the clipboard.
+    //   */
+    //  @FXML
+    //  private void copyWish() {
+    //      final Clipboard clipboard = Clipboard.getSystemClipboard();
+    //      final ClipboardContent url = new ClipboardContent();
+    //      url.putString(WISH_MESSAGE);
+    //      clipboard.setContent(url);
+    //  }
+
     /**
-     * Copies the wish command template to the clipboard.
+     * Show the notification when user click on the wish button.
      */
     @FXML
-    private void copyWish() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(WISH_MESSAGE);
-        clipboard.setContent(url);
+    private void handleWish() {
+        getRoot().hide();
+        notification(Pos.TOP_RIGHT, graphic, wishSuccess);
+        notificationBuilder.showInformation();
+
     }
+
+    /**
+     * Inform the user that the following action has been completed.
+     * @param pos specifies the position that the command box appears on the screen.
+     * @param graphic the picture accompanying the notification.
+     * @param text the message that is shown in the notification.
+     */
+    private void notification(Pos pos, Node graphic, String text) {
+        notificationBuilder = Notifications.create()
+                .title("Hold it!")
+                .text(text)
+                .graphic(graphic)
+                .hideAfter(Duration.seconds(5))
+                .position(pos)
+                .onAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("Notification is clicked");
+                    }
+                });
+    }
+
 
     /**
      * Opens up user default browser to the instagram URL
@@ -351,9 +398,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void gotoInstagram() {
         try {
             Desktop.getDesktop().browse(new URL(INSTA_URL).toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -365,9 +410,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void gotoGithub() {
         try {
             Desktop.getDesktop().browse(new URL(GITHUB_URL).toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }
@@ -379,9 +422,7 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private void gotoWebsite() {
         try {
             Desktop.getDesktop().browse(new URL(WEBSITE_URL).toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }

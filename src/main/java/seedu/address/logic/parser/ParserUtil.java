@@ -6,15 +6,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.address.model.country.Country;
+import seedu.address.address.model.person.Address;
+import seedu.address.address.model.person.Email;
+import seedu.address.address.model.person.Name;
+import seedu.address.address.model.person.Phone;
+import seedu.address.address.model.tag.Tag;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.country.Country;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.ui.PageType;
 
 /**
@@ -139,6 +139,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses {@code String pageType} into a {@code PageType}.
+     * @param pageType
+     * @return a {@code PageType} object.
+     * @throws ParseException if the given {@code pageType} is invalid.
+     */
     public static PageType parsePageType(String pageType) throws ParseException {
         requireNonNull(pageType);
         String trimmedPageType = pageType.trim();

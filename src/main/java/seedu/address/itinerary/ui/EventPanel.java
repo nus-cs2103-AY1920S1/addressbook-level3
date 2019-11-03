@@ -1,15 +1,15 @@
 package seedu.address.itinerary.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.itinerary.model.Event.Event;
+import seedu.address.itinerary.model.event.Event;
 import seedu.address.ui.UiPart;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of expenses.

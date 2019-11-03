@@ -1,15 +1,16 @@
 package seedu.address.ui;
 
-import javafx.animation.FadeTransition;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import seedu.address.logic.commands.CommandResult;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * A singleton task that handles all UI for page navigation. It must be initialised using {@code getInstance} before
@@ -50,6 +51,7 @@ public class PageManager {
         } else if (requestedPage.isEmpty()) {
             assert false : "Every get page command should have a page class implemented for it";
         }
+        //@@author bjhoohaha-reused
         //Credits to : Asfal, Genuine Coder
         //https://www.genuinecoder.com/javafx-scene-switch-change-animation/
         Scene requestedScene = requestedPage.get();
@@ -64,5 +66,22 @@ public class PageManager {
         fadeInTransition.setFromValue(0.0);
         fadeInTransition.setToValue(1.0);
         fadeInTransition.play();
+    }
+
+    /**
+     * Closes the TravEzy application window when the user calls the exit command.
+     */
+    public static void closeWindows() {
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+    }
+
+    public static double getXPosition() {
+        return primaryStage.getX() + primaryStage.getWidth() / 2;
+    }
+
+    public static double getYPosition() {
+        return primaryStage.getY() + primaryStage.getHeight() / 2;
     }
 }

@@ -68,7 +68,7 @@
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                 <items>
-                                                   <Label text="summary: Give relevant statistics on the itinerary list." />
+                                                   <Label text="clear: Removes all the current events in the event list" />
                                                    <Region prefHeight="20.0" prefWidth="94.0" />
                                                    <Button fx:id="summaryCommand" mnemonicParsing="false" onAction="#copySummary" text="Copy" />
                                                 </items>
@@ -167,22 +167,22 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                 <items>
-                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion | duration]" />
-                                                   <Region prefHeight="20.0" prefWidth="18.0" />
+                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion | priority]" />
+                                                   <Region prefHeight="20.0" prefWidth="24.0" />
                                                    <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                 <items>
-                                                   <Label text="Redo: Recall back the previous command using the &quot;up&quot; arrow key" />
-                                                   <Region prefHeight="20.0" prefWidth="11.0" />
+                                                   <Label text="History: Recall previous command using &quot;↑&quot; or &quot;↓&quot; arrow key" />
+                                                   <Region prefHeight="20.0" prefWidth="39.0" />
                                                    <Button fx:id="redoCommand" mnemonicParsing="false" onAction="#copyRedo" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
-                                                   <Label text="Undo: Undo the previous few commands from itinerary page" />
-                                                   <Region prefHeight="20.0" prefWidth="48.0" />
+                                                   <Label text="Auto-Complete: Give suggestions that are close to text input" />
+                                                   <Region prefHeight="20.0" prefWidth="45.0" />
                                                    <Button fx:id="undoCommand" mnemonicParsing="false" onAction="#copyUndo" text="Copy" />
                                                 </items>
                                              </ToolBar>
@@ -195,8 +195,9 @@
                                              </ToolBar>
                                              <ToolBar prefHeight="68.0" prefWidth="496.0">
                                                 <items>
-                                                   <Label text="Wish: Wish for the perfect event. Based on various conditions given. " />
-                                                   <Button fx:id="wishCommand" mnemonicParsing="false" onAction="#copyWish" text="Copy" />
+                                                   <Label text="Wish: Wish for the perfect event. Coming in v2.0!" />
+                                                   <Region prefHeight="20.0" prefWidth="127.0" />
+                                                   <Button fx:id="wishCommand" mnemonicParsing="false" onAction="#handleWish" text=":)" />
                                                 </items>
                                              </ToolBar>
                                           </children>

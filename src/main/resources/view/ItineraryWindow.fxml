@@ -1,138 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="itineraryPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <MenuBar fx:id="menuBar" prefHeight="17.0" prefWidth="440.0" BorderPane.alignment="CENTER">
-         <Menu mnemonicParsing="false" text="Itinerary">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-         </Menu>
-      </MenuBar>
-   </top>
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
-   <bottom>
-   
-                                    <StackPane fx:id="statusbarPlaceholder" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <VBox BorderPane.alignment="CENTER">
-         <stylesheets>
-            <URL value="@DarkTheme.css" />
-            <URL value="@Extensions.css" />
-         </stylesheets>
-      
-                                       <VBox fx:id="eventList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <padding>
-               <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-            <StackPane fx:id="eventPlaceHolder" VBox.vgrow="ALWAYS" />
-         </VBox>
-      
-                                 <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-            <padding>
-               <Insets bottom="5" left="10" right="10" top="5" />
-            </padding>
-         </StackPane>
-      
-                                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-            <padding>
-               <Insets bottom="5" left="10" right="10" top="5" />
-            </padding>
-         </StackPane>
-      </VBox>
-   </center>
-   <left>
-      <VBox prefHeight="650.0" prefWidth="200.0" style="-fx-background-color: darkslategrey; -fx-alignment: center;" BorderPane.alignment="CENTER">
+<BorderPane fx:id="itineraryPane" stylesheets="@Itinerary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <left>
+    <VBox prefWidth="50">
+    </VBox>
+  </left>
+  <center>
+      <VBox>
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/travezylogo.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-            </ImageView>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-border-radius: 10; -fx-background-radius: 10;" text="Address" textFill="WHITE">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/phone.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Finances">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/finance.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Calendar">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/calendar_emoji.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Diary">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/diary.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Itinerary">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/itinerary.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="175.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Achievements">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/achievement.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
+            <StackPane fx:id="eventPlaceHolder" />
          </children>
       </VBox>
-   </left>
+  </center>
+  <right>
+    <VBox prefWidth="50">
+    </VBox>
+  </right>
+  <bottom>
+    <VBox>
+      <HBox>
+        <children>
+          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" HBox.hgrow="ALWAYS" VBox.vgrow="NEVER">
+            <padding>
+              <Insets bottom="5" left="50" right="50" top="5" />
+            </padding>
+          </StackPane>
+        </children>
+      </HBox>
+      <HBox fillHeight="true">
+        <children>
+          <StackPane fx:id="commandBoxPlaceholder" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+            <padding>
+              <Insets bottom="5" left="50" right="50" top="5" />
+            </padding>
+          </StackPane>
+        </children>
+      </HBox>
+    </VBox>
+  </bottom>
+   <top>
+      <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+       <MenuBar fx:id="menuBar" prefHeight="33.0" prefWidth="440.0">
+         <Menu mnemonicParsing="false" text="File">
+           <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+         </Menu>
+         <Menu mnemonicParsing="false" text="Code">
+           <MenuItem fx:id="codeMenuItem" mnemonicParsing="false" onAction="#handleCode" text="Git Code" />
+         </Menu>
+         <Menu mnemonicParsing="false" text="Help">
+           <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+         </Menu>
+       </MenuBar>
+            <HBox id="header" alignment="CENTER" prefHeight="110.0" prefWidth="137.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label />
+                        <Label text="Itinerary" />
+                        <Label text="-------------" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox id="border" fx:id="header" prefHeight="10.0" prefWidth="440.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
 </BorderPane>

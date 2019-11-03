@@ -1,0 +1,30 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class HiddenOutside #FFFFFF
+
+Class Storage
+
+namespace Model {
+Class Model
+Model --> "1" FinancialTracker
+namespace Expense {
+Class Expense
+Expense *-up-> Amount
+Expense *-up-> Description
+Expense *-up-> Type
+}
+FinancialTracker -left-> "*" ExpenseList
+FinancialTracker .left.> ObservableList
+ExpenseList -down---> "*" Model.Expense.Expense
+ExpenseList -left-> "1" Model.ObservableList
+ExpenseList *-up--> "1" Country
+}
+
+Model.Model --> Storage
+
+
+@enduml
