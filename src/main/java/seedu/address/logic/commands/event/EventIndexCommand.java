@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.exceptions.VEventNotFoundException;
 
 /**
  * Returns the index of event
@@ -20,6 +21,7 @@ public class EventIndexCommand extends EventCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Gets Index of a Event\n"
             + "Parameters:\n"
             + "Example: event indexOf/cs2100 lecture";
+    private static final String NO_EVENT = "There are no events in nJoy assistant.";
 
     private final String desiredEventName;
 
@@ -38,8 +40,14 @@ public class EventIndexCommand extends EventCommand {
     public CommandResult execute(Model model) throws CommandException {
         List<Pair<Index, VEvent>> resultVEventIndexList = model.findVEventsIndex(desiredEventName);
         if (resultVEventIndexList.isEmpty()) {
-            Pair<Index, VEvent> suggestedEventPair = model.findMostSimilarVEvent(desiredEventName);
-            return new CommandResult(generateSuggestionMessage(suggestedEventPair), CommandResultType.SHOW_SCHEDULE);
+            try {
+                Pair<Index, VEvent> suggestedEventPair = model.findMostSimilarVEvent(desiredEventName);
+                return new CommandResult(generateSuggestionMessage(suggestedEventPair),
+                        CommandResultType.SHOW_SCHEDULE);
+            } catch (VEventNotFoundException ex) {
+                throw new CommandException(NO_EVENT, ex);
+            }
+
         } else {
             return new CommandResult(generateResultMessage(resultVEventIndexList), CommandResultType.SHOW_SCHEDULE);
         }

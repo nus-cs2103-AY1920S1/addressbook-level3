@@ -99,7 +99,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
-            return deleteCommand(index, argMultimap);
+            return deleteCommand(argMultimap);
         } else if (isEdit) { // Delete command
             return editCommand(index, argMultimap);
         } else {
@@ -188,13 +188,13 @@ public class EventCommandParser implements Parser<EventCommand> {
     /**
      * Performs validation and return the EventDeleteCommand object.
      *
-     * @param index       of vEvent in the list.
      * @param argMultimap for tokenized input.
      * @return EventDeleteCommand object.
      * @throws ParseException
      */
-    private EventDeleteCommand deleteCommand(Index index, ArgumentMultimap argMultimap)
+    private EventDeleteCommand deleteCommand(ArgumentMultimap argMultimap)
             throws ParseException {
+        Index index;
         try {
             int indexToDelete = Integer
                     .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0"));
@@ -204,13 +204,12 @@ public class EventCommandParser implements Parser<EventCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                 EventDeleteCommand.MESSAGE_USAGE));
             }
-            index.fromOneBased(indexToDelete);
+            index = Index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             EventDeleteCommand.MESSAGE_USAGE));
         }
-
         return new EventDeleteCommand(index);
     }
 
