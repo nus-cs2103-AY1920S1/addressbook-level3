@@ -14,7 +14,6 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_YEAR_OF_STUDY;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -62,52 +61,68 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        // may not be present, depending on role type being added.
-        Optional<String> facultyString = argMultimap.getValue(PREFIX_FACULTY);
-        Optional<String> yearOfStudyString = argMultimap.getValue(PREFIX_YEAR_OF_STUDY);
-        Optional<String> personalEmailString = argMultimap.getValue(PREFIX_PERSONAL_EMAIL);
-        Optional<String> nusWorkEmailString = argMultimap.getValue(PREFIX_NUS_WORK_EMAIL);
-        List<String> availableTimeslotsString = argMultimap.getAllValues(PREFIX_SLOT);
-
+        // hierarchical parsing
         if (role.getRole() == RoleType.INTERVIEWEE) {
-            if (!arePrefixesPresent(argMultimap, PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_FACULTY,
-                    PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL, PREFIX_NUS_WORK_EMAIL)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
-            Faculty faculty = ParserUtil.parseFaculty(facultyString.get());
-            Integer yearOfStudy = ParserUtil.parseYearOfStudy(yearOfStudyString.get());
-            List<Slot> availableTimeslots = ParserUtil.parseSlots(availableTimeslotsString);
-            Email personalEmail = ParserUtil.parseEmail(personalEmailString.get());
-            Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
-            Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
-            List<Department> departmentChoices =
-                    ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
-            Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagList)
-                    .faculty(faculty)
-                    .yearOfStudy(yearOfStudy)
-                    .departmentChoices(departmentChoices)
-                    .availableTimeslots(availableTimeslots)
-                    .emails(emails)
-                    .build();
-            return new AddIntervieweeCommand(interviewee);
+            return parseAddIntervieweeCommand(argMultimap, name, phone, tagList);
         } else if (role.getRole() == RoleType.INTERVIEWER) {
-            if (!arePrefixesPresent(argMultimap, PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL, PREFIX_SLOT)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
-            // get the last department
-            Department department = ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get());
-            Email nusWorkEmail = ParserUtil.parseEmail(nusWorkEmailString.get());
-            List<Slot> availableTimeslots = ParserUtil.parseSlots(availableTimeslotsString);
-            Interviewer interviewer = new Interviewer.InterviewerBuilder(name, phone, tagList)
-                    .department(department)
-                    .email(nusWorkEmail)
-                    .availabilities(availableTimeslots)
-                    .build();
-            return new AddInterviewerCommand(interviewer);
-        } else {
-            // control flow should not reach here.
-            throw new AssertionError(MESSAGE_CRITICAL_ERROR);
+            return parseAddInterviewerCommand(argMultimap, name, phone, tagList);
         }
+
+        // control flow should not reach here.
+        throw new AssertionError(MESSAGE_CRITICAL_ERROR);
+    }
+
+    /**
+     * Parses the argument multimap into an AddIntervieweeCommand.
+     */
+    private AddIntervieweeCommand parseAddIntervieweeCommand(ArgumentMultimap argMultimap, Name name, Phone phone,
+                                                             Set<Tag> tagSet) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_FACULTY, PREFIX_YEAR_OF_STUDY, PREFIX_FACULTY,
+                PREFIX_DEPARTMENT, PREFIX_SLOT, PREFIX_PERSONAL_EMAIL, PREFIX_NUS_WORK_EMAIL)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        // Get all necessary fields from argMultimap
+        Faculty faculty = ParserUtil.parseFaculty(argMultimap.getValue(PREFIX_FACULTY).get());
+        Integer yearOfStudy = ParserUtil.parseYearOfStudy(argMultimap.getValue(PREFIX_YEAR_OF_STUDY).get());
+        List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
+        Email personalEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSONAL_EMAIL).get());
+        Email nusWorkEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get());
+        Emails emails = new Emails().addPersonalEmail(personalEmail).addNusEmail(nusWorkEmail);
+        List<Department> departmentChoices =
+                ParserUtil.parseDepartments(argMultimap.getAllValues(PREFIX_DEPARTMENT));
+
+        // Build the interviewee
+        Interviewee interviewee = new Interviewee.IntervieweeBuilder(name, phone, tagSet)
+                .faculty(faculty)
+                .yearOfStudy(yearOfStudy)
+                .departmentChoices(departmentChoices)
+                .availableTimeslots(availableTimeslots)
+                .emails(emails)
+                .build();
+
+        return new AddIntervieweeCommand(interviewee);
+    }
+
+    /**
+     * Parses the argument multimap into an AddInterviewerCommand.
+     */
+    private AddInterviewerCommand parseAddInterviewerCommand(ArgumentMultimap argMultimap, Name name, Phone phone,
+                                                             Set<Tag> tagSet) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, PREFIX_DEPARTMENT, PREFIX_NUS_WORK_EMAIL, PREFIX_SLOT)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        // Get all necessary values from argMultimap.
+        Department department = ParserUtil.parseDepartment(argMultimap.getValue(PREFIX_DEPARTMENT).get());
+        Email nusWorkEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_NUS_WORK_EMAIL).get());
+        List<Slot> availableTimeslots = ParserUtil.parseSlots(argMultimap.getAllValues(PREFIX_SLOT));
+
+        // Build the interviewer
+        Interviewer interviewer = new Interviewer.InterviewerBuilder(name, phone, tagSet)
+                .department(department)
+                .email(nusWorkEmail)
+                .availabilities(availableTimeslots)
+                .build();
+        return new AddInterviewerCommand(interviewer);
     }
 
     /**
