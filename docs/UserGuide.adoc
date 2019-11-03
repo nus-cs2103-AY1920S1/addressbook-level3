@@ -79,11 +79,12 @@ Adds a deck of flashcards from a JSON file path to FlashCard Pro's library
 
 Format: `import filepath/FILE_NAME`
 
+[TIP]
+You are advised to save your FlashCard Pro decks of flashcards in a folder that is separate from your files. FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
+
 Examples:
 
 * `import filepath/C:\Users\user\Desktop\flashcardpro`
-
-
 
 === Exporting flashcards to disk: `export`
 
