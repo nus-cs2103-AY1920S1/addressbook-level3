@@ -242,7 +242,7 @@ public class TimedTestDisplay extends AnchorPane {
         timeline = new Timeline(new KeyFrame(Duration.seconds(durationInSeconds + 1),
                 new KeyValue(timeSeconds, 0)));
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(durationInSeconds + 1),
-                event -> ExamRunner.terminateExam()));
+            event -> ExamRunner.terminateExam()));
         timeline.play();
     }
 
