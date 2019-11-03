@@ -1,8 +1,10 @@
 = Sree Subbash - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:stylesDir: ../stylesheets/sreesubbash
+:stylesDir: ../stylesheets
+:stylesheet: asciidoctor.css
 :stylesheet: subbash.css
+:stylesheet: gh-pages.css
 
 == PROJECT: Dukemon
 ---
@@ -17,6 +19,7 @@ While it was targeted at regular CLI users, after preliminary user tests among t
 It was our priority to improve their learning experience. So I took initiative to go the extra mile to improve their command line experience.
 
 Under the hood, it required major restructuring of input processing. In that process, I took care that code was well abstracted for co-developers and future developers.
+
 
 == Summary of contributions
 
@@ -65,6 +68,7 @@ include::../UserGuide.adoc[tag=quickstartsubbash]
 include::../DeveloperGuide.adoc[tag=subbashdg2]
 
 include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
+
 
 
 
