@@ -984,9 +984,6 @@ will be reset.
 ** Remaining budget
 * The user may also set financial goals and set up percentage thresholds to receive notifications.
 * Leo will notify the user any time their financial goals have been reached.
-
-[WARNING]
-The maximum amount you may set for a goal is 10,000,000 (10 million).
 ====
 
 ==== Statistics Information
@@ -1011,6 +1008,9 @@ The following describes how the various statistics are calculated:
 
 [NOTE]
 The amount should be non-negative.
+
+[NOTE]
+The maximum amount you may set for a goal is 10,000,000 (10 million).
 
 * Steps:
 . Type the command with the corresponding target and amount.
