@@ -20,7 +20,6 @@ import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
-import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;

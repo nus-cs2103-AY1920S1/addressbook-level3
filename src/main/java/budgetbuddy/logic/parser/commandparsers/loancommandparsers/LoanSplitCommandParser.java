@@ -20,7 +20,6 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.model.attributes.Description;
-import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
@@ -29,7 +28,7 @@ import budgetbuddy.model.transaction.Amount;
  */
 public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
 
-    public final String MESSAGE_DUPLICATE_PERSONS = "Duplicate persons found in the list of persons. "
+    public static final String MESSAGE_DUPLICATE_PERSONS = "Duplicate persons found in the list of persons. "
             + "Takes note that the list is case insensitive.";
 
     @Override

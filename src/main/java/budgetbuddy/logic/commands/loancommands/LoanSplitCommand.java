@@ -1,7 +1,6 @@
 package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.commons.util.CollectionUtil.generateCombinations;
-import static budgetbuddy.commons.util.CollectionUtil.hasDuplicates;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
