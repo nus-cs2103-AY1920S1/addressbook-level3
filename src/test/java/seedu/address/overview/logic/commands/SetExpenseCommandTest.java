@@ -3,6 +3,7 @@ package seedu.address.overview.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_AMOUNT_TOO_LARGE;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_SET_AMOUNT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_EXPENSE_SUCCESS;
 
@@ -40,8 +41,20 @@ public class SetExpenseCommandTest {
         SetExpenseCommand command = new SetExpenseCommand(-20);
         try {
             command.execute(blankOverviewModel);
+            throw new AssertionError("You should not be here.");
         } catch (InvalidValueException e) {
             assertEquals(new InvalidValueException(MESSAGE_INVALID_SET_AMOUNT).getMessage(), e.getMessage());
+        }
+    }
+
+    @Test
+    public void setExpenseCommand_aboveRange_throwsInvalidValueException() {
+        SetExpenseCommand command = new SetExpenseCommand(100000000);
+        try {
+            command.execute(blankOverviewModel);
+            throw new AssertionError("You should not be here.");
+        } catch (InvalidValueException e) {
+            assertEquals(new InvalidValueException(MESSAGE_AMOUNT_TOO_LARGE).getMessage(), e.getMessage());
         }
     }
 
