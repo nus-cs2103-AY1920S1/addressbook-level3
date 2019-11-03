@@ -24,7 +24,7 @@ public class JavaTestEvaluator {
     @FXML
     private TextArea consoleOutput;
 
-    private Consumer<ArrayList<TestCase>> returnCode;
+    private Consumer<Pair<String, ArrayList<TestCase>>> returnCode;
     private JavaTestCaseRunner runner;
     private JavaCard card;
 
@@ -44,11 +44,11 @@ public class JavaTestEvaluator {
             c.setActualOutput(output);
         }
 
-        returnCode.accept(cases); // send results back to the card
+        returnCode.accept(new Pair<>(code, cases)); // send results back to the card
         setConsoleOutput(cases);
     }
 
-    public void setCodeReturner(Consumer<ArrayList<TestCase>> returnResult) {
+    public void setCodeReturner(Consumer<Pair<String, ArrayList<TestCase>>> returnResult) {
         this.returnCode = returnResult;
     }
 

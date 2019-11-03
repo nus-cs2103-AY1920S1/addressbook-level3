@@ -191,7 +191,6 @@ public class CreateDeckDisplay extends VBox {
                 editingWindow.publicAddCard();
             }
 
-            //LogsCenter.getLogger(CreateCommand.class).info("DECK_CREATE_REG_CARD: Card added to " + deckName);
         } catch (NumberFormatException n) {
             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Answer not valid.");
         }
