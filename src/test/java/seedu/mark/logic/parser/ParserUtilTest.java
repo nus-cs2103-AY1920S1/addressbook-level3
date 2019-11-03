@@ -1,7 +1,6 @@
 package seedu.mark.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.mark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.mark.logic.parser.ParserUtil.NoArgumentParser;
 import static seedu.mark.testutil.Assert.assertThrows;
@@ -220,12 +219,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseNoArgumentCommand_noArgument_returnsCommand() throws ParseException {
-        assert(new NoArgumentParser<>(CommandStub::new).parse("") != null);
+        assertNotNull(new NoArgumentParser<>(CommandStub::new).parse(""));
     }
 
     @Test
     public void parseNoArgumentCommand_withWhitespace_returnsCommand() throws ParseException {
-        assert(new NoArgumentParser<>(CommandStub::new).parse(" \t\n") != null);
+        assertNotNull(new NoArgumentParser<>(CommandStub::new).parse(" \t\n"));
     }
 
     @Test
