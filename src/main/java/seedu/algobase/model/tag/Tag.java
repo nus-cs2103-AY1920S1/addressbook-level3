@@ -12,7 +12,7 @@ import seedu.algobase.model.Id;
 public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Tags names should contain only alphabets, numbers, hyphen or underscore";
+        "Tags names should contain only alphabets, numbers, hyphen or underscore and should not be empty.";
     public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_-]*$";
 
     public final Id id;
