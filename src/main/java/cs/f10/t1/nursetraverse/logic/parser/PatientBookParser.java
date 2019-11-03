@@ -25,6 +25,7 @@ import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.EditAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.ListAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
@@ -152,6 +153,10 @@ public class PatientBookParser {
 
         case FindAppointmentCommand.COMMAND_WORD:
             command = new FindAppointmentCommandParser().parse(arguments);
+            break;
+
+        case ListAppointmentCommand.COMMAND_WORD:
+            command = new ListAppointmentCommand();
             break;
 
         default:
