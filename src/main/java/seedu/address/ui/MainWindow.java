@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             }
         });
 
-        logic.bindOmniPanelTabConsumer(this::setOmniPanelTab);
+        logic.bindOmniPanelInterface(this);
     }
 
     public Stage getPrimaryStage() {
@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         appointmentListPanel = new EventListPanel(logic.getFilteredAppointmentList(), true);
         dutyShiftListPanel = new EventListPanel(logic.getFilteredDutyShiftList(), false);
 
-        tabBar = new TabBar(this);
+        tabBar = new TabBar(this, str -> logic.eagerEvaluate(str, resultDisplay::setFeedbackToUser));
         tabBarPlaceholder.getChildren().add(tabBar.getRoot());
 
         queueListPanel = new QueueListPanel(logic.getConsultationRoomList(),
@@ -281,6 +281,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
+        commandText = commandText.trim();
         if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
         }
@@ -352,6 +353,11 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         }
         Region finalRegion = region;
         Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
+    }
+
+    @Override
+    public OmniPanelTab getOmniPanelTab() {
+        return currentOmniPanelTab;
     }
 
     @Override

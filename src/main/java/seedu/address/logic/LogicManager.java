@@ -31,6 +31,7 @@ import seedu.address.model.queue.QueueManager;
 import seedu.address.model.queue.Room;
 
 import seedu.address.storage.Storage;
+import seedu.address.ui.OmniPanel;
 
 /**
  * The main LogicManager of the app.
@@ -46,6 +47,7 @@ public class LogicManager implements Logic {
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
     private String lastEagerCommandWord = "";
+    private OmniPanel omniPanel;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -61,7 +63,6 @@ public class LogicManager implements Logic {
         throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        lastEagerCommandWord = "";
         Command command = addressBookParser.parseCommand(commandText, model);
         if (command instanceof ReversibleCommand) {
             throw new CommandException("Reversible Commands should be contained in a ReversibleActionPairCommand");
@@ -90,12 +91,24 @@ public class LogicManager implements Logic {
     public synchronized void eagerEvaluate(String commandText, Consumer<String> displayResult) {
 
         //Avoid evaluating the same command
-        String currCommandWord = commandText.trim();
-        if (lastEagerCommandWord.equals(currCommandWord)) {
+        if (lastEagerCommandWord.equals(commandText)) {
             return;
         }
-        lastEagerCommandWord = currCommandWord;
-
+        //@@author CarbonGrid
+        String currCommandWord = commandText.substring(0, commandText.indexOf(' ') + 1);
+        //Avoid restoring when same command word
+        if (!lastEagerCommandWord.equals(currCommandWord)) {
+            try {
+                OmniPanelTab lastTab = omniPanel.getOmniPanelTab();
+                execute(lastEagerCommandWord);
+                displayResult.accept("");
+                omniPanel.setOmniPanelTab(lastTab);
+            } catch (CommandException | ParseException e) {
+                logger.info("This command word has no reset: " + lastEagerCommandWord);
+            }
+            lastEagerCommandWord = currCommandWord;
+        }
+        //@@author SakuraBlossom
         // parse command to be eagerly evaluated
         final Command command = addressBookParser.eagerEvaluateCommand(commandText);
         if (!(command instanceof NonActionableCommand)) {
@@ -194,7 +207,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer) {
-        model.bindTabListingCommand(omniPanelTabConsumer);
+    public void bindOmniPanelInterface(OmniPanel omniPanel) {
+        this.omniPanel = omniPanel;
+        model.bindTabListingCommand(omniPanel::setOmniPanelTab);
     }
 }

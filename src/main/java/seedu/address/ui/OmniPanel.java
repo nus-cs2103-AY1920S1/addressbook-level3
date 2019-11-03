@@ -9,5 +9,7 @@ public interface OmniPanel {
 
     void setOmniPanelTab(OmniPanelTab omniPanelTab);
 
+    OmniPanelTab getOmniPanelTab();
+
     void regainOmniPanelSelector();
 }

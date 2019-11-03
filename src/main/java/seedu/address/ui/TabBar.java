@@ -1,6 +1,8 @@
 //@@author CarbonGrid
 package seedu.address.ui;
 
+import java.util.function.Consumer;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +19,12 @@ import seedu.address.commons.core.OmniPanelTab;
 public class TabBar extends UiPart<Region> {
 
     private int selectedIndex = 0;
+    private boolean lock = false;
 
     @FXML
     private TilePane tabBar;
 
-    public TabBar(OmniPanel omniPanel) {
+    public TabBar(OmniPanel omniPanel, Consumer<String> logicModelReset) {
         super("TabBar.fxml");
 
         Platform.runLater(() -> omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex)));
@@ -44,11 +47,13 @@ public class TabBar extends UiPart<Region> {
             default:
                 return;
             }
-            keyEvent.consume();
             omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(selectedIndex));
+            logicModelReset.accept("");
+            keyEvent.consume();
         });
 
         ols.forEach(iv -> iv.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            logicModelReset.accept("");
             omniPanel.setOmniPanelTab(OmniPanelTab.tabOfIndex(ols.indexOf(mouseEvent.getTarget())));
             tabBar.requestFocus();
         }));
@@ -57,7 +62,7 @@ public class TabBar extends UiPart<Region> {
     /**
      * Selects the TabBar's tile using index.
      */
-    public void selectTabUsingIndex(int selectedIndex) {
+    public synchronized void selectTabUsingIndex(int selectedIndex) {
         this.selectedIndex = selectedIndex;
         ObservableList<Node> ols = tabBar.getChildren();
         ols.forEach(iv -> iv.getStyleClass().setAll("unselected-tab"));

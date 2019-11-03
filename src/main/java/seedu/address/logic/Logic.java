@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -16,6 +15,7 @@ import seedu.address.model.ReferenceIdResolver;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.Room;
+import seedu.address.ui.OmniPanel;
 
 /**
  * API of the Logic component
@@ -102,5 +102,5 @@ public interface Logic {
     /**
      * Binds the OmniPanel tab selector.
      */
-    void bindOmniPanelTabConsumer(Consumer<OmniPanelTab> omniPanelTabConsumer);
+    void bindOmniPanelInterface(OmniPanel omniPanel);
 }
