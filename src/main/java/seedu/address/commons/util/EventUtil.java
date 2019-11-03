@@ -93,7 +93,7 @@ public class EventUtil {
             return RecurrenceRule.parse(DAILY_RECUR_RULE_STRING);
         } else if (recurrenceString.equalsIgnoreCase("none")) {
             return RecurrenceRule.parse(NONE_RECUR_RULE_STRING);
-        }else {
+        } else {
             throw new IllegalValueException("recurrence string type is not valid. value passed: " + recurrenceString);
         }
     }
