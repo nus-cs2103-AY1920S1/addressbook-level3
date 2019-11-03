@@ -9,9 +9,11 @@ import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.interactive.parser.state.EndState;
+import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
+import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.parser.Prefix;
 import com.typee.logic.parser.exceptions.ParseException;
 
@@ -20,6 +22,8 @@ public class Parser implements InteractiveParser {
     private static final String BUFFER_TEXT = " ";
     private static final String MESSAGE_CLEAR_ALL = "// clear";
     private static final String MESSAGE_INVALID_COMMAND = "No such command exists!";
+    private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
+            + " Please enter another command to get started!";
 
     private State currentState;
 
@@ -33,7 +37,7 @@ public class Parser implements InteractiveParser {
 
     @Override
     public void parseInput(String commandText) throws ParseException {
-        if (commandText.equalsIgnoreCase(MESSAGE_CLEAR_ALL)) {
+        if (isClearCommand(commandText)) {
             resetParser();
             return;
         }
@@ -42,7 +46,15 @@ public class Parser implements InteractiveParser {
         parse(commandText, arrayOfPrefixes);
     }
 
+    private boolean isClearCommand(String commandText) {
+        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ALL);
+    }
+
     private void parse(String commandText, Prefix... prefixes) throws ParseException {
+        if (isExitCommand(commandText)) {
+            initializeExit();
+            return;
+        }
         boolean activatedNow = false;
         if (!isActive()) {
             parseInactive(commandText);
@@ -53,12 +65,19 @@ public class Parser implements InteractiveParser {
 
     @Override
     public CommandResult fetchResult() {
-        assert currentState != null : "This shouldn't happen theoretically.";
+        if (currentState == null) {
+            // This block should only be accessed when a clear command is entered.
+            return new CommandResult(MESSAGE_RESET);
+        }
         return new CommandResult(currentState.getStateConstraints());
     }
 
     @Override
     public boolean hasParsedCommand() {
+        if (currentState == null) {
+            return false;
+        }
+
         return currentState.isEndState();
     }
 
@@ -92,7 +111,7 @@ public class Parser implements InteractiveParser {
 
     private void parseActive(String commandText, boolean activatedNow, Prefix... prefixes)
             throws ParseException {
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(commandText.trim(), prefixes);
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(addBufferTo(commandText.trim()), prefixes);
         if (activatedNow) {
             argumentMultimap.clearValues(new Prefix(""));
         }
@@ -105,6 +124,8 @@ public class Parser implements InteractiveParser {
             while (!argumentMultimap.isEmpty()) {
                 currentState = currentState.transition(argumentMultimap);
             }
+        } catch (EndStateException e) {
+            // Ignore since this implies that excessive arguments were supplied.
         } catch (StateTransitionException e) {
             throw new ParseException(e.getMessage());
         }
@@ -144,10 +165,18 @@ public class Parser implements InteractiveParser {
         return commandWords;
     }
 
-    private String addBufferToString(String string) {
+    private String addBufferTo(String string) {
         StringBuilder stringBuilder = new StringBuilder(BUFFER_TEXT);
         stringBuilder.append(string);
         return stringBuilder.toString();
+    }
+
+    private boolean isExitCommand(String commandText) {
+        return commandText.trim().equalsIgnoreCase("Exit");
+    }
+
+    private void initializeExit() {
+        currentState = new ExitState(new ArgumentMultimap());
     }
 
 }
