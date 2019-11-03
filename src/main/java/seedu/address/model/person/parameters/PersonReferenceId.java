@@ -112,7 +112,7 @@ public class PersonReferenceId implements ReferenceId {
         return referenceId;
     }
 
-    public static void ClearAllReferenceId() {
+    public static void clearAllReferenceId() {
         UNIQUE_UNIVERSAL_REFERENCE_ID_MAP.clear();
     }
 

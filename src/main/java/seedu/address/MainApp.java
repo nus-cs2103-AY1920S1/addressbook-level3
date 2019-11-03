@@ -20,8 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.events.AppointmentBook;
-import seedu.address.model.person.AddressBook;
 import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.queue.QueueManager;
 import seedu.address.model.userprefs.ReadOnlyUserPrefs;
@@ -116,7 +114,7 @@ public class MainApp extends Application {
         // restore sample data base if file corrupt detected
         if (dataBaseIsCorrupt) {
             logger.info("Potential corruption deleted. Will revert to last valid state.");
-            PersonReferenceId.ClearAllReferenceId();
+            PersonReferenceId.clearAllReferenceId();
             initialStaffAddressData = SamplePersonDataUtil.getSampleStaffAddressBook();
             initialPatientAddressData = SamplePersonDataUtil.getSampleAddressBook();
             initialAppointmentData = SampleAppointmentDataUtil.getSampleAppointmentBook();
