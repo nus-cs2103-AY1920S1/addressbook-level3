@@ -150,6 +150,11 @@ public class AddCommandTest {
         public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void removeFiltersFromAnswerableList() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

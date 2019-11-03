@@ -10,6 +10,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_INVALID_CORRECT_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalAnswerables.getTypicalAddressBook;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
@@ -27,6 +28,7 @@ import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
 import seedu.revision.testutil.AnswerableBuilder;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.McqBuilder;
@@ -104,6 +106,15 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void parse_multipleCorrectAnswer_failure() {
+        EditAnswerableDescriptor descriptor = new EditAnswerableDescriptorBuilder()
+                .withCorrectAnswerList(MCQ_INVALID_CORRECT_ANSWER_LIST).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_ANSWERABLE, descriptor);
+        assertCommandFailure(editCommand, model, Mcq.MESSAGE_CONSTRAINTS);
+    }
+
 
     @Test
     public void execute_duplicateAnswerableUnfilteredList_failure() {

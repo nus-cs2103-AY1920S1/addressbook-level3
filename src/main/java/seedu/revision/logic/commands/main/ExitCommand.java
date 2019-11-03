@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands.main;
 
 import seedu.revision.logic.commands.Command;
+import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.model.Model;
 
 /**
@@ -17,4 +18,9 @@ public class ExitCommand extends Command {
         return new CommandResult().withFeedBack(MESSAGE_EXIT_ACKNOWLEDGEMENT).withHelp(false).withExit(true).build();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ExitCommand); // instanceof handles nulls
+    }
 }

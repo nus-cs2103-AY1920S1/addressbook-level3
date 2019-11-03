@@ -3,7 +3,8 @@ package seedu.revision.logic.parser;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
-import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC_BROWNFIELD;
+import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
@@ -19,7 +20,6 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_ALPHA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_TYPE;
 import static seedu.revision.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -34,6 +34,7 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.EditCommand.EditAnswerableDescriptor;
 import seedu.revision.logic.parser.main.EditCommandParser;
 import seedu.revision.model.answerable.Difficulty;
+import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.category.Category;
 import seedu.revision.testutil.EditAnswerableDescriptorBuilder;
@@ -101,7 +102,7 @@ public class EditCommandParserTest {
                 Category.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + CORRECT_ANSWER_DESC
+        assertParseFailure(parser, "1" + INVALID_QUESTION_DESC + CORRECT_ANSWER_DESC_BROWNFIELD
                 + MCQ_WRONG_ANSWER_DESC + VALID_CATEGORY_ALPHA + VALID_DIFFICULTY_ALPHA, Question.MESSAGE_CONSTRAINTS);
 
         // editing question type is not allowed

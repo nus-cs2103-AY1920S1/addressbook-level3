@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.BETA;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_B;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 
 import java.util.Arrays;
@@ -96,17 +96,17 @@ public class UniqueAnswerableListTest {
     @Test
     public void setAnswerable_editedAnswerableHasDifferentIdentity_success() {
         uniqueAnswerableList.add(MCQ_STUB);
-        uniqueAnswerableList.setAnswerable(MCQ_STUB, BETA);
+        uniqueAnswerableList.setAnswerable(MCQ_STUB, MCQ_B);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BETA);
+        expectedUniqueAnswerableList.add(MCQ_B);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 
     @Test
     public void setAnswerable_editedAnswerableHasNonUniqueIdentity_throwsDuplicateAnswerableException() {
         uniqueAnswerableList.add(MCQ_STUB);
-        uniqueAnswerableList.add(BETA);
-        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerable(MCQ_STUB, BETA));
+        uniqueAnswerableList.add(MCQ_B);
+        assertThrows(DuplicateAnswerableException.class, () -> uniqueAnswerableList.setAnswerable(MCQ_STUB, MCQ_B));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class UniqueAnswerableListTest {
     public void setAnswerables_uniqueAnswerableList_replacesOwnListWithProvidedUniqueAnswerableList() {
         uniqueAnswerableList.add(MCQ_STUB);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BETA);
+        expectedUniqueAnswerableList.add(MCQ_B);
         uniqueAnswerableList.setAnswerables(expectedUniqueAnswerableList);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
@@ -150,10 +150,10 @@ public class UniqueAnswerableListTest {
     @Test
     public void setAnswerables_list_replacesOwnListWithProvidedList() {
         uniqueAnswerableList.add(MCQ_STUB);
-        List<Answerable> answerableList = Collections.singletonList(BETA);
+        List<Answerable> answerableList = Collections.singletonList(MCQ_B);
         uniqueAnswerableList.setAnswerables(answerableList);
         UniqueAnswerableList expectedUniqueAnswerableList = new UniqueAnswerableList();
-        expectedUniqueAnswerableList.add(BETA);
+        expectedUniqueAnswerableList.add(MCQ_B);
         assertEquals(expectedUniqueAnswerableList, uniqueAnswerableList);
     }
 

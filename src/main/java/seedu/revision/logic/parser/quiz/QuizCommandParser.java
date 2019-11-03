@@ -11,6 +11,7 @@ import seedu.revision.logic.commands.main.HelpCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 
 /**
@@ -32,35 +33,29 @@ public class QuizCommandParser {
      * @throws ParseException
      */
     public Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
-        if (currentAnswerable instanceof Mcq || currentAnswerable instanceof TrueFalse) {
-            final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-            if (!matcher.matches()) {
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-
-            final String commandWord = matcher.group("commandWord");
-
-            switch (commandWord) {
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-            default:
-                break;
-            }
-
-            if (currentAnswerable instanceof Mcq) {
-                return new McqInputCommandParser().parse(userInput, currentAnswerable);
-            } else if (currentAnswerable instanceof TrueFalse) {
-                return new TfInputCommandParser().parse(userInput, currentAnswerable);
-            } else {
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-        } else {
-            if (userInput.isBlank()) {
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-            return new SaqInputCommandParser().parse(userInput, currentAnswerable);
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
 
+        final String commandWord = matcher.group("commandWord");
+
+        switch (commandWord) {
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+        default:
+            break;
+        }
+
+        if (currentAnswerable instanceof Mcq) {
+            return new McqInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            return new TfInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof Saq) {
+            return new SaqInputCommandParser().parse(userInput, currentAnswerable);
+        } else {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 
 }

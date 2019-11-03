@@ -6,8 +6,8 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREEN
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.BETA;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_CORRECT_ANSWER;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_B;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_CORRECT_ANSWER_A;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_VALID_CORRECT_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalAnswerables.MCQ_VALID_WRONG_ANSWER_LIST;
@@ -78,7 +78,7 @@ public class McqTest {
 
     @Test
     public void isCorrect() {
-        assertTrue(MCQ_STUB.isCorrect(MCQ_CORRECT_ANSWER));
+        assertTrue(MCQ_STUB.isCorrect(MCQ_CORRECT_ANSWER_A));
         assertFalse(MCQ_STUB.isCorrect(MCQ_WRONG_ANSWER_A));
         assertThrows(NullPointerException.class, () -> MCQ_STUB.isCorrect(null));
     }
@@ -120,7 +120,7 @@ public class McqTest {
         assertFalse(MCQ_STUB.equals(5));
 
         // different answerable -> returns false
-        assertFalse(MCQ_STUB.equals(BETA));
+        assertFalse(MCQ_STUB.equals(MCQ_B));
 
         // different question -> returns false
         Answerable editedAnswerable = new McqBuilder(MCQ_STUB).withQuestion(VALID_QUESTION_BETA).build();

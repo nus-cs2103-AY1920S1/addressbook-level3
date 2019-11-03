@@ -43,7 +43,8 @@ public class CommandTestUtil {
     public static final String QUESTION_TYPE_MCQ = " " + PREFIX_QUESTION_TYPE + "mcq";
     public static final String QUESTION_DESC_ALPHA = " " + PREFIX_QUESTION + VALID_QUESTION_ALPHA;
     public static final String QUESTION_DESC_BETA = " " + PREFIX_QUESTION + VALID_QUESTION_BETA;
-    public static final String CORRECT_ANSWER_DESC = " " + PREFIX_CORRECT + "Brownfield";
+    public static final String CORRECT_ANSWER_DESC_BROWNFIELD = " " + PREFIX_CORRECT + "Brownfield";
+    public static final String CORRECT_ANSWER_DESC_GREENFIELD = " " + PREFIX_CORRECT + "Greenfield";
     public static final String MCQ_WRONG_ANSWER_DESC = " " + PREFIX_WRONG + "Greenfield " + PREFIX_WRONG + "Blackfield "
             + PREFIX_WRONG + "Whitefield";
     public static final String QUESTION_TYPE_DESC = " " + PREFIX_QUESTION_TYPE + VALID_QUESTION_TYPE;
