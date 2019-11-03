@@ -314,6 +314,7 @@ To increase the usability of food recommendations, it is suggested to have more 
 The current food models can be utilized to help record daily diets. This would allow the user to have an overview of his food consuming statistics. Therefore, some suggestions can be proposed to help diabetes users regulate and plan their diets.
 // end::recmf[]
 
+//tag::datalogDG[]
 === [Proposed] Data log feature
 ==== Proposed Implementation
 The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
@@ -355,7 +356,7 @@ Step 5. After command has executed in `LogicManager`, we attempt to write the re
 * **Alternative 2:** Use separate lists to store different record types.
 ** Pros: Do not need to perform type checks when retrieving from list. 
 ** Cons: Listing all records together becomes difficult, must build a new list from all separate lists. Each class must reference a different kind of list.
-
+//end::datalogDG[]
 
 === Logging
 
@@ -581,14 +582,13 @@ image::BackgroundActivityDiagram.png[]
 `fontcolour` and `background` (if parsing is successful). The way StyleManager sets the `background` is by making a copy
 of the existing StyleSheet used, modifying the required fields and setting it to the StyleSheets of the scene, internally.
 * Perhaps an interesting area of the `Colour` and `Background` commands in more recent updates would include
-implementation using command composition.
-* The driving factor that fueled this is the need to ensure the `Fontcolour` and `Background` do not have colours that are
-too similar (or otherwise the text could get difficult or impossible to see).
-* This above-mentioned checking was implemented by Summing square of the differences in red, green and blue channels'
+implementation using command composition. The driving factor that fueled this is the need to ensure the `Fontcolour`
+and `Background` do not have colours that are too similar (or otherwise the text could get difficult or impossible to see).
+This above-mentioned checking was implemented by summing the square of the differences in red, green and blue channels'
 values between the `Colour` of the `Fontcolour` and `Background`.
-* How then a `Colour` for a `Background` with an image instead of a `Colour` is determined would be by extracting the
+* The `Colour` for a `Background` with an image instead of a solid `Colour` is determined by extracting the
 `Colour` that appears the most often using the `ImageTester` class.
-* An issue that arose in checking for colour differences would be addressing the situation when the user intends to make
+* An major issue with checking for colour differences would be the situation when the user intends to make
 changes to a `Fontcolour` that clashes with the `Background` if changed. Take for example a change in `fontcolour`
 intended to be changed from white to black, with a background that is curently _already_ black. The system would not have
 allowed changes of the text from white to black because of the background's black colour and would have suggested to
@@ -599,15 +599,15 @@ colours without going through a series of specific steps that would not cause co
 * Command composition allows the `background` and `fontcolour` commands to be combined such that the user is able to
 set both the `background` and `fontcolour` simultaneously, and as such colour comparison is made solely between the
 new colours entered rather than any of the current colours.
-* How it works is that `BackgroundParser` parses for `fontcolour/` and its arguments while `FontColourParser` parses for
-`bg/` and its arguments. Any of these prefixes observed will result in the Parser generating a `FontColourCommand` and
-\`BackgroundColourCommand` respectively. `BackgroundParser` then returns a `BackgroundColourCommand` that has a
+* `BackgroundParser` parses for `fontcolour/` and its arguments while `FontColourParser` parses for
+`bg/` and its arguments. Any of these prefixes observed results in the Parser generating a `FontColourCommand` and
+`BackgroundColourCommand` respectively. `BackgroundParser` then returns a `BackgroundColourCommand` that has a
 `FontColourCommand` _stored_ in it and vice versa. When `Logic` executes `BackgroundCommand`, for instance,
 `BackgroundCommand` executes the `FontColourCommand` stored in it as well. The necessary adjustments are made to model
 accordingly and the feedback to users from both commands will be returned to the user.
 * The idea of a command running another command allows commands such as `bg black fontcolour/red` to be entered by the
 user. Modified methods in the `ArgumentMultimap` class of the `logic` package also allows the program to ensure that
-the user does not entert multiple arguments of the same type at once eg. disallowing `bg black fontcolour/red
+the user does not enter multiple arguments of the same type at once eg. disallowing `bg black fontcolour/red
 fontcolor/yellow`.
 
 ===== Achievements
@@ -629,11 +629,11 @@ created in the `model` of the program. All `Achievement` objects are initially a
 Thereafter, the `AchievementStateProcessor` class is called, which iterates through the list of all `Record` elements
 stored in `model`.
 * For each `RecordType` and `Level` of `Achievement`, the `AchievementStateProcessor` class checks whether the records
-fulfils the requirements for a predefined number of consecutive days. Requirements are in turn termined by the
+fulfils the requirements for a predefined number of consecutive days. Requirements are in turn determined by the
 `MAXIMUM` and `MINIMUM` values stored in the interfaces of the `Achievement` class. State changes are made to the
 `Achievement` class if requirements are fulfilled (eg. if the number of requirements of a `RecordType` for `Gold` are met,
 then the `Achievement` of `level` `Gold` and of that particular `RecordType` would have it's state updated to reflect
-that change. This is accomplised using methods such as the `promote` and `demote` in the `AchievementStateProcessor`).
+that change. This is accomplished using methods such as the `promote` and `demote` in the `AchievementStateProcessor`).
 * In order to determine whether requirements are fulfilled, interaction with not only the `RecordType` is implemented,
 but also the methods of the `Average` feature (to obtain daily averages of record types before comparing them).
 * A notable aspect of the implementation is the reversal of `level` from high to low level. This is such that if a
@@ -738,9 +738,9 @@ archive of users' preferred themes during that session. Adding, editing and dele
 methods. A `HashMap` could also be used such that the user can self-define names for each of the themes. A variable
 would serve as a current pointer to determine the current theme the user is using. A change in theme could be achieved
 by updating the pointer and / or the `HashMap`, if any is implemented. If the user does not have any themes,
-then default aesthetics would be loaded, or if there is at least one saved settings (as there is in this current version
-of the application), the users' preferences' in those settings would be loaded. Upon termination of the program, the
-contents of the list could be saved to a JsonStorage file.
+then default aesthetics would be loaded, or if there is at least one set of saved settings (as there is in this current
+version of the application), the users' preferences' in those settings would be loaded. Upon termination of the program,
+the contents of the list could be saved to a JsonStorage file.
 
 ==== Displaying of cartoon avatar that represents the user: `[coming in v2.0]`
 
@@ -773,6 +773,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::productScope[]
 [appendix]
 == Product Scope
 
@@ -794,6 +795,7 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: convenient all-in-one app for effectively managing diabetes that is faster than a typical mouse/GUI driven app
+//end::productScope[]
 
 [appendix]
 == User Stories
@@ -888,7 +890,7 @@ that is always easily accessible |instantly calculate all my medical costs when 
 
 |`*` |medical consultant |export my patient's health data  |save my time
 |=======================================================================
-
+//tag::useCases[]
 [appendix]
 == Use Cases
 
@@ -1017,7 +1019,9 @@ Use case resumes at step 2.
 ** 3b1. System shows an error message.
 +
 Use case resumes at step 2.
+//end::useCases[]
 
+//tag::nfr[]
 [appendix]
 == Non Functional Requirements
 
@@ -1029,6 +1033,7 @@ Use case resumes at step 2.
 .  The software should not depend on your own remote server
 
 [appendix]
+//end::nfr[]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
