@@ -1,6 +1,7 @@
 package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.commands.MatchCommand.match;
 

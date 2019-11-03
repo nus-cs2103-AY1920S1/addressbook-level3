@@ -26,20 +26,25 @@
           </minWidth>
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-        <Label fx:id="type" style="-fx-background-radius: 4; -fx-border-radius: 4; -fx-background-color: #ebb789;" styleClass="cell_small_label" text="\$type">
+        <Label fx:id="type" style="-fx-background-radius: 4; -fx-border-radius: 4; -fx-background-color: #ebb789;" styleClass="cell_small_label" text="\$type" >
+        <padding>
+            <Insets bottom="1.0" left="3.0" right="3.0" top="1.0" />
+          </padding>
+        </Label>
+        <Label fx:id="status" text="\$status">
           <padding>
             <Insets bottom="1.0" left="3.0" right="3.0" top="1.0" />
           </padding>
         </Label>
-        <Label fx:id="nric" style="-fx-background-radius: 4; -fx-border-radius: 4; -fx-background-color: #77B5FE;" styleClass="cell_small_label" text="\$nric">
+        <Label fx:id="priority" text="\$priority">
           <padding>
             <Insets bottom="1.0" left="3.0" right="3.0" top="1.0" />
           </padding>
         </Label>
       </HBox>
+      <Label fx:id="nric" styleClass="cell_small_label" text="\$nric" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="age" styleClass="cell_small_label" text="\$age" />
-      <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
       <Label fx:id="bloodType" styleClass="cell_small_label" text="\$bloodType" />
       <Label fx:id="tissueType" styleClass="cell_small_label" text="\$tissueType" />
       <Label fx:id="organ" styleClass="cell_small_label" text="\$organ" />

@@ -2,7 +2,6 @@ package organice.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static organice.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static organice.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static organice.logic.commands.CommandTestUtil.NAME_DESC_DOCTOR_AMY;
 import static organice.logic.commands.CommandTestUtil.NRIC_DESC_DOCTOR_AMY;
@@ -66,12 +65,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.LIST_OF_PERSONS, model);
@@ -98,11 +91,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
-    }
-
-    @Test
     public void getMatchList_matchDonors_allContentsAreMatches() {
         model.addPerson(DONOR_IRENE_DONOR);
         model.addPerson(PATIENT_IRENE);
@@ -110,7 +98,7 @@ public class LogicManagerTest {
         model.addPerson(DONOR_FIONA);
 
         model.matchDonors(PATIENT_IRENE);
-        ObservableList<Person> listOfMatches = model.getMatchList();
+        ObservableList<Person> listOfMatches = model.getDisplayedPersonList();
         boolean isAllMatchedDonor = listOfMatches.stream().allMatch(match -> match instanceof MatchedDonor);
 
         assertTrue(isAllMatchedDonor);
@@ -125,7 +113,7 @@ public class LogicManagerTest {
         model.addPerson(DONOR_FIONA);
 
         model.matchAllPatients();
-        ObservableList<Person> listOfMatches = model.getMatchList();
+        ObservableList<Person> listOfMatches = model.getDisplayedPersonList();
         boolean isAllMatchedPatient = listOfMatches.stream().allMatch(match -> match instanceof MatchedPatient);
 
         assertTrue(isAllMatchedPatient);

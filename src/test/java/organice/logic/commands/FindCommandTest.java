@@ -82,7 +82,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonContainsPrefixesPredicate predicate =
-                preparePredicate(FindCommand.COMMAND_WORD + " n/Kurz Elle Kunz");
+                preparePredicate(FindCommand.COMMAND_WORD + " n/Kurz n/Elle n/Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

@@ -19,10 +19,12 @@ import static organice.testutil.TypicalPersons.PATIENT_BOB;
 import static organice.testutil.TypicalPersons.PATIENT_IRENE;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -64,7 +66,7 @@ public class MatchCommandTest {
         String validNric = VALID_NRIC_PATIENT_IRENE;
 
         CommandResult commandResult = new MatchCommand(validNric).execute(modelStub);
-        ObservableList<Person> listOfDonors = modelStub.getMatchList();
+        ObservableList<Person> listOfDonors = modelStub.getDisplayedPersonList();
 
         String expectedMessage = String.format(MatchCommand.MESSAGE_SUCCESS_MATCH_PATIENT, listOfDonors.size(),
                 VALID_NAME_PATIENT_IRENE, VALID_NRIC_PATIENT_IRENE);
@@ -78,7 +80,7 @@ public class MatchCommandTest {
         String validNric = VALID_NRIC_PATIENT_IRENE;
 
         CommandResult commandResult = new MatchCommand(validNric).execute(modelStub);
-        ObservableList<Person> listOfDonors = modelStub.getMatchList();
+        ObservableList<Person> listOfDonors = modelStub.getDisplayedPersonList();
 
         String expectedMessage = String.format(MatchCommand.MESSAGE_NO_MATCHES, VALID_NAME_PATIENT_IRENE,
                 VALID_NRIC_PATIENT_IRENE);
@@ -186,11 +188,13 @@ public class MatchCommandTest {
      */
     private class ModelStubWithDonor extends ModelStub {
         private FilteredList<Person> filteredPersons;
+        private ObservableList<Person> displayedPersons;
         private ObservableList<Person> listOfMatches;
 
         ModelStubWithDonor(Patient patient, Donor donor) {
             AddressBook addressBook = new AddressBookBuilder().withPerson(patient).withPerson(donor).build();
             filteredPersons = new FilteredList<>(addressBook.getPersonList());
+            setDisplayedPersonList(Arrays.asList(filteredPersons.toArray(Person[]::new)));
         }
 
         @Override
@@ -213,8 +217,19 @@ public class MatchCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getDisplayedPersonList() {
+            return displayedPersons;
+        }
+
+        @Override
+        public void setDisplayedPersonList(List<Person> personList) {
+            displayedPersons = FXCollections.observableList(personList);
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             filteredPersons.setPredicate(predicate);
+            setDisplayedPersonList(Arrays.asList(filteredPersons.toArray(Person[]::new)));
         }
 
         @Override
@@ -224,6 +239,7 @@ public class MatchCommandTest {
 
         private void addMatchedDonor(MatchedDonor matchedDonor) {
             listOfMatches.add(matchedDonor);
+            setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
         }
 
         @Override
@@ -244,11 +260,7 @@ public class MatchCommandTest {
                     addMatchedDonor(matchedDonor);
                 }
             }
-        }
-
-        @Override
-        public ObservableList<Person> getMatchList() {
-            return listOfMatches;
+            setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
         }
 
         @Override
@@ -267,11 +279,13 @@ public class MatchCommandTest {
      */
     private class ModelStubWithoutDonor extends ModelStub {
         private FilteredList<Person> filteredPersons;
+        private ObservableList<Person> displayedPersons;
         private ObservableList<Person> listOfMatches;
 
         public ModelStubWithoutDonor(Patient patient) {
             AddressBook addressBook = new AddressBookBuilder().withPerson(patient).build();
             filteredPersons = new FilteredList<>(addressBook.getPersonList());
+            setDisplayedPersonList(Arrays.asList(filteredPersons.toArray(Person[]::new)));
         }
 
         @Override
@@ -294,8 +308,19 @@ public class MatchCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getDisplayedPersonList() {
+            return displayedPersons;
+        }
+
+        @Override
+        public void setDisplayedPersonList(List<Person> personList) {
+            displayedPersons = FXCollections.observableList(personList);
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             filteredPersons.setPredicate(predicate);
+            setDisplayedPersonList(Arrays.asList(filteredPersons.toArray(Person[]::new)));
         }
 
         @Override
@@ -305,6 +330,7 @@ public class MatchCommandTest {
 
         private void addMatchedDonor(MatchedDonor matchedDonor) {
             listOfMatches.add(matchedDonor);
+            setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
         }
 
         @Override
@@ -325,16 +351,13 @@ public class MatchCommandTest {
                     addMatchedDonor(matchedDonor);
                 }
             }
-        }
-
-        @Override
-        public ObservableList<Person> getMatchList() {
-            return listOfMatches;
+            setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
         }
 
         @Override
         public void removeMatches() {
             listOfMatches = observableArrayList();
+            setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
         }
 
         @Override

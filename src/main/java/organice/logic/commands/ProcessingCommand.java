@@ -55,7 +55,7 @@ public class ProcessingCommand extends Command {
      */
     public boolean isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model) {
         boolean canBePaired;
-
+      
         if (model.hasDonor(firstNric)) {
             donorNric = firstNric;
             donor = model.getDonor(donorNric);
@@ -103,7 +103,6 @@ public class ProcessingCommand extends Command {
                     donor.setProcessingList(donor.getProcessingList(patientNric).defaultList().toString());
                 }
                 taskList = donor.getProcessingList(patientNric);
-
                 taskList.setPatient(patient);
 
                 donor.setStatus("processing");
@@ -113,7 +112,6 @@ public class ProcessingCommand extends Command {
         } catch (PersonNotFoundException | NullPointerException npe) {
             return new CommandResult(MESSAGE_NOT_PROCESSED);
         }
-
     }
 
     @Override

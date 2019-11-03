@@ -42,7 +42,7 @@ public class DoctorCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(doctor.getName().fullName);
         phone.setText("Phone Number: " + doctor.getPhone().value);
-        nric.setText(doctor.getNric().value);
+        nric.setText("NRIC: " + doctor.getNric().value);
         type.setText(doctor.getType().value);
     }
 

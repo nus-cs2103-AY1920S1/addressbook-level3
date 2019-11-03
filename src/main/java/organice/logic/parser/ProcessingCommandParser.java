@@ -41,5 +41,4 @@ public class ProcessingCommandParser implements Parser<ProcessingCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
         }
     }
-
 }

@@ -14,7 +14,7 @@ import java.util.HashSet;
 public class BloodType {
 
     public static final HashSet<String> BLOOD_TYPES =
-            new HashSet<>(Arrays.asList("A", "B", "AB", "O", "A+", "AB+", "B+", "O+"));
+            new HashSet<>(Arrays.asList("A", "B", "AB", "O"));
 
     public static final BloodType BLOODTYPE_A = new BloodType("A");
     public static final BloodType BLOODTYPE_B = new BloodType("B");
@@ -25,8 +25,7 @@ public class BloodType {
     public static final HashMap<BloodType, HashSet<BloodType>> BLOOD_TYPES_MATCHES = BloodType.getBloodTypeMatches();
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Blood type should only have A, B, O or AB."
-                    + "Positive blood types will have a '+' behind, it should not be blank";
+            "Blood type should only have A, B, O or AB. Inputs should not be blank";
 
 
 
