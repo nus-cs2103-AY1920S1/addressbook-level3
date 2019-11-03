@@ -7,7 +7,6 @@ import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.tag.Tag;
 
-
 /**
  * Represent a pending claim in the Financial Planner
  */

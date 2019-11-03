@@ -23,6 +23,7 @@ public class ClaimBuilder {
     public static final String DEFAULT_AMOUNT = "152.86";
     public static final String DEFAULT_DATE = "15-12-2019";
     public static final String DEFAULT_NAME = "John";
+    public static final String DEFAULT_PHONE = "91234567";
 
     private Description description;
     private Amount amount;

@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -11,7 +11,7 @@ import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
  * Stores the list of suggestions to be displayed for command box.
  */
 public class SuggestionsStorage {
-    private static ArrayList<String> suggestions = new ArrayList<String>();
+    private static HashSet<String> suggestions = new HashSet<>();
 
 
     public static void setSuggestionList(ObservableList<AutocorrectSuggestion> list) {
@@ -23,7 +23,7 @@ public class SuggestionsStorage {
      * Returns the static Set of suggestions.
      * @return the SortedSet.
      */
-    public static ArrayList<String> getSuggestions() {
+    public static HashSet<String> getSuggestions() {
         return suggestions;
     }
 

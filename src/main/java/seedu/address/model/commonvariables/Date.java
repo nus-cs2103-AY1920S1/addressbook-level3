@@ -3,10 +3,8 @@ package seedu.address.model.commonvariables;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 /**
  * Represents a claim's/income's date.
@@ -45,7 +43,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return new SimpleDateFormat("dd-MM-yyyy").format(date);
+        return format.format(date);
     }
 
     public LocalDate getLocalDate() {

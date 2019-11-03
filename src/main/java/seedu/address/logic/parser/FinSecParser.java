@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.HelpCommand.MESSAGE_USAGE;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,12 +52,12 @@ public class FinSecParser {
      */
     private static TreeMap<String, String> commandList;
 
-    private static ArrayList<CommandItem> shortcuts;
+    private static HashSet<CommandItem> shortcuts;
 
 
     public FinSecParser(ObservableList<CommandItem> commands) {
         FinSecParser.commandList = new TreeMap<>();
-        FinSecParser.shortcuts = new ArrayList<>();
+        FinSecParser.shortcuts = new HashSet<>();
         initialiseDefaultCommands();
         for (CommandItem commandItem : commands) {
             FinSecParser.commandList.put(commandItem.getCommandWord().word, commandItem.getCommandTask().task);
@@ -69,7 +69,7 @@ public class FinSecParser {
 
     public FinSecParser() {
         FinSecParser.commandList = new TreeMap<>();
-        FinSecParser.shortcuts = new ArrayList<>();
+        FinSecParser.shortcuts = new HashSet<>();
         initialiseDefaultCommands();
     }
 
@@ -77,7 +77,7 @@ public class FinSecParser {
         return FinSecParser.commandList;
     }
 
-    public static ArrayList<CommandItem> getShortcutList() {
+    public static HashSet<CommandItem> getShortcutList() {
         return FinSecParser.shortcuts;
     }
 
