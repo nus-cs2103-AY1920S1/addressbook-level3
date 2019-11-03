@@ -86,13 +86,11 @@ public class DeckDisplay extends AnchorPane {
         Exam exam = ExamRunner.getCurrentExam();
         if (exam.getDuration() == 0) {
             TestDisplay testDisplay = new TestDisplay(exam);
-            swapDisplaysInMain.accept(testDisplay);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
         }
         if (exam.getDuration() > 0) {
             TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
-            swapDisplaysInMain.accept(timedTestDisplay);
-            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
         }
         
     }

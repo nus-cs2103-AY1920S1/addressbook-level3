@@ -13,6 +13,7 @@ import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.State;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.JavaCard;
@@ -95,19 +96,6 @@ public class TimedTestDisplay extends AnchorPane {
     };
 
     @SuppressWarnings("unchecked")
-    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-    /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to re-render DeckDisplay
-     */
-    @SuppressWarnings("unchecked")
-    private Consumer<Boolean> displayDecks = State.getState().getConsumer(ConsumerSchema.DISPLAY_DECKS);
-    /**
-     * Imported Consumer: Used by TestDisplay to trigger MainWindow to clear the message bar.
-     */
-    @SuppressWarnings("unchecked")
-    private Consumer<Boolean> clearMessage = State.getState().getConsumer(ConsumerSchema.CLEAR_MESSAGE);
-
-    @SuppressWarnings("unchecked")
     private Consumer<Boolean> nextCard = onNext -> {
         onShowNext();
     };
@@ -118,7 +106,7 @@ public class TimedTestDisplay extends AnchorPane {
 
     public TimedTestDisplay(Exam exam) {
         try {
-            clearMessage.accept(true);
+            Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/Displays"
                     + "/TimedTestDisplay.fxml"));
             fxmlLoader.setController(this);
@@ -130,6 +118,11 @@ public class TimedTestDisplay extends AnchorPane {
             this.cardOnDisplay = exam.getCurrentCard();
             this.timeSeconds = new SimpleIntegerProperty(durationInSeconds);
             this.timeline = new Timeline();
+            //
+            Consumers.addConsumer("GET_SCORE", getScore);
+            Consumers.addConsumer("UPDATE_MCQ_ATTEMPT", updateMcqUserAttempt);
+            Consumers.addConsumer("UPDATE_STRING_ATTEMPT", updateStringUserAttempt);
+            Consumers.addConsumer("SHOW_NEXT", nextCard);
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> onEndSession());
@@ -208,12 +201,13 @@ public class TimedTestDisplay extends AnchorPane {
         } catch (IndexOutOfBoundsException e) {
             //code for a result popup
             timeline.stop();
-            displayMessage.accept("You've ran out of cards in this test!");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You've ran out of cards in this test!");
             exam.downIndex();
             try {
                 ExamRunner.terminateExam();
             } catch (NullPointerException e2) {
-                displayMessage.accept("Exam has already ended! Either review your previous questions or exit :)");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE,
+                        "Exam has already ended! Either review your previous questions or exit :)");
             }
         }
     }
@@ -255,8 +249,8 @@ public class TimedTestDisplay extends AnchorPane {
         if (ExamRunner.getCurrentExam() != null) {
             ExamRunner.terminateExam();
         }
-        displayDecks.accept(true);
-        clearMessage.accept(true);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+        Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
     }
 
 }

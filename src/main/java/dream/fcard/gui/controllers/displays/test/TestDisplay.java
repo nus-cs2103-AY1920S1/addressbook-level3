@@ -103,6 +103,10 @@ public class TestDisplay extends AnchorPane {
             //show the first card - fails if no cards are present
             this.exam = exam;
             this.cardOnDisplay = exam.getCurrentCard();
+            Consumers.addConsumer("GET_SCORE", getScore);
+            Consumers.addConsumer("UPDATE_MCQ_ATTEMPT", updateMcqUserAttempt);
+            Consumers.addConsumer("UPDATE_STRING_ATTEMPT", updateStringUserAttempt);
+            Consumers.addConsumer("SHOW_NEXT", nextCard);
             seeFront();
             prevButton.setOnAction(e -> onShowPrevious());
             endSessionButton.setOnAction(e -> onEndSession());
@@ -183,7 +187,8 @@ public class TestDisplay extends AnchorPane {
             try {
                 ExamRunner.terminateExam();
             } catch (NullPointerException e2) {
-                displayMessage.accept("Exam has already ended! Either review your previous questions or exit :)");
+                Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE,
+                        "Exam has already ended! Either review your previous questions or exit :)");
             }                     
         }
     }
@@ -215,7 +220,7 @@ public class TestDisplay extends AnchorPane {
         if (ExamRunner.getCurrentExam() != null) {
             ExamRunner.terminateExam();
         }
-        displayDecks.accept(true);
-        clearMessage.accept(true);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+        Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
     }
 }
