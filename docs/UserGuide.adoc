@@ -868,8 +868,8 @@ Fat should be less than 35(g) to be considered as safe for type II diabetes pati
 
 Note::
 ** No duplicate food names are allowed.
-** All nutrition values are numerical values and should be equal or greater than zero.
-Besides, the values are suggested to be per serving.
+** All nutrition values are numerical values. Such value should be equal or greater than zero and contain no more than four
+decimals. Besides, the values are suggested to be normalized as per serving for more useful value comparisons and calculations.
 ** The order of fields is flexible.
 ** Duplicate fields are allowed and only the last one will be considered. Therefore, the last occurrence must be in
 valid format for the command to be executed.
