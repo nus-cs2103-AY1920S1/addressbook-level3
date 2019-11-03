@@ -47,7 +47,7 @@ public class CommandBox extends UiPart<Region> {
     private Label modesLabel;
 
     @FXML
-    private MenuBar commandMenuField;
+    private MenuBar autoFillBar;
 
     private Menu temp;
     private List<Menu> currentMenus;
@@ -63,32 +63,35 @@ public class CommandBox extends UiPart<Region> {
 
         initialiseText();
         fillMenu();
-        fillCombo();
+        fillAvailableModes();
 
     }
 
     /**
-     *  Sets change detection callback to textfield
+     *  Sets change detection callback to textfield.
      */
     private void initialiseText() {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((observable, oldCommand, newCommand) -> setStyleToDefault());
 
         commandTextField.textProperty().addListener((observable, oldCommand, newCommand) -> {
-            //System.out.println("command changing from " + oldCommand + " to " + newCommand);
             updateMenu(oldCommand, newCommand);
         });
     }
 
     /**
-     * updates menu based on changes detected
+     * Updates menu based on changes detected.
      * @param oldCommand in text field
      * @param newCommand in text field
      */
     private void updateMenu(String oldCommand, String newCommand) {
-        commandMenuField.getMenus().clear();
+
+        autoFillBar.getMenus().clear();
+
         for (Action temp : uiLogicHelper.getMenuItems(newCommand)) {
+
             Label label = new Label(temp.toString());
+
             label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -96,9 +99,11 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.positionCaret(temp.toString().length() + 1);
                 }
             });
+
             Menu button = new Menu();
             button.setGraphic(label);
-            commandMenuField.getMenus().add(button);
+
+            autoFillBar.getMenus().add(button);
         }
     }
 
@@ -106,8 +111,11 @@ public class CommandBox extends UiPart<Region> {
      *  Fills in Menu bar in UI
      */
     private void fillMenu() {
+
         for (Action temp : uiLogicHelper.getMenuItems("")) {
+
             Label label = new Label(temp.toString());
+
             label.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -115,29 +123,44 @@ public class CommandBox extends UiPart<Region> {
                     commandTextField.positionCaret(temp.toString().length() + 1);
                 }
             });
+
             Menu button = new Menu();
             button.setGraphic(label);
-            commandMenuField.getMenus().add(button);
+
+            autoFillBar.getMenus().add(button);
         }
     }
 
     /**
-     *  Fills in combo in ui
+     *  Fills in available modes.
      */
-    private void fillCombo() {
-        modeLabel.setText(uiLogicHelper.getMode().toString());
-        String modes = " | ";
-        List<ModeEnum> temp = uiLogicHelper.getModes();
+    private void fillAvailableModes() {
 
-        for (ModeEnum mode : temp) {
-            if (!uiLogicHelper.getMode().toString().equals(mode.toString())) {
-                modes += (mode.toString() + " | ");
+        String currentModeString = uiLogicHelper.getMode().toString();
+
+        modeLabel.setText(currentModeString);
+
+        boolean otherModesExist = false;
+        String modes = " | ";
+        List<ModeEnum> otherModes = uiLogicHelper.getModes();
+
+        for (ModeEnum mode : otherModes) {
+
+            String otherModeString = mode.toString();
+
+            if (!currentModeString.equals(otherModeString)) {
+
+                modes += (otherModeString + " | ");
+                otherModesExist = true;
+
             }
+
         }
 
-        if (modes.equals(" | ")) {
+        if (!otherModesExist) {
             modes = "None";
         }
+
         modesLabel.setText(modes);
     }
 
@@ -147,13 +170,14 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
+
         try {
             commandExecutor.execute(commandTextField.getText());
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
-        fillCombo();
-        //commandComboField.setValue(uiLogicHelper.getMode().toString());
+
+        fillAvailableModes();
     }
 
     /**
