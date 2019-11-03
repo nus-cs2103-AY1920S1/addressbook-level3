@@ -107,6 +107,8 @@ public class ModelManager implements Model {
     @Override
     public void setNotebook(ReadOnlyNotebook notebook) {
         this.notebook.resetData(notebook);
+        filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
+        filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
     }
 
     @Override
