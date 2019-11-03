@@ -13,6 +13,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * Tab containing the spending graph.
@@ -23,26 +24,28 @@ public class GraphPanel extends UiPart<Region> {
     @FXML
     private StackPane panePlaceholder;
 
-    public GraphPanel(LinkedHashMap<String, Double> graphData, String commandResult) {
+    public GraphPanel(LinkedHashMap<String, Double> graphData, String commandResult, Currency currencyInUse) {
         super(FXML);
-        loadData(graphData, commandResult);
+        loadData(graphData, commandResult, currencyInUse);
     }
 
     /**
      * Constructs the spending graph with the data.
      */
-    private void loadData(LinkedHashMap<String, Double> graphData, String commandResult) {
+    private void loadData(LinkedHashMap<String, Double> graphData, String commandResult, Currency currency) {
+
+        //@@author choongyx
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Date");
         NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("Amount spent ($)");
+        yAxis.setLabel(String.format("Amount spent (%s)", currency.symbol));
         LineChart<String, Number> spendingChart = new LineChart<>(xAxis, yAxis);
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Spending");
         for (Map.Entry<String, Double> i : graphData.entrySet()) {
-            XYChart.Data<String, Number> dataToAdd = new XYChart.Data<>(i.getKey().toString(),
-                    Math.round(i.getValue()));
+            double newCost = currency.rate * i.getValue();
+            XYChart.Data<String, Number> dataToAdd = new XYChart.Data<>(i.getKey().toString(), Math.round(newCost));
             series.getData().add(dataToAdd);
         }
         spendingChart.getData().add(series);
@@ -50,11 +53,12 @@ public class GraphPanel extends UiPart<Region> {
         spendingChart.setTitle(commandResult);
         spendingChart.setLegendSide(Side.RIGHT);
 
+        //@@author jonathantjendana
         for (XYChart.Series<String, Number> s : spendingChart.getData()) {
             for (XYChart.Data<String, Number> d : s.getData()) {
                 Tooltip tp = new Tooltip(
                         "Date: \t" + d.getXValue() + "\n"
-                                + "Spending: \t$" + d.getYValue() + ".00");
+                                + "Spending: \t" + currency.symbol + d.getYValue() + ".00");
                 tp.setShowDelay(Duration.seconds(0.0005));
                 Tooltip.install(d.getNode(), tp);
 

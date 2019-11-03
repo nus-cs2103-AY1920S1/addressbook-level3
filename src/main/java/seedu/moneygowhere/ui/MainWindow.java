@@ -19,6 +19,7 @@ import seedu.moneygowhere.logic.commands.CommandResult;
 import seedu.moneygowhere.logic.commands.HelpCommand;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.logic.parser.exceptions.ParseException;
+import seedu.moneygowhere.model.currency.Currency;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -146,12 +147,14 @@ public class MainWindow extends UiPart<Stage> {
         budgetPanel = bp;
         budgetPanelPlaceholder.getChildren().add(bp.getRoot());
 
+        Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
         graphTab = new Tab("Graph");
-        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
+        graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
         graphTab.setContent(graphPanel.getRoot());
 
         statsTab = new Tab("Statistics");
-        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
+        statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
         statsTab.setContent(statsPanel.getRoot());
 
         tabPanePlaceholder.getTabs().addAll(graphTab, statsTab);
@@ -218,24 +221,23 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            Currency currencyInUse = logic.getSpendingBook().getCurrencyInUse();
+
             if (commandResult.isShowGraph()) {
-                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser());
-                graphTab.setContent(graphPanel.getRoot());
+                graphPanel = new GraphPanel(logic.getGraphData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(graphTab);
             } else {
-                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n");
-                graphTab.setContent(graphPanel.getRoot());
+                graphPanel = new GraphPanel(logic.getGraphData(), "Graph\n", currencyInUse);
             }
+            graphTab.setContent(graphPanel.getRoot());
 
             if (commandResult.isShowStats()) {
-                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser());
-                statsTab.setContent(statsPanel.getRoot());
+                statsPanel = new StatsPanel(logic.getStatsData(), commandResult.getFeedbackToUser(), currencyInUse);
                 tabPanePlaceholder.getSelectionModel().select(statsTab);
             } else {
-                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n");
-                statsTab.setContent(statsPanel.getRoot());
+                statsPanel = new StatsPanel(logic.getStatsData(), "Statistics\n", currencyInUse);
             }
-
+            statsTab.setContent(statsPanel.getRoot());
 
             return commandResult;
         } catch (CommandException | ParseException e) {

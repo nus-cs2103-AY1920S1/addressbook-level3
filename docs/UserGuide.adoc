@@ -51,7 +51,8 @@ These steps will guide you in installing MoneyGoWhere on your computer.
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MoneyGoWhere.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for MoneyGoWhere.
-.  Double-click the file to start the app. The GUI should appear in a few seconds as shown in `Figure 1`.
+.  Double-click the file to start the app. The GUI should appear in a few seconds as seen in Figure 1.
+MoneyGoWhere comes preloaded with sample data to allow you to explore and familiarise with the application.
 
 +
 .User Interface of MoneyGoWhere
@@ -66,7 +67,10 @@ e.g. typing *`help`* will display the help information.
 * **`delete`**`3` : deletes the 3rd spending shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. When you are ready to get started on tracking your own finances, do type `clear` in the command box and press kbd:[Enter].
+This removes all the sample data from the application.
+. You can refer to <<Features>> for more details about each command.
+
 // end::introduction[]
 
 [[Features]]
@@ -149,9 +153,9 @@ A spending can have any number of `t/TAG` keywords (including 0). Each `TAG` is 
 *Examples:*
 
 * `add n/apple c/2.50 d/yesterday t/fruits r/Expensive apple` +
-* `add n/chicken breast c/1.80 t/meat` +
+* `add n/chicken breast c/1.80 d/today t/meat` +
 * `add n/coffee c/1.20 d/today` +
-* `add n/milo c/1.50 r/I love milo` +
+* `add n/milo c/1.50 d/tomorrow r/I love milo` +
 * `add n/gold class movie ticket d/15/1/2019 c/13.00 r/important t/entertainment` +
 
 *Expected Output:*
@@ -162,7 +166,7 @@ A new spending is added based on the specified input.
 
 Edits a spending at a specified index in the list. +
 
-*Format:* `edit i/INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
+*Format:* `edit INDEX [n/NAME] [c/COST] [d/DATE] [t/TAG]... [r/REMARKS]`
 
 ****
 * Edits the spending at the specified `INDEX`. The index refers to the index number shown in the displayed spending list. The index *must be a positive integer* 1, 2, 3, ...
@@ -401,6 +405,9 @@ Date range can be input in the following ways: +
 The statistics panel will update every time the spending list displayed changes.
 For example, when a new spending with a tag is added, the statistics panel will update the pie chart to show the statistics for all spending, including the new spending.
 
+[TIP]
+The statistics panel will update with the currency set.
+
 *Examples:*
 
 * `stats`: Generates statistics for all spending.
@@ -447,6 +454,9 @@ Hovering the mouse over a point displays the date and total amount of money spen
 [TIP]
 The graph panel will update every time the spending list displayed changes.
 For example, when a new spending is added, the graph panel will update and generate a graph for all spending, including the new spending.
+
+[TIP]
+The graph panel will update with the currency set.
 
 *Examples:*
 
@@ -646,7 +656,7 @@ Listed below is a summary of all available commands.
 | *Help* | `help` +
 | *Add* | `add n/NAME c/COST [d/DATE] [t/TAG]... [r/REMARKS]` +
 e.g. `add n/apple c/2.50 d/yesterday t/fruits r/expensive apple`
-| *Edit* | `edit i/INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
+| *Edit* | `edit INDEX [n/NAME] [c/COST] [t/TAG]... [r/REMARKS]` +
 e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
