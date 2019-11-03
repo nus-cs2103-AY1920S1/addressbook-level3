@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.Dictionary;
 import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.model.password.Description;
 import seedu.address.model.password.Password;
@@ -18,6 +17,8 @@ import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.Website;
 import seedu.address.model.password.analyser.match.DictionaryMatch;
+import seedu.address.model.password.analyser.resources.Dictionary;
+
 
 class DictionaryAnalyserTest {
 

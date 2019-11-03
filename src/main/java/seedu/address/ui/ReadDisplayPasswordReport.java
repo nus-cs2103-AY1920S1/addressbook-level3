@@ -66,7 +66,7 @@ public class ReadDisplayPasswordReport extends UiPart<Region> {
                 table.setItems(a.getTargetResults(i));
                 table.prefHeightProperty().bind(Bindings.max(2, Bindings.size(table.getItems()))
                         .multiply(25)
-                        .add(45));
+                        .add(45)); //room for table header
                 table.minHeightProperty().bind(table.prefHeightProperty());
                 table.maxHeightProperty().bind(table.prefHeightProperty());
                 table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

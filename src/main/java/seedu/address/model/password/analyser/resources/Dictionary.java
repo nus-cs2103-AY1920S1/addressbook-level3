@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.address.model.password.analyser.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.DictionaryException;
+import seedu.address.model.password.analyser.resources.Dictionary;
 
 class DictionaryTest {
 
