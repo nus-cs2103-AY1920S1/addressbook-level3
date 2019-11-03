@@ -11,7 +11,6 @@ import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -24,6 +23,7 @@ public class ClaimBuilder {
     public static final String DEFAULT_AMOUNT = "152.86";
     public static final String DEFAULT_DATE = "15-12-2019";
     public static final String DEFAULT_NAME = "John";
+    public static final String DEFAULT_PHONE = "91234567";
 
     private Description description;
     private Amount amount;

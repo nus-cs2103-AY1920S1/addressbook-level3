@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CLAIMS;
 
@@ -25,7 +24,6 @@ import seedu.address.model.claim.Description;
 import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.commonvariables.Date;
 import seedu.address.model.commonvariables.Name;
-import seedu.address.model.commonvariables.Phone;
 import seedu.address.model.tag.Tag;
 
 /**

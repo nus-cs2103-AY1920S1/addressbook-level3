@@ -40,17 +40,17 @@ public class TypicalObjects {
             .withPhone("87652533").withEmail("cornelia@example.com").withTags("friends")
             .build();
     public static final Contact ELLE = new ContactBuilder().withName("Elle Meyer")
-            .withPhone("9482224").withEmail("werner@example.com").build();
+            .withPhone("94822241").withEmail("werner@example.com").build();
     public static final Contact FIONA = new ContactBuilder().withName("Fiona Kunz")
-            .withPhone("9482427").withEmail("lydia@example.com").build();
+            .withPhone("94824271").withEmail("lydia@example.com").build();
     public static final Contact GEORGE = new ContactBuilder().withName("George Best")
-            .withPhone("9482442").withEmail("anna@example.com").build();
+            .withPhone("94824421").withEmail("anna@example.com").build();
 
     // Manually added
     public static final Contact HOON = new ContactBuilder().withName("Hoon Meier")
-            .withPhone("8482424").withEmail("stefan@example.com").build();
+            .withPhone("84824241").withEmail("stefan@example.com").build();
     public static final Contact IDA = new ContactBuilder().withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821311")
             .withEmail("hans@example.com").build();
 
     // Manually added - FinSec's details found in {@code CommandTestUtil}
