@@ -83,7 +83,7 @@ public class AddCommand extends Command {
             Dish wantToAdd = toAdd;
 
             if (model.hasDish(wantToAdd)) {
-                wantToAdd = model.getDishByName(toAdd.getName());
+                //wantToAdd = model.getDishByName(toAdd.getName());
                 Meal toAddMeal = new Meal(wantToAdd, new Timestamp(LocalDateTime.now()));
                 mealLog.addMeal(toAddMeal);
 
