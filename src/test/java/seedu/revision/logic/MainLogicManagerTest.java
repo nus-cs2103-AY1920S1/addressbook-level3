@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_ANSWERABLE_DISPLAYED_INDEX;
 import static seedu.revision.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.revision.logic.commands.CommandTestUtil.CATEGORY_DESC_UML;
-import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC;
+import static seedu.revision.logic.commands.CommandTestUtil.CORRECT_ANSWER_DESC_BROWNFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.DIFFICULTY_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.MCQ_WRONG_ANSWER_DESC;
-import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_AMY;
+import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_DESC_ALPHA;
 import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.ALPHA;
+import static seedu.revision.testutil.TypicalAnswerables.MCQ_A;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -82,9 +82,9 @@ public class MainLogicManagerTest {
         mainLogic = new MainLogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_AMY + CORRECT_ANSWER_DESC
-                + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
-        Answerable expectedAnswerable = new McqBuilder(ALPHA).withCategories("UML").build();
+        String addCommand = AddCommand.COMMAND_WORD + QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA
+                + CORRECT_ANSWER_DESC_BROWNFIELD + CATEGORY_DESC_UML + MCQ_WRONG_ANSWER_DESC + DIFFICULTY_DESC_ALPHA;
+        Answerable expectedAnswerable = new McqBuilder(MCQ_A).withCategories("UML").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addAnswerable(expectedAnswerable);
         String expectedMessage = MainLogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

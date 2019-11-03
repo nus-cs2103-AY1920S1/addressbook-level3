@@ -131,7 +131,6 @@ public class StartQuizWindow extends Window {
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        timer.resetTimer();
         try {
             CommandResult commandResult = mainLogic.execute(commandText, currentAnswerable);
             logger.info("Question result: " + commandResult.getFeedbackToUser());
@@ -140,6 +139,8 @@ public class StartQuizWindow extends Window {
                 //  Both has access to the answerable.
                 score++;
             }
+
+            timer.resetTimer();
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -328,14 +329,12 @@ public class StartQuizWindow extends Window {
     @FXML
     protected void handleExit() {
         timer.stopTimer();
+        mainLogic.removeFiltersFromAnswerableList();
         mainWindow = new MainWindow(getPrimaryStage(), mainLogic);
         mainWindow.show();
         mainWindow.fillInnerParts();
-
-        if (mode.value.equals(Modes.CUSTOM.toString())) {
-            mainWindow.resultDisplay.setFeedbackToUser("You attempted these questions."
-                    + "Type 'list' to view your full list of questions again.");
-        }
+        mainWindow.resultDisplay.setFeedbackToUser("Great attempt! Type 'start mode/MODE' "
+                + "(normal / arcade / custom) to try another quiz!");
     }
 
     /** Gets the index of the current question to update the progress bar. **/

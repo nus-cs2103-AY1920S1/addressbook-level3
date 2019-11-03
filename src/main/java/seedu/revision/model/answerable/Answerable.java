@@ -101,16 +101,9 @@ public abstract class Answerable {
             return false;
         }
 
-        boolean isSameMCq = true;
-        if (this instanceof Mcq) {
-            isSameMCq = otherAnswerable.getWrongAnswerList().equals(getWrongAnswerList());
-        }
-
-        return otherAnswerable.getQuestion().equals(getQuestion())
-            && otherAnswerable.getCorrectAnswerList().equals(getCorrectAnswerList())
-            && otherAnswerable.getDifficulty().equals(getDifficulty())
-            && isSameMCq;
+        return true;
     }
+
 
     /**
      * Returns true if both Answerables have the same identity and data fields.
@@ -139,20 +132,4 @@ public abstract class Answerable {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Question: ")
-                .append(getQuestion() + "\n")
-                .append(" Answers:")
-                .append(" Correct Answers: " + getCorrectAnswerList() + "\n")
-                .append(" Wrong Answers: " + getWrongAnswerList() + "\n")
-                .append(" Difficulty: ")
-                .append(getDifficulty() + "\n")
-                .append(" Categories: ");
-        getCategories().forEach(builder::append);
-        return builder.toString();
-    }
-
 }

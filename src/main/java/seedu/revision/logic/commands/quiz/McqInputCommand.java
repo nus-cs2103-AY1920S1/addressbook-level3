@@ -19,7 +19,6 @@ public class McqInputCommand extends Command {
     private static final Logger logger = Logger.getLogger(McqInputCommand.class.getName());
     private final String mcqInput;
     private final Answerable currentAnswerable;
-    private String result;
 
 
     public McqInputCommand(String mcqInput, Answerable currentAnswerable) {
@@ -32,6 +31,7 @@ public class McqInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
+        String result;
 
         switch (mcqInput.toLowerCase()) {
         case "a":
@@ -60,10 +60,10 @@ public class McqInputCommand extends Command {
     }
 
 
-
-
-
-
-
-
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof McqInputCommand // instanceof handles nulls
+                && mcqInput.equals(((McqInputCommand) other).mcqInput));
+    }
 }

@@ -45,12 +45,13 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CATEGORY + "ADDRESS] "
             + "[" + PREFIX_CATEGORY + "category]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_QUESTION + "Blackfield or Whitefield?"
+            + PREFIX_QUESTION + "Blackfield or Whitefield? "
             + PREFIX_DIFFICULTY + "1";
 
     public static final String MESSAGE_EDIT_ANSWERABLE_SUCCESS = "Edited Answerable: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ANSWERABLE = "This question already exists in the test bank.";
+    public static final String MESSAGE_CANNOT_EDIT_TYPE = "Edit command cannot edit question type.";
 
     private final Index index;
     private final EditAnswerableDescriptor editAnswerableDescriptor;
