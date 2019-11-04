@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 /**
- * Abstract class to create a TimeStamp to register the time of purchase/time of saving.
+ * Class to create a TimeStamp to register the time of purchase/time of saving.
  */
-public abstract class TimeStamp {
+public class TimeStamp {
     private String timeStampString;
 
     public TimeStamp(String timeStampString) {
