@@ -207,7 +207,8 @@ public class Customer {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone().toString());
+                .append(getPhone().toString())
+                .append(" Favourite cuisine: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
