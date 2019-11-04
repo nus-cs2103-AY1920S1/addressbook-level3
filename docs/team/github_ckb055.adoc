@@ -259,8 +259,31 @@ b) *For Auto-generation of CheatSheets  (truncated)*
 c) *For TimeTrial Mode (truncated)*
 
 === Deletion prompt feature
+[NOTE]
+The deletion prompting applies to all three modes in StudyBuddyPro.
+
+The activity diagram below shows how the user is prompted upon calling a delete command.
 
 image::kaibindiagrams/activitydiagramdeleteprompt.png[]
-_Diagram 5. Activity diagram for the deletion prompt feature._
+_Diagram 5 : Activity Diagram for prompting user upon deletion._
 
-Truncated for this project portfolio. Please refer to the Developer’s guide for the full content.
+* The marked index has to be constantly tracked, to prevent the user from successfully deleting a different indexed item without any prompts.
+
+==== Usage of deletion prompts
+
+* Upon entering a delete command, e.g. `delete 6`, the item that is to be deleted will be displayed to the user, and they will be required to confirm their deletion.
+* The user only needs to hit enter once more to successfully delete the item.
+
+==== Design considerations
+Aspect : Deletion prompts versus Undo feature.
+
+Current Implementation (prompting user before delete)
+
+* Pros
+** Much easier to implement as compared to undo feature.
+** Hitting enter once more to delete is highly convenient for the user, as
+compared to perhaps asking the user to input a 'yes' or 'no' to confirm their deletion.
+
+* Cons
+** Less versatile than the undo feature.
+** User might still accidentally delete the wrong item.
