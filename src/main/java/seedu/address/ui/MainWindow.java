@@ -42,6 +42,10 @@ public class MainWindow extends UiPart<Stage> {
     private FetchEmployeeWindow fetchEmployeeWindow;
     private DateWindow dateWindow;
     private ScheduleBox scheduleBox;
+    private StatisticsBox statisticsBox;
+
+    @FXML
+    private StackPane statisticsPlaceholder;
 
     @FXML
     private StackPane schedulePlaceholder;
@@ -133,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
 
         scheduleBox = new ScheduleBox(logic.getFilteredScheduledEventList(), logic, this);
         schedulePlaceholder.getChildren().add(scheduleBox.getRoot());
+
+        statisticsBox = new StatisticsBox(logic.getFilteredScheduledEventList(), logic, this);
+        statisticsPlaceholder.getChildren().add(statisticsBox.getRoot());
 
         selectionModel = tabPanePlaceholder.getSelectionModel();
     }
