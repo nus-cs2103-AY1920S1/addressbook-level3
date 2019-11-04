@@ -29,37 +29,34 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                     ClashCommand.MESSAGE_USAGE));
         }
 
-        boolean hasValidInput = false;
-
         verifyNumberOfParameters(argMultimap);
 
-        if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
-            parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
-            hasValidInput = true;
-        }
-
-        if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
-            List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
-            if (isModuleCode(modules)) {
-                parameters.setModuleCodes(modules.get(0), modules.get(1));
-            } else {
-                parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
-                        ParserUtil.parseIndex(modules.get(1)));
+        try {
+            if (argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) == 1) {
+                parameters.setAppealIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPEAL).get()));
             }
-            hasValidInput = true;
-        }
 
-        if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
-            parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
-            hasValidInput = true;
-        }
+            if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) == 2) {
+                List<String> modules = argMultimap.getAllValues(PREFIX_MODULE);
+                if (isModuleCode(modules)) {
+                    parameters.setModuleCodes(modules.get(0), modules.get(1));
+                } else {
+                    parameters.setModuleIndices(ParserUtil.parseIndex(modules.get(0)),
+                            ParserUtil.parseIndex(modules.get(1)));
+                }
+            }
 
-        if (hasValidInput) {
+            if (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) == 1) {
+                parameters.setStudentIndex(ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STUDENT).get()));
+            }
+
             return new ClashCommand(parameters);
-        } else {
+
+        } catch (ParseException e) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     ClashCommand.MESSAGE_USAGE));
         }
+
     }
 
     /**
