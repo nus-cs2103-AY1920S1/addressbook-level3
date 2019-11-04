@@ -59,7 +59,7 @@ NOTE: In-depth analysis in Developer Guide extract below
 
 *** Initial set up of continous integration pipeline with travis.
 
-*** Managed product release on GitHub https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/v1.3.5[v1.3.5] 
+*** Managed product release on GitHub https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/v1.3.5[v1.3.5]
 
 
 *** Actively participated in weekly team meetings that focused on restructuring of code base and to get everyone on the same page.
@@ -77,7 +77,7 @@ PR reviewed: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54#i
 
 |===
 |
-Below are extracts I have contributed to the User Guide. 
+Below are extracts I have contributed to the User Guide.
 
 
 It demonstrates how my AutoComplete feature makes a tangible difference in improving userflow.
@@ -99,10 +99,10 @@ include::../UserGuide.adoc[tag=quickstartsubbash]
 
 |===
 |
-Below are extracts I have contributed to the Developer Guide. 
+Below are extracts I have contributed to the Developer Guide.
 
 
-It demonstrates how my AutoComplete feature works with the Dynamic Parser implementation. 
+It demonstrates how my AutoComplete feature works with the Dynamic Parser implementation.
 
 
 Also its a showcase of my ability to write technical documentation and the technical depth of my work that involves integrating the advanced paradigm of Java Relections into the project.

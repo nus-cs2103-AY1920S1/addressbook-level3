@@ -132,7 +132,7 @@ _This section breakdown the logic package into its internal components_
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
-Logic is primarily built by two segments: Command and Parser. 
+Logic is primarily built by two segments: Command and Parser.
 
 ===== Command
 
@@ -141,7 +141,7 @@ Logic is primarily built by two segments: Command and Parser.
     Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
 
     Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
-    
+
 ===== Parser
 
     ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
