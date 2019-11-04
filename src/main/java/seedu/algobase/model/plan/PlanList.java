@@ -134,11 +134,15 @@ public class PlanList implements Iterable<Plan> {
      * Sets the current {@code Plan}.
      */
     public void setCurrentPlan(Plan plan) {
-        currentPlan.set(plan.getPlanName().fullName);
-        solvedCount.set(plan.getSolvedTaskCount());
-        unsolvedCount.set(plan.getUnsolvedTaskCount());
-        taskCount.set(plan.getSolvedTaskCount() + plan.getUnsolvedTaskCount());
-        internalTaskList.setAll(plan.getTaskList());
+        if (plan != null) {
+            currentPlan.set(plan.getPlanName().fullName);
+            solvedCount.set(plan.getSolvedTaskCount());
+            unsolvedCount.set(plan.getUnsolvedTaskCount());
+            taskCount.set(plan.getSolvedTaskCount() + plan.getUnsolvedTaskCount());
+            internalTaskList.setAll(plan.getTaskList());
+        } else {
+            clearCurrentPlan();
+        }
     }
 
     /**
