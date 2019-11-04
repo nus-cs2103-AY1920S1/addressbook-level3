@@ -365,13 +365,13 @@ image::listIncidentsCommand.png[]
 
 === Locating an incident report using incident ID, operator name or description keyword: `find-i`
 Finds incidents containing the relevant specified parameters.
-Possible Parameters: `id`/`op`/`desc`
+Possible Parameters: `id/`, `op/`, `desc/`, `self`
 
 *Different Parameters*
 
 **By Operator Name** +
-Format: `find-i op/KEYWORD` +
-Lists all incidents whereby the operator name contains the given keyword
+Format: `find-i op/<OPERATOR KEYWORD [MORE_KEYWORDS]>` +
+Lists all incidents whereby the operator name contains any of the given keywords
 
 * Accepts multiple search terms for the parameter, searching for any match with any search term
 
@@ -383,35 +383,33 @@ image::findIncidentsCommandWithOperatorParameter.png[]
 
 image::findIncidentsCommandWithOperatorsParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
-
-image::findIncidentsCommandWithOperatorParameterFailed.png[]
-
 **By Description** +
-Format: `find-i desc/KEYWORD` +
-Lists all incidents whereby the incident description contains the given keyword
+Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
+Lists all incidents whereby the incident description contains any the given keywords
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
-
-image::findIncidentsCommandWithDescriptionParameterFailed.png[]
-
 **By ID** +
 Format: `find-i id/KEYWORD` +
 Lists all incidents whereby the incident ID is an exact match with the given keyword
 
-* Requires an exact ID match
+* Requires an exact ID match, only accepts one ID
 
 * Example of Successful Usage and Expected Outcome:
 
 image::findIncidentsCommandWithIdParameter.png[]
 
-* Example of Failed Usage and Expected Outcome:
+**Self-Search** +
+Format: `find-i self` +
+Lists all incidents whereby the operator name matches the logged-in user's name.
 
-image::findIncidentsCommandWithIdParameterFailed.png[]
+* Requires an exact name match
+
+* Example of Successful Usage and Expected Outcome:
+
+image::findIncidentsCommandWithSelfParameter.png[]
 
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
