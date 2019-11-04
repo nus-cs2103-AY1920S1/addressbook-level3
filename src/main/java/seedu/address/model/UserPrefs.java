@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path dataFilePath = Paths.get("data");
     private Path wordBankListFilePath = Paths.get("data", "wordBanks");
     private Path appSettingsFilePath = Paths.get("data" , "appsettings.json");
+    private boolean isSampleInitiated = false;
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -33,7 +34,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     /**
      * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
      */
-    public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+    void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setDataFilePath(newUserPrefs.getDataFilePath());
@@ -94,4 +95,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return sb.toString();
     }
 
+    /**
+     * Retrieves whether if sample data has been initiated before.
+     *
+     * @return whether if sample data has been initiated before.
+     */
+    public boolean isSampleInitiated() {
+        return isSampleInitiated;
+    }
+
+    /**
+     * Set the boolean isSampleInitiated to true.
+     */
+    public void setSampleInitiated() {
+        isSampleInitiated = true;
+    }
 }
