@@ -26,14 +26,10 @@ import seedu.ichifund.model.Description;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.amount.Amount;
 import seedu.ichifund.model.date.Date;
-import seedu.ichifund.model.date.Day;
-import seedu.ichifund.model.date.Month;
-import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Category;
-import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.model.transaction.TransactionType;
 
 /**
@@ -43,7 +39,7 @@ public class EditRepeaterCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a repeater to IchiFund. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a repeater to IchiFund.\n"
             + "Parameters: "
             + "INDEX (must be a positive integer) "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
@@ -56,6 +52,8 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_START_YEAR + "START_YEAR "
             + PREFIX_END_MONTH + "END_MONTH "
             + PREFIX_END_YEAR + "END_YEAR "
+            + "\nConstraints: Repeater end must not occur before repeater start. Repeater start and end can span at "
+            + "most 60 months (5 years).\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Potato money "
             + PREFIX_AMOUNT + "31.34 "
@@ -66,7 +64,7 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_START_MONTH + "1 "
             + PREFIX_START_YEAR + "2019 "
             + PREFIX_END_MONTH + "12 "
-            + PREFIX_END_YEAR + "2020";
+            + PREFIX_END_YEAR + "2021";
 
     public static final String MESSAGE_EDIT_REPEATER_SUCCESS = "Edited repeater: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -113,6 +111,15 @@ public class EditRepeaterCommand extends Command {
         Date updatedEndDate = editRepeaterDescriptor.getEndDate()
                 .orElse(repeaterToEdit.getEndDate());
 
+        // Check repeater span.
+        if (updatedEndDate.compareTo(updatedStartDate) > 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+        if (countMonths(updatedStartDate, updatedEndDate) > 60) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+
+
         Repeater editedRepeater = new Repeater(updatedUniqueId, updatedDescription, updatedAmount,
                 updatedCategory, updatedTransactionType,
                 updatedMonthStartOffset, updatedMonthEndOffset, updatedStartDate, updatedEndDate);
@@ -120,76 +127,42 @@ public class EditRepeaterCommand extends Command {
         model.setRepeater(repeaterToEdit, editedRepeater);
         model.updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);
 
-        deleteRepeaterTransactions(model, editedRepeater.getUniqueId());
-        createRepeaterTransactions(model, editedRepeater);
+        model.deleteRepeaterTransactions(editedRepeater.getUniqueId());
+        model.createRepeaterTransactions(editedRepeater);
 
         return new CommandResult(String.format(MESSAGE_EDIT_REPEATER_SUCCESS, editedRepeater));
     }
 
     /**
-     * Deletes all transactions associated with the specified {@code RepeaterUniqueId}.
+     * Counts the number of months spanned by two dates.
      */
-    private void deleteRepeaterTransactions(Model model, RepeaterUniqueId repeaterUniqueId) {
-        for (Transaction transaction : model.getAssociatedTransactions(repeaterUniqueId)) {
-            model.deleteTransaction(transaction);
+    private static int countMonths(Date startDate, Date endDate) {
+        if (endDate.compareTo(startDate) > 0) {
+            return 0;
         }
-    }
 
-    /**
-     * Creates the transactions associated with the specified {@code Repeater}.
-     */
-    private void createRepeaterTransactions(Model model, Repeater repeater) {
-        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
-        int currentYear = repeater.getStartDate().getYear().yearNumber;
-        int endMonth = repeater.getEndDate().getMonth().monthNumber;
-        int endYear = repeater.getEndDate().getYear().yearNumber;
+        if (endDate.compareTo(startDate) == 0) {
+            return 1;
+        }
 
+        int startMonth = startDate.getMonth().monthNumber;
+        int startYear = startDate.getYear().yearNumber;
+        int currentMonth = startDate.getMonth().monthNumber;
+        int currentYear = startDate.getYear().yearNumber;
+        int endMonth = endDate.getMonth().monthNumber;
+        int endYear = endDate.getYear().yearNumber;
+
+        int months = 0;
         while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
-            if (!repeater.getMonthStartOffset().isIgnored()) {
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                            new Day(repeater.getMonthStartOffset().toString()),
-                            new Month(String.valueOf(currentMonth)),
-                            new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                model.addTransaction(transaction);
-            }
-
-            if (!repeater.getMonthEndOffset().isIgnored()) {
-                int daysInMonth;
-                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
-                    daysInMonth = 30;
-                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
-                    daysInMonth = 31;
-                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
-                    daysInMonth = 29;
-                } else {
-                    daysInMonth = 28;
-                }
-
-                Transaction transaction = new Transaction(
-                        repeater.getDescription(),
-                        repeater.getAmount(),
-                        repeater.getCategory(),
-                        new Date(
-                            new Day(String.valueOf(daysInMonth - (repeater.getMonthStartOffset().value - 1))),
-                            new Month(String.valueOf(currentMonth)),
-                            new Year(String.valueOf(currentYear))),
-                        repeater.getTransactionType(),
-                        repeater.getUniqueId());
-                model.addTransaction(transaction);
-            }
-
+            months++;
             currentMonth++;
-            if (currentMonth == 12) {
+            if (currentMonth == 13) {
                 currentMonth = 1;
                 currentYear++;
             }
         }
+
+        return months;
     }
 
     @Override
