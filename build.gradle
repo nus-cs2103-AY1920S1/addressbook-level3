@@ -44,7 +44,6 @@ test {
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
-    compile 'com.google.guava:guava:28.1-jre'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'

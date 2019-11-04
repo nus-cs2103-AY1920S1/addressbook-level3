@@ -1,6 +1,5 @@
 package seedu.address.model.timetable;
 
-import com.google.common.collect.Sets;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.time.DayOfWeek;
@@ -41,7 +40,7 @@ public class TimeSlotGenerator {
 
     public TimeSlotsAvailable generateWithMostPeople() throws IllegalValueException {
         Set<TimeTable> set = new HashSet<>(timeTables);
-        Set<Set<TimeTable>> powerSet = Sets.powerSet(set);
+        Set<Set<TimeTable>> powerSet = powerSet(set);
         List<Set<TimeTable>> powerList = new ArrayList<>(powerSet);
         powerList.sort((x, y) -> y.size() - x.size()); // Descending order of size
         for (Set<TimeTable> possibleTimeTables : powerList) {
@@ -85,6 +84,26 @@ public class TimeSlotGenerator {
             }
         }
         return merged;
+    }
+
+    // @@author Andrew Mao
+    // Reused from https://stackoverflow.com/a/14818944
+    private static <T> Set<Set<T>> powerSet(Set<T> originalSet) {
+        List<T> list = new ArrayList<T>(originalSet);
+        int n = list.size();
+
+        Set<Set<T>> powerSet = new HashSet<Set<T>>();
+
+        for (long i = 0; i < (1 << n); i++) {
+            Set<T> element = new HashSet<T>();
+            for (int j = 0; j < n; j++ ) {
+                if ((i >> j) % 2 == 1) {
+                    element.add(list.get(j));
+                }
+            }
+            powerSet.add(element);
+        }
+        return powerSet;
     }
 
     /**

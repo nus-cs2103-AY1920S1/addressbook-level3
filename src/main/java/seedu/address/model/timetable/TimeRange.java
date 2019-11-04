@@ -9,7 +9,7 @@ import java.util.Objects;
 public class TimeRange implements Comparable<TimeRange> {
     private final WeekTime start;
     private final WeekTime end;
-    public static final String MESSAGE_CONSTRAINTS = "TimeRange should be constructed in the following format : STARTDAY STARTTIME ENDDAY ENDTIME.\ne.g. MONDAY 1234 TUESDAY 2345";
+    public static final String MESSAGE_CONSTRAINTS = "TimeRange should be constructed in the following format : STARTDAY STARTTIME ENDDAY ENDTIME, with the end time at a later timing in the week than the start time\ne.g. MONDAY 1234 TUESDAY 2345";
 
     public TimeRange(WeekTime start, WeekTime end) throws IllegalValueException {
         if (!rangeIsValid(start, end)) {
