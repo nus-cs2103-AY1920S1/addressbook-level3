@@ -27,20 +27,20 @@ import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
  */
 public class AddAppCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "addappt";
+    public static final String COMMAND_WORD = "newappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds recursively appointments"
             + " to the address book. \n"
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
+            + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_START + "PREFIX_START "
             + "[" + PREFIX_END + "PREFIX_END] "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "001A "
-            + PREFIX_START + "01/11/19 0900 "
-            + PREFIX_END + "01/11/19 0940 "
+            + PREFIX_START + "01/12/19 0900 "
+            + PREFIX_END + "01/12/19 0940 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 

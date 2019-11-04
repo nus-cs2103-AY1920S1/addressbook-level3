@@ -61,7 +61,8 @@ public class StorageManager implements Storage {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
                 + "Using default user prefs");
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning(
+                    "Problem while reading from the UserPrefs file. Will be starting with an empty AddressBook");
         }
 
         if (initialUserPrefs == null) {

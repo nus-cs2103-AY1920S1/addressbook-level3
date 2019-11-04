@@ -43,7 +43,7 @@ public class EventCard extends UiPart<Region> {
         if (displayStatus) {
             status.setText("Status: " + event.getStatus().getStatusMess());
         } else {
-            status.setText("No status");
+            status.setText("");
         }
     }
 

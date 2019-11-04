@@ -49,7 +49,7 @@ public class RegisterStaffCommandParser implements Parser<ReversibleActionPairCo
                 RegisterStaffCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.parseStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.issueStaffReferenceId(argMultimap.getValue(PREFIX_ID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(""));
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));

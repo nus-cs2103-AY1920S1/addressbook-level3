@@ -3,7 +3,10 @@ package seedu.address.logic.parser.appointments;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_PATIENTLIST;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.List;
@@ -47,18 +50,18 @@ public class ChangeAppCommandTimingParser implements Parser<ReversibleActionPair
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START, PREFIX_END);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_START, PREFIX_END);
 
         if (!model.isListingAppointmentsOfSinglePatient()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+            throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_START) || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeAppCommand.MESSAGE_USAGE));
         }
 
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
             int idx = index.getZeroBased();
 
             if (idx >= lastShownList.size()) {

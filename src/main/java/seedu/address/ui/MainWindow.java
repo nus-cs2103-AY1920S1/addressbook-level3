@@ -2,6 +2,7 @@
 package seedu.address.ui;
 
 import static java.awt.Desktop.getDesktop;
+import static seedu.address.commons.core.OmniPanelTab.UNINITIALISED;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -27,8 +28,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.appointments.AppointmentsCommand;
 import seedu.address.logic.commands.common.CommandResult;
+import seedu.address.logic.commands.duties.DutyShiftCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
+import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.autocomplete.AutoCompleter;
 import seedu.address.ui.commandboxhistory.CommandBoxHistory;
@@ -73,6 +78,12 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private MenuItem helpMenuItem;
 
     @FXML
+    private MenuItem checkForUpdatesMenuItem;
+
+    @FXML
+    private MenuItem aboutUsMenuItem;
+
+    @FXML
     private StackPane omniPanelPlaceholder;
 
     @FXML
@@ -98,6 +109,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         this.logic = logic;
         this.autoCompleter = new AutoCompleter();
         this.commandBoxHistory = new CommandBoxHistory();
+        this.currentOmniPanelTab = UNINITIALISED;
 
         this.deferredDropSelectors = new HashSet<>();
         // Configure the UI
@@ -126,6 +138,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(checkForUpdatesMenuItem, KeyCombination.valueOf("F2"));
+        setAccelerator(aboutUsMenuItem, KeyCombination.valueOf("F3"));
     }
 
     /**
@@ -165,7 +179,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
 
         aco = new AutoCompleteOverlay(this::autoCompleterSelected);
         anchorPane.getChildren().add(aco.getRoot());
-        anchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+        AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
     }
 
     /**
@@ -194,20 +208,44 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         primaryStage.setY(guiSettings.getWindowCoordinates().getY());
     }
 
+    void show() {
+        primaryStage.show();
+    }
+
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens URI to User Guide.
      */
     @FXML
-    public void handleHelp() {
+    private void handleHelp() {
         try {
-            getDesktop().browse(URI.create("https://clerkpro.netlify.com/userguide#Features"));
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens URI to Releases.
+     */
+    @FXML
+    private void handleCheckForUpdates() {
+        try {
+            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens URI to About Us.
+     */
+    @FXML
+    private void handleAboutUs() {
+        try {
+            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -226,7 +264,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -239,23 +277,22 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
         }
     }
 
     /**
-     * Called whenever AutoComplete selected command.
+     * Called to update AutoComplete when new commands.
      */
     public void updateCommandAutoComplete(String commandText) {
+        if (!commandText.isBlank()) {
+            logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
+        }
         aco.showSuggestions(commandText, autoCompleter.update(commandText).getSuggestions());
         Region acoRoot = aco.getRoot();
         acoRoot.setTranslateX(Math.min(acoRoot.getTranslateX(), getRoot().getWidth() - acoRoot.getWidth()));
-        logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
     }
 
     /**
@@ -300,27 +337,35 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
      */
     @Override
     public void setOmniPanelTab(OmniPanelTab omniPanelTab) {
+        if (currentOmniPanelTab.equals(omniPanelTab)) {
+            return;
+        }
+
         currentOmniPanelTab = omniPanelTab;
         tabBar.selectTabUsingIndex(omniPanelTab.getTabBarIndex());
-        Region region = null;
+        resultDisplay.setFeedbackToUser("");
+        Region region;
         switch (omniPanelTab) {
         case PATIENTS_TAB:
             region = patientListPanel.getRoot();
+            executeCommand(ListPatientCommand.COMMAND_WORD);
             break;
         case APPOINTMENTS_TAB:
             region = appointmentListPanel.getRoot();
+            executeCommand(AppointmentsCommand.COMMAND_WORD);
             break;
         case DOCTORS_TAB:
             region = staffListPanel.getRoot();
+            executeCommand(ListStaffCommand.COMMAND_WORD);
             break;
         case DUTY_SHIFT_TAB:
             region = dutyShiftListPanel.getRoot();
+            executeCommand(DutyShiftCommand.COMMAND_WORD);
             break;
         default:
             return;
         }
-        Region finalRegion = region;
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(finalRegion));
+        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
     }
 
     @Override

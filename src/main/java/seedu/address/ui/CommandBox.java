@@ -8,9 +8,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import seedu.address.logic.commands.common.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -56,20 +53,14 @@ public class CommandBox extends UiPart<Region> {
      */
     public String handleCommandEntered() {
         String commandText = commandTextField.getText();
-        try {
-            commandExecutor.execute(commandText);
-        } catch (CommandException | ParseException e) {
-            //do nothing since result display handles error message
-        } finally {
-            commandTextField.setText("");
-        }
+        commandExecutor.execute(commandText);
+        commandTextField.setText("");
         return commandText;
     }
 
     /**
      * Handles the Text Change event.
      */
-    @FXML
     private void handleTextChanged() {
         autoComplete.updateCommandAutoComplete(commandTextField.getText());
     }
@@ -101,10 +92,8 @@ public class CommandBox extends UiPart<Region> {
     @FunctionalInterface
     public interface CommandExecutor {
         /**
-         * Executes the command and returns the result.
-         *
-         * @see seedu.address.logic.Logic#execute(String)
+         * Executes the command.
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        void execute(String commandText);
     }
 }

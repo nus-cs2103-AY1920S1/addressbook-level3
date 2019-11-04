@@ -42,14 +42,14 @@ import seedu.address.logic.commands.staff.RegisterStaffCommand;
  */
 public class AutoCompleter {
     private static final Map<String, Set<String>> SUPPORTED_ARGUMENTS = Map.ofEntries(
-            Map.entry("addappt", Set.of("-id", "-rec", "-num", "-start")),
-            Map.entry("addshift", Set.of("-id", "-rec", "-num", "-start")),
-            Map.entry("changeappt", Set.of("-start")),
-            Map.entry("changeshift", Set.of("-start")),
-            Map.entry("edit", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("editappt", Set.of("-entry", "-start", "-end")),
+            Map.entry("editshift", Set.of("-entry", "-start", "-end")),
+            Map.entry("editdoctor", Set.of("-entry", "-id", "-name", "-phone", "-address", "-email")),
+            Map.entry("editpatient", Set.of("-entry", "-id", "-name", "-phone", "-address", "-tag", "-email")),
+            Map.entry("newappt", Set.of("-id", "-rec", "-num", "-start", "-end")),
+            Map.entry("newshift", Set.of("-id", "-rec", "-num", "-start", "-end")),
             Map.entry("newdoctor", Set.of("-id", "-name", "-phone", "-address", "-email")),
-            Map.entry("register", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email")),
-            Map.entry("updatedoctor", Set.of("-id", "-name", "-phone", "-address", "-email"))
+            Map.entry("newpatient", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email"))
     );
 
     private static final String[] SUPPORTED_COMMANDS = new String[]{

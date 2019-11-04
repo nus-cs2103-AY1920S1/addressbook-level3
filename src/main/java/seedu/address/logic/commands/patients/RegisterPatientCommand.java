@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.logic.commands.patients;
 
 import static java.util.Objects.requireNonNull;
@@ -20,11 +21,11 @@ import seedu.address.model.person.Person;
  */
 public class RegisterPatientCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "register";
+    public static final String COMMAND_WORD = "newpatient";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": registers a patient. "
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
+            + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_NAME + "NAME "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "

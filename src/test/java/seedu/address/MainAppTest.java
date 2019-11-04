@@ -17,9 +17,17 @@ import seedu.address.ui.autocomplete.AutoCompleter;
 @ExtendWith(ApplicationExtension.class)
 public class MainAppTest extends ApplicationTest {
 
+    /**
+     * Initialises main class
+     */
     @Init
     public void init() throws Exception {
-        ApplicationTest.launch(MainApp.class);
+        try {
+            ApplicationTest.launch(MainApp.class);
+        } catch (AssertionError e) {
+            System.out.println(e.getStackTrace());
+            throw e;
+        }
     }
 
     @Test
@@ -75,18 +83,18 @@ public class MainAppTest extends ApplicationTest {
         var aco = robot.lookup("#autoCompleteOverlay").queryListView();
 
         int expectedSearchResultSize = new AutoCompleter().update("a").getSuggestions().size();
-        robot.clickOn("#commandTextField");
-        robot.write('a');
+
+        robot.clickOn("#commandTextField").write('a');
         Assertions.assertThat(aco).isVisible();
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
 
         robot.type(KeyCode.UP);
-        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex())
-                .isEqualTo(expectedSearchResultSize - 1);
+        Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(expectedSearchResultSize - 1);
 
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
         robot.eraseText(1);
+        Assertions.assertThat(aco.isVisible()).isFalse();
     }
 
     @Test
@@ -107,12 +115,20 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void enqueueAndDequeueTest(FxRobot robot) {
-        robot.clickOn("#commandTextField").write("register -id 001A -name John Doe -phone 98765432"
-                + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25").type(KeyCode.ENTER);
-        robot.clickOn("#commandTextField").write("enqueue 001A").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(1);
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+        var queueListView = robot.lookup("#queueListView").queryListView();
+
+        robot.clickOn("#commandTextField")
+                .write("newpatient -id 001A -name John Doe -phone 98765432"
+                        + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
+                .type(KeyCode.ENTER)
+                .write("enqueue 001A")
+                .type(KeyCode.ENTER);
+
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New person added to the queue:");
+        Assertions.assertThat(queueListView).hasExactlyNumItems(1);
         robot.write("dequeue 1").type(KeyCode.ENTER);
-        Assertions.assertThat(lookup("#queueListView").queryListView()).hasExactlyNumItems(0);
+        Assertions.assertThat(queueListView).hasExactlyNumItems(0);
     }
 
     @Test
@@ -120,7 +136,7 @@ public class MainAppTest extends ApplicationTest {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
 
-        robot.clickOn(commandBox).write("addappt").type(KeyCode.ENTER);
+        robot.clickOn(commandBox).write("newappt").type(KeyCode.ENTER);
         Assertions.assertThat(resultDisplay.getText()).startsWith("Invalid command format!");
 
         robot.eraseText(7);
