@@ -82,7 +82,6 @@ public class AssignDateCommand extends Command {
             }
 
             eventToAssign.assignDateTime(targetEventDate.get(), eventDayTime);
-
             return new CommandResult(String.format(MESSAGE_SUCCESS_TARGET,
                     targetEventDate.get(), eventDayTime, eventToAssign.getName()));
         } else { //Empty, assign for all dates

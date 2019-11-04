@@ -1,6 +1,6 @@
 package seedu.address.model.event;
 
-import static seedu.address.logic.parser.ParserUtil.parseDate;
+import static seedu.address.logic.parser.ParserUtil.parseEventDate;
 import static seedu.address.logic.parser.ParserUtil.parseTimePeriod;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class EventDateTimeMap {
             String[] eachDateTime = stringMap.split(",");
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
-                this.mapDateTime(parseDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+                this.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new IllegalArgumentException(EventDateTimeMap.MESSAGE_CONSTRAINTS);
@@ -100,11 +100,44 @@ public class EventDateTimeMap {
     }
 
     /**
+     * Gives the total number of hours (double value).
+     *
+     * @return
+     */
+    public double totalHours() {
+        double totalMinutes = 0;
+        for (EventDate date : dateTimeMap.keySet()) {
+            totalMinutes += dateTimeMap.get(date).numMinutes();
+        }
+
+        return totalMinutes / 60.0;
+    }
+
+    /**
      * Deletes a Date from the Date-Time Mapping.
+     *
      * @param date EventDate Object
      */
     public void deleteDateKey(EventDate date) {
         dateTimeMap.remove(date);
+    }
+
+    /**
+     * Called when the Event's Start/End Date has changed. EventDateTime will flush EventDate keys
+     * from the Mapping which falls out of the new range.
+     * Then, insert default DateTime mapping for the start and end dates if not found
+     */
+    public void flushEventDates(EventDate newStartDate, EventDate newEndDate) {
+        dateTimeMap.entrySet().removeIf(event -> {
+            EventDate eventDate = event.getKey();
+            return eventDate.isBefore(newStartDate) || eventDate.isAfter(newEndDate);
+        });
+        if (!dateTimeMap.containsKey(newStartDate)) {
+            mapDateTime(newStartDate, EventDayTime.defaultEventDayTime());
+        }
+        if (!dateTimeMap.containsKey(newEndDate)) {
+            mapDateTime(newEndDate, EventDayTime.defaultEventDayTime());
+        }
     }
 
     @Override

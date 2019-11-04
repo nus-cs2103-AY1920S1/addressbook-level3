@@ -7,14 +7,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.OldDateException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeGender;
@@ -157,19 +160,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String EmployeeJoinDate} into a {@code joinDate}.
+     * Parses a {@code String joinDate} into a {@code EmployeeJoinDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code EmployeeJoinDate} is invalid.
      */
     public static EmployeeJoinDate parseJoinDate(String joinDate) throws ParseException {
-        requireNonNull(joinDate);
-        String trimmed = joinDate.trim();
-        if (!EmployeeJoinDate.isValidJoinDate(trimmed)) {
-            throw new ParseException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newJoinDate = LocalDate.parse(trimmed, FORMATTER);
-        return new EmployeeJoinDate(newJoinDate);
+        LocalDate newDate = parseAnyDate(joinDate);
+        return new EmployeeJoinDate(newDate);
     }
 
     /**
@@ -235,13 +233,8 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code EventDate} is invalid.
      */
-    public static EventDate parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        String trimmed = date.trim();
-        if (!EventDate.isValidDate(trimmed)) {
-            throw new ParseException(EventDate.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newDate = LocalDate.parse(trimmed, FORMATTER);
+    public static EventDate parseEventDate(String date) throws ParseException {
+        LocalDate newDate = parseAnyDate(date);
         return new EventDate(newDate);
     }
 
@@ -251,15 +244,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code LocalDate} is invalid.
      */
-    public static LocalDate parseSysDate(String date) throws ParseException {
+    public static LocalDate parseAnyDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmed = date.trim();
         LocalDate newDate;
 
         try {
-            newDate = LocalDate.parse(trimmed, FORMATTER);
-        } catch (DateTimeException e) {
-            throw new ParseException("Date should be in the following format dd/MM/yyyy");
+            newDate = LocalDate.parse(trimmed, DateTimeFormatter.ofPattern("dd/MM/uuuu")
+                    .withResolverStyle(ResolverStyle.STRICT)
+            );
+            if (!newDate.isAfter(LocalDate.now().minusYears(10))) {
+                throw new OldDateException("Too long ago");
+            }
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_DATE_INVALID, trimmed));
+        } catch (OldDateException e) {
+            throw new ParseException(Messages.MESSAGE_DATE_TOO_OLD);
         }
 
         return newDate;
@@ -337,7 +337,7 @@ public class ParserUtil {
             String[] eachDateTime = trimmed.split(",");
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
-                map.mapDateTime(parseDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+                map.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(EventDateTimeMap.MESSAGE_CONSTRAINTS);

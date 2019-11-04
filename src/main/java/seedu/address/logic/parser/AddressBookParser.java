@@ -11,7 +11,7 @@ import seedu.address.logic.commands.allocate.AutoAllocateCommand;
 import seedu.address.logic.commands.allocate.DeallocateCommand;
 import seedu.address.logic.commands.allocate.ManualAllocateCommand;
 import seedu.address.logic.commands.employee.AddCommand;
-import seedu.address.logic.commands.employee.ClearCommand;
+import seedu.address.logic.commands.employee.ClearEmployeesCommand;
 import seedu.address.logic.commands.employee.DeleteCommand;
 import seedu.address.logic.commands.employee.EditCommand;
 import seedu.address.logic.commands.employee.FetchEmployeeCommand;
@@ -22,6 +22,7 @@ import seedu.address.logic.commands.employee.ListEmployeeCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.AssignDateCommand;
 import seedu.address.logic.commands.event.ClearDateMappingCommand;
+import seedu.address.logic.commands.event.ClearEventsCommand;
 import seedu.address.logic.commands.event.DeleteDateMappingCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.EditEventCommand;
@@ -38,7 +39,7 @@ import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
 import seedu.address.logic.commands.schedule.GenerateScheduleCommand;
-import seedu.address.logic.commands.statistics.StatisticsCommand;
+import seedu.address.logic.commands.statistics.GenerateStatisticsCommand;
 import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.logic.parser.allocate.DeallocateCommandParser;
 import seedu.address.logic.parser.allocate.ManualAllocateCommandParser;
@@ -111,8 +112,11 @@ public class AddressBookParser {
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearEmployeesCommand.COMMAND_WORD:
+            return new ClearEmployeesCommand();
+
+        case ClearEventsCommand.COMMAND_WORD:
+            return new ClearEventsCommand();
 
         case FetchEventCommand.COMMAND_WORD:
             return new FetchEventCommandParser().parse(arguments);
@@ -171,8 +175,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case StatisticsCommand.COMMAND_WORD:
-            return new StatisticsCommand();
+        case GenerateStatisticsCommand.COMMAND_WORD:
+            return new GenerateStatisticsCommand();
 
         case AssignDateCommand.COMMAND_WORD:
             return new AssignDateCommandParser().parse(arguments);

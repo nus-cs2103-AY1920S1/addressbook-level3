@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_BIG_RANGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -64,7 +65,7 @@ public class EditEventCommand extends Command {
     private final EditEventDescriptor editEventDescriptor;
 
     /**
-     * @param index of the event in the filtered event list to edit
+     * @param index               of the event in the filtered event list to edit
      * @param editEventDescriptor details to edit the event with
      */
     public EditEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
@@ -103,6 +104,13 @@ public class EditEventCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
+        long dateDifference = editedEvent.getStartDate().dateDifference(editedEvent.getEndDate());
+
+        if (dateDifference > 90) {
+            throw new CommandException(String.format(
+                    MESSAGE_DATE_BIG_RANGE, editedEvent.getStartDate(), editedEvent.getEndDate(), dateDifference));
+        }
+
         model.setEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
@@ -111,6 +119,9 @@ public class EditEventCommand extends Command {
     /**
      * Creates and returns a {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
+     * <p>
+     * Event will be edited differently based on the fields that changed
+     * If only Name, Venue, Manpower Needed or tags are changed, Event will inherit the ManpowerList & DateTimeMap.
      */
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
@@ -122,19 +133,20 @@ public class EditEventCommand extends Command {
         EventDate updatedStartDate = editEventDescriptor.getStartDate().orElse(eventToEdit.getStartDate());
         EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
+        EventManpowerAllocatedList updatedManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
+        EventDateTimeMap updatedDateTimeMap = eventToEdit.getEventDateTimeMap();
+
 
         if (updatedStartDate != eventToEdit.getStartDate()
                 || updatedEndDate != eventToEdit.getEndDate()) {
-            return new Event(updatedEventName, updatedEventVenue,
-                    updatedManpowerNeeded, updatedStartDate,
-                    updatedEndDate, updatedTags);
-        } else {
-            EventManpowerAllocatedList originalManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
-            EventDateTimeMap originalDateTimeMap = eventToEdit.getEventDateTimeMap();
-            return new Event(updatedEventName, updatedEventVenue,
-                    updatedManpowerNeeded, updatedStartDate,
-                    updatedEndDate, originalManpowerAllocatedList, originalDateTimeMap, updatedTags);
+            updatedDateTimeMap.flushEventDates(updatedStartDate, updatedEndDate);
+        } else { //Editing name, venue, tags will keep the ManpowerList & the DateTimeMap
+
         }
+
+        return new Event(updatedEventName, updatedEventVenue,
+                updatedManpowerNeeded, updatedStartDate,
+                updatedEndDate, updatedManpowerAllocatedList, updatedDateTimeMap, updatedTags);
 
     }
 
