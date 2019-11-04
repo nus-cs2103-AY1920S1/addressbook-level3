@@ -22,8 +22,13 @@ public class FinanceCliSyntax {
     public static final Prefix PREFIX_KEYWORD = new Prefix("<keyword>");
 
     /* For stats command */
-    public static final Prefix PREFIX_GROUP_BY = new Prefix("<groupby>");
-    public static final Prefix PREFIX_SUMMARISE = new Prefix("<summarise>");
-    public static final Prefix PREFIX_BETWEEN = new Prefix("<between>");
+    public static final Prefix PREFIX_GROUP_BY = new Prefix("<g>");
+    public static final Prefix PREFIX_SUMMARISE = new Prefix("<s>");
+
+    /* For budget command */
+    public static final Prefix PREFIX_START = new Prefix("<start>");
+    public static final Prefix PREFIX_END = new Prefix("<end>");
+    public static final Prefix PREFIX_DUR = new Prefix("<dur>");
+    public static final Prefix PREFIX_MONTH = new Prefix("<month>");
 
 }

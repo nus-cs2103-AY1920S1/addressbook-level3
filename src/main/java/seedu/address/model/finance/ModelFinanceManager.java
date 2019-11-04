@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.finance.logentry.Budget;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
@@ -22,6 +23,7 @@ public class ModelFinanceManager implements Model {
     private final FinanceLog financeLog;
     private final UserPrefs userPrefs;
     private final FilteredList<LogEntry> filteredLogEntries;
+    private final FilteredList<Budget> filteredBudgets;
     private GraphicsData graphicsData;
 
     /**
@@ -36,6 +38,7 @@ public class ModelFinanceManager implements Model {
         this.financeLog = new FinanceLog(financeLog);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredLogEntries = new FilteredList<>(this.financeLog.getLogEntryList());
+        filteredBudgets = new FilteredList<>(this.financeLog.getBudgetList());
         graphicsData = new GraphicsData();
     }
 
@@ -103,14 +106,31 @@ public class ModelFinanceManager implements Model {
     }
 
     @Override
+    public boolean hasBudget(Budget budget) {
+        requireNonNull(budget);
+        return financeLog.hasBudget(budget);
+    }
+
+    @Override
     public void deleteLogEntry(LogEntry target) {
         financeLog.removeLogEntry(target);
+    }
+
+    @Override
+    public void deleteBudget(Budget target) {
+        financeLog.removeBudget(target);
     }
 
     @Override
     public void addLogEntry(LogEntry logEntry) {
         financeLog.addLogEntry(logEntry);
         updateFilteredLogEntryList(PREDICATE_SHOW_ALL_LOG_ENTRIES);
+    }
+
+    @Override
+    public void addBudget(Budget budget) {
+        financeLog.addBudget(budget);
+        updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
     }
 
     @Override
@@ -135,6 +155,11 @@ public class ModelFinanceManager implements Model {
         return filteredLogEntries;
     }
 
+    @Override
+    public ObservableList<Budget> getFilteredBudgetList() {
+        return filteredBudgets;
+    }
+
     /**
      * Returns an a {@code GraphicsData} object
      */
@@ -147,6 +172,12 @@ public class ModelFinanceManager implements Model {
     public void updateFilteredLogEntryList(Predicate<LogEntry> predicate) {
         requireNonNull(predicate);
         filteredLogEntries.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredBudgetList(Predicate<Budget> predicate) {
+        requireNonNull(predicate);
+        filteredBudgets.setPredicate(predicate);
     }
 
     @Override

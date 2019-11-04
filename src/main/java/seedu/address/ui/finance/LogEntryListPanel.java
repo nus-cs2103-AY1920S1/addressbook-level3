@@ -60,6 +60,7 @@ public class LogEntryListPanel extends UiPart<Region> {
                     setGraphic(new BorrowLogEntryCard(borrowLogEntry, getIndex() + 1).getRoot());
                     break;
 
+                case LendLogEntry.LOG_ENTRY_TYPE:
                 default:
                     LendLogEntry lendLogEntry = (LendLogEntry) logEntry;
                     setGraphic(new LendLogEntryCard(lendLogEntry, getIndex() + 1).getRoot());

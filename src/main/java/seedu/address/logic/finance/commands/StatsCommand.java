@@ -1,14 +1,12 @@
 package seedu.address.logic.finance.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_BETWEEN;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_GROUP_BY;
 import static seedu.address.logic.finance.parser.FinanceCliSyntax.PREFIX_SUMMARISE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,19 +34,16 @@ public class StatsCommand extends Command {
             + "Parameters: "
             + PREFIX_GROUP_BY + "ATTRIBUTE "
             + PREFIX_SUMMARISE + "STAT "
-            + "[" + PREFIX_BETWEEN + "DD-MM-YYYY DD-MM-YYYY]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_GROUP_BY + "entrytype "
             + PREFIX_SUMMARISE + "amt";
 
     private GroupByAttr groupBy;
     private String summariseAttr;
-    private Date[] betweenDates;
 
-    public StatsCommand(GroupByAttr groupBy, String summariseAttr, Date[] betweenDates) {
+    public StatsCommand(GroupByAttr groupBy, String summariseAttr) {
         this.groupBy = groupBy;
         this.summariseAttr = summariseAttr;
-        this.betweenDates = betweenDates;
     }
 
     @Override

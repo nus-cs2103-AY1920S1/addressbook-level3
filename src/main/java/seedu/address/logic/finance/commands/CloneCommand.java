@@ -74,6 +74,7 @@ public class CloneCommand extends Command {
             from = ((BorrowLogEntry) logEntryToBeCloned).getFrom();
             logEntryToAdd = new BorrowLogEntry(amount, tDate, desc, tMethod, catSet, from);
             break;
+        case LendLogEntry.LOG_ENTRY_TYPE:
         default:
             Person to = ((LendLogEntry) logEntryToBeCloned).getTo();
             logEntryToAdd = new LendLogEntry(amount, tDate, desc, tMethod, catSet, to);

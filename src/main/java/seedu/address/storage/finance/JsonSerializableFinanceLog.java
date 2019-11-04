@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.BorrowLogEntry;
+import seedu.address.model.finance.logentry.Budget;
 import seedu.address.model.finance.logentry.IncomeLogEntry;
 import seedu.address.model.finance.logentry.LendLogEntry;
 import seedu.address.model.finance.logentry.LogEntry;
@@ -24,13 +25,16 @@ import seedu.address.model.finance.logentry.SpendLogEntry;
 class JsonSerializableFinanceLog {
 
     private final List<JsonAdaptedLogEntry> logEntries = new ArrayList<>();
+    private final List<JsonAdaptedBudget> budgets = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableFinanceLog} with the given log entries.
      */
     @JsonCreator
-    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedLogEntry> logEntries) {
+    public JsonSerializableFinanceLog(@JsonProperty("logEntries") List<JsonAdaptedLogEntry> logEntries,
+                                      @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.logEntries.addAll(logEntries);
+        this.budgets.addAll(budgets);
     }
 
     /**
@@ -42,6 +46,8 @@ class JsonSerializableFinanceLog {
         logEntries.addAll(source.getLogEntryList()
                 .stream().map((log) -> createLogEntry(log))
                 .collect(Collectors.toList()));
+        budgets.addAll(source.getBudgetList()
+                .stream().map(JsonAdaptedBudget::new).collect(Collectors.toList()));
     }
 
     /**
@@ -84,7 +90,7 @@ class JsonSerializableFinanceLog {
             }
             return new JsonAdaptedBorrowLogEntry(amount, tDate, desc, tMethod, categories, logEntryType,
                     borrowedFrom, isRepaidStr, repaidDate);
-
+        case LendLogEntry.LOG_ENTRY_TYPE:
         default:
             LendLogEntry lendLogEntry = (LendLogEntry) log;
             String lentTo = lendLogEntry.getTo().name;
@@ -109,6 +115,10 @@ class JsonSerializableFinanceLog {
         for (JsonAdaptedLogEntry jsonAdaptedLogEntry : logEntries) {
             LogEntry logEntry = jsonAdaptedLogEntry.toModelType();
             financeLog.addLogEntry(logEntry);
+        }
+        for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
+            Budget budget = jsonAdaptedBudget.toModelType();
+            financeLog.addBudget(budget);
         }
         return financeLog;
     }

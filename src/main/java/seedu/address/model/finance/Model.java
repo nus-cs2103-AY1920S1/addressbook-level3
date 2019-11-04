@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.finance.logentry.Budget;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
@@ -13,6 +14,8 @@ import seedu.address.model.finance.logentry.LogEntry;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<LogEntry> PREDICATE_SHOW_ALL_LOG_ENTRIES = unused -> true;
+
+    Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -60,16 +63,22 @@ public interface Model {
      */
     boolean hasLogEntry(LogEntry logEntry);
 
+    boolean hasBudget(Budget budget);
+
     /**
      * Deletes the given log entry.
      * The entry must exist in the finance log.
      */
     void deleteLogEntry(LogEntry target);
 
+    void deleteBudget(Budget budget);
+
     /**
      * Adds the given log entry.
      */
     void addLogEntry(LogEntry logEntry);
+
+    void addBudget(Budget budget);
 
     /**
      * Replaces the given log entry {@code target} with {@code editedLogEntry}.
@@ -86,6 +95,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();
 
+    ObservableList<Budget> getFilteredBudgetList();
+
     GraphicsData getGraphicsData();
 
     /**
@@ -93,5 +104,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredLogEntryList(Predicate<LogEntry> predicate);
+
+    void updateFilteredBudgetList(Predicate<Budget> predicate);
 
 }
