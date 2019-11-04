@@ -71,7 +71,7 @@ public class FindTaskCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredTaskList(predicate);
-        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.setViewStatus(ViewType.LIST_PLANNER_FIND);
 
         return new CommandResult(String.format(MESSAGE_TASKS_LISTED_OVERVIEW, model.getFilteredTaskList().size()),
                     true);

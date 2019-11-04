@@ -5,6 +5,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import seedu.jarvis.logic.Logic;
 import seedu.jarvis.model.Model;
+import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.ui.MainWindow;
 import seedu.jarvis.ui.template.View;
 
@@ -16,12 +17,14 @@ public class PlannerWindow extends View<AnchorPane> {
 
     private TaskListView taskListView;
     private SortedTasksDisplay sortedTasksDisplay;
+    private PlannerUiType type;
 
     @FXML
     private SplitPane taskSplitPane;
 
-    public PlannerWindow(MainWindow mainWindow, Logic logic, Model model) {
+    public PlannerWindow(MainWindow mainWindow, Logic logic, Model model, PlannerUiType type) {
         super(FXML, mainWindow, logic, model);
+        this.type = type;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class PlannerWindow extends View<AnchorPane> {
             taskSplitPane.getItems().remove(0);
         }
         taskListView = new TaskListView(logic.getUnfilteredTaskList());
-        sortedTasksDisplay = new SortedTasksDisplay(logic.getFilteredTaskList());
+        sortedTasksDisplay = new SortedTasksDisplay(logic.getFilteredTaskList(), type);
         taskSplitPane.getItems().addAll(taskListView.getRoot(),
                                             sortedTasksDisplay.getRoot());
     }

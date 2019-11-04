@@ -24,9 +24,13 @@ public class SortedTasksDisplay extends UiPart<Region> {
     @FXML
     private Label header;
 
-    public SortedTasksDisplay(ObservableList<Task> tasks) {
+    public SortedTasksDisplay(ObservableList<Task> tasks, PlannerUiType type) {
         super(FXML);
-        header.setText(" Your tasks for today:");
+        if (type == PlannerUiType.SCHEDULE) {
+            header.setText("  Your tasks for today:");
+        } else {
+            header.setText("  The items matching your keywords are:");
+        }
         sortedTaskDisplay.setItems(tasks);
         sortedTaskDisplay.setCellFactory(listView -> new SortedTaskListViewCell());
     }

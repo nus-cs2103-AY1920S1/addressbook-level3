@@ -150,8 +150,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_SHOW_ALL_TASKS);
-        model.setViewStatus(ViewType.LIST_PLANNER);
+        model.updateFilteredTaskList(PlannerModel.PREDICATE_TASKS_TODAY);
+        model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
