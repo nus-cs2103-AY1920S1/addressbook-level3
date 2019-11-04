@@ -34,7 +34,7 @@ public class StatisticsPieChart extends UiPart<Region> {
     @FXML
     private PieChart statsPieChart;
 
-    public StatisticsPieChart(ObservableList<CategoryStatistics> statsMap) {
+    public StatisticsPieChart(ObservableList<CategoryStatistics> statsMap, String type) {
         super(FXML);
         this.statsMap = statsMap;
         statsMap.addListener(new ListChangeListener<CategoryStatistics>() {
@@ -44,6 +44,7 @@ public class StatisticsPieChart extends UiPart<Region> {
             }
         });
         toAdd = FXCollections.observableArrayList();
+        statsPieChart.setTitle(type);
         statsPieChart.setLabelLineLength(15);
         statsPieChart.setLegendSide(Side.BOTTOM);
         updatePieChart(statsMap);

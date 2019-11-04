@@ -416,6 +416,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isToggleEntryPanel()) {
+                this.togglePlaceHolderForStats(false);
                 this.toggleAllTrue();
                 this.fillEntryListPanel(this.entryListPanel);
             }

@@ -39,8 +39,8 @@ public class StatisticsPieChartHolder extends UiPart<Region> {
     public StatisticsPieChartHolder(ObservableList<CategoryStatistics> expenseStats,
                                     ObservableList<CategoryStatistics> incomeStats) {
         super(FXML);
-        expenseChart = new StatisticsPieChart(expenseStats);
-        incomeChart = new StatisticsPieChart(incomeStats);
+        expenseChart = new StatisticsPieChart(expenseStats, "Expense");
+        incomeChart = new StatisticsPieChart(incomeStats, "Income");
         this.expenseStats = expenseStats;
         this.incomeStats = incomeStats;
         pieChartPanelHolderLeft.getChildren().add(expenseChart.getRoot());

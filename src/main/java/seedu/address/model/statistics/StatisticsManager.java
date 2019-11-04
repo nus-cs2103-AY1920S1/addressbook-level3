@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -40,6 +39,20 @@ public class StatisticsManager implements Statistics {
                              CategoryList listOfCategories) {
         this.modelTotalFilteredExpenses = new FilteredList(listOfFilteredExpenses);
         this.modelTotalFilteredIncomes = new FilteredList(listOfFilteredIncomes);
+        listOfCategories.getInternalListForOtherEntries().addListener(new ListChangeListener<Category>() {
+            @Override
+            public void onChanged(Change<? extends Category> change) {
+                updateCategory();
+                updateListOfStats();
+            }
+        });
+        listOfCategories.getInternalListForIncome().addListener(new ListChangeListener<Category>() {
+            @Override
+            public void onChanged(Change<? extends Category> change) {
+                updateCategory();
+                updateListOfStats();
+            }
+        });
         this.listOfCategories = listOfCategories;
         int currentYear = LocalDate.now().getYear();
         yearlyRecord = FXCollections.observableHashMap();
@@ -69,6 +82,18 @@ public class StatisticsManager implements Statistics {
             monthlyRecord.put(i, monthToCompare);
         }
         yearlyRecord.put(currentYear, monthlyRecord);
+    }
+
+    /**
+     * Updates the list of Category to be displayed in Stats if the original list of Categories change.
+     */
+    private void updateCategory() {
+        listOfStatsForExpense.clear();
+        listOfStatsForIncome.clear();
+        listOfCategories.getInternalListForOtherEntries().stream().forEach(t -> listOfStatsForExpense
+                .add(new CategoryStatistics(t, 0.00)));
+        listOfCategories.getInternalListForIncome().stream().forEach(t -> listOfStatsForIncome
+                .add(new CategoryStatistics(t, 0.00)));
     }
 
     /**
@@ -199,7 +224,7 @@ public class StatisticsManager implements Statistics {
         assert(listOfMonths.size() != 0);
         double totalExpense = countStats(listOfMonths, listOfStatsForExpense);
         this.totalExpenseForPeriod.setValue(totalExpense);
-        double totalIncome =countStats(listOfMonths, listOfStatsForIncome);
+        double totalIncome = countStats(listOfMonths, listOfStatsForIncome);
         this.totalIncomeForPeriod.setValue(totalIncome);
     }
 
@@ -251,7 +276,8 @@ public class StatisticsManager implements Statistics {
      * @param currentMonthList the lists of months that needs to be recalculated.
      * @param typeOfCategory the list of categories that need to be recalculated whether it be income or expense.
      */
-    private double countStats(ArrayList<MonthList> currentMonthList, ObservableList<CategoryStatistics> typeOfCategory) {
+    private double countStats(ArrayList<MonthList> currentMonthList,
+                              ObservableList<CategoryStatistics> typeOfCategory) {
         double totalAmountCalculated = 0.00;
         for (int i = 0; i < typeOfCategory.size(); i++) {
             Category toVerifyCat = typeOfCategory.get(i).getCategory();
@@ -279,5 +305,4 @@ public class StatisticsManager implements Statistics {
         }
         return totalAmountForTotalMonths;
     }
-
 }

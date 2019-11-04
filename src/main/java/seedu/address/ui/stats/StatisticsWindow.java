@@ -6,9 +6,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -56,15 +54,21 @@ public class StatisticsWindow extends UiPart<Region> {
         // Set dependencies
         this.logic = logic;
         this.expenseLabel.textProperty().bind(Bindings.convert(totalExpense));
-        this.expenseLabel.textProperty().bind(Bindings.convert(totalIncome));
+        this.incomeLabel.textProperty().bind(Bindings.convert(totalIncome));
         fillStatsTable();
     }
 
+    /**
+     * Fills up the tablePiePlaceHolder with the Table chart.
+     */
     public void fillStatsTable() {
         tablePiePlaceHolder.getChildren().clear();
         tablePiePlaceHolder.getChildren().add(statsTable.getRoot());
     }
 
+    /**
+     * Fills up the tablePiePlaceHolder with the pie chart.
+     */
     public void fillStatsPie() {
         tablePiePlaceHolder.getChildren().clear();
         tablePiePlaceHolder.getChildren().add(statsPie.getRoot());

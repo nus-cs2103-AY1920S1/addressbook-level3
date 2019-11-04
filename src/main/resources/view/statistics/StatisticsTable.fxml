@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="464.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+<VBox alignment="CENTER" prefHeight="464.0" prefWidth="450.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER" prefWidth="200.0">
       <children>
          <Label fx:id="totalLabel" text="Total">
             <font>
@@ -18,10 +18,10 @@
          </Label>
       </children>
    </HBox>
-  <TableView fx:id="statsTable" prefHeight="466.0" prefWidth="450.0">
+  <TableView fx:id="statsTable" prefWidth="800.0" VBox.vgrow="ALWAYS">
     <columns>
-         <TableColumn fx:id="categoryName" prefWidth="300.0" text="Category Name" />
-         <TableColumn fx:id="amtSpent" prefWidth="150.0" text="Amount Spent" />
+         <TableColumn fx:id="categoryName" prefWidth="336.7999939918518" text="Category Name" />
+         <TableColumn fx:id="amtSpent" text="Amount Spent" />
     </columns>
       <padding>
           <Insets bottom="5" left="5" right="5" top="5" />

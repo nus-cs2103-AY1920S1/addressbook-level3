@@ -43,6 +43,20 @@
     -fx-border-radius: 10px;
 }
 
+.side-panel-income {
+    -fx-background-color: White;
+    -fx-border-color: #3cb371;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+}
+
+.side-panel-expense {
+    -fx-background-color: White;
+    -fx-border-color: Coral;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+}
+
 .side-panel-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
