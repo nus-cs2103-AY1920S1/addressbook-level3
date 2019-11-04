@@ -18,6 +18,7 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.UiAction;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -252,6 +253,33 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Executes a UI action returns the result.
+     *
+     * @see seedu.algobase.logic.Logic#execute(UiAction)
+     */
+    private CommandResult executeUiAction(UiAction uiAction) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(uiAction);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

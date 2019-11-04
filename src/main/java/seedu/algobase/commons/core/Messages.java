@@ -5,6 +5,8 @@ package seedu.algobase.commons.core;
  */
 public class Messages {
 
+    public static final String MESSAGE_UNKNOWN_UI_ACTION = "Unknown action";
+    public static final String MESSAGE_UNKNOWN_UI_ACTION_PROPERTY = "Unknown action property";
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_FIND_RULE_DISPLAYED_INDEX = "The Find Rule index provided is invalid";
