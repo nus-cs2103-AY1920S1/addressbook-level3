@@ -41,6 +41,8 @@ I was tasked with conceptualizing and implementing the *Appointments* system com
 *** Wrote additional tests to increase coverage from 55% to 63% (Pull requests https://github.com/AY1920S1-CS2103T-F12-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/190[#190])
 ** Project management:
 *** Managed the look and feel of the GitHub website, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/57[#57]
+*** Provisioned site short-urls and project email address.
+*** Vetted and assigned incoming Issues to team members.
 ** Documentation:
 *** Worked on documentation for the project, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/191[#191]
 ** Community:
