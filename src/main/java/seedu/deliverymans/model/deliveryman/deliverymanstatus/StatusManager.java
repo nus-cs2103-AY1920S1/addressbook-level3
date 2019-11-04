@@ -6,6 +6,7 @@ import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatu
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
@@ -148,8 +149,14 @@ public class StatusManager {
     /**
      * Resets the status of the deliveryman after he has successfully completed an order.
      */
-    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
-        updateStatusOf(deliveryman, "AVAILABLE");
+    public void updateDeliverymanStatusAfterCompletingOrder(Name nameOfDeliveryman) {
+        for (Deliveryman man : deliveringMen ) {
+            if (man.getName().equals(nameOfDeliveryman)) {
+                Deliveryman deliveryman = man;
+                updateStatusOf(deliveryman, "AVAILABLE");
+                break;
+            }
+        }
     }
 
     /**

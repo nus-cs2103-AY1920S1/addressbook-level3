@@ -1,40 +1,37 @@
 package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
 
-import seedu.deliverymans.model.Name;
+import javafx.collections.ObservableList;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * To be added.
  */
 public class StatisticsManager {
     private final Analyzer analyzer;
-    private RecordBackup records;
 
     {
         analyzer = Analyzer.getInstance();
-        records = new RecordBackup();
     }
 
     /**
-     * Creates a new record for a new deliveryman.
-     * @return index of a new record
+     * Creates an empty {@code StatisticsRecordCard} for Analyzer to analyzed and record on.
+     * Returns a filled-up StatisticsRecordCard
      */
-    public RecordIndex createNewRecord(Name name) {
-        return records.createNewRecord(name);
+    public StatisticsRecordCard analyzeStatusLists(ObservableList<Deliveryman> availableMenList,
+                                                   ObservableList<Deliveryman> unavailableMenList,
+                                                   ObservableList<Deliveryman> deliveringMenList) {
+        StatisticsRecordCard recordCard = createNewRecordCard();
+        analyzer.analyze(recordCard, availableMenList, unavailableMenList, deliveringMenList);
+
+        return recordCard;
     }
 
     /**
-     * Retrieves a delivery record given its record index.
+     * Creates a new record card.
+     * @return a new and empty {@code StatisticsRecordCard}
      */
-    public DeliveryRecord retrieveRecord(RecordIndex recordIndex) {
-        return records.retrieveRecord(recordIndex);
-    }
-
-    /**
-     * Passes a record to Analyzer to be analyzed.
-     */
-    public void analyzeRecord(RecordIndex recordIndex) {
-        DeliveryRecord targetRecord = retrieveRecord(recordIndex);
-        analyzer.analyze(targetRecord);
+    public StatisticsRecordCard createNewRecordCard() {
+        return new StatisticsRecordCard();
     }
 
 }
