@@ -103,7 +103,7 @@ Format: `-deliverymen`
 {nbsp} +
 
 ==== Adding an order: `-add_order`
-This command adds a new order to the database to be processed. The deliveryman to deliver the order will be allocated
+This command allows you to add a new order to the database to be processed. The deliveryman to deliver the order will be allocated
 automatically based on the internal algorithms.
 
 Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
@@ -119,8 +119,23 @@ exists currently in the database.
 
 {nbsp} +
 
+==== Completing an order: `-complete_order`
+This command allows you to complete an order in the database by its index. 
+
+Format: `-complete_order INDEX`
+
+Example:  `-complete_order 3`
+
+Requirements:
+
+* A deliveryman must be assigned to the order before it can be completed.
+
+* The index provided must be within the order list size and be greater than or equals to 0.
+
+{nbsp} +
+
 ==== Editing an order: `-edit_order`
-This enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
+This command enables you to edit an order. The order to edit will have to be specified by its index when you are entering the command.
 
 You can change:
 
@@ -150,6 +165,23 @@ This command enables you to delete an unwanted/cancelled order in the database b
 Format: `-delete_order INDEX`
 
 Example: `-delete_order 3`
+
+Requirements:
+
+* The index provided must be within the order list size and be greater than or equals to 0.
+
+{nbsp} +
+
+==== Listing all orders: `-list_orders`
+This command enables you to view all orders currently in the database.
+
+Format: `-list_orders`
+
+Example: `-list_orders`
+
+Requirements:
+
+* The index provided must be within the order list size and be greater than or equals to 0.
 
 {nbsp} +
 
@@ -447,17 +479,18 @@ Example: `enter 1`
 **Command:** format
 
 * Universal commands
-- View help: `help`
-- View order summary: `order_summary`
-- Add order: `add c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
-- Edit order: `edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [d/DELIVERYMAN] [f/FOOD]... [q/QUANTITY]... [completed/DELIVERY_STATUS]`
-- Delete order: `delete_order INDEX`
-- Switch to restaurant context: `restaurant`
-- Switch to customer context: `customer`
-- Switch to deliverymen context: `deliverymen`
-- Undo command: `undo`
-- Redo command: `redo`
-- Exit application: `exit`
+- View help: `-help`
+- Add order: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
+- Complete order: `-complete_order INDEX`
+- Edit order: `-edit_order i/INDEX [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
+- Delete order: `-delete_order INDEX`
+- List orders: `-list_orders`
+- Switch to restaurant context: `-restaurant`
+- Switch to customer context: `-customer`
+- Switch to deliverymen context: `-deliverymen`
+- Undo command: `-undo`
+- Redo command: `-redo`
+- Exit application: `-exit`
 
 * Customer commands
 - Add a customer: `add n/NAME p/PHONE [t/TAG]...`
