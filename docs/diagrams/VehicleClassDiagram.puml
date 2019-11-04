@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Vehicle {
+district:District
+vehicleNumber:VehicleNumber
+vehicleType:VehicleType
+availability:Availability
+}
+hide Vehicle members
+hide Vehicle methods
+class Availability
+class District
+class Incident
+class VehicleNumber
+class VehicleType
+
+Vehicle *--> Availability
+Vehicle *--> District
+Incident *--> Vehicle
+Vehicle *--> VehicleNumber
+Vehicle *--> VehicleType
+
+Incident *--> District
+@enduml
