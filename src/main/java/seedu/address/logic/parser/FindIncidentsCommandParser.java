@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
@@ -35,10 +35,10 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
     public FindIncidentsCommand parse(String args) throws ParseException {
         List<Predicate<Incident>> predicateArr = new ArrayList<>();
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, SEARCH_PREFIX_DESCRIPTION,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION,
                 SEARCH_PREFIX_ID, SEARCH_PREFIX_OPERATOR, SEARCH_PREFIX_SELF);
 
-        if (!(arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION))
+        if (!(arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION))
                 && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_OPERATOR))
                 && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID))
                 && !(arePrefixesPresent(argMultimap, SEARCH_PREFIX_SELF))) {
@@ -46,9 +46,9 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
                     FindIncidentsCommand.MESSAGE_USAGE));
         }
 
-        if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
-                    .getValue(SEARCH_PREFIX_DESCRIPTION).get());
+                    .getValue(PREFIX_DESCRIPTION).get());
             String[] descKeywordsArr = descriptionKeywords.toString().split("\\s+");
             predicateArr.add(new DescriptionKeywordsPredicate(Arrays.asList(descKeywordsArr)));
         }

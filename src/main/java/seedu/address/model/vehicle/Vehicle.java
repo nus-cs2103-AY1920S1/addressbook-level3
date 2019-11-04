@@ -98,6 +98,7 @@ public class Vehicle {
     public String toDisplayString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getVehicleType())
+                .append(" ")
                 .append(getVehicleNumber());
         return sb.toString();
     }

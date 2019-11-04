@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -36,7 +36,7 @@ public class FindIncidentsCommandParserTest {
         // no leading and trailing whitespaces
         FindIncidentsCommand expectedSearchIncidentsCommand =
                 new FindIncidentsCommand(predicateArr);
-        assertParseSuccess(parser, " " + SEARCH_PREFIX_DESCRIPTION + "test", expectedSearchIncidentsCommand);
+        assertParseSuccess(parser, " " + PREFIX_DESCRIPTION + "test", expectedSearchIncidentsCommand);
     }
 
 }
