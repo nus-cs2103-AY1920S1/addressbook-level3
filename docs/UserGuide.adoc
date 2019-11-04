@@ -308,7 +308,7 @@ Example: `delete 1`
 
 ==== Entering EditMode: `edit`
 This command enters EditMode for the restaurant identified by the specified index in the restaurant list.
-Displays the restaurant's details and menu.
+Displays the restaurant's details, menu and current orders.
 Unlocks commands for editing details, adding and removing of food items
 in the menu, and adding of rating.
 
@@ -342,6 +342,8 @@ This command adds a food item to the menu of the restaurant under EditMode.
 
 Format: `add n/NAME a/PRICE [t/TAG]...`
 
+* You can only tag a food item as "Recommended"
+
 Example: `add n/Chicken a/7.90 t/Recommended`
 
 {nbsp} +
@@ -349,15 +351,15 @@ Example: `add n/Chicken a/7.90 t/Recommended`
 ==== Deleting food item (under EditMode): `delete`
 This command deletes the food item at the specified index in the menu of the restaurant under EditMode.
 
-Format: `remove INDEX`
+Format: `delete INDEX`
 
 * `INDEX` must be a positive integer from 1 to n, the number of food items in the restaurant's menu.
 
-Example: `remove 1`
+Example: `delete 1`
 
 {nbsp} +
 
-==== Adding a rating (under EditMode): 'rate'
+==== Adding a rating (under EditMode): `rate`
 This command adds a rating to the restaurant under EditMode and updates the new average rating of all the ratings
 added to date.
 
@@ -506,6 +508,7 @@ Example: `enter 1`
 - Add a food item: `add n/NAME a/PRICE [t/TAG]...`
 - Delete a food item: `delete INDEX`
 - Add a rating: `rate RATING`
+- Exit EditMode: `exitedit`
 
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`

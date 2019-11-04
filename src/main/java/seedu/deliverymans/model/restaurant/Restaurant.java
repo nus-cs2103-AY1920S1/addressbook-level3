@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
@@ -26,11 +28,11 @@ public class Restaurant {
     private final Name name;
     private final Location location;
     private final Rating rating;
+    private int quantityOrdered;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final ObservableList<Food> menu = FXCollections.observableArrayList();
-    private final ObservableList<Order> orders = FXCollections.observableArrayList();
 
     /**
      * Every field must be present and not null.
@@ -41,6 +43,7 @@ public class Restaurant {
         this.location = location;
         this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
+        this.quantityOrdered = 0;
     }
 
     public Restaurant(Name name, Location location, Set<Tag> tags, ObservableList<Food> menu) {
@@ -50,17 +53,18 @@ public class Restaurant {
         this.rating = new Rating("0", 0);
         this.tags.addAll(tags);
         this.menu.addAll(menu);
+        this.quantityOrdered = 0;
     }
 
     public Restaurant(Name name, Location location, Rating rating, Set<Tag> tags, ObservableList<Food> menu,
-                      ObservableList<Order> orders) {
+                      int quantityOrdered) {
         requireAllNonNull(name, location, rating, tags);
         this.name = name;
         this.location = location;
         this.rating = rating;
         this.tags.addAll(tags);
         this.menu.addAll(menu);
-        this.orders.addAll(orders);
+        this.quantityOrdered = quantityOrdered;
     }
 
     public Name getName() {
@@ -79,17 +83,26 @@ public class Restaurant {
         return tags;
     }
 
-    public ObservableList<Order> getOrders() {
-        return orders;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
     public ObservableList<Food> getMenu() {
         return menu;
     }
+
+    public ObservableList<Order> getOrders(Logic logic) {
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        ObservableList<Order> allOrders = logic.getFilteredOrderList();
+        for (Order order : allOrders) {
+            if (order.getRestaurant().equals(this.name)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    public int getQuantityOrdered() {
+        return this.quantityOrdered;
+    }
+
+
 
     /**
      * Adds the food item to the restaurant's menu
@@ -114,6 +127,23 @@ public class Restaurant {
         requireAllNonNull(toRemove);
         if (!menu.remove(toRemove)) {
             throw new FoodNotFoundException();
+        }
+    }
+
+    /**
+     * Updates quantityOrdered based on order
+     */
+    public void updateQuantity(Order order) {
+        for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
+            this.quantityOrdered += entry.getValue().intValue();
+            for (Food food : this.menu) {
+                if (food.getName().equals(entry.getKey())) {
+                    food.addQuantity(entry.getValue().intValue());
+                }
+            }
+        }
+        for (Food food : this.menu) {
+            food.updateTag(this.quantityOrdered, this.menu.size());
         }
     }
 
@@ -149,14 +179,14 @@ public class Restaurant {
                 && otherRestaurant.getLocation().equals(getLocation())
                 && otherRestaurant.getRating().equals(getRating())
                 && otherRestaurant.getTags().equals(getTags())
-                && otherRestaurant.getOrders().equals(getOrders())
-                && otherRestaurant.getMenu().equals(getMenu());
+                && otherRestaurant.getMenu().equals(getMenu())
+                && otherRestaurant.getQuantityOrdered() == this.quantityOrdered;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, rating, tags, orders, menu);
+        return Objects.hash(name, location, rating, tags, menu, quantityOrdered);
     }
 
     @Override
