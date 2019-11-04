@@ -6,13 +6,16 @@ import java.util.function.Consumer;
 
 import dream.fcard.gui.controllers.displays.createandeditdeck.EditDeckDisplay;
 import dream.fcard.gui.controllers.displays.test.TestDisplay;
+import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.gui.controllers.windows.CardEditingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
 import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -41,15 +44,6 @@ public class DeckDisplay extends AnchorPane {
     @FXML
     private Button addQuestionButton;
 
-    /**
-     * Allows deck display to trigger a change of displays in the parent container MainWindow
-     */
-    @SuppressWarnings("unchecked")
-    private Consumer<Pane> swapDisplaysInMain = State.getState().getConsumer(ConsumerSchema.SWAP_DISPLAYS);
-    @SuppressWarnings("unchecked")
-    private Consumer<String> displayMessage = State.getState().getConsumer(ConsumerSchema.DISPLAY_MESSAGE);
-    @SuppressWarnings("unchecked")
-    private Consumer<Boolean> displayDecks = State.getState().getConsumer(ConsumerSchema.DISPLAY_DECKS);
 
     private Consumer<Integer> deleteCard = this::deleteCard;
     private Consumer<Integer> editCard = this::editCard;
@@ -89,10 +83,16 @@ public class DeckDisplay extends AnchorPane {
     private void startTest() {
         //display the first card
         ArrayList<FlashCard> testArrayListOfCards = deck.getSubsetForTest();
-        ExamRunner.createExam(testArrayListOfCards);
+        ExamRunner.createExam(testArrayListOfCards, 10);
         Exam exam = ExamRunner.getCurrentExam();
-        TestDisplay testDisplay = new TestDisplay(exam);
-        swapDisplaysInMain.accept(testDisplay);
+        if (exam.getDuration() == 0) {
+            TestDisplay testDisplay = new TestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
+        }
+        if (exam.getDuration() > 0) {
+            TimedTestDisplay timedTestDisplay = new TimedTestDisplay(exam);
+            Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
+        }
     }
 
     /**
@@ -119,7 +119,7 @@ public class DeckDisplay extends AnchorPane {
      */
     private void deleteCard(int index) {
         if (deck.getCards().size() == 1) {
-            displayMessage.accept("Your deck needs at least 1 card!");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your deck needs at least 1 card!");
             return;
         }
         try {
@@ -131,14 +131,14 @@ public class DeckDisplay extends AnchorPane {
     }
 
     private void deleteDeck() throws DeckNotFoundException {
-        State state = State.getState();
+        State state = StateHolder.getState();
         state.removeDeck(deck.getName());
-        displayDecks.accept(true);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 
     private void addQuestion() {
         EditDeckDisplay display = new EditDeckDisplay(deck);
-        swapDisplaysInMain.accept(display);
+        Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, display);
     }
 
     /**

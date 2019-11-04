@@ -5,7 +5,5 @@ package dream.fcard.model;
  */
 public enum StateEnum {
     DEFAULT,
-    DECK_VIEWING,
-    CREATE,
-    EDIT
+    TEST
 }

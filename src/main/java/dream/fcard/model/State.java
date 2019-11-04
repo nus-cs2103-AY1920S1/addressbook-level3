@@ -1,53 +1,38 @@
 package dream.fcard.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.function.Consumer;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 
-
-
 /**
- * Running state of the program.
+ * State stores data representing the state of the running program
+ * It should not execute logic or parsing, simply a data store object.
  */
 public class State {
     private static State state;
     private ArrayList<Deck> decks;
-    private HashMap<String, Consumer> consumerHashMap;
     private StateEnum currState;
+    private Deck currentDeck;
 
-    /**
-     * Constructor to create a State object with existing Deck objects.
-     *
-     * @param initialDecks ArrayList of Deck objects to include in State object.
-     */
-    public State(ArrayList<Deck> initialDecks) {
-        decks = initialDecks;
-    }
-    // todo: unused constructor - remove?
 
     /**
      * Constructor to create a State object with no Deck objects.
      */
     public State() {
         decks = StorageManager.loadDecks();
-        consumerHashMap = new HashMap<>();
         currState = StateEnum.DEFAULT;
     }
 
     /**
-     * State is a singleton to avoid passing the state object through too many layers of objects.
-     *
-     * @return the singleton state object
+     * Return the current deck in Create mode.
+     * @return the deck in Create Mode.
      */
-    public static State getState() {
-        if (state == null) {
-            state = new State();
-        }
-        return state;
+    public Deck getCurrentDeck() {
+        return currentDeck;
     }
+
 
     /**
      * Returns false if decks is non-empty, true if decks is empty.
@@ -68,7 +53,9 @@ public class State {
      * Adds a new empty Deck object to decks list.
      */
     public void addDeck(String deckName) {
-        decks.add(new Deck(deckName));
+        Deck temp = new Deck(deckName);
+        decks.add(temp);
+        this.currentDeck = temp;
     }
 
     /**
@@ -78,6 +65,7 @@ public class State {
      */
     public void addDeck(Deck deck) {
         decks.add(deck);
+        this.currentDeck = deck;
     }
 
     /**
@@ -115,14 +103,6 @@ public class State {
         return decks.get(indexOfDeck);
     }
 
-    /**
-     * Load decks from StorageManager.
-     *
-     * @param newDecks the array list of all decks in Storage.
-     */
-    public void reloadAllDecks(ArrayList<Deck> newDecks) {
-        decks = newDecks;
-    }
 
     /**
      * Returns the index of a deck given the deck name, if a deck with matching name exists.
@@ -145,37 +125,20 @@ public class State {
         return -1;
     }
 
-    public void addConsumer(String identifier, Consumer c) {
-        consumerHashMap.putIfAbsent(identifier, c);
-    }
-
     /**
-     * This method of getting consumers generifies the type of input which leads to compiler warnings.
-     * As such, the suppress warning annotations used whenever this method is called
-     * are due to the unchecked generic Consumer types.
-     *
-     * @param identifier name of the Consumer as recorded in ConsumerSchema
-     * @return the Consumer
-     */
-    public Consumer getConsumer(String identifier) {
-        return consumerHashMap.get(identifier);
-    }
-
-    /**
-     * Sets the current state at a specified StateEnum.
-     *
-     * @param currState the StateEnum that state should be at at this time.
+     * Set current state of the app.
+     * @param currState the current state.
      */
     public void setCurrState(StateEnum currState) {
         this.currState = currState;
+        LogsCenter.getLogger(State.class).info("Entering state: + this.currState");
     }
 
     /**
-     * Getter for the current StateEnum.
-     *
-     * @return the StateEnum that the state is in at this time.
+     * Get current state of the app.
+     * @return the current state.
      */
     public StateEnum getCurrState() {
-        return this.currState;
+        return currState;
     }
 }

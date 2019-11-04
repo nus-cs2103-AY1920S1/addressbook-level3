@@ -1,6 +1,5 @@
 package dream.fcard.gui.controllers.jsjava;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 import dream.fcard.model.cards.JavascriptCard;
@@ -26,10 +25,9 @@ public class JsTestEvaluator {
     private JavascriptCard card;
     /**
      * Runs the code in the text editor in JavaScript and returns the output.
-     * @throws IOException if code cannot be compiled.
      */
     @FXML
-    private void runCode() throws IOException {
+    private void runCode() {
         String code = textEditor.getText();
         runner = new JsTestCaseRunner(code, card.getBack());
         returnCode.accept(runner.testCode()); // send results back to the card
