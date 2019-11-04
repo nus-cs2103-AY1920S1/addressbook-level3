@@ -11,10 +11,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant "averageMap:AverageMap" as AverageMap MODEL_COLOR
 end box
-[-> LogicManager : execute(average)
+[-> LogicManager : execute("average a/daily\n rt/bloodsugar n/4")
 activate LogicManager
 
-LogicManager -> SugarMummyParser : parseCommand(average)
+LogicManager -> SugarMummyParser : parseCommand("average a/daily\n rt/bloodsugar n/4")
 activate SugarMummyParser
 
 create AverageCommand
@@ -27,13 +27,13 @@ deactivate AverageCommand
 SugarMummyParser --> LogicManager
 deactivate SugarMummyParser
 
-LogicManager -> AverageCommand : execute(sugarmummy.recmfood.model)
+LogicManager -> AverageCommand : execute(model)
 activate AverageCommand
 
-AverageCommand -> Model : calculateAverageMap(averageType, recordType, count)
+AverageCommand -> Model : calculateAverageMap(DAILY,\n BLOODSUGAR, 4)
 activate Model
 
-Model -> AverageMap : calculateAverage(averageType, recordType, count)
+Model -> AverageMap : calculateAverage(getFilterRecordList(),\n DAILY, BLOODSUGAR, 4)
 activate AverageMap
 
 AverageMap --> Model
@@ -42,11 +42,11 @@ deactivate AverageMap
 Model --> AverageCommand
 deactivate Model
 
-AverageCommand --> LogicManager : result
+AverageCommand --> LogicManager : commandResult
 deactivate AverageCommand
 AverageCommand -[hidden]-> LogicManager : result
 destroy AverageCommand
 
-[<--LogicManager : result
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml
