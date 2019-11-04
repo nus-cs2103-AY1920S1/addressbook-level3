@@ -56,13 +56,28 @@ class TransactionTest {
     @Test
     public void toStringFormat_test() {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
-        String msg = "Transaction that is an EARNING:\nDate: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
+        String msg = "Transaction that is an EARNING:\nDate: " + transaction.getDate() + "\nDescription: "
+                + transaction.getDescription()
                 + "\nCategory: "
                 + transaction.getCategory() + "\nAmount: $" + DECIMAL_FORMAT.format(transaction.getAmount())
                 + "\nPaid by: "
                 + transaction.getPerson().getName().toString();
         assertEquals(msg, transaction.toString());
     }
+
+    @Test
+    public void toStringNegativeFormat_test() {
+        Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).withAmount(-1).build();
+        String msg = "Transaction that is a SPENDING:\nDate: " + transaction.getDate() + "\nDescription: "
+                + transaction.getDescription()
+                + "\nCategory: "
+                + transaction.getCategory() + "\nAmount: $"
+                + DECIMAL_FORMAT.format(-1.0 * transaction.getAmount())
+                + "\nPaid by: "
+                + transaction.getPerson().getName().toString();
+        assertEquals(msg, transaction.toString());
+    }
+
 
     @Test
     public void writeIntoFileFormat_test() {
