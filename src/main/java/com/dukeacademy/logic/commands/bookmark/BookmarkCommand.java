@@ -39,23 +39,28 @@ public class BookmarkCommand implements Command {
      */
     @Override
     public CommandResult execute() throws CommandException {
+
         try {
+            // The question selected by the user, to add a bookmark
             Question userSelection = this.questionsLogic.getQuestion(index);
             boolean userSelectionIsBookmarked = userSelection.isBookmarked();
 
+            // If question selected is already bookmarked
             if (userSelectionIsBookmarked) {
                 // Simply notify user that question is already bookmarked
                 String feedback = "Question " + (index + 1) + " : " + userSelection.getTitle()
                         + " - is already bookmarked.";
+
                 return new CommandResult(feedback, false);
             } else {
-                // Update isBookmarked of question
+                // Replace question selected with a bookmarked version
                 Question bookmarkedQuestion = userSelection.withNewIsBookmarked(true);
                 this.questionsLogic.setQuestion(index, bookmarkedQuestion);
                 logger.info("Bookmarked question at index " + index + " : " + bookmarkedQuestion);
 
                 // Notify user of successful bookmark action
                 String feedback = "Bookmarked question " + (index + 1) + " : " + bookmarkedQuestion.getTitle();
+
                 return new CommandResult(feedback, false);
             }
 
