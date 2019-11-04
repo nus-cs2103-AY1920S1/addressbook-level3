@@ -127,6 +127,10 @@ This command allows you to add a transaction to the table and saves it into the 
 The format of the date has to be in dd-MMM-yyyy format. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person should also be someone recorded in the Members Tab.
 
+[NOTE]
+If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
+and under the "Sales" category for it to show up in the Overview Tab correctly.
+
 * Steps:
 
 1. Type the command with all parameters filled in, as shown in the screenshot below:
@@ -515,6 +519,10 @@ image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 
 ==== Marking a Command as Done
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
+
+[NOTE]
+Transactions not shown in the Reimbursement Tab are already marked as done. +
+No indication will be shown in the Transaction Tab.
 
 * Command: `done p/NAME`
 * Example: `done p/Alex Yeoh`
@@ -977,16 +985,21 @@ will be reset.
 
 * The overview tab displays a variety of statistics for the user.
 * These include:
-** Total value of transactions thus far
+** Total expenses made thus far
 ** Total inventory value
-** Total sales
+** Total sales revenue
 ** Remaining budget
 * The user may also set financial goals and set up percentage thresholds to receive notifications.
 * Leo will notify the user any time their financial goals have been reached.
-
-[WARNING]
-The maximum amount you may set for a goal is 10,000,000 (10 million).
 ====
+
+==== Statistics Information
+The following describes how the various statistics are calculated:
+
+* Expense Summary: Total spent represents the sum of all negative transactions (cash outflows) made by the club.
+* Inventory Summary: Inventory value represents the total cost of all goods currently in the inventory.
+* Sales Summary: Total sales represents the sum of all positive transactions (cash inflow) from the Sales category.
+* Budget Overview: Amount remaining represents the budget goal + total sales - expenses.
 
 ==== Set a Financial Goal
 This command enables you to set a financial goal.
@@ -1003,6 +1016,9 @@ This command enables you to set a financial goal.
 
 [NOTE]
 The amount should be non-negative.
+
+[NOTE]
+The maximum amount you may set for a goal is 10,000,000 (10 million).
 
 * Steps:
 . Type the command with the corresponding target and amount.
@@ -1094,7 +1110,7 @@ To switch it off, please enter `clear` on the Command Line Interface (CLI) of th
 * *Sort By amount (from smallest to largest in amount)*: `sort amount`
 * *Undo sort*: `sort reset`
 * *Find*: `find KEYWORDS`
-* *Back to previous view*: `back`
+* *Display original list*: `back`
 
 
 === Members

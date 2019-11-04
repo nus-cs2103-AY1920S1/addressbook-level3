@@ -9,7 +9,7 @@ import seedu.address.overview.model.Model;
  */
 public interface Storage {
 
-    double[] readFromFile();
+    double[] readFromFile() throws IOException, NumberFormatException;
 
     void writeToFile(Model model) throws IOException;
 }
