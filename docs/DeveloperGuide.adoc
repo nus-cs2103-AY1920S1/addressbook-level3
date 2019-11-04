@@ -207,7 +207,7 @@ image::ClashSequenceDiagram.png[]
 ** Pros:
 ** Cons: Violates Single Responsibility Principle. `ClashCommand` is doing part of the parsing work.
 
-===== Aspect: String representation of clashig time slots
+===== Aspect: String representation of clashing time slots
 
 * **Alternative 1 (current choice):** Use a list to store time slot index and use them to create a temporary `Module` object.
 ** Pros: Can reuse `getTimeSlotToString()` to obtain the string representation
@@ -246,18 +246,79 @@ The following sequence diagram shows how the Find operation works:
 image::FindSequenceDiagram.png[]
 // end::find[]
 
+//tag::addremovemod[]
+=== Add and remove module feature
+==== Implementation
+The addmod/removemod mechanism is facilitated by an abstract `ModCommand` class which extends abstract `Command` class.
+There are the two sub-classes which extends `ModCommand` used to handle adding module or removing module function.
+
+The two sub-classes are:
+
+* `AddModCommand` -- Add a module to a student (Registers the student for a particular module)
+* `RemoveModCommand` -- Removes a module from a student (Drops a module from the student's workload)
+
+image::ModCommandClassDiagram.png[]
+
+Each addmod or removemod command has a `execute()` method that takes in a `Model` object. These commands
+retrieve information of all students and modules from model to get the relevant student and module.
+It then creates a copy of the relevant items and replaces the original ones in the global list of students and modules.
+
+Below shows how the AddModCommand mechanism behaves at each step when adding a module to a student.
+
+[NOTE]
+RemoveMod command is functionally the opposite of AddMod command, but requires less checks to be done before successful
+execution. For this developer guide, only AddMod commands sequence will be elaborated.
+
+Step 1. The user inputs `addmod s/A0180000 m/CS1010` to add module CS1010 to student A0180000.
+
+Step 2. The `ApproveCommandParser` will be called to parse the AddModCommand.
+
+* When parsing the input, the `s/` prefix will be detected and `AddModCommandParser` will parse for a
+student identifier. `m/` prefix will also be detected and parsed for a module identifier.
+
+Step 3. `AddModCommand` object will be created.
+
+Step 4. `AddModCommand.execute()` is called.
+
+The following activity diagram shows how `AddModCommand.execute()` works
+
+image::AddModCommandActivityDiagram.png[]
+
+`ApproveCommand.execute()`
+
+* Step 1. Checks for the validity of student and module identifiers. If index is given as the identifier, the following
+list(s) is used: `model.getFilteredModuleList` and `model.getFilteredStudentList`. If Matric Id is given for student identifier
+or Module code is given for module identifier, it will get the following list(s) instead:
+`model.getFullModuleList` and `model.getFullStudentList`
+* Step 2. Checks the following conditions that should prevent module from being added to student:
+** Check if the student already has the module (Is currently registered for module already)
+** Check if the student has completed the module before
+** Check if the module current intake has already reached quota limit, and is unable to accept any more students
+** Check if the student workload limit will not be exceeded if the module is added to the student
+** Check if the module being added will clash with any existing modules the student is currently taking.
+* Step 3. Creates a new student object and module object with the added module.
+* Step 4. Creates a `CommandResult` object which calls `Model` to replace the old objects
+with the newly created objects. The success message of addmod request will be returned.
+
+The following sequence diagram shows how ApproveCommand works:
+
+image::AddModSequenceDiagram.png[]
+[NOTE]
+An exception is thrown when any of the checks fail. The break interaction operator is placed at the bottom
+of all the checks in order to reduce vision clutter.
+//end::addremovemod[]
 
 //tag::resolve[]
 === Resolve feature
 ==== Implementation
 
 The resolve feature is facilitated by an abstract `ResolveCommand` class which extends abstract `Command` class and
-2 sub-classes which extends `ResolveCommand' for different types of appeal resolultion.
+2 sub-classes which extends `ResolveCommand` for different types of appeal resolution.
 
 The 2 type of appeal resolution are:
 
 * `Approve` -- approves an appeal.
-* `Reject` -- rejects an appeal
+* `Reject` -- rejects an appeal.
 
 Each appeal resolution type has an individual and mass resolution command which extends its base type
 
@@ -294,7 +355,7 @@ Step 4. `ApproveCommand.execute()` is called.
 `ApproveCommand.execute()`
 
 * Step 1. It will check the type of appeal of the appeal index specified by the user, it will check through `model.getFilteredAppealList()` and get the index of the appeal that matches that of the given one.
-* Step 2. Checks weather the appeal has already been resolved with `Appeal.isResolved()`
+* Step 2. Checks whether the appeal has already been resolved with `Appeal.isResolved()`
 * Step 3. If is not yet resolved, nature of appeal will be retrieved with `Appeal.getAppealType()`.  There are 3 types of appeal cases - add module, drop module and increase workload
 ** Add module
 ***  Check if relevant module and student exists by getting `model.getFullModuleList()` and `model.getFullStudentList()`
@@ -329,7 +390,7 @@ Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResu
 
  * Increase workload will inform user of the increase inthe student's Modular Credits limit
 
-The followingg sequence diagram shows how ApproveCommand works:
+The following sequence diagram shows how ApproveCommand works:
 
 image::ResolveSequenceDiagram.png[]
 

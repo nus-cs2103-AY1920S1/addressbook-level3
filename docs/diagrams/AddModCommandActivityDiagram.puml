@@ -1,0 +1,43 @@
+@startuml
+
+start
+- User enters addmod command
+if (command syntax) then ([valid])
+    -Parse input arguments
+
+    if (module and & student) then (found)
+
+    if (student does not module) then (yes)
+
+    if (student has not completed module) then (yes)
+
+    if (module quota limit not reached) then (yes)
+
+    if (student workload limit not reached) then (yes)
+
+    if (module does not clash with student modules) then (yes)
+    -create new module and student objects
+    -replaced old objects in list
+    -CommandResult(success)
+    Stop
+
+endif
+else (no)
+endif
+else (no)
+endif
+else (no)
+endif
+else (no)
+endif
+else (not found)
+endif
+
+else ([Invalid])
+endif
+-Throw ParseException
+
+
+
+stop
+@enduml
