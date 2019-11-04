@@ -71,7 +71,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
         List<String> categoriesList = argMultiMap.getAllValues(PREFIX_CATEGORY);
         Set<Category> categoriesSet = new HashSet<>();
         for (String c : categoriesList) {
-            categoriesSet.add(new Category(c));
+            categoriesSet.add(CommandParserUtil.parseCategory(c));
         }
 
         /**
