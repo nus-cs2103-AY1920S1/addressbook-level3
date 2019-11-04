@@ -36,6 +36,8 @@ public class AlgoBaseUiActionParser {
             return new EditProblemUiActionParser().parse(uiActionDetails);
 
         // Plans
+        case EDIT_PLAN:
+            return new EditPlanUiActionParser().parse(uiActionDetails);
         case SET_PLAN:
             return new SetPlanUiActionParser().parse(uiActionDetails);
 

@@ -9,6 +9,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
 <AnchorPane>
   <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge"
@@ -26,30 +28,26 @@
         <Label text="Plan Name" styleClass="scroll-pane-text"/>
       </StackPane>
       <StackPane>
-        <TextField editable="false" fx:id="planName" />
+        <TextField fx:id="planName" />
       </StackPane>
 
       <!-- Start Date-->
-      <StackPane alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT">
         <padding>
-          <Insets top="10" bottom="10" />
+          <Insets top="25" bottom="10" />
         </padding>
-        <Label text="Start Date" styleClass="scroll-pane-text" />
-      </StackPane>
-      <StackPane>
-        <TextField editable="false" fx:id="startDate" />
-      </StackPane>
+        <Label text="Start Date" styleClass="scroll-pane-text" minWidth="100" />
+        <DatePicker fx:id="startDate" />
+      </HBox>
 
       <!-- End Date-->
-      <StackPane alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT">
         <padding>
           <Insets top="10" bottom="10" />
         </padding>
-        <Label text="End Date" styleClass="scroll-pane-text" />
-      </StackPane>
-      <StackPane>
-        <TextField editable="false" fx:id="endDate" />
-      </StackPane>
+        <Label text="End Date" styleClass="scroll-pane-text" minWidth="100" />
+        <DatePicker fx:id="endDate" />
+      </HBox>
 
       <!-- Plan Description-->
       <StackPane alignment="CENTER_LEFT">
@@ -59,8 +57,17 @@
         <Label text="Plan Description" styleClass="scroll-pane-text" />
       </StackPane>
       <StackPane>
-        <TextArea editable="false" fx:id="planDescription" wrapText="true" />
+        <TextArea fx:id="planDescription" wrapText="true" />
       </StackPane>
+
+      <HBox alignment="BOTTOM_RIGHT">
+        <padding>
+          <Insets top="10" bottom="10" />
+        </padding>
+
+        <!-- Edit Button -->
+        <Button fx:id="submitButton" text="Edit Plan" />
+      </HBox>
     </VBox>
   </ScrollPane>
 </AnchorPane>

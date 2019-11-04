@@ -153,7 +153,7 @@ public class DetailsTabPane extends UiPart<Region> {
                 return Optional.of(
                     new DetailsTab(
                         plan.getPlanName().fullName,
-                        new PlanDetails(plan),
+                        new PlanDetails(plan, uiActionExecutor),
                         modelType,
                         modelId,
                         uiActionExecutor

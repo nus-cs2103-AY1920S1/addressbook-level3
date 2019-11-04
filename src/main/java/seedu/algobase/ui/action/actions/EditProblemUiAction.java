@@ -37,7 +37,6 @@ public class EditProblemUiAction extends UiAction {
 
     private final Id id;
     private final EditProblemDescriptor editProblemDescriptor;
-
     /**
      * @param id of the Problem in the filtered Problem list to edit
      * @param editProblemDescriptor details to edit the Problem with
@@ -49,6 +48,7 @@ public class EditProblemUiAction extends UiAction {
         this.id = id;
         this.editProblemDescriptor = new EditProblemDescriptor(editProblemDescriptor);
     }
+
 
     /**
      * Retrieves the problem to be edited from the problem list.

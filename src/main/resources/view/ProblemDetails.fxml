@@ -98,6 +98,10 @@
 
 
         <HBox alignment="BOTTOM_RIGHT">
+          <padding>
+            <Insets top="10" bottom="10" />
+          </padding>
+
           <!-- Edit Button -->
           <Button fx:id="submitButton" text="Edit Problem" />
         </HBox>
