@@ -690,7 +690,6 @@ public class ModelManager implements Model {
     /**
      * Updates the list of tasks according to the day and week
      */
-    //TODO test
     public void updateSchedule() {
         planner.updateSchedule();
     }
@@ -719,7 +718,6 @@ public class ModelManager implements Model {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO tests
     @Override
     public ObservableList<Task> getTasksToday() {
         return planner.getTasksToday();
@@ -730,7 +728,6 @@ public class ModelManager implements Model {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO tests
     @Override
     public ObservableList<Task> getTasksThisWeek() {
         return planner.getTasksThisWeek();

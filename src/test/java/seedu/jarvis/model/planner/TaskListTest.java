@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.enums.Status;
+import seedu.jarvis.model.planner.predicates.TaskDesContainsKeywordsPredicate;
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;

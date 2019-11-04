@@ -109,7 +109,6 @@ public interface PlannerModel {
     /**
      * Updates the list of tasks according to the day and week
      */
-    //TODO test
     void updateSchedule();
 
     /**
@@ -130,7 +129,6 @@ public interface PlannerModel {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO tests
     ObservableList<Task> getTasksToday();
 
     /**
@@ -138,7 +136,6 @@ public interface PlannerModel {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO tests
     ObservableList<Task> getTasksThisWeek();
 
     /**

@@ -184,7 +184,6 @@ public class Planner {
     /**
      * Updates the list of tasks according to the day and week
      */
-    //TODO test
     public void updateSchedule() {
         tasksToday = new FilteredList<>(FXCollections.observableList(getTasks()),
                 PlannerModel.PREDICATE_SHOW_ALL_TASKS);
@@ -217,7 +216,6 @@ public class Planner {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO test
     public ObservableList<Task> getTasksToday() {
         return tasksToday;
     }
@@ -227,7 +225,6 @@ public class Planner {
      * backed by the internal list of {@code Planner}
      * @return a list of all the {@code Task} in the {@code Planner}
      */
-    //TODO test
     public ObservableList<Task> getTasksThisWeek() {
         return tasksThisWeek;
     }

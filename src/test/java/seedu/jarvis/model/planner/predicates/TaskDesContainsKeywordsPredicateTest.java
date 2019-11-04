@@ -1,4 +1,4 @@
-package seedu.jarvis.model.planner;
+package seedu.jarvis.model.planner.predicates;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
