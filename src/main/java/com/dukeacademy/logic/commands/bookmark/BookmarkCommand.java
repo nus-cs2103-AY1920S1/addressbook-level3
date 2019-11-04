@@ -48,8 +48,7 @@ public class BookmarkCommand implements Command {
                 // Simply notify user that question is already bookmarked
                 String feedback = "Question " + id + " : " + userSelection.getTitle()
                         + " - is already bookmarked.";
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             } else {
                 // Update isBookmarked of question
                 Question bookmarkedQuestion = userSelection.withNewIsBookmarked(true);
@@ -58,8 +57,7 @@ public class BookmarkCommand implements Command {
 
                 // Notify user of successful bookmark action
                 String feedback = "Bookmarked question " + id + " : " + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             }
 
         } catch (QuestionNotFoundRuntimeException e) {

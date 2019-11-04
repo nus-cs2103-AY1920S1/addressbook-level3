@@ -43,7 +43,7 @@ public class ViewCommand implements Command {
             // Update the app's current activity
             applicationState.setCurrentActivity(Activity.QUESTION);
 
-            return new CommandResult(feedback, false, false
+            return new CommandResult(feedback, false
             );
         } catch (QuestionNotFoundRuntimeException e) {
             throw new CommandException("No question with id  " + id + " found.");
