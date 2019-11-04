@@ -112,6 +112,9 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
         }
 
         for (String maxShareStr : argMultimap.getAllValues(PREFIX_MAX_SHARE)) {
+            if (maxShareStr.length() >= Amount.MAX_AMOUNT.length()) {
+                throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+            }
             maxShareStr += "00"; // calculation to be done in cents
             long maxShare = Long.parseLong(maxShareStr);
             if (maxShare < -1) {
