@@ -245,6 +245,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         patientAddressBook.setPerson(target, editedPerson);
+        appointmentBook.updatesPersonDetails(target, editedPerson);
     }
 
     @Override
@@ -317,6 +318,7 @@ public class ModelManager implements Model {
     public void setStaff(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         staffAddressBook.setPerson(target, editedPerson);
+        dutyRosterBook.updatesPersonDetails(target, editedPerson);
     }
 
     @Override
