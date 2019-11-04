@@ -37,7 +37,7 @@ public class StatsFactory {
      */
     public StatsFactory(ReadOnlyResourceBook<Exercise> exercises, String chart, String category,
                         Date startDate, Date endDate) {
-        this.exercises = exercises.getResourceList();
+        this.exercises = exercises.getSortedResourceList();
         this.chart = chart;
         this.category = category;
         if (startDate == null && endDate == null) {

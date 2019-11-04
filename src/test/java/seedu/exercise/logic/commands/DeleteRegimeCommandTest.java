@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.DUPLICATE_REGIME_INDEXES;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.LARGE_REGIME_INDEX;
 import static seedu.exercise.testutil.typicalutil.TypicalRegime.VALID_REGIME_CARDIO;
@@ -28,21 +30,25 @@ import seedu.exercise.ui.ListResourceType;
 
 public class DeleteRegimeCommandTest {
 
-    private Model model = new ModelManager(new ReadOnlyResourceBook<>(), getTypicalRegimeBook(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+    private Model model = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            getTypicalRegimeBook(),
+        new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
 
     @Test
     public void execute_validRegimeName_success() {
         int regimeIndex = model.getRegimeIndex(VALID_REGIME_CARDIO);
-        Regime regimeToDelete = model.getFilteredRegimeList().get(regimeIndex);
+        Regime regimeToDelete = model.getSortedRegimeList().get(regimeIndex);
         Name name = new Name(VALID_REGIME_NAME_CARDIO);
         DeleteRegimeCommand deleteRegimeCommand = new DeleteRegimeCommand(name, null);
 
         String expectedMessage = String.format(DeleteRegimeCommand.MESSAGE_DELETE_REGIME_SUCCESS,
             name.toString(), regimeToDelete);
 
-        ModelManager expectedModel = new ModelManager(new ReadOnlyResourceBook<>(), model.getAllRegimeData(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                model.getAllRegimeData(),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
         expectedModel.deleteRegime(regimeToDelete);
 
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, ListResourceType.REGIME);

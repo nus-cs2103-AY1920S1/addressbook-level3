@@ -1,8 +1,10 @@
 package seedu.exercise.model.resource;
 
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+
 import java.util.Objects;
 
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.storage.resource.JsonAdaptedRegime;
 
@@ -11,9 +13,9 @@ import seedu.exercise.storage.resource.JsonAdaptedRegime;
  */
 public class Regime extends Resource {
     private final Name regimeName;
-    private final UniqueResourceList<Exercise> regimeExercises;
+    private final SortedUniqueResourceList<Exercise> regimeExercises;
 
-    public Regime(Name regimeName, UniqueResourceList<Exercise> regimeExercises) {
+    public Regime(Name regimeName, SortedUniqueResourceList<Exercise> regimeExercises) {
         this.regimeName = regimeName;
         this.regimeExercises = regimeExercises;
     }
@@ -30,7 +32,7 @@ public class Regime extends Resource {
         return regimeName;
     }
 
-    public UniqueResourceList<Exercise> getRegimeExercises() {
+    public SortedUniqueResourceList<Exercise> getRegimeExercises() {
         return regimeExercises;
     }
 
@@ -41,7 +43,8 @@ public class Regime extends Resource {
      */
     public Regime deepCopy() {
         Name newName = new Name(regimeName.toString());
-        UniqueResourceList<Exercise> newRegimeExercises = new UniqueResourceList<>();
+        SortedUniqueResourceList<Exercise> newRegimeExercises =
+                new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR);
         newRegimeExercises.setAll(regimeExercises);
         return new Regime(newName, newRegimeExercises);
     }

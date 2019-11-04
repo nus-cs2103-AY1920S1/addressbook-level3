@@ -9,6 +9,7 @@ import static seedu.exercise.logic.commands.events.ResolveEvent.KEY_RESOLVED_SCH
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CONFLICT_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ import seedu.exercise.logic.commands.events.EventHistory;
 import seedu.exercise.logic.commands.events.EventPayload;
 import seedu.exercise.logic.commands.exceptions.CommandException;
 import seedu.exercise.model.Model;
-import seedu.exercise.model.UniqueResourceList;
+import seedu.exercise.model.SortedUniqueResourceList;
 import seedu.exercise.model.conflict.Conflict;
 import seedu.exercise.model.property.Name;
 import seedu.exercise.model.resource.Regime;
@@ -176,7 +177,8 @@ public class ResolveCommand extends Command implements UndoableCommand, PayloadC
      */
     private void checkNonDuplicateRegimeNameFromModel(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.hasRegime(new Regime(scheduledOrConflicting, new UniqueResourceList<>()))) {
+        if (model.hasRegime(
+                new Regime(scheduledOrConflicting, new SortedUniqueResourceList<>(DEFAULT_EXERCISE_COMPARATOR)))) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_NAME, scheduledOrConflicting.toString()));
         }
     }

@@ -1,6 +1,9 @@
 package seedu.exercise.logic.commands;
 
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExerciseBook;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,10 +25,13 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
-        expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+        model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
+        expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     }
 
     @Test

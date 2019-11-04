@@ -2,6 +2,7 @@ package seedu.exercise.storage.bookstorage;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,7 +52,7 @@ public class JsonScheduleBookStorage implements ResourceBookStorage<Schedule> {
         }
 
         try {
-            return Optional.of(jsonScheduleBook.get().toModelType(Schedule.class));
+            return Optional.of(jsonScheduleBook.get().toModelType(Schedule.class, DEFAULT_SCHEDULE_COMPARATOR));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

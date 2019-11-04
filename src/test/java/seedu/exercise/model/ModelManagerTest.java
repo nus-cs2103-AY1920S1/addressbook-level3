@@ -3,6 +3,9 @@ package seedu.exercise.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.SWIM;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.WALK;
@@ -26,8 +29,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new ReadOnlyResourceBook<Exercise>(),
-            new ReadOnlyResourceBook<>(modelManager.getExerciseBookData()));
+        assertEquals(new ReadOnlyResourceBook<Exercise>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(modelManager.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR));
     }
 
     @Test
@@ -91,18 +94,19 @@ public class ModelManagerTest {
 
     @Test
     public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExerciseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getSortedExerciseList().remove(0));
     }
 
     @Test
     public void equals() {
         ReadOnlyResourceBook<Exercise> exerciseBook =
             new ExerciseBookBuilder().withExercise(WALK).withExercise(SWIM).build();
-        ReadOnlyResourceBook<Regime> regimeBook = new ReadOnlyResourceBook<>();
-        ReadOnlyResourceBook<Schedule> scheduleBook = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Regime> regimeBook = new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR);
+        ReadOnlyResourceBook<Schedule> scheduleBook = new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR);
         ReadOnlyResourceBook<Exercise> databaseBook =
             new ExerciseBookBuilder().withExercise(WALK).withExercise(SWIM).build();
-        ReadOnlyResourceBook<Exercise> differentExerciseBook = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Exercise> differentExerciseBook =
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

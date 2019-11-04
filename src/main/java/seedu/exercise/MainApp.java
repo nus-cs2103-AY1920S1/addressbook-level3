@@ -1,6 +1,9 @@
 package seedu.exercise;
 
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -124,10 +127,10 @@ public class MainApp extends Application {
             regimeData = regimeBookOptional.orElseGet(SampleDataUtil::getSampleRegimeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RegimeBook");
-            regimeData = new ReadOnlyResourceBook<>();
+            regimeData = new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty RegimeBook");
-            regimeData = new ReadOnlyResourceBook<>();
+            regimeData = new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR);
 
         }
 
@@ -150,10 +153,10 @@ public class MainApp extends Application {
             exerciseData = exerciseBookOptional.orElseGet(SampleDataUtil::getSampleExerciseBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in correct format. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>();
+            exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>();
+            exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         }
 
         return exerciseData;
@@ -174,10 +177,10 @@ public class MainApp extends Application {
             initialScheduleData = scheduleBookOptional.orElseGet(SampleDataUtil::getSampleScheduleBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ScheduleBook");
-            initialScheduleData = new ReadOnlyResourceBook<>();
+            initialScheduleData = new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR);
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ScheduleBook");
-            initialScheduleData = new ReadOnlyResourceBook<>();
+            initialScheduleData = new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR);
         }
 
         return initialScheduleData;

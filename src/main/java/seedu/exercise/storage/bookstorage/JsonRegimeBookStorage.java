@@ -1,6 +1,7 @@
 package seedu.exercise.storage.bookstorage;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -49,7 +50,7 @@ public class JsonRegimeBookStorage implements ResourceBookStorage<Regime> {
         }
 
         try {
-            return Optional.of(jsonRegimeBook.get().toModelType(Regime.class));
+            return Optional.of(jsonRegimeBook.get().toModelType(Regime.class, DEFAULT_REGIME_COMPARATOR));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

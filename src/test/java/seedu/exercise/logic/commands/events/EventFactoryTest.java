@@ -23,6 +23,7 @@ import static seedu.exercise.logic.commands.events.EventTestUtil.assertGenerated
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedDeleteEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedEventEquals;
 import static seedu.exercise.logic.commands.events.EventTestUtil.assertGeneratedScheduleEventEquals;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.getTypicalExercises;
 
@@ -43,7 +44,7 @@ public class EventFactoryTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager();
-        ReadOnlyResourceBook<Exercise> exerciseBook = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Exercise> exerciseBook = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         exerciseBook.setResources(getTypicalExercises());
         model.setExerciseBook(exerciseBook);
     }

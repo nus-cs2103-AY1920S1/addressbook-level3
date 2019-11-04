@@ -115,7 +115,7 @@ public class CustomRemoveCommand extends CustomCommand {
      * Updates the custom properties of the exercise at the given index in the model.
      */
     private void updateCustomPropertiesOfSingleExercise(Model model, Index index) throws CommandException {
-        ObservableList<Exercise> modelList = model.getFilteredExerciseList();
+        ObservableList<Exercise> modelList = model.getSortedExerciseList();
         if (IndexUtil.isIndexOutOfBounds(index, modelList)) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
@@ -128,7 +128,7 @@ public class CustomRemoveCommand extends CustomCommand {
      * Updates the custom properties of all the exercises in the given {@code model}.
      */
     private void updateCustomPropertiesOfAllExercises(Model model) {
-        List<Exercise> exerciseList = model.getFilteredExerciseList();
+        List<Exercise> exerciseList = model.getSortedExerciseList();
         for (Exercise oldExercise : exerciseList) {
             Exercise updatedExercise = updateExerciseCustomProperty(oldExercise);
             model.setExercise(oldExercise, updatedExercise);

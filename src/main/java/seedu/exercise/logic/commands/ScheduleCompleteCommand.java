@@ -61,13 +61,13 @@ public class ScheduleCompleteCommand extends ScheduleCommand implements PayloadC
     }
 
     private Schedule completeSchedule(Model model) {
-        Schedule toComplete = model.getFilteredScheduleList().get(index.getZeroBased());
+        Schedule toComplete = model.getSortedScheduleList().get(index.getZeroBased());
         model.completeSchedule(toComplete);
         return toComplete;
     }
 
     private void checkValidIndex(Model model) throws CommandException {
-        if (IndexUtil.isIndexOutOfBounds(index, model.getFilteredScheduleList())) {
+        if (IndexUtil.isIndexOutOfBounds(index, model.getSortedScheduleList())) {
             throw new CommandException(Messages.MESSAGE_INVALID_SCHEDULE_DISPLAYED_INDEX);
         }
     }

@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_END_DATE;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
@@ -42,8 +45,10 @@ public class CustomRemoveCommandTest {
     private Exercise secondExercise = new ExerciseBuilder(WALK).withCustomProperties(customPropertiesMap).build();
     private ReadOnlyResourceBook<Exercise> exerciseBook = new ExerciseBookBuilder().withExercise(firstExercise)
         .withExercise(secondExercise).build();
-    private Model model = new ModelManager(exerciseBook, new ReadOnlyResourceBook<>(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+    private Model model = new ModelManager(exerciseBook,
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+        new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR), new UserPrefs());
     private PropertyBook propertyBook = PropertyBook.getInstance();
 
     @BeforeEach
@@ -75,9 +80,11 @@ public class CustomRemoveCommandTest {
         ReadOnlyResourceBook<Exercise> updatedExerciseBook =
             new ExerciseBookBuilder().withExercise(updatedExercise).withExercise(WALK).build();
         String expectedMessage = String.format(CustomRemoveCommand.MESSAGE_SUCCESS_ALL_REMOVED, VALID_FULL_NAME_REMARK);
-        Model expectedModel = new ModelManager(updatedExerciseBook, new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
-            new UserPrefs());
+        Model expectedModel = new ModelManager(updatedExerciseBook,
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+                new UserPrefs());
 
         assertCommandSuccess(customRemoveCommand, model, expectedMessage, expectedModel);
         assertEquals(new HashSet<>(), propertyBook.getCustomProperties());
@@ -94,8 +101,10 @@ public class CustomRemoveCommandTest {
             new ExerciseBookBuilder().withExercise(updatedExercise).withExercise(secondExercise).build();
         String expectedMessage = String.format(CustomRemoveCommand.MESSAGE_SUCCESS_SINGLE_REMOVED,
             VALID_FULL_NAME_REMARK, INDEX_ONE_BASED_FIRST.getOneBased());
-        Model expectedModel = new ModelManager(updatedExerciseBook, new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(),
+        Model expectedModel = new ModelManager(updatedExerciseBook,
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
             new UserPrefs());
         Set<CustomProperty> expectedSet = Set.of(REMARK); // Custom property should not be removed
 

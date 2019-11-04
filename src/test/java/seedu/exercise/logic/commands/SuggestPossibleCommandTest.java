@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExerciseWithCustomProperty;
 import static seedu.exercise.logic.parser.predicate.PredicateUtil.predicateShowExercisesWithMuscle;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
@@ -46,12 +48,16 @@ public class SuggestPossibleCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new UserPrefs());
-        expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-            new UserPrefs());
+        model = new ModelManager(getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+                new UserPrefs());
+        expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                getTypicalExerciseBook(),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+                new UserPrefs());
 
         targetMuscles = new HashSet<>();
         targetMuscles.add(new Muscle(VALID_MUSCLE_AEROBICS));

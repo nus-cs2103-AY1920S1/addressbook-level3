@@ -3,6 +3,7 @@ package seedu.exercise.model.book;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_MUSCLE_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_QUANTITY_BASKETBALL;
@@ -25,11 +26,12 @@ import seedu.exercise.testutil.builder.ExerciseBuilder;
 
 public class ExerciseBookTest {
 
-    private final ReadOnlyResourceBook<Exercise> exerciseBook = new ReadOnlyResourceBook<>();
+    private final ReadOnlyResourceBook<Exercise> exerciseBook =
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), exerciseBook.getResourceList());
+        assertEquals(Collections.emptyList(), exerciseBook.getSortedResourceList());
     }
 
     @Test
@@ -80,7 +82,7 @@ public class ExerciseBookTest {
 
     @Test
     public void getExerciseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> exerciseBook.getResourceList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> exerciseBook.getSortedResourceList().remove(0));
     }
 
     /**
@@ -90,10 +92,11 @@ public class ExerciseBookTest {
         private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
         ExerciseBookStub(Collection<Exercise> exercises) {
+            super(DEFAULT_EXERCISE_COMPARATOR);
             this.exercises.setAll(exercises);
         }
 
-        public ObservableList<Exercise> getResourceList() {
+        public ObservableList<Exercise> getSortedResourceList() {
             return exercises;
         }
     }

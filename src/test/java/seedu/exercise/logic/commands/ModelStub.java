@@ -131,17 +131,17 @@ class ModelStub implements Model {
     }
 
     @Override
-    public ObservableList<Exercise> getFilteredExerciseList() {
+    public ObservableList<Exercise> getSortedExerciseList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Regime> getFilteredRegimeList() {
+    public ObservableList<Regime> getSortedRegimeList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Schedule> getFilteredScheduleList() {
+    public ObservableList<Schedule> getSortedScheduleList() {
         throw new AssertionError("This method should not be called.");
     }
 

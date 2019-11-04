@@ -41,7 +41,7 @@ public class DeleteExerciseCommand extends DeleteCommand implements PayloadCarri
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Exercise> lastShownList = model.getFilteredExerciseList();
+        List<Exercise> lastShownList = model.getSortedExerciseList();
 
         if (IndexUtil.isIndexOutOfBounds(targetIndex, lastShownList)) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);

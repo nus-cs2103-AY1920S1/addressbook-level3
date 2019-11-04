@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_FULL_NAME;
 import static seedu.exercise.logic.commands.CustomAddCommand.MESSAGE_DUPLICATE_PREFIX_NAME;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_RATING;
 import static seedu.exercise.testutil.CommonTestData.VALID_FULL_NAME_REMARK;
@@ -32,8 +35,11 @@ import seedu.exercise.testutil.builder.CustomPropertyBuilder;
 
 class CustomAddCommandTest {
 
-    private Model model = new ModelManager(getTypicalExerciseBook(), new ReadOnlyResourceBook<>(),
-        new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseBook(),
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+            new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+            new UserPrefs());
     private PropertyBook propertyBook = PropertyBook.getInstance();
 
     @BeforeEach

@@ -28,6 +28,7 @@ public class TestUtil {
      */
     public static Path getFilePathInSandboxFolder(String fileName) {
         try {
+
             Files.createDirectories(SANDBOX_FOLDER);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -39,21 +40,21 @@ public class TestUtil {
      * Returns the middle index of the exercise in the {@code model}'s exercise list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredExerciseList().size() / 2);
+        return Index.fromOneBased(model.getSortedExerciseList().size() / 2);
     }
 
     /**
      * Returns the last index of the exercise in the {@code model}'s exercise list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredExerciseList().size());
+        return Index.fromOneBased(model.getSortedExerciseList().size());
     }
 
     /**
      * Returns the exercise in the {@code model}'s exercise list at {@code index}.
      */
     public static Exercise getExercise(Model model, Index index) {
-        return model.getFilteredExerciseList().get(index.getZeroBased());
+        return model.getSortedExerciseList().get(index.getZeroBased());
     }
 
     /**

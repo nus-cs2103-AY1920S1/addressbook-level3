@@ -263,12 +263,12 @@ public class CommonTestData {
             + VALID_PREFIX_NAME_REMARK;
 
     //=======================For valid regime toString============================
-    public static final String VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO = "Exercise 1: Walking\n"
-        + "Exercise 2: Swimming\n"
-        + "Exercise 3: Dancing\n"
-        + "Exercise 4: Bench Press\n"
-        + "Exercise 5: Skipping\n"
-        + "Exercise 6: Sprinting\nExercise 7: Snapping\n";
+    public static final String VALID_REGIME_STRING_FOR_TYPICAL_REGIME_CARDIO = "Exercise 1: Bench Press\n"
+        + "Exercise 2: Dancing\n"
+        + "Exercise 3: Skipping\n"
+        + "Exercise 4: Snapping\n"
+        + "Exercise 5: Sprinting\n"
+        + "Exercise 6: Swimming\nExercise 7: Walking\n";
     //====================For valid statistic=============================================
     public static final String VALID_LINE_CHART = "linechart";
     public static final String VALID_BAR_CHART = "barchart";

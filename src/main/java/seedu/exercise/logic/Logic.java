@@ -39,7 +39,7 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of the filtered list of exercises.
      */
-    ObservableList<Exercise> getFilteredExerciseList();
+    ObservableList<Exercise> getSortedExerciseList();
 
     /**
      * Returns the RegimeBook.
@@ -48,12 +48,12 @@ public interface Logic {
      */
     ReadOnlyResourceBook<Regime> getRegimeBook();
 
-    ObservableList<Regime> getFilteredRegimeList();
+    ObservableList<Regime> getSortedRegimeList();
 
     /**
      * Returns an unmodifiable view of the filtered list of schedules
      */
-    ObservableList<Schedule> getFilteredScheduleList();
+    ObservableList<Schedule> getSortedScheduleList();
 
     /**
      * Returns the user prefs' exercise book file path.

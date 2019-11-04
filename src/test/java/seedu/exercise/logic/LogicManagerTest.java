@@ -5,6 +5,9 @@ import static seedu.exercise.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISP
 import static seedu.exercise.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.exercise.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.exercise.logic.parser.ListCommandParser.LIST_TYPE_EXERCISE;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 import static seedu.exercise.testutil.CommonTestData.CALORIES_DESC_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.CATEGORY_DESC_EXERCISE;
@@ -140,7 +143,7 @@ public class LogicManagerTest {
 
     @Test
     public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> logic.getSortedExerciseList().remove(0));
     }
 
     @Test
@@ -163,11 +166,11 @@ public class LogicManagerTest {
 
     @Test
     public void getMethods_defaultValues_success() {
-        assertEquals(new ReadOnlyResourceBook<>(), logic.getExerciseBook());
-        assertEquals(model.getFilteredExerciseList(), logic.getFilteredExerciseList());
-        assertEquals(new ReadOnlyResourceBook<>(), logic.getRegimeBook());
-        assertEquals(model.getFilteredRegimeList(), logic.getFilteredRegimeList());
-        assertEquals(model.getFilteredScheduleList(), logic.getFilteredScheduleList());
+        assertEquals(new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR), logic.getExerciseBook());
+        assertEquals(model.getSortedExerciseList(), logic.getSortedExerciseList());
+        assertEquals(new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR), logic.getRegimeBook());
+        assertEquals(model.getSortedRegimeList(), logic.getSortedRegimeList());
+        assertEquals(model.getSortedScheduleList(), logic.getSortedScheduleList());
         assertEquals(model.getSuggestedExerciseList(), logic.getSuggestedExerciseList());
         assertEquals(model.getGuiSettings(), logic.getGuiSettings());
 
@@ -225,8 +228,11 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
                                       String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getExerciseBookData(), new ReadOnlyResourceBook<>(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExerciseBookData(),
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_SCHEDULE_COMPARATOR),
+                new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

@@ -3,6 +3,7 @@ package seedu.exercise.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.exercise.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -13,18 +14,14 @@ import seedu.exercise.model.resource.Resource;
  */
 public class ReadOnlyResourceBook<T extends Resource> {
 
-    private final UniqueResourceList<T> resources;
+    private final SortedUniqueResourceList<T> resources;
 
-    {
-        resources = new UniqueResourceList<>();
+    public ReadOnlyResourceBook(Comparator<T> comparator) {
+        resources = new SortedUniqueResourceList<>(comparator);
     }
 
-    public ReadOnlyResourceBook() {
-
-    }
-
-    public ReadOnlyResourceBook(ReadOnlyResourceBook<T> toBeCopied) {
-        this();
+    public ReadOnlyResourceBook(ReadOnlyResourceBook<T> toBeCopied, Comparator<T> comparator) {
+        this(comparator);
         resetData(toBeCopied);
     }
 
@@ -41,7 +38,7 @@ public class ReadOnlyResourceBook<T extends Resource> {
      */
     public void resetData(ReadOnlyResourceBook<T> newData) {
         requireNonNull(newData);
-        setResources(newData.getResourceList());
+        setResources(newData.getSortedResourceList());
     }
 
     /**
@@ -78,8 +75,8 @@ public class ReadOnlyResourceBook<T extends Resource> {
 
 
     /**
-     * Retrieves the index of {@code toGet} from the list.
-     * Returns -1 if the item is not present in the list.
+     * Retrieves the index of {@code toGet} from the sorted list.
+     * Returns -1 if the item is not present in the sorted list.
      */
     public int getResourceIndex(T toGet) {
         int i = 0;
@@ -93,9 +90,9 @@ public class ReadOnlyResourceBook<T extends Resource> {
     }
 
     /**
-     * Returns an unmodifiable list of {@code Resource} of type {@code T}.
+     * Returns an unmodifiable sorted list of {@code Resource} of type {@code T}.
      */
-    public ObservableList<T> getResourceList() {
+    public ObservableList<T> getSortedResourceList() {
         return resources.asUnmodifiableObservableList();
     }
 

@@ -1,6 +1,9 @@
 package seedu.exercise.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_SCHEDULE_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -54,25 +57,25 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         ReadOnlyResourceBook<Exercise> expectedExerciseBook =
-            new ReadOnlyResourceBook<>(actualModel.getExerciseBookData());
-        List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
+            new ReadOnlyResourceBook<>(actualModel.getExerciseBookData(), DEFAULT_EXERCISE_COMPARATOR);
+        List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getSortedExerciseList());
 
         ReadOnlyResourceBook<Regime> expectedRegimeBook =
-                new ReadOnlyResourceBook<>(actualModel.getAllRegimeData());
-        List<Regime> expectedRegimeList = new ArrayList<>(actualModel.getFilteredRegimeList());
+                new ReadOnlyResourceBook<>(actualModel.getAllRegimeData(), DEFAULT_REGIME_COMPARATOR);
+        List<Regime> expectedRegimeList = new ArrayList<>(actualModel.getSortedRegimeList());
 
         ReadOnlyResourceBook<Schedule> expectedScheduleBook =
-                new ReadOnlyResourceBook<>(actualModel.getAllScheduleData());
-        List<Schedule> expectedScheduleList = new ArrayList<>(actualModel.getFilteredScheduleList());
+                new ReadOnlyResourceBook<>(actualModel.getAllScheduleData(), DEFAULT_SCHEDULE_COMPARATOR);
+        List<Schedule> expectedScheduleList = new ArrayList<>(actualModel.getSortedScheduleList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExerciseBook, actualModel.getExerciseBookData());
-        assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
+        assertEquals(expectedFilteredList, actualModel.getSortedExerciseList());
 
         assertEquals(expectedRegimeBook, actualModel.getAllRegimeData());
-        assertEquals(expectedRegimeList, actualModel.getFilteredRegimeList());
+        assertEquals(expectedRegimeList, actualModel.getSortedRegimeList());
 
         assertEquals(expectedScheduleBook, actualModel.getAllScheduleData());
-        assertEquals(expectedScheduleList, actualModel.getFilteredScheduleList());
+        assertEquals(expectedScheduleList, actualModel.getSortedScheduleList());
     }
 }

@@ -1,6 +1,7 @@
 package seedu.exercise.storage.serializablebook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public abstract class SerializableResourceBook<T extends JsonAdaptedResource<U>,
 
     public SerializableResourceBook(ReadOnlyResourceBook<U> source, Class<T> clazz) {
         jsonResources
-            .addAll(source.getResourceList()
+            .addAll(source.getSortedResourceList()
                 .stream()
                 .map(U::toJsonType)
                 .map(clazz::cast)
@@ -38,8 +39,8 @@ public abstract class SerializableResourceBook<T extends JsonAdaptedResource<U>,
      *
      * @throws IllegalValueException if there are any violations in the data constraints.
      */
-    public ReadOnlyResourceBook<U> toModelType(Class<U> clazz) throws IllegalValueException {
-        ReadOnlyResourceBook<U> resourceBook = new ReadOnlyResourceBook<>();
+    public ReadOnlyResourceBook<U> toModelType(Class<U> clazz, Comparator<U> comparator) throws IllegalValueException {
+        ReadOnlyResourceBook<U> resourceBook = new ReadOnlyResourceBook<>(comparator);
         for (JsonAdaptedResource jsonResource : jsonResources) {
             U resourceModel = clazz.cast(jsonResource.toModelType());
             if (resourceBook.hasResource(resourceModel)) {

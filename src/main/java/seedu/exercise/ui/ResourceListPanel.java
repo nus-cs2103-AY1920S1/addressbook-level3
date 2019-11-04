@@ -56,16 +56,61 @@ public abstract class ResourceListPanel extends UiPart<Region> {
 
     private void setResourceListListener() {
         resourceList.addListener(new ListChangeListener<Resource>() {
+            /**
+             * Called after a change is made to the {@code resourceList}.
+             *
+             * It is important to note that the {@code change} reported
+             * may consist of one or more actual changes that can be iterated by
+             * the {@code next()} method. For our purposes, we are usually only
+             * interested in the first change event that is notified by the
+             * {@code ObservableList}.
+             *
+             * The basic CRUD that is implemented will rarely ever have
+             * multiple changes we are interested in. For reference, below listed are some
+             * basic expectations of CRUD in ExerHealth.
+             * <p>
+             *     C - create --> {@code change.wasAdded()}
+             * </p>
+             * <p>
+             *     R - read -->   {no methods are called}
+             * </p>
+             * <p>
+             *     U - update --> {@code change.wasUpdated()}
+             * </p>
+             * <p>
+             *     D - delete --> {@code change.wasRemoved()}
+             * </p>
+             *
+             * Also, according to javadocs, there is a order to follow for calling
+             * changes of different types. This method adheres to the order provided
+             * in the javadocs for consistency sake.
+             * <p>
+             * See
+             * <a href="https://openjfx.io/javadoc/11/javafx.base/javafx/collections/ListChangeListener.Change.html">
+             * ListChangeListener.Change</a>
+             * </p>
+             */
             @Override
             public void onChanged(Change<? extends Resource> change) {
+                int index = -1;
                 while (change.next()) {
-                    int index = -1;
-                    index = change.getFrom();
-                    if (index >= 0) {
-                        selectGivenIndex(index);
+                    if (change.wasReplaced()) {
+                        index = change.getFrom();
+                        break;
+                    } else if (change.wasAdded()) {
+                        index = change.getFrom();
+                        break;
+                    } else if (change.wasRemoved()) {
+                        index = change.getFrom();
+                        break;
+                    } else if (change.wasUpdated()) {
+                        index = change.getFrom();
+                        break;
                     }
                 }
-
+                if (index >= 0) {
+                    selectGivenIndex(index);
+                }
             }
         });
     }

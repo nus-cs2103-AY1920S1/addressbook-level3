@@ -25,6 +25,6 @@ public class ReadOnlyResourceBookTest {
 
     @Test
     public void getResourceList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> resource.getResourceList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> resource.getSortedResourceList().remove(0));
     }
 }

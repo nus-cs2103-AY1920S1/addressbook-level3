@@ -38,6 +38,7 @@ public class EditExerciseDescriptorBuilder {
         descriptor.setDate(exercise.getDate());
         descriptor.setQuantity(exercise.getQuantity());
         descriptor.setMuscles(exercise.getMuscles());
+        descriptor.setUnit(exercise.getUnit());
     }
 
     /**

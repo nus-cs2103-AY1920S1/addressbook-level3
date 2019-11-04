@@ -1,5 +1,7 @@
 package seedu.exercise.logic.commands;
 
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_REGIME_COMPARATOR;
 import static seedu.exercise.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,8 +33,10 @@ public class ScheduleCompleteCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(TypicalExercises.getTypicalExerciseBook(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), TypicalSchedule.getTypicalScheduleBook(),
-            new UserPrefs());
+                new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR),
+                TypicalSchedule.getTypicalScheduleBook(),
+                new UserPrefs());
     }
 
     @Test
@@ -46,9 +50,10 @@ public class ScheduleCompleteCommandTest {
         String expectedMessage = String.format(ScheduleCompleteCommand.MESSAGE_SUCCESS,
             Integer.toString(TypicalIndexes.INDEX_ONE_BASED_FIRST.getOneBased()));
 
-        Schedule toComplete = model.getFilteredScheduleList().get(0);
+        Schedule toComplete = model.getSortedScheduleList().get(0);
         Model expectedModel = new ModelManager(model.getExerciseBookData(),
-            new ReadOnlyResourceBook<>(), new ReadOnlyResourceBook<>(), model.getAllScheduleData(),
+            new ReadOnlyResourceBook<>(DEFAULT_REGIME_COMPARATOR),
+                new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR), model.getAllScheduleData(),
             new UserPrefs());
         expectedModel.completeSchedule(toComplete);
 

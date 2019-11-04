@@ -109,16 +109,16 @@ public class MainWindow extends UiPart<Stage> {
 
         customPropertiesWindow = new CustomPropertiesWindow();
 
-        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
+        exerciseListPanel = new ExerciseListPanel(logic.getSortedExerciseList());
 
         exerciseListTabPlaceholder = new Tab();
         exerciseListTabPlaceholder.setContent((exerciseListPanel).getExerciseListView());
 
-        regimeListPanel = new RegimeListPanel(logic.getFilteredRegimeList());
+        regimeListPanel = new RegimeListPanel(logic.getSortedRegimeList());
         regimeListTabPlaceholder = new Tab();
         regimeListTabPlaceholder.setContent(regimeListPanel.getRegimeListView());
 
-        scheduleListPanel = new ScheduleListPanel(logic.getFilteredScheduleList());
+        scheduleListPanel = new ScheduleListPanel(logic.getSortedScheduleList());
         scheduleListTabPlaceholder = new Tab();
         scheduleListTabPlaceholder.setContent(scheduleListPanel.getScheduleListView());
 

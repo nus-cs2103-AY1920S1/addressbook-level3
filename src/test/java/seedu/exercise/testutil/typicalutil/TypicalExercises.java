@@ -1,5 +1,6 @@
 package seedu.exercise.testutil.typicalutil;
 
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_AEROBICS;
 import static seedu.exercise.testutil.CommonTestData.VALID_CALORIES_BASKETBALL;
 import static seedu.exercise.testutil.CommonTestData.VALID_DATE;
@@ -80,7 +81,7 @@ public class TypicalExercises {
      * Returns an {@code ReadOnlyResourceBook<Exercise>} with all the typical exercises.
      */
     public static ReadOnlyResourceBook<Exercise> getTypicalExerciseBook() {
-        ReadOnlyResourceBook<Exercise> eb = new ReadOnlyResourceBook<>();
+        ReadOnlyResourceBook<Exercise> eb = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
         for (Exercise exercise : getTypicalExercises()) {
             eb.addResource(exercise);
         }

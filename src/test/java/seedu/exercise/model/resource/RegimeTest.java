@@ -2,6 +2,7 @@ package seedu.exercise.model.resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static seedu.exercise.model.resource.ResourceComparator.DEFAULT_EXERCISE_COMPARATOR;
 import static seedu.exercise.testutil.typicalutil.TypicalExercises.BENCH_PRESS;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class RegimeTest {
         //Have to test each component since equals method in regime only checks name
         assertEquals(copied.getRegimeName(), testRegime.getRegimeName());
         assertEquals(copied.getRegimeExercises(), testRegime.getRegimeExercises());
+
     }
 
     @Test
@@ -53,6 +55,7 @@ public class RegimeTest {
         expectedList.add(TypicalExercises.SPRINT);
         expectedList.add(TypicalExercises.WALK);
         expectedList.add(BENCH_PRESS);
+        expectedList.sort(DEFAULT_EXERCISE_COMPARATOR);
         assertEquals(expectedList, regime.getRegimeExercises().asUnmodifiableObservableList());
     }
 
