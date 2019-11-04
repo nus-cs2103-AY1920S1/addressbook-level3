@@ -95,7 +95,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         } else if (argMultimap.getValue(PREFIX_SCREENSHOT).isPresent()) { //screenshot Command
             return screenshotCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_EXPORT).isPresent()) { //Export Command
-            return exportCommand(argMultimap);
+            return exportCommand();
         } else if (argMultimap.getValue(PREFIX_GET_INDEX).isPresent()) { //get Index Of Command
             return indexOfCommand(argMultimap);
         } else if (argMultimap.getValue(PREFIX_DELETE).isPresent()) { // Delete command
@@ -144,19 +144,12 @@ public class EventCommandParser implements Parser<EventCommand> {
     }
 
     /**
-     * Performs validation and return the EventExport Object
+     * Returns the EventExport Object
      *
-     * @param argMultimap for tokenized input.
      * @return EventExportCommand object.
-     * @throws ParseException
      */
-    private EventExportCommand exportCommand(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_DIRECTORY) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventExportCommand.MESSAGE_USAGE));
-        }
-        String targetDirectory = argMultimap.getValue(PREFIX_DIRECTORY).orElse("");
-
-        return new EventExportCommand(targetDirectory);
+    private EventExportCommand exportCommand() {
+        return new EventExportCommand();
     }
 
     /**

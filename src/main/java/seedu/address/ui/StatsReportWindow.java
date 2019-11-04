@@ -16,7 +16,6 @@ import seedu.address.commons.core.LogsCenter;
 public class StatsReportWindow extends UiPart<Stage> {
 
     public static final String TIP = "Press 'Esc' to quit slideshow";
-    public static final String STATISTICS_PRINTABLE_DIRECTORY = "..\\statistics_reports";
 
     private static final Logger logger = LogsCenter.getLogger(StatsReportWindow.class);
     private static final String FXML = "StatsReportWindow.fxml";

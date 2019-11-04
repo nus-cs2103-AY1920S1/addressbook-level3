@@ -3,7 +3,7 @@ package seedu.address.model.event;
 import java.time.LocalDateTime;
 
 /**
- * Encapsualtes the GUI preferences for the schedule panel
+ * Encapsualtes the preferences and settings for the schedule panel
  */
 public class  EventSchedulePrefs {
     private EventScheduleViewMode viewMode;
@@ -29,4 +29,14 @@ public class  EventSchedulePrefs {
     public void setTargetViewDateTime(LocalDateTime targetViewDateTime) {
         this.targetViewDateTime = targetViewDateTime;
     }
+
+    /**
+     * A string representation of the event schedule preferences
+     * @return a string representing Event Schedule Preferences using the targetViewDateTime and viewMode.
+     */
+    @Override
+    public String toString() {
+        return targetViewDateTime.toLocalDate().toString() + "_" + viewMode.name();
+    }
+
 }

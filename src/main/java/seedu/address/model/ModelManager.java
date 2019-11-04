@@ -630,12 +630,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setNotesRecordFilePath(Path notesRecordFilePath) {
-        requireNonNull(notesRecordFilePath);
-        userPrefs.setNotesRecordFilePath(notesRecordFilePath);
-    }
-
-    @Override
     public void setNotesRecord(ReadOnlyNotesRecord notesRecord) {
         this.notesRecord.resetData(notesRecord);
     }
@@ -721,16 +715,6 @@ public class ModelManager implements Model {
         return eventRecord;
     }
 
-    @Override
-    public String getEventExportPath() {
-        return eventRecord.getEventExportPath();
-    }
-
-    @Override
-    public void setEventExportPath(String targetEventExportPath) {
-        eventRecord.setEventExportPath(targetEventExportPath);
-    }
-
     //endregion
 
     //region EventSchedulePrefs
@@ -754,7 +738,12 @@ public class ModelManager implements Model {
     public void setEventScheduleViewMode(EventScheduleViewMode viewMode) {
         eventSchedulePrefs.setViewMode(viewMode);
     }
-    //endRegion
+
+    @Override
+    public String getEventScheduleData() {
+        return eventSchedulePrefs.toString();
+    };
+    //endregion
 
     //region Events
     @Override

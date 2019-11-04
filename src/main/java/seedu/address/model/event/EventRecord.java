@@ -28,7 +28,6 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventsUnmodifiableList =
             FXCollections.unmodifiableObservableList(vEvents);
-    private String targetExportPath;
 
     public EventRecord() {
     }
@@ -280,21 +279,6 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         return new Pair(Index.fromZeroBased(mostSimilarIndex), mostSimilarVEvent);
     }
 
-    /**
-     * Sets the target export file path of the events
-     * @param targetExportPath string representation of the target file path
-     */
-    public void setEventExportPath(String targetExportPath) {
-        this.targetExportPath = targetExportPath;
-    }
-
-    /**
-     * gets the target event export file path
-     * @return targetExportPath of eventRecord
-     */
-    public String getEventExportPath() {
-        return this.targetExportPath;
-    }
 
     /**
      * Validates if all events in the list are unique

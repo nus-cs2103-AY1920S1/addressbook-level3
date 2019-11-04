@@ -10,23 +10,19 @@ import seedu.address.model.Model;
  */
 public class EventExportCommand extends EventCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your events to a ICS file\n"
-            + "Parameters:\n"
-            + "directory/ [DIR]\n"
-            + "Example: event export directory/Users/John/Desktop";
-    private final String directoryPath;
+            + "Example: event export";
 
-    public EventExportCommand(String directoryPath) {
-        this.directoryPath = directoryPath;
+    public EventExportCommand() {
+
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.setEventExportPath(directoryPath);
-        return new CommandResult(generateSuccessMessage(directoryPath), CommandResultType.EXPORT_CALENDAR);
+        return new CommandResult(generateSuccessMessage(), CommandResultType.EXPORT_CALENDAR);
     }
 
-    private String generateSuccessMessage(String fullFilePath) {
-        return String.format("Events successfully exported to: %s", fullFilePath);
+    private String generateSuccessMessage() {
+        return String.format("Events successfully exported");
     }
 }
 
