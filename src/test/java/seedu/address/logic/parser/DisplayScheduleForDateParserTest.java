@@ -42,7 +42,7 @@ public class DisplayScheduleForDateParserTest {
 
     @Test
     public void parse_validDateSpecified1_success() throws ParseException {
-        EventDate expectedStart = ParserUtil.parseDate("20/10/2019");
+        EventDate expectedStart = ParserUtil.parseEventDate("20/10/2019");
         DisplayScheduleForDateCommand expectedCommand =
                 new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(expectedStart.getDate()));
         assertParseSuccess(parser, CommandTestUtil.VALID_DATE_1, expectedCommand);
@@ -50,7 +50,7 @@ public class DisplayScheduleForDateParserTest {
 
     @Test
     public void parse_validDateSpecified2_success() throws ParseException {
-        EventDate expectedStart = ParserUtil.parseDate("10/10/2021");
+        EventDate expectedStart = ParserUtil.parseEventDate("10/10/2021");
         DisplayScheduleForDateCommand expectedCommand =
                 new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(expectedStart.getDate()));
         assertParseSuccess(parser, CommandTestUtil.VALID_DATE_2, expectedCommand);

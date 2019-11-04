@@ -1,8 +1,10 @@
 package seedu.address.model.employee;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents the Employee Join Date.
@@ -10,10 +12,6 @@ import java.time.format.DateTimeFormatter;
 public class EmployeeJoinDate {
 
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    public static final String MESSAGE_CONSTRAINTS =
-
-            "Join Date should be an in the following format dd/mm/yyyy";
-
 
     public final LocalDate joinDate;
 
@@ -31,8 +29,8 @@ public class EmployeeJoinDate {
      */
     public static boolean isValidJoinDate(String test) {
         try {
-            return LocalDate.parse(test, FORMATTER) instanceof LocalDate;
-        } catch (DateTimeException e) {
+            return ParserUtil.parseAnyDate(test) instanceof LocalDate;
+        } catch (ParseException e) {
             return false;
         }
     }

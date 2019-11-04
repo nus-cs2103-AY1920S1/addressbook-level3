@@ -1,6 +1,6 @@
 package seedu.address.model.event;
 
-import static seedu.address.logic.parser.ParserUtil.parseDate;
+import static seedu.address.logic.parser.ParserUtil.parseEventDate;
 import static seedu.address.logic.parser.ParserUtil.parseTimePeriod;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class EventDateTimeMap {
             String[] eachDateTime = stringMap.split(",");
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
-                this.mapDateTime(parseDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+                this.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new IllegalArgumentException(EventDateTimeMap.MESSAGE_CONSTRAINTS);

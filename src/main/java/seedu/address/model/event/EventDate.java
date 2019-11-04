@@ -41,9 +41,7 @@ public class EventDate implements Comparable<EventDate> {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalDate date = ParserUtil.parseAnyDate(test);
-            return date instanceof LocalDate;
-
+            return ParserUtil.parseAnyDate(test) instanceof LocalDate;
         } catch (ParseException e) {
             return false;
         }

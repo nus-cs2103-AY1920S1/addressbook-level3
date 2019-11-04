@@ -18,7 +18,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.OldDateException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.model.employee.EmployeeAddress;
 import seedu.address.model.employee.EmployeeEmail;
 import seedu.address.model.employee.EmployeeGender;
@@ -161,19 +160,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String EmployeeJoinDate} into a {@code joinDate}.
+     * Parses a {@code String joinDate} into a {@code EmployeeJoinDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code EmployeeJoinDate} is invalid.
      */
     public static EmployeeJoinDate parseJoinDate(String joinDate) throws ParseException {
-        requireNonNull(joinDate);
-        String trimmed = joinDate.trim();
-        if (!EmployeeJoinDate.isValidJoinDate(trimmed)) {
-            throw new ParseException(EmployeeJoinDate.MESSAGE_CONSTRAINTS);
-        }
-        LocalDate newJoinDate = LocalDate.parse(trimmed, FORMATTER);
-        return new EmployeeJoinDate(newJoinDate);
+        LocalDate newDate = parseAnyDate(joinDate);
+        return new EmployeeJoinDate(newDate);
     }
 
     /**
@@ -239,7 +233,7 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code EventDate} is invalid.
      */
-    public static EventDate parseDate(String date) throws ParseException {
+    public static EventDate parseEventDate(String date) throws ParseException {
         LocalDate newDate = parseAnyDate(date);
         return new EventDate(newDate);
     }
@@ -343,7 +337,7 @@ public class ParserUtil {
             String[] eachDateTime = trimmed.split(",");
             for (String dateTime : eachDateTime) {
                 String[] dateTimeSplit = dateTime.split(":"); //[0] is date, [1] is time-period
-                map.mapDateTime(parseDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
+                map.mapDateTime(parseEventDate(dateTimeSplit[0]), parseTimePeriod(dateTimeSplit[1]));
             }
         } catch (ArrayIndexOutOfBoundsException | ParseException e) {
             throw new ParseException(EventDateTimeMap.MESSAGE_CONSTRAINTS);
