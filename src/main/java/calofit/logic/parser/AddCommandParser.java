@@ -4,6 +4,8 @@ import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
+
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -28,8 +30,18 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
         try {
-            int dishNumber = Integer.parseInt(argMultimap.getPreamble());
-            return new AddCommand(dishNumber);
+            String[] argsArr = argMultimap.getPreamble().split(" ");
+            LinkedList<Integer> dishIntList = new LinkedList<Integer>();
+            if (argsArr.length == 0) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+
+            for (int i = 0; i < argsArr.length; i++) {
+                // Check if are they all numbers
+                int dishNumber = Integer.parseInt(argsArr[i]);
+                dishIntList.add(dishNumber);
+            }
+            return new AddCommand(dishIntList);
         } catch (NumberFormatException e) {
 
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME)

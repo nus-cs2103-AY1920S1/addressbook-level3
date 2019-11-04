@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javafx.beans.binding.DoubleExpression;
@@ -117,6 +118,16 @@ public class MealLog implements ReadOnlyMealLog {
      */
     public boolean addMeal(Meal meal) {
         return observableMeals.add(meal);
+    }
+
+    /**
+     * Adds a list of meals to the meal log
+     * @param listOfMeal list of meals to add
+     */
+    public void addListOfMeals (LinkedList<Meal> listOfMeal) {
+        while (!listOfMeal.isEmpty()) {
+            observableMeals.add(listOfMeal.poll());
+        }
     }
 
     /**
