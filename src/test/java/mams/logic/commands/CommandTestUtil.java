@@ -19,7 +19,6 @@ import mams.model.Mams;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
-import mams.model.student.NameContainsKeywordsPredicate;
 import mams.model.student.Student;
 
 /**
@@ -139,7 +138,7 @@ public class CommandTestUtil {
 
         Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
         final String[] splitName = student.getName().fullName.split("\\s+");
-        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredStudentList(new StudentContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredStudentList().size());
     }

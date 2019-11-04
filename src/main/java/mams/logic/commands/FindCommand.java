@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import mams.commons.core.Messages;
-import mams.logic.commands.exceptions.CommandException;
 import mams.model.Model;
 import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
-import mams.model.student.NameContainsKeywordsPredicate;
+import mams.model.student.StudentContainsKeywordsPredicate;
 
 /**
  * Finds and lists all students in MAMS whose name contains any of the argument keywords.
@@ -43,7 +42,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
         StringBuilder response = new StringBuilder("");
@@ -66,8 +65,8 @@ public class FindCommand extends Command {
                 response.append("\n");
             }
 
-            if (pred instanceof NameContainsKeywordsPredicate
-                    && ((NameContainsKeywordsPredicate) pred).getListSize() != 0) {
+            if (pred instanceof StudentContainsKeywordsPredicate
+                    && ((StudentContainsKeywordsPredicate) pred).getListSize() != 0) {
                 model.updateFilteredStudentList(pred);
                 response.append(String.format(Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW,
                         model.getFilteredStudentList().size()));
