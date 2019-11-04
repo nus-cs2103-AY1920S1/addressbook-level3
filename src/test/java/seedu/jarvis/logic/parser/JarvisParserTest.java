@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
-import static seedu.jarvis.logic.parser.CliSyntax.UndoRedoSyntax.PREFIX_UNDO_REDO;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_undo() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " " + "5")
                 instanceof UndoCommand);
     }
 
@@ -55,7 +54,7 @@ public class JarvisParserTest {
     @Test
     public void parseCommand_redo() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + PREFIX_UNDO_REDO + "5")
+        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + "5")
                 instanceof RedoCommand);
     }
 
