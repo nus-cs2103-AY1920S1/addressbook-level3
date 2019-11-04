@@ -30,8 +30,8 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
      * Checks if target day can be added to the list.
      */
     public boolean isValidDay(Day day) {
-        return (day.getStartDate().compareTo(startDate) >= 0)
-                && (day.getEndDate().compareTo(endDate) <= 0);
+        return !(day.getStartDate().isBefore(startDate))
+                && !(day.getEndDate().isAfter(endDate));
     }
 
     @Override
