@@ -36,7 +36,7 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         }
 
         if (argMultimap.getAllValues(PREFIX_MODULE).size() > 1) {
-            throw new ParseException(ModCommmnd.MESSAGE_MORE_THAN_ONE_MODULE);
+            throw new ParseException(ModCommand.MESSAGE_MORE_THAN_ONE_MODULE);
         }
 
         if (argMultimap.getAllValues(PREFIX_STUDENT).size() > 1) {
