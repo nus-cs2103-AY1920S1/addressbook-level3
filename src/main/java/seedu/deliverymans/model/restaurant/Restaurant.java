@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -126,6 +127,20 @@ public class Restaurant {
         requireAllNonNull(toRemove);
         if (!menu.remove(toRemove)) {
             throw new FoodNotFoundException();
+        }
+    }
+
+    public void updateQuantity(Order order) {
+        for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
+            this.quantityOrdered += entry.getValue().intValue();
+            for (Food food : this.menu) {
+                if (food.getName().equals(entry.getKey())) {
+                    food.addQuantity(entry.getValue().intValue());
+                }
+            }
+        }
+        for (Food food : this.menu) {
+            food.updateTag(this.quantityOrdered, this.menu.size());
         }
     }
 

@@ -22,8 +22,8 @@ public class Food {
 
     private final Name name;
     private final BigDecimal price;
-    private final int quantityOrdered;
     private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+    private int quantityOrdered;
 
     /**
      * Constructs a {@code Food}.
@@ -63,6 +63,17 @@ public class Food {
      */
     public static boolean isValidQuantity(int quantityOrdered) {
         return quantityOrdered >= 0;
+    }
+
+    public void addQuantity(int quantity) {
+        this.quantityOrdered += quantity;
+    }
+
+    public void updateTag(int totalQuantity, int menuSize) {
+        this.tags.remove(new Tag("Popular"));
+        if (this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {
+            this.tags.add(new Tag("Popular"));
+        }
     }
 
     public Name getName() {

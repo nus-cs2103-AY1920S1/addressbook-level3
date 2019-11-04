@@ -3,6 +3,7 @@ package seedu.deliverymans.logic.commands.universal;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
@@ -12,6 +13,7 @@ import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.order.Order;
+import seedu.deliverymans.model.restaurant.Restaurant;
 
 /**
  * Tofill.
@@ -57,6 +59,13 @@ public class CompleteOrderCommand extends Command {
                 .setRestaurant(orderToComplete.getRestaurant())
                 .setFood(orderToComplete.getFoodList()).setCompleted(true).completeOrder();
         model.setOrder(orderToComplete, order);
+
+        List<Restaurant> restaurants = model.getFilteredRestaurantList();
+        for (Restaurant r : restaurants) {
+            if (r.getName().equals(orderToComplete.getRestaurant())) {
+                r.updateQuantity(orderToComplete);
+            }
+        }
 
         return new CommandResult(String.format(MESSAGE_COMPLETE_ORDER_SUCCESS, orderToComplete));
     }
