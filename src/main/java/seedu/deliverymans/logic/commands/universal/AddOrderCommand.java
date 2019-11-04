@@ -64,7 +64,7 @@ public class AddOrderCommand extends Command {
         // Assigning deliveryman
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
-        } catch (NoMoreAvailableDeliverymanException npe) {
+        } catch (NoMoreAvailableDeliverymanException nmade) {
             deliverymanToAdd = toAdd.getDeliveryman();
         }
 
