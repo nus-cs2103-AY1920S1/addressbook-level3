@@ -64,6 +64,6 @@ public class EligiblePoliciesCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EligiblePoliciesCommand // instanceof handles nulls
-                && predicate.equals(((EligiblePoliciesCommand) other).predicate)); // state check
+                && targetIndex.equals(((EligiblePoliciesCommand) other).targetIndex)); // state check
     }
 }
