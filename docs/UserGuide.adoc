@@ -209,9 +209,11 @@ This command works in two ways:
 *1. auto/y* +
 Format: `new l/DISTRICT_NUM auto/y`
 
+****
 * An available vehicle in the given district will be automatically dispatched to the incident site.
 * The vehicle pane will show all available vehicles in the district.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+****
 
 [IMPORTANT]
 Valid district numbers are from 1 to 28!
@@ -227,9 +229,11 @@ image::newCommandAutoYAfterSS.png[]
 *2. auto/n* +
 Format: `new l/DISTRICT_NUM auto/n`
 
+****
 * A list of available vehicles in the given district will be shown.
 * A message will also appear to prompt user to also include the index of the chosen vehicle.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
+****
 
 * Example usage:
 
@@ -239,9 +243,9 @@ image::newCommandAutoNPromptSS.png[]
 
 image::newCommandAutoNAfterPromptSS.png[]
 
-image::newCommandAutoNAfterSS.png[
+image::newCommandAutoNAfterSS.png[]
 
-[IMPORTANT]
+[NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
 For example `new l/1 l/2 l/3 auto/y auto/n` is equivalent to `new l/3 auto/n`. +
 Rationale: user need not waste time backspacing if an input was keyed in wrongly.
@@ -255,8 +259,11 @@ This command works in two modes:
 Format: `fill` +
 Lists all draft incident reports ready to be filled.
 
+****
 * This command lists both incomplete and complete drafts.
 ** If no drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+****
+
 * Example usage:
 
 image::fillCommandNoParamsBeforeScreenshot.png[FillExample1]
@@ -271,12 +278,15 @@ image::fillCommandNoParamsAfterScreenshot.png[]
 Format: `fill [INDEX] [c/CALLER_NUMBER] [d/DESCRIPTION]` +
 Fills the draft incident report corresponding to the specified index with the phone number of the caller who reported the incident and the description of the incident.
 
+****
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Both incomplete and complete drafts can be filled.
 ** Fields of complete drafts will be overwritten.
 ** Executing this command changes incident `status` to `COMPLETE_DRAFT`.
 * Both `CALLER_NUMBER` and `DESCRIPTION` fields must be specified while executing this command.
 * The newly filled draft will now appear at the top of the list of incidents in the GUI incident panel view.
+****
+
 * Example usage:
 
 image::fillCommandWithParamsBeforeScreenshot.png[]
@@ -298,8 +308,11 @@ Similar to `fill`, this command also works in two modes:
 Format: `submit` +
 Lists all completed draft incident reports ready for submission.
 
+****
 * This command only lists complete drafts.
 ** If no complete drafts exist, a relevant message is displayed in the GUI result panel while the GUI incident panel view remains unchanged.
+****
+
 * Expected outcome of `submit`:
 
 image::submitCommandNoParamsAfterScreenshot.png[]
@@ -309,10 +322,13 @@ image::submitCommandNoParamsAfterScreenshot.png[]
 Format: `submit [INDEX]` +
 Submits the completed draft incident report corresponding to the specified index.
 
+****
 * Index must be assigned *with reference to the currently shown list of incidents* on the GUI incident panel.
 * Only complete drafts can be submitted.
 ** Executing this command changes incident `status` to `SUBMITTED_REPORT`.
 * The newly submitted draft will now appear at the top of the list of incidents in the GUI incident panel view.
+****
+
 * Expected outcome of `submit 2`:
 
 image::submitCommandWithParamsAfterScreenshot.png[]
@@ -408,6 +424,7 @@ Returns any incidents whereby the description contains 'fire'
 Edits an existing incident in the Incident Manager as identified by the index in the display.
 Format: `edit-i [INDEX] [l/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
 
+****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
 
 ** Number of fields provided for update is optional and can vary.
@@ -419,6 +436,7 @@ If no fields are provided, incident will remain unchanged.
 
 [NOTE]
 Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Caller Number`) are considered duplicates.
+****
 
 Example of input:
 
@@ -439,9 +457,10 @@ Format: `add-v [l/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAIL
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
 vehicle will not be added.
 
+****
 ** Vehicles that have the same vehicle number and vehicle type are considered to duplicate vehicles
-
 ** Duplicate vehicles cannot be added into the Incident Management System.
+****
 
 Examples:
 
@@ -461,9 +480,11 @@ Format: `edit-v [INDEX] [l/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AV
 [NOTE]
 Number of fields provided for edit may vary. If no fields are provided, the vehicle will not be edited.
 
+****
 ** Edit inputs that result in duplicate vehicles in the list will not be allowed.
 ** Only vehicles displayed on the interface are valid of edit.
 ** Existing values will be updated to the input values given.
+****
 
 Example:
 
@@ -480,6 +501,21 @@ Edit Vehicle that results in duplicates:
 image::editDuplicateVeh1.png[]
 image::editDuplicateVeh2.png[]
 
+// tag::list-v[]
+=== Listing vehicles
+Shows a list of all vehicles registered in the incident Manager.
+Format: `list-v`
+
+****
+* The listing returns all vehicles and their relevant details.
+* All keywords and parameters used are ignored.
+****
+
+Example usage and expected outcome:
+
+image::listVSS.png[]
+// end::list-v[]
+
 // tag::find-v[]
 === Finding a Vehicle: `find-v`
 Finds a vehicle by its district number, vehicle number or vehicle type.
@@ -489,7 +525,9 @@ The command works in three ways:
 *1. Find by district*
 Format: `find-v ds/DISTRICT [MORE DISTRICTS]`
 
+****
 ** User can input multiple districts to search for vehicles in.
+****
 
 Example usage:
 
@@ -500,7 +538,9 @@ image::findVDsAfterSS.png[]
 *2. Find by vehicle number*
 Format: `find-v vnum/NUMBER`
 
-** The number need not be an exact match of any vehicle number; any vehicle with input number in its vehicle number will be returned. +
+****
+* The number need not be an exact match of any vehicle number; any vehicle with input number in its vehicle number will be returned. +
+****
 
 Example usage:
 
@@ -512,7 +552,9 @@ image::findVVnumAfterSS.png[]
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
 
+****
 ** The vehicle type keyword must match the actual vehicle type exactly.
+****
 
 Example usage:
 
@@ -524,11 +566,13 @@ Deletes a vehicle in the list as identified by the index.
 
 Format: `delete-v [INDEX]`
 
+****
 ** A valid index has to be provided
 [NOTE]
 A valid index is a positive integer and points to a vehicle displayed in the vehicles list.
 
 ** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
+****
 
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
