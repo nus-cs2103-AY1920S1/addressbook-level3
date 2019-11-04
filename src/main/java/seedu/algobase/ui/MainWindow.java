@@ -1,5 +1,6 @@
 package seedu.algobase.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -18,7 +19,9 @@ import seedu.algobase.logic.commands.CommandResult;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
-import seedu.algobase.model.gui.UiAction;
+import seedu.algobase.ui.action.UiActionDetails;
+import seedu.algobase.ui.action.UiActionResult;
+import seedu.algobase.ui.action.UiLogic;
 import seedu.algobase.ui.details.DetailsTabPane;
 import seedu.algobase.ui.display.DisplayTab;
 import seedu.algobase.ui.display.DisplayTabPane;
@@ -35,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private UiLogic uiLogic;
 
     // Independent Ui parts residing in this Ui container
     private DisplayTabPane displayTabPane;
@@ -65,12 +69,13 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private SplitPane layoutPanePlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, UiLogic uiLogic) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.uiLogic = uiLogic;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -123,7 +128,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         displayTabPane = getDisplayTabPane();
-        detailsTabPane = new DetailsTabPane(logic);
+        detailsTabPane = new DetailsTabPane(logic, this::executeUiAction);
         taskManagementPane = new TaskManagementPane(
             logic.getProcessedTaskList(),
             logic.getCurrentPlan(),
@@ -150,13 +155,11 @@ public class MainWindow extends UiPart<Stage> {
     private DisplayTabPane getDisplayTabPane() {
         problemListPanel = new ProblemListPanel(
             logic.getProcessedProblemList(),
-            logic.getGuiState().getTabManager(),
-            logic.getSaveAlgoBaseStorageRunnable()
+            this::executeUiAction
         );
         planListPanel = new PlanListPanel(
             logic.getProcessedPlanList(),
-            logic.getGuiState().getTabManager(),
-            logic.getSaveAlgoBaseStorageRunnable()
+            this::executeUiAction
         );
         tagListPanel = new TagListPanel(logic.getProcessedTagList());
         findRuleListPanel = new FindRuleListPanel(logic.getProcessedFindRuleList());
@@ -165,8 +168,8 @@ public class MainWindow extends UiPart<Stage> {
         DisplayTab planListPanelTab = new DisplayTab(ModelType.PLAN.getTabName(), planListPanel);
         DisplayTab findRuleListPaneTab = new DisplayTab(ModelType.FINDRULE.getTabName(), findRuleListPanel);
         return new DisplayTabPane(
-            logic.getGuiState().getTabManager(),
-            logic.getSaveAlgoBaseStorageRunnable(),
+            logic.getGuiState().getReadOnlyTabManager(),
+            this::executeUiAction,
             problemListPanelTab,
             tagListPanelTab,
             planListPanelTab,
@@ -261,27 +264,28 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Executes a UI action returns the result.
      *
-     * @see seedu.algobase.logic.Logic#execute(UiAction)
+     * @see seedu.algobase.ui.action.UiLogic#execute(UiActionDetails)
      */
-    private CommandResult executeUiAction(UiAction uiAction) throws CommandException, ParseException {
+    private UiActionResult executeUiAction(UiActionDetails uiActionDetails) {
         try {
-            CommandResult commandResult = logic.execute(uiAction);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
+            UiActionResult uiActionResult = uiLogic.execute(uiActionDetails);
+            uiActionResult.getFeedbackToUser().ifPresent((feedback) -> {
+                logger.info("Result: " + feedback);
+                resultDisplay.setFeedbackToUser(feedback);
+            });
 
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
+            if (uiActionResult.isShowHelp()) {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
+            if (uiActionResult.isExit()) {
                 handleExit();
             }
 
-            return commandResult;
-        } catch (CommandException | ParseException e) {
+            return uiActionResult;
+        } catch (UiActionException | ParseException e) {
             resultDisplay.setFeedbackToUser(e.getMessage());
-            throw e;
+            return new UiActionResult(Optional.empty());
         }
     }
 }

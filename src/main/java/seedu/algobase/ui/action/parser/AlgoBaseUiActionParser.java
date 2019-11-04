@@ -1,10 +1,10 @@
-package seedu.algobase.logic.parser.gui;
+package seedu.algobase.ui.action.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_UI_ACTION;
 
-import seedu.algobase.logic.commands.Command;
 import seedu.algobase.logic.parser.exceptions.ParseException;
-import seedu.algobase.model.gui.UiAction;
+import seedu.algobase.ui.action.UiAction;
+import seedu.algobase.ui.action.UiActionDetails;
 
 /**
  * Parses UI Actions.
@@ -14,14 +14,14 @@ public class AlgoBaseUiActionParser {
     /**
      * Parses user input into UI Action for execution.
      *
-     * @param uiAction uiAction object.
+     * @param uiActionDetails uiActionDetails object.
      * @return the command based on the user input.
      * @throws ParseException if the uiAction does not conform the expected format
      */
-    public Command parseCommand(UiAction uiAction) throws ParseException {
-        switch (uiAction.getActionWord()) {
+    public UiAction parseCommand(UiActionDetails uiActionDetails) throws ParseException {
+        switch (uiActionDetails.getActionWord()) {
         case OPEN_DETAILS_TAB:
-            return new OpenDetailsTabUiActionParser().parse(uiAction);
+            return new OpenTabUiActionParser().parse(uiActionDetails);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION);
         }

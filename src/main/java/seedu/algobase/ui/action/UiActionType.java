@@ -1,4 +1,4 @@
-package seedu.algobase.model.gui;
+package seedu.algobase.ui.action;
 
 /**
  * Types of {@code UiAction}s in AlgoBase.

@@ -1,25 +1,24 @@
-package seedu.algobase.logic.parser.gui;
+package seedu.algobase.ui.action.parser;
 
 import static seedu.algobase.commons.core.Messages.MESSAGE_UNKNOWN_UI_ACTION_PROPERTY;
 
-import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.gui.OpenTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
+import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
-import seedu.algobase.model.gui.UiAction;
-import seedu.algobase.model.gui.UiActionDetails;
+import seedu.algobase.ui.action.UiActionDetails;
+import seedu.algobase.ui.action.UiParser;
+import seedu.algobase.ui.action.actions.OpenTabUiAction;
 
 /**
  * UI Parser for the Open Details Tab Action.
  */
-public class OpenDetailsTabUiActionParser implements UiParser<OpenTabCommand> {
+public class OpenTabUiActionParser implements UiParser<OpenTabUiAction> {
 
     @Override
-    public OpenTabCommand parse(UiAction uiAction) throws ParseException {
-        UiActionDetails uiActionDetails = uiAction.getActionDetails();
+    public OpenTabUiAction parse(UiActionDetails uiActionDetails) throws ParseException {
         ModelType modelType = parseModelType(uiActionDetails.get(0));
-        Index index = parseIndex(uiActionDetails.get(1));
-        return new OpenTabCommand(modelType, index);
+        Id id = parseId(uiActionDetails.get(1));
+        return new OpenTabUiAction(modelType, id);
     }
 
     /**
@@ -36,15 +35,15 @@ public class OpenDetailsTabUiActionParser implements UiParser<OpenTabCommand> {
     }
 
     /**
-     * Converts an index of type {@Index} into an index of type {@Index}
+     * Converts an id of type {@Id} into an id of type {@Id}
      *
-     * @throws ParseException if given object is not of type {@Index}
+     * @throws ParseException if given object is not of type {@Id}
      */
-    private Index parseIndex(Object index) throws ParseException {
-        if (!(index instanceof Index)) {
+    private Id parseId(Object id) throws ParseException {
+        if (!(id instanceof Id)) {
             throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION_PROPERTY);
         }
 
-        return (Index) index;
+        return (Id) id;
     }
 }

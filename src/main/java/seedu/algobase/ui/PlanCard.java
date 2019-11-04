@@ -13,10 +13,10 @@ import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.logic.parser.ParserUtil;
 import seedu.algobase.model.ModelType;
-import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
-import seedu.algobase.storage.SaveStorageRunnable;
+import seedu.algobase.ui.action.UiActionDetails;
+import seedu.algobase.ui.action.UiActionExecutor;
+import seedu.algobase.ui.action.UiActionType;
 
 /**
  * An UI component that displays information of a {@code Plan}.
@@ -42,12 +42,7 @@ public class PlanCard extends UiPart<Region> {
     @FXML
     private Label endDate;
 
-    public PlanCard(
-        Plan plan,
-        int displayedIndex,
-        WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
-    ) {
+    public PlanCard(Plan plan, int displayedIndex, UiActionExecutor uiActionExecutor) {
         super(FXML);
         this.plan = plan;
         id.setText(displayedIndex + ". ");
@@ -65,7 +60,7 @@ public class PlanCard extends UiPart<Region> {
         endDate.setText(plan.getEndDate().format(ParserUtil.FORMATTER));
         endDate.setWrapText(true);
         endDate.setTextAlignment(TextAlignment.JUSTIFY);
-        addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
+        addMouseClickListener(uiActionExecutor);
     }
 
     @Override
@@ -90,12 +85,9 @@ public class PlanCard extends UiPart<Region> {
     /**
      * Spawns a new Tab when the cardPane registers a double click event.
      *
-     * @param writeOnlyTabManager The tab manager to be written to.
+     * @param uiActionExecutor The executor for the given UI action
      */
-    public void addMouseClickListener(
-        WriteOnlyTabManager writeOnlyTabManager,
-        SaveStorageRunnable saveStorageRunnable
-    ) {
+    public void addMouseClickListener(UiActionExecutor uiActionExecutor) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -103,8 +95,11 @@ public class PlanCard extends UiPart<Region> {
                     if (mouseEvent.getClickCount() == 2) {
                         logger.info("Double Clicked on Problem card with name " + plan.getPlanName());
                         logger.info("Opening new plan tab");
-                        writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PLAN, plan.getId()));
-                        saveStorageRunnable.save();
+                        uiActionExecutor.execute(new UiActionDetails(
+                            UiActionType.OPEN_DETAILS_TAB,
+                            ModelType.PLAN,
+                            plan.getId()
+                        ));
                     }
                 }
             }

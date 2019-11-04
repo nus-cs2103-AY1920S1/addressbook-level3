@@ -75,19 +75,19 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAlgobaseBookIoExceptionThrowingStub
         JsonAlgoBaseStorage jsonAlgoBaseStorage = new JsonalgobaseBookIoExceptionThrowingStub(
-                temporaryFolder.resolve("ioExceptionAlgoBase.json"));
+            temporaryFolder.resolve("ioExceptionAlgoBase.json"));
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(
-                temporaryFolder.resolve("ioExceptionUserPrefs.json"));
+            temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(jsonAlgoBaseStorage, jsonUserPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_QUICK_SORT + DESCRIPTION_DESC_QUICK_SORT
-                + AUTHOR_DESC_QUICK_SORT + WEBLINK_DESC_QUICK_SORT + REMARK_DESC_QUICK_SORT + SOURCE_DESC_QUICK_SORT;
+            + AUTHOR_DESC_QUICK_SORT + WEBLINK_DESC_QUICK_SORT + REMARK_DESC_QUICK_SORT + SOURCE_DESC_QUICK_SORT;
         Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addProblem(expectedProblem);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 

@@ -11,13 +11,11 @@ import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.GuiState;
-import seedu.algobase.model.gui.UiAction;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.searchrule.problemsearchrule.ProblemSearchRule;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
-import seedu.algobase.storage.SaveStorageRunnable;
 
 /**
  * API of the Logic component
@@ -31,22 +29,6 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /**
-     * Executes the UI Action and returns the result.
-     * @param uiAction The ui action as input by the user.
-     * @return the result of the command execution.
-     * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
-     */
-    CommandResult execute(UiAction uiAction) throws CommandException, ParseException;
-
-    /**
-     * Returns a runnable that saves the AlgoBase.
-     *
-     * @see seedu.algobase.model.Model#getAlgoBase()
-     */
-    SaveStorageRunnable getSaveAlgoBaseStorageRunnable();
 
     /**
      * Returns the AlgoBase.

@@ -11,7 +11,6 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
-import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.exceptions.IllegalValueException;
 import seedu.algobase.logic.Logic;
 import seedu.algobase.model.Id;
@@ -19,12 +18,11 @@ import seedu.algobase.model.ModelType;
 import seedu.algobase.model.ReadOnlyAlgoBase;
 import seedu.algobase.model.gui.ReadOnlyTabManager;
 import seedu.algobase.model.gui.TabData;
-import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
-import seedu.algobase.storage.SaveStorageRunnable;
 import seedu.algobase.ui.UiPart;
+import seedu.algobase.ui.action.UiActionExecutor;
 
 /**
  * Contains details about a specific model.
@@ -35,20 +33,19 @@ public class DetailsTabPane extends UiPart<Region> {
 
     private final ReadOnlyAlgoBase algoBase;
     private final ReadOnlyTabManager readOnlyTabManager;
-    private final WriteOnlyTabManager writeOnlyTabManager;
-    private final SaveStorageRunnable saveStorageRunnable;
+    private final UiActionExecutor uiActionExecutor;
 
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DetailsTabPane(Logic logic) {
+    public DetailsTabPane(Logic logic, UiActionExecutor uiActionExecutor) {
         super(FXML);
+        this.uiActionExecutor = uiActionExecutor;
+
         tabsPlaceholder.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
 
         this.algoBase = logic.getAlgoBase();
         this.readOnlyTabManager = logic.getGuiState().getTabManager();
-        this.writeOnlyTabManager = logic.getGuiState().getTabManager();
-        this.saveStorageRunnable = logic.getSaveAlgoBaseStorageRunnable();
 
         addTabsToTabPane(readOnlyTabManager.getTabsDataList());
         if (!readOnlyTabManager.getTabsDataList().isEmpty()) {
@@ -57,7 +54,7 @@ public class DetailsTabPane extends UiPart<Region> {
 
         addListenerForTabChanges();
         addListenerForIndexChange(readOnlyTabManager.getDetailsTabPaneIndex());
-        addListenerToTabPaneIndexChange(writeOnlyTabManager);
+        addListenerToTabPaneIndexChange();
     }
 
     /**
@@ -94,16 +91,14 @@ public class DetailsTabPane extends UiPart<Region> {
 
     /**
      * Adds an index change listener to the tab pane.
-     *
-     * @param tabManager The TabManager to be modified.
      */
-    private void addListenerToTabPaneIndexChange(WriteOnlyTabManager tabManager) {
+    private void addListenerToTabPaneIndexChange() {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 if (newValue.intValue() >= 0) {
-                    tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
-                    saveStorageRunnable.save();
+                    // tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
+                    // saveStorageRunnable.save();
                 }
             }
         });
@@ -145,7 +140,7 @@ public class DetailsTabPane extends UiPart<Region> {
                         new ProblemDetails(problem),
                         modelType,
                         modelId,
-                        writeOnlyTabManager
+                        uiActionExecutor
                     )
                 );
             case PLAN:
@@ -156,7 +151,7 @@ public class DetailsTabPane extends UiPart<Region> {
                         new PlanDetails(plan),
                         modelType,
                         modelId,
-                        writeOnlyTabManager
+                        uiActionExecutor
                     )
                 );
             case TAG:
