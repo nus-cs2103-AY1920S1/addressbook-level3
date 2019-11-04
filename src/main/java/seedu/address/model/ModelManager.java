@@ -223,7 +223,21 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Training =================================================================================
+    //=========== Training & Attendance =======================================================================
+    @Override
+    public void addTraining(Training training) {
+        this.attendance.addTraining(training);
+    }
+
+    @Override
+    public boolean hasTrainingOnDate(AthletickDate date) {
+        return this.attendance.hasTrainingOnDate(date);
+    }
+
+    @Override
+    public void deleteTrainingOnDate(AthletickDate date) {
+        this.attendance.deleteTrainingOnDate(date);
+    }
 
     @Override
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
@@ -241,22 +255,9 @@ public class ModelManager implements Model {
         return attendanceRateEntries;
     }
 
-
-    //=========== Attendance =================================================================================
-
     @Override
     public Attendance getAttendance() {
         return this.attendance;
-    }
-
-    @Override
-    public boolean hasTraining(AthletickDate date) {
-        return this.attendance.hasTraining(date);
-    }
-
-    @Override
-    public void addTraining(Training training) {
-        this.attendance.addTraining(training);
     }
 
     //=========== Performance =================================================================================

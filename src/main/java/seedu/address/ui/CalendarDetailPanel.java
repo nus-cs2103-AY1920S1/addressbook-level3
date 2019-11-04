@@ -43,7 +43,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * name and attendance in the same row.
      */
     private void initialiseAttendanceData() {
-        if (model.hasTraining(date)) {
+        if (model.hasTrainingOnDate(date)) {
             attendanceBox.getChildren().add(new AttendanceTableHeader().getRoot());
             List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
             for (AttendanceEntry entry: attendanceData) {

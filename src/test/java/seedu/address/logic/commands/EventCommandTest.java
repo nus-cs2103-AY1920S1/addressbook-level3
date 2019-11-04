@@ -223,6 +223,11 @@ public class EventCommandTest {
         }
 
         @Override
+        public void deleteTrainingOnDate(AthletickDate date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
             throw new AssertionError("This method should not be called.");
         }
@@ -249,7 +254,7 @@ public class EventCommandTest {
             throw new AssertionError("This method should not be called.");
         }
         @Override
-        public boolean hasTraining(AthletickDate training) {
+        public boolean hasTrainingOnDate(AthletickDate training) {
             throw new AssertionError("This method should not be called.");
         }
 

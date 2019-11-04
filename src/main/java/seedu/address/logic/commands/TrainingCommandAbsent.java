@@ -62,7 +62,7 @@ public class TrainingCommandAbsent extends TrainingCommand {
         }
 
         // Check if training exists.
-        if (model.hasTraining(super.getDate())) {
+        if (model.hasTrainingOnDate(super.getDate())) {
             throw new CommandException(TrainingCommand.DUPLICATE_TRAINING);
         }
 

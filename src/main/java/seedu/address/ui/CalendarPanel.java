@@ -410,7 +410,7 @@ public class CalendarPanel extends UiPart<Region> {
         int m = c.get(Calendar.MONTH);
         AthletickDate ad = new AthletickDate(Integer.parseInt(day), m + 1, y, 1,
                 MONTHS[m]);
-        return model.hasTraining(ad);
+        return model.hasTrainingOnDate(ad);
     }
 
     /**

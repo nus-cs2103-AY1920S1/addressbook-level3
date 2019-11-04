@@ -111,6 +111,11 @@ public interface Model {
     void addTraining(Training training);
 
     /**
+     * Removes training on {@code date}
+     */
+    void deleteTrainingOnDate(AthletickDate date);
+
+    /**
      * Gets a list of AttendanceEntry on {@code date}, where each entry indicates whether a person was present.
      * @param date Date of training.
      * @return List of AttendanceEntry, where each entry indicates whether a person was present for training on date.
@@ -132,7 +137,7 @@ public interface Model {
      * @param date Date of training.
      * @return Boolean indicating if there was a training on {@code date}.
      */
-    boolean hasTraining(AthletickDate date);
+    boolean hasTrainingOnDate(AthletickDate date);
 
     void addEvent(Event event);
 

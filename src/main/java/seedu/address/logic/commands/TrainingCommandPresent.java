@@ -61,7 +61,7 @@ public class TrainingCommandPresent extends TrainingCommand {
             }
         }
 
-        if (model.hasTraining(super.getDate())) {
+        if (model.hasTrainingOnDate(super.getDate())) {
             throw new CommandException(TrainingCommand.DUPLICATE_TRAINING);
         }
 

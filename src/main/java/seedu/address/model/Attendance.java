@@ -25,21 +25,6 @@ public class Attendance {
     }
 
     /**
-     * Checks if there has been a Training at input date.
-     *
-     * @param date Date used to check for training
-     * @return boolean indicating whether there has been a Training at the date.
-     */
-    public boolean hasTraining(AthletickDate date) {
-        for (Training recordedTraining : trainings) {
-            if (recordedTraining.getDate().equals(date)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Add a training to the AttendanceManager.
      *
      * @param training Training to add.
@@ -61,6 +46,38 @@ public class Attendance {
                 }
             }
         });
+    }
+
+    /**
+     * Checks if there has been a Training at input date.
+     *
+     * @param date Date used to check for training
+     * @return boolean indicating whether there has been a Training at the date.
+     */
+    public boolean hasTrainingOnDate(AthletickDate date) {
+        for (Training recordedTraining : trainings) {
+            if (recordedTraining.getDate().equals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Removes a training on the specified date.
+     * @param date Training that occurred on this date will be removed.
+     */
+    public void deleteTrainingOnDate(AthletickDate date) {
+        assert(hasTrainingOnDate(date));
+        int index = 0;
+        while (index < trainings.size()) {
+            Training training = trainings.get(index);
+            if (training.getDate().equals(date)) {
+                break;
+            }
+            index++;
+        }
+        trainings.remove(index);
     }
 
     public List<Training> getTrainings() {
@@ -120,7 +137,7 @@ public class Attendance {
     }
 
     public List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date) {
-        assert(this.hasTraining(date));
+        assert(this.hasTrainingOnDate(date));
         for (Training training : trainings) {
             if (date.equals(training.getDate())) {
                 return training.getTrainingAttendanceList();

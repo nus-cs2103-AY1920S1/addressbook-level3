@@ -58,9 +58,9 @@ class AttendanceTest {
         trainings.add(THIRD_TRAINING);
         Attendance attendance = new Attendance(trainings);
 
-        assertTrue(attendance.hasTraining(FIRST_DATE));
-        assertTrue(attendance.hasTraining(SECOND_DATE));
-        assertTrue(attendance.hasTraining(THIRD_DATE));
+        assertTrue(attendance.hasTrainingOnDate(FIRST_DATE));
+        assertTrue(attendance.hasTrainingOnDate(SECOND_DATE));
+        assertTrue(attendance.hasTrainingOnDate(THIRD_DATE));
     }
 
     @Test
