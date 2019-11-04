@@ -29,7 +29,9 @@ public class FindIncidentsCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() {
         List<Predicate<Incident>> predicateArr = new ArrayList<>();
-        predicateArr.add(new DescriptionKeywordsPredicate(new Description("test")));
+        List<String> descriptionArr = new ArrayList<>();
+        descriptionArr.add(new Description("test").toString());
+        predicateArr.add(new DescriptionKeywordsPredicate(descriptionArr));
 
         // no leading and trailing whitespaces
         FindIncidentsCommand expectedSearchIncidentsCommand =
