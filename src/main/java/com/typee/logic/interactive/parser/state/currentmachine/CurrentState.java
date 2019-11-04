@@ -1,7 +1,7 @@
-package com.typee.logic.interactive.parser.state.helpmachine;
+package com.typee.logic.interactive.parser.state.currentmachine;
 
 import com.typee.logic.commands.Command;
-import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.CurrentCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
@@ -9,16 +9,24 @@ import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 
-public class HelpState extends EndState {
-    private static final String MESSAGE_CONSTRAINTS = "Please refer to the user guide for more information.";
+public class CurrentState extends EndState {
 
-    public HelpState(ArgumentMultimap soFar) {
+    private static final String MESSAGE_CONSTRAINTS = "Current information has been displayed";
+
+    private String currentMessage;
+
+    protected CurrentState(ArgumentMultimap soFar) {
         super(soFar);
+    }
+
+    public CurrentState(String currentMessage) {
+        super(new ArgumentMultimap());
+        this.currentMessage = currentMessage;
     }
 
     @Override
     public Command buildCommand() throws CommandException {
-        return new HelpCommand();
+        return new CurrentCommand(currentMessage);
     }
 
     @Override

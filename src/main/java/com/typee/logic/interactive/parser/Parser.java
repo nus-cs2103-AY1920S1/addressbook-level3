@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
+import com.typee.logic.commands.CurrentCommand;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.commands.exceptions.CommandException;
@@ -16,6 +17,7 @@ import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
+import com.typee.logic.interactive.parser.state.currentmachine.CurrentState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
 import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.parser.exceptions.ParseException;
@@ -24,11 +26,13 @@ public class Parser implements InteractiveParser {
 
     private static final String BUFFER_TEXT = " ";
     private static final String MESSAGE_CLEAR_ALL = "// clear";
+    private static final String MESSAGE_CURRENT = "// current";
     private static final String MESSAGE_INVALID_COMMAND = "No such command exists!";
     private static final String MESSAGE_MISSING_PREFIX = "Please input only the prefix %s and its argument."
             + " You may enter additional prefixes and arguments as long as they follow the specified ordering.";
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
+    private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
 
     private State currentState;
     private State temporaryState;
@@ -59,8 +63,25 @@ public class Parser implements InteractiveParser {
             return;
         }
 
+        if (isCurrentCommand(commandText)) {
+            initializeCurrent();
+            return;
+        }
+
         Prefix[] arrayOfPrefixes = extractPrefixes(commandText);
         initializeAndParse(commandText, arrayOfPrefixes);
+    }
+
+    private void initializeCurrent() {
+        temporaryState = currentState;
+        if (currentState == null) {
+            currentState = new CurrentState(MESSAGE_IDLE_STATE);
+        }
+        currentState = new CurrentState(currentState.getStateConstraints());
+    }
+
+    private boolean isCurrentCommand(String commandText) {
+        return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
     }
 
     private boolean isClearCommand(String commandText) {
@@ -106,6 +127,9 @@ public class Parser implements InteractiveParser {
         try {
             Command command = endState.buildCommand();
             if (command instanceof HelpCommand) {
+                currentState = temporaryState;
+                temporaryState = null;
+            } else if (command instanceof CurrentCommand) {
                 currentState = temporaryState;
                 temporaryState = null;
             } else {

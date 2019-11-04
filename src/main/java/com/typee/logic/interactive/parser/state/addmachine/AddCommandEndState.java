@@ -72,6 +72,6 @@ public class AddCommandEndState extends EndState {
 
     @Override
     public Prefix getPrefix() {
-        return new Prefix("");
+        return DUMMY_PREFIX;
     }
 }
