@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,7 +30,7 @@ class JsonAdaptedEntry {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
     public JsonAdaptedEntry(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
@@ -59,9 +59,9 @@ class JsonAdaptedEntry {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted entry object into the model's {@code Person} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
      */
     public Entry toModelType() throws IllegalValueException {
         final List<Tag> entryTags = new ArrayList<>();

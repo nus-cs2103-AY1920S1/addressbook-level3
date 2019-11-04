@@ -19,11 +19,11 @@
 //import seedu.address.commons.core.Messages;
 //import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-//import seedu.address.model.AddressBook;
+//import seedu.address.model.GuiltTrip;
 //import seedu.address.model.Model;
 //import seedu.address.model.ModelManager;
 //import seedu.address.model.UserPrefs;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.entry.Person;
 //import seedu.address.testutil.EditEntryDescriptorBuilder;
 //import seedu.address.testutil.EntryBuilder;
 //
@@ -43,7 +43,7 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedPerson);
 //
-//        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+//        Model expectedModel = new ModelManager(new GuiltTrip(model.getAddressBook()), new UserPrefs());
 //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 //
 //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -65,7 +65,7 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedPerson);
 //
-//        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+//        Model expectedModel = new ModelManager(new GuiltTrip(model.getAddressBook()), new UserPrefs());
 //        expectedModel.setPerson(lastPerson, editedPerson);
 //
 //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -78,7 +78,7 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedPerson);
 //
-//        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+//        Model expectedModel = new ModelManager(new GuiltTrip(model.getAddressBook()), new UserPrefs());
 //
 //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
 //    }
@@ -94,7 +94,7 @@
 //
 //        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedPerson);
 //
-//        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+//        Model expectedModel = new ModelManager(new GuiltTrip(model.getAddressBook()), new UserPrefs());
 //        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 //
 //        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -113,7 +113,7 @@
 //    public void execute_duplicatePersonFilteredList_failure() {
 //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
 //
-//        // edit person in filtered list into a duplicate in address book
+//        // edit entry in filtered list into a duplicate in address book
 //        Person personInList = model.getAddressBook().getEntryList().get(INDEX_SECOND_PERSON.getZeroBased());
 //        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
 //                new EditEntryDescriptorBuilder(personInList).build());

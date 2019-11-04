@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.TogglePanelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PanelName;
+import seedu.address.model.entry.PanelName;
 
 /**
  * Parses input arguments and creates a new TogglePanelCommand object.

@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Category;
+import seedu.address.model.entry.Category;
 
 /**
  * Edits a category from guiltTrip();
@@ -39,8 +39,8 @@ public class EditCategoryCommand extends Command {
     private final EditCategoryDescriptor editCategoryDescriptor;
 
     /**
-     * @param index               of the person in the filtered person list to edit
-     * @param editEntryDescriptor details to edit the person with
+     * @param index               of the entry in the filtered entry list to edit
+     * @param editEntryDescriptor details to edit the entry with
      */
     public EditCategoryCommand(Category toEditCategory, EditCategoryDescriptor editCategoryDescriptor) {
         requireNonNull(toEditCategory);
@@ -64,7 +64,7 @@ public class EditCategoryCommand extends Command {
         //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
         //TODO possible if doesn't work properly
-        if (!categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
+        if (categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
         }
 
@@ -104,8 +104,8 @@ public class EditCategoryCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditCategoryDescriptor {
         private String categoryName;

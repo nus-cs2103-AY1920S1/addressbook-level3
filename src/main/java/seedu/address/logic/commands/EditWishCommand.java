@@ -19,16 +19,16 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Wish;
 import seedu.address.model.tag.Tag;
 
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing entry in the address book.
  */
 public class EditWishCommand extends Command {
 
@@ -53,8 +53,8 @@ public class EditWishCommand extends Command {
     private final EditWishDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editEntryDescriptor details to edit the person with
+     * @param index of the entry in the filtered entry list to edit
+     * @param editEntryDescriptor details to edit the entry with
      */
     public EditWishCommand(Index index, EditWishDescriptor editEntryDescriptor) {
         requireNonNull(index);
@@ -120,8 +120,8 @@ public class EditWishCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
     public static class EditWishDescriptor {
         private Category category;

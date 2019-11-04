@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Entry;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -25,7 +25,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all income and expense entries which contains "
             + " the keywords that the user requests to be filtered by contain any of and displays them as a list with "
-            + "index numbers.\n"
+            + "index numbers. There must at least be one property that you are searching by. \n"
             + "[" + PREFIX_CATEGORY + "KEYWORDS] "
             + "[" + PREFIX_DESC + "KEYWORDS] "
             + "[" + PREFIX_DATE + "TIME] "
@@ -33,7 +33,7 @@ public class FindCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + PREFIX_AMOUNT + "5.60";
 
-    public static final String INSUFFICENT_ARGUMENTS = "Find by at least one property";
+    public static final String EMPTY_PROPETIES = "Propeties cannot be empty.";
 
     private final List<Predicate<Entry>> predicate;
 
