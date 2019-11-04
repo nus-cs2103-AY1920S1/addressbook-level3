@@ -22,10 +22,6 @@ import seedu.address.model.NusModsData;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.module.AcadCalendar;
-import seedu.address.model.module.Holidays;
-import seedu.address.model.module.ModuleList;
-import seedu.address.model.module.ModuleSummaryList;
 import seedu.address.model.util.SampleTimeBook;
 import seedu.address.storage.JsonTimeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -35,7 +31,6 @@ import seedu.address.storage.TimeBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.address.websocket.Cache;
 
 /**
  * Runs the application.
@@ -95,43 +90,12 @@ public class MainApp extends Application {
             logger.severe("Failed to load TimeBook, starting with a new instance");
         }
 
-        NusModsData nusModsData = initNusModsData();
+        NusModsData nusModsData = new NusModsData();
+        nusModsData.loadAllFromCache();
 
         GmapsModelManager gmapsModelManager = new GmapsModelManager();
 
         return new ModelManager(timeBook, userPrefs, nusModsData, gmapsModelManager);
-    }
-
-    /**
-     * Returns an {@code NusModsData} with the data from {@code Cache}.
-     */
-    private NusModsData initNusModsData() {
-        NusModsData nusModsData = new NusModsData();
-
-        Optional<ModuleSummaryList> moduleSummaryListOptional = Cache.loadModuleSummaryList();
-        if (moduleSummaryListOptional.isPresent()) {
-            nusModsData.setModuleSummaryList(moduleSummaryListOptional.get());
-            logger.info("Loaded module summary list");
-        }
-
-        Optional<ModuleList> moduleListOptional = Cache.loadModuleList();
-        if (moduleListOptional.isPresent()) {
-            nusModsData.setModuleList(moduleListOptional.get());
-            logger.info("Loaded detailed module list");
-        }
-
-        Optional<Holidays> holidaysOptional = Cache.loadHolidays();
-        if (holidaysOptional.isPresent()) {
-            nusModsData.setHolidays(holidaysOptional.get());
-            logger.info("Loaded holidays");
-        }
-
-        Optional<AcadCalendar> acadCalendarOptional = Cache.loadAcadCalendar();
-        if (acadCalendarOptional.isPresent()) {
-            nusModsData.setAcadCalendar(acadCalendarOptional.get());
-            logger.info("Loaded academic calendar");
-        }
-        return nusModsData;
     }
 
     private void initLogging(Config config) {

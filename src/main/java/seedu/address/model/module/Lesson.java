@@ -1,12 +1,12 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Objects;
-
-import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Lesson in an academic semester of a module.
@@ -21,9 +21,16 @@ public class Lesson {
     private Venue venue;
 
     public Lesson(LessonNo lessonNo, LocalTime startTime, LocalTime endTime, Weeks weeks,
-                  LessonType lessonType, DayOfWeek day, Venue venue) throws IllegalValueException {
+                  LessonType lessonType, DayOfWeek day, Venue venue) {
+        requireNonNull(lessonNo);
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        requireNonNull(weeks);
+        requireNonNull(lessonType);
+        requireNonNull(day);
+        requireNonNull(venue);
         if (startTime.isAfter(endTime)) { //DEFENSIVE CODE - assumption: there is no lesson that goes past midnight.
-            throw new IllegalValueException("Start time cannot be after end time.");
+            throw new IllegalArgumentException("Start time cannot be after end time.");
         }
         this.lessonNo = lessonNo;
         this.startTime = startTime;

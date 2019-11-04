@@ -114,6 +114,11 @@ public class LogicManager implements Logic, SuggestionLogic {
         return model.groupSuggester(prefix);
     }
 
+    @Override
+    public ArrayList<String> validLocationSuggester(String prefix) {
+        return model.validLocationSuggester(prefix);
+    }
+
     //=========== Legacy =============================================================
 
     @Override

@@ -76,5 +76,4 @@ public class AddPersonCommand extends Command {
                 || (command instanceof AddPersonCommand // instanceof handles nulls
                 && personDescriptor.equals(((AddPersonCommand) command).personDescriptor));
     }
-
 }

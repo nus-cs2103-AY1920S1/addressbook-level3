@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -9,6 +11,7 @@ public class Title {
     private String title;
 
     public Title(String title) {
+        requireNonNull(title);
         this.title = title;
     }
 
