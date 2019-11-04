@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -301,6 +302,7 @@ public class ModelManager implements Model {
         StringBuilder sb = new StringBuilder();
         sb.append("Loan History:\n");
         target.getLoanHistory().forEach(loan -> loanStream.add(loan));
+        Collections.reverse(loanStream); // To make latest loan go on top
         loanStream.stream()
                 .map(loan -> singleLoanHistoryString(
                         loan, target.isCurrentlyLoanedOut() && target.getLoan().get().equals(loan)))

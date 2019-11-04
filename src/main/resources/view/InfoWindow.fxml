@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Info" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alwaysOnTop="true" height="400.0" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0" resizable="false" title="Info" type="javafx.stage.Stage" width="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene>
             <stylesheets>
@@ -23,11 +23,11 @@
                 <URL value="@LiBerryTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
-         <ScrollPane>
+         <ScrollPane maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0" prefHeight="400.0" prefWidth="700.0">
             <content>
-               <Pane fx:id="infoPanel" maxWidth="700.0" minWidth="700.0" prefWidth="700.0">
+               <Pane fx:id="infoPanel" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0" prefHeight="400.0" prefWidth="700.0">
                   <children>
-                     <VBox prefHeight="200.0">
+                     <VBox maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0" prefHeight="400.0" prefWidth="700.0">
                         <children>
                             <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
                                 <GridPane maxWidth="500.0" minWidth="500.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
@@ -72,7 +72,7 @@
                            <Label fx:id="loanHistory" text="Label" VBox.vgrow="ALWAYS" />
                         </children>
                         <padding>
-                           <Insets left="20.0" />
+                           <Insets bottom="20.0" left="20.0" />
                         </padding>
                      </VBox>
                   </children>
