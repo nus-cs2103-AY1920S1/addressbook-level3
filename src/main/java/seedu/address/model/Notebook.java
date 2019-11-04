@@ -56,14 +56,14 @@ public class Notebook implements ReadOnlyNotebook {
     public Notebook(ReadOnlyNotebook toBeCopied) {
         this();
         resetData(toBeCopied);
-
         if (classrooms.isEmpty()) {
             Classroom newClassroom = new Classroom();
             setCurrentClassroom(newClassroom);
         } else {
-           //Classroom firstClassroom = getClassroomList().get(0);
+            //Classroom firstClassroom = getClassroomList().get(0);
             setCurrentClassroom(getFirstClassroom());
         }
+
     }
 
 
@@ -77,8 +77,20 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
-        System.out.println("PLSCHECK: " + newData.getClassroomList());
+        //System.out.println("PLSCHECK: " + newData.getClassroomList());
         setClassrooms(newData.getClassroomList());
+        /*
+        if (currentClassroom != null) {
+            currentClassroom = resetData(newData.getCurrentClassroom());
+        } else if (classrooms.isEmpty()) {
+            Classroom newClassroom = new Classroom();
+            setCurrentClassroom(newClassroom);
+        } else {
+            //Classroom firstClassroom = getClassroomList().get(0);
+            setCurrentClassroom(getFirstClassroom());
+        }
+        */
+        
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
