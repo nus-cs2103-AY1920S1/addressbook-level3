@@ -60,7 +60,7 @@ public class Customer {
         this.phone = phone;
         this.tags.addAll(tags);
         this.orders.addAll(orders);
-        reviewTags(tags);
+        addTags(tags);
     }
 
     public Name getName() {
@@ -87,17 +87,27 @@ public class Customer {
     }
 
     /**
-     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and review Customer's favourite tags.
+     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and adds the tags to
+     * {@code ObservableMap<Tag, Integer>} totalTags.
      */
     public void addOrder(Order order, Set<Tag> tags) {
         orders.add(order);
-        reviewTags(tags);
+        addTags(tags);
     }
 
     /**
-     * Adds {@code Set<Tag>} tags into totalTags.
+     * Deletes {@code Order} from Customer's {@code ObservableList<Order>} orders and deletes the tags from
+     * {@code ObservableMap<Tag, Integer>} totalTags.
      */
-    private void reviewTags(Set<Tag> tags) {
+    public void deleteOrder(Order order, Set<Tag> tags) {
+        orders.remove(order);
+        deleteTags(tags);
+    }
+
+    /**
+     * Adds {@code Set<Tag>} tags into {@code ObservableMap<Tag, Integer>} totalTags.
+     */
+    private void addTags(Set<Tag> tags) {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
             if (i != null) {
@@ -108,6 +118,21 @@ public class Customer {
             if (!this.tags.contains(tag)) {
                 changeMainTags();
             }
+        }
+    }
+
+    /**
+     * Deletes {@code Set<Tag>} tags from totalTags
+     */
+    private void deleteTags(Set<Tag> tags) {
+        for (Tag tag : tags) {
+            Integer i = totalTags.get(tag);
+            if (i - 0 == 0) {
+                totalTags.remove(tag);
+            } else {
+                totalTags.replace(tag, i, i - 1);
+            }
+            changeMainTags();
         }
     }
 
@@ -182,7 +207,8 @@ public class Customer {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone().toString());
+                .append(getPhone().toString())
+                .append(" Favourite cuisine: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
