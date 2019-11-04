@@ -27,4 +27,8 @@ public class RecmMixedFoodCommand extends Command {
         return DisplayPaneType.RECM_MIXED_FOOD;
     }
 
+    @Override
+    public boolean isToCreateNewPane() {
+        return true;
+    }
 }

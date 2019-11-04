@@ -23,21 +23,21 @@ public class FoodCalculator {
 
     public Calorie getCalorieSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getCalorie().getNumericalValue()).sum();
-        return new Calorie(Double.toString(sum));
+        return new Calorie(resultFormatter.format(sum));
     }
 
     public Gi getGiAverage() {
-        double sum = foodItems.stream().mapToDouble(food -> food.getGi().getNumericalValue()).average().getAsDouble();
-        return new Gi(resultFormatter.format(sum));
+        double average = foodItems.stream().mapToDouble(f -> f.getGi().getNumericalValue()).average().getAsDouble();
+        return new Gi(resultFormatter.format(average));
     }
 
     public Sugar getSugarSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getSugar().getNumericalValue()).sum();
-        return new Sugar(Double.toString(sum));
+        return new Sugar(resultFormatter.format(sum));
     }
 
     public Fat getFatSum() {
         double sum = foodItems.stream().mapToDouble(food -> food.getFat().getNumericalValue()).sum();
-        return new Fat(Double.toString(sum));
+        return new Fat(resultFormatter.format(sum));
     }
 }

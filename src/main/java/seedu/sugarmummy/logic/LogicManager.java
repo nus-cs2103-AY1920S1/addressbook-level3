@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = sugarMummyParser.parseCommand(commandText);
         displayPaneType = command.getDisplayPaneType();
-        newPaneIsToBeCreated = command.getNewPaneIsToBeCreated();
+        newPaneIsToBeCreated = command.isToCreateNewPane();
         commandResult = command.execute(model);
 
         try {

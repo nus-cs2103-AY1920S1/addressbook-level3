@@ -36,8 +36,8 @@ public class MainDisplayPane {
     /**
      * Returns a UiPart representing the Main Display Pane observed by the user.
      *
-     * @param displayPaneType      An enumerated display pane to retrieve or store the corresponding type of UiPart.
-     * @param newPaneIsToBeCreated Boolean indicating whether a new pane is to be created, regardless of whether a pane
+     * @param displayPaneType      an enumerated display pane to retrieve or store the corresponding type of UiPart.
+     * @param newPaneIsToBeCreated boolean indicating whether a new pane is to be created, regardless of whether a pane
      *                             already exists.
      * @return A UiPart representing the Main Display Pane observed by the user.
      */

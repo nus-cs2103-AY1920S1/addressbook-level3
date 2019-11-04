@@ -240,7 +240,7 @@ public class EditBioCommand extends Command {
     }
 
     @Override
-    public boolean getNewPaneIsToBeCreated() {
+    public boolean isToCreateNewPane() {
         return true;
     }
 

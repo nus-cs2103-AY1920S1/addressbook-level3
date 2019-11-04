@@ -10,6 +10,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.model.calendar.Event;
+import seedu.sugarmummy.ui.DisplayPaneType;
 
 /**
  * Adds an Event to the calendar.
@@ -56,6 +57,11 @@ public class EventCommand extends Command {
             model.schedule();
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+    }
+
+    @Override
+    public DisplayPaneType getDisplayPaneType() {
+        return DisplayPaneType.NONE;
     }
 
     @Override

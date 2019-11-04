@@ -29,7 +29,7 @@ import seedu.sugarmummy.recmfood.exception.FoodNotFoundException;
  */
 public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
 
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
     protected final ObservableList<Food> internalList = FXCollections.observableArrayList();
     protected final ObservableList<Food> internalUnmodifiableList =

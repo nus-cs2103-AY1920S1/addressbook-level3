@@ -18,18 +18,18 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    //TODO: make it abstract
-
     /**
      * Returns a {@code DisplayPaneType} that corresponds to a specific certain command.
      *
      * @return a {@code DisplayPaneType} based on the specific command
      */
-    public DisplayPaneType getDisplayPaneType() {
-        return null;
-    }
+    abstract public DisplayPaneType getDisplayPaneType();
 
-    public boolean getNewPaneIsToBeCreated() {
+    /**
+     * Returns
+     * @return
+     */
+    public boolean isToCreateNewPane() {
         return false;
     }
 
