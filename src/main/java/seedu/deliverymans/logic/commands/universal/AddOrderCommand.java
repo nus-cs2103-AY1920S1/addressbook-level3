@@ -124,6 +124,8 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
+
+        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
     }
 
     @Override
