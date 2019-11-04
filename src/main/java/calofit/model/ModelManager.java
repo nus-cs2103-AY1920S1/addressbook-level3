@@ -3,11 +3,14 @@ package calofit.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.binding.ObjectExpression;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -37,11 +40,12 @@ public class ModelManager implements Model {
     private final CalorieBudget budget;
     private ObjectExpression<Predicate<Dish>> suggestedDishFilter;
 
+    private ObjectProperty<LocalDateTime> nowProperty = new SimpleObjectProperty<>(LocalDateTime.now());
+
     /**
      * Initializes a ModelManager with the given dishDatabase and userPrefs.
      */
     public ModelManager(ReadOnlyMealLog mealLog, ReadOnlyDishDatabase dishDatabase, ReadOnlyUserPrefs userPrefs) {
-        super();
         CollectionUtil.requireAllNonNull(dishDatabase, userPrefs);
 
         logger.fine("Initializing with dish database: " + dishDatabase + " and user prefs " + userPrefs);
@@ -55,6 +59,8 @@ public class ModelManager implements Model {
         suggestedDishFilter = ObservableUtil.mapToObject(remainingCalories,
             remain -> dish -> dish.getCalories().getValue() <= remain);
         filteredDishes.predicateProperty().bind(suggestedDishFilter);
+
+        this.mealLog.todayProperty().bind(ObservableUtil.map(nowProperty, LocalDateTime::toLocalDate));
     }
 
     public ModelManager() {
@@ -243,5 +249,10 @@ public class ModelManager implements Model {
         }
 
         return remainingBudget;
+    }
+
+    @Override
+    public ObjectProperty<LocalDateTime> nowProperty() {
+        return nowProperty;
     }
 }
