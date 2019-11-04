@@ -14,6 +14,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
@@ -94,7 +95,7 @@ public class EditBudgetCommand extends Command {
 
         model.setBudget(budgetToEdit, editedBudget);
         model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
-        model.setViewState("budgetlist");
+        model.setViewState(ViewState.BUDGETLIST);
         return new CommandResult(null, model.getFilteredBudgetList(), null,
             String.format(MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget));
     }

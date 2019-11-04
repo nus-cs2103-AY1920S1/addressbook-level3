@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 
 /**
@@ -46,7 +47,7 @@ public class ViewBudgetCommand extends Command {
         Budget budgetToView = lastShownList.get(targetIndex.getZeroBased());
 
         model.setLastViewedBudget(budgetToView);
-        model.setViewState("expenselist inside budget");
+        model.setViewState(ViewState.EXPENSELIST_IN_BUDGET);
         return new CommandResult(model.getExpenseListFromBudget(budgetToView), null, budgetToView,
             String.format(MESSAGE_VIEW_BUDGET_SUCCESS, budgetToView));
     }

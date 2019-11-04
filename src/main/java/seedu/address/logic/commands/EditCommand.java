@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
@@ -88,12 +89,12 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        String viewState = model.getViewState();
+        ViewState viewState = model.getViewState();
         List<Expense> lastShownList;
 
-        if (viewState.equals("default expenselist")) {
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             lastShownList = model.getFilteredExpenseList();
-        } else if (viewState.equals("expenselist inside budget")) {
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
             Budget viewingBudget = model.getLastViewedBudget();
             lastShownList = viewingBudget.getObservableExpenseList();
         } else {
@@ -136,9 +137,10 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_EDIT_ERROR);
         }
 
-        if (viewState.equals("default expenselist")) {
-            return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
-        } else if (viewState.equals("expenselist inside budget")) {
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
+            return new CommandResult(model.getFilteredExpenseList(), null,
+                null, String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
             return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, null,
                 String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
         } else {

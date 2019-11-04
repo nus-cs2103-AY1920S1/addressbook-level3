@@ -19,6 +19,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
@@ -238,11 +239,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public String getViewState() {
+        public ViewState getViewState() {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void setViewState(String viewState) {
+        public void setViewState(ViewState viewState) {
             throw new AssertionError("This method should not be called.");
         }
 

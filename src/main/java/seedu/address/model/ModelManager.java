@@ -25,7 +25,7 @@ import seedu.address.model.expense.Expense;
 public class ModelManager implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static String viewState = "default expenselist";
+    private static ViewState viewState = ViewState.DEFAULT_EXPENSELIST;
     private static Budget lastViewedBudget;
     private final ExpenseList defaultExpenseList;
     private final BudgetList budgetList;
@@ -56,11 +56,11 @@ public class ModelManager implements Model {
         this(new ExpenseList(), new BudgetList(), new UserPrefs());
     }
 
-    public String getViewState() {
+    public ViewState getViewState() {
         return viewState;
     }
 
-    public void setViewState(String state) {
+    public void setViewState(ViewState state) {
         viewState = state;
     }
 

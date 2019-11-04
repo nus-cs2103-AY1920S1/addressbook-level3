@@ -21,9 +21,9 @@ public interface Model {
     Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
-    public String getViewState();
+    public ViewState getViewState();
 
-    public void setViewState(String viewState);
+    public void setViewState(ViewState viewState);
 
     public Budget getLastViewedBudget();
 

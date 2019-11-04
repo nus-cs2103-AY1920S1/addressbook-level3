@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
@@ -37,9 +38,9 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        String viewState = model.getViewState();
+        ViewState viewState = model.getViewState();
 
-        if (viewState.equals("default expenselist")) {
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             List<Expense> lastShownList = model.getFilteredExpenseList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -48,8 +49,9 @@ public class DeleteCommand extends Command {
 
             Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
             model.deleteExpense(expenseToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
-        } else if (viewState.equals("budgetlist")) {
+            return new CommandResult(model.getFilteredExpenseList(), null, null,
+                String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
+        } else if (viewState.equals(ViewState.BUDGETLIST)) {
             List<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -60,7 +62,7 @@ public class DeleteCommand extends Command {
             model.deleteBudget(budgetToDelete);
             return new CommandResult(null, model.getFilteredBudgetList(), null,
                 String.format(MESSAGE_DELETE_BUDGET_SUCCESS, budgetToDelete));
-        } else if (viewState.equals("expenselist inside budget")) {
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
             Budget viewingBudget = model.getLastViewedBudget();
             List<Expense> expenseListInsideBudget = viewingBudget.getObservableExpenseList();
 

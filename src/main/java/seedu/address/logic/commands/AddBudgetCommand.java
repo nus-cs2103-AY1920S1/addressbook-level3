@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
 
 /**
@@ -64,7 +65,7 @@ public class AddBudgetCommand extends Command {
         }
 
         model.addBudget(toAdd);
-        model.setViewState("budgetlist");
+        model.setViewState(ViewState.BUDGETLIST);
         return new CommandResult(null, model.getFilteredBudgetList(), null, String.format(MESSAGE_SUCCESS, toAdd));
     }
 }
