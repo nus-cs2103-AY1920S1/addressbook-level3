@@ -8,12 +8,9 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_TYPE;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_GI;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SUGAR;
 
-import java.util.stream.Stream;
-
 import seedu.sugarmummy.logic.parser.ArgumentMultimap;
 import seedu.sugarmummy.logic.parser.ArgumentTokenizer;
 import seedu.sugarmummy.logic.parser.Parser;
-import seedu.sugarmummy.logic.parser.Prefix;
 import seedu.sugarmummy.logic.parser.exceptions.ParseException;
 import seedu.sugarmummy.recmfood.commands.AddFoodCommand;
 import seedu.sugarmummy.recmfood.exception.FoodNotSuitableException;

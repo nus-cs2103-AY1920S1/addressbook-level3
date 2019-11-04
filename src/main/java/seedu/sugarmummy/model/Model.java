@@ -2,7 +2,6 @@ package seedu.sugarmummy.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -72,14 +71,14 @@ public interface Model {
     UniqueFoodList getUniqueFoodListObject();
 
     /**
-     * Replaces food list data with the data in {@code newFoodList}.
-     */
-    void setFoodList(UniqueFoodList newFoodList);
-
-    /**
      * Returns the a list of foods.
      */
     ObservableList<Food> getFoodList();
+
+    /**
+     * Replaces food list data with the data in {@code newFoodList}.
+     */
+    void setFoodList(UniqueFoodList newFoodList);
 
     /**
      * Returns an unmodifiable view of the filtered food list
@@ -164,15 +163,16 @@ public interface Model {
 
     /**
      * Calculates average values of a record type.
+     *
      * @param averageType the average type to calculate.
-     * @param recordType the record type to calculate.
-     * @param count the number of most recent averages to calculate.
+     * @param recordType  the record type to calculate.
+     * @param count       the number of most recent averages to calculate.
      */
     void calculateAverageMap(AverageType averageType, RecordType recordType, int count);
 
     /**
-     * Returns an unmodifiable view of the map of average values with key being the time period and
-     * key being the average value.
+     * Returns an unmodifiable view of the map of average values with key being the time period and key being the
+     * average value.
      */
     ObservableMap<LocalDate, Double> getAverageMap();
 
@@ -216,8 +216,8 @@ public interface Model {
     void addUser(User user);
 
     /**
-     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the user list.
-     * The user identity of {@code editedUser} must not be the same as another existing user in the user list.
+     * Replaces the given user {@code target} with {@code editedUser}. {@code target} must exist in the user list. The
+     * user identity of {@code editedUser} must not be the same as another existing user in the user list.
      */
     void setUser(User target, User editedUser);
 
@@ -325,22 +325,22 @@ public interface Model {
     /**
      * Returns whether or not new achievements have been attained after a modification to the user's list of records.
      */
-    public boolean newAchievementsHaveBeenAttained();
+    boolean newAchievementsHaveBeenAttained();
 
     /**
      * Returns whether or not existing achievements have been lost after a modification to the user's list of records.
      */
-    public boolean existingAchievementsHaveBeenLost();
+    boolean existingAchievementsHaveBeenLost();
 
     /**
      * Resets whether there are modification to the user's list of records to false.
      */
-    public void resetNewAchievementsState();
+    void resetNewAchievementsState();
 
     /**
      * Returns whether or not a given achievements map is the same as the current achievements map.
      */
-    public boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
+    boolean currAchievementsMapIsSameAs(Map<RecordType, List<Achievement>> prevAchievementMap);
 
 
 }

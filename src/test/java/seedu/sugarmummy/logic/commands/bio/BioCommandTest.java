@@ -43,7 +43,7 @@ class BioCommandTest {
 
     @Test
     public void getNewPaneIsToBeCreated_test() {
-        assertFalse(new BioCommand().getNewPaneIsToBeCreated());
+        assertFalse(new BioCommand().isToCreateNewPane());
     }
 
 }

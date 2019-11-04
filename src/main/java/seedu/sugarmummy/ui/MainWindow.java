@@ -337,9 +337,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the main display pane to the specified UI part.
      */
     private void switchToMainDisplayPane(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated) {
-        if (!Arrays.asList(DisplayPaneType.values()).contains(displayPaneType)) {
-            assert false : "The displayPaneType " + displayPaneType + " is inside the enum";
-        }
+        assert Arrays.asList(DisplayPaneType.values()).contains(displayPaneType) : "The displayPaneType "
+                + displayPaneType + " is inside the enum";
 
         if (displayPaneType != mainDisplayPane.getCurrPaneType() || newPaneIsToBeCreated) {
             DisplayPaneType nextPaneType = getNextPaneType(displayPaneType, guiIsModified(displayPaneType));
@@ -349,7 +348,7 @@ public class MainWindow extends UiPart<Stage> {
             newPaneIsToBeCreated = ((displayPaneType == DisplayPaneType.COLOUR
                     || displayPaneType == DisplayPaneType.BACKGROUND)
                     && nextPaneType == DisplayPaneType.BIO) || newPaneIsToBeCreated;
-           updateMainDisplayPane(requireNonNull(mainDisplayPane.get(nextPaneType, newPaneIsToBeCreated)));
+            updateMainDisplayPane(requireNonNull(mainDisplayPane.get(nextPaneType, newPaneIsToBeCreated)));
         }
     }
 
@@ -367,7 +366,7 @@ public class MainWindow extends UiPart<Stage> {
                 return;
             }
             updateMainDisplayPane(requireNonNull(mainDisplayPane.get(paneToDisplay, newPaneIsToBeCreated,
-                            yearMonth, yearMonthDay, isShowingWeek)));
+                    yearMonth, yearMonthDay, isShowingWeek)));
         }
     }
 

@@ -23,7 +23,7 @@ public abstract class Command {
      *
      * @return a {@code DisplayPaneType} based on the specific command
      */
-    abstract public DisplayPaneType getDisplayPaneType();
+    public abstract DisplayPaneType getDisplayPaneType();
 
     /**
      * Returns

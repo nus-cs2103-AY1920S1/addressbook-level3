@@ -10,6 +10,9 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Encapsulates a {@code} Comparator to specially handle sorting of foods.
+ */
 public class FoodComparator implements Comparator<Food> {
 
     public static final String MESSAGE_CONSTRAINTS = "The sorting order can only be one of the following types:\n"
@@ -27,6 +30,9 @@ public class FoodComparator implements Comparator<Food> {
         this.foodComparator = foodComparator;
     }
 
+    /**
+     * This is the only public constructor specifying the sort order represented by a {@code String}.
+     */
     public FoodComparator(String sortOrderString) {
         requireNonNull(sortOrderString);
         checkArgument(isValidSortOrderType(sortOrderString), MESSAGE_CONSTRAINTS);
@@ -37,24 +43,26 @@ public class FoodComparator implements Comparator<Food> {
         switch (sortOrderType) {
         case SORT_ORDER_FOOD_NAME:
             this.foodComparator = (food1, food2) -> food1.getFoodName().compareTo(food2.getFoodName());
+            break;
         case SORT_ORDER_FOOD_TYPE:
             this.foodComparator = (food1, food2) -> food1.getFoodType().compareTo(food2.getFoodType());
+            break;
         case SORT_ORDER_CALORIE:
             this.foodComparator = (food1, food2) -> food1.getCalorie().compareTo(food2.getCalorie());
+            break;
         case SORT_ORDER_GI:
             this.foodComparator = (food1, food2) -> food1.getGi().compareTo(food2.getGi());
+            break;
         case SORT_ORDER_SUGAR:
             this.foodComparator = (food1, food2) -> food1.getSugar().compareTo(food2.getSugar());
+            break;
         case SORT_ORDER_FAT:
             this.foodComparator = (food1, food2) -> food1.getFat().compareTo(food2.getFat());
+            break;
         default:
             assert false : sortOrderTypes.toString() + "does not fit in any sort order case";
+            break;
         }
-    }
-
-    @Override
-    public FoodComparator reversed() {
-        return new FoodComparator(this.foodComparator.reversed());
     }
 
     /**
@@ -63,6 +71,11 @@ public class FoodComparator implements Comparator<Food> {
      */
     private static boolean isValidSortOrderType(String test) {
         return sortOrderTypes.containsKey(test);
+    }
+
+    @Override
+    public FoodComparator reversed() {
+        return new FoodComparator(this.foodComparator.reversed());
     }
 
     @Override
@@ -75,6 +88,9 @@ public class FoodComparator implements Comparator<Food> {
         return false;
     }
 
+    /**
+     * Enumerates all possible sort order types for sorting foods.
+     */
     private enum SortOrderType {
         SORT_ORDER_FOOD_NAME("fn"),
         SORT_ORDER_FOOD_TYPE("ft"),

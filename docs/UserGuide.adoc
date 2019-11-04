@@ -943,26 +943,32 @@ Else, summary of all data will be exported.
 ==== Recommending food: `recmf`
 
 Recommends some medically suggested foods for type II diabetes patients. +
-To make searching more efficient, the user can specify two kinds of filters:
+To make searching more efficient, the user can specify two kinds of filters and one sorting order:
+
+***
 
 * food type: in the form of following flags:
 
-    -nsv: non-starchy vegetable, such as broccoli
+====
+*-nsv*: non-starchy vegetable, such as broccoli
 
-    -sv: starchy vegetable, such as potato
+*-sv*: starchy vegetable, such as potato
 
-    -f: fruit, such as cherry
+*-f*: fruit, such as cherry
 
-    -p: protein, such as lean lamb
+*-p*: protein, such as lean lamb
 
-    -s: snack, such fig roll
+*-s*: snack, such fig roll
 
-    -m: meal, such as spanish omelet
+*-m*: meal, such as spanish omelet
+====
 
 Note::
 ** Flags are case-insensitive.
 ** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
 ** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+
+***
 
 * food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
 
@@ -970,6 +976,26 @@ Note::
 ** Food names are case-insensitive.
 ** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
 ** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
+
+***
+
+* Sorting order: in the form of only one of the following two types:
+
+** `+sort/SORT_ORDER_TYPE`: sort the recommendations in ascending order based on the specified `SORT_ORDER_TYPE`
+*** Sort order type: in the form of any of the following six types:
++
+`fn`: food name, `ft`: food type, `ca`: calorie, `gi`: glycemic index, `su`: sugar, `fa`: fat
+** `-sort/SORT_ORDER_TYPE`: sort the recommendations in descending order
+
+[]
+NOTE::
+** `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE` cannot be both present even though they may be with different
+`SORT_ORDER_TYPE`.
+** Only exactly one valid sort order type will be accepted after the sorting prefix.
+** Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.
+**
+
+***
 
 Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
 

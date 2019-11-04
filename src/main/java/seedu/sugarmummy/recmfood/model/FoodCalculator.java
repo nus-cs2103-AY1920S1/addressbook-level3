@@ -2,11 +2,7 @@ package seedu.sugarmummy.recmfood.model;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.text.NumberFormatter;
 
 /**
  * Handles the arithmetic of food nutrition values.

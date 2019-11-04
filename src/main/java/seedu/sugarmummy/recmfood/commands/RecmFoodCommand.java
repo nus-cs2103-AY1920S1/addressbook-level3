@@ -2,7 +2,6 @@ package seedu.sugarmummy.recmfood.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import seedu.sugarmummy.logic.commands.Command;

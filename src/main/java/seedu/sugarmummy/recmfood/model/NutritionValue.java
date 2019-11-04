@@ -11,15 +11,13 @@ import seedu.sugarmummy.commons.core.LogsCenter;
  * Represents a kind of nutrition value of <code>Food</code> in the recommended food list. Guarantees: immutable; is
  * valid as declared in {@link #isValidValue(String)}
  */
-public abstract class NutritionValue implements Comparable<NutritionValue>{
-
-    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
+public abstract class NutritionValue implements Comparable<NutritionValue> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
     public static final String VALIDATION_REGEX = "^[+]?\\d+\\.?\\d{0,4}$";
-
     public final String value;
+    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
     /**
      * Constructs a {@code NutritionValue}.

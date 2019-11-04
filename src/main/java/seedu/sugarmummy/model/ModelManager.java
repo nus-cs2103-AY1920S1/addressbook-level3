@@ -10,7 +10,6 @@ import static seedu.sugarmummy.model.achievements.AchievementsMap.ACHIEVEMENTS_M
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -302,12 +301,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setFoodList(UniqueFoodList uniqueFoodLists) {
-        requireAllNonNull(uniqueFoodLists);
-        foodList.setFoods(uniqueFoodLists);
-    }
-
-    @Override
     public UniqueFoodList getUniqueFoodListObject() {
         return foodList;
     }
@@ -315,6 +308,12 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getFoodList() {
         return foodList.getUnmodifiableObservableList();
+    }
+
+    @Override
+    public void setFoodList(UniqueFoodList uniqueFoodLists) {
+        requireAllNonNull(uniqueFoodLists);
+        foodList.setFoods(uniqueFoodLists);
     }
 
     @Override

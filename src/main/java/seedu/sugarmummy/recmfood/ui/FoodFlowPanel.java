@@ -1,6 +1,5 @@
 package seedu.sugarmummy.recmfood.ui;
 
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
