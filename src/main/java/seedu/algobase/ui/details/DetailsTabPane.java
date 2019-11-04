@@ -142,7 +142,7 @@ public class DetailsTabPane extends UiPart<Region> {
                 return Optional.of(
                     new DetailsTab(
                         problem.getName().fullName,
-                        new ProblemDetails(problem),
+                        new ProblemDetails(problem, uiActionExecutor),
                         modelType,
                         modelId,
                         uiActionExecutor

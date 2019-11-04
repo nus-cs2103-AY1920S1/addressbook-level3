@@ -8,5 +8,6 @@ public enum UiActionType {
     OPEN_DETAILS_TAB,
     CLOSE_DETAILS_TAB,
     SWITCH_DETAILS_TAB,
+    EDIT_PROBLEM,
     SET_PLAN
 }

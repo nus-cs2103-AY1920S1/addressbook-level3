@@ -20,6 +20,8 @@ public class AlgoBaseUiActionParser {
      */
     public UiAction parseCommand(UiActionDetails uiActionDetails) throws ParseException {
         switch (uiActionDetails.getActionWord()) {
+
+        // Tabs
         case SWITCH_DISPLAY_TAB:
             return new SwitchDisplayTabUiActionParser().parse(uiActionDetails);
         case OPEN_DETAILS_TAB:
@@ -28,8 +30,15 @@ public class AlgoBaseUiActionParser {
             return new CloseDetailsTabUiActionParser().parse(uiActionDetails);
         case SWITCH_DETAILS_TAB:
             return new SwitchDetailsTabUiActionParser().parse(uiActionDetails);
+
+        // Problems
+        case EDIT_PROBLEM:
+            return new EditProblemUiActionParser().parse(uiActionDetails);
+
+        // Plans
         case SET_PLAN:
             return new SetPlanUiActionParser().parse(uiActionDetails);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_UI_ACTION);
         }
