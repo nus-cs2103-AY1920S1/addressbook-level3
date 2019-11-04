@@ -7,6 +7,8 @@ import com.typee.logic.parser.exceptions.ParseException;
 
 public abstract class EndState extends State {
 
+    protected final String MESSAGE_END_STATE = "Cannot transition from an end state!";
+
     protected EndState(ArgumentMultimap soFar) {
         super(soFar);
     }

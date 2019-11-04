@@ -8,12 +8,15 @@ import java.util.regex.Pattern;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
+import com.typee.logic.commands.ExitCommand;
+import com.typee.logic.commands.HelpCommand;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.StateTransitionException;
 import com.typee.logic.interactive.parser.state.addmachine.TypeState;
 import com.typee.logic.interactive.parser.state.exitmachine.ExitState;
+import com.typee.logic.interactive.parser.state.helpmachine.HelpState;
 import com.typee.logic.parser.exceptions.ParseException;
 
 public class Parser implements InteractiveParser {
@@ -27,9 +30,11 @@ public class Parser implements InteractiveParser {
             + " Please enter another command to get started!";
 
     private State currentState;
+    private State temporaryState;
 
     public Parser() {
         this.currentState = null;
+        this.temporaryState = null;
     }
 
     private boolean isActive() {
@@ -45,6 +50,11 @@ public class Parser implements InteractiveParser {
 
         if (isExitCommand(commandText)) {
             initializeExit();
+            return;
+        }
+
+        if (isHelpCommand(commandText)) {
+            initializeHelp();
             return;
         }
 
@@ -93,7 +103,12 @@ public class Parser implements InteractiveParser {
         assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
         EndState endState = (EndState) currentState;
         Command command = endState.buildCommand();
-        resetParser();
+        if (command instanceof HelpCommand) {
+            currentState = temporaryState;
+            temporaryState = null;
+        } else {
+            resetParser();
+        }
         return command;
     }
 
@@ -181,11 +196,22 @@ public class Parser implements InteractiveParser {
     }
 
     private boolean isExitCommand(String commandText) {
-        return commandText.trim().equalsIgnoreCase("Exit");
+        return commandText.trim().equalsIgnoreCase(ExitCommand.COMMAND_WORD);
     }
 
     private void initializeExit() {
         currentState = new ExitState(new ArgumentMultimap());
     }
+
+    private boolean isHelpCommand(String commandText) {
+        return commandText.trim().equalsIgnoreCase(HelpCommand.COMMAND_WORD);
+    }
+
+    private void initializeHelp() {
+        temporaryState = currentState;
+        currentState = new HelpState(new ArgumentMultimap());
+    }
+
+
 
 }

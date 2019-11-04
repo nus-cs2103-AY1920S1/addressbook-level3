@@ -11,7 +11,6 @@ import com.typee.logic.interactive.parser.Prefix;
 public class ExitState extends EndState {
 
     private static final String MESSAGE_GOODBYE = "Goodbye!";
-    private static final String MESSAGE_TRANSITION_FROM_END = "Cannot transition from an end state!";
 
     public ExitState(ArgumentMultimap soFar) {
         super(soFar);
@@ -24,7 +23,7 @@ public class ExitState extends EndState {
 
     @Override
     public State transition(ArgumentMultimap newArgs) throws EndStateException {
-        throw new EndStateException(MESSAGE_TRANSITION_FROM_END);
+        throw new EndStateException(MESSAGE_END_STATE);
     }
 
     @Override

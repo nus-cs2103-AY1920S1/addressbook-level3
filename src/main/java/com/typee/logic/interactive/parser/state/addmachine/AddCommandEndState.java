@@ -30,7 +30,6 @@ import com.typee.model.engagement.exceptions.InvalidTimeException;
 public class AddCommandEndState extends EndState {
 
     private static final String MESSAGE_CONSTRAINTS = "Engagement successfully added!";
-    private static final String MESSAGE_END_STATE = "Cannot transition from end state!";
 
     protected AddCommandEndState(ArgumentMultimap soFar) {
         super(soFar);
