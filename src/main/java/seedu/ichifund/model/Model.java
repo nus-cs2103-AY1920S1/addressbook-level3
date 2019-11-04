@@ -150,10 +150,20 @@ public interface Model {
     void deleteRepeater(Repeater target);
 
     /**
+     * Deletes all transactions associated with given repeater unique id.
+     */
+    void deleteRepeaterTransactions(RepeaterUniqueId repeaterUniqueId);
+
+    /**
      * Adds the given repeater.
      * {@code repeater} must not already exist in the fund book.
      */
     void addRepeater(Repeater repeater);
+
+    /**
+     * Creates all transactions associated with given repeater.
+     */
+    void createRepeaterTransactions(Repeater repeater);
 
     /**
      * Replaces the given repeater {@code target} with {@code editedRepeater}.
