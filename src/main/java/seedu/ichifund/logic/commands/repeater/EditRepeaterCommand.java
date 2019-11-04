@@ -39,7 +39,7 @@ public class EditRepeaterCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a repeater to IchiFund. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a repeater to IchiFund.\n"
             + "Parameters: "
             + "INDEX (must be a positive integer) "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
@@ -52,6 +52,8 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_START_YEAR + "START_YEAR "
             + PREFIX_END_MONTH + "END_MONTH "
             + PREFIX_END_YEAR + "END_YEAR "
+            + "\nConstraints: Repeater end must not occur before repeater start. Repeater start and end can span at "
+            + "most 60 months (5 years).\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "Potato money "
             + PREFIX_AMOUNT + "31.34 "
@@ -109,6 +111,15 @@ public class EditRepeaterCommand extends Command {
         Date updatedEndDate = editRepeaterDescriptor.getEndDate()
                 .orElse(repeaterToEdit.getEndDate());
 
+        // Check repeater span.
+        if (updatedEndDate.compareTo(updatedStartDate) > 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+        if (countMonths(updatedStartDate, updatedEndDate) > 60) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+
+
         Repeater editedRepeater = new Repeater(updatedUniqueId, updatedDescription, updatedAmount,
                 updatedCategory, updatedTransactionType,
                 updatedMonthStartOffset, updatedMonthEndOffset, updatedStartDate, updatedEndDate);
@@ -120,6 +131,38 @@ public class EditRepeaterCommand extends Command {
         model.createRepeaterTransactions(editedRepeater);
 
         return new CommandResult(String.format(MESSAGE_EDIT_REPEATER_SUCCESS, editedRepeater));
+    }
+
+    /**
+     * Counts the number of months spanned by two dates.
+     */
+    private static int countMonths(Date startDate, Date endDate) {
+        if (endDate.compareTo(startDate) > 0) {
+            return 0;
+        }
+
+        if (endDate.compareTo(startDate) == 0) {
+            return 1;
+        }
+
+        int startMonth = startDate.getMonth().monthNumber;
+        int startYear = startDate.getYear().yearNumber;
+        int currentMonth = startDate.getMonth().monthNumber;
+        int currentYear = startDate.getYear().yearNumber;
+        int endMonth = endDate.getMonth().monthNumber;
+        int endYear = endDate.getYear().yearNumber;
+
+        int months = 0;
+        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
+            months++;
+            currentMonth++;
+            if (currentMonth == 13) {
+                currentMonth = 1;
+                currentYear++;
+            }
+        }
+
+        return months;
     }
 
     @Override
