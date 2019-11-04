@@ -29,7 +29,7 @@ public class DoneEditExpenditureCommand extends Command {
             + "day number, please choose a different name.";
     public static final String MESSAGE_NO_MATCHING_EVENT = "The event associated with the expenditure is not found.";
     public static final String MESSAGE_DAY_INVALID = "The day is not found in your trip! Number of days in your trip: ";
-    public static final String MESSAGE_NOT_FOUND = "error!";
+    public static final String MESSAGE_NOT_FOUND = "The expenditure you are editing is not found!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -85,13 +85,11 @@ public class DoneEditExpenditureCommand extends Command {
         } catch (EventNotFoundException ex) {
             throw new CommandException(MESSAGE_NO_MATCHING_EVENT);
         } catch (DayNotFoundException ex) {
-            model.setPageStatus(model.getPageStatus()
-                    .withNewEditExpenditureDescriptor(new EditExpenditureFieldCommand
-                            .EditExpenditureDescriptor(expenditureToEdit))
-                    .withNewPageType(PageType.ADD_EXPENDITURE));
             throw new CommandException(MESSAGE_DAY_INVALID + numOfDays);
         } catch (ExpenditureNotFoundException ex) {
             throw new CommandException(MESSAGE_NOT_FOUND);
+        } catch (NullPointerException ex) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
         }
     }
 

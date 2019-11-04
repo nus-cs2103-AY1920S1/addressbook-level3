@@ -246,9 +246,6 @@ public class EditEventFieldCommand extends Command {
                 destination = this.destination.get();
             }
             if (this.totalBudget.isPresent()) {
-                if (expenditure.isPresent()) {
-                    model.getPageStatus().getTrip().getExpenditureList().remove(expenditure.get());
-                }
                 int index = model.getPageStatus().getTrip().getDayList()
                         .internalList.indexOf(model.getPageStatus().getDay());
                 Expenditure newExpenditure = new Expenditure(eventName, this.totalBudget.get(),
