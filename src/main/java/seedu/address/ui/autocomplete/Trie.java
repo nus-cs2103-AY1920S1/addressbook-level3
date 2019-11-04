@@ -1,10 +1,11 @@
+//@@author CarbonGrid
 package seedu.address.ui.autocomplete;
 
 /**
  * Trie for AutoComplete Searches.
  */
 public class Trie {
-    private TrieNode root = new TrieNode();
+    private final TrieNode root = new TrieNode();
 
     public Trie(String... commandsToSupport) {
         for (String command : commandsToSupport) {

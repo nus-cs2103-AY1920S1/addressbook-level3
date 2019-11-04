@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReferenceId;
@@ -12,7 +13,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.parameters.Address;
 import seedu.address.model.person.parameters.Email;
 import seedu.address.model.person.parameters.Name;
-import seedu.address.model.person.parameters.PersonReferenceId;
 import seedu.address.model.person.parameters.Phone;
 import seedu.address.model.person.parameters.Tag;
 
@@ -26,7 +26,7 @@ public class SamplePersonDataUtil {
      */
     private static ReferenceId patientRefId(String refId) {
         try {
-            return PersonReferenceId.parsePatientReferenceId(refId);
+            return ParserUtil.issuePatientReferenceId(refId);
         } catch (ParseException ex) {
             throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
         }
@@ -37,14 +37,14 @@ public class SamplePersonDataUtil {
      */
     private static ReferenceId staffRefId(String refId) {
         try {
-            return PersonReferenceId.parseStaffReferenceId(refId);
+            return ParserUtil.issueStaffReferenceId(refId);
         } catch (ParseException ex) {
             throw new AssertionError("Error should be thrown from sample test data: " + ex.getMessage());
         }
     }
 
     public static Person[] getSamplePersons() {
-        int count = 100;
+        int count = 1000;
         Person[] listOfPersons = new Person[count];
         for (int i = 0; i < count; i++) {
             if (i % 10 == 0) {
@@ -165,7 +165,7 @@ public class SamplePersonDataUtil {
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::issueTag)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toUnmodifiableSet());
     }
 
 }

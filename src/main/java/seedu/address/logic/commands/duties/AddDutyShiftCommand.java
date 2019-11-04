@@ -3,6 +3,7 @@ package seedu.address.logic.commands.duties;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
@@ -21,29 +22,30 @@ import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException
 import seedu.address.model.events.predicates.EventContainsRefIdPredicate;
 
 
-
 /**
  * Adds a person to the address book.
  */
 public class AddDutyShiftCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "addshift";
+    public static final String COMMAND_WORD = "newshift";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds duty shifts recursively "
             + " to the duty roster. \n"
             + "Parameters: "
-            + PREFIX_ID + "REFERENCE ID "
-            + PREFIX_START + "PREFIX_EVENT "
+            + PREFIX_ID + "REFERENCE_ID "
+            + PREFIX_START + "PREFIX_START "
+            + PREFIX_END + "PREFIX_END "
             + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
             + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "S001A "
-            + PREFIX_START + "01/11/19 1800 "
+            + PREFIX_ID + "STAFF001 "
+            + PREFIX_START + "01/12/19 0900 "
+            + PREFIX_END + "01/12/19 2100 "
             + PREFIX_RECURSIVE + "m "
             + PREFIX_RECURSIVE_TIMES + "2\n";
 
     public static final String MESSAGE_ADD_SHIFT_SUCCESS = "Duty shift added: %1$s";
-    public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s repeated duty shifts were added:\n %2$s";
+    public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s repeated duty shifts were added:\n%2$s";
     public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to add";
 
     private final Event toAdd;

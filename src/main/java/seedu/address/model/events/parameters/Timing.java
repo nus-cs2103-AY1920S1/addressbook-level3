@@ -55,10 +55,10 @@ public class Timing implements Comparable<Timing> {
     }
 
     /**
-     * Returns true if the start dateTime is before the end dateTime.
+     * Returns true if the start dateTime is before current time.
      */
     public static boolean isValidTimingFromCurrentTime(DateTime testStart, DateTime testEnd) {
-        return isValidTiming(testStart, testEnd) && testStart.getTime().isAfter(LocalDateTime.now());
+        return testStart.getTime().isAfter(LocalDateTime.now());
     }
 
     public DateTime getStartTime() {

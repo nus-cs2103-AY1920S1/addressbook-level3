@@ -50,7 +50,7 @@ public class RegisterPatientCommandParser implements Parser<ReversibleActionPair
                 RegisterPatientCommand.MESSAGE_USAGE));
         }
 
-        ReferenceId referenceId = ParserUtil.parsePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
+        ReferenceId referenceId = ParserUtil.issuePatientReferenceId(argMultimap.getValue(PREFIX_ID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(""));
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(""));

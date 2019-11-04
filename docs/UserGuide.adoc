@@ -29,14 +29,18 @@ This program is targeted at clerks working in small clinics. It is designed for 
 +
 image::Ui.png[width="790"]
 +
-.  You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+. You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
+. The figure below shows the layout.
++
+image::Layout.PNG[width="790"]
++
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
 
 
-* `register i/001A n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe`.
-* `enqueue 001A` : enqueues patient with reference id `001A` into the queue.
+* `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
+* `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
 * *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
@@ -44,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 [[Features]]
 
 == Features
-
+// tag::ui[]
 ====
 *AutoComplete & History*
 
@@ -53,251 +57,337 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 * When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
 
 ====
+// end::ui[]
 ====
 *Command Format*
 
-* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register n/NAME`, `NAME` is a parameter which can be used as `register n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/<NAME> p/<PHONE_NUMBER>`, `p/<PHONE_NUMBER> n/<NAME>` is also acceptable.
+* Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
+* Items in square brackets are optional e.g `-name <NAME> [-tag <TAG>]` can be used as `-name John Doe -tag friend` or as `-name John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[-tag <TAG>]...` can be used as `{nbsp}` (i.e. 0 times), `-tag friend`, `-tag friend -tag family` etc.
+* Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `-phone <PHONE_NUMBER> -name <NAME>` is also acceptable.
+* A Reference Id refers to a case-insensitive string, of 3 to 10 (inclusive) alphanumeric characters, that can be used to uniquely identify a person, such as a membership number or NRIC.
+A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
+Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
+
 ====
+
+IMPORTANT: All timings are based on the system's clock.
+
+=== Patient Management
+
+==== Searches patient by arguments: `patient` ====
+
+Filters patients whose reference ids, names or phone number contains the given keyword. +
+If no search keyword is provided, all registered patients will be displayed. +
+
+Format: `patient [<SEARCH_KEYWORD>]`
+
+==== Registers a new patient: `newpatient` ====
+
+Registers a new patient. Only patient's reference id and name are compulsory fields +
+
+Format:  `newpatient -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
+IMPORTANT: As a design decision, undoing the registration of a patient is allowed, via the `undo` command.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any patient already in the system.*
+
+==== Updates patients’ profiles: `editpatient` ====
+
+Updates the particulars of a patients +
+
+NOTE: Must be in the patient listing screen for this command to be accepted. +
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
+
+Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
+
+=== Staff Personal Management ===
+
+====  Searches staff doctor by arguments: `doctor` ====
+
+Filters staff doctor whose reference ids, names or phone number contains the given keyword. +
+If no search keyword is provided, all registered doctors will be displayed. +
+
+Format: `doctor [<SEARCH_KEYWORD>]`
+
+==== Registers a new doctor: `newdoctor` ====
+
+Registers a new doctor. Only doctor's reference id and name are compulsory fields. +
+
+Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
+
+IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed, via the `undo` command.
+However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
+Hence, the user *should not have administrative privilege to unregister any staff doctor already in the system.*
+
+==== Updates a doctor's profile: `editdoctor` ====
+
+If user is in the doctors listing screen, updates any change for doctor’s profiles. +
+
+NOTE: Must be in the staff listing screen for this command to be accepted. +
+
+IMPORTANT: Editing tags will overwrite all existing tags. +
+
+Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
+[-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
+==== Marks the doctor as on-duty: `onduty` ====
+
+Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
+
+Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
+
+==== Marks the doctor as off-duty: `offduty` ====
+
+Marks the doctor, based on the index given, as off-duty and removes him/her from the list. +
+
+Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
 
 === Queue Management
 
 ==== Adds a patient to the queue: `enqueue` ====
 
-Adds a patient to the queue +
-Format: `enqueue <PATIENT_REFERENCE_ID>`
-Examples:
+Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued. +
 
-* `add acc n/Hotel 81 a/Orchard /p67555312`
-* `add acc n/Mandarin Oriental a/Ang Mo Kio`
+Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
 ==== Removes a patient from the queue: `dequeue` ====
 
 Removes a patient from the queue based on their queue position. +
-Format: `dequeue <QUEUE_NUMBER>`
+
+Format: `dequeue <QUEUE_INDEX>`
 
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
-Assigns next patient to an available doctor based on the room number. +
-Format: `next <ROOM_NUMBER>`
+Assigns the next patient in the queue to a doctor.. +
+
+Format: `next <ENTRY_ID>`
 
 ==== Doctor takes a break: `break`  ====
 
-Avoids directing patients to a given doctor based on the room number. +
-Format: `break <ROOM_NUMBER>`
+Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+
+Format: `break <ENTRY_ID>`
 
 ==== Doctor resumes his/her duty: `resume` ====
 
-Allows patients to be directed to a given Doctor based on the room number. +
-Format: `resume <ROOM_NUMBER>`
+Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
 
-=== Patient Management
+Format: `resume <ENTRY_ID>`
 
-==== Searches patient by arguments: `patient` ====
-
-Filters patients whose reference ids, names or phone numbers containing any of the given keywords. +
-If search keywords are empty, all registered patients will be displayed. +
-Note: Requires at least 4 characters to search by a reference id or phone numbers. +
-Format: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
-
-==== Registers a new patient: `register` ====
-
-Registers a new patient. +
-Format:  `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
-
-==== Updates patients’ profiles: `update` ====
-
-If user is in the patients listing screen, updates any change for patients’ profiles +
-Format: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
-
-
-=== On-Duty Doctors Management ===
-
-==== Views doctors: `doctors` ====
-
-Finds doctors whose names contain any of the given keywords. +
-If search keywords are empty, all registered doctors will be displayed. +
-Format: `doctors [<DOCTOR_NAME>]`
-
-==== Registers a new doctor: `newdoctor` ====
-
-Registers a new doctor. +
-If the staff reference identifier is not specified, a unique identifier will be assigned by the system.
-Format: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-
-==== Updates a doctor's profile: `updatedoctor` ====
-
-If user is in the doctors listing screen, updates any change for doctor’s profiles. +
-Format: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
-[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-
-==== Marks the doctor as on-duty: `onduty` ====
-
-Marks the doctor as on-duty and adds him/her to the list based on the index given. +
-Format: `onduty <ENTRY_ID>`
-
-==== Marks the doctor as off-duty: `offduty` ====
-
-Marks the doctor as off-duty and removes him/her from the list based on the index given. +
-Format: `offduty <ENTRY_ID>`
 
 === Appointment Management
 
-==== Adds an appointment: `addappt` ====
+==== Displays appointments: `appointments` ====
 
-Adds a new appointment for a patient +
-Format: `addappt [i/REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/RECURSIVE_TIMES]`
+Displays a sorted list of upcoming appointments for the patient that is associated to the given `REFERENCE_ID`.
+If no keyword is given, all upcoming appointments will be displayed. +
+Format: `appointments [<REFERENCE_ID>]`
+
+==== Schedules an appointment: `newappt` ====
+
+Schedules a new appointments for a patient. +
+NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+e.g. Cannot schedule more appointments than available doctors on duty.
+
+If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
+
+If the optional field `[-end <END_TIMING>]` is absent, default end timing is 30 mins after start timing of the appointment. Otherwise, end Timing will be `[-end <END_TIMING>]`. +
+
+The optional field `[-rec <INTERVALS>]` can be `-rec w`, `-rec m`, or `-rec y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+
+Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
 Acknowledges an existing appointment once the patient has arrived +
-Format: `ackappt [i/REFERENCE_ID]`
-
-==== Displays all appointments: `appointments` ====
-
-Displays a sorted list of upcoming appointments for the patient that is associated to the given `i/REFERENCE_ID` +
-If no keywords are given, all upcoming appointments will be displayed. +
-Format: `appointments [i/REFERENCE_ID]`
-
+Format: `ackappt <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====
-
 Cancels the specified appointment. +
+
+NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
+
 Format: `cancelappt <ENTRY_ID>`
 
-==== Changes the appointment date: `changeappt` ====
+==== Changes the appointment date: `editappt` ====
 
 Changes the timing for an existing appointment. +
-Format: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
+If no optional fields `[-end <END_TIMING>]` is present, default endTiming is 30 mins after startTiming. Otherwise new endTiming will be `[-end <END_TIMING>]`. +
 
-==== Displays patients who have missed their appointments: `missappt` ====
+NOTE: To avoid accidental rescheduling of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
 
-Displays all appointments that are missed. +
+NOTE: The operation is rejected if there are insufficient staff doctors on duty at the time of the new appointment. +
+
+Format: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
+
+==== Lists patients who have missed their appointments: `missappt` ====
+
+Lists all appointments that are missed. +
+
+NOTE: An appointment is considered missed if the appointment was not acknowledged and the current time has passed the appointment's end time.
+
+
 Format: `missappt`
 
-==== Sets missed appointments as settled/notified: `settle` ====
+==== Sets missed appointments as settled/notified: `settleappt` ====
 
 Settles and removes the missed appointment based on the given index. +
-Format: `settle <ENTRY_ID>`
+Settling refers to the user following up on contacting the patient who has missed his/her appointment. +
 
-==== Changes the max number of concurrent consultation: `maxconcurrentappt` (v2.0) ====
+NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
 
-Changes the maximum number of concurrent patient appointments +
-Format: `maxconcurrentappt <TOTAL_NUMBER_OF_CONCURRENT_APPOINTMENTS>`
+Format: `settleappt <ENTRY_ID>`
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
 List all the available empty slots for patients to make appointments +
-Format: `slot s/<START_DATE> e/<END_DATE>`
+
+Format: `slot -start <START_DATE>`
 
 === Duty-shift Management
 
-==== Adds a duty shift for a doctor: `addshift` ====
+==== Displays duty shifts: `shift` ====
+
+Displays a sorted list of upcoming duty shifts for the staff doctors that is associated to the given `REFERENCE_ID`.
+If no keyword is given, all upcoming appointments will be displayed. +
+
+Format: `shifts [<REFERENCE_ID>]`
+
+==== Adds a duty shift for a doctor: `newshift` ====
 
 Adds a new duty shift for a doctor. +
-Format: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
+If both -rec <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
+Otherwise, only one shift will be added. +
+
+Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
 Cancels the specified duty shift for a doctor based on the given entry index. +
+
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
+
+NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
+
 Format: `cancelshift <ENTRY_ID>`
 
-==== Changes the duty shift for a doctor: `changeshift` ====
+==== Changes the duty shift for a doctor: `editshift` ====
 
 Changes the timing of an existing duty shift based on the given entry index.  +
-Format: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+
+NOTE: To avoid accidental cancellation of another doctor's shift, the user must first narrow down the search to a single doctor using the `shift [<REFERENCE_ID>]` command. +
+
+NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. +
+
+The patient's appointment affected by the deletion of the duty shift must be resolved first. +
+
+Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 === Inventory Commands (v2.0) ===
 
-==== Views the inventory: `inventory` ====
+==== Views the inventory: `inventory` (v2.0) ====
 
 Displays the medicine inventory. +
+
 Format: `inventory`
 
-==== Views the inventory: `prescription` ====
+==== Views the inventory: `prescription` (v2.0) ====
 
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
+
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
 
 === User Accounts (v2.0) ===
 
-==== Login: `login` ====
+==== Login: `login` (v2.0) ====
 
 Login with your username and password. The user will then be prompted to enter their password. +
+
 Format: `login <USER_NAME>`
 
-==== Logout: `logout` ====
+==== Logout: `logout` (v2.0) ====
 
 Logout from your account +
+
 Format: `logout`
 
 === General Commands ===
 
+Note: Search actions refers to the `patient`, `doctor`, `appointments` and `shift` commands.
+
 ==== Views help: `help` ====
 
 Displays the help window. +
+
 Format: `help`
 
 ==== Exits program: `exit` ====
 
 Exits the program. +
+
 Format: `exit`
 
 ==== Undo action: `undo` ====
 
-Undo an action. +
+Undoes an action. +
+All except search actions can be undone.
+
 Format: `undo`
 
 ==== Redo action: `redo` ====
 
 Redo an action. +
+All except search actions can be re-done.
+
 Format: `redo`
 
 == Commands Summary ==
 
-* *Queue Management* +
-** enqueue: `enqueue <PATIENT_REFERENCE_ID>`
-** dequeue: `dequeue <QUEUE_NUMBER>`
-** next: `next <ROOM_NUMBER>`
-** break: `break <ROOM_NUMBER>`
-** resume: `resume <ROOM_NUMBER>`
-
 * *Patient Management* +
-** patient: `patient [<PATIENT_REFERENCE_ID | PATIENT_NAME | PHONE_NUM>]`
-** register: `register  i/<PATIENT_REFERENCE_ID> n/<PATIENT_NAME> [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
-** unregister: `unregister <ENTRY_ID>`
-** update: `update <ENTRY_ID> [n/<PATIENT_NAME>] [i/<PATIENT_REFERENCE_ID>] [p/<PHONE_NUM>]
- [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>] [t/Allergies]...`
+** Search for patient using reference Id, name or phone number: `patient [<SEARCH_KEYWORD>]`
+** Register new patient: `newpatient -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag <Tags>]...`
+** Edits patient details: `editpatient -entry <ENTRY_ID>[-id <PATIENT_REFERENCE_ID>]  [-name <NAME>] [-phone <PHONE_NUM>]
+ [-email <EMAIL>] [-address <ADDRESS>] -num [-tag <Tags>]...`
 
 * *On-Duty Doctors Management* +
-** doctors: `doctors [<DOCTOR_NAME>]`
-** newdoctor: `newdoctor n/<STAFF_NAME> [i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-** updatedoctor: `updatedoctor <ENTRY_ID> [n/<STAFF_NAME>]
-[i/<STAFF_REFERENCE_ID>] [p/<PHONE_NUM>] [e/<EMAIL>] [a/<ADDRESS>] [r/<REMARK>]`
-** resigndoctor: `resigndoctor <ENTRY_ID>`
-** onduty: `onduty <ROOM_NUMBER>`
-** offduty: `offduty <ENTRY_ID>`
+** Search for doctors using reference Id, name or phone number: `doctor [<SEARCH_KEYWORD>]`
+** Register new doctor: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]…`
+** Edit doctor details: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>]
+[-phone <PHONE_NUM>] [-email <EMAIL>] [-address <ADDRESS>]-num`
+** Mark doctor as on-duty: `onduty <ENTRY_ID>`
+** Mark doctor as off-duty: `offduty <ENTRY_ID>`
+
+* *Queue Management* +
+** enqueue: `enqueue <PATIENT_REFERENCE_ID>`
+** dequeue: `dequeue <QUEUE_INDEX>`
+** Assigns next Patient in queue to doctor: `next <DOCTOR_ENTRY_ID>`
+** Marks doctor on break: `break <DOCTOR_ENTRY_ID>`
+** Marks doctor on resuming work: `resume <DOCTOR_ENTRY_ID>`
 
 * *Appointment Management* +
-** addappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>] [rec/REPEATEDLY] [num/TIMES]`
-** ackappt: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
-** appointments: `appointments [p/<PATIENT_NAME | PATIENT_IC>]`
-** cancelappt: `cancelappt <ENTRY_ID>`
-** changeappt: `changeappt <ENTRY_ID> [str/<START_TIMING>]`
-** missappt: `missappt`
-** settle: `settle <ENTRY_ID>`
+** Search for appointments: `appointments [<REFERENCE_ID>]`
+** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Edit appointment: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
+** Cancel appointment: `cancelappt <ENTRY_ID>`
+** Acknowledge arrival of patient for appointment: `ackappt <REFERENCE_ID>`
+** List all missed appointments: `missappt`
+** Mark missed appointment as settled: `settleappt <ENTRY_ID>`
 
 * *Duty-shift Management* +
-** addshift: `addshift [i/STAFF_REFERENCE_ID] str/<START_TIMING> [rec/REPEATEDLY] [num/REPEATED_TIMES]`
-** cancelshift: `cancelshift <ENTRY_ID>`
-** changeshift: `changeshift <ENTRY_ID> [str/<START_TIMING>]`
+** Search for shift: `shifts [<REFERENCE_ID>]`
+** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Change shift: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
+** Cancel shift: `cancelshift <ENTRY_ID>`
 
 * *Inventory commands (v2.0)* +
 ** inventory: `inventory`

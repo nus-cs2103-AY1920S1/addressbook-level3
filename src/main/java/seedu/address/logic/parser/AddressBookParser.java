@@ -201,7 +201,7 @@ public class AddressBookParser {
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    public Command eagerEvaluateCommand(String userInput, Model model) {
+    public Command eagerEvaluateCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new SetFocusOnTabCommand(null);
@@ -220,6 +220,9 @@ public class AddressBookParser {
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommand(arguments);
 
+        case DutyShiftCommand.COMMAND_WORD:
+            return new DutyShiftCommand(arguments);
+
         case RegisterPatientCommand.COMMAND_WORD:
         case EditPatientDetailsCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.PATIENTS_TAB);
@@ -235,6 +238,11 @@ public class AddressBookParser {
         case MissAppCommand.COMMAND_WORD:
         case SettleAppCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.APPOINTMENTS_TAB);
+
+        case AddDutyShiftCommand.COMMAND_WORD:
+        case CancelDutyShiftCommand.COMMAND_WORD:
+        case ChangeDutyShiftCommand.COMMAND_WORD:
+            return new SetFocusOnTabCommand(OmniPanelTab.DUTY_SHIFT_TAB);
 
         default:
             return new SetFocusOnTabCommand(null);

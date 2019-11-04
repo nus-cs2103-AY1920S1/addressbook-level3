@@ -1,9 +1,11 @@
+//@@author SakuraBlossom
 package seedu.address.logic.commands.staff;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,12 +23,13 @@ import seedu.address.model.person.Person;
  */
 public class EditStaffDetailsCommand extends ReversibleCommand {
 
-    public static final String COMMAND_WORD = "updatedoctor";
+    public static final String COMMAND_WORD = "editdoctor";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the staff identified "
             + "by the index number used in the displayed staff listing. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + PREFIX_ENTRY + "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
@@ -38,7 +41,7 @@ public class EditStaffDetailsCommand extends ReversibleCommand {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Staff details: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This staff member already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This staff member has already been registered.";
 
     private final Person personToEdit;
     private final Person editedPerson;

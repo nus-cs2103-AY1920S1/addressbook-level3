@@ -2,10 +2,10 @@
 package seedu.address.logic.parser.duties;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_STAFFLIST;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
@@ -39,8 +39,8 @@ public class CancelDutyShiftCommandParser implements Parser<ReversibleActionPair
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         Index index;
 
-        if (!model.isPatientList()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+        if (!model.isListingAppointmentsOfSingleStaff()) {
+            throw new ParseException(MESSAGE_NOT_STAFFLIST);
         }
 
         try {

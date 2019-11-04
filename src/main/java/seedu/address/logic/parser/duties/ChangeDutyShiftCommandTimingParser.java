@@ -3,12 +3,16 @@ package seedu.address.logic.parser.duties;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_STAFFLIST;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
@@ -44,29 +48,37 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ENTRY, PREFIX_START, PREFIX_END);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_START);
-
-        if (!model.isPatientList()) {
-            throw new ParseException(Messages.MESSAGE_NOT_PATIENTLIST);
+        if (!model.isListingAppointmentsOfSingleStaff()) {
+            throw new ParseException(String.format(MESSAGE_NOT_STAFFLIST,
+                    ChangeDutyShiftCommand.COMMAND_WORD));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_START) || argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRY, PREFIX_START, PREFIX_END)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeDutyShiftCommand.MESSAGE_USAGE));
         }
 
         try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
             int idx = index.getZeroBased();
 
             if (idx >= lastShownList.size()) {
-                throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
+                throw new ParseException(MESSAGE_INVALID_INDEX);
             }
             String startString = argMultimap.getValue(PREFIX_START).get();
-            Timing timing = ParserUtil.parseTiming(startString);
+            Timing timing;
 
+            if (!arePrefixesPresent(argMultimap, PREFIX_END)) {
+                timing = ParserUtil.parseTiming(startString, null);
+            } else {
+                String endString = argMultimap.getValue(PREFIX_END).get();
+                timing = ParserUtil.parseTiming(startString, endString);
+            }
             Event eventToEdit = lastShownList.get(idx);
+
             Event editedEvent = new Event(eventToEdit.getPersonId(), timing, new Status());
 
             return new ReversibleActionPairCommand(
