@@ -51,7 +51,7 @@ public class TypicalEvents {
     public static final Event BIRTHDAY_PARTY = new EventBuilder().withName("John 21st Birthday Party")
             .withVenue("Orchard Hotel").withManpowerNeeded("5")
             .withStartDate(LocalDate.parse("10/10/2019", FORMATTER))
-            .withEndDate(LocalDate.parse("15/10/2020", FORMATTER))
+            .withEndDate(LocalDate.parse("15/10/2019", FORMATTER))
             .withTags("celebration").build();
 
     // Manually added - Event's details found in {@code CommandTestUtil}
@@ -70,13 +70,21 @@ public class TypicalEvents {
     private TypicalEvents() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code EventBook} with all the typical events.
      */
     public static EventBook getTypicalEventBook() {
         EventBook eb = new EventBook();
         for (Event event : getTypicalEvents()) {
             eb.addEvent(event);
         }
+        return eb;
+    }
+
+    /**
+     * Returns an empty {@code EventBook} with all the typical events.
+     */
+    public static EventBook getEmptyEventBook() {
+        EventBook eb = new EventBook();
         return eb;
     }
 

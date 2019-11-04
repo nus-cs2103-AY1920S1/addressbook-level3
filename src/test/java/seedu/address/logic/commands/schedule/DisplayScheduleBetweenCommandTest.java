@@ -16,14 +16,13 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code DisplayScheduleForDateCommand}.
+ * Contains integration tests (interaction with the Model) for {@code DisplayScheduleBetweenCommand}.
  */
 public class DisplayScheduleBetweenCommandTest {
 
@@ -65,7 +64,7 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_zeroDateKeywords_noEventFound() throws CommandException {
+    public void execute_zeroDateKeywords_noEventFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 0);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("01/01/2019", "02/01/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);
@@ -75,7 +74,7 @@ public class DisplayScheduleBetweenCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws CommandException {
+    public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 2);
         EventContainsKeyDateRangePredicate predicate = preparePredicate("12/10/2019", "13/10/2019");
         DisplayScheduleBetweenCommand command = new DisplayScheduleBetweenCommand(predicate);

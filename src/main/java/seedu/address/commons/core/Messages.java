@@ -15,6 +15,8 @@ public class Messages {
     public static final String MESSAGE_EMPLOYEES_LISTED_OVERVIEW = "%1$d employees listed!";
     public static final String MESSAGE_EVENT_LISTED_OVERVIEW = "%1$d event listed!";
     public static final String MESSAGE_EVENTS_LISTED_OVERVIEW = "%1$d events listed!";
+    public static final String MESSAGE_GENERATE_SUCCESS = "Schedule Generated";
+    public static final String MESSAGE_GENERATE_FAILURE = "There is no events available, unable to generate schedule";
     public static final String MESSAGE_UNAVAILABLE_MANPOWER = "Employee to allocate is unavailable for this event!";
     public static final String MESSAGE_MANPOWER_COUNT_EXCEEDED = "Manpower count to allocate "
             + "exceeds manpower needed by event!";
