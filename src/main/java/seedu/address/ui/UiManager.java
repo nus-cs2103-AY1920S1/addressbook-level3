@@ -67,26 +67,6 @@ public class UiManager implements Ui {
         }
     }
 
-    //    public void changeViewingList(String commandWord) throws CommandException {
-    //        if (commandWord.equals("list")) {
-    //            try {
-    //                mainWindow.fillInnerParts();
-    //            } catch (Throwable e) {
-    //                logger.severe(StringUtil.getDetails(e));
-    //                showFatalErrorDialogAndShutdown("Fatal error while trying to show expense list", e);
-    //            }
-    //        } else if (commandWord.equals("listbudgets")) {
-    //            try {
-    //                mainWindow.fillInnerParts();
-    //            } catch (Throwable e) {
-    //                logger.severe(StringUtil.getDetails(e));
-    //                showFatalErrorDialogAndShutdown("Fatal error while trying to show budget list", e);
-    //            }
-    //        } else {
-    //            throw new CommandException("An error occurred while trying to show the list requested");
-    //        }
-    //    }
-
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }

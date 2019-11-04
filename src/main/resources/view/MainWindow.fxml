@@ -12,7 +12,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MYMorise" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="MYMorise" minWidth="320" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/expense_list_32.png"/>
     </icons>
@@ -34,21 +34,22 @@
                     </Menu>
                 </MenuBar>
 
-                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER"
+                           maxHeight="50" minHeight="50" prefHeight="50">
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150" minHeight="150" prefHeight="150"
                            styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
                 </StackPane>
 
-                <HBox>
-                    <VBox fx:id="expenseList" styleClass="pane-with-border" minWidth="420" prefWidth="420"
+                <HBox VBox.vgrow="ALWAYS">
+                    <VBox fx:id="expenseList" styleClass="pane-with-border" minWidth="320" maxWidth="450" prefWidth="320"
                           VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
@@ -56,7 +57,7 @@
                         <StackPane fx:id="leftListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <VBox fx:id="expenseList2" styleClass="pane-with-border" minWidth="420" prefWidth="420"
+                    <VBox fx:id="expenseList2" styleClass="pane-with-border" minWidth="320" maxWidth="450" prefWidth="320"
                           VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
@@ -64,15 +65,13 @@
                         <StackPane fx:id="rightListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <VBox fx:id="stats" styleClass="pane-with-border" minHeight="150" minWidth="480" prefWidth="480 "
+                    <VBox fx:id="stats" styleClass="pane-with-border" minHeight="150" minWidth="480" prefWidth="480"
                           VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                         <padding>
-                            <Insets bottom="10" left="10" right="10" top="10"/>
+                            <Insets bottom="10" left="10" right="10" top="15"/>
                         </padding>
-                        <StackPane fx:id="statsDisplayPlaceHolder" VBox.vgrow="ALWAYS">
-                        </StackPane>
+                        <StackPane fx:id="statsDisplayPlaceHolder" VBox.vgrow="ALWAYS"/>
                     </VBox>
-
                 </HBox>
                 <!--                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>-->
             </VBox>

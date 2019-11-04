@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -28,17 +27,29 @@
                 </Label>
                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
             </HBox>
-            <HBox>
+            <HBox prefWidth="256.0">
                 <children>
-                    <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" />
+                    <Label fx:id="amountText" styleClass="cell_small_label" text="Amount Set: " />
+                    <Label fx:id="amount" styleClass="cell_small_label" text="\$amount" >
+                        <padding>
+                            <Insets left="4.0" />
+                        </padding>
+                    </Label>
                     <Label fx:id="currency" styleClass="cell_small_label" text="\$currency">
                         <padding>
                             <Insets left="4.0" />
                         </padding>
                     </Label>
                 </children>
+            </HBox>
+            <HBox prefWidth="256.0">
                 <children>
-                    <Label fx:id="amountLeft" styleClass="cell_small_label" text="\$amountLeft" />
+                    <Label fx:id="amountLeftText" styleClass="cell_small_label" text="Amount Left: " />
+                    <Label fx:id="amountLeft" styleClass="cell_small_label" text="\$amountLeft" >
+                        <padding>
+                            <Insets left="4.0" />
+                        </padding>
+                    </Label>
                     <Label fx:id="currencyLeft" styleClass="cell_small_label" text="\$currency">
                         <padding>
                             <Insets left="4.0" />
@@ -46,14 +57,26 @@
                     </Label>
                 </children>
             </HBox>
-            <children>
-                <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-                <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
-                    <padding>
-                        <Insets left="4.0" />
-                    </padding>
-                </Label>
-            </children>
+            <HBox>
+                <children>
+                    <Label fx:id="startDateText" styleClass="cell_small_label" text="Start: " />
+                    <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" >
+                        <padding>
+                            <Insets left="4.0" />
+                        </padding>
+                    </Label>
+                </children>
+            </HBox>
+            <HBox>
+                <children>
+                    <Label fx:id="endDateText" styleClass="cell_small_label" text="End: " />
+                    <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" >
+                        <padding>
+                            <Insets left="4.0" />
+                        </padding>
+                    </Label>
+                </children>
+            </HBox>
         </VBox>
         <rowConstraints>
             <RowConstraints />

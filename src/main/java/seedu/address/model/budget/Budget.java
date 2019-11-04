@@ -83,6 +83,7 @@ public class Budget {
 
     public void setExpenseListInBudget(ReadOnlyExpenseList expenseList) {
         this.expenseList.resetData(expenseList);
+        recalculateAmountLeft();
     }
 
     /**
@@ -122,6 +123,11 @@ public class Budget {
         return !date.localDate.isBefore(startDate.localDate) && !date.localDate.isAfter(endDate.localDate);
     }
 
+    public boolean doesOtherBudgetOverlap(Budget otherBudget) {
+        return otherBudget.getStartDate().localDate.isBefore(this.startDate.localDate)
+            && otherBudget.getEndDate().localDate.isAfter(this.endDate.localDate);
+    }
+
     /**
      * Recalculates the amountLeft in budget after an expense is added into the budget.
      * This is to prevent accidental amendments directly in the data file to result in wrong amount left.
@@ -150,7 +156,11 @@ public class Budget {
         }
 
         return otherBudget != null
-            && otherBudget.getName().equals(getName());
+            && otherBudget.getName().equals(getName())
+            && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getCurrency().equals(getCurrency())
+            && otherBudget.getStartDate().equals(getStartDate())
+            && otherBudget.getEndDate().equals(getEndDate());
     }
 
     public void setExpenseInBudget(Expense target, Expense editedExpense) {
@@ -188,13 +198,14 @@ public class Budget {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
-            .append(getName())
-            .append(" ")
-            .append(getAmount())
+            .append("Name: " + getName())
             .append("\n")
-            .append(getStartDate())
+            .append("Amount: " + getAmount())
+            .append(" " + getCurrency())
             .append("\n")
-            .append(getEndDate())
+            .append("Start: " + getStartDate())
+            .append("\n")
+            .append("End: " + getEndDate())
             .append("\n");
         return builder.toString();
     }

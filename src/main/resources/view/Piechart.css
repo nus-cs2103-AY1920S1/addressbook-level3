@@ -9,6 +9,11 @@
     -fx-fill: #8b4513;
 }
 
+.chart-title {
+  -fx-text-fill: #4682b4;
+  -fx-font-size: 1.8em;
+}
+
 .chart-pie-label {
     -fx-fill: #ffffff;
     -fx-font-size: 1em;

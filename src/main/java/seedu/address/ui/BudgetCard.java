@@ -41,11 +41,15 @@ public class BudgetCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(budget.getName().fullName);
         amount.setText(budget.getAmount().value);
-        amountLeft.setText(budget.getAmountLeft().value);
         currency.setText(budget.getCurrency().value);
         currencyLeft.setText(budget.getCurrency().value);
         startDate.setText(budget.getStartDate().value);
         endDate.setText(budget.getEndDate().value);
+        if (budget.isBudgetPositive()) {
+            amountLeft.setText(budget.getAmountLeft().value);
+        } else {
+            amountLeft.setText('-' + budget.getAmountLeft().value);
+        }
     }
 
     @Override

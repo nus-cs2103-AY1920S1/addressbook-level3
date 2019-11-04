@@ -20,6 +20,8 @@ public class StatsDisplay extends UiPart<Region> {
 
     public StatsDisplay() {
         super(FXML);
+        piechart.setPrefWidth(500);
+        piechart.setPrefHeight(500);
     }
 
     public void setDisplayData(ObservableList<Expense> displayData) {
@@ -47,6 +49,6 @@ public class StatsDisplay extends UiPart<Region> {
         piechart.setData(pieChartData);
         piechart.setLabelLineLength(10.00);
         piechart.setLabelsVisible(true);
-        piechart.setTitle("Expenses");
+        piechart.setTitle(budget.getName().fullName);
     }
 }
