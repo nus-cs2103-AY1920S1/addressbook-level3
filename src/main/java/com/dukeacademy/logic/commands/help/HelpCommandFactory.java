@@ -3,7 +3,6 @@ package com.dukeacademy.logic.commands.help;
 import com.dukeacademy.logic.commands.Command;
 import com.dukeacademy.logic.commands.CommandFactory;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
-import com.dukeacademy.logic.commands.home.HomeCommand;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.ApplicationState;

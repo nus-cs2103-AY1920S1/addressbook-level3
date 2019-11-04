@@ -20,7 +20,7 @@ public class HelpCommand implements Command {
     private final ApplicationState applicationState;
 
     /**
-     * Instantiates a new Home command.
+     * Instantiates a new Help command.
      *
      * @param questionsLogic         the questions logic
      * @param programSubmissionLogic the program submission logic
