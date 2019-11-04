@@ -9,7 +9,7 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
     private final String userIsLookingFor;
 
     public FindSpecificPredicate(String[] input) {
-
+        System.out.println("String is missing?" + input[0]);
         DiaryParametersEnum type = DiaryParametersEnum.of(input[0]);
         this.category = type;
         this.userIsLookingFor = input[1];
@@ -22,16 +22,16 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
 
         switch (this.category) {
             case TITLE:
-                answer =  diaryEntry.getTitle().toString().contains(userIsLookingFor);
+                answer =  diaryEntry.getTitle().toString().toLowerCase().contains(userIsLookingFor.toLowerCase());
                  break;
             case DATE:
-                answer =  diaryEntry.getDateAsStringtoStore().contains(userIsLookingFor);
+                answer =  diaryEntry.getDateAsStringtoStore().toLowerCase().contains(userIsLookingFor.toLowerCase());
                 break;
             case PLACE:
-                answer =  diaryEntry.getPlace().toString().contains(userIsLookingFor);
+                answer =  diaryEntry.getPlace().toString().toLowerCase().contains(userIsLookingFor.toLowerCase());
                 break;
             case MEMORY:
-                answer =  diaryEntry.getMemory().toString().contains(userIsLookingFor);
+                answer =  diaryEntry.getMemory().toString().toLowerCase().contains(userIsLookingFor.toLowerCase());
                 break;
         }
             return answer;

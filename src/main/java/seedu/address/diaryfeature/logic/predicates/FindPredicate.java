@@ -20,7 +20,7 @@ public class FindPredicate implements Predicate<DiaryEntry> {
         String memory = diaryEntry.getMemory().toString();
         String[] myHolder = new String[]{title,date,place,memory};
         for(String curr:myHolder) {
-            if (curr.contains(userIsLookingFor)) {
+            if (curr.toLowerCase().contains(userIsLookingFor.toLowerCase())) {
                 return true;
             }
         }

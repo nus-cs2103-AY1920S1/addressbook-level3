@@ -32,6 +32,8 @@
             <Insets bottom="-5.0" left="-5.0" right="-5.0" top="2.0" />
         </VBox.margin>
     </HBox>
+    <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" prefWidth="100.0" style="-fx-background-color: fff;" />
+    <VBox prefHeight="5.0" prefWidth="552.0" style="-fx-background-color: linear-gradient(to right, #f64f59, #c471ed, #12c2e9);" />
     <ScrollPane fitToWidth="true">
         <stylesheets>
             <URL value="@Diary.css" />
