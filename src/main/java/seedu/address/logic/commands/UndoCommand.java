@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyNotebook;
+import seedu.address.model.classroom.Classroom;
 
 import static seedu.address.model.Model.*;
 
@@ -26,6 +27,9 @@ public class UndoCommand extends Command {
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         model.updateFilteredLessonWeekList(PREDICATE_SHOW_ALL_LESSONLISTS);
+        for (Classroom classroom : previousNotebook.getClassroomList()) {
+            System.out.println(classroom.getClassroomName());
+        }
         model.setNotebook(previousNotebook);
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }

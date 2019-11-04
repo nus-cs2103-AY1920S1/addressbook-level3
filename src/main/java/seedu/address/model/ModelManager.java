@@ -98,7 +98,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyClassroom getCurrentClassroom() {
+    public Classroom getCurrentClassroom() {
         return notebook.getCurrentClassroom();
     }
 
@@ -174,7 +174,15 @@ public class ModelManager implements Model {
     @Override
     public void addAssignment(Assignment assignment) {
         notebook.addAssignment(assignment);
+        System.out.println("MM Addassignment: ");
+        for (Assignment assignmentToCheck : notebook.getCurrentClassroom().getAssignmentList()) {
+            System.out.println(assignmentToCheck.getAssignmentName());
+        }
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
+        System.out.println("MM Addassignment after: ");
+        for (Assignment assignmentToCheck : notebook.getCurrentClassroom().getAssignmentList()) {
+            System.out.println(assignmentToCheck.getAssignmentName());
+        }
     }
 
     @Override

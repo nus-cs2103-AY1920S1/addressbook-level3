@@ -29,21 +29,13 @@ public class Notebook implements ReadOnlyNotebook {
 
 
     private Classroom currentClassroom;
-    //private Caretaker caretaker;
     private final UniqueClassroomList classrooms;
     private final UniqueLessonList lessons;
-    //private final UniqueReminderList reminders;
-    //private final UniqueStudentList students;
-    //private final UniqueAssignmentList assignments;
     private final UniqueLessonWeekList lessonLists;
 
     {
-        //this.caretaker = new Caretaker(new Memento(currentClassroom()), this.currentClassroom());
         lessons = new UniqueLessonList();
-        //reminders = new UniqueReminderList();
         classrooms = new UniqueClassroomList();
-        //students = new UniqueStudentList();
-        //assignments = new UniqueAssignmentList();
         lessonLists = new UniqueLessonWeekList();
         for (int i = 0; i < 7; i++) {
             lessonLists.add(new UniqueLessonList());
@@ -55,20 +47,11 @@ public class Notebook implements ReadOnlyNotebook {
 
     public Notebook(ReadOnlyNotebook toBeCopied) {
         this();
-        resetData(toBeCopied);
-        if (classrooms.isEmpty()) {
-            Classroom newClassroom = new Classroom();
-            setCurrentClassroom(newClassroom);
-        } else {
-            //Classroom firstClassroom = getClassroomList().get(0);
-            setCurrentClassroom(getFirstClassroom());
+        System.out.println("LETS SEE HERE AT NOTEBOOK: ");
+        for (Assignment assignment : toBeCopied.getClassroomList().get(0).getAssignmentList()) {
+            System.out.println(assignment.getAssignmentName());
         }
-
-    }
-
-
-    public Classroom currentClassroom() {
-        return currentClassroom;
+        resetData(toBeCopied);
     }
 
     /**
@@ -77,20 +60,21 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public void resetData(ReadOnlyNotebook newData) {
         requireNonNull(newData);
-        //System.out.println("PLSCHECK: " + newData.getClassroomList());
         setClassrooms(newData.getClassroomList());
-        /*
+
         if (currentClassroom != null) {
-            currentClassroom = resetData(newData.getCurrentClassroom());
+            setCurrentClassroom(newData.getCurrentClassroom());
+            //currentClassroom.resetData(newData.getCurrentClassroom());
         } else if (classrooms.isEmpty()) {
             Classroom newClassroom = new Classroom();
             setCurrentClassroom(newClassroom);
         } else {
-            //Classroom firstClassroom = getClassroomList().get(0);
             setCurrentClassroom(getFirstClassroom());
         }
-        */
-        
+        System.out.println("AT THE END: ");
+        for (Assignment assignment : currentClassroom.getAssignmentList()) {
+            System.out.println(assignment.getAssignmentName());
+        }
         for (int i = 0; i < 7; i++) {
             lessonLists.asUnmodifiableObservableList().get(i).setLessons(newData.getLessonWeekList().get(i));
         }
@@ -103,43 +87,54 @@ public class Notebook implements ReadOnlyNotebook {
 
     //=========== Notebook ================================================================================
     public void setClassrooms(List<Classroom> classrooms) {
+        System.out.println("Classrooms in the list: ");
+        for (Classroom classroom : classrooms) {
+            System.out.println(classroom.getClassroomName());
+        }
         this.classrooms.setClassrooms(classrooms);
     }
 
     public void setCurrentClassroom(Classroom classroom) {
         requireNonNull(classroom);
         if (hasClassroom(classroom)) {
-            this.currentClassroom = classrooms.get(classroom);
+            currentClassroom = classrooms.get(classroom);
         }
     }
 
+    /*
     public void setCurrentReadOnlyClassroom(ReadOnlyClassroom classroom) {
         requireNonNull(classroom);
         if (currentClassroom() != null) {
             currentClassroom().resetData(classroom);
         }
     }
+     */
 
-    public ReadOnlyClassroom getCurrentReadOnlyClassroom() {
-        if (this.currentClassroom() != null) {
-            return this.currentClassroom();
+    public Classroom getCurrentClassroom() {
+        if (currentClassroom != null) {
+            return currentClassroom;
         } else {
-            return getFirstReadOnlyClassroom();
+            System.out.println("DO I EVER COME HERE");
+            return getFirstClassroom();
         }
     }
 
+    /*
     public ReadOnlyClassroom getFirstReadOnlyClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
         return classroomList.get(0);
     }
 
+     */
+
     public Classroom getFirstClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
-        return classroomList.get(0);
+        currentClassroom = classroomList.get(0);
+        return currentClassroom;
     }
 
     public void setClassroom(ReadOnlyClassroom classroom) {
-        this.currentClassroom().resetData(classroom);
+        currentClassroom.resetData(classroom);
     }
 
 
@@ -153,11 +148,13 @@ public class Notebook implements ReadOnlyNotebook {
         return classrooms.contains(classroom);
     }
 
+
     /**
      * Returns true if the notebook has the given classroom name.
      * @param classroomName check whether this classroomName is in the notebook.
      * @return true if the notebook has the given classroomName.
      */
+    /*
     public boolean hasClassroom(String classroomName) {
         requireNonNull(classroomName);
         for (Classroom classroom : classrooms) {
@@ -167,6 +164,8 @@ public class Notebook implements ReadOnlyNotebook {
         }
         return false;
     }
+
+     */
 
     /**
      * Adds the classroom to the notebook.
@@ -181,15 +180,17 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
-    public ReadOnlyClassroom getCurrentClassroom() {
+    /*
+    public Classroom getCurrentClassroom() {
         List<Classroom> classroomList = getClassroomList();
         for (Classroom classroom : classroomList) {
-            if (classroom.getClassroomName().equals(currentClassroom.getClassroomName())) {
+            if (classroom.getClassroomName().equals(this.currentClassroom.getClassroomName())) {
                 return classroom;
             }
         }
         return null;
     }
+     */
 
     public Classroom getClassroom(Classroom classroom) {
         List<Classroom> classroomList = getClassroomList();
@@ -208,7 +209,7 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return currentClassroom().hasStudent(student);
+        return currentClassroom.hasStudent(student);
     }
 
     /**
@@ -218,7 +219,7 @@ public class Notebook implements ReadOnlyNotebook {
      */
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return currentClassroom().hasAssignment(assignment);
+        return currentClassroom.hasAssignment(assignment);
     }
 
 
@@ -252,52 +253,47 @@ public class Notebook implements ReadOnlyNotebook {
 
 
     public void deleteStudent(Student target) {
-        //students.remove(target);
-        currentClassroom().removeStudent(target);
+        currentClassroom.removeStudent(target);
     }
 
 
     public void deleteAssignment(Assignment target) {
-        //assignments.remove(target);
-        currentClassroom().removeAssignment(target);
+        currentClassroom.removeAssignment(target);
     }
 
 
     public void addStudent(Student student) {
-        //students.add(student);
-        currentClassroom().addStudent(student);
+        currentClassroom.addStudent(student);
     }
 
 
     public void addAssignment(Assignment assignment) {
-        //assignments.add(assignment);
-        currentClassroom().addAssignment(assignment);
+        currentClassroom.addAssignment(assignment);
+
     }
 
 
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
-        //students.setStudent(target, editedStudent);
-        currentClassroom().setStudent(target, editedStudent);
+        currentClassroom.setStudent(target, editedStudent);
     }
 
 
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
-        //assignments.setAssignment(target, editedAssignment);
-        currentClassroom().setAssignment(target, editedAssignment);
+        currentClassroom.setAssignment(target, editedAssignment);
     }
 
     public boolean isDisplayStudents() {
-        return currentClassroom().isDisplayStudents();
+        return currentClassroom.isDisplayStudents();
     }
 
     public void displayStudents() {
-        currentClassroom().displayStudents();
+        currentClassroom.displayStudents();
     }
 
     public void displayAssignments() {
-        currentClassroom().displayAssignments();
+        currentClassroom.displayAssignments();
     }
 
 

@@ -61,7 +61,7 @@ public interface Model {
     void setClassroom(ReadOnlyClassroom classroom);
 
     /** Returns the Classroom */
-    ReadOnlyClassroom getCurrentClassroom();
+    Classroom getCurrentClassroom();
 
     Classroom getClassroom(Classroom classroom);
 
