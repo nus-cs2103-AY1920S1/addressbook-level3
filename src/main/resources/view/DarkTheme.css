@@ -362,7 +362,10 @@
 
 #members .label {
     -fx-text-fill: white;
-    -fx-background-color: #BE8700;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 15;
 }
 
 #tasks .label {
@@ -370,7 +373,7 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 15;
 }
 
 #meetings .label {
@@ -378,7 +381,7 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
+    -fx-font-size: 15;
 }
 
 #projects {

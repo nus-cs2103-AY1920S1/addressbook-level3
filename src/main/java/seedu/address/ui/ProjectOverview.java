@@ -71,7 +71,10 @@ public class ProjectOverview extends UiPart<Region> {
         cardPane.setFitToWidth(true);
         title.setText(project.getTitle().title);
         description.setText(project.getDescription().description);
+
         memberTitle.setText("Members:");
+        members.setOrientation(Orientation.VERTICAL);
+        members.setPrefWrapLength(100);
         project.getMemberNames().forEach(member -> members.getChildren().add(new Label(member)));
 
         for (Task task : project.getTasks()) {
@@ -80,6 +83,7 @@ public class ProjectOverview extends UiPart<Region> {
         taskTitle.setText("Tasks: ");
         tasks.setOrientation(Orientation.VERTICAL);
         tasks.setPrefWrapLength(100);
+
         meetingTitle.setText("Meetings: ");
         displayMeeting(meetings, this.project);
 
@@ -116,6 +120,8 @@ public class ProjectOverview extends UiPart<Region> {
     }
 
     public void displayMeeting(FlowPane meetings, Project project) {
+        meetings.setOrientation(Orientation.VERTICAL);
+        meetings.setPrefWrapLength(100);
         List<Meeting> listOfMeetings = new ArrayList<Meeting>(project.getListOfMeeting());
         int meetingCount = 1;
         listOfMeetings.sort(Comparator.comparing(m -> m.getTime().getDate()));
