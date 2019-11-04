@@ -281,9 +281,10 @@ public class MainWindow extends UiPart<Stage> {
             } else if (isNewContext) {
                 changeContext(nextContext);
             } else {
-                if (commandResult.isShowHelp()) {
-                    handleHelp();
-                }
+
+            }
+            if (commandResult.isShowHelp()) {
+                handleHelp();
             }
             if (commandResult.isExit()) {
                 handleExit();

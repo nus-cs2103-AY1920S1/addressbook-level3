@@ -49,18 +49,22 @@ public class Customer {
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        for (Tag tag : tags) {
+            totalTags.put(tag, 1);
+        }
     }
 
     /**
      * Constructor for saving to storage
      */
-    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableList<Order> orders) {
+    public Customer(Name name, Phone phone, Set<Tag> tags, ObservableMap<Tag, Integer> totalTags,
+                    ObservableList<Order> orders) {
         requireAllNonNull(name, phone, tags, orders);
         this.name = name;
         this.phone = phone;
         this.tags.addAll(tags);
+        this.totalTags.putAll(totalTags);
         this.orders.addAll(orders);
-        reviewTags(tags);
     }
 
     public Name getName() {
@@ -79,6 +83,9 @@ public class Customer {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Map<Tag, Integer> getTotalTags() {
+        return Collections.unmodifiableMap(totalTags);
+    }
     /**
      * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders.
      */
@@ -87,17 +94,27 @@ public class Customer {
     }
 
     /**
-     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and review Customer's favourite tags.
+     * Adds {@code Order} into Customer's {@code ObservableList<Order>} orders and adds the tags to
+     * {@code ObservableMap<Tag, Integer>} totalTags.
      */
     public void addOrder(Order order, Set<Tag> tags) {
         orders.add(order);
-        reviewTags(tags);
+        addTags(tags);
     }
 
     /**
-     * Adds {@code Set<Tag>} tags into totalTags.
+     * Deletes {@code Order} from Customer's {@code ObservableList<Order>} orders and deletes the tags from
+     * {@code ObservableMap<Tag, Integer>} totalTags.
      */
-    private void reviewTags(Set<Tag> tags) {
+    public void deleteOrder(Order order, Set<Tag> tags) {
+        orders.remove(order);
+        deleteTags(tags);
+    }
+
+    /**
+     * Adds {@code Set<Tag>} tags into {@code ObservableMap<Tag, Integer>} totalTags.
+     */
+    private void addTags(Set<Tag> tags) {
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
             if (i != null) {
@@ -112,18 +129,35 @@ public class Customer {
     }
 
     /**
+     * Deletes {@code Set<Tag>} tags from totalTags
+     */
+    private void deleteTags(Set<Tag> tags) {
+        for (Tag tag : tags) {
+            Integer i = totalTags.get(tag);
+            if ((i - 1) == 0) {
+                totalTags.remove(tag);
+            } else {
+                totalTags.replace(tag, i, i - 1);
+            }
+            changeMainTags();
+        }
+    }
+
+    /**
      * Changes Customer's tags to new tags depending on the number of occurrence of {@code Tag}.
      */
     private void changeMainTags() {
-        List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
-        list.sort(Map.Entry.comparingByValue());
-        Set<Tag> newTags = new HashSet<>();
-        newTags.add(list.get(list.size() - 1).getKey());
-        if (list.size() > 1) {
-            newTags.add(list.get(list.size() - 2).getKey());
-        }
         tags.clear();
-        tags.addAll(newTags);
+        if (!totalTags.isEmpty()) {
+            List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
+            list.sort(Map.Entry.comparingByValue());
+            Set<Tag> newTags = new HashSet<>();
+            newTags.add(list.get(list.size() - 1).getKey());
+            if (list.size() > 1) {
+                newTags.add(list.get(list.size() - 2).getKey());
+            }
+            tags.addAll(newTags);
+        }
     }
 
     /**
@@ -182,7 +216,8 @@ public class Customer {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Phone: ")
-                .append(getPhone().toString());
+                .append(getPhone().toString())
+                .append(" Favourite cuisine: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

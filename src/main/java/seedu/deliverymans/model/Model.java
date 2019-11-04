@@ -312,6 +312,8 @@ public interface Model {
      */
     void setOrder(Order target, Order editedOrder);
 
+    void deleteOrderInCustomer(Order order);
+
     /** Returns an unmodifiable view of the filtered order list */
     ObservableList<Order> getFilteredOrderList();
 
