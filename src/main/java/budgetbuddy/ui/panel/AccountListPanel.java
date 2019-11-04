@@ -43,10 +43,7 @@ public class AccountListPanel extends DisplayPanel {
                 AccountCard accountCard = new AccountCard(account, getIndex() + 1);
                 setGraphic(accountCard.getRoot());
                 if (account.isActive()) {
-                    System.out.println("ACTIVE");
-                    accountCard.getRoot().setStyle("-fx-background-color: #67D2DF");
-                } else {
-                    System.out.println("INACTIVE");
+                    accountCard.getRoot().setStyle("-fx-background-color: #005F83");
                 }
             }
 
