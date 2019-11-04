@@ -2,7 +2,12 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
@@ -33,7 +38,6 @@ public class GenerateStatisticsCommand extends Command {
                 .sorted(Comparator.comparing(Event::getStartDate))
                 .collect(Collectors.toList());
         List<Employee> employeeList = model.getFullListEmployees();
-        int countDistinctTag = 0;
 
         Map<String, Integer> tagMap = new HashMap<>();
         for (Employee employee : employeeList) {
