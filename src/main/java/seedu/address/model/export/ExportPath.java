@@ -45,13 +45,18 @@ public abstract class ExportPath {
     static DirectoryPath extractDirectoryPath(String exportPathString) {
         Path fullPath = Paths.get(exportPathString);
         int nameCount = fullPath.getNameCount();
+        Path root = fullPath.getRoot();
 
-        if (nameCount == 1) {
+        if (nameCount == 1 && root == null) {
             return new DirectoryPath("./");
         }
 
+        if (nameCount == 1) {
+            return new DirectoryPath(root.toString());
+        }
+
         return new DirectoryPath(
-                fullPath.getRoot()
+                root.toString()
                         + fullPath
                         .subpath(0, nameCount - 1)
                         .toString()
