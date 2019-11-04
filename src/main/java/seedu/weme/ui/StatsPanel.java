@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.MapChangeListener;
@@ -36,7 +37,7 @@ public class StatsPanel extends UiPart<Region> {
         super(FXML);
         renderCharts(weme);
         weme.getMemeList().addListener((ListChangeListener<Meme>) change -> renderCharts(weme));
-        weme.getStats().getObservableLikeData().addListener((MapChangeListener<String, Integer>) change ->
+        weme.getStats().getObservableLikeData().addListener((MapChangeListener<String, SimpleIntegerProperty>) change ->
                 renderCharts(weme));
     }
 
@@ -75,7 +76,7 @@ public class StatsPanel extends UiPart<Region> {
             data.add(new PieChart.Data(tag.getTag().tagName, tag.getData()));
         }
         ObservableList<PieChart.Data> pieChartData = data.stream()
-                .map(chartData -> bindValueToLabel(chartData))
+                .map(this::bindValueToLabel)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         chart.setData(pieChartData);
         chart.setTitle(title);

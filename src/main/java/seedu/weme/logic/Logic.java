@@ -2,6 +2,7 @@ package seedu.weme.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -97,7 +98,7 @@ public interface Logic {
     /**
      * Returns an unmodifiable view of like data.
      */
-    ObservableMap<String, Integer> getObservableLikeData();
+    ObservableMap<String, SimpleIntegerProperty> getObservableLikeData();
 
     /**
      * Handles any logic that needs to be done before exiting Weme.

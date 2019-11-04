@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -289,7 +290,7 @@ public interface Model {
     /**
      * Returns the like data.
      */
-    ObservableMap<String, Integer> getObservableLikeData();
+    ObservableMap<String, SimpleIntegerProperty> getObservableLikeData();
 
     /**
      * Increments likes of a meme by the Meme object.

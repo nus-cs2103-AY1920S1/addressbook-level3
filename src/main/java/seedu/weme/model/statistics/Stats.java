@@ -3,6 +3,7 @@ package seedu.weme.model.statistics;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableMap;
 
 import seedu.weme.model.meme.Meme;
@@ -19,16 +20,39 @@ public interface Stats {
 
     //============= Like Data ====================================
 
+    /**
+     * Returns the number of likes of a meme.
+     */
     int getLikesByMeme(Meme meme);
 
-    void setLikeData(Map<String, Integer> likeData);
+    /**
+     * Replaces the contents of the like data with {@code likeData}.
+     */
+    void setLikeData(Map<String, SimpleIntegerProperty> likeData);
 
-    ObservableMap<String, Integer> getObservableLikeData();
+    /**
+     * Returns an unmodifiable view of LikeData.
+     */
+    ObservableMap<String, SimpleIntegerProperty> getObservableLikeData();
 
+    /**
+     * Adds default like when the like data of a meme is not captured.
+     */
+    void addDefaultLikeData(Meme meme);
+
+    /**
+     * Increments like count of a meme.
+     */
     void incrementMemeLikeCount(Meme meme);
 
+    /**
+     * Increments like count of a meme.
+     */
     void decrementMemeLikeCount(Meme meme);
 
+    /**
+     * Deletes like count of a meme from likeData.
+     */
     void deleteLikesByMeme(Meme meme);
 
     //============= Tag Data ====================================

@@ -16,6 +16,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -343,7 +344,7 @@ public class MemeAddCommandTest {
         }
 
         @Override
-        public ObservableMap<String, Integer> getObservableLikeData() {
+        public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
             throw new AssertionError("This method should not be called");
         }
 

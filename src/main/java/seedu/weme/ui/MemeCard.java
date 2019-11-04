@@ -2,6 +2,7 @@ package seedu.weme.ui;
 
 import java.util.Comparator;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -41,7 +42,7 @@ public class MemeCard extends UiPart<Region> {
     @FXML
     private Label likes;
 
-    public MemeCard(Meme meme, int displayedIndex, int numOfLikes) {
+    public MemeCard(Meme meme, int displayedIndex, SimpleIntegerProperty numOfLikes) {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + "");
@@ -50,7 +51,9 @@ public class MemeCard extends UiPart<Region> {
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        likes.setText("Likes: " + Integer.toString(numOfLikes));
+        likes.setText("Likes: " + Integer.toString(numOfLikes.get()));
+        numOfLikes.addListener((observable, oldValue, newValue) ->
+                likes.setText("Likes: " + Integer.toString((int) newValue)));
     }
 
     @Override

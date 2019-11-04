@@ -5,6 +5,7 @@ import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableMap;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.ModelManager;
@@ -44,15 +45,23 @@ public class LikeManager {
     /**
      * Returns an unmodifiable view of {@code LikeData}.
      */
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return data.getObservableLikeData();
     }
 
     /**
      * Replace the current like data with a new set of data.
      */
-    public void setLikeData(Map<String, Integer> replacement) {
+    public void setLikeData(Map<String, SimpleIntegerProperty> replacement) {
         data.setLikeMap(replacement);
+    }
+
+    /**
+     * Initializes the like count of a meme.
+     */
+    public void addDefaultLikeData(Meme meme) {
+        String memeRef = meme.getImagePath().toString();
+        data.setLikesByMemeRef(memeRef, 0);
     }
 
     /**

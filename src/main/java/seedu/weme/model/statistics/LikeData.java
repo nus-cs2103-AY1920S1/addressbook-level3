@@ -4,6 +4,7 @@ import static seedu.weme.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Map;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 
@@ -12,9 +13,9 @@ import javafx.collections.ObservableMap;
  */
 public class LikeData {
 
-    private final ObservableMap<String, Integer> likeMap =
+    private final ObservableMap<String, SimpleIntegerProperty> likeMap =
             FXCollections.observableHashMap();
-    private final ObservableMap<String, Integer> unmodifiableLikeMap =
+    private final ObservableMap<String, SimpleIntegerProperty> unmodifiableLikeMap =
             FXCollections.unmodifiableObservableMap(likeMap);
 
     /**
@@ -25,14 +26,14 @@ public class LikeData {
     /**
      * Constructs a LikeData filled with the provided likeMap
      */
-    public LikeData(ObservableMap<String, Integer> likeMap) {
+    public LikeData(ObservableMap<String, SimpleIntegerProperty> likeMap) {
         setLikeMap(likeMap);
     }
 
     /**
      * Sets the current set of {@code LikeData} with a replacement.
      */
-    public void setLikeMap(Map<String, Integer> replacement) {
+    public void setLikeMap(Map<String, SimpleIntegerProperty> replacement) {
         requireAllNonNull(replacement);
         likeMap.clear();
         likeMap.putAll(replacement);
@@ -42,21 +43,35 @@ public class LikeData {
      * Sets like count of a meme.
      */
     public void setLikesByMemeRef(String memeRef, int change) {
-        int currLikes = likeMap.getOrDefault(memeRef, 0);
-        likeMap.put(memeRef, currLikes + change);
+        SimpleIntegerProperty currLikes = likeMap.getOrDefault(memeRef, new SimpleIntegerProperty(0));
+        currLikes.set(currLikes.get() + change);
+        if (!likeMap.containsKey(memeRef)) {
+            likeMap.put(memeRef, currLikes);
+        }
+        // forces the map to update as changes to the individual SimpleIntegerProperty value is not reflected as
+        // change to the map.
+        forceUpdate();
+    }
+
+    /**
+     * Forces the map to update.
+     */
+    private void forceUpdate() {
+        likeMap.put("update", new SimpleIntegerProperty(0));
+        likeMap.remove("update");
     }
 
     /**
      * Returns the like count of a meme by its URL.
      */
     public int getLikesByMemeRef(String memeRef) {
-        return likeMap.getOrDefault(memeRef, 0);
+        return likeMap.getOrDefault(memeRef, new SimpleIntegerProperty(Integer.MAX_VALUE)).get();
     }
 
     /**
      * Returns an unmodifiable view of LikeData.
      */
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return unmodifiableLikeMap;
     }
 

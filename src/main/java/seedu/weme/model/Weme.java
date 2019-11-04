@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import seedu.weme.model.imagePath.ImagePath;
@@ -87,8 +88,20 @@ public class Weme implements ReadOnlyWeme {
         setMemes(newData.getMemeList());
         setTemplates(newData.getTemplateList());
         setStats(newData.getStats());
+        updateStats(newData.getMemeList());
         setRecords(newData.getRecords());
         setMemeCreation(newData.getMemeCreation());
+    }
+
+    /**
+     * Updates {@code Stats} with the latest {@code MemeList}.
+     */
+    private void updateStats(List<Meme> memeList) {
+        for (Meme meme : memeList) {
+            if (stats.getLikesByMeme(meme) == Integer.MAX_VALUE) {
+                stats.addDefaultLikeData(meme);
+            }
+        }
     }
 
     /**
@@ -185,8 +198,9 @@ public class Weme implements ReadOnlyWeme {
      * Adds a meme to Weme.
      * The meme must not already exist in Weme.
      */
-    public void addMeme(Meme p) {
-        memes.add(p);
+    public void addMeme(Meme m) {
+        memes.add(m);
+        stats.addDefaultLikeData(m);
     }
 
     /**
@@ -313,7 +327,7 @@ public class Weme implements ReadOnlyWeme {
         return stats.getLikesByMeme(meme);
     }
 
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return stats.getObservableLikeData();
     }
 

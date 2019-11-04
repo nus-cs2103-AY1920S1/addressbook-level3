@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
@@ -131,7 +132,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return model.getObservableLikeData();
     }
 

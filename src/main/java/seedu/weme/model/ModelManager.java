@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -344,7 +345,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return versionedWeme.getObservableLikeData();
     }
 

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Map;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableMap;
 
 import seedu.weme.model.meme.Meme;
@@ -35,49 +36,36 @@ public class StatsManager implements Stats {
     }
 
     //============= Like Data ====================================
-    /**
-     * Replaces the contents of the like data with {@code likeData}.
-     */
+
+    public void addDefaultLikeData(Meme meme) {
+        likeManager.addDefaultLikeData(meme);
+    }
+
     @Override
-    public void setLikeData(Map<String, Integer> likeData) {
+    public void setLikeData(Map<String, SimpleIntegerProperty> likeData) {
         likeManager.setLikeData(likeData);
     }
 
-    /**
-     * Returns the number of likes of a meme.
-     */
     @Override
     public int getLikesByMeme(Meme meme) {
         return likeManager.getLikesByMeme(meme);
     }
 
-    /**
-     * Returns an unmodifiable view of LikeData.
-     */
     @Override
-    public ObservableMap<String, Integer> getObservableLikeData() {
+    public ObservableMap<String, SimpleIntegerProperty> getObservableLikeData() {
         return likeManager.getObservableLikeData();
     }
 
-    /**
-     * Increments like count of a meme.
-     */
     @Override
     public void incrementMemeLikeCount(Meme meme) {
         likeManager.incrementMemeLikeCount(meme);
     }
 
-    /**
-     * Increments like count of a meme.
-     */
     @Override
     public void decrementMemeLikeCount(Meme meme) {
         likeManager.decrementLikesByMeme(meme);
     }
 
-    /**
-     * Deletes like count of a meme from likeData.
-     */
     @Override
     public void deleteLikesByMeme(Meme meme) {
         likeManager.deleteLikesByMeme(meme);
