@@ -467,7 +467,7 @@ A graph is shown.
 // end::graph[]
 
 === Adding a reminder: `reminder add`
-Adds a reminder to the reminder list when user enters a new reminder. This command records a reminder together with its message and deadline.
+Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
