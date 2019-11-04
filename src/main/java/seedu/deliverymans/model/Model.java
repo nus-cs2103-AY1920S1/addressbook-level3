@@ -11,8 +11,8 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -254,7 +254,6 @@ public interface Model {
      */
     void deleteDeliveryman(Deliveryman target);
 
-    ObservableList<Deliveryman> getStatusSortedList();
     /**
      * Replaces the given deliveryman {@code target} with {@code editedDeliveryman}.
      * {@code target} must exist in the deliverymen database.
@@ -269,11 +268,6 @@ public interface Model {
      */
     void updateFilteredDeliverymenList(Predicate<Deliveryman> predicate);
 
-    /**
-     * Shows all the available deliverymen on the status list.
-     */
-    void showAvailableDeliverymen();
-
     void updateAvailableDeliverymenList(Predicate<Deliveryman> predicate);
 
     ObservableList<Deliveryman> getAvailableMenList();
@@ -286,17 +280,11 @@ public interface Model {
      * Returns the Name of an available deliveryman.
      * Method for order assignment by OrderManager.
      */
-    Name getOneAvailableDeliveryman();
+    Name getOneAvailableDeliveryman() throws NoMoreAvailableDeliverymanException;
 
-    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman);
+    void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman);
 
     void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException;
-
-    DeliveryRecord getDeliverymanRecord(Deliveryman deliveryman);
-
-    DeliveryRecord getDeliverymanRecordPlaceholder();
-
-    void setToShowDeliverymanRecord(DeliveryRecord record);
 
     // =========== Order Methods =============================================================
 

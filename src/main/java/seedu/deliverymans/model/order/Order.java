@@ -21,7 +21,7 @@ public class Order {
     // Identity fields
     private final Name customer;
     private final Name restaurant;
-    private final Name deliveryman;
+    private Name deliveryman;
 
     // Data fields
     private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
@@ -52,6 +52,10 @@ public class Order {
 
     public Name getDeliveryman() {
         return deliveryman;
+    }
+
+    public void setDeliveryman(Name man) {
+        this.deliveryman = man;
     }
 
     /**

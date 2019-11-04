@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -62,15 +63,9 @@ public class AddOrderCommand extends Command {
 
         // Assigning deliveryman
         try {
-            if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-                deliverymanToAdd = model.getOneAvailableDeliveryman();
-            }
-            if (deliverymanToAdd == null) {
-                System.out.println(toAdd.getDeliveryman());
-                deliverymanToAdd = toAdd.getDeliveryman();
-            }
-        } catch (NullPointerException e) {
-            deliverymanToAdd = new Name("Unassigned");
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+        } catch (NoMoreAvailableDeliverymanException npe) {
+            deliverymanToAdd = toAdd.getDeliveryman();
         }
 
         // Instantiating the order
@@ -87,7 +82,7 @@ public class AddOrderCommand extends Command {
     }
 
     /**
-     * Tofill.
+     * Checks if an order is valid.
      */
     static void isValidOrder(Order toAdd, Model model) throws CommandException {
         Customer customerToAdd = null;
