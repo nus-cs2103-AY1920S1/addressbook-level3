@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.book.Book;
 
@@ -16,6 +17,8 @@ import seedu.address.model.book.Book;
 public class BookCard extends UiPart<Region> {
 
     private static final String FXML = "BookListCard.fxml";
+    public static final String COLOR_ACCENT_1 = "#E3E5E6";
+    public static final String COLOR_ALERT_1 = "#E498A1";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,6 +43,8 @@ public class BookCard extends UiPart<Region> {
     @FXML
     private FlowPane genres;
     @FXML
+    private VBox loanStatusBox;
+    @FXML
     private Label loanStatus;
     @FXML
     private Label dueDate;
@@ -57,9 +62,13 @@ public class BookCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.genreName))
                 .forEach(tag -> genres.getChildren().add(new Label(tag.genreName)));
         if (book.isCurrentlyLoanedOut()) {
+            loanStatusBox.setStyle("-fx-background-color: " + COLOR_ACCENT_1 + ";");
             loanStatus.setText("On Loan");
             dueDate.setText("Due: " + DateUtil.formatDate(book.getLoan().get().getDueDate()));
             renewCount.setText("Renewed: " + book.getLoan().get().getRenewCount() + " times");
+        }
+        if (book.isOverdue()) {
+            loanStatusBox.setStyle("-fx-background-color: " + COLOR_ALERT_1 + ";");
         }
 
     }

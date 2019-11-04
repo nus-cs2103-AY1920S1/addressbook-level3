@@ -23,8 +23,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String SERVE_MODE = "Serve Mode";
-    private static final String NORMAL_MODE = "Normal Mode";
+    private static final String SERVE_MODE = "SERVE MODE";
+    private static final String NORMAL_MODE = "NORMAL MODE";
+    public static final String COLOR_ACCENT_2 = "#979EAB";
+    public static final String COLOR_TRANSPARENT = "transparent";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -68,10 +70,19 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             mode.setText(NORMAL_MODE);
         }
+
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void updateModeUI() {
+        if (logic.isServeMode()) {
+            mode.setStyle("-fx-background-color: " + COLOR_ACCENT_2 + ";");
+        } else {
+            mode.setStyle("-fx-background-color: " + COLOR_TRANSPARENT + ";");
+        }
     }
 
     /**
@@ -150,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleServe() {
         mode.setText(SERVE_MODE);
+        updateModeUI();
     }
 
     /**
@@ -167,6 +179,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleDone() {
         mode.setText(NORMAL_MODE);
+        updateModeUI();
         borrowerPanel.reset();
     }
 
