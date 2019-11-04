@@ -782,6 +782,11 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+=== Policy suggestions for invalid policy assignments `[coming in v2.0]`
+
+A list of policies that a person is eligible for will be shown if the user attempts to assign a policy to someone who is
+ineligible for it.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
