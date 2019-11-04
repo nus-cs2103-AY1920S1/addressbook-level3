@@ -1,5 +1,13 @@
 package seedu.address.logic.commands.cheatsheet;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalCheatSheets.getTypicalAddressBook;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
@@ -7,14 +15,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.cheatsheet.CheatSheetContainsTagPredicate;
 import seedu.address.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalCheatSheets.getTypicalAddressBook;
 
 public class FilterCheatSheetByTagCommandTest {
 
@@ -38,14 +38,17 @@ public class FilterCheatSheetByTagCommandTest {
         CheatSheetContainsTagPredicate secondPredicate =
                 new CheatSheetContainsTagPredicate(secondUserInput);
 
-        FilterCheatSheetByTagCommand findFirstCommand = new FilterCheatSheetByTagCommand(firstPredicate, firstUserDisplay);
-        FilterCheatSheetByTagCommand findSecondCommand = new FilterCheatSheetByTagCommand(secondPredicate, secondUserDisplay);
+        FilterCheatSheetByTagCommand findFirstCommand =
+                new FilterCheatSheetByTagCommand(firstPredicate, firstUserDisplay);
+        FilterCheatSheetByTagCommand findSecondCommand =
+                new FilterCheatSheetByTagCommand(secondPredicate, secondUserDisplay);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FilterCheatSheetByTagCommand findFirstCommandCopy = new FilterCheatSheetByTagCommand(firstPredicate, firstUserDisplay);
+        FilterCheatSheetByTagCommand findFirstCommandCopy =
+                new FilterCheatSheetByTagCommand(firstPredicate, firstUserDisplay);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
