@@ -675,6 +675,20 @@ Examples:
 * `changeFont arial`
 * `changeFont segoe UI`
 
+==== Change to dark theme : `setDarkTheme`
+Changes the theme from light to dark.
+
+Format: `setDarkTheme`
+
+Example: `setDarkTheme`
+
+==== Change to light theme : `setLightTheme`
+Changes the theme from dark to light.
+
+Format: `setLightTheme`
+
+Example: `setLightTheme`
+
 == FAQ
 
 *Q*: When will the record of my expenditure be until? +
