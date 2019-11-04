@@ -44,7 +44,6 @@ public class BrowseCommand implements Command {
             + " keywords as long as they appear in title, topics, description,"
             + " status or difficulty.";
         this.applicationState.setCurrentActivity(Activity.QUESTION);
-        return new CommandResult(feedback, false, false
-        );
+        return new CommandResult(feedback, false);
     }
 }

@@ -42,7 +42,7 @@ public class ListCommand implements Command {
 
         // Update the app's current activity
         applicationState.setCurrentActivity(Activity.QUESTION);
-        return new CommandResult(feedback, false, false);
+        return new CommandResult(feedback, false);
     }
 }
 

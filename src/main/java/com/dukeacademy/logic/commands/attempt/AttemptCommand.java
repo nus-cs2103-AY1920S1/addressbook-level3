@@ -59,8 +59,7 @@ public class AttemptCommand implements Command {
                 // Update app's current activity
                 this.applicationState.setCurrentActivity(Activity.WORKSPACE);
 
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             } else {
                 // Update status of question to ATTEMPTED
                 Question questionToAttempt = this.questionsLogic.getQuestion(index).withNewStatus(Status.ATTEMPTED);
@@ -75,8 +74,7 @@ public class AttemptCommand implements Command {
                 // Update app's current activity
                 this.applicationState.setCurrentActivity(Activity.WORKSPACE);
 
-                return new CommandResult(feedback, false, false
-                );
+                return new CommandResult(feedback, false);
             }
 
         } catch (IndexOutOfBoundsException e) {

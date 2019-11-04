@@ -56,8 +56,7 @@ public class LoadCommand implements Command {
         if (questionList.size() == 0) {
             feedback = "Sorry. Couldn't manage to load any new questions.";
         }
-        return new CommandResult(feedback, false, false
-        );
+        return new CommandResult(feedback, false);
     }
 
 }
