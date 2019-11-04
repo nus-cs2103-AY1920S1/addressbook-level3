@@ -2,7 +2,6 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
-
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
 import mams.logic.commands.AddModCommand;

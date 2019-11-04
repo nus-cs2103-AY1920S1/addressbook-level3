@@ -21,7 +21,6 @@ import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.NameContainsKeywordsPredicate;
 import mams.model.student.Student;
-import mams.testutil.EditStudentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -59,16 +58,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditStudentDescriptor DESC_AMY;
-    public static final EditCommand.EditStudentDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withCredits(VALID_CREDITS_AMY).withPrevMods(VALID_PREVMODS_AMY).withMatricId(VALID_MATRICID_AMY)
-                .withTags(VALID_TAG_APPEAL2).build();
-        DESC_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withCredits(VALID_CREDITS_BOB).withPrevMods(VALID_PREVMODS_BOB).withMatricId(VALID_MATRICID_BOB)
-                .withTags(VALID_TAG_APPEAL1, VALID_TAG_APPEAL2).build();
     }
 
     /**
