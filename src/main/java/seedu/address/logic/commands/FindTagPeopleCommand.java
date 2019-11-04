@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class FindTagPeopleCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons who possess all "
             + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: TAG [MORE_TAGS]...\n"
+            + "Parameters: " + PREFIX_TAG + "TAG [MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " t/nonsmoker t/senior";
 
     private final List<String> tagNames;
