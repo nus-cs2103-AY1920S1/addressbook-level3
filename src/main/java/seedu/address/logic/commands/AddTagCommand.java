@@ -23,7 +23,7 @@ public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag to the person identified "
-            + "by the index number used in the last person listing. "
+            + "by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "t/ TAG [MORE_TAGS] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "
