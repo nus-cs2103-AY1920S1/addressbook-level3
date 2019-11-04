@@ -9,11 +9,11 @@
 The purpose of this portfolio is to document my overall contributions to the Software Engineering project, *Billboard*.
 
 === About the project
-In the Software Engineering Module CS2103T, My team of 5 students were tasked with enhancing an existing addressbook desktop application for our project.
+In the Software Engineering Module _CS2103T_, My team of 5 students were tasked with enhancing an existing addressbook desktop application for our project.
 We decided to transform the base code of the aforementioned addressbook application into a personal financial management system called *Billboard*, targeted at students.
 
 This enhanced application enables students to record their daily expenses and has advanced expense tracking and management features.
-The advanced features for *tracking* expenses are generating graphs from expense data, and expense filter capabilities; while
+The advanced features for *tracking* expenses are generating graphs from expense data, and filtering capabilities; while
 the advanced features for *managing* expenses are tagging and archiving expenses.
 
 Since *Billboard* has a Command Line Interface (CLI), meaning that all interactions between user and the application is done through typing only, it is meant for students who
@@ -40,15 +40,22 @@ This symbol indicates important information.
 
 
 == Summary of contributions
-This section summarises my coding, documentation, and other helpful contributions to the team project.
+This section provides a quick summary of my coding, documentation, and other meaningful contributions to *Billboard*.
 
 * *Major enhancement*: I added all archive related functions.
-** What it does: allows the user to archive expenses. Multiple archives can be created, and the user will be able to revert/"unarchive" an expense should they choose.
-** Justification: This feature improves the application significantly as it enables students to better organise their expenses, which is one of the application's goals.
-Archiving fulfills this as it de-clutters the user's list of current expenses and also allows the user to group expenses into different expense lists.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
+** What it does: My enhancement allows the user to create archives, add an expense to an archive, revert/"unarchive" an archived expense and permanently delete expenses in an archive.
+
+** Justification: Suppose users have old or outdated expenses but they do not want to permanently delete them as they may refer to these expenses again in the future for accounting purposes.
+Users can simply archive these expenses, which *de-clutters their list of current expenses.* Furthermore, as users are able to group expenses into different archives, they are able to *better
+organise past expenses.* Therefore, this feature contributes great value to the application, as it provides users with a method of organising and tracking their expenses in the long run.
+
+** Highlights:
+*** This enhancement works well with existing features and features to be added in future. This is because expenses that are archived cannot be edited (e.g. adding a tag) as they
+are considered as "non active" expenses and are being kept as records only. Therefore the archive enhancement, in a sense, is isolated from the other expense modifying enhancements which
+reduces the possibility of archive bugs.
+*** A thorough analysis of any design alternatives was done to...
+*** 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -56,16 +63,20 @@ Archiving fulfills this as it de-clutters the user's list of current expenses an
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
@@ -87,11 +98,5 @@ include::../UserGuide.adoc[tag=archive]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=archive]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
