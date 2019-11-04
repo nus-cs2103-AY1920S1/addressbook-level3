@@ -179,8 +179,8 @@ public class MainWindow extends UiPart<Stage> {
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), this, 0);
     }
 
     /**
@@ -396,6 +396,19 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Executes the command from GUI and returns the {@code CommandResult}.
+     *
+     * @see Logic#execute(String)
+     */
+    public CommandResult executeGuiCommand(String commandText) {
+        try {
+            return executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
+            return null;
         }
     }
 }

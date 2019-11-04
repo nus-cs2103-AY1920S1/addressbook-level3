@@ -1,6 +1,7 @@
 package dukecooks.model.recipe;
 
 import static dukecooks.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -37,5 +38,12 @@ public class CarbsTest {
         assertTrue(Carbs.isValidCarbs("911")); // exactly 3 numbers
         assertTrue(Carbs.isValidCarbs("93121534"));
         assertTrue(Carbs.isValidCarbs("124293842033123")); // long carbs numbers
+    }
+
+    @Test
+    public void testCarbsToString() {
+        Carbs carbs = new Carbs("0");
+        String expected = "0";
+        assertEquals(expected, carbs.toString());
     }
 }

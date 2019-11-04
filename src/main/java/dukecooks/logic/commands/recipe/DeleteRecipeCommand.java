@@ -48,13 +48,9 @@ public class DeleteRecipeCommand extends DeleteCommand {
         Recipe recipeToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
-        MealPlan[] updatedMealPlan = null;
         for (MealPlan mealPlan : model.getFilteredMealPlanList()) {
-            updatedMealPlan = mealPlan.removeRecipe(recipeToDelete, model);
-            if (updatedMealPlan != null) {
-                model.setMealPlan(updatedMealPlan[0], updatedMealPlan[1]);
-                updatedMealPlan = null;
-            }
+            MealPlan[] updatedMealPlan = mealPlan.removeRecipe(recipeToDelete, model);
+            model.setMealPlan(updatedMealPlan[0], updatedMealPlan[1]);
         }
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_NO_MEALPLANS);
         model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);

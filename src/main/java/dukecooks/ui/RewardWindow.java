@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import dukecooks.commons.core.LogsCenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +22,9 @@ public class RewardWindow extends UiPart<Stage> {
     @FXML
     private Label rewardMessage;
 
+    @FXML
+    private ImageView imageView;
+
     /**
      * Creates a new RewardWindow.
      *
@@ -28,6 +33,8 @@ public class RewardWindow extends UiPart<Stage> {
     public RewardWindow(Stage root) {
         super(FXML, root);
         rewardMessage.setText(REWARD_MESSAGE);
+        Image image = new Image("images/reward.gif");
+        imageView.setImage(image);
     }
 
     /**

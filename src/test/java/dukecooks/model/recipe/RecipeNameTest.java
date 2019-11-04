@@ -1,5 +1,6 @@
 package dukecooks.model.recipe;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -38,5 +39,12 @@ public class RecipeNameTest {
         assertTrue(RecipeName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(RecipeName.isValidName("Capital Tan")); // with capital letters
         assertTrue(RecipeName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void testRecipeNameToString() {
+        RecipeName recipeName = new RecipeName("A");
+        String expected = "A";
+        assertEquals(recipeName.toString(), expected);
     }
 }
