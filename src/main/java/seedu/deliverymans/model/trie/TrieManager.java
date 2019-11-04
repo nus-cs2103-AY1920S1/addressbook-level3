@@ -132,14 +132,14 @@ public class TrieManager {
      */
     public LinkedList<String> getAutoCompleteResults(String input, Context context) {
         switch (context) {
-            case CUSTOMER:
-                return customerTrie.autoComplete(input);
-            case DELIVERYMEN:
-                return deliverymanTrie.autoComplete(input);
-            case RESTAURANT:
-                return restaurantTrie.autoComplete(input);
-            default:
-                return universalTrie.autoComplete(input);
+        case CUSTOMER:
+            return customerTrie.autoComplete(input);
+        case DELIVERYMEN:
+            return deliverymanTrie.autoComplete(input);
+        case RESTAURANT:
+            return restaurantTrie.autoComplete(input);
+        default:
+            return universalTrie.autoComplete(input);
         }
     }
 }
