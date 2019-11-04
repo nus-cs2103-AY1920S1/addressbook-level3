@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.StudyBuddyPro;
 
 public class JsonStudyBuddyProStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
