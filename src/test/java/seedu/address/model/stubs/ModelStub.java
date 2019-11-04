@@ -1,5 +1,9 @@
 package seedu.address.model.stubs;
 
+import java.nio.file.Path;
+import java.util.List;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -10,10 +14,6 @@ import seedu.address.model.ReadOnlyUserState;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
-
-import java.nio.file.Path;
-import java.util.List;
-import java.util.function.Predicate;
 
 /**
  * A default model stub that has all of the methods failing.

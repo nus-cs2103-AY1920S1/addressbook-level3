@@ -1,10 +1,8 @@
 package seedu.address.model.stubs;
 
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;

@@ -1,7 +1,16 @@
 package seedu.address.logic.commands;
 
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.testutil.Assert.assertThrows;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ReadOnlyBankAccount;
 import seedu.address.model.stubs.BankAccountStub;
@@ -12,13 +21,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.BankOperationBuilder;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.IntStream;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.testutil.Assert.assertThrows;
 
 public class ProjectCommandTest {
     @Test
@@ -41,21 +44,6 @@ public class ProjectCommandTest {
         ProjectCommand projectCommand = new ProjectCommand(date);
         assertThrows(CommandException.class, () -> projectCommand.execute(modelStub));
     }
-
-//    @Test
-//    public void executeProjectCommandSuccessful() throws Exception {
-//
-//        List<BankAccountOperation> transactions = new ArrayList<>();
-//        IntStream.rangeClosed(1, 9).forEach(x ->
-//                transactions.add(new BankOperationBuilder()
-//                        .withDate(String.format("0%d0%d200%d", x, x, x))
-//                        .withAmount(String.format("%d0", x))
-//                .build()));
-//        ModelStubWithTransactions modelStub = new ModelStubWithTransactions(transactions);
-//        Date date = new Date("12122019");
-//        ProjectCommand projectCommand = new ProjectCommand(date);
-//        assert(ProjectCommand.MESSAGE_SUCCESS.matches(projectCommand.execute(modelStub).getFeedbackToUser()));
-//    }
 
     /**
      * A Model stub that contains a single transaction.
@@ -93,9 +81,9 @@ public class ProjectCommandTest {
     }
 
     private class ReadOnlyBankAccountStub extends BankAccountStub {
-        UniqueTransactionList transactions;
+        private UniqueTransactionList transactions;
 
-        ReadOnlyBankAccountStub(){
+        ReadOnlyBankAccountStub() {
             this.transactions = new UniqueTransactionList();
         }
 

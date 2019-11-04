@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
-import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.InTransaction;
 import seedu.address.model.transaction.OutTransaction;
@@ -10,9 +12,9 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Date;
 import seedu.address.model.util.SampleDataUtil;
 
-import java.util.HashSet;
-import java.util.Set;
-
+/**
+ * A helper class for building Transactions for purposes of testing
+ */
 public class TransactionBuilder {
 
     public static final String DEFAULT_AMOUNT = "100";
@@ -87,4 +89,3 @@ public class TransactionBuilder {
         }
     }
 }
-    
