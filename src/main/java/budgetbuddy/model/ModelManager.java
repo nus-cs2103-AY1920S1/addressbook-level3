@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.transaction.Transaction;
+
 import javafx.collections.transformation.FilteredList;
 
 /**
@@ -35,7 +36,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with accounts manager: " + accountsManager + " and user prefs " + userPrefs);
 
-        this.loansManager = new LoansManager(loansManager.getLoans());
+        this.loansManager = new LoansManager(loansManager.getLoans(), loansManager.getDebtors());
         this.ruleManager = new RuleManager(ruleManager.getRules());
         this.accountsManager = accountsManager;
         this.userPrefs = new UserPrefs(userPrefs);

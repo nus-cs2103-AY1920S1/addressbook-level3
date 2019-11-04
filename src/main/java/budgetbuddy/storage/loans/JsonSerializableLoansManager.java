@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 
 /**
@@ -19,13 +20,16 @@ import budgetbuddy.model.loan.Loan;
 public class JsonSerializableLoansManager {
 
     private final List<JsonAdaptedLoan> loans = new ArrayList<>();
+    private final List<JsonAdaptedDebtor> debtors = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableLoansManager} with the given loans.
      */
     @JsonCreator
-    public JsonSerializableLoansManager(@JsonProperty("loans") List<JsonAdaptedLoan> persons) {
-        this.loans.addAll(persons);
+    public JsonSerializableLoansManager(@JsonProperty("loans") List<JsonAdaptedLoan> loans,
+                                        @JsonProperty("debtors") List<JsonAdaptedDebtor> debtors) {
+        this.loans.addAll(loans);
+        this.debtors.addAll(debtors);
     }
 
     /**
@@ -34,6 +38,7 @@ public class JsonSerializableLoansManager {
      */
     public JsonSerializableLoansManager(LoansManager source) {
         loans.addAll(source.getLoans().stream().map(JsonAdaptedLoan::new).collect(Collectors.toList()));
+        debtors.addAll(source.getDebtors().stream().map(JsonAdaptedDebtor::new).collect(Collectors.toList()));
     }
 
     /**
@@ -45,6 +50,12 @@ public class JsonSerializableLoansManager {
         for (JsonAdaptedLoan jsonAdaptedLoan : loans) {
             loanList.add(jsonAdaptedLoan.toModelType());
         }
-        return new LoansManager(loanList);
+        List<Debtor> debtorList = new ArrayList<>();
+        for (JsonAdaptedDebtor jsonAdaptedDebtor : debtors) {
+            debtorList.add(jsonAdaptedDebtor.toModelType());
+        }
+        LoansManager loansManager = new LoansManager(loanList);
+        loansManager.setDebtors(debtorList);
+        return loansManager;
     }
 }

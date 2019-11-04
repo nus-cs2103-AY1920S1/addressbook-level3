@@ -45,13 +45,24 @@ public class LoansManager {
     public LoansManager() {}
 
     /**
-     * Creates and fills a new list of loans.
-     * @param loans A list of loans with which to fill the new list.
+     * Creates the loans manager with a given list of loans.
+     * @param loans The list of loans to initialize the loans manager with.
      */
     public LoansManager(List<Loan> loans) {
         requireNonNull(loans);
         this.internalList.setAll(loans);
         this.sorter = DATE_NEWEST;
+    }
+
+    /**
+     * Creates the loans manager with a given list of loans and a given list of debtors.
+     * @param loans The list of loans to initialize the loans manager with.
+     * @param debtors The list of debtors to initialize the loans manager with.
+     */
+    public LoansManager(List<Loan> loans, List<Debtor> debtors) {
+        this(loans);
+        requireNonNull(debtors);
+        setDebtors(debtors);
     }
 
     /**
