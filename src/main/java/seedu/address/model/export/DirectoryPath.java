@@ -2,10 +2,10 @@
 
 package seedu.address.model.export;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Represents a directory path.
@@ -32,7 +32,11 @@ public class DirectoryPath {
      * @param directoryPath A valid DirectoryPath.
      */
     public DirectoryPath(Path directoryPath) {
-        requireNonNull(directoryPath);
+        if (directoryPath == null) {
+            path = Paths.get("./");
+            return;
+        }
+
         checkArgument(isValid(directoryPath.toString()), MESSAGE_CONSTRAINTS);
         path = directoryPath;
     }
