@@ -6,7 +6,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Represents a directory path.
@@ -30,12 +29,12 @@ public class DirectoryPath {
     /**
      * Constructs a {@code DirectoryPath}.
      *
-     * @param directoryPathStr A valid DirectoryPath represented as a String.
+     * @param directoryPath A valid DirectoryPath.
      */
-    public DirectoryPath(String directoryPathStr) {
-        requireNonNull(directoryPathStr);
-        checkArgument(isValid(directoryPathStr), MESSAGE_CONSTRAINTS);
-        path = Paths.get(directoryPathStr);
+    public DirectoryPath(Path directoryPath) {
+        requireNonNull(directoryPath);
+        checkArgument(isValid(directoryPath.toString()), MESSAGE_CONSTRAINTS);
+        path = directoryPath;
     }
 
     /**

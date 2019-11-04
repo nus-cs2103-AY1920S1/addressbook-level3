@@ -43,24 +43,11 @@ public abstract class ExportPath {
      * @return DirectoryPath representing the path of the most nested directory within the given String
      */
     static DirectoryPath extractDirectoryPath(String exportPathString) {
-        Path fullPath = Paths.get(exportPathString);
-        int nameCount = fullPath.getNameCount();
-        Path root = fullPath.getRoot();
-
-        if (nameCount == 1 && root == null) {
-            return new DirectoryPath("./");
-        }
-
-        if (nameCount == 1) {
-            return new DirectoryPath(root.toString());
-        }
-
         return new DirectoryPath(
-                root.toString()
-                        + fullPath
-                        .subpath(0, nameCount - 1)
-                        .toString()
+                Paths.get(
+                        exportPathString
+                )
+                .getParent()
         );
     }
-
 }
