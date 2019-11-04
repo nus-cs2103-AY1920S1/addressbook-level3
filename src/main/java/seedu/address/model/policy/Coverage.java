@@ -66,9 +66,12 @@ public class Coverage {
         String months = coverageBreakDown.get(monthIndex);
         String years = coverageBreakDown.get(yearIndex);
         boolean emptyOrMissingAllPrefixes = days.equals("0") && months.equals("0") && years.equals("0");
+        boolean isValidDay = Integer.parseInt(days) >= 0 && Integer.parseInt(days) <= 31;
+        boolean isValidMonth = Integer.parseInt(months) >= 0 && Integer.parseInt(months) <= 12;
+        boolean isValidYear = Integer.parseInt(years) >= 0;
         return !emptyOrMissingAllPrefixes
                 && days.matches(VALIDATION_REGEX) && months.matches(VALIDATION_REGEX)
-                && years.matches(VALIDATION_REGEX);
+                && years.matches(VALIDATION_REGEX) && isValidDay && isValidMonth && isValidYear;
     }
 
     private static ArrayList<String> getCoverageBreakDown(String coverage) {
