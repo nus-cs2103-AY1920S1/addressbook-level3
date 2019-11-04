@@ -71,8 +71,8 @@ public class EmployeeCard1 extends UiPart<Region> {
         phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
 
         double totalHours = EmployeeEventProcessor.findEmployeeTotalWorkedHours(employee, eventList);
-        double totalsalary = totalHours * Double.parseDouble(employee.getEmployeePay().value);
-        address.setText("Total Salary : $" + totalsalary);
+        double totalSalary = totalHours * Double.parseDouble(employee.getEmployeePay().value);
+        address.setText("Total Salary : $" + totalSalary);
         double pendingpay  = Double.parseDouble(employee.getEmployeePay().value)
                 - employee.getEmployeeSalaryPaid().value;
         email.setText("Pending to Pay : $" + pendingpay);
