@@ -22,19 +22,19 @@ import seedu.sugarmummy.ui.DisplayPaneType;
 class FontColourCommandTest {
 
     @Test
-    public void executeFontColourCommand_noAttributes_nullModel_throwsNullPointerException() {
+    public void executeFontColourCommandNoAttributes_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new FontColourCommand()).execute(null));
     }
 
     @Test
-    public void executeFontColourCommand_validFontColour_nullModel_throwsNullPointerException() {
+    public void executeFontColourCommandValidFontColour_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new FontColourCommand(VALID_FONT_COLOUR)).execute(null));
     }
 
     @Test
-    public void executeFontColourCommand_validFontAndFontColour_nullModel_throwsNullPointerException() {
+    public void executeFontColourCommandValidFontAndFontColour_nullModel_throwsNullPointerException() {
         BackgroundCommand backgroundCommand = new BackgroundCommand(VALID_BACKGROUND);
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new FontColourCommand(VALID_FONT_COLOUR, backgroundCommand)).execute(null));
@@ -61,7 +61,7 @@ class FontColourCommandTest {
     @Test
     public void executeFontColourCommand_noChange_withoutBackground() {
         ModelStubForFontColour modelStubForFontColour = new ModelStubForFontColour();
-        Colour fontColour =  modelStubForFontColour.getFontColour();
+        Colour fontColour = modelStubForFontColour.getFontColour();
         assertThrows(CommandException.class, FontColourCommand
                 .MESSAGE_NO_CHANGE, () -> new FontColourCommand(fontColour)
                 .execute(modelStubForFontColour));
@@ -71,7 +71,7 @@ class FontColourCommandTest {
     public void executeFontColourCommand_noChange_withBackground() {
         ModelStubForFontColour modelStubForFontColour = new ModelStubForFontColour();
         ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
-        Colour fontColour =  modelStubForFontColour.getFontColour();
+        Colour fontColour = modelStubForFontColour.getFontColour();
         BackgroundCommand backgroundCommand = new BackgroundCommand(modelStubForBackground.getBackground());
         assertThrows(CommandException.class, FontColourCommand
                 .MESSAGE_NO_CHANGE, () -> new FontColourCommand(fontColour,
@@ -98,7 +98,7 @@ class FontColourCommandTest {
         ModelStubForFontColour expectedModel = new ModelStubForFontColour();
         Colour fontColour = new Colour("black");
 
-        ModelStubForBackground modelStubForBackground= new ModelStubForBackground();
+        ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
 
         Background background = new Background("white");
         background.setBgRepeat("");
@@ -164,11 +164,12 @@ class FontColourCommandTest {
     public void getDisplayPaneType_validFontColour() {
         assertEquals(DisplayPaneType.COLOUR, new FontColourCommand(VALID_FONT_COLOUR).getDisplayPaneType());
     }
+
     @Test
     public void getDisplayPaneType_validFontAndFontColour() {
         BackgroundCommand backgroundCommand = new BackgroundCommand(VALID_BACKGROUND);
         FontColourCommand fontColourCommand = new FontColourCommand(VALID_FONT_COLOUR, backgroundCommand);
         assertEquals(DisplayPaneType.COLOUR_AND_BACKGROUND, fontColourCommand.getDisplayPaneType());
     }
-    
+
 }

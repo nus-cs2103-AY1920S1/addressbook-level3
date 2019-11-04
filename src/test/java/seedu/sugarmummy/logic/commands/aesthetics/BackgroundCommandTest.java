@@ -26,19 +26,19 @@ import seedu.sugarmummy.ui.DisplayPaneType;
 class BackgroundCommandTest {
 
     @Test
-    public void executeBackgroundCommand_noAttributes_nullModel_throwsNullPointerException() {
+    public void executeBackgroundCommandNoAttributes_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new BackgroundCommand()).execute(null));
     }
 
     @Test
-    public void executeBackgroundCommand_validBackground_nullModel_throwsNullPointerException() {
+    public void executeBackgroundCommandValidBackground_nullModel_throwsNullPointerException() {
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new BackgroundCommand(VALID_BACKGROUND)).execute(null));
     }
 
     @Test
-    public void executeBackgroundCommand_validFontAndBackground_nullModel_throwsNullPointerException() {
+    public void executeBackgroundCommandValidFontAndBackground_nullModel_throwsNullPointerException() {
         FontColourCommand fontColourCommand = new FontColourCommand(VALID_FONT_COLOUR);
         assertThrows(RuntimeException.class, (new NullPointerException())
                 .getMessage(), () -> (new BackgroundCommand(VALID_BACKGROUND, fontColourCommand)).execute(null));
@@ -67,7 +67,7 @@ class BackgroundCommandTest {
     @Test
     public void executeBackgroundCommand_backgroundColourWithBgSize_throwsCommandException() {
         ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
-        Background background =  modelStubForBackground.getBackground();
+        Background background = modelStubForBackground.getBackground();
         background.setBgSize("auto");
         assertThrows(CommandException.class, String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
                 MESSAGE_USAGE), () -> new BackgroundCommand(background).execute(modelStubForBackground));
@@ -76,7 +76,7 @@ class BackgroundCommandTest {
     @Test
     public void executeBackgroundCommand_backgroundColourWithBgRepeat_throwsCommandException() {
         ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
-        Background background =  modelStubForBackground.getBackground();
+        Background background = modelStubForBackground.getBackground();
         background.setBgRepeat("no-repeat");
         assertThrows(CommandException.class, String.format(MESSAGE_BACKGROUND_COLOUR_NO_ARGS_REQUIREMENT,
                 MESSAGE_USAGE), () -> new BackgroundCommand(background).execute(modelStubForBackground));
@@ -85,7 +85,7 @@ class BackgroundCommandTest {
     @Test
     public void executeBackgroundCommand_noChange_withoutFontColour() {
         ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
-        Background background =  modelStubForBackground.getBackground();
+        Background background = modelStubForBackground.getBackground();
         assertThrows(CommandException.class, MESSAGE_NO_CHANGE, () -> new BackgroundCommand(background)
                 .execute(modelStubForBackground));
     }
@@ -94,7 +94,7 @@ class BackgroundCommandTest {
     public void executeBackgroundCommand_noChange_withFontColour() {
         ModelStubForBackground modelStubForBackground = new ModelStubForBackground();
         ModelStubForFontColour modelStubForFontColour = new ModelStubForFontColour();
-        Background background =  modelStubForBackground.getBackground();
+        Background background = modelStubForBackground.getBackground();
         FontColourCommand fontColourCommand = new FontColourCommand(modelStubForFontColour.getFontColour());
         assertThrows(CommandException.class, MESSAGE_NO_CHANGE, () -> new BackgroundCommand(background,
                 fontColourCommand).execute(modelStubForBackground));
@@ -128,7 +128,7 @@ class BackgroundCommandTest {
         background.setBgSize("");
         background.setDominantColour();
 
-        ModelStubForFontColour modelStubForFontColour= new ModelStubForFontColour();
+        ModelStubForFontColour modelStubForFontColour = new ModelStubForFontColour();
         FontColourCommand fontColourCommand = new FontColourCommand(new Colour("white"));
         expectedModel.setBackground(background);
         expectedModel.setFontColour(new Colour("white"));
@@ -190,6 +190,7 @@ class BackgroundCommandTest {
     public void getDisplayPaneType_validBackground() {
         assertEquals(DisplayPaneType.BACKGROUND, new BackgroundCommand(VALID_BACKGROUND).getDisplayPaneType());
     }
+
     @Test
     public void getDisplayPaneType_validFontAndBackground() {
         FontColourCommand fontColourCommand = new FontColourCommand(VALID_FONT_COLOUR);
