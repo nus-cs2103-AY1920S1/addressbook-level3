@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.wordbankcommands;
+package seedu.address.logic.commands.switches;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WORD_BANK_NAME;
 

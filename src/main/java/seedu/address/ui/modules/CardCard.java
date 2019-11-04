@@ -46,8 +46,8 @@ public class CardCard extends UiPart<Region> {
         meaning.setText(card.getMeaning().toString());
 
         card.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.getTagName()))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.getTagName())));
     }
 
     @Override

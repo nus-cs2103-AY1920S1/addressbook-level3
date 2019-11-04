@@ -46,7 +46,7 @@ public class StringUtilTest {
     }
 
 
-    //---------------- Tests for containsWordIgnoreCase --------------------------------------
+    //---------------- Tests for containsSubWordIgnoreCase --------------------------------------
 
     /*
      * Invalid equivalence partitions for word: null, empty, multiple words
@@ -56,24 +56,24 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase("typical sentence", null));
+        assertThrows(NullPointerException.class, () -> StringUtil.containsSubWordIgnoreCase("typical sentence", null));
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
+            -> StringUtil.containsSubWordIgnoreCase("typical sentence", "  "));
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
+            -> StringUtil.containsSubWordIgnoreCase("typical sentence", "aaa BBB"));
     }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> StringUtil.containsWordIgnoreCase(null, "abc"));
+        assertThrows(NullPointerException.class, () -> StringUtil.containsSubWordIgnoreCase(null, "abc"));
     }
 
     /*
@@ -102,25 +102,26 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_validInputs_correctResult() {
+    public void containsSubWordIgnoreCase_validInputs_correctResult() {
 
         // Empty sentence
-        assertFalse(StringUtil.containsWordIgnoreCase("", "abc")); // Boundary case
-        assertFalse(StringUtil.containsWordIgnoreCase("    ", "123"));
+        assertFalse(StringUtil.containsSubWordIgnoreCase("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsSubWordIgnoreCase("    ", "123"));
 
         // Matches a partial word only
-        assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
-        assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+        assertTrue(StringUtil.containsSubWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
+        assertFalse(StringUtil
+                .containsSubWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
 
         // Matches word in the sentence, different upper/lower case letters
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
-        assertTrue(StringUtil.containsWordIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
+        assertTrue(StringUtil.containsSubWordIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
+        assertTrue(StringUtil.containsSubWordIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
+        assertTrue(StringUtil.containsSubWordIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
+        assertTrue(StringUtil.containsSubWordIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil.containsSubWordIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
 
         // Matches multiple words in sentence
-        assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
+        assertTrue(StringUtil.containsSubWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
     //---------------- Tests for getDetails --------------------------------------

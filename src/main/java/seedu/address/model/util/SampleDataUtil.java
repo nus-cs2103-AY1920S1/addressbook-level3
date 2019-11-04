@@ -14,9 +14,10 @@ import seedu.address.model.wordbank.WordBank;
  * Contains utility methods for populating {@code WordBank} with sample data.
  */
 public class SampleDataUtil {
-    private static final String name = "sample";
+    private static final String sampleName = "sample";
+    private static final String arithmeticName = "arithmetic";
 
-    public static Card[] getSampleCards() {
+    private static Card[] getSampleCards() {
         Card card1 = new Card("abrajfbeoudnjcp", new Word("Abra"),
                 new Meaning("It sleeps eighteen hours a day, but employs telekinesis even while sleeping."),
                 getTagSet("psychic"));
@@ -44,12 +45,43 @@ public class SampleDataUtil {
         return new Card[]{card1, card2, card3, card4, card5};
     }
 
+    private static Card[] getArithmeticCards() {
+        Card card1 = new Card("threeajdshakjsd", new Word("3"),
+                new Meaning("2 + 2 - 1 = ?"),
+                getTagSet("No brainer"));
+
+        Card card2 = new Card("11asdfjkhalse", new Word("121"),
+                new Meaning("11 * 11 = ?"),
+                getTagSet("Elementary math"));
+
+        Card card3 = new Card("sadjkfhaljk2", new Word("0"),
+                new Meaning("1236123 modulo 9 = ?"),
+                getTagSet("Modulo"));
+
+        Card card4 = new Card("1kbasdasdasdf", new Word("1024"),
+                new Meaning("2 ^ 10 = ?"),
+                getTagSet("1 Byte"));
+
+        Card card5 = new Card("adjksfhk", new Word("29126"),
+                new Meaning("square root of 848323876 = ?"),
+                getTagSet("Secret code"));
+        return new Card[]{card1, card2, card3, card4, card5};
+    }
+
     public static WordBank getSampleWordBank() {
-        WordBank sampleWb = new WordBank(name);
+        WordBank sampleWb = new WordBank(sampleName);
         for (Card sampleCard : getSampleCards()) {
             sampleWb.addCard(sampleCard);
         }
         return sampleWb;
+    }
+
+    public static WordBank getArithmeticWordBank() {
+        WordBank arithmeticWb = new WordBank(arithmeticName);
+        for (Card arithmeticCard : getArithmeticCards()) {
+            arithmeticWb.addCard(arithmeticCard);
+        }
+        return arithmeticWb;
     }
 
     /**
@@ -61,7 +93,7 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    public static String getName() {
-        return name;
+    public static String getSampleName() {
+        return sampleName;
     }
 }

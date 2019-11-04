@@ -69,6 +69,6 @@ public class WordContainsKeywordsPredicateTest {
 
         // Keywords match meaning, but does not match word
         predicate = new WordContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new CardBuilder().withWord("Alice").withMeaning("Main Street").build()));
+        assertFalse(predicate.test(new CardBuilder().withWord("Alice").withMeaning("Different address").build()));
     }
 }
