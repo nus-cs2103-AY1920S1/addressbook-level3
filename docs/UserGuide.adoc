@@ -436,8 +436,15 @@ Examples:
 
 * `theme dark` +
 Changes the UI theme to dark.
+
+.Dark Theme
+image::darktheme.png[]
+
 * `theme light` +
 Changes the UI theme to light.
+
+.Light Theme
+image::lighttheme.png[]
 
 ==== Turning hints on/off : `hints`
 
@@ -448,8 +455,15 @@ Examples:
 
 * `hints on` +
 Turns hints on.
+
+.Hints on
+image::hintson.png[]
+
 * `hints off` +
 Turns hints off.
+
+.Hints off
+image::hintsoff.png[]
 
 ==== Changing difficulty : `difficulty`
 
@@ -458,12 +472,23 @@ Format: `difficulty easy/medium/hard`
 
 Examples:
 
-* `difficulty low` +
-Changes the difficulty to low. (Timer = 15 seconds)
+* `difficulty easy` +
+Changes the difficulty to easy. (Timer = 15 seconds)
+
+.Easy difficulty (15 seconds)
+image::difficultyeasy.png[]
+
 * `difficulty medium` +
 Changes the difficulty to medium. (Timer = 10 seconds)
-* `difficulty high` +
-Changes the difficulty to high. (Timer = 5 seconds)
+
+.Medium difficulty (10 seconds)
+image::difficultymedium.png[]
+
+* `difficulty hard` +
+Changes the difficulty to hard. (Timer = 5 seconds)
+
+.Hard difficulty (5 seconds)
+image::difficultyhard.png[]
 
 ==== Changing Avatar : `avatar`
 
@@ -475,10 +500,21 @@ Examples:
 
 * `avatar 0` +
 Changes the avatar to a random one everytime a new command is called.
+
+.Random avatar, in this case, Porygon.
+image::avatarrandom.png[]
+
 * `avatar 1` +
 Changes the avatar to 001 in the original Pokedex, which is Bulbasaur.
+
+.Avatar number 1, in this case, Bulbasaur.
+image::avatar1.png[]
+
 * `avatar 151` +
 Changes the avatar to 151 in the original Pokedex, which is Mew.
+
+.Avatar number 151, in this case, Mew.
+image::avatar151.png[]
 // end::paulsettings[]
 
 // tag::statsjason[]
