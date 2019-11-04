@@ -59,16 +59,30 @@ public class Account {
     }
 
     /**
+     * Checks if the balance is within the range of long.
+     * @param balance
+     */
+    public void checkBalanceValidity(long balance) throws NumberFormatException {
+        if (balance >= Long.MAX_VALUE || balance <= Long.MIN_VALUE) {
+            throw new NumberFormatException(
+                    String.format("The balance is no longer within the valid range.")
+            );
+        }
+    }
+
+    /**
      * Add a transaction to the transactionList.
      * @param toAdd
      */
-    public void addTransaction(Transaction toAdd) {
+    public void addTransaction(Transaction toAdd) throws NumberFormatException {
         this.transactionList.add(toAdd);
         if (toAdd.getDirection().equals(Direction.IN)) {
             balance = balance + toAdd.getAmount().toLong();
         } else {
             balance = balance - toAdd.getAmount().toLong();
         }
+
+        checkBalanceValidity(balance);
     }
 
     /**
@@ -84,13 +98,15 @@ public class Account {
      * Deletes a transaction from the transactionList.
      * @param toDelete
      */
-    public void deleteTransaction(Transaction toDelete) {
+    public void deleteTransaction(Transaction toDelete) throws NumberFormatException {
         this.transactionList.remove(toDelete);
         if (toDelete.getDirection().equals(Direction.IN)) {
             balance = balance - toDelete.getAmount().toLong();
         } else {
             balance = balance - toDelete.getAmount().toLong();
         }
+
+        checkBalanceValidity(balance);
     }
 
     public boolean isActive() {
