@@ -79,10 +79,24 @@ public class Cca {
     }
 
     /**
+     * Gets the next {@code CcaMilestone}.
+     */
+    public CcaMilestone getNextCcaMilestone() {
+        return ccaProgress.getNextCcaMilestone();
+    }
+
+    /**
      * Gets the backing equipment list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Equipment> getFilteredEquipmentList() {
         return equipmentList.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Gets the backing milestone list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<CcaMilestone> getMilestoneList() {
+        return ccaProgress.getMilestoneList();
     }
 
     /**

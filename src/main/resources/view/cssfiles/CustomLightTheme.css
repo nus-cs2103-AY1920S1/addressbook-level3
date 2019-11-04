@@ -79,13 +79,6 @@
     -fx-text-fill: #707070;
 }
 
-.cell_equipment_label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13px;
-    -fx-text-fill: #707070;
-    -fx-border-width: 20;
-}
-
 .stack-pane {
      -fx-background-color: derive(#f7eceb, 20%);
 }
