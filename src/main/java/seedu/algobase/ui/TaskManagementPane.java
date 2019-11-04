@@ -87,6 +87,7 @@ class TaskManagementPane extends UiPart<Region> {
      */
     private void addListenerForPlanName(ObservableStringValue s) {
         s.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current plan is updated to [" + newValue + "]");
             if (!newValue.equals("")) {
                 currentPlan.setText("Current Plan: " + newValue);
             } else {
@@ -107,6 +108,7 @@ class TaskManagementPane extends UiPart<Region> {
         ObservableIntegerValue taskCount
     ) {
         solvedCount.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current solved count is updated to [" + newValue + "]");
             for (Data d : taskProgress) {
                 if (d.getName().equals("Solved")) {
                     d.setPieValue(newValue.intValue());
@@ -114,6 +116,7 @@ class TaskManagementPane extends UiPart<Region> {
             }
         });
         unsolvedCount.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current unsolved count is updated to [" + newValue + "]");
             for (Data d : taskProgress) {
                 if (d.getName().equals("Unsolved")) {
                     d.setPieValue(newValue.intValue());
@@ -121,6 +124,7 @@ class TaskManagementPane extends UiPart<Region> {
             }
         });
         taskCount.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current total task count is updated to [" + newValue + "]");
             taskProgressChart.setLegendVisible(newValue.intValue() != 0);
         });
     }
