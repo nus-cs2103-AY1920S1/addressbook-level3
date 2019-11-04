@@ -24,7 +24,7 @@ import seedu.deliverymans.model.database.DeliverymenDatabase;
 import seedu.deliverymans.model.database.OrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyCustomerDatabase;
 import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.database.RestaurantDatabase;
 import seedu.deliverymans.model.util.SampleDataUtil;
@@ -98,12 +98,12 @@ public class MainApp extends Application {
         Optional<ReadOnlyCustomerDatabase> customerDatabaseOptional;
         Optional<ReadOnlyDeliverymenDatabase> deliverymenDatabaseOptional;
         Optional<ReadOnlyRestaurantDatabase> restaurantDatabaseOptional;
-        Optional<ReadOnlyOrderBook> orderBookOptional;
+        Optional<ReadOnlyOrderDatabase> orderBookOptional;
 
         ReadOnlyCustomerDatabase initialCustomerData;
         ReadOnlyDeliverymenDatabase initialDeliverymenData;
         ReadOnlyRestaurantDatabase initialRestaurantData;
-        ReadOnlyOrderBook initialOrderData;
+        ReadOnlyOrderDatabase initialOrderData;
 
         try {
             customerDatabaseOptional = storage.readCustomerDatabase();
@@ -159,7 +159,7 @@ public class MainApp extends Application {
             if (!orderBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
-            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
+            initialOrderData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderDatabase);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
             initialOrderData = new OrderDatabase();

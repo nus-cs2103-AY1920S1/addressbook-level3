@@ -10,6 +10,7 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.UniqueDeliverymanList;
 import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsManager;
+import seedu.deliverymans.model.deliveryman.deliverymanstatistics.StatisticsRecordCard;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusManager;
 import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeException;
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
@@ -145,7 +146,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Updates the deliveryman status after he has completed an order.
      */
-    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
+    public void updateDeliverymanStatusAfterCompletingOrder(Name deliveryman) {
         statusManager.updateDeliverymanStatusAfterCompletingOrder(deliveryman);
     }
 
@@ -158,6 +159,14 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
 
     // ========== Methods related to Statistics ================================================================
 
+    /**
+     *
+     * @return
+     */
+    public StatisticsRecordCard analyzeDeliverymenStatus() {
+        return statisticsManager.analyzeStatusLists(statusManager.listAvailableMen(),
+                statusManager.listUnavailableMen(), statusManager.listDeliveringMen());
+    }
 
     // ========== util methods =================================================================================
 

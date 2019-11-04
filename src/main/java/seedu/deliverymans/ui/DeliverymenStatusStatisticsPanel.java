@@ -114,7 +114,7 @@ public class DeliverymenStatusStatisticsPanel extends UiPart<Region> {
      */
     @FXML
     private void fillPieChart() {
-        statusStatisticsPieChart.setTitle("CURRENT STATUS PIE CHART");
+        statusStatisticsPieChart.setTitle("STATUS PIE CHART");
         statusStatisticsPieChart.setData(pieChartData);
     }
 

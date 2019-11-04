@@ -12,7 +12,7 @@ import seedu.deliverymans.commons.exceptions.DataConversionException;
 import seedu.deliverymans.commons.exceptions.IllegalValueException;
 import seedu.deliverymans.commons.util.FileUtil;
 import seedu.deliverymans.commons.util.JsonUtil;
-import seedu.deliverymans.model.database.ReadOnlyOrderBook;
+import seedu.deliverymans.model.database.ReadOnlyOrderDatabase;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonOrderDatabaseStorage implements OrderDatabaseStorage {
     }
 
     @Override
-    public Optional<ReadOnlyOrderBook> readOrderBook() throws DataConversionException {
+    public Optional<ReadOnlyOrderDatabase> readOrderBook() throws DataConversionException {
         return readOrderBook(filePath);
     }
 
@@ -42,7 +42,7 @@ public class JsonOrderDatabaseStorage implements OrderDatabaseStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyOrderBook> readOrderBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyOrderDatabase> readOrderBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableOrderDatabase> jsonOrderBook = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonOrderDatabaseStorage implements OrderDatabaseStorage {
     }
 
     @Override
-    public void saveOrderDatabase(ReadOnlyOrderBook orderBook) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderDatabase orderBook) throws IOException {
         saveOrderDatabase(orderBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveOrderDatabase(ReadOnlyOrderBook)}.
+     * Similar to {@link #saveOrderDatabase(ReadOnlyOrderDatabase)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveOrderDatabase(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+    public void saveOrderDatabase(ReadOnlyOrderDatabase orderBook, Path filePath) throws IOException {
         requireNonNull(orderBook);
         requireNonNull(filePath);
 
