@@ -53,5 +53,4 @@ public class Meeting {
         return DateTimeUtil.displayDateTime(startTime) + " - " +
                 DateTimeUtil.displayDateTime(endTime);
     }
-
 }

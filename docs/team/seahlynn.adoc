@@ -40,7 +40,7 @@ Information here are things that the user can learn, so as to more efficiently u
 == Summary of Contributions
 This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.
 
-=== Enhancements 
+=== Enhancements
 * *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
 ** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work. For project
 members, the number of tasks and inventory items allocated to each member is retrieved. For project tasks, the proportion
