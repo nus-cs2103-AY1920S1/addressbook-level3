@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.gmaps.Location;
 
 class GmapsModelManagerTest {
     private GmapsModelManager gmapsModelManager;
@@ -46,5 +48,14 @@ class GmapsModelManagerTest {
     @Test
     void validLocationSuggesterSadFlow() {
         assertEquals(gmapsModelManager.validLocationSuggester("foobarfoobar"), new ArrayList<String>());
+    }
+
+    @Test
+    void populateCoordinates() {
+        gmapsModelManager.populateCoordinates();
+        ArrayList<Location> locationArrayList = gmapsModelManager.getValidLocationList();
+        for (int i = 0; i < locationArrayList.size(); i++) {
+            assertFalse(locationArrayList.get(i).getLatLng().equals(","));
+        }
     }
 }
