@@ -2,8 +2,10 @@ package seedu.address.ui.stats;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
@@ -28,8 +30,27 @@ public class StatisticsTable extends UiPart<Region> {
     @FXML
     private TableColumn<CategoryStatistics, Double> amtSpent;
 
-    public StatisticsTable(ObservableList<CategoryStatistics> statsMap) {
+    @FXML
+    private Label totalLabel;
+
+    public StatisticsTable(ObservableList<CategoryStatistics> statsMap, String type) {
         super(FXML);
+        this.statsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        totalLabel.setText(type);
+        statsMap.addListener(new ListChangeListener<CategoryStatistics>() {
+            @Override
+            public void onChanged(Change<? extends CategoryStatistics> change) {
+                updateStatisticsTable(statsMap);
+            }
+        });
+        updateStatisticsTable(statsMap);
+    }
+
+    /**
+     * Updates the statistics table based the CategoryStatisticsList.
+     * @param statsMap contains the list of statistics by category
+     */
+    public void updateStatisticsTable(ObservableList<CategoryStatistics> statsMap) {
         this.statsTable.setItems(statsMap);
         categoryName.setCellValueFactory(p -> p.getValue().getCategoryNameProperty());
         amtSpent.setCellValueFactory(p -> p.getValue().getAmountCalculatedProperty().asObject());

@@ -2,11 +2,17 @@ package seedu.address.ui.stats;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.model.statistics.CategoryStatistics;
 import seedu.address.ui.UiPart;
 
 /**
@@ -19,34 +25,53 @@ public class StatisticsWindow extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Logic logic;
+    private StatisticsTableHolder statsTable;
+    private StatisticsPieChartHolder statsPie;
+    private ObservableList<CategoryStatistics> expenseStats;
+    private ObservableList<CategoryStatistics> incomeStats;
+    private DoubleProperty totalBalance;
 
     // Independent Ui parts residing in this Ui container
-    private StatisticsTable expenseStats;
-    private StatisticsTable incomeStats;
 
     @FXML
-    private GridPane gridPanePlaceHolder;
+    private HBox tablePiePlaceHolder;
 
-    public StatisticsWindow(Logic logic) {
+    @FXML
+    private VBox sideStatisticsPanel;
+
+    @FXML
+    private Label expenseLabel;
+
+    @FXML
+    private Label incomeLabel;
+
+    public StatisticsWindow(ObservableList<CategoryStatistics> expenseStats,
+                            ObservableList<CategoryStatistics> incomeStats, DoubleProperty totalExpense,
+                            DoubleProperty totalIncome) {
         super(FXML);
-
+        this.statsTable = new StatisticsTableHolder(expenseStats, incomeStats);
+        this.statsPie = new StatisticsPieChartHolder(expenseStats, incomeStats);
         // Set dependencies
         this.logic = logic;
-        fillInnerParts();
+        this.expenseLabel.textProperty().bind(Bindings.convert(totalExpense));
+        this.incomeLabel.textProperty().bind(Bindings.convert(totalIncome));
+        fillStatsTable();
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills up the tablePiePlaceHolder with the Table chart.
      */
-    private void fillInnerParts() {
-        this.expenseStats = new StatisticsTable(logic.getListOfStatsForExpense());
-        this.incomeStats = new StatisticsTable(logic.getListOfStatsForIncome());
-        GridPane.setRowIndex(expenseStats.getRoot(), 0);
-        GridPane.setColumnIndex(expenseStats.getRoot(), 0);
-        GridPane.setRowIndex(incomeStats.getRoot(), 0);
-        GridPane.setColumnIndex(incomeStats.getRoot(), 1);
-        gridPanePlaceHolder.getChildren().addAll(expenseStats.getRoot(), incomeStats.getRoot());
+    public void fillStatsTable() {
+        tablePiePlaceHolder.getChildren().clear();
+        tablePiePlaceHolder.getChildren().add(statsTable.getRoot());
     }
 
+    /**
+     * Fills up the tablePiePlaceHolder with the pie chart.
+     */
+    public void fillStatsPie() {
+        tablePiePlaceHolder.getChildren().clear();
+        tablePiePlaceHolder.getChildren().add(statsPie.getRoot());
+    }
 
 }

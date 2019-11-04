@@ -9,8 +9,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.exceptions.EntryNotFoundException;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.exceptions.EntryNotFoundException;
 import seedu.address.model.reminders.conditions.EntrySpecificCondition;
 
 
@@ -37,7 +37,7 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent entry as the given argument.
      */
     public boolean contains(Reminder toCheck) {
         requireNonNull(toCheck);
@@ -45,8 +45,8 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a entry to the list.
+     * The entry must not already exist in the list.
      */
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
@@ -55,9 +55,9 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the entry {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
      */
     public void setReminder(Reminder target, Reminder editedReminder) {
         requireAllNonNull(target, editedReminder);
@@ -70,8 +70,8 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent entry from the list.
+     * The entry must exist in the list.
      */
     public void remove(Reminder toRemove) {
         requireNonNull(toRemove);

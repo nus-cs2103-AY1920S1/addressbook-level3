@@ -1,23 +1,27 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.CategoryList;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
+import seedu.address.model.entry.SortSequence;
+import seedu.address.model.entry.SortType;
+import seedu.address.model.entry.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
-import seedu.address.model.statistics.StatisticsManager;
+import seedu.address.model.statistics.CategoryStatistics;
+import seedu.address.model.statistics.DailyStatistics;
 
 /**
  * The API of the Model component.
@@ -35,9 +39,23 @@ public interface Model {
         x -> !x.getStatus().equals(Reminder.Status.unmet);
     Predicate<Reminder> PREDICATE_SHOW_ALL_REMINDERS = unused -> true;
 
-    void setStats(StatisticsManager stats);
+    DoubleProperty getTotalExpenseForPeriod();
 
-    StatisticsManager getStats();
+    DoubleProperty getTotalIncomeForPeriod();
+
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
+
+    ObservableList<CategoryStatistics> getListOfStatsForExpense();
+
+    ObservableList<CategoryStatistics> getListOfStatsForIncome();
+
+    void updateListOfStats();
+
+    void updateListOfStats(List<Date> period);
+
+    void updateBarCharts();
+
+    void updateBarCharts(Date month);
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -72,23 +90,22 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyGuiltTrip addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the GuiltTrip */
+    ReadOnlyGuiltTrip getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in
+     * Returns true if a entry with the same identity as {@code entry} exists in
      * the address book.
      */
     boolean hasCategory(Category category);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in
+     * Returns true if a entry with the same identity as {@code entry} exists in
      * the address book.
      */
     boolean hasEntry(Entry entry);
-
 
     boolean hasReminder(Reminder reminder);
 
@@ -139,7 +156,7 @@ public interface Model {
     void deleteAutoExpense(AutoExpense target);
 
     /**
-     * Adds the given person. {@code person} must not already exist in the address
+     * Adds the given entry. {@code entry} must not already exist in the address
      * book.
      */
     void addEntry(Entry entry);

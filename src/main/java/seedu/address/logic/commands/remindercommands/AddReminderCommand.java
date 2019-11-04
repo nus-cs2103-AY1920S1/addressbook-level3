@@ -15,14 +15,14 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Description;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a entry to the address book.
  */
 public class AddReminderCommand extends Command {
 

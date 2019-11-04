@@ -1,11 +1,18 @@
 package seedu.address.model.statistics;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 
 /**
  * The API of the Statistics Component.
  */
 public interface Statistics {
+
+    DoubleProperty getTotalExpenseForPeriod();
+
+    DoubleProperty getTotalIncomeForPeriod();
+
+    ObservableList<DailyStatistics> getListOfStatsForBarChart();
 
     /**
      * Returns the list of statistics for Expense.

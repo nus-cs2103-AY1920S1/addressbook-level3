@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.address.model.person.PanelName;
+import seedu.address.model.entry.PanelName;
 import seedu.address.ui.FontName;
 
 /**
@@ -25,7 +25,9 @@ public class CommandResult {
     private final PanelName panelName;
     private final boolean togglePanel;
     private final boolean toggleStats;
-    private final boolean toggleGraphics;
+    private final boolean togglePieChart;
+    private final boolean toggleBarChart;
+    private final boolean toggleEntryPanel;
 
     /** For changing the font. */
     private final FontName fontName;
@@ -45,7 +47,9 @@ public class CommandResult {
         this.panelName = null;
         this.togglePanel = false;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
@@ -66,7 +70,9 @@ public class CommandResult {
         this.togglePanel = false;
         this.panelName = null;
         this.toggleStats = toggleBooleans.get(0);
-        this.toggleGraphics = toggleBooleans.get(1);
+        this.togglePieChart = toggleBooleans.get(1);
+        this.toggleBarChart = toggleBooleans.get(2);
+        this.toggleEntryPanel = toggleBooleans.get(3);
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
@@ -83,7 +89,9 @@ public class CommandResult {
         this.panelName = panelName;
         this.togglePanel = togglePanel;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
@@ -102,7 +110,9 @@ public class CommandResult {
         this.listFonts = listFonts;
         this.changeFont = changeFont;
         this.toggleStats = false;
-        this.toggleGraphics = false;
+        this.togglePieChart = false;
+        this.toggleBarChart = false;
+        this.toggleEntryPanel = false;
     }
 
     public void showConditionPanel() {
@@ -129,12 +139,20 @@ public class CommandResult {
         return togglePanel;
     }
 
+    public boolean isToggleEntryPanel() {
+        return toggleEntryPanel;
+    }
+
     public boolean isToggleStats() {
         return toggleStats;
     }
 
-    public boolean isToggleGraphics() {
-        return toggleGraphics;
+    public boolean isTogglePieChart() {
+        return togglePieChart;
+    }
+
+    public boolean isToggleBarChart() {
+        return toggleBarChart;
     }
 
     public PanelName getPanelName() {

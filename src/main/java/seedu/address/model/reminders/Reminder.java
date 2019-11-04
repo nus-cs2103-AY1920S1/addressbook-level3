@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.reminders.conditions.EntrySpecificCondition;
 

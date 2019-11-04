@@ -16,16 +16,15 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.TimeUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GuiltTrip;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGuiltTrip;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.statistics.StatisticsManager;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.GuiltTripStorage;
+import seedu.address.storage.JsonGuiltTripStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -50,7 +49,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing GuiltTrip ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -58,15 +57,12 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        GuiltTripStorage guiltTripStorage = new JsonGuiltTripStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(guiltTripStorage, userPrefsStorage);
 
         initLogging(config);
-
         model = initModelManager(storage, userPrefs);
-        StatisticsManager stats = new StatisticsManager(model);
-        model.setStats(stats);
-        logic = new LogicManager(model, stats, storage);
+        logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
     }
 
@@ -76,20 +72,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyGuiltTrip> addressBookOptional;
+        ReadOnlyGuiltTrip initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample GuiltTrip");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook(true);
+            logger.warning("Data file not in the correct format. Will be starting with an empty GuiltTrip");
+            initialData = new GuiltTrip(true);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook(true);
+            logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
+            initialData = new GuiltTrip(true);
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -153,7 +149,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
             initializedPrefs = new UserPrefs();
         }
 
@@ -169,7 +165,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting GuiltTrip " + MainApp.VERSION);
         ui.start(primaryStage);
         TimeUtil.startTimer();
     }

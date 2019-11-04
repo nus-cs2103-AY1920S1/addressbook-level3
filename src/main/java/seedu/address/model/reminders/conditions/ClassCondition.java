@@ -2,12 +2,12 @@ package seedu.address.model.reminders.conditions;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
+import seedu.address.model.entry.Wish;
 
 /**
  * Condition is met when entry is of a specific class.

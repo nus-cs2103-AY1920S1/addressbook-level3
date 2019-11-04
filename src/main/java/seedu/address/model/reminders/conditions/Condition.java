@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Entry;
 
 /**
  * Tells reminder when to activate. All types of conditions extend form this class.
