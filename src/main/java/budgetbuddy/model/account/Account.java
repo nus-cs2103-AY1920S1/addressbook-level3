@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.attributes.Description;
+import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
@@ -56,7 +57,7 @@ public class Account {
      */
     public void addTransaction(Transaction toAdd) {
         this.transactionList.add(toAdd);
-        if (toAdd.getDirection().toString().equals("IN")) {
+        if (toAdd.getDirection().equals(Direction.IN)) {
             balance = balance + toAdd.getAmount().toLong();
         } else {
             balance = balance - toAdd.getAmount().toLong();
@@ -78,7 +79,7 @@ public class Account {
      */
     public void deleteTransaction(Transaction toDelete) {
         this.transactionList.remove(toDelete);
-        if (toDelete.getDirection().toString().equals("IN")) {
+        if (toDelete.getDirection().equals(Direction.IN)) {
             balance = balance - toDelete.getAmount().toLong();
         } else {
             balance = balance - toDelete.getAmount().toLong();

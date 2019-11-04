@@ -21,7 +21,6 @@ public class TransactionList implements Iterable<Transaction> {
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-
     /**
      * Returns true if the list contains an equivalent Transaction as the given argument.
      */
@@ -133,6 +132,4 @@ public class TransactionList implements Iterable<Transaction> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
-
 }
