@@ -93,8 +93,7 @@ public class MainWindow extends UiPart<Stage> {
         this.isStatsWindow = false;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
-        setFont(logic.getGuiSettings());
+        setUpGui(logic.getGuiSettings());
 
         setAccelerators();
 
@@ -163,11 +162,20 @@ public class MainWindow extends UiPart<Stage> {
 
         BudgetPanel budgetsPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(budgetsPanel.getRoot());
+
         ReminderPanel reminderPanel = new ReminderPanel(logic.getFilteredReminders());
         remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
 
         AutoExpensesPanel autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(autoExpensesPanel.getRoot());
+    }
+
+    /**
+     * Sets up the GUI.
+     */
+    private void setUpGui(GuiSettings guiSettings) {
+        setWindowDefaultSize(logic.getGuiSettings());
+        setFont(logic.getGuiSettings());
     }
 
     /**

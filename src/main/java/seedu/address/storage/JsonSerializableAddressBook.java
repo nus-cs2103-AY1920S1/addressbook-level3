@@ -24,7 +24,7 @@ import seedu.address.storage.conditions.JsonAdaptedCondition;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "guiltTrip")
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_WRONG_CATEGORY = "Data file load error due to non existent category. ";
