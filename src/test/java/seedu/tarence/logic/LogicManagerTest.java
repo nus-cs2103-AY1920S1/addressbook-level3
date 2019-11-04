@@ -55,7 +55,7 @@ public class LogicManagerTest {
         JsonApplicationStorage applicationStorage =
                 new JsonApplicationStorage(temporaryFolder.resolve("application.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        JsonStateStorage jsonStateStorage = new JsonStateStorage("data\\states\\");
+        JsonStateStorage jsonStateStorage = new JsonStateStorage("data", "states");
         StorageManager storage = new StorageManager(applicationStorage, userPrefsStorage, jsonStateStorage);
         logic = new LogicManager(model, storage);
     }
@@ -88,7 +88,7 @@ public class LogicManagerTest {
                 new JsonApplicationIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionApplication.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        JsonStateStorage jsonStateStorage = new JsonStateStorage("data\\states\\");
+        JsonStateStorage jsonStateStorage = new JsonStateStorage("data", "states");
         StorageManager storage = new StorageManager(applicationStorage, userPrefsStorage, jsonStateStorage);
         logic = new LogicManager(model, storage);
 

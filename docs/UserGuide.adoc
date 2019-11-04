@@ -648,6 +648,22 @@ Undos a specified number of actions.
 Format:
 `undo` u/[NUMBER_OF_ACTIONS]
 
+Undoes any state-altering command from the application. +
+
+Format: `undo u/NUMBER_OF_STATES_TO_UNDO`
+
+Example:
+
+`undo u/2`
+
+****
+* Resets the application state to the previous state.
+* Undo can only be applied to states that are present in that particular session (from application start-up)
+* The `NUMBER_OF_STATES_TO_UNDO` refers to the previous number of states to undo in that session
+* The `NUMBER_OF_STATES_TO_UNDO` *must be a positive integer*; 1, 2, 3, ...
+****
+
+
 === Clearing all entries : `clear` [coming in v2.0]
 
 Clears all entries from the T.A.rence. +

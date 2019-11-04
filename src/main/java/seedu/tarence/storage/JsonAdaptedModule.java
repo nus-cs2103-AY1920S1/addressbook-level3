@@ -3,6 +3,7 @@ package seedu.tarence.storage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +15,8 @@ import seedu.tarence.logic.parser.ParserUtil;
 import seedu.tarence.logic.parser.exceptions.ParseException;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
+import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Tutorial;
 
 /**
@@ -46,6 +49,8 @@ public class JsonAdaptedModule {
     public static final String ASSIGNMENT_MAX_SCORE = "assignmentMaxScore";
     public static final String ASSIGNMENT_START_DATE = "assignmentStartDate";
     public static final String ASSIGNMENT_END_DATE = "assignmentEndDate";
+    public static final String ASSIGNMENT_STUDENT_LIST = "assignmentStudentList";
+    public static final String ASSIGNMENT_NUMBER = "assignmentNumber-";
 
     // Error message Strings
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tutorial's %s field is missing!";
@@ -95,6 +100,7 @@ public class JsonAdaptedModule {
             String tutorialModuleCode = t.getModCode().toString();
             String tutorialAttendanceString = JsonUtil.attendanceListToString(t.getAttendance());
 
+
             // Add into LinkedHashMap<String,String>, singleTutorialMap. Reading is order dependant
             singleTutorialMap.put(TUTORIAL_NAME, tutorialName);
             singleTutorialMap.put(TUTORIAL_DAY, tutorialDayOfWeek);
@@ -105,8 +111,67 @@ public class JsonAdaptedModule {
             singleTutorialMap.put(TUTORIAL_ATTENDANCE_LIST, tutorialAttendanceString);
             singleTutorialMap.put(TUTORIAL_MODULE_CODE, tutorialModuleCode);
 
+            // Saving of assignment
+            String tutorialAssignmentString = assignmentListToString(t.getAssignmentsForSaving());
+            //System.out.println(tutorialAssignmentString);
+            singleTutorialMap.put(TUTORIAL_ASSIGNMENT_LIST, tutorialAssignmentString);
+
             tutorialMap.put(tutorialName, singleTutorialMap);
+
         }
+    }
+
+    /**
+     * Returns the string representation of a Tutorial's Assignment(s).
+     *
+     * @param assignmentList Assignment List, obtained directly from Tutorial.
+     * @return String.
+     */
+    public String assignmentListToString (Map<Assignment, Map<Student, Integer>> assignmentList) {
+
+        LinkedHashMap<String, String> listOfAssignments = new LinkedHashMap<>();
+        Integer assignmentCounter = 0;
+
+        for (Assignment a : assignmentList.keySet()) {
+            LinkedHashMap<String, String> assignmentMap = new LinkedHashMap<String, String>();
+            String assignmentName = a.getAssignmentName();
+            String assignmentMaxScore = Integer.toString(a.getMaxScore());
+            String assignmentStartDate = a.getStartDate().toString();
+            String assignmentEndDate = a.getEndDate().toString();
+
+            // Serializes Students with their respective assignment scores
+            Map<Student, Integer> studentScores = assignmentList.get(a);
+            String assignmentStudentString = "[";
+            for (Student s : studentScores.keySet()) {
+                LinkedHashMap<String, String> studentMap = new LinkedHashMap<String, String>();
+                studentMap.put(JsonAdaptedModule.STUDENT_NAME, s.getName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_EMAIL, s.getEmail().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s.getMatricNum().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_NUSNET_ID, s.getNusnetId().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_MODULE_CODE, s.getModCode().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s.getTutName().toString());
+                studentMap.put(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE, Integer.toString(studentScores.get(s)));
+                assignmentStudentString = assignmentStudentString + studentMap.toString() + "],[";
+            }
+            // Case when there are no students.
+            if (assignmentStudentString.equals("[")) {
+                assignmentStudentString += "]";
+            } else {
+                // Remove the last square bracket
+                assignmentStudentString = assignmentStudentString.substring(0, (assignmentStudentString.length() - 2));
+            }
+
+            assignmentMap.put(ASSIGNMENT_NAME, assignmentName);
+            assignmentMap.put(ASSIGNMENT_MAX_SCORE, assignmentMaxScore);
+            assignmentMap.put(ASSIGNMENT_START_DATE, assignmentStartDate);
+            assignmentMap.put(ASSIGNMENT_END_DATE, assignmentEndDate);
+            assignmentMap.put(ASSIGNMENT_STUDENT_LIST, assignmentStudentString);
+
+            assignmentCounter++;
+            listOfAssignments.put(ASSIGNMENT_NUMBER + assignmentCounter.toString(), assignmentMap.toString());
+        }
+
+        return listOfAssignments.toString();
     }
 
     /**
@@ -118,19 +183,25 @@ public class JsonAdaptedModule {
      */
     public Module toModelType() throws IllegalValueException {
         List<Tutorial> tutorials = new ArrayList<Tutorial>();
-
-        for (String tutorialName : tutorialMap.keySet()) {
-            LinkedHashMap<String, String> singleTutorialMap = tutorialMap.get(tutorialName);
-            // TODO: Check if singleTutorialMap is valid ie contains all the requires params
-            Tutorial tutorialFromJsonVersionTwo = JsonUtil.tutorialMapToTutorial(singleTutorialMap);
-            tutorials.add(tutorialFromJsonVersionTwo);
+        try {
+            for (String tutorialName : tutorialMap.keySet()) {
+                LinkedHashMap<String, String> singleTutorialMap = tutorialMap.get(tutorialName);
+                // TODO: Check if singleTutorialMap is valid ie contains all the requires params
+                Tutorial tutorialFromJson = JsonUtil.tutorialMapToTutorial(singleTutorialMap);
+                tutorials.add(tutorialFromJson);
+            }
+        } catch (NullPointerException e) {
+            String errorMessage = e.getClass().toString() + " " + e.getMessage();
+            throw new IllegalValueException(errorMessage);
         }
 
         try {
             ModCode modCodeFromJson = ParserUtil.parseModCode(moduleCode);
             return new Module(modCodeFromJson, tutorials);
         } catch (ParseException e) {
-            throw new IllegalValueException(String.format(INVALID_FIELD, Module.class.getSimpleName()));
+            String errorMessage = String.format(INVALID_FIELD, Module.class.getSimpleName()) + " "
+                    + moduleCode + " " + e.getMessage();
+            throw new IllegalValueException(errorMessage);
         }
 
     }

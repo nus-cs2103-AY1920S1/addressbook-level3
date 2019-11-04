@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -44,6 +47,7 @@ import seedu.tarence.model.person.Name;
 import seedu.tarence.model.student.MatricNum;
 import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.Assignment;
 import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
@@ -348,7 +352,7 @@ public class JsonUtil {
     public static LinkedHashMap<String, String> tutorialStringToMap(String tutorialString)
             throws IllegalValueException {
         if (!isValidTutorialString(tutorialString)) {
-            throw new IllegalValueException("Tutorial string has invalid fields");
+            throw new IllegalValueException("Tutorial string has invalid order or absence of fields");
         }
 
         LinkedHashMap<String, String> tutorialStringToMap = new LinkedHashMap<String, String>();
@@ -550,6 +554,7 @@ public class JsonUtil {
     public static Tutorial tutorialMapToTutorial(LinkedHashMap<String, String> tutorialMap)
             throws IllegalValueException {
 
+        //TODO: CHECK ALL FIELDS ARE PRESENT
         try {
             List<Student> studentList = studentStringToList(tutorialMap.get(JsonAdaptedModule.TUTORIAL_STUDENT_LIST));
             TutName tutorialName = ParserUtil.parseTutorialName(tutorialMap.get(JsonAdaptedModule.TUTORIAL_NAME));
@@ -562,9 +567,15 @@ public class JsonUtil {
             Attendance attendance = attendanceStringToAttendance(tutorialMap
                     .get(JsonAdaptedModule.TUTORIAL_ATTENDANCE_LIST), weeks);
 
-            Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList, modCode, attendance);
+            // Constructing Assignment(s) from String
+            String tutorialAssignmentString = tutorialMap.get(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST);
+            Map<Assignment, Map<Student, Integer>> listOfAssignments =
+                    tutorialAssignmentStringToAssignment(tutorialAssignmentString);
 
+            Tutorial t = new Tutorial(tutorialName, day, startTime, weeks, duration, studentList,
+                    modCode, attendance, listOfAssignments);
             return t;
+
         } catch (ParseException | IllegalArgumentException e) {
             throw new IllegalValueException(JsonAdaptedModule.MISSING_GENERIC_FIELD + e.getMessage());
         } catch (DateTimeParseException e) {
@@ -576,6 +587,209 @@ public class JsonUtil {
             throw new IllegalValueException(errorMessage);
         }
     }
+
+    /**
+     * Converts a tutorial Assignment String (with embedded students and their scores) to a Map of Assignments to
+     * Students & their respective scores.
+     *
+     * @param tutorialAssignmentString String from json file.
+     * @return Map of Assignments to Students with scores.
+     * @throws IllegalValueException throws if there is any parsing errors.
+     */
+    public static Map<Assignment, Map<Student, Integer>> tutorialAssignmentStringToAssignment(
+            String tutorialAssignmentString) throws IllegalValueException {
+        Map<Assignment, Map<Student, Integer>> assignmentMap = new HashMap<>();
+        int numOfAssignmentsToParse = getTotalNumberOfAssignments(tutorialAssignmentString);
+
+        if (numOfAssignmentsToParse == 0) {
+            //return null;
+            // Since according to Tutorial constructor, null is used for the default Tutorial.
+            // NTS: reverify
+            return assignmentMap;
+        }
+
+        for (int i = 1; i < numOfAssignmentsToParse; i++) {
+
+            String identifier = JsonAdaptedModule.ASSIGNMENT_NUMBER + i;
+            String nextIdentifier = JsonAdaptedModule.ASSIGNMENT_NUMBER + (i + 1);
+
+            String singleAssignmentString = extractField(identifier, nextIdentifier, tutorialAssignmentString);
+            Assignment assignmentFromString = stringToAssignment(singleAssignmentString);
+
+            // Create map of Students to their respective scores
+            String studentAssignmentString = extractLastField(JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST,
+                    singleAssignmentString);
+            Map<Student, Integer> studentIntegerMap = studentAssignmentStringToMap(studentAssignmentString);
+
+            assignmentMap.put(assignmentFromString, studentIntegerMap);
+        }
+
+        // Parse the final assignment string
+        String finalIdentifier = JsonAdaptedModule.ASSIGNMENT_NUMBER + numOfAssignmentsToParse;
+        String finalAssignmentString = extractLastField(finalIdentifier, tutorialAssignmentString);
+        Assignment assignmentFromString = stringToAssignment(finalAssignmentString);
+
+        // Create map of Students to their respective scores
+        String studentAssignmentString = extractLastField(JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST,
+                finalAssignmentString);
+        Map <Student, Integer> studentIntegerMap = studentAssignmentStringToMap(studentAssignmentString);
+
+        assignmentMap.put(assignmentFromString, studentIntegerMap);
+
+
+
+        return assignmentMap;
+    }
+
+    /**
+     * Returns a Map of Students to their respective scores from a Json String.
+     *
+     * @param studentAssignmentString Json String.
+     * @return Map of Students to their scores.
+     * @throws IllegalValueException thrown when parsing error.
+     */
+    public static Map<Student, Integer> studentAssignmentStringToMap (String studentAssignmentString)
+            throws IllegalValueException {
+
+        HashMap<Student, Integer> studentIntegerTreeMap = new HashMap<Student, Integer>();
+
+        if (studentAssignmentString.equals("[]")) {
+            // An assignment with no students inside
+            return studentIntegerTreeMap;
+        }
+
+        String[] studentsString = studentAssignmentString.split("\\]\\,\\[");;
+        for (String s : studentsString) {
+            //TODO: Ensure order is as follows.
+            String studentName = extractField(JsonAdaptedModule.STUDENT_NAME,
+                    JsonAdaptedModule.STUDENT_EMAIL, s);
+
+            String studentEmail = extractField(JsonAdaptedModule.STUDENT_EMAIL,
+                    JsonAdaptedModule.STUDENT_MATRIC_NUMBER, s);
+
+            String studentMatricNumber = extractField(JsonAdaptedModule.STUDENT_MATRIC_NUMBER,
+                    JsonAdaptedModule.STUDENT_NUSNET_ID, s);
+
+            String studentNusnetId = extractField(JsonAdaptedModule.STUDENT_NUSNET_ID,
+                    JsonAdaptedModule.STUDENT_MODULE_CODE, s);
+
+            String studentModuleCode = extractField(JsonAdaptedModule.STUDENT_MODULE_CODE,
+                    JsonAdaptedModule.STUDENT_TUTORIAL_NAME, s);
+
+            String studentTutorialName = extractField(JsonAdaptedModule.STUDENT_TUTORIAL_NAME,
+                    JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE, s);
+
+            String studentAssignmentScore = extractLastField(JsonAdaptedModule.STUDENT_ASSIGNMENT_SCORE, s);
+
+            Student studentFromString = studentStringsToStudent(studentName, studentEmail, studentMatricNumber,
+                    studentNusnetId, studentModuleCode, studentTutorialName);
+
+            try {
+                Integer studentScore = Integer.parseInt(studentAssignmentScore.replace("[", "").replace("]", ""));
+                studentIntegerTreeMap.put(studentFromString, studentScore);
+
+            } catch (NumberFormatException e) {
+                throw new IllegalValueException("Invalid student assignment score in json: " + studentAssignmentScore);
+            }
+        }
+
+        return studentIntegerTreeMap;
+        //return studentIntegerTreeMap;
+    }
+
+    /**
+     * Converts an assignment String to an Assignment object.
+     *
+     * @param assignmentString String from json.
+     * @return Assignment object.
+     * @throws IllegalValueException thrown when there is an error in parsing.
+     */
+    public static Assignment stringToAssignment(String assignmentString) throws IllegalValueException {
+        // TODO: CHECK ORDER IS VALID
+        String assignmentName = extractField(JsonAdaptedModule.ASSIGNMENT_NAME,
+                JsonAdaptedModule.ASSIGNMENT_MAX_SCORE, assignmentString);
+
+        String assignmentMaxScore = extractField(JsonAdaptedModule.ASSIGNMENT_MAX_SCORE,
+                JsonAdaptedModule.ASSIGNMENT_START_DATE, assignmentString);
+
+        String assignmentStartDate = extractField(JsonAdaptedModule.ASSIGNMENT_START_DATE,
+                JsonAdaptedModule.ASSIGNMENT_END_DATE, assignmentString);
+
+        String assignmentEndDate = extractField(JsonAdaptedModule.ASSIGNMENT_END_DATE,
+                JsonAdaptedModule.ASSIGNMENT_STUDENT_LIST, assignmentString);
+
+
+        // Parses the strings and return an Assignment object.
+        try {
+            Integer maxScore = Integer.parseInt(assignmentMaxScore);
+            if (maxScore < 0) {
+                throw new NumberFormatException();
+            }
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+            Date startDate = dateFormatter.parse(assignmentStartDate);
+            Date endDate = dateFormatter.parse(assignmentEndDate);
+            Assignment assignmentFromString = new Assignment(assignmentName, maxScore, startDate, endDate);
+            return assignmentFromString;
+        } catch (java.text.ParseException e) {
+            throw new IllegalValueException("Illegal value in assignment date: " + assignmentStartDate
+                    + " or " + assignmentEndDate);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Illegal value in assignment max score: " + assignmentMaxScore);
+        }
+    }
+
+    /**
+     * Returns the total number of assignments present in the Json assignment string.
+     *
+     * @param tutorialAssignmentString Json string of assignments.
+     * @return Number of assignments present.
+     */
+    public static int getTotalNumberOfAssignments(String tutorialAssignmentString) {
+        int numOfAssignments = 0;
+
+        int index = 0;
+        while (index != -1) {
+            index = tutorialAssignmentString.indexOf(JsonAdaptedModule.ASSIGNMENT_NUMBER, index);
+            if (index != -1) {
+                index++;
+                numOfAssignments++;
+            }
+        }
+        return numOfAssignments;
+    }
+
+    /**
+     * Generic function to construct a new TreeMap from HashMap
+     *
+     * @param hashMap hashMap
+     * @param <K>
+     * @param <V>
+     * @return Treemap
+     */
+    public static <K, V> Map<K, V> convertToTreeMap(Map<K, V> hashMap) {
+
+        Map<K, V> treeMap = hashMap
+                // Get the entries from the hashMap
+                .entrySet()
+
+                // Convert the map into stream
+                .stream()
+
+                // Now collect the returned TreeMap
+                .collect(
+                        Collectors
+
+                                // Using Collectors, collect the entries
+                                // and convert it into TreeMap
+                                .toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue, (
+                                                oldValue, newValue) -> newValue, TreeMap::new));
+
+        // Return the TreeMap
+        return treeMap;
+    }
+
 
     /**
      * Contains methods that retrieve logging level from serialized string.

@@ -135,7 +135,7 @@ public class LogicManager implements Logic {
     }
 
     /**
-     * Checks if an undo command is created. Can be expadned to include other commands that involves the Storage object.
+     * Checks if an undo command is created. Can be expanded to include other commands that involves the Storage object.
      * @param command Command parsed from user String.
      * @return True if command is of type "undo"
      */

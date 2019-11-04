@@ -26,7 +26,7 @@ public class StorageManagerTest {
     public void setUp() {
         JsonApplicationStorage applicationStorage = new JsonApplicationStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonStateStorage jsonStateStorage = new JsonStateStorage("data\\states\\");
+        JsonStateStorage jsonStateStorage = new JsonStateStorage("data", "states");
         storageManager = new StorageManager(applicationStorage, userPrefsStorage, jsonStateStorage);
     }
 
