@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import seedu.deliverymans.commons.core.index.Index;
@@ -43,7 +44,11 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
+                index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            } else {
+                throw new ParseException("");
+            }
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditOrderCommand.MESSAGE_USAGE), pe);
         }

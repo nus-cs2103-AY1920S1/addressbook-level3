@@ -41,11 +41,11 @@ public class EditOrderCommand extends Command {
             + "[" + PREFIX_FOOD + "FOOD]...\n"
             + "[" + PREFIX_QUANTITY + "QUANTITY]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "2"
+            + PREFIX_INDEX + "2 "
             + PREFIX_CUSTOMER + "Alex Yeoh "
             + PREFIX_RESTAURANT + "KFC "
-            + PREFIX_FOOD + "ffss "
-            + PREFIX_QUANTITY + "fsfsff";
+            + PREFIX_FOOD + "Shrooms Burger "
+            + PREFIX_QUANTITY + "3";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_INVALID_FOOD_FORMAT = "The quantities of food ordered must be provided.";
