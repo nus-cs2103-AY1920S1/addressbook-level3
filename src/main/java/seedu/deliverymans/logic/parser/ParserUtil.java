@@ -1,6 +1,7 @@
 package seedu.deliverymans.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.deliverymans.commons.core.Messages.MESSAGE_INVALID_QUANTITY;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -186,11 +187,16 @@ public class ParserUtil {
     public static int parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
+        Integer i;
         try {
-            return Integer.parseInt(trimmedQuantity);
+            i = Integer.parseInt(trimmedQuantity);
         } catch (NumberFormatException e) {
-            throw new ParseException(e.getMessage(), e);
+            throw new ParseException(MESSAGE_INVALID_QUANTITY);
         }
+        if (i <= 0) {
+            throw new ParseException(MESSAGE_INVALID_QUANTITY);
+        }
+        return i;
     }
 
     /**
@@ -203,7 +209,7 @@ public class ParserUtil {
         requireNonNull(quantity);
         final ArrayList<Integer> quantitySet = new ArrayList<>();
         for (String quantityName : quantity) {
-            quantitySet.add(Integer.parseInt(quantityName));
+            quantitySet.add(parseQuantity(quantityName));
         }
         return quantitySet;
     }
