@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.Command;
+import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -36,7 +37,7 @@ public class AddCommandEndState extends EndState {
     }
 
     @Override
-    public Command buildCommand() throws ParseException {
+    public Command buildCommand() throws CommandException {
         EngagementType engagementType = InteractiveParserUtil.parseType(soFar.getValue(PREFIX_ENGAGEMENT_TYPE).get());
         LocalDateTime startTime = InteractiveParserUtil.parseTime(soFar.getValue(PREFIX_START_TIME).get());
         LocalDateTime endTime = InteractiveParserUtil.parseTime(soFar.getValue(PREFIX_END_TIME).get());
@@ -50,7 +51,7 @@ public class AddCommandEndState extends EndState {
             Engagement engagement = Engagement.of(engagementType, timeSlot, attendees, location, description, priority);
             return new AddCommand(engagement);
         } catch (InvalidTimeException e) {
-            throw new ParseException(e.getMessage());
+            throw new CommandException(e.getMessage());
         }
     }
 

@@ -2,6 +2,7 @@ package com.typee.logic.interactive.parser.state.helpmachine;
 
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -17,7 +18,7 @@ public class HelpState extends EndState {
     }
 
     @Override
-    public Command buildCommand() throws ParseException {
+    public Command buildCommand() throws CommandException {
         return new HelpCommand();
     }
 

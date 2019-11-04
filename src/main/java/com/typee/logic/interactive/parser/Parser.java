@@ -10,6 +10,7 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.ExitCommand;
 import com.typee.logic.commands.HelpCommand;
+import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.EndStateException;
 import com.typee.logic.interactive.parser.state.State;
@@ -102,14 +103,18 @@ public class Parser implements InteractiveParser {
     public Command makeCommand() throws ParseException {
         assert currentState instanceof EndState : "Cannot build a command from a non-end state!";
         EndState endState = (EndState) currentState;
-        Command command = endState.buildCommand();
-        if (command instanceof HelpCommand) {
-            currentState = temporaryState;
-            temporaryState = null;
-        } else {
-            resetParser();
+        try {
+            Command command = endState.buildCommand();
+            if (command instanceof HelpCommand) {
+                currentState = temporaryState;
+                temporaryState = null;
+            } else {
+                resetParser();
+            }
+            return command;
+        } catch (CommandException e) {
+            throw new ParseException(e.getMessage());
         }
-        return command;
     }
 
     private void resetParser() {

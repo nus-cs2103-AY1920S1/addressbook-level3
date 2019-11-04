@@ -90,15 +90,12 @@ public class InteractiveParserUtil {
      * @return corresponding {@code EngagementType}.
      * @throws ParseException if the given {@code String engagementType} is invalid.
      */
-    public static EngagementType parseType(String engagementType) throws ParseException {
+    public static EngagementType parseType(String engagementType) {
         requireNonNull(engagementType);
         String trimmedType = engagementType.trim();
-        try {
-            EngagementType type = EngagementType.of(trimmedType);
-            return type;
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(EngagementType.getMessageConstraints());
-        }
+        EngagementType type = EngagementType.of(trimmedType);
+        return type;
+
     }
 
     /**
@@ -108,11 +105,8 @@ public class InteractiveParserUtil {
      * @return a corresponding {@code Location} object.
      * @throws ParseException if the {@code String location} is invalid.
      */
-    public static Location parseLocation(String location) throws ParseException {
+    public static Location parseLocation(String location) {
         requireNonNull(location);
-        if (!Location.isValid(location)) {
-            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
-        }
         return new Location(location);
     }
 
@@ -123,20 +117,16 @@ public class InteractiveParserUtil {
      * @return the corresponding {@code Priority}.
      * @throws ParseException if the {@code String priority} is invalid.
      */
-    public static Priority parsePriority(String priority) throws ParseException {
+    public static Priority parsePriority(String priority) {
         requireNonNull(priority);
         String trimmedString = priority.trim();
-        try {
-            Priority parsedPriority;
-            if (trimmedString.isBlank()) {
-                parsedPriority = Priority.NONE;
-            } else {
-                parsedPriority = Priority.of(trimmedString);
-            }
-            return parsedPriority;
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(Priority.getMessageConstraints());
+        Priority parsedPriority;
+        if (trimmedString.isBlank()) {
+            parsedPriority = Priority.NONE;
+        } else {
+            parsedPriority = Priority.of(trimmedString);
         }
+        return parsedPriority;
     }
 
     /**
@@ -163,16 +153,11 @@ public class InteractiveParserUtil {
      * @return a {@code LocalDateTime} object.
      * @throws ParseException if the {@code String time} is invalid.
      */
-    public static LocalDateTime parseTime(String time) throws ParseException {
+    public static LocalDateTime parseTime(String time) {
         requireNonNull(time);
-        try {
-            LocalDateTime localDateTime = convertStringToDateTime(time);
-            return localDateTime;
-        } catch (DateTimeException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_TIME_FORMAT, time));
-        } catch (StringIndexOutOfBoundsException e) {
-            throw new ParseException(MESSAGE_INVALID_TIME_STRING);
-        }
+        LocalDateTime localDateTime = convertStringToDateTime(time);
+        return localDateTime;
+
     }
 
     /**
@@ -182,15 +167,8 @@ public class InteractiveParserUtil {
      * @return the corresponding {@code LocalDateTime} object.
      */
     private static LocalDateTime convertStringToDateTime(String time) {
-        if (time.length() > 15) {
-            throw new StringIndexOutOfBoundsException();
-        }
-        int year = Integer.parseInt(time.substring(6, 10));
-        Month month = Month.of(Integer.parseInt(time.substring(3, 5)));
-        int day = Integer.parseInt(time.substring(0, 2));
-        int hours = Integer.parseInt(time.substring(11, 13));
-        int minutes = Integer.parseInt(time.substring(13, 15));
-        return LocalDateTime.of(year, month, day, hours, minutes);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy/HHmm");
+        return LocalDateTime.parse(time, formatter);
     }
 
     /**
@@ -233,10 +211,7 @@ public class InteractiveParserUtil {
      * @return the description if its valid.
      * @throws ParseException if the description is blank.
      */
-    public static String parseDescription(String description) throws ParseException {
-        if (description.isBlank()) {
-            throw new ParseException(MESSAGE_INVALID_DESCRIPTION);
-        }
+    public static String parseDescription(String description) {
         return description;
     }
 
@@ -246,10 +221,7 @@ public class InteractiveParserUtil {
      * @param attendees string representing list of attendees.
      * @return corresponding {@code AttendeeList}.
      */
-    public static AttendeeList parseAttendees(String attendees) throws ParseException {
-        if (attendees.isBlank()) {
-            throw new ParseException(MESSAGE_INVALID_ATTENDEES);
-        }
+    public static AttendeeList parseAttendees(String attendees) {
         List<Person> attendeesList = Arrays.stream(attendees.split("\\|"))
                 .map(name -> name.trim())
                 .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
