@@ -102,15 +102,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasTransaction(BankAccountOperation transaction) {
+    public boolean has(BankAccountOperation transaction) {
         requireNonNull(transaction);
         return versionedUserState.getBankAccount().has(transaction);
     }
 
     @Override
-    public boolean hasBudget(Budget budget) {
+    public boolean has(Budget budget) {
         requireNonNull(budget);
         return versionedUserState.getBankAccount().has(budget);
+    }
+
+    @Override
+    public boolean has(LedgerOperation ledgerOperation) {
+        return versionedUserState.getLedger().has(ledgerOperation);
     }
 
     @Override
@@ -138,17 +143,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addOperation(Budget budget) {
+    public void add(Budget budget) {
         versionedUserState.add(budget);
     }
 
     @Override
-    public void addOperation(BankAccountOperation operation) {
+    public void add(BankAccountOperation operation) {
         versionedUserState.add(operation);
     }
 
     @Override
-    public void addOperation(LedgerOperation operation) {
+    public void add(LedgerOperation operation) {
         versionedUserState.add(operation);
     }
 
@@ -201,6 +206,12 @@ public class ModelManager implements Model {
     public void updateFilteredTransactionList(Predicate<BankAccountOperation> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredLedgerList(Predicate<LedgerOperation> predicate) {
+        requireNonNull(predicate);
+        filteredLedgerOperations.setPredicate(predicate);
     }
 
     @Override

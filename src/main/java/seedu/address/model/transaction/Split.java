@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import seedu.address.model.person.Person;
@@ -18,6 +19,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
 
     public static final String SHARE_CONSTRAINTS = "number of shares must be one more than people involved";
 
+    private final List<Integer> shares;
     private final List<Amount> splitAmounts;
     private final UniquePersonList peopleInvolved;
 
@@ -26,6 +28,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
         requireAllNonNull(amount, date, shares, people);
         checkArgument(isValidSharesLength(shares, people), SHARE_CONSTRAINTS);
         this.peopleInvolved = people;
+        this.shares = shares;
         int denominator = shares.stream().mapToInt(i -> i).sum();
         List<Amount> amounts = shares.stream()
             .map(share -> amount.byShare((double) share / denominator))
@@ -34,7 +37,7 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
         splitAmounts = rebalanceAmounts(amount, amounts);
     }
 
-    private boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
+    public static boolean isValidSharesLength(List<Integer> shares, UniquePersonList people) {
         return shares.size() == people.size() + 1;
     }
 
@@ -109,5 +112,10 @@ public class Split extends Transaction implements UndoableAction, LedgerOperatio
     @Override
     public UniquePersonList getPeopleInvolved() {
         return peopleInvolved;
+    }
+
+    @Override
+    public Optional<List<Integer>> getShares() {
+        return Optional.of(shares);
     }
 }

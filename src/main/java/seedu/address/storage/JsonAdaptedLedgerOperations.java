@@ -8,9 +8,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.UniquePersonList;
+
 import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.model.transaction.LendMoney;
 import seedu.address.model.transaction.ReceiveMoney;
+import seedu.address.model.transaction.Split;
 import seedu.address.model.util.Date;
 
 /**
@@ -18,29 +23,39 @@ import seedu.address.model.util.Date;
  */
 public class JsonAdaptedLedgerOperations {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Ledger's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "LedgerOperation's %s field is missing!";
 
     private final String date;
     private final String amount;
+    private final String description;
     private final List<JsonAdaptedPerson> people = new ArrayList<>();
+    private final List<String> shares = new ArrayList<>();
 
-    // TODO: include peopleInvolved
     @JsonCreator
     public JsonAdaptedLedgerOperations(@JsonProperty("date") String date,
                                        @JsonProperty("amount") String amount,
-                                       @JsonProperty("people") List<JsonAdaptedPerson> people) {
+                                       @JsonProperty("description") String description,
+                                       @JsonProperty("people") List<JsonAdaptedPerson> people,
+                                       @JsonProperty("shares") List<String> shares) {
         this.date = date;
         this.amount = amount;
+        this.description = description;
         if (people != null) {
             this.people.addAll(people);
+        }
+        if (shares != null) {
+            this.shares.addAll(shares);
         }
     }
 
     public JsonAdaptedLedgerOperations(LedgerOperation source) {
         date = source.getDate().toString();
         amount = source.getAmount().toString();
+        description = source.getDescription().toString();
         people.addAll(source.getPeopleInvolved().asUnmodifiableObservableList()
             .stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        shares.addAll(source.getShares().orElse(new ArrayList<>()).stream()
+            .map(i -> i.toString()).collect(Collectors.toList()));
     }
 
     /**
@@ -69,7 +84,45 @@ public class JsonAdaptedLedgerOperations {
 
         final Amount modelAmount = new Amount(Double.parseDouble(amount));
 
-        // TODO
-        return new ReceiveMoney(modelDate, modelAmount);
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelDescription = new Description(description);
+
+        if (people == null || people.size() == 0) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                UniquePersonList.class.getSimpleName()));
+        }
+
+        final UniquePersonList peopleInvolved = new UniquePersonList();
+        peopleInvolved.setPersons(people.stream().map(jsonAdaptedPerson -> {
+            try {
+                return jsonAdaptedPerson.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList()));
+
+        if (shares == null || shares.size() == 0) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "shares"));
+        }
+        final List<Integer> modelShares = shares.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+
+        if (!Split.isValidSharesLength(modelShares, peopleInvolved)) {
+            throw new IllegalValueException(Split.SHARE_CONSTRAINTS);
+        }
+
+        if (peopleInvolved.size() == 1) {
+            return modelAmount.isNegative()
+                ? new ReceiveMoney(people.get(0).toModelType(), modelAmount, modelDate, modelDescription)
+                : new LendMoney(people.get(0).toModelType(), modelAmount.makeNegative(), modelDate, modelDescription);
+        } else {
+            return new Split(modelAmount, modelDate, modelDescription, modelShares, peopleInvolved);
+        }
     }
 }

@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Budget;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Sets the budget for the BankAccount.
@@ -44,12 +45,12 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasBudget(budget)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE, budget));
+        if (model.has(budget)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, budget), false, false, Tab.BUDGET);
         } else {
-            model.addOperation(budget);
+            model.add(budget);
             model.commitUserState();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, budget));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, budget), false, false, Tab.BUDGET);
         }
     }
 

@@ -7,39 +7,30 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHARE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.transaction.Split;
+import seedu.address.model.transaction.ReceiveMoney;
 
 /**
  * Splits an amount into smaller different amounts.
  */
-public class SplitCommand extends Command {
+public class ReceiveCommand extends Command {
 
-    public static final String COMMAND_WORD = "split";
-    public static final String MESSAGE_SUCCESS = "Split successful";
+    public static final String COMMAND_WORD = "receive";
+    public static final String MESSAGE_SUCCESS = "Transfer successful";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Splits an expenditure between people and add that transaction to the bank account.\n"
+        + ": Friend pays you some money.\n"
         + "Parameters: "
-        + PREFIX_AMOUNT + "AMOUNT "
-        + "[" + PREFIX_NAME + "NAME]...\n"
+        + PREFIX_AMOUNT + "AMOUNT\n"
+        + PREFIX_NAME + "NAME\n"
         + "[" + PREFIX_SHARE + "SHARE]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_AMOUNT + "600 "
-        + PREFIX_NAME + "John Doe "
-        + PREFIX_NAME + "John Soe "
-        + PREFIX_NAME + "John Moe "
-        + PREFIX_SHARE + "1 "
-        + PREFIX_SHARE + "2 "
-        + PREFIX_SHARE + "3\n"
-        + "If number of shares is one more than number of names listed, "
-        + "first share is taken to be user's share of the expenditure\n";
-    public static final String SHARES_FORMAT = "If number of shares is equal to number of names given,"
-        + "user is assumed to be excluded from the expenditure.\n"
-        + "Else, first share is taken to be the user's share.";
+        + PREFIX_NAME + "John Doe \n";
+
     public static final String MESSAGE_DUPLICATE = "This transaction already exists: %1$s";
 
-    private final Split transaction;
+    private final ReceiveMoney transaction;
 
-    public SplitCommand(Split transaction) {
+    public ReceiveCommand(ReceiveMoney transaction) {
         requireNonNull(transaction);
         this.transaction = transaction;
     }

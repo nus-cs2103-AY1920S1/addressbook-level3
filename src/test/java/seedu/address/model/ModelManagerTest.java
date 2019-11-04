@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.TransactionContainsCategoriesPredicate;
 import seedu.address.testutil.UserStateBuilder;
 
@@ -77,18 +78,18 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
+        assertThrows(NullPointerException.class, () -> modelManager.has((BankAccountOperation) null));
     }
 
     @Test
     public void hasTransaction_transactionNotInBankAccount_returnsFalse() {
-        assertFalse(modelManager.hasTransaction(ALICE));
+        assertFalse(modelManager.has(ALICE));
     }
 
     @Test
     public void hasTransaction_transactionInBankAccount_returnsTrue() {
-        modelManager.addOperation(ALICE);
-        assertTrue(modelManager.hasTransaction(ALICE));
+        modelManager.add(ALICE);
+        assertTrue(modelManager.has(ALICE));
     }
 
     @Test
