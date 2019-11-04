@@ -14,6 +14,7 @@ import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_TRANSACTION_TYPE;
 
 import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.logic.commands.CommandResult;
+import seedu.ichifund.commons.core.Messages;
 import seedu.ichifund.logic.commands.exceptions.CommandException;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.date.Date;
@@ -31,7 +32,7 @@ public class AddRepeaterCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a repeater to IchiFund. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a repeater to IchiFund.\n"
             + "Parameters: "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_AMOUNT + "AMOUNT "
@@ -43,7 +44,10 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_START_YEAR + "START_YEAR "
             + PREFIX_END_MONTH + "END_MONTH "
             + PREFIX_END_YEAR + "END_YEAR "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nConstraints: Repeater end must not occur before repeater start. Repeater start and end can span at "
+            + "most 60 months (5 years).\n"
+            + "Example: "
+            + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "Phone bills "
             + PREFIX_AMOUNT + "42.15 "
             + PREFIX_CATEGORY + "Utilities "
@@ -70,6 +74,14 @@ public class AddRepeaterCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        // Check repeater span.
+        if (toAdd.getEndDate().compareTo(toAdd.getStartDate()) > 0) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
+        if (countMonths(toAdd.getStartDate(), toAdd.getEndDate()) > 60) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REPEATER_SPAN);
+        }
 
         // Get current repeater unique id.
         RepeaterUniqueId repeaterUniqueId = model.getCurrentRepeaterUniqueId();
@@ -149,6 +161,38 @@ public class AddRepeaterCommand extends Command {
                 currentYear++;
             }
         }
+    }
+
+    private static int countMonths(Date startDate, Date endDate) {
+        if (endDate.compareTo(startDate) > 0) {
+            return 0;
+        }
+
+        if (endDate.compareTo(startDate) == 0) {
+            return 1;
+        }
+
+        int startMonth = startDate.getMonth().monthNumber;
+        int startYear = startDate.getYear().yearNumber;
+        int currentMonth = startDate.getMonth().monthNumber;
+        int currentYear = startDate.getYear().yearNumber;
+        int endMonth = endDate.getMonth().monthNumber;
+        int endYear = endDate.getYear().yearNumber;
+
+        int months = 0;
+        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
+            months++;
+            currentMonth++;
+            if (currentMonth == 13) {
+                currentMonth = 1;
+                currentYear++;
+            }
+        }
+
+        System.out.println(String.valueOf(startMonth) + ", " + String.valueOf(startYear) + " - " +
+                String.valueOf(endMonth) + ", " + String.valueOf(endYear) + " = " + String.valueOf(months));
+
+        return months;
     }
 
     @Override
