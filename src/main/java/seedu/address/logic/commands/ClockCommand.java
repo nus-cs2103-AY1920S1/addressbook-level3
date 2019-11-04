@@ -9,6 +9,7 @@ import seedu.address.model.settings.ClockFormat;
  */
 public class ClockCommand extends Command {
     public static final String COMMAND_WORD = "clock";
+    public static final String PREFIX_USAGE = "";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Toggles clock format between 24hr and 12hr."
             + "Parameters: [twenty_four/twelve]\n"

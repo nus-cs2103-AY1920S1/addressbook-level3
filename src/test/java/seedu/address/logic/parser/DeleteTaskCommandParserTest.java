@@ -8,6 +8,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteTaskCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -21,12 +22,12 @@ public class DeleteTaskCommandParserTest {
     private DeleteTaskCommandParser parser = new DeleteTaskCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteTaskCommand() {
+    public void parse_validArgs_returnsDeleteTaskCommand() throws CommandException {
         assertParseSuccess(parser, "delete-task ti/1", new DeleteTaskCommand(INDEX_FIRST_TASK));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
+    public void parse_invalidArgs_throwsParseException() throws CommandException {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE));
     }
 }

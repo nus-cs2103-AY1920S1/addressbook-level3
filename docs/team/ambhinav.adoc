@@ -1,0 +1,75 @@
+= John Doe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: +Work
+
+---
+
+== Overview
+
++Work is a project management tool for NUS students, to track members and
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for users to customise the appearance in +Work*
+** What it does: allows the user to toggle the theme of the app between light and dark. Also, allows the user to toggle the
+deadline display format of the app between 24hr and 12hr.
+** Justification: This feature improves the product significantly as +Work can adapt to their preferences. Furthermore, as +Work scales to `v2.0`, it would be easier for users and developers alike to
+handle the complexity in may bring.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. +
+The implementation was moderately difficult as I was able to adapt the integration of the
+settings component based on the implementation of the existing `UserPrefs` component. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
+in the event more user settings are to be added. I tried to incorporate as much of the OOP principles as possible so as to
+make the feature more robust.
+** Credits: _Adapted the code to do responsive highlighting for the settings page from a course mate.
+{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Added the ability for users to add, edit, remove and set status for tasks.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` and `v1.2.1` (3 releases) on GitHub
+*** Tracked and helped to fix bugs found during developer testing using issues (Issue https://github.com/AY1920S1-CS2103T-T12-1/main/issues/82[#82])
+** Enhancements to existing features:
+*** Created a modular framework in `Ui` to make it easier for teammates to add different user screens for their respective features (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/51[#51])
+*** Added an "Upcoming deadlines" sidebar to help users keep track of tasks that are due soon. (Pull request https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63[#63] )
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-1/main/pull/55[#55]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Tools:
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=task]
+
+include::../UserGuide.adoc[tag=settings]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ui]
+
+include::../DeveloperGuide.adoc[tag=settings]
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

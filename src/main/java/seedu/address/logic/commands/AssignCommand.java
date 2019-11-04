@@ -17,6 +17,7 @@ import seedu.address.model.task.Task;
 
 public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
+    public static final String PREFIX_USAGE = "ti/ mi/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assigns a member, identified by "
             + "by the memberId used in the displayed member list, to a task indicated "

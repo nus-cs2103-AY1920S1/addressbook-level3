@@ -1,23 +1,29 @@
 package seedu.address.ui;
 
-
-import javafx.collections.FXCollections;
-
-import seedu.address.commons.Keywords;
-
 import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
+import seedu.address.logic.Logic;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.mapping.InvMemMapping;
+import seedu.address.model.mapping.InvTasMapping;
+import seedu.address.model.member.Member;
+import seedu.address.model.task.Task;
+import seedu.address.ui.views.MemberListPanel;
+
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import seedu.address.commons.Keywords;
 import seedu.address.logic.Logic;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.task.Task;
-
+import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.IndivMemberCard;
 import seedu.address.ui.views.InventoryListPanel;
 import seedu.address.ui.views.MeetingListPanel;
 import seedu.address.ui.views.MemberListPanel;
-import seedu.address.ui.views.CommandListPanel;
 import seedu.address.ui.views.MemberStatisticsView;
 import seedu.address.ui.views.ProjectDashboardView;
 import seedu.address.ui.views.SettingsView;
@@ -71,7 +77,7 @@ public class UserViewNavigator {
      * @param logic to access task data
      */
     public void loadTaskListView(Logic logic) {
-        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredTaskList(),
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getProjectDashboard().getTaskList(),
                 logic.getProjectDashboard().getMemberList(), logic.getProjectDashboard().getTasMemMappingList());
         userViewController.setUserView(taskListPanel);
     }
@@ -114,7 +120,7 @@ public class UserViewNavigator {
         List<Member> members = logic.getProjectDashboard().getMemberList();
 
         ArrayList<Task> specificTasks = new ArrayList<>();
-        int memIndex = members.indexOf(specificMember);
+        int memIndex = members.indexOf(specificMember) - 1;
 
         for (TasMemMapping mapping : tasMemMappings) {
             if (mapping.hasMember(memIndex)) {
@@ -167,7 +173,19 @@ public class UserViewNavigator {
      * @param logic to access inventory data
      */
     public void loadInventoriesListView(Logic logic) {
-        inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList());
+        //ObservableList<InvMemMapping>invMemMappings = logic.getProjectDashboard().getInvMemMappingList();
+        //ObservableList<InvTasMapping>invTasMappings = logic.getProjectDashboard().getInvTasMappingList();
+        //ArrayList<InvMemMapping>invMemMap = new ArrayList<>(invMemMappings);
+        //ArrayList<InvTasMapping>invTasMap = new ArrayList<>(invTasMappings);
+        //ArrayList<Inventory>inventories = new ArrayList<>(logic.getFilteredInventoryList());
+        //ArrayList<Member>members = new ArrayList<>(logic.getFilteredMemberList());
+        //ArrayList<Task>tasks = new ArrayList<>(logic.getFilteredTaskList());
+        //inventoryListPanel = new InventoryListPanel(inventories, members, tasks, invMemMap, invTasMap);
+        inventoryListPanel = new InventoryListPanel(logic.getFilteredInventoryList(),
+                                                    logic.getFilteredMemberList(),
+                                                    logic.getFilteredTaskList(),
+                                                    logic.getProjectDashboard().getInvMemMappingList(),
+                                                    logic.getProjectDashboard().getInvTasMappingList());
         userViewController.setUserView(inventoryListPanel);
     }
 

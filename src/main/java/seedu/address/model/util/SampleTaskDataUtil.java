@@ -57,32 +57,34 @@ public class SampleTaskDataUtil {
             new Inventory(new InvName("Bench"), new Price(59.90)),
             new Inventory(new InvName("Chairs")),
             new Inventory(new InvName("Bag"), new Price(50.0)),
-            new Inventory(new InvName("Condoms"), new Price(17.90)),
+            new Inventory(new InvName("Canola Oil"), new Price(17.90)),
             new Inventory(new InvName("Laptop"), new Price(1111.11)),
         };
     }
 
+
     public static InvMemMapping[] getSampleInvMemMapping() {
         return new InvMemMapping[] {
-                new InvMemMapping(1, 1),
-                new InvMemMapping(1, 2),
-                new InvMemMapping(2, 3),
-                new InvMemMapping(3, 4),
-                new InvMemMapping(4, 5),
-                new InvMemMapping(5, 6),
+                new InvMemMapping(2,0),
+                new InvMemMapping(2,1),
+                new InvMemMapping(0,2),
+                new InvMemMapping(1,3),
+                new InvMemMapping(2,4),
+                new InvMemMapping(0,5),
         };
     }
 
     public static InvTasMapping[] getSampleInvTasMapping() {
-        return new InvTasMapping[] {
-                new InvTasMapping(1, 1),
-                new InvTasMapping(2, 2),
-                new InvTasMapping(3, 3),
-                new InvTasMapping(3, 4),
-                new InvTasMapping(5, 5),
-                new InvTasMapping(6, 6),
+        return new InvTasMapping[]{
+                new InvTasMapping(5, 0),
+                new InvTasMapping(2, 1),
+                new InvTasMapping(5, 2),
+                new InvTasMapping(5, 3),
+                new InvTasMapping(2, 4),
+                new InvTasMapping(4, 5),
         };
     }
+
 
     public static TasMemMapping[] getSampleTasMemMapping() {
         return new TasMemMapping[] {
@@ -91,7 +93,7 @@ public class SampleTaskDataUtil {
                 new TasMemMapping(2, 1),
                 new TasMemMapping(3, 4),
                 new TasMemMapping(4, 3),
-                new TasMemMapping(6, 6),
+                new TasMemMapping(5, 5),
         };
     }
 
@@ -115,8 +117,8 @@ public class SampleTaskDataUtil {
             samplePd.addMapping(sampleInvTas);
         }
 
-        for (TasMemMapping samepleTasMem : getSampleTasMemMapping()) {
-            samplePd.addMapping(samepleTasMem);
+        for (TasMemMapping sampleTasMem : getSampleTasMemMapping()) {
+            samplePd.addMapping(sampleTasMem);
         }
 
         return samplePd;
