@@ -356,6 +356,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             case DUTY_SHIFT_TAB:
                 executeCommand(DutyShiftCommand.COMMAND_WORD);
                 break;
+            default:
             }
             requiresReset = false;
         }
