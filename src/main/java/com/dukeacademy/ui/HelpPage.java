@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
  * as it lists out and describes all the commands available in Duke Academy.
  */
 public class HelpPage extends UiPart<Region> {
-    private static final String FXML = "HelpPage.fxml";
+    private static final String FXML = "Help.fxml";
 
     public HelpPage() {
         super(FXML);

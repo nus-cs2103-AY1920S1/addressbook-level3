@@ -52,7 +52,7 @@ public class HelpCommand implements Command {
             logger.info("No question attempt found. Skipping program save.");
         }
 
-        applicationState.setCurrentActivity(Activity.HOME);
+        applicationState.setCurrentActivity(Activity.HELP);
 
         return new CommandResult("We are here to help!", false,
                 false);

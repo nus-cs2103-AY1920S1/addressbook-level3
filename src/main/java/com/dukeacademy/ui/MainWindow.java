@@ -13,13 +13,8 @@ import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -185,6 +180,10 @@ class MainWindow extends UiPart<Stage> {
 
         if (activity == Activity.WORKSPACE) {
             this.tabPane.getSelectionModel().select(2);
+        }
+
+        if (activity == Activity.HELP) {
+            this.tabPane.getSelectionModel().select(3);
         }
     }
 }
