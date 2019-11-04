@@ -33,6 +33,10 @@ public class RepeaterCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label category;
+    @FXML
+    private Label span;
+    @FXML
+    private Label offsets;
 
 
     public RepeaterCard(Repeater repeater, int displayedIndex) {
@@ -42,11 +46,30 @@ public class RepeaterCard extends UiPart<Region> {
         description.setText(repeater.getDescription().toString());
         amount.setText("$" + repeater.getAmount().toString());
         category.setText(repeater.getCategory().toString().toUpperCase());
+
         if (repeater.isExpenditure()) {
             amount.setTextFill(Paint.valueOf("#ef5350"));
         } else {
             amount.setTextFill(Paint.valueOf("#4caf50"));
         }
+
+        span.setText(String.format("%s %s - %s %s",
+                    repeater.getStartDate().getMonth().wordString(),
+                    repeater.getStartDate().getYear().toString(),
+                    repeater.getEndDate().getMonth().wordString(),
+                    repeater.getEndDate().getYear().toString()));
+
+        String offsetsString = "";
+        if (!repeater.getMonthStartOffset().isIgnored()) {
+            offsetsString += "Month start offset: " + repeater.getMonthStartOffset().toString();
+        }
+        if (!repeater.getMonthEndOffset().isIgnored()) {
+            if (offsetsString.equals("")) {
+                offsetsString += ",";
+            }
+            offsetsString += ", Month end offset: " + repeater.getMonthEndOffset().toString();
+        }
+        offsets.setText(offsetsString);
     }
 
     @Override
