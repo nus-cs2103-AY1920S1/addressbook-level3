@@ -15,6 +15,7 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -45,6 +46,8 @@ public class AddOrderCommand extends Command {
     private static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
     private static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
     private static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
+    private static String[] prefixesList = {PREFIX_CUSTOMER.getPrefix(), PREFIX_RESTAURANT.getPrefix(),
+            PREFIX_FOOD.getPrefix(), PREFIX_QUANTITY.getPrefix()};
 
     private final Order toAdd;
 
@@ -62,15 +65,9 @@ public class AddOrderCommand extends Command {
 
         // Assigning deliveryman
         try {
-            if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
-                deliverymanToAdd = model.getOneAvailableDeliveryman();
-            }
-            if (deliverymanToAdd == null) {
-                System.out.println(toAdd.getDeliveryman());
-                deliverymanToAdd = toAdd.getDeliveryman();
-            }
-        } catch (NullPointerException e) {
-            deliverymanToAdd = new Name("Unassigned");
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+        } catch (NoMoreAvailableDeliverymanException npe) {
+            deliverymanToAdd = toAdd.getDeliveryman();
         }
 
         // Instantiating the order
@@ -87,7 +84,7 @@ public class AddOrderCommand extends Command {
     }
 
     /**
-     * Tofill.
+     * Checks if an order is valid.
      */
     static void isValidOrder(Order toAdd, Model model) throws CommandException {
         Customer customerToAdd = null;
@@ -129,6 +126,12 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
+
+        customerToAdd.addOrder(toAdd, restaurantToAdd.getTags());
+    }
+
+    public static String[] getPrefixesList() {
+        return prefixesList;
     }
 
     @Override

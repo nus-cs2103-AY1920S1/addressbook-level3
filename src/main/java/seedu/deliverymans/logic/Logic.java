@@ -1,6 +1,7 @@
 package seedu.deliverymans.logic;
 
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
 import seedu.deliverymans.commons.core.GuiSettings;
@@ -15,7 +16,6 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 
@@ -25,14 +25,19 @@ import seedu.deliverymans.model.restaurant.Restaurant;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    //=========== Autocomplete =========================================================
+    LinkedList<String> getAutoCompleteResults(String input);
+
     //=========== Customer =============================================================
+
     /**
      * Returns the CustomerDatabase.
      *
@@ -40,16 +45,20 @@ public interface Logic {
      */
     ReadOnlyCustomerDatabase getCustomerDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of customers */
+    /**
+     * Returns an unmodifiable view of the filtered list of customers
+     */
     ObservableList<Customer> getFilteredCustomerList();
 
     Customer getCustomerOrders();
+
     /**
      * Returns the user prefs' customer database file path.
      */
     Path getCustomerDatabaseFilePath();
 
     //=========== Deliveryman =============================================================
+
     /**
      * Returns the DeliverymenDatabase.
      *
@@ -57,11 +66,10 @@ public interface Logic {
      */
     ReadOnlyDeliverymenDatabase getDeliverymenDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of deliverymen */
+    /**
+     * Returns an unmodifiable view of the filtered list of deliverymen
+     */
     ObservableList<Deliveryman> getFilteredDeliverymenList();
-
-    /** Returns a list of deliverymen filtered by a given status*/
-    ObservableList<Deliveryman> getFilteredStatusList();
 
     /**
      * Returns the user prefs' deliverymen database file path.
@@ -74,9 +82,8 @@ public interface Logic {
 
     ObservableList<Deliveryman> getDeliveringDeliverymenList();
 
-    DeliveryRecord getDeliverymanRecordPlaceholder();
-
     //=========== Restaurant =============================================================
+
     /**
      * Returns the RestaurantDatabase.
      *
@@ -84,10 +91,14 @@ public interface Logic {
      */
     ReadOnlyRestaurantDatabase getRestaurantDatabase();
 
-    /** Returns an unmodifiable view of the filtered list of restaurants */
+    /**
+     * Returns an unmodifiable view of the filtered list of restaurants
+     */
     ObservableList<Restaurant> getFilteredRestaurantList();
 
-    /** Returns an unmodifiable view of the editing restaurant */
+    /**
+     * Returns an unmodifiable view of the editing restaurant
+     */
     ObservableList<Restaurant> getEditingRestaurantList();
 
     /**
@@ -96,6 +107,7 @@ public interface Logic {
     Path getRestaurantDatabaseFilePath();
 
     //=========== Order =============================================================
+
     /**
      * Returns the AddressBook.
      *
@@ -103,7 +115,9 @@ public interface Logic {
      */
     ReadOnlyOrderBook getOrderBook();
 
-    /** Returns an unmodifiable view of the filtered list of orders */
+    /**
+     * Returns an unmodifiable view of the filtered list of orders
+     */
     ObservableList<Order> getFilteredOrderList();
 
     /**

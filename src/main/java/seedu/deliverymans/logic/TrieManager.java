@@ -1,7 +1,8 @@
-package seedu.deliverymans.model.trie;
+package seedu.deliverymans.logic;
 
 import java.util.LinkedList;
 
+import seedu.deliverymans.logic.Trie;
 import seedu.deliverymans.logic.commands.customer.CustomerAddCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerDeleteCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerEditCommand;
@@ -12,7 +13,6 @@ import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAddCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanDeleteCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEditCommand;
-import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEnterRecordCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanGetStatisticsCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanListStatusCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanStatusSwitchCommand;
@@ -41,13 +41,13 @@ import seedu.deliverymans.logic.parser.universal.Context;
 /**
  * TO fill
  */
-public class TrieManager {
+class TrieManager {
     private final Trie universalTrie;
     private final Trie customerTrie;
     private final Trie deliverymanTrie;
     private final Trie restaurantTrie;
 
-    public TrieManager() {
+    TrieManager() {
         universalTrie = new Trie();
         customerTrie = new Trie();
         deliverymanTrie = new Trie();
@@ -78,7 +78,6 @@ public class TrieManager {
         deliverymanTrie.insertCommand(DeliverymanAssignCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanDeleteCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanEditCommand.COMMAND_WORD);
-        deliverymanTrie.insertCommand(DeliverymanEnterRecordCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanGetStatisticsCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanListStatusCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanStatusSwitchCommand.COMMAND_WORD);
@@ -102,10 +101,10 @@ public class TrieManager {
      * TO fill
      */
     private void addUniversalCommands() {
-        insertCommandToAllTries(AddOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(AddOrderCommand.COMMAND_WORD, AddOrderCommand.getPrefixesList());
         insertCommandToAllTries(CompleteOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(DeleteOrderCommand.COMMAND_WORD);
-        insertCommandToAllTries(EditOrderCommand.COMMAND_WORD);
+        insertCommandToAllTries(EditOrderCommand.COMMAND_WORD, EditOrderCommand.getPrefixesList());
         insertCommandToAllTries(ExitCommand.COMMAND_WORD);
         insertCommandToAllTries(HelpCommand.COMMAND_WORD);
         insertCommandToAllTries(ListOrderCommand.COMMAND_WORD);
@@ -127,19 +126,26 @@ public class TrieManager {
         restaurantTrie.insertCommand(command);
     }
 
+    private void insertCommandToAllTries(String command, String[] prefixes) {
+        universalTrie.insertCommand(command, prefixes);
+        customerTrie.insertCommand(command, prefixes);
+        deliverymanTrie.insertCommand(command, prefixes);
+        restaurantTrie.insertCommand(command, prefixes);
+    }
+
     /**
      * TO fill
      */
-    public LinkedList<String> getAutoCompleteResults(String input, Context context) {
+    LinkedList<String> getAutoCompleteResults(String input, Context context) {
         switch (context) {
-        case CUSTOMER:
-            return customerTrie.autoComplete(input);
-        case DELIVERYMEN:
-            return deliverymanTrie.autoComplete(input);
-        case RESTAURANT:
-            return restaurantTrie.autoComplete(input);
-        default:
-            return universalTrie.autoComplete(input);
+            case CUSTOMER:
+                return customerTrie.autoComplete(input);
+            case DELIVERYMEN:
+                return deliverymanTrie.autoComplete(input);
+            case RESTAURANT:
+                return restaurantTrie.autoComplete(input);
+            default:
+                return universalTrie.autoComplete(input);
         }
     }
 }

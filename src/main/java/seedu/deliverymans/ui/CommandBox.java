@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import seedu.deliverymans.logic.Logic;
 import seedu.deliverymans.logic.commands.CommandResult;
 import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
-import seedu.deliverymans.model.trie.TrieManager;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -19,17 +19,16 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private final TrieManager trieManager;
-
+    private final Logic logic;
     @FXML
     private AutocompletionTextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        this.trieManager = new TrieManager();
+        this.logic = logic;
         // this.commandTextFieldfield = new AutocompletionTextField();
     }
 
@@ -52,10 +51,8 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleKeyPressed() {
         String enteredText = commandTextField.getText();
-        if (enteredText == null || enteredText.isEmpty()) {
-        } else {
-            LinkedList<String> temp = trieManager.getAutoCompleteResults(enteredText,
-                    MainWindow.getContext());
+        if (enteredText != null && !enteredText.isEmpty()) {
+            LinkedList<String> temp = logic.getAutoCompleteResults(enteredText);
             if (!temp.isEmpty()) {
                 for (String s : temp) {
                     System.out.println(s);

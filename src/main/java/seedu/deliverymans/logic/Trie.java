@@ -1,4 +1,4 @@
-package seedu.deliverymans.model.trie;
+package seedu.deliverymans.logic;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Map;
  */
 class Trie {
     private final HashMap<Character, Trie> children;
-    private final LinkedList<String> contentList  = new LinkedList<>();
+    private final LinkedList<String> contentList = new LinkedList<>();
 
     private boolean containsCommandWord;
 
@@ -18,14 +18,18 @@ class Trie {
         children = new HashMap<>();
     }
 
-    void insertCommand(String key, LinkedList<String> prefixes) {
+    void insertCommand(String key, String... prefixes) {
         insertCommand(key, key, prefixes);
+    }
+
+    void insertCommand(String key) {
+        insertCommand(key, key, new String[0]);
     }
 
     /**
      * Inserts a {@code String} into the Trie.
      */
-    private void insertCommand(String key, String command, LinkedList<String> prefixes) {
+    private void insertCommand(String key, String command, String... prefixes) {
         if (key.length() == 1) {
             char c = key.charAt(0);
             if (!children.containsKey(c)) {
@@ -46,7 +50,7 @@ class Trie {
         }
     }
 
-    private void insertPrefixes(LinkedList<String> prefixes) {
+    private void insertPrefixes(String... prefixes) {
         for (String prefix : prefixes) {
             insertPrefix(prefix);
         }
@@ -92,7 +96,7 @@ class Trie {
     /**
      * Tofill.
      */
-    public LinkedList<String> autoComplete(String prefixSuffix) {
+    LinkedList<String> autoComplete(String prefixSuffix) {
         Trie result = search(prefixSuffix);
         if (result == null) {
             return new LinkedList<>();
@@ -104,7 +108,6 @@ class Trie {
      * Tofill
      */
     private LinkedList<String> allPrefixes() {
-        LinkedList<String> contentList = new LinkedList<>();
         HashSet<String> uniqueList = new HashSet<>();
         if (containsCommandWord) {
             uniqueList.addAll(this.contentList);
@@ -114,7 +117,7 @@ class Trie {
             LinkedList<String> childPrefixes = child.allPrefixes();
             uniqueList.addAll(childPrefixes);
         }
-        contentList.addAll(uniqueList);
+        LinkedList<String> contentList = new LinkedList<>(uniqueList);
         contentList.sort(String::compareToIgnoreCase);
         return contentList;
     }

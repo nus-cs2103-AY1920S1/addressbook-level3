@@ -92,9 +92,7 @@ public class CustomerEditCommand extends Command {
 
         Name updatedName = editCustomerDescriptor.getName().orElse(customerToEdit.getName());
         Phone updatedPhone = editCustomerDescriptor.getPhone().orElse(customerToEdit.getPhone());
-        Set<Tag> updatedTags = editCustomerDescriptor.getTags().orElse(customerToEdit.getTags());
-
-        return new Customer(updatedName, updatedPhone, updatedTags);
+        return new Customer(updatedName, updatedPhone);
     }
 
     @Override

@@ -2,6 +2,7 @@ package seedu.deliverymans.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -20,7 +21,6 @@ import seedu.deliverymans.model.database.ReadOnlyDeliverymenDatabase;
 import seedu.deliverymans.model.database.ReadOnlyOrderBook;
 import seedu.deliverymans.model.database.ReadOnlyRestaurantDatabase;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
-import seedu.deliverymans.model.deliveryman.deliverymanstatistics.DeliveryRecord;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
 import seedu.deliverymans.storage.Storage;
@@ -37,11 +37,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final TrieManager trieManager;
     private final UniversalParser universalParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        this.trieManager = new TrieManager();
         universalParser = new UniversalParser();
     }
 
@@ -64,6 +66,12 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    //=========== Autocomplete =========================================================
+    @Override
+    public LinkedList<String> getAutoCompleteResults(String input) {
+        return trieManager.getAutoCompleteResults(input, currentContext);
     }
 
     //=========== Customer =============================================================
@@ -104,11 +112,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Deliveryman> getFilteredStatusList() {
-        return model.getStatusSortedList();
-    }
-
-    @Override
     public ObservableList<Deliveryman> getAvailableDeliverymenList() {
         return model.getAvailableMenList();
     }
@@ -121,11 +124,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Deliveryman> getDeliveringDeliverymenList() {
         return model.getDeliveringMenList();
-    }
-
-    @Override
-    public DeliveryRecord getDeliverymanRecordPlaceholder() {
-        return model.getDeliverymanRecordPlaceholder();
     }
 
     //=========== Restaurant =============================================================
