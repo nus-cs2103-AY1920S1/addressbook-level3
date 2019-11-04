@@ -23,16 +23,34 @@ public class WordContainsKeywordsPredicate implements Predicate<Card> {
         return wordTest(card) || meaningTest(card) || tagTest(card); // Short circuits early
     }
 
+    /**
+     * Checks if the word contains the key word.
+     *
+     * @param card to be tested.
+     * @return true or false.
+     */
     private boolean wordTest(Card card) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsSubWordIgnoreCase(card.getWord().getValue(), keyword));
     }
 
+    /**
+     * Checks if the meaning contains the key word.
+     *
+     * @param card to be tested.
+     * @return true or false.
+     */
     private boolean meaningTest(Card card) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsSubWordIgnoreCase(card.getMeaning().getValue(), keyword));
     }
 
+    /**
+     * Checks if the tag contains the key word.
+     *
+     * @param card to be tested.
+     * @return true or false.
+     */
     private boolean tagTest(Card card) {
         List<String> tagStringsToTest = new ArrayList<>();
 

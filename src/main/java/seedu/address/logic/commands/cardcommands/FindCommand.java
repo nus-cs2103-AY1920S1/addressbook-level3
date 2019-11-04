@@ -15,7 +15,8 @@ public class FindCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all cards whose words/meanings/tags contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds all cards whose words/meanings/tags contain any of "
             + "the specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + "fire flying";
