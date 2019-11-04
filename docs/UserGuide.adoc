@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F14-2/main
 
 By: `Team CS2103-F14-2`      Since: `Sept 2019`      Licence: `MIT`
 
@@ -150,7 +150,7 @@ Examples:
 ==== Listing all tasks : `list_task`
 
 List all tasks. +
-Format: `list_tasks`
+Format: `list_task`
 
 
 ==== Setting Reminder Details  : `addReminder`
@@ -467,7 +467,7 @@ _{explain how the user can enable/disable data encryption}_
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
 `find_task_by_date DATE ...` +
-`list_tasks`
+`list_task`
 * *Reminder* : `reminder INDEX STATUS`
 * *Earnings* : +
 `add_earnings d/DATE c/CLASSID amt/AMOUNT` +
