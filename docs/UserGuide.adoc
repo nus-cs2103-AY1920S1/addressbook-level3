@@ -659,8 +659,8 @@ e.g. `fill 1 c/98984932 d/This is a sample description for incident 1 in distric
 2. `submit` [INDEX] (to submit specified incident report) +
 e.g. `submit 4`
 * *List Incidents* : `list-i`
-* *Find Incidents* : `find-i [op/KEYWORD] [desc/KEYWORD] [id/KEYWORD]` +
-e.g. `find-i op/alex`
+* *Find Incidents* : `find-i [op/KEYWORD(s)] [desc/KEYWORD(s)] [id/KEYWORD] [self]` +
+e.g. `find-i op/alex yeoh desc/6 self`
 * *List Vehicles* : `list-v`
 * *Find Vehicles* : `find-v [ds/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
 e.g. `find-v ds/1 2 3`
