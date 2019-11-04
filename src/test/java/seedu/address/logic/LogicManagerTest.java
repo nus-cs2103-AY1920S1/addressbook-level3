@@ -70,10 +70,10 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         /** SHA-256 hash of "invalid bank. */
-        String invalidBank = "B0C7AE034AB804B9EB28E787D4CB76761FAE47377CE81062647F2084F7EB2D79";
+        String invalidBankName = "B0C7AE034AB804B9EB28E787D4CB76761FAE47377CE81062647F2084F7EB2D79";
 
         String bankCommand =
-                "select " + invalidBank;
+                "select " + invalidBankName;
 
         // Attempting to load a non-existent bank.
         assertCommandException(bankCommand, MESSAGE_INVALID_WORD_BANK_NAME);

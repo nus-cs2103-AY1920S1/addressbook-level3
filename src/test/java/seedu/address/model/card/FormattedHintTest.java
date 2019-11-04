@@ -83,7 +83,7 @@ class FormattedHintTest {
 
     @Test
     void testToString_hintsNotUpdated_success() {
-        int testSize = 256;
+        int testSize = 145;
         FormattedHint fHint = new FormattedHint(testSize);
 
         StringBuilder sb = new StringBuilder(testSize);
