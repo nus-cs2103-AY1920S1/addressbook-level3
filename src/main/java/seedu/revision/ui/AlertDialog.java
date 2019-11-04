@@ -17,7 +17,7 @@ public class AlertDialog {
 
     /**
      * Private initializer to prevent external parties from accessing the constructor. Initialises with default
-     * stylesheet and buttons.
+     * stylesheet and buttons. Defensive programming.
      */
     private AlertDialog() {
         alert = new Alert(Alert.AlertType.CONFIRMATION);

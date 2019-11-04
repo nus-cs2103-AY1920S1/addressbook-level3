@@ -21,6 +21,7 @@ import seedu.revision.model.answerable.predicates.CategoryPredicate;
 import seedu.revision.model.answerable.predicates.DifficultyPredicate;
 import seedu.revision.model.category.Category;
 import seedu.revision.model.quiz.ArcadeMode;
+import seedu.revision.model.quiz.CustomMode;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.quiz.NormalMode;
 
@@ -93,13 +94,13 @@ public class StartQuizCommandParser implements Parser<StartQuizCommand> {
                 combinedPredicate = combinedPredicate.and(difficultyPredicate);
             }
 
-            mode = mode.withCombinedPredicate(combinedPredicate);
+            mode = ((CustomMode) mode).withCombinedPredicate(combinedPredicate);
 
             if (optionalTimerPrefixIsPresent) {
                 time = ParserUtil.parseTimer(argMultimap.getValue(PREFIX_TIMER).get());
-                mode = mode.withTime(time);
+                mode = ((CustomMode) mode).withTime(time);
             }
-            mode = mode.build();
+            mode = ((CustomMode) mode).build();
             return new StartQuizCommand(mode);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StartQuizCommand.MESSAGE_USAGE));

@@ -1,7 +1,5 @@
 package seedu.revision.ui;
 
-import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
-
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -9,11 +7,7 @@ import java.util.logging.Logger;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
