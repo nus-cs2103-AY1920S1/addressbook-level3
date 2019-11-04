@@ -50,11 +50,11 @@
 .Agenda .weekend {
 	-fx-background-color: #eeeeee90;
 }
-*/
+
 
 .Agenda .today {
 }
-
+*/
 .Agenda .Appointment {
 	-fx-border-color: WHITE;
 	-fx-border-width: 1px;
@@ -133,17 +133,21 @@
     -fx-stroke-dash-array: 4 4 4 4;
 }
 
+/*
 .Agenda .Selected {
 	-xfx-color: -fx-focused-base;
 	-fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
 	-fx-background-insets: -1.4, 0, 1, 2;
 	-fx-background-radius: 6.4, 5, 4, 3;
 }
+*/
+
 
 .Agenda .Now {
 	-fx-fill: #FF000088;
 	-fx-stroke: WHITE;
 }
+
 .Agenda .History {
 	-fx-stroke: transparent;
 	-fx-fill: #FFFFFF70;

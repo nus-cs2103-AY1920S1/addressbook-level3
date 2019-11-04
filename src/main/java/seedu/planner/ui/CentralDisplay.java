@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -64,9 +63,19 @@ import seedu.planner.model.tag.Tag;
 public class CentralDisplay extends UiPart<Region> {
 
     private static final String FXML = "CentralDisplay.fxml";
+    private static final int CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY = 220;
+    private static final int MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP = 3;
 
     private final Agenda agenda;
 
+    private SimpleObjectProperty<LocalDate> startDateProperty;
+    private SimpleObjectProperty<Name> nameProperty;
+    private ObservableList<Day> dayList;
+    private HashMap<Integer, Agenda.AppointmentGroup> appointmentGroupHashMap;
+
+    /* To ensure that continuous editing of activity do not make activityToAppointmentGroupHashMap use too much memory*/
+
+    private HashMap<Activity, Agenda.AppointmentGroup> activityToAppointmentGroupHashMap;
     @FXML
     private Accordion sideDisplay;
     @FXML
@@ -88,11 +97,6 @@ public class CentralDisplay extends UiPart<Region> {
     @FXML
     private ListView<Node> helpList;
 
-    private SimpleObjectProperty<LocalDate> startDateProperty;
-    private SimpleObjectProperty<Name> nameProperty;
-    private ObservableList<Day> dayList;
-    private HashMap<Integer, Agenda.AppointmentGroup> appointmentGroupHashMap;
-
     public CentralDisplay(ObservableList<Day> dayList, ObservableList<Accommodation> accommodationList,
                           ObservableList<Activity> activityList, ObservableList<Contact> contactList,
                           SimpleObjectProperty<LocalDate> startDateProperty,
@@ -101,6 +105,7 @@ public class CentralDisplay extends UiPart<Region> {
         this.startDateProperty = startDateProperty;
         this.dayList = dayList;
         this.nameProperty = nameProperty;
+        this.activityToAppointmentGroupHashMap = new HashMap<>();
 
         // initialising agenda
         this.agenda = new Agenda() {
@@ -109,6 +114,7 @@ public class CentralDisplay extends UiPart<Region> {
                 return Agenda.class.getResource("/view/" + Agenda.class.getSimpleName() + ".css")
                         .toExternalForm();
             }
+
             @Override
             public Skin<?> createDefaultSkin() {
                 return new AgendaWeekSkin(this) {
@@ -202,13 +208,13 @@ public class CentralDisplay extends UiPart<Region> {
         nameProperty.addListener((observable, oldValue, newValue) -> {
             agendaTab.setText(newValue.toString() + " Itinerary");
         });
-        agendaTab.setOnSelectionChanged((event)-> {
+        agendaTab.setOnSelectionChanged((event) -> {
             if (agendaTab.isSelected()) {
                 updateAgenda(agenda, dayList);
                 updateSkin(agenda);
             }
         });
-        helpTab.setOnSelectionChanged((event)-> {
+        helpTab.setOnSelectionChanged((event) -> {
             if (helpTab.isSelected()) {
                 generateCommandHelpSummary();
             }
@@ -346,41 +352,50 @@ public class CentralDisplay extends UiPart<Region> {
 
     /**
      * Updates the agenda with activities in every day of {@code dayList}.
-     * @param agenda the agenda that is updated
+     *
+     * @param agenda  the agenda that is updated
      * @param dayList the latest dayList from model
      */
     private void updateAgenda(Agenda agenda, ObservableList<Day> dayList) {
         agenda.appointments().clear();
         for (Day day : dayList) {
-            addAppointmentsWithDay(agenda, day);
+            addAppointmentsWithDay(agenda, day, dayList.size());
+        }
+        if (activityToAppointmentGroupHashMap.size()
+                > dayList.size() * MAX_MULTIPLE_OF_DAYLIST_SIZE_BEFORE_CLEARING_HASHMAP) {
+            activityToAppointmentGroupHashMap = new HashMap<>();
         }
     }
 
     /**
      * Adds all activities in a day to the agenda.
+     *
      * @param agenda the agenda to add to
-     * @param day the day to search for activities
+     * @param day    the day to search for activities
      */
-    private void addAppointmentsWithDay(Agenda agenda, Day day) {
+    private void addAppointmentsWithDay(Agenda agenda, Day day, int numOfDays) {
         Random random = new Random();
         for (ActivityWithTime activityWithTime : day.getListOfActivityWithTime()) {
-            Optional<Agenda.AppointmentGroup> optionalGroup = activityWithTime.getAppointmentGroup();
-            Agenda.AppointmentGroup currGroup;
-            if (optionalGroup.isPresent()) {
-                currGroup = optionalGroup.get();
-            } else {
-                currGroup = generateRandomGroup(random);
-                activityWithTime.setAppointmentGroup(currGroup);
-            }
+            Agenda.AppointmentGroup currGroup = getAppointmentGroupOfActivity(activityWithTime.getActivity(), random);
             String textToDisplay = createSummaryOfAppointment(activityWithTime.getActivity(),
-                    activityWithTime.getActivity().getDuration());
+                    activityWithTime.getActivity().getDuration(), numOfDays);
             agenda.appointments().add(
-                new Agenda.AppointmentImplLocal()
-                    .withStartLocalDateTime(activityWithTime.getStartDateTime())
-                    .withEndLocalDateTime(activityWithTime.getEndDateTime())
-                    .withSummary(textToDisplay)
-                    .withAppointmentGroup(currGroup)
+                    new Agenda.AppointmentImplLocal()
+                            .withStartLocalDateTime(activityWithTime.getStartDateTime())
+                            .withEndLocalDateTime(activityWithTime.getEndDateTime())
+                            .withSummary(textToDisplay)
+                            .withAppointmentGroup(currGroup)
             );
+        }
+    }
+
+    private Agenda.AppointmentGroup getAppointmentGroupOfActivity(Activity activity, Random random) {
+        if (activityToAppointmentGroupHashMap.get(activity) == null) {
+            Agenda.AppointmentGroup randomAppointmentGroup = generateRandomGroup(random);
+            activityToAppointmentGroupHashMap.put(activity, randomAppointmentGroup);
+            return randomAppointmentGroup;
+        } else {
+            return activityToAppointmentGroupHashMap.get(activity);
         }
     }
 
@@ -395,20 +410,35 @@ public class CentralDisplay extends UiPart<Region> {
     /**
      * Returns a string with the name and tags of the {@code activity}.
      */
-    private String createSummaryOfAppointment(Activity activity, Duration duration) {
-        StringBuilder textToDisplay = new StringBuilder("\n" + activity.getName().toString());
+    private String createSummaryOfAppointment(Activity activity, Duration duration, int numOfDays) {
+        StringBuilder textToDisplay = new StringBuilder("\n");
+        int charLimit = CHAR_LIMIT_BEFORE_TRUNCATING_SUMMARY / numOfDays;
+        String nameToDisplay = activity.getName().toString();
+        if (nameToDisplay.length() > charLimit) {
+            textToDisplay.append(nameToDisplay.substring(0, charLimit + 1));
+            textToDisplay.append("...");
+        } else {
+            textToDisplay.append(nameToDisplay);
+        }
+        textToDisplay.append('\n');
 
-        if (duration.value >= 60) {
+        StringBuilder tagsToDisplay = new StringBuilder("Tags: ");
+        if (duration.value >= 120) {
             boolean isFirst = true;
             for (Tag tag : activity.getTags()) {
                 if (isFirst) {
                     isFirst = false;
-                    textToDisplay.append("\nTags: ")
-                            .append(tag.toString());
+                    tagsToDisplay.append(tag.toString());
                 } else {
-                    textToDisplay.append(", ")
+                    tagsToDisplay.append(", ")
                             .append(tag.toString());
                 }
+            }
+            if (tagsToDisplay.length() > charLimit) {
+                textToDisplay.append(tagsToDisplay.substring(0, charLimit + 1));
+                textToDisplay.append("...");
+            } else {
+                textToDisplay.append(tagsToDisplay);
             }
         }
         return textToDisplay.toString();
