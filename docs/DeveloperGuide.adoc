@@ -219,11 +219,11 @@ when record list changes.
 Choice 1 is chosen because cons of alternative 1 can be solved easily by converting `ObservableMap`
 into a `TreeMap` at places that need ordered keys.
 
-===== Aspect: How to display average graph.
+===== Aspect: How to display average graph to user.
 
 The dilemma arises because user, especially recently diagnosed Type II diabetics,
 do not know the normal range of BMI and blood sugar level. An intuitive and aesthetically
-pleasing method suitable method is needed to convey this information to user.
+pleasing method is needed to convey this information to user.
 
 * **Alternative 1:** Use JavaFx `LineChart` to display the average graph and display the ranges below
 the graph using JavaFx `Label`.
