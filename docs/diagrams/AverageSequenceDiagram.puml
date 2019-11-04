@@ -30,8 +30,12 @@ deactivate SugarMummyParser
 LogicManager -> AverageCommand : execute(model)
 activate AverageCommand
 
-AverageCommand -> Model : calculateAverageMap(DAILY,\n BLOODSUGAR, 4)
+AverageCommand -> Model : updateFilteredRecordList(\n new RecordContainsRecordTypePredicate(BLOODSUGAR))
 activate Model
+
+Model --> AverageCommand
+
+AverageCommand -> Model : calculateAverageMap(DAILY, BLOODSUGAR, 4)
 
 Model -> AverageMap : calculateAverage(getFilterRecordList(),\n DAILY, BLOODSUGAR, 4)
 activate AverageMap
