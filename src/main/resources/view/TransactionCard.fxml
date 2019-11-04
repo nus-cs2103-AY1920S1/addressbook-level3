@@ -3,19 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+    <GridPane HBox.hgrow="always" maxWidth="1000">
         <columnConstraints>
-            <ColumnConstraints percentWidth="5"/>
+            <ColumnConstraints percentWidth="20"/>
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="80" />
+            <ColumnConstraints percentWidth="40" />
         </columnConstraints>
         <columnConstraints>
-            <ColumnConstraints percentWidth="15"/>
+            <ColumnConstraints percentWidth="40"/>
         </columnConstraints>
         <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="0">
             <padding>
@@ -30,14 +31,13 @@
             <Label fx:id="amount" text="\$amount" styleClass="cell_big_label" />
             <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
             <Label fx:id="direction" styleClass="cell_small_label" text="\$direction" />
-            <Label fx:id="categories" styleClass="cell_small_label" text="\$categories" />
-            <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
+            <FlowPane fx:id = "categories" />
         </VBox>
         <VBox alignment="CENTER" minHeight="105" GridPane.columnIndex="2">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <Label fx:id="status" styleClass="cell_big_label"/>
+            <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
         </VBox>
     </GridPane>
 </HBox>

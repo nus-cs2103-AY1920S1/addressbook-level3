@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.accountcommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_SINGLE_ID;
 
@@ -14,6 +15,7 @@ import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.account.exceptions.EmptyAccountListException;
 
 /**
  * Delete one or more loans.
@@ -49,11 +51,11 @@ public class AccountDeleteCommand extends Command {
         }
 
         Account accountToDelete = lastShownList.get(targetIndex.getZeroBased());
-        if (model.getAccountsManager().getAccounts().size() <= 1) {
-            //there is only one active account left, which should not be deleted.
-            throw new CommandException(Messages.MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL);
+        try {
+            accountsManager.deleteAccount(targetIndex);
+        } catch (EmptyAccountListException e) {
+            return new CommandResult(MESSAGE_LAST_ACCOUNT_DELETION_ILLEGAL, CommandCategory.ACCOUNT);
         }
-        accountsManager.deleteAccount(accountToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ACCOUNT_SUCCESS, accountToDelete),
                 CommandCategory.ACCOUNT);
     }

@@ -3,6 +3,7 @@ package budgetbuddy.model.transaction;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 import budgetbuddy.commons.core.index.Index;
@@ -92,6 +93,27 @@ public class TransactionList implements Iterable<Transaction> {
      */
     public ObservableList<Transaction> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Sorts the backing list by providing a comparator
+     */
+    public void sort(Comparator<Transaction> c) {
+        internalList.sort(c);
+    }
+
+    /**
+     * Sorts the backing list by ascending date
+     */
+    public void sortByAscendingDate() {
+        internalList.sort((Transaction t1, Transaction t2) -> t1.getDate().compareTo(t2.getDate()));
+    }
+
+    /**
+     * Sorts the backing list by descending date
+     */
+    public void sortByDescendingDate() {
+        internalList.sort((Transaction t2, Transaction t1) -> t1.getDate().compareTo(t2.getDate()));
     }
 
     @Override

@@ -9,7 +9,10 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import budgetbuddy.logic.commands.transactioncommands.TransactionAddCommand;
@@ -65,10 +68,11 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ? CommandParserUtil.parseAccount(optionalAccount.get())
                 : null;
 
-        Optional<String> optionalCategory = argMultiMap.getValue(PREFIX_CATEGORY);
-        Category category = optionalCategory.isPresent()
-                ? CommandParserUtil.parseCategory(optionalCategory.get())
-                : null;
+        List<String> categoriesList = argMultiMap.getAllValues(PREFIX_CATEGORY);
+        Set<Category> categoriesSet = new HashSet<>();
+        for (String c : categoriesList) {
+            categoriesSet.add(new Category(c));
+        }
 
         /**
          * Return current date when optionalDate is not present
@@ -78,7 +82,7 @@ public class TransactionAddCommandParser implements CommandParser<TransactionAdd
                 ? CommandParserUtil.parseDate(optionalDate.get())
                 : new Date();
 
-        Transaction transaction = new Transaction(date, amount, direction, description, category);
+        Transaction transaction = new Transaction(date, amount, direction, description, categoriesSet);
 
         return new TransactionAddCommand(transaction, account);
     }

@@ -33,7 +33,9 @@ public class Transaction {
         this.direction = direction;
         this.amount = amount;
         this.description = description;
-        this.categories.addAll(Arrays.asList(categories));
+        if (categories[0] != null) {
+            this.categories.addAll(Arrays.asList(categories));
+        }
         this.date = date;
 
     }

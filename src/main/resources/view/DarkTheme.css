@@ -371,3 +371,17 @@
 .tab-pane.floating > .tab-header-area .tab {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
+
+#categories {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#categories .label {
+    -fx-text-fill: white;
+    -fx-background-color: #003D4C;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}

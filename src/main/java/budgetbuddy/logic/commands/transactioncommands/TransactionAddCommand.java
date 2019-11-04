@@ -88,7 +88,6 @@ public class TransactionAddCommand extends ScriptCommand {
         RuleEngine.executeRules(model, scriptEngine, txnIndex, realToAccount);
 
         model.getAccountsManager().transactionListSwitchSource(realToAccount);
-        System.out.println("current account is " + realToAccount.toString());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), CommandCategory.TRANSACTION);
     }
 }

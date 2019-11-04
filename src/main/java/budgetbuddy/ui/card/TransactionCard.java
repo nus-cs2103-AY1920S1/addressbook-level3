@@ -1,9 +1,15 @@
 package budgetbuddy.ui.card;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
@@ -27,7 +33,7 @@ public class TransactionCard extends UiPart<Region> {
     @FXML
     private Label direction;
     @FXML
-    private Label categories;
+    private FlowPane categories;
     @FXML
     private Label date;
 
@@ -40,7 +46,15 @@ public class TransactionCard extends UiPart<Region> {
         description.setText(transaction.getDescription().toString());
         amount.setText(transaction.getAmount().toString());
         direction.setText(transaction.getDirection().toString());
-        categories.setText(transaction.getCategories().toString());
+        System.out.println(transaction.toString());
+        List<Category> toSort = new ArrayList<>();
+        for (Category category : transaction.getCategories()) {
+            toSort.add(category);
+        }
+        toSort.sort(Comparator.comparing(Category::getCategory));
+        for (Category category : toSort) {
+            categories.getChildren().add(new Label(category.getCategory()));
+        }
         date.setText(transaction.getDate().toString());
     }
 

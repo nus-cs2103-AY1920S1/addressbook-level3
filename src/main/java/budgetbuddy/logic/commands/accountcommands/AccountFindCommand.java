@@ -9,6 +9,7 @@ import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.account.NameHasKeywordsPredicate;
+import budgetbuddy.model.account.exceptions.EmptyAccountListException;
 
 /**
  * Finds and lists all accounts in accountsManager whose name contains any of the argument keywords.
@@ -34,8 +35,9 @@ public class AccountFindCommand extends Command {
         requireAllNonNull(model, model.getAccountsManager());
 
         AccountsManager accountsManager = model.getAccountsManager();
-        accountsManager.updateFilteredAccountList(predicate);
-        if (accountsManager.getFilteredAccountList().size() == 0) {
+        try {
+            accountsManager.updateFilteredAccountList(predicate);
+        } catch (EmptyAccountListException e) {
             accountsManager.resetFilteredAccountList();
             return new CommandResult(
                     String.format(Messages.MESSAGE_ACCOUNT_SEARCH_RESULTS_EMPTY,

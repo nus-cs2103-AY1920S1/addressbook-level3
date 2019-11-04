@@ -20,7 +20,7 @@ public class Account {
     private Name name;
     private Description description;
     private final TransactionList transactionList;
-
+    private boolean isActive = false;
 
     /**
      * Every field must be present and not null.
@@ -58,6 +58,18 @@ public class Account {
 
     public void deleteTransaction(Transaction toDelete) {
         this.transactionList.remove(toDelete);
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive() {
+        this.isActive = true;
+    }
+
+    public void setInactive() {
+        this.isActive = false;
     }
 
     @Override
