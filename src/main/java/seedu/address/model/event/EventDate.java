@@ -6,6 +6,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Config;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -55,6 +56,13 @@ public class EventDate implements Comparable<EventDate> {
         } catch (DateTimeException e) {
             return false;
         }
+    }
+
+    /**
+     * Returns true if the current EventDate is already past, according to the SystemDate.
+     */
+    public boolean isPastDate() {
+        return Config.getCurrentDate().isAfter(date);
     }
 
     /**

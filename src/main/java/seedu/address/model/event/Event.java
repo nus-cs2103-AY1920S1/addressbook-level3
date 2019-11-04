@@ -145,6 +145,22 @@ public class Event {
     }
 
     /**
+     * Gets the total hours that the event will last for
+     * @return
+     */
+    public double getEventTotalHours() {
+        return eventDateTimeMap.totalHours();
+    }
+
+    /**
+     * Returns true if Event has already past.
+     * An Event is considered past if the current date is after the end date.
+     */
+    public boolean isPastEvent() {
+        return endDate.isPastDate();
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
