@@ -5,15 +5,16 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
 import seedu.scheduler.commons.core.GuiSettings;
+import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
-import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
 
@@ -25,7 +26,22 @@ public interface Model {
     Predicate<Interviewee> PREDICATE_SHOW_ALL_INTERVIEWEES = unused -> true;
     Predicate<Interviewer> PREDICATE_SHOW_ALL_INTERVIEWERS = unused -> true;
 
-    // ==================================IntervieweeList and InterviewerList ======================================
+    // ================================== App Status ======================================
+
+    /**
+     * Sets the status whether the schedule command has been executed by the user. See @code{isScheduled} for more
+     * details on when to set this status.
+     */
+    void setScheduled(boolean scheduled);
+
+    /**
+     * Returns true if the scheduling command is executed by the user. Returns false if otherwise or the user import
+     * interviewer's availability again after the scheduling command is executed.
+     * @return
+     */
+    boolean isScheduled();
+
+    // ================================== IntervieweeList and InterviewerList ======================================
 
     List<Schedule> getEmptyScheduleList();
 
@@ -203,9 +219,9 @@ public interface Model {
     void setSchedulesList(List<Schedule> schedulesList);
 
     /**
-     * Returns the interview slot assigned to the interviewee with the {@code intervieweeName}.
+     * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
      */
-    List<Slot> getInterviewSlots(String intervieweeName);
+    Optional<InterviewSlot> getInterviewSlot(String intervieweeName);
 
     /**
      * Returns a list of observable list of the schedules.

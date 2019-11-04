@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,10 @@ import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ReadAndWriteList;
 import seedu.scheduler.model.ReadOnlyUserPrefs;
 import seedu.scheduler.model.Schedule;
+import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
-import seedu.scheduler.model.person.Slot;
 import seedu.scheduler.model.person.exceptions.PersonNotFoundException;
 import seedu.scheduler.ui.RefreshListener;
 
@@ -134,6 +135,15 @@ class AddInterviewerCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+        @Override
+        public void setScheduled(boolean scheduled) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isScheduled() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void setEmptyScheduleList() throws ParseException {
@@ -296,7 +306,7 @@ class AddInterviewerCommandTest {
         }
 
         @Override
-        public List<Slot> getInterviewSlots(String intervieweeName) {
+        public Optional<InterviewSlot> getInterviewSlot(String intervieweeName) {
             throw new AssertionError("This method should not be called.");
         }
 

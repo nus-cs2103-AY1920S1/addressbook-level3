@@ -3,6 +3,7 @@ package seedu.scheduler.model.person;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.scheduler.model.tag.Tag;
@@ -130,12 +131,15 @@ public class Interviewee extends Person {
         return availableTimeslots;
     }
 
-    public Emails getEmails() {
-        return emails;
-    }
-
-    public InterviewSlot getAllocatedSlot() {
-        return allocatedSlot;
+    /**
+     * Returns the allocated slot of the interviewee if any, otherwise returns an empty Optional.
+     */
+    public Optional<InterviewSlot> getAllocatedSlot() {
+        if (allocatedSlot != null) {
+            return Optional.of(allocatedSlot);
+        } else {
+            return Optional.empty();
+        }
     }
 
     public void setAllocatedSlot(InterviewSlot slot) {
@@ -144,6 +148,10 @@ public class Interviewee extends Person {
 
     public void clearAllocatedSlot() {
         this.allocatedSlot = null;
+    }
+
+    public Emails getEmails() {
+        return emails;
     }
 
     public boolean getEmailSent() {
