@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyStudyBuddyPro {
 
     /**
      * Returns an unmodifiable view of the persons list.
