@@ -133,7 +133,7 @@ and notify the `AppManager`, who will notify the `UI` components.
 * Periodically triggering _callbacks_ that will notify the `AppManager` component.
 * Gets timestamps to trigger `Hints` via a `HintTimingQueue`
 
-_Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
+_Due to the fact that the `Timer` has to work closely with the `UI` and `AppManager` (without being
 coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
 
 // tag::subbashdg2[]
