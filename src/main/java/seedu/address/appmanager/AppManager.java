@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.gamecommands.GameCommandResult;
+import seedu.address.logic.commands.gamecommands.SkipCommand;
 import seedu.address.logic.commands.switches.StartCommandResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -29,27 +30,28 @@ import seedu.address.statistics.GameStatisticsBuilder;
 import seedu.address.storage.Storage;
 
 /**
- * Class that serves as a hub for communication between the GUI and The internal components.
+ * Class that serves as a hub for communication between the GUI and the internal components.
  * This is done to separate all logic of the game away from the GameTimer entirely.
  */
 public class AppManager {
 
     private Logic logic;
+
+    /** GameTimer object to keep track of time elapsed during Game mode. */
     private GameTimer gameTimer;
+
+    /** Call-back methods that AppManager is dependent on. */
     private TimerDisplayCallBack timerDisplayCallBack;
-    // Call-back method to update ResultDisplay in MainWindow
     private HintDisplayCallBack hintDisplayCallBack;
     private MainWindowExecuteCallBack mainWindowExecuteCallBack;
-    private GameStatisticsBuilder gameStatisticsBuilder;
     private QuestionDisplayCallBack questionDisplayCallBack;
+
+    private GameStatisticsBuilder gameStatisticsBuilder;
+
 
     public AppManager(Logic logic) {
         requireAllNonNull(logic);
         this.logic = logic;
-    }
-
-    public void setGuiSettings(GuiSettings guiSettings) {
-        logic.setGuiSettings(guiSettings);
     }
 
     /**
@@ -145,6 +147,10 @@ public class AppManager {
         return logic.getActiveWordBankStatistics().getWordBankName();
     }
 
+    public void setGuiSettings(GuiSettings guiSettings) {
+        logic.setGuiSettings(guiSettings);
+    }
+
     /**
      * Gets the logic object from itself.
      * @return Logic instance
@@ -216,8 +222,10 @@ public class AppManager {
      */
     private void skipOverToNextQuestion() {
         try {
-            this.mainWindowExecuteCallBack.execute("skip");
-        } catch (ParseException | CommandException e) {
+            this.mainWindowExecuteCallBack.execute(SkipCommand.COMMAND_WORD);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (CommandException e) {
             e.printStackTrace();
         }
     }

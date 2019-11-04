@@ -130,7 +130,7 @@ image::UserGuideFlowOverview.png[width="790"]
 
 // tag::chenhui-quickstart[]
 
-Lets select the sample word bank and play a game to get familiar.
+Lets select the sample _WordBank_ and play a game to get familiar.
 
 
 1.  `select sample` kbd:[Enter]
@@ -219,22 +219,22 @@ Welcome home.
 
 Format: `home`
 
-==== To open word bank content: `open`
-Opens the page to edit the word bank selected.
+==== To open _WordBank_ content: `open`
+Opens the page to edit the _WordBank_ selected.
 
 Format: `open`
 
 ****
-* Use the select command to select a word bank. Otherwise it won't work.
+* Use the select command to select a _WordBank_. Otherwise it won't work.
 ****
 
 ==== Start the game: `start`
-Start the game with the word bank selected.
+Start the game with the _WordBank_ selected.
 
 Format: `start [DIFFICULTY]` +
 
 ****
-* Use the select command to select a word bank. Otherwise it won't work.
+* Use the select command to select a _WordBank_. Otherwise it won't work.
 ****
 
 Examples:
@@ -245,11 +245,11 @@ Examples:
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
 
-=== Word Bank Commands image:load_mode_icon.png[load, 22]
+=== _WordBank_ Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
 
-==== Select a word bank: `select`
-Let Dukemon know what word bank you have selected.
+==== Select a _WordBank_: `select`
+Let Dukemon know what _WordBank_ you have selected.
 
 Format: `select WORD_BANK` +
 Examples:
@@ -257,8 +257,8 @@ Examples:
 * `select arithmetic`
 * `select sample`
 
-==== Create new word bank: `create`
-Creates a new word bank with specified name. +
+==== Create new _WordBank_: `create`
+Creates a new _WordBank_ with specified name. +
 
 Format: `create WORD_BANK` +
 Examples:
@@ -266,8 +266,8 @@ Examples:
 * `create CS2040`
 * `create Biology`
 
-==== Remove a word bank: `remove`
-Removes a new word bank with specified name. +
+==== Remove a _WordBank_: `remove`
+Removes a new _WordBank_ with specified name. +
 
 Format: `remove WORD_BANK` +
 Examples:
@@ -275,15 +275,15 @@ Examples:
 * `Remove Gen 3 pokemon`
 * `Remove Vocabulary`
 
-==== Import a word bank: `import`
-Import the word bank from a specified folder path on your system. +
+==== Import a _WordBank_: `import`
+Import the _WordBank_ from a specified folder path on your system. +
 
 Format: `import w/WORD_BANK f/FOLDER` +
 
 ****
-* FOLDER is the folder where the word bank file reside.
+* FOLDER is the folder where the _WordBank_ file reside.
 * WORDBANK is the name of the file without the extension.
-* Dukemon can only read json word bank files.
+* Dukemon can only read json _WordBank_ files.
 ****
 
 Examples:
@@ -294,17 +294,17 @@ Examples:
 * `import w/fire pokemons f//Users/chrischenhui/data`
 
 NOTE: We have a drag and drop feature. +
-You can drag and drop a file from your computer into the section which holds the word banks.
+You can drag and drop a file from your computer into the section which holds the _WordBank_s.
 
-==== Export a word bank: `export`
-Export the word bank to a specified file path on your system. +
+==== Export a _WordBank_: `export`
+Export the _WordBank_ to a specified file path on your system. +
 
 Format: `export w/WORD_BANK f/FOLDER` +
 
 ****
-* FOLDER is the folder where the word bank file reside.
+* FOLDER is the folder where the _WordBank_ file reside.
 * WORDBANK is the name of the file without the extension.
-* Dukemon exports word banks into json files.
+* Dukemon exports _WordBanks_ into json files.
 ****
 
 Examples:
@@ -313,13 +313,13 @@ Examples:
 * `export w/biology definitions f/~/downloads`
 
 NOTE: We have a drag and drop feature. +
-You can also drag and drop a word bank out your app into your computer.
+You can also drag and drop a _WordBank_ out the app into your computer.
 
 === Card Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
 
 ==== Adding a flash card: `add`
-Adds a new word-meaning pair to the word bank.
+Adds a new word-meaning pair to the _WordBank_.
 
 Format: `add w/WORD m/MEANING`
 
@@ -332,7 +332,7 @@ Examples:
 NOTE: There can be duplicate words, but duplicate meanings will be rejected.
 
 ==== Deleting a flash card: `delete`
-Deletes the specified index from the word bank. +
+Deletes the specified index from the _WordBank_. +
 
 Format: `delete INDEX`
 
@@ -380,13 +380,13 @@ Returns any entries containing `long` in its word or meaning or tag.
 * `find mammal fish bird` +
 Returns any entries containing `mammal`, `fish` or `bird` in its word or meaning or tag.
 
-==== Viewing a word bank's content: `list`
-Views the content of a word bank.
+==== Viewing a _WordBank_'s content: `list`
+Views the content of a _WordBank_.
 
 Format: `list`
 
-==== Clear a word bank's content: `clear`
-Clears the word bank by removing all cards.
+==== Clear a _WordBank_'s content: `clear`
+Clears the _WordBank_ by removing all cards.
 
 Format: `clear`
 
@@ -598,7 +598,7 @@ This section covers the statistics shown to the user.
 
 === Game Result
 The game result is shown to the user every time they finish a game. It contains information of the finished game and
-some information of the word bank.
+some information of the _WordBank_.
 
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
@@ -606,7 +606,7 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 image::annotated_game_results_ui.png[]
 
 === WordBank Statistics
-The word bank statistics is shown on open mode and contains all information of the word bank.
+The _WordBank_ statistics is shown on open mode and contains all information of the _WordBank_.
 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
@@ -625,8 +625,8 @@ image::annotated_global_statistics_ui.png[]
 *Q*: How do I pronounce your app name? +
 *A*: Think Pokemon.
 
-*Q*: How do I transfer my word bank to my friend? +
-*A*: Export your word bank to your computer, then transfer him the file. He can then import the file into his Dukemon.
+*Q*: How do I transfer my _WordBank_ to my friend? +
+*A*: Export your _WordBank_ to your computer, then transfer him the file. He can then import the file into his Dukemon.
 
 
 *Q*: Do I have to save data? +
@@ -650,14 +650,14 @@ s| `home` m|
 
 s| `open` m|
 
-s| `start` m| [DIFFICULTY]
+s| `start` m| [EASY/MEDIUM/HARD]
 
 s| `settings` m|
 
 3.1+|
 3.1+|
 
-1.5+h| Word Bank Commands +
+1.5+h| WordBank Commands +
 (Available in Home mode)
 
 s| `select` m| WORD_BANK

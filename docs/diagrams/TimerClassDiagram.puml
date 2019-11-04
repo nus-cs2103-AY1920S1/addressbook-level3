@@ -21,7 +21,7 @@ Class HintTimingQueue {
 
 package AppManager <<Rectangle>> {
 
-Class AppManager{
+Class AppManager #00008B{
 
 }
 
@@ -29,18 +29,18 @@ Class AppManager{
 
 package UI <<Rectangle>> {
 
-Class UI {
+Class MainWindow UI_COLOR{
 
 }
 
 }
 
 
-GameTimerManager --down-> HintTimingQueue : Gets timestamps from >
+
+GameTimerManager *--down-> HintTimingQueue : Polls timestamps from >
 GameTimerManager --up-|> GameTimer
-GameTimer .up..> AppManager : Notifies >
-AppManager -down--> GameTimer : Starts >
-GameTimer .up..> UI : Notifies >
-
+GameTimer .up..> AppManager : notifies >
+AppManager -down--> GameTimer : starts/stops >
+AppManager .right..> MainWindow : notifies >
 
 @enduml

@@ -22,8 +22,8 @@ Class Guess
 }
 
 package WordBank <<Rectangle>>{
-Class ReadOnlyWordBank <<Interface>>
-Class WordBank
+Class ReadOnlyWordBank <<Interface>> #9D0012
+Class WordBank #9D0012
 }
 
 
