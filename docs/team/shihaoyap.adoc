@@ -3,7 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Welcome to AddMin+! The all-in-one administration desktop application
+== Welcome to AddMin+!
+The all-in-one administration desktop application
 
 ---
 
@@ -23,7 +24,7 @@ morph and enhance the capabilities of the original application into an all-in-on
 application. The application is specially designed for the use of any events management start-up company
 that is faced with limited manpower and resources.
 
-AddMin+ is specially designed to ease the workload of admin staffs in these companies and allow them to
+AddMin+ is specially designed to ease the workload of admin staff in these companies and allow them to
 effectively handle the administrative needs of the company by providing the following functions: event creation and
 deletion, editing of event details, manual and automatic manpower allocation for events and providing an
 overview of all the data via statistics while keeping track of the companies schedule to ensure that no event
@@ -31,17 +32,17 @@ will be missed!
 
 This is what AddMin+ Application looks like:
 
-._The graphical user interface for AddMin+_
+._The user interface for AddMin+_
 image::AddMin+Ui.png[]
 
 
 == My Roles and Responsibilities
-My project responsibilities and tasking includes being in charge of the group's documentation quality as
-well as ensure project deliverable are done on time and in the right format.
+My project responsibilities and tasking include being in charge of the group's documentation quality as
+well as ensure that the project deliverables are done on time and in the right format.
 
 While my coding related tasking was to design and write codes for the entire `Schedule` section of the project.
 The following sections will illustrate the enhancements in more detail, as well as provide relevant
-documentation that i have added to the user and developer guides in relation to those enhancements.
+documentation that I have added to the user and developer guides in relation to those enhancements.
 
 == Before we start
 Do take note that the following symbols and formatting will be used throughout this documents:
@@ -59,7 +60,7 @@ Text with a `grey background` indicates _Code Logic_ such as class objects, OOP 
 
 == Summary of contributions
 This section will show a summary of all the features, enhancements, documentations, and other useful contributions
-that i have contributed to the team project.
+that I have contributed to the team project.
 
 * *Major feature*: added and implemented the entire *Schedule* section of the project which includes major GUI implementations
 and 4 schedule related commands.
@@ -104,6 +105,7 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/pull/76[#76], https://github.com/
 *** Assisted in refactoring process for person class to employee class and well as fixed test cases and checkstyle errors.
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92[#92])
 *** Assisted in debugging AddMin+ (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
+*** Assisted in setting up the testing structure for Events (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/197[#197])
 
 ** Enhancements to existing features:
 *** Upgraded the GUI display and other GUI enhancements (Pull requests
@@ -139,7 +141,6 @@ and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=generateschedule]
-
 
 == Conclusion:
 
