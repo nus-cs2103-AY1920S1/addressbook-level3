@@ -1,14 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.StringUtil.truncateAndEllipses;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Amount;
@@ -78,9 +76,14 @@ public class SettleCommand extends ExpenseCommand {
         getScope(model);
         // The parser gurantees our persons array has 2 unique people
         Person payingPerson = searchPerson(persons.get(0), searchScope);
-        int payingId = payingPerson.getPrimaryKey();
         Person receivingPerson = searchPerson(persons.get(1), searchScope);
+        int payingId = payingPerson.getPrimaryKey();
         int receivingId = receivingPerson.getPrimaryKey();
+
+        if (payingId == receivingId) {
+            throw new CommandException(MESSAGE_REPEATED_PERSON);
+        }
+
         String payingName = payingPerson.getNameStr();
         String receivingName = receivingPerson.getNameStr();
 
@@ -99,9 +102,7 @@ public class SettleCommand extends ExpenseCommand {
                         receivingName));
         }
 
-        String payingShortName = truncateAndEllipses(payingName, MAX_DESC_NAME_LEN);
-        String receivingShortName = truncateAndEllipses(receivingName, MAX_DESC_NAME_LEN);
-        String description = String.format(EXPENSE_DESCRIPTION, payingShortName, receivingShortName);
+        String description = String.format(EXPENSE_DESCRIPTION, payingName, receivingName);
 
         try {
             Expense e = new Expense(payingId, amount, description, receivingId);
@@ -111,12 +112,9 @@ public class SettleCommand extends ExpenseCommand {
             throw new CommandException(MESSAGE_MISSING_PERSON_DESCRIPTION);
         }
 
-        Context newContext = new Context(activity);
-        model.setContext(newContext);
-
         String successMessage = String.format(MESSAGE_SUCCESS, payingName, receivingName, amount.value);
 
         return new CommandResult(successMessage
-                + warningMessage.toString(), newContext);
+                + warningMessage.toString());
     }
 }
