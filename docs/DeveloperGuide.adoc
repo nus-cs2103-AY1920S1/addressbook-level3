@@ -803,6 +803,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+// tag::mergingusecase[]
 === Use case: Merging a duplicate person with different fields
 
 *MSS*
@@ -825,6 +826,7 @@ Use case ends.
 ** 3a2. The AddressBook indicates an error and prompts the merge again.
 +
 Use case resumes at 4.
+// end::mergingusecase[]
 
 _{More to be added}_
 

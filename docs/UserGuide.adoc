@@ -491,6 +491,7 @@ Deletes a `high_risk` tag from the 1st policy in the results of the `find` comma
 Clears all entries from the address book. +
 Format: `clear`
 
+// tag::inputvalidation[]
 === Incorrect NRIC Alert
 
 Returns an error message to inform the user of an invalid NRIC. The contact number and/or email address is returned
@@ -577,24 +578,6 @@ Expected Output:
 Suggestions have been switched on.
 ```
 
-=== Incorrect Insurance Policy Assignment Alert
-
-Returns an error if a person is ineligible for the insurance policy and provides suggestions for policies that this person is eligible for.
-
-****
-* The new information will be accepted and updated except for the updated policy.
-****
-
-Examples:
-
-`edit n/John Doe ic/S9999999J p/91234567 e/johndoe@example.com a/John street, block 123, #01-01 age/30 pol/SeniorCare`
-
-Expected Output:
-```
-John Doe is ineligible for this policy. These are other possible policies that John Doe is eligible for:
-...
-```
-
 === Duplicate profile alert
 
 Returns an error message of an existing person and will attempt to merge the profiles.
@@ -622,6 +605,7 @@ If `no`,
 ```
 You may edit John Doe’s profile using the edit command. For more information, type help.
 ```
+// end::inputvalidation[]
 
 === Expanding a profile
 Expands the profile details on the right panel.
