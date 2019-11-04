@@ -3,7 +3,10 @@ package seedu.moneygowhere.logic.parser;
 import static seedu.moneygowhere.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_MESSAGE;
+import static seedu.moneygowhere.logic.parser.ParserUtil.DEADLINE_INVALID_FAR_BEHIND;
+import static seedu.moneygowhere.logic.parser.ParserUtil.DEADLINE_INVALID_TOO_FAR;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import seedu.moneygowhere.logic.commands.reminder.AddReminderCommand;
@@ -31,8 +34,25 @@ public class AddReminderCommandParser extends ReminderCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReminderCommand.MESSAGE_USAGE));
         }
 
+        String reminderMessage = argMultimap.getValue(PREFIX_MESSAGE).get().trim();
+
+        if (reminderMessage.isEmpty()) {
+            throw new ParseException(ReminderMessage.MESSAGE_CONSTRAINTS);
+        }
+
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        ReminderMessage message = ParserUtil.parseMessage(argMultimap.getValue(PREFIX_MESSAGE).get());
+        ReminderMessage message = ParserUtil.parseMessage(reminderMessage);
+
+        if (date.dateValue.isAfter(LocalDate.now())
+                && date.dateValue.getYear() - LocalDate.now().getYear() > ParserUtil.DATE_TOO_FAR_RANGE) {
+            throw new ParseException(DEADLINE_INVALID_TOO_FAR);
+        }
+
+        if (date.dateValue.isBefore(LocalDate.now())
+                && LocalDate.now().getYear() - date.dateValue.getYear() > ParserUtil.DATE_FAR_BEHIND_RANGE) {
+            throw new ParseException(DEADLINE_INVALID_FAR_BEHIND);
+        }
+
 
         Reminder reminder = new Reminder(date, message);
 

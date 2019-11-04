@@ -128,9 +128,7 @@ public class SpendingBook implements ReadOnlySpendingBook {
      * Replaces the contents of the Reminder list with {@code reminders}.
      */
     public void setReminders(List<Reminder> reminders) {
-        for (Reminder r : reminders) {
-            this.reminders.add(r);
-        }
+        this.reminders.setReminders(reminders);
     }
 
     /**

@@ -477,8 +477,12 @@ A graph is shown.
 // end::graph[]
 
 === Adding a reminder: `reminder add`
-Adds a reminder to the reminder list
+Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
+
 *Format:* `reminder add d/DATE m/MESSAGE`
+
+[NOTE]
+The date of a deadline must be within 5 years from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
 
 *Examples:*
 
@@ -487,10 +491,11 @@ Adds a reminder to the reminder list
 
 *Expected Output:*
 
-A new reminder is added.
+A new reminder is added according to the information provided.
 
 === Deleting a reminder: `reminder delete`
 Deletes a reminder at the specified `INDEX`.
+
 *Format:* `reminder delete INDEX`
 
 ****
@@ -622,6 +627,9 @@ The most recent undo command is reversed.
 === Clear all data : `clear`
 Clears all entries from the application. +
 *Format:* `clear`
+
+[NOTE]
+This command clears all stored reminders and spending from the application, and sets the budget to a default value of $1000.
 
 *Expected Output:*
 
