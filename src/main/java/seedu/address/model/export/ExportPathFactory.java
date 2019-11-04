@@ -23,7 +23,7 @@ public class ExportPathFactory {
     public static ExportPath getExportPath(String exportPath) throws IllegalArgumentException {
         if (DocumentPath.isValid(exportPath)) {
             return new DocumentPath(exportPath);
-        } else if (JsonExportFilePath.isValid(exportPath)) {
+        } else if (JsonExportPath.isValid(exportPath)) {
             return new JsonExportPath(exportPath);
         } else {
             throw new IllegalArgumentException(MESSAGE_ILLEGAL_PATH);
