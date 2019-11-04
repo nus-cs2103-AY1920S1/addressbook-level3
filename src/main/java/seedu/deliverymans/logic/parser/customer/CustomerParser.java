@@ -22,7 +22,7 @@ public class CustomerParser {
     /**
      * Used for initial separation of command word and args.
      */
-    public static final String COMMAND_WORD = "customer";
+    public static final String COMMAND_WORD = "-customer";
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**

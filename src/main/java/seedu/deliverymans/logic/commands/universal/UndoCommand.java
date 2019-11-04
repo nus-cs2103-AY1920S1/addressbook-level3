@@ -13,7 +13,7 @@ import seedu.deliverymans.model.Model;
  */
 public class UndoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "-undo";
 
     public static final String MESSAGE_SUCCESS = "Successfully undid: %1$s";
     public static final String MESSAGE_NOTHING_TO_UNDO = "There is nothing to undo";

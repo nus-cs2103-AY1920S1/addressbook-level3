@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.universal.AddOrderCommand;
+import seedu.deliverymans.logic.commands.universal.CompleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.ContextCommand;
 import seedu.deliverymans.logic.commands.universal.DeleteOrderCommand;
 import seedu.deliverymans.logic.commands.universal.EditOrderCommand;
@@ -55,6 +56,9 @@ public class UniversalParser {
         switch (commandWord) {
         case AddOrderCommand.COMMAND_WORD:
             return new AddOrderCommandParser().parse(arguments);
+
+        case CompleteOrderCommand.COMMAND_WORD:
+            return new CompleteOrderCommandParser().parse(arguments);
 
         case EditOrderCommand.COMMAND_WORD:
             return new EditOrderCommandParser().parse(arguments);

@@ -15,9 +15,6 @@ import seedu.deliverymans.logic.commands.exceptions.CommandException;
 import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
-import seedu.deliverymans.model.deliveryman.Deliveryman;
-
-import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -26,7 +23,7 @@ import seedu.deliverymans.model.restaurant.Restaurant;
  * Order command
  */
 public class AddOrderCommand extends Command {
-    public static final String COMMAND_WORD = "add_order";
+    public static final String COMMAND_WORD = "-add_order";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an order to the manager. "
@@ -43,37 +40,60 @@ public class AddOrderCommand extends Command {
             + PREFIX_FOOD + "Chicken Nuggets "
             + PREFIX_QUANTITY + "20";
 
-    public static final String MESSAGE_SUCCESS_ADD = "New order added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
-    public static final String MESSAGE_DELIVERYMAN_UNAVAILABLE = "The deliveryman is unavailable!";
-    public static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
-    public static final String MESSAGE_INVALID_DELIVERYMAN = "The deliveryman does not exist!";
-    public static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
-    public static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
+    private static final String MESSAGE_SUCCESS_ADD = "New order added: %1$s";
+    private static final String MESSAGE_DUPLICATE_ORDER = "This order already exists";
+    private static final String MESSAGE_INVALID_CUSTOMER = "The customer does not exist!";
+    private static final String MESSAGE_INVALID_RESTAURANT = "The restaurant does not exist!";
+    private static final String MESSAGE_INVALID_FOOD = "The food does not exist in the restaurant's menu!";
 
     private final Order toAdd;
-    private final Order orderToDelete;
-    private final boolean isAddOrder; // true -> new add order, false -> edit order
 
-    public AddOrderCommand(Order toAdd, boolean isAddOrder) {
+    public AddOrderCommand(Order toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
-        this.orderToDelete = null;
-        this.isAddOrder = isAddOrder;
-    }
-
-    AddOrderCommand(Order toAdd, Order orderToDelete, boolean isAddOrder) {
-        requireNonNull(toAdd);
-        this.toAdd = toAdd;
-        this.orderToDelete = orderToDelete;
-        this.isAddOrder = isAddOrder;
     }
 
     @Override
     public CommandResult execute(Model model, Logic logic) throws CommandException {
+        Name deliverymanToAdd = null;
+
+        // Validity checks for customer, restaurant and foodList
+        isValidOrder(toAdd, model);
+
+        // Assigning deliveryman
+        if (toAdd.getDeliveryman().fullName.equalsIgnoreCase("Unassigned")) {
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+        }
+        if (deliverymanToAdd == null) {
+            deliverymanToAdd = toAdd.getDeliveryman();
+        }
+
+        // Alternative: Add command wont work if no available deliveryman
+        /*
+        try {
+            deliverymanToAdd = model.getOneAvailableDeliveryman();
+            toAdd.setDeliveryman(deliverymanToAdd);
+        } catch (NoMoreAvailableDeliverymanException nmade) {
+            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
+        }
+         */
+
+        // Instantiating the order
+        Order order = new Order.OrderBuilder().setCustomer(toAdd.getCustomer())
+                .setRestaurant(toAdd.getRestaurant()).setDeliveryman(deliverymanToAdd)
+                .setFood(toAdd.getFoodList()).setCompleted(toAdd.isCompleted()).completeOrder();
+
+        if (model.hasOrder(order)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
+        }
+        model.addOrder(order);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
+    }
+
+    static void isValidOrder(Order toAdd, Model model) throws CommandException {
         Customer customerToAdd = null;
         Restaurant restaurantToAdd = null;
-        Name deliverymanToAdd = null;
 
         // Customer validity check
         for (Customer customer : model.getFilteredCustomerList()) {
@@ -111,82 +131,7 @@ public class AddOrderCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_FOOD);
             }
         }
-
-
-        // Deliveryman validity check
-
-        if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-            if (model.getOneAvailableDeliveryman() == null) {
-                deliverymanToAdd = toAdd.getDeliveryman();
-            }
-        } else {
-            for (Deliveryman deliveryman : model.getFilteredDeliverymenList()) {
-                if (deliveryman.getName().equals(toAdd.getDeliveryman())) {
-                    final String desc = deliveryman.getStatus().getDescription();
-                    if (desc.equals("AVAILABLE")) {
-                        deliverymanToAdd = deliveryman.getName();
-                        // Set deliveryman status here
-                    } else {
-                        throw new CommandException(MESSAGE_DELIVERYMAN_UNAVAILABLE);
-                    }
-                    break;
-                }
-            }
-            if (deliverymanToAdd == null) {
-                throw new CommandException(MESSAGE_INVALID_DELIVERYMAN);
-            }
-        }
-
-        /*
-        try {
-            deliverymanToAdd = model.getOneAvailableDeliveryman();
-            toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-        }
-        */
-
-        /*
-        // Instantiating the order
-        Order order = new Order.OrderBuilder().setCustomer(customerToAdd.getName())
-                .setRestaurant(restaurantToAdd.getName()).setDeliveryman(deliverymanToAdd)
-                .setFood(foodNameList).setCompleted(toAdd.isCompleted()).completeOrder();
-
-        // Setting orders to customers
-        customerToAdd.addOrder(order);
-        restaurantToAdd.addOrder(order); */
-
-        if (model.hasOrder(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
-        }
-
-        // Adding of order into the model and printing of success message depending on adding/editing order
-        if (isAddOrder) { // Add order
-            model.addOrder(toAdd);
-        } else { // Edit order
-            // removeOrderFromDatabases(model, orderToDelete);
-            model.setOrder(orderToDelete, toAdd);
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, toAdd));
     }
-
-    /*
-    private void removeOrderFromDatabases(Model model, Order orderToDelete) {
-        for (Customer customer: model.getFilteredCustomerList()) {
-            if (customer.getName().equals(orderToDelete.getCustomer())) {
-                customer.getOrders().remove(orderToDelete);
-                break;
-            }
-        }
-        for (Restaurant restaurant: model.getFilteredRestaurantList()) {
-            if (restaurant.getName().equals(orderToDelete.getRestaurant())) {
-                restaurant.getOrders().remove(orderToDelete);
-                break;
-            }
-        }
-        // repeat for deliveryman if relevant
-    }
-     */
 
     @Override
     public boolean equals(Object other) {
