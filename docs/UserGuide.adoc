@@ -69,7 +69,7 @@ Format: `add n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [sr
 * `DIFFICULTY` should be an integer or decimal in the range of (0, 5] (left open right close range)
 
 [NOTE]
-Don't provide extreme values like `5.00000...01` as difficulty range as computers can't store decimals exactly and some round-off error is unavoidable.
+Don't provide extreme values like `5.00000...01` as difficulty as computers can't store decimals exactly and some round-off error is unavoidable.
 
 [TIP]
 A problem can have any number of tags (including 0)
@@ -126,8 +126,8 @@ Format: `list`
 Sorts the current list of results by a specified order and direction. +
 Format: `sort m/METHOD [ord/ORDER]`
 
-* Method can be `name`, `author`, `weblink`, `difficulty` or `source`.
-* ORDER can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
+* `METHOD` can be `name`, `author`, `weblink`, `difficulty` or `source`.
+* `ORDER` can be `ascend` or `descend` representing ascending and descending order. The default is in ascending order.
 * String-based values (i.e. `name`, `author`, etc.) are sorted alphabetically.
 
 [NOTE]
@@ -162,12 +162,13 @@ Format: `find [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND
 * Tag
 ** Constraints are separated by spaces. (e.g. `find t/Recursion Brute-Force` will display all problems with both tag `Recursion` and `Brute-Force`)
 ** Constraint tag set is a subset of matching problems. (e.g. `find t/Recursion Brute-Force` will match problem with tags `Recursion`+`Brute-Force`+`Playful` but not `Recursion`+`Adhoc`)
-** Tags are considered equal only when the tag strings are exactly matched.
+** Two tags are considered equal only when their tag strings are exactly matched.
 * Difficulty
 ** matches problems with `LOWER_BOUND \<= difficulty \<= UPPER_BOUND`
 
 [TIP]
-If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`
+If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-1.5`. +
+If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
 When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `add` command). Also at least one search restriction should be provided.
