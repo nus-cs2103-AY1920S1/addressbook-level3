@@ -1,12 +1,12 @@
 package seedu.revision.ui;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
 
 import java.util.Optional;
 
-import static seedu.revision.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
 /** AlertDialog class that is used to prompt users for inputs.**/
 public class AlertDialog {
@@ -68,6 +68,7 @@ public class AlertDialog {
                     + "Press [ENTER] to try again.\n"
                     + "Press [ESC] to return to main screen.");
         } else {
+            endAlert.alert.setAlertType(Alert.AlertType.INFORMATION);
             endAlert.alert.setContentText("Quiz has ended! Your final score is " + score
                     + "/" + totalScore + "\n"
                     + "Try again?\n"
@@ -78,6 +79,10 @@ public class AlertDialog {
         return endAlert;
     }
 
+    /**
+     * Shows the alert dialog and waits for user input which will be returned as a result.
+     * @return the ButtonType that the user chose if any.
+     */
     public Optional<ButtonType> showAndWait() {
         Optional<ButtonType> result = alert.showAndWait();
         return result;
