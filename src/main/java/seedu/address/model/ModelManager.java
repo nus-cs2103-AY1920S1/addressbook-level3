@@ -251,7 +251,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateQuizResultFilter(QuizResultFilter quizResultFilter) throws EmptyQuizResultListException {
-        if (filteredQuizResults.isEmpty()) {
+        if (filteredQuizResults.isEmpty() || appData.filterQuizResult(quizResultFilter).isEmpty()) {
             throw new EmptyQuizResultListException();
         }
         this.quizResultFilter = quizResultFilter;

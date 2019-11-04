@@ -21,7 +21,7 @@ class GetStatisticsCommandParserTest {
 
     @Test
     void parse_invalidCommandFormat_failure() {
-        // multiple difficulty
+        // multiple difficulties
         assertParseFailure(parser, " d/d1 d/d2", MESSAGE_INVALID_COMMAND_FORMAT);
     }
 
