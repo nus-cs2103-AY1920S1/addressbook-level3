@@ -93,6 +93,7 @@ public class CreateCommand extends Command {
         boolean deckExistsInState = false;
         Deck currDeck = null;
         for (Deck curr : state.getDecks()) {
+
             if (curr.getName().equals(command.get(0))) {
                 deckExistsInState = true;
                 currDeck = curr;

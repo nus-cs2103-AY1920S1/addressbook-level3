@@ -314,8 +314,6 @@ public enum Responses {
                     return true;
                 }
     ),
-
-    // DEFAULT GROUP ----------------------------------------------------------
     START_TEST(
             RegexUtil.commandFormatRegex("test", new String[]{"deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -345,7 +343,9 @@ public enum Responses {
                     return true;
                 } //todo
     ),
-    // TEST GROUP ----------------------------------------------------------
+
+
+    // DEFAULT GROUP ----------------------------------------------------------
 
     TEST_NEXT(
             "^((?i)next)\\s*",
