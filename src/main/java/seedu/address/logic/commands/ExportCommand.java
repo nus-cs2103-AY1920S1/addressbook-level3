@@ -56,6 +56,9 @@ public class ExportCommand extends Command {
             if (!fileName.matches("[a-zA-Z0-9]+")) {
                 throw new CommandException("File name can only be Alphanumeric.");
             }
+            if (fileName.length() >= 225) {
+                throw new CommandException("File name is too long.");
+            }
             String dataCsv = this.getCsvString();
             FileUtil.writeToFile(Paths.get(pathName), dataCsv);
 
