@@ -1,17 +1,17 @@
 package seedu.address.logic.cap.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 //import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_;
 //import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_NAME;
 //import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_PHONE;
 //import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.Assert.assertThrows;
 //
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 //
 //import seedu.address.commons.core.index.Index;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
@@ -20,9 +20,10 @@ import seedu.address.logic.cap.commands.exceptions.CommandException;
 //import seedu.address.logic.commands.EditCommand;
 //import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.model.person.NameContainsKeywordsPredicate;
-//import seedu.address.model.person.Module;
+import seedu.address.model.common.Module;
 //import seedu.address.testutil.EditModuleDescriptorBuilder;
 //import seedu.address.model.cap.ModelCapManager;
+import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.Model;
 
 
@@ -98,23 +99,24 @@ public class CommandTestUtil {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
-//
-//    /**
-//     * Executes the given {@code command}, confirms that <br>
-//     * - a {@code CommandException} is thrown <br>
-//     * - the CommandException message matches {@code expectedMessage} <br>
-//     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
-//     */
-//    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
-//        // we are unable to defensively copy the model for comparison later, so we can
-//        // only do so by copying its components.
-//        CapLog expectedAddressBook = new CapLog(actualModel.getAddressBook());
-//        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
-//
-//        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-//        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-//        assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
-//    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     */
+    public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        CapLog expectedAddressBook = new CapLog(actualModel.getCapLog());
+        List<Module> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModuleList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedAddressBook, actualModel.getCapLog());
+        assertEquals(expectedFilteredList, actualModel.getFilteredModuleList());
+    }
+
 //    /**
 //     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
 //     * {@code model}'s address book.
