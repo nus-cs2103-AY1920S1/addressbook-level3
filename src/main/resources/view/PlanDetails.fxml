@@ -25,7 +25,7 @@
         <Label text="Plan Name" styleClass="scroll-pane-text"/>
       </StackPane>
       <StackPane>
-        <TextField fx:id="planName" />
+        <TextField editable="false" fx:id="planName" />
       </StackPane>
 
       <!-- Start Date-->
@@ -36,7 +36,7 @@
         <Label text="Start Date" styleClass="scroll-pane-text" />
       </StackPane>
       <StackPane>
-        <TextField fx:id="startDate" />
+        <TextField editable="false" fx:id="startDate" />
       </StackPane>
 
       <!-- End Date-->
@@ -47,7 +47,7 @@
         <Label text="End Date" styleClass="scroll-pane-text" />
       </StackPane>
       <StackPane>
-        <TextField fx:id="endDate" />
+        <TextField editable="false" fx:id="endDate" />
       </StackPane>
 
       <!-- Plan Description-->
@@ -58,7 +58,7 @@
         <Label text="Plan Description" styleClass="scroll-pane-text" />
       </StackPane>
       <StackPane>
-        <TextArea fx:id="planDescription" wrapText="true" />
+        <TextArea editable="false" fx:id="planDescription" wrapText="true" />
       </StackPane>
     </VBox>
   </ScrollPane>

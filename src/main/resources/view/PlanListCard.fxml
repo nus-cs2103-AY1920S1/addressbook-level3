@@ -26,9 +26,18 @@
         </Label>
         <Label fx:id="planName" text="\$first" styleClass="cell_big_label" />
       </HBox>
-      <Label fx:id="planDescription" styleClass="cell_small_label" text="\$planDescription" />
-      <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-      <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Description:" />
+        <Label fx:id="planDescription" styleClass="cell_small_label" text="\$planDescription" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="Start Date:" />
+        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+      </HBox>
+      <HBox>
+        <Label wrapText="true" minWidth="80" styleClass="cell_small_label_prefix" text="End Date:" />
+        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>

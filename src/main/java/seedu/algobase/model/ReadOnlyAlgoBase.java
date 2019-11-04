@@ -4,7 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import seedu.algobase.commons.exceptions.IllegalValueException;
-import seedu.algobase.model.commandhistory.CommandHistory;
 import seedu.algobase.model.gui.GuiState;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
@@ -18,15 +17,20 @@ import seedu.algobase.model.task.Task;
 public interface ReadOnlyAlgoBase {
 
     /**
+     * Returns an unmodifiable view of the problems list.
+     * This list will not contain any duplicate problems.
+     */
+    ObservableList<Problem> getProblemList();
+
+    /**
      * Returns the {@code Problem} with the same id in the algobase.
      */
     Problem findProblemById(Id problemId) throws IllegalValueException;
 
     /**
-     * Returns an unmodifiable view of the problems list.
-     * This list will not contain any duplicate problems.
+     * Checks whether a problem is used in any plan.
      */
-    ObservableList<Problem> getProblemList();
+    boolean checkIsProblemUsed(Problem problem);
 
     /**
      * Returns an unmodifiable view of the tags list.
@@ -55,7 +59,6 @@ public interface ReadOnlyAlgoBase {
     ObservableList<Task> getCurrentTaskList();
 
     /**
-     * Returns an unmodifiable view of the command history.
      * Returns current plan name.
      */
     StringProperty getCurrentPlan();
@@ -75,10 +78,6 @@ public interface ReadOnlyAlgoBase {
      */
     ObservableList<ProblemSearchRule> getFindRules();
 
-    /**
-     * Returns an unmodifiable view of the command history.
-     */
-    ObservableList<CommandHistory> getCommandHistoryList();
 
     /**
      * Returns a view of the GuiState.

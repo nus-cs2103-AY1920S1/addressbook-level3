@@ -19,10 +19,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.algobase.logic.commands.AddCommand;
 import seedu.algobase.logic.commands.CommandResult;
-import seedu.algobase.logic.commands.ListCommand;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.problem.AddCommand;
+import seedu.algobase.logic.commands.problem.ListCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
@@ -87,7 +87,7 @@ public class LogicManagerTest {
         Problem expectedProblem = new ProblemBuilder(QUICK_SORT).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addProblem(expectedProblem);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 

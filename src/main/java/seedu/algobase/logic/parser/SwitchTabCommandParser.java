@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_TAB_TYPE;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.SwitchTabCommand;
+import seedu.algobase.logic.commands.gui.SwitchTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.gui.TabType;
 
@@ -21,7 +21,10 @@ public class SwitchTabCommandParser implements Parser<SwitchTabCommand> {
 
         TabType tabType;
         if (arePrefixesPresent(argMultimap, PREFIX_TAB_TYPE)) {
-            tabType = ParserUtil.parseTabType(argMultimap.getValue(PREFIX_TAB_TYPE).get());
+            tabType = ParserUtil.parseTabType(
+                argMultimap.getValue(PREFIX_TAB_TYPE).get(),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE)
+            );
         } else {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));
@@ -29,7 +32,10 @@ public class SwitchTabCommandParser implements Parser<SwitchTabCommand> {
 
         Index index;
         if (arePrefixesPresent(argMultimap, PREFIX_TAB_INDEX)) {
-            index = ParserUtil.parseTabIndex(argMultimap.getValue(PREFIX_TAB_INDEX).get());
+            index = ParserUtil.parseTabIndex(
+                argMultimap.getValue(PREFIX_TAB_INDEX).get(),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE)
+            );
         } else {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchTabCommand.MESSAGE_USAGE));

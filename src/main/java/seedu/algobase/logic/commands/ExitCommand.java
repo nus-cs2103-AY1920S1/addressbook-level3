@@ -1,5 +1,6 @@
 package seedu.algobase.logic.commands;
 
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.model.Model;
 
 /**
@@ -17,8 +18,8 @@ public class ExitCommand extends Command {
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting AlgoBase as requested ...";
 
     @Override
-    public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false);
+    public CommandResult execute(Model model, CommandHistory history) {
+        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 
 }

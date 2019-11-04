@@ -1,0 +1,23 @@
+@startuml
+
+start
+
+:User executes an editplan command;
+
+if () then ([command is valid])
+	:Instantiate a EditPlanCommand with a corresponding descriptor;
+	:Construct an edited plan;
+	if() then ([edited plan already exists])
+	    :Show an error message;
+	else ([else])
+	    :Replace the original plan with the edited plan;
+	    :Update plan planlist;
+	    :Inform user of successful execution;
+	endif
+else ([else])
+	:Show an error message;
+endif
+
+stop
+
+@enduml

@@ -84,7 +84,7 @@ public class FindRuleCard extends UiPart<Region> {
             DifficultyIsInRangePredicate difficultyPredicate = findRule.getDifficultyPredicate().get();
             double lowerBound = difficultyPredicate.getLowerBound();
             double upperBound = difficultyPredicate.getUpperBound();
-            String difficultyString = String.format("%f - %f", lowerBound, upperBound);
+            String difficultyString = String.format("%.2f - %.2f", lowerBound, upperBound);
             difficulty.setText(difficultyString);
         }
         difficulty.setWrapText(true);

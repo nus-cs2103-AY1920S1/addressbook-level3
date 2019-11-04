@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
+import seedu.algobase.logic.commands.problem.EditCommand.EditProblemDescriptor;
 import seedu.algobase.model.problem.Author;
 import seedu.algobase.model.problem.Description;
 import seedu.algobase.model.problem.Name;

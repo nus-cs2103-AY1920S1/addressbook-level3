@@ -8,10 +8,10 @@ participant ":SwitchTabCommandParser" as SwitchTabCommandParser LOGIC_COLOR
 participant "s:SwitchTabCommand" as SwitchTabCommand LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("switchtab t/display i/1")
+[-> LogicManager : execute("switchtab tt/display i/1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("switchtab t/display i/1")
+LogicManager -> AddressBookParser : parseCommand("switchtab tt/display i/1")
 activate AddressBookParser
 
 create SwitchTabCommandParser
@@ -21,7 +21,7 @@ activate SwitchTabCommandParser
 SwitchTabCommandParser --> AddressBookParser
 deactivate SwitchTabCommandParser
 
-AddressBookParser -> SwitchTabCommandParser : parse("t/display i/1")
+AddressBookParser -> SwitchTabCommandParser : parse("tt/display i/1")
 activate SwitchTabCommandParser
 
 create SwitchTabCommand

@@ -1,6 +1,7 @@
 package seedu.algobase.ui;
 
 import java.util.function.Consumer;
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
@@ -13,11 +14,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.commons.core.LogsCenter;
-import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
+import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.storage.SaveStorageRunnable;
 
 /**
  * An UI component that displays information of a {@code Problem}.
@@ -59,7 +61,12 @@ public class ProblemCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ProblemCard(Problem problem, int displayedIndex, WriteOnlyTabManager writeOnlyTabManager) {
+    public ProblemCard(
+        Problem problem,
+        int displayedIndex,
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         super(FXML);
         this.problem = problem;
         id.setText(displayedIndex + ". ");
@@ -117,16 +124,20 @@ public class ProblemCard extends UiPart<Region> {
     /**
      * Spawns a new Tab when the cardPane registers a double click event.
      *
-     * @param addDetailsTabConsumer
+     * @param writeOnlyTabManager the tabManager to be written to.
      */
-    public void addMouseClickListener(Consumer<Id> addDetailsTabConsumer) {
+    public void addMouseClickListener(
+        WriteOnlyTabManager writeOnlyTabManager,
+        SaveStorageRunnable saveStorageRunnable
+    ) {
         cardPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
-                        logger.fine("Double Clicked");
-                        addDetailsTabConsumer.accept(problem.getId());
+                        logger.info("Double Clicked on Problem card with name " + problem.getName());
+                        writeOnlyTabManager.openDetailsTab(new TabData(ModelType.PROBLEM, problem.getId()));
+                        saveStorageRunnable.save();
                     }
                 }
             }

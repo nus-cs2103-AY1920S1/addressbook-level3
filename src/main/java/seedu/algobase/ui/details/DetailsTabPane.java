@@ -2,7 +2,6 @@ package seedu.algobase.ui.details;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import javafx.beans.value.ChangeListener;
@@ -24,6 +23,7 @@ import seedu.algobase.model.gui.WriteOnlyTabManager;
 import seedu.algobase.model.plan.Plan;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
+import seedu.algobase.storage.SaveStorageRunnable;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -36,6 +36,7 @@ public class DetailsTabPane extends UiPart<Region> {
     private final ReadOnlyAlgoBase algoBase;
     private final ReadOnlyTabManager readOnlyTabManager;
     private final WriteOnlyTabManager writeOnlyTabManager;
+    private final SaveStorageRunnable saveStorageRunnable;
 
     @FXML
     private TabPane tabsPlaceholder;
@@ -47,13 +48,16 @@ public class DetailsTabPane extends UiPart<Region> {
         this.algoBase = logic.getAlgoBase();
         this.readOnlyTabManager = logic.getGuiState().getTabManager();
         this.writeOnlyTabManager = logic.getGuiState().getTabManager();
+        this.saveStorageRunnable = logic.getSaveAlgoBaseStorageRunnable();
 
         addTabsToTabPane(readOnlyTabManager.getTabsDataList());
-        selectTab(readOnlyTabManager.getDetailsTabPaneIndex().getValue().intValue());
+        if (!readOnlyTabManager.getTabsDataList().isEmpty()) {
+            selectTab(readOnlyTabManager.getDetailsTabPaneIndex().getValue().intValue());
+        }
 
         addListenerForTabChanges();
         addListenerForIndexChange(readOnlyTabManager.getDetailsTabPaneIndex());
-        addListenerToTabPaneIndexChange(writeOnlyTabManager::setDetailsTabPaneIndex);
+        addListenerToTabPaneIndexChange(writeOnlyTabManager);
     }
 
     /**
@@ -91,13 +95,16 @@ public class DetailsTabPane extends UiPart<Region> {
     /**
      * Adds an index change listener to the tab pane.
      *
-     * @param indexChangeHandler A callback function for when the index of the tabPane changes.
+     * @param tabManager The TabManager to be modified.
      */
-    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(WriteOnlyTabManager tabManager) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
+                if (newValue.intValue() >= 0) {
+                    tabManager.switchDetailsTab(Index.fromZeroBased(newValue.intValue()));
+                    saveStorageRunnable.save();
+                }
             }
         });
     }
@@ -112,7 +119,6 @@ public class DetailsTabPane extends UiPart<Region> {
                 clearTabs();
                 addTabsToTabPane(change.getList());
                 tabsPlaceholder.requestLayout();
-                selectLastTab();
             }
         });
     }

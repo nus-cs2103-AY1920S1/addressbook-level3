@@ -3,6 +3,7 @@ package seedu.algobase.model.plan;
 import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.algobase.model.plan.exceptions.PlanNotFoundException;
+import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.task.Task;
 
 /**
@@ -35,15 +37,29 @@ public class PlanList implements Iterable<Plan> {
     private final IntegerProperty unsolvedCount = new SimpleIntegerProperty();
 
     /**
+     * Check whether any plan in the list contains the given problem.
+     * @return true/false based on whether the given problem is contained in one of the plans.
+     */
+    public boolean containsProblem(Problem problem) {
+        return internalList.stream().anyMatch(plan -> plan.containsProblem(problem));
+    }
+
+    /**
+     * Removes the given problem from all tasks.
+     */
+    public void removeProblem(Problem problem) {
+        List<Plan> updatedList = new ArrayList<>();
+        internalList.stream().forEach(plan -> updatedList.add(plan.removeProblem(problem)));
+        setPlans(updatedList);
+    }
+
+    /**
      * Adds a Plan to the list.
      */
     public void add(Plan toAdd) {
         requireNonNull(toAdd);
-        currentPlan.set(toAdd.getPlanName().fullName);
-        solvedCount.set(toAdd.getSolvedTaskCount());
-        unsolvedCount.set(toAdd.getUnsolvedTaskCount());
         internalList.add(toAdd);
-        internalTaskList.setAll(toAdd.getTasks());
+        setCurrentPlan(toAdd);
     }
 
     /**
@@ -58,11 +74,8 @@ public class PlanList implements Iterable<Plan> {
             throw new PlanNotFoundException();
         }
 
-        currentPlan.set(updatedPlan.getPlanName().fullName);
-        solvedCount.set(updatedPlan.getSolvedTaskCount());
-        unsolvedCount.set(updatedPlan.getUnsolvedTaskCount());
         internalList.set(index, updatedPlan);
-        internalTaskList.setAll(updatedPlan.getTasks());
+        setCurrentPlan(updatedPlan);
     }
 
     /**
@@ -81,6 +94,14 @@ public class PlanList implements Iterable<Plan> {
     }
 
     /**
+     * Replaces the contents of this list with {@code replacement}.
+     */
+    public void setPlans(PlanList replacement) {
+        requireNonNull(replacement);
+        setPlans(replacement.internalList);
+    }
+
+    /**
      * Replaces the contents of this list with {@code plans}.
      */
     public void setPlans(List<Plan> plans) {
@@ -89,21 +110,10 @@ public class PlanList implements Iterable<Plan> {
 
         if (plans.size() > 0) {
             // Default to first plan in list
-            Plan plan = plans.get(0);
-            currentPlan.set(plan.getPlanName().fullName);
-            solvedCount.set(plan.getSolvedTaskCount());
-            unsolvedCount.set(plan.getUnsolvedTaskCount());
-            internalTaskList.setAll(plan.getTasks());
+            setCurrentPlan(plans.get(0));
+        } else {
+            currentPlan.set("");
         }
-    }
-
-    /**
-     * Replaces the contents of this list with {@code replacement}.
-     */
-    public void setPlans(PlanList replacement) {
-        requireNonNull(replacement);
-        List<Plan> plans = replacement.internalList;
-        setPlans(plans);
     }
 
     /**
@@ -111,6 +121,16 @@ public class PlanList implements Iterable<Plan> {
      */
     public StringProperty getCurrentPlan() {
         return currentPlan;
+    }
+
+    /**
+     * Sets the current {@code Plan}.
+     */
+    public void setCurrentPlan(Plan plan) {
+        currentPlan.set(plan.getPlanName().fullName);
+        solvedCount.set(plan.getSolvedTaskCount());
+        unsolvedCount.set(plan.getUnsolvedTaskCount());
+        internalTaskList.setAll(plan.getTaskList());
     }
 
     /**

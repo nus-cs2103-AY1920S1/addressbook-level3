@@ -6,7 +6,7 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_MODEL_TYPE;
 import static seedu.algobase.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.logic.commands.OpenTabCommand;
+import seedu.algobase.logic.commands.gui.OpenTabCommand;
 import seedu.algobase.logic.parser.exceptions.ParseException;
 import seedu.algobase.model.ModelType;
 
@@ -21,7 +21,10 @@ public class OpenTabCommandParser implements Parser<OpenTabCommand> {
 
         ModelType modelType;
         if (arePrefixesPresent(argMultimap, PREFIX_MODEL_TYPE)) {
-            modelType = ParserUtil.parseModelType(argMultimap.getValue(PREFIX_MODEL_TYPE).get());
+            modelType = ParserUtil.parseModelType(
+                argMultimap.getValue(PREFIX_MODEL_TYPE).get(),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE)
+            );
         } else {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE));
@@ -29,7 +32,10 @@ public class OpenTabCommandParser implements Parser<OpenTabCommand> {
 
         Index index;
         if (arePrefixesPresent(argMultimap, PREFIX_MODEL_INDEX)) {
-            index = ParserUtil.parseModelIndex(argMultimap.getValue(PREFIX_MODEL_INDEX).get());
+            index = ParserUtil.parseModelIndex(
+                argMultimap.getValue(PREFIX_MODEL_INDEX).get(),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE)
+            );
         } else {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenTabCommand.MESSAGE_USAGE));

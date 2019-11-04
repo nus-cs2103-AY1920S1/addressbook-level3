@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.tag.Tag;
@@ -33,7 +34,7 @@ public class DeleteTagCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Tag> lastShownList = model.getFilteredTagList();
 
@@ -42,8 +43,8 @@ public class DeleteTagCommand extends Command {
         }
 
         Tag tagToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTag(tagToDelete);
         model.deleteTags(tagToDelete);
+        model.deleteTag(tagToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tagToDelete.getName()));
     }
 

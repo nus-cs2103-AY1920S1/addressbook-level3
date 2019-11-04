@@ -8,8 +8,8 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_WEBLINK;
 
 import java.util.Set;
 
-import seedu.algobase.logic.commands.AddCommand;
-import seedu.algobase.logic.commands.EditCommand.EditProblemDescriptor;
+import seedu.algobase.logic.commands.problem.AddCommand;
+import seedu.algobase.logic.commands.problem.EditCommand.EditProblemDescriptor;
 import seedu.algobase.model.problem.Problem;
 import seedu.algobase.model.tag.Tag;
 

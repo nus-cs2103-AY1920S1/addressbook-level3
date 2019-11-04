@@ -8,13 +8,17 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.task.AddTaskCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
 
 class AddTaskCommandTest {
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullDescriptor_throwsNullPointerException() {
@@ -28,6 +32,6 @@ class AddTaskCommandTest {
         AddTaskCommand.AddTaskDescriptor descriptor =
             new AddTaskCommand.AddTaskDescriptor(planIndex, outOfBoundProblemIndex, LocalDate.now());
         AddTaskCommand addTaskCommand = new AddTaskCommand(descriptor);
-        assertThrows(CommandException.class, () -> addTaskCommand.execute(model));
+        assertThrows(CommandException.class, () -> addTaskCommand.execute(model, commandHistory));
     }
 }

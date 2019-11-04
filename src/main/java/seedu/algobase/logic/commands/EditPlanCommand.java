@@ -1,12 +1,13 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.algobase.model.Model.PREDICATE_SHOW_ALL_PLANS;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.ORDER_CONSTRAINTS;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.isValidRange;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -18,6 +19,7 @@ import java.util.Set;
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.commons.util.CollectionUtil;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.Model;
@@ -69,7 +71,7 @@ public class EditPlanCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Plan> lastShownList = model.getFilteredPlanList();
 
@@ -79,6 +81,10 @@ public class EditPlanCommand extends Command {
 
         Plan planToEdit = lastShownList.get(index.getZeroBased());
         Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
+
+        if (!isValidRange(editedPlan.getStartDate(), editedPlan.getEndDate())) {
+            throw new CommandException(ORDER_CONSTRAINTS);
+        }
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PLAN, editedPlan.getPlanName()));

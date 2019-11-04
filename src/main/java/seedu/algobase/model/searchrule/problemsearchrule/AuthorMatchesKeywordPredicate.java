@@ -35,6 +35,9 @@ public class AuthorMatchesKeywordPredicate implements Predicate<Problem> {
 
     @Override
     public boolean test(Problem problem) {
+        if (!Author.isValidAuthor(keyword.toString())) {
+            return false;
+        }
         return problem.getAuthor().equals(new Author(keyword.toString()));
     }
 

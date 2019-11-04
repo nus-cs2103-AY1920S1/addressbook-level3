@@ -10,7 +10,7 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Names should only contain alphanumeric characters spaces and underscores, and it should not be blank";
 
     /*
      * A name is any combination of the following characters: A-Z, a-z, ', . or whitespace.
@@ -35,7 +35,7 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return !test.isBlank() && test.matches(VALIDATION_REGEX);
     }
 
 

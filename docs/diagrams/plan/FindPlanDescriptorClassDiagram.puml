@@ -1,0 +1,45 @@
+@startuml
+
+left to right direction
+
+class FindPlanDescriptor{
+    + getFindPlanPredicate(): Predicate<Plan>
+}
+class PlanNameContainsKeywordsPredicate {
+    - keywords:List <Keyword>
+    + getKeywords(): List<Keyword>
+    + test(Plan plan): boolean
+    + equals(Object other): boolean
+}
+class PlanDescriptionContainsKeywordsPredicate {
+    - keywords:List <Keyword>
+    + getKeywords(): List<Keyword>
+    + test(Plan plan): boolean
+    + equals(Object other): boolean
+}
+class TimeRangePredicate {
+    - timeRange: TimeRange
+    + getTimeRange(): TimeRange
+    + test(Plan plan): boolean
+    + equals(Object other): boolean
+}
+class TasksContainsNamePredicate {
+    - name: Name
+    + getName(): Name
+    + test(Plan plan): boolean
+    + equals(Object other): boolean
+}
+interface Predicate<Plan> {
+    + {abstract} test(): boolean
+}
+
+FindPlanDescriptor --"1" PlanNameContainsKeywordsPredicate
+FindPlanDescriptor --"1" PlanDescriptionContainsKeywordsPredicate
+FindPlanDescriptor --"1" TimeRangePredicate
+FindPlanDescriptor --"1" TasksContainsNamePredicate
+PlanNameContainsKeywordsPredicate <|.. Predicate
+PlanDescriptionContainsKeywordsPredicate <|.. Predicate
+TimeRangePredicate <|.. Predicate
+TasksContainsNamePredicate <|.. Predicate
+
+@enduml

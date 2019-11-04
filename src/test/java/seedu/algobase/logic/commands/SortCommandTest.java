@@ -2,7 +2,7 @@ package seedu.algobase.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.algobase.logic.commands.SortCommand.MESSAGE_SUCCESS;
+import static seedu.algobase.logic.commands.problem.SortCommand.MESSAGE_SUCCESS;
 import static seedu.algobase.testutil.TypicalProblems.getTypicalAlgoBase;
 
 import java.util.ArrayList;
@@ -12,15 +12,19 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.problem.SortCommand;
 import seedu.algobase.model.Model;
 import seedu.algobase.model.ModelManager;
 import seedu.algobase.model.UserPrefs;
 import seedu.algobase.model.problem.Problem;
 
 class SortCommandTest {
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private Model model = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAlgoBase(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -30,7 +34,7 @@ class SortCommandTest {
      */
     private void assertSuccessfullySorted(SortCommand command, Comparator<Problem> comparator) throws CommandException {
         String expectedMessage = String.format(MESSAGE_SUCCESS);
-        CommandResult actualResult = command.execute(model);
+        CommandResult actualResult = command.execute(model, commandHistory);
         assertEquals(new CommandResult(expectedMessage), actualResult);
         List<Problem> expectedList = new ArrayList<>(expectedModel.getFilteredProblemList());
         expectedList.sort(comparator);

@@ -1,7 +1,5 @@
 package seedu.algobase.ui.display;
 
-import java.util.function.Consumer;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableValue;
@@ -9,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import seedu.algobase.commons.core.index.Index;
-import seedu.algobase.model.gui.GuiState;
+import seedu.algobase.model.gui.TabManager;
+import seedu.algobase.model.gui.WriteOnlyTabManager;
+import seedu.algobase.storage.SaveStorageRunnable;
 import seedu.algobase.ui.UiPart;
 
 /**
@@ -22,14 +22,14 @@ public class DisplayTabPane extends UiPart<Region> {
     @FXML
     private TabPane tabsPlaceholder;
 
-    public DisplayTabPane(GuiState guiState, DisplayTab... displayTabs) {
+    public DisplayTabPane(TabManager tabManager, SaveStorageRunnable saveStorageRunnable, DisplayTab... displayTabs) {
         super(FXML);
 
         addTabsToTabPane(displayTabs);
-        selectTab(guiState.getTabManager().getDisplayTabPaneIndex().getValue().intValue());
+        selectTab(tabManager.getDisplayTabPaneIndex().getValue().intValue());
 
-        addListenerForIndexChange(guiState.getTabManager().getDisplayTabPaneIndex());
-        addListenerToTabPaneIndexChange(guiState.getTabManager()::setDisplayTabPaneIndex);
+        addListenerForIndexChange(tabManager.getDisplayTabPaneIndex());
+        addListenerToTabPaneIndexChange(tabManager, saveStorageRunnable);
     }
 
     /**
@@ -57,13 +57,15 @@ public class DisplayTabPane extends UiPart<Region> {
     /**
      * Adds an index change listener to the tab pane.
      *
-     * @param indexChangeHandler A callback function for when the index of the tabPane changes.
+     * @param tabManager A callback function for when the index of the tabPane changes.
      */
-    private void addListenerToTabPaneIndexChange(Consumer<Index> indexChangeHandler) {
+    private void addListenerToTabPaneIndexChange(
+        WriteOnlyTabManager tabManager, SaveStorageRunnable saveStorageRunnable) {
         this.tabsPlaceholder.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                indexChangeHandler.accept(Index.fromZeroBased(newValue.intValue()));
+                tabManager.switchDisplayTab(Index.fromZeroBased(newValue.intValue()));
+                saveStorageRunnable.save();
             }
         });
     }

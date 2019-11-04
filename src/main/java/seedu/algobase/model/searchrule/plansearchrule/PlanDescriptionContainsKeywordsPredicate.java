@@ -46,6 +46,6 @@ public class PlanDescriptionContainsKeywordsPredicate implements Predicate<Plan>
         assert keywords != null;
         return other == this
                 || (other instanceof PlanDescriptionContainsKeywordsPredicate
-                && keywords.equals(((PlanDescriptionContainsKeywordsPredicate) other).keywords));
+                && keywords.equals(((PlanDescriptionContainsKeywordsPredicate) other).getKeywords()));
     }
 }

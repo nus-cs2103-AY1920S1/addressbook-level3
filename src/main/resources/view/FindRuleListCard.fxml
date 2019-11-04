@@ -11,60 +11,60 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
         <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
             <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
+                <Insets bottom="5" left="15" right="5" top="5"/>
             </padding>
             <HBox alignment="CENTER_LEFT" spacing="5">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
+                        <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label fx:id="ruleName" styleClass="cell_big_label" text="\$ruleName" />
+                <Label fx:id="ruleName" styleClass="cell_big_label" text="\$ruleName"/>
             </HBox>
-         <HBox>
-            <children>
-               <Label text="Name: " />
-               <Label fx:id="problemName" styleClass="cell_small_label" text="\$problemName" />
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <Label text="Author: " />
-                  <Label fx:id="author" styleClass="cell_small_label" text="\$author" />
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <Label text="Description: " />
-                  <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <Label text="Difficulty: " />
-                  <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty" />
-            </children>
-         </HBox>
-         <HBox>
-            <children>
-               <Label text="Source: " />
-                  <Label fx:id="source" styleClass="cell_small_label" text="\$source" />
-            </children>
-         </HBox>
-         <HBox layoutX="25.0" layoutY="100.0">
-            <children>
-               <Label text="Tag:" />
-               <Label fx:id="tag" styleClass="cell_small_label" text="\$tag" />
-            </children>
-         </HBox>
+            <HBox>
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Name: "/>
+                    <Label fx:id="problemName" styleClass="cell_small_label" text="\$problemName"/>
+                </children>
+            </HBox>
+            <HBox>
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Author: "/>
+                    <Label fx:id="author" styleClass="cell_small_label" text="\$author"/>
+                </children>
+            </HBox>
+            <HBox>
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Description: "/>
+                    <Label fx:id="description" styleClass="cell_small_label" text="\$description"/>
+                </children>
+            </HBox>
+            <HBox>
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Difficulty: "/>
+                    <Label fx:id="difficulty" styleClass="cell_small_label" text="\$difficulty"/>
+                </children>
+            </HBox>
+            <HBox>
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Source: "/>
+                    <Label fx:id="source" styleClass="cell_small_label" text="\$source"/>
+                </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="100.0">
+                <children>
+                    <Label minWidth="80" styleClass="cell_small_label_prefix" text="Tag:"/>
+                    <Label fx:id="tag" styleClass="cell_small_label" text="\$tag"/>
+                </children>
+            </HBox>
         </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
     </GridPane>
 </HBox>

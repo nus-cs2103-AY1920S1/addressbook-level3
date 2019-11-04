@@ -5,6 +5,8 @@ import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.ORDER_CONSTRAINTS;
+import static seedu.algobase.model.searchrule.plansearchrule.TimeRange.isValidRange;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -58,7 +60,11 @@ public class AddPlanCommandParser implements Parser<AddPlanCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_END_DATE)) {
             endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
         } else {
-            endDate = LocalDate.now().plusMonths(1);
+            endDate = startDate.plusMonths(1);
+        }
+
+        if (!isValidRange(startDate, endDate)) {
+            throw new ParseException(ORDER_CONSTRAINTS);
         }
 
         Set<Task> tasks = new HashSet<>();

@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.algobase.commons.core.index.Index;
+import seedu.algobase.logic.CommandHistory;
 import seedu.algobase.logic.commands.exceptions.CommandException;
+import seedu.algobase.logic.commands.gui.SwitchTabCommand;
 import seedu.algobase.model.Id;
 import seedu.algobase.model.ModelType;
 import seedu.algobase.model.gui.GuiState;
@@ -14,6 +16,9 @@ import seedu.algobase.model.gui.TabData;
 import seedu.algobase.model.gui.TabType;
 
 class SwitchTabCommandTest {
+
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullProblem_throwsNullPointerException() {
@@ -24,7 +29,7 @@ class SwitchTabCommandTest {
     public void execute_displayTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDisplayTabIndex modelStub = new ModelStubAcceptingDisplayTabIndex();
         Index index = ModelType.PLAN.getDisplayTabPaneIndex();
-        CommandResult commandResult = new SwitchTabCommand(TabType.DISPLAY, index).execute(modelStub);
+        CommandResult commandResult = new SwitchTabCommand(TabType.DISPLAY, index).execute(modelStub, commandHistory);
 
         assertEquals(
             String.format(SwitchTabCommand.MESSAGE_SUCCESS, TabType.DISPLAY.getName(), index.getOneBased()),
@@ -38,14 +43,14 @@ class SwitchTabCommandTest {
         Index index = Index.fromZeroBased(ModelType.values().length);
 
         assertThrows(CommandException.class, () -> new SwitchTabCommand(TabType.DISPLAY, index)
-            .execute(modelStub));
+            .execute(modelStub, commandHistory));
     }
 
     @Test
     public void execute_detailsTabIndexAcceptedByModel_switchSuccessful() throws Exception {
         ModelStubAcceptingDetailsTabIndex modelStub = new ModelStubAcceptingDetailsTabIndex();
         Index index = Index.fromOneBased(2);
-        CommandResult commandResult = new SwitchTabCommand(TabType.DETAILS, index).execute(modelStub);
+        CommandResult commandResult = new SwitchTabCommand(TabType.DETAILS, index).execute(modelStub, commandHistory);
 
         assertEquals(
             String.format(SwitchTabCommand.MESSAGE_SUCCESS, TabType.DETAILS.getName(), index.getOneBased()),
@@ -59,7 +64,7 @@ class SwitchTabCommandTest {
         Index index = Index.fromOneBased(3);
 
         assertThrows(CommandException.class, () -> new SwitchTabCommand(TabType.DETAILS, index)
-            .execute(modelStub));
+            .execute(modelStub, commandHistory));
     }
 
     /**
@@ -83,8 +88,8 @@ class SwitchTabCommandTest {
             GuiState guiState = new GuiState();
             TabData tabData1 = new TabData(ModelType.PROBLEM, Id.generateId());
             TabData tabData2 = new TabData(ModelType.PROBLEM, Id.generateId());
-            guiState.getTabManager().addDetailsTabData(tabData1);
-            guiState.getTabManager().addDetailsTabData(tabData2);
+            guiState.getTabManager().openDetailsTab(tabData1);
+            guiState.getTabManager().openDetailsTab(tabData2);
             return guiState;
         }
     }

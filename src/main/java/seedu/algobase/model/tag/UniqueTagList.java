@@ -42,10 +42,9 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public void add(Tag toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTagException();
+        if (!contains(toAdd)) {
+            internalList.add(toAdd);
         }
-        internalList.add(toAdd);
     }
 
     /**
