@@ -293,10 +293,15 @@ Deletes all loans in from and out to John.
 
 Splits a joint payment equally among group members, then displays a list of who owes who how much.
 
-Format: `loan split p/<person> x/<amount paid> ... [me/<your name> w/<date> d/<description>]`
+Format: `loan split p/<person> x/<amount paid> [max/<limit>] ... [me/<your name> w/<date> d/<description>]`
 ****
 * Each `<person>` corresponds to an `<amount paid>`, representing how much the `person` paid for the group initially. +
 The order of each `person` should match the order of their `amount paid`.
+* The final amount a `person` ends up paying can be restricted to a `<limit>`.
+Persons with limits should be placed at the *head* of the list of persons,
+and the order of each `limit` should match the order of each `person`.
+This is to allow you to enter limits only for those persons who require them. +
+The sum of all limits cannot exceed the total amount already paid by all persons.
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
 +
 `<your name>` must match one of the persons among the other `p/<person>` names.
@@ -306,13 +311,15 @@ The order of each `person` should match the order of their `amount paid`.
 
 Examples:
 
-* `loan split p/John p/Mary p/Peter x/0 x/40 x/60` +
+* `loan split p/John x/0 p/Mary x/40 p/Peter x/60` +
 Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`. +
 The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*.
-* `loan split p/John p/Mary p/Peter x/0 x/10 x/90 me/Mary d/Dinner.` +
+* `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
-Furthermore, `me/Mary` marks `Mary` as the user (you), so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner`. +
-The resulting display should show that `John` owes `Peter` *$33.33* and `You` owe `Peter` *$23.33*.
+`max/10` restricts the final amount `John` pays/owes to `10`, despite the total amount being `0 + 10 + 90 = 100`.
+Furthermore, `me/Mary` marks `Mary` as the user (you),
+so any debts `Mary` owes/is owed will be added to the normal loan list with the description `Dinner`. +
+The resulting display should show that `John` owes `Peter` *$10* and `You` owe `Peter` *$35*.
 The latter debt will also have been added to your loan list, which can be checked using the command `loan list`.
 // end::loans[]
 

@@ -41,12 +41,12 @@ public class LoanSplitCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": Splits a group payment into a list of who owes who how much. "
-                    + "Optionally limits the share of one or more persons.\n"
+                    + "Optionally limits the final amount paid of one or more persons.\n"
                     + "Optionally adds loans from the resulting list to your loan list.\n"
                     + "Parameters: "
                     + PREFIX_PERSON + "PERSON "
                     + PREFIX_AMOUNT + "AMOUNT "
-                    + "[" + PREFIX_MAX_SHARE + "MAX_SHARE] "
+                    + "[" + PREFIX_MAX_SHARE + "LIMIT] "
                     + "... "
                     + "["
                     + PREFIX_USER + "YOUR_NAME "
@@ -66,7 +66,7 @@ public class LoanSplitCommand extends Command {
 
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
     public static final String MESSAGE_MAX_SHARES_EXCEED_TOTAL_AMOUNT =
-            "The sum of all shares cannot exceed the total amount paid by all persons.";
+            "The sum of all limits cannot exceed the total amount paid by all persons.";
     public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
 
     public static final String MESSAGE_USER_NOT_FOUND =

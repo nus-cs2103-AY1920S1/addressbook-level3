@@ -33,9 +33,9 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
     public static final String MESSAGE_DUPLICATE_PERSONS = "Duplicate persons found in the list of persons. "
             + "Takes note that the list is case insensitive.";
     public static final String MESSAGE_SHARES_MORE_THAN_PERSONS =
-            "The number of shares cannot exceed the number of persons.";
+            "The number of limits cannot exceed the number of persons.";
     public static final String MESSAGE_MAX_SHARE_CONSTRAINTS =
-            "A person's maximum share must be a non-negative number.";
+            "A person's limit must be a non-negative number.";
 
     private List<Person> persons;
     private List<Amount> amounts;
