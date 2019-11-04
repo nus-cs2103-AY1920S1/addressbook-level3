@@ -16,7 +16,6 @@ public abstract class Transaction implements UndoableAction {
     protected Amount amount;
     protected Date date;
     protected Description description;
-    protected Person peopleInvolved;
 
     // Data fields
     protected final Set<Category> categories = new HashSet<>();
@@ -31,19 +30,6 @@ public abstract class Transaction implements UndoableAction {
         this(amount, date, description);
         this.categories.addAll(categories);
     }
-
-    public Transaction(Amount amount, Date date, Description description, Person personInvolved) {
-        this(amount, date, description);
-        this.peopleInvolved = personInvolved;
-    }
-
-    public Transaction(Amount amount, Date date, Description description,
-                       Set<Category> categories, Person personInvolved) {
-        this(amount, date, description);
-        this.categories.addAll(categories);
-        this.peopleInvolved = personInvolved;
-    }
-
 
     public Amount getAmount() {
         return amount;

@@ -68,7 +68,7 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 ====
 
-=== Splitting a Bill with Friends : `split` [Work in Progress]
+=== Splitting a Bill with Friends : `split`
 
 Split a bill with your friends +
 Format: `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...`
@@ -89,10 +89,10 @@ Examples:
 * `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
 ** $100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.
 
-=== Settling Up with a Friend : `pay` (V1.4)
+=== Settling Up with a Friend : `receive`
 
-Sends money to 1 friend +
-Format: `pay $/AMOUNT n/NAME1`
+Receives money from 1 friend +
+Format: `receive $/AMOUNT n/NAME1 [d/DATE]`
 
 Examples:
 
