@@ -13,6 +13,8 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/Logs/
+/DukeAcademy/
 
 # Test sandbox files
 src/test/data/sandbox/
