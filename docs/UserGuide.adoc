@@ -31,7 +31,7 @@ functionalities. More importantly, MYMorise is *optimized for those who prefer t
 * The amounts used in MYMorise can only work for numbers up to 2 decimal places.
 * MYMorise's GUI consists of 3 display panels:
 
-    The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
+    The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from the centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
 
     The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `budgetlist` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `edit` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
 
@@ -89,9 +89,11 @@ Format: `add n/NAME a/AMOUNT [c/CURRENCY] [d/DATE] [t/TAG]…​`
 [TIP]
 An expense with no currency specified will have the default currency set.
 [TIP]
-An expense with no date specified will default to current date of addition.
+An expense with no date specified will default to current date and time of addition.
 [TIP]
 An expense can have any number of tags (including no tags).
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
 
 Examples:
 
@@ -119,6 +121,8 @@ end dates from 12/1/2019 to 18/1/2019 (inclusive)
 ****
 [TIP]
 A budget with no currency specified will have the default currency set.
+[TIP]
+User may input time in the format "HHMM" in the [d/DATE] portion to specify current date with specified time
 
 Examples:
 
