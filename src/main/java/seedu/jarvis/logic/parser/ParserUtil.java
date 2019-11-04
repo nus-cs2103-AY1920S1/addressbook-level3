@@ -176,8 +176,10 @@ public class ParserUtil {
                 count++;
             }
 
-            if (count == 2) {
-                if (splitDate[0].compareTo(splitDate[1]) > 0) {
+            if (splitDate.length == 2) {
+                LocalDate start =LocalDate.parse(splitDate[0], Task.getDateFormat());
+                LocalDate end = LocalDate.parse(splitDate[1], Task.getDateFormat());
+                if (start.compareTo(end) > 0) {
                     throw new ParseException(MESSAGE_WRONG_ORDER_DATE);
                 }
             }
