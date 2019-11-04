@@ -63,6 +63,9 @@ public class LoanCommandParser implements CommandParser<LoanCommand> {
         Direction direction = Direction.valueOf(directionString.toUpperCase());
         Person person = new Person(CommandParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON).get()));
         Amount amount = CommandParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        if (amount.toLong() == 0) {
+            throw new ParseException(Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT);
+        }
 
         Optional<String> optionalDescription = argMultimap.getValue(PREFIX_DESCRIPTION);
         Description description = optionalDescription.isPresent()

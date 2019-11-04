@@ -15,7 +15,9 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
+import budgetbuddy.model.transaction.Amount;
 
 /**
  * Parses input arguments and creates a new LoanEditCommand object.
@@ -50,8 +52,11 @@ public class LoanEditCommandParser implements CommandParser<LoanEditCommand> {
                     new Person(CommandParserUtil.parseName(argMultiMap.getValue(PREFIX_PERSON).get())));
         }
         if (argMultiMap.getValue(PREFIX_AMOUNT).isPresent()) {
-            loanEditDescriptor.setAmount(
-                    CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get()));
+            Amount editedAmount = CommandParserUtil.parseAmount(argMultiMap.getValue(PREFIX_AMOUNT).get());
+            if (editedAmount.toLong() == 0) {
+                throw new ParseException(Loan.MESSAGE_AMOUNT_POSITIVE_CONSTRAINT);
+            }
+            loanEditDescriptor.setAmount(editedAmount);
         }
         if (argMultiMap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             loanEditDescriptor.setDescription(

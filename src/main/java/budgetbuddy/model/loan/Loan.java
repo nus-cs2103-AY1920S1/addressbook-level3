@@ -17,6 +17,8 @@ import budgetbuddy.model.transaction.Amount;
  */
 public class Loan {
 
+    public static final String MESSAGE_AMOUNT_POSITIVE_CONSTRAINT = "Amounts for loans must be positive numbers.";
+
     private final Person person;
     private final Direction direction;
     private final Amount amount;
