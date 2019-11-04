@@ -169,26 +169,26 @@ public class Policy implements Binnable {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Description: ")
+                .append("\nDescription: ")
                 .append(getDescription())
-                .append(" Coverage: ")
-                .append(getCoverage())
-                .append(" Price: ")
+                .append("; Coverage: ")
+                .append(getCoverage().toReadableString())
+                .append("; Price: ")
                 .append(getPrice());
         if (!startAge.age.equals(StartAge.AGE_ZERO)) {
-            builder.append(" Start Age: ")
+            builder.append("; Start Age: ")
                     .append(getStartAge());
         }
         if (!endAge.age.equals(EndAge.AGE_INFINITY)) {
-            builder.append(" End Age: ")
+            builder.append("; End Age: ")
                     .append(getEndAge());
         }
         if (getCriteria().size() != 0) {
-            builder.append(" Criteria: ");
+            builder.append("\nCriteria: ");
             getCriteria().forEach(builder::append);
         }
         if (getTags().size() != 0) {
-            builder.append(" Tags: ");
+            builder.append("\nTags: ");
             getTags().forEach(builder::append);
         }
         return builder.toString();

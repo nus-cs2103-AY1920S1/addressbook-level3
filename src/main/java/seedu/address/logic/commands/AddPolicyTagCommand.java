@@ -25,7 +25,7 @@ public class AddPolicyTagCommand extends Command {
     public static final String COMMAND_WORD = "addpolicytag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds tag to the policy identified "
-            + "by the index number used in the last policy listing. "
+            + "by the index number used in the last policy listing.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "t/ TAG [MORE_TAGS] (will be converted to lowercase)\n"
             + "Example: " + COMMAND_WORD + " 1 "

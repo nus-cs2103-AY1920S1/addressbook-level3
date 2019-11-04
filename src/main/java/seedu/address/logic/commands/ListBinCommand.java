@@ -14,7 +14,7 @@ public class ListBinCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of all items in the bin.";
 
-    public static final String MESSAGE_SUCCESS = "Listed all items in the bin";
+    public static final String MESSAGE_SUCCESS = "Listed all items in the bin.";
 
     @Override
     public CommandResult execute(Model model) {

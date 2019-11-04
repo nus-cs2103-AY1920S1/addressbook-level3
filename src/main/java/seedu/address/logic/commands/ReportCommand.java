@@ -13,7 +13,7 @@ public class ReportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates report of Key Performance Indicators (KPI).";
 
-    public static final String MESSAGE_SUCCESS = "Report generated";
+    public static final String MESSAGE_SUCCESS = "Report generated.";
 
     @Override
     public CommandResult execute(Model model) {

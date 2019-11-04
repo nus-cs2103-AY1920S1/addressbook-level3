@@ -14,7 +14,7 @@ public class ListPolicyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows a list of all current policies.";
 
-    public static final String MESSAGE_SUCCESS = "Listed all policies";
+    public static final String MESSAGE_SUCCESS = "Listed all policies.";
 
     @Override
     public CommandResult execute(Model model) {

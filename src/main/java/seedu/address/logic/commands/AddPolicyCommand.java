@@ -22,7 +22,7 @@ public class AddPolicyCommand extends Command {
 
     public static final String COMMAND_WORD = "addpolicy";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a policy to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a policy to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "POLICY NAME "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
