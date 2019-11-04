@@ -167,6 +167,10 @@ Displays a full list of all tags currently in StudyBuddyPro.
     [math]
     [pipelining]
 
+* The user can make use of taglist, to quickly see which tag they would like to view.
+
+* The list of tags is also automatically sorted alphabetically.
+
 === Listing all StudyBuddyPro items by their tag : `filterall`
 
 Lists all StudyBuddyPro items with matching tags in the application.
