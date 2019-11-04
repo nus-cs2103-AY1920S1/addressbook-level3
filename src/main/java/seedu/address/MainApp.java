@@ -26,7 +26,17 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.history.HistoryManager;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.*;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.AttendanceStorage;
+import seedu.address.storage.ImageStorage;
+import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonAttendanceStorage;
+import seedu.address.storage.JsonPerformanceStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.PerformanceStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 

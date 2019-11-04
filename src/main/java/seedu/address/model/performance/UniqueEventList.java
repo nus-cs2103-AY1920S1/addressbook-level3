@@ -59,7 +59,7 @@ public class UniqueEventList implements Iterable<Event> {
 
     public ArrayList<String> getAthleteEvent(Person person) {
         ArrayList<String> athleteEventList = new ArrayList<>();
-        for(Event event : internalList) {
+        for (Event event : internalList) {
             if (event.getRecords().containsKey(person)) {
                 athleteEventList.add(event.getName());
             }
