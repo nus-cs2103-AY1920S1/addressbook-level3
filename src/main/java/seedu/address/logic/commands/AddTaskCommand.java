@@ -30,7 +30,7 @@ public class AddTaskCommand extends Command {
             + PREFIX_TASK_TAG + "urgent";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in your Dashboard";
 
     private final Task toAdd;
 

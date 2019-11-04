@@ -9,18 +9,19 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FindMemberCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.member.MemberNameContainsKeywordsPredicate;
 
 public class FindMemberCommandParserTest {
     private FindMemberCommandParser parser = new FindMemberCommandParser();
 
     @Test
-    public void parse_emptyArg_throwsParseException() {
+    public void parse_emptyArg_throwsParseException() throws CommandException {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMemberCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsFindCommand() throws CommandException {
         // no leading and trailing whitespaces
         FindMemberCommand expectedFindCommand =
                 new FindMemberCommand(new MemberNameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));

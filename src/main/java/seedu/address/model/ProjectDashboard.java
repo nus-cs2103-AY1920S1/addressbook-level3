@@ -14,6 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
+import seedu.address.model.calendar.MeetingQuery;
+import seedu.address.model.calendar.UniqueMeetingList;
 import seedu.address.model.calendar.UniqueCalendarList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.UniqueInventoryList;
@@ -45,6 +48,8 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     private final UniqueInventoryList inventories;
     private final UniqueMappingManager mappings;
     private final UniqueCalendarList calendars;
+    private final UniqueMeetingList meetings;
+    private MeetingQuery meetingQuery = null;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -63,6 +68,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         inventories = new UniqueInventoryList();
         mappings = new UniqueMappingManager();
         calendars = new UniqueCalendarList();
+        meetings = new UniqueMeetingList();
     }
 
     public ProjectDashboard() {}
@@ -99,6 +105,10 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         this.mappings.setTasMemMappings(tasMemMappings);
     }
 
+    public void setMeetings(List<Meeting> meetings) {
+        this.meetings.setMeetings(meetings);
+    }
+
     public void setCalendars(List<CalendarWrapper> calendars) {
         this.calendars.setCalendars(calendars);
     }
@@ -122,6 +132,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         setMembers(newData.getMemberList());
         setMappings(newData.getInvMemMappingList(), newData.getInvTasMappingList(), newData.getTasMemMappingList());
         setCalendars(newData.getCalendarList());
+        setMeetings(newData.getMeetingList());
     }
 
     //// task-level operations
@@ -427,25 +438,12 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return members.asUnmodifiableObservableList();
     }
 
-    @Override
-    public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-        HashMap<Integer, ObservableList<Integer>> indexedListMemberByTask = mappings.listMemberByTask();
-        HashMap<Task, ObservableList<Member>> result = new HashMap<>();
-        ObservableList<Task> tasksObservableList = tasks.asUnmodifiableObservableList();
-        ObservableList<Member> membersObservableList = members.asUnmodifiableObservableList();
-        for (int taskIndex : indexedListMemberByTask.keySet()) {
-            Task currentTask = tasksObservableList.get(taskIndex);
-            ObservableList<Member> mappedMembers = FXCollections.observableArrayList();
-            result.put(currentTask, mappedMembers);
-            for (int memberIndex : indexedListMemberByTask.get(taskIndex)) {
-                mappedMembers.add(membersObservableList.get(memberIndex));
-            }
-        }
-        return result;
-    }
-
     public void addCalendar(CalendarWrapper calendar) {
         calendars.add(calendar);
+    }
+
+    public void deleteCalendar(CalendarWrapper calendar) {
+        calendars.remove(calendar);
     }
 
     public boolean hasCalendar(CalendarWrapper calendar) {
@@ -457,7 +455,33 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
         return calendars.asUnmodifiableObservableList();
     }
 
-    public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
-        return calendars.findMeetingTime(startDate, endDate, meetingDuration);
+    public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+        meetingQuery = calendars.findMeetingTime(startDate, endDate, meetingDuration);
+    }
+
+    public void clearMeetingQuery() {
+        meetingQuery = null;
+    }
+
+    public MeetingQuery getMeetingQuery() {
+        return meetingQuery;
+    }
+
+    public void addMeeting(Meeting meeting) {
+        meetings.add(meeting);
+        clearMeetingQuery();
+    }
+
+    public void deleteMeeting(Meeting meeting) {
+        meetings.remove(meeting);
+    }
+
+    public boolean hasMeeting(Meeting meeting) {
+        return meetings.contains(meeting);
+    }
+
+    @Override
+    public ObservableList<Meeting> getMeetingList() {
+        return meetings.asUnmodifiableObservableList();
     }
 }

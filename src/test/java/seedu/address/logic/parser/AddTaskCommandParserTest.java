@@ -39,6 +39,7 @@ import static seedu.address.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddTaskCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.model.tag.Tag;
 //import seedu.address.model.task.Name;
 import seedu.address.model.tag.Tag;
@@ -52,7 +53,7 @@ public class AddTaskCommandParserTest {
     private AddTaskCommandParser parser = new AddTaskCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
+    public void parse_allFieldsPresent_success() throws CommandException {
         Task expectedTask = new TaskBuilder(BUILD_WEBSITE).build();
 
         // whitespace only preamble
@@ -77,14 +78,14 @@ public class AddTaskCommandParserTest {
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
+    public void parse_optionalFieldsMissing_success() throws CommandException {
         // zero tags
         Task expectedTask = new TaskBuilder(REVIEW_BUDGET).withTags().build();
         assertParseSuccess(parser, TASK_NAME_DESC_FINANCE, new AddTaskCommand(expectedTask));
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
+    public void parse_compulsoryFieldMissing_failure() throws CommandException {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE);
 
         // missing name prefix
@@ -95,7 +96,7 @@ public class AddTaskCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_invalidValue_failure() throws CommandException {
         // invalid name
         assertParseFailure(parser, INVALID_TASK_NAME_DESC + TAG_DESC_FINANCE + TAG_DESC_PUBLICITY,
                 Name.MESSAGE_CONSTRAINTS);

@@ -31,6 +31,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.UserSettings;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.MeetingQuery;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.Mapping;
@@ -347,7 +349,11 @@ public class AssignCommandTest {
         @Override
         public void addCalendar(CalendarWrapper calendar) {
             throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public void deleteCalendar(CalendarWrapper calendar) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -356,7 +362,7 @@ public class AssignCommandTest {
         }
 
         @Override
-        public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG) {
+        public ObservableList<CalendarWrapper> getFilteredCalendarList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -378,12 +384,6 @@ public class AssignCommandTest {
 
         @Override
         public void redo() {
-            throw new AssertionError("This method should not be called.");
-
-        }
-
-        @Override
-        public void saveDashboardState() {
             throw new AssertionError("This method should not be called.");
 
         }
@@ -425,6 +425,41 @@ public class AssignCommandTest {
 
         @Override
         public void setClockFormat(ClockFormat newClockFormat) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Meeting> getFilteredMeetingList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMeetingsList(Predicate<Meeting> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MeetingQuery getMeetingQuery() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.calendar.Meeting;
+import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
 import seedu.address.model.inventory.Inventory;
@@ -27,7 +30,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, FileNotFoundException;
 
     /**
      * Returns the ProjectDashboard.
@@ -79,6 +82,16 @@ public interface Logic {
      * Returns the project statistics.
      */
     Statistics getStatistics();
+
+    /**
+     * Returns possible meeting times.
+     */
+    MeetingQuery getMeetingQuery();
+
+    /**
+     * Returns list of schedule meetings.
+     */
+    ObservableList<Meeting> getFilteredMeetingList();
 
     /**
      * Returns the current theme of +Work.

@@ -24,6 +24,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("ii/");
     public static final Prefix PREFIX_INVENTORY_PDFTYPE = new Prefix("ty/");
 
-    /*Prefix definitions for inventory*/
+    /*Prefix definitions for calendar*/
     public static final Prefix PREFIX_FILE_PATH = new Prefix("fp/");
+
+    /*Prefix definitions for meeting*/
+    public static final Prefix PREFIX_MEETING_INDEX = new Prefix("meeting/");
+    public static final Prefix PREFIX_START_PERIOD = new Prefix("start/");
+    public static final Prefix PREFIX_END_PERIOD = new Prefix("end/");
+    public static final Prefix PREFIX_DURATION_HOURS = new Prefix("hours/");
 }

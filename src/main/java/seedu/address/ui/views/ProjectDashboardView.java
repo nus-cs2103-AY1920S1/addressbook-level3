@@ -3,12 +3,14 @@ package seedu.address.ui.views;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.task.Task;
 import seedu.address.ui.UiPart;
 
@@ -28,9 +30,12 @@ public class ProjectDashboardView extends UiPart<Region> {
     private ListView<Task> taskListViewDone;
     @FXML
     private ListView<Task> taskListViewUpcomingDeadlines;
+    @FXML
+    private ListView<IndivMeetingCard> meetingListView;
 
     public ProjectDashboardView(ObservableList<Task> taskListNotStarted, ObservableList<Task> taskListDoing,
-                                ObservableList<Task> taskListDone, ObservableList<Task> taskListDeadline) {
+                                ObservableList<Task> taskListDone, ObservableList<Task> taskListDeadline,
+                                ObservableList<Meeting> meetingList) {
         super(FXML);
 
         taskListViewNotStarted.setItems(taskListNotStarted);
@@ -38,10 +43,20 @@ public class ProjectDashboardView extends UiPart<Region> {
         taskListViewDone.setItems(taskListDone);
         taskListViewUpcomingDeadlines.setItems(taskListDeadline);
 
+        ObservableList<IndivMeetingCard> meetingCards = FXCollections.observableArrayList();
+        for (int i = 0; i < meetingList.size(); i++) {
+            Meeting meeting = meetingList.get(i);
+            int indexFromOne = i + 1;
+            IndivMeetingCard meetingCard = new IndivMeetingCard(indexFromOne, meeting);
+            meetingCards.add(meetingCard);
+        }
+        meetingListView.setItems(meetingCards);
+
         taskListViewNotStarted.setCellFactory(listView -> new TaskListViewCell());
         taskListViewDoing.setCellFactory(listView -> new TaskListViewCell());
         taskListViewDone.setCellFactory(listView -> new TaskListViewCell());
         taskListViewUpcomingDeadlines.setCellFactory(listView -> new TaskListViewCell());
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell());
     }
 
     /**
@@ -58,6 +73,23 @@ public class ProjectDashboardView extends UiPart<Region> {
             } else {
                 TaskCard cardToRender = new TaskCard(task, getIndex() + 1);
                 setGraphic(cardToRender.getRoot());
+            }
+        }
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     */
+    class MeetingListViewCell extends ListCell<IndivMeetingCard> {
+        @Override
+        protected void updateItem(IndivMeetingCard meetingCard, boolean empty) {
+            super.updateItem(meetingCard, empty);
+
+            if (empty || meetingCard == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(meetingCard.getRoot());
             }
         }
     }

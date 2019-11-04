@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.IOException;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -25,12 +30,17 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskStatus;
 
+import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Calendar;
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DURATION = "Duration(hours) is not a non-zero unsigned integer.";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -186,7 +196,7 @@ public class ParserUtil {
         requireNonNull(dateTime);
         String trimmedDate = dateTime.trim();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(trimmedDate, formatter);
     }
 
@@ -202,7 +212,26 @@ public class ParserUtil {
         if (!FilePath.isValidFilePath(filePath)) {
             throw new ParseException(FilePath.MESSAGE_CONSTRAINTS);
         }
+
         return new FilePath(trimmedFilePath);
+    }
+
+    /**
+     * Parses {@code filePath} into an {@code filePath} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws DateTimeParseException if the input string is not in the valid format.
+     */
+    public static Calendar parseCalendar(String calendarStorageFormat) throws ParseException {
+        requireNonNull(calendarStorageFormat);
+        try {
+            InputStream inputStream = new ByteArrayInputStream(calendarStorageFormat.getBytes());
+            CalendarBuilder builder = new CalendarBuilder();
+            net.fortuna.ical4j.model.Calendar calendar = builder.build(inputStream);
+            return calendar;
+        } catch (IOException | ParserException e) {
+            //Error when building Calendar with incorrect input stream
+            throw new ParseException("Error occurred when parsing .ics file");
+        }
     }
 
     /**
@@ -241,5 +270,18 @@ public class ParserUtil {
         }
 
         return clockFormat;
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Duration parseHours(String hoursString) throws ParseException {
+        String hoursStringTrimmed = hoursString.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(hoursStringTrimmed)) {
+            throw new ParseException(MESSAGE_INVALID_DURATION);
+        }
+        return Duration.ofHours(Integer.parseInt(hoursStringTrimmed));
     }
 }

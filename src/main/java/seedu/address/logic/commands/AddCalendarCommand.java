@@ -26,7 +26,7 @@ public class AddCalendarCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a calendar. "
             + "Parameters: "
             + PREFIX_MEMBER_NAME + "MEMBER_NAME "
-            + PREFIX_FILE_PATH + "FILE/PATH.ics "
+            + PREFIX_FILE_PATH + "C:/FILE/PATH.ics\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MEMBER_NAME + "Elliot "
             + PREFIX_FILE_PATH + "C:\\Users\\gbrls\\Downloads";

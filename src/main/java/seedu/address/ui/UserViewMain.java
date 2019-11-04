@@ -105,6 +105,11 @@ public class UserViewMain {
         return userViewController.getCurrentView();
     }
 
+    public Pane loadMeetingTimes() {
+        userViewNavigator.loadMeetingTimesView(logic);
+        return userViewController.getCurrentView();
+    }
+
     /**
      * Shows the user the current settings.
      *

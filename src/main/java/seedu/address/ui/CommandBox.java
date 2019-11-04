@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -141,7 +142,7 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | FileNotFoundException e) {
             setStyleToIndicateCommandFailure();
         }
     }
@@ -176,7 +177,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, FileNotFoundException;
     }
     /**
      * Interface to allow other components to update the text inside {@CommandBox}
