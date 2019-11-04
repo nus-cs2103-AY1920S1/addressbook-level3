@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static mams.logic.parser.CliSyntax.PREFIX_MODULE;
 import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
 
+import mams.commons.core.Messages;
 import mams.logic.commands.AddModCommand;
 import mams.logic.commands.ModCommand;
 import mams.logic.parser.exceptions.ParseException;
@@ -27,7 +28,8 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         String moduleIdentifier;
 
         if (argMultimap.getValue(PREFIX_MODULE).isEmpty()) {
-            throw new ParseException(ModCommand.MESSAGE_USAGE_ADD_MOD);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ModCommand.MESSAGE_USAGE_ADD_MOD));
         }
 
         if (argMultimap.getValue(PREFIX_STUDENT).isEmpty()) {
@@ -39,14 +41,16 @@ public class AddModCommandParser implements Parser<AddModCommand> {
         }
 
         if (argMultimap.getAllValues(PREFIX_STUDENT).size() > 1) {
-            throw new ParseException(ModCommand.MESSAGE_MORE_THAN_ONE_IDENTIFIER);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ModCommand.MESSAGE_MORE_THAN_ONE_IDENTIFIER));
         }
 
         studentIdentifier = argMultimap.getAllValues(PREFIX_STUDENT).get(0);
         moduleIdentifier = argMultimap.getAllValues(PREFIX_MODULE).get(0);
 
         if (containUnknownArguments(studentIdentifier, moduleIdentifier)) {
-            throw new ParseException(ModCommand.MESSAGE_UNKNOWN_ARGUMENT_ADDMOD);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    ModCommand.MESSAGE_UNKNOWN_ARGUMENT_ADDMOD));
         }
 
         if (!isMatricId(studentIdentifier)) {
