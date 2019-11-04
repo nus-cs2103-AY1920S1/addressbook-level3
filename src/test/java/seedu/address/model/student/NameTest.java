@@ -6,6 +6,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test for the name model.
+ */
 public class NameTest {
 
     @Test

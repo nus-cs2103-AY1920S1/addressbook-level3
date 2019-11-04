@@ -16,6 +16,7 @@ public class GroupExportCommand extends GroupCommand {
             + "Example: groupID/ G03\n"
             + "Full Example: group export/ groupID/G03 --> exports G03 to a word document \n\n";
 
+    public static final String MESSAGE_SUCCESS = "Successfully exported group to exports/%1$s.docx";
     private final String groupId;
 
     /**
@@ -37,10 +38,10 @@ public class GroupExportCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (groupId.isEmpty() || groupId.equals("")) {
-            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+            throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
+            throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         model.exportGroup(groupId);
         return new CommandResult(generateSuccessMessage());
@@ -52,6 +53,23 @@ public class GroupExportCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return "Successfully exported group to exports/" + groupId + ".docx";
+        return String.format(MESSAGE_SUCCESS, groupId);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof GroupExportCommand)) {
+            return false;
+        }
+
+        // state check
+        GroupExportCommand e = (GroupExportCommand) other;
+        return this.groupId.equals(e.groupId);
     }
 }

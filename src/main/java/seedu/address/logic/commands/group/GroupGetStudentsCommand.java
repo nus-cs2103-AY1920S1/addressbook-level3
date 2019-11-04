@@ -38,10 +38,10 @@ public class GroupGetStudentsCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (groupId.isEmpty() || groupId.equals("")) {
-            return new CommandResult(GROUP_ID_LEFT_EMPTY);
+            throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (!model.checkGroupExists(groupId)) {
-            return new CommandResult(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
+            throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         ListOfGroups.setCurrentlyQueriedGroup(groupId);
         return new CommandResult("Starting group view.", CommandResultType.SHOW_GROUP);
@@ -57,5 +57,22 @@ public class GroupGetStudentsCommand extends GroupCommand {
         System.out.println(message);
         return "These are the students in " + groupId + "\n"
                 + message;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof GroupGetStudentsCommand)) {
+            return false;
+        }
+
+        // state check
+        GroupGetStudentsCommand e = (GroupGetStudentsCommand) other;
+        return this.groupId.equals(e.groupId);
     }
 }

@@ -438,6 +438,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasStudent(Student student) {
         throw new AssertionError("This method should not be called.");
     }

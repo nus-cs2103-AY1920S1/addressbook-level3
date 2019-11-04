@@ -296,6 +296,15 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Sets the student record with the given student record
+     *
+     * @param studentRecord The given student record.
+     */
+    @Override
+    public void setStudentRecord(ReadOnlyStudentRecord studentRecord) {
+        this.studentRecord.resetData(studentRecord);
+    }
+    /**
      * Deletes a student in the student list.
      *
      * @param target Student to be deleted.
@@ -366,8 +375,8 @@ public class ModelManager implements Model {
      * {@code groupIndexNumber} Must already exist in the quiz.
      */
     public boolean addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber) {
-        int questionIndex = studentNumber - 1;
-        Student student = filteredStudents.get(questionIndex);
+        int studentIndex = studentNumber - 1;
+        Student student = filteredStudents.get(studentIndex);
 
         int groupIndex = groupList.getGroupIndex(groupId);
         if (groupIndex != -1) {
