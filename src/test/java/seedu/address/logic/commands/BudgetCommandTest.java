@@ -9,12 +9,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.budget.Budget;
-import seedu.address.model.claim.Claim;
-import seedu.address.model.income.Income;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.budget.Budget;
+import seedu.address.model.claim.Claim;
+import seedu.address.model.income.Income;
 
 public class BudgetCommandTest {
 
