@@ -1,7 +1,9 @@
 package seedu.address.model.group;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,7 +33,7 @@ public class ListOfGroupTest {
     }
 
     @Test
-    public void getGroupIndex_targetGroupNotInList_throwsGroupNotFoundException(){
+    public void getGroupIndex_targetGroupNotInList_throwsGroupNotFoundException() {
         assertThrows(GroupNotFoundException.class, () -> listOfGroups
                 .getGroupIndex(TypicalGroups.GROUP_ONE.getGroupId()));
     }
@@ -67,7 +69,7 @@ public class ListOfGroupTest {
     }
 
     @Test
-    public void exportGroup_groupNotInList_throwsGroupNotFoundException(){
+    public void exportGroup_groupNotInList_throwsGroupNotFoundException() {
         assertThrows(GroupNotFoundException.class, () -> listOfGroups.exportGroup(TypicalGroups
                 .GROUP_ONE.getGroupId()));
     }
@@ -77,7 +79,7 @@ public class ListOfGroupTest {
         listOfGroups.addGroup(TypicalGroups.GROUP_ONE);
         ListOfGroups newGroupList = new ListOfGroups();
         newGroupList.addGroup(TypicalGroups.GROUP_ONE);
-        assertEquals(listOfGroups.getGroupList(),newGroupList.getGroupList());
+        assertEquals(listOfGroups.getGroupList(), newGroupList.getGroupList());
     }
 
     @Test

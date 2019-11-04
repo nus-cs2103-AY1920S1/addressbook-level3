@@ -53,7 +53,7 @@ public class TypicalStudents {
     }
 
     public static List<Student> getTypicalStudents() {
-        return new ArrayList<>(Arrays.asList(STUDENT_ONE, STUDENT_TWO, STUDENT_THREE, STUDENT_FOUR,STUDENT_FIVE));
+        return new ArrayList<>(Arrays.asList(STUDENT_ONE, STUDENT_TWO, STUDENT_THREE, STUDENT_FOUR, STUDENT_FIVE));
     }
 
 }

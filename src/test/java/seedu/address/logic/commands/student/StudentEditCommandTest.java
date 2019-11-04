@@ -7,8 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLA
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.student.StudentEditCommand.MESSAGE_DUPLICATE_STUDENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THREE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.student.TypicalStudents.getTypicalStudentRecord;
 
 import org.junit.jupiter.api.Test;
@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.student.StudentEditCommand.EditStudentDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.student.Name;
 import seedu.address.model.student.Student;
-import seedu.address.logic.commands.student.StudentEditCommand.EditStudentDescriptor;
 import seedu.address.testutil.student.StudentBuilder;
 
 /**

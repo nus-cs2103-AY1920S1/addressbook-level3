@@ -3,8 +3,8 @@ package seedu.address.logic.commands.group;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.group.GroupCommand.GROUP_DOES_NOT_EXIST;
 import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
 import static seedu.address.logic.commands.group.GroupCommand.GROUP_INDEX_OUT_OF_BOUNDS;
@@ -58,7 +58,7 @@ public class GroupRemoveStudentCommandTest {
      * Test for removing a student from a group successfully.
      */
     @Test
-    public void execute_removeExistingStudentFromGroup_Success() throws Exception {
+    public void execute_removeExistingStudentFromGroup_success() throws Exception {
         GroupRemoveStudentCommand groupRemoveStudentCommand =
                 new GroupRemoveStudentCommand("Remove", 1);
         Student student = new StudentBuilder().withName(new Name("RemoveTest")).build();

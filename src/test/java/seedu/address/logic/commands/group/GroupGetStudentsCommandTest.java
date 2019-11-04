@@ -3,9 +3,10 @@ package seedu.address.logic.commands.group;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.group.GroupCommand.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_DOES_NOT_EXIST;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +59,7 @@ public class GroupGetStudentsCommandTest {
      * Test for getting a group of students successfully.
      */
     @Test
-    public void execute_getGroup_Success() throws Exception {
+    public void execute_getGroup_success() throws Exception {
         GroupGetStudentsCommand groupGetStudentsCommand = new GroupGetStudentsCommand("Get");
         Student student = new StudentBuilder().withName(new Name("GetTest")).build();
         ModelStub modelStub = new GroupGetStudentsCommandTest.ModelStubWithGroupWithStudent("Get", student);

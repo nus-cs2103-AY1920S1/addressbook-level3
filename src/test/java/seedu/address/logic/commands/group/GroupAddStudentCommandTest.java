@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.group.GroupCommand.GROUP_INDEX_OUT_OF_BOUNDS;
 import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_INDEX_OUT_OF_BOUNDS;
 import static seedu.address.logic.commands.group.GroupCommand.STUDENT_EXISTS_IN_GROUP;
 import static seedu.address.logic.commands.group.GroupCommand.STUDENT_NUMBER_OUT_OF_BOUNDS;
 
@@ -96,8 +96,8 @@ public class GroupAddStudentCommandTest {
         GroupAddStudentCommand groupAddStudentCommand =
                 new GroupAddStudentCommand("groupID", 20, 1);
         ModelStub modelStub = new ModelStubWithGroupWithStudent("groupID", 2, 1);
-        assertThrows(CommandException.class,
-                () -> groupAddStudentCommand.execute(modelStub), STUDENT_NUMBER_OUT_OF_BOUNDS);
+        assertThrows(CommandException.class, () -> groupAddStudentCommand.execute(modelStub),
+                STUDENT_NUMBER_OUT_OF_BOUNDS);
     }
 
     /**
@@ -108,8 +108,8 @@ public class GroupAddStudentCommandTest {
         GroupAddStudentCommand groupAddStudentCommand =
                 new GroupAddStudentCommand("groupID", 3, 20);
         ModelStub modelStub = new ModelStubWithGroupWithStudent("groupID", 1, 1);
-        assertThrows(CommandException.class,
-                () -> groupAddStudentCommand.execute(modelStub), GROUP_INDEX_OUT_OF_BOUNDS);
+        assertThrows(CommandException.class, () -> groupAddStudentCommand.execute(modelStub),
+                GROUP_INDEX_OUT_OF_BOUNDS);
     }
 
     /**

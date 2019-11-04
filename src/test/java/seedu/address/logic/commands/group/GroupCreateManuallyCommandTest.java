@@ -1,9 +1,12 @@
 package seedu.address.logic.commands.group;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.group.GroupCommand.*;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ALREADY_EXISTS;
+import static seedu.address.logic.commands.group.GroupCommand.GROUP_ID_LEFT_EMPTY;
 import static seedu.address.logic.commands.group.GroupCreateManuallyCommand.OUT_OF_BOUNDS;
 
 import java.util.ArrayList;
@@ -63,7 +66,7 @@ public class GroupCreateManuallyCommandTest {
      * Test for creating a group with one student successfully.
      */
     @Test
-    public void execute_createGroup_Success() throws Exception {
+    public void execute_createGroup_success() throws Exception {
         ArrayList<Integer> mockNumbers =
                 new ArrayList<Integer>(Arrays.asList(1));
         GroupCreateManuallyCommand groupCreateManuallyCommand =

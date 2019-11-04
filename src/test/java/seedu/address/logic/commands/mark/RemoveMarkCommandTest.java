@@ -59,7 +59,7 @@ public class RemoveMarkCommandTest {
      * Test for removing mark successfully.
      */
     @Test
-    public void execute_removeMark_Success() throws Exception {
+    public void execute_removeMark_success() throws Exception {
         RemoveMarkCommand removeMarkCommand = new RemoveMarkCommand(Index.fromOneBased(1));
         Student student = new StudentBuilder().withName(new Name("UnmarkTest")).withMark(true).build();
         ModelStub modelStub = new RemoveMarkCommandTest.ModelStubWithStudent(student);

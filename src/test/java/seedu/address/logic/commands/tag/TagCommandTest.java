@@ -1,7 +1,10 @@
 package seedu.address.logic.commands.tag;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.commands.tag.TagCommand.MESSAGE_NO_NEW_TAGS;
@@ -46,7 +49,7 @@ public class TagCommandTest {
      * Adds tag successfully.
      */
     @Test
-    public void execute_addTag_Success() throws Exception {
+    public void execute_addTag_success() throws Exception {
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("TestTag"));
         TagCommand tagCommand = new TagCommand(Index.fromOneBased(1), tagSet);

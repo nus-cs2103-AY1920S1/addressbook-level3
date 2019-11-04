@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.mark;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
@@ -59,7 +59,7 @@ public class AddMarkCommandTest {
      * Test for adding a mark successfully.
      */
     @Test
-    public void execute_addMark_Success() throws Exception {
+    public void execute_addMark_success() throws Exception {
         AddMarkCommand addMarkCommand = new AddMarkCommand(Index.fromOneBased(1));
         Student student = new StudentBuilder().withName(new Name("MarkTest")).build();
         ModelStub modelStub = new ModelStubWithStudent(student);
