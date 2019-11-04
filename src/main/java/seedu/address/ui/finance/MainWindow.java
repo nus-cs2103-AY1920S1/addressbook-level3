@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Stage> {
         logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
         logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
 
-        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetList());
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetDataList());
         budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
 
         statsGraphic = new StatsGraphic(logic.getGraphicsData());
@@ -183,6 +183,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to view of list of log entries.
      */
     public void showLogEntries() {
+        logEntryListPanel = new LogEntryListPanel(logic.getFilteredLogEntryList());
+        logEntryListPanelPlaceholder.getChildren().add(logEntryListPanel.getRoot());
         budgetList.setVisible(false);
         statsGraphicPlaceholder.setVisible(false);
         logEntryListPanelPlaceholder.setVisible(true);
@@ -192,6 +194,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to view of list of budgets.
      */
     public void showBudget() {
+        budgetListPanel = new BudgetListPanel(logic.getFilteredBudgetDataList());
+        budgetListPanelPlaceholder.getChildren().add(budgetListPanel.getRoot());
         logEntryListPanelPlaceholder.setVisible(false);
         statsGraphicPlaceholder.setVisible(false);
         budgetList.setVisible(true);

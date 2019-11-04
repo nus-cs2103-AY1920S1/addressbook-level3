@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.logentry.BudgetData;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
@@ -95,7 +96,10 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered list of log entries */
     ObservableList<LogEntry> getFilteredLogEntryList();
 
+    /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();
+
+    ObservableList<BudgetData> getFilteredBudgetDataList();
 
     GraphicsData getGraphicsData();
 

@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.logentry.BudgetData;
 
 /**
  * Panel containing the list of budgets.
@@ -18,9 +18,9 @@ public class BudgetListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(BudgetListPanel.class);
 
     @FXML
-    private ListView<Budget> budgetListView;
+    private ListView<BudgetData> budgetListView;
 
-    public BudgetListPanel(ObservableList<Budget> budgetList) {
+    public BudgetListPanel(ObservableList<BudgetData> budgetList) {
         super(FXML);
         budgetListView.setItems(budgetList);
         budgetListView.setCellFactory(listView -> new BudgetListViewCell());
@@ -29,16 +29,16 @@ public class BudgetListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code LogEntry} using a {@code LogEntryCard}.
      */
-    class BudgetListViewCell extends ListCell<Budget> {
+    class BudgetListViewCell extends ListCell<BudgetData> {
         @Override
-        protected void updateItem(Budget budget, boolean empty) {
-            super.updateItem(budget, empty);
+        protected void updateItem(BudgetData budgetData, boolean empty) {
+            super.updateItem(budgetData, empty);
 
-            if (empty || budget == null) {
+            if (empty || budgetData == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BudgetCard(budget, getIndex() + 1).getRoot());
+                setGraphic(new BudgetCard(budgetData).getRoot());
             }
         }
     }

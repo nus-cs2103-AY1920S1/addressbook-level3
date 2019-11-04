@@ -6,12 +6,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.logentry.BudgetData;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
@@ -158,6 +161,14 @@ public class ModelFinanceManager implements Model {
     @Override
     public ObservableList<Budget> getFilteredBudgetList() {
         return filteredBudgets;
+    }
+
+    @Override
+    public ObservableList<BudgetData> getFilteredBudgetDataList() {
+        return filteredBudgets
+                .stream()
+                .map(b -> new BudgetData(b, getFilteredLogEntryList()))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
     }
 
     /**

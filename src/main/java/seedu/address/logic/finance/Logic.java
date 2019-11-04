@@ -10,6 +10,7 @@ import seedu.address.logic.finance.parser.exceptions.ParseException;
 import seedu.address.model.finance.GraphicsData;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.logentry.Budget;
+import seedu.address.model.finance.logentry.BudgetData;
 import seedu.address.model.finance.logentry.LogEntry;
 
 /**
@@ -37,6 +38,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of budgets */
     ObservableList<Budget> getFilteredBudgetList();
+    ObservableList<BudgetData> getFilteredBudgetDataList();
 
     /** Returns a {@code GraphicsData} object */
     GraphicsData getGraphicsData();

@@ -9,28 +9,30 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.ProgressBar?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <HBox alignment="CENTER_LEFT" minHeight="90" GridPane.columnIndex="0">
+      <VBox>
+        <padding>
+          <Insets top="5" right="5" bottom="5" left="15" />
+        </padding>
+        <Label fx:id="budgetType" styleClass="cell_small_label" text="\$budgetType" />
+        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+        <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+        <ProgressBar fx:id="progressBar" minWidth="50" />
+      </VBox>
+    </HBox>
+    <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="6" spacing="10">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets top="5" right="15" bottom="5" left="5" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="budgetType" text="\$budgetType" styleClass="cell_big_label" />
-      </HBox>
-      <Label fx:id="amount" styleClass="cell_small_label" text="Start: \$amount" />
-      <Label fx:id="startDate" styleClass="cell_small_label" text="Start: \$startDate" />
-      <Label fx:id="endDate" styleClass="cell_small_label" text="End: \$endDate" />
-      <Label fx:id="isActive" styleClass="cell_small_label" text="\$isActive" />
-    </VBox>
+      <Label fx:id="isActive" styleClass="cell_big_label" text="\$isActive" />
+      <Label fx:id="currAmt" styleClass="cell_big_label" text="\$currAmt" />
+      <Label fx:id="limitAmt" styleClass="cell_big_label" text="\$limitAmt" />
+    </HBox>
   </GridPane>
 </HBox>
