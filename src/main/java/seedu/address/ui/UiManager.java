@@ -63,8 +63,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Earning...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillStudents();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillStudents();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -95,8 +97,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Tasks...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillTasks();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillTasks();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -110,8 +114,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Notes...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillNotes();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillNotes();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
