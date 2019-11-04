@@ -69,7 +69,7 @@ In the highlighed section above, you can see the current mode you are in and the
 
 
 
-To transition between them you have to enter the `SwitchCommand` that represents each mode.
+To transition between them you have to enter the `SwitchCommand` that represents each mode into the Command Box that says _Enter command here.._.
 
 * `open` kbd:[Enter] +
 to enter `open` mode
@@ -524,12 +524,6 @@ These commands are generally card commands.
 There is no need to save manually.
 Statistics are also stored automatically.
 
-
-
-== Overview of Modes for Advanced Users
-
-.All possible application modes
-image::ParserManagerActivityDiagram.PNG[]
 
 
 // tag::chenhui-commandsummary[]

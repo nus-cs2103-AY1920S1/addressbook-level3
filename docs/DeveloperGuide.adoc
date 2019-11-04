@@ -70,10 +70,6 @@ For the components UI, Logic, Model, Timer and Game:
 
 // end::yida-design[]
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -130,25 +126,45 @@ coupled directly), it is separated from the `Logic`, `Model` and `Game` componen
 // tag::subbashdg2[]
 [[Design-Logic]]
 === Logic component
+_This section breakdown the logic package into its internal components_
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+Logic is primarily built by two segments: Command and Parser.
+
+===== Command
+
+    Command is an abstract class.
+
+    Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
+
+    Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
+
+===== Parser
+
+    ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
+
+    The SpecificModeParser changes based on current application mode.
+
+    Both of them hold references to all concrete Parser and Command Classes with the help of ClassUtil
+
+Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
+
+Examples of transactions promised by Logic API include command execution, command result and update statistics.
+
+UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
+
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
+* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
+
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/UiLogicHelper.java[`UiLogicHelper.java`]
 
-.  `Logic` uses the `ParserManager` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-.  Furthermore, through the UiLogicHelper Interface, it updates the AutoComplete suggestions for every keystroke.
 
-Given below is the Activity Diagram that shows the workflows that change state of `ParserManager` that produce different outcomes for commands entered.
-
-.Activity diagram of Application flow
-image::ParserManagerActivityDiagram.PNG[]
 
 
 // end::subbashdg2[]
@@ -354,66 +370,101 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== [underline]#AutoComplete Feature# (for command execution)
-==== Implementation
+=== [underline]#AutoComplete and Command Execution#
+_This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-The AutoComplete is facilitated by `ParserManager`.
-It dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
+ParserManager dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
 
-For the UI package to have access to this information, it exposes its functionality through `LogicManager` as `UiLogicHelper` interface with the following getter methods:
-
-* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
-* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
-* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
-
-These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
-
-Given below is an example usage scenario and how the AutoCompletion mechanism behaves at each step.
-
-Step 1. The user launches the application. The `VersionedDukemon` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-Replace image with state of ParserManager
+==== Implementation details
 
 
-Step 2. The user enters `start difficult` command to begin the game. The `LogicManager` passes string to `Model#commitDukemon()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `DukemonStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
+.   When user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+.  It updates the AutoComplete suggestions for every keystroke.
+.   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
+.   The above process is aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
 
-Step 3. The user executes `stop` to abruptly end the game. The `add` command also calls `Model#commitDukemon()`, causing another modified address book state to be saved into the `DukemonStateList`.
+    The state management is complex. The below sequence diagram demonstrates all possible workflows.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoDukemon()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+.Activity diagram of Application flow
+image::ParserManagerActivityDiagram.PNG[]
+
+NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
 
 
-The following sequence diagram shows how the AutoComplete operation works:
+==== Walkthrough of Command Execution
 
+* Command Execution through `Logic Interface`
+
+.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+==== Walkthrough of AutoComplete
+
+* AutoComplete through `UiLogicHelper Interface`
+
+The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
+
+.Sequence Diagram of AutoComplete
 image::AutoCompleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoDukemon()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 
 ==== Design Considerations
 
-===== Aspect: How parser and command objects are instantiated in SpecificModeParser
 
-* **Alternative 1 (current choice):** Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes
-** Pros: Open Close Principle strictly followed. Adding a command with a parser takes only one line of code.
-** Cons: It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
-* **Alternative 2:** Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.
-** Pros: Compile time error would be thrown if new command or parser does not subclass correctly.
-** Cons: Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+How parser and command objects are instantiated in SpecificModeParser
+| **Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes** +
+ +
+[underline]_Pros:_ +
+Open Close Principle strictly followed. Adding a command with a parser takes only one line of code. +
+ +
+[underline]_Cons:_ +
+It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
+|**Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.** +
+ +
+[underline]_Pros:_ +
+Compile time error would be thrown if new command or parser does not subclass correctly. +
+ +
+[underline]_Cons:_ +
+Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
-===== Aspect: Single Parser vs Parser Manager
+3+|**Why did we choose Alternative 1:** +
+d
 
-* **Alternative 1 (current choice):** Using a ParserManager to dynamically switch between Parsers based on current state
-** Pros: Commands not belonging to specific mode would not be parsed
-** Cons: More code to right for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|**Aspect 2:** +
+Single Parser vs Parser Manager
+| **Using a ParserManager to dynamically switch between Parsers based on current state** +
+ +
+[underline]_Pros:_ +
+Commands not belonging to specific mode would not be parsed +
+ +
+[underline]_Cons:_ +
+More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
+| **Use a single parser** +
+ +
+[underline]_Pros_ +
+We do not need to restructure the logic package. +
+ +
+[underline]_Cons_ +
+Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
+3+| **Why did we choose Alternative 1:** +
+d
+|===
+
+
+
+==== Techinical details
+
+<Insert class util code demonstrating java reflections>
+
+<Insert where one line of code can be inserted for adding new commands and parsers>
+
 // end::autocompleteimplementation[]
 
 // tag::settings[]
