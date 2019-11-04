@@ -19,32 +19,32 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 
-public class JsonWordBankStorageTest {
+class JsonWordBankStorageTest {
     private Path testDataFolder =
             Paths.get("src", "test", "data", "JsonWordBankListStorageTest");
 
     @Test
-    public void readWordBank_nullFilePath_throwsNullPointerException() {
+    void readWordBank_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> readWordBank(null, "firstTest"));
     }
 
     @Test
-    public void read_nonExistentFile_emptyResult() throws Exception {
+    void read_nonExistentFile_emptyResult() throws Exception {
         assertFalse(readWordBank("NonExistentFile.json", "secondTest").isPresent());
     }
 
     @Test
-    public void read_notJsonWordBankFormat_exceptionThrown() {
+    void read_notJsonWordBankFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readWordBank("notJsonFormatWordBank.json", "thirdTest"));
     }
 
     @Test
-    public void readWordBank_invalidWordBank_throwIllegalValueException() {
+    void readWordBank_invalidWordBank_throwIllegalValueException() {
         assertThrows(IllegalValueException.class, () -> readWordBank("invalidWordBank.json", "fourthTest"));
     }
 
     @Test
-    public void readWordBank_invalidAndValidCardsWordBank_throwIllegalValueException() {
+    void readWordBank_invalidAndValidCardsWordBank_throwIllegalValueException() {
         assertThrows(IllegalValueException.class, () -> readWordBank("invalidAndValidCardsWordBank.json", "fifthTest"));
     }
 
@@ -76,8 +76,14 @@ public class JsonWordBankStorageTest {
         readBack = jsonWordBankListStorage.jsonToWordBank(originalPath).get();
         assertEquals(original, readBack);
 
-        Path p = Paths.get(testDataFolder.toString(), "wordBanks", "sample.json");
-        appendNewLine(p);
+        Path p1 = Paths.get(testDataFolder.toString(), "wordBanks", "pokemon.json");
+        appendNewLine(p1);
+        Path p2 = Paths.get(testDataFolder.toString(), "wordBanks", "arithmetic.json");
+        appendNewLine(p2);
+        Path p3 = Paths.get(testDataFolder.toString(), "wordBanks", "trivia.json");
+        appendNewLine(p3);
+        Path p4 = Paths.get(testDataFolder.toString(), "wordBanks", "sample.json");
+        appendNewLine(p4);
     }
 
     /**
@@ -99,12 +105,12 @@ public class JsonWordBankStorageTest {
      */
     private void saveWordBank(ReadOnlyWordBank wordBank, String filePath, String testFolder)
             throws DataConversionException, IllegalValueException {
-        new JsonWordBankListStorage(testDataFolder, testFolder, false)
+        new JsonWordBankListStorage(testDataFolder, testFolder, true)
                 .saveWordBank(wordBank, addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
     private java.util.Optional<ReadOnlyWordBank> readWordBank(String filePath, String testFolder) throws Exception {
-        return new JsonWordBankListStorage(testDataFolder, testFolder, false)
+        return new JsonWordBankListStorage(testDataFolder, testFolder, true)
                 .jsonToWordBank(addToTestDataPathIfNotNull(testFolder, filePath));
     }
 
