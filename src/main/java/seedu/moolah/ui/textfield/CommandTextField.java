@@ -43,14 +43,14 @@ public class CommandTextField extends Region {
     private static final String STRING_STYLE = "string";
     private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
-    private StyleClassedTextArea textField;
-    private InputHistory inputHistory;
+    StyleClassedTextArea textField;
+    InputHistory inputHistory;
 
-    private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
-    private AutofillSuggestionMenu autofillMenu;
-    private StringProperty currentCommand;
+    Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
+    AutofillSuggestionMenu autofillMenu;
+    StringProperty currentCommand;
 
-    private Subscription syntaxHighlightSubscription;
+    Subscription syntaxHighlightSubscription;
 
     public CommandTextField(Consumer<String> textGetter) {
         super();

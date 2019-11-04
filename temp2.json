@@ -1,0 +1,14 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 740.0,
+    "windowHeight" : 800.0,
+    "windowCoordinates" : {
+      "x" : 0,
+      "y" : 0
+    }
+  },
+  "mooLahFilePath" : "data/moolah.json",
+  "aliasMappings" : {
+    "aliasNameToAliasMap" : { }
+  }
+}

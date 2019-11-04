@@ -69,6 +69,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+
+    // test fx
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
 }
 
 shadowJar {
