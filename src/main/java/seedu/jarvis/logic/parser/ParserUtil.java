@@ -20,7 +20,6 @@ import java.util.Set;
 import seedu.jarvis.commons.core.index.Index;
 import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.commons.util.StringUtil;
-import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;

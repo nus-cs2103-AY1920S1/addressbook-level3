@@ -29,7 +29,6 @@ import seedu.jarvis.ui.cca.CcaListView;
 import seedu.jarvis.ui.course.CoursePlannerWindow;
 import seedu.jarvis.ui.finance.FinanceListView;
 import seedu.jarvis.ui.planner.PlannerWindow;
-import seedu.jarvis.ui.planner.TaskListView;
 import seedu.jarvis.ui.template.View;
 
 /**

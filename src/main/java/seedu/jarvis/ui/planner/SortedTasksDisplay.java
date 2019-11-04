@@ -4,9 +4,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.control.skin.TableColumnHeader;
 import javafx.scene.layout.Region;
-import seedu.jarvis.logic.Logic;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.ui.UiPart;
 
@@ -35,10 +37,12 @@ public class SortedTasksDisplay extends UiPart<Region> {
         @Override
         public void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
+//            setGraphic(new Header("These are the tasks due today:").getRoot());
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
+                setGraphic(new Header("These are the tasks due today:").getRoot());
                 setGraphic(new TaskCard(task, getIndex() + 1).getRoot());
             }
         }

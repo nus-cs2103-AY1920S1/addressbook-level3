@@ -26,7 +26,7 @@ public class PlannerWindow extends View<AnchorPane> {
 
     @Override
     public void fillPage() {
-        while(!taskSplitPane.getItems().isEmpty()) {
+        while (!taskSplitPane.getItems().isEmpty()) {
             taskSplitPane.getItems().remove(0);
         }
         taskListView = new TaskListView(logic.getUnfilteredTaskList());
@@ -35,4 +35,3 @@ public class PlannerWindow extends View<AnchorPane> {
                                             sortedTasksDisplay.getRoot());
     }
 }
-

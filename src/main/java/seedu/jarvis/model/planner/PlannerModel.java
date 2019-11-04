@@ -1,9 +1,11 @@
 package seedu.jarvis.model.planner;
 
+import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
+import seedu.jarvis.model.TaskDateMatchesDatePredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 
 
@@ -12,8 +14,20 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public interface PlannerModel {
 
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /**
+     * {@code Predicate} that evaluates to true if Task date is in the week
+     */
+    TaskDateMatchesDatePredicate PREDICATE_TASKS_THIS_WEEK = new TaskDateMatchesDatePredicate(LocalDate.now());
+
+    /**
+     * {@code Predicate} that evaluates to true if the Task date is equal to today
+     */
+    TaskDateMatchesDatePredicate PREDICATE_TASKS_TODAY = new TaskDateMatchesDatePredicate();
 
 
     /**
