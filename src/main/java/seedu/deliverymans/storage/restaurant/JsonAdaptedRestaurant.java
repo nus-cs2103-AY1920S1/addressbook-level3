@@ -17,10 +17,8 @@ import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.location.Location;
 import seedu.deliverymans.model.location.LocationMap;
-import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Rating;
 import seedu.deliverymans.model.restaurant.Restaurant;
-import seedu.deliverymans.storage.order.JsonAdaptedOrder;
 
 /**
  * Jackson-friendly version of {@link Restaurant}.

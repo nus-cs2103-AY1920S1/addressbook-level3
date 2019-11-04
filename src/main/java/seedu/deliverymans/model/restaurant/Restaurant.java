@@ -130,6 +130,9 @@ public class Restaurant {
         }
     }
 
+    /**
+     * Updates quantityOrdered based on order
+     */
     public void updateQuantity(Order order) {
         for (Map.Entry<Name, Integer> entry : order.getFoodList().entrySet()) {
             this.quantityOrdered += entry.getValue().intValue();

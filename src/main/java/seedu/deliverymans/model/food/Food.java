@@ -44,7 +44,7 @@ public class Food {
     public Food(Name name, BigDecimal price, ObservableList<Tag> tags, int quantityOrdered) {
         requireAllNonNull(name, price, quantityOrdered, tags);
         checkArgument(isValidPrice(price), PRICE_CONSTRAINTS);
-        checkArgument(isValidQuantity(quantityOrdered),QUANTITY_CONSTRAINTS);
+        checkArgument(isValidQuantity(quantityOrdered), QUANTITY_CONSTRAINTS);
         this.name = name;
         this.price = price;
         this.quantityOrdered = quantityOrdered;
@@ -65,10 +65,16 @@ public class Food {
         return quantityOrdered >= 0;
     }
 
+    /**
+     * Add quantity to quantityOrdered.
+     */
     public void addQuantity(int quantity) {
         this.quantityOrdered += quantity;
     }
 
+    /**
+     * Updates tags with "Popular" tag.
+     */
     public void updateTag(int totalQuantity, int menuSize) {
         this.tags.remove(new Tag("Popular"));
         if (this.quantityOrdered >= 1.5 * totalQuantity / menuSize) {

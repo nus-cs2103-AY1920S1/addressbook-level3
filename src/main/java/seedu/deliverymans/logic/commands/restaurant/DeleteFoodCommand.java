@@ -2,6 +2,11 @@ package seedu.deliverymans.logic.commands.restaurant;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import seedu.deliverymans.commons.core.Messages;
 import seedu.deliverymans.commons.core.index.Index;
 import seedu.deliverymans.logic.Logic;
@@ -13,11 +18,6 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Deletes a food item identified using its displayed index from the menu list.
@@ -58,6 +58,7 @@ public class DeleteFoodCommand extends Command {
             newFoodList.remove(foodToDelete.getName());
             Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
                     .setRestaurant(order.getRestaurant())
+                    .setDeliveryman(order.getDeliveryman())
                     .setFood(newFoodList).completeOrder();
             model.setOrder(order, newOrder);
         }

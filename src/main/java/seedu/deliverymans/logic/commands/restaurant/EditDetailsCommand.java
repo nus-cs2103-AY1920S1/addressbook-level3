@@ -6,7 +6,11 @@ import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.deliverymans.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.deliverymans.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -77,6 +81,7 @@ public class EditDetailsCommand extends Command {
         for (Order order : orders) {
             Order newOrder = new Order.OrderBuilder().setCustomer(order.getCustomer())
                     .setRestaurant(editedRestaurant.getName())
+                    .setDeliveryman(order.getDeliveryman())
                     .setFood(order.getFoodList()).completeOrder();
             model.setOrder(order, newOrder);
         }
