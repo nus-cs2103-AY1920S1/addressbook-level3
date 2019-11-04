@@ -17,5 +17,6 @@ public interface Parser {
      * @return command that execute according to the user input
      * @throws Exception if the args are invalid
      */
-    Command parse(String args, Model modelManager, seedu.address.person.model.Model personModel) throws Exception;
+    Command parse(String args, Model modelManager, seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+            throws Exception;
 }

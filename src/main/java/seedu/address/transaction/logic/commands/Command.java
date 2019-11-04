@@ -1,6 +1,7 @@
 package seedu.address.transaction.logic.commands;
 
 import seedu.address.person.logic.commands.exceptions.CommandException;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
@@ -19,6 +20,6 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      * @throws NoSuchPersonException If an error occurs when a Person is not in the data base.
      */
-    public abstract CommandResult execute(Model model, seedu.address.person.model.GetPersonByNameOnlyModel personModel)
+    public abstract CommandResult execute(Model model, CheckAndGetPersonByNameModel personModel)
             throws NoSuchIndexException, CommandException, NoSuchPersonException, ParseException;
 }

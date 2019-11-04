@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
@@ -24,7 +25,7 @@ import seedu.address.transaction.storage.StorageManager;
 class LogicManagerTest {
     private File file;
     private Model model;
-    private seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+    private CheckAndGetPersonByNameModel personModel;
     private Storage storage;
     private Logic logic;
 

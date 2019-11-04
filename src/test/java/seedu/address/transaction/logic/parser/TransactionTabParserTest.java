@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.person.model.person.Person;
@@ -38,7 +38,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 
 class TransactionTabParserTest {
     private final TransactionTabParser parser = new TransactionTabParser();
-    private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CheckAndGetPersonByNameModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parseCommand_add() throws Exception {

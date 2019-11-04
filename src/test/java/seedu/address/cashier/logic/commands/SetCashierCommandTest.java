@@ -58,7 +58,8 @@ public class SetCashierCommandTest {
     public void execute_invalidCashier_failure() {
         Person nonExistingPerson = TypicalPersons.AMY;
 
-        PersonModelStubAcceptingPersonAdded personModelStub2 = new PersonModelStubAcceptingPersonAdded();
+        PersonModelStubAcceptingPersonAdded personModelStub2 =
+                new PersonModelStubAcceptingPersonAdded();
         SetCashierCommand setCashierCommand = new SetCashierCommand(nonExistingPerson);
 
         String expectedMessage = String.format(NO_SUCH_PERSON);

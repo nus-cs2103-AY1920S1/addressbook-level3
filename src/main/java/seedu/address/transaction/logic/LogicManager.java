@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.commands.Command;
 import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.parser.TransactionTabParser;
@@ -20,10 +21,10 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final TransactionTabParser parser;
-    private final seedu.address.person.model.GetPersonByNameOnlyModel personModel;
+    private final CheckAndGetPersonByNameModel personModel;
 
     public LogicManager(Model transactionModel, Storage transactionStorage,
-                        seedu.address.person.model.GetPersonByNameOnlyModel personModel) {
+                        CheckAndGetPersonByNameModel personModel) {
         this.model = transactionModel;
         this.storage = transactionStorage;
         this.parser = new TransactionTabParser();

@@ -9,7 +9,7 @@ import static seedu.address.transaction.logic.parser.CommandParserTestUtil.asser
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.person.model.GetPersonByNameOnlyModel;
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalPersons;
@@ -19,7 +19,7 @@ import seedu.address.transaction.ui.TransactionMessages;
 
 class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
-    private GetPersonByNameOnlyModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CheckAndGetPersonByNameModel personModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parse_nullPerson_throwsNullPointerException() {

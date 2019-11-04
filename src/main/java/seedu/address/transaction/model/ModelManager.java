@@ -15,7 +15,7 @@ import seedu.address.transaction.model.transaction.Transaction;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, AddTransactionOnlyModel {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final TransactionList transactionList;
     private TransactionList filteredList;

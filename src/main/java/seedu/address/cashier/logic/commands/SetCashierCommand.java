@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.exceptions.CommandException;
-import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 
@@ -31,12 +30,13 @@ public class SetCashierCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(seedu.address.cashier.model.Model modelManager, Model personModel)
-            throws NoSuchIndexException, CommandException, NoSuchPersonException,
-            seedu.address.cashier.logic.commands.exception.NoSuchPersonException {
+    public CommandResult execute(seedu.address.cashier.model.Model modelManager,
+                                 seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
+            throws NoSuchIndexException, CommandException,
+            seedu.address.cashier.logic.commands.exception.NoSuchPersonException, NoSuchPersonException {
         /*try {
             personModel.getPersonByName(cashier.getName().toString());
-        } catch (NoSuchPersonException e) {
+        } catch (PersonNotFoundException e) {
             throw new NoSuchPersonException(NO_SUCH_PERSON);
         }*/
         if (!personModel.hasPerson(cashier)) {

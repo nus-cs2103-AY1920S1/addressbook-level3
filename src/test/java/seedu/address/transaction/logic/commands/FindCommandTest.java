@@ -15,17 +15,20 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.person.model.CheckAndGetPersonByNameModel;
+import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.Model;
-import seedu.address.transaction.model.ModelManager;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
 
 class FindCommandTest {
-    private Model model = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
-    private seedu.address.person.model.GetPersonByNameOnlyModel personModel = new
-            seedu.address.person.model.ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private Model expectedModel =
+            new seedu.address.transaction.model.ModelManager(TypicalTransactions.getTypicalTransactionList());
+    private CheckAndGetPersonByNameModel personModel = new
+            ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {

@@ -7,7 +7,6 @@ import seedu.address.cashier.logic.commands.exception.NoSuchPersonException;
 import seedu.address.cashier.logic.parser.exception.ParseException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 
@@ -28,7 +27,8 @@ public class SetCashierCommandParser implements Parser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetCashierCommand parse(String name,
-                                          seedu.address.cashier.model.Model modelManager, Model personModel)
+                                          seedu.address.cashier.model.Model modelManager,
+                                   seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NoSuchPersonException, ParseException {
         try {
             Person cashier = personModel.getPersonByName(name.trim());
