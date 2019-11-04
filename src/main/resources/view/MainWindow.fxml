@@ -25,23 +25,21 @@
 
             <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
                 <right>
-                    <VBox maxWidth="500.0" minWidth="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                        <children>
-                            <VBox VBox.vgrow="ALWAYS">
-                                <children>
-                                    <StackPane fx:id="borrowerPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                                </children>
-                            </VBox>
-                        </children>
+                    <VBox maxWidth="500.0" minWidth="500.0" prefWidth="500.0" styleClass="foundation_pane" BorderPane.alignment="CENTER">
+                        <padding>
+                            <Insets bottom="10" left="5" right="10" top="10" />
+                        </padding>
+                        <StackPane fx:id="borrowerPanelPlaceholder" VBox.vgrow="ALWAYS">
+                        </StackPane>
                     </VBox>
                 </right>
                 <center>
-                    <VBox fx:id="bookList" minWidth="500.0" prefWidth="500.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="bookList" minWidth="500.0" prefWidth="500.0" styleClass="foundation_pane" VBox.vgrow="ALWAYS">
                         <padding>
-                            <Insets bottom="10" left="10" right="10" top="10" />
+                            <Insets bottom="10" left="10" right="5" top="10" />
                         </padding>
                         <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS" />
-                        <Pane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0" VBox.vgrow="ALWAYS">
+                        <Pane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="120.0" styleClass="placeholder" VBox.vgrow="ALWAYS">
                             <padding>
                                 <Insets left="20.0" />
                             </padding>
