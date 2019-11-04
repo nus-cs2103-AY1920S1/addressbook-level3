@@ -1,6 +1,7 @@
 package seedu.ifridge.ui;
 
 import static seedu.ifridge.model.food.Amount.getValue;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
@@ -56,17 +58,12 @@ public class ShoppingItemCard extends UiPart<Region> {
         }
         Text boughtText = new Text();
         if (shoppingItem.isBought()) {
-            for (GroceryItem boughtItem : boughtList) {
-                if (boughtItem.isSameName(shoppingItem)) {
-                    if (getValue(boughtItem.getAmount()) >= getValue(shoppingItem.getAmount())) {
-                        boughtText = new Text("Fully Bought!");
-                        boughtText.setFill(Color.GREEN);
-                    } else {
-                        boughtText = new Text("Partially Bought");
-                        boughtText.setFill(Color.DARKORANGE);
-                    }
-                    break;
-                }
+            if (isCompletelyBought(shoppingItem, boughtList)) {
+                boughtText = new Text("Fully Bought!");
+                boughtText.setFill(Color.DARKGREEN);
+            } else {
+                boughtText = new Text("Partially Bought");
+                boughtText.setFill(Color.PALEGREEN);
             }
             boughtTag.getChildren().add(boughtText);
         }

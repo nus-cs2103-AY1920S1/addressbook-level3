@@ -1,11 +1,10 @@
 package seedu.ifridge.model;
 
-import static seedu.ifridge.model.food.Amount.getValue;
+import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.Comparator;
 
 import javafx.collections.ObservableList;
-import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
@@ -20,29 +19,6 @@ public class ShoppingComparator implements Comparator<ShoppingItem> {
         this.model = model;
     }
 
-    /**
-     * Checks if a ShoppingItem is bought in its entirety.
-     * @param shoppingItem to check if completely bought
-     * @param internalBoughtList boughtItems to compare shoppingItem with
-     * @return true if shoppingItem is completely bought, false otherwise
-     */
-    private static boolean isCompletelyBought(ShoppingItem shoppingItem,
-                                              ObservableList<GroceryItem> internalBoughtList) {
-        Amount shoppingAmount = shoppingItem.getAmount();
-        boolean result = false;
-        for (GroceryItem boughtItem: internalBoughtList) {
-            Amount boughtAmount = boughtItem.getAmount();
-            if (!shoppingItem.getName().equals(boughtItem.getName())) {
-                continue;
-            } else if (getValue(shoppingAmount) > getValue(boughtAmount)) {
-                break;
-            } else {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
 
     @Override
     public int compare(ShoppingItem si1, ShoppingItem si2) {
