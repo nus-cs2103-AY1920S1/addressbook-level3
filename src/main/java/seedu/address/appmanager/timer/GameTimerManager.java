@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 
 /**
- * Represents a countdown timer that runs during a Game session.
+ * Represents the back-end countdown timer that runs during a Game session.
  */
 public class GameTimerManager implements GameTimer {
 

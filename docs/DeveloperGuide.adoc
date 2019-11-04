@@ -63,10 +63,11 @@ Holds the data of live game sessions in-memory.
 * <<Design-Storage,*`Storage`*>>: +
 Reads data from, and writes data to, the local hard disk.
 
-For the components UI, Logic, Model, Timer and Game:
+For the components UI, Logic, Model, Timer, Storage and Game:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+** ie. `StorageManager` implements `Storage`, `GameTimerManager` implements `GameTimer`.
 
 // end::yida-design[]
 
@@ -95,13 +96,27 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `AppManager` component.
+* Listens for changes to `Model` data and `Timer` through the `AppManager` so that the UI can be updated correspondingly.
+
+// tag::yida-AppManager[]
 
 [[Design-AppManager]]
 === AppManager component
 
-"Explain AppManager component"
+.Structure of the AppManager Component
+image::AppManagerClassDiagram.png[]
+
+The `AppManager` component serves as a _Facade_ layer and communication hub between the internal components of _Dukemon_ and the _UI_ components.
+Using this extra layer provides better abstraction between the `UI` and the internal components, especially between the `Timer`
+and the `UI`.
+
+`AppManager` communicates with both the `Logic` and `Timer` components to send feedback to the `UI` to display back to the user.
+
+* Gets feedback for commands by through `Logic`
+* Starts and Stops the `Timer` when required.
+* Makes call-backs to the `UI` to update various `UI` components.
+* Initiates collection of `Statistics` by pulling data (eg. Time Elapsed) from `Timer` and `Logic`.
 
 [[Design-Timer]]
 === Timer component
@@ -120,8 +135,10 @@ and notify the `AppManager`, who will notify the `UI` components.
 * Periodically triggering _callbacks_ that will notify the `AppManager` component.
 * Gets timestamps to trigger `Hints` via a `HintTimingQueue`
 
-_Due to the fact that the timer has to work closely with the `UI` and `AppManager` (without being
+_Due to the fact that the `Timer` has to work closely with the `UI` and `AppManager` (without being
 coupled directly), it is separated from the `Logic`, `Model` and `Game` components._
+
+// end::yida-AppManager[]
 
 // tag::subbashdg2[]
 [[Design-Logic]]
@@ -202,7 +219,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Game Component
 image::GameClassDiagram.png[]
 
-The `Game`,
+The `Game` component,
 
 * stores a _shuffled_ `List<Card>` that is cloned/copied from a `ReadOnlyWordBank`.
 * maintains an `Index` to keep track of the state of the game.
@@ -573,12 +590,15 @@ in this one, we do not think the added functionality of allowing the user to ext
 
 // tag::yida-timer[]
 
-=== [underline]#Timer Feature#
+=== [underline]#Timer-based Features#
 
-.Screenshot of the `Timer` component in action as seen through the `UI`.
+.Screenshot of the `Timer` component in action.
 image::TimerDGScreenshot.png[]
 
-==== Implementation Overview
+.Screenshot of the automatic `Hints` feature in action.
+image::HintDGScreenshot.png[]
+
+==== Implementation Overview - `Timer`
 
 The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch during a `Game`. It also relies on
 using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
@@ -666,7 +686,7 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#Word Bank features#
+=== [underline]#WordBank Features#
 Dukemon, a flashcard app, requires a non-trivial implementation of a data structure to contain it's information. +
 It comes along with a set of commands that either modifies it's data, or modify the view. +
 These commands will then synchronise the data in storage, or update the model for viewing. +
