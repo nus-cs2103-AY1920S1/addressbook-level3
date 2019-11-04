@@ -90,7 +90,7 @@ public class JsonExportPath extends ExportPath {
     @Override
     public void export(List<FlashCard> list) throws IOException {
         try {
-            super.createDirectoryIfNotPresent(directoryPath);
+            directoryPath.createIfNotPresent();
             JsonExportUtil.exportFlashCardsToJson(list, this);
         } catch (IOException e) {
             throw e;

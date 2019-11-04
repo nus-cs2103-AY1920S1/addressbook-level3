@@ -4,6 +4,8 @@ package seedu.address.model.export;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -24,6 +26,8 @@ public class DirectoryPath {
      */
     public static final String VALIDATION_REGEX = "[~.\\w\\-!:\\[\\]()/\\\\ ]+";
 
+    private static final String CURRENT_DIRECTORY_PATH_STRING = "./";
+
     private final Path path;
 
     /**
@@ -33,7 +37,7 @@ public class DirectoryPath {
      */
     public DirectoryPath(Path directoryPath) {
         if (directoryPath == null) {
-            path = Paths.get("./");
+            path = Paths.get(CURRENT_DIRECTORY_PATH_STRING);
             return;
         }
 
@@ -51,6 +55,15 @@ public class DirectoryPath {
     public Path getPath() {
         return path;
     }
+
+    public void createIfNotPresent() throws IOException {
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
 
     @Override
     public String toString() {
