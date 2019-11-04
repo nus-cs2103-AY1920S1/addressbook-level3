@@ -373,9 +373,15 @@ Possible Parameters: `id`/`op`/`desc`
 Format: `find-i op/KEYWORD` +
 Lists all incidents whereby the operator name contains the given keyword
 
-* Example of Successful Usage and Expected Outcome:
+* Accepts multiple search terms for the parameter, searching for any match with any search term
+
+* Example of Successful Single Operator Search and Expected Outcome:
 
 image::findIncidentsCommandWithOperatorParameter.png[]
+
+* Example of Successful Multiple Operator Search and Expected Outcome:
+
+image::findIncidentsCommandWithOperatorsParameter.png[]
 
 * Example of Failed Usage and Expected Outcome:
 
@@ -393,9 +399,11 @@ image::findIncidentsCommandWithDescriptionParameter.png[]
 
 image::findIncidentsCommandWithDescriptionParameterFailed.png[]
 
-**By ID**
+**By ID** +
 Format: `find-i id/KEYWORD` +
 Lists all incidents whereby the incident ID is an exact match with the given keyword
+
+* Requires an exact ID match
 
 * Example of Successful Usage and Expected Outcome:
 
@@ -405,15 +413,10 @@ image::findIncidentsCommandWithIdParameter.png[]
 
 image::findIncidentsCommandWithIdParameterFailed.png[]
 
-* Requires an exact ID match
-* Example of Failed Usage:
-** The ID does not match the given keyword exactly
-* Example of Successful Usage:
-** ID matches the given keyword exactly
-
 ****
 * The search is case insensitive. e.g `dave` will match `Dave`
-* Only the specified parameter is searched, and only one parameter can be searched each time
+* Multiple words can be taken for the operator and description parameter
+* Multiple parameters can be searched, returning incidents whereby all parameters match
 * Only full words will be matched e.g. `Fir` will not match `Fire`
 ****
 
