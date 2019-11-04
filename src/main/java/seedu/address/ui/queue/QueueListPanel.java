@@ -47,7 +47,6 @@ public class QueueListPanel extends UiPart<Region> {
         queueListView.setItems(queueList);
         queueListView.setCellFactory(listView -> new QueueListViewCell(resolver));
         roomListView.setFocusModel(null);
-        queueListView.setFocusModel(null);
     }
 
     /**
