@@ -97,10 +97,8 @@ public class UiManager implements Ui {
         logger.info("Changing to Tasks...");
 
         try {
-            if (mainWindow != null) {
                 mainWindow.show(); //This should be called before creating other UI parts
                 mainWindow.fillTasks();
-            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -114,10 +112,8 @@ public class UiManager implements Ui {
         logger.info("Changing to Notes...");
 
         try {
-            if (mainWindow != null) {
                 mainWindow.show(); //This should be called before creating other UI parts
                 mainWindow.fillNotes();
-            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
