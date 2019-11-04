@@ -87,7 +87,7 @@ A user cannot access commands affecting entities not displayed in their current 
 
 Account Management Interface:
 
-image::account.png[width="600"]
+image::account.png[width="400"]
 
 // end::access[]
 
