@@ -76,7 +76,6 @@ public class Expenditure {
             return false;
         } else if (otherExpenditure instanceof Expenditure) {
             return otherExpenditure.getName().equals(getName())
-                    && otherExpenditure.getBudget().equals(getBudget())
                     && otherExpenditure.getDayNumber().get().equals(getDayNumber().get());
         } else {
             return false;

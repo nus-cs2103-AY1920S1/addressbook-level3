@@ -62,16 +62,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Trip manager
 
-The trip manager is the main starting ground of the application. Here, the user is able to create and delete trips.
+The __Trip Manager__ page is the main starting ground of the application. Here, you can view and enter the trips you have created.
 
-* create : creates a new trip, this command brings up the trip creation user interface.
-* delete <name of trip>: deletes the trip with the specified name and all data associated with it.
-* goto <index of trip> : enters the main page of a trip with the specified index.
+If you are using TravelPal for the first time, you will see a blank page, to create a new trip, please follow the instruction in <<Trip setup>>.
+
+After a trip is successfully added, information about the trip is shown in a trip card as shown below.
+
+image::TripManager.png[]
+
+On the __Trip Manager__ page, the following command are available:
+
+* `create` : creates a new trip, this command brings up the trip setup user interface.
+* `delete <index of trip>` : deletes the trip with the specified index and all data associated with it.
+* `goto <index of trip>`  : enters the main page of a trip with the specified index.
 
 === Trip setup
 Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
-image::TripManager.png[]
+
 Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
 Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
@@ -141,40 +149,121 @@ Every page that comprises a navbar can execute the following commands to navigat
 3. Days Page: `days`
 4. Diary : `diary`
 5. Inventory : `inventory`
-6. Expense Manager :`expense`
+6. Expense Manager : `expense`
 
 === Expense Manager
 
-Expense manager records the expenditure by the user. Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event. There are two types of expenditure: 1. Planned expenditure (auto-generated from event) 2. Miscellaneous expenditure (can be created and deleted)
+==== Introduction
 
-* create: creates a miscellaneous expenditure
-* edit <index of expenditure>: edit an expenditure, this command bring up the expense setup page.
-* delete <index of expenditure>: delete an expenditure, note that only miscellaneous expenditures can be deleted.
-* showdays: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
-* currency: enter the currency page of TravelPal
+TravelPal's __Expense Manager__ is an integrated expense planning and management system. It keeps track all the expenditures generated in your trip, and
+provides an intuitive overview of daily and total expenses and budgets. Gui alternatives are available for executing the same operations as command line input.
 
+This section of the user guide explains how to view and manage your expenses using __Expense Manager__.
 
-=== Expense Setup
+==== User Interface Overview
 
-Expense setup creates/edits properties of a specified expenditure.It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
+Shown below is the landing page of the __Expense Manager__.
 
-* edit n/<name of expenditure>: edit the name of the expenditure.
-* edit b/<amount of expenditure>: edit the amount of expenditure, in Singapore dollars.
-* edit dn/<day number of expenditure>: set the day number the expenditure belongs to.
-* done: confirm and commit the changes, go back to the expense manager page.
-* cancel: go back to the expense manager page without committing the changes.
+image::expense/userguide/ExpenseManager.png[title="Overview of Expense Manager user interface"]
+
+To toggle the display of expenses between list view and day view, use the command `showdays` or `showlist`. Alternatively,
+you may click the toggle button on the page.
+
+image::expense/userguide/ExpenseManagerDays.png[title="Expense Manager user interface showing the daily expenses and budget summary"]
+
+Expenses are connected to bookings/events to automatically update the current known expenditure for any date/trip/event.
+There are two types of expenditure:
+
+1. Planned expenditure (auto-generated from event)
+2. Miscellaneous expenditure (can be created and deleted)
+
+==== Commands
+
+On the __Expense Manager__ page, the following command are available:
+
+* `create`: creates a expenditure, can also be accessed by clicking the `Add Expenditure` button.
+* `edit <index of expenditure>`: edit an expenditure, this command bring up the expense setup page.
+* `delete <index of expenditure>`: delete an expenditure, note that only miscellaneous expenditures can be deleted.
+* `showdays`: enter the days view of expense manager, the expenditures will be grouped according to the days they belong to.
+* `currency`: enter the currency page of TravelPal, can also be accessed by clicking the `Edit Currency` button
+
+==== Expense Setup
+
+Expense setup creates/edits properties of a specified expenditure.
+To access the __Expense Setup__ page, use `create` or `edit <index of expenditure>` command on`Expense Manager` page.
+
+It is necessary for expenditure to contains a name and amount. It can also contain an optional day number, indicating which day the expenditure belong to.
+
+The following commands are available on __Expense Setup__ page.
+
+* `edit <prefix>/<value> ...` : edit the field of the expenditure to be created/edited.
+* `done` : confirm and commit the changes, go back to the expense manager page.
+* `cancel` : go back to the expense manager page without committing the changes.
+
+The prefixes refer to editing each fields as follows:
+
+* `n/` Name of the expenditure
+* `b/` The amount of expenditure, in Singapore dollars.
+* `dn/` The day number the expenditure belongs to.
+
+NOTE: For Planned expenditure linked to an event, the `name` and `day number` fields are not editable. However, you may
+edit the name of the corresponding event, this will also update the name of the planned expenditures.
+
+====== Example Usage for `edit` command:
+======
+To add an expenditure with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _2_, use the following command:
+
+`edit n/Miscellaneous Expenses b/10.5 dn/2`
+======
+
 
 === Currency Manager
 
-Currency manager allows users to create customised currencies with currency name, symbol and exchange rate (use Singapore dollar as base).
+==== Introduction
 
-* select <index of currency>: select the currency with the specified index as the currency in use.
-* delete <index of currency>: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
-* edit n/<name of currency>: edit the name of the currency.
-* edit r/<exchange rate of currency>: edit the name of the currency, using Singapore dollar as base for comparison.
-* edit s/<symbol of expenditure>: edit the symbol for the currency which will be displayed.
-* done: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
-* cancel: return to the expense manager.
+With _Currency manager_, you can add and select currencies with customised currency name, symbol and exchange rate.
+When a currency is selected, all the monetary valued will be displayed in that currency
+
+==== User Interface Overview
+
+Shown below is a screenshot of the __Currency Manager__ page.
+
+image::currency/userguide/CurrencyPage.png[title="Overview of Currency Manager user interface"]
+
+The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency, under the
+`Symbol of Currency` section, the most commonly used currency symbols are indexed. You can also input other currency symbols.
+
+On the right hand side of the page, the customised currencies are listed. _Singapore Dollar(SGD)_ is pre-defined as the base currency.
+You may select or delete a customised currency.
+
+==== Commands
+
+The following commands are available on __Currency Manager__ page:
+
+* `select <index of currency>`: select the currency with the specified index as the currency in use.
+* `delete <index of currency>`: select the currency with the specified index, note that the default Singapore dollar cannot be deleted.
+* `edit <prefix>/<value> ...`: edit the fields of a new currency to be created.
+* `add`: confirm and commit the changes, the newly added currency will be chosen as the currency in use, displayed in the currency list
+* `return`: return to the expense manager.
+
+NOTE: the `<value>` for editing the currency symbol can either be an integer representing the index of the preset currencies, or
+or a non-numerical string with no more than 3 characters.
+
+The prefixes refer to editing each fields as follows:
+
+* `n/` name of the currency
+* `s/` symbol of currency,
+* `r/` exchange rate of the currency, using Singapore dollar as base for comparison.
+
+NOTE: Singapore Dollar (SGD) is used as the default currency, it cannot be deleted.
+
+====== Example Usage for `edit` command:
+======
+To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, and an exchange rate of 1 SGD : 0.74 USD, use the following command:
+
+`edit n/USD s/1 r/0.74`
+======
+
 
 // tag::diary_ppp[]
 === Diary
