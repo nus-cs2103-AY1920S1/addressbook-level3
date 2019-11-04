@@ -49,7 +49,13 @@ public class MainWindow extends UiPart<Stage> {
 
     private Timeline checkTimer = new Timeline(new KeyFrame(Duration.minutes(10), event -> {
         Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
-        notifMessage.ifPresent(s -> new NotificationWindow(s).show());
+        notifMessage.ifPresent(s -> {
+            if (notificationWindow != null) {
+                notificationWindow.getRoot().hide();
+            }
+            notificationWindow = new NotificationWindow(s);
+            notificationWindow.show();
+        });
     }));
 
     @FXML
