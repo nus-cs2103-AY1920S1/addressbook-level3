@@ -5,6 +5,7 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_MAX_SHARE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 import static java.util.Objects.requireNonNull;
@@ -14,7 +15,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Optional;
 
 import budgetbuddy.logic.commands.Command;
@@ -40,16 +40,18 @@ public class LoanSplitCommand extends Command {
     public static final String COMMAND_WORD = "loan split";
 
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": Splits a group payment into a list of who owes who how much.\n"
-                    + "Optionally adds loans from the resulting list to your existing loan list."
+            COMMAND_WORD + ": Splits a group payment into a list of who owes who how much. "
+                    + "Optionally limits the share of one or more persons.\n"
+                    + "Optionally adds loans from the resulting list to your loan list.\n"
                     + "Parameters: "
+                    + PREFIX_PERSON + "PERSON "
+                    + PREFIX_AMOUNT + "AMOUNT "
+                    + "... "
+                    + "[" + PREFIX_MAX_SHARE + "MAX_SHARE ...] "
                     + "["
                     + PREFIX_USER + "YOUR_NAME "
                     + PREFIX_DATE + "DATE "
-                    + PREFIX_DESCRIPTION + "DESCRIPTION] "
-                    + PREFIX_PERSON + "PERSON "
-                    + PREFIX_AMOUNT + "AMOUNT "
-                    + "...\n"
+                    + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
                     + "Example: " + COMMAND_WORD + " "
                     + PREFIX_PERSON + "Mary " + PREFIX_AMOUNT + "10 "
                     + PREFIX_PERSON + "John " + PREFIX_AMOUNT + "90 "
@@ -63,6 +65,7 @@ public class LoanSplitCommand extends Command {
             "The number of persons does not match the number of payments.";
 
     public static final String MESSAGE_INVALID_TOTAL = "Total amount must be more than zero.";
+    public static final String MESSAGE_PER_PERSON_CALCULATION_ERROR = "Error while calculating default per person.";
     public static final String MESSAGE_ALREADY_SPLIT_EQUALLY = "The amounts have already been split equally.";
 
     public static final String MESSAGE_USER_NOT_FOUND =
@@ -70,28 +73,18 @@ public class LoanSplitCommand extends Command {
 
     private List<Person> persons;
     private List<Amount> amounts;
+    private List<Long> maxShares;
     private List<DebtorCreditorAmount> debtorCreditorAmountList;
 
     private Optional<Person> optionalUser;
     private Optional<Description> optionalDescription;
     private Optional<Date> optionalDate;
 
-    /**
-     * Constructs a hash map with a person as the key and the amount they paid as the value.
-     * The hash map is used during execution to calculate the splitting of payment.
-     * @param persons The list of persons to use in constructing the hash map.
-     * @param amounts The list of amounts to be mapped to the list of persons.
-     * @param optionalUser The user as a {@code Person} for identifying the user in {@code persons}.
-     * @param optionalDescription The description to apply to loans added to the user's loan list.
-     * @param optionalDate The date to apply to loans added to the user's loan list.
-     * @throws CommandException If the number of persons is not equal to the number of amounts,
-     * or if the list of persons contains duplicates.
-     */
-    public LoanSplitCommand(List<Person> persons, List<Amount> amounts,
+    public LoanSplitCommand(List<Person> persons, List<Amount> amounts, List<Long> maxShares,
                             Optional<Person> optionalUser,
                             Optional<Description> optionalDescription,
                             Optional<Date> optionalDate) throws CommandException {
-        requireAllNonNull(persons, amounts);
+        requireAllNonNull(persons, amounts, optionalUser, optionalDescription, optionalDate);
 
         if (persons.size() != amounts.size()) {
             throw new CommandException(MESSAGE_PERSON_AMOUNT_NUMBERS_MISMATCH);
@@ -99,14 +92,19 @@ public class LoanSplitCommand extends Command {
 
         Person user = new Person(new Name("You"));
 
-        this.persons = new ArrayList<Person>();
-        for (Person person : persons) {
-            this.persons.add(optionalUser.isPresent() && optionalUser.get().equals(person)
-                    ? user
-                    : person);
+        this.persons = new ArrayList<Person>(persons);
+        for (int i = 0; i < this.persons.size(); i++) {
+            if (optionalUser.isEmpty()) {
+                break;
+            }
+            if (this.persons.get(i).equals(optionalUser.get())) {
+                this.persons.set(i, user);
+                break;
+            }
         }
 
         this.amounts = new ArrayList<Amount>(amounts);
+        this.maxShares = new ArrayList<Long>(maxShares);
         this.debtorCreditorAmountList = new ArrayList<DebtorCreditorAmount>();
 
         this.optionalUser = optionalUser.isPresent() ? Optional.of(user) : optionalUser;
@@ -123,12 +121,15 @@ public class LoanSplitCommand extends Command {
                 .reduce(Long::sum)
                 .orElseThrow(() -> new CommandException(MESSAGE_INVALID_TOTAL));
 
-        long perPerson = totalAmount / persons.size();
+        long defaultPerPerson = (totalAmount - maxShares.stream()
+                .filter(share -> share >= 0 && share <= totalAmount)
+                .reduce(Long::sum)
+                .orElseThrow(() -> new CommandException(MESSAGE_PER_PERSON_CALCULATION_ERROR))) / persons.size();
 
         List<Participant> participants = new ArrayList<Participant>();
         for (int i = 0; i < persons.size(); i++) {
-            long amountPaid = amounts.get(i).toLong();
-            long balance = amountPaid - perPerson;
+            long balance = amounts.get(i).toLong()
+                    - (maxShares.get(i) >= 0 ? Math.max(totalAmount, maxShares.get(i)) : defaultPerPerson);
             participants.add(new Participant(persons.get(i), balance));
         }
 
@@ -228,7 +229,7 @@ public class LoanSplitCommand extends Command {
     /**
      * Uses the {@code debtorCreditorAmountList} to find all loans belonging to the given {@code user}.
      * @return A {@code List} of {@code Loan} objects to be added to the loans manager.
-     * @throws CommandException If the user is not found in {@code personAmountMap}.
+     * @throws CommandException If the user is not found in {@code persons}.
      */
     private List<Loan> constructUserLoansList(Person user) throws CommandException {
         requireAllNonNull(persons, debtorCreditorAmountList, user, optionalDescription);

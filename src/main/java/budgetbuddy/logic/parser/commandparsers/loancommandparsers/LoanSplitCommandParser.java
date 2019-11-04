@@ -1,9 +1,11 @@
 package budgetbuddy.logic.parser.commandparsers.loancommandparsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static budgetbuddy.logic.parser.CliSyntax.PREFIX_MAX_SHARE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_PERSON;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_USER;
 
@@ -30,6 +32,18 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
 
     public static final String MESSAGE_DUPLICATE_PERSONS = "Duplicate persons found in the list of persons. "
             + "Takes note that the list is case insensitive.";
+    public static final String MESSAGE_SHARES_MORE_THAN_PERSONS =
+            "The number of shares cannot exceed the number of persons.";
+    public static final String MESSAGE_MAX_SHARE_CONSTRAINTS = "A person's maximum share must either be "
+            + "a non-negative number or -1 exactly.";
+
+    private List<Person> persons;
+    private List<Amount> amounts;
+    private List<Long> maxShares;
+
+    private Optional<Person> optionalUser;
+    private Optional<Description> optionalDescription;
+    private Optional<Date> optionalDate;
 
     @Override
     public String name() {
@@ -38,45 +52,38 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
 
     @Override
     public LoanSplitCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultiMap = ArgumentTokenizer.tokenize(
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_USER, PREFIX_DESCRIPTION, PREFIX_DATE, PREFIX_PERSON, PREFIX_AMOUNT);
 
-        if (argMultiMap.getValueCount(PREFIX_USER) > 1
-                || argMultiMap.getValueCount(PREFIX_DESCRIPTION) > 1
-                || argMultiMap.getValueCount(PREFIX_DATE) > 1
-                || argMultiMap.getValueCount(PREFIX_PERSON) < 1
-                || argMultiMap.getValueCount(PREFIX_AMOUNT) < 1) {
+        if (argMultimap.getValueCount(PREFIX_USER) > 1
+                || argMultimap.getValueCount(PREFIX_DESCRIPTION) > 1
+                || argMultimap.getValueCount(PREFIX_DATE) > 1
+                || argMultimap.getValueCount(PREFIX_PERSON) < 1
+                || argMultimap.getValueCount(PREFIX_AMOUNT) < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
         }
 
-        // parse optional user input for auto-adding calculated results to loan list
+        parsePersonsAmounts(argMultimap);
+        parseMaxShares(argMultimap);
+        parseOptionalLoanAddArgs(argMultimap);
 
-        Optional<String> optionalUserArg = argMultiMap.getValue(PREFIX_USER);
-        Optional<Person> optionalUser = optionalUserArg.isPresent()
-                ? Optional.of(new Person(CommandParserUtil.parseName(optionalUserArg.get())))
-                : Optional.empty();
-
-        Optional<String> optionalDescriptionArg = argMultiMap.getValue(PREFIX_DESCRIPTION);
-        Optional<Description> optionalDescription = optionalDescriptionArg.isPresent()
-                ? Optional.of(CommandParserUtil.parseDescription(optionalDescriptionArg.get()))
-                : Optional.empty();
-
-        Optional<String> optionalDateArg = argMultiMap.getValue(PREFIX_DATE);
-        Optional<Date> optionalDate = optionalDateArg.isPresent()
-                ? Optional.of(CommandParserUtil.parseDate(optionalDateArg.get()))
-                : Optional.empty();
-
-        if ((optionalUser.isEmpty() && optionalDescription.isPresent())
-            || (optionalUser.isEmpty() && optionalDate.isPresent())) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
+        try {
+            requireAllNonNull(persons, amounts, maxShares, optionalUser, optionalDescription, optionalDate);
+            return new LoanSplitCommand(persons, amounts, maxShares, optionalUser, optionalDescription, optionalDate);
+        } catch (CommandException e) {
+            throw new ParseException(e.getMessage());
         }
+    }
 
-        // parse lists of persons and amounts
+    /**
+     * Parses the persons and amounts entered into two lists.
+     * @throws ParseException If a persons with duplicate names (case-insensitive) is detected.
+     */
+    private void parsePersonsAmounts(ArgumentMultimap argMultimap) throws ParseException {
+        persons = new ArrayList<Person>();
+        amounts = new ArrayList<Amount>();
 
-        List<Person> persons = new ArrayList<Person>();
-        List<Amount> amounts = new ArrayList<Amount>();
-
-        List<String> personNames = argMultiMap.getAllValues(PREFIX_PERSON);
+        List<String> personNames = argMultimap.getAllValues(PREFIX_PERSON);
         for (int i = 0; i < personNames.size(); i++) {
             String currPersonName = personNames.get(i);
             // check for persons with the same name (case-insensitive)
@@ -88,14 +95,58 @@ public class LoanSplitCommandParser implements CommandParser<LoanSplitCommand> {
             persons.add(new Person(CommandParserUtil.parseName(currPersonName)));
         }
 
-        for (String amountStr : argMultiMap.getAllValues(PREFIX_AMOUNT)) {
+        for (String amountStr : argMultimap.getAllValues(PREFIX_AMOUNT)) {
             amounts.add(CommandParserUtil.parseAmount(amountStr));
         }
+    }
 
-        try {
-            return new LoanSplitCommand(persons, amounts, optionalUser, optionalDescription, optionalDate);
-        } catch (CommandException e) {
-            throw new ParseException(e.getMessage());
+    /**
+     * Parses the max shares entered into a list of {@code long} values.
+     * @throws ParseException If a max share entered is non-negative and not -1.
+     */
+    private void parseMaxShares(ArgumentMultimap argMultimap) throws ParseException {
+        maxShares = new ArrayList<Long>();
+
+        if (argMultimap.getValueCount(PREFIX_MAX_SHARE) > persons.size()) {
+            throw new ParseException(MESSAGE_SHARES_MORE_THAN_PERSONS);
+        }
+
+        for (String maxShareStr : argMultimap.getAllValues(PREFIX_MAX_SHARE)) {
+            long maxShare = Long.parseLong(maxShareStr);
+            if (maxShare < -1) {
+                throw new ParseException(MESSAGE_MAX_SHARE_CONSTRAINTS);
+            }
+            maxShares.add(maxShare);
+        }
+
+        while (maxShares.size() < persons.size()) {
+            maxShares.add(-1L);
+        }
+    }
+
+    /**
+     * Parses the optional arguments for auto-adding loans into {@code Optional} objects.
+     * @throws ParseException If an error occurs during the parsing of the user's name, given date, or description.
+     */
+    private void parseOptionalLoanAddArgs(ArgumentMultimap argMultimap) throws ParseException {
+        Optional<String> optionalUserArg = argMultimap.getValue(PREFIX_USER);
+        optionalUser = optionalUserArg.isPresent()
+                ? Optional.of(new Person(CommandParserUtil.parseName(optionalUserArg.get())))
+                : Optional.empty();
+
+        Optional<String> optionalDescriptionArg = argMultimap.getValue(PREFIX_DESCRIPTION);
+        optionalDescription = optionalDescriptionArg.isPresent()
+                ? Optional.of(CommandParserUtil.parseDescription(optionalDescriptionArg.get()))
+                : Optional.empty();
+
+        Optional<String> optionalDateArg = argMultimap.getValue(PREFIX_DATE);
+        optionalDate = optionalDateArg.isPresent()
+                ? Optional.of(CommandParserUtil.parseDate(optionalDateArg.get()))
+                : Optional.empty();
+
+        if ((optionalUser.isEmpty() && optionalDescription.isPresent())
+                || (optionalUser.isEmpty() && optionalDate.isPresent())) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoanSplitCommand.MESSAGE_USAGE));
         }
     }
 }

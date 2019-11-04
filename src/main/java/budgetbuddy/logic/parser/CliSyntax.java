@@ -27,6 +27,7 @@ public class CliSyntax {
     // Loans
     public static final Prefix PREFIX_PERSON = new Prefix("p/");
     public static final Prefix PREFIX_USER = new Prefix("me/");
+    public static final Prefix PREFIX_MAX_SHARE = new Prefix("max/");
     public static final String KEYWORD_LOAN_OUT = "out";
     public static final String KEYWORD_LOAN_IN = "in";
     public static final String KEYWORD_LOAN_PAID = "paid";
