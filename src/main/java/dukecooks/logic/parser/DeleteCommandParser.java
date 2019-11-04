@@ -13,6 +13,7 @@ import dukecooks.logic.commands.exercise.DeleteExerciseCommand;
 import dukecooks.logic.commands.health.DeleteRecordCommand;
 import dukecooks.logic.commands.mealplan.DeleteMealPlanCommand;
 import dukecooks.logic.commands.recipe.DeleteRecipeCommand;
+import dukecooks.logic.commands.workout.DeleteWorkoutCommand;
 import dukecooks.logic.parser.dashboard.DeleteTaskCommandParser;
 import dukecooks.logic.parser.diary.DeleteDiaryCommandParser;
 import dukecooks.logic.parser.diary.DeletePageCommandParser;
@@ -21,6 +22,7 @@ import dukecooks.logic.parser.exercise.DeleteExerciseCommandParser;
 import dukecooks.logic.parser.health.DeleteRecordCommandParser;
 import dukecooks.logic.parser.mealplan.DeleteMealPlanCommandParser;
 import dukecooks.logic.parser.recipe.DeleteRecipeCommandParser;
+import dukecooks.logic.parser.workout.DeleteWorkoutCommandParser;
 
 /**
  * Parses input arguments and creates a new DeleteRecipeCommand object
@@ -68,6 +70,9 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         case DeleteExerciseCommand.VARIANT_WORD:
             return new DeleteExerciseCommandParser().parse(arguments);
+
+        case DeleteWorkoutCommand.VARIANT_WORD:
+            return new DeleteWorkoutCommandParser().parse(arguments);
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
