@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -65,10 +64,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private StackPane resultDisplayPlaceholder;
 
 
-
-
-
-
     public DiaryPage(DiaryBookLogic logic) {
         super(FXML);
         this.parser = new DiaryBookParser();
@@ -118,8 +113,6 @@ public class DiaryPage extends UiPart<Region> implements Page {
             throw e;
         }
     }
-
-
 
     /**
      * Closes the application.
