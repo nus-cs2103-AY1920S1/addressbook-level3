@@ -46,7 +46,7 @@ public class DeleteFindRuleCommand extends Command {
 
         ProblemSearchRule ruleToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteFindRule(ruleToDelete);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, ruleToDelete));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ruleToDelete.getName()));
     }
 
     @Override
