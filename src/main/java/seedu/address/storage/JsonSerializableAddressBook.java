@@ -29,8 +29,8 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_WRONG_CATEGORY = "Data file load error due to non existent category. ";
 
-    private final List<JsonAdaptedCategory> listofExpenseCategories = new ArrayList<>();
-    private final List<JsonAdaptedCategory> listofIncomeCategories = new ArrayList<>();
+    private final List<JsonAdaptedCategory> expenseCategoriesList = new ArrayList<>();
+    private final List<JsonAdaptedCategory> incomeCategoriesList = new ArrayList<>();
     private final List<JsonAdaptedExpense> expenses = new ArrayList<>();
     private final List<JsonAdaptedIncome> incomes = new ArrayList<>();
     private final List<JsonAdaptedWish> wishes = new ArrayList<>();
@@ -44,11 +44,11 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("expenses") List<JsonAdaptedExpense> expenses,
-            @JsonProperty("listofExpenseCategories") List<JsonAdaptedCategory> listofExpenseCategories,
-            @JsonProperty("listofIncomeCategories") List<JsonAdaptedCategory> listofIncomeCategories) {
+            @JsonProperty("listofExpenseCategories") List<JsonAdaptedCategory> expenseCategoriesList,
+            @JsonProperty("listofIncomeCategories") List<JsonAdaptedCategory> incomeCategoriesList) {
         this.expenses.addAll(expenses);
-        this.listofExpenseCategories.addAll(listofExpenseCategories);
-        this.listofIncomeCategories.addAll(listofIncomeCategories);
+        this.expenseCategoriesList.addAll(expenseCategoriesList);
+        this.incomeCategoriesList.addAll(incomeCategoriesList);
     }
 
     /**
@@ -58,9 +58,9 @@ class JsonSerializableAddressBook {
      *               {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        listofExpenseCategories.addAll(
+        expenseCategoriesList.addAll(
                 source.getExpenseCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
-        listofIncomeCategories.addAll(
+        incomeCategoriesList.addAll(
                 source.getIncomeCategoryList().stream().map(JsonAdaptedCategory::new).collect(Collectors.toList()));
         expenses.addAll(source.getExpenseList().stream().map(JsonAdaptedExpense::new).collect(Collectors.toList()));
         incomes.addAll(source.getIncomeList().stream().map(JsonAdaptedIncome::new).collect(Collectors.toList()));
@@ -81,12 +81,12 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook(false);
 
-        for (JsonAdaptedCategory jsonAdaptedCategory : listofExpenseCategories) {
+        for (JsonAdaptedCategory jsonAdaptedCategory : expenseCategoriesList) {
             Category category = jsonAdaptedCategory.toModelType();
             addressBook.addCategory(category);
         }
 
-        for (JsonAdaptedCategory jsonAdaptedCategory : listofIncomeCategories) {
+        for (JsonAdaptedCategory jsonAdaptedCategory : incomeCategoriesList) {
             Category category = jsonAdaptedCategory.toModelType();
             addressBook.addCategory(category);
         }

@@ -47,6 +47,8 @@ public class MainWindow extends UiPart<Stage> {
     private boolean isStatsWindow;
     private boolean isStatsGraphicsWindow;
 
+    private String font;
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -92,6 +94,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setFont(logic.getGuiSettings());
 
         setAccelerators();
 
@@ -180,6 +183,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Sets the font based on {@code guiSettings}.
+     */
+    private void setFont(GuiSettings guiSettings) {
+        String savedFont = guiSettings.getFont();
+        this.font = savedFont;
+        String style = "-fx-font-family: " + savedFont;
+        window.setStyle(style);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -201,7 +214,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), font);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -274,7 +287,7 @@ public class MainWindow extends UiPart<Stage> {
      * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
      */
     private void togglePlaceHolderForStats(boolean isStatsWindow) {
-        if (isStatsWindow == true) {
+        if (isStatsWindow) {
             sidePanelsPlaceHolder.setManaged(false);
             sidePanelsPlaceHolder.setVisible(false);
         } else {
@@ -316,6 +329,7 @@ public class MainWindow extends UiPart<Stage> {
      * Changes font in the application to the specified font.
      */
     private void handleChangeFont(String font) {
+        this.font = font;
         String style = "-fx-font-family: " + font;
         window.setStyle(style);
     }
