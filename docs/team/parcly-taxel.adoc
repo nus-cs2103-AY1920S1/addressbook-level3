@@ -11,7 +11,10 @@ address book application], which will be called AB3 in the rest of the portfolio
 We chose to morph it into NUStudy, an application for
 managing lecture notes, questions and revision tasks -- all three things pertinent to the
 average university student, regardless of location. Like the original, it has a command line
-as its main method of interaction and a JavaFX GUI for display. It has around 5000 lines of code.
+as its main method of interaction and a JavaFX GUI for display. It has around 5000 lines of code
+and looks like this:
+
+image::Ui.png[]
 
 This portfolio showcases my contributions to NUStudy: implementing the lecture notes by
 retooling the existing _Person_ class, related documentation in the user and developer guides
