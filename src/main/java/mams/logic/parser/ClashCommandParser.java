@@ -89,12 +89,18 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                         && argMultimap.getValue(PREFIX_APPEAL).isPresent());
     }
 
-    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException{
+    /**
+     * Checks the number of parameters given by user inputs.
+     * @param argMultimap an ArgumentMultimap object stores value of each prefix.
+     * @throws ParseException when the number of parameters is not correct.
+     */
+    private void verifyNumberOfParameters(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_MODULE).isPresent() && argMultimap.getValueSize(PREFIX_MODULE) != 2) {
             throw new ParseException(ClashCommand.MESSAGE_NEED_TWO_MODULES);
         }
         if ((argMultimap.getValue(PREFIX_APPEAL).isPresent() && argMultimap.getValueSize(PREFIX_APPEAL) != 1)
-                || (argMultimap.getValue(PREFIX_STUDENT).isPresent() && argMultimap.getValueSize(PREFIX_STUDENT) != 1)) {
+                || (argMultimap.getValue(PREFIX_STUDENT).isPresent()
+                && argMultimap.getValueSize(PREFIX_STUDENT) != 1)) {
             throw new ParseException(ClashCommand.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
         }
     }
