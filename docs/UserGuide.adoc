@@ -1105,7 +1105,7 @@ To switch it off, please enter `clear` on the Command Line Interface (CLI) of th
 * *Sort By amount (from smallest to largest in amount)*: `sort amount`
 * *Undo sort*: `sort reset`
 * *Find*: `find KEYWORDS`
-* *Back to previous view*: `back`
+* *Display original list*: `back`
 
 
 === Members
