@@ -189,7 +189,7 @@ public class ParserUtil {
         String trimmedQuantity = quantity.trim();
         Integer i;
         try {
-             i = Integer.parseInt(trimmedQuantity);
+            i = Integer.parseInt(trimmedQuantity);
         } catch (NumberFormatException e) {
             throw new ParseException(MESSAGE_INVALID_QUANTITY);
         }
