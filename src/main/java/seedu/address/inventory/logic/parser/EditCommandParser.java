@@ -7,6 +7,7 @@ import static seedu.address.util.CliSyntax.PREFIX_PRICE;
 import static seedu.address.util.CliSyntax.PREFIX_QUANTITY;
 
 import seedu.address.inventory.logic.commands.EditCommand;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.util.ArgumentMultimap;
@@ -45,6 +46,8 @@ public class EditCommandParser {
                 Integer quantity = Integer.parseInt(argMultimap.getValue(PREFIX_QUANTITY).get());
                 if (quantity < 0) {
                     throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else if (quantity > 9999) {
+                    throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
                 } else {
                     editItemDescriptor.setQuantity(quantity);
                 }
@@ -57,6 +60,8 @@ public class EditCommandParser {
                 Double cost = Double.parseDouble(argMultimap.getValue(PREFIX_COST).get());
                 if (cost < 0) {
                     throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else if (cost > 9999) {
+                    throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
                 } else {
                     editItemDescriptor.setCost(cost);
                 }
@@ -69,6 +74,8 @@ public class EditCommandParser {
                 Double price = Double.parseDouble(argMultimap.getValue(PREFIX_PRICE).get());
                 if (price < 0) {
                     throw new ParseException(InventoryMessages.MESSAGE_NEGATIVE_NUMBER);
+                } else if (price > 9999) {
+                    throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
                 } else {
                     editItemDescriptor.setPrice(price);
                 }

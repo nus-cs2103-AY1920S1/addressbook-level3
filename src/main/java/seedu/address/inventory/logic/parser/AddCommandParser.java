@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 
 import seedu.address.cashier.model.ModelManager;
 import seedu.address.inventory.logic.commands.AddCommand;
-import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
 import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
@@ -31,7 +30,7 @@ public class AddCommandParser {
      * Parses the input and returns an AddCommand.
      */
     public static AddCommand parse(String args, InventoryList inventoryList) throws ParseException,
-            NumberFormatException, NotANumberException, NoSuchItemException, OnCashierModeException, InvalidNumberException {
+            NumberFormatException, NoSuchItemException, OnCashierModeException, InvalidNumberException {
         int index = inventoryList.size() + 1;
         if (args.contains(" p/")) {
             ArgumentMultimap argMultimap =
@@ -58,9 +57,9 @@ public class AddCommandParser {
             double price = Double.parseDouble(priceString);
             Item item = new Item(description, category, quantity, cost, price, index);
 
-            if (item.getSubtotal() > 9999 || item.getTotalCost() > 9999 || item.getCost() > 9999
-                    || item.getPrice() > 9999 || item.getQuantity() > 9999) {
-                throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+            if (!isValidNumeric(String.valueOf(item.getTotalCost()))
+                    || !isValidNumeric(String.valueOf(item.getSubtotal()))) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
             AddCommand addCommand = null;
@@ -100,8 +99,8 @@ public class AddCommandParser {
             double cost = Double.parseDouble(costString);
             Item item = new Item(description, category, quantity, cost, index);
 
-            if (item.getTotalCost() > 9999 || item.getCost() > 9999 || item.getQuantity() > 9999) {
-                throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+            if (!isValidNumeric(String.valueOf(item.getTotalCost()))) {
+                throw new InvalidNumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
             }
 
             AddCommand addCommand = null;
@@ -124,7 +123,14 @@ public class AddCommandParser {
         return Stream.of(prefixes).allMatch(prefix -> argMultimap.getValue(prefix).isPresent());
     }
 
-    private static boolean isValidNumeric(String strNum) {
-        return strNum.matches("-?\\d+(\\.\\d+)?") && (Double.parseDouble(strNum) > 0);
+    /**
+     * Checks to see if the input is a valid numeric value less than 9999 and greater than 0.
+     */
+    private static boolean isValidNumeric(String strNum) throws InvalidNumberException {
+        if (Double.parseDouble(strNum) > 9999) {
+            throw new InvalidNumberException(InventoryMessages.MESSAGE_NUMBER_TOO_LARGE);
+        } else {
+            return strNum.matches("-?\\d+(\\.\\d+)?") && (Double.parseDouble(strNum) > 0);
+        }
     }
 }

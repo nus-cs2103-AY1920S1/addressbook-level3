@@ -54,5 +54,5 @@ public class InventoryMessages {
             + "cashier mode. \nTo turn off the cashier mode, please clear all items on Cashier Tab by "
             + "inputting \"clear\" on the Cashier Tab";
 
-    public static final String MESSAGE_NUMBER_TOO_LARGE = "Sorry, the number you have inputted is";
+    public static final String MESSAGE_NUMBER_TOO_LARGE = "Sorry, please input a number less than 10,000.";
 }
