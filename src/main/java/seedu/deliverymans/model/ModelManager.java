@@ -290,8 +290,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDeliverymanStatusAfterCompletingOrder(Deliveryman deliveryman) {
-        deliverymenDatabase.updateDeliverymanStatusAfterCompletingOrder(deliveryman);
+    public void updateDeliverymanStatusAfterCompletingOrder(Name deliverymanName) {
+        deliverymenDatabase.updateDeliverymanStatusAfterCompletingOrder(deliverymanName);
     }
 
     //=========== Order Methods =============================================================
