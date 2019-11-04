@@ -60,19 +60,6 @@ public class TaskCard extends Card {
     }
 
     /**
-     * Constructor for the TaskCard, which displays the information of a particular task.
-     * This is used for CalendarPanel.
-     *
-     * @param task The given task.
-     */
-    public TaskCard(TaskSource task) {
-        super(FXML);
-        taskName.setText(task.getDescription());
-        taskIndexBase.getChildren().remove(taskIndex);
-        addOptions(task);
-    }
-
-    /**
      * Removes the non-existant options from the task card of the given task.
      *
      * @param task The given task.

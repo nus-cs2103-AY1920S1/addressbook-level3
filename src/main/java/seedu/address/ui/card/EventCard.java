@@ -67,20 +67,6 @@ public class EventCard extends Card {
     }
 
     /**
-     * Constructor for the EventCard, which displays the information of a particular event.
-     * This is used for CalendarPanel.
-     *
-     * @param event The given event.
-     */
-    public EventCard(EventSource event) {
-        super(FXML);
-        eventName.setText(event.getDescription());
-        eventStartDate.setText("Start Date: " + event.getStartDateTime().toEnglishDateTime());
-        eventIndexBase.getChildren().remove(eventIndex);
-        addOptions(event);
-    }
-
-    /**
      * Removes the optional part of the event card if it does not exists.
      *
      * @param event The given event.
