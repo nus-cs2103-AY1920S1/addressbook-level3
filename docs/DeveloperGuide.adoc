@@ -28,7 +28,8 @@ StudyBuddyPro aims to lessen target users' revision time consumption without com
 
 This Developer Guide (DG) is written for anyone who wishes to contribute to our project. In here, you will find StudyBuddyPro's information for set-ups, its architectures and its key features.
 
-If you wish to know more details about StudyBuddyPro, please do not hesitate to contact us!
+If you wish to know more details about StudyBuddyPro, please do not hesitate to
+https://ay1920s1-cs2103t-w13-3.github.io/main/ContactUs.html[contact us]!
 
 === Callouts Signs
 
