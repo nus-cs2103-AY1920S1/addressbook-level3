@@ -42,6 +42,7 @@ public class IncomePlotter {
             for (Income income : approvedIncomesInCurrentMonthList) {
                 if (income.getDate().date.getDayOfMonth() == day) {
                     currentIncome += Double.parseDouble(income.getAmount().value);
+                    currentIncome = Math.round(currentIncome * 100) / 100.0;
                 }
             }
             incomeSeries.add(day, currentIncome);
@@ -58,6 +59,7 @@ public class IncomePlotter {
         for (Income income : incomeList) {
             if (income.getDate().date.isBefore(firstDayOfMonth)) {
                 startingIncome += Double.parseDouble(income.getAmount().value);
+                startingIncome = Math.round(startingIncome * 100) / 100.0;
             }
         }
     }
@@ -69,7 +71,8 @@ public class IncomePlotter {
     private List<Income> findIncomesInCurrentMonth() {
         List<Income> updatedIncomeList = new ArrayList<>();
         for (Income income : incomeList) {
-            if (currentMonthNumber == income.getDate().date.getMonthValue()) {
+            if (currentMonthNumber == income.getDate().date.getMonthValue()
+                    && currentYearNumber == income.getDate().date.getYear()) {
                 updatedIncomeList.add(income);
             }
         }

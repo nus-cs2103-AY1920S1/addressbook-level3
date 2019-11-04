@@ -14,5 +14,6 @@ public class Messages {
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_CANNOT_BE_APPROVED = "Claim cannot be approved";
     public static final String MESSAGE_CANNOT_BE_REJECTED = "Claim cannot be rejected";
-
+    public static final String MESSAGE_UNNECESSARY_BUDGET_PARAMETERS = "There is no need to add any additional "
+            + "parameters for the budget command";
 }
