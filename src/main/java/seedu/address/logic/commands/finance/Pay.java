@@ -14,7 +14,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 
-
 /**
  * Command to pay out Salary to the Employee and record it
  */
@@ -35,6 +34,7 @@ public class Pay extends Command {
     private final Index index;
     private final double salaryToPay;
 
+
     /**
      * @param index       of the employee in the filtered employee list to edit
      * @param salaryToPay Total Paid Salary to the Employee
@@ -50,9 +50,17 @@ public class Pay extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Employee> lastShownList = model.getFilteredEmployeeList();
+        Employee employeetotalsalary = lastShownList.get(index.getZeroBased());
+        double totalsalary = Double.parseDouble(employeetotalsalary.getEmployeePay().value);
+        double paid = employeetotalsalary.getEmployeeSalaryPaid().value;
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+
+        if (index.getZeroBased() >= lastShownList.size() ) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+        }
+
+        else if (totalsalary < paid) {
+            throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_PAID);
         }
 
         Employee employeeToPay = lastShownList.get(index.getZeroBased());

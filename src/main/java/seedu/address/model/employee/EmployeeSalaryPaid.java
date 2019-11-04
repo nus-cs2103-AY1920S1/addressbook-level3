@@ -13,7 +13,7 @@ public class EmployeeSalaryPaid {
     public static final String MESSAGE_CONSTRAINTS =
             "EmployeeSalaryPaid should be a positive integer value";
 
-    private double value;
+    public double value;
 
     /**
      * Constructs a {@code EmployeeSalaryPaid}.

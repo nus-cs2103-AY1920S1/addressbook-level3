@@ -10,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.employee.Employee;
+import seedu.address.model.employee.EmployeePay;
 
 /**
  * An UI component that displays information of a {@code Employee}.
@@ -62,8 +63,10 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
         phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
-        address.setText("Total Salary : $" + "Employeecar1");
-        email.setText("Pending to Pay : $" + "Employeecard1");
+        address.setText("Total Salary : $" + employee.getEmployeePay());
+        double pendingpay  = Double.parseDouble(employee.getEmployeePay().value)
+                - employee.getEmployeeSalaryPaid().value;
+        email.setText("Pending to Pay : $" + pendingpay);
         employee.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
