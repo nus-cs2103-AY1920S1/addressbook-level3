@@ -63,12 +63,13 @@
 .Agenda .AppointmentTimeLabel {
 	-fx-fill: BLACK;
 	-fx-stroke: transparent;
-	-fx-font-size: 0.8em;
+	-fx-font-size: 1.5em;
 }
 
 .Agenda .AppointmentLabel {
 	-fx-fill: BLACK;
 	-fx-stroke: transparent;
+	-fx-font-size: 1.1em;
 }
 
 .group0 { -fx-background-color: #AC725E; -fx-fill: #AC725E; }
@@ -95,6 +96,16 @@
 .group21 { -fx-background-color: #F691B2; -fx-fill: #F691B2; }
 .group22 { -fx-background-color: #CD74E6; -fx-fill: #CD74E6; }
 .group23 { -fx-background-color: #A47AE2; -fx-fill: #A47AE2; }
+.brown { -fx-background-color: #AC725E; -fx-fill: #AC725E; }
+.orange { -fx-background-color: #FFAD46; -fx-fill: #FFAD46; }
+.softorange { -fx-background-color: #FAD165; -fx-fill: #FAD165; }
+.softgreen { -fx-background-color: #B3DC6C; -fx-fill: #B3DC6C; }
+.softcyan { -fx-background-color: #92E1C0; -fx-fill: #92E1C0; }
+.softblue { -fx-background-color: #9FC6E7; -fx-fill: #9FC6E7; }
+.yellowgreen { -fx-background-color: #D2DF6B; -fx-fill: #D2DF6B; }
+.grayred { -fx-background-color: #CABDBF; -fx-fill: #CABDBF; }
+.gray { -fx-background-color: #C2C2C2; -fx-fill: #C2C2C2; }
+.softpurple { -fx-background-color: #D5B8D2; -fx-fill: #D5B8D2; }
 
 /* same colors as the bar chart
 .group0 { -fx-background-color: #f9d900; }

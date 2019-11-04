@@ -3,7 +3,9 @@ package seedu.planner.model.day;
 import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import jfxtras.scene.control.agenda.Agenda;
 import seedu.planner.model.activity.Activity;
 
 /**
@@ -12,6 +14,7 @@ import seedu.planner.model.activity.Activity;
 public class ActivityWithTime implements Comparable<ActivityWithTime> {
     private final Activity activity;
     private final LocalDateTime startDateTime;
+    private Agenda.AppointmentGroup appointmentGroup = null;
 
     public ActivityWithTime(Activity activity, LocalDateTime startDateTime) {
         requireAllNonNull(activity, startDateTime);
@@ -33,6 +36,14 @@ public class ActivityWithTime implements Comparable<ActivityWithTime> {
 
     public LocalDateTime getEndDateTime() {
         return startDateTime.plusMinutes(activity.getDuration().value);
+    }
+
+    public Optional<Agenda.AppointmentGroup> getAppointmentGroup() {
+        return Optional.ofNullable(appointmentGroup);
+    }
+
+    public void setAppointmentGroup(Agenda.AppointmentGroup appointmentGroup) {
+        this.appointmentGroup = appointmentGroup;
     }
 
     /**
