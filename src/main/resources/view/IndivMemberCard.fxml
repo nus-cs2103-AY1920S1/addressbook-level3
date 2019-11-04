@@ -30,7 +30,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true"/>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5">
                 <padding>
@@ -52,7 +52,7 @@
                         <Insets bottom="5" right="5" top="5" left="10" />
                     </padding>
                     <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Tasks Assigned" />
-                    <Text fx:id="listTasks" styleClass="tasks_text"/>
+                    <Text fx:id="listTasks" styleClass="tasks_text" wrappingWidth=""/>
                 </VBox>
             </HBox>
         </VBox>

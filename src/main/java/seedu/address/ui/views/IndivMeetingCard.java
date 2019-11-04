@@ -1,17 +1,9 @@
 package seedu.address.ui.views;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
@@ -51,6 +43,7 @@ public class IndivMeetingCard extends UiPart<Region> {
         this.meeting = meeting;
 
         displayIndex.setText(index + ". ");
+
         meetingTime.setText(DateTimeUtil.displayDateTime(meeting.getStartTime()) + " - " +
                 meeting.getEndTime().toLocalTime().toString());
         ObservableList<MemberName> memberList = meeting.getMemberNameList();
