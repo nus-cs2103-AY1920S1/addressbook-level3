@@ -5,16 +5,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.ui.HelpWindow;
 
 /**
  * Saves new record to Visit List.
  */
 public class GenerateProfileCommand extends Command {
     public static final String MESSAGE_GENERATE_PROFILE_SUCCESS = "Profile successfully generated!";
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String line = "=======================================================================\n";
     private static final String header = line + "=========================== Patient Profile =============="
             + "=============\n" + line + "\n";
@@ -91,8 +95,9 @@ public class GenerateProfileCommand extends Command {
 
         try {
             FileUtil.writeToFile(path, output.toString());
+            logger.info("User .pdf profile successfully exported to " + path);
         } catch (IOException e) {
-            throw new CommandException("Error writing to file: " + e.getMessage());
+            throw new CommandException("Error writing to filepath: " + e.getMessage());
         }
 
         return new CommandResult(String.format(MESSAGE_GENERATE_PROFILE_SUCCESS));

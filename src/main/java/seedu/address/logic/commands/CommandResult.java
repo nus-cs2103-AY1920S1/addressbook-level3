@@ -80,9 +80,10 @@ public class CommandResult {
         this.index = idx;
     }
 
-    public CommandResult(String feedbackToUser, Person profilePerson) {
+    public CommandResult(String feedbackToUser, Person profilePerson, ObservableList<VisitReport> profileReportList) {
         this(feedbackToUser, false, false, false, false, true, false, false);
         this.profilePerson = profilePerson;
+        this.reports = profileReportList;
     }
 
     public CommandResult(String feedbackToUser, int idx, String date) {

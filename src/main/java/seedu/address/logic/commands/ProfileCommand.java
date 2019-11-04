@@ -4,11 +4,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.VisitReport;
 
 /**
  * Changes the visitList of an existing person in the address book.
@@ -46,7 +48,10 @@ public class ProfileCommand extends Command {
         // Extract the person from list
         Person personProfileToShow = lastShownList.get(index.getZeroBased());
 
-        return new CommandResult(String.format(MESSAGE_VIEW_PROFILE_SUCCESS, personProfileToShow), personProfileToShow);
+        ObservableList<VisitReport> personReportList = personProfileToShow.getVisitList().getObservableRecords();
+
+        return new CommandResult(String.format(MESSAGE_VIEW_PROFILE_SUCCESS, personProfileToShow),
+                personProfileToShow, personReportList);
     }
 
 
