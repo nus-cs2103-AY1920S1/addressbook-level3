@@ -1,15 +1,14 @@
 package seedu.address.logic.commands.statistics;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.event.Event;
 import seedu.address.model.employee.Employee;
-
-import java.util.Comparator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
+import seedu.address.model.event.Event;
 
 /**
  * Generates statistics of both events and employees, providing a quick
