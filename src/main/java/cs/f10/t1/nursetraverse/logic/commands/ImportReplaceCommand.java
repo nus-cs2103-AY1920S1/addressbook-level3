@@ -71,7 +71,7 @@ public class ImportReplaceCommand extends MutatorCommand {
         }
 
         // Ensure imported list is non-empty.
-        if (importedPatients.size() == 0 ) {
+        if (importedPatients.size() == 0) {
             throw new CommandException(MESSAGE_FILE_EMPTY);
         }
 
