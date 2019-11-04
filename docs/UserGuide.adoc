@@ -299,7 +299,7 @@ Format: `loan split p/<person> x/<amount paid> [max/<limit>] ... [me/<your name>
 The order of each `person` should match the order of their `amount paid`.
 * The final amount a `person` ends up paying can be restricted to a `<limit>`.
 Persons with limits should be placed at the *head* of the list of persons,
-and the order of each `limit` should match the order of each `person`.
+and the order of all `limits` should match the order of `persons` (as with `amount paid`).
 This is to allow you to enter limits only for those persons who require them. +
 The sum of all limits cannot exceed the total amount already paid by all persons.
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
