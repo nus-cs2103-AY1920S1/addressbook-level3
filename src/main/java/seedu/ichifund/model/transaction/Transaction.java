@@ -131,12 +131,6 @@ public class Transaction implements Comparable<Transaction> {
                 .append(getDate())
                 .append(" Transaction Type: ")
                 .append(getTransactionType());
-
-        if (this.isFromRepeater()) {
-            builder.append(" Repeater Unique Id: ")
-                    .append(getRepeaterUniqueId());
-        }
-
         return builder.toString();
     }
 

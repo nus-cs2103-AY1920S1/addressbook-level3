@@ -1,5 +1,6 @@
 package seedu.ichifund.logic.parser.repeater;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -45,14 +46,14 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddRepeaterCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY,
                         PREFIX_TRANSACTION_TYPE, PREFIX_MONTH_START_OFFSET, PREFIX_MONTH_END_OFFSET,
                         PREFIX_START_MONTH, PREFIX_START_YEAR,
                         PREFIX_END_MONTH, PREFIX_END_YEAR);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT, PREFIX_CATEGORY,
-                        PREFIX_TRANSACTION_TYPE, PREFIX_MONTH_START_OFFSET, PREFIX_MONTH_END_OFFSET,
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION, PREFIX_AMOUNT,
                         PREFIX_START_MONTH, PREFIX_START_YEAR,
                         PREFIX_END_MONTH, PREFIX_END_YEAR)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -63,13 +64,35 @@ public class AddRepeaterCommandParser implements Parser<AddRepeaterCommand> {
         RepeaterUniqueId uniqueId = new RepeaterUniqueId(""); // Delegate assignment to command execution.
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
-        TransactionType transactionType = ParserUtil.parseTransactionType(argMultimap
-                .getValue(PREFIX_TRANSACTION_TYPE).get());
-        MonthOffset monthStartOffset = ParserUtil.parseMonthOffset(argMultimap
-                .getValue(PREFIX_MONTH_START_OFFSET).get());
-        MonthOffset monthEndOffset = ParserUtil.parseMonthOffset(argMultimap
-                .getValue(PREFIX_MONTH_END_OFFSET).get());
+
+
+        Category category;
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
+        } else {
+            category = Category.CATEGORY_DEFAULT;
+        }
+
+        TransactionType transactionType;
+        if (argMultimap.getValue(PREFIX_TRANSACTION_TYPE).isPresent()) {
+            transactionType = ParserUtil.parseTransactionType(argMultimap.getValue(PREFIX_TRANSACTION_TYPE).get());
+        } else {
+            transactionType = TransactionType.TRANSACTION_TYPE_DEFAULT;
+        }
+
+        MonthOffset monthStartOffset;
+        if (argMultimap.getValue(PREFIX_MONTH_START_OFFSET).isPresent()) {
+            monthStartOffset = ParserUtil.parseMonthOffset(argMultimap.getValue(PREFIX_MONTH_START_OFFSET).get());
+        } else {
+            monthStartOffset = MonthOffset.MONTH_OFFSET_DEFAULT;
+        }
+
+        MonthOffset monthEndOffset;
+        if (argMultimap.getValue(PREFIX_MONTH_END_OFFSET).isPresent()) {
+            monthEndOffset = ParserUtil.parseMonthOffset(argMultimap.getValue(PREFIX_MONTH_END_OFFSET).get());
+        } else {
+            monthEndOffset = MonthOffset.MONTH_OFFSET_DEFAULT;
+        }
 
         Month startMonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_START_MONTH).get());
         Year startYear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_START_YEAR).get());
