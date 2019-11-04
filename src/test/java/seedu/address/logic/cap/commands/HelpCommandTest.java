@@ -1,4 +1,4 @@
-package seedu.address.logic.cap.commands;;
+package seedu.address.logic.cap.commands;
 
 import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.cap.commands.HelpCommand.SHOWING_HELP_MESSAGE;

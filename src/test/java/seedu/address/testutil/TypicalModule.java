@@ -1,10 +1,10 @@
 package seedu.address.testutil;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.cap.*;
+import seedu.address.model.cap.CapLog;
 import seedu.address.model.common.Module;
 
 
@@ -31,7 +31,8 @@ public class TypicalModule {
             .withGrade("A").build();
     public static final Module CARL = new ModuleBuilder().withModuleCode("CS2101")
             .withModuleTitle("Effective Communication for Computing Professionals")
-            .withDescription("This module aims to equip students with the skills needed to communicate technical information.")
+            .withDescription("This module aims to equip students with "
+                    + "the skills needed to communicate technical information.")
             .withSemester("1920", 1)
             .withFaculty("Computing")
             .withCredit(4)

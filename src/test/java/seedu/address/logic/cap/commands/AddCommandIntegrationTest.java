@@ -1,4 +1,4 @@
-package seedu.address.logic.cap.commands;;
+package seedu.address.logic.cap.commands;
 
 import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandSuccess;
@@ -7,9 +7,9 @@ import static seedu.address.testutil.TypicalModule.getTypicalCapLog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ModelCapManager;
-import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.common.Module;
 import seedu.address.testutil.ModuleBuilder;
 

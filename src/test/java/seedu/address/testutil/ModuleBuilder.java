@@ -1,25 +1,30 @@
 package seedu.address.testutil;
 
-import java.util.*;
-
+import seedu.address.model.cap.person.AcademicYear;
+import seedu.address.model.cap.person.Credit;
+import seedu.address.model.cap.person.Description;
+import seedu.address.model.cap.person.Faculty;
+import seedu.address.model.cap.person.Grade;
+import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.person.SemesterPeriod;
+import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
-import seedu.address.model.cap.person.*;
-import seedu.address.model.cap.util.*;
 
 /**
  * A utility class to help with building Module objects.
  */
 public class ModuleBuilder {
 
-    public static final String DEFAULT_MODULE_CODE = "CS2103";
-    public static final String DEFAULT_TITLE = "Software Engineering";
-    public static final String DEFAULT_ACADEMIC_YEAR = "1920";
+    private static final String DEFAULT_MODULE_CODE = "CS2103";
+    private static final String DEFAULT_TITLE = "Software Engineering";
+    private static final String DEFAULT_ACADEMIC_YEAR = "1920";
     private static final int DEFAULT_SEMESTER_PERIOD = 1;
-    public static final String DEFAULT_DESCRIPTION = "This module introduces the necessary conceptual and analytical "
+    private static final String DEFAULT_DESCRIPTION = "This module introduces the necessary conceptual and analytical "
             + "tools for systematic and rigorous development of software systems. ";
-    public static final int DEFAULT_CREDIT = 4;
-    public static final String DEFAULT_FACULTY = "Computing";
-    public static final String DEFAULT_GRADE = "A";
+    private static final int DEFAULT_CREDIT = 4;
+    private static final String DEFAULT_FACULTY = "Computing";
+    private static final String DEFAULT_GRADE = "A";
 
     private ModuleCode moduleCode;
     private Title title;
@@ -59,7 +64,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code title} of the {@code Module} that we are building.
+     * Sets the {@code ModuleCode} of the {@code Module} that we are building.
      */
     public ModuleBuilder withModuleCode(String title) {
         this.moduleCode = new ModuleCode(title);
@@ -67,7 +72,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
+     * Parses the {@code ModuleTitle} into a {@code Set<Tag>} and set it to the {@code Module} that we are building.
      */
     public ModuleBuilder withModuleTitle(String title) {
         this.title = new Title(title);
@@ -75,7 +80,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code ModuleDay} of the {@code Module} that we are building.
+     * Sets the {@code AcademicYear} of the {@code Module} that we are building.
      */
     public ModuleBuilder withAcademicYear(String academicYear) {
         this.academicYear = new AcademicYear(academicYear);
@@ -83,7 +88,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code ModuleTime} of the {@code Module} that we are building.
+     * Sets the {@code SemesterPeriod} of the {@code Module} that we are building.
      */
     public ModuleBuilder withSemesterPeriod(int semesterPeriod) {
         this.semesterPeriod = new SemesterPeriod(semesterPeriod);
@@ -91,7 +96,7 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code ModuleTime} of the {@code Module} that we are building.
+     * Sets the {@code Semester} of the {@code Module} that we are building.
      */
     public ModuleBuilder withSemester(String academicYear, int semesterPeriod) {
         this.semester = new Semester(new SemesterPeriod(semesterPeriod), new AcademicYear(academicYear));
@@ -107,23 +112,32 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code week} of the {@code Module} that we are building.
+     * Sets the {@code Credit} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCredit(int credit) {
         this.credit = new Credit(credit);
         return this;
     }
 
+    /**
+     * Sets the {@code Faculty} of the {@code Module} that we are building.
+     */
     public ModuleBuilder withFaculty(String faculty) {
         this.faculty = new Faculty(faculty);
         return this;
     }
 
+    /**
+     * Sets the {@code Grade} of the {@code Module} that we are building.
+     */
     public ModuleBuilder withGrade(String grade) {
         this.grade = new Grade(grade);
         return this;
     }
 
+    /**
+     * Initiates teh build of a module.
+     */
     public Module build() {
         return new Module(moduleCode, title, semester, description, credit, faculty, grade);
     }

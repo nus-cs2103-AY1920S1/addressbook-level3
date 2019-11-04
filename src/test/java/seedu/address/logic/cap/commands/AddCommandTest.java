@@ -1,4 +1,4 @@
-package seedu.address.logic.cap.commands;;
+package seedu.address.logic.cap.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,14 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.scene.chart.PieChart;
-import javafx.scene.image.Image;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.image.Image;
+
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.cap.commands.AddCommand;
-import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.Model;
@@ -54,8 +53,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validModule);
         ModelStub modelStub = new ModelStubWithModule(validModule);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE,
-                () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_MODULE, () -> addCommand.execute(modelStub));
     }
 
     @Test

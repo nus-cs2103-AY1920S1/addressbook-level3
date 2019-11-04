@@ -1,4 +1,4 @@
-package seedu.address.logic.cap.commands;;
+package seedu.address.logic.cap.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,10 +14,10 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ModelCapManager;
+import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

@@ -9,9 +9,9 @@ import static seedu.address.testutil.TypicalModule.getTypicalCapLog;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ModelCapManager;
-import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.common.Module;
 
 
