@@ -171,8 +171,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case StatisticsCommand.COMMAND_WORD:
-            return new StatisticsCommand();
+        case GenerateStatisticsCommand.COMMAND_WORD:
+            return new GenerateStatisticsCommand();
 
         case AssignDateCommand.COMMAND_WORD:
             return new AssignDateCommandParser().parse(arguments);
