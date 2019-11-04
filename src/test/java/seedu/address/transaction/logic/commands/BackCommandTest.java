@@ -1,6 +1,7 @@
 package seedu.address.transaction.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_BACKED;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,6 @@ class BackCommandTest {
                 new TransactionModelStubWithTransaction(validTrans);
         BackCommand backCommand = new BackCommand();
         CommandResult commandResult = backCommand.execute(modelStubWithTransaction, modelStubWithPerson);
-        assertEquals(commandResult.getFeedbackToUser(), "");
+        assertEquals(commandResult.getFeedbackToUser(), MESSAGE_BACKED);
     }
 }

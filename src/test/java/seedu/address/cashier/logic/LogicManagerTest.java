@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.cashier.ui.CashierMessages.CLEARED_SUCCESSFULLY;
 import static seedu.address.cashier.ui.CashierMessages.MESSAGE_NO_COMMAND;
 import static seedu.address.cashier.ui.CashierMessages.NO_SUCH_INDEX_CASHIER;
+import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -18,6 +19,7 @@ import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.ModelManager;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.storage.StorageManager;
 import seedu.address.inventory.model.Item;
@@ -115,9 +117,9 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getAmount_successful() {
+    public void getAmount_successful() throws AmountExceededException {
         double amount = model.getTotalAmount();
-        assertEquals(String.valueOf(amount), logic.getAmount());
+        assertEquals(String.valueOf(DECIMAL_FORMAT.format(amount)), logic.getAmount());
     }
 
     @Test

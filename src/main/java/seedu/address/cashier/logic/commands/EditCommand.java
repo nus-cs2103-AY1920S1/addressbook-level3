@@ -29,7 +29,7 @@ public class EditCommand extends Command {
      */
     public EditCommand(int index, int quantity) {
         assert index > 0 : "Index must be a positive integer.";
-        assert quantity >= 0 : "Quantity cannot be negative.";
+        assert quantity > 0 : "Quantity cannot be negative.";
 
         logger.info("index of item edited: " + index);
         logger.info("quantity of item edited: " + quantity);

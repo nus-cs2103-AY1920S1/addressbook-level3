@@ -15,7 +15,7 @@ public class TypicalItem {
             .withId("1")
             .withPrice(3.25)
             .withCost(5.23)
-            .withQuantity(99000)
+            .withQuantity(900)
             .build();
 
     public static final Item STORYBOOK = new ItemBuilder()
@@ -24,7 +24,7 @@ public class TypicalItem {
             .withId("2")
             .withPrice(2.25)
             .withCost(4.23)
-            .withQuantity(99000)
+            .withQuantity(900)
             .build();
 
     // not meant to be added to list

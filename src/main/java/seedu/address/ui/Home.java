@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import static seedu.address.transaction.model.transaction.Transaction.DECIMAL_FORMAT;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.model.transaction.Transaction;
@@ -34,7 +38,7 @@ public class Home extends UiPart<Region> {
     @FXML
     private TableColumn<Transaction, String> categoryCol;
     @FXML
-    private TableColumn<Transaction, Double> amountCol;
+    private TableColumn<Transaction, String> amountCol;
     @FXML
     private TableColumn<Transaction, String> personCol;
 
@@ -42,13 +46,18 @@ public class Home extends UiPart<Region> {
      * Populates the table to show the transactions in transaction list in the transaction model.
      */
     public Home (Logic logic) {
-        super(FXML);
+        super(FXML, Lion.getInstance());
         tableView.getItems().setAll(parseTransactionList(logic));
+        tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("id"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("date"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("description"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("category"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("amount"));
+        amountCol.setCellValueFactory(transaction -> {
+            SimpleStringProperty property = new SimpleStringProperty();
+            property.setValue(DECIMAL_FORMAT.format(transaction.getValue().getAmount()));
+            return property;
+        });
         personCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("name"));
     }
 
@@ -68,4 +77,7 @@ public class Home extends UiPart<Region> {
         ObservableList<Transaction> obvList = FXCollections.observableList(list);
         return obvList;
     }
+
+
+
 }

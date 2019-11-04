@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 public class Lion extends UiPart<Region> {
 
     private static final String FXML = "Lion.fxml";
+    private static Lion theOne = null;
 
     @FXML
     private ScrollPane messageScrollPane;
@@ -20,10 +22,20 @@ public class Lion extends UiPart<Region> {
     @FXML
     private VBox responseWindow;
 
-    public Lion () {
+    private Lion () {
         super(FXML);
         messageScrollPane.setFitToHeight(false);
         messageScrollPane.vvalueProperty().bind(responseWindow.heightProperty());
+    }
+
+    /**
+     * Returns the one instance of the Lion.
+     */
+    public static Lion getInstance() {
+        if (theOne == null) {
+            theOne = new Lion();
+        }
+        return theOne;
     }
 
     public void setResponse(String response) {
@@ -33,5 +45,6 @@ public class Lion extends UiPart<Region> {
         label.getStyleClass().add("label-bright");
 
         responseWindow.getChildren().addAll(label);
+        responseWindow.getChildren().addAll(new Separator());
     }
 }

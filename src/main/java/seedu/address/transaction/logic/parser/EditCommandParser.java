@@ -3,6 +3,7 @@ package seedu.address.transaction.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.transaction.model.transaction.Transaction.DATE_TIME_FORMATTER;
 import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_NO_ZERO_ALLOWED;
 import static seedu.address.util.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.util.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.util.CliSyntax.PREFIX_DATETIME;
@@ -26,6 +27,9 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements CommandParserWithPersonModel {
+    private static final double MAX_AMOUNT_ACCEPTED = 9999;
+    private static final double MIN_AMOUNT_ACCEPTED = -9999;
+    private static final double ZERO = 0.0;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -91,7 +95,15 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             try {
-                editTransactionDescriptor.setAmount(Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get()));
+                double amount = Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get());
+                if (amount > MAX_AMOUNT_ACCEPTED) {
+                    throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE);
+                } else if (amount < MIN_AMOUNT_ACCEPTED) {
+                    throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL);
+                } else if (amount == ZERO) {
+                    throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);
+                }
+                editTransactionDescriptor.setAmount(amount);
             } catch (NumberFormatException e) {
                 throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
             }

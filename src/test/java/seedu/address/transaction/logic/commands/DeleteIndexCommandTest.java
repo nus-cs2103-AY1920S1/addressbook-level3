@@ -7,7 +7,8 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.transaction.logic.commands.CommandTestUtil.showTransactionsOfPerson;
-import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_NEGATIVE_TRANSACTION;
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_DELETE_POSITIVE_TRANSACTION;
 
 import java.util.function.Predicate;
 
@@ -37,9 +38,23 @@ class DeleteIndexCommandTest {
     //this uses model stub
     void execute_validIndexUnfilteredList_successful() {
         DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(1);
-        String message = String.format(MESSAGE_DELETE_TRANSACTION, TypicalTransactions.ALICE_TRANSACTION_1);
+        String message = String.format(MESSAGE_DELETE_POSITIVE_TRANSACTION, TypicalTransactions.ALICE_TRANSACTION_1);
         ModelManager expectedModel = new
                 ModelManager(TypicalTransactions.getTypicalTransactionList());
+        System.out.println(expectedModel.getTransactionList().get(0));
+        expectedModel.deleteTransaction(1);
+        assertCommandSuccess(deleteIndexCommand, model, message,
+                expectedModel, personModel);
+    }
+
+    @Test
+    void execute_validIndexUnfilteredListNegativeTransaction_successful() {
+        ModelManager model = new ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
+        DeleteIndexCommand deleteIndexCommand = new DeleteIndexCommand(1);
+        String message = String.format(MESSAGE_DELETE_NEGATIVE_TRANSACTION,
+                new TypicalTransactions().getTransactionsWithReimbursements().get(0));
+        ModelManager expectedModel = new
+                ModelManager(new TypicalTransactions().getTransactionListWithReimbursementNeeded());
         System.out.println(expectedModel.getTransactionList().get(0));
         expectedModel.deleteTransaction(1);
         assertCommandSuccess(deleteIndexCommand, model, message,
@@ -61,7 +76,8 @@ class DeleteIndexCommandTest {
         showTransactionsOfPerson(model, TypicalPersons.BENSON.getName().toString());
         DeleteIndexCommand deleteCommand = new DeleteIndexCommand(1);
 
-        String expectedMessage = String.format(MESSAGE_DELETE_TRANSACTION, TypicalTransactions.BENSON_TRANSACTION_2);
+        String expectedMessage = String.format(MESSAGE_DELETE_POSITIVE_TRANSACTION,
+                TypicalTransactions.BENSON_TRANSACTION_2);
 
         Model expectedModel = new ModelManager(TypicalTransactions.getTypicalTransactionList());
         expectedModel.deleteTransaction(2);

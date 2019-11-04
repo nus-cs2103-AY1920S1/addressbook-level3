@@ -88,7 +88,7 @@ public class EditCommandParser implements Parser {
         } catch (Exception e) {
             throw new NotANumberException(CashierMessages.QUANTITY_NOT_A_NUMBER);
         }
-        if (quantity < 0) {
+        if (quantity <= 0) {
             throw new NegativeQuantityException(CashierMessages.QUANTITY_NOT_POSITIVE);
         }
         if (!modelManager.hasSufficientQuantityToEdit(index, quantity)) {

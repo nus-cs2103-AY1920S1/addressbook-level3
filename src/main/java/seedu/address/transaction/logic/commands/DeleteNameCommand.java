@@ -32,7 +32,7 @@ public class DeleteNameCommand extends DeleteCommand {
                     person.getName().toString()));
         }
         model.deleteAllTransactionOfPerson(person);
-        return new CommandResult(String.format(MESSAGE_DELETE_BY_PERSON, person));
+        return new CommandResult(String.format(MESSAGE_DELETE_BY_PERSON, person.getName()));
     }
 
     @Override
