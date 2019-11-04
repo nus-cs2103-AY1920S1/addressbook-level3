@@ -52,7 +52,7 @@ public class AddTaskCommand extends Command {
         taskArrayList.add(task);
         Collections.sort(taskArrayList, SortingOrder.getCurrentSortingOrderForTask());
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                projectToEdit.getMemberNames(), taskArrayList, projectToEdit.getFinance());
+                projectToEdit.getMemberNames(), taskArrayList, projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         if (projectToEdit.hasTask(task)) {

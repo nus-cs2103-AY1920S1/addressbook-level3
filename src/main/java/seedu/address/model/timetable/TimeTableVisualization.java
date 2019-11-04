@@ -7,10 +7,10 @@ import java.time.LocalTime;
 import java.util.StringJoiner;
 
 public class TimeTableVisualization {
-    private TimeTable timeTable;
+    private Timetable timeTable;
     private static final int SPACES_BETWEEN_DAY_AND_TIMETABLE = 5;
 
-    public TimeTableVisualization(TimeTable timeTable) {
+    public TimeTableVisualization(Timetable timeTable) {
         this.timeTable = timeTable;
     }
 

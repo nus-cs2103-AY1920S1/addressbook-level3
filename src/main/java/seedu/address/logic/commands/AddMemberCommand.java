@@ -74,7 +74,7 @@ public class AddMemberCommand extends Command {
         Collections.sort(editedMemberList, SortingOrder.getCurrentSortingOrderForMember());
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance());
+                editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         model.setProject(projectToEdit, editedProject);

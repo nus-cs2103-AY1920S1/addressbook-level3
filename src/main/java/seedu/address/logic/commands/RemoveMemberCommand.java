@@ -51,7 +51,7 @@ public class RemoveMemberCommand extends Command {
         editedMemberList.addAll(memberListToEdit);
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance());
+                editedMemberList, projectToEdit.getTasks(), projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(projectToEdit.getListOfMeeting());
 
         model.setProject(projectToEdit, editedProject);

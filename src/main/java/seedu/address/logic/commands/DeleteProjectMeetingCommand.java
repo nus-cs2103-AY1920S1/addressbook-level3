@@ -9,6 +9,7 @@ import seedu.address.model.finance.Finance;
 import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
+import seedu.address.model.timetable.Timetable;
 
 import java.util.*;
 
@@ -47,6 +48,7 @@ public class DeleteProjectMeetingCommand extends Command {
         Finance finance = projectToEdit.getFinance();
         Set<Meeting> meetings = projectToEdit.getListOfMeeting();
         ArrayList<Meeting> meetingsToEdit = new ArrayList<>(meetings);
+        Timetable timetable = projectToEdit.getGeneratedTimetable();
 
         if (index.getZeroBased() >= meetingsToEdit.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -57,7 +59,7 @@ public class DeleteProjectMeetingCommand extends Command {
         Set<Meeting> newMeeting = new HashSet<Meeting>(meetingsToEdit);
 
         Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(),
-                members, tasks, finance);
+                members, tasks, finance, timetable);
         editedProject.setListOfMeeting(newMeeting);
 
         model.setProject(projectToEdit, editedProject);

@@ -5,14 +5,16 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.TimeSlotGenerator;
+import seedu.address.model.project.Project;
 import seedu.address.model.timetable.TimeRange;
-import seedu.address.model.timetable.TimeTable;
+import seedu.address.model.timetable.TimeSlotGenerator;
+import seedu.address.model.timetable.Timetable;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
 public class GenerateSlotCommand extends Command {
 
@@ -47,9 +49,18 @@ public class GenerateSlotCommand extends Command {
         if (model.getWorkingProject().isEmpty()) {
             throw new CommandException(MESSAGE_UNKNOWN_ERROR);
         }
-        List<TimeTable> timeTables = model.getMembers().stream().map(Person::getTimeTable).collect(Collectors.toList());
+        List<Timetable> timetables = model.getMembers().stream().map(Person::getTimeTable).collect(Collectors.toList());
         try {
-            return new CommandResult(new TimeSlotGenerator(timeTables, durationInHours, timeRange).generate().toString(), COMMAND_WORD);
+            Timetable generatedTimetable = new Timetable(new TimeSlotGenerator(timetables, durationInHours, timeRange).generate());
+            Project currWorkingProject = model.getWorkingProject().get();
+            Project editedProject = new Project(currWorkingProject.getTitle(),
+                    currWorkingProject.getDescription(), currWorkingProject.getMemberNames(),
+                    currWorkingProject.getTasks(), currWorkingProject.getFinance(), generatedTimetable);
+
+            model.setWorkingProject(editedProject);
+            model.setProject(currWorkingProject, editedProject);
+            model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
+            return new CommandResult(new TimeSlotGenerator(timetables, durationInHours, timeRange).generate().toString(), COMMAND_WORD);
         } catch (IllegalValueException e) {
             throw new CommandException(MESSAGE_UNKNOWN_ERROR);
         }

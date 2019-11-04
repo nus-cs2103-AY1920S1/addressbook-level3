@@ -7,18 +7,18 @@ import java.time.LocalTime;
 import java.util.*;
 
 public class TimeSlotGenerator {
-    private Collection<TimeTable> timeTables;
+    private Collection<Timetable> timetables;
     private int numberOfHours;
     private TimeRange userSpecifiedTimeRange;
 
     /**
      * Timeslot generator
-     * @param timeTables List of timetables of all members.
+     * @param timetables List of timetables of all members.
      * @param numberOfHours Must be <= 23 hour
      * @param userSpecifiedTimeRange TimeRange to generate timeslot within.
      */
-    public TimeSlotGenerator(Collection<TimeTable> timeTables, int numberOfHours, TimeRange userSpecifiedTimeRange) {
-        this.timeTables = timeTables;
+    public TimeSlotGenerator(Collection<Timetable> timetables, int numberOfHours, TimeRange userSpecifiedTimeRange) {
+        this.timetables = timetables;
         this.numberOfHours = numberOfHours;
         this.userSpecifiedTimeRange = userSpecifiedTimeRange;
     }
@@ -28,7 +28,7 @@ public class TimeSlotGenerator {
      * @throws IllegalValueException When unable to generate timeslot.
      */
     public List<TimeRange> generate() throws IllegalValueException {
-        List<TimeRange> combined = combineTimetables(timeTables);
+        List<TimeRange> combined = combineTimetables(timetables);
         List<TimeRange> merged = mergedOverlappingTimeRanges(combined);
         List<TimeRange> inverted = getFreeTimeRanges(merged);
         List<TimeRange> truncated = truncateTimeRanges(inverted, userSpecifiedTimeRange);
@@ -39,22 +39,22 @@ public class TimeSlotGenerator {
     }
 
     public TimeSlotsAvailable generateWithMostPeople() throws IllegalValueException {
-        Set<TimeTable> set = new HashSet<>(timeTables);
-        Set<Set<TimeTable>> powerSet = powerSet(set);
-        List<Set<TimeTable>> powerList = new ArrayList<>(powerSet);
+        Set<Timetable> set = new HashSet<>(timetables);
+        Set<Set<Timetable>> powerSet = powerSet(set);
+        List<Set<Timetable>> powerList = new ArrayList<>(powerSet);
         powerList.sort((x, y) -> y.size() - x.size()); // Descending order of size
-        for (Set<TimeTable> possibleTimeTables : powerList) {
-            List<TimeRange> timeRanges = new TimeSlotGenerator(possibleTimeTables, numberOfHours, userSpecifiedTimeRange).generate();
+        for (Set<Timetable> possibleTimetables : powerList) {
+            List<TimeRange> timeRanges = new TimeSlotGenerator(possibleTimetables, numberOfHours, userSpecifiedTimeRange).generate();
             if (!timeRanges.isEmpty()) {
-                return new TimeSlotsAvailable(possibleTimeTables, timeRanges);
+                return new TimeSlotsAvailable(possibleTimetables, timeRanges);
             }
         }
         return new TimeSlotsAvailable(true);
     }
 
-    private static List<TimeRange> combineTimetables(Collection<TimeTable> timeTables) {
+    private static List<TimeRange> combineTimetables(Collection<Timetable> timetables) {
         Set<TimeRange> timeRanges = new HashSet<>();
-        for (TimeTable timeTable : timeTables) {
+        for (Timetable timeTable : timetables) {
             timeRanges.addAll(timeTable.getTimeRanges());
         }
         return new ArrayList<>(timeRanges);
@@ -96,7 +96,7 @@ public class TimeSlotGenerator {
 
         for (long i = 0; i < (1 << n); i++) {
             Set<T> element = new HashSet<T>();
-            for (int j = 0; j < n; j++ ) {
+            for (int j = 0; j < n; j++) {
                 if ((i >> j) % 2 == 1) {
                     element.add(list.get(j));
                 }

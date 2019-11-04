@@ -80,7 +80,7 @@ public class SortSpendingCommand extends Command {
 
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<>(), projectToEdit.getTasks(), finance);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<>(), projectToEdit.getTasks(), finance, projectToEdit.getGeneratedTimetable());
         editedProject.getMemberNames().addAll(members);
 
 

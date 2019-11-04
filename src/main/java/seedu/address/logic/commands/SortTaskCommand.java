@@ -85,7 +85,7 @@ public class SortTaskCommand extends Command {
         Collections.sort(taskList, SortingOrder.getCurrentSortingOrderForTask());
         Finance finance = projectToEdit.getFinance();
 
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance);
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), new ArrayList<String>(), taskList, finance, projectToEdit.getGeneratedTimetable());
         editedProject.getMemberNames().addAll(members);
 
 

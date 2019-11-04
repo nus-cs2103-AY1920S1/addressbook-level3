@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TimeTableInput {
-    public TimeTable getTabletableFromFilepath(String absoluteFilepath) throws IOException, ParseException {
+    public Timetable getTabletableFromFilepath(String absoluteFilepath) throws IOException, ParseException {
         String content = new Scanner(new File(absoluteFilepath)).useDelimiter("\\Z").next();
         return ParserUtil.parseTimeTable(content);
     }
@@ -27,7 +27,7 @@ public class TimeTableInput {
      * @throws IOException URL parsing error
      * @throws IllegalValueException Cannot find lesson grouping on NUSMods
      */
-    public TimeTable getTimetableFromUrl(URL url) throws IOException, IllegalValueException {
+    public Timetable getTimetableFromUrl(URL url) throws IOException, IllegalValueException {
         String urlString = url.toString();
         int semMatch = urlString.toString().indexOf("sem-");
         int sem = Integer.parseInt(urlString.substring(semMatch + 4, semMatch + 5));
@@ -60,7 +60,7 @@ public class TimeTableInput {
             timeRanges.addAll(getTimeRangesForModule(moduleCode, groups, lessonTypes, sem));
         }
 
-        return new TimeTable(timeRanges);
+        return new Timetable(timeRanges);
     }
     /**
      * Send HTTP GET request here, return list of timeRange for that particular module.

@@ -56,7 +56,7 @@ public class AddProjectMeetingCommand extends Command {
         Set<Meeting> newMeetingList = new HashSet<>();
         newMeetingList.addAll(meetingList);
         newMeetingList.add(toAdd);
-        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), members, taskList, projectToEdit.getFinance());
+        Project editedProject = new Project(projectToEdit.getTitle(), projectToEdit.getDescription(), members, taskList, projectToEdit.getFinance(), projectToEdit.getGeneratedTimetable());
         editedProject.setListOfMeeting(newMeetingList);
 
         model.setProject(projectToEdit, editedProject);

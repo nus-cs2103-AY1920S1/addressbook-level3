@@ -17,6 +17,7 @@ import seedu.address.model.project.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.finance.Finance;
 import seedu.address.model.finance.Spending;
+import seedu.address.model.timetable.Timetable;
 
 import static seedu.address.model.finance.Spending.DATE_FORMAT;
 import java.math.BigDecimal;
@@ -97,15 +98,15 @@ public class SampleDataUtil {
                                         getSpendingList(new Spending(new BigDecimal("50.50"), DATE_FORMAT.parse("10/10/2019 1800"), "order in pizza"),
                                                 new Spending(new BigDecimal("200.50"), DATE_FORMAT.parse("12/10/2019 1800"), "Went for Zoukout"))),
                                 new Budget("Venue", new BigDecimal("200.00"),
-                                        getSpendingList(new Spending(new BigDecimal("20.00"), DATE_FORMAT.parse("14/10/2019 1800"), "booked conference room for discussion")))))),
+                                        getSpendingList(new Spending(new BigDecimal("20.00"), DATE_FORMAT.parse("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable()),
                 new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance()),
+                        getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance(), new Timetable()),
             };
         } catch (ParseException e) {
             return new Project[]{
                 new Project(new Title("CS2103T"),
                         new Description("The mod that takes most time"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish GUI"), false)), new Finance())
+                        getTaskList(new Task(new Description("Finish GUI"), false)), new Finance(), new Timetable())
             };
         }
     }

@@ -9,6 +9,7 @@ import seedu.address.model.project.Project;
 import seedu.address.model.project.Description;
 import seedu.address.model.project.Task;
 import seedu.address.model.project.Title;
+import seedu.address.model.timetable.Timetable;
 
 import java.text.ParseException;
 import java.util.*;
@@ -104,7 +105,7 @@ class JsonAdaptedProject {
         }
         final Finance modelFinance = finance.toModelType();
 
-        Project project = new Project(modelTitle, modelDescription, modelPersonList, modelTasks, modelFinance);
+        Project project = new Project(modelTitle, modelDescription, modelPersonList, modelTasks, modelFinance, new Timetable());
 
         Set<Meeting> meetingsList = new HashSet<>(meetings);
         project.setListOfMeeting(meetingsList);

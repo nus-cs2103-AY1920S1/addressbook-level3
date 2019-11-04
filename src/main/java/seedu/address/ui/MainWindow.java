@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProjectOverview projectOverview;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ShowTimetablePanel timetablePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -61,6 +62,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane budgetListPanelPlaceholder;
+
+    @FXML
+    private StackPane showTimetablePanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -292,6 +296,12 @@ public class MainWindow extends UiPart<Stage> {
             currentState = nextState;
             break;
 
+        case SHOW_TIMETABLE:
+            timetablePanel = new ShowTimetablePanel(logic.getWorkingProject().get().getGeneratedTimetable());
+            projectListPanelPlaceholder.getChildren().setAll(timetablePanel.getRoot());
+            currentState = nextState;
+            break;
+
         default:
             assert false : "Unrecognised state";
         }
@@ -304,8 +314,6 @@ public class MainWindow extends UiPart<Stage> {
             state = State.PROJECT_LIST;
             break;
 
-        case GenerateSlotCommand.COMMAND_WORD:
-
         case CheckoutCommand.COMMAND_WORD:
             state = State.PROJECT_OVERVIEW;
             break;
@@ -316,6 +324,10 @@ public class MainWindow extends UiPart<Stage> {
 
         case ListCommand.COMMAND_WORD:
             state = State.ADDRESS_BOOK;
+            break;
+
+        case GenerateSlotCommand.COMMAND_WORD:
+            state = State.SHOW_TIMETABLE;
             break;
 
         default:

@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.TimeTable;
+import seedu.address.model.timetable.Timetable;
 import seedu.address.model.timetable.TimeTableInput;
 import seedu.address.model.timetable.TimeTableVisualization;
 
@@ -77,7 +77,7 @@ public class AddTimetableCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
-        TimeTable timeTable = null;
+        Timetable timeTable = null;
         if (absoluteFilepath != null) {
             try {
                 timeTable = new TimeTableInput().getTabletableFromFilepath(absoluteFilepath);

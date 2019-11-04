@@ -2,6 +2,7 @@ package seedu.address.model.project;
 
 import seedu.address.model.finance.Finance;
 import seedu.address.model.person.Person;
+import seedu.address.model.timetable.Timetable;
 
 
 import java.util.ArrayList;
@@ -23,9 +24,10 @@ public class Project {
     private final List<String> members = new ArrayList<>();
     private final Finance finance;
     private final List<Task> tasks = new ArrayList<>();
+    private final Timetable generatedTimetable;
     private Set<Meeting> meeting = new HashSet<>();
 
-    public Project(Title name, Description description, List<String> members, List<Task> tasks, Finance finance) {
+    public Project(Title name, Description description, List<String> members, List<Task> tasks, Finance finance, Timetable generatedTimetable) {
 
         requireAllNonNull(name, description);
         this.description = description;
@@ -33,6 +35,7 @@ public class Project {
         this.members.addAll(members);
         this.tasks.addAll(tasks);
         this.finance = finance;
+        this.generatedTimetable = generatedTimetable;
     }
 
     public Title getTitle() {
@@ -99,4 +102,7 @@ public class Project {
         return builder.toString();
     }
 
+    public Timetable getGeneratedTimetable() {
+        return generatedTimetable;
+    }
 }

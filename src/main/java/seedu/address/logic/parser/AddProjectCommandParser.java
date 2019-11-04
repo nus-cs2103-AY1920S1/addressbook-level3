@@ -7,6 +7,7 @@ import seedu.address.model.project.Description;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 import seedu.address.model.project.Title;
+import seedu.address.model.timetable.Timetable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,9 @@ public class AddProjectCommandParser implements Parser<AddProjectCommand> {
         List<Task> tasks = new ArrayList<>();
         List<String> members = new ArrayList<>();
         Finance finance = new Finance();
+        Timetable timetable = new Timetable();
 
-        Project project = new Project(title, description, members, tasks, finance);
+        Project project = new Project(title, description, members, tasks, finance, timetable);
 
         return new AddProjectCommand(project);
     }

@@ -1,20 +1,25 @@
 package seedu.address.model.timetable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class TimeTable {
+public class Timetable {
     private List<TimeRange> timeRanges;
 
     /**
      * Takes in a formatted string of timings.
      * @param timeRanges List of TimeRange to populate the timetable.
      */
-    public TimeTable(List<TimeRange> timeRanges) {
+    public Timetable(List<TimeRange> timeRanges) {
         this.timeRanges = timeRanges;
         Collections.sort(this.timeRanges);
+    }
+
+    public Timetable() {
+        this.timeRanges = new ArrayList<>();
     }
 
     public List<TimeRange> getTimeRanges() {
@@ -37,7 +42,7 @@ public class TimeTable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TimeTable timeTable = (TimeTable) o;
+        Timetable timeTable = (Timetable) o;
         return timeRanges.equals(timeTable.timeRanges);
     }
 

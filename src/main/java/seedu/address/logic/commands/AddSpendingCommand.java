@@ -60,7 +60,7 @@ public class AddSpendingCommand extends Command {
         budgets.get(index.getZeroBased()).addSpending(toAdd);
         Project editedProject = new Project(currWorkingProject.getTitle(),
                 currWorkingProject.getDescription(), currWorkingProject.getMemberNames(), currWorkingProject.getTasks(),
-                new Finance(budgets));
+                new Finance(budgets), currWorkingProject.getGeneratedTimetable());
 
         model.setWorkingProject(editedProject);
         model.setProject(currWorkingProject, editedProject);
