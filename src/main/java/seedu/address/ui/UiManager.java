@@ -11,8 +11,6 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.LogicManager;
-import seedu.address.storage.StorageManager;
 
 /**
  * The manager of the UI component.
@@ -80,8 +78,10 @@ public class UiManager implements Ui {
         logger.info("Changing to Earning...");
 
         try {
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillEarnings();
+            if (mainWindow != null) {
+                mainWindow.show(); //This should be called before creating other UI parts
+                mainWindow.fillEarnings();
+            }
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);

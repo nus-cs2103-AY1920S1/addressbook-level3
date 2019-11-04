@@ -178,8 +178,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEarningsList().size());
 
         Earnings earnings = model.getFilteredEarningsList().get(targetIndex.getZeroBased());
-        final String Date = earnings.getDate().dateNum;
-        model.updateFilteredEarningsList(new ClassIdContainKeywordPredicate(Collections.singletonList(Date)));
+        model.updateFilteredEarningsList(new ClassIdContainKeywordPredicate(
+            Collections.singletonList(earnings.getDate().dateNum)));
 
         assertEquals(1, model.getFilteredEarningsList().size());
     }
