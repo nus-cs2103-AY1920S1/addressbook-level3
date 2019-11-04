@@ -49,9 +49,11 @@ public class Projection {
         this.projector = new GradientDescent(balances, dates);
         int daysToProject = Date.daysBetween(Date.now(), this.date);
         this.projection = new Amount((int) Math.round(projector.predict(daysToProject)));
-        int daysToBudgetDeadline = Date.daysBetween(Date.now(), this.budget.getDeadline());
-        this.budgetProjection = new Amount(
-                this.budget.getBudget().getIntegerValue() - (int) Math.round(projector.predict(daysToBudgetDeadline)));
+        if (this.budget != null) {
+            int daysToBudgetDeadline = Date.daysBetween(Date.now(), this.budget.getDeadline());
+            this.budgetProjection = new Amount(this.budget.getBudget().getIntegerValue()
+                    - (int) Math.round(projector.predict(daysToBudgetDeadline)));
+        }
         displayAsStage();
     }
 
@@ -85,9 +87,9 @@ public class Projection {
         }
         return this.budgetProjection.getIntegerValue() > 0
                 ? String.format(ProjectCommand.MESSAGE_BUDGET_SUCCESS,
-                        this.budget.toString(), this.budgetProjection.toString())
+                this.budget.toString(), this.budgetProjection.toString())
                 : String.format(ProjectCommand.MESSAGE_BUDGET_CAUTION,
-                        this.budget.toString(), this.budgetProjection.toString());
+                this.budget.toString(), this.budgetProjection.toString());
     }
 
     /**
@@ -114,6 +116,5 @@ public class Projection {
         Scene scene = new Scene(new ProjectionGraph(this), 800, 600);
         projectionWindow.setScene(scene);
         projectionWindow.show();
-
     }
 }

@@ -27,6 +27,8 @@ public class ProjectCommand extends Command {
     public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
     public static final String MESSAGE_VOID_TRANSACTION_HISTORY =
             "Transaction history is currently empty. It is impossible to cast a projection.";
+    public static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
+            "There are too few transactions. It is impossible to cast a projection.";
     public static final String SMALL_SAMPLE_SIZE =
             "Projection is based on a small sample size, and may be limited in its accuracy";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
@@ -41,7 +43,8 @@ public class ProjectCommand extends Command {
     public static final String MESSAGE_BUDGET_CAUTION =
             "You are likely to exceed your budget of %s, with a deficit of %s!\n";
 
-    private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 4;
+    private static final int RECOMMENDED_MINIMUM_TRANSACTIONS = 15;
+    private static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
 
     public final Date date;
     private Index budgetIdx;
@@ -66,6 +69,10 @@ public class ProjectCommand extends Command {
 
         if (transactionHistory.isEmpty()) {
             throw new CommandException(MESSAGE_VOID_TRANSACTION_HISTORY);
+        }
+
+        if (transactionHistory.size() < REQUIRED_MINIMUM_TRANSACTIONS) {
+            throw new CommandException(MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY);
         }
 
         if (this.getBudgetIdx().isPresent()) {
