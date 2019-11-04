@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.events.Event;
-import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Event}.

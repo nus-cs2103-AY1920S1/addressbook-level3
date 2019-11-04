@@ -6,12 +6,8 @@ import static seedu.address.model.util.SamplePersonDataUtil.getSampleStaffMember
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.NoSuchElementException;
 
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.ReferenceId;
 import seedu.address.model.events.AppointmentBook;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
@@ -24,7 +20,7 @@ import seedu.address.model.person.Person;
  */
 public class SampleAppointmentDataUtil {
 
-    private static Event GenerateEvent(Person person, LocalDateTime localDateTime, Status status) {
+    private static Event generateEvent(Person person, LocalDateTime localDateTime, Status status) {
         return new Event(person.getReferenceId(), person.getName(), new Timing(new DateTime(localDateTime)), status);
     }
 
@@ -44,7 +40,7 @@ public class SampleAppointmentDataUtil {
                 startLocalDateTime = startLocalDateTime.plusHours(1);
             }
 
-            listOfEvents[i] = GenerateEvent(samplePerson[i % 10], startLocalDateTime, status);
+            listOfEvents[i] = generateEvent(samplePerson[i % 10], startLocalDateTime, status);
         }
         return listOfEvents;
     }
