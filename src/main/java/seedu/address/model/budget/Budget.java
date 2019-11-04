@@ -95,6 +95,10 @@ public class Budget {
         recalculateAmountLeft();
     }
 
+
+    /**
+     * @param expense target expense in the budget
+     */
     public void deleteExpenseInBudget(Expense expense) {
         expenseList.removeExpense(expense);
         recalculateAmountLeft();

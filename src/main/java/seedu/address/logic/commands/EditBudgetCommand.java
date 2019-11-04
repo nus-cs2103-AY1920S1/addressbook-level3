@@ -95,7 +95,7 @@ public class EditBudgetCommand extends Command {
         model.setBudget(budgetToEdit, editedBudget);
         model.updateFilteredBudgetList(PREDICATE_SHOW_ALL_BUDGETS);
         model.setViewState("budgetlist");
-        return new CommandResult(null, model.getFilteredBudgetList(),
+        return new CommandResult(null, model.getFilteredBudgetList(), null,
             String.format(MESSAGE_EDIT_BUDGET_SUCCESS, editedBudget));
     }
 

@@ -40,14 +40,14 @@ public class ViewBudgetCommand extends Command {
         List<Budget> lastShownList = model.getFilteredBudgetList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
         }
 
         Budget budgetToView = lastShownList.get(targetIndex.getZeroBased());
 
         model.setLastViewedBudget(budgetToView);
         model.setViewState("expenselist inside budget");
-        return new CommandResult(model.getExpenseListFromBudget(budgetToView), null,
+        return new CommandResult(model.getExpenseListFromBudget(budgetToView), null, budgetToView,
             String.format(MESSAGE_VIEW_BUDGET_SUCCESS, budgetToView));
     }
 

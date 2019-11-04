@@ -15,8 +15,8 @@ import seedu.address.model.expense.Name;
 public class BudgetBuilder {
 
     public static final String DEFAULT_NAME = "Korea holiday";
-    public static final String DEFAULT_AMOUNT = "$2500";
-    public static final String DEFAULT_AMOUNT_LEFT = "$2500";
+    public static final String DEFAULT_AMOUNT = "2500";
+    public static final String DEFAULT_AMOUNT_LEFT = "2500";
     public static final String DEFAULT_CURRENCY = "USD";
     public static final String DEFAULT_START_DATE = "13/10/2019";
     public static final String DEFAULT_END_DATE = "25/10/2019";

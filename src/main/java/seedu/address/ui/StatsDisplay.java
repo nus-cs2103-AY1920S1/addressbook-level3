@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -28,6 +29,21 @@ public class StatsDisplay extends UiPart<Region> {
             PieChart.Data data = new PieChart.Data(expense.getName().fullName, expense.getAmount().getValue());
             pieChartData.add(data);
         }
+        piechart.setData(pieChartData);
+        piechart.setLabelLineLength(10.00);
+        piechart.setLabelsVisible(true);
+        piechart.setTitle("Expenses");
+    }
+
+    public void setDisplayDataBudget(ObservableList<Expense> displayData, Budget budget) {
+        ObservableList<PieChart.Data> pieChartData =
+            FXCollections.observableArrayList();
+        for (Expense expense : displayData) {
+            PieChart.Data data = new PieChart.Data(expense.getName().fullName, expense.getAmount().getValue());
+            pieChartData.add(data);
+        }
+        PieChart.Data data1 = new PieChart.Data("amountLeft", budget.getAmountLeft().getValue());
+        pieChartData.add(data1);
         piechart.setData(pieChartData);
         piechart.setLabelLineLength(10.00);
         piechart.setLabelsVisible(true);

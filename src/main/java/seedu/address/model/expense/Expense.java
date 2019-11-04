@@ -131,6 +131,9 @@ public class Expense implements Comparable<Expense> {
         return builder.toString();
     }
 
+    /**
+     * Return Comparator to sort data automatically
+     */
     public static class SortByDate implements Comparator<Expense> {
 
         public int compare(Expense a, Expense b) {

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the currency of an expense in the MYMorise.
+ * Represents the currency of an expense in the MyMorise.
  * Guarantees: immutable; is valid as declared in {@link #isValidCurrency(String)}
  */
 public class Currency {

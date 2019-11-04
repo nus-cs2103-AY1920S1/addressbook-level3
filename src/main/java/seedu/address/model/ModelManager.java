@@ -150,6 +150,7 @@ public class ModelManager implements Model {
         } else {
             expenseList.addExpense(expense);
             updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+            //            updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         }
     }
 
@@ -161,8 +162,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FilteredList<Expense> getExpenses() {
+    public ObservableList<Expense> getExpenses() {
         return expenses;
+    }
+
+    @Override
+    public void updateFilteredExpenses(Predicate<Expense> predicate) {
+        requireNonNull(predicate);
+        expenses.setPredicate(predicate);
     }
 
     //=========== Filtered Expense List Accessors =============================================================
@@ -281,7 +288,8 @@ public class ModelManager implements Model {
     /**
      * @return all the expenses
      */
-    private ObservableList<Expense> initExpenses() {
+    @Override
+    public ObservableList<Expense> initExpenses() {
         ObservableList<Expense> allExpenses = FXCollections.observableArrayList(new ArrayList<>());
         allExpenses.addAll(this.expenseList.getExpenseList());
         for (Budget budget : this.budgetList.getBudgetList()) {
