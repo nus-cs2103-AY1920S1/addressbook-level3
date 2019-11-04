@@ -1,10 +1,8 @@
 package seedu.address.commons.util;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.nio.file.*;
 
 /**
  * Writes and reads files
@@ -79,5 +77,13 @@ public class FileUtil {
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
     }
+
+//    public static void copy(InputStream source, String destination) throws IOException {
+//        //boolean success = true;
+//        System.out.println(source);
+//        System.out.println(destination);
+//        Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+//
+//    }
 
 }

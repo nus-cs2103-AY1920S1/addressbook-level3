@@ -1,12 +1,14 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -52,9 +54,9 @@ public class InformationDisplay extends UiPart<Region> {
     @FXML
     private ScrollPane performanceList;
     @FXML
-    private TableColumn athleteEvent;
+    private TableColumn<HashMap, String> athleteEvent;
     @FXML
-    private TableColumn athletePerformance;
+    private TableColumn<HashMap, String> athletePerformance;
     @FXML
     private TableView performance;
     @FXML
@@ -70,17 +72,17 @@ public class InformationDisplay extends UiPart<Region> {
         address.setText(this.person.getAddress().value);
         address.setPrefWidth(150);
         address.setWrapText(true);
-        gender.setText(this.person.getGender().genderOfPerson);
+        //gender.setText(this.person.getGender().genderOfPerson);
         email.setText(this.person.getEmail().value);
         photo.setImage(new Image(this.person.getPhoto().filePath));
         photo.setPreserveRatio(true);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add((new TagLayout(tag.tagName)).getRoot()));
-        //setText of attendance and performance. Should attendance and performance be tag to a person?
         attendanceRate.setText(attendance);
         //performance.setText("superb");
         resizeImage();
+        setUpColumn();
     }
 
     /**
@@ -93,10 +95,10 @@ public class InformationDisplay extends UiPart<Region> {
 
     public void setUpColumn() {
         athleteEvent = new TableColumn("Event");
-        athleteEvent.setCellValueFactory(new PropertyValueFactory<>("event"));
-
         athletePerformance = new TableColumn("Timing");
-        athletePerformance.setCellValueFactory(new PropertyValueFactory<>("timing"));
+
+        athleteEvent.setCellValueFactory(new MapValueFactory("Event"));
+        athletePerformance.setCellValueFactory(new PropertyValueFactory<>("Timing"));
 
         performance.getColumns().add(athleteEvent);
         performance.getColumns().add(athletePerformance);
