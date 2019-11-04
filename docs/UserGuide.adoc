@@ -377,7 +377,7 @@ For a more detailed guide on how to modify these transactions, refer to <<repeat
 ==== Creating repeater: `add`
 
 Creates repeater together with the associated transactions. +
-Format: `de/DESCRIPTION a/AMOUNT c/CATEGORY ty/TRANSACTION_TYPE so/MONTH_START_OFFSET eo/MONTH_END_OFFSET sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
+Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 
 Examples:
 
@@ -387,7 +387,7 @@ Creates a repeater titled "Phone bills" as an expenditure for Utilities of $42.1
 ==== Editing repeater `edit`
 
 Edits repeater together with the associated transactions. +
-Format: `edit INDEX (must be a positive integer) [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
+Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
 Examples:
 
@@ -402,7 +402,7 @@ Format: `delete INDEX`
 Examples:
 
 * `delete 12` +
-Deletes the 12th repeater in the current list. Also updates the associated transactions.
+Deletes the 12th repeater in the current list. Also deletes the associated transactions.
 
 ==== Finding repeater: `find` [Coming in v2.0]
 
@@ -654,10 +654,10 @@ Displays expenditure ranking chart for July 2019.
 * *Transaction Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
 * *Transaction Delete* : `delete INDEX`
 * *Transaction Filter* : `filter [m/MONTH] [y/YEAR] [c/CATEGORY] [ty/TRANSACTION_TYPE]`
-* *Transaction Repeater Add* : `add de/DESCRIPTION a/AMOUNT p/DAY_OF_MONTH... ty/TRANSACTION_TYPE`
-* *Transaction Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [p/DAY_OF_MONTH]... [c/CATEGORY] [ty/TRANSACTION_TYPE]...`
-* *Transaction Repeater Delete* : `delete INDEX [d/DELETEALL]`
-* *Transaction Repeater Find* : `find [s/KEYWORD]... [c/CATEGORY] [p/DAY_OF_MONTH]... [ty/TRANSACTION_TYPE]`  (Coming in v2.0)
+* *Repeater Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
+* *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
+* *Repeater Delete* : `delete INDEX`
+* *Repeater Filter* : (Coming in v2.0)
 * *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
 * *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
 * *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
