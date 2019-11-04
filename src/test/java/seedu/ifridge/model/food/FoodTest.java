@@ -1,61 +1,59 @@
 package seedu.ifridge.model.food;
 
-public class FoodTest {
-/*
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Food food = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> food.getTags().remove(0));
-    }
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_NUTS;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
+import static seedu.ifridge.testutil.TypicalFoodItems.OREO;
+import static seedu.ifridge.testutil.TypicalFoodItems.YAKITORI;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.testutil.FoodBuilder;
+
+public class FoodTest {
     @Test
-    public void isSamePerson() {
+    public void isSameFood() {
         // same object -> returns true
-        assertTrue(ALICE.isSameFood(ALICE));
+        assertTrue(OREO.isSameFood(OREO));
 
         // null -> returns false
-        assertFalse(ALICE.isSameFood(null));
+        assertFalse(OREO.isSameFood(null));
 
         // different name -> returns false
-        Food editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameFood(editedAlice));
+        Food editedOreo = new FoodBuilder(OREO).withName(VALID_NAME_NUTS).build();
+        assertFalse(OREO.isSameFood(editedOreo));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFood(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameFood(editedAlice));
+        // same name, but different amount -> returns true
+        editedOreo = new FoodBuilder(OREO).withAmount(VALID_AMOUNT_NUTS).build();
+        assertTrue(OREO.isSameFood(editedOreo));
     }
 
+    // TODO: do we need to check for equals? it's not even called anywhere
     @Test
     public void equals() {
-        // same values -> returns true
-        Food aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
-
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(OREO.equals(OREO));
+
+        // same values but different object -> returns true
+        Food oreoCopy = new FoodBuilder(OREO).build();
+        assertFalse(OREO.equals(oreoCopy));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(OREO.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(OREO.equals(5));
 
         // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(OREO.equals(YAKITORI));
 
         // different name -> returns false
-        Food editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Food editedOreo = new FoodBuilder(OREO).withName(VALID_NAME_NUTS).build();
+        assertFalse(OREO.equals(editedOreo));
 
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different amount -> returns false
+        editedOreo = new FoodBuilder(OREO).withAmount(VALID_AMOUNT_NUTS).build();
+        assertFalse(OREO.equals(editedOreo));
     }
-
- */
 }

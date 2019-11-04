@@ -1,9 +1,9 @@
 package seedu.ifridge.testutil;
 
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_ORANGES;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_CARBS;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_VEGETABLE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,10 +38,10 @@ public class TypicalBoughtList {
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final GroceryItem AMY = new GroceryItemBuilder().withName(VALID_NAME_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final GroceryItem BOB = new GroceryItemBuilder().withName(VALID_NAME_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+    public static final GroceryItem AMY = new GroceryItemBuilder().withName(VALID_NAME_NUTS)
+            .withTags(VALID_TAG_VEGETABLE).build();
+    public static final GroceryItem BOB = new GroceryItemBuilder().withName(VALID_NAME_ORANGES)
+            .withTags(VALID_TAG_CARBS, VALID_TAG_VEGETABLE)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
