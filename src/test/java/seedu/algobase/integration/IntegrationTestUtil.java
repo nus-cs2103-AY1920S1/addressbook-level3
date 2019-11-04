@@ -31,6 +31,11 @@ public class IntegrationTestUtil {
         assertEquals(length, logicManager.getProcessedPlanList().size());
     }
 
+    /**
+     * Checks whether the only returned plan has matching plan name.
+     * @param logicManager logic component
+     * @param fullName plan name
+     */
     public static void assertPlanName(LogicManager logicManager, String fullName) {
         assertEquals(1, logicManager.getProcessedPlanList().size());
         assertEquals(fullName, logicManager.getProcessedPlanList().get(0).getPlanName().fullName);

@@ -1,8 +1,15 @@
 package seedu.algobase.integration;
 
+import static seedu.algobase.integration.IntegrationTestUtil.assertPlanName;
+import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
+import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
+
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
 import seedu.algobase.logic.LogicManager;
 import seedu.algobase.logic.commands.exceptions.CommandException;
 import seedu.algobase.logic.parser.exceptions.ParseException;
@@ -13,12 +20,6 @@ import seedu.algobase.model.util.SampleDataUtil;
 import seedu.algobase.storage.JsonAlgoBaseStorage;
 import seedu.algobase.storage.JsonUserPrefsStorage;
 import seedu.algobase.storage.StorageManager;
-
-import java.nio.file.Path;
-
-import static seedu.algobase.integration.IntegrationTestUtil.assertPlanName;
-import static seedu.algobase.integration.IntegrationTestUtil.assertProcessedPlanListOfLength;
-import static seedu.algobase.integration.IntegrationTestUtil.getTempFilePath;
 
 public class PlanCommandsIntegrationTest {
 
