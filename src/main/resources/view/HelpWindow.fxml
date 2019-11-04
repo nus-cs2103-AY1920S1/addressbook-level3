@@ -16,7 +16,7 @@
   </icons>
   <scene>
     <Scene>
-        <VBox>
+        <VBox styleClass="background">
             <Label fx:id="helpMessage" text="Label">
                <VBox.margin>
                   <Insets />

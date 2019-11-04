@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -65,6 +66,7 @@ public class ProfileWindow extends UiPart<Stage> {
      */
     public ProfileWindow() {
         this(new Stage());
+        this.getRoot().initModality(Modality.APPLICATION_MODAL);
         /*
          * Using default window instead.
         this.getRoot().initStyle(StageStyle.UTILITY);
@@ -213,6 +215,14 @@ public class ProfileWindow extends UiPart<Stage> {
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 getRoot().hide();
+            } else if (KeyCode.Q == event.getCode()) {
+                getRoot().hide();
+            } else if (KeyCode.P == event.getCode()) {
+                try {
+                    generateProfilePressed(new ActionEvent());
+                } catch (CommandException e) {
+                    // Action fails
+                }
             }
         }
         );
