@@ -32,11 +32,13 @@ public class AddEventCommandSuggester extends Suggester {
             String argument = commandArgument.getValue();
             String[] tokens = argument.split("-", 4);
             if (tokens.length == 4) {
-                List<String> validLocationSuggestion = getValidLocationSuggestions(model, new CommandArgument(CliSyntax.PREFIX_TIMING, 0,
+                List<String> validLocationSuggestion =
+                        getValidLocationSuggestions(model, new CommandArgument(CliSyntax.PREFIX_TIMING, 0,
                         tokens[3].trim()));
                 List<String> finalSuggestions = new ArrayList<>();
                 for (int i = 0; i < validLocationSuggestion.size(); i++) {
-                    finalSuggestions.add(tokens[0] + "-" + tokens[1] + "-" + tokens[2] + "-" + validLocationSuggestion.get(i));
+                    finalSuggestions.add(tokens[0] + "-" + tokens[1] + "-" + tokens[2] + "-"
+                            + validLocationSuggestion.get(i));
                 }
                 return finalSuggestions;
             }
