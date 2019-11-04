@@ -20,7 +20,7 @@ import seedu.address.model.employee.Employee;
  */
 public class Undopay extends Command {
 
-    public static final String COMMAND_WORD = "unpay";
+    public static final String COMMAND_WORD = "undo_pay";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
             + "by the index number used in the displayed employee list. "
@@ -30,7 +30,6 @@ public class Undopay extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SALARYPAID + "100 ";
     public static final String MESSAGE_SUCCESS = "Undo the payment for %s. Amount : $ %s";
-    public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: unpay 1 p/100";
 
     private final Index index;
     private final double salaryToPay;

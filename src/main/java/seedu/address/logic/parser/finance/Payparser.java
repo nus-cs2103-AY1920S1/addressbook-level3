@@ -35,9 +35,8 @@ public class Payparser implements Parser<Pay> {
             salaryToPay = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_SALARYPAID).get());
 
         } catch (ParseException pe) {
-            throw new ParseException(String.format(("Pay: Do payment"
-                    + " identified by the index number used in the displayed employee list.\n"
-                    + "Parameters: INDEX (must be a positive integer)" + " p/PAY" + "Example: pay 1 s/100")));
+            throw new ParseException(String.format(("Invalid input. Please call the Pay command in this format:\n"
+                    + "pay 1 s/100")));
         }
 
         return new Pay(index, salaryToPay);

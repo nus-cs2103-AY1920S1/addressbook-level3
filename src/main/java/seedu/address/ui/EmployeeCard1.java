@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -9,8 +11,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.logic.processor.EmployeeEventProcessor;
+import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.EmployeePay;
+import seedu.address.model.event.Event;
 
 /**
  * An UI component that displays information of a {@code Employee}.
@@ -33,6 +38,7 @@ public class EmployeeCard1 extends UiPart<Region> {
     private Integer index;
     private ErrorWindow errorWindow;
 
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -50,7 +56,7 @@ public class EmployeeCard1 extends UiPart<Region> {
     @FXML
     private ImageView imgBox;
 
-    public EmployeeCard1(Employee employee, int displayedIndex) {
+    public EmployeeCard1(Employee employee, int displayedIndex, ObservableList<Event> eventList) {
         super(FXML);
         this.employee = employee;
         if (employee.getEmployeeGender().gender.equals("male")) {
@@ -63,7 +69,10 @@ public class EmployeeCard1 extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(employee.getEmployeeName().fullName);
         phone.setText("Totally Paid : $" + employee.getEmployeeSalaryPaid());
-        address.setText("Total Salary : $" + employee.getEmployeePay());
+
+        double totalHours = EmployeeEventProcessor.findEmployeeTotalWorkedHours(employee, eventList);
+        double totalsalary = totalHours * Double.parseDouble(employee.getEmployeePay().value);
+        address.setText("Total Salary : $" + totalsalary);
         double pendingpay  = Double.parseDouble(employee.getEmployeePay().value)
                 - employee.getEmployeeSalaryPaid().value;
         email.setText("Pending to Pay : $" + pendingpay);

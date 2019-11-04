@@ -29,7 +29,6 @@ public class Pay extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_SALARYPAID + "100 ";
     public static final String MESSAGE_SUCCESS = "%s has been paid %s";
-    public static final String MESSAGE_NOT_EDITED = "Please type correct command. Example: pay 1 s/100";
 
     private final Index index;
     private final double salaryToPay;
@@ -57,9 +56,7 @@ public class Pay extends Command {
 
         if (index.getZeroBased() >= lastShownList.size() ) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
-        }
-
-        else if (totalsalary < paid) {
+        } else if (totalsalary - paid - salaryToPay >= 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_EMPLOYEE_PAID);
         }
 
