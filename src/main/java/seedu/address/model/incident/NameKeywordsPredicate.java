@@ -11,10 +11,10 @@ import seedu.address.model.person.Name;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class NameKeywordsPredicate implements Predicate<Incident> {
-    private final List<String> keywords = new ArrayList<>();
+    private final List<String> keywords;
 
-    public NameKeywordsPredicate(Name nameKeywords) {
-        this.keywords.add(nameKeywords.fullName);
+    public NameKeywordsPredicate(List<String> nameKeywords) {
+        this.keywords = nameKeywords;
     }
 
     @Override
