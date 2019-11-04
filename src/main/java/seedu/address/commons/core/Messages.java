@@ -26,4 +26,10 @@ public class Messages {
             + "Date should be in the following format dd/MM/yyyy, "
             + "be a valid Calendar Date, and be in the last 10 years.";
     public static final String MESSAGE_TOO_OLD_DATE = "Only dates of the last 10 years is accepted";
+    public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
+            + "allocated to the event!";
+    public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"
+            + " not allocated to event!";
+    public static final String MESSAGE_WRONG_WINDOW = "Command should be executed in the Main Window since it "
+            + "requires references to the Employee list.";
 }

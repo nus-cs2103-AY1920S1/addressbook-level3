@@ -9,28 +9,37 @@ import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.EmployeeId;
 
 /**
- * List of employees allocated as manpower for the Event.
+ * List of {@code EmployeeId} allocated as manpower for the Event.
  */
 public class EventManpowerAllocatedList {
     private List<EmployeeId> manpowerList;
 
+
+    /**
+     * Constructs an empty {@code EventManpowerAllocatedList} from an unprocessed list
+     * which is delimited by empty spaces.
+     */
     public EventManpowerAllocatedList(String unprocessedList) {
         if (unprocessedList.equals("")) {
             manpowerList = new ArrayList<>();
             return;
         }
-        String[] personIds = unprocessedList.split(" ");
-        manpowerList = Arrays.stream(personIds)
-                .map(personId -> new EmployeeId(personId))
+
+        String[] employeeIdArray = unprocessedList.split(" ");
+        manpowerList = Arrays.stream(employeeIdArray)
+                .map(EmployeeId::new)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Constructs a new {@code EventManpowerAllocatedList} with a given list of {@code EmployeeId}.
+     */
     public EventManpowerAllocatedList(List<EmployeeId> manpowerList) {
         this.manpowerList = manpowerList;
     }
 
     /**
-     * Constructs a {@code EventManpowerAllocatedList}.
+     * Constructs an empty {@code EventManpowerAllocatedList}.
      */
     public EventManpowerAllocatedList() {
         manpowerList = new ArrayList<>();
@@ -40,20 +49,6 @@ public class EventManpowerAllocatedList {
         return manpowerList;
     }
 
-    /**
-     * Removes employee to the Manpower List for an Event.
-     *
-     * @param employee to be removed
-     * @return boolean to represent if employee is successfully allocated to event
-     */
-    public boolean removeEmployee(Employee employee) {
-        String employeeId = employee.getEmployeeId().id;
-        if (!manpowerList.contains(employeeId)) {
-            return false;
-        } else {
-            return manpowerList.remove(employeeId);
-        }
-    }
 
     /**
      * Boolean Method to check if an the allocated list contains an employee
@@ -66,7 +61,7 @@ public class EventManpowerAllocatedList {
     public String toString() {
         StringBuilder unprocessedList = new StringBuilder();
         for (EmployeeId s : manpowerList) {
-            unprocessedList.append(s + " ");
+            unprocessedList.append(s).append(" ");
         }
         return unprocessedList.toString().trim();
     }

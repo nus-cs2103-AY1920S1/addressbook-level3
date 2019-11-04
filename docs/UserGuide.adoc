@@ -268,12 +268,13 @@ Returns the 2rd employee from the employee list.
 //tag::calvin[]
 === Event-Specific Management
 
+[NOTE]
+Some event-specific commands have GUI features enabled to improve user experience. However, such features are
+implemented as a *best-effort service* and should not be heavily relied on.
+
 ==== Fetch Full Details of an Event: `fetch_ev`
 
 Fetches an event by displaying a pop-up window with full details of the event.
-
-[%hardbreaks]
-For GUI features, kindly refer to <<GUI Guide for Event Fetch and Allocation Commands>>.
 
 Format: `fetch_ev EVENT_INDEX`
 
@@ -286,6 +287,18 @@ Examples:
 
 * `fetch_ev 2` +
 Returns the 2rd event from the event list.
+
+Alternatively, the `fetch_ev` command can be executed from the GUI in just 2 simple steps.
+
+*Step 1*. *double-click the event* in the list as shown in the figure below:
+
+._Instruction for user to execute fetch event command_
+image::beforefetch.png[width="600"]
+
+*Step 2*: After successfully fetching the event, the following *Fetch Event Window* should show:
+
+._Fetch Event Window_
+image::afterfetch.png[width="600"]
 
 ==== Automated allocation of Employees to Events: `allocate`
 
@@ -309,9 +322,15 @@ Random selection of employee to allocate if supply exceeds demand of event.
 Examples:
 
 * `allocate 1` +
-Allocates available employees to the 1st event.
+Allocates available employees to the 1st event shown in the event list.
 * `allocate 2 n/3 t/female` +
-Allocates 3 employees who are tagged as 'female' to the 2nd event.
+Allocates 3 employees who are tagged as 'female' to the 2nd event shown in the event list.
+
+Alternatively, the `allocate` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `allocate` command without number/filter specification, click the *allocate* button
+as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
 
 ==== Manually allocation of Employees to Events: `allocatem`
 
@@ -330,6 +349,17 @@ Examples:
 
 * `allocatem 1 n/2` +
 Allocates the 2nd employee on the employee list to the 1st event on the event list.
+
+Alternatively, the `allocatem` command can be executed from the GUI in just 2 simple step!
+
+*Step 1*:
+double-click the employee card on the left list. Notice the employee to allocate
+
+._Instruction for user to execute `allocatem` command_
+image::afterfree.png[width="600"]
+
+._Result after `allocatem` command_
+image::afterallocatem.png[width="600"]
 
 ==== De-allocation of Employees from Event: `free`
 
@@ -350,6 +380,16 @@ Examples:
 Frees all employees allocated to the 1st event on the event list.
 * `free 1 id/001` +
 Frees an employee with id: "001" allocated to the 1st event on the event list.
+
+Alternatively, the `free` command can be executed from the GUI in just 1 simple step!
+
+*Step 1*: To perform a `free` command without id specification, click the *free* button
+as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
+
+[NOTE]
+To *free* a particular employee to an event, double-click the employee card on the right list
+as shown in the 2nd figure in <<Manually allocation of Employees to Events: `allocatem`>>
+
 //end::calvin[]
 
 
@@ -405,7 +445,7 @@ Deletes the mapping on 18th October from the 2nd Event on the Event list.
 ==== Clear all DateTime Mappings from an Event: `clear_ev_dt`
 
 Clears all date-time mappings for a specific event.
-As a side effect, all manpower allocated to the event will be deallocated.
+As a side effect, all manpower allocated to the event will be de-allocated.
 
 Format: `clear_ev_dt EVENT_INDEX `
 
@@ -420,45 +460,11 @@ Example:
 Clears all the date-time mapping from the 2nd Event on the Event list.
 //end::DeXun2[]
 
-//tag::calvin2[]
 
-==== GUI Guide for Event Fetch and Allocation Commands
 
-*For this guide, the relevant picture is shown after the instruction.*
 
-*Step 1*. For `fetch_ev`, simply *double-click the event* in the list as shown in the figure below:
 
-image::beforefetch.png[width="600"]
 
-*Step 2*: After successfully fetching the event, the following *Fetch Window* should show:
-
-image::afterfetch.png[width="600"]
-
-*Step 3*: To perform a `allocate` command without number/filter specification, click the *allocate* button
-as shown in the *Fetch Window* in step 2. The two lists will be updated again as shown in the following figure:
-
-image::afterallocate.png[width="600"]
-
-*Step 4*: To perform a `free` command, click the *free* button as shown in the *Fetch Window* in step 2.
-The two lists will be updated as shown in the following figure. Now, if you are interested to allocate a particular
-employee to an event, continue to step 5.
-
-image::afterfree.png[width="600"]
-
-*Step 5*: To *allocate* a particular employee to an event or perform an `allocatem` command, double-click the employee card on
-the left list. Notice the employee to allocate
-has moved to the list on the right as shown in the figure below:
-
-[NOTE]
-To *free* a particular employee to an event, double-click the employee card on the right
-as shown in the figure below:
-
-image::afterallocatem.png[width="600"]
-
-[NOTE]
-If the GUI features are not working as intended, kindly use the command line interface to execute the command instead.
-
-//end::calvin2[]
 
 === Finance Management
 
@@ -482,22 +488,20 @@ Examples:
 Generates the payslip of employee 2 from the 20th August - 20th October.
 
 //tag::Schedule[]
-=== Schedule
-
-Welcome to Schedule!
-Wondering how to display and see what events you have on a specific Date or Month, or do you want to have an overview of all the dates where you have an event?
-Then you are at the right place!
+=== Schedule Management
+Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
+Want to have an overview of all the dates where you have an event? Then you are at the right place!
 
 To get things started, all Schedule-related commands occurs in the Schedule Tab as seen from the figure below!
-You could either click on the Schedule Tab or just simply type in any Schedule-related commands and AddMin+ will bring you there.
+You can get to the Schedule Tab easily by either clicking on the Schedule Tab on the User Interface or
+just simply type in any Schedule-related commands and AddMin+ will bring you there.
 
 ._User Interface (UI) of the Schedule Feature_
 image::ScheduleUiDetailed.png[]
 
 ==== Display Schedule for a specific date: `display_schedule_date`
-
-Lets say you want to check if you have any events on a specific date.
-Instead of looking through the list of events you have, you could simply use the `display_schedule_date` command to do it!
+Want to check if you have any events on a specific date. Instead of looking through the list of events you have, you
+could use the `display_schedule_date` command to do it!
 
 Format: `display_schedule_date on/dd/MM/yyyy`
 
@@ -508,22 +512,21 @@ Examples:
 * on/ represents the date in dd/MM/yyyy that the user wants to display
 ****
 
-**To display schedule for a specific date (20/11/2019):**
 
-**Step 1**.
-Either type `display_schedule_date on/20/11/2019` into the command box or click on the specific date from the date picker.
+**Example: To display schedule for a specific date (20/11/2019):**
+
+**Step 1**.  Either type `display_schedule_date on/20/11/2019` into the command box or click on
+the specific date from the date picker as seen from the figure below.
 
 image::ScheduleUiStep1.png[]
 
-**Step 2**.
-The result box will display a message which inform you how many events are being listed.
-In this case the message displayed is "1 events listed!"
+**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+is "1 events listed!"
 
 image::ScheduleUiStep2.png[]
 
-**Step 3**.
-In the event list you will be able to see all the events that are on the specified date.
-In this case the only event that is on 20/11/2019 is "Talk by DEF Company".
+**Step 3**.  In the event list you will be able to see all the events that are on the specified date. In this case the only event that is on
+20/11/2019 is "Talk by DEF Company".
 
 image::ScheduleUiStep3.png[]
 
@@ -531,9 +534,8 @@ image::ScheduleUiStep3.png[]
 The event list will be empty and not display anything if there is no event on the specified date.
 
 ==== Display Schedule for a specific Month and Year: `display_schedule`
-
-Now if you would want to see all the events you have on a specific month and year.
-Instead of looking through the list of events you have, you could simply use the `display_schedule` command to do it!
+Now you would want to see all the events you have on a specific month and year. Instead of looking through the list of events you have, you
+could use the `display_schedule` command to do it!
 
 Format: `display_schedule for/MM/yyyy`
 
@@ -541,31 +543,50 @@ Format: `display_schedule for/MM/yyyy`
 * for/ represents the month and year in MM/yyyy that the user wants to display
 ****
 
-==== Generate Entire Schedule: `generate_schedule`
+**Example: To display schedule for a specific Month and Year (11/2019):**
 
-Want to have an overview of all the dates that has an event?
-Use the `generate_schedule` command to do so.
-The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates which has an event and also display all the events that happens on that date.
+**Step 1**.  Either type `display_schedule for/11/2019` into the command box or click on the month year picker buttons to
+navigate to the specific month and year.
+
+image::ScheduleUiMonthStep1.png[]
+
+**Step 2**.  The result box will display a message which inform you how many events are being listed. In this case the message displayed
+is "2 events listed!"
+
+image::ScheduleUiMonthStep2.png[]
+
+**Step 3**.  In the event list you will be able to see all the events that are on the specified month, year. In this case there is 2 event
+that is on 11/2019 which is "Talk by DEF Company" and "Birthday Party".
+
+image::ScheduleUiMonthStep3.png[]
+
+[TIP]
+The event list will be empty and not display anything if there is no event on the specified month, year.
+
+==== Generate Entire Schedule: `generate_schedule`
+Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
+The `generate_schedule` command looks through the entire list of events and generates a new list of all the dates
+which has an event and also display all the events that happens on that date.
 
 Format: `generate_schedule`
 
 [TIP]
 The `generate_schedule` command opens a new window to display the new list of information.
+The `generate_schedule` command processes and creates the the list based on when the command is called.
+Note that any changes to the events after the command will not be reflected. Users are advised to use the
+`generate_schedule` once all events are confirmed.
 
 **To display the entire schedule:**
 
-**Step 1**.
-Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
+**Step 1**.  Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
 
 image::ScheduleUiGenerateStep1.png[]
 
-**Step 2**.
-The result box will display the message "Schedule Generated".
+**Step 2**.  The result box will display the message "Schedule Generated".
 
 image::ScheduleUiGenerateStep2.png[]
 
-**Step 3**.
-A new window will open, displaying all the dates and events that is happening on those specific dates.
+**Step 3**.  A new window will open, displaying all the dates and events that is happening on those specific dates.
 
 image::ScheduleUiGenerateStep3.png[]
 
@@ -573,6 +594,21 @@ image::ScheduleUiGenerateStep3.png[]
 The generated list will be empty and not display anything if there is no event in the current event list.
 
 //end::Schedule[]
+
+==== Display Schedule between two specific dates: `display_schedule_between`
+
+Allows you to see all the events between 2 specific dates!
+
+Format: `display_schedule_between start/dd/MM/yyyy end/dd/MM/yyyy`
+
+Examples:
+`display_schedule_between start/02/12/2019 end/31/12/2019`
+
+****
+* start/ represents the date in dd/MM/yyyy that the user wants to start the range to display from.
+* end/ represents the date in dd/MM/yyyy that the user wants to end the range to display from.
+* Note that specified start date must be before the specified end date, else an error will be displayed.
+****
 
 === Miscellaneous
 
@@ -683,7 +719,7 @@ e.g. `clear_ev_dt 2`
 | `clear_ev_dt 2`
 | *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
 | *Display Schedule for specific month*| `display_schedule for/MMYYYY` | `display_schedule for/02/12/2019`
-| *Display Entire Schedule*| `display_schedule` | `display_schedule`
+| *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
 | *Generate Pay [coming in v2.0]* | `pay` | `pay 1...`
 | *Navigate between Tabs* | `main, schedule` | `main, schedule`

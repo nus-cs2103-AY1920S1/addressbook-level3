@@ -39,7 +39,7 @@ public class ManualAllocateCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "2 ";
 
-    public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s";
+    public static final String MESSAGE_ALLOCATE_EVENT_SUCCESS = "Added Employee: %1$s to %2$s.";
 
     private final Index employeeIndex;
     private final Index eventIndex;
@@ -121,7 +121,7 @@ public class ManualAllocateCommand extends Command {
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownEventList = model.getFilteredEventList();
         } else {
-            lastShownEventList = model.getFilteredScheduledEventList();
+            throw new CommandException(Messages.MESSAGE_WRONG_WINDOW);
         }
 
         if (employeeIndex.getZeroBased() >= lastShownList.size()) {
@@ -134,6 +134,10 @@ public class ManualAllocateCommand extends Command {
 
         Employee personToAdd = lastShownList.get(employeeIndex.getZeroBased());
         Event eventToAllocate = lastShownEventList.get(eventIndex.getZeroBased());
+
+        if (eventToAllocate.getManpowerAllocatedList().containsEmployee(personToAdd)) {
+            throw new CommandException(Messages.MESSAGE_EMPLOYEE_ALREADY_ALLOCATED);
+        }
 
         if (eventToAllocate.getCurrentManpowerCount() == eventToAllocate.getManpowerNeeded().value) {
             throw new CommandException(Messages.MESSAGE_EVENT_FULL_MANPOWER);

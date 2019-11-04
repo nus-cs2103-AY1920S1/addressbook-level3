@@ -17,7 +17,6 @@ class EventManpowerNeededTest {
         assertFalse(EventManpowerNeeded.isValidEventManpowerNeeded("1000")); // exceed limit
 
         // valid Event Manpower Needed
-        assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("000"));
         assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("005"));
         assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("035"));
         assertTrue(EventManpowerNeeded.isValidEventManpowerNeeded("999"));

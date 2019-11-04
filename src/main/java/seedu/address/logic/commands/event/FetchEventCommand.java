@@ -40,15 +40,16 @@ public class FetchEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Event> lastShownList;
-        String commandType;
         if (MainWindow.getCurrentTabIndex() == 0) {
             lastShownList = model.getFilteredEventList();
         } else {
             lastShownList = model.getFilteredScheduledEventList();
         }
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
+
         Event eventToFetch = lastShownList.get(index.getZeroBased());
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToFetch.getName()), false,
                 false, index.getZeroBased(), "Event_Fetch");

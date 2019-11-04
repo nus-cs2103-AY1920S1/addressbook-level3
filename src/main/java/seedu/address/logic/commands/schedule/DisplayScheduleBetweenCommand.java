@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 
@@ -14,6 +15,7 @@ import seedu.address.model.event.EventContainsKeyDateRangePredicate;
  */
 public class DisplayScheduleBetweenCommand extends Command {
     public static final String COMMAND_WORD = "display_schedule_between";
+    public static final String MESSAGE_INVALID_DATES = "Invalid start/end dates!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all events that "
             + "occurs between the 2 dates specified. \n"
@@ -26,8 +28,13 @@ public class DisplayScheduleBetweenCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (predicate.getStartDate().compareTo(predicate.getEndDate()) > 0) {
+            throw new CommandException(MESSAGE_INVALID_DATES);
+        }
+
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,

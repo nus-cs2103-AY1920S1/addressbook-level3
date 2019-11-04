@@ -250,7 +250,7 @@ filtered list of employees based on the `tagList` and if employee satisfies `Eve
 **Step 5**. The command checks if supply (number of employees in filtered list in step 4) exceeds
 demand (number of employees required by event, generated in step 3).
 [NOTE]
-If demand exceeds supply, an exception will be thrown to the user. If the supply exeeds demand, employees will be randomly selected instead.
+If demand exceeds supply, an exception will be thrown to the user. If the supply exceeds demand, employees will be randomly selected instead.
 
 **Step 6**. The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with a updated
 manpower list.
@@ -283,7 +283,8 @@ PlantUML, the lifeline reaches the end of diagram.
 
 *Cons*: Future accesses require more time.
 
-I decided to proceed with this option because it creates less dependencies.
+*I decided to proceed with this option* because it creates less dependencies on other classes which is is a good
+programming practice.
 
 |Saves all fields of `Employee` associated with the event.
 
@@ -292,7 +293,7 @@ I decided to proceed with this option because it creates less dependencies.
 *Cons*: Changes in `Employee` attributes have to be reflected in the event. This meant that `EditCommand` and
 `DeleteCommand` for `Employee` have to be heavily modified.
 
-| How to update the changes in the manpower list of an event after allocation of employee.
+| Update of changes made to the manpower list of an event after the allocation of employees.
 | Directly modifies the `EventManpowerAllocatedList` of the specified event
 
 *Pros*: Easy to implement.
@@ -305,7 +306,7 @@ I decided to proceed with this option because it creates less dependencies.
 
 *Cons*: Harder to implement.
 
-I decided to proceed with this option because it complies with the Law of Demeter
+*I decided to proceed with this option* because it complies with the Law of Demeter
 which states that objects should not navigate internal structures of other objects.
 |========================================================================================
 // end::calvin[]
@@ -498,6 +499,7 @@ displayed is always updated as of when the user needs it, since the window is on
 ** Alternative 2 is a cleaner and more user friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many list and information.
 Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
 |========================================================================================
+
 // end::generateschedule[]
 
 === Finance
@@ -647,25 +649,46 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Allocate Manpower to Event manually
+=== Use case: Allocate an Employee to an Event
 
 *MSS*
 
 1.  User requests to view the company’s current list of employees and events.
 2.  AddMin+ shows the list of employees and events.
-3.  User states an Employee_ID that is matched to an Event_ID
-4.  Employee allocated to Event.
+3.  User specifies the index of the event, and the index of the employee.
+4.  AddMin+ allocates the Employee to the Event.
 +
 Use case ends.
 
 *Extensions*
 
-* 2.The Employee_ID/Event_ID is invalid.
+* 3a.Input Index given is invalid.
 +
 [none]
-** 2a.Addmin+ shows an error message.
+** 3a1.AddMin+ shows the error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
+
+* 3b.The event has full manpower.
++
+[none]
+** 3b1.AddMin+ shows the error message.
++
+Use case resumes at step 3.
+
+* 3c.The employee was previously allocated to the event.
++
+[none]
+** 3c1.AddMin+ shows the error message.
++
+Use case resumes at step 3.
+
+* 3d.The employee has a conflicting schedule, and is unavailable for the event.
++
+[none]
+** 3d1.AddMin+ shows the error message.
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: View Schedule on a specific date
@@ -686,25 +709,6 @@ Use case ends.
 +
 [none]
 ** 3a.AddMin+ shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Fetch Events
-*MSS*
-
-1.  User requests to fetch an Event by specifying an Event_ID
-2.  AddMin+ displays the matching result
-
-+
-Use case ends.
-
-*Extensions*
-
-* 2.The given event ID is invalid or nonexistent.
-+
-[none]
-** 2a.Addmin+ shows an error message.
 +
 Use case resumes at step 2.
 
@@ -767,7 +771,18 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missing data files
+
+.. Go to the home folder where AddMin+ is located.
+.. Delete every file except the .jar file.
+.. Open the jar file again, a sample set of Employee and Event data should be loaded.
+
+. Dealing with corrupted data files
+
+.. Go to the home folder where AddMin+ is located. Open the data folder which should contain
+employeebook.json and eventbook.json files.
+.. Open one of the json file and corrupt the file.
+.. Open the jar file again, AddMin+ should still run with one of the list data loaded.
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
