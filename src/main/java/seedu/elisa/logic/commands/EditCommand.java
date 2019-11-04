@@ -57,7 +57,7 @@ public class EditCommand extends UndoableCommand {
     private Item editedItem;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index              of the person in the filtered person list to edit
      * @param editItemDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditItemDescriptor editItemDescriptor) {
@@ -87,6 +87,10 @@ public class EditCommand extends UndoableCommand {
         }
 
         model.editItem(oldItem, editedItem);
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, editedItem));
     }
 
@@ -97,9 +101,10 @@ public class EditCommand extends UndoableCommand {
 
     /**
      * Create a new Item with the new edited details.
-     * @param itemToEdit old item to edit
+     *
+     * @param itemToEdit         old item to edit
      * @param editItemDescriptor details to edit the item with
-     * @param lastShownList the last list shown to the user, set by the model
+     * @param lastShownList      the last list shown to the user, set by the model
      * @return a new Item with the edited details
      * @throws CommandException representing failure to create new edited item
      */
@@ -177,7 +182,8 @@ public class EditCommand extends UndoableCommand {
         private boolean hasDeleteEvent = false;
         private boolean hasDeleteReminder = false;
 
-        public EditItemDescriptor() {}
+        public EditItemDescriptor() {
+        }
 
         /**
          * Copy constructor.

@@ -30,6 +30,10 @@ public class PriorityCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute(ItemModel model) {
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         try {
             boolean status = model.togglePriorityMode();
             if (focusMode && status) {
