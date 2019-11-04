@@ -37,6 +37,22 @@ public class EventDate implements Comparable<EventDate> {
     }
 
     /**
+     * Boolean to check if the current EventDate is after another EventDate
+     * Note: If same, date, return false.
+     */
+    public boolean isAfter(EventDate otherDate) {
+        return date.isAfter(otherDate.getDate());
+    }
+
+    /**
+     * Boolean to check if the current EventDate is beofre another EventDate
+     * Note: If same, date, return false.
+     */
+    public boolean isBefore(EventDate otherDate) {
+        return date.isBefore(otherDate.getDate());
+    }
+
+    /**
      * Returns true if a given string is a valid localDate number.
      */
     public static boolean isValidDate(String test) {

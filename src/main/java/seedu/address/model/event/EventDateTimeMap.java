@@ -115,10 +115,29 @@ public class EventDateTimeMap {
 
     /**
      * Deletes a Date from the Date-Time Mapping.
+     *
      * @param date EventDate Object
      */
     public void deleteDateKey(EventDate date) {
         dateTimeMap.remove(date);
+    }
+
+    /**
+     * Called when the Event's Start/End Date has changed. EventDateTime will flush EventDate keys
+     * from the Mapping which falls out of the new range.
+     * Then, insert default DateTime mapping for the start and end dates if not found
+     */
+    public void flushEventDates(EventDate newStartDate, EventDate newEndDate) {
+        dateTimeMap.entrySet().removeIf(event -> {
+            EventDate eventDate = event.getKey();
+            return eventDate.isBefore(newStartDate) || eventDate.isAfter(newEndDate);
+        });
+        if (!dateTimeMap.containsKey(newStartDate)) {
+            mapDateTime(newStartDate, EventDayTime.defaultEventDayTime());
+        }
+        if (!dateTimeMap.containsKey(newEndDate)) {
+            mapDateTime(newEndDate, EventDayTime.defaultEventDayTime());
+        }
     }
 
     @Override
