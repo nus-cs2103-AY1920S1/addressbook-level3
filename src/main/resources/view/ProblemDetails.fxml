@@ -12,7 +12,8 @@
 <?import javafx.scene.control.Button?>
 <AnchorPane>
   <ScrollPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge">
+              AnchorPane.rightAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" styleClass="edge-to-edge"
+              fitToWidth="true">
       <VBox alignment="CENTER_LEFT">
           <padding>
             <Insets top="10" right="10" bottom="5" left="10"/>
@@ -95,8 +96,11 @@
               <TextArea fx:id="description" wrapText="true" />
           </StackPane>
 
-        <!-- Edit Button -->
-        <Button fx:id="submitButton" text="Edit Problem" />
+
+        <HBox alignment="BOTTOM_RIGHT">
+          <!-- Edit Button -->
+          <Button fx:id="submitButton" text="Edit Problem" />
+        </HBox>
       </VBox>
   </ScrollPane>
 </AnchorPane>
