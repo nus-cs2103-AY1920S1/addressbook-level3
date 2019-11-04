@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount should should not be blank and may"
-        + " contain numbers, up to 14 digits. No currency prefix is needed";
+    public static final String MESSAGE_CONSTRAINTS = "Amount should should not be blank, may"
+        + " contain numbers, up to 14 digits and 2 decimal places. No currency prefix is needed and"
+        + " amount cannot be 0 or negative";
     public static final String VALIDATION_REGEX = "[\\d]{1,12}[.]??[\\d]{0,2}";
 
     public final String value;
@@ -30,7 +31,7 @@ public class Amount {
      * Returns if a given string is a valid amount.
      */
     public static boolean isValidAmount(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) && Double.parseDouble(test) != 0.0;
     }
 
     public double getValue() {

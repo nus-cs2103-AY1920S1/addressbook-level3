@@ -120,12 +120,12 @@ public class Expense implements Comparable<Expense> {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
-            .append(getName())
-            .append(" ")
-            .append(getAmount())
+            .append("Name: " + getName())
+            .append("\n")
+            .append("Amount: " + getAmount())
             .append(" " + getCurrency())
             .append("\n")
-            .append(getDate())
+            .append("Date: " + getDate())
             .append("\n");
         getTags().forEach(builder::append);
         return builder.toString();
