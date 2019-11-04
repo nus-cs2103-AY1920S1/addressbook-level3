@@ -57,6 +57,7 @@ public class ScheduleCommand extends Command {
         }
 
         logger.info("Finish scheduling interviews");
+        model.setScheduled(true);
         String finalMessage = String.format("%s\n%s", message, result);
         return new CommandResult(finalMessage);
     }
@@ -91,13 +92,14 @@ public class ScheduleCommand extends Command {
 
     /**
      * Returns the result of the scheduling as a string message.
+     * The given list of interviewees are all allocated with an interview slot.
      */
     private String generateResultMessage(List<Interviewee> interviewees) {
         StringBuilder builder = new StringBuilder(300);
 
         String resultMessage = "Name: %s, allocated slot: %s, interviewer: %s, department: %s\n";
         interviewees.stream().map(interviewee -> {
-            InterviewSlot slot = interviewee.getAllocatedSlot();
+            InterviewSlot slot = interviewee.getAllocatedSlot().get();
             return String.format(resultMessage, interviewee.getName(), slot.getDateTime(), slot.getInterviewerName(),
                 slot.getDepartment());
         }).forEach(builder::append);

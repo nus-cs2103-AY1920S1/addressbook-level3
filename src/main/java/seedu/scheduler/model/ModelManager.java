@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.scheduler.commons.core.GuiSettings;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.model.person.Department;
+import seedu.scheduler.model.person.InterviewSlot;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
@@ -41,10 +43,11 @@ import seedu.scheduler.ui.RefreshListener;
  * Represents the in-memory model of the schedule table data.
  */
 public class ModelManager implements Model {
-    private static List<Schedule> emptyScheduleList = new ArrayList<>();
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static List<Schedule> emptyScheduleList = new ArrayList<>();
 
     private final UserPrefs userPrefs;
+    private final AppStatus appStatus;
     private final List<Schedule> schedulesList;
 
     private final IntervieweeList intervieweeList; // functionality not stable, refrain from using
@@ -75,13 +78,25 @@ public class ModelManager implements Model {
 
         this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.appStatus = AppStatus.getInstance();
     }
 
     public ModelManager() {
         this(new IntervieweeList(), new InterviewerList(), new UserPrefs(), new LinkedList<>());
     }
 
-    // ==================================IntervieweeList and InterviewerList ======================================
+    // ================================== AppStatus ======================================
+    @Override
+    public void setScheduled(boolean scheduled) {
+        this.appStatus.setScheduled(scheduled);
+    }
+
+    @Override
+    public boolean isScheduled() {
+        return this.appStatus.isScheduled();
+    }
+
+    // ================================== IntervieweeList and InterviewerList ======================================
 
     @Override
     public void setIntervieweeList(List<Interviewee> interviewees) {
@@ -476,15 +491,11 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns a list of interview slots assigned to the interviewee with the {@code intervieweeName}.
+     * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
      */
     @Override
-    public List<Slot> getInterviewSlots(String intervieweeName) {
-        List<Slot> slots = new LinkedList<>();
-        for (Schedule schedule : schedulesList) {
-            slots.addAll(schedule.getInterviewSlots(intervieweeName));
-        }
-        return slots;
+    public Optional<InterviewSlot> getInterviewSlot(String intervieweeName) {
+        return intervieweeList.getEntity(new Name(intervieweeName)).getAllocatedSlot();
     }
 
     /**
