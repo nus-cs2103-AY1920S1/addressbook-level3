@@ -21,6 +21,7 @@ import seedu.address.ui.budget.BudgetPanel;
 public class AddExpenseCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.EXPENSE;
+    public static final String COMMAND_WORD_FROM_PRIMARY = GenericCommandWord.ADD + CommandGroup.PRIMARY_BUDGET;
 
     public static final String COMMAND_DESCRIPTION = "Add expense %1$s (%2$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD

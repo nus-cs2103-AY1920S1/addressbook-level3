@@ -60,7 +60,8 @@ public class MooLahParser {
         String commandWord = getCommandWord(input, commandGroup);
         String arguments = input.getArguments();
         //expense
-        if (AddExpenseCommand.COMMAND_WORD.equals(commandWord)) {
+        if (AddExpenseCommand.COMMAND_WORD.equals(commandWord)
+                || AddExpenseCommand.COMMAND_WORD_FROM_PRIMARY.equals(commandWord)) {
             return new AddExpenseCommandParser().parse(arguments);
         } else if (EditExpenseCommand.COMMAND_WORD.equals(commandWord)) {
             return new EditCommandParser().parse(arguments);
