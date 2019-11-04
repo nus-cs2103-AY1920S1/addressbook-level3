@@ -307,6 +307,7 @@ The sum of all limits cannot exceed the total amount already paid by all persons
 `<your name>` must match one of the persons among the other `p/<person>` names.
 * Adding `w/` will set the `<date>` of the loans added to your list.
 * Adding `d/` will set the `<description>` of the loans added to your list.
+* To switch between your loan list and split list, press `Ctrl + D` (or `Cmd + D` for Mac) while on the Loans tab.
 ****
 
 Examples:
