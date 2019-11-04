@@ -151,6 +151,11 @@ public class AddEarningsCommandTest {
         }
 
         @Override
+        void setReminder(Reminder reminder, Reminder editedReminder) {
+            throw new AssertionError("This method should not be called.");
+        };
+        
+        @Override
         public Path getAddressBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
