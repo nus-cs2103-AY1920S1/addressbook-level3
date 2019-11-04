@@ -19,6 +19,8 @@ import seedu.address.model.finance.logentry.LogEntry;
 public class RepaidCommand extends Command {
 
     public static final String COMMAND_WORD = "repaid";
+    public static final String MESSAGE_REPAID_BUDGET =
+            "This budget has already been marked repaid in the finance log.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the log entry identified by the index number used "
@@ -54,6 +56,13 @@ public class RepaidCommand extends Command {
 
         assert logEntryToMarkRepaid instanceof BorrowLogEntry
                || logEntryToMarkRepaid instanceof LendLogEntry;
+
+        if (isBorrowLogEntryType && ((BorrowLogEntry) logEntryToMarkRepaid).isRepaid()) {
+            throw new CommandException(MESSAGE_REPAID_BUDGET);
+        }
+        if (isLendLogEntryType && ((LendLogEntry) logEntryToMarkRepaid).isRepaid()) {
+            throw new CommandException(MESSAGE_REPAID_BUDGET);
+        }
 
         model.markLogEntryAsRepaid(
                 isBorrowLogEntryType ? (BorrowLogEntry) logEntryToMarkRepaid
