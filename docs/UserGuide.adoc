@@ -303,6 +303,9 @@ image::HelpCommand.png[width="600"]
 . The result box will display the message:
 +
 Opened help window.
++
+image::HelpCommandBox.png[width="600"]
++
 
 . A help window with all the commands will also be displayed:
 +
@@ -327,7 +330,7 @@ image::StatsCommandBox.png[width="600"]
 
 . A window will appear, displaying 3 charts:
 +
-image::Charts.png[width="600"]
+image::StatsWindow.png[width="800"]
 +
 
 Starting from the left, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
