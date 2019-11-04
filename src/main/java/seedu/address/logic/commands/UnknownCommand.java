@@ -10,13 +10,15 @@ public class UnknownCommand extends Command {
 
     public static final String SHOWING_UNKNOWN_MESSAGE = "%1$s: We don't know what that means. "
             + "\n"
-            + "Help us understand so we can add this to our command library for your personal usage. "
+            + "Help us understand so we can add this to our command library for your personal usage."
+            + "\n"
             + "Please enter what you really meant or type \"cancel\" if it was a genuine mistake.";
 
     public static final String UNKNOWN_COMMAND_USAGE = "%1$s: Sorry! We don't support mapping a full input yet "
             + "\n"
             + "Please enter ONLY the command word to continue learning your wrong command for future usage "
-            + "or type \"cancel\" if it was a genuine mistake.";
+            + "\n"
+            + "Alternatively, type \"cancel\" if it was a genuine mistake.";
 
     private final String unknown;
 

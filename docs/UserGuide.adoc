@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 
-* *`help`* : gives you a list of commands that are available.
+* *`help`* : Links you to the User Guide so you can view how to use all the available commands.
 * **`add_task c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
@@ -294,6 +294,11 @@ Format: `add n/NAME c/CLASSID`
 
 [NOTE]
 You can add multiple students at a time by separating their names with a single ','.
+
+[NOTE]
+Please also note that you can't add students with the exact same name in the same class.
+e.g. You can add "Tom" in CS2030 and CS2040 but not 2 "Tom"s in CS2030. If there are students with the same
+first name in the class, please add their last name as well.
 
 Examples:
 
