@@ -61,7 +61,7 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.getEntries().clear();
             commandTextField.getEntries().addAll(temp);
             System.out.println(commandTextField.getText());
-            System.out.println("Clearing and adding entries");
+            // System.out.println("Clearing and adding entries");
         }
     }
 

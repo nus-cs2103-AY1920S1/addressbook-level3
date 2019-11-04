@@ -71,7 +71,29 @@ public class LogicManager implements Logic {
     //=========== Autocomplete =========================================================
     @Override
     public LinkedList<String> getAutoCompleteResults(String input) {
+        if (input.endsWith("/")) {
+            int index = input.lastIndexOf(" ");
+            if (index != -1) {
+                String prefix = input.substring(index + 1);
+                return getRelevantList(prefix);
+            }
+            return new LinkedList<>();
+        }
         return trieManager.getAutoCompleteResults(input, currentContext);
+    }
+
+    @Override
+    public LinkedList<String> getRelevantList(String input) {
+        switch(input) {
+        case "c/":
+            return new LinkedList<>();
+        case "r/":
+            return new LinkedList<>();
+        case "f/":
+            return new LinkedList<>();
+        default:
+            return new LinkedList<>();
+        }
     }
 
     //=========== Customer =============================================================

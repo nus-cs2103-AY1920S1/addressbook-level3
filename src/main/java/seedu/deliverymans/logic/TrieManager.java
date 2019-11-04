@@ -143,7 +143,7 @@ class TrieManager {
         // user is typing in prefixes
         String commandWord = input.substring(0, firstSpace);
         int lastSpace = input.lastIndexOf(" ");
-        String prefixes = input.substring(lastSpace);
+        String prefixes = input.substring(lastSpace + 1);
         return autoCompletePrefix(commandWord, prefixes, context);
     }
 
