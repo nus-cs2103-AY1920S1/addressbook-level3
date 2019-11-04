@@ -116,7 +116,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #995353;
+    -fx-border-color: rgba(254, 95, 85, 0.6);
     -fx-border-width: 2;
     -fx-border-radius: 4;
 }
@@ -180,7 +180,7 @@
     -fx-background-color: #f2eeeb;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: #4f4a46;
+    -fx-text-fill: snow;
 }
 
 .result-display .label {
@@ -255,11 +255,11 @@
 }
 
 .button:hover {
-    -fx-background-color: snow;
+    -fx-background-color: #4F6367;
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
+  -fx-background-color: #4F6367;
   -fx-text-fill: white;
 }
 
@@ -316,7 +316,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #995353;
+    -fx-background-color: #4F6367;
     -fx-background-insets: 3;
 }
 
@@ -460,7 +460,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #f2eeeb;
+    -fx-background-color: #4F6367;
     -fx-background-radius: 1;
 }
 
@@ -494,14 +494,13 @@
 
 #featureMode {
     -fx-padding: 0 0 0 10;
-    -fx-text-fill: grey;
+    -fx-text-fill: snow;
     -fx-font-size: 17;
     -fx-font-family: "Microsoft Sans Serif";
 }
 
 #feature_bar {
-    -fx-background-color: linear-gradient(to left top, snow,
-    rgba(234, 181, 149, 0.67), rgba(216, 127, 129, 0.67), rgba(174, 99, 120, 0.65), rgba(121, 97, 111, 0.66));
+    -fx-background-color: #7A9E9F;
 }
 
 #summaryCard #type {
