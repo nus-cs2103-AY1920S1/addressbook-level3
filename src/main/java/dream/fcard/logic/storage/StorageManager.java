@@ -121,6 +121,16 @@ public class StorageManager {
     }
 
     /**
+     * Delete a deck.
+     * @param deck the deck to remove.
+     */
+    public static void deleteDeck(Deck deck) {
+        resolveRoot();
+        String path = FileReadWrite.resolve(root, decksSubDir + "/" + deck.getName() + ".json");
+        FileReadWrite.delete(path);
+    }
+
+    /**
      * Load all decks in storage.
      *
      * @return ArrayList of decks in storage
