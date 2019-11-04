@@ -43,9 +43,8 @@ public class EditActivityCommand extends EditCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            ": Edits the details of the activity identified "
-                    + "by the index number used in the displayed activity list. "
-                    + "Existing values will be overwritten by the input values.",
+            ": Edits the details of an activity identified "
+                    + "by it's index number in the activity list. ",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
                     + "INDEX(must be a positive integer) "
                     + "[" + PREFIX_NAME + "NAME] "

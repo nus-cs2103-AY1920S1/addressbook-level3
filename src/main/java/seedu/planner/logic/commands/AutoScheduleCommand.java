@@ -46,11 +46,11 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
-            "Generates a list of activities for specified days based on location, "
-                    + " tags and names order given by user.",
+            "Generates a schedule for specified days based on location, "
+                    + " tags and names order.",
             COMMAND_WORD + " (" + PREFIX_TAG + "TAG [START_TIME] || "
                     + PREFIX_NAME + "ACTIVITY_NAME [START_TIME])... "
-                    + "[" + PREFIX_ADDRESS + "LOCATION_OF_ACTIVITIES] "
+                    + "[" + PREFIX_ADDRESS + "LOCATION] "
                     + "[" + PREFIX_DAY + "DAY_INDEX...]",
             COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
                     + PREFIX_NAME + "Disneyland 1400 " + PREFIX_TAG + "Dining "
@@ -108,10 +108,6 @@ public class AutoScheduleCommand extends UndoableCommand {
                 List<Activity> similarActivities = getSimilarActivities(activityListByLocation, draftSchedule.get(i));
                 List<ActivityWithCount> activitiesWithCount = updateCount(similarActivities, editDays,
                         activitiesForTheDay, dayIndex);
-                for (ActivityWithCount activity : activitiesWithCount) {
-                    System.out.println(activity.getActivity().getName() + " " + activity.getCount());
-                }
-                System.out.println(" =========================================================");
                 int nextIndex = i + 1;
                 OptionalInt nextTimingIndex = getNextTimingIndex(i, timeSchedule);
                 LocalTime currentTime = timeSchedule.get(i).get();
@@ -199,7 +195,8 @@ public class AutoScheduleCommand extends UndoableCommand {
         for (Activity similarActivity : similarActivities) {
             long count = 0;
             for (int i = 0; i < lastShownDays.size(); i++) {
-                if (i != dayToEdit.getZeroBased()) {
+                int index = days.indexOf(Index.fromZeroBased(i));
+                if ((index == -1) || index < dayToEdit.getZeroBased()) {
                     count += lastShownDays.get(i).getListOfActivityWithTime()
                             .stream()
                             .filter(activityWithTime -> activityWithTime.getActivity().equals(similarActivity))
