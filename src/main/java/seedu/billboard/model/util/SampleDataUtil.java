@@ -1,6 +1,7 @@
 package seedu.billboard.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class SampleDataUtil {
                     new Amount("3.70"), new CreatedDateTime("1/1/2018"), getTagSet("thedeck")),
             new Expense(new Name("buy book"), new Description("so expensive wtf"),
                     new Amount("77.3"), new CreatedDateTime("3/05/2019"), getTagSet("coop")),
-            new Expense(new Name("bride prof"), new Description(""),
+            new Expense(new Name("bribe prof"), new Description(""),
                     new Amount("500.00"), new CreatedDateTime("31/12/2018 1200"), getTagSet("LT13")),
             new Expense(new Name("buy weed"), new Description("jk haha"),
                     new Amount("150.00"), new CreatedDateTime("10/10/2019"), getTagSet("PGP"))
@@ -38,6 +39,9 @@ public class SampleDataUtil {
         Billboard sampleBb = new Billboard();
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleBb.addExpense(sampleExpense);
+            List<String> tagNames = sampleExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+            Set<Tag> tags = sampleBb.retrieveTags(tagNames);
+            sampleBb.incrementCount(tags);
         }
         return sampleBb;
     }
