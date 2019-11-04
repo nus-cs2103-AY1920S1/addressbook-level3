@@ -13,6 +13,7 @@ import seedu.address.logic.commands.note.NoteEditCommand;
 import seedu.address.logic.commands.note.NoteListCommand;
 import seedu.address.logic.commands.note.NoteSortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.note.Priority;
 
 public class NoteCommandParserTest {
 
@@ -29,9 +30,11 @@ public class NoteCommandParserTest {
     public static final String INVALID_LIST = "  list 1";
     public static final String INVALID_SORT = "  sort 1";
     public static final String INVALID_DELETE = " delete";
+    public static final String INVALID_PRIORITY = "un marked";
     public static final String VALID_COMMAND_DEFAULT = NOTE_PREFIX + VALID_NOTE + DESC_PREFIX + VALID_DESC;
     public static final String VALID_COMMAND_PRIORITIZED = VALID_COMMAND_DEFAULT + PRIORITY_PREFIX + VALID_PRIORITY;
-    public static final String INVALID_SYNTAX_COMMAND = " not/" + VALID_NOTE + DESC_PREFIX + VALID_DESC;
+    public static final String INVALID_NOTE_SYNTAX_COMMAND = " not/" + VALID_NOTE + DESC_PREFIX + VALID_DESC;
+    public static final String INVALID_PRIORITY_COMMAND = VALID_COMMAND_DEFAULT + PRIORITY_PREFIX + INVALID_PRIORITY;
     public static final String MISSING_FIELD_COMMAND = NOTE_PREFIX + VALID_NOTE;
     public static final String EMPTY_FIELD_COMMAND = NOTE_PREFIX + DESC_PREFIX;
     public static final String EDIT_VALID = " 1" + NOTE_PREFIX + VALID_NOTE + DESC_PREFIX + VALID_DESC;
@@ -55,7 +58,13 @@ public class NoteCommandParserTest {
     public void parseCommand_addInvalidCommandPrioritized_throwsException() {
         assertThrows(ParseException.class,
             String.format(Messages.MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), () ->
-                parser.parse(INVALID_SYNTAX_COMMAND));
+                parser.parse(INVALID_NOTE_SYNTAX_COMMAND));
+    }
+
+    @Test
+    public void parseCommand_addInvalidPriority_throwsException() {
+        assertThrows(ParseException.class, Priority.INVALID_PRIORITY, () ->
+                        parser.parse(INVALID_PRIORITY_COMMAND));
     }
 
     @Test
