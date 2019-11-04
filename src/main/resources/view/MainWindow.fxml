@@ -58,7 +58,7 @@
             </padding>
             <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
-		  
+
 		  <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
