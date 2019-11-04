@@ -36,7 +36,7 @@ public class AppSettings implements ReadOnlyAppSettings {
     /**
      * Resets the existing data of this {@code AppSettings} with {@code newAppSettings}.
      */
-    public void resetData(ReadOnlyAppSettings newAppSettings) {
+    private void resetData(ReadOnlyAppSettings newAppSettings) {
         requireNonNull(newAppSettings);
         setAppSettingsFilePath(newAppSettings.getAppSettingsFilePath());
         setDefaultDifficulty(newAppSettings.getDefaultDifficulty());
@@ -50,7 +50,7 @@ public class AppSettings implements ReadOnlyAppSettings {
         return appSettingsFilePath;
     }
 
-    public void setAppSettingsFilePath(Path appSettingsFilePath) {
+    private void setAppSettingsFilePath(Path appSettingsFilePath) {
         requireNonNull(appSettingsFilePath);
         this.appSettingsFilePath = appSettingsFilePath;
     }

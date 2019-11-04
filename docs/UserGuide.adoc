@@ -212,7 +212,7 @@ E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acc
 ====
 
 === Switch Commands
-(Available in Home mode)
+(Available in all modes as long as WordBank is selected and game is not running)
 
 ==== To switch to home page: `home`
 Welcome home.
@@ -645,7 +645,7 @@ Statistics are also stored automatically.
 | Command Type | Command Keyword | Parameter(s) (if any)
 
 1.4+h| Switch Commands +
-(Available in Home mode)
+(Available in all modes as long as WordBank is selected and game is not running)
 s| `home` m|
 
 s| `open` m|
