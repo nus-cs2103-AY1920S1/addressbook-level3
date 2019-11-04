@@ -12,8 +12,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.StudyBuddyPro;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

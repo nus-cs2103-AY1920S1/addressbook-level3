@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.cheatsheet.Content;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;

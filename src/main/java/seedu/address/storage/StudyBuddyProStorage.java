@@ -33,7 +33,8 @@ public interface StudyBuddyProStorage {
      * @see #getAddressBookFilePath()
      */
     Optional<ReadOnlyStudyBuddyPro> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                    Path cheatsheetFilePath) throws DataConversionException, IOException;
+                                                    Path cheatsheetFilePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyStudyBuddyPro} to the storage.
