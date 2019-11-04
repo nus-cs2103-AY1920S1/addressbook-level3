@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -20,15 +21,21 @@ public class AliasCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newAlias_success() {
+    public void execute_createAliasUseAliasDeleteAlias_success() {
         String alias = "TEST ALIAS";
         String aliasTo = "help";
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addAlias(alias, aliasTo);
+        expectedModel.addAlias(alias.toLowerCase(), aliasTo.toLowerCase());
 
         assertCommandSuccess(new AliasCommand(alias, aliasTo), model,
-                String.format(AliasCommand.MESSAGE_SUCCESS, alias, aliasTo), expectedModel);
+                String.format(AliasCommand.MESSAGE_SUCCESS, alias.toLowerCase(), aliasTo.toLowerCase()), expectedModel);
+
+        assertTrue(model.applyAlias(alias).equals(aliasTo));
+
+        expectedModel.removeAlias(alias.toLowerCase());
+        assertCommandSuccess(new UnaliasCommand(alias), model,
+                String.format(UnaliasCommand.MESSAGE_SUCCESS, alias.toLowerCase()), expectedModel);
     }
 
     @Test

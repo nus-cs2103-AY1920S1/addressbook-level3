@@ -296,6 +296,8 @@ For both `deletevisit` and `editvisit` commands if the patient has no past recor
 
 image::UGNoRecords.png[width="790"]
 
+[[appointmentsImplementation]]
+// tag::appointments[]
 === *Appointment System*
 
 ====
@@ -370,6 +372,7 @@ image::UGApptShow.png[width="790"]
 
 Sorts the appointments in order of type, days remaining, and finally by name. +
 Format: `sort`
+// end::appointments[]
 
 === *Optimization for Command-Line Interface (CLI) Users*
 
