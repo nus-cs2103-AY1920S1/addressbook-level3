@@ -10,6 +10,7 @@ import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
+import seedu.deliverymans.model.deliveryman.Deliveryman;
 
 /**
  * Represents an Order in the application.
@@ -21,7 +22,7 @@ public class Order {
     // Identity fields
     private final Name customer;
     private final Name restaurant;
-    private final Name deliveryman;
+    private Name deliveryman;
 
     // Data fields
     private final ObservableMap<Name, Integer> foodList = FXCollections.observableHashMap();
@@ -51,6 +52,10 @@ public class Order {
 
     public Name getDeliveryman() {
         return deliveryman;
+    }
+
+    public void setDeliveryman(Name man) {
+        this.deliveryman = man;
     }
 
     /**

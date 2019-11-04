@@ -17,6 +17,7 @@ import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 
+import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -111,11 +112,12 @@ public class AddOrderCommand extends Command {
             }
         }
 
+
         // Deliveryman validity check
 
         if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
-            if (deliverymanToAdd == null) {
+            if (model.getOneAvailableDeliveryman() == null) {
                 deliverymanToAdd = toAdd.getDeliveryman();
             }
         } else {
@@ -140,9 +142,11 @@ public class AddOrderCommand extends Command {
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {}
-         */
+        } catch (NoMoreAvailableDeliverymanException nmade) {
+        }
+        */
 
+        /*
         // Instantiating the order
         Order order = new Order.OrderBuilder().setCustomer(customerToAdd.getName())
                 .setRestaurant(restaurantToAdd.getName()).setDeliveryman(deliverymanToAdd)
@@ -150,20 +154,20 @@ public class AddOrderCommand extends Command {
 
         // Setting orders to customers
         customerToAdd.addOrder(order);
-        restaurantToAdd.addOrder(order);
+        restaurantToAdd.addOrder(order); */
 
-        if (model.hasOrder(order)) {
+        if (model.hasOrder(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 
         // Adding of order into the model and printing of success message depending on adding/editing order
         if (isAddOrder) { // Add order
-            model.addOrder(order);
+            model.addOrder(toAdd);
         } else { // Edit order
             // removeOrderFromDatabases(model, orderToDelete);
-            model.setOrder(orderToDelete, order);
+            model.setOrder(orderToDelete, toAdd);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, order));
+        return new CommandResult(String.format(MESSAGE_SUCCESS_ADD, toAdd));
     }
 
     /*
