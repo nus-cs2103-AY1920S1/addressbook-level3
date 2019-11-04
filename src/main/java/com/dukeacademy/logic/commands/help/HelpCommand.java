@@ -15,7 +15,7 @@ import com.dukeacademy.model.state.ApplicationState;
 
 /**
  * Encapsulates a command used to navigate to the Help tab. Any unsaved work is automatically
- * saved before the naivgating to the Help tab.
+ * saved before navigating to the Help tab.
  */
 public class HelpCommand implements Command {
     private final Logger logger;
