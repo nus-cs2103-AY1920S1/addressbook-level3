@@ -16,6 +16,7 @@ import seedu.deliverymans.model.Model;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.customer.Customer;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
+
 import seedu.deliverymans.model.food.Food;
 import seedu.deliverymans.model.order.Order;
 import seedu.deliverymans.model.restaurant.Restaurant;
@@ -111,6 +112,7 @@ public class AddOrderCommand extends Command {
         }
 
         // Deliveryman validity check
+
         if (toAdd.getDeliveryman().fullName.equals("Unassigned")) {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             if (deliverymanToAdd == null) {
@@ -134,16 +136,12 @@ public class AddOrderCommand extends Command {
             }
         }
 
-        // Alternative: Add command wont work if no available deliveryman
         /*
         try {
             deliverymanToAdd = model.getOneAvailableDeliveryman();
             toAdd.setDeliveryman(deliverymanToAdd);
-        } catch (NoMoreAvailableDeliverymanException nmade) {
-            throw new NoMoreAvailableDeliverymanException(); // remove if you want order to be continued to be added
-        }
+        } catch (NoMoreAvailableDeliverymanException nmade) {}
          */
-
 
         // Instantiating the order
         Order order = new Order.OrderBuilder().setCustomer(customerToAdd.getName())
