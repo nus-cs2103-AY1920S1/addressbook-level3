@@ -67,7 +67,7 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         if (groupId.isEmpty() || groupId.equals("")) {
-           throw new CommandException(GROUP_ID_LEFT_EMPTY);
+            throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (model.checkGroupExists(groupId)) {
             throw new CommandException(String.format(GROUP_ALREADY_EXISTS, groupId));
@@ -95,9 +95,9 @@ public class GroupCreateManuallyCommand extends GroupCommand {
     private String generateSuccessMessage() {
         int numStudents = studentNumbers.size();
         if (numStudents == 1) {
-            return String.format(CREATED_SUCCESSFULLY_WITH_ONE,groupId,1);
+            return String.format(CREATED_SUCCESSFULLY_WITH_ONE, groupId, 1);
         } else {
-            return String.format(CREATED_SUCCESSFULLY_WITH_MANY,groupId,numStudents);
+            return String.format(CREATED_SUCCESSFULLY_WITH_MANY, groupId, numStudents);
         }
     }
 

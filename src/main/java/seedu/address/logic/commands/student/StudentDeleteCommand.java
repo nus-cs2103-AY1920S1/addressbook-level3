@@ -61,7 +61,7 @@ public class StudentDeleteCommand extends StudentCommand {
      * @param student that has been added.
      */
     private String generateSuccessMessage(Student student) {
-        return String.format(MESSAGE_DELETE_STUDENT_SUCCESS,student);
+        return String.format(MESSAGE_DELETE_STUDENT_SUCCESS, student);
     }
 
 }

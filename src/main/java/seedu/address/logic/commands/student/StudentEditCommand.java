@@ -87,7 +87,7 @@ public class StudentEditCommand extends StudentCommand {
      * @param editedStudent students new details.
      */
     private String generateSuccessMessage(Student studentToEdit, Student editedStudent) {
-        return String.format(MESSAGE_SUCCESS,studentToEdit,editedStudent);
+        return String.format(MESSAGE_SUCCESS, studentToEdit, editedStudent);
     }
 
 

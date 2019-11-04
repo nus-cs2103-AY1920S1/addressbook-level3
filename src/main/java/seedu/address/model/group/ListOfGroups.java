@@ -1,10 +1,10 @@
 package seedu.address.model.group;
 
-import seedu.address.model.group.exceptions.DuplicateGroupException;
-import seedu.address.model.group.exceptions.GroupNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.address.model.group.exceptions.DuplicateGroupException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 /**
  * Model that represents a list of groups.
@@ -112,6 +112,7 @@ public class ListOfGroups {
 
     /**
      * Exports the group specified in the parameters of the method.
+     *
      * @param groupId Id of group to be exported
      */
     public void exportGroup(String groupId) {

@@ -1,11 +1,8 @@
 package seedu.address.logic.commands.group;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-
-import java.util.Locale;
 
 /**
  * Represents an remove student command, specific to a group.
@@ -54,7 +51,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
             throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         if (groupIndexNumber > model.getGroupSize(groupId) || groupIndexNumber < 1) {
-           throw new CommandException(INDEX_OUT_OF_BOUNDS);
+            throw new CommandException(INDEX_OUT_OF_BOUNDS);
         }
         model.removeStudentFromGroup(groupId, groupIndexNumber - 1);
         return new CommandResult(generateSuccessMessage());
@@ -66,7 +63,7 @@ public class GroupRemoveStudentCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return String.format(MESSAGE_SUCCESS,groupIndexNumber,groupId);
+        return String.format(MESSAGE_SUCCESS, groupIndexNumber, groupId);
     }
 
     @Override

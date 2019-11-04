@@ -55,7 +55,7 @@ public class GroupAddStudentCommand extends GroupCommand {
             throw new CommandException(GROUP_ID_LEFT_EMPTY);
         }
         if (!model.checkGroupExists(groupId)) {
-           throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
+            throw new CommandException(String.format(GROUP_DOES_NOT_EXIST, groupId)); //group doesn't exist
         }
         List<Student> lastShownList = model.getFilteredStudentList();
         if (studentNumber < 1 || studentNumber > lastShownList.size()) {
@@ -78,7 +78,7 @@ public class GroupAddStudentCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return String.format(MESSAGE_SUCCESS,studentNumber,groupId);
+        return String.format(MESSAGE_SUCCESS, studentNumber, groupId);
     }
 
     @Override

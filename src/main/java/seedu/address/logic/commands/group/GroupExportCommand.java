@@ -53,7 +53,7 @@ public class GroupExportCommand extends GroupCommand {
      * @return The String representation of a success message.
      */
     private String generateSuccessMessage() {
-        return String.format(MESSAGE_SUCCESS,groupId);
+        return String.format(MESSAGE_SUCCESS, groupId);
     }
 
     @Override
