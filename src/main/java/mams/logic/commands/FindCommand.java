@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 
 import mams.commons.core.Messages;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.AppealContainsKeywordsPredicate;
 import mams.model.module.ModuleContainsKeywordsPredicate;
@@ -43,7 +44,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
 
         StringBuilder response = new StringBuilder("");

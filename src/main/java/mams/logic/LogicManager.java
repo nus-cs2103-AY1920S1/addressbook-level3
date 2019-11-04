@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
             if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
                 new SaveCommand("undo").privateExecute(model);
             }
-            commandResult = command.execute(model);
+            commandResult = command.execute(model, commandHistory);
             storage.saveMams(model.getMams());
             commandHistory.add(commandText, commandResult.getFeedbackToUser(), true, new TimeStamp());
         } catch (CommandException | ParseException e) {
@@ -114,6 +114,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<InputOutput> getCommandHistory() {
         return commandHistory.getInputOutputHistory();
+    }
+
+    @Override
+    public ObservableList<InputOutput> getFilteredCommandHistory() {
+        return commandHistory.getFilteredCommandHistory();
     }
 
     @Override

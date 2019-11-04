@@ -18,7 +18,7 @@ public class HistoryCommandParserTest {
     @Test
     public void parse_hideOutput_returnsHistoryCommand() {
         assertParseSuccess(parser,
-                " " + HistoryCommandParser.PREFIX_HIDE_OUTPUT.toString(),
+                " " + HistoryCommandParser.OPTION_HIDE_OUTPUT.toString(),
                 new HistoryCommand(true));
     }
 

@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import mams.commons.core.index.Index;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -75,7 +76,7 @@ public class ViewCommand extends Command {
      * longer valid, and old command is hence no longer reusable)
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
         // Defensive check: ViewCommandParser should have ensured at least one parameter is present
         if (!params.isAtLeastOneParameterPresent()) {

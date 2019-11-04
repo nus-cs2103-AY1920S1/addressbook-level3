@@ -18,6 +18,7 @@ import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
 import mams.commons.util.CollectionUtil;
 import mams.logic.commands.exceptions.CommandException;
+import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
 
 import mams.model.student.Credits;
@@ -67,7 +68,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
         List<Student> lastShownList = model.getFilteredStudentList();
 
