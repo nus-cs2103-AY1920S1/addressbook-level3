@@ -75,14 +75,14 @@ public class MainApp extends Application {
      * or an empty fund book will be used instead if errors occur when reading {@code storage}'s fund book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyFundBook> addressBookOptional;
+        Optional<ReadOnlyFundBook> fundBookOptional;
         ReadOnlyFundBook initialData;
         try {
-            addressBookOptional = storage.readFundBook();
-            if (!addressBookOptional.isPresent()) {
+            fundBookOptional = storage.readFundBook();
+            if (!fundBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample fund book");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleFundBook);
+            initialData = fundBookOptional.orElseGet(SampleDataUtil::getSampleFundBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty fund book");
             initialData = new FundBook();
