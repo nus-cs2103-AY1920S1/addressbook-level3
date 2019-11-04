@@ -43,7 +43,9 @@ public class SampleDataUtil {
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 getTagSet("Team-3"), new Username("Agent03"), new Password("password")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("Team-3", "Admin"), new Username("Operator03"), new Password("password"))
+                getTagSet("Team-3", "Admin"), new Username("Operator03"), new Password("password")),
+            new Person(new Name("Alex Lim"), new Phone("98984545"), new Email("alexlim@example.com"),
+                    getTagSet("Team-4", "Admin"), new Username("Operator04"), new Password("password")),
         };
     }
 
@@ -53,6 +55,10 @@ public class SampleDataUtil {
         Vehicle[] sampleVehicles = getSampleVehicles();
 
         Incident[] sampleIncidents = new Incident[] {
+            new Incident(samplePersons[6], new District(2), sampleIncidentDateTimes[6],
+                    new IncidentId(sampleIncidentDateTimes[6].getMonth(), sampleIncidentDateTimes[6].getYear()),
+                    new CallerNumber("98984545"), new Description("Fight reported at District 2 intersection"),
+                    Incident.Status.COMPLETE_DRAFT, sampleVehicles[5]),
             new Incident(samplePersons[0], new District(1), sampleIncidentDateTimes[0],
                 new IncidentId(sampleIncidentDateTimes[0].getMonth(), sampleIncidentDateTimes[0].getYear()),
                 new CallerNumber("93894576"), new Description("Shoplifting reported in District 1 Mall"),
@@ -72,7 +78,11 @@ public class SampleDataUtil {
             new Incident(samplePersons[4], new District(5), sampleIncidentDateTimes[4],
                 new IncidentId(sampleIncidentDateTimes[4].getMonth(), sampleIncidentDateTimes[4].getYear()),
                 new CallerNumber("87656743"), new Description("Arson reported at District 5 warehouse"),
-                Incident.Status.COMPLETE_DRAFT, sampleVehicles[4])
+                Incident.Status.COMPLETE_DRAFT, sampleVehicles[4]),
+            new Incident(samplePersons[0], new District(6), sampleIncidentDateTimes[5],
+                    new IncidentId(sampleIncidentDateTimes[5].getMonth(), sampleIncidentDateTimes[5].getYear()),
+                    new CallerNumber("87656743"), new Description("Fire reported at District 6 warehouse"),
+                    Incident.Status.COMPLETE_DRAFT, sampleVehicles[6])
         };
 
         return sampleIncidents;
@@ -84,7 +94,9 @@ public class SampleDataUtil {
             new IncidentDateTime("2013-01-11T00:00:00"),
             new IncidentDateTime("2014-05-01T01:00:00"),
             new IncidentDateTime("2015-06-16T14:00:00"),
-            new IncidentDateTime("2016-09-01T21:00:00")
+            new IncidentDateTime("2016-09-01T21:00:00"),
+            new IncidentDateTime("2017-11-02T22:30:00"),
+            new IncidentDateTime("2016-03-22T16:30:00")
         };
     }
 
