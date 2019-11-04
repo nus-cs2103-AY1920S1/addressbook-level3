@@ -49,25 +49,25 @@ public enum Responses {
     ADD_CARD(
             RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            (i) -> {
-                ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
-                        new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
-                        i);
-                try {
-                    return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
-                } catch (DuplicateInChoicesException dicExc) {
-                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE,"There are duplicated choices!");
-                    return true;
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                            i);
+                    try {
+                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                    } catch (DuplicateInChoicesException dicExc) {
+                        Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                        return true;
+                    }
                 }
-            }
     ),
     ADD_CARD_ERROR(
             "^((?i)(add)",
             new ResponseGroup[] {ResponseGroup.DEFAULT},
-            (i) -> {
-                Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE,"Add command is invalid!");
-                return true;
-            }
+                i -> {
+                    Consumers.accept(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid!");
+                    return true;
+                }
     ),
     SEE_SPECIFIC_DECK(
             "^((?i)view)\\s+[0-9]+$",

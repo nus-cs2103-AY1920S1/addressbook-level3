@@ -79,11 +79,20 @@ public class CreateCommand extends Command {
         return false;
     }
 
-    public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State s) throws DuplicateInChoicesException {
+    /**
+     * Is used to create a FrontBack or MCQ card and adds it to the State in a specific deck
+     *
+     * @param command An ArrayList of the parsed user input.
+     * @param state The State
+     * @return A Boolean which indicates if the creation of the card was successful.
+     * @throws DuplicateInChoicesException
+     */
+    public static boolean createMcqFrontBack(ArrayList<ArrayList<String>> command, State state)
+            throws DuplicateInChoicesException {
         // Checks if deckName matches any deck in the State.
         boolean deckExistsInState = false;
         Deck currDeck = null;
-        for (Deck curr : s.getAllDecks()) {
+        for (Deck curr : state.getAllDecks()) {
             if (curr.getName().equals(command.get(0))) {
                 deckExistsInState = true;
                 currDeck = curr;
@@ -110,7 +119,7 @@ public class CreateCommand extends Command {
         }
 
         // Creates the card and adds to the State
-        if(isMcq) {
+        if (isMcq) {
             currDeck.addNewCard(CreateCommand.createMcq(command));
             return true;
         } else {
@@ -119,6 +128,13 @@ public class CreateCommand extends Command {
         }
     }
 
+    /**
+     * Used to create an MCQ card. Only used internally.
+     *
+     * @param command An ArrayList of the parsed user input
+     * @return The MCQ Card represented as a FlashCard
+     * @throws DuplicateInChoicesException
+     */
     private static FlashCard createMcq(ArrayList<ArrayList<String>> command) throws DuplicateInChoicesException {
         // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
         String front = command.get(2).get(0);
@@ -128,6 +144,12 @@ public class CreateCommand extends Command {
         return new MultipleChoiceCard(front, correctIndex, command.get(4), priority);
     }
 
+    /**
+     * Used to create a Front Back card. Only used internally.
+     *
+     * @param command
+     * @return
+     */
     private static FlashCard createFrontBack(ArrayList<ArrayList<String>> command) {
         // Order of inputs in command: "deck/", "priority/", "front/", "back/", "choice/"
         String front = command.get(2).get(0);
