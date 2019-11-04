@@ -27,8 +27,8 @@ import seedu.address.util.Prefix;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements CommandParserWithPersonModel {
-    private static final double MAX_AMOUNT_ACCEPTED = 9999;
-    private static final double MIN_AMOUNT_ACCEPTED = -9999;
+    private static final double MAX_AMOUNT_ACCEPTED = 999999.99;
+    private static final double MIN_AMOUNT_ACCEPTED = -999999.99;
     private static final double ZERO = 0.0;
 
     /**
@@ -96,9 +96,9 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
             try {
                 double amount = Double.parseDouble(argMultimap.getValue(PREFIX_AMOUNT).get());
-                if (amount > MAX_AMOUNT_ACCEPTED) {
+                if (amount >= MAX_AMOUNT_ACCEPTED) {
                     throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_LARGE);
-                } else if (amount < MIN_AMOUNT_ACCEPTED) {
+                } else if (amount <= MIN_AMOUNT_ACCEPTED) {
                     throw new ParseException(TransactionMessages.MESSAGE_AMOUNT_TOO_SMALL);
                 } else if (amount == ZERO) {
                     throw new ParseException(MESSAGE_NO_ZERO_ALLOWED);

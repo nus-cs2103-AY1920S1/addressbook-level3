@@ -134,7 +134,11 @@ public class Transaction {
                 + "\nCategory: "
                 + this.category + "\nAmount: $" + getAmountWithoutNegativeSign()
                 + "\nPaid by: " + this.person.getName();
-        return msg;
+        if (isNegative()) {
+            return "Transaction that is a SPENDING:\n" + msg;
+        } else {
+            return "Transaction that is an EARNING:\n" + msg;
+        }
     }
 
     @Override

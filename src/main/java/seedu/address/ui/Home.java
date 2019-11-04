@@ -47,11 +47,17 @@ public class Home extends UiPart<Region> {
         tableView.getItems().setAll(parseTransactionList(logic));
         tableView.setOnMouseClicked(event -> onClickedRow(tableView));
         idCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("id"));
+        idCol.setSortable(false);
         dateCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("date"));
+        dateCol.setSortable(false);
         descriptionCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("description"));
+        descriptionCol.setSortable(false);
         categoryCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("category"));
+        categoryCol.setSortable(false);
         amountCol.setCellValueFactory(new PropertyValueFactory<Transaction, Double>("amount"));
+        amountCol.setSortable(false);
         personCol.setCellValueFactory(new PropertyValueFactory<Transaction, String>("name"));
+        personCol.setSortable(false);
     }
 
     /**
@@ -70,7 +76,5 @@ public class Home extends UiPart<Region> {
         ObservableList<Transaction> obvList = FXCollections.observableList(list);
         return obvList;
     }
-
-
 
 }

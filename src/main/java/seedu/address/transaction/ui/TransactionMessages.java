@@ -52,19 +52,19 @@ public class TransactionMessages {
     public static final String MESSAGE_NO_SUCH_TRANSACTION_OF_PERSON = "Sorry! There is no such transaction of the "
             + "inputted person.";
 
-    public static final String MESSAGE_POSITIVE_TRANSACTION_EDITED = "Edited transaction that is a EARNING:\n%s";
+    public static final String MESSAGE_POSITIVE_TRANSACTION_EDITED = "Edited %s";
 
-    public static final String MESSAGE_NEGATIVE_TRANSACTION_EDITED = "Edited transaction that is a SPENDING:\n%s";
+    public static final String MESSAGE_NEGATIVE_TRANSACTION_EDITED = "Edited %s";
 
     public static final String MESSAGE_FIND_COMMAND = "I've found %s matching transactions!";
 
-    public static final String MESSAGE_ADD_POSITIVE_TRANSACTION = "Added Transaction that is an EARNING:\n%s";
+    public static final String MESSAGE_ADD_POSITIVE_TRANSACTION = "Added %s";
 
-    public static final String MESSAGE_ADD_NEGATIVE_TRANSACTION = "Added transaction that is a SPENDING:\n%s";
+    public static final String MESSAGE_ADD_NEGATIVE_TRANSACTION = "Added %s";
 
-    public static final String MESSAGE_DELETE_POSITIVE_TRANSACTION = "Deleted Transaction that is an EARNING:\n%s";
+    public static final String MESSAGE_DELETE_POSITIVE_TRANSACTION = "Deleted %s";
 
-    public static final String MESSAGE_DELETE_NEGATIVE_TRANSACTION = "Deleted Transaction that is a SPENDING:\n%s";
+    public static final String MESSAGE_DELETE_NEGATIVE_TRANSACTION = "Deleted %s";
 
     public static final String MESSAGE_DELETE_BY_PERSON = "I've deleted all transactions by this member:\n%s";
 
@@ -79,5 +79,4 @@ public class TransactionMessages {
     public static final String MESSAGE_BACKED = "Here are all the transactions.";
 
     public static final String MESSAGE_NO_ZERO_ALLOWED = "Sorry! The amount should not be zero.";
-
 }

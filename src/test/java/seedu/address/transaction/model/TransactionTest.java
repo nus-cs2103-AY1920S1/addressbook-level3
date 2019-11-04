@@ -55,7 +55,7 @@ class TransactionTest {
     @Test
     public void toStringFormat_test() {
         Transaction transaction = new TransactionBuilder(TypicalPersons.ALICE).build();
-        String msg = "Date: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
+        String msg = "Transaction that is an EARNING:\nDate: " + transaction.getDate() + "\nDescription: " + transaction.getDescription()
                 + "\nCategory: "
                 + transaction.getCategory() + "\nAmount: $" + transaction.getAmount() + "\nPaid by: "
                 + transaction.getPerson().getName().toString();
