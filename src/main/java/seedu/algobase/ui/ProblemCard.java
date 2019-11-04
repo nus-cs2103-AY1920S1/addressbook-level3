@@ -1,7 +1,5 @@
 package seedu.algobase.ui;
 
-import java.util.function.Consumer;
-import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.event.EventHandler;
@@ -100,7 +98,7 @@ public class ProblemCard extends UiPart<Region> {
         }
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
-        this.addMouseClickListener(writeOnlyTabManager.addDetailsTabConsumer(ModelType.PROBLEM));
+        this.addMouseClickListener(writeOnlyTabManager, saveStorageRunnable);
     }
 
     @Override
