@@ -50,7 +50,7 @@ class EditEventCommandTest {
     @Test
     void execute_requiredCommand_success() {
         String[] indexes = new String[]{"1", "2", "3"};
-        assertDoesNotThrow(() -> {
+        assertThrows(CommandException.class, () -> {
 
             ModelManager model = new ModelManager();
             model.addEvents(

@@ -1,6 +1,7 @@
 package seedu.address.ui.panel.calendar;
 
 import java.text.DateFormatSymbols;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.scene.layout.RowConstraints;
@@ -30,7 +31,9 @@ public class TimelineWeekView extends TimelineView {
      * @param eventTaskList Represents the current list of events and tasks.
      */
     public TimelineWeekView(CalendarDate calendarDate,
-                            List<Object> eventTaskList) {
+                            List<Object> eventTaskList,
+                            HashMap<EventSource, Integer> eventHash,
+                            HashMap<TaskSource, Integer> taskHash) {
         super(FXML);
         this.calendarDate = calendarDate;
         setTotalRows(7);
@@ -41,7 +44,7 @@ public class TimelineWeekView extends TimelineView {
         addGrids();
         addLabels(getLabels());
         addEventCardHolders();
-        onChange(eventTaskList);
+        onChange(eventTaskList, eventHash, taskHash);
     }
 
     /**
@@ -95,30 +98,30 @@ public class TimelineWeekView extends TimelineView {
     }
 
     @Override
-    void addEventCard(EventSource event) {
+    void addEventCard(EventSource event, Integer eventIndex) {
         // Creates and add the event card
-        int eventIndex = event.getStartDateTime().getWeek();
+        int eventWeekIndex = event.getStartDateTime().getWeek();
 
-        EventCard eventCard = new EventCard(event);
-        CardHolder eventCardHolder = getCardHolder().get(eventIndex - 1);
+        EventCard eventCard = new EventCard(event, eventIndex);
+        CardHolder eventCardHolder = getCardHolder().get(eventWeekIndex - 1);
         eventCardHolder.addCard(eventCard);
 
         // Set Constraints for the grid pane
-        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(eventIndex - 1);
+        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(eventWeekIndex - 1);
         updateSizeDelay(rowConstraints, eventCardHolder);
     }
 
     @Override
-    void addTaskCard(TaskSource task) {
+    void addTaskCard(TaskSource task, Integer taskIndex) {
         // Creates and add the event card
-        int taskIndex = task.getDueDate().getWeek();
+        int taskWeekIndex = task.getDueDate().getWeek();
 
         TaskCard taskCard = new TaskCard(task);
-        CardHolder eventCardHolder = getCardHolder().get(taskIndex - 1);
+        CardHolder eventCardHolder = getCardHolder().get(taskWeekIndex - 1);
         eventCardHolder.addCard(taskCard);
 
         // Set Constraints for the grid pane
-        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(taskIndex - 1);
+        RowConstraints rowConstraints = getTimelineGrid().getRowConstraints().get(taskWeekIndex - 1);
         updateSizeDelay(rowConstraints, eventCardHolder);
     }
 

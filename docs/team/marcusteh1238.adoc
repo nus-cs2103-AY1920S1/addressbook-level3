@@ -1,0 +1,130 @@
+= Teh Hao Rui Marcus - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
+
+== Project Horo - Overview
+Our group of 5 software engineering students were tasked to enhance or morph
+a basic command line interface Address Book application for our Software Engineering project.
+We chose to morph it into a personal time management helper app called **Horo**.
+
+**Horo** enables users to keep tracks of their upcoming tasks and events,
+reminding users when a deadline or event draws near,
+and users can also share their data through iCalendar (ICS) files.
+
+This is how the main page of our app looks like:
+
+.Horo's Graphical User Interface (GUI)
+image::HoroMainViewDescription.png[]
+
+n this project, my role was to design and implement the code for the export and import commands.
+The following sections illustrate these enhancements in more detail,
+including some of the relevant documentation I have added
+to the User Guide and Developer Guide in relation to these enhancements.
+
+Note the following symbols and formatting used in this document:
+
+[cols="2,5"]
+|===
+|`export`  | A grey highlight (called a mark-up) indicates that
+this is a command that can be inputted into the command line and executed by the application.|
+|===
+
+== Summary of Contributions
+This section summarizes my contributions to the team project, including coding and documentation.
+
+---
+
+_Enhancement added:_ The ability to import and export *Horo*’s Event and Task data through ICS files.
+
+- How to use it:
+    * The command `export` allows users to export *Horo*’s data into an ICS file.
+        This file will be in the same directory as the *Horo* app.
+    * The user may use the command `import <filepath>`, where `<filepath>` is the path to the ICS file,
+        or any other *Horo* save file, in order to import its data to the current app.
+- Justification:
+    * If users want to share their event details with their friends,
+        they can easily do so by exporting *Horo*’s save data, sharing the ICS file,
+        and having their friends import the save data from the file.
+- Highlights:
+    * As ICS is a widely used format for exporting and importing calendars into various calendar apps,
+        our app can also import and export data to and from other calendar apps.
+    * Although there are existing libraries for ICS files, my code is not dependant on any of them,
+        as I did not want to introduce bugs into our app, thus I wrote a custom parser that better suited our needs.
+
+_Code Contributed:_ I mainly contributed code to the “ics” package of our repository.
+    Click the link link:{repoURL}/blob/master/src/main/java/seedu/address/ics/IcsParser.java[here] for a sample of my code!
+
+_Other contributions:_
+
+- Project Management
+    * Managed the release of v1.1.
+    * Came up with the code integration workflow.
+- Documentation:
+    * Added information about the ICS package to the User Guide and Developer Guide. (Pull Requests
+        link:{repoURL}/pull/11[#11], link:{repoURL}/pull/98[#98])
+- Team:
+    * Reviewed Pull Requests with non-trivial review comments:
+        link:{repoURL}/pull/51[#51], link:{repoURL}/pull/55[#55]
+    * Reported bugs found on Horo in the Discord server.
+- Tools:
+    * Integrated Travis Continuous Integration to the team repository.
+    * Integrated a Github webhook to the team’s Discord server.
+
+== Contributions to the User Guide
+As part of the requirements, we had to update the original User Guide with instructions
+regarding how to use our new features.
+This section contains an excerpt from the User Guide showing how to use the export command.
+
+---
+
+=== iCalendar (ICS) Integration
+
+Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
+This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
+
+==== Export current calendar : `export --directory ["DIRECTORY"]`
+
+.Export Command
+image::ExportCommandScreenShot.png[]
+
+.Exported File
+image::ExportFileScreenShot.png[]
+
+{empty} +
+The `export` command exports your current calendar as an ICS file to the specified directory.
+If no directory is specified, the file will be created in the same directory as Horo.
+{empty} +
+
+Format: +
+`export` +
+`export --directory ["DIRECTORY"]`
+{empty} +
+
+Example: +
+`export --directory "C:\Users\USER_NAME\Desktop\Horo"`
+{empty} +
+
+== Contributions to the Developer Guide
+The following section shows my additions to the Horo Developer Guide for the import and export features.
+
+---
+
+=== Ics Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
+
+The ICS component is made up of two parts: ICS file importer, and ICS file exporter.
+
+The file importer makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` objects in Horo.
+
+The file exporter takes the `EventSource` objects stored in the `Model` singleton object and
+generates ICS String representations of them. Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[ICalendar Wiki Page] for more information on the specifications.
+
+
+* Can export Horo's save data as a file
+The `ICS` Component,with a `.ics` extension.
+* Can import other Horo's save data from a `.ics` file.

@@ -101,6 +101,9 @@ public class CalendarScreen extends UiPart<Region> {
             } else if (source instanceof TaskSource) {
                 TaskSource task = (TaskSource) source;
                 DateTime taskDateTime = task.getDueDate();
+                if (taskDateTime == null) {
+                    break;
+                }
                 if (calendarDate.sameMonthYear(taskDateTime.getMonth(), taskDateTime.getYear())) {
                     Integer day = taskDateTime.getDay();
                     dayIndexList.get(day - 1).addAnEvent();
