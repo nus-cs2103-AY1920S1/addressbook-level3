@@ -30,7 +30,35 @@ public class Date {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+
+        if (test.matches(VALIDATION_REGEX)) {
+            String day = test.substring(0, 2);
+            String month = test.substring(2, 4);
+            String year = test.substring(4);
+
+            if (day.equals("29") && month.equals("02")) {
+                int numYear = Integer.parseInt(year);
+
+                if (numYear % 400 == 0) {
+                    return true;
+                } else if (numYear % 100 == 0) {
+                    return false;
+                } else if (numYear % 4 == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } else {
+
+                return true;
+
+            }
+
+        }
+
+        return false;
+
     }
 
     /**
