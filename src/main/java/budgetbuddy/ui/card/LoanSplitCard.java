@@ -38,7 +38,7 @@ public class LoanSplitCard extends UiPart<Region> {
         debtor.getCreditors().entrySet().stream()
                 .sorted(Comparator.comparingLong(pa -> pa.getValue().toLong()))
                 .forEach(pa -> debts.getChildren().add(
-                        new Label(String.format("owes %s to %s", pa.getValue(), pa.getKey()))));
+                        new Label(debtor.getCreditorString(pa.getKey(), pa.getValue()))));
     }
 
     @Override

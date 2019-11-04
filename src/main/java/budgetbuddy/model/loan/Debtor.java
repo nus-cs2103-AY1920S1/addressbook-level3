@@ -33,6 +33,12 @@ public class Debtor {
         return creditors;
     }
 
+    public String getCreditorString(Person creditor, Amount amount) {
+        return debtor.getName().toString().equalsIgnoreCase("You")
+                ? String.format("owe %s %s", creditor.getName(), amount)
+                : String.format("owes %s %s", creditor.getName(), amount);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -57,7 +63,7 @@ public class Debtor {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(debtor.getName()).append("\n");
-        creditors.forEach((key, value) -> builder.append("owes ").append(key.getName()).append(" ").append(value));
+        creditors.forEach(((creditor, amount) -> builder.append(getCreditorString(creditor, amount))));
         return builder.toString();
     }
 }
