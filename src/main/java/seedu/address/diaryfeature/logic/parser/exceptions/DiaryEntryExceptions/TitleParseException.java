@@ -5,7 +5,8 @@ package seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions;
  */
 public class TitleParseException extends DiaryEntryParseException {
     private final String ERROR_MESSAGE =
-            "In particular, title can't be empty :) Have a proper title, make your memories recognisable!!!";
+            "In particular, title can't be empty. \n" +
+                    "or can't be too long (maximum of 50 characters).";
 
     /**
      *

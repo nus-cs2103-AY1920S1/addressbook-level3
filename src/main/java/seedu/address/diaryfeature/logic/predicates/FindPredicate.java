@@ -11,6 +11,10 @@ public class FindPredicate implements Predicate<DiaryEntry> {
         this.userIsLookingFor = input;
     }
 
+    private boolean checkStrings(String diary, String userInput) {
+        return diary.toLowerCase().contains(userInput.toLowerCase());
+    }
+
 
     @Override
     public boolean test(DiaryEntry diaryEntry) {
@@ -20,13 +24,12 @@ public class FindPredicate implements Predicate<DiaryEntry> {
         String memory = diaryEntry.getMemory().toString();
         String[] myHolder = new String[]{title,date,place,memory};
         for(String curr:myHolder) {
-            if (curr.toLowerCase().contains(userIsLookingFor.toLowerCase())) {
+            if(checkStrings(curr,userIsLookingFor)) {
                 return true;
             }
         }
         return false;
     }
-
 
 }
 

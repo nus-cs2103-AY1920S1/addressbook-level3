@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@Diary.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox alignment="CENTER" stylesheets="@Diary.css">
+   <VBox alignment="CENTER" prefHeight="108.0" prefWidth="122.0" stylesheets="@Diary.css">
       <children>
          <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" stylesheets="@Diary.css" text="\\$id" />
       </children>
@@ -16,7 +16,7 @@
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </opaqueInsets>
    </VBox>
-   <VBox>
+   <VBox prefHeight="108.0" prefWidth="624.0">
       <children>
          <HBox>
             <children>
@@ -52,13 +52,10 @@
          </HBox>
       </children>
    </VBox>
-   <VBox>
-      <children>
-         <ImageView fitHeight="157.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../images/travelDiary.png" />
-            </image>
-         </ImageView>
-      </children>
-   </VBox>
+   <VBox />
+   <ImageView fitHeight="105.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/travelDiary.png" />
+      </image>
+   </ImageView>
 </HBox>

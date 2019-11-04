@@ -67,7 +67,6 @@ public class DiaryBookParser {
                     return new FindCommandParser().parse(arguments);
 
                 case FindSpecificCommand.COMMAND_WORD:
-                    System.out.println("Find Specific command parser has been inititiated");
                     return new FindSpecificCommandParser().parse(arguments);
 
                 case HelpCommand.COMMAND_WORD:

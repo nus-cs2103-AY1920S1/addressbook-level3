@@ -41,6 +41,4 @@ public class SetDetailsCommand extends Command<DiaryModel> {
            return new CommandResult(MESSAGE_SUCCESS + "\n");
        }
     }
-
-
 }

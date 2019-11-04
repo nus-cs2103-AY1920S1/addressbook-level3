@@ -5,8 +5,12 @@ package seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions;
  */
 public class DateParseException extends DiaryEntryParseException {
     private final String ERROR_MESSAGE =
-            "In particular, something is wrong with your date and time! Enter it like this:\n" +
-                    "dd/mm/yyyy HHmm  EG: d/31/12/2019 2359 .";
+            "In particular, something is wrong with your date and time! " +
+                    "Note the following ranges: \n" +
+                    "Day(D): 00 - 31, Month(M): 00 - 12, Year(Y): 1980 - 2030\n"  +
+                    "Hour(H): 00 - 23 Minutes(M): 00 - 59\n" +
+                    "Enter it like this:\n" +
+                    "d/DD/MM/YYYY HHMM  EG: d/31/12/2019 2359 .";
 
     /**
      *

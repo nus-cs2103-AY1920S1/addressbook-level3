@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class DeleteCommandParser {
     private static final String DELETE_USAGE = "In particular, input your delete command like this: \n" +
-            "delete target Eg: delete 1. \n Note that the input has to be more than or equal to 1";
+            "delete {target} Eg: delete 1. \n Note that the input has to be a number and more than or equal to 1";
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
