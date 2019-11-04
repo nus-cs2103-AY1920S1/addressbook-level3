@@ -333,7 +333,7 @@ Use case ends.
 Use case resumes from step 4.
 
 // tag::configure_difficulty[]
-=== [Proposed] Configure difficulty of test set in `test`
+=== [Proposed] Configure difficulty of test set in `test` mode
 
 Currently, the user is restricted to a test set of 60% `HIGH_PRIORITY` and 40% `LOW_PRIORITY` cards in the test set.
 
@@ -341,8 +341,9 @@ In V2.0, the user should be able to configure the proportion of `HIGH_PRIORITY` 
 
 image::ConfigurePriorityFlashCardTestSetSequenceDiagram.png[]
 
-The ExamRunner will be expanded to allow the user to take in the
+The ExamRunner will be expanded to allow the user to take in the ratio of `HIGH_PRIORITY`.
 
+Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards will be done according to the ratio provided by the user.
 // end::configure_difficulty[]
 
 
