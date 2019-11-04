@@ -49,7 +49,8 @@ public class FindIncidentsCommandParser implements Parser<FindIncidentsCommand> 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_DESCRIPTION)) {
             Description descriptionKeywords = ParserUtil.parseDescription(argMultimap
                     .getValue(SEARCH_PREFIX_DESCRIPTION).get());
-            predicateArr.add(new DescriptionKeywordsPredicate(descriptionKeywords));
+            String[] descKeywordsArr = descriptionKeywords.toString().split("\\s+");
+            predicateArr.add(new DescriptionKeywordsPredicate(Arrays.asList(descKeywordsArr)));
         }
 
         if (arePrefixesPresent(argMultimap, SEARCH_PREFIX_ID)) {

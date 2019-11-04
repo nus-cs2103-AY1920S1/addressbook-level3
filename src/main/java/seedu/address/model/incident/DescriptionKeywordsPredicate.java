@@ -10,10 +10,10 @@ import seedu.address.commons.util.StringUtil;
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
 public class DescriptionKeywordsPredicate implements Predicate<Incident> {
-    private final List<String> keywords = new ArrayList<>();
+    private final List<String> keywords;
 
-    public DescriptionKeywordsPredicate(Description descriptionKeywords) {
-        this.keywords.add(descriptionKeywords.toString());
+    public DescriptionKeywordsPredicate(List<String> descriptionKeywords) {
+        this.keywords = descriptionKeywords;
     }
 
     @Override
