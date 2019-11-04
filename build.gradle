@@ -1,6 +1,6 @@
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
-// user guide available at http://gradle.org/docs/5.2.1/userguide/tutorial_java_projects.html
+// user guide available at http://gradle.org/docs/5.6.4/userguide/tutorial_java_projects.html
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -61,9 +61,9 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.9'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.9'
 
-    implementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
-    implementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
-    implementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
+    testImplementation group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
@@ -71,7 +71,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'ClerkPro_v1.3.0.jar'
+    archiveName = 'ClerkPro_v1.3.2.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
