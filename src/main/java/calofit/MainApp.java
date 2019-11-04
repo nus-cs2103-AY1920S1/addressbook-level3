@@ -2,14 +2,19 @@ package calofit;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.stage.Stage;
 
 import calofit.commons.core.Config;
 import calofit.commons.core.LogsCenter;
+import calofit.commons.core.Timer;
 import calofit.commons.core.Version;
 import calofit.commons.exceptions.DataConversionException;
 import calofit.commons.util.ConfigUtil;
@@ -51,6 +56,9 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
+    private Timer timer = new Timer(Platform::runLater);
+    private SimpleObjectProperty<LocalDateTime> nowProperty = new SimpleObjectProperty<>(LocalDateTime.now());
+
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing DishDatabase ]===========================");
@@ -68,11 +76,16 @@ public class MainApp extends Application {
 
         initLogging(config);
 
+        timer.registerPeriodic(Duration.ofSeconds(10), () -> {
+            nowProperty.set(LocalDateTime.now());
+        });
+
         model = initModelManager(storage, userPrefs);
+        model.nowProperty().bind(nowProperty);
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic);
+        ui = new UiManager(logic, timer);
     }
 
     /**
