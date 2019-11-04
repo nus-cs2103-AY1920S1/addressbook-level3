@@ -5,7 +5,6 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -59,7 +58,14 @@
                               </BarChart>
                               <ScrollPane>
                                  <content>
-                                    <PieChart fx:id="foodChart" title="Food Chart" />
+                                    <BarChart fx:id="foodChart">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis label="Quantity Consumed" side="LEFT" />
+                                      </yAxis>
+                                    </BarChart>
                                  </content>
                               </ScrollPane>
                           </items>
