@@ -37,7 +37,7 @@
             </Separator>
          <AnchorPane focusTraversable="true" prefHeight="349.0" prefWidth="1157.0" translateY="10.0">
             <children>
-               <Label layoutX="22.0" layoutY="13.0" text="Quick overview of Duke Academy commands:" textFill="#7d2277" AnchorPane.leftAnchor="22.0">
+               <Label layoutX="22.0" layoutY="-10.0" text="Quick overview of Duke Academy commands:" textFill="#7d2277" AnchorPane.leftAnchor="22.0">
                   <font>
                      <Font size="22.0" />
                   </font>
@@ -126,7 +126,7 @@
                      </Label>
                   </children>
                </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="153.0" AnchorPane.leftAnchor="22.0">
+               <TextFlow layoutX="22.0" layoutY="152.0" AnchorPane.leftAnchor="22.0">
                   <children>
                      <Label text="deletebookmark [id]">
                         <font>
@@ -162,6 +162,20 @@
                         </font>
                      </Label>
                      <Label layoutX="10.0" layoutY="10.0" text=" - Submits your solution, which will be compiled and run against test cases">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Label>
+                  </children>
+               </TextFlow>
+               <TextFlow layoutX="22.0" layoutY="35.0">
+                  <children>
+                     <Label text="help">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                     </Label>
+                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Help tab (the current tab)">
                         <font>
                            <Font size="13.0" />
                         </font>
