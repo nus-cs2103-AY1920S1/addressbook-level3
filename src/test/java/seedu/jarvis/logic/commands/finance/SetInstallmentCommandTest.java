@@ -66,7 +66,7 @@ public class SetInstallmentCommandTest {
 
         CommandResult commandResult = new SetInstallmentCommand(validInstallment).execute(modelStub);
 
-        assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING, validInstallment),
+        assertEquals(String.format(SetInstallmentCommand.MESSAGE_SUCCESS, validInstallment),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validInstallment), modelStub.installmentsAdded);
     }
@@ -90,7 +90,7 @@ public class SetInstallmentCommandTest {
         Installment installmentToAdd = new InstallmentBuilder().build();
         SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(installmentToAdd);
 
-        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING,
+        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS,
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
@@ -117,7 +117,7 @@ public class SetInstallmentCommandTest {
         Installment installmentToAdd = new InstallmentBuilder().build();
         SetInstallmentCommand setInstallmentCommand = new SetInstallmentCommand(installmentToAdd);
 
-        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS_WITH_WARNING,
+        String expectedMessage = String.format(SetInstallmentCommand.MESSAGE_SUCCESS,
                 installmentToAdd);
 
         Model expectedModel = new ModelManager(model.getCcaTracker(), model.getHistoryManager(),
