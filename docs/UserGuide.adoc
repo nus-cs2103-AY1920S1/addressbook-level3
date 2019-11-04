@@ -400,7 +400,7 @@ Examples: +
 {empty} +
 
 === UI
-The following commands are related to the changing the display of the UI.
+The following commands are related to the changing the display of the UI. UI-related commands are not affected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
 ==== Changing Screen View to Calendar View
 
@@ -541,6 +541,8 @@ When Horo posts a notification, it should appear at the bottom-right side of the
 image::PopUpScreenShot.png[]
 
 {empty} +
+
+Take note that the following commands are UI-related, and hence unaffected by the `undo` and `redo` commands (For more information, see <<Undo-Redo>>).
 
 ==== Switch notifications on
 The `notif_on` command switches notifications on. +
