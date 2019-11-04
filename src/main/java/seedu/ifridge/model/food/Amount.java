@@ -18,10 +18,7 @@ public class Amount {
             + "1. The value part should only contain digits and can have be decimal point or not.\n"
             + "2. This is followed by a unit that can have a space in between or not. \n"
             + "The unit must be one of the following: \n"
-            + "    - lbs, kgs, g, pounds, oz, L, ml, units.";
-
-    public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
-    public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
+            + "    - lbs, kg, g, oz, L, ml, units.";
 
     public static final String UNIT_TYPE_WEIGHT = "Weight";
     public static final String UNIT_TYPE_VOLUME = "Volume";
@@ -34,8 +31,12 @@ public class Amount {
     public static final String UNIT_LITRE = "L";
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
-    public static final String UNIT = "(lbs?|g|kg|oz?|L|ml|units)+";
-    public static final String VALIDATION_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL + "\\s*" + UNIT;
+
+    public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
+    public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
+    public static final String VALUE_REGEX = VALUE_BEFORE_DECIMAL + "\\.?" + VALUE_AFTER_DECIMAL;
+    public static final String UNIT_REGEX = "(lbs?|g|kg|oz?|L|ml|units)+";
+    public static final String VALIDATION_REGEX = VALUE_REGEX + "\\s*" + UNIT_REGEX; // TODO exclude 0 as valid input
 
     public static final float GRAM_TO_KG = 0.001f;
     public static final float POUND_TO_KG = 0.453592f;
@@ -47,11 +48,20 @@ public class Amount {
     public static final float KG_TO_OUNCE = 1.0f / 0.0283495f;
     public static final float LITRE_TO_MILLILITRE = 1.0f / 0.001f;
 
+    public static final float MINIMUM_USAGE_FOR_KG = 0.0001f;
+    public static final float MINIMUM_USAGE_FOR_L = 0.0001f;
+    public static final float MINIMUM_USAGE_FOR_QUANTITY = 0.1f;
+
     public static final String MESSAGE_UNIT_DOES_NOT_MATCH = "Unit does not match with the existing items";
     public static final String MESSAGE_UNIT_TYPE_DOES_NOT_MATCH = "Unit type does not match with the other items";
     public static final String MESSAGE_INVALID_RESULTANT_AMOUNT = "Amount used should not exceed "
         + "amount left in the item.";
-
+    public static final String MESSAGE_INVALID_UNIT = "Please use the following units: lbs, g, kg, oz, L, ml, units";
+    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
+            + "with the same name.";
+    public static final String MESSAGE_INVALID_AMOUNT = "Amount is invalid.\n" + MESSAGE_CONSTRAINTS;
+    public static final String MESSAGE_ZERO_AMOUNT = "Amount cannot be zero/negligible"
+            + "(at least 0.1g or 0.1ml or 0.1units).\n" + MESSAGE_CONSTRAINTS;
 
     private static Pattern p = Pattern.compile("(\\d*\\.?\\d+)(\\s*)((lbs?|g|kg|oz?|L|ml|units?)+)");
     private static Matcher m;
@@ -65,18 +75,41 @@ public class Amount {
      */
     public Amount(String amount) {
         requireNonNull(amount);
-        checkArgument(isValidAmount(amount), MESSAGE_CONSTRAINTS);
-        fullAmt = amount;
+        checkArgument(isValidAmount(amount), MESSAGE_INVALID_AMOUNT);
+
+        m = p.matcher(amount);
+        m.find();
+        String trimmedValue = m.group(1).trim();
+        String trimmedUnit = m.group(3).trim();
+
+        float floatValue = Float.parseFloat(trimmedValue);
+
+        if (floatValue == Math.round(floatValue)) {
+            fullAmt = Math.round(floatValue) + trimmedUnit;
+        } else {
+            float formattedValue = Float.parseFloat(String.format("%.2f", floatValue));
+            fullAmt = formattedValue + trimmedUnit;
+        }
     }
 
     /**
      * Tests whether an input amount is valid.
      *
-     * @param test The input amount as a {@code String}/
+     * @param test The input amount as a {@code String}.
      * @return true if the input amount is valid.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Tests whether an input unit is valid.
+     *
+     * @param test The input unit as a {@code String}.
+     * @return Returns true if the input unit is valid.
+     */
+    public boolean isValidUnit(String test) {
+        return test.matches(UNIT_REGEX);
     }
 
     /**
@@ -86,28 +119,42 @@ public class Amount {
      * @return The numerical value of the given Amount object.
      */
     public static float getValue(Amount amt) {
-        m = p.matcher(amt.toString());
-        String valueAsString = "";
-
-        m.find();
-        valueAsString = m.group(1);
-
-        return Float.valueOf(valueAsString);
+        return getValue(amt.toString());
     }
 
     /**
-     * Retrieves the unit of an {@code Amount} object, without the numerical value
+     * Retrieves the numerical value of a string amount, without the unit.
+     *
+     * @param amt The String to get the value from.
+     * @return Returns the numerical value from the input amount.
+     */
+    public static float getValue(String amt) {
+        m = p.matcher(amt);
+        m.find();
+        String value = m.group(1);
+        return Float.parseFloat(value);
+    }
+
+    /**
+     * Retrieves the unit of an {@code Amount} object, without the numerical value.
      *
      * @param amt The {@code Amount} object to get the unit from.
      * @return The unit of the Amount object in String format.
      */
     public static String getUnit(Amount amt) {
-        m = p.matcher(amt.toString());
-        String unit = "";
+        return getUnit(amt.toString());
+    }
 
+    /**
+     * Retrieves the unit of a {@code String}, without the numerical value.
+     *
+     * @param amt The {@code String} to get the unit from.
+     * @return Returns the unit from the input amount.
+     */
+    public static String getUnit(String amt) {
+        m = p.matcher(amt);
         m.find();
-        unit = m.group(3);
-
+        String unit = m.group(3);
         return unit;
     }
 
@@ -137,9 +184,10 @@ public class Amount {
      * @return The weight of the given Amount object.
      */
     public static float getAmountInKg(Amount amt) {
-        String unit = getUnit(amt);
-        float value = getValue(amt);
+        return getAmountInKg(getValue(amt), getUnit(amt));
+    }
 
+    public static float getAmountInKg(float value, String unit) {
         switch (unit) {
         case UNIT_KILOGRAM:
             return value;
@@ -173,9 +221,10 @@ public class Amount {
      * @return The volume of the given Amount object.
      */
     public static float getAmountInLitre(Amount amt) {
-        String unit = getUnit(amt);
-        float value = getValue(amt);
+        return getAmountInLitre(getValue(amt), getUnit(amt));
+    }
 
+    public static float getAmountInLitre(float value, String unit) {
         switch (unit) {
         case UNIT_LITRE:
             return value;
@@ -353,6 +402,39 @@ public class Amount {
         } else {
             resultantAmount = Float.parseFloat(String.format("%.2f", resultantAmount));
             return new Amount(resultantAmount + thisUnit);
+        }
+    }
+
+    public static boolean isEmptyAmount(Amount amt) {
+        return isEmptyAmount(getValue(amt), getUnit(amt));
+    }
+
+    /**
+     * Checks based on the value and unit, whether it is an empty amount (based on the minimum allowed in this app).
+     * @param value The value of the amount.
+     * @param unit The unit of the amount.
+     * @return Returns true if the value is zero/negligible.
+     */
+    public static boolean isEmptyAmount(float value, String unit) {
+        switch (unit) {
+        case UNIT_GRAM:
+        case UNIT_POUND:
+        case UNIT_OUNCE:
+            value = getAmountInKg(value, unit);
+            return value < MINIMUM_USAGE_FOR_KG;
+        case UNIT_KILOGRAM:
+            return value < MINIMUM_USAGE_FOR_KG;
+
+        case UNIT_MILLILITRE:
+            value = getAmountInLitre(value, unit);
+            return value < MINIMUM_USAGE_FOR_L;
+        case UNIT_LITRE:
+            return value < MINIMUM_USAGE_FOR_L;
+
+        case UNIT_QUANTITY:
+            return value < MINIMUM_USAGE_FOR_QUANTITY;
+        default:
+            return false;
         }
     }
 

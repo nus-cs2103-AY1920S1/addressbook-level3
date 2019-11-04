@@ -1,6 +1,6 @@
 package seedu.ifridge.storage;
 
-import static seedu.ifridge.testutil.TypicalGroceryItems.BENSON;
+import static seedu.ifridge.testutil.TypicalGroceryItems.SPAGHETTI;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,10 +9,10 @@ public class JsonAdaptedGroceryItemTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_AMOUNT = BENSON.getAmount().toString();
-    private static final String VALID_EXPIRY_DATE = BENSON.getExpiryDate().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = SPAGHETTI.getName().toString();
+    private static final String VALID_AMOUNT = SPAGHETTI.getAmount().toString();
+    private static final String VALID_EXPIRY_DATE = SPAGHETTI.getExpiryDate().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = SPAGHETTI.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 

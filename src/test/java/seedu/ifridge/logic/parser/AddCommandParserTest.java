@@ -1,7 +1,7 @@
 package seedu.ifridge.logic.parser;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_ORANGES;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 import org.junit.jupiter.api.Test;
@@ -43,11 +43,11 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB,
+        assertParseFailure(parser, VALID_NAME_ORANGES,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB,
+        assertParseFailure(parser, VALID_NAME_ORANGES,
                 expectedMessage);
     }
 
