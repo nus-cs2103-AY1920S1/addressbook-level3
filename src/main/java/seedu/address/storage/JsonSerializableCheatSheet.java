@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.StudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.cheatsheet.CheatSheet;
 
 /**
@@ -36,26 +36,26 @@ class JsonSerializableCheatSheet {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableCheatSheet}.
      */
-    public JsonSerializableCheatSheet(ReadOnlyAddressBook source) {
+    public JsonSerializableCheatSheet(ReadOnlyStudyBuddyPro source) {
         cheatSheets.addAll(source.getCheatSheetList().stream()
                 .map(JsonAdaptedCheatSheet::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this flashcard book into the model's {@code CheatSheet} object.
-     * @param addressBook the addressBook flashcards should be written to
+     * @param studyBuddyPro the addressBook flashcards should be written to
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType(AddressBook addressBook) throws IllegalValueException {
+    public StudyBuddyPro toModelType(StudyBuddyPro studyBuddyPro) throws IllegalValueException {
         for (JsonAdaptedCheatSheet jsonAdaptedCheatSheet : cheatSheets) {
             CheatSheet cheatSheet = jsonAdaptedCheatSheet.toModelType();
-            if (addressBook.hasCheatSheet(cheatSheet)) {
+            if (studyBuddyPro.hasCheatSheet(cheatSheet)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CHEATSHEET);
             }
-            addressBook.addCheatSheet(cheatSheet);
+            studyBuddyPro.addCheatSheet(cheatSheet);
         }
-        return addressBook;
+        return studyBuddyPro;
     }
 
 }

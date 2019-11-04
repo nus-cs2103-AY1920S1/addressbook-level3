@@ -56,7 +56,7 @@ public class EditCheatSheetCommandTest {
         showCheatSheetAtIndex(model, INDEX_FIRST_CHEATSHEET);
 
         // edit person in filtered list into a duplicate in address book
-        CheatSheet csInList = model.getAddressBook().getCheatSheetList()
+        CheatSheet csInList = model.getStudyBuddyPro().getCheatSheetList()
                 .get(INDEX_SECOND_CHEATSHEET.getZeroBased());
         EditCheatSheetCommand editCommand = new EditCheatSheetCommand(INDEX_FIRST_CHEATSHEET,
                 new EditCheatSheetDescriptorBuilder(csInList).build());
@@ -83,7 +83,7 @@ public class EditCheatSheetCommandTest {
         showCheatSheetAtIndex(model, INDEX_FIRST_CHEATSHEET);
         Index outOfBoundIndex = INDEX_SECOND_CHEATSHEET;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCheatSheetList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStudyBuddyPro().getCheatSheetList().size());
 
         EditCheatSheetCommand editCommand = new EditCheatSheetCommand(outOfBoundIndex,
                 new EditCheatSheetDescriptorBuilder().withTitle(VALID_TITLE_GEM).build());

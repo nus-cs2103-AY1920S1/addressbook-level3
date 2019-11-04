@@ -67,10 +67,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setStudyBuddyPro(ReadOnlyStudyBuddyPro studyBuddyPro);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyStudyBuddyPro getStudyBuddyPro();
 
     /** Returns an unmodifiable view of the filtered note list */
     ObservableList<Tag> getFilteredTagList();

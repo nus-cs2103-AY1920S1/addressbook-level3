@@ -12,13 +12,13 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.StudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonStudyBuddyStorage implements AddressBookStorage {
+public class JsonStudyBuddyStorage implements StudyBuddyProStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonStudyBuddyStorage.class);
 
@@ -51,7 +51,7 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+    public Optional<ReadOnlyStudyBuddyPro> readAddressBook() throws DataConversionException {
         return readAddressBook(flashcardFilePath, noteFilePath, cheatSheetFilePath);
     }
 
@@ -63,8 +63,8 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
      * @param cheatSheetFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path flashcardFilePath, Path noteFilePath,
-                                                         Path cheatSheetFilePath) throws DataConversionException {
+    public Optional<ReadOnlyStudyBuddyPro> readAddressBook(Path flashcardFilePath, Path noteFilePath,
+                                                           Path cheatSheetFilePath) throws DataConversionException {
         requireNonNull(flashcardFilePath);
         requireNonNull(noteFilePath);
         requireNonNull(cheatSheetFilePath);
@@ -79,12 +79,12 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
         if (!jsonFlashcard.isPresent() && !jsonNote.isPresent() && !jsonCheatSheet.isPresent()) {
             return Optional.empty();
         }
-        AddressBook addressBook = new AddressBook();
+        StudyBuddyPro studyBuddyPro = new StudyBuddyPro();
         try {
-            Optional.of(jsonFlashcard.get().toModelType(addressBook));
-            Optional.of(jsonNote.get().toModelType(addressBook));
-            Optional.of(jsonCheatSheet.get().toModelType(addressBook));
-            return Optional.of(addressBook);
+            Optional.of(jsonFlashcard.get().toModelType(studyBuddyPro));
+            Optional.of(jsonNote.get().toModelType(studyBuddyPro));
+            Optional.of(jsonCheatSheet.get().toModelType(studyBuddyPro));
+            return Optional.of(studyBuddyPro);
         } catch (IllegalValueException ive) {
             //Todo refactor code and create proper logger message
             //logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
@@ -93,18 +93,18 @@ public class JsonStudyBuddyStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook) throws IOException {
         saveAddressBook(addressBook, flashcardFilePath, noteFilePath, cheatSheetFilePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyStudyBuddyPro)}.
      *
      * @param flashcardFilePath location of the data. Cannot be null.
      * @param noteFilePath location of the data. Cannot be null.
      * @param cheatSheetFilePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path flashcardFilePath,
+    public void saveAddressBook(ReadOnlyStudyBuddyPro addressBook, Path flashcardFilePath,
                                 Path noteFilePath, Path cheatSheetFilePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(flashcardFilePath);

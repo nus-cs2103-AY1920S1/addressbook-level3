@@ -12,7 +12,7 @@ import seedu.address.model.StudyBuddyPro;
  * Represents a storage for {@link StudyBuddyPro}.
  */
 
-public interface AddressBookStorage {
+public interface StudyBuddyProStorage {
     // TO RENAME THE INTERFACE NAME
     /**
      * Returns the file path of the data file.

@@ -11,7 +11,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.GlobalCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.StudyBuddyPro;
 import seedu.address.model.Model;
 
 /**
@@ -36,26 +36,26 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        AddressBook newStudyBuddyBook = new AddressBook();
+        StudyBuddyPro newStudyBuddyBook = new StudyBuddyPro();
 
         if (!isGlobal) {
             switch (LogicManager.getMode()) {
             case CHEATSHEET:
                 newStudyBuddyBook.setCheatSheets(new ArrayList<>());
-                newStudyBuddyBook.setNotes(model.getAddressBook().getNoteList());
-                newStudyBuddyBook.setFlashcards(model.getAddressBook().getFlashcardList());
+                newStudyBuddyBook.setNotes(model.getStudyBuddyPro().getNoteList());
+                newStudyBuddyBook.setFlashcards(model.getStudyBuddyPro().getFlashcardList());
                 break;
 
             case FLASHCARD:
-                newStudyBuddyBook.setCheatSheets(model.getAddressBook().getCheatSheetList());
-                newStudyBuddyBook.setNotes(model.getAddressBook().getNoteList());
+                newStudyBuddyBook.setCheatSheets(model.getStudyBuddyPro().getCheatSheetList());
+                newStudyBuddyBook.setNotes(model.getStudyBuddyPro().getNoteList());
                 newStudyBuddyBook.setFlashcards(new ArrayList<>());
                 break;
 
             case NOTE:
-                newStudyBuddyBook.setCheatSheets(model.getAddressBook().getCheatSheetList());
+                newStudyBuddyBook.setCheatSheets(model.getStudyBuddyPro().getCheatSheetList());
                 newStudyBuddyBook.setNotes(new ArrayList<>());
-                newStudyBuddyBook.setFlashcards(model.getAddressBook().getFlashcardList());
+                newStudyBuddyBook.setFlashcards(model.getStudyBuddyPro().getFlashcardList());
                 break;
 
             default:
@@ -64,7 +64,7 @@ public class ClearCommand extends Command {
             }
         }
 
-        model.setAddressBook(newStudyBuddyBook);
+        model.setStudyBuddyPro(newStudyBuddyBook);
 
         return isGlobal
             ? new GlobalCommandResult(MESSAGE_SUCCESS + "the entire StudyBuddy book!")

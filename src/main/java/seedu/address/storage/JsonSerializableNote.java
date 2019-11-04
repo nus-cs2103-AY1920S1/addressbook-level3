@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.StudyBuddyPro;
+import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.note.Note;
 
 /**
@@ -36,26 +36,26 @@ class JsonSerializableNote {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableNote}.
      */
-    public JsonSerializableNote(ReadOnlyAddressBook source) {
+    public JsonSerializableNote(ReadOnlyStudyBuddyPro source) {
         notes.addAll(source.getNoteList().stream()
                 .map(JsonAdaptedNote::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this note book into the model's {@code Note} object.
-     * @param addressBook the addressBook notes should be written to
+     * @param studyBuddyPro the addressBook notes should be written to
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType(AddressBook addressBook) throws IllegalValueException {
+    public StudyBuddyPro toModelType(StudyBuddyPro studyBuddyPro) throws IllegalValueException {
         for (JsonAdaptedNote jsonAdaptedNote : notes) {
             Note note = jsonAdaptedNote.toModelType();
-            if (addressBook.hasNote(note)) {
+            if (studyBuddyPro.hasNote(note)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_NOTE);
             }
-            addressBook.addNote(note);
+            studyBuddyPro.addNote(note);
         }
-        return addressBook;
+        return studyBuddyPro;
     }
 
 }

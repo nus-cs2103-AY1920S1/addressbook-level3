@@ -34,7 +34,7 @@ public class DeleteCheatSheetCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CHEATSHEET;
         // ensures that outOfBoundIndex is still in bounds of studybuddy book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCheatSheetList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getStudyBuddyPro().getCheatSheetList().size());
 
         DeleteCheatSheetCommand deleteCommand = new DeleteCheatSheetCommand(outOfBoundIndex);
 

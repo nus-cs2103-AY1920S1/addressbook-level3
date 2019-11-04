@@ -21,7 +21,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
 
     private final UniquePersonList persons;
 
@@ -52,12 +52,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public StudyBuddyPro() {}
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public StudyBuddyPro(ReadOnlyStudyBuddyPro toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -65,7 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyStudyBuddyPro newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -77,8 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof StudyBuddyPro // instanceof handles nulls
+                && persons.equals(((StudyBuddyPro) other).persons));
     }
 
     @Override
