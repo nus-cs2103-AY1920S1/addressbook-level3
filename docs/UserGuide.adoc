@@ -421,6 +421,7 @@ be reported.*)
 
 // end::yida-game[]
 
+// tag::paulsettings[]
 === Settings Mode & Commands image:settings_mode_icon.png[width="27"]
 
 Goes into the settings menu. +
@@ -463,6 +464,22 @@ Changes the difficulty to low. (Timer = 15 seconds)
 Changes the difficulty to medium. (Timer = 10 seconds)
 * `difficulty high` +
 Changes the difficulty to high. (Timer = 5 seconds)
+
+==== Changing Avatar : `avatar`
+
+Changes the avatar in the home screen. The avatar is one of the 151 original pokemon, so pick and choose! (There is a secret avatar as well. See if you can find it!) +
+Format: `avatar [0 - 151]` +
+`avatar 0` sets the avatars to random.
+
+Examples:
+
+* `avatar 0` +
+Changes the avatar to a random one everytime a new command is called.
+* `avatar 1` +
+Changes the avatar to 001 in the original Pokedex, which is Bulbasaur.
+* `avatar 151` +
+Changes the avatar to 151 in the original Pokedex, which is Mew.
+// end::paulsettings[]
 
 // tag::statsjason[]
 == Statistics

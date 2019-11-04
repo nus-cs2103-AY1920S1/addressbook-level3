@@ -24,7 +24,8 @@ public class AvatarCommand extends SettingsCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.setAvatarId(this.avatarId);
-        return new CommandResult("Avatar now set to: " + (avatarId == 0 ? "RANDOM" : avatarId));
+        return new CommandResult("Avatar now set to: " + (avatarId == 0 ? "RANDOM" : avatarId)
+        + ". Go back to the home screen to check out your new avatar!");
     }
 
     @Override

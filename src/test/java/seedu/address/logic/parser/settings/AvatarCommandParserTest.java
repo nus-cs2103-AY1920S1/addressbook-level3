@@ -37,9 +37,9 @@ public class AvatarCommandParserTest {
 
     @Test
     public void parse_easterEgg_success() throws ParseException {
-        String easterEgg = "29126";
-        AvatarCommand avatar29126 = new AvatarCommand(29126);
-        assertEquals(avatar29126, parser.parse(easterEgg));
+        String easterEgg = "2103";
+        AvatarCommand avatar2103 = new AvatarCommand(2103);
+        assertEquals(avatar2103, parser.parse(easterEgg));
     }
 
 }

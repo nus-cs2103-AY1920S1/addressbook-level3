@@ -9,7 +9,10 @@ import seedu.address.model.Model;
  */
 public class SwitchToHomeCommand extends SwitchCommand {
     public static final String COMMAND_WORD = "home";
-    public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Going home page as requested";
+    public static final String MESSAGE_HOME_ACKNOWLEDGEMENT = "Going home page as requested\n"
+            + "Create or select a bank:\n"
+            + "Eg. create mybank\n"
+            + "Eg. select sample";;
 
     public ModeEnum getNewMode(ModeEnum old) {
         return ModeEnum.HOME;
