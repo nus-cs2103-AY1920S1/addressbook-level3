@@ -125,6 +125,9 @@ class TrieManager {
         restaurantTrie.insertCommand(command);
     }
 
+    /**
+     * TO fill
+     */
     private void insertCommandToAllTries(String command, String[] prefixes) {
         universalTrie.insertCommand(command, prefixes);
         customerTrie.insertCommand(command, prefixes);
@@ -147,6 +150,9 @@ class TrieManager {
         return autoCompletePrefix(commandWord, prefixes, context);
     }
 
+    /**
+     * TO fill
+     */
     private LinkedList<String> autocompleteCommandWord(String input, Context context) {
         switch (context) {
         case CUSTOMER:
@@ -160,6 +166,9 @@ class TrieManager {
         }
     }
 
+    /**
+     * TO fill
+     */
     private LinkedList<String> autoCompletePrefix(String commandWord, String prefixes, Context context) {
         switch (context) {
         case CUSTOMER:

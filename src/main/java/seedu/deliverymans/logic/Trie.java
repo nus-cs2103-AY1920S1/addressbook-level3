@@ -18,10 +18,16 @@ class Trie {
         children = new HashMap<>();
     }
 
+    /**
+     * TO fill
+     */
     void insertCommand(String key, String... prefixes) {
         insertCommand(key, key, prefixes);
     }
 
+    /**
+     * TO fill
+     */
     void insertCommand(String key) {
         insertCommand(key, key, new String[0]);
     }
@@ -50,12 +56,18 @@ class Trie {
         }
     }
 
+    /**
+     * TO fill
+     */
     private void insertPrefixes(String... prefixes) {
         for (String prefix : prefixes) {
             insertPrefix(prefix);
         }
     }
 
+    /**
+     * TO fill
+     */
     private void insertPrefix(String prefix) {
         Trie curr = this;
         char[] cArray = prefix.toCharArray();
@@ -75,6 +87,9 @@ class Trie {
         }
     }
 
+    /**
+     * TO fill
+     */
     private void addContent(String content) {
         this.contentList.addLast(content);
     }
