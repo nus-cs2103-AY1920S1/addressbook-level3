@@ -58,7 +58,7 @@ public class EditTagCommand extends Command {
         Tag editedTag = createEditedTag(tagToEdit, name);
 
         if (!tagToEdit.isSameTag(editedTag) && model.hasTag(editedTag)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, tagToEdit.getName()));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, name));
         }
 
         model.setTag(tagToEdit, editedTag);
