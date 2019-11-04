@@ -139,6 +139,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return userPrefs.equals(other.userPrefs)
+                && filteredUserList.equals(other.filteredUserList)
+                && filteredFoodList.equals(other.filteredFoodList)
                 && filteredRecordList.equals(other.filteredRecordList)
                 && averageMap.equals(other.averageMap);
     }
