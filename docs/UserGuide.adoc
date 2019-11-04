@@ -482,7 +482,7 @@ Changes the avatar to 151 in the original Pokedex, which is Mew.
 // end::paulsettings[]
 
 // tag::statsjason[]
-== Statistics
+== Statistics image:statistics-icon.png[width="32"]
 This section covers the statistics shown to the user.
 
 === Game Result
@@ -494,7 +494,7 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 .Game Result UI.
 image::annotated_game_results_ui.png[]
 
-=== Word Bank Statistics
+=== WordBank Statistics
 The word bank statistics is shown on open mode and contains all information of the word bank.
 
 .Wordbank Statistics UI.
@@ -537,72 +537,72 @@ image::ParserManagerActivityDiagram.PNG[]
 == Command Summary
 
 |===
-| Type of command | Command name | Parameters
+| Command Purpose | Command Keyword | Parameter(s) (if any)
 
-1.6+h| Word Bank Command
-s| help |
+1.6+h| *Manipulating WordBanks*
+s| `help` |
 
-s| select m| WORD_BANK
+s| `select` m| WORD_BANK
 
-s| create m| WORD_BANK
+s| `create` m| WORD_BANK
 
-s| remove m| WORD_BANK
+s| `remove` m| WORD_BANK
 
-s| import m| w/WORD_BANK f/FILE_PATH
+s| `import` m| w/WORD_BANK f/FILE_PATH
 
-s| export m| w/WORD_BANK f/FILE_PATH
-
-3.1+|
-3.1+|
-
-1.7+h| Card Command
-s| list m|
-
-s| add m| w/WORD_BANK m/meaning [t/TAG]
-
-s| edit m| INDEX w/WORD_BANK m/meaning [t/TAG]
-
-s| delete m| INDEX
-
-s| find m|
-
-s| clear m|
-
-s| exit m|
+s| `export` m| w/WORD_BANK f/FILE_PATH
 
 3.1+|
 3.1+|
 
-1.3+h| Game Command
-s| guess m| ANSWER
+1.7+h| *Manipulating Cards*
+s| `list` m|
 
-s| skip m|
+s| `add` m| w/WORD_BANK m/meaning [t/TAG]
 
-s| stop m|
+s| `edit` m| INDEX w/WORD_BANK m/meaning [t/TAG]
 
-3.1+|
-3.1+|
+s| `delete` m| INDEX
 
-1.4+h| Settings Command
-s| difficulty m| EASY/NORMAL/HARD
+s| `find` m| KEYWORD [ADDITIONAL_KEYWORDS]
 
-s| theme m| DARK/LIGHT
+s| `clear` m|
 
-s| hints m| ON/OFF
-
-s| avatar m| INT
+s| `exit` m|
 
 3.1+|
 3.1+|
 
-1.4+h| Switch Command
-s| home m|
+1.3+h| *Playing Game*
+s| `guess` m| ANSWER
 
-s| open m|
+s| `skip` m|
 
-s| start m| [DIFFICULTY]
+s| `stop` m|
 
-s| setting m|
+3.1+|
+3.1+|
+
+1.4+h| *Manipulating Settings*
+s| `difficulty` m| EASY/NORMAL/HARD
+
+s| `theme` m| DARK/LIGHT
+
+s| `hints` m| ON/OFF
+
+s| `avatar` m| INDEX_OF_AVATAR
+
+3.1+|
+3.1+|
+
+1.4+h| *Switching Modes*
+s| `home` m|
+
+s| `open` m|
+
+s| `start` m| [EASY/MEDIUM/HARD]
+
+s| `setting` m|
 
 |===
 
@@ -611,6 +611,8 @@ s| setting m|
 == Upcoming Features
 
 // tag::dataencryption[]
+
+// tag::version-2.0[]
 === Leaderboard `[coming in v2.0]`
 
 View and compare your statistics with peers on the internet.
@@ -618,4 +620,10 @@ View and compare your statistics with peers on the internet.
 === User profiles `[coming in v2.0]`
 
 Have more than one account to monitor statistics on the same computer
+
+=== Customizable Difficulty `[coming in v2.0]`
+
+Create your own difficulties with customized time durations.
+// end::version-2.0[]
+
 // end::dataencryption[]
