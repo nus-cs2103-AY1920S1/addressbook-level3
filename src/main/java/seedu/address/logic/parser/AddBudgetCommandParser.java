@@ -13,13 +13,13 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Period;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Period;
 import seedu.address.model.tag.Tag;
 
 /**

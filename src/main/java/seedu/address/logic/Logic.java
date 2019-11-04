@@ -8,11 +8,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Wish;
+import seedu.address.model.ReadOnlyGuiltTrip;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
@@ -32,11 +32,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the GuiltTrip.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyGuiltTrip getAddressBook();
 
     DoubleProperty getTotalExpenseForPeriod();
 

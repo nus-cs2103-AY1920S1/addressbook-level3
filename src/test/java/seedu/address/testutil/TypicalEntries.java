@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Entry;
+import seedu.address.model.GuiltTrip;
+import seedu.address.model.entry.Entry;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -23,10 +23,10 @@ public class TypicalEntries {
     } // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code GuiltTrip} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook(true);
+    public static GuiltTrip getTypicalAddressBook() {
+        GuiltTrip ab = new GuiltTrip(true);
         for (Entry entry : getTypicalEntries()) {
             ab.addEntry(entry);
         }

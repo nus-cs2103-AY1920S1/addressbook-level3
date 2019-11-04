@@ -17,8 +17,8 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.Description;
 import seedu.address.model.reminders.Reminder;
 
 /**

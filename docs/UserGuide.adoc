@@ -56,38 +56,140 @@ a parameter which can be used as `n/mala at deck`.
 * Items in square brackets are optional e.g `n/NAME [tg/TAG]` can be used as `n/mala at deck tg/mala` or as `n/mala at deck`.
 ====
 
+=== Categories
+Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income. Wishes and Budgets share the same category as Expense.
+
+==== Adding Category : `addCategory`
+
+Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
+
+Format: `addCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the new addition is under.
+* `<category name>`: The name of the new Category.
+
+Example Usage:
+[start = 1]
+. If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
+. The new category will thus be added to guiltTrip. You can verify it using listCategories.
+
+Other Examples:
+
+* `addCategory cat/Expense n/Transport`
+* `addCategory cat/Income n/Lottery`
+
+===== Editing Category : `editCategory`
+Edits a current category's description.
+
+Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
+
+* `<category type>`: The type of Category that the edited Category is under.
+* `<old category name>`: The original name of this Category.
+* `<new category name>`: The new name of this Category.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory o/Business n/Bursary`.
+. The old category will thus be edited in guiltTrip. All existing entries will also be renamed as shown below.
+
+Other Examples:
+
+* `editCategory cat/Income o/Business n/HotelManagement`
+* `editCategory cat/Expense o/Family n/Pets`
+
+==== Listing Categories : `listCategories`
+
+Lists all the current categories the user has.
+
+Format: `listCategories`
+
+Example: `listCategories`
+
+==== Deleting Category : `deleteCategory`
+Deletes a category from guiltTrip. The category that is deleted should not have any entries under it. It must also already exist in guiltTrip.
+
+Format: `deleteCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the deleted Category is under.
+* `<category name>`: The name of the deleted Category.
+
+Example Usage:
+[start = 1]
+. If you would like to remove an existing Category *Food* under Expense, type `deleteCategory cat/Expense n/Food`
+. The old category will thus be deleted from guiltTrip. You can verify that it is removed using `listCategories`.
+
+Other Examples:
+* `deleteCategory cat/Income n/Business`
+* `deleteCategory cat/Expense n/Food`
+
 === Expenses and Income
+Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
 
 ==== Adding Expense: `add`
-Adds a new expenditure to your total/daily/weekly/monthly spending with current timestamp.
+Adds a new expenditure to your total spending.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
 in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
+Format: `add cat/<category name> typ/Expense n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
-Examples:
+* `<category name>`: The `category` that the entry belongs to.
+* `typ/Expense`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
+* `<description>`: The name of this entry.
+* `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
+* `<date>`: The date of this expense.
+* `<tag>`: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
 
-* `add cat/Food typ/Expense n/Mala amt/5.50 d/2019 09 09 tg/food tg/indulgence`
+Example Usage:
+[start = 1]
+. If you would like to add a record of a recent splurging on mala, key in the command  `add cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
+. You should see the new expense being added into in the list of entries as displayed below.
+
+Other examples:
+
+* `add cat/Gifts typ/Expense n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
 * `add cat/Travel typ/Expense n/Travel To Alaska amt/550000 d/2019 09 09`
 
 ==== Adding Income : `add`
-Adds a new Income to your total/daily/weekly/monthly spending with current timestamp.
+Adds a new Income to your total income.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `add typ/Income cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
+Format: `add cat/<category name> typ/Income n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
-Examples:
+* `<category name>`: The `category` that the entry belongs to.
+* `typ/Income`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
+* `<description>`: The name of this entry.
+* `<expenditure>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a recent Income from a bursary, key in the command  `add cat/Gifts typ/Income n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
+. You should see the new income being added into in the list of entries as displayed below.
+
+Other examples:
 
 * `add cat/Gifts typ/Income n/Durian amt/200.00 d/2019 09 09 tg/food`
-* `add cat/Business typ/Income n/business Trip To Mars amt/20000.00 d/2019 09 09`
+* `add cat/Business typ/Income n/Business Trip To Mars amt/20000.00 d/2019 09 09`
 
 ==== Editing a expense/income: `edit`
 
-Edits a current entry with the given index number. Category must already exist in the list of category.
+Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
+
 
 Format: `edit <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
 
-Examples:
+* `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
+* You can update any of the fields of the entry. But you must at least edit one field.
+
+Example Usage:
+
+[start = 1]
+. If you would like to edit a recent Expense's tag, whereby the expense is located at index 2 as shown below,
+key in the command  `edit 2 tg/irreversiblecatastrophicdestructiontomykidneysandhealth`.
+. You should see the new expense being edited in the list of entries as displayed below.
+
+Other Examples:
 
 * `edit 1 cat/Food n/deck mala with friends`
 * `edit 3 cat/Business n/Selling Coding Services amt/0.01`
@@ -99,10 +201,22 @@ Deletes the recorded expenditure with the given index number.
 
 Format: `delete <index>`
 
-Examples:
+* `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
+* You can update any of the fields of the entry. But you must at least edit one field.
+
+Example Usage:
+
+[start = 1]
+. If you would like to delete an expense, whereby the expense is located at index 2 as shown below,
+key in the command  `delete 2`.
+. You should see the expense being deleted in the list of entries as displayed below.
+
+Other Examples:
 
 * `delete 2`
 * `delete 4`
+
+=== AutoExpense
 
 ==== Adding AutoExpense : `addAutoExp`
 
@@ -139,6 +253,7 @@ Format: `deleteAutoExp <index>`
 This command only deletes the AutoExpense and stops future generation of such Expenses.
 A `--recursive` flag will be shipped in `v2.0`.
 
+=== Budget
 ==== Adding Budget : `addBudget`
 
 Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
@@ -178,45 +293,7 @@ Format: `deleteBudget <index>`
 
 Example: `deleteBudget 2`
 
-==== Adding Category : `addCategory`
-
-Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
-
-Format: `addCategory cat/<category> n/<category name>`
-
-Examples:
-
-* `addCategory cat/Expense n/Transport`
-* `addCategory cat/Income n/Lottery`
-
-==== Editing Category : `editCategory`
-Edits a current category's description.
-
-Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
-
-Examples:
-
-* `editCategory cat/Income o/Business n/HotelManagement`
-* `editCategory cat/Expense o/Family n/Baby Planning`
-
-==== Listing Categories : `listCategories`
-
-Lists all the current categories the user has.
-
-Format: `listCategories`
-
-Example: `listCategories`
-
-==== Deleting Category : `deleteCategory`
-Deletes a category from guiltTrip. The category that is deleted should not have any entries under it.
-
-Format: `deleteCategory cat/<category type> n/<category name>`
-
-Examples:
-
-* `deleteCategory cat/Income n/Business`
-* `deleteCategory cat/Expense n/Food`
-
+=== Loan [coming in v2.0]
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
 
@@ -261,40 +338,94 @@ Example: `payLoan 1 amt/4000`
 
 === Statistics
 
-==== Switching to Statistics View : `switch`
-Switches between the entry view and the statistics summary.
+==== Switching to Statistics Table View : `viewTable`
+Switches to the statistics table view. By default, `viewTable` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
+Carrying out any other command in the Statistics Table screen will reset the Table to show the current month
+statistics for convenience of the user.
 
-Format: `switch`
+Format: `viewTable [p/<RangeOfMonths>]`
 
-Example: `switch`
+* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`.
 
-==== Switching to Statistics View : `switchStats`
-Switches between the statistics table view and the statistics pie charts view.
+Example Usage:
 
-Format: `switchStats`
+[start = 1]
+. Let's say you want to view the Statistics in table form for period *2018/01* to *2019/12*. You then type in the command `viewTable p/2018-01,2019-12`.
+. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
 
-Example: `switchStats`
+Other Examples:
 
-==== Viewing Statistics : `viewStatistics`
-View past expenditure/income by month. If there is no input, pie charts will display the statistics for current month
-only.
+* `viewTable p/2018-09`
+* `viewTable`
 
-Format: `viewStatistics [p/<date>]`
+==== Switching to Statistics Pie Chart View : `viewPie`
+Switches to the statistics table view. By default, `viewPie` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
+Carrying out any other command in the Statistics Pie Chart screen will reset the Pie Chart to show the current month
+statistics for convenience of the user.
 
-Examples:
+Format: `viewPie [p/<RangeOfMonths>]`
 
-* `viewStatistics`
-* `viewStatistics p/2019-09`
-* `viewStatistics p/2000-09,2019-09`
+* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`.
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the Statistics in pie chart form for period *2018/01* to *2019/12*. You then type in the command `viewPie p/2018-01,2019-12`.
+. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+
+Other Examples:
+
+* `viewPie p/2018-09`
+* `viewPie`
+
+==== Switching to Statistics Bar Chart View : `viewBar`
+Switches to the statistics table view. By default, `viewBar` will show the current month statistics.
+Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by day by the specified month.
+Carrying out any other command in the Statistics Bar Chart screen will reset the Bar Chart to show the current month
+statistics for convenience of the user.
+
+Format: `viewPie [p/<SpecifiedMonth>]`
+
+* `<SpecifiedMonth>`: The month and year in which you want to display the data by. It must be in the format `[yyyy mm]` with no dates and does not allow a range of months.
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the Statistics in bar chart form for period *2018/01*. You then type in the command `viewPie p/2018-01`.
+. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+
+Other Examples:
+
+* `viewBar p/2018-09`
+* `viewBar`
+
+==== Switching to Entry View : `viewEntry`
+Switches back to the default view which contains the list of entries.
+
+Format: `viewEntry`
+
+Example Usage:
+
+* `viewEntry`
 
 ==== Sorting : `sort`
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
-`tags` and `category`,
-and SortSequence which can be in `ascending`, `descending` order.
+`tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
 Format: `sort typ/<sort type> s/<sort sequence>`
 
-Example:
+* `<sort type>`: The type to sort the entries by. The default order or sorting is by `time`, followed by `amount`, `description`, `category` and finally `tags`.
+* `<sort sequence>`: The type of sequence to sort the entries by.
+
+Example Usage:
+
+[start = 1]
+. Let's say you want to view the entries sorted by Category in ascending order. You then type `sort typ/Category s/ascending`
+. GuiltTrip will display to you the entries sorted by Category in the proper order as shown below.
+
+Other Examples:
 
 * `sort typ/amount s/ascending`
 * `sort typ/category s/descending`

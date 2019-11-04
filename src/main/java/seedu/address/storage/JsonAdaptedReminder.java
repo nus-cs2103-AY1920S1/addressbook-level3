@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Description;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.storage.conditions.JsonAdaptedCondition;

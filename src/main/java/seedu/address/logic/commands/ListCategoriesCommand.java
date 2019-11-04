@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.Category;
+import seedu.address.model.entry.Category;
 
 /**
  * Lists the available Categories in guiltTrip.

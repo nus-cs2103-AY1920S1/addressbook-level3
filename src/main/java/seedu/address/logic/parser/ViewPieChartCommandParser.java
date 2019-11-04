@@ -9,7 +9,7 @@ import java.util.List;
 import seedu.address.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.address.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Date;
+import seedu.address.model.entry.Date;
 
 /**
  * Parses input arguments and creates a new ViewPieChartCommand object

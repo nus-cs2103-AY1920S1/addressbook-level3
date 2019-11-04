@@ -2,8 +2,8 @@ package seedu.address.model.statistics;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Entry;
 
 /**
  * Filters out the entries that have the same category as the specified category categoryFromUser.

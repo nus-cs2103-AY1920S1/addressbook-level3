@@ -8,10 +8,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.CategoryList;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 
 /**
  * Contains the entries for the current Month in the idea.

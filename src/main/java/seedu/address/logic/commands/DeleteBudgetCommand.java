@@ -9,7 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Budget;
+import seedu.address.model.entry.Budget;
 
 /**
  * Deletes a Budget identified using its displayed index from the finance tracker.

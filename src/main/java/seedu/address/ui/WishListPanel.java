@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.Wish;
 
 /**
  * Side panel for wishes in wishlist.

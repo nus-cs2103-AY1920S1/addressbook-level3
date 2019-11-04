@@ -11,10 +11,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
+import seedu.address.model.entry.Wish;
 
 /**
  * Adds a entry to guiltTrip.

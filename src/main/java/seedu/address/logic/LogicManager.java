@@ -11,14 +11,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.GuiltTripParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Wish;
+import seedu.address.model.ReadOnlyGuiltTrip;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
@@ -35,14 +35,14 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
+    private final GuiltTripParser guiltTripParser;
     private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        guiltTripParser = new GuiltTripParser();
 
         //Set addressBookModified to true whenever the models' addressbook is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
@@ -54,7 +54,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = guiltTripParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
@@ -73,7 +73,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyGuiltTrip getAddressBook() {
         return model.getAddressBook();
     }
 

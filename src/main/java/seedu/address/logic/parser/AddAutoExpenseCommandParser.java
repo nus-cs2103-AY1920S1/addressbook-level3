@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddAutoExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Description;
+import seedu.address.model.entry.Amount;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Description;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.Frequency;
 

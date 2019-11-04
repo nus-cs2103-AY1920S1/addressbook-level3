@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
 import seedu.address.logic.commands.statisticscommands.ViewBarChartCommand;
 import seedu.address.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Date;
+import seedu.address.model.entry.Date;
 
 /**
  * Parses input arguments and creates a new ViewBarChartCommand object

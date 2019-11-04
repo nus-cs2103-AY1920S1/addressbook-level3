@@ -23,21 +23,21 @@
 //import seedu.address.logic.commands.HelpCommand;
 //import seedu.address.logic.commands.ListCommand;
 //import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.person.predicates.entries.DescriptionContainsKeywordsPredicate;
-//import seedu.address.model.person.Person;
+//import seedu.address.model.entry.predicates.entries.DescriptionContainsKeywordsPredicate;
+//import seedu.address.model.entry.Person;
 //import seedu.address.testutil.EditEntryDescriptorBuilder;
 //import seedu.address.testutil.EntryBuilder;
 //import seedu.address.testutil.PersonUtil;
 //
 //public class AddressBookParserTest {
 //
-//    private final AddressBookParser parser = new AddressBookParser();
+//    private final GuiltTripParser parser = new GuiltTripParser();
 //
 //    @Test
 //    public void parseCommand_add() throws Exception {
-//        Person person = new EntryBuilder().build();
-//        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-//        assertEquals(new AddCommand(person), command);
+//        Person entry = new EntryBuilder().build();
+//        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(entry));
+//        assertEquals(new AddCommand(entry), command);
 //    }
 //
 //    @Test
@@ -55,8 +55,8 @@
 //
 //    @Test
 //    public void parseCommand_edit() throws Exception {
-//        Person person = new EntryBuilder().build();
-//        EditPersonDescriptor descriptor = new EditEntryDescriptorBuilder(person).build();
+//        Person entry = new EntryBuilder().build();
+//        EditPersonDescriptor descriptor = new EditEntryDescriptorBuilder(entry).build();
 //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
 //                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
 //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

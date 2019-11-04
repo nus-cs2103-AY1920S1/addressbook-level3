@@ -10,7 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.person.Date;
+import seedu.address.model.entry.Date;
 
 /**
  * Obtains information about the statistics from model and displays the statistics in form of table.

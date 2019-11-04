@@ -4,7 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import seedu.address.model.person.Category;
+import seedu.address.model.entry.Category;
 
 /**
  * Contains the list of statistics by category in the categorylist.

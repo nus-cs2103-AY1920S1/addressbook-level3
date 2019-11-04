@@ -14,17 +14,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.AutoExpense;
-import seedu.address.model.person.Budget;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
-import seedu.address.model.person.SortSequence;
-import seedu.address.model.person.SortType;
-import seedu.address.model.person.Wish;
+import seedu.address.model.entry.AutoExpense;
+import seedu.address.model.entry.Budget;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.CategoryList;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
+import seedu.address.model.entry.SortSequence;
+import seedu.address.model.entry.SortType;
+import seedu.address.model.entry.Wish;
 import seedu.address.model.reminders.Reminder;
 import seedu.address.model.reminders.conditions.Condition;
 import seedu.address.model.statistics.CategoryStatistics;
@@ -52,18 +52,18 @@ public class ModelManager implements Model {
     private final SortedList<Entry> sortedEntryList;
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedGuiltTrip versionedAddressBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyGuiltTrip addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = new VersionedGuiltTrip(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         incomeCategoryList = versionedAddressBook.getIncomeCategoryList();
         expenseCategoryList = versionedAddressBook.getExpenseCategoryList();
@@ -83,7 +83,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(false), new UserPrefs());
+        this(new GuiltTrip(false), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -121,16 +121,16 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    // =========== AddressBook
+    // =========== GuiltTrip
     // ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyGuiltTrip addressBook) {
         versionedAddressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyGuiltTrip getAddressBook() {
         return versionedAddressBook;
     }
 

@@ -12,11 +12,11 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.person.Category;
-import seedu.address.model.person.CategoryList;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
+import seedu.address.model.entry.Category;
+import seedu.address.model.entry.CategoryList;
+import seedu.address.model.entry.Date;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 
 /**
  * Handles calculation of statistics.
@@ -97,6 +97,34 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
+     * Obtains the properties of this classm .
+     */
+    @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return listOfStatsForDaily;
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
+        return listOfStatsForExpense;
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
+        return listOfStatsForIncome;
+    }
+
+    @Override
+    public DoubleProperty getTotalExpenseForPeriod() {
+        return totalExpenseForPeriod;
+    }
+
+    @Override
+    public DoubleProperty getTotalIncomeForPeriod() {
+        return totalIncomeForPeriod;
+    }
+
+    /**
      * Initiates the Statistics for the listsOfCategories, and adds Listeners for the relevant ObservableLists.
      */
     private void initStats() {
@@ -150,35 +178,6 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
-     * Calculates the statistics for the current month. This statistics is to be used later in the barchart.
-     */
-    public void updateBarCharts() {
-        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
-        MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
-        this.listOfStatsForDaily.clear();
-        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
-        if (this.listOfStatsForDaily.isEmpty()) {
-            this.listOfStatsForDaily.add(new DailyStatistics(LocalDate.now(), 0.00, 0.00));
-        }
-    }
-
-    /**
-     * Calculates the statistics for the specified month or the range of periods given. This statistics is to be used
-     * later in the barchart.
-     *
-     * @param monthToShow contains the month that was specified by the user.
-     */
-    public void updateBarCharts(Date monthToShow) {
-        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
-        MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
-        this.listOfStatsForDaily.clear();
-        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
-        if (this.listOfStatsForDaily.isEmpty()) {
-            this.listOfStatsForDaily.add(new DailyStatistics(monthToShow.getDate(), 0.00, 0.00));
-        }
-    }
-
-    /**
      * Recalculates statistics for one month only.
      *
      * @param monthToCalculate the date which contains the format of what is needed to calculate.
@@ -213,10 +212,9 @@ public class StatisticsManager implements Statistics {
             if (!yearlyRecord.containsKey(i)) {
                 initRecords(i);
             }
-
             if (i == endYear) {
                 listOfMonths.addAll(calculateforSpecifiedMonths(startDate.getDate().getMonth().getValue(),
-                        endDate.getDate().getMonth().getValue(), startYear));
+                        endDate.getDate().getMonth().getValue(), i));
             } else {
                 listOfMonths.addAll(calculateforSpecifiedMonths(1, 12, i));
             }
@@ -245,30 +243,6 @@ public class StatisticsManager implements Statistics {
         return listOfMonths;
     }
 
-    @Override
-    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
-        return listOfStatsForDaily;
-    }
-
-    @Override
-    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
-        return listOfStatsForExpense;
-    }
-
-    @Override
-    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
-        return listOfStatsForIncome;
-    }
-
-    @Override
-    public DoubleProperty getTotalExpenseForPeriod() {
-        return totalExpenseForPeriod;
-    }
-
-    @Override
-    public DoubleProperty getTotalIncomeForPeriod() {
-        return totalIncomeForPeriod;
-    }
 
     /**
      * Recalculates statistics for a specific period of time.
@@ -304,5 +278,35 @@ public class StatisticsManager implements Statistics {
             totalAmountForTotalMonths = totalAmountForTotalMonths + monthToCalculate.updateListOfStats(category);
         }
         return totalAmountForTotalMonths;
+    }
+
+
+    /**
+     * Calculates the statistics for the current month. This statistics is to be used later in the barchart.
+     */
+    public void updateBarCharts() {
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(LocalDate.now().getYear());
+        MonthList monthListToCalculate = yearOfRecord.get(LocalDate.now().getMonth().getValue());
+        this.listOfStatsForDaily.clear();
+        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        if (this.listOfStatsForDaily.isEmpty()) {
+            this.listOfStatsForDaily.add(new DailyStatistics(LocalDate.now(), 0.00, 0.00));
+        }
+    }
+
+    /**
+     * Calculates the statistics for the specified month or the range of periods given. This statistics is to be used
+     * later in the barchart.
+     *
+     * @param monthToShow contains the month that was specified by the user.
+     */
+    public void updateBarCharts(Date monthToShow) {
+        ObservableMap<Integer, MonthList> yearOfRecord = yearlyRecord.get(monthToShow.getDate().getYear());
+        MonthList monthListToCalculate = yearOfRecord.get(monthToShow.getDate().getMonth().getValue());
+        this.listOfStatsForDaily.clear();
+        this.listOfStatsForDaily.addAll(monthListToCalculate.calculateBarChart());
+        if (this.listOfStatsForDaily.isEmpty()) {
+            this.listOfStatsForDaily.add(new DailyStatistics(monthToShow.getDate(), 0.00, 0.00));
+        }
     }
 }

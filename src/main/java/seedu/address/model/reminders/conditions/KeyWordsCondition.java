@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Entry;
+import seedu.address.model.entry.Entry;
 
 /**
  * Condition is met when entry description contains keywords.

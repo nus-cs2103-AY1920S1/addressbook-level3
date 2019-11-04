@@ -13,10 +13,10 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GuiltTrip;
 import seedu.address.model.Model;
-import seedu.address.model.person.Entry;
-import seedu.address.model.person.predicates.EntryContainsDescriptionPredicate;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.predicates.EntryContainsDescriptionPredicate;
 import seedu.address.testutil.EditEntryDescriptorBuilder;
 
 /**
@@ -80,22 +80,22 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the address book, filtered entry list and selected entry in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
             CommandHistory commandHistory) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        GuiltTrip expectedGuiltTrip = new GuiltTrip(actualModel.getAddressBook());
         List<Entry> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEntryList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel, commandHistory));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedGuiltTrip, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredEntryList());
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the entry at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {

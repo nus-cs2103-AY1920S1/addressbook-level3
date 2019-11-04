@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.person.Expense;
-import seedu.address.model.person.Income;
+import seedu.address.model.entry.Expense;
+import seedu.address.model.entry.Income;
 
 /**
  * Represents a SortType in the finance manager.
