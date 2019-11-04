@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
@@ -38,6 +39,9 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Mapping> PREDICATE_SHOW_ALL_MAPPINGS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -219,6 +223,18 @@ public interface Model {
 
     ObservableList<Mapping> getFilteredMappingsList();
 
+    void addMeeting(Meeting meeting);
+
+    void deleteMeeting(Meeting meeting);
+
+    boolean hasMeeting(Meeting meeting);
+
+    void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration);
+
+    ObservableList<Meeting> getFilteredMeetingList();
+
+    void updateFilteredMeetingsList(Predicate<Meeting> predicate);
+
     Statistics getStatistics();
 
     void setStatistics(Statistics newStats);
@@ -227,23 +243,23 @@ public interface Model {
 
     void redo();
 
-    void saveDashboardState();
-
     boolean canUndo();
 
     boolean canRedo();
 
     ObservableList<TasMemMapping> getFilteredTasMemMappingsList();
 
-    public ObservableList<InvMemMapping> getFilteredInvMemMappingsList();
+    ObservableList<InvMemMapping> getFilteredInvMemMappingsList();
 
     void updateFilteredMappingsList(Predicate<Mapping> predicate);
 
     void addCalendar(CalendarWrapper calendar);
 
+    void deleteCalendar(CalendarWrapper calendar);
+
     boolean hasCalendar(CalendarWrapper calendar);
 
-    void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDurationggG);
+    ObservableList<CalendarWrapper> getFilteredCalendarList();
 
     // Settings
 

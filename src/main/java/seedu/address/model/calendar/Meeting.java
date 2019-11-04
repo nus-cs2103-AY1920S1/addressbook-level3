@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.member.MemberName;
 
 public class Meeting {
@@ -39,4 +40,18 @@ public class Meeting {
     public ObservableList<MemberName> getMemberNameList() {
         return internalUnmodifiableList;
     }
+
+    public boolean isSameMeeting(Meeting other) {
+        return getStartTime().equals(other.getStartTime()) &&
+                getEndTime().equals(other.getEndTime()) &&
+                getDuration().equals(other.getDuration()) &&
+                getMemberNameList().equals(other.getMemberNameList());
+    }
+
+    @Override
+    public String toString() {
+        return DateTimeUtil.displayDateTime(startTime) + " - " +
+                DateTimeUtil.displayDateTime(endTime);
+    }
+
 }

@@ -13,12 +13,14 @@ import java.time.Duration;
 
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
+import seedu.address.logic.commands.AddMeetingCommand;
 import seedu.address.logic.commands.AddMemberCommand;
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.commands.AssignCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCalendarCommand;
 import seedu.address.logic.commands.DeleteInventoryCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
@@ -179,6 +181,9 @@ public class ProjectDashboardParser {
         case AddCalendarCommand.COMMAND_WORD:
             return new AddCalendarParser().parse(arguments);
 
+        case DeleteCalendarCommand.COMMAND_WORD:
+            return new DeleteCalendarParser().parse(arguments);
+
         case FindMeetingTimeCommand.COMMAND_WORD:
             ////Sample Duration
 //          LocalDateTime startDate = new LocalDateTime("20191028T000000Z");
@@ -189,6 +194,9 @@ public class ProjectDashboardParser {
             LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
             Duration meetingDuration = Duration.ofHours(4);
             return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
+
+        case AddMeetingCommand.COMMAND_WORD:
+            return new AddMeetingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

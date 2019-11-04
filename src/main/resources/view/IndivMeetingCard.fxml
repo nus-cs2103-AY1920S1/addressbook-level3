@@ -29,15 +29,14 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="meetingTime" styleClass="cell_big_label" text="\$first" />
-                <Label fx:id="attendance" styleClass="cell_big_label" text="Attendance: "/>
+                <Label fx:id="meetingTime" styleClass="cell_big_label" text="\$first" wrapText="true"/>
             </HBox>
             <HBox maxHeight="50.0" HBox.hgrow="ALWAYS">
                 <VBox>
                     <padding>
                         <Insets bottom="5" right="5" top="5" left="10" />
                     </padding>
-                    <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="List of Members Attending" />
+                    <Label alignment="CENTER_LEFT" styleClass="cell_big_label" text="Members Attending: " />
                     <Text fx:id="memberListDisplay" styleClass="tasks_text"/>
                 </VBox>
             </HBox>

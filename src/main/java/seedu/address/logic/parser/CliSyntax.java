@@ -25,4 +25,7 @@ public class CliSyntax {
 
     /*Prefix definitions for inventory*/
     public static final Prefix PREFIX_FILE_PATH = new Prefix("fp/");
+
+    /*Prefix definitions for inventory*/
+    public static final Prefix PREFIX_MEETING_INDEX = new Prefix("meeting/");
 }

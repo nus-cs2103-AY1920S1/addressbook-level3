@@ -62,7 +62,7 @@ public class UserViewNavigator {
     public void loadDashboard(Logic logic) {
         ProjectDashboardView projectDashboardView = new ProjectDashboardView(logic.getFilteredTaskListNotStarted(),
                 logic.getFilteredTaskListDoing(), logic.getFilteredTaskListDone(),
-                logic.getFilteredTaskListByDeadline());
+                logic.getFilteredTaskListByDeadline(), logic.getFilteredMeetingList());
         userViewController.setUserView(projectDashboardView);
     }
 

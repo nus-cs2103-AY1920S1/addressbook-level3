@@ -101,17 +101,6 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     }
 
     /**
-     * Removes the equivalent task from the list.
-     * The task must exist in the list.
-     */
-    public void remove(MemberName toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new CalendarNotFoundException();
-        }
-    }
-
-    /**
      * Clears the task list of all tasks.
      */
     public void clearAll() {

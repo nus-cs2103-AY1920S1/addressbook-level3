@@ -25,6 +25,7 @@ import seedu.address.model.ProjectDashboard;
 import seedu.address.model.ReadOnlyProjectDashboard;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserSettings;
+import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.calendar.CalendarWrapper;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.Mapping;
@@ -328,7 +329,7 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public List<LocalDateTime> findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
+        public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -353,11 +354,6 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public void saveDashboardState() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canUndo() {
             throw new AssertionError("This method should not be called.");
         }
@@ -369,6 +365,16 @@ public class AddTaskCommandTest {
 
         @Override
         public ObservableList<InvMemMapping> getFilteredInvMemMappingsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MeetingQuery getMeetingQuery() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<CalendarWrapper> getFilteredCalendarList() {
             throw new AssertionError("This method should not be called.");
         }
     }

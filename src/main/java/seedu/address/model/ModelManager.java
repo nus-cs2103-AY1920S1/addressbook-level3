@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.mapping.InvMemMapping;
@@ -49,6 +50,8 @@ public class ModelManager implements Model {
     private final FilteredList<TasMemMapping> filteredTasMemMappings;
     private final FilteredList<InvMemMapping> filteredInvMemMappings;
     private final FilteredList<Inventory> filteredInventories;
+    private final FilteredList<CalendarWrapper> filteredCalendars;
+    private final FilteredList<Meeting> filteredMeetings;
     private Statistics stats;
     private final Stack<ReadOnlyProjectDashboard> previousSaveState = new Stack<>();
     private final Stack<ReadOnlyProjectDashboard> redoSaveState = new Stack<>();
@@ -77,6 +80,8 @@ public class ModelManager implements Model {
         filteredMappings = new FilteredList<>(this.projectDashboard.getMappingList());
         filteredTasMemMappings = new FilteredList<>(this.projectDashboard.getTasMemMappingList());
         filteredInvMemMappings = new FilteredList<>(this.projectDashboard.getInvMemMappingList());
+        filteredCalendars = new FilteredList<>(this.projectDashboard.getCalendarList());
+        filteredMeetings = new FilteredList<>(this.projectDashboard.getMeetingList());
         stats = new Statistics(filteredMembers, filteredTasks, filteredTasMemMappings, filteredInvMemMappings);
         stats.doCalculations();
 
@@ -383,6 +388,47 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteCalendar(CalendarWrapper calendar) {
+        requireNonNull(calendar);
+        projectDashboard.deleteCalendar(calendar);
+    }
+
+    @Override
+    public ObservableList<CalendarWrapper> getFilteredCalendarList() {
+        return filteredCalendars;
+    }
+
+    // ========= Meeting Commands ===========================================================================
+
+    @Override
+    public void addMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        projectDashboard.addMeeting(meeting);
+    }
+
+    @Override
+    public void deleteMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        projectDashboard.deleteMeeting(meeting);
+    }
+
+    @Override
+    public boolean hasMeeting(Meeting meeting) {
+        requireNonNull(meeting);
+        return projectDashboard.hasMeeting(meeting);
+    }
+
+    @Override
+    public ObservableList<Meeting> getFilteredMeetingList() {
+        return filteredMeetings;
+    }
+
+    @Override
+    public void updateFilteredMeetingsList(Predicate<Meeting> predicate) {
+        filteredMeetings.setPredicate(predicate);
+    }
+
+    @Override
     public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration meetingDuration) {
         projectDashboard.findMeetingTime(startDate, endDate, meetingDuration);
     }
@@ -391,6 +437,7 @@ public class ModelManager implements Model {
     public MeetingQuery getMeetingQuery() {
         return projectDashboard.getMeetingQuery();
     }
+
 
     // ========= General Commands ===========================================================================
 
@@ -432,7 +479,6 @@ public class ModelManager implements Model {
         return !redoSaveState.empty();
     }
 
-    @Override
     public void saveDashboardState() {
         previousSaveState.push(new ProjectDashboard(projectDashboard));
     }

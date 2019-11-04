@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyProjectDashboard;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.mapping.TasMemMapping;
 import seedu.address.model.member.Member;
@@ -83,10 +84,14 @@ public interface Logic {
     Statistics getStatistics();
 
     /**
-     * Returns possible meeting times;
+     * Returns possible meeting times.
      */
     MeetingQuery getMeetingQuery();
 
+    /**
+     * Returns list of schedule meetings.
+     */
+    ObservableList<Meeting> getFilteredMeetingList();
 
     /**
      * Returns the current theme of +Work.

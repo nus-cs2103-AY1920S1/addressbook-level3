@@ -25,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.calendar.CalendarWrapper;
+import seedu.address.model.calendar.Meeting;
 import seedu.address.model.mapping.Mapping;
 import seedu.address.model.mapping.InvMemMapping;
 import seedu.address.model.mapping.InvTasMapping;
@@ -155,6 +156,7 @@ public class ProjectDashboardTest {
         private final ObservableList<TasMemMapping> tasMemMappings = FXCollections.observableArrayList();
         private final HashMap<Task, ObservableList<Member>> memberByTask = new HashMap<>();
         private final ObservableList<CalendarWrapper> calendars = FXCollections.observableArrayList();
+        private final ObservableList<Meeting> meetings = FXCollections.observableArrayList();
 
         private final ObservableList<Task> tasksNotStarted = FXCollections.observableArrayList();
         private final ObservableList<Task> tasksDoing = FXCollections.observableArrayList();
@@ -200,11 +202,6 @@ public class ProjectDashboardTest {
         }
 
         @Override
-        public HashMap<Task, ObservableList<Member>> listMemberByTask() {
-            return memberByTask;
-        }
-
-        @Override
         public ObservableList<InvMemMapping> getInvMemMappingList() {
             return invMemMappings;
         }
@@ -223,6 +220,12 @@ public class ProjectDashboardTest {
         public ObservableList<CalendarWrapper> getCalendarList() {
             return calendars;
         }
+
+        @Override
+        public ObservableList<Meeting> getMeetingList() {
+            return meetings;
+        }
+
     }
 
 }
