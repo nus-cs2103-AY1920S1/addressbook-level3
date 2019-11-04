@@ -248,19 +248,22 @@ class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Custom listener class to listen out to user's tab changes using mouse click.
+     */
     private class TabChangeListener implements ChangeListener<Number> {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             if (newValue.intValue() == 0) {
-                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.HOME.toString());
+                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.HOME.toString());
             }
 
             if (newValue.intValue() == 1) {
-                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.QUESTION.toString());
+                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.QUESTION.toString());
             }
 
             if (newValue.intValue() == 2) {
-                resultDisplay.setFeedbackToUser(TabCommand.feedback + Activity.WORKSPACE.toString());
+                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.WORKSPACE.toString());
             }
         }
     }

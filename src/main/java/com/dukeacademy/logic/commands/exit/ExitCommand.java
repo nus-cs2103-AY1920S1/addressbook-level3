@@ -54,6 +54,11 @@ public class ExitCommand implements Command {
             true);
     }
 
+    /**
+     * Helper method to save changes to a question.
+     * @param oldQuestion the old question to be replaced
+     * @param newQuestion the new question.
+     */
     private void saveQuestion(Question oldQuestion, Question newQuestion) {
         this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
     }

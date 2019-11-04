@@ -32,18 +32,20 @@ class AttemptCommandTest {
 
     @Test
     void execute() throws CommandException {
-        AttemptCommand command = new AttemptCommand(1, questionsLogic, submissionLogic, applicationState);
+        int id1 = questionsLogic.getAllQuestionsList().get(1).getId();
+        AttemptCommand command = new AttemptCommand(id1, questionsLogic, submissionLogic, applicationState);
         command.execute();
         assertTrue(this.submissionLogic.getCurrentQuestion().isPresent());
-        assertEquals(this.questionsLogic.getQuestion(0), this.submissionLogic.getCurrentQuestion().get());
+        assertEquals(this.questionsLogic.getQuestion(id1), this.submissionLogic.getCurrentQuestion().get());
 
-        AttemptCommand command1 = new AttemptCommand(3, questionsLogic, submissionLogic, applicationState);
+        int id2 = questionsLogic.getAllQuestionsList().get(2).getId();
+        AttemptCommand command1 = new AttemptCommand(id2, questionsLogic, submissionLogic, applicationState);
         command1.execute();
         assertTrue(this.submissionLogic.getCurrentQuestion().isPresent());
-        assertEquals(this.questionsLogic.getQuestion(2), this.submissionLogic.getCurrentQuestion().get());
+        assertEquals(this.questionsLogic.getQuestion(id2), this.submissionLogic.getCurrentQuestion().get());
 
-        AttemptCommand command2 = new AttemptCommand(9, questionsLogic, submissionLogic, applicationState);
+        AttemptCommand command2 = new AttemptCommand(-20, questionsLogic, submissionLogic, applicationState);
         assertThrows(CommandException.class,
-                "Index 9 entered out of range for current list of questions.", command2::execute);
+                "No question with id  " + -20 + " found.", command2::execute);
     }
 }

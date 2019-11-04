@@ -291,7 +291,7 @@ public class HomePage extends UiPart<Region> {
         ListView<Label> attemptingListView = new ListView<>();
         for (int i = 0; i < questions.size(); i++) {
             if (questions.get(i).getStatus() == Status.ATTEMPTED) {
-                int displayedIndex = i + 1;
+                int displayedIndex = questions.get(i).getId();
                 String displayedIndexString = displayedIndex + ". ";
                 Label questionDisplay = new Label(displayedIndexString + questions.get(i).getTitle());
                 attemptingListView.getItems().add(questionDisplay);
@@ -311,7 +311,7 @@ public class HomePage extends UiPart<Region> {
         ListView<Label> bookmarkedListView = new ListView<>();
         for (int i = 0; i < questions.size(); i++) {
             if (questions.get(i).isBookmarked()) {
-                int displayedIndex = i + 1;
+                int displayedIndex = questions.get(i).getId();
                 String displayedIndexString = displayedIndex + ". ";
                 Label questionDisplay = new Label(displayedIndexString + questions.get(i).getTitle());
                 bookmarkedListView.getItems().add(questionDisplay);

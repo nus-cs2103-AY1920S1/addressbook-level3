@@ -11,6 +11,7 @@ import com.dukeacademy.commons.exceptions.DataConversionException;
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.QuestionBank;
 import com.dukeacademy.model.question.StandardQuestionBank;
+import com.dukeacademy.model.question.exceptions.QuestionNotFoundRuntimeException;
 import com.dukeacademy.model.util.SampleDataUtil;
 import com.dukeacademy.observable.Observable;
 import com.dukeacademy.observable.StandardObservable;
@@ -23,8 +24,9 @@ import javafx.collections.transformation.FilteredList;
  * Logic class to handle all CRUD operations regarding questions in the application.
  */
 public class QuestionsLogicManager implements QuestionsLogic {
-    private final Logger logger;
+    private static final String NO_QUESTION_FOUND_MESSAGE = "No question found with id  : ";
 
+    private final Logger logger;
     private final QuestionBankStorage storage;
     private final QuestionBank questionBank;
     private final FilteredList<Question> filteredList;
@@ -99,26 +101,31 @@ public class QuestionsLogicManager implements QuestionsLogic {
     }
 
     @Override
-    public Question getQuestion(int index) {
-        return this.filteredList.get(index);
+    public Question getQuestion(int id) {
+        return questionBank.getReadOnlyQuestionListObservable()
+                .stream()
+                .filter(question -> question.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new QuestionNotFoundRuntimeException(NO_QUESTION_FOUND_MESSAGE + id));
     }
 
     @Override
-    public void setQuestion(int index, Question newQuestion) {
-        Question oldQuestion = filteredList.get(index);
+    public void setQuestion(int id, Question newQuestion) {
+        Question oldQuestion = questionBank.getReadOnlyQuestionListObservable()
+                .stream()
+                .filter(question -> question.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new QuestionNotFoundRuntimeException(NO_QUESTION_FOUND_MESSAGE + id));
         this.replaceQuestion(oldQuestion, newQuestion);
     }
 
     @Override
     public void replaceQuestion(Question oldQuestion, Question newQuestion) {
-        this.questionBank.replaceQuestion(oldQuestion, newQuestion);
-        this.saveQuestionBankToStorage(this.questionBank);
-    }
-
-    @Override
-    public void deleteQuestion(int index) {
-        Question questionToDelete = filteredList.get(index);
-        this.questionBank.removeQuestion(questionToDelete);
+        try {
+            this.questionBank.replaceQuestion(oldQuestion, newQuestion);
+        } catch (QuestionNotFoundRuntimeException e) {
+            throw new QuestionNotFoundRuntimeException(NO_QUESTION_FOUND_MESSAGE + oldQuestion.getId());
+        }
         this.saveQuestionBankToStorage(this.questionBank);
     }
 
@@ -166,8 +173,12 @@ public class QuestionsLogicManager implements QuestionsLogic {
     }
 
     @Override
-    public void selectQuestion(int index) {
-        Question selectedQuestion = this.filteredList.get(index);
+    public void selectQuestion(int id) {
+        Question selectedQuestion = questionBank.getReadOnlyQuestionListObservable()
+                .stream()
+                .filter(question -> question.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new QuestionNotFoundRuntimeException(NO_QUESTION_FOUND_MESSAGE + id));
         this.selectedQuestion.setValue(selectedQuestion);
     }
 }
