@@ -12,20 +12,11 @@ import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
-import seedu.jarvis.model.TaskDateMatchesDatePredicate;
-import seedu.jarvis.model.planner.PlannerModel;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.viewstatus.ViewType;
 import seedu.jarvis.storage.history.commands.JsonAdaptedCommand;
 import seedu.jarvis.storage.history.commands.exceptions.InvalidCommandToJsonException;
 import seedu.jarvis.storage.history.commands.planner.JsonAdaptedAddTaskCommand;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Adds a task to JARVIS

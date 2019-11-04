@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.model.TaskDateMatchesDatePredicate;
+import seedu.jarvis.model.planner.predicates.TaskDateMatchesDatePredicate;
 import seedu.jarvis.model.planner.tasks.Task;
 
 

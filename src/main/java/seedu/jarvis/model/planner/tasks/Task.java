@@ -18,6 +18,8 @@ import seedu.jarvis.storage.planner.JsonAdaptedTask;
 public abstract class Task {
     //add t/TASK TYPE/TASK DES [d/DATE] [#TAG]... [p/PRIORITY LEVEL] [r/FREQ]
 
+    private int index;
+
     public static final String EVENT = "event";
     public static final String DEADLINE = "deadline";
     public static final String TODO = "todo";
@@ -173,4 +175,5 @@ public abstract class Task {
     public Status getStatus() {
         return status;
     }
+
 }

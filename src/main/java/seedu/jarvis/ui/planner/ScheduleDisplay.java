@@ -33,8 +33,8 @@ public class ScheduleDisplay extends UiPart<Region> {
         this.day.setItems(day);
         this.week.setItems(week);
 
-        headerDay.setText("  Your tasks for today:");
-        headerWeek.setText("  Your tasks for the week:");
+        headerDay.setText("   Tasks for today:");
+        headerWeek.setText("   Tasks for the week:");
 
         this.day.setCellFactory(listView -> new ScheduleListViewCell());
         this.week.setCellFactory(listView -> new ScheduleListViewCell());

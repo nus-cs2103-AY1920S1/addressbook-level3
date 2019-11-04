@@ -163,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         CcaListView clv = new CcaListView(this, logic, model);
         FinanceListView flv = new FinanceListView(this, logic, model);
 
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_TASKS_TODAY);
+        model.updateSchedule();
         pw.fillPage();
         plannerContentPlaceholder.getChildren().add(pw.getRoot());
 

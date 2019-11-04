@@ -1,6 +1,7 @@
 package seedu.jarvis.ui.planner;
 
 import java.util.Comparator;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -44,7 +45,7 @@ public class TaskCard extends UiPart<Region> {
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ".");
         taskDes.setWrapText(true);
         taskDes.setText(task.getTaskDes());
         taskType.setText(task.getTaskType().toString());

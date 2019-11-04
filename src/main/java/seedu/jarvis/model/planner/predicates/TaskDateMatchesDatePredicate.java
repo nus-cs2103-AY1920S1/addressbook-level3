@@ -1,11 +1,10 @@
-package seedu.jarvis.model;
+package seedu.jarvis.model.planner.predicates;
 
 import seedu.jarvis.model.planner.tasks.Deadline;
 import seedu.jarvis.model.planner.tasks.Event;
 import seedu.jarvis.model.planner.tasks.Task;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -16,7 +15,6 @@ import java.util.stream.IntStream;
  * Tests that the task date of a {@code Task} matches any of the
  * dates given
  */
-//TODO test
 public class TaskDateMatchesDatePredicate implements Predicate<Task> {
     private final List<LocalDate> dates;
 
