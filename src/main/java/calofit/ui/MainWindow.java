@@ -47,7 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private ReportWindow reportWindow;
     private NotificationWindow notificationWindow;
 
-    private Timeline checkTimer = new Timeline(new KeyFrame(Duration.minutes(30), event -> {
+    private Timeline checkTimer = new Timeline(new KeyFrame(Duration.minutes(10), event -> {
         Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
         notifMessage.ifPresent(s -> new NotificationWindow(s).show());
     }));
