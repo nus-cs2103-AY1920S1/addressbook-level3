@@ -298,18 +298,18 @@ This command allows you to view all the commands available in the application. +
 
 . Type `help` and press **Enter** to execute it.
 +
-image::HelpCommand.png[width="600"]
+image::HelpCommand1.png[width="600"]
 
 . The result box will display the message:
 +
 Opened help window.
 +
-image::HelpCommandBox.png[width="600"]
+image::HelpCommandBox1.png[width="600"]
 +
 
 . A help window with all the commands will also be displayed:
 +
-image::HelpWindow.png[width="600"]
+image::HelpWindow1.png[width="600"]
 
 === View overall statistics: `stats`
 
@@ -320,17 +320,17 @@ To view statistics:
 
 . Type `stats` and press **Enter**.
 +
-image::StatsCommand.png[width="600"]
+image::StatsCommand1.png[width="600"]
 
 . The result box will display the message:
 +
 Statistics displayed
 +
-image::StatsCommandBox.png[width="600"]
+image::StatsCommandBox1.png[width="600"]
 
 . A window will appear, displaying 3 charts:
 +
-image::StatsWindow.png[width="800"]
+image::StatsWindow1.png[width="800"]
 +
 
 Starting from the left, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
