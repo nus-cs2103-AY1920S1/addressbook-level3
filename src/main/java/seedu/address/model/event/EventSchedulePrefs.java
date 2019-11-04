@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * Encapsualtes the GUI preferences for the schedule panel
  */
-public class EventSchedulePrefs {
+public class  EventSchedulePrefs {
     private EventScheduleViewMode viewMode;
     private LocalDateTime targetViewDateTime;
 

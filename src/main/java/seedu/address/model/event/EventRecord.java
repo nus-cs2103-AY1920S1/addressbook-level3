@@ -2,6 +2,7 @@ package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.EventUtil.eventToVEventMapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,7 +46,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      */
     public EventRecord(List<Event> events) {
         this();
-        resetData(events);
+        resetDataWithEventList(events);
     }
 
     /**
@@ -78,7 +79,7 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     /**
      * Resets the existing data of this {@code EventRecord} with {@code newData}.
      */
-    public void resetData(List<Event> newData) {
+    public void resetDataWithEventList(List<Event> newData) {
         requireNonNull(newData);
 
         setVEvents(eventsToVEventsMapper(newData));
@@ -97,17 +98,20 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
     private ArrayList<VEvent> eventsToVEventsMapper(List<Event> events) {
         ArrayList<VEvent> resultVEventList = new ArrayList<>();
         for (Event event : events) {
-            resultVEventList.add(EventUtil.eventToVEventMapper(event));
+            resultVEventList.add(eventToVEventMapper(event));
         }
         return resultVEventList;
     }
 
     /**
      * Replaces the contents of this list with {@code vEvents}.
+     * vEvents must be unique.
      */
     public void setVEvents(List<VEvent> vEvents) {
         requireAllNonNull(vEvents);
-
+        if (!vEventsAreUnique(vEvents)) {
+            throw new DuplicateVEventException();
+        }
         this.vEvents.setAll(vEvents);
     }
 
@@ -198,6 +202,13 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         return vEvents.stream().anyMatch(vEvent -> isSameVEvent(vEvent, toCheck));
     }
 
+    /**
+     * Compares between 2 vEvents to see whether they are the same. Attributes used to determine this include
+     * event name, start and end date time
+     * @param vEvent1 first event to be compared
+     * @param vEvent2 second event to be compared
+     * @return true if both vEvents are the same
+     */
     private boolean isSameVEvent(VEvent vEvent1, VEvent vEvent2) {
         return vEvent1.getSummary().equals(vEvent2.getSummary())
                 && vEvent1.getDateTimeStart().equals(vEvent2.getDateTimeStart())
@@ -283,6 +294,22 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
      */
     public String getEventExportPath() {
         return this.targetExportPath;
+    }
+
+    /**
+     * Validates if all events in the list are unique
+     * @param vEventList list to be checked
+     * @return true if all events are unique
+     */
+    private boolean vEventsAreUnique(List<VEvent> vEventList) {
+        for (int i = 0; i < vEventList.size() - 1; i++) {
+            for (int j = i + 1; j < vEventList.size(); j++) {
+                if (isSameVEvent(vEventList.get(i), vEventList.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

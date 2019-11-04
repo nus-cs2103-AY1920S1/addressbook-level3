@@ -18,9 +18,9 @@ import seedu.address.model.event.RecurrenceType;
  * EventUtil contains methods for manipulation of Event and VEvents
  */
 public class EventUtil {
-    private static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
-    private static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
-    private static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
+    public static final String DAILY_RECUR_RULE_STRING = "FREQ=DAILY;INTERVAL=1";
+    public static final String WEEKLY_RECUR_RULE_STRING = "FREQ=WEEKLY;INTERVAL=1";
+    public static final String NONE_RECUR_RULE_STRING = "FREQ=YEARLY;COUNT=1";
     private static final DateTimeFormatter dateOnlyFormatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd[ HH:mm:ss]")
                 .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)

@@ -15,33 +15,33 @@ import seedu.address.model.event.RecurrenceType;
 public class TypicalEvents {
 
     public static final Event EVENT1 = new EventBuilder().withEventName("First Event")
-            .withStartDateTime(LocalDateTime.now())
-            .withEndDateTime((LocalDateTime.now().plusHours(1)))
+            .withStartDateTime(LocalDateTime.parse("2019-10-10T03:00"))
+            .withEndDateTime(LocalDateTime.parse("2019-10-10T04:00"))
             .withRecurrenceType(RecurrenceType.NONE)
             .withColorCategory("group01")
             .withUniqueIdentifier("typicalevent1test").build();
     public static final Event EVENT2 = new EventBuilder().withEventName("Second Event")
-            .withStartDateTime(LocalDateTime.now().plusDays(1))
-            .withEndDateTime((LocalDateTime.now().plusDays(1).plusHours(1)))
+            .withStartDateTime(LocalDateTime.parse("2019-10-11T03:00"))
+            .withEndDateTime(LocalDateTime.parse("2019-10-11T04:00"))
             .withRecurrenceType(RecurrenceType.DAILY)
             .withColorCategory("group02")
             .withUniqueIdentifier("typicalevent2test").build();
     public static final Event EVENT3 = new EventBuilder().withEventName("Third Event")
-            .withStartDateTime(LocalDateTime.now().plusDays(2))
-            .withEndDateTime((LocalDateTime.now().plusDays(2).plusHours(1)))
+            .withStartDateTime(LocalDateTime.parse("2019-10-12T03:00"))
+            .withEndDateTime(LocalDateTime.parse("2019-10-12T04:00"))
             .withRecurrenceType(RecurrenceType.WEEKLY)
             .withColorCategory("group03")
             .withUniqueIdentifier("typicalevent3test").build();
     public static final Event EVENT4 = new EventBuilder().withEventName("Fourth Event")
-            .withStartDateTime(LocalDateTime.now().plusDays(3))
-            .withEndDateTime((LocalDateTime.now().plusDays(3).plusHours(1)))
+            .withStartDateTime(LocalDateTime.parse("2019-10-13T03:00"))
+            .withEndDateTime(LocalDateTime.parse("2019-10-13T04:00"))
             .withRecurrenceType(RecurrenceType.NONE)
             .withColorCategory("group04")
             .withUniqueIdentifier("typicalevent4test").build();
 
     public static final Event NOT_IN_TYPICAL = new EventBuilder().withEventName("Not Typical Event")
-            .withStartDateTime(LocalDateTime.now().plusDays(4))
-            .withEndDateTime((LocalDateTime.now().plusDays(4).plusHours(1)))
+            .withStartDateTime(LocalDateTime.parse("2019-10-14T03:00"))
+            .withEndDateTime(LocalDateTime.parse("2019-10-14T04:00"))
             .withRecurrenceType(RecurrenceType.NONE)
             .withColorCategory("group05")
             .withUniqueIdentifier("notTypicalIdentifier").build();
