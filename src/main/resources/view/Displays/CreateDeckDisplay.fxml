@@ -15,8 +15,6 @@
               <TextField fx:id="deckNameInput" prefHeight="25.0" prefWidth="171.0" />
          </children>
       </HBox>
-        <VBox fx:id="cardCreatingPane" VBox.vgrow="ALWAYS" />
-        <Label fx:id="deckSize" text="0 cards" />
       <HBox spacing="10.0">
          <children>
               <Button fx:id="onSaveDeck" mnemonicParsing="false" text="Save deck" />
