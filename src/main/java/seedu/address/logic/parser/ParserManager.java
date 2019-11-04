@@ -155,7 +155,6 @@ public class ParserManager {
             temp.add(GuessCommand.class, GuessCommandParser.class);
             temp.add(SkipCommand.class, null);
             temp.add(StopCommand.class, null);
-            temp.add(SwitchToExitCommand.class, null);
             return temp;
 
         default:
