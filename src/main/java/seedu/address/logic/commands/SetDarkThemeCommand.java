@@ -6,6 +6,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.util.Theme;
 
+/**
+ * Sets the theme to dark theme.
+ */
 public class SetDarkThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "setDarkTheme";
