@@ -13,7 +13,9 @@ import seedu.address.logic.commands.exceptions.DuplicatePolicyWithMergeException
 import seedu.address.logic.commands.exceptions.DuplicatePolicyWithoutMergeException;
 import seedu.address.logic.commands.merge.MergePolicyCommand;
 import seedu.address.model.Model;
+import seedu.address.model.policy.EndAge;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.StartAge;
 
 /**
  * Adds a policy to the address book.
@@ -41,6 +43,7 @@ public class AddPolicyCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New policy added: %1$s";
     public static final String MESSAGE_DUPLICATE_POLICY = "This policy already exists in the address book.\n";
     public static final String MESSAGE_INPUT_INFORMATION_HEADER = "Your input:\n%1$s";
+    public static final String MESSAGE_INVALID_AGE_RANGE = "Start age cannot exceed end age.";
     public static final String DUPLICATE_POLICY_MERGE_PROMPT = "Do you wish to edit this policy's information?";
     public static final String NEW_LINE = "\n";
 
@@ -57,6 +60,11 @@ public class AddPolicyCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        StartAge startAge = toAdd.getStartAge();
+        EndAge endAge = toAdd.getEndAge();
+        if (!isValidAgeRange(startAge, endAge)) {
+            throw new CommandException(MESSAGE_INVALID_AGE_RANGE);
+        }
 
         if (model.hasPolicy(toAdd)) {
             String exceptionMessage = "";
@@ -72,6 +80,14 @@ public class AddPolicyCommand extends Command {
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Checks if the input age range is valid.
+     *
+     */
+    public boolean isValidAgeRange(StartAge startAge, EndAge endAge) {
+        return Integer.parseInt(endAge.age) >= Integer.parseInt(startAge.age);
     }
 
     /**
