@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -36,6 +37,18 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of activities */
     ObservableList<Activity> getFilteredActivityList();
+
+    /**
+     * Returns an unmodifiable list of {@code Person} containing all participants of a
+     * specified {@code Activity}.
+     */
+    List<Person> getAssociatedPersons(Activity activity);
+
+    /**
+     * Returns an unmodifiable list of {@code Activity} containing all activities a specified
+     * {@code Person} has participated in.
+     */
+    List<Activity> getAssociatedActivities(Person person);
 
     /**
      * Returns the user prefs' address book file path.

@@ -25,7 +25,7 @@
         <StackPane fx:id="resultDisplayContainer" styleClass="result-display-root"
             minHeight="120" maxHeight="120" />
 
-        <VBox fx:id="contentRoot" styleClass="content-root" VBox.vgrow="ALWAYS">
+        <VBox fx:id="contentRoot" styleClass="content-root" VBox.vgrow="ALWAYS" >
           <StackPane fx:id="contentContainer" styleClass="content-display" VBox.vgrow="ALWAYS" />
         </VBox>
 

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_SEARCH_TERM;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.ActivityCommand.MESSAGE_USAGE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ACTIVITY_TITLE;
@@ -32,6 +33,15 @@ public class ActivityCommandParserTest {
     public void parse_compulsoryFieldsMissing_failure() {
         // Title Missing
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+    }
+
+
+    @Test
+    public void parse_emptyParticipantPrefix_failure() {
+        // Participant prefix with empty value
+        String commandWithEmptyParticipantValue = " " + PREFIX_PARTICIPANT + " "
+                + PREFIX_TITLE + VALID_ACTIVITY_TITLE;
+        assertParseFailure(parser, commandWithEmptyParticipantValue, MESSAGE_EMPTY_SEARCH_TERM);
     }
 
     @Test

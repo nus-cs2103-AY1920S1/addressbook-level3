@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_WARNING;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -96,7 +97,8 @@ public class ActivityCommandTest {
 
         String warningMessage = String.format(ActivityCommand.WARNING_SEARCH_RESULTS, "Pauline", 2);
 
-        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS, emptyActivity, "", warningMessage),
+        assertEquals(String.format(ActivityCommand.MESSAGE_SUCCESS
+                    + MESSAGE_WARNING, emptyActivity, "", warningMessage),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(emptyActivity), modelStub.activityList);
     }

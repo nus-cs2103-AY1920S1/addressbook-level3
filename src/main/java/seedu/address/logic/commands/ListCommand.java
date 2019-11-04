@@ -8,7 +8,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import seedu.address.logic.CommandSubType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Context;
-import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 
 /**
@@ -38,15 +37,22 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Contextual behaviour
         switch (this.type) {
         case CONTACT:
-            model.setContext(Context.newListContactContext());
+            Context newContactContext = Context.newListContactContext();
+
+            model.setContext(newContactContext);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_ENTRIES);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "contacts"), ContextType.LIST_CONTACT);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "contacts"), newContactContext);
         case ACTIVITY:
-            model.setContext(Context.newListActivityContext());
+            Context newActivityContext = Context.newListActivityContext();
+
+            model.setContext(newActivityContext);
             model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ENTRIES);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "activities"), ContextType.LIST_ACTIVITY);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, "activities"), newActivityContext);
         default:
             throw new CommandException(MESSAGE_UNKNOWN_LIST_TYPE);
         }

@@ -2,6 +2,7 @@ package seedu.address.stub;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -169,5 +170,15 @@ public class ModelStub implements Model {
     @Override
     public void updateFilteredActivityList(Predicate<? super Activity> predicate) {
         throw new AssertionError("This method (updateFilteredActivityList) should not be called.");
+    }
+
+    @Override
+    public List<Person> getAssociatedPersons(Activity activity) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<Activity> getAssociatedActivities(Person person) {
+        throw new AssertionError("This method should not be called.");
     }
 }

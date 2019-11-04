@@ -7,9 +7,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.model.Context;
 import seedu.address.model.ContextType;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -85,20 +87,29 @@ public class InviteCommand extends Command {
                 continue;
             }
 
-            keywords = Arrays.asList(name.split(" "));
-            NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+            Person personToInvite;
+            Integer idOfPersonToInvite;
 
-            findResult = model.findPersonAll(predicate);
-            assert findResult != null : "List of people in contacts should not be null.";
+            Optional<Person> person = model.findPersonByName(name.trim());
 
-            if (findResult.size() != 1) {
-                String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
-                warningMessage.append(warning).append("\n");
-                continue;
+            if (person.isPresent()) {
+                personToInvite = person.get();
+            } else {
+                keywords = Arrays.asList(name.split(" "));
+                NameContainsAllKeywordsPredicate predicate = new NameContainsAllKeywordsPredicate(keywords);
+
+                findResult = model.findPersonAll(predicate);
+                assert findResult != null : "List of people in contacts should not be null.";
+
+                if (findResult.size() != 1) {
+                    String warning = String.format(MESSAGE_NON_UNIQUE_SEARCH_RESULT, name);
+                    warningMessage.append(warning).append("\n");
+                    continue;
+                }
+                personToInvite = findResult.get(0);
             }
 
-            Person personToInvite = findResult.get(0);
-            Integer idOfPersonToInvite = personToInvite.getPrimaryKey();
+            idOfPersonToInvite = personToInvite.getPrimaryKey();
 
             if (activityToInviteTo.hasPerson(idOfPersonToInvite)) {
                 String warning = String.format(MESSAGE_DUPLICATE_PERSON_IN_ACTIVITY, name);
@@ -125,11 +136,13 @@ public class InviteCommand extends Command {
 
         if (successMessage.toString().equals("")) {
             result = String.format(MESSAGE_RESULT_NONE_SUCCESS, warningMessage);
+            return new CommandResult(result);
         } else {
             result = String.format(MESSAGE_RESULT, successMessage, warningMessage);
+            Context newContext = new Context(activityToInviteTo);
+            model.setContext(newContext);
+            return new CommandResult(result, newContext);
         }
-
-        return new CommandResult(result);
     }
 
     @Override

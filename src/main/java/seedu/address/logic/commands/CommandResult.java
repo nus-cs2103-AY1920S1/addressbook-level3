@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.Optional;
 
-import seedu.address.model.ContextType;
+import seedu.address.model.Context;
 
 /**
  * Represents the result of a command execution.
@@ -20,8 +21,8 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** Type of updated context - empty if context was not changed by executing this command. */
-    private final Optional<ContextType> newContext;
+    /** Updated application context - empty if context was not changed by executing this command. */
+    private final Optional<Context> newContext;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields, for commands that does not change
@@ -40,8 +41,8 @@ public class CommandResult {
      * @param feedbackToUser {@code String} output from executing the command
      * @param newContext the new {@code ContextType} after executing the command
      */
-    public CommandResult(String feedbackToUser, ContextType newContext) {
-        requireNonNull(newContext);
+    public CommandResult(String feedbackToUser, Context newContext) {
+        requireAllNonNull(feedbackToUser, newContext);
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
@@ -68,7 +69,7 @@ public class CommandResult {
         return exit;
     }
 
-    public Optional<ContextType> getUpdatedContext() {
+    public Optional<Context> getUpdatedContext() {
         return newContext;
     }
 
@@ -94,5 +95,4 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, newContext);
     }
-
 }
