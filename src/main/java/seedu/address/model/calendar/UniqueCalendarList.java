@@ -361,7 +361,11 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
                 meetingList.add(newMeetingDate);
             }
         }
-        return new MeetingQuery(meetingList, startDate, endDate, duration);
+        if (maxAttendance == 0) {
+            return null;
+        } else {
+            return new MeetingQuery(meetingList, startDate, endDate, duration);
+        }
     }
 
     public static void addMemberAvailability(HashMap<LocalDateTime, List<MemberName>> attendance,

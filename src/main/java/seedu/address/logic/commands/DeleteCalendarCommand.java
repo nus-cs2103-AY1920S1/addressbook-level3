@@ -23,7 +23,7 @@ public class DeleteCalendarCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the calendar identified by the member name used when adding the calendar.\n"
             + "Parameters:" + PREFIX_MEMBER_NAME + "MEMBER_NAME\n"
-            + "Example: " + COMMAND_WORD + PREFIX_MEMBER_NAME + "1";
+            + "Example: " + COMMAND_WORD + PREFIX_MEMBER_NAME + "Gabriel";
 
     public static final String MESSAGE_DELETE_CALENDAR_SUCCESS = "Deleted Calendar: %1$s";
 

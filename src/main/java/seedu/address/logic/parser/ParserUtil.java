@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.time.Clock;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -39,6 +40,7 @@ import net.fortuna.ical4j.model.Calendar;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DURATION = "Duration(hours) is not a non-zero unsigned integer.";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -194,7 +196,7 @@ public class ParserUtil {
         requireNonNull(dateTime);
         String trimmedDate = dateTime.trim();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(trimmedDate, formatter);
     }
 
@@ -268,5 +270,18 @@ public class ParserUtil {
         }
 
         return clockFormat;
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Duration parseHours(String hoursString) throws ParseException {
+        String hoursStringTrimmed = hoursString.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(hoursStringTrimmed)) {
+            throw new ParseException(MESSAGE_INVALID_DURATION);
+        }
+        return Duration.ofHours(Integer.parseInt(hoursStringTrimmed));
     }
 }

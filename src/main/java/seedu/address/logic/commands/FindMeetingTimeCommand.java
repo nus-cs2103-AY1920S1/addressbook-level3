@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import javafx.collections.ObservableList;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION_HOURS;
 
-import seedu.address.model.calendar.Meeting;
+import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.model.calendar.MeetingQuery;
 import seedu.address.model.Model;
 
@@ -21,9 +22,18 @@ import java.util.List;
 public class FindMeetingTimeCommand extends Command {
 
     public static final String COMMAND_WORD = "find-meeting-time";
-    public static final String PREFIX_USAGE = "";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Generates a list of possible meeting times between the dates specified and " +
+            "of the specified duration.\n"
+            + "Parameters:" + PREFIX_START_PERIOD + "dd/mm/yyyy hh:mm" + PREFIX_END_PERIOD + "dd/mm/yyyy hh:mm"
+            + PREFIX_DURATION_HOURS + "DURATION_IN_HOURS\n"
+            + "Example: " + COMMAND_WORD + PREFIX_START_PERIOD + "25/10/2019 08:00" + PREFIX_END_PERIOD
+            + "26/10/2019 17:00" + PREFIX_DURATION_HOURS + "3";
 
-    public static final String MESSAGE_SUCCESS = "Found a meeting time";
+    public static final String PREFIX_USAGE = "start/ end/ hours/";
+
+    public static final String MESSAGE_SUCCESS = "Found a meeting time between %1$s - %2$s";
+    public static final String MESSAGE_FAILURE = "Could not find a meeting time between %1$s - %2$s";
 
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
@@ -43,16 +53,17 @@ public class FindMeetingTimeCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        //Replace after including meeting display into UI
         model.findMeetingTime(startDate, endDate, meetingDuration);
         MeetingQuery meetingQuery = model.getMeetingQuery();
-        String LIST_OF_TIMINGS = "The following are good meeting times: \n";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        ObservableList<Meeting> possibleMeetingTimes = meetingQuery.getMeetingList();
-        for (Meeting dateTime : possibleMeetingTimes) {
-            LIST_OF_TIMINGS += dateTime.getStartTime().format(formatter) + dateTime.getMemberNameList().size() + "\n";
+        if (meetingQuery == null) {
+            String startDateString = DateTimeUtil.displayDateTime(startDate);
+            String endDateString = DateTimeUtil.displayDateTime(endDate);
+            return new CommandResult(String.format(MESSAGE_FAILURE, startDate, endDate));
+        } else {
+            String startDateString = DateTimeUtil.displayDateTime(startDate);
+            String endDateString = DateTimeUtil.displayDateTime(endDate);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, startDate, endDate));
         }
-        return new CommandResult(LIST_OF_TIMINGS);
     }
 
     @Override

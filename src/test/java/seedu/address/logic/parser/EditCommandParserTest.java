@@ -30,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.TaskStatus;
@@ -45,7 +46,7 @@ public class EditCommandParserTest {
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
+    public void parse_missingParts_failure() throws CommandException {
         // no index specified
         assertParseFailure(parser, "edit-task " + VALID_TASK_NAME_FINANCE, MESSAGE_INVALID_FORMAT);
 
@@ -57,7 +58,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    public void parse_invalidPreamble_failure() throws CommandException {
         // negative index
         assertParseFailure(parser, "edit-task ti/-5" + TASK_NAME_DESC_FINANCE, MESSAGE_INVALID_FORMAT);
 
@@ -72,7 +73,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_invalidValue_failure() throws CommandException {
         assertParseFailure(parser, "edit-task ti/1 " + INVALID_TASK_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "edit-task ti/1 " + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -92,7 +93,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
+    public void parse_allFieldsSpecified_success() throws CommandException {
         Index targetIndex = INDEX_SECOND_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_DESC_FINANCE
                 + TASK_NAME_DESC_FINANCE;
@@ -105,7 +106,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
+    public void parse_someFieldsSpecified_success() throws CommandException {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
 
@@ -118,7 +119,7 @@ public class EditCommandParserTest {
 
     // TODO add tests for member and progress
     @Test
-    public void parse_oneFieldSpecified_success() {
+    public void parse_oneFieldSpecified_success() throws CommandException {
         // name
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TASK_NAME_DESC_FINANCE;
@@ -135,7 +136,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_multipleRepeatedFields_acceptsLast() throws CommandException {
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased()
                 + TASK_NAME_DESC_FINANCE
@@ -154,7 +155,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
+    public void parse_invalidValueFollowedByValidValue_success() throws CommandException {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + INVALID_TASK_STATUS_DESC + TASK_STATUS_DESC_PUBLICITY;
@@ -173,7 +174,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetTags_success() throws CommandException {
         Index targetIndex = INDEX_THIRD_TASK;
         String userInput = "edit-task " + PREFIX_TASK_INDEX + targetIndex.getOneBased() + TAG_EMPTY;
 

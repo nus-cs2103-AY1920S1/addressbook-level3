@@ -13,7 +13,7 @@ import seedu.address.model.member.MemberName;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class DeleteCalendarParser implements Parser<DeleteCalendarCommand> {
+public class DeleteCalendarCommandParser implements Parser<DeleteCalendarCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

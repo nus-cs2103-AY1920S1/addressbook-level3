@@ -9,9 +9,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddDCommand;
 import seedu.address.logic.commands.AddICommand;
-import java.time.LocalDateTime;
-import java.time.Duration;
-
 import seedu.address.logic.commands.AddCalendarCommand;
 import seedu.address.logic.commands.AddInventoryCommand;
 import seedu.address.logic.commands.AddMeetingCommand;
@@ -23,6 +20,7 @@ import seedu.address.logic.commands.ClockCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCalendarCommand;
 import seedu.address.logic.commands.DeleteInventoryCommand;
+import seedu.address.logic.commands.DeleteMeetingCommand;
 import seedu.address.logic.commands.DeleteMemberCommand;
 import seedu.address.logic.commands.DeleteTaskCommand;
 import seedu.address.logic.commands.DoingTaskCommand;
@@ -43,8 +41,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListInventoryCommand;
 import seedu.address.logic.commands.ListMemberCommand;
 import seedu.address.logic.commands.NoCommand;
-//import seedu.address.logic.commands.RemoveMemberFromTaskCommand;
-//import seedu.address.logic.commands.RemoveTaskFromMemberCommand;
 import seedu.address.logic.commands.SetDeadlineCommand;
 import seedu.address.logic.commands.SetImageCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -196,24 +192,19 @@ public class ProjectDashboardParser {
             return new RedoCommand();
 
         case AddCalendarCommand.COMMAND_WORD:
-            return new AddCalendarParser().parse(arguments);
+            return new AddCalendarCommandParser().parse(arguments);
 
         case DeleteCalendarCommand.COMMAND_WORD:
-            return new DeleteCalendarParser().parse(arguments);
+            return new DeleteCalendarCommandParser().parse(arguments);
 
         case FindMeetingTimeCommand.COMMAND_WORD:
-            ////Sample Duration
-//          LocalDateTime startDate = new LocalDateTime("20191028T000000Z");
-//          LocalDateTime endDate = new LocalDateTime("20191101T170000Z");
-//          Duration meetingDuration = Duration.ofHours(4);
-//            	of(int year, Month month, int dayOfMonth, int hour, int minute, int second, int nanoOfSecond)
-            LocalDateTime startDate = LocalDateTime.parse("2019-10-28T00:00:00");
-            LocalDateTime endDate = LocalDateTime.parse("2019-11-01T17:00:00");
-            Duration meetingDuration = Duration.ofHours(4);
-            return new FindMeetingTimeCommand(startDate, endDate, meetingDuration);
+            return new FindMeetingTimeCommandParser().parse(arguments);
 
         case AddMeetingCommand.COMMAND_WORD:
             return new AddMeetingCommandParser().parse(arguments);
+
+        case DeleteMeetingCommand.COMMAND_WORD:
+            return new DeleteMeetingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
