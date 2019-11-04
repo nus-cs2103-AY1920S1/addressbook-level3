@@ -519,6 +519,10 @@ image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
 ==== Marking a Command as Done
 This command helps you to mark a reimbursement as done and remove it from reimbursement list.
 
+[NOTE]
+Transactions not shown in the Reimbursement Tab are already marked as done. +
+No indication will be shown in the Transaction Tab.
+
 * Command: `done p/NAME`
 * Example: `done p/Alex Yeoh`
 
