@@ -72,6 +72,8 @@ When Horo posts a notification, it should appear at the bottom-right side of the
 .A Popup Notification
 image::PopUpScreenShot.png[]
 
+Take note that that following commands are UI-related commands, and are thus unaffected by the `undo` and `redo` commands (For more information, see Undo-Redo).
+
 ==== Switch notifications on
 The `notif_on` command switches notifications on. +
 
