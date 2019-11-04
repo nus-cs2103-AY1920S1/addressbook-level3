@@ -10,6 +10,7 @@ import java.util.Set;
 
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
 import dukecooks.model.workout.history.ExerciseHistory;
+import dukecooks.model.workout.history.ExerciseRun;
 
 /**
  * Represents an Exercise in Duke Cooks.
@@ -50,6 +51,14 @@ public class Exercise {
         this.intensity = intensity;
         this.exerciseDetails.addAll(exerciseDetails);
         this.history = history;
+    }
+
+    /**
+     * Returns a new exercise with the specified ExerciseRun added into the ExerciseHistory
+     */
+    public Exercise updateHistory(ExerciseRun exerciseRun) {
+        ExerciseHistory updatedHistory = history.addRun(exerciseRun);
+        return new Exercise(exerciseName, musclesTrained, intensity, exerciseDetails, updatedHistory);
     }
 
     public ExerciseName getExerciseName() {

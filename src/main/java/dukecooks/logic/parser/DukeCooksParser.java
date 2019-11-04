@@ -7,6 +7,7 @@ import dukecooks.commons.core.Messages;
 import dukecooks.logic.commands.AddCommand;
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.Command;
+import dukecooks.logic.commands.CreateCommand;
 import dukecooks.logic.commands.DeleteCommand;
 import dukecooks.logic.commands.EditCommand;
 import dukecooks.logic.commands.ExitCommand;
@@ -14,6 +15,7 @@ import dukecooks.logic.commands.FindCommand;
 import dukecooks.logic.commands.HelpCommand;
 import dukecooks.logic.commands.ListCommand;
 import dukecooks.logic.commands.PushCommand;
+import dukecooks.logic.commands.RunCommand;
 import dukecooks.logic.commands.ViewCommand;
 import dukecooks.logic.commands.dashboard.DashboardCommand;
 import dukecooks.logic.commands.dashboard.DoneTaskCommand;
@@ -53,6 +55,9 @@ public class DukeCooksParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommandParser().parse(arguments);
 
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -82,6 +87,10 @@ public class DukeCooksParser {
 
         case DashboardCommand.COMMAND_WORD:
             return new DashboardCommand();
+
+        case RunCommand.COMMAND_WORD:
+            return new RunCommandParser().parse(arguments);
+
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }

@@ -24,6 +24,11 @@ public class TypicalIndexes {
     public static final Index INDEX_FIRST_DIARY = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_DIARY = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_DIARY = Index.fromOneBased(3);
+    public static final Index INDEX_FAILURE_DIARY = Index.fromOneBased(20);
+
+    public static final Index INDEX_FIRST_PAGE = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_PAGE = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_PAGE = Index.fromOneBased(3);
 
     public static final Index INDEX_FIRST_DASHBOARD = Index.fromOneBased(1);
     public static final Index INDEX_SECOND_DASHBOARD = Index.fromOneBased(2);

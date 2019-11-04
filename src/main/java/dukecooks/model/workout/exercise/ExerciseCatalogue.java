@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import dukecooks.model.workout.exercise.components.Exercise;
+import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.UniqueExerciseList;
 import javafx.collections.ObservableList;
 
@@ -85,6 +86,18 @@ public class ExerciseCatalogue implements ReadOnlyExerciseCatalogue {
      */
     public void addExercise(Exercise p) {
         exercises.add(p);
+    }
+
+    /**
+     * Returns an exercise in the List with the ExerciseName specified.
+     */
+    public Exercise findExercise(ExerciseName name) {
+        for (Exercise exercise : exercises) {
+            if (exercise.getExerciseName().equals(name)) {
+                return exercise;
+            }
+        }
+        return null;
     }
 
     /**

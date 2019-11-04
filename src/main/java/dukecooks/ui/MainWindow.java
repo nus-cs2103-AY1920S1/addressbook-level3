@@ -8,7 +8,9 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.commands.workout.UpdateWorkoutCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
+import dukecooks.model.workout.Workout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,6 +47,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private RewardWindow rewardWindow;
     private HelpWindow helpWindow;
+    private RunWorkoutWindow runWorkoutWindow;
     private Event event;
 
     private StatusBarFooter dashboardPathStatus;
@@ -179,8 +182,8 @@ public class MainWindow extends UiPart<Stage> {
         mealPlanListPanel = new MealPlanListPanel(logic.getFilteredMealPlanList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         workoutListPanel = new WorkoutListPanel(logic.getFilteredWorkoutList(), logic.getFilteredExerciseList());
-        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), 0);
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        diaryListPanel = new DiaryListPanel(logic.getFilteredDiaryList(), this, 0);
     }
 
     /**
@@ -230,6 +233,32 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the run workout window.
+     */
+    public void handleRunWorkout(Workout workoutToRun) {
+        runWorkoutWindow = new RunWorkoutWindow(workoutToRun);
+        runWorkoutWindow.show();
+        runWorkoutWindow.getRoot().setOnCloseRequest(e -> {
+            if (runWorkoutWindow.getWorkoutRun() != null) {
+                CommandResult result = new UpdateWorkoutCommand(runWorkoutWindow.getWorkoutRun(), runWorkoutWindow
+                        .getWorkoutToRun()).execute(logic);
+                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+            } else {
+                resultDisplay.setFeedbackToUser("Workout incomplete :( Try Harder next time!");
+            }
+        });
+        runWorkoutWindow.getRoot().setOnHiding(e -> {
+            if (runWorkoutWindow.getWorkoutRun() != null) {
+                CommandResult result = new UpdateWorkoutCommand(runWorkoutWindow.getWorkoutRun(), runWorkoutWindow
+                        .getWorkoutToRun()).execute(logic);
+                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+            } else {
+                resultDisplay.setFeedbackToUser("Workout incomplete :( Try Harder next time!");
+            }
+        });
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -244,6 +273,7 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        runWorkoutWindow.getRoot().hide();
     }
 
     /**
@@ -390,12 +420,28 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            if (commandResult.isRunWorkout()) {
+                handleRunWorkout(commandResult.getWorkoutToRun());
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Executes the command from GUI and returns the {@code CommandResult}.
+     *
+     * @see Logic#execute(String)
+     */
+    public CommandResult executeGuiCommand(String commandText) {
+        try {
+            return executeCommand(commandText);
+        } catch (CommandException | ParseException e) {
+            return null;
         }
     }
 }

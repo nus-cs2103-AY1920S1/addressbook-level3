@@ -4,15 +4,23 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.logic.parser.exercise.WorkoutPlannerParserUtil;
+import dukecooks.model.workout.exercise.ExerciseSetAttempt;
 import dukecooks.model.workout.exercise.components.Exercise;
 import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
+import dukecooks.model.workout.exercise.details.Distance;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
+import dukecooks.model.workout.exercise.details.ExerciseWeight;
+import dukecooks.model.workout.exercise.details.Repetitions;
+import dukecooks.model.workout.exercise.details.Sets;
+import dukecooks.model.workout.exercise.details.Timing;
 import dukecooks.model.workout.history.WorkoutHistory;
+import dukecooks.model.workout.history.WorkoutRun;
 
 /**
  * Represents a Workout in the WorkoutPlanner.
@@ -43,6 +51,15 @@ public class Workout {
         this.musclesTrained = musclesTrained;
         this.averageIntensity = averageIntensity;
         this.history = history;
+    }
+
+    /**
+     * Returns a new workout with WorkoutHistory updated with the workout run.
+     */
+
+    public Workout updateHistory(WorkoutRun workoutRun) {
+        WorkoutHistory updatedHistory = history.addRun(workoutRun);
+        return new Workout(name, exercises, exercisesDetails, musclesTrained, averageIntensity, updatedHistory);
     }
 
     /**
@@ -105,6 +122,51 @@ public class Workout {
 
     public WorkoutHistory getHistory() {
         return history;
+    }
+
+    /**
+     * Creates exercise set attempts based of the exercises details.
+     */
+    public ArrayList<ExerciseSetAttempt> getExerciseSetAttempts() {
+        ArrayList<ExerciseSetAttempt> toReturn = new ArrayList<>();
+        toReturn.addAll(exercisesDetails.stream()
+                .map(this::getExerciseSetAttempt).collect(Collectors.toList()));
+        return toReturn;
+    }
+
+    /**
+     * Creates exercise set attempts from a set of Exercise Details.
+     */
+    private ExerciseSetAttempt getExerciseSetAttempt(Set<ExerciseDetail> details) {
+        Repetitions reps = null;
+        Timing timing = null;
+        Distance distance = null;
+        ExerciseWeight weight = null;
+        for (ExerciseDetail detail : details) {
+            if (detail instanceof Repetitions) {
+                reps = (Repetitions) detail;
+            } else if (detail instanceof Timing) {
+                timing = (Timing) detail;
+            } else if (detail instanceof ExerciseWeight) {
+                weight = (ExerciseWeight) detail;
+            } else if (detail instanceof Distance) {
+                distance = (Distance) detail;
+            }
+        }
+        return new ExerciseSetAttempt(weight, distance, reps, timing, null);
+    }
+
+    /**
+     * Returns the Sets detail from the Set of exercise detail of index specified.
+     */
+    public Sets getSet(int index) {
+        Set<ExerciseDetail> detailSet = exercisesDetails.get(index);
+        for (ExerciseDetail detail : detailSet) {
+            if (detail instanceof Sets) {
+                return (Sets) detail;
+            }
+        }
+        return new Sets(1);
     }
 
 

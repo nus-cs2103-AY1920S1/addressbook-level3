@@ -4,15 +4,12 @@ import static dukecooks.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DIARY_NAME;
 import static java.util.Objects.requireNonNull;
 
-import java.util.stream.Stream;
-
 import dukecooks.commons.core.index.Index;
 import dukecooks.logic.commands.diary.DeletePageCommand;
 import dukecooks.logic.parser.ArgumentMultimap;
 import dukecooks.logic.parser.ArgumentTokenizer;
 import dukecooks.logic.parser.Parser;
 import dukecooks.logic.parser.ParserUtil;
-import dukecooks.logic.parser.Prefix;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.diary.components.DiaryName;
 
@@ -41,14 +38,6 @@ public class DeletePageCommandParser implements Parser<DeletePageCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePageCommand.MESSAGE_USAGE), pe);
         }
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
