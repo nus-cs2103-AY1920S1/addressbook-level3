@@ -1,8 +1,10 @@
 package seedu.address.diaryfeature.model;
 
-import javafx.collections.ObservableList;
-import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import java.util.Optional;
 
+import javafx.collections.ObservableList;
+import seedu.address.diaryfeature.model.details.Details;
+import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 
 /**
  * Wraps all data at the address-book level
@@ -11,23 +13,47 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 public class DiaryBook {
 
     private final DiaryEntryList entries;
+    private Optional<Details> details;
 
 
     public DiaryBook() {
         entries = new DiaryEntryList();
-       // if (entries.isEmpty()) {
-        //    entries.loadSampleData();
-      //  }
-        //This is a current, temp version
-        //to ensure that my diary list has something
-        //when we start
+        details = Optional.empty();
     }
 
     public DiaryBook loadData(DiaryEntry[] myEntries) {
-        for(DiaryEntry curr: myEntries) {
+        for (DiaryEntry curr : myEntries) {
             entries.addDiaryEntry(curr);
         }
         return this;
+    }
+
+    public void setDetails(Details attempt) {
+        if (details.isEmpty()) {
+        details = Optional.of(attempt);
+    }
+
+}
+
+    public boolean hasPassword() {
+        return (details.isPresent());
+    }
+
+    public void setinnerDetails(Optional<Details> input) {
+        if(input.isEmpty()) {
+            details = Optional.empty();
+        } else {
+            details = input;
+        }
+    }
+
+
+    public boolean checkDetails(Details input) {
+        if(details.isEmpty()) {
+            return false;
+        } else {
+            return details.get().checkDetails(input);
+        }
     }
 
     /**
@@ -37,6 +63,9 @@ public class DiaryBook {
     public DiaryEntry addDiaryEntry(DiaryEntry p) {
 
         return entries.addDiaryEntry(p);
+    }
+    public Optional<Details> getDetails() {
+        return details;
     }
 
 
@@ -48,6 +77,15 @@ public class DiaryBook {
 
         return entries.deleteDiaryEntry(x);
     }
+
+    public void setDiaryEntryPrivate(int index) {
+         entries.setDiaryEntryPrivate(index);
+    }
+
+    public void setDiaryEntryUnPrivate(int index) {
+       entries.setDiaryEntryUnPrivate(index);
+    }
+
 
     public String getEntriesAsString() {
         return entries.getEntriesAsString();

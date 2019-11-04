@@ -1,7 +1,6 @@
 package seedu.address.diaryfeature.ui;
 
-import java.nio.file.Paths;
-import java.util.Optional;
+
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
@@ -12,16 +11,12 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.diaryfeature.logic.DiaryBookLogic;
 import seedu.address.diaryfeature.logic.parser.DiaryBookParser;
-import seedu.address.diaryfeature.model.DiaryBook;
-import seedu.address.diaryfeature.model.DiaryModel;
-import seedu.address.diaryfeature.model.util.SampleDataUtil;
-import seedu.address.diaryfeature.storage.JsonDiaryBookStorage;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageType;
@@ -46,6 +41,10 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private ResultDisplay resultDisplay;
     private DiaryBookParser parser;
     private DiaryBookLogic logicHandler;
+    private DiaryHelpWindow helpWindow;
+    private CodeWindow codeWindow;
+
+
 
 
 
@@ -65,30 +64,12 @@ public class DiaryPage extends UiPart<Region> implements Page {
     private StackPane resultDisplayPlaceholder;
 
 
-
-    public DiaryPage() {
+    public DiaryPage(DiaryBookLogic logic) {
         super(FXML);
         this.parser = new DiaryBookParser();
         diaryScene = new Scene(diaryPane);
-        JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data","diaryBook.json"));
-
-
-            Optional<DiaryBook> diaryBookOptional;
-            DiaryBook initialData;
-            try {
-                diaryBookOptional = storage.readDiaryBook();
-                if (!diaryBookOptional.isPresent()) {
-                    logger.info("Data file not found. Will be starting with a sample DiaryBook");
-                    initialData = SampleDataUtil.getSampleDiaryBook();
-                } else {
-                    initialData = diaryBookOptional.get();
-                }
-            }catch (DataConversionException e) {
-                logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-                initialData = new DiaryBook();
-            }
-
-        this.logicHandler = new DiaryBookLogic(new DiaryModel(initialData),storage);
+        this.helpWindow = new DiaryHelpWindow();
+        this.logicHandler = logic;
 
 
         fillInnerParts();
@@ -118,29 +99,20 @@ public class DiaryPage extends UiPart<Region> implements Page {
             CommandResult commandResult = logicHandler.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
             if (commandResult.isExit()) {
                 handleExit();
             }
 
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | NullPointerException e) {
             logger.info("Invalid command: " + commandText + e);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
-
-    /**
-     * Quit after letting user read the ByeResponse.
-     *
-     */
-
-    public void exit() {
-
-    }
-
 
     /**
      * Closes the application.
@@ -158,6 +130,31 @@ public class DiaryPage extends UiPart<Region> implements Page {
         Timer timer = new Timer();
         timer.schedule(myDelay,350);
     }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
+    }
+
 
     @Override
     public Scene getScene() {

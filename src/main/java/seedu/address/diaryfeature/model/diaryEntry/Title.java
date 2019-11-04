@@ -1,39 +1,24 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.logging.Logger;
-
-import seedu.address.diaryfeature.model.exceptions.TitleException;
-
 /**
  * Represents the title in a Diary Entry
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS = "Title can take any value";
-
+    public static final String MESSAGE_CONSTRAINTS = "" +
+            "Title can't be the empty string, can't only be spaces and has to be less than 50 characters ";
+    public static final int TITLE_MAX_LENGTH = 50;
 
     public final String value;
 
     /**
      * Constructs an {@code Address}.
      *
-     * @param title is a valid title.
+     * @param input is a valid title.
      */
-    public Title(String input) throws TitleException {
-        requireNonNull(input);
-        String title = input.trim();
+    public Title(String input) {
+        value = input;
 
-        //If the length of the remaining string
-        //(after the trim in parser) is 0, which means an empty string,
-        //then nothing is left and
-        //this is a faulty title
-        if (title.equalsIgnoreCase("")) {
-            Logger.getLogger("Title is empty");
-            throw new TitleException();
-        }
-        value = title;
     }
 
 
