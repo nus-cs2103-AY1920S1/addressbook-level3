@@ -22,6 +22,8 @@ import dukecooks.model.workout.exercise.details.ExerciseWeight;
 import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
 import dukecooks.model.workout.exercise.details.Timing;
+import dukecooks.model.workout.history.ExerciseHistory;
+import dukecooks.model.workout.history.ExerciseRun;
 
 /**
  * Jackson-friendly version of {@link Exercise}.
@@ -35,6 +37,7 @@ public class JsonAdaptedExercise {
     private final List<JsonAdaptedMuscleType> secondaryMuscles = new ArrayList<>();
     private final String intensity;
     private final List<JsonAdaptedExerciseDetail> details = new ArrayList<>();
+    private final List<JsonAdaptedExerciseRun> previousRuns = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
@@ -44,7 +47,8 @@ public class JsonAdaptedExercise {
                                @JsonProperty("primaryMuscle") String primaryMuscle,
                                @JsonProperty("secondaryMuscles") List<JsonAdaptedMuscleType> secondaryMuscles,
                                @JsonProperty("intensity") String intensity,
-                               @JsonProperty("details") List<JsonAdaptedExerciseDetail> details) {
+                               @JsonProperty("details") List<JsonAdaptedExerciseDetail> details,
+                               @JsonProperty("previousRuns") List<JsonAdaptedExerciseRun> previousRuns) {
         this.name = name;
         this.primaryMuscle = primaryMuscle;
         if (secondaryMuscles != null) {
@@ -54,6 +58,7 @@ public class JsonAdaptedExercise {
         if (details != null) {
             this.details.addAll(details);
         }
+        this.previousRuns.addAll(previousRuns);
     }
 
     /**
@@ -70,6 +75,9 @@ public class JsonAdaptedExercise {
                 .map(exerciseDetail -> {
                     return toAdaptedJson(exerciseDetail);
                 })
+                .collect(Collectors.toList()));
+        previousRuns.addAll(source.getHistory().getPreviousRuns()
+                .stream().map(JsonAdaptedExerciseRun::new)
                 .collect(Collectors.toList()));
     }
 
@@ -99,6 +107,11 @@ public class JsonAdaptedExercise {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Exercise toModelType() throws IllegalValueException {
+        final ArrayList<ExerciseRun> runs = new ArrayList<>();
+        for (JsonAdaptedExerciseRun jsonRun : previousRuns) {
+            runs.add(jsonRun.toModelType());
+        }
+
         final List<ExerciseDetail> exerciseDetails = new ArrayList<>();
         for (JsonAdaptedExerciseDetail detail : details) {
             exerciseDetails.add(detail.toModelType());
@@ -138,7 +151,8 @@ public class JsonAdaptedExercise {
 
         MusclesTrained modelMuscleTrained = new MusclesTrained(modelPrimaryMuscle, secondaryMuscles);
         final Set<ExerciseDetail> modelExerciseDetails = new HashSet<>(exerciseDetails);
-        return new Exercise(modelExerciseName, modelMuscleTrained, modelIntensity, modelExerciseDetails);
+        final ExerciseHistory history = new ExerciseHistory(runs);
+        return new Exercise(modelExerciseName, modelMuscleTrained, modelIntensity, modelExerciseDetails, history);
     }
 
 }

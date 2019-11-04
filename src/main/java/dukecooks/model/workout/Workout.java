@@ -20,6 +20,7 @@ import dukecooks.model.workout.exercise.details.Repetitions;
 import dukecooks.model.workout.exercise.details.Sets;
 import dukecooks.model.workout.exercise.details.Timing;
 import dukecooks.model.workout.history.WorkoutHistory;
+import dukecooks.model.workout.history.WorkoutRun;
 
 /**
  * Represents a Workout in the WorkoutPlanner.
@@ -50,6 +51,15 @@ public class Workout {
         this.musclesTrained = musclesTrained;
         this.averageIntensity = averageIntensity;
         this.history = history;
+    }
+
+    /**
+     * Returns a new workout with WorkoutHistory updated with the workout run.
+     */
+
+    public Workout updateHistory(WorkoutRun workoutRun) {
+        WorkoutHistory updatedHistory = history.addRun(workoutRun);
+        return new Workout(name, exercises, exercisesDetails, musclesTrained, averageIntensity, updatedHistory);
     }
 
     /**

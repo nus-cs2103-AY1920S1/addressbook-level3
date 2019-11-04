@@ -72,6 +72,20 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    public Model getModel() {
+        return model;
+    }
+
+    @Override
+    public void updateWorkoutStorage() {
+        try {
+            storage.saveWorkoutCatalogue(model.getWorkoutCatalogue());
+            storage.saveExerciseCatalogue(model.getExerciseCatalogue());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public ReadOnlyExerciseCatalogue getDukeCooks() {
         return model.getExerciseCatalogue();

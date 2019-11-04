@@ -8,6 +8,7 @@ import dukecooks.commons.core.LogsCenter;
 import dukecooks.logic.Logic;
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.exceptions.CommandException;
+import dukecooks.logic.commands.workout.UpdateWorkoutCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.workout.Workout;
 import javafx.event.ActionEvent;
@@ -233,6 +234,24 @@ public class MainWindow extends UiPart<Stage> {
     public void handleRunWorkout(Workout workoutToRun) {
         runWorkoutWindow = new RunWorkoutWindow(workoutToRun);
         runWorkoutWindow.show();
+        runWorkoutWindow.getRoot().setOnCloseRequest(e -> {
+            if (runWorkoutWindow.getWorkoutRun() != null) {
+                CommandResult result = new UpdateWorkoutCommand(runWorkoutWindow.getWorkoutRun(), runWorkoutWindow
+                        .getWorkoutToRun()).execute(logic);
+                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+            } else {
+                resultDisplay.setFeedbackToUser("Workout incomplete :( Try Harder next time!");
+            }
+        });
+        runWorkoutWindow.getRoot().setOnHiding(e -> {
+            if (runWorkoutWindow.getWorkoutRun() != null) {
+                CommandResult result = new UpdateWorkoutCommand(runWorkoutWindow.getWorkoutRun(), runWorkoutWindow
+                        .getWorkoutToRun()).execute(logic);
+                resultDisplay.setFeedbackToUser(result.getFeedbackToUser());
+            } else {
+                resultDisplay.setFeedbackToUser("Workout incomplete :( Try Harder next time!");
+            }
+        });
     }
 
     void show() {
