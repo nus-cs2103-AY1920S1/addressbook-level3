@@ -50,10 +50,10 @@ class DiaryLine extends UiPart<GridPane> {
      *
      * @param text The {@link String} text to display.
      */
-    DiaryLine(String text, int index) {
+    DiaryLine(String text, String index) {
         super(FXML);
 
-        lineIndexText.setText(String.valueOf(index));
+        lineIndexText.setText(index);
         lineTextLabel.setText(text);
         getRoot().getChildren().remove(photoCardsDisplay);
     }
@@ -63,10 +63,10 @@ class DiaryLine extends UiPart<GridPane> {
      *
      * @param photos The {@link Collection} of {@link Photo}s to display.
      */
-    DiaryLine(Collection<Photo> photos, int index) {
+    DiaryLine(Collection<Photo> photos, String index) {
         super(FXML);
 
-        lineIndexText.setText(String.valueOf(index));
+        lineIndexText.setText(index);
         getRoot().getChildren().remove(lineTextLabel);
         setGraphicOnlyConstraints();
         photoCardsDisplay.getChildren().addAll(
@@ -84,11 +84,11 @@ class DiaryLine extends UiPart<GridPane> {
      * @param placeOnLeft True if the image should be positioned on the left. Otherwise, it is positioned on
      *                    the right.
      */
-    DiaryLine(String text, Photo photo, boolean placeOnLeft, int index) {
+    DiaryLine(String text, Photo photo, boolean placeOnLeft, String index) {
         super(FXML);
         requireNonNull(photo);
 
-        lineIndexText.setText(String.valueOf(index));
+        lineIndexText.setText(index);
         lineTextLabel.setText(text);
         int lineTextLabelIndex = placeOnLeft ? DEFAULT_RIGHT_GRID_INDEX : DEFAULT_LEFT_GRID_INDEX;
         int photoCardIndex = placeOnLeft ? DEFAULT_LEFT_GRID_INDEX : DEFAULT_RIGHT_GRID_INDEX;
