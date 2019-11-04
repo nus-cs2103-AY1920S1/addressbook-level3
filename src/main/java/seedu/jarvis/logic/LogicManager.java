@@ -113,6 +113,16 @@ public class LogicManager implements Logic {
 
     }
 
+    @Override
+    public ObservableList<Task> getTasksToday() {
+        return model.getTasksToday();
+    }
+
+    @Override
+    public ObservableList<Task> getTasksThisWeek() {
+        return model.getTasksThisWeek();
+    }
+
 
     // Course Planner ====================================================================
 

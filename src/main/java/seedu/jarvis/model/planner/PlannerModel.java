@@ -107,6 +107,12 @@ public interface PlannerModel {
     void updateFilteredTaskList(Predicate<Task> predicate);
 
     /**
+     * Updates the list of tasks according to the day and week
+     */
+    //TODO test
+    void updateSchedule();
+
+    /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */
@@ -118,6 +124,22 @@ public interface PlannerModel {
      * @return a list of all the {@code Task} in the {@code Planner}
      */
     ObservableList<Task> getUnfilteredTaskList();
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given day,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    //TODO tests
+    ObservableList<Task> getTasksToday();
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given week,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    //TODO tests
+    ObservableList<Task> getTasksThisWeek();
 
     /**
      * Marks a {@code Task} at the specified {@code Index} as done

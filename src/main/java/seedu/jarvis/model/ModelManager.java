@@ -688,6 +688,14 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Updates the list of tasks according to the day and week
+     */
+    //TODO test
+    public void updateSchedule() {
+        planner.updateSchedule();
+    }
+
+    /**
      * Returns an unmodifiable view of the list of {@code Task} backed by the internal list
      * of {@code Planner}
      */
@@ -704,6 +712,28 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Task> getUnfilteredTaskList() {
         return planner.getUnfilteredTaskList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given day,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    //TODO tests
+    @Override
+    public ObservableList<Task> getTasksToday() {
+        return planner.getTasksToday();
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Task} that coincide with the given week,
+     * backed by the internal list of {@code Planner}
+     * @return a list of all the {@code Task} in the {@code Planner}
+     */
+    //TODO tests
+    @Override
+    public ObservableList<Task> getTasksThisWeek() {
+        return planner.getTasksThisWeek();
     }
 
     /**

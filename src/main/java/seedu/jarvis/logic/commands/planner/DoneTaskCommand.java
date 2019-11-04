@@ -114,7 +114,7 @@ public class DoneTaskCommand extends Command {
 
         model.markTaskAsDone(targetIndex);
         doneTask = model.getTask(targetIndex);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_TASKS_TODAY);
+        model.updateSchedule();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_SUCCESS, doneTask), true);
     }

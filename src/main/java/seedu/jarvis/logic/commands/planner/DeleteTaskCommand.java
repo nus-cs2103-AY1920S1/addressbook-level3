@@ -116,7 +116,7 @@ public class DeleteTaskCommand extends Command {
 
         deletedTask = tasks.getTask(targetIndex);
         model.deleteTask(targetIndex);
-        model.updateFilteredTaskList(PlannerModel.PREDICATE_TASKS_TODAY);
+        model.updateSchedule();
         model.setViewStatus(ViewType.LIST_PLANNER_SCHEDULE);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedTask), true);
 
