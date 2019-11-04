@@ -67,6 +67,18 @@ public abstract class AnnotationCommand extends Command {
         return caches.get(0);
     }
 
+
+    public void saveState(Model model, Bookmark oldBkmark, Bookmark newBkmark, OfflineDocument doc, String savedMsg) {
+        model.updateDocument(doc);
+        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
+
+        newBkmark.updateCachedCopy(doc);
+        model.setBookmark(oldBkmark, newBkmark);
+
+        model.saveMark(savedMsg);
+    }
+
+
     public Index getBookmarkIndex() {
         return index;
     }
@@ -74,4 +86,18 @@ public abstract class AnnotationCommand extends Command {
         return pid;
     }
 
+}
+
+/**
+ * This is a dummy pid for a non-existent paragraph, null.
+ */
+class DummyParagraphIdentifier extends ParagraphIdentifier {
+    public DummyParagraphIdentifier() {
+        super(Index.fromOneBased(1), ParagraphType.STRAY);
+    }
+
+    @Override
+    public String toString() {
+        return "NULL (i.e. your note has been added to the general ";
+    }
 }

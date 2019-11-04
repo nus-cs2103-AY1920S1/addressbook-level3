@@ -111,15 +111,12 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
         }
 
-        model.updateDocument(doc);
-        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
+        String savedMsg = String.format(MESSAGE_SUCCESS, getPid(), returnMsg);
 
         Bookmark newBkmark = oldBkmark.copy();
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
-        return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
+        return new OfflineCommandResult(savedMsg);
     }
 
     @Override
@@ -137,16 +134,3 @@ public class AddAnnotationCommand extends AnnotationCommand {
 
 }
 
-/**
- * This is a dummy pid for a non-existent paragraph, null.
- */
-class DummyParagraphIdentifier extends ParagraphIdentifier {
-    public DummyParagraphIdentifier() {
-        super(Index.fromOneBased(1), ParagraphType.STRAY);
-    }
-
-    @Override
-    public String toString() {
-        return "NULL (i.e. your note has been added to the general ";
-    }
-}

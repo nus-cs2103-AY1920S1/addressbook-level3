@@ -61,14 +61,10 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
             doc.addPhantom(an);
         }
 
-        model.updateDocument(doc);
-        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
-
+        String savedMsg = MESSAGE_SUCCESS;
         Bookmark newBkmark = oldBkmark.copy();
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        model.saveMark(MESSAGE_SUCCESS);
-        return new OfflineCommandResult(MESSAGE_SUCCESS);
+        return new OfflineCommandResult(savedMsg);
     }
 }

@@ -69,15 +69,11 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
             noteRemoved = String.format(MESSAGE_ORIG_HIGHLIGHT, note.getHighlight()) + " with " + noteRemoved;
         }
 
-        model.updateDocument(doc);
-        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
+        String savedMsg = String.format(MESSAGE_SUCCESS, getPid(), noteRemoved);
 
         Bookmark newBkmark = oldBkmark.copy();
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
 
-        newBkmark.updateCachedCopy(doc);
-        model.setBookmark(oldBkmark, newBkmark);
-
-        model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), noteRemoved));
-        return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), noteRemoved));
+        return new OfflineCommandResult(savedMsg);
     }
 }

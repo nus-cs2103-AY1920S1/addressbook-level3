@@ -506,6 +506,8 @@ This highlights paragraph 2 orange and attaches note with content “summary of 
 in the offline copy of bookmark 1.
 //TODO: add screenshots
 
+
+
 * `*annotate* 1 p/p2 h/pink` +
 This overwrites any existing highlight of paragraph 2 with pink
 in the offline copy of bookmark 1. Any notes attached remain attached.
@@ -587,8 +589,8 @@ Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIG
  If `INDEX` is invalid, a warning message will be displayed.
  * `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of.
  If `PARA_NUM` is invalid or the corresponding paragraph does not have existing annotations, a warning message will be displayed.
- * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to.
- If `NEW_PARA_NUM` is invalid, a warning message will be displayed.
+ * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to. If `NEW_PARA_NUM` is the same as `PARA_NUM` or
+is invalid, a warning message will be displayed.
  * `NOTES` is the content of notes to change to. Whenever notes is given, it
  replaces any pre-existing note to paragraph `PARA_NUM`, if applicable.
  * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects

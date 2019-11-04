@@ -44,6 +44,8 @@ public class EditAnnotationCommand extends AnnotationCommand {
     public static final String MESSAGE_TARGET_NO_PHANTOM = "You cannot move an annotation to a phantom paragraph.";
     public static final String MESSAGE_PHANTOM_CANNOT_HIGHLIGHT = "You cannot change the highlight "
             + "of a phantom paragraph.";
+    public static final String MESSAGE_CANNOT_MOVE_TO_SAME_PARA = "Please specify a different paragraph to move "
+            + "annotation to.";
     public static final String MESSAGE_NOTHING_TO_EDIT = "Paragraph %1$s has no annotations to edit.";
     public static final String MESSAGE_SUCCESS = "Annotation at paragraph %1$s successfully modified:\n%2$s";
     public static final String MESSAGE_MOVED_TO = "This has been moved to paragraph %s";
@@ -80,8 +82,13 @@ public class EditAnnotationCommand extends AnnotationCommand {
             throw new CommandException(MESSAGE_TARGET_NO_PHANTOM);
         }
 
+        if (newNote == null && newPid == null && getPid().isStray()) {
+            throw new CommandException(MESSAGE_PHANTOM_CANNOT_HIGHLIGHT);
+        }
+
         try {
             originalP = doc.getParagraph(getPid());
+
             if (newPid != null) {
                 newP = doc.getParagraph(newPid);
             }
@@ -89,36 +96,29 @@ public class EditAnnotationCommand extends AnnotationCommand {
             throw new CommandException(EditAnnotationCommand.COMMAND_WORD + ": " + e.getMessage());
         }
 
-        if (newNote == null && newPid == null && getPid().isStray()) {
-            throw new CommandException(MESSAGE_PHANTOM_CANNOT_HIGHLIGHT);
-        }
-
         if (!originalP.hasAnnotation()) {
             throw new CommandException(String.format(EditAnnotationCommand.MESSAGE_NOTHING_TO_EDIT, getPid()));
         }
+
+        if (getPid().equals(newPid)) {
+            throw new CommandException(MESSAGE_CANNOT_MOVE_TO_SAME_PARA);
+        }
+
 
         Annotation newAnnotation = getNewAnnotation(originalP);
 
         moveAnnotation(originalP, newP, newAnnotation, doc);
 
-        model.updateDocument(doc);
-
-        Bookmark newBkmark = new Bookmark(oldBkmark.getName(),
-                oldBkmark.getUrl(), oldBkmark.getRemark(), oldBkmark.getFolder(),
-                oldBkmark.getTags(), oldBkmark.getCachedCopies());
-
-        newBkmark.updateCachedCopy(doc);
-        model.setOfflineDocNameCurrentlyShowing(oldBkmark.getName().value);
-
-        model.setBookmark(oldBkmark, newBkmark);
-
         String returnMsg = newAnnotation.toString();
         if (newP != null) {
             returnMsg = returnMsg + "\n" + String.format(MESSAGE_MOVED_TO, newPid);
         }
+        String savedMsg = String.format(MESSAGE_SUCCESS, getPid(), returnMsg);
 
-        model.saveMark(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
-        return new OfflineCommandResult(String.format(MESSAGE_SUCCESS, getPid(), returnMsg));
+        Bookmark newBkmark = oldBkmark.copy();
+        saveState(model, oldBkmark, newBkmark, doc, savedMsg);
+
+        return new OfflineCommandResult(savedMsg);
     }
 
     private Annotation getNewAnnotation(Paragraph originalP) {
