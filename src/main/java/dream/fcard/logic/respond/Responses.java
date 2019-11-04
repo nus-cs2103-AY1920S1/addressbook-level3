@@ -6,12 +6,15 @@ import dream.fcard.gui.controllers.displays.test.TestDisplay;
 import dream.fcard.gui.controllers.displays.test.TimedTestDisplay;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
+import dream.fcard.logic.respond.commands.CreateCommand;
+import dream.fcard.logic.respond.commands.HelpCommand;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
+import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.util.RegexUtil;
 
 /**
@@ -29,6 +32,70 @@ import dream.fcard.util.RegexUtil;
  * In no other class should they take the responsibility.
  */
 public enum Responses {
+    HELP_W_COMMAND(
+            RegexUtil.commandFormatRegex("", new String[]{"command/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
+                            new String[]{"command/"},
+                            i);
+
+                    boolean validCommand = false;
+
+                    for (String curr : HelpCommand.getAllCommands()) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, curr);
+                        validCommand = true;
+                    }
+
+                    if (!validCommand) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Command supplied is not a valid command!"
+                                + "Type 'help' for the UserGuide'.");
+                    }
+                    return true;
+                }
+    ),
+    HELP(
+            "^((?i)help)(.)*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    //TODO open a window to UserGuide.html (by Taha)
+                    return true;
+                }
+    ),
+    IMPORT (
+            RegexUtil.commandFormatRegex("import", new String[]{"filepath/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+
+                    return true; //if valid
+                    //return false; //if not valid
+                }
+    ),
+    IMPORT_ERROR(
+            "^((?i)import).*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+
+                    return true;
+                }
+    ),
+    EXPORT (
+            RegexUtil.commandFormatRegex("export", new String[]{"filepath/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+
+                    return true; //if valid
+                    //return false; //if not valid
+                }
+    ),
+    EXPORT_ERROR(
+            "^((?i)export).*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+
+                    return true;
+                }
+    ),
     CREATE_NEW_DECK_WITH_NAME(
             "^((?i)create)\\s+((?i)deck/)\\s*\\S.*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -60,6 +127,110 @@ public enum Responses {
                     return true;
                 } //done
     ),
+    // ADD_CARD regex format: add deck/DECK_NAME [priority/PRIORITY_NAME] front/FRONT back/BACK [choice/CHOICE]
+    // Only used for MCQ and FrontBack cards
+    // Note that back for MCQ cards will be used for identifying the correct CHOICE
+    ADD_CARD(
+            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "back/"}),
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{"deck/", "priority/", "front/", "back/", "choice/"},
+                            i);
+
+                    // Checks if "deck/", "front/"  and "back/" are supplied.
+                    if (res.get(0).size() == 0 || res.get(2).size() == 0 || res.get(3).size() == 0) {
+                        return false;
+                    }
+
+                    try {
+                        return CreateCommand.createMcqFrontBack(res, StateHolder.getState());
+                    } catch (DuplicateInChoicesException dicExc) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "There are duplicated choices!");
+                        return true;
+                    }
+                }
+    ),
+    ADD_CARD_ERROR(
+            "^((?i)(add).*",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+                i -> {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Add command is invalid! To see the correct"
+                            + "format of the Add command, type 'help command/add'");
+                    return true;
+                }
+    ),
+    EDIT_CARD(
+            RegexUtil.commandFormatRegex("edit", new String[]{
+                "deck/",
+                "index/",
+                "front/",
+                "back/",
+                "choiceIndex/",
+                "choice/"}),
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{
+                                "deck/",
+                                "index/",
+                                "front/",
+                                "back/",
+                                "choiceIndex/",
+                                "choice/"},
+                            i);
+                    // Checks if "deck/" and "index" are supplied.
+                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
+                        return false;
+                    }
+
+                    // Checks if choiceIndex and choice are both given or both not given.
+                    if ((res.get(4).size() == 0 && res.get(5).size() != 0)
+                            || (res.get(4).size() != 0 && res.get(5).size() == 0)) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Choice and ChoiceIndex must be supplied"
+                                + "together or not supplied at all!");
+                        return true;
+                    }
+
+                    // Checks if nothing is being edited
+                    if (res.get(2).size() == 0 && res.get(3).size() == 0 && res.get(4).size() == 0
+                            && res.get(5).size() == 0) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "No field is supplied to be edited!");
+                        return true;
+                    }
+
+                    // Todo: Actual implementation below
+                    return true;
+                }
+    ),
+    EDIT_CARD_ERROR(
+            "^((?i)(edit).*",
+            new ResponseGroup[] {ResponseGroup.DEFAULT},
+                i -> {
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Edit command is invalid! To see the correct"
+                            + "format of the Edit command, type 'help command/edit'");
+                    return true;
+                }
+    ),
+    DELETE_CARD(
+            RegexUtil.commandFormatRegex("delete", new String[]{"deck/", "index/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("delete",
+                            new String[]{"deck/", "index/"},
+                            i);
+
+                    // Checks if "deck/" and "index/" are supplied.
+                    if (res.get(0).size() == 0 || res.get(1).size() == 0) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the"
+                                + "correct format of the Delete command, type 'help command/delete'");
+                        return true;
+                    }
+
+                    return true; //if valid
+                    //return false; //if not valid
+                }
+    ),
     SEE_SPECIFIC_DECK(
             "^((?i)view)\\s+[0-9]+$",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
@@ -74,6 +245,15 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck number.");
+                    return true;
+                }
+    ),
+    EXIT_CREATE(
+            "^((?i)exit)\\s*$",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+                    Consumers.doTask(ConsumerSchema.EXIT_CREATE, true);
                     return true;
                 } //done
     ),
@@ -95,6 +275,46 @@ public enum Responses {
                     return true;
                 } //todo
     ),
+    STATS(
+            RegexUtil.commandFormatRegex("stats", new String[]{"deck/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res =
+                            RegexUtil.parseCommandFormat("test", new String[]{"deck/"}, i);
+
+                    //Checks if a deckName is supplied.
+                    boolean hasDeckName = res.get(0).size() > 0;
+
+                    if (res.get(0).size() > 1) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Only 1 Deck at a time, please!");
+                        return true;
+                    }
+
+                    if (hasDeckName) {
+                        // Todo: Show Stats for Deck
+                        return true;
+                    } else {
+                        // Todo: Show Stats for Application
+                        return true;
+                    }
+                }
+    ),
+    // Starts a test and enters Test Mode (Note to Shawn: rmb to change the StateEnum to TEST)
+    TEST(
+            RegexUtil.commandFormatRegex("test", new String[]{"deck/", "duration/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res =
+                            RegexUtil.parseCommandFormat("test", new String[]{"deck/", "duration/"}, i);
+                    // Note to Shawn:
+                    // res.get(0) returns the ArrayList of Deck Names (should only have one)
+                    // res.get(1) returns the ArrayList of duration in seconds (should have zero or one).
+                    // Duration is a String.
+
+                    return true;
+                }
+    ),
+
     // DEFAULT GROUP ----------------------------------------------------------
     START_TEST(
             RegexUtil.commandFormatRegex("test", new String[]{"deck/"}),
@@ -126,6 +346,111 @@ public enum Responses {
                 } //todo
     ),
     // TEST GROUP ----------------------------------------------------------
+
+    TEST_NEXT(
+            "^((?i)next)\\s*",
+            new ResponseGroup[]{
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
+                i -> {
+
+                    return true;
+                }
+    ),
+    TEST_PREV(
+            "^((?i)prev(ious)?)\\s*",
+            new ResponseGroup[]{
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
+                i -> {
+
+                    return true;
+                }
+    ),
+    // Needs to change StateEnum back to DEFAULT
+    TEST_EXIT(
+            "^((?i)exit)\\s*",
+            new ResponseGroup[]{
+                ResponseGroup.TEST,
+                ResponseGroup.TEST_FBCARD,
+                ResponseGroup.TEST_JSJAVA,
+                ResponseGroup.TEST_MCQ},
+                i -> {
+
+                    return true;
+                }
+    ),
+
+    // TEST GROUP (can be used by other TEST StateEnums ------------------------
+
+    FB_FRONT(
+            "^((?i)front)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+                i -> {
+
+                    return true;
+                }
+    ),
+    FB_BACK(
+            "^((?i)back)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+                i -> {
+
+                    return true;
+                }
+    ),
+    FB_CORRECT(
+            "^((?i)correct)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+                i -> {
+
+                    return true;
+                }
+    ),
+    FB_WRONG(
+            "^((?i)wrong)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_FBCARD},
+                i -> {
+
+                    return true;
+                }
+    ),
+
+    // TEST_FB GROUP ----------------------------------------------------------
+
+    MCQ_PROCESS_INPUT(
+            "^((?i)(\\d)+\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_MCQ},
+                i -> {
+
+                    return true;
+                }
+    ),
+    MCQ_FRONT(
+            "^((?i)front)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_MCQ},
+                i -> {
+
+                    return true;
+                }
+    ),
+
+    // TEST_MCQ GROUP ----------------------------------------------------------
+
+    JSJAVA_CODE(
+            "^((?i)code)\\s*",
+            new ResponseGroup[]{ResponseGroup.TEST_JSJAVA},
+                i -> {
+
+                    return true;
+                }
+    ),
+
+    // TEST_JSJAVA GROUP ----------------------------------------------------------
 
     QUIT(
             "^((?i)quit)\\s*$",

@@ -5,5 +5,8 @@ package dream.fcard.model;
  */
 public enum StateEnum {
     DEFAULT,
-    TEST
+    TEST,
+    TEST_FBCARD,
+    TEST_MCQ,
+    TEST_JSJAVA
 }
