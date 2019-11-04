@@ -1,0 +1,49 @@
+@startuml
+autonumber
+
+ -> ExamRunner: ExamRunner(Deck)
+activate ExamRunner
+
+ExamRunner -> Deck: createSubsetForTest()
+activate Deck
+
+opt Number of cards <= 10
+Deck --> ExamRunner: return cards
+end
+
+Deck -> Deck: compute sizeOfHighPrioritySet
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+
+Deck -> Deck: compute sizeOfLowPrioritySet
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+
+loop temp
+Deck -> Deck: getRandomCard(highPriorityQueue)
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+
+Deck -> Deck: add chosen card to test set
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+end
+
+loop temp2
+Deck -> Deck: getRandomCard(lowPriorityQueue)
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+
+
+Deck -> Deck: add chosen card to test set
+activate Deck #DarkSalmon
+deactivate Deck #DarkSalmon
+
+end
+
+Deck --> ExamRunner: return testSet
+deactivate Deck
+
+[<--ExamRunner:
+
+@enduml
