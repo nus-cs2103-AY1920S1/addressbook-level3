@@ -7,6 +7,9 @@ import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.ApplicationState;
 
+/**
+ * Factory class encapsulating the necessary components for the creation of a Help command instance.
+ */
 public class HelpCommandFactory implements CommandFactory {
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;

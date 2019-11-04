@@ -13,6 +13,10 @@ import com.dukeacademy.model.question.UserProgram;
 import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
+/**
+ * Encapsulates a command used to navigate to Help tab. Any unsaved work is automatically
+ * saved before the returning to Help tab.
+ */
 public class HelpCommand implements Command {
     private final Logger logger;
     private final ProgramSubmissionLogic programSubmissionLogic;

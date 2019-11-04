@@ -14,8 +14,8 @@ import com.dukeacademy.model.state.Activity;
 import com.dukeacademy.model.state.ApplicationState;
 
 /**
- * Home command used to exit the application. Any unsaved work is automatically
- * saved before the application is exited.
+ * Encapsulates a command used to navigate to Home tab. Any unsaved work is automatically
+ * saved before the returning to Home tab.
  */
 public class HomeCommand implements Command {
     private final Logger logger;
