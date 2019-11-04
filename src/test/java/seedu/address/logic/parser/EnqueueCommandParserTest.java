@@ -5,7 +5,8 @@ import static seedu.address.model.person.parameters.PersonReferenceId.MESSAGE_CO
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EnqueueCommand;
+import seedu.address.logic.commands.queue.EnqueueCommand;
+import seedu.address.logic.parser.queue.EnqueueCommandParser;
 
 public class EnqueueCommandParserTest {
     private EnqueueCommandParser parser = new EnqueueCommandParser();

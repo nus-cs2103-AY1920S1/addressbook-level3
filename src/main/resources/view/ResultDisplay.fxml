@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author CarbonGrid -->
 
 <?import javafx.scene.control.TextArea?>
 
 
-<TextArea fx:id="resultDisplay" editable="false" focusTraversable="false" styleClass="result-display" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<TextArea fx:id="resultDisplay" editable="false" focusTraversable="false" styleClass="result-display"
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"/>

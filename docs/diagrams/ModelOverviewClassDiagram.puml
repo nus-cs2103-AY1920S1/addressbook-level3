@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Package Model <<Rectangle>>{
+Interface ObservableList <<Interface>>
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface Identical <<Interface>>
+
+Class AddressBook
+Class ReadOnlyAddressBook
+Class AppointmentBook
+Class ReadOnlyAppointmentBook
+Class Model
+Class ModelManager
+
+
+Package UserPrefs {
+Class UserPrefs
+Class ReadOnlyUserPrefs
+}
+
+Package ReferenceId {
+}
+
+Package UniqueList {
+Class "{abstract}\AbstractList" as AbstractList
+Class HashSet
+Class UniqueTreeList
+Class UniqueElementList
+Class UniquePersonList
+}
+
+Package Person {
+}
+
+Package Events {
+}
+
+Package QueueManager {
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .down-> Model
+
+AddressBook .up.|> ReadOnlyAddressBook
+AddressBook -> "1" UniquePersonList
+
+AppointmentBook .right.--|> ReadOnlyAppointmentBook
+AppointmentBook -down--> "1" UniqueElementList
+
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+Model .right.> ObservableList
+
+UniqueTreeList -up-> "*" Identical
+UniqueTreeList *-left-> AbstractList
+UniqueElementList *-up-> UniqueTreeList
+UniquePersonList -right-> "*" Person
+UniquePersonList *-up-> UniqueElementList
+UniquePersonList -down-> "1" HashSet
+
+ReferenceId .-|> Identical
+
+Person .up.-|> Identical
+Person *-> "1" ReferenceId
+
+Events .down.-|> Identical
+Events -> "1" ReferenceId : Doctor >
+Events -> "1" ReferenceId : Patient >
+
+
+QueueManager ---> "*" ReferenceId : Doctors >
+QueueManager ---> "*" ReferenceId : Patients >
+
+ModelManager .up.-|> Model
+ModelManager -left-> "1" AddressBook : staff >
+ModelManager -left-> "1" AddressBook : patients >
+ModelManager -down--> "1" AppointmentBook : Appointments >
+ModelManager -down--> "1" AppointmentBook : StaffDutyRoster >
+ModelManager -right--> "1" UserPrefs
+ModelManager -right-> "1" QueueManager
+
+
+UniqueList -[hidden]up-> Identical
+Identical -[hidden]down-> ReferenceId
+ReferenceId -[hidden]right-> Events
+
+
+@enduml

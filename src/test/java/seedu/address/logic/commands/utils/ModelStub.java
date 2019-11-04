@@ -1,14 +1,17 @@
 package seedu.address.logic.commands.utils;
 
-import java.nio.file.Path;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.model.events.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.queue.QueueManager;
@@ -40,72 +43,102 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public void addPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setPatientAddressBook(ReadOnlyAddressBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public Path getAppointmentBookFilePath() {
+    public ReadOnlyAddressBook getPatientAddressBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+    public boolean hasPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addPerson(Person person) {
+    public boolean hasPatient(ReferenceId person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook newData) {
+    public boolean hasExactPatient(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public void deletePatient(Person target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public void setPatient(Person target, Person editedPerson) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasPerson(ReferenceId person) {
+    public ObservableList<Person> getFilteredPatientList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasExactPerson(Person person) {
+    public void updateFilteredPatientList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void setStaffAddressBook(ReadOnlyAddressBook staffAddressBook) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public ReadOnlyAddressBook getStaffAddressBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public boolean hasStaff(Person person) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public boolean hasStaff(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExactStaff(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteStaff(Person target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addStaff(Person person) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setStaff(Person target, Person editedPerson) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredStaffList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredStaffList(Predicate<Person> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -135,42 +168,37 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public boolean isPatientBeingServed(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ObservableList<Room> getConsultationRoomList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void serveNextPatient(int index) {
+    public void addRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void undoServeNextPatient(int index) {
+    public void removeRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addRoom(ReferenceId id) {
+    public boolean hasRoom(Room room) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addRoomToIndex(ReferenceId id, int index) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void removeRoom(ReferenceId target) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public boolean hasRoom(ReferenceId id) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void setSchedule(ReadOnlyAppointmentBook schedule) {
+    public void setAppointmentSchedule(ReadOnlyAppointmentBook schedule) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -180,69 +208,142 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasEvent(Event event) {
+    public boolean hasAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean hasExactEvent(Event event) {
+    public boolean hasExactAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deleteEvent(Event event) {
+    public void deleteAppointment(Event event) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void addEvent(Event event) {
+    public void scheduleAppointment(Event appointment) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setEvent(Event target, Event editedEvent) {
+    public void scheduleAppointments(List<Event> appointments) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Event> getFilteredEventList() {
+    public void setAppointment(Event target, Event editedEvent) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredEventList(Predicate<Event> predicate) {
+    public ListIterator<Event> getAppointmentsInConflict(Event toCheck) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredEventList(ReferenceId referenceId) {
-
+    public int getNumberOfAppointmentsInConflict(Event toCheck) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredEventList() {
-
+    public ObservableList<Event> getFilteredAppointmentList() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateToMissedEventList() {
-
+    public void updateFilteredAppointmentList(Predicate<Event> predicate) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void displayApprovedAndAckedPatientEvent(ReferenceId referenceId) {
-
+    public Boolean isListingAppointmentsOfSinglePatient() {
+        throw new AssertionError("This method should not be called.");
     }
 
-
     @Override
-    public Boolean isPatientList() {
-        return null;
+    public Boolean isListingAppointmentsOfSingleStaff() {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Boolean isMissedList() {
-        return null;
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDutyShiftSchedule(ReadOnlyAppointmentBook schedule) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ReadOnlyAppointmentBook getDutyShiftBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean hasExactDutyShift(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteDutyShifts(Event event) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteDutyShifts(List<Event> dutyShifts) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void scheduleDutyShift(Event dutyShift) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void scheduleDutyShift(List<Event> dutyShifts) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDutyShift(Event target, Event editedEvent) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ListIterator<Event> getDutyShiftInConflict(Event toCheck) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public int getNumberOfDutyShiftInConflict(Event toCheck) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Event> getFilteredDutyShiftList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateFilteredDutyShiftList(Predicate<Event> predicate) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setTabListing(OmniPanelTab tab) {
+    }
+
+    @Override
+    public void bindTabListingCommand(Consumer<OmniPanelTab> tabConsumer) {
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -251,7 +352,13 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Person resolve(ReferenceId person) {
+    public Person resolvePatient(ReferenceId person) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public Person resolveStaff(ReferenceId id) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 }

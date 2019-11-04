@@ -1,3 +1,4 @@
+//@@author CarbonGrid
 package seedu.address.ui;
 
 import javafx.scene.input.KeyCode;
@@ -16,5 +17,4 @@ public interface AutoComplete {
      * Called whenever keyPressed on AutoComplete.
      */
     void updateSelectionKeyPressedCommandBox(KeyCode keycode);
-
 }

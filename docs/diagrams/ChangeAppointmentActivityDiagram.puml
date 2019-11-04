@@ -1,0 +1,20 @@
+@startuml
+
+start
+-Display the list of patient's appointments
+-Enter change appointment command
+        if() then ([Valid index])
+        -find the target appointment
+
+            if() then ([Not conflict with other appointments])
+            -Appointment's timing changed
+            -Display the patient's all upcoming appointments
+
+            else ([else])
+            -Display error message\n to input valid appointment's timing
+            endif
+        else ([Not valid])
+        -Display error message\n to input valid appointment's index
+        endif
+stop
+@enduml

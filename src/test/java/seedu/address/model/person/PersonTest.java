@@ -14,7 +14,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.common.ReferenceId;
+import seedu.address.model.ReferenceId;
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -34,7 +34,7 @@ public class PersonTest {
         assertFalse(ALICE.isSameAs((ReferenceId) null));
 
         // different id -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPatientId(VALID_ID_BOB).build();
         assertFalse(ALICE.isSameAs(editedAlice.getReferenceId()));
 
         // different phone and email -> returns true
@@ -69,7 +69,7 @@ public class PersonTest {
         assertFalse(ALICE.isSameAs((Person) null));
 
         // different id -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withId(VALID_ID_BOB).build();
+        Person editedAlice = new PersonBuilder(ALICE).withPatientId(VALID_ID_BOB).build();
         assertFalse(ALICE.isSameAs(editedAlice));
 
         // different phone and email -> returns true

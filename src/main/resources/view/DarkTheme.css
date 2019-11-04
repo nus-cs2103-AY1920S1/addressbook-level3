@@ -323,7 +323,7 @@
 }
 
 #autoCompleteOverlay {
-    -fx-font: 13pt 'monospaced';
+    -fx-font: 18px 'monospaced';
 }
 
 #cardPane {
@@ -343,7 +343,7 @@
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: 'monospaced';
-    -fx-font-size: 13pt;
+    -fx-font-size: 18px;
     -fx-text-fill: white;
 }
 

@@ -1,6 +1,7 @@
 package seedu.address.model.person.parameters;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
@@ -8,6 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {
+
+    public static final Email EMPTY_EMAIL_DETAILS = new Email();
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -24,10 +27,16 @@ public class Email {
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
+    private static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
-    public final String value;
+
+
+    private final String value;
+
+    private Email() {
+        value = "";
+    }
 
     /**
      * Constructs an {@code Email}.

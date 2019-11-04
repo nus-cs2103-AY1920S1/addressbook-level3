@@ -71,12 +71,40 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         return new TreeListIterator<>(this, index);
     }
 
+    /**
+     * Returns a listIterator which only ranges from {@code index} to {@code endIndex}.
+     */
+    public ListIterator<E> listIterator(int index, int endIndex) {
+        checkInterval(index, 0, size());
+        return new RangedTreeListIterator<>(this, index, endIndex);
+    }
+
     @Override
     public int indexOf(Object o) {
         if (root == null || !(o instanceof Identical)) {
             return -1;
         }
         return root.indexOf((Identical) o, root.relativePosition);
+    }
+
+    /**
+     * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
+     */
+    public int indexOfUpperBound(Object o) {
+        if (root == null || !(o instanceof Identical)) {
+            return -1;
+        }
+        return root.indexOfUpperBound((Identical) o, root.relativePosition);
+    }
+
+    /**
+     * Gets the index of an the first element which is larger or equal to the specified object {@code o}
+     */
+    public int indexOfLowerBound(Object o) {
+        if (root == null || !(o instanceof Identical)) {
+            return -1;
+        }
+        return root.indexOfLowerBound((Identical) o, root.relativePosition);
     }
 
     @Override
@@ -114,13 +142,14 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
         if (c.isEmpty()) {
             return false;
         }
+
+        boolean anyElementAddedToList = false;
         for (E element : c) {
-            if (!add(element)) {
-                clear();
-                return false;
+            if (add(element)) {
+                anyElementAddedToList = true;
             }
         }
-        return true;
+        return anyElementAddedToList;
     }
 
     @Override
@@ -255,13 +284,13 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
                 return -1;
             }
 
-            int cmp = value.compareTo(element);
-            if (cmp < 0) {
+            int cmp = element.compareTo(value);
+            if (cmp > 0) {
                 if (getLeftSubTree() == null) {
                     return -1;
                 }
                 return left.indexOf(element, index + left.relativePosition);
-            } else if (cmp > 0) {
+            } else if (cmp < 0) {
                 if (getRightSubTree() == null) {
                     return -1;
                 }
@@ -269,6 +298,52 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             }
 
             return index;
+        }
+
+        //@@author sakurablossom
+        /**
+          * Gets the index of an the last element which is smaller or equal to the specified object {@code o}
+          */
+        public int indexOfUpperBound(Identical<E> element, final int index) {
+            if (value == null) {
+                return -1;
+            }
+
+            int cmp = element.compareTo(value);
+            if (cmp > 0) {
+                if (getLeftSubTree() == null) {
+                    return index - 1;
+                }
+                return left.indexOfUpperBound(element, index + left.relativePosition);
+            } else {
+                if (getRightSubTree() == null) {
+                    return index;
+                }
+                return right.indexOfUpperBound(element, index + right.relativePosition);
+            }
+        }
+
+        //@@author sakurablossom
+        /**
+         * Gets the index of an the first element which is larger or equal to the specified object {@code o}
+         */
+        public int indexOfLowerBound(Identical<E> element, final int index) {
+            if (value == null) {
+                return -1;
+            }
+
+            int cmp = element.compareTo(value);
+            if (cmp >= 0) {
+                if (getLeftSubTree() == null) {
+                    return index;
+                }
+                return left.indexOfLowerBound(element, index + left.relativePosition);
+            } else {
+                if (getRightSubTree() == null) {
+                    return index + 1;
+                }
+                return right.indexOfLowerBound(element, index + right.relativePosition);
+            }
         }
 
         /**
@@ -665,16 +740,17 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
      * A list iterator over the linked list.
      */
     static class TreeListIterator<E extends Identical> implements ListIterator<E> {
+        /**
+         * The index of the next node to be returned.
+         */
+        protected int nextIndex;
+
         /** The parent list */
         private final UniqueTreeList<E> parent;
         /**
          * Cache of the next node that will be returned by {@link #next()}.
          */
         private AvlNode<E> next;
-        /**
-         * The index of the next node to be returned.
-         */
-        private int nextIndex;
         /**
          * Cache of the last node that was returned by {@link #next()}
          * or {@link #previous()}.
@@ -810,6 +886,40 @@ public class UniqueTreeList<E extends Identical> extends AbstractList<E> {
             currentIndex = -1;
             nextIndex++;
             expectedModCount++;
+        }
+    }
+
+    /**
+     * A range-limited list iterator over the linked list.
+     */
+    //@@author sakurablossom
+    static class RangedTreeListIterator<E extends Identical> extends TreeListIterator<E> {
+
+        private final int startIndex;
+        private final int endIndex;
+
+        /**
+         * Create a ListIterator for a list.
+         *
+         * @param parent  the parent list
+         * @param fromIndex  the index to start at
+         * @param lastIndex  the index to start at
+         */
+        protected RangedTreeListIterator(final UniqueTreeList<E> parent, final int fromIndex, final int lastIndex)
+                throws IndexOutOfBoundsException {
+            super(parent, fromIndex);
+            startIndex = fromIndex;
+            endIndex = lastIndex;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return super.hasNext() && this.nextIndex <= endIndex;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return super.hasPrevious() && this.nextIndex >= startIndex;
         }
     }
 

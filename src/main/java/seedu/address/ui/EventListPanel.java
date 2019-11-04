@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -16,12 +17,14 @@ import seedu.address.model.events.Event;
 public class EventListPanel extends UiPart<Region> {
     private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
+    private final boolean displayStatus;
 
     @FXML
     private ListView<Event> eventListView;
 
-    public EventListPanel(ObservableList<Event> eventList) {
+    public EventListPanel(ObservableList<Event> eventList, boolean displayStatus) {
         super(FXML);
+        this.displayStatus = displayStatus;
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell());
     }
@@ -36,10 +39,10 @@ public class EventListPanel extends UiPart<Region> {
             this.setFocusTraversable(true);
 
             if (empty || event == null) {
-                setGraphic(null);
-                setText(null);
+                Platform.runLater(() -> setGraphic(null));
             } else {
-                setGraphic(new EventCard(event, getIndex() + 1).getRoot());
+                Platform.runLater(() -> setGraphic(
+                        new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
             }
         }
     }
