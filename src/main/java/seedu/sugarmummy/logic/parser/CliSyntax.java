@@ -55,5 +55,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_GI = new Prefix("gi/");
     public static final Prefix PREFIX_SUGAR = new Prefix("su/");
     public static final Prefix PREFIX_FAT = new Prefix("fa/");
-    public static final Prefix PREFIX_SORT = new Prefix("sort/");
+    public static final Prefix PREFIX_SORT_ASC = new Prefix("+sort/");
+    public static final Prefix PREFIX_SORT_DES = new Prefix("-sort/");
 }

@@ -10,6 +10,7 @@ import seedu.sugarmummy.logic.commands.CommandResult;
 import seedu.sugarmummy.logic.commands.exceptions.CommandException;
 import seedu.sugarmummy.model.Model;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.predicates.FoodTypeIsWantedPredicate;
 import seedu.sugarmummy.ui.DisplayPaneType;
 
@@ -32,22 +33,13 @@ public class RecmFoodCommand extends Command {
     private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "There is no match in the current database :( "
             + "Try adding more new foods or reducing some filters~";
     private static final String MESSAGE_RESPONSE_NORMAL_LIST = "Hope you like what I've found for you~";
-    private static final Comparator<Food> defaultFoodTypeComparator = new Comparator<Food>() {
-        @Override
-        public int compare(Food first, Food second) {
-            return first.getFoodType().compareTo(second.getFoodType());
-        }
-    };
+
     private final FoodTypeIsWantedPredicate typePredicate;
     private final Predicate<Food> namePredicate;
-    private final Comparator<Food> foodComparator;
-
-    public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate) {
-        this(typePredicate, foodNamePredicate, defaultFoodTypeComparator);
-    }
+    private final FoodComparator foodComparator;
 
     public RecmFoodCommand(FoodTypeIsWantedPredicate typePredicate, Predicate<Food> foodNamePredicate,
-                           Comparator<Food> foodComparator) {
+                           FoodComparator foodComparator) {
         this.typePredicate = typePredicate;
         this.namePredicate = foodNamePredicate;
         this.foodComparator = foodComparator;
@@ -57,6 +49,7 @@ public class RecmFoodCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredFoodList(food -> typePredicate.test(food) && namePredicate.test(food));
+        model.sortFoodListInAscendingOrder(foodComparator);
         if (model.getFilterFoodList().size() == 0) {
             return new CommandResult(MESSAGE_RESPONSE_EMPTY_FOOD_LIST);
         }

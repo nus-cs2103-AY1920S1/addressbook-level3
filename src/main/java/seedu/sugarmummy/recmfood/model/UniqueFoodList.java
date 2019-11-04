@@ -81,6 +81,10 @@ public class UniqueFoodList implements Iterable<Food>, ReadOnlyData {
         internalList.setAll(foods);
     }
 
+    public void sortFoods(FoodComparator foodComparator) {
+        internalList.sort(foodComparator);
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

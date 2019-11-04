@@ -20,7 +20,7 @@ import seedu.sugarmummy.ui.bio.BioPane;
 import seedu.sugarmummy.ui.statistics.AverageGraphPane;
 
 /**
- * A class that stores and processes the possible Main Display Panes to be displayed to the user.
+ * This is a class that stores and processes the possible Main Display Panes to be displayed to the user.
  */
 public class MainDisplayPane {
 

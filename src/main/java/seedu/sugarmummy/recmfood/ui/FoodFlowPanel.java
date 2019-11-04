@@ -34,8 +34,7 @@ public class FoodFlowPanel extends UiPart<Region> {
     }
 
     private void fillFlowPaneContent(ObservableList<Food> foodList) {
-        foodList.stream().sorted(Comparator.comparing(food -> food.getFoodType()))
-                .forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
+        foodList.stream().forEach(food -> flowPane.getChildren().add(new FoodCard(food).getRoot()));
     }
 
     /**

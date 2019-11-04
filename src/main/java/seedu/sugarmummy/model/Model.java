@@ -2,6 +2,7 @@ package seedu.sugarmummy.model;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -21,6 +22,7 @@ import seedu.sugarmummy.model.record.RecordType;
 import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
@@ -91,6 +93,15 @@ public interface Model {
      */
     void updateFilteredFoodList(Predicate<Food> predicate);
 
+    /**
+     * Sorts the filtered food list in ascending order by comparing the use-specified fields.
+     */
+    void sortFoodListInAscendingOrder(FoodComparator foodComparator);
+
+    /**
+     * Sorts the filtered food list in descending order by comparing the use-specified fields.
+     */
+    void sortFoodListInDescendingOrder(FoodComparator foodComparator);
 
     /**
      * Returns an unmodifiable view of the mix of foods from each food type.

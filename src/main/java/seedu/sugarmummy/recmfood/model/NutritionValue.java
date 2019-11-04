@@ -11,7 +11,7 @@ import seedu.sugarmummy.commons.core.LogsCenter;
  * Represents a kind of nutrition value of <code>Food</code> in the recommended food list. Guarantees: immutable; is
  * valid as declared in {@link #isValidValue(String)}
  */
-public abstract class NutritionValue {
+public abstract class NutritionValue implements Comparable<NutritionValue>{
 
     private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
@@ -91,5 +91,15 @@ public abstract class NutritionValue {
         return value.hashCode();
     }
 
+    @Override
+    public int compareTo(NutritionValue another) {
+        if (getNumericalValue() > another.getNumericalValue()) {
+            return 1;
+        } else if (getNumericalValue() == another.getNumericalValue()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 }
 

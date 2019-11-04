@@ -32,14 +32,6 @@ import seedu.sugarmummy.recmfood.model.Sugar;
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
-     * ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
-    /**
      * Checks whether the input food has suitable calorie, gi, sugar, and fat values for type II diabetes patients.
      *
      * @throws FoodNotSuitableException if any of the nutrition value is in dangerous range.
@@ -62,7 +54,7 @@ public class AddFoodCommandParser implements Parser<AddFoodCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_FOOD_NAME, PREFIX_FOOD_TYPE, PREFIX_CALORIE, PREFIX_GI, PREFIX_SUGAR, PREFIX_FAT);
 
-        if (arePrefixesPresent(argMultimap,
+        if (Parser.arePrefixesPresent(argMultimap,
                 PREFIX_FOOD_NAME, PREFIX_FOOD_TYPE, PREFIX_CALORIE, PREFIX_GI, PREFIX_SUGAR, PREFIX_FAT)
                 && argMultimap.getPreamble().isEmpty()) {
 

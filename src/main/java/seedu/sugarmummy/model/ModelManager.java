@@ -10,6 +10,7 @@ import static seedu.sugarmummy.model.achievements.AchievementsMap.ACHIEVEMENTS_M
 
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,6 +40,7 @@ import seedu.sugarmummy.model.record.UniqueRecordList;
 import seedu.sugarmummy.model.statistics.AverageMap;
 import seedu.sugarmummy.model.statistics.AverageType;
 import seedu.sugarmummy.recmfood.model.Food;
+import seedu.sugarmummy.recmfood.model.FoodComparator;
 import seedu.sugarmummy.recmfood.model.UniqueFoodList;
 
 /**
@@ -327,6 +329,18 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Food> getMixedFoodList() {
         return foodList.getMixedFoodList();
+    }
+
+    @Override
+    public void sortFoodListInAscendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
+    }
+
+    @Override
+    public void sortFoodListInDescendingOrder(FoodComparator foodComparator) {
+        requireNonNull(foodComparator);
+        foodList.sortFoods(foodComparator);
     }
 
     //=========== Records =============================================================

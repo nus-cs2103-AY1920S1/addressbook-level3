@@ -919,6 +919,21 @@ Examples:
 
 `recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
 
+==== Recommending food combination: `recmfmix`
+
+Recommends one food from each type to the user. The nutrition values of all the recommended foods will be summarized as a
+separate food card appended to the end.
+
+Note::
+** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+** If any of the summary data is decimals, it will be formatted into two decimal places.
+** Please note the GI (glycemic index) is the average among all foods instead of total sum. This For more information about
+GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link]
+
+Format: `recmfmix`
+
+Example: `recmfmix`
+
 ==== Adding new food items : `addfood`
 
 Adds a new food item of certain category for future recommendations.
