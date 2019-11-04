@@ -36,6 +36,10 @@ public class AddTaskCommand extends AddCommand {
             // should not enter here as itemType is definitely valid.
         }
 
+        if (!isExecuted()) {
+            model.getElisaCommandHistory().clearRedo();
+            setExecuted(true);
+        }
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
