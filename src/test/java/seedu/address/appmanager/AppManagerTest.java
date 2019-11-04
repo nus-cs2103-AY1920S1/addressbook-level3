@@ -241,6 +241,11 @@ class AppManagerTest {
         }
 
         @Override
+        public void updateRevisionBank(GameStatistics gameStats) {
+
+        }
+
+        @Override
         public WordBankStatistics getActiveWordBankStatistics() {
             return null;
         }

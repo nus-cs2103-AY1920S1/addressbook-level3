@@ -32,7 +32,6 @@ import seedu.address.model.wordbank.ReadOnlyWordBank;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbank.exceptions.DuplicateWordBankException;
 import seedu.address.model.wordbank.exceptions.WordBankNotFoundException;
-import seedu.address.model.wordbanklist.WordBankList;
 import seedu.address.model.wordbankstats.WordBankStatistics;
 import seedu.address.model.wordbankstatslist.WordBankStatisticsList;
 import seedu.address.statistics.GameStatistics;
@@ -147,6 +146,12 @@ public class LogicManager implements Logic, UiLogicHelper {
         incrementPlay();
     }
 
+    /**
+     * Updates the revision bank, to add all wrong cards,
+     * and remove all correct cards in any game session when it ends.
+     *
+     * @param gameStatistics provides the wrong and correct cards needed.
+     */
     @Override
     public void updateRevisionBank(GameStatistics gameStatistics) {
         try {
