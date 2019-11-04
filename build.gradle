@@ -134,8 +134,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'Powerlifting Competition Coordinator',
-        'site-githuburl': 'https://github.com/AY1920S1-CS2103-T11-3/main',
-        
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103-T11-3/main'
     ]
 
     options['template_dirs'].each {
