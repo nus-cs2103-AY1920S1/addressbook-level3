@@ -51,17 +51,21 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPressed() {
-
-        LinkedList<String> temp = trieManager.getAutoCompleteResults(commandTextField.getText(),
-                MainWindow.getContext());
-        if (!temp.isEmpty()) {
-            for (String s : temp) {
-                System.out.println(s);
+        String enteredText = commandTextField.getText();
+        if (enteredText == null || enteredText.isEmpty()) {
+        } else {
+            LinkedList<String> temp = trieManager.getAutoCompleteResults(enteredText,
+                    MainWindow.getContext());
+            if (!temp.isEmpty()) {
+                for (String s : temp) {
+                    System.out.println(s);
+                }
             }
+            commandTextField.getEntries().clear();
+            commandTextField.getEntries().addAll(temp);
+            System.out.println(commandTextField.getText());
+            System.out.println("Clearing and adding entries");
         }
-        commandTextField.getEntries().clear();
-        commandTextField.getEntries().addAll(temp);
-        System.out.println(commandTextField.getText());
     }
 
     /**

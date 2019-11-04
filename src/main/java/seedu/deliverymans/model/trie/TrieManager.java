@@ -62,40 +62,40 @@ public class TrieManager {
      * TO fill
      */
     private void addCustomerCommands() {
-        customerTrie.insert(CustomerAddCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerDeleteCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerEditCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerHistoryCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerListCommand.COMMAND_WORD);
-        customerTrie.insert(CustomerSortCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerAddCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerDeleteCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerEditCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerHistoryCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerListCommand.COMMAND_WORD);
+        customerTrie.insertCommand(CustomerSortCommand.COMMAND_WORD);
     }
 
     /**
      * TO fill
      */
     private void addDeliverymanCommands() {
-        deliverymanTrie.insert(DeliverymanAddCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanAssignCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanDeleteCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanEditCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanEnterRecordCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanGetStatisticsCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanListStatusCommand.COMMAND_WORD);
-        deliverymanTrie.insert(DeliverymanStatusSwitchCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanAddCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanAssignCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanDeleteCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanEditCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanEnterRecordCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanGetStatisticsCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanListStatusCommand.COMMAND_WORD);
+        deliverymanTrie.insertCommand(DeliverymanStatusSwitchCommand.COMMAND_WORD);
     }
 
     /**
      * TO fill
      */
     private void addRestaurantCommands() {
-        restaurantTrie.insert(AddFoodCommand.COMMAND_WORD);
-        restaurantTrie.insert(AddRatingCommand.COMMAND_WORD);
-        restaurantTrie.insert(AddRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insert(DeleteFoodCommand.COMMAND_WORD);
-        restaurantTrie.insert(DeleteRestaurantCommand.COMMAND_WORD);
-        restaurantTrie.insert(EditDetailsCommand.COMMAND_WORD);
-        restaurantTrie.insert(EditModeCommand.COMMAND_WORD);
-        restaurantTrie.insert(ExitEditCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddFoodCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddRatingCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(AddRestaurantCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(DeleteFoodCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(DeleteRestaurantCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(EditDetailsCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(EditModeCommand.COMMAND_WORD);
+        restaurantTrie.insertCommand(ExitEditCommand.COMMAND_WORD);
     }
 
     /**
@@ -121,10 +121,10 @@ public class TrieManager {
      * TO fill
      */
     private void insertCommandToAllTries(String command) {
-        universalTrie.insert(command);
-        customerTrie.insert(command);
-        deliverymanTrie.insert(command);
-        restaurantTrie.insert(command);
+        universalTrie.insertCommand(command);
+        customerTrie.insertCommand(command);
+        deliverymanTrie.insertCommand(command);
+        restaurantTrie.insertCommand(command);
     }
 
     /**
