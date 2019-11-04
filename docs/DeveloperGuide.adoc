@@ -154,7 +154,11 @@ Logic fulfils its contracts with other packages through two interfaces: Logic an
 
 Examples of transactions promised by Logic API include command execution, command result and update statistics.
 
-UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete.
+UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
+
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
+* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
 
 *API* :
 link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -366,57 +370,46 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== [underline]#AutoComplete Feature# (for command execution)
-_This section explains the how AutoComplete works with Dynamic Parsers and the rationale behind the design choice._
+=== [underline]#AutoComplete and Command Execution#
+_This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-==== Interaction
+ParserManager dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
 
-* Interaction through `Logic Interface`
+==== Implementation details
 
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-* Interaction through `UiLogicHelper Interface`
-.  The `ParserManager` class to parses the user command.
-.  It updates the AutoComplete suggestions for every keystroke.
 .  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
-.   When a command is entered or user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+.   When user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
+.  It updates the AutoComplete suggestions for every keystroke.
 .   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
+.   The above process is aided by `ClassUtil` to handle instantiation of Parser and Command objects.
 
-Given below is the Activity Diagram that shows the workflows that change state of `ParserManager`.
 
-NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
-
+    The state management is complex. The below sequence diagram demonstrates all possible workflows.
 
 .Activity diagram of Application flow
 image::ParserManagerActivityDiagram.PNG[]
 
-==== Implementation
-
-The AutoComplete is facilitated by `ParserManager`.
-It dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
-
-For the UI package to have access to this information, it exposes its functionality through `LogicManager` as `UiLogicHelper` interface with the following getter methods:
-
-* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
-* `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
-* `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
-
-These operations are implemented in `SpecificModeParser` aided by `ClassUtil` to handle instantiation of Parser and Command objects.
-
-Given below is an example usage scenario and how the AutoCompletion mechanism behaves at each step.
-
-Replace image with state of ParserManager
+NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
 
 
+==== Walkthrough of Command Execution
 
-The following sequence diagram shows how the AutoComplete operation works:
+* Command Execution through `Logic Interface`
 
+.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+==== Walkthrough of AutoComplete
+
+* AutoComplete through `UiLogicHelper Interface`
+
+The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
+
+.Sequence Diagram of AutoComplete
 image::AutoCompleteSequenceDiagram.png[]
-
-NOTE: The 
 
 
 ==== Design Considerations
@@ -441,7 +434,7 @@ Compile time error would be thrown if new command or parser does not subclass co
 [underline]_Cons:_ +
 Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
-3+|**Why did we choose Alternative 2:** +
+3+|**Why did we choose Alternative 1:** +
 d
 
 |**Aspect 2:** +
@@ -466,10 +459,11 @@ d
 
 
 
-==== Development
+==== Techinical details
 
-Explain future extensibility of project here.
+<Insert class util code demonstrating java reflections>
 
+<Insert where one line of code can be inserted for adding new commands and parsers>
 
 // end::autocompleteimplementation[]
 
