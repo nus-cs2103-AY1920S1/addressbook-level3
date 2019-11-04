@@ -10,6 +10,7 @@ import seedu.address.cashier.logic.commands.exception.InsufficientAmountExceptio
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.commands.exception.NotANumberException;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
 
@@ -28,7 +29,7 @@ public class CheckoutCommandParser implements Parser {
      */
     public CheckoutCommand parse(String userInput, Model modelManager,
                                  seedu.address.person.model.Model personModel) throws InsufficientAmountException,
-            NotANumberException, NoCashierFoundException {
+            NotANumberException, NoCashierFoundException, AmountExceededException {
 
         double totalAmount = modelManager.getTotalAmount();
         double amount;

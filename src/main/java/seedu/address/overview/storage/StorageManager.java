@@ -21,15 +21,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public double[] readFromFile() {
-        try {
-            BufferedReader bfr = new BufferedReader(new FileReader(file));
-            String line = null;
-            while ((line = bfr.readLine()) != null) {
-                readInFileLine(line);
-            }
-        } catch (IOException e) {
-            //do nothing and return blank array
+    public double[] readFromFile() throws IOException, NumberFormatException {
+        BufferedReader bfr = new BufferedReader(new FileReader(file));
+        String line = null;
+        while ((line = bfr.readLine()) != null) {
+            readInFileLine(line);
         }
         return values;
     }

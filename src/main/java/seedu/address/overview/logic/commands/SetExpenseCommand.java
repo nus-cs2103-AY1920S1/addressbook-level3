@@ -1,5 +1,6 @@
 package seedu.address.overview.logic.commands;
 
+import static seedu.address.overview.ui.OverviewMessages.MESSAGE_AMOUNT_TOO_LARGE;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_INVALID_SET_AMOUNT;
 import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_EXPENSE_SUCCESS;
 
@@ -24,10 +25,12 @@ public class SetExpenseCommand extends SetCommand {
 
         if (amount < 0) {
             throw new InvalidValueException(MESSAGE_INVALID_SET_AMOUNT);
+        } else if (outOfRange(amount)) {
+            throw new InvalidValueException(MESSAGE_AMOUNT_TOO_LARGE);
         }
 
         model.setExpenseTarget(amount);
-        return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, Double.toString(amount)));
+        return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
 
     @Override

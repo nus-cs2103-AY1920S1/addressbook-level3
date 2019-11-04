@@ -56,14 +56,15 @@ public class LogicManager implements Logic {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
                 .filter(transaction -> !transaction.getCategory().equals("Sales"))
+                .filter(transaction -> transaction.isNegative())
                 .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-                .sum();
+                .sum() * -1;
     }
 
     public double getTotalInventory() {
         Stream<Item> itemStream = inventoryLogic.getInventoryList().stream();
         return itemStream
-                .flatMapToDouble(item -> DoubleStream.of(item.getPrice() * item.getQuantity()))
+                .flatMapToDouble(item -> DoubleStream.of(item.getTotalCost()))
                 .sum();
     }
 
@@ -76,7 +77,7 @@ public class LogicManager implements Logic {
     }
 
     public double getRemainingBudget() {
-        return model.getBudgetTarget() - getTotalExpenses();
+        return model.getBudgetTarget() - getTotalExpenses() + getTotalSales();
     }
 
     public double getExpenseTarget() {
@@ -96,7 +97,9 @@ public class LogicManager implements Logic {
         TransactionList transactionList = transactionLogic.getTransactionList();
 
         for (int i = 0; i < transactionList.size(); i++) {
-            categoryList.add(transactionList.get(i).getCategory());
+            if (!(transactionList.get(i).getCategory().equals("Sales"))) {
+                categoryList.add(transactionList.get(i).getCategory());
+            }
         }
 
         return categoryList.stream().distinct().collect(Collectors.toList());
@@ -117,8 +120,9 @@ public class LogicManager implements Logic {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
                 .filter(transaction -> transaction.getCategory().equals(category))
+                .filter(transaction -> transaction.isNegative())
                 .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
-                .sum();
+                .sum() * -1;
     }
 
     public double getInventoryTotalByCategory(String category) {

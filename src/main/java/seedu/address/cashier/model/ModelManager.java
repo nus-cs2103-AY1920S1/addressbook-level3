@@ -1,6 +1,7 @@
 package seedu.address.cashier.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.cashier.ui.CashierMessages.MESSAGE_TOTAL_AMOUNT_EXCEEDED;
 import static seedu.address.cashier.ui.CashierMessages.NO_ITEM_TO_CHECKOUT;
 import static seedu.address.inventory.model.Item.DECIMAL_FORMAT;
 
@@ -10,6 +11,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.model.exception.NoSuchItemException;
@@ -274,10 +276,13 @@ public class ModelManager implements Model {
      * @return the total amount of all the items in the Sales List
      */
     @Override
-    public double getTotalAmount() {
+    public double getTotalAmount() throws AmountExceededException {
         double total = 0;
         for (Item i : salesList) {
             total += (i.getPrice() * i.getQuantity());
+        }
+        if (total > 9999) {
+            throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
         }
         return total;
     }
@@ -367,6 +372,8 @@ public class ModelManager implements Model {
         ArrayList<String> recommendedItems = new ArrayList<>();
         for (int i = 0; i < inventoryList.size(); i++) {
             Item item = inventoryList.getItemByIndex(i);
+            String itemDescription = item.getDescription().toLowerCase();
+            description = description.toLowerCase();
 
             // if the item is not for sale, skip
             if (!item.isSellable()) {
@@ -374,16 +381,16 @@ public class ModelManager implements Model {
             }
 
             // if both description start with same letters, add
-            if (item.getDescription().toLowerCase().startsWith(description.toLowerCase())) {
-                recommendedItems.add(item.getDescription());
+            if (itemDescription.startsWith(description)) {
+                recommendedItems.add(item.getDescription()); // return exact description
                 continue;
             }
 
             // if length of input is greater than 3 and either description contains the other
             if (description.length() >= 3
-                    && ((item.getDescription().toLowerCase().contains(description.toLowerCase()))
-                    || description.toLowerCase().contains(item.getDescription().toLowerCase()))) {
-                recommendedItems.add(item.getDescription());
+                    && ((itemDescription.contains(description))
+                    || description.contains(itemDescription))) {
+                recommendedItems.add(item.getDescription()); // return exact description
                 continue;
             }
 
@@ -394,8 +401,8 @@ public class ModelManager implements Model {
                 char[] arr = description.toCharArray();
                 ArrayList<String> combinations = getCombination(arr, arr.length);
                 for (int j = 0; j < combinations.size(); j++) {
-                    if (combinations.get(j).toLowerCase().contains(item.getDescription().toLowerCase())
-                            || item.getDescription().toLowerCase().contains(combinations.get(j))) {
+                    if (combinations.get(j).contains(itemDescription)
+                            || itemDescription.contains(combinations.get(j))) {
                         recommendedItems.add(item.getDescription());
                         continue;
                     }

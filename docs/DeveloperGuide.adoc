@@ -1392,15 +1392,20 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]]
 Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others, such as email and phone numbers
 
 [[transactions]]
 Transactions::
-Transactions include all the expenses spent and sales made.
+All the expenses spent by the members and sales made from items sold from the inventory
 
 [[inventory]]
 Inventory::
-Inventory refers to the items that are stored to be sold. It consists of item description and quantity left.
+Contains items that are stored either to be sold or to be used for functional purposes for the organisation
+
+[[cashier mode]]
+Cashier Mode::
+Automatically switches on when there are sales items in the cart on the `Cashier Tab`
+
 
 [appendix]
 == Product Survey

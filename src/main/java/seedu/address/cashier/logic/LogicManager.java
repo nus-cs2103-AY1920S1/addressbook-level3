@@ -11,6 +11,7 @@ import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.parser.CashierTabParser;
 import seedu.address.cashier.model.Model;
+import seedu.address.cashier.model.exception.AmountExceededException;
 import seedu.address.cashier.storage.Storage;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
@@ -83,7 +84,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getAmount() {
+    public String getAmount() throws AmountExceededException {
         return DECIMAL_FORMAT.format(model.getTotalAmount());
     }
 
